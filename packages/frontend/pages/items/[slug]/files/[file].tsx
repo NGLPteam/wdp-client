@@ -3,19 +3,30 @@ import { graphql } from "react-relay";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
 import { GetLayout } from "@wdp/lib/types/page";
-import { GetServerSidePropsContext } from "next";
+import { GetStaticPropsContext } from "next";
 import AssetDetailBlock from "components/composed/asset/AssetDetailBlock";
 import { FileSlugItemQuery as Query } from "@/relay/FileSlugItemQuery.graphql";
 import ItemLayoutQuery from "components/composed/items/ItemLayoutQuery";
-import { getStaticEntityData } from "contexts/GlobalStaticContext";
-import { setCacheDefaults } from "helpers";
+import {
+  getStaticEntityData,
+  getStaticGlobalContextData,
+  STATIC_PROPS_REVALIDATE,
+} from "contexts/GlobalStaticContext";
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const props = await getStaticGlobalContextData();
   const entityData = await getStaticEntityData(context);
-  setCacheDefaults(context.res);
 
   return {
-    props: { entityData },
+    props: { ...props, entityData },
+    revalidate: STATIC_PROPS_REVALIDATE,
+  };
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: "blocking",
   };
 }
 

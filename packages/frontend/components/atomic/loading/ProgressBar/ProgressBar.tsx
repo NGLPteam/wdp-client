@@ -1,3 +1,4 @@
+import React from "react";
 import { useTranslation } from "react-i18next";
 import isNumber from "lodash/isNumber";
 import { useAutoProgress } from "@wdp/lib/hooks";
@@ -9,7 +10,7 @@ const ProgressBar = ({ label, loading = false, percentLoaded }: Props) => {
   // when the placeholder disappears.
 
   return !loading ? (
-    <Styled.Placeholder />
+    <></>
   ) : isNumber(percentLoaded) ? (
     <BaseProgressBar label={label} percentLoaded={percentLoaded} />
   ) : (

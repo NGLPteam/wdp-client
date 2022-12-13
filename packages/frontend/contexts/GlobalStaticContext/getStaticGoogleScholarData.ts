@@ -1,14 +1,14 @@
 import { environment } from "@wdp/lib/app";
 import { fetchQuery, graphql, readInlineData } from "relay-runtime";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
-import { GetServerSidePropsContext } from "next";
+import { GetStaticPropsContext } from "next";
 import { getStaticGoogleScholarDataQuery } from "@/relay/getStaticGoogleScholarDataQuery.graphql";
 import { getStaticGoogleScholarDataFragment$key } from "@/relay/getStaticGoogleScholarDataFragment.graphql";
 
 export default async function getStaticGoogleScholarData(
-  context: GetServerSidePropsContext
+  context: GetStaticPropsContext
 ) {
-  const { query: urlQuery } = context;
+  const { params: urlQuery } = context;
 
   const slug = routeQueryArrayToString(urlQuery?.slug);
 

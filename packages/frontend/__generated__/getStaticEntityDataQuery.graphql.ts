@@ -7,20 +7,17 @@ import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type getStaticEntityDataQueryVariables = {
     slug: string;
-    isCommunity: boolean;
-    isCollection: boolean;
-    isItem: boolean;
 };
 export type getStaticEntityDataQueryResponse = {
-    readonly community?: {
+    readonly community: {
         readonly " $fragmentRefs": FragmentRefs<"getStaticEntityDataFragment">;
-    } | null | undefined;
-    readonly collection?: {
+    } | null;
+    readonly collection: {
         readonly " $fragmentRefs": FragmentRefs<"getStaticEntityDataFragment">;
-    } | null | undefined;
-    readonly item?: {
+    } | null;
+    readonly item: {
         readonly " $fragmentRefs": FragmentRefs<"getStaticEntityDataFragment">;
-    } | null | undefined;
+    } | null;
 };
 export type getStaticEntityDataQuery = {
     readonly response: getStaticEntityDataQueryResponse;
@@ -32,19 +29,16 @@ export type getStaticEntityDataQuery = {
 /*
 query getStaticEntityDataQuery(
   $slug: Slug!
-  $isCommunity: Boolean!
-  $isCollection: Boolean!
-  $isItem: Boolean!
 ) {
-  community(slug: $slug) @include(if: $isCommunity) {
+  community(slug: $slug) {
     ...getStaticEntityDataFragment
     id
   }
-  collection(slug: $slug) @include(if: $isCollection) {
+  collection(slug: $slug) {
     ...getStaticEntityDataFragment
     id
   }
-  item(slug: $slug) @include(if: $isItem) {
+  item(slug: $slug) {
     ...getStaticEntityDataFragment
     id
   }
@@ -87,34 +81,21 @@ fragment getStaticEntityDataFragment on AnyEntity {
 */
 
 const node: ConcreteRequest = (function(){
-var v0 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "isCollection"
-},
-v1 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "isCommunity"
-},
-v2 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "isItem"
-},
-v3 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "slug"
-},
-v4 = [
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "slug"
+  }
+],
+v1 = [
   {
     "kind": "Variable",
     "name": "slug",
     "variableName": "slug"
   }
 ],
-v5 = [
+v2 = [
   {
     "alias": null,
     "args": null,
@@ -166,7 +147,7 @@ v5 = [
     "storageKey": null
   }
 ],
-v6 = [
+v3 = [
   {
     "alias": null,
     "args": null,
@@ -175,7 +156,7 @@ v6 = [
     "storageKey": null
   }
 ],
-v7 = {
+v4 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -202,7 +183,7 @@ v7 = {
           "kind": "LinkedField",
           "name": "thumbnail",
           "plural": false,
-          "selections": (v5/*: any*/),
+          "selections": (v2/*: any*/),
           "storageKey": null
         },
         {
@@ -212,7 +193,7 @@ v7 = {
           "kind": "LinkedField",
           "name": "thumbnailMetadata",
           "plural": false,
-          "selections": (v6/*: any*/),
+          "selections": (v3/*: any*/),
           "storageKey": null
         },
         {
@@ -222,7 +203,7 @@ v7 = {
           "kind": "LinkedField",
           "name": "heroImage",
           "plural": false,
-          "selections": (v5/*: any*/),
+          "selections": (v2/*: any*/),
           "storageKey": null
         },
         {
@@ -232,7 +213,7 @@ v7 = {
           "kind": "LinkedField",
           "name": "heroImageMetadata",
           "plural": false,
-          "selections": (v6/*: any*/),
+          "selections": (v3/*: any*/),
           "storageKey": null
         }
       ],
@@ -243,16 +224,16 @@ v7 = {
   "type": "AnyEntity",
   "abstractKey": "__isAnyEntity"
 },
-v8 = [
+v5 = [
   {
     "kind": "InlineDataFragmentSpread",
     "name": "getStaticEntityDataFragment",
     "selections": [
-      (v7/*: any*/)
+      (v4/*: any*/)
     ]
   }
 ],
-v9 = [
+v6 = [
   {
     "alias": null,
     "args": null,
@@ -260,70 +241,44 @@ v9 = [
     "name": "id",
     "storageKey": null
   },
-  (v7/*: any*/)
+  (v4/*: any*/)
 ];
 return {
   "fragment": {
-    "argumentDefinitions": [
-      (v0/*: any*/),
-      (v1/*: any*/),
-      (v2/*: any*/),
-      (v3/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "getStaticEntityDataQuery",
     "selections": [
       {
-        "condition": "isCommunity",
-        "kind": "Condition",
-        "passingValue": true,
-        "selections": [
-          {
-            "alias": null,
-            "args": (v4/*: any*/),
-            "concreteType": "Community",
-            "kind": "LinkedField",
-            "name": "community",
-            "plural": false,
-            "selections": (v8/*: any*/),
-            "storageKey": null
-          }
-        ]
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Community",
+        "kind": "LinkedField",
+        "name": "community",
+        "plural": false,
+        "selections": (v5/*: any*/),
+        "storageKey": null
       },
       {
-        "condition": "isCollection",
-        "kind": "Condition",
-        "passingValue": true,
-        "selections": [
-          {
-            "alias": null,
-            "args": (v4/*: any*/),
-            "concreteType": "Collection",
-            "kind": "LinkedField",
-            "name": "collection",
-            "plural": false,
-            "selections": (v8/*: any*/),
-            "storageKey": null
-          }
-        ]
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Collection",
+        "kind": "LinkedField",
+        "name": "collection",
+        "plural": false,
+        "selections": (v5/*: any*/),
+        "storageKey": null
       },
       {
-        "condition": "isItem",
-        "kind": "Condition",
-        "passingValue": true,
-        "selections": [
-          {
-            "alias": null,
-            "args": (v4/*: any*/),
-            "concreteType": "Item",
-            "kind": "LinkedField",
-            "name": "item",
-            "plural": false,
-            "selections": (v8/*: any*/),
-            "storageKey": null
-          }
-        ]
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Item",
+        "kind": "LinkedField",
+        "name": "item",
+        "plural": false,
+        "selections": (v5/*: any*/),
+        "storageKey": null
       }
     ],
     "type": "Query",
@@ -331,77 +286,51 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [
-      (v3/*: any*/),
-      (v1/*: any*/),
-      (v0/*: any*/),
-      (v2/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "getStaticEntityDataQuery",
     "selections": [
       {
-        "condition": "isCommunity",
-        "kind": "Condition",
-        "passingValue": true,
-        "selections": [
-          {
-            "alias": null,
-            "args": (v4/*: any*/),
-            "concreteType": "Community",
-            "kind": "LinkedField",
-            "name": "community",
-            "plural": false,
-            "selections": (v9/*: any*/),
-            "storageKey": null
-          }
-        ]
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Community",
+        "kind": "LinkedField",
+        "name": "community",
+        "plural": false,
+        "selections": (v6/*: any*/),
+        "storageKey": null
       },
       {
-        "condition": "isCollection",
-        "kind": "Condition",
-        "passingValue": true,
-        "selections": [
-          {
-            "alias": null,
-            "args": (v4/*: any*/),
-            "concreteType": "Collection",
-            "kind": "LinkedField",
-            "name": "collection",
-            "plural": false,
-            "selections": (v9/*: any*/),
-            "storageKey": null
-          }
-        ]
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Collection",
+        "kind": "LinkedField",
+        "name": "collection",
+        "plural": false,
+        "selections": (v6/*: any*/),
+        "storageKey": null
       },
       {
-        "condition": "isItem",
-        "kind": "Condition",
-        "passingValue": true,
-        "selections": [
-          {
-            "alias": null,
-            "args": (v4/*: any*/),
-            "concreteType": "Item",
-            "kind": "LinkedField",
-            "name": "item",
-            "plural": false,
-            "selections": (v9/*: any*/),
-            "storageKey": null
-          }
-        ]
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "Item",
+        "kind": "LinkedField",
+        "name": "item",
+        "plural": false,
+        "selections": (v6/*: any*/),
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "a1f93d710a57e1fc03b5c4715abf050d",
+    "cacheID": "0cf9ce2aefc5f1b78e5fddf2aaef3f15",
     "id": null,
     "metadata": {},
     "name": "getStaticEntityDataQuery",
     "operationKind": "query",
-    "text": "query getStaticEntityDataQuery(\n  $slug: Slug!\n  $isCommunity: Boolean!\n  $isCollection: Boolean!\n  $isItem: Boolean!\n) {\n  community(slug: $slug) @include(if: $isCommunity) {\n    ...getStaticEntityDataFragment\n    id\n  }\n  collection(slug: $slug) @include(if: $isCollection) {\n    ...getStaticEntityDataFragment\n    id\n  }\n  item(slug: $slug) @include(if: $isItem) {\n    ...getStaticEntityDataFragment\n    id\n  }\n}\n\nfragment getStaticEntityDataFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Entity {\n    __isEntity: __typename\n    title\n    summary\n    thumbnail {\n      storage\n      medium {\n        webp {\n          url\n          width\n          height\n        }\n      }\n    }\n    thumbnailMetadata {\n      alt\n    }\n    heroImage {\n      storage\n      medium {\n        webp {\n          url\n          width\n          height\n        }\n      }\n    }\n    heroImageMetadata {\n      alt\n    }\n  }\n}\n"
+    "text": "query getStaticEntityDataQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...getStaticEntityDataFragment\n    id\n  }\n  collection(slug: $slug) {\n    ...getStaticEntityDataFragment\n    id\n  }\n  item(slug: $slug) {\n    ...getStaticEntityDataFragment\n    id\n  }\n}\n\nfragment getStaticEntityDataFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Entity {\n    __isEntity: __typename\n    title\n    summary\n    thumbnail {\n      storage\n      medium {\n        webp {\n          url\n          width\n          height\n        }\n      }\n    }\n    thumbnailMetadata {\n      alt\n    }\n    heroImage {\n      storage\n      medium {\n        webp {\n          url\n          width\n          height\n        }\n      }\n    }\n    heroImageMetadata {\n      alt\n    }\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = '5d27919f2c51acbeec026c8d7131baf7';
+(node as any).hash = 'cce95af049edab933c6781a5c1b213db';
 export default node;

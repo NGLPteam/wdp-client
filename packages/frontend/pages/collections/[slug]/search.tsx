@@ -2,22 +2,32 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useRefetchable } from "relay-hooks/lib/useRefetchable";
 import { GetLayout } from "@wdp/lib/types/page";
-import { GetServerSidePropsContext } from "next";
+import { GetStaticPropsContext } from "next";
 import { searchCollectionQuery as Query } from "@/relay/searchCollectionQuery.graphql";
 import SearchLayout from "components/composed/search/SearchLayout";
 import { SearchLayoutEntityQuery } from "@/relay/SearchLayoutEntityQuery.graphql";
 import { searchCollectionQueryFragment$key } from "@/relay/searchCollectionQueryFragment.graphql";
 import CollectionLayoutQuery from "components/composed/collections/CollectionLayoutQuery";
-import { getStaticEntityData } from "contexts/GlobalStaticContext";
-import { setCacheDefaults } from "helpers";
+import {
+  getStaticGlobalContextData,
+  getStaticEntityData,
+  STATIC_PROPS_REVALIDATE,
+} from "contexts/GlobalStaticContext";
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const props = await getStaticGlobalContextData();
   const entityData = await getStaticEntityData(context);
 
-  setCacheDefaults(context.res);
-
   return {
-    props: { entityData },
+    props: { ...props, entityData },
+    revalidate: STATIC_PROPS_REVALIDATE,
+  };
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: "blocking",
   };
 }
 
