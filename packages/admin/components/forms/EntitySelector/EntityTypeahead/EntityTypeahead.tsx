@@ -11,6 +11,7 @@ import {
   EntityTypeaheadQueryResponse as Response,
 } from "__generated__/EntityTypeaheadQuery.graphql";
 import type { EntityDescendantScopeFilter } from "types/graphql-schema";
+import type { TypeaheadOption } from "components/forms/BaseTypeahead";
 
 type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
 type EntitySelectorProps = React.ComponentProps<
@@ -38,27 +39,35 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
   });
 
   useEffect(() => {
+    // TODO: This is where the value is getting set as an ID from the selector
+    // The base typeahead doesn't have the name of the item unless it's in the list of options.
+    // For some reason, when an initial search is made with a query, it magically finds the item.
     if (selected?.id && selected?.id !== value) setValue(selected.id);
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [selected?.id]);
 
   const options = useMemo(() => {
-    if (!data || !data.search?.results?.edges?.length) return [];
+    // If there's no data, but there is a selected value, return the
+    // selected value's label and id.
+    let options: TypeaheadOption[] = [];
 
-    const results = data.search.results.edges;
-    const applyKind = selectableTypes?.kinds?.length
-      ? results.filter(({ node }) =>
-          selectableTypes?.kinds?.includes(
-            node.entity?.__typename?.toUpperCase() ?? ""
+    if (data && data.search?.results?.edges?.length) {
+      const results = data.search.results.edges;
+      const applyKind = selectableTypes?.kinds?.length
+        ? results.filter(({ node }) =>
+            selectableTypes?.kinds?.includes(
+              node.entity?.__typename?.toUpperCase() ?? ""
+            )
           )
-        )
-      : results;
-    const options = applyKind.map(({ node }) => {
-      return {
-        label: node.title || "",
-        value: node.entity.id ?? "",
-      };
-    });
+        : results;
+      options = applyKind.map(({ node }) => {
+        return {
+          label: node.title || "",
+          value: node.entity.id ?? "",
+        };
+      });
+    }
+
     return value === selected?.id
       ? [{ label: selected.title ?? "", value: selected.id ?? "" }]
       : options;

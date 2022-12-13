@@ -51,6 +51,8 @@ const Typeahead = forwardRef(
       },
     });
 
+    // TODO: Set value to name of selected item
+    // This value can't be found if it's not in the list of options
     const valueProp = withBrowse
       ? {
           value:
@@ -131,3 +133,4 @@ interface Props extends Omit<InputProps, "onChange"> {
 }
 
 export default Typeahead;
+export type { Option as TypeaheadOption };
