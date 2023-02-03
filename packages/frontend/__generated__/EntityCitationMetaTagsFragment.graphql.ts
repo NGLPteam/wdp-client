@@ -1,83 +1,85 @@
+/**
+ * @generated SignedSource<<39e231c13e1fec76ae34db14f987d98a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type DatePrecision = "DAY" | "MONTH" | "NONE" | "YEAR" | "%future added value";
-export type EntityCitationMetaTagsFragment = {
-    readonly title?: string | undefined;
-    readonly schemaDefinition?: {
-        readonly identifier: string;
-    } | undefined;
-    readonly issn?: string | null | undefined;
-    readonly published?: {
-        readonly precision: DatePrecision;
-        readonly value: string | null;
-    } | undefined;
-    readonly pdf?: {
-        readonly asset?: {
-            readonly downloadUrl?: string | null | undefined;
-        } | null | undefined;
-    } | null | undefined;
-    readonly community?: {
-        readonly title: string;
-    } | undefined;
-    readonly contributions?: {
-        readonly nodes: ReadonlyArray<{
-            readonly role: string | null;
-            readonly contributor: {
-                readonly __typename: "PersonContributor";
-                readonly familyName: string | null;
-                readonly givenName: string | null;
-            } | {
-                readonly __typename: "OrganizationContributor";
-                readonly legalName: string | null;
-            } | {
-                /*This will never be '%other', but we need some
-                value in case none of the concrete values match.*/
-                readonly __typename: "%other";
-            };
-        }>;
-    } | undefined;
-    readonly issueNumber?: {
-        readonly value?: string | null | undefined;
-    } | null | undefined;
-    readonly volumeNumber?: {
-        readonly value?: string | null | undefined;
-    } | null | undefined;
-    readonly startPage?: {
-        readonly value?: number | null | undefined;
-    } | null | undefined;
-    readonly endPage?: {
-        readonly value?: number | null | undefined;
-    } | null | undefined;
-    readonly institution?: {
-        readonly value?: string | null | undefined;
-    } | null | undefined;
-    readonly journal?: {
-        readonly title?: string | undefined;
-    } | null | undefined;
-    readonly volume?: {
-        readonly number?: {
-            readonly value?: string | null | undefined;
-        } | null | undefined;
-    } | null | undefined;
-    readonly issue?: {
-        readonly number?: {
-            readonly value?: string | null | undefined;
-        } | null | undefined;
-    } | null | undefined;
-    readonly " $refType": "EntityCitationMetaTagsFragment";
+import { FragmentRefs } from "relay-runtime";
+export type EntityCitationMetaTagsFragment$data = {
+  readonly community?: {
+    readonly title: string;
+  };
+  readonly contributions?: {
+    readonly nodes: ReadonlyArray<{
+      readonly contributor: {
+        readonly __typename: "OrganizationContributor";
+        readonly legalName: string | null;
+      } | {
+        readonly __typename: "PersonContributor";
+        readonly familyName: string | null;
+        readonly givenName: string | null;
+      } | {
+        // This will never be '%other', but we need some
+        // value in case none of the concrete values match.
+        readonly __typename: "%other";
+      };
+      readonly role: string | null;
+    }>;
+  };
+  readonly endPage?: {
+    readonly value?: number | null;
+  } | null;
+  readonly institution?: {
+    readonly value?: string | null;
+  } | null;
+  readonly issn?: string | null;
+  readonly issue?: {
+    readonly number?: {
+      readonly value?: string | null;
+    } | null;
+  } | null;
+  readonly issueNumber?: {
+    readonly value?: string | null;
+  } | null;
+  readonly journal?: {
+    readonly title?: string;
+  } | null;
+  readonly pdf?: {
+    readonly asset?: {
+      readonly downloadUrl?: string | null;
+    } | null;
+  } | null;
+  readonly published?: {
+    readonly precision: DatePrecision;
+    readonly value: String | null;
+  };
+  readonly schemaDefinition?: {
+    readonly identifier: string;
+  };
+  readonly startPage?: {
+    readonly value?: number | null;
+  } | null;
+  readonly title?: string;
+  readonly volume?: {
+    readonly number?: {
+      readonly value?: string | null;
+    } | null;
+  } | null;
+  readonly volumeNumber?: {
+    readonly value?: string | null;
+  } | null;
+  readonly " $fragmentType": "EntityCitationMetaTagsFragment";
 };
-export type EntityCitationMetaTagsFragment$data = EntityCitationMetaTagsFragment;
 export type EntityCitationMetaTagsFragment$key = {
-    readonly " $data"?: EntityCitationMetaTagsFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityCitationMetaTagsFragment">;
+  readonly " $data"?: EntityCitationMetaTagsFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityCitationMetaTagsFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -501,5 +503,7 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'a6497dbf831d2a55bd856f9feddc6d3c';
+
+(node as any).hash = "a6497dbf831d2a55bd856f9feddc6d3c";
+
 export default node;

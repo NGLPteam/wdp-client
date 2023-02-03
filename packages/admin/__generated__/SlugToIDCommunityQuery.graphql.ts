@@ -1,33 +1,26 @@
+/**
+ * @generated SignedSource<<40777382a013a939b60eeccbd5a2a98a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
-export type SlugToIDCommunityQueryVariables = {
-    slug: string;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type SlugToIDCommunityQuery$variables = {
+  slug: String;
 };
-export type SlugToIDCommunityQueryResponse = {
-    readonly community: {
-        readonly id: string;
-    } | null;
+export type SlugToIDCommunityQuery$data = {
+  readonly community: {
+    readonly id: string;
+  } | null;
 };
 export type SlugToIDCommunityQuery = {
-    readonly response: SlugToIDCommunityQueryResponse;
-    readonly variables: SlugToIDCommunityQueryVariables;
+  response: SlugToIDCommunityQuery$data;
+  variables: SlugToIDCommunityQuery$variables;
 };
-
-
-
-/*
-query SlugToIDCommunityQuery(
-  $slug: Slug!
-) {
-  community(slug: $slug) {
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -90,5 +83,7 @@ return {
   }
 };
 })();
-(node as any).hash = '37a1fe4fa3e7384878e17a3b9fb3f35d';
+
+(node as any).hash = "37a1fe4fa3e7384878e17a3b9fb3f35d";
+
 export default node;

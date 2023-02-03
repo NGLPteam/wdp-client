@@ -1,27 +1,29 @@
+/**
+ * @generated SignedSource<<f28f35c4ed0acd1d059b6f150c6f308c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type FullTextKind = "HTML" | "MARKDOWN" | "TEXT" | "%future added value";
-export type FullTextPropertyFragment = {
-    readonly fullText: {
-        readonly content: string | null;
-        readonly kind: FullTextKind | null;
-        readonly lang: string | null;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"ScalarPropertyFragment">;
-    readonly " $refType": "FullTextPropertyFragment";
+import { FragmentRefs } from "relay-runtime";
+export type FullTextPropertyFragment$data = {
+  readonly fullText: {
+    readonly content: string | null;
+    readonly kind: FullTextKind | null;
+    readonly lang: string | null;
+  } | null;
+  readonly " $fragmentSpreads": FragmentRefs<"ScalarPropertyFragment">;
+  readonly " $fragmentType": "FullTextPropertyFragment";
 };
-export type FullTextPropertyFragment$data = FullTextPropertyFragment;
 export type FullTextPropertyFragment$key = {
-    readonly " $data"?: FullTextPropertyFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FullTextPropertyFragment">;
+  readonly " $data"?: FullTextPropertyFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FullTextPropertyFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -29,6 +31,11 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "FullTextPropertyFragment",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ScalarPropertyFragment"
+    },
     {
       "alias": null,
       "args": null,
@@ -60,15 +67,12 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ScalarPropertyFragment"
     }
   ],
   "type": "FullTextProperty",
   "abstractKey": null
 };
-(node as any).hash = '6a4a8e3c18e685a1f46ce070c4d30d09';
+
+(node as any).hash = "6a4a8e3c18e685a1f46ce070c4d30d09";
+
 export default node;

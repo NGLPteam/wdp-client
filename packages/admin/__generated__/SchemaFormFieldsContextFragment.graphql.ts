@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<b008f8f702c931aeb6bccd4249ac37b2>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-import SchemaFormFieldsContextRefetchQuery from "./SchemaFormFieldsContextRefetchQuery.graphql";
+import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SchemaFormFieldsContextFragment = {
-    readonly context: {
-        readonly " $fragmentRefs": FragmentRefs<"useSchemaContextFragment">;
-    };
-    readonly id?: string | undefined;
-    readonly " $refType": "SchemaFormFieldsContextFragment";
+export type SchemaFormFieldsContextFragment$data = {
+  readonly context: {
+    readonly " $fragmentSpreads": FragmentRefs<"useSchemaContextFragment">;
+  };
+  readonly id?: string;
+  readonly " $fragmentType": "SchemaFormFieldsContextFragment";
 };
-export type SchemaFormFieldsContextFragment$data = SchemaFormFieldsContextFragment;
 export type SchemaFormFieldsContextFragment$key = {
-    readonly " $data"?: SchemaFormFieldsContextFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SchemaFormFieldsContextFragment">;
+  readonly " $data"?: SchemaFormFieldsContextFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SchemaFormFieldsContextFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -29,7 +31,7 @@ const node: ReaderFragment = {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": SchemaFormFieldsContextRefetchQuery,
+      "operation": require('./SchemaFormFieldsContextRefetchQuery.graphql'),
       "identifierField": "id"
     }
   },
@@ -69,5 +71,7 @@ const node: ReaderFragment = {
   "type": "SchemaInstance",
   "abstractKey": "__isSchemaInstance"
 };
-(node as any).hash = '75dc0b6c8d2f888306f0edc89b661b52';
+
+(node as any).hash = "75dc0b6c8d2f888306f0edc89b661b52";
+
 export default node;

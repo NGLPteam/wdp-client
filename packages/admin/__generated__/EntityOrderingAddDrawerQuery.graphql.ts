@@ -1,67 +1,25 @@
+/**
+ * @generated SignedSource<<63fdf91a8b2f72316c4f10f95d06e8d8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityOrderingAddDrawerQueryVariables = {
-    entitySlug: string;
+export type EntityOrderingAddDrawerQuery$variables = {
+  entitySlug: String;
 };
-export type EntityOrderingAddDrawerQueryResponse = {
-    readonly " $fragmentRefs": FragmentRefs<"EntityOrderingAddFormFragment">;
+export type EntityOrderingAddDrawerQuery$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingAddFormFragment">;
 };
 export type EntityOrderingAddDrawerQuery = {
-    readonly response: EntityOrderingAddDrawerQueryResponse;
-    readonly variables: EntityOrderingAddDrawerQueryVariables;
+  response: EntityOrderingAddDrawerQuery$data;
+  variables: EntityOrderingAddDrawerQuery$variables;
 };
-
-
-
-/*
-query EntityOrderingAddDrawerQuery(
-  $entitySlug: Slug!
-) {
-  ...EntityOrderingAddFormFragment
-}
-
-fragment EntityOrderingAddFormFragment on Query {
-  collection(slug: $entitySlug) {
-    id
-    ...OrderDefinitionSelectControlFragment
-    ...SchemaCheckboxGroupFragment
-  }
-  item(slug: $entitySlug) {
-    id
-    ...OrderDefinitionSelectControlFragment
-    ...SchemaCheckboxGroupFragment
-  }
-}
-
-fragment OrderDefinitionSelectControlFragment on Entity {
-  __isEntity: __typename
-  ...OrderDefinitionSelectFragment
-}
-
-fragment OrderDefinitionSelectFragment on Entity {
-  __isEntity: __typename
-  schemaRanks {
-    namespace
-    identifier
-    id
-  }
-}
-
-fragment SchemaCheckboxGroupFragment on Entity {
-  __isEntity: __typename
-  schemaRanks {
-    name
-    namespace
-    identifier
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -182,5 +140,7 @@ return {
   }
 };
 })();
-(node as any).hash = '82d6c209e97187ee5e84408c1a2cc853';
+
+(node as any).hash = "82d6c209e97187ee5e84408c1a2cc853";
+
 export default node;

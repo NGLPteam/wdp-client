@@ -1,34 +1,36 @@
+/**
+ * @generated SignedSource<<86b2c30f966a2efb83452c91631ae63b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CurrentSearchFiltersFragment = {
-    readonly coreProperties: ReadonlyArray<{
-        readonly searchPath?: string | undefined;
-        readonly label?: string | undefined;
+export type CurrentSearchFiltersFragment$data = {
+  readonly coreProperties: ReadonlyArray<{
+    readonly label?: string;
+    readonly searchPath?: string;
+  }>;
+  readonly schemas: ReadonlyArray<{
+    readonly name: string;
+    readonly schemaDefinition: {
+      readonly slug: String;
+    };
+    readonly searchableProperties: ReadonlyArray<{
+      readonly label?: string;
+      readonly searchPath?: string;
     }>;
-    readonly schemas: ReadonlyArray<{
-        readonly name: string;
-        readonly schemaDefinition: {
-            readonly slug: string;
-        };
-        readonly searchableProperties: ReadonlyArray<{
-            readonly searchPath?: string | undefined;
-            readonly label?: string | undefined;
-        }>;
-    }>;
-    readonly " $refType": "CurrentSearchFiltersFragment";
+  }>;
+  readonly " $fragmentType": "CurrentSearchFiltersFragment";
 };
-export type CurrentSearchFiltersFragment$data = CurrentSearchFiltersFragment;
 export type CurrentSearchFiltersFragment$key = {
-    readonly " $data"?: CurrentSearchFiltersFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CurrentSearchFiltersFragment">;
+  readonly " $data"?: CurrentSearchFiltersFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CurrentSearchFiltersFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -121,5 +123,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '791c6f3369f5d9f548739afeb290e6c5';
+
+(node as any).hash = "791c6f3369f5d9f548739afeb290e6c5";
+
 export default node;

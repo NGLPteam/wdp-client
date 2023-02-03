@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<3ba97751291d4f8694fa4e1069f99eef>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type BooleanPropertyFragment = {
-    readonly fullPath: string;
-    readonly label: string;
-    readonly checked: boolean | null;
-    readonly " $refType": "BooleanPropertyFragment";
+export type BooleanPropertyFragment$data = {
+  readonly checked: boolean | null;
+  readonly fullPath: string;
+  readonly label: string;
+  readonly " $fragmentType": "BooleanPropertyFragment";
 };
-export type BooleanPropertyFragment$data = BooleanPropertyFragment;
 export type BooleanPropertyFragment$key = {
-    readonly " $data"?: BooleanPropertyFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"BooleanPropertyFragment">;
+  readonly " $data"?: BooleanPropertyFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"BooleanPropertyFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -50,5 +52,7 @@ const node: ReaderFragment = {
   "type": "BooleanProperty",
   "abstractKey": null
 };
-(node as any).hash = 'e44ebf30476bb83371d8b137d06b34bb';
+
+(node as any).hash = "e44ebf30476bb83371d8b137d06b34bb";
+
 export default node;

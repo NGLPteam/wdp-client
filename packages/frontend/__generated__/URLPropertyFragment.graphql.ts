@@ -1,27 +1,29 @@
+/**
+ * @generated SignedSource<<39d4e18c00ed31a2548ee350385e85b6>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type URLPropertyFragment = {
-    readonly fullPath: string;
-    readonly label: string;
-    readonly url: {
-        readonly label: string | null;
-        readonly title: string | null;
-        readonly href: string | null;
-    } | null;
-    readonly " $refType": "URLPropertyFragment";
+export type URLPropertyFragment$data = {
+  readonly fullPath: string;
+  readonly label: string;
+  readonly url: {
+    readonly href: string | null;
+    readonly label: string | null;
+    readonly title: string | null;
+  } | null;
+  readonly " $fragmentType": "URLPropertyFragment";
 };
-export type URLPropertyFragment$data = URLPropertyFragment;
 export type URLPropertyFragment$key = {
-    readonly " $data"?: URLPropertyFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"URLPropertyFragment">;
+  readonly " $data"?: URLPropertyFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"URLPropertyFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -76,5 +78,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '33b34dfb9e247bdd3985fad47a54f2be';
+
+(node as any).hash = "33b34dfb9e247bdd3985fad47a54f2be";
+
 export default node;

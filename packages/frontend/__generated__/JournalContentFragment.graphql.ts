@@ -1,42 +1,44 @@
+/**
+ * @generated SignedSource<<3dca884104b6d4989fea1b3db1880e9b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type JournalContentFragment = {
-    readonly slug: string;
-    readonly description: {
-        readonly fullText?: {
-            readonly content: string | null;
-        } | null | undefined;
-        readonly " $fragmentRefs": FragmentRefs<"FullTextFragment">;
+export type JournalContentFragment$data = {
+  readonly about: {
+    readonly content?: string | null;
+  } | null;
+  readonly announcements: {
+    readonly nodes: ReadonlyArray<{
+      readonly slug: String;
+    }>;
+    readonly " $fragmentSpreads": FragmentRefs<"EntityAnnouncementsFragment">;
+  };
+  readonly currentIssue: {
+    readonly " $fragmentSpreads": FragmentRefs<"FeaturedIssueFragment">;
+  } | null;
+  readonly description: {
+    readonly fullText?: {
+      readonly content: string | null;
     } | null;
-    readonly about: {
-        readonly content?: string | null | undefined;
-    } | null;
-    readonly issues: {
-        readonly " $fragmentRefs": FragmentRefs<"RecentIssuesFragment">;
-    };
-    readonly currentIssue: {
-        readonly " $fragmentRefs": FragmentRefs<"FeaturedIssueFragment">;
-    } | null;
-    readonly announcements: {
-        readonly nodes: ReadonlyArray<{
-            readonly slug: string;
-        }>;
-        readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementsFragment">;
-    };
-    readonly " $refType": "JournalContentFragment";
+    readonly " $fragmentSpreads": FragmentRefs<"FullTextFragment">;
+  } | null;
+  readonly issues: {
+    readonly " $fragmentSpreads": FragmentRefs<"RecentIssuesFragment">;
+  };
+  readonly slug: String;
+  readonly " $fragmentType": "JournalContentFragment";
 };
-export type JournalContentFragment$data = JournalContentFragment;
 export type JournalContentFragment$key = {
-    readonly " $data"?: JournalContentFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"JournalContentFragment">;
+  readonly " $data"?: JournalContentFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"JournalContentFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -198,6 +200,11 @@ return {
       "plural": false,
       "selections": [
         {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "EntityAnnouncementsFragment"
+        },
+        {
           "alias": null,
           "args": null,
           "concreteType": "Announcement",
@@ -208,11 +215,6 @@ return {
             (v0/*: any*/)
           ],
           "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "EntityAnnouncementsFragment"
         }
       ],
       "storageKey": null
@@ -222,5 +224,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '968a47562fe36234cc946a3bcd7644e2';
+
+(node as any).hash = "18066e08ec3a3014af52698d045a8acf";
+
 export default node;

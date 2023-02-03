@@ -6,15 +6,15 @@ export default function getEntityVolumeNumber(
 ) {
   const entity = readInlineData(fragment, data);
 
-  return entity?.volume?.number?.content
-    ? entity.volume.number.content
+  return entity?.volumeByName?.number?.content
+    ? entity.volumeByName.number.content
     : entity?.volumeNumber?.content;
 }
 
 const fragment = graphql`
   fragment getEntityVolumeNumberFragment on AnyEntity @inline {
     ... on Collection {
-      volume: ancestorByName(name: "volume") {
+      volumeByName: ancestorByName(name: "volume") {
         ... on Collection {
           number: schemaProperty(fullPath: "id") {
             ... on StringProperty {

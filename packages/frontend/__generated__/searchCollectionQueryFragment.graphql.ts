@@ -1,22 +1,24 @@
+/**
+ * @generated SignedSource<<2944189838fca34671fe31469943f5f9>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-import SearchLayoutCollectionQuery from "./SearchLayoutCollectionQuery.graphql";
+import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type searchCollectionQueryFragment = {
-    readonly id: string;
-    readonly " $fragmentRefs": FragmentRefs<"SearchLayoutFragment">;
-    readonly " $refType": "searchCollectionQueryFragment";
+export type searchCollectionQueryFragment$data = {
+  readonly id: string;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchLayoutFragment">;
+  readonly " $fragmentType": "searchCollectionQueryFragment";
 };
-export type searchCollectionQueryFragment$data = searchCollectionQueryFragment;
 export type searchCollectionQueryFragment$key = {
-    readonly " $data"?: searchCollectionQueryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"searchCollectionQueryFragment">;
+  readonly " $data"?: searchCollectionQueryFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"searchCollectionQueryFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -53,19 +55,12 @@ const node: ReaderFragment = {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": SearchLayoutCollectionQuery,
+      "operation": require('./SearchLayoutCollectionQuery.graphql'),
       "identifierField": "id"
     }
   },
   "name": "searchCollectionQueryFragment",
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "id",
-      "storageKey": null
-    },
     {
       "args": [
         {
@@ -96,10 +91,19 @@ const node: ReaderFragment = {
       ],
       "kind": "FragmentSpread",
       "name": "SearchLayoutFragment"
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'bed6c0dc8c88d109f7146749622b0320';
+
+(node as any).hash = "bed6c0dc8c88d109f7146749622b0320";
+
 export default node;

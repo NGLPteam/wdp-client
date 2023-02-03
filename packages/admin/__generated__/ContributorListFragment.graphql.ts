@@ -1,31 +1,33 @@
+/**
+ * @generated SignedSource<<3ca1291a6b0a9a97589c0fe6bf746972>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ContributorListFragment = {
-    readonly nodes: ReadonlyArray<{
-        readonly __typename: string;
-        readonly id?: string | undefined;
-        readonly slug?: string | undefined;
-        readonly legalName?: string | null | undefined;
-        readonly createdAt?: string | undefined;
-        readonly givenName?: string | null | undefined;
-        readonly familyName?: string | null | undefined;
-        readonly " $fragmentRefs": FragmentRefs<"ContributorNameColumnFragment" | "ContributorAffiliationColumnFragment" | "ContributorContributionsColumnFragment">;
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "ContributorListFragment";
+export type ContributorListFragment$data = {
+  readonly nodes: ReadonlyArray<{
+    readonly __typename: string;
+    readonly createdAt?: String;
+    readonly familyName?: string | null;
+    readonly givenName?: string | null;
+    readonly id?: string;
+    readonly legalName?: string | null;
+    readonly slug?: String;
+    readonly " $fragmentSpreads": FragmentRefs<"ContributorAffiliationColumnFragment" | "ContributorContributionsColumnFragment" | "ContributorNameColumnFragment">;
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "ContributorListFragment";
 };
-export type ContributorListFragment$data = ContributorListFragment;
 export type ContributorListFragment$key = {
-    readonly " $data"?: ContributorListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContributorListFragment">;
+  readonly " $data"?: ContributorListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributorListFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -141,5 +143,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '88a84a69e8cbd5fbad2bb624810768b5';
+
+(node as any).hash = "88a84a69e8cbd5fbad2bb624810768b5";
+
 export default node;

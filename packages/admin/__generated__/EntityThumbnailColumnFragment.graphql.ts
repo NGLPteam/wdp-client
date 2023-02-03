@@ -1,29 +1,31 @@
+/**
+ * @generated SignedSource<<590d922f15efac84cc937e736954a336>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type EntityThumbnailColumnFragment = {
-    readonly __typename: string;
-    readonly title: string;
-    readonly thumbnail: {
-        readonly storage: AttachmentStorage | null;
-        readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
-    };
-    readonly id?: string | undefined;
-    readonly slug?: string | undefined;
-    readonly " $refType": "EntityThumbnailColumnFragment";
+import { FragmentRefs } from "relay-runtime";
+export type EntityThumbnailColumnFragment$data = {
+  readonly __typename: string;
+  readonly id?: string;
+  readonly slug?: String;
+  readonly thumbnail: {
+    readonly storage: AttachmentStorage | null;
+    readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
+  };
+  readonly title: string;
+  readonly " $fragmentType": "EntityThumbnailColumnFragment";
 };
-export type EntityThumbnailColumnFragment$data = EntityThumbnailColumnFragment;
 export type EntityThumbnailColumnFragment$key = {
-    readonly " $data"?: EntityThumbnailColumnFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityThumbnailColumnFragment">;
+  readonly " $data"?: EntityThumbnailColumnFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityThumbnailColumnFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -100,5 +102,7 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '05e3abf3ea29a9423ea85a120dab2482';
+
+(node as any).hash = "05e3abf3ea29a9423ea85a120dab2482";
+
 export default node;

@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<0c06609152f1276a2a09044a33781b91>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type DatePrecision = "DAY" | "MONTH" | "NONE" | "YEAR" | "%future added value";
-export type PrecisionDateFragment = {
-    readonly precision: DatePrecision;
-    readonly value: string | null;
-    readonly " $refType": "PrecisionDateFragment";
+import { FragmentRefs } from "relay-runtime";
+export type PrecisionDateFragment$data = {
+  readonly precision: DatePrecision;
+  readonly value: String | null;
+  readonly " $fragmentType": "PrecisionDateFragment";
 };
-export type PrecisionDateFragment$data = PrecisionDateFragment;
 export type PrecisionDateFragment$key = {
-    readonly " $data"?: PrecisionDateFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
+  readonly " $data"?: PrecisionDateFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"PrecisionDateFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -43,5 +45,7 @@ const node: ReaderFragment = {
   "type": "VariablePrecisionDate",
   "abstractKey": null
 };
-(node as any).hash = '1b8425f9d45c5f5476b4873281a08037';
+
+(node as any).hash = "1b8425f9d45c5f5476b4873281a08037";
+
 export default node;

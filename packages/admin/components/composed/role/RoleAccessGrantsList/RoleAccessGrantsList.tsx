@@ -15,8 +15,8 @@ import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import {
-  RoleAccessGrantsListDataFragment,
   RoleAccessGrantsListDataFragment$key,
+  RoleAccessGrantsListDataFragment$data,
 } from "@/relay/RoleAccessGrantsListDataFragment.graphql";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
@@ -86,7 +86,7 @@ function RoleAccessGrantsList<T extends OperationType>({
   };
 
   return (
-    <ModelListPage<T, RoleAccessGrantsListDataFragment, Node>
+    <ModelListPage<T, RoleAccessGrantsListDataFragment$data, Node>
       modelName="role"
       columns={columns}
       data={roles}

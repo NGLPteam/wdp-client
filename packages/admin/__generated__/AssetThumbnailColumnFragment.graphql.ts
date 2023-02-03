@@ -1,29 +1,31 @@
+/**
+ * @generated SignedSource<<7d3e57bda5e92ea519f389b24b8d9d87>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type AssetThumbnailColumnFragment = {
-    readonly thumbnail: {
-        readonly storage: AttachmentStorage | null;
-        readonly image: {
-            readonly png: {
-                readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
-            };
-        };
+import { FragmentRefs } from "relay-runtime";
+export type AssetThumbnailColumnFragment$data = {
+  readonly thumbnail: {
+    readonly image: {
+      readonly png: {
+        readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
+      };
     };
-    readonly " $refType": "AssetThumbnailColumnFragment";
+    readonly storage: AttachmentStorage | null;
+  };
+  readonly " $fragmentType": "AssetThumbnailColumnFragment";
 };
-export type AssetThumbnailColumnFragment$data = AssetThumbnailColumnFragment;
 export type AssetThumbnailColumnFragment$key = {
-    readonly " $data"?: AssetThumbnailColumnFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AssetThumbnailColumnFragment">;
+  readonly " $data"?: AssetThumbnailColumnFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"AssetThumbnailColumnFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -80,5 +82,7 @@ const node: ReaderFragment = {
   "type": "Asset",
   "abstractKey": "__isAsset"
 };
-(node as any).hash = '89b55acca6de415f3a1dbf2704d57906';
+
+(node as any).hash = "89b55acca6de415f3a1dbf2704d57906";
+
 export default node;

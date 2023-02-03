@@ -1,42 +1,44 @@
+/**
+ * @generated SignedSource<<38431c0e51db2f5bff41f1065ba8fde4>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type ImageDerivativeSize = "HERO" | "LARGE" | "MEDIUM" | "SANS_TEXT" | "SMALL" | "THUMB" | "WITH_TEXT" | "%future added value";
 export type SiteLogoMode = "NONE" | "SANS_TEXT" | "WITH_TEXT" | "%future added value";
-export type InstallationNameFragment = {
-    readonly site: {
-        readonly installationName: string;
-        readonly logoMode: SiteLogoMode;
+import { FragmentRefs } from "relay-runtime";
+export type InstallationNameFragment$data = {
+  readonly logo: {
+    readonly original: {
+      readonly originalFilename: string | null;
+      readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
     };
-    readonly logo: {
-        readonly storage: AttachmentStorage | null;
-        readonly original: {
-            readonly originalFilename: string | null;
-            readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
-        };
-        readonly sansText: {
-            readonly size: ImageDerivativeSize;
-            readonly webp: {
-                readonly width: number | null;
-                readonly height: number | null;
-                readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
-            };
-        };
+    readonly sansText: {
+      readonly size: ImageDerivativeSize;
+      readonly webp: {
+        readonly height: number | null;
+        readonly width: number | null;
+        readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
+      };
     };
-    readonly " $refType": "InstallationNameFragment";
+    readonly storage: AttachmentStorage | null;
+  };
+  readonly site: {
+    readonly installationName: string;
+    readonly logoMode: SiteLogoMode;
+  };
+  readonly " $fragmentType": "InstallationNameFragment";
 };
-export type InstallationNameFragment$data = InstallationNameFragment;
 export type InstallationNameFragment$key = {
-    readonly " $data"?: InstallationNameFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"InstallationNameFragment">;
+  readonly " $data"?: InstallationNameFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"InstallationNameFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -161,5 +163,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '82dc793688359f09deba93c750a8b0be';
+
+(node as any).hash = "82dc793688359f09deba93c750a8b0be";
+
 export default node;

@@ -1,57 +1,38 @@
+/**
+ * @generated SignedSource<<e93b6ffa9da83c1524e21fea4da31c52>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
-export type EntitySelectorControllerCommunitiesQueryVariables = {};
-export type EntitySelectorControllerCommunitiesQueryResponse = {
-    readonly communities: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly __typename: string;
-                readonly id: string;
-                readonly title: string;
-                readonly slug: string;
-                readonly schemaVersion: {
-                    readonly name: string;
-                    readonly kind: SchemaKind;
-                    readonly identifier: string;
-                    readonly namespace: string;
-                };
-            };
-        }>;
-    };
+export type EntitySelectorControllerCommunitiesQuery$variables = {};
+export type EntitySelectorControllerCommunitiesQuery$data = {
+  readonly communities: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly __typename: "Community";
+        readonly id: string;
+        readonly schemaVersion: {
+          readonly identifier: string;
+          readonly kind: SchemaKind;
+          readonly name: string;
+          readonly namespace: string;
+        };
+        readonly slug: String;
+        readonly title: string;
+      };
+    }>;
+  };
 };
 export type EntitySelectorControllerCommunitiesQuery = {
-    readonly response: EntitySelectorControllerCommunitiesQueryResponse;
-    readonly variables: EntitySelectorControllerCommunitiesQueryVariables;
+  response: EntitySelectorControllerCommunitiesQuery$data;
+  variables: EntitySelectorControllerCommunitiesQuery$variables;
 };
-
-
-
-/*
-query EntitySelectorControllerCommunitiesQuery {
-  communities {
-    edges {
-      node {
-        __typename
-        id
-        title
-        slug
-        schemaVersion {
-          name
-          kind
-          identifier
-          namespace
-          id
-        }
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -244,5 +225,7 @@ return {
   }
 };
 })();
-(node as any).hash = '1d2a3af828f943321a990b005eb97c05';
+
+(node as any).hash = "1d2a3af828f943321a990b005eb97c05";
+
 export default node;

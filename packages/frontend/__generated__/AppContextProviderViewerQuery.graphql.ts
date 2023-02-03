@@ -1,44 +1,23 @@
+/**
+ * @generated SignedSource<<f8cc70ec1525f2d6fce8a95e927b44d2>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AppContextProviderViewerQueryVariables = {};
-export type AppContextProviderViewerQueryResponse = {
-    readonly " $fragmentRefs": FragmentRefs<"ViewerContextFragment">;
+export type AppContextProviderViewerQuery$variables = {};
+export type AppContextProviderViewerQuery$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"ViewerContextFragment">;
 };
 export type AppContextProviderViewerQuery = {
-    readonly response: AppContextProviderViewerQueryResponse;
-    readonly variables: AppContextProviderViewerQueryVariables;
+  response: AppContextProviderViewerQuery$data;
+  variables: AppContextProviderViewerQuery$variables;
 };
-
-
-
-/*
-query AppContextProviderViewerQuery {
-  ...ViewerContextFragment
-}
-
-fragment ViewerContextFragment on Query {
-  viewer {
-    name
-    allowedActions
-    uploadAccess
-    uploadToken
-    avatar {
-      small {
-        png {
-          url
-          alt
-        }
-      }
-    }
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = {
   "fragment": {
@@ -166,5 +145,7 @@ const node: ConcreteRequest = {
     "text": "query AppContextProviderViewerQuery {\n  ...ViewerContextFragment\n}\n\nfragment ViewerContextFragment on Query {\n  viewer {\n    name\n    allowedActions\n    uploadAccess\n    uploadToken\n    avatar {\n      small {\n        png {\n          url\n          alt\n        }\n      }\n    }\n    id\n  }\n}\n"
   }
 };
-(node as any).hash = 'df2a76a7c995f81b5e6fe010e7d61b7e';
+
+(node as any).hash = "df2a76a7c995f81b5e6fe010e7d61b7e";
+
 export default node;

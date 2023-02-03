@@ -1,33 +1,35 @@
+/**
+ * @generated SignedSource<<4a3bafbce0c115d51b97d18bcfa94b29>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AssetKind = "audio" | "document" | "image" | "pdf" | "unknown" | "video" | "%future added value";
-export type FileEditFormFragment = {
-    readonly id: string;
-    readonly altText: string | null;
-    readonly name: string;
-    readonly caption: string | null;
-    readonly kind: AssetKind;
-    readonly fileSize: number;
-    readonly preview: {
-        readonly " $fragmentRefs": FragmentRefs<"FileUploadFragment">;
-    };
-    readonly previewMetadata: {
-        readonly alt: string | null;
-    } | null;
-    readonly " $refType": "FileEditFormFragment";
+import { FragmentRefs } from "relay-runtime";
+export type FileEditFormFragment$data = {
+  readonly altText: string | null;
+  readonly caption: string | null;
+  readonly fileSize: number;
+  readonly id: string;
+  readonly kind: AssetKind;
+  readonly name: string;
+  readonly preview: {
+    readonly " $fragmentSpreads": FragmentRefs<"FileUploadFragment">;
+  };
+  readonly previewMetadata: {
+    readonly alt: string | null;
+  } | null;
+  readonly " $fragmentType": "FileEditFormFragment";
 };
-export type FileEditFormFragment$data = FileEditFormFragment;
 export type FileEditFormFragment$key = {
-    readonly " $data"?: FileEditFormFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FileEditFormFragment">;
+  readonly " $data"?: FileEditFormFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FileEditFormFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -115,5 +117,7 @@ const node: ReaderFragment = {
   "type": "Asset",
   "abstractKey": "__isAsset"
 };
-(node as any).hash = 'e31185cc0ccaa7283088a07e202b014f';
+
+(node as any).hash = "e31185cc0ccaa7283088a07e202b014f";
+
 export default node;

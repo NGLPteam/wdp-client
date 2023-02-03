@@ -1,36 +1,38 @@
+/**
+ * @generated SignedSource<<840fa6271fc5cfa4b7cb0d696314a74b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type SearchEntityResultFragment = {
-    readonly __typename: string;
-    readonly title: string;
-    readonly summary: string | null;
-    readonly schemaVersion: {
-        readonly name: string;
-    };
-    readonly slug?: string | undefined;
-    readonly thumbnail: {
-        readonly storage: AttachmentStorage | null;
-        readonly " $fragmentRefs": FragmentRefs<"SquareThumbnailFragment">;
-    };
-    readonly published?: {
-        readonly value: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
-    } | undefined;
-    readonly " $refType": "SearchEntityResultFragment";
+import { FragmentRefs } from "relay-runtime";
+export type SearchEntityResultFragment$data = {
+  readonly __typename: string;
+  readonly published?: {
+    readonly value: String | null;
+    readonly " $fragmentSpreads": FragmentRefs<"PrecisionDateFragment">;
+  };
+  readonly schemaVersion: {
+    readonly name: string;
+  };
+  readonly slug?: String;
+  readonly summary: string | null;
+  readonly thumbnail: {
+    readonly storage: AttachmentStorage | null;
+    readonly " $fragmentSpreads": FragmentRefs<"SquareThumbnailFragment">;
+  };
+  readonly title: string;
+  readonly " $fragmentType": "SearchEntityResultFragment";
 };
-export type SearchEntityResultFragment$data = SearchEntityResultFragment;
 export type SearchEntityResultFragment$key = {
-    readonly " $data"?: SearchEntityResultFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SearchEntityResultFragment">;
+  readonly " $data"?: SearchEntityResultFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchEntityResultFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -78,6 +80,20 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "slug",
+          "storageKey": null
+        }
+      ],
+      "type": "Sluggable",
+      "abstractKey": "__isSluggable"
+    },
+    {
       "alias": null,
       "args": null,
       "concreteType": "ImageAttachment",
@@ -106,36 +122,22 @@ const node: ReaderFragment = {
         {
           "alias": null,
           "args": null,
-          "kind": "ScalarField",
-          "name": "slug",
-          "storageKey": null
-        }
-      ],
-      "type": "Sluggable",
-      "abstractKey": "__isSluggable"
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
           "concreteType": "VariablePrecisionDate",
           "kind": "LinkedField",
           "name": "published",
           "plural": false,
           "selections": [
             {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "PrecisionDateFragment"
+            },
+            {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
               "name": "value",
               "storageKey": null
-            },
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "PrecisionDateFragment"
             }
           ],
           "storageKey": null
@@ -148,5 +150,7 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '3fdc4a5ebdaa7dd6e2c026d06aa3febf';
+
+(node as any).hash = "3fdc4a5ebdaa7dd6e2c026d06aa3febf";
+
 export default node;

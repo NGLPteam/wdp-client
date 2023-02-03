@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<97e4fb0d966c9549be17541426a73a89>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityPagesListFragment = {
-    readonly slug?: string | undefined;
-    readonly pages?: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityPagesListDataFragment">;
-    } | undefined;
-    readonly " $refType": "EntityPagesListFragment";
+export type EntityPagesListFragment$data = {
+  readonly pages?: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityPagesListDataFragment">;
+  };
+  readonly slug?: String;
+  readonly " $fragmentType": "EntityPagesListFragment";
 };
-export type EntityPagesListFragment$data = EntityPagesListFragment;
 export type EntityPagesListFragment$key = {
-    readonly " $data"?: EntityPagesListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityPagesListFragment">;
+  readonly " $data"?: EntityPagesListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityPagesListFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -91,5 +93,7 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '9342dd1e810ef085767d99753475f816';
+
+(node as any).hash = "9342dd1e810ef085767d99753475f816";
+
 export default node;

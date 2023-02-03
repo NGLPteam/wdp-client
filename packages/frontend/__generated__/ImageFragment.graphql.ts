@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<2f8153cb9d87be03fe9b3eea6fe12321>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ImageFragment = {
-    readonly alt: string | null;
-    readonly url: string | null;
-    readonly width: number | null;
-    readonly height: number | null;
-    readonly " $refType": "ImageFragment";
+export type ImageFragment$data = {
+  readonly alt: string | null;
+  readonly height: number | null;
+  readonly url: string | null;
+  readonly width: number | null;
+  readonly " $fragmentType": "ImageFragment";
 };
-export type ImageFragment$data = ImageFragment;
 export type ImageFragment$key = {
-    readonly " $data"?: ImageFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
+  readonly " $data"?: ImageFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -58,5 +60,7 @@ const node: ReaderFragment = {
   "type": "Image",
   "abstractKey": "__isImage"
 };
-(node as any).hash = '9c46df6866386479bb24e28416e467ea';
+
+(node as any).hash = "9c46df6866386479bb24e28416e467ea";
+
 export default node;

@@ -1,78 +1,43 @@
+/**
+ * @generated SignedSource<<e407940a6b017999ba938414d7905218>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UpsertContributionInput = {
-    contributableId: string;
-    contributorId: string;
-    role?: string | null | undefined;
-    metadata?: ContributionMetadataInput | null | undefined;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null;
+  contributableId: string;
+  contributorId: string;
+  metadata?: ContributionMetadataInput | null;
+  role?: string | null;
 };
 export type ContributionMetadataInput = {
-    title?: string | null | undefined;
-    affiliation?: string | null | undefined;
-    displayName?: string | null | undefined;
-    location?: string | null | undefined;
+  affiliation?: string | null;
+  displayName?: string | null;
+  location?: string | null;
+  title?: string | null;
 };
-export type ContributionCreateFormMutationVariables = {
-    input: UpsertContributionInput;
+export type ContributionCreateFormMutation$variables = {
+  input: UpsertContributionInput;
 };
-export type ContributionCreateFormMutationResponse = {
-    readonly upsertContribution: {
-        readonly contribution: {
-            readonly role?: string | null | undefined;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
+export type ContributionCreateFormMutation$data = {
+  readonly upsertContribution: {
+    readonly contribution: {
+      readonly role?: string | null;
     } | null;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null;
 };
 export type ContributionCreateFormMutation = {
-    readonly response: ContributionCreateFormMutationResponse;
-    readonly variables: ContributionCreateFormMutationVariables;
+  response: ContributionCreateFormMutation$data;
+  variables: ContributionCreateFormMutation$variables;
 };
-
-
-
-/*
-mutation ContributionCreateFormMutation(
-  $input: UpsertContributionInput!
-) {
-  upsertContribution(input: $input) {
-    contribution {
-      __typename
-      ... on CollectionContribution {
-        role
-      }
-      ... on ItemContribution {
-        role
-      }
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -211,7 +176,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v6/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -284,5 +251,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'dcee5f1574898f8af570169be23a62c8';
+
+(node as any).hash = "dcee5f1574898f8af570169be23a62c8";
+
 export default node;

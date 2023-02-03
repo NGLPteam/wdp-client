@@ -1,121 +1,28 @@
+/**
+ * @generated SignedSource<<a36ed75d4f1dbe0ece7d706471aa6c4d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type announcementsManageSlugCommunitiesPagesQueryVariables = {
-    communitySlug: string;
-    page: number;
+export type announcementsManageSlugCommunitiesPagesQuery$variables = {
+  communitySlug: String;
+  page: number;
 };
-export type announcementsManageSlugCommunitiesPagesQueryResponse = {
-    readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementsListFragment" | "CommunityLayoutQueryFragment">;
-    } | null;
+export type announcementsManageSlugCommunitiesPagesQuery$data = {
+  readonly community: {
+    readonly " $fragmentSpreads": FragmentRefs<"CommunityLayoutQueryFragment" | "EntityAnnouncementsListFragment">;
+  } | null;
 };
 export type announcementsManageSlugCommunitiesPagesQuery = {
-    readonly response: announcementsManageSlugCommunitiesPagesQueryResponse;
-    readonly variables: announcementsManageSlugCommunitiesPagesQueryVariables;
+  response: announcementsManageSlugCommunitiesPagesQuery$data;
+  variables: announcementsManageSlugCommunitiesPagesQuery$variables;
 };
-
-
-
-/*
-query announcementsManageSlugCommunitiesPagesQuery(
-  $communitySlug: Slug!
-  $page: Int!
-) {
-  community(slug: $communitySlug) {
-    ...EntityAnnouncementsListFragment
-    ...CommunityLayoutQueryFragment
-    id
-  }
-}
-
-fragment AuthContextFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-
-fragment CommunityLayoutFragment on Community {
-  id
-  name
-  slug
-  allowedActions
-  ...useChildRouteLinksFragment
-}
-
-fragment CommunityLayoutQueryFragment on Community {
-  ...CommunityLayoutFragment
-  ...AuthContextFragment
-}
-
-fragment EntityAnnouncementsListDataFragment on AnnouncementConnection {
-  edges {
-    node {
-      id
-      slug
-      header
-      publishedOn
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment EntityAnnouncementsListFragment on AnyEntity {
-  __isAnyEntity: __typename
-  ... on Community {
-    slug
-    announcements(page: $page, perPage: 20) {
-      ...EntityAnnouncementsListDataFragment
-    }
-  }
-  ... on Collection {
-    slug
-    announcements(page: $page, perPage: 20) {
-      ...EntityAnnouncementsListDataFragment
-    }
-  }
-  ... on Item {
-    slug
-    announcements(page: $page, perPage: 20) {
-      ...EntityAnnouncementsListDataFragment
-    }
-  }
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment useChildRouteLinksFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -379,5 +286,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'b0e0325611efaed340d34d404134ad31';
+
+(node as any).hash = "b0e0325611efaed340d34d404134ad31";
+
 export default node;

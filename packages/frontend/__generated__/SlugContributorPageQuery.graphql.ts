@@ -1,170 +1,25 @@
+/**
+ * @generated SignedSource<<261bfceff273fbd65ac1a661fdac6f59>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SlugContributorPageQueryVariables = {
-    slug: string;
+export type SlugContributorPageQuery$variables = {
+  slug: String;
 };
-export type SlugContributorPageQueryResponse = {
-    readonly " $fragmentRefs": FragmentRefs<"ContributorDetailLayoutFragment">;
+export type SlugContributorPageQuery$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"ContributorDetailLayoutFragment">;
 };
 export type SlugContributorPageQuery = {
-    readonly response: SlugContributorPageQueryResponse;
-    readonly variables: SlugContributorPageQueryVariables;
+  response: SlugContributorPageQuery$data;
+  variables: SlugContributorPageQuery$variables;
 };
-
-
-
-/*
-query SlugContributorPageQuery(
-  $slug: Slug!
-) {
-  ...ContributorDetailLayoutFragment
-}
-
-fragment ContributionSummaryEntityFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  subtitle
-  thumbnail {
-    storage
-    ...SquareThumbnailFragment
-  }
-  ... on ReferencesGlobalEntityDates {
-    __isReferencesGlobalEntityDates: __typename
-    published {
-      value
-      ...PrecisionDateFragment
-    }
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-  ... on Item {
-    summary
-  }
-  ... on Collection {
-    summary
-  }
-}
-
-fragment ContributionSummaryFragment on AnyContribution {
-  __isAnyContribution: __typename
-  ... on Contribution {
-    __isContribution: __typename
-    role
-  }
-  ... on CollectionContribution {
-    entity: collection {
-      ...ContributionSummaryEntityFragment
-      id
-    }
-  }
-  ... on ItemContribution {
-    entity: item {
-      ...ContributionSummaryEntityFragment
-      id
-    }
-  }
-}
-
-fragment ContributorAvatarFragment on ImageAttachment {
-  small {
-    webp {
-      alt
-      url
-    }
-  }
-}
-
-fragment ContributorDetailFragment on Contributor {
-  __isContributor: __typename
-  ...ContributorNameFragment
-  bio
-  orcid
-  collectionContributions {
-    nodes {
-      ...ContributionSummaryFragment
-      id
-    }
-  }
-  itemContributions {
-    nodes {
-      ...ContributionSummaryFragment
-      id
-    }
-  }
-  image {
-    storage
-    ...ContributorAvatarFragment
-  }
-  links {
-    title
-    url
-  }
-  ... on PersonContributor {
-    affiliation
-    title
-  }
-}
-
-fragment ContributorDetailLayoutFragment on Query {
-  contributor(slug: $slug) {
-    __typename
-    ...ContributorHTMLHeadFragment
-    ...ContributorDetailFragment
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-  }
-}
-
-fragment ContributorHTMLHeadFragment on Contributor {
-  __isContributor: __typename
-  ... on PersonContributor {
-    __typename
-    familyName
-    givenName
-  }
-  ... on OrganizationContributor {
-    __typename
-    legalName
-  }
-}
-
-fragment ContributorNameFragment on AnyContributor {
-  __isAnyContributor: __typename
-  ... on PersonContributor {
-    __typename
-    familyName
-    givenName
-  }
-  ... on OrganizationContributor {
-    __typename
-    legalName
-  }
-}
-
-fragment PrecisionDateFragment on VariablePrecisionDate {
-  precision
-  value
-}
-
-fragment SquareThumbnailFragment on ImageAttachment {
-  image: medium {
-    webp {
-      alt
-      url
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -185,31 +40,24 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "title",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
+  "name": "storage",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "storage",
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "url",
   "storageKey": null
 },
-v6 = [
+v5 = [
   {
     "alias": null,
     "args": null,
@@ -225,12 +73,12 @@ v6 = [
         "name": "alt",
         "storageKey": null
       },
-      (v5/*: any*/)
+      (v4/*: any*/)
     ],
     "storageKey": null
   }
 ],
-v7 = [
+v6 = [
   {
     "alias": null,
     "args": null,
@@ -239,13 +87,19 @@ v7 = [
     "storageKey": null
   }
 ],
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
 v8 = [
-  (v2/*: any*/),
   {
     "kind": "InlineFragment",
     "selections": [
       (v1/*: any*/),
-      (v3/*: any*/),
+      (v2/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -261,7 +115,7 @@ v8 = [
         "name": "thumbnail",
         "plural": false,
         "selections": [
-          (v4/*: any*/),
+          (v3/*: any*/),
           {
             "alias": "image",
             "args": null,
@@ -269,7 +123,7 @@ v8 = [
             "kind": "LinkedField",
             "name": "medium",
             "plural": false,
-            "selections": (v6/*: any*/),
+            "selections": (v5/*: any*/),
             "storageKey": null
           }
         ],
@@ -323,23 +177,23 @@ v8 = [
       },
       {
         "kind": "InlineFragment",
-        "selections": (v7/*: any*/),
+        "selections": (v6/*: any*/),
         "type": "Item",
         "abstractKey": null
       },
       {
         "kind": "InlineFragment",
-        "selections": (v7/*: any*/),
+        "selections": (v6/*: any*/),
         "type": "Collection",
         "abstractKey": null
       }
     ],
     "type": "Entity",
     "abstractKey": "__isEntity"
-  }
+  },
+  (v7/*: any*/)
 ],
 v9 = [
-  (v2/*: any*/),
   {
     "kind": "InlineFragment",
     "selections": [
@@ -394,7 +248,8 @@ v9 = [
     ],
     "type": "AnyContribution",
     "abstractKey": "__isAnyContribution"
-  }
+  },
+  (v7/*: any*/)
 ];
 return {
   "fragment": {
@@ -500,7 +355,7 @@ return {
                 "name": "image",
                 "plural": false,
                 "selections": [
-                  (v4/*: any*/),
+                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -508,7 +363,7 @@ return {
                     "kind": "LinkedField",
                     "name": "small",
                     "plural": false,
-                    "selections": (v6/*: any*/),
+                    "selections": (v5/*: any*/),
                     "storageKey": null
                   }
                 ],
@@ -522,8 +377,8 @@ return {
                 "name": "links",
                 "plural": true,
                 "selections": [
-                  (v3/*: any*/),
-                  (v5/*: any*/)
+                  (v2/*: any*/),
+                  (v4/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -551,7 +406,7 @@ return {
                     "name": "affiliation",
                     "storageKey": null
                   },
-                  (v3/*: any*/)
+                  (v2/*: any*/)
                 ],
                 "type": "PersonContributor",
                 "abstractKey": null
@@ -581,7 +436,7 @@ return {
           {
             "kind": "InlineFragment",
             "selections": [
-              (v2/*: any*/)
+              (v7/*: any*/)
             ],
             "type": "Node",
             "abstractKey": "__isNode"
@@ -601,5 +456,7 @@ return {
   }
 };
 })();
-(node as any).hash = '32a71e8701cc4a09c2724ea1d0bfb4e6';
+
+(node as any).hash = "32a71e8701cc4a09c2724ea1d0bfb4e6";
+
 export default node;

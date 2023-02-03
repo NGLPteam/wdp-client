@@ -1,28 +1,30 @@
+/**
+ * @generated SignedSource<<a401ab2dee99c46e307a64443897be0a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntitiesPropertyFragment = {
-    readonly availableEntities: ReadonlyArray<{
-        readonly label: string;
-        readonly value: string;
-        readonly entity: {
-            readonly " $fragmentRefs": FragmentRefs<"getEntityTitleFragment">;
-        };
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ScalarPropertyFragment">;
-    readonly " $refType": "EntitiesPropertyFragment";
+export type EntitiesPropertyFragment$data = {
+  readonly availableEntities: ReadonlyArray<{
+    readonly entity: {
+      readonly " $fragmentSpreads": FragmentRefs<"getEntityTitleFragment">;
+    };
+    readonly label: string;
+    readonly value: string;
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ScalarPropertyFragment">;
+  readonly " $fragmentType": "EntitiesPropertyFragment";
 };
-export type EntitiesPropertyFragment$data = EntitiesPropertyFragment;
 export type EntitiesPropertyFragment$key = {
-    readonly " $data"?: EntitiesPropertyFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntitiesPropertyFragment">;
+  readonly " $data"?: EntitiesPropertyFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntitiesPropertyFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -70,6 +72,11 @@ return {
   "metadata": null,
   "name": "EntitiesPropertyFragment",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ScalarPropertyFragment"
+    },
     {
       "alias": null,
       "args": null,
@@ -149,23 +156,22 @@ return {
                   "type": "Entity",
                   "abstractKey": "__isEntity"
                 }
-              ]
+              ],
+              "args": null,
+              "argumentDefinitions": []
             }
           ],
           "storageKey": null
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ScalarPropertyFragment"
     }
   ],
   "type": "EntitiesProperty",
   "abstractKey": null
 };
 })();
-(node as any).hash = 'ed367e4e5ae1e5e40c6997d24abbbf61';
+
+(node as any).hash = "ed367e4e5ae1e5e40c6997d24abbbf61";
+
 export default node;

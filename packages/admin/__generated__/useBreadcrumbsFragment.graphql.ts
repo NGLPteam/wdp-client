@@ -1,30 +1,32 @@
+/**
+ * @generated SignedSource<<e04bd78aac035bc72c415118d4fcf50d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type EntityKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
-export type useBreadcrumbsFragment = {
-    readonly __typename: string;
-    readonly title: string;
-    readonly breadcrumbs: ReadonlyArray<{
-        readonly depth: number;
-        readonly label: string;
-        readonly kind: EntityKind;
-        readonly slug: string;
-    }>;
-    readonly slug?: string | undefined;
-    readonly " $refType": "useBreadcrumbsFragment";
+import { FragmentRefs } from "relay-runtime";
+export type useBreadcrumbsFragment$data = {
+  readonly __typename: string;
+  readonly breadcrumbs: ReadonlyArray<{
+    readonly depth: number;
+    readonly kind: EntityKind;
+    readonly label: string;
+    readonly slug: string;
+  }>;
+  readonly slug?: String;
+  readonly title: string;
+  readonly " $fragmentType": "useBreadcrumbsFragment";
 };
-export type useBreadcrumbsFragment$data = useBreadcrumbsFragment;
 export type useBreadcrumbsFragment$key = {
-    readonly " $data"?: useBreadcrumbsFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"useBreadcrumbsFragment">;
+  readonly " $data"?: useBreadcrumbsFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"useBreadcrumbsFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -100,5 +102,7 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = '2bedb817558bb707f36a2bcff6d49955';
+
+(node as any).hash = "2bedb817558bb707f36a2bcff6d49955";
+
 export default node;

@@ -1,98 +1,23 @@
+/**
+ * @generated SignedSource<<8335bb2c1bc1c447d3f423c6ed40dba1>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type pagesQueryVariables = {};
-export type pagesQueryResponse = {
-    readonly " $fragmentRefs": FragmentRefs<"InstanceContentLayoutFragment">;
+export type pagesQuery$variables = {};
+export type pagesQuery$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"InstanceContentLayoutFragment">;
 };
 export type pagesQuery = {
-    readonly response: pagesQueryResponse;
-    readonly variables: pagesQueryVariables;
+  response: pagesQuery$data;
+  variables: pagesQuery$variables;
 };
-
-
-
-/*
-query pagesQuery {
-  ...InstanceContentLayoutFragment
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment InstanceCommunitiesFragment on CommunityConnection {
-  edges {
-    node {
-      slug
-      ...InstanceCommunitySummaryFragment
-      id
-    }
-  }
-}
-
-fragment InstanceCommunitySummaryFragment on Community {
-  slug
-  title
-  tagline
-  summary
-  schemaRanks {
-    slug
-    name
-    count
-    id
-  }
-  heroImage {
-    storage
-    large {
-      webp {
-        ...ImageFragment
-      }
-    }
-  }
-  logo {
-    storage
-    original {
-      ...ImageFragment
-    }
-  }
-}
-
-fragment InstanceContentLayoutFragment on Query {
-  communities(order: POSITION_ASCENDING) {
-    edges {
-      node {
-        slug
-        id
-      }
-    }
-    pageInfo {
-      totalCount
-    }
-    ...InstanceCommunitiesFragment
-  }
-  ...InstanceHeroFragment
-}
-
-fragment InstanceHeroFragment on Query {
-  globalConfiguration {
-    site {
-      providerName
-      installationName
-      installationHomePageCopy
-    }
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -393,5 +318,7 @@ return {
   }
 };
 })();
-(node as any).hash = '14a2f8f39c9615b1685607cca9685860';
+
+(node as any).hash = "14a2f8f39c9615b1685607cca9685860";
+
 export default node;

@@ -1,40 +1,42 @@
+/**
+ * @generated SignedSource<<1fcdb859b59925594232fc3f82df85b3>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type UserCollectionsListFragment = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly id: string;
-            readonly collection: {
-                readonly id: string;
-                readonly title: string;
-                readonly slug: string;
-                readonly " $fragmentRefs": FragmentRefs<"EntityThumbnailColumnFragment">;
-            };
-            readonly role: {
-                readonly id: string;
-                readonly name: string;
-            };
-            readonly user: {
-                readonly id: string;
-                readonly slug: string;
-            };
-        };
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "UserCollectionsListFragment";
+export type UserCollectionsListFragment$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly collection: {
+        readonly id: string;
+        readonly slug: String;
+        readonly title: string;
+        readonly " $fragmentSpreads": FragmentRefs<"EntityThumbnailColumnFragment">;
+      };
+      readonly id: string;
+      readonly role: {
+        readonly id: string;
+        readonly name: string;
+      };
+      readonly user: {
+        readonly id: string;
+        readonly slug: String;
+      };
+    };
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "UserCollectionsListFragment";
 };
-export type UserCollectionsListFragment$data = UserCollectionsListFragment;
 export type UserCollectionsListFragment$key = {
-    readonly " $data"?: UserCollectionsListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"UserCollectionsListFragment">;
+  readonly " $data"?: UserCollectionsListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"UserCollectionsListFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -147,5 +149,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '538238b00827fa9ae8551ecbda9da1b8';
+
+(node as any).hash = "538238b00827fa9ae8551ecbda9da1b8";
+
 export default node;

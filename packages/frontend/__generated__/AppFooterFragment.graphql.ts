@@ -1,34 +1,36 @@
+/**
+ * @generated SignedSource<<bf432e4333f2f66fa17eb56eeb2c6173>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AppFooterFragment = {
-    readonly communities: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
+export type AppFooterFragment$data = {
+  readonly communities: {
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly globalConfiguration: {
-        readonly site: {
-            readonly installationName: string;
-            readonly footer: {
-                readonly copyrightStatement: string;
-                readonly description: string;
-            };
-        };
+  };
+  readonly globalConfiguration: {
+    readonly site: {
+      readonly footer: {
+        readonly copyrightStatement: string;
+        readonly description: string;
+      };
+      readonly installationName: string;
     };
-    readonly " $refType": "AppFooterFragment";
+  };
+  readonly " $fragmentType": "AppFooterFragment";
 };
-export type AppFooterFragment$data = AppFooterFragment;
 export type AppFooterFragment$key = {
-    readonly " $data"?: AppFooterFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AppFooterFragment">;
+  readonly " $data"?: AppFooterFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"AppFooterFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -123,5 +125,7 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '6de4effcd7f412dae643e92fb37800a4';
+
+(node as any).hash = "6de4effcd7f412dae643e92fb37800a4";
+
 export default node;

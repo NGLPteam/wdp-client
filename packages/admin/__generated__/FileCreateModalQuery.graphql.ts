@@ -1,39 +1,29 @@
+/**
+ * @generated SignedSource<<878cfe2679f9b6ac2043befeafface3a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
-export type FileCreateModalQueryVariables = {
-    slug: string;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type FileCreateModalQuery$variables = {
+  slug: String;
 };
-export type FileCreateModalQueryResponse = {
-    readonly item: {
-        readonly id: string;
-    } | null;
-    readonly collection: {
-        readonly id: string;
-    } | null;
+export type FileCreateModalQuery$data = {
+  readonly collection: {
+    readonly id: string;
+  } | null;
+  readonly item: {
+    readonly id: string;
+  } | null;
 };
 export type FileCreateModalQuery = {
-    readonly response: FileCreateModalQueryResponse;
-    readonly variables: FileCreateModalQueryVariables;
+  response: FileCreateModalQuery$data;
+  variables: FileCreateModalQuery$variables;
 };
-
-
-
-/*
-query FileCreateModalQuery(
-  $slug: Slug!
-) {
-  item(slug: $slug) {
-    id
-  }
-  collection(slug: $slug) {
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -108,5 +98,7 @@ return {
   }
 };
 })();
-(node as any).hash = '06935f6412f672f66f09c05a4a4944eb';
+
+(node as any).hash = "06935f6412f672f66f09c05a4a4944eb";
+
 export default node;

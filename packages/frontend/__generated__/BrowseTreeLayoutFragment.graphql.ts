@@ -1,33 +1,35 @@
+/**
+ * @generated SignedSource<<2372f6675dc2917fa1bafd1723fa4705>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type BrowseTreeLayoutFragment = {
-    readonly nodes: ReadonlyArray<{
-        readonly id: string;
-        readonly treeDepth: number | null;
-        readonly ancestors: ReadonlyArray<{
-            readonly id: string;
-            readonly treeDepth: number | null;
-            readonly " $fragmentRefs": FragmentRefs<"BrowseTreeItemFragment">;
-        }>;
-        readonly " $fragmentRefs": FragmentRefs<"BrowseTreeItemFragment">;
+export type BrowseTreeLayoutFragment$data = {
+  readonly nodes: ReadonlyArray<{
+    readonly ancestors: ReadonlyArray<{
+      readonly id: string;
+      readonly treeDepth: number | null;
+      readonly " $fragmentSpreads": FragmentRefs<"BrowseTreeItemFragment">;
     }>;
-    readonly pageInfo: {
-        readonly " $fragmentRefs": FragmentRefs<"PaginationFragment" | "PageCountFragment">;
-    };
-    readonly " $refType": "BrowseTreeLayoutFragment";
+    readonly id: string;
+    readonly treeDepth: number | null;
+    readonly " $fragmentSpreads": FragmentRefs<"BrowseTreeItemFragment">;
+  }>;
+  readonly pageInfo: {
+    readonly " $fragmentSpreads": FragmentRefs<"PageCountFragment" | "PaginationFragment">;
+  };
+  readonly " $fragmentType": "BrowseTreeLayoutFragment";
 };
-export type BrowseTreeLayoutFragment$data = BrowseTreeLayoutFragment;
 export type BrowseTreeLayoutFragment$key = {
-    readonly " $data"?: BrowseTreeLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"BrowseTreeLayoutFragment">;
+  readonly " $data"?: BrowseTreeLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"BrowseTreeLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -109,5 +111,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'a19398ac8324f1a8a648c27435115fe9';
+
+(node as any).hash = "a19398ac8324f1a8a648c27435115fe9";
+
 export default node;

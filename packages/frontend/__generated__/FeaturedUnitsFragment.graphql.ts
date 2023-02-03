@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<ef80f1e7981d9569e884270bb6c25f2a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FeaturedUnitsFragment = {
-    readonly entities: ReadonlyArray<{
-        readonly slug?: string | undefined;
-        readonly title?: string | undefined;
-    }>;
-    readonly " $refType": "FeaturedUnitsFragment";
+export type FeaturedUnitsFragment$data = {
+  readonly entities: ReadonlyArray<{
+    readonly slug?: String;
+    readonly title?: string;
+  }>;
+  readonly " $fragmentType": "FeaturedUnitsFragment";
 };
-export type FeaturedUnitsFragment$data = FeaturedUnitsFragment;
 export type FeaturedUnitsFragment$key = {
-    readonly " $data"?: FeaturedUnitsFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FeaturedUnitsFragment">;
+  readonly " $data"?: FeaturedUnitsFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FeaturedUnitsFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -69,5 +71,7 @@ const node: ReaderFragment = {
   "type": "EntitiesProperty",
   "abstractKey": null
 };
-(node as any).hash = '61e93265cf099079397f3f76ef820be6';
+
+(node as any).hash = "61e93265cf099079397f3f76ef820be6";
+
 export default node;

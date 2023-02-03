@@ -1,25 +1,27 @@
+/**
+ * @generated SignedSource<<4d5dc5358fde457d2c0472aaa78f9ecb>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityOrderingListFragment = {
-    readonly slug?: string | undefined;
-    readonly orderings?: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityOrderingListDataFragment">;
-    } | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SetIntitialOrderingButtonFragment">;
-    readonly " $refType": "EntityOrderingListFragment";
+export type EntityOrderingListFragment$data = {
+  readonly orderings?: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingListDataFragment">;
+  };
+  readonly slug?: String;
+  readonly " $fragmentSpreads": FragmentRefs<"SetIntitialOrderingButtonFragment">;
+  readonly " $fragmentType": "EntityOrderingListFragment";
 };
-export type EntityOrderingListFragment$data = EntityOrderingListFragment;
 export type EntityOrderingListFragment$key = {
-    readonly " $data"?: EntityOrderingListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityOrderingListFragment">;
+  readonly " $data"?: EntityOrderingListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingListFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -86,5 +88,7 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '46e39c5673f6726ab99d9fa390492ac8';
+
+(node as any).hash = "46e39c5673f6726ab99d9fa390492ac8";
+
 export default node;

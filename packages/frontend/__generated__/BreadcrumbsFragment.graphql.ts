@@ -1,27 +1,29 @@
+/**
+ * @generated SignedSource<<6be4a7f95495f0ede25dc231ff0eb3c3>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type BreadcrumbsFragment = {
-    readonly __typename: string;
-    readonly title: string;
-    readonly breadcrumbs: ReadonlyArray<{
-        readonly depth: number;
-        readonly " $fragmentRefs": FragmentRefs<"BreadcrumbLinkFragment">;
-    }>;
-    readonly slug?: string | undefined;
-    readonly " $refType": "BreadcrumbsFragment";
+export type BreadcrumbsFragment$data = {
+  readonly __typename: string;
+  readonly breadcrumbs: ReadonlyArray<{
+    readonly depth: number;
+    readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbLinkFragment">;
+  }>;
+  readonly slug?: String;
+  readonly title: string;
+  readonly " $fragmentType": "BreadcrumbsFragment";
 };
-export type BreadcrumbsFragment$data = BreadcrumbsFragment;
 export type BreadcrumbsFragment$key = {
-    readonly " $data"?: BreadcrumbsFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"BreadcrumbsFragment">;
+  readonly " $data"?: BreadcrumbsFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbsFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -84,5 +86,7 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '6237a9b70905956f05610fcd9c290df8';
+
+(node as any).hash = "6237a9b70905956f05610fcd9c290df8";
+
 export default node;

@@ -1,35 +1,37 @@
+/**
+ * @generated SignedSource<<a0c5c1d681bf2b0f13557199b2124b63>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type IssueOrderingLayoutFragment = {
-    readonly name: string | null;
-    readonly header: string | null;
-    readonly children: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly entry: {
-                    readonly slug?: string | undefined;
-                    readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFactoryFragment">;
-                };
-            };
-        }>;
-        readonly pageInfo: {
-            readonly " $fragmentRefs": FragmentRefs<"PaginationFragment">;
+export type IssueOrderingLayoutFragment$data = {
+  readonly children: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly entry: {
+          readonly slug?: String;
+          readonly " $fragmentSpreads": FragmentRefs<"EntitySummaryFactoryFragment">;
         };
+      };
+    }>;
+    readonly pageInfo: {
+      readonly " $fragmentSpreads": FragmentRefs<"PaginationFragment">;
     };
-    readonly " $refType": "IssueOrderingLayoutFragment";
+  };
+  readonly header: string | null;
+  readonly name: string | null;
+  readonly " $fragmentType": "IssueOrderingLayoutFragment";
 };
-export type IssueOrderingLayoutFragment$data = IssueOrderingLayoutFragment;
 export type IssueOrderingLayoutFragment$key = {
-    readonly " $data"?: IssueOrderingLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"IssueOrderingLayoutFragment">;
+  readonly " $data"?: IssueOrderingLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"IssueOrderingLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -156,5 +158,7 @@ const node: ReaderFragment = {
   "type": "Ordering",
   "abstractKey": null
 };
-(node as any).hash = '0ed0f439a92e224104105ddbcb4f68dc';
+
+(node as any).hash = "0ed0f439a92e224104105ddbcb4f68dc";
+
 export default node;

@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<3b3f1945167bd054a8e0d8eceabc91ee>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ProviderBarFragment = {
-    readonly site: {
-        readonly providerName: string;
-    };
-    readonly " $refType": "ProviderBarFragment";
+export type ProviderBarFragment$data = {
+  readonly site: {
+    readonly providerName: string;
+  };
+  readonly " $fragmentType": "ProviderBarFragment";
 };
-export type ProviderBarFragment$data = ProviderBarFragment;
 export type ProviderBarFragment$key = {
-    readonly " $data"?: ProviderBarFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ProviderBarFragment">;
+  readonly " $data"?: ProviderBarFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ProviderBarFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -47,5 +49,7 @@ const node: ReaderFragment = {
   "type": "GlobalConfiguration",
   "abstractKey": null
 };
-(node as any).hash = 'aec2973674a98a26b6dee54ade43d9d4';
+
+(node as any).hash = "aec2973674a98a26b6dee54ade43d9d4";
+
 export default node;

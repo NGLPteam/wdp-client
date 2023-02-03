@@ -1,58 +1,39 @@
+/**
+ * @generated SignedSource<<43641537161fcc553e49587e0a2233b2>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type ApplySchemaPropertiesInput = {
-    entityId: string;
-    propertyValues: unknown;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null;
+  entityId: string;
+  propertyValues: any;
 };
-export type SchemaInstanceProviderApplyMutationVariables = {
-    input: ApplySchemaPropertiesInput;
+export type SchemaInstanceProviderApplyMutation$variables = {
+  input: ApplySchemaPropertiesInput;
 };
-export type SchemaInstanceProviderApplyMutationResponse = {
-    readonly applySchemaProperties: {
-        readonly entity: {
-            readonly id?: string | undefined;
-        } | null;
-        readonly schemaErrors: ReadonlyArray<{
-            readonly hint: boolean;
-            readonly message: string;
-            readonly metadata: unknown | null;
-            readonly path: string;
-        }>;
+export type SchemaInstanceProviderApplyMutation$data = {
+  readonly applySchemaProperties: {
+    readonly entity: {
+      readonly id?: string;
     } | null;
+    readonly schemaErrors: ReadonlyArray<{
+      readonly hint: boolean;
+      readonly message: string;
+      readonly metadata: any | null;
+      readonly path: string;
+    }>;
+  } | null;
 };
 export type SchemaInstanceProviderApplyMutation = {
-    readonly response: SchemaInstanceProviderApplyMutationResponse;
-    readonly variables: SchemaInstanceProviderApplyMutationVariables;
+  response: SchemaInstanceProviderApplyMutation$data;
+  variables: SchemaInstanceProviderApplyMutation$variables;
 };
-
-
-
-/*
-mutation SchemaInstanceProviderApplyMutation(
-  $input: ApplySchemaPropertiesInput!
-) {
-  applySchemaProperties(input: $input) {
-    entity {
-      __typename
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-    schemaErrors {
-      hint
-      message
-      metadata
-      path
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -206,5 +187,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'ea5c51241af6b9a67eea621e8b528fd0';
+
+(node as any).hash = "ea5c51241af6b9a67eea621e8b528fd0";
+
 export default node;

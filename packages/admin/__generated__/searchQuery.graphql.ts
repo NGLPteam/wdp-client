@@ -1,323 +1,82 @@
+/**
+ * @generated SignedSource<<6ac68414624dd17fc8e81b10d48271f9>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type EntityOrder = "OLDEST" | "POSITION_ASCENDING" | "POSITION_DESCENDING" | "PUBLISHED_ASCENDING" | "PUBLISHED_DESCENDING" | "RECENT" | "SCHEMA_NAME_ASCENDING" | "SCHEMA_NAME_DESCENDING" | "TITLE_ASCENDING" | "TITLE_DESCENDING" | "%future added value";
 export type SearchPredicateInput = {
-    and?: AndOperatorInput | null | undefined;
-    or?: OrOperatorInput | null | undefined;
-    dateEquals?: DateEqualsOperatorInput | null | undefined;
-    dateGTE?: DateGTEOperatorInput | null | undefined;
-    dateLTE?: DateLTEOperatorInput | null | undefined;
-    equals?: EqualsOperatorInput | null | undefined;
-    matches?: MatchesOperatorInput | null | undefined;
-    inAny?: InAnyOperatorInput | null | undefined;
-    numericGTE?: NumericGTEOperatorInput | null | undefined;
-    numericLTE?: NumericLTEOperatorInput | null | undefined;
+  and?: AndOperatorInput | null;
+  dateEquals?: DateEqualsOperatorInput | null;
+  dateGTE?: DateGTEOperatorInput | null;
+  dateLTE?: DateLTEOperatorInput | null;
+  equals?: EqualsOperatorInput | null;
+  inAny?: InAnyOperatorInput | null;
+  matches?: MatchesOperatorInput | null;
+  numericGTE?: NumericGTEOperatorInput | null;
+  numericLTE?: NumericLTEOperatorInput | null;
+  or?: OrOperatorInput | null;
 };
 export type AndOperatorInput = {
-    left: SearchPredicateInput;
-    right: SearchPredicateInput;
+  left: SearchPredicateInput;
+  right: SearchPredicateInput;
 };
 export type OrOperatorInput = {
-    left: SearchPredicateInput;
-    right: SearchPredicateInput;
+  left: SearchPredicateInput;
+  right: SearchPredicateInput;
 };
 export type DateEqualsOperatorInput = {
-    path: string;
-    value: string;
+  path: string;
+  value: String;
 };
 export type DateGTEOperatorInput = {
-    path: string;
-    value: string;
+  path: string;
+  value: String;
 };
 export type DateLTEOperatorInput = {
-    path: string;
-    value: string;
+  path: string;
+  value: String;
 };
 export type EqualsOperatorInput = {
-    path: string;
-    value: unknown;
+  path: string;
+  value: any;
 };
 export type MatchesOperatorInput = {
-    path: string;
-    value: string;
+  path: string;
+  value: string;
 };
 export type InAnyOperatorInput = {
-    path: string;
-    value: Array<string>;
+  path: string;
+  value: ReadonlyArray<string>;
 };
 export type NumericGTEOperatorInput = {
-    path: string;
-    value: number;
+  path: string;
+  value: number;
 };
 export type NumericLTEOperatorInput = {
-    path: string;
-    value: number;
+  path: string;
+  value: number;
 };
-export type searchQueryVariables = {
-    query?: string | null | undefined;
-    page: number;
-    predicates?: Array<SearchPredicateInput> | null | undefined;
-    order?: EntityOrder | null | undefined;
-    schema?: Array<string> | null | undefined;
+export type searchQuery$variables = {
+  order?: EntityOrder | null;
+  page: number;
+  predicates?: ReadonlyArray<SearchPredicateInput> | null;
+  query?: string | null;
+  schema?: ReadonlyArray<string> | null;
 };
-export type searchQueryResponse = {
-    readonly " $fragmentRefs": FragmentRefs<"SearchLayoutFragment">;
+export type searchQuery$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"SearchLayoutFragment">;
 };
 export type searchQuery = {
-    readonly response: searchQueryResponse;
-    readonly variables: searchQueryVariables;
+  response: searchQuery$data;
+  variables: searchQuery$variables;
 };
-
-
-
-/*
-query searchQuery(
-  $query: String
-  $page: Int!
-  $predicates: [SearchPredicateInput!]
-  $order: EntityOrder
-  $schema: [String!]
-) {
-  ...SearchLayoutFragment_dJrY9
-}
-
-fragment CoverImageFragment on ImageAttachment {
-  storage
-  medium {
-    webp {
-      ...ImageFragment
-    }
-  }
-}
-
-fragment CurrentSearchFiltersFragment on SearchScope {
-  coreProperties {
-    ... on SearchableProperty {
-      __isSearchableProperty: __typename
-      searchPath
-      label
-    }
-  }
-  schemas: availableSchemaVersions {
-    name
-    schemaDefinition {
-      slug
-      id
-    }
-    searchableProperties {
-      __typename
-      ... on SearchableProperty {
-        __isSearchableProperty: __typename
-        searchPath
-        label
-      }
-    }
-    id
-  }
-}
-
-fragment EntityThumbnailColumnFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  thumbnail {
-    storage
-    ...CoverImageFragment
-  }
-  ... on Node {
-    __isNode: __typename
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelListPageSearchFragment on SearchScope {
-  ...CurrentSearchFiltersFragment
-  ...SearchWithFiltersFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment PrecisionDateFragment on VariablePrecisionDate {
-  precision
-  value
-}
-
-fragment PublishedDateColumnFragment on ReferencesGlobalEntityDates {
-  __isReferencesGlobalEntityDates: __typename
-  published {
-    ...PrecisionDateFragment
-  }
-}
-
-fragment SearchFilterBooleanFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  label
-  description
-  searchPath
-  searchOperators
-}
-
-fragment SearchFilterDrawerFragment on SearchScope {
-  ...SearchFilterFormFragment
-}
-
-fragment SearchFilterFormFragment on SearchScope {
-  coreProperties {
-    ... on SearchableProperty {
-      __isSearchableProperty: __typename
-      searchPath
-    }
-    ...SearchFilterFragment
-  }
-  schemas: availableSchemaVersions {
-    searchableProperties {
-      __typename
-      ... on SearchableProperty {
-        __isSearchableProperty: __typename
-        searchPath
-        label
-      }
-      ...SearchFilterFragment
-    }
-    id
-  }
-  ...SearchSchemaFilterFragment
-}
-
-fragment SearchFilterFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  ... on ScalarProperty {
-    __isScalarProperty: __typename
-    type
-  }
-  ...SearchFilterInputFragment
-  ...SearchFilterSelectFragment
-  ...SearchFilterBooleanFragment
-}
-
-fragment SearchFilterInputFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  label
-  description
-  searchPath
-  searchOperators
-}
-
-fragment SearchFilterSelectFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  label
-  description
-  searchPath
-  searchOperators
-  ... on SelectProperty {
-    options {
-      label
-      value
-    }
-  }
-}
-
-fragment SearchLayoutFragment_dJrY9 on Searchable {
-  __isSearchable: __typename
-  search(visibility: ALL) {
-    ...SearchResultListFragment_dJrY9
-  }
-}
-
-fragment SearchResultListFragment_dJrY9 on SearchScope {
-  results(query: $query, page: $page, predicates: $predicates, order: $order, perPage: 20, schema: $schema) {
-    nodes {
-      slug
-      entity {
-        __typename
-        ... on Node {
-          __isNode: __typename
-          id
-        }
-        ... on Sluggable {
-          __isSluggable: __typename
-          slug
-        }
-        ... on Entity {
-          __isEntity: __typename
-          title
-          schemaVersion {
-            name
-            number
-            kind
-            id
-          }
-          allowedActions
-          ...EntityThumbnailColumnFragment
-          ...PublishedDateColumnFragment
-        }
-      }
-      id
-    }
-    pageInfo {
-      totalCount
-    }
-    ...ModelListPageFragment
-  }
-  ...ModelListPageSearchFragment
-}
-
-fragment SearchSchemaFilterFragment on SearchScope {
-  schemas: availableSchemaVersions {
-    name
-    schemaDefinition {
-      slug
-      id
-    }
-    id
-  }
-}
-
-fragment SearchWithFiltersFragment on SearchScope {
-  ...SearchFilterDrawerFragment
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -424,20 +183,6 @@ v16 = {
     },
     (v15/*: any*/),
     {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "description",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "searchOperators",
-      "storageKey": null
-    },
-    {
       "kind": "InlineFragment",
       "selections": [
         {
@@ -450,6 +195,20 @@ v16 = {
       ],
       "type": "ScalarProperty",
       "abstractKey": "__isScalarProperty"
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "description",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "searchOperators",
+      "storageKey": null
     },
     {
       "kind": "InlineFragment",
@@ -885,5 +644,7 @@ return {
   }
 };
 })();
-(node as any).hash = '57f9c8700a907a6364dd7b5df0b701d2';
+
+(node as any).hash = "57f9c8700a907a6364dd7b5df0b701d2";
+
 export default node;

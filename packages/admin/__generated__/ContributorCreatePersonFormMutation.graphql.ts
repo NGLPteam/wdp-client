@@ -1,126 +1,81 @@
+/**
+ * @generated SignedSource<<12f845ce84a5a0833cd1079b32a1f282>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
 export type CreatePersonContributorInput = {
-    email?: string | null | undefined;
-    url?: string | null | undefined;
-    bio?: string | null | undefined;
-    links?: Array<ContributorLinkInput> | null | undefined;
-    orcid?: string | null | undefined;
-    image?: UploadedFileInput | null | undefined;
-    imageMetadata?: ImageMetadataInput | null | undefined;
-    givenName?: string | null | undefined;
-    familyName?: string | null | undefined;
-    title?: string | null | undefined;
-    affiliation?: string | null | undefined;
-    clientMutationId?: string | null | undefined;
+  affiliation?: string | null;
+  bio?: string | null;
+  clientMutationId?: string | null;
+  email?: string | null;
+  familyName?: string | null;
+  givenName?: string | null;
+  image?: UploadedFileInput | null;
+  imageMetadata?: ImageMetadataInput | null;
+  links?: ReadonlyArray<ContributorLinkInput> | null;
+  orcid?: string | null;
+  title?: string | null;
+  url?: string | null;
 };
 export type ContributorLinkInput = {
-    title: string;
-    url: string;
+  title: string;
+  url: string;
 };
 export type UploadedFileInput = {
-    id: unknown;
-    storage?: UploadStorage | null | undefined;
-    metadata?: UploadedFileMetadataInput | null | undefined;
+  id: any;
+  metadata?: UploadedFileMetadataInput | null;
+  storage?: UploadStorage | null;
 };
 export type UploadedFileMetadataInput = {
-    alt?: string | null | undefined;
-    filename?: string | null | undefined;
-    mimeType?: string | null | undefined;
+  alt?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
 };
 export type ImageMetadataInput = {
-    alt?: string | null | undefined;
+  alt?: string | null;
 };
-export type ContributorCreatePersonFormMutationVariables = {
-    input: CreatePersonContributorInput;
+export type ContributorCreatePersonFormMutation$variables = {
+  input: CreatePersonContributorInput;
 };
-export type ContributorCreatePersonFormMutationResponse = {
-    readonly createPersonContributor: {
-        readonly contributor: {
-            readonly __typename: string;
-            readonly givenName: string | null;
-            readonly familyName: string | null;
-            readonly title: string | null;
-            readonly email: string | null;
-            readonly affiliation: string | null;
-            readonly bio: string | null;
-            readonly orcid: string | null;
-            readonly image: {
-                readonly thumb: {
-                    readonly png: {
-                        readonly alt: string | null;
-                        readonly url: string | null;
-                    };
-                };
-            };
-            readonly links: ReadonlyArray<{
-                readonly title: string;
-                readonly url: string;
-            }>;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
+export type ContributorCreatePersonFormMutation$data = {
+  readonly createPersonContributor: {
+    readonly contributor: {
+      readonly __typename: "PersonContributor";
+      readonly affiliation: string | null;
+      readonly bio: string | null;
+      readonly email: string | null;
+      readonly familyName: string | null;
+      readonly givenName: string | null;
+      readonly image: {
+        readonly thumb: {
+          readonly png: {
+            readonly alt: string | null;
+            readonly url: string | null;
+          };
+        };
+      };
+      readonly links: ReadonlyArray<{
+        readonly title: string;
+        readonly url: string;
+      }>;
+      readonly orcid: string | null;
+      readonly title: string | null;
     } | null;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null;
 };
 export type ContributorCreatePersonFormMutation = {
-    readonly response: ContributorCreatePersonFormMutationResponse;
-    readonly variables: ContributorCreatePersonFormMutationVariables;
+  response: ContributorCreatePersonFormMutation$data;
+  variables: ContributorCreatePersonFormMutation$variables;
 };
-
-
-
-/*
-mutation ContributorCreatePersonFormMutation(
-  $input: CreatePersonContributorInput!
-) {
-  createPersonContributor(input: $input) {
-    contributor {
-      __typename
-      givenName
-      familyName
-      title
-      email
-      affiliation
-      bio
-      orcid
-      image {
-        thumb {
-          png {
-            alt
-            url
-          }
-        }
-      }
-      links {
-        title
-        url
-      }
-      id
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -363,7 +318,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v14/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -430,5 +387,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'c19cbb2139571c7165fe696df404acc3';
+
+(node as any).hash = "c19cbb2139571c7165fe696df404acc3";
+
 export default node;

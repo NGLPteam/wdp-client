@@ -1,87 +1,61 @@
+/**
+ * @generated SignedSource<<458cb5dbf220235b13fafc968d49674a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type HeroImageLayout = "ONE_COLUMN" | "TWO_COLUMN" | "%future added value";
 export type UploadStorage = "CACHE" | "%future added value";
 export type CreateCommunityInput = {
-    title: string;
-    position?: number | null | undefined;
-    schemaVersionSlug?: string | null | undefined;
-    subtitle?: string | null | undefined;
-    summary?: string | null | undefined;
-    heroImage?: UploadedFileInput | null | undefined;
-    heroImageMetadata?: ImageMetadataInput | null | undefined;
-    thumbnail?: UploadedFileInput | null | undefined;
-    thumbnailMetadata?: ImageMetadataInput | null | undefined;
-    heroImageLayout: HeroImageLayout;
-    tagline?: string | null | undefined;
-    logo?: UploadedFileInput | null | undefined;
-    logoMetadata?: ImageMetadataInput | null | undefined;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null;
+  heroImage?: UploadedFileInput | null;
+  heroImageLayout: HeroImageLayout;
+  heroImageMetadata?: ImageMetadataInput | null;
+  logo?: UploadedFileInput | null;
+  logoMetadata?: ImageMetadataInput | null;
+  position?: number | null;
+  schemaVersionSlug?: string | null;
+  subtitle?: string | null;
+  summary?: string | null;
+  tagline?: string | null;
+  thumbnail?: UploadedFileInput | null;
+  thumbnailMetadata?: ImageMetadataInput | null;
+  title: string;
 };
 export type UploadedFileInput = {
-    id: unknown;
-    storage?: UploadStorage | null | undefined;
-    metadata?: UploadedFileMetadataInput | null | undefined;
+  id: any;
+  metadata?: UploadedFileMetadataInput | null;
+  storage?: UploadStorage | null;
 };
 export type UploadedFileMetadataInput = {
-    alt?: string | null | undefined;
-    filename?: string | null | undefined;
-    mimeType?: string | null | undefined;
+  alt?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
 };
 export type ImageMetadataInput = {
-    alt?: string | null | undefined;
+  alt?: string | null;
 };
-export type CommunityCreateFormMutationVariables = {
-    input: CreateCommunityInput;
+export type CommunityCreateFormMutation$variables = {
+  input: CreateCommunityInput;
 };
-export type CommunityCreateFormMutationResponse = {
-    readonly createCommunity: {
-        readonly community: {
-            readonly title: string;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
+export type CommunityCreateFormMutation$data = {
+  readonly createCommunity: {
+    readonly community: {
+      readonly title: string;
     } | null;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null;
 };
 export type CommunityCreateFormMutation = {
-    readonly response: CommunityCreateFormMutationResponse;
-    readonly variables: CommunityCreateFormMutationVariables;
+  response: CommunityCreateFormMutation$data;
+  variables: CommunityCreateFormMutation$variables;
 };
-
-
-
-/*
-mutation CommunityCreateFormMutation(
-  $input: CreateCommunityInput!
-) {
-  createCommunity(input: $input) {
-    community {
-      title
-      id
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -205,7 +179,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v4/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -263,5 +239,7 @@ return {
   }
 };
 })();
-(node as any).hash = '06c828fda5a58d8b3cd4ee9283e5709b';
+
+(node as any).hash = "06c828fda5a58d8b3cd4ee9283e5709b";
+
 export default node;

@@ -1,57 +1,35 @@
+/**
+ * @generated SignedSource<<39e9261ae782f3e2106c6e0b110229a1>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type PropertyApplicationStrategy = "APPLY" | "SKIP" | "%future added value";
 export type AlterSchemaVersionInput = {
-    entityId: string;
-    schemaVersionSlug: string;
-    propertyValues: unknown;
-    strategy?: PropertyApplicationStrategy | null | undefined;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null;
+  entityId: string;
+  propertyValues: any;
+  schemaVersionSlug: string;
+  strategy?: PropertyApplicationStrategy | null;
 };
-export type SchemaSelectorModalMutationVariables = {
-    input: AlterSchemaVersionInput;
+export type SchemaSelectorModalMutation$variables = {
+  input: AlterSchemaVersionInput;
 };
-export type SchemaSelectorModalMutationResponse = {
-    readonly alterSchemaVersion: {
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
-    } | null;
+export type SchemaSelectorModalMutation$data = {
+  readonly alterSchemaVersion: {
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null;
 };
 export type SchemaSelectorModalMutation = {
-    readonly response: SchemaSelectorModalMutationResponse;
-    readonly variables: SchemaSelectorModalMutationVariables;
+  response: SchemaSelectorModalMutation$data;
+  variables: SchemaSelectorModalMutation$variables;
 };
-
-
-
-/*
-mutation SchemaSelectorModalMutation(
-  $input: AlterSchemaVersionInput!
-) {
-  alterSchemaVersion(input: $input) {
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -156,7 +134,9 @@ return {
           {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
-            "selections": (v3/*: any*/)
+            "selections": (v3/*: any*/),
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -193,5 +173,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'a88eeaf9617dc75e9fac83cab2badf3c';
+
+(node as any).hash = "a88eeaf9617dc75e9fac83cab2badf3c";
+
 export default node;

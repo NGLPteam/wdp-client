@@ -1,106 +1,68 @@
+/**
+ * @generated SignedSource<<f330674dc30787cf63158f3fb2ca16bd>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
 export type UpdatePageInput = {
-    pageId: string;
-    title: string;
-    slug: string;
-    position?: number | null | undefined;
-    body: string;
-    heroImage?: UploadedFileInput | null | undefined;
-    heroImageMetadata?: ImageMetadataInput | null | undefined;
-    clearHeroImage?: boolean | null | undefined;
-    clientMutationId?: string | null | undefined;
+  body: string;
+  clearHeroImage?: boolean | null;
+  clientMutationId?: string | null;
+  heroImage?: UploadedFileInput | null;
+  heroImageMetadata?: ImageMetadataInput | null;
+  pageId: string;
+  position?: number | null;
+  slug: string;
+  title: string;
 };
 export type UploadedFileInput = {
-    id: unknown;
-    storage?: UploadStorage | null | undefined;
-    metadata?: UploadedFileMetadataInput | null | undefined;
+  id: any;
+  metadata?: UploadedFileMetadataInput | null;
+  storage?: UploadStorage | null;
 };
 export type UploadedFileMetadataInput = {
-    alt?: string | null | undefined;
-    filename?: string | null | undefined;
-    mimeType?: string | null | undefined;
+  alt?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
 };
 export type ImageMetadataInput = {
-    alt?: string | null | undefined;
+  alt?: string | null;
 };
-export type EntityPageUpdateFormMutationVariables = {
-    input: UpdatePageInput;
+export type EntityPageUpdateFormMutation$variables = {
+  input: UpdatePageInput;
 };
-export type EntityPageUpdateFormMutationResponse = {
-    readonly updatePage: {
-        readonly page: {
-            readonly id: string;
-            readonly title: string;
-            readonly slug: string;
-            readonly position: number | null;
-            readonly heroImage: {
-                readonly medium: {
-                    readonly png: {
-                        readonly url: string | null;
-                        readonly height: number | null;
-                        readonly width: number | null;
-                        readonly alt: string | null;
-                    };
-                };
-            };
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
+export type EntityPageUpdateFormMutation$data = {
+  readonly updatePage: {
+    readonly page: {
+      readonly heroImage: {
+        readonly medium: {
+          readonly png: {
+            readonly alt: string | null;
+            readonly height: number | null;
+            readonly url: string | null;
+            readonly width: number | null;
+          };
+        };
+      };
+      readonly id: string;
+      readonly position: number | null;
+      readonly slug: string;
+      readonly title: string;
     } | null;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null;
 };
 export type EntityPageUpdateFormMutation = {
-    readonly response: EntityPageUpdateFormMutationResponse;
-    readonly variables: EntityPageUpdateFormMutationVariables;
+  response: EntityPageUpdateFormMutation$data;
+  variables: EntityPageUpdateFormMutation$variables;
 };
-
-
-
-/*
-mutation EntityPageUpdateFormMutation(
-  $input: UpdatePageInput!
-) {
-  updatePage(input: $input) {
-    page {
-      id
-      title
-      slug
-      position
-      heroImage {
-        medium {
-          png {
-            url
-            height
-            width
-            alt
-          }
-        }
-      }
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -306,7 +268,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v4/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -346,5 +310,7 @@ return {
   }
 };
 })();
-(node as any).hash = '06e579e330057dbf9853934b1f18b89f';
+
+(node as any).hash = "06e579e330057dbf9853934b1f18b89f";
+
 export default node;

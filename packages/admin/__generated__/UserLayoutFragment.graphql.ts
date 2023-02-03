@@ -1,22 +1,24 @@
+/**
+ * @generated SignedSource<<a7bbb08535fbce8f877712802eab6552>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type UserLayoutFragment = {
-    readonly name: string | null;
-    readonly email: string | null;
-    readonly " $refType": "UserLayoutFragment";
+export type UserLayoutFragment$data = {
+  readonly email: string | null;
+  readonly name: string | null;
+  readonly " $fragmentType": "UserLayoutFragment";
 };
-export type UserLayoutFragment$data = UserLayoutFragment;
 export type UserLayoutFragment$key = {
-    readonly " $data"?: UserLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"UserLayoutFragment">;
+  readonly " $data"?: UserLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"UserLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -42,5 +44,7 @@ const node: ReaderFragment = {
   "type": "User",
   "abstractKey": null
 };
-(node as any).hash = '008778159ecdd2cd3c27131f2997ce46';
+
+(node as any).hash = "008778159ecdd2cd3c27131f2997ce46";
+
 export default node;

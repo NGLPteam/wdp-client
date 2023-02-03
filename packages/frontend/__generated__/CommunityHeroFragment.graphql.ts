@@ -1,41 +1,43 @@
+/**
+ * @generated SignedSource<<2fa53bd3afa2347a6c7b8a7a68aea8aa>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type HeroImageLayout = "ONE_COLUMN" | "TWO_COLUMN" | "%future added value";
-export type CommunityHeroFragment = {
-    readonly title: string;
-    readonly tagline: string | null;
-    readonly summary: string | null;
-    readonly heroImage: {
-        readonly storage: AttachmentStorage | null;
-        readonly image: {
-            readonly webp: {
-                readonly url: string | null;
-                readonly width: number | null;
-                readonly height: number | null;
-            };
-        };
-        readonly placeholder: {
-            readonly webp: {
-                readonly url: string | null;
-            };
-        };
+import { FragmentRefs } from "relay-runtime";
+export type CommunityHeroFragment$data = {
+  readonly heroImage: {
+    readonly image: {
+      readonly webp: {
+        readonly height: number | null;
+        readonly url: string | null;
+        readonly width: number | null;
+      };
     };
-    readonly heroImageLayout: HeroImageLayout;
-    readonly " $refType": "CommunityHeroFragment";
+    readonly placeholder: {
+      readonly webp: {
+        readonly url: string | null;
+      };
+    };
+    readonly storage: AttachmentStorage | null;
+  };
+  readonly heroImageLayout: HeroImageLayout;
+  readonly summary: string | null;
+  readonly tagline: string | null;
+  readonly title: string;
+  readonly " $fragmentType": "CommunityHeroFragment";
 };
-export type CommunityHeroFragment$data = CommunityHeroFragment;
 export type CommunityHeroFragment$key = {
-    readonly " $data"?: CommunityHeroFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityHeroFragment">;
+  readonly " $data"?: CommunityHeroFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityHeroFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -162,5 +164,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '965c10c1e715d21fc156aff05ad5a316';
+
+(node as any).hash = "965c10c1e715d21fc156aff05ad5a316";
+
 export default node;

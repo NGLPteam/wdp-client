@@ -1,139 +1,29 @@
+/**
+ * @generated SignedSource<<c449ba954ebf603a1b92c76e646b45f9>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ContributorOrder = "AFFILIATION_ASCENDING" | "AFFILIATION_DESCENDING" | "LEAST_CONTRIBUTIONS" | "MOST_CONTRIBUTIONS" | "NAME_ASCENDING" | "NAME_DESCENDING" | "OLDEST" | "RECENT" | "%future added value";
-export type contributorsQueryVariables = {
-    order?: ContributorOrder | null | undefined;
-    page: number;
+export type contributorsQuery$variables = {
+  order?: ContributorOrder | null;
+  page: number;
 };
-export type contributorsQueryResponse = {
-    readonly contributors: {
-        readonly " $fragmentRefs": FragmentRefs<"ContributorListFragment">;
-    };
+export type contributorsQuery$data = {
+  readonly contributors: {
+    readonly " $fragmentSpreads": FragmentRefs<"ContributorListFragment">;
+  };
 };
 export type contributorsQuery = {
-    readonly response: contributorsQueryResponse;
-    readonly variables: contributorsQueryVariables;
+  response: contributorsQuery$data;
+  variables: contributorsQuery$variables;
 };
-
-
-
-/*
-query contributorsQuery(
-  $order: ContributorOrder
-  $page: Int!
-) {
-  contributors(order: $order, page: $page, perPage: 20) {
-    ...ContributorListFragment
-  }
-}
-
-fragment AvatarFragment on ImageAttachment {
-  storage
-  small {
-    webp {
-      ...ImageFragment
-    }
-  }
-}
-
-fragment ContributorAffiliationColumnFragment on Contributor {
-  __isContributor: __typename
-  ... on PersonContributor {
-    affiliation
-  }
-}
-
-fragment ContributorContributionsColumnFragment on Contributor {
-  __isContributor: __typename
-  contributionCount
-}
-
-fragment ContributorListFragment on AnyContributorConnection {
-  nodes {
-    __typename
-    ... on OrganizationContributor {
-      id
-      slug
-      legalName
-      createdAt
-      ...ContributorNameColumnFragment
-    }
-    ... on PersonContributor {
-      id
-      slug
-      givenName
-      familyName
-      createdAt
-    }
-    ...ContributorNameColumnFragment
-    ...ContributorAffiliationColumnFragment
-    ...ContributorContributionsColumnFragment
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment ContributorNameColumnFragment on Contributor {
-  __isContributor: __typename
-  __typename
-  image {
-    ...AvatarFragment
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-  ... on OrganizationContributor {
-    legalName
-  }
-  ... on PersonContributor {
-    givenName
-    familyName
-  }
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -504,5 +394,7 @@ return {
   }
 };
 })();
-(node as any).hash = '4a2da19a795a946c74b9f0550562cec4';
+
+(node as any).hash = "4a2da19a795a946c74b9f0550562cec4";
+
 export default node;

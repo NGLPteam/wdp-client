@@ -1,86 +1,36 @@
+/**
+ * @generated SignedSource<<a5f572c5d438b0ac40ca2a12844fd8df>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AnalyticsPrecision = "DAY" | "HOUR" | "MONTH" | "QUARTER" | "WEEK" | "YEAR" | "%future added value";
 export type DateFilterInput = {
-    startDate?: string | null | undefined;
-    endDate?: string | null | undefined;
-    timeZone?: string | null | undefined;
+  endDate?: String | null;
+  startDate?: String | null;
+  timeZone?: string | null;
 };
-export type ArticleAnalyticsBlockQueryVariables = {
-    dateRange?: DateFilterInput | null | undefined;
-    precision?: AnalyticsPrecision | null | undefined;
-    usOnly?: boolean | null | undefined;
-    id: string;
+export type ArticleAnalyticsBlockQuery$variables = {
+  dateRange?: DateFilterInput | null;
+  id: string;
+  precision?: AnalyticsPrecision | null;
+  usOnly?: boolean | null;
 };
-export type ArticleAnalyticsBlockQueryResponse = {
-    readonly node: {
-        readonly " $fragmentRefs": FragmentRefs<"ArticleAnalyticsBlockFragment">;
-    } | null;
+export type ArticleAnalyticsBlockQuery$data = {
+  readonly node: {
+    readonly " $fragmentSpreads": FragmentRefs<"ArticleAnalyticsBlockFragment">;
+  } | null;
 };
 export type ArticleAnalyticsBlockQuery = {
-    readonly response: ArticleAnalyticsBlockQueryResponse;
-    readonly variables: ArticleAnalyticsBlockQueryVariables;
+  response: ArticleAnalyticsBlockQuery$data;
+  variables: ArticleAnalyticsBlockQuery$variables;
 };
-
-
-
-/*
-query ArticleAnalyticsBlockQuery(
-  $dateRange: DateFilterInput = {}
-  $precision: AnalyticsPrecision = YEAR
-  $usOnly: Boolean = false
-  $id: ID!
-) {
-  node(id: $id) {
-    __typename
-    ...ArticleAnalyticsBlockFragment_3yzii9
-    id
-  }
-}
-
-fragment ArticleAnalyticsBlockFragment_3yzii9 on Item {
-  downloadsByDate: assetDownloads(dateFilter: $dateRange, precision: $precision) {
-    total
-    unfilteredTotal
-    minDate
-    results {
-      count
-      date
-    }
-  }
-  assetDownloadsByRegion(dateFilter: $dateRange, usOnly: $usOnly) {
-    total
-    results {
-      countryCode
-      regionCode
-      count
-    }
-  }
-  viewsByDate: entityViews(dateFilter: $dateRange, precision: $precision) {
-    total
-    unfilteredTotal
-    minDate
-    results {
-      count
-      date
-    }
-  }
-  entityViewsByRegion(dateFilter: $dateRange, usOnly: $usOnly) {
-    total
-    results {
-      countryCode
-      regionCode
-      count
-    }
-  }
-  id
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -347,5 +297,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'f614c7af4512d87593e7fd2e8f064b41';
+
+(node as any).hash = "f614c7af4512d87593e7fd2e8f064b41";
+
 export default node;

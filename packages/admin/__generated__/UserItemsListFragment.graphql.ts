@@ -1,40 +1,42 @@
+/**
+ * @generated SignedSource<<d1f1957180a1b879b43d09001d724ebd>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type UserItemsListFragment = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly id: string;
-            readonly item: {
-                readonly id: string;
-                readonly title: string;
-                readonly slug: string;
-                readonly " $fragmentRefs": FragmentRefs<"EntityThumbnailColumnFragment">;
-            };
-            readonly role: {
-                readonly id: string;
-                readonly name: string;
-            };
-            readonly user: {
-                readonly id: string;
-                readonly slug: string;
-            };
-        };
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "UserItemsListFragment";
+export type UserItemsListFragment$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly id: string;
+      readonly item: {
+        readonly id: string;
+        readonly slug: String;
+        readonly title: string;
+        readonly " $fragmentSpreads": FragmentRefs<"EntityThumbnailColumnFragment">;
+      };
+      readonly role: {
+        readonly id: string;
+        readonly name: string;
+      };
+      readonly user: {
+        readonly id: string;
+        readonly slug: String;
+      };
+    };
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "UserItemsListFragment";
 };
-export type UserItemsListFragment$data = UserItemsListFragment;
 export type UserItemsListFragment$key = {
-    readonly " $data"?: UserItemsListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"UserItemsListFragment">;
+  readonly " $data"?: UserItemsListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"UserItemsListFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -147,5 +149,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'f03655713795636347f19fa1851f432d';
+
+(node as any).hash = "f03655713795636347f19fa1851f432d";
+
 export default node;

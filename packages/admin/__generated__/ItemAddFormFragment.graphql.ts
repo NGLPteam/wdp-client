@@ -1,27 +1,29 @@
+/**
+ * @generated SignedSource<<0fb5f49554f05d960bd2cb00bba71278>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ItemAddFormFragment = {
-    readonly item: {
-        readonly id: string;
-    } | null;
-    readonly collection: {
-        readonly id: string;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"SchemaSelectFragment">;
-    readonly " $refType": "ItemAddFormFragment";
+export type ItemAddFormFragment$data = {
+  readonly collection: {
+    readonly id: string;
+  } | null;
+  readonly item: {
+    readonly id: string;
+  } | null;
+  readonly " $fragmentSpreads": FragmentRefs<"SchemaSelectFragment">;
+  readonly " $fragmentType": "ItemAddFormFragment";
 };
-export type ItemAddFormFragment$data = ItemAddFormFragment;
 export type ItemAddFormFragment$key = {
-    readonly " $data"?: ItemAddFormFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ItemAddFormFragment">;
+  readonly " $data"?: ItemAddFormFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ItemAddFormFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -52,6 +54,11 @@ return {
   "name": "ItemAddFormFragment",
   "selections": [
     {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "SchemaSelectFragment"
+    },
+    {
       "alias": null,
       "args": (v0/*: any*/),
       "concreteType": "Item",
@@ -70,16 +77,13 @@ return {
       "plural": false,
       "selections": (v1/*: any*/),
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "SchemaSelectFragment"
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
 })();
-(node as any).hash = '9bf90a2b44cd59a533480fdcf96e1eed';
+
+(node as any).hash = "9bf90a2b44cd59a533480fdcf96e1eed";
+
 export default node;

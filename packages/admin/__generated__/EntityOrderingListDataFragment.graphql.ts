@@ -1,33 +1,35 @@
+/**
+ * @generated SignedSource<<1601f6599c8f44691656b254bc1cda56>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityOrderingListDataFragment = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly id: string;
-            readonly name: string | null;
-            readonly slug: string;
-            readonly inheritedFromSchema: boolean;
-            readonly disabled: boolean;
-            readonly createdAt: string;
-            readonly identifier: string;
-            readonly initial: boolean;
-        };
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "EntityOrderingListDataFragment";
+export type EntityOrderingListDataFragment$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly createdAt: String;
+      readonly disabled: boolean;
+      readonly id: string;
+      readonly identifier: string;
+      readonly inheritedFromSchema: boolean;
+      readonly initial: boolean;
+      readonly name: string | null;
+      readonly slug: String;
+    };
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "EntityOrderingListDataFragment";
 };
-export type EntityOrderingListDataFragment$data = EntityOrderingListDataFragment;
 export type EntityOrderingListDataFragment$key = {
-    readonly " $data"?: EntityOrderingListDataFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityOrderingListDataFragment">;
+  readonly " $data"?: EntityOrderingListDataFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingListDataFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -122,5 +124,7 @@ const node: ReaderFragment = {
   "type": "OrderingConnection",
   "abstractKey": null
 };
-(node as any).hash = '8a7516b7389ebbda1e096896682c16a8';
+
+(node as any).hash = "8a7516b7389ebbda1e096896682c16a8";
+
 export default node;

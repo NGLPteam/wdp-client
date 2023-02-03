@@ -1,32 +1,34 @@
+/**
+ * @generated SignedSource<<9dd80ddf8b41e2f8cb8d34cd7338c447>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type FeaturedCollectionsGridImageFragment = {
-    readonly heroImage: {
-        readonly storage: AttachmentStorage | null;
-        readonly image: {
-            readonly webp: {
-                readonly alt: string | null;
-                readonly url: string | null;
-                readonly width: number | null;
-                readonly height: number | null;
-            };
-        };
+import { FragmentRefs } from "relay-runtime";
+export type FeaturedCollectionsGridImageFragment$data = {
+  readonly heroImage: {
+    readonly image: {
+      readonly webp: {
+        readonly alt: string | null;
+        readonly height: number | null;
+        readonly url: string | null;
+        readonly width: number | null;
+      };
     };
-    readonly " $refType": "FeaturedCollectionsGridImageFragment";
+    readonly storage: AttachmentStorage | null;
+  };
+  readonly " $fragmentType": "FeaturedCollectionsGridImageFragment";
 };
-export type FeaturedCollectionsGridImageFragment$data = FeaturedCollectionsGridImageFragment;
 export type FeaturedCollectionsGridImageFragment$key = {
-    readonly " $data"?: FeaturedCollectionsGridImageFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FeaturedCollectionsGridImageFragment">;
+  readonly " $data"?: FeaturedCollectionsGridImageFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FeaturedCollectionsGridImageFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -106,5 +108,7 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '1a841d4a04d6f6a9d97668dabbe973c5';
+
+(node as any).hash = "1a841d4a04d6f6a9d97668dabbe973c5";
+
 export default node;

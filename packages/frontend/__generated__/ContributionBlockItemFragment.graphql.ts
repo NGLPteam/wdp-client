@@ -1,40 +1,42 @@
+/**
+ * @generated SignedSource<<ad3b763854c55308778cc141d4d008a8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type ContributorKind = "organization" | "person" | "%future added value";
-export type ContributionBlockItemFragment = {
-    readonly affiliation: string | null;
-    readonly displayName: string;
-    readonly contributorKind: ContributorKind;
-    readonly role: string | null;
-    readonly contributor: {
-        readonly slug?: string | undefined;
-        readonly image?: {
-            readonly " $fragmentRefs": FragmentRefs<"ContributorAvatarFragment">;
-        } | undefined;
-        readonly affiliation?: string | null | undefined;
-        readonly orcid?: string | null | undefined;
-        readonly " $fragmentRefs": FragmentRefs<"ContributorNameFragment">;
+import { FragmentRefs } from "relay-runtime";
+export type ContributionBlockItemFragment$data = {
+  readonly affiliation: string | null;
+  readonly collection?: {
+    readonly slug: String;
+  };
+  readonly contributor: {
+    readonly affiliation?: string | null;
+    readonly image?: {
+      readonly " $fragmentSpreads": FragmentRefs<"ContributorAvatarFragment">;
     };
-    readonly item?: {
-        readonly slug: string;
-    } | undefined;
-    readonly collection?: {
-        readonly slug: string;
-    } | undefined;
-    readonly " $refType": "ContributionBlockItemFragment";
+    readonly orcid?: string | null;
+    readonly slug?: String;
+    readonly " $fragmentSpreads": FragmentRefs<"ContributorNameFragment">;
+  };
+  readonly contributorKind: ContributorKind;
+  readonly displayName: string;
+  readonly item?: {
+    readonly slug: String;
+  };
+  readonly role: string | null;
+  readonly " $fragmentType": "ContributionBlockItemFragment";
 };
-export type ContributionBlockItemFragment$data = ContributionBlockItemFragment;
 export type ContributionBlockItemFragment$key = {
-    readonly " $data"?: ContributionBlockItemFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContributionBlockItemFragment">;
+  readonly " $data"?: ContributionBlockItemFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributionBlockItemFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -180,5 +182,7 @@ return {
   "abstractKey": "__isContribution"
 };
 })();
-(node as any).hash = '9a7fd2742290ca3dcede7b4428d4d547';
+
+(node as any).hash = "9a7fd2742290ca3dcede7b4428d4d547";
+
 export default node;

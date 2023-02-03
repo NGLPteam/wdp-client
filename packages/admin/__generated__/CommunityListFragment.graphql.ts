@@ -1,33 +1,35 @@
+/**
+ * @generated SignedSource<<90d7519a4f6549ba7e658a000e19104b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CommunityListFragment = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly slug: string;
-            readonly id: string;
-            readonly createdAt: string;
-            readonly updatedAt: string;
-            readonly name: string;
-            readonly allowedActions: ReadonlyArray<string>;
-            readonly position: number | null;
-            readonly " $fragmentRefs": FragmentRefs<"CommunityNameColumnFragment">;
-        };
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "CommunityListFragment";
+export type CommunityListFragment$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly allowedActions: ReadonlyArray<string>;
+      readonly createdAt: String;
+      readonly id: string;
+      readonly name: string;
+      readonly position: number | null;
+      readonly slug: String;
+      readonly updatedAt: String;
+      readonly " $fragmentSpreads": FragmentRefs<"CommunityNameColumnFragment">;
+    };
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "CommunityListFragment";
 };
-export type CommunityListFragment$data = CommunityListFragment;
 export type CommunityListFragment$key = {
-    readonly " $data"?: CommunityListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityListFragment">;
+  readonly " $data"?: CommunityListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityListFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -120,5 +122,7 @@ const node: ReaderFragment = {
   "type": "CommunityConnection",
   "abstractKey": null
 };
-(node as any).hash = 'cc27900d4befec6d8dc73111206a4f2e';
+
+(node as any).hash = "cc27900d4befec6d8dc73111206a4f2e";
+
 export default node;

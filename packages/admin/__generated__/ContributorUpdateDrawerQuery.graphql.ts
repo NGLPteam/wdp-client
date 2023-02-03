@@ -1,133 +1,33 @@
+/**
+ * @generated SignedSource<<ee967f7e3f70db8aca4d7d7dc3741efe>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ContributorUpdateDrawerQueryVariables = {
-    contributorSlug: string;
+export type ContributorUpdateDrawerQuery$variables = {
+  contributorSlug: String;
 };
-export type ContributorUpdateDrawerQueryResponse = {
-    readonly contributor: {
-        readonly __typename: string;
-        readonly id?: string | undefined;
-        readonly slug?: string | undefined;
-        readonly legalName?: string | null | undefined;
-        readonly givenName?: string | null | undefined;
-        readonly familyName?: string | null | undefined;
-        readonly " $fragmentRefs": FragmentRefs<"ContributorUpdateFormFragment">;
-    } | null;
+export type ContributorUpdateDrawerQuery$data = {
+  readonly contributor: {
+    readonly __typename: string;
+    readonly familyName?: string | null;
+    readonly givenName?: string | null;
+    readonly id?: string;
+    readonly legalName?: string | null;
+    readonly slug?: String;
+    readonly " $fragmentSpreads": FragmentRefs<"ContributorUpdateFormFragment">;
+  } | null;
 };
 export type ContributorUpdateDrawerQuery = {
-    readonly response: ContributorUpdateDrawerQueryResponse;
-    readonly variables: ContributorUpdateDrawerQueryVariables;
+  response: ContributorUpdateDrawerQuery$data;
+  variables: ContributorUpdateDrawerQuery$variables;
 };
-
-
-
-/*
-query ContributorUpdateDrawerQuery(
-  $contributorSlug: Slug!
-) {
-  contributor(slug: $contributorSlug) {
-    __typename
-    ... on OrganizationContributor {
-      id
-      slug
-      legalName
-    }
-    ... on PersonContributor {
-      id
-      slug
-      givenName
-      familyName
-    }
-    ...ContributorUpdateFormFragment
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-  }
-}
-
-fragment ContributorUpdateFormFragment on AnyContributor {
-  __isAnyContributor: __typename
-  __typename
-  ... on PersonContributor {
-    ...ContributorUpdatePersonFormFragment
-  }
-  ... on OrganizationContributor {
-    ...ContributorUpdateOrganizationFormFragment
-  }
-}
-
-fragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {
-  __isAnyContributor: __typename
-  ... on OrganizationContributor {
-    legalName
-    email
-    location
-    bio
-    url
-    orcid
-    image {
-      ...FileUploadFragment
-    }
-    links {
-      title
-      url
-    }
-  }
-}
-
-fragment ContributorUpdateOrganizationFormFragment on AnyContributor {
-  __isAnyContributor: __typename
-  ... on OrganizationContributor {
-    contributorId: id
-    ...ContributorUpdateOrganizationFormFieldsFragment
-  }
-}
-
-fragment ContributorUpdatePersonFormFieldsFragment on AnyContributor {
-  __isAnyContributor: __typename
-  ... on PersonContributor {
-    givenName
-    familyName
-    title
-    email
-    affiliation
-    bio
-    orcid
-    image {
-      ...FileUploadFragment
-    }
-    links {
-      title
-      url
-    }
-  }
-}
-
-fragment ContributorUpdatePersonFormFragment on AnyContributor {
-  __isAnyContributor: __typename
-  ... on PersonContributor {
-    contributorId: id
-    ...ContributorUpdatePersonFormFieldsFragment
-  }
-}
-
-fragment FileUploadFragment on ImageAttachment {
-  originalFilename
-  storage
-  thumb {
-    png {
-      alt
-      url
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -492,5 +392,7 @@ return {
   }
 };
 })();
-(node as any).hash = '7cba5eaaead55d32060d7f03c0c02e0f';
+
+(node as any).hash = "7cba5eaaead55d32060d7f03c0c02e0f";
+
 export default node;

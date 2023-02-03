@@ -1,96 +1,70 @@
+/**
+ * @generated SignedSource<<1603f29b6f75a580e277375ffe46be1c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type Direction = "ASCENDING" | "DESCENDING" | "%future added value";
 export type NullOrderPriority = "FIRST" | "LAST" | "%future added value";
 export type OrderingDirectSelection = "CHILDREN" | "DESCENDANTS" | "NONE" | "%future added value";
 export type OrderingRenderMode = "FLAT" | "TREE" | "%future added value";
 export type CreateOrderingInput = {
-    entityId: string;
-    identifier: string;
-    name?: string | null | undefined;
-    header?: string | null | undefined;
-    footer?: string | null | undefined;
-    filter?: OrderingFilterDefinitionInput | null | undefined;
-    select?: OrderingSelectDefinitionInput | null | undefined;
-    order: Array<OrderDefinitionInput>;
-    render?: OrderingRenderDefinitionInput | null | undefined;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null;
+  entityId: string;
+  filter?: OrderingFilterDefinitionInput | null;
+  footer?: string | null;
+  header?: string | null;
+  identifier: string;
+  name?: string | null;
+  order: ReadonlyArray<OrderDefinitionInput>;
+  render?: OrderingRenderDefinitionInput | null;
+  select?: OrderingSelectDefinitionInput | null;
 };
 export type OrderingFilterDefinitionInput = {
-    schemas?: Array<OrderingSchemaFilterInput> | null | undefined;
+  schemas?: ReadonlyArray<OrderingSchemaFilterInput> | null;
 };
 export type OrderingSchemaFilterInput = {
-    namespace: string;
-    identifier: string;
-    version?: unknown | null | undefined;
+  identifier: string;
+  namespace: string;
+  version?: any | null;
 };
 export type OrderingSelectDefinitionInput = {
-    direct?: OrderingDirectSelection | null | undefined;
-    links?: OrderingSelectLinkDefinitionInput | null | undefined;
+  direct?: OrderingDirectSelection | null;
+  links?: OrderingSelectLinkDefinitionInput | null;
 };
 export type OrderingSelectLinkDefinitionInput = {
-    contains?: boolean | null | undefined;
-    references?: boolean | null | undefined;
+  contains?: boolean | null;
+  references?: boolean | null;
 };
 export type OrderDefinitionInput = {
-    path: string;
-    direction?: Direction | null | undefined;
-    nulls?: NullOrderPriority | null | undefined;
+  direction?: Direction | null;
+  nulls?: NullOrderPriority | null;
+  path: string;
 };
 export type OrderingRenderDefinitionInput = {
-    mode?: OrderingRenderMode | null | undefined;
+  mode?: OrderingRenderMode | null;
 };
-export type EntityOrderingAddFormMutationVariables = {
-    input: CreateOrderingInput;
+export type EntityOrderingAddFormMutation$variables = {
+  input: CreateOrderingInput;
 };
-export type EntityOrderingAddFormMutationResponse = {
-    readonly createOrdering: {
-        readonly ordering: {
-            readonly name: string | null;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
+export type EntityOrderingAddFormMutation$data = {
+  readonly createOrdering: {
+    readonly ordering: {
+      readonly name: string | null;
     } | null;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null;
 };
 export type EntityOrderingAddFormMutation = {
-    readonly response: EntityOrderingAddFormMutationResponse;
-    readonly variables: EntityOrderingAddFormMutationVariables;
+  response: EntityOrderingAddFormMutation$data;
+  variables: EntityOrderingAddFormMutation$variables;
 };
-
-
-
-/*
-mutation EntityOrderingAddFormMutation(
-  $input: CreateOrderingInput!
-) {
-  createOrdering(input: $input) {
-    ordering {
-      name
-      id
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -214,7 +188,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v4/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -272,5 +248,7 @@ return {
   }
 };
 })();
-(node as any).hash = '1e20006cf40fa58f5ba66b0eb3b3ee43';
+
+(node as any).hash = "1e20006cf40fa58f5ba66b0eb3b3ee43";
+
 export default node;

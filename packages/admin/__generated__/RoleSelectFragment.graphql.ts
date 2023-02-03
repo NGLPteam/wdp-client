@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<8fafd4124b577ff5411c5f4a6d346f2f>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RoleSelectFragment = {
-    readonly assignableRoles: ReadonlyArray<{
-        readonly id: string;
-        readonly name: string;
-    }>;
-    readonly " $refType": "RoleSelectFragment";
+export type RoleSelectFragment$data = {
+  readonly assignableRoles: ReadonlyArray<{
+    readonly id: string;
+    readonly name: string;
+  }>;
+  readonly " $fragmentType": "RoleSelectFragment";
 };
-export type RoleSelectFragment$data = RoleSelectFragment;
 export type RoleSelectFragment$key = {
-    readonly " $data"?: RoleSelectFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"RoleSelectFragment">;
+  readonly " $data"?: RoleSelectFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"RoleSelectFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -55,5 +57,7 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = 'ce0c0a1a65ad99592f6af80d58334031';
+
+(node as any).hash = "ce0c0a1a65ad99592f6af80d58334031";
+
 export default node;

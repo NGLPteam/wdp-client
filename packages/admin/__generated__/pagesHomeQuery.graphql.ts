@@ -1,149 +1,27 @@
+/**
+ * @generated SignedSource<<7458b79d179557ae2499699948bc8091>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type EntityOrder = "OLDEST" | "POSITION_ASCENDING" | "POSITION_DESCENDING" | "PUBLISHED_ASCENDING" | "PUBLISHED_DESCENDING" | "RECENT" | "SCHEMA_NAME_ASCENDING" | "SCHEMA_NAME_DESCENDING" | "TITLE_ASCENDING" | "TITLE_DESCENDING" | "%future added value";
-export type pagesHomeQueryVariables = {
-    page?: number | null | undefined;
-    order?: EntityOrder | null | undefined;
+export type pagesHomeQuery$variables = {
+  order?: EntityOrder | null;
+  page?: number | null;
 };
-export type pagesHomeQueryResponse = {
-    readonly " $fragmentRefs": FragmentRefs<"DashboardLayoutFragment">;
+export type pagesHomeQuery$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"DashboardLayoutFragment">;
 };
 export type pagesHomeQuery = {
-    readonly response: pagesHomeQueryResponse;
-    readonly variables: pagesHomeQueryVariables;
+  response: pagesHomeQuery$data;
+  variables: pagesHomeQuery$variables;
 };
-
-
-
-/*
-query pagesHomeQuery(
-  $page: Int
-  $order: EntityOrder
-) {
-  ...DashboardLayoutFragment_1KnpCu
-}
-
-fragment CoverImageFragment on ImageAttachment {
-  storage
-  medium {
-    webp {
-      ...ImageFragment
-    }
-  }
-}
-
-fragment DashboardCollectionsFragment_1KnpCu on Query {
-  viewer {
-    collections(page: $page, order: $order, perPage: 10) {
-      ...DashboardCollectionsListFragment
-    }
-    id
-  }
-}
-
-fragment DashboardCollectionsListFragment on CollectionConnection {
-  nodes {
-    id
-    title
-    slug
-    schemaVersion {
-      name
-      number
-      id
-    }
-    ...EntityThumbnailColumnFragment
-  }
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment DashboardInstallationFragment on Query {
-  communities {
-    pageInfo {
-      totalCount
-    }
-  }
-  contributors {
-    pageInfo {
-      totalCount
-    }
-  }
-  users {
-    pageInfo {
-      totalCount
-    }
-  }
-  viewer {
-    allCollections: collections(nodeFilter: ROOTS_AND_LEAVES) {
-      pageInfo {
-        totalCount
-      }
-    }
-    allItems: items(nodeFilter: ROOTS_AND_LEAVES) {
-      pageInfo {
-        totalCount
-      }
-    }
-    id
-  }
-}
-
-fragment DashboardLayoutFragment_1KnpCu on Query {
-  ...DashboardInstallationFragment
-  ...DashboardCollectionsFragment_1KnpCu
-}
-
-fragment EntityThumbnailColumnFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  thumbnail {
-    storage
-    ...CoverImageFragment
-  }
-  ... on Node {
-    __isNode: __typename
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -528,5 +406,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'c5e718265464cac72f11799f02caea5f';
+
+(node as any).hash = "c5e718265464cac72f11799f02caea5f";
+
 export default node;

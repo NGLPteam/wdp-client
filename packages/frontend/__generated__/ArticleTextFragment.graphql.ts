@@ -1,36 +1,38 @@
+/**
+ * @generated SignedSource<<dd50a0417b9d8d89932812cd41199822>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type ArticleTextFragment = {
-    readonly thumbnail: {
-        readonly storage: AttachmentStorage | null;
-        readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
-    };
-    readonly bodyText: {
-        readonly fullText?: {
-            readonly content: string | null;
-        } | null | undefined;
-        readonly " $fragmentRefs": FragmentRefs<"FullTextFragment">;
+import { FragmentRefs } from "relay-runtime";
+export type ArticleTextFragment$data = {
+  readonly bodyText: {
+    readonly fullText?: {
+      readonly content: string | null;
     } | null;
-    readonly pdf: {
-        readonly asset?: {
-            readonly " $fragmentRefs": FragmentRefs<"AssetInlinePDFFragment">;
-        } | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"FullTextFragment">;
+  } | null;
+  readonly pdf: {
+    readonly asset?: {
+      readonly " $fragmentSpreads": FragmentRefs<"AssetInlinePDFFragment">;
     } | null;
-    readonly " $refType": "ArticleTextFragment";
+  } | null;
+  readonly thumbnail: {
+    readonly storage: AttachmentStorage | null;
+    readonly " $fragmentSpreads": FragmentRefs<"ContentImageFragment">;
+  };
+  readonly " $fragmentType": "ArticleTextFragment";
 };
-export type ArticleTextFragment$data = ArticleTextFragment;
 export type ArticleTextFragment$key = {
-    readonly " $data"?: ArticleTextFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleTextFragment">;
+  readonly " $data"?: ArticleTextFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleTextFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -152,5 +154,7 @@ const node: ReaderFragment = {
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = 'c76d83f0fc7bb18d9ae77bc1a1afcc55';
+
+(node as any).hash = "c76d83f0fc7bb18d9ae77bc1a1afcc55";
+
 export default node;

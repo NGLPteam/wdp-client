@@ -39,7 +39,7 @@ export default function SetIntitialOrderingModal({ data, dialog }: Props) {
 
   const options = useMemo(
     () =>
-      entity?.orderings?.edges
+      entity?.initOrderings?.edges
         .filter(({ node }) => !isEmpty(node))
         .map(({ node }) => ({
           label: node.name || "",
@@ -49,7 +49,7 @@ export default function SetIntitialOrderingModal({ data, dialog }: Props) {
   );
 
   const defaultValues = useMemo(() => {
-    const initialOrdering = entity?.orderings?.edges.find(
+    const initialOrdering = entity?.initOrderings?.edges.find(
       ({ node }) => node?.initial
     );
     return { orderingId: initialOrdering?.node.id };
@@ -79,7 +79,7 @@ export default function SetIntitialOrderingModal({ data, dialog }: Props) {
       <Styled.ModalContent>
         <MutationForm<SetIntitialOrderingModalMutation, Fields>
           mutation={mutation}
-          refetchTags={["orderings"]}
+          refetchTags={["orderings", "initOrderings"]}
           name="selectInitialOrdering"
           toVariables={toVariables}
           defaultValues={defaultValues}
@@ -102,7 +102,7 @@ const fragment = graphql`
     ... on Item {
       id
       title
-      orderings {
+      initOrderings: orderings {
         edges {
           node {
             id
@@ -115,7 +115,7 @@ const fragment = graphql`
     ... on Collection {
       id
       title
-      orderings {
+      initOrderings: orderings {
         edges {
           node {
             id

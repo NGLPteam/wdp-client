@@ -1,31 +1,33 @@
+/**
+ * @generated SignedSource<<ad641f1b17ac84746d6a7055e73ca858>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SetIntitialOrderingModalFragment = {
-    readonly id?: string | undefined;
-    readonly title?: string | undefined;
-    readonly orderings?: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly id: string;
-                readonly name: string | null;
-                readonly initial: boolean;
-            };
-        }>;
-    } | undefined;
-    readonly " $refType": "SetIntitialOrderingModalFragment";
+export type SetIntitialOrderingModalFragment$data = {
+  readonly id?: string;
+  readonly initOrderings?: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly id: string;
+        readonly initial: boolean;
+        readonly name: string | null;
+      };
+    }>;
+  };
+  readonly title?: string;
+  readonly " $fragmentType": "SetIntitialOrderingModalFragment";
 };
-export type SetIntitialOrderingModalFragment$data = SetIntitialOrderingModalFragment;
 export type SetIntitialOrderingModalFragment$key = {
-    readonly " $data"?: SetIntitialOrderingModalFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SetIntitialOrderingModalFragment">;
+  readonly " $data"?: SetIntitialOrderingModalFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SetIntitialOrderingModalFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -45,7 +47,7 @@ v1 = [
     "storageKey": null
   },
   {
-    "alias": null,
+    "alias": "initOrderings",
     "args": null,
     "concreteType": "OrderingConnection",
     "kind": "LinkedField",
@@ -116,5 +118,7 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = '9b979479a2d458edf7bb1f782b2a1d24';
+
+(node as any).hash = "6395532569460851ace01c83b6a85fbf";
+
 export default node;

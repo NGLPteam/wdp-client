@@ -1,38 +1,40 @@
+/**
+ * @generated SignedSource<<10bcbeb865b15f30373bff50da7de583>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
-export type VolumeHeroFragment = {
-    readonly id: string;
-    readonly title: string;
-    readonly subtitle: string | null;
-    readonly summary: string | null;
-    readonly visibility: EntityVisibility;
-    readonly currentlyHidden: boolean;
-    readonly published: {
-        readonly value: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
-    };
-    readonly thumbnail: {
-        readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
-    };
-    readonly journal: {
-        readonly " $fragmentRefs": FragmentRefs<"JournalHeroCompactFragment" | "JournalHeroMetadataFragment">;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"DOIFragment">;
-    readonly " $refType": "VolumeHeroFragment";
+import { FragmentRefs } from "relay-runtime";
+export type VolumeHeroFragment$data = {
+  readonly currentlyHidden: boolean;
+  readonly id: string;
+  readonly journal: {
+    readonly " $fragmentSpreads": FragmentRefs<"JournalHeroCompactFragment" | "JournalHeroMetadataFragment">;
+  } | null;
+  readonly published: {
+    readonly value: String | null;
+    readonly " $fragmentSpreads": FragmentRefs<"PrecisionDateFragment">;
+  };
+  readonly subtitle: string | null;
+  readonly summary: string | null;
+  readonly thumbnail: {
+    readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
+  };
+  readonly title: string;
+  readonly visibility: EntityVisibility;
+  readonly " $fragmentSpreads": FragmentRefs<"DOIFragment">;
+  readonly " $fragmentType": "VolumeHeroFragment";
 };
-export type VolumeHeroFragment$data = VolumeHeroFragment;
 export type VolumeHeroFragment$key = {
-    readonly " $data"?: VolumeHeroFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"VolumeHeroFragment">;
+  readonly " $data"?: VolumeHeroFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"VolumeHeroFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -67,6 +69,11 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "summary",
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "DOIFragment"
     },
     {
       "alias": null,
@@ -147,15 +154,12 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": "ancestorOfType(schema:\"nglp:journal\")"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "DOIFragment"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '032fe397fb1bb12a01bb9c9dfd8827f3';
+
+(node as any).hash = "032fe397fb1bb12a01bb9c9dfd8827f3";
+
 export default node;

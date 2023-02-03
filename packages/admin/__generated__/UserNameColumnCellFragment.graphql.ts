@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<cfe37e0caf0c393a254d234a1fc7842c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type UserNameColumnCellFragment = {
-    readonly name: string | null;
-    readonly slug: string;
-    readonly " $fragmentRefs": FragmentRefs<"UserAvatarFragment">;
-    readonly " $refType": "UserNameColumnCellFragment";
+export type UserNameColumnCellFragment$data = {
+  readonly name: string | null;
+  readonly slug: String;
+  readonly " $fragmentSpreads": FragmentRefs<"UserAvatarFragment">;
+  readonly " $fragmentType": "UserNameColumnCellFragment";
 };
-export type UserNameColumnCellFragment$data = UserNameColumnCellFragment;
 export type UserNameColumnCellFragment$key = {
-    readonly " $data"?: UserNameColumnCellFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"UserNameColumnCellFragment">;
+  readonly " $data"?: UserNameColumnCellFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"UserNameColumnCellFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -48,5 +50,7 @@ const node: ReaderFragment = {
   "type": "User",
   "abstractKey": null
 };
-(node as any).hash = '72cd7641d658c0f8b1f058abccee3d31';
+
+(node as any).hash = "72cd7641d658c0f8b1f058abccee3d31";
+
 export default node;

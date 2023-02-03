@@ -1,49 +1,51 @@
+/**
+ * @generated SignedSource<<a0992e7ac10b1989187fb63d9e6f61b8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type EntityHTMLHeadFragment = {
-    readonly title?: string | undefined;
-    readonly summary?: string | null | undefined;
-    readonly thumbnail?: {
-        readonly storage: AttachmentStorage | null;
-        readonly medium: {
-            readonly webp: {
-                readonly url: string | null;
-                readonly width: number | null;
-                readonly height: number | null;
-            };
-        };
-    } | undefined;
-    readonly thumbnailMetadata?: {
-        readonly alt: string | null;
-    } | null | undefined;
-    readonly heroImage?: {
-        readonly storage: AttachmentStorage | null;
-        readonly medium: {
-            readonly webp: {
-                readonly url: string | null;
-                readonly width: number | null;
-                readonly height: number | null;
-            };
-        };
-    } | undefined;
-    readonly heroImageMetadata?: {
-        readonly alt: string | null;
-    } | null | undefined;
-    readonly " $refType": "EntityHTMLHeadFragment";
+import { FragmentRefs } from "relay-runtime";
+export type EntityHTMLHeadFragment$data = {
+  readonly heroImage?: {
+    readonly medium: {
+      readonly webp: {
+        readonly height: number | null;
+        readonly url: string | null;
+        readonly width: number | null;
+      };
+    };
+    readonly storage: AttachmentStorage | null;
+  };
+  readonly heroImageMetadata?: {
+    readonly alt: string | null;
+  } | null;
+  readonly summary?: string | null;
+  readonly thumbnail?: {
+    readonly medium: {
+      readonly webp: {
+        readonly height: number | null;
+        readonly url: string | null;
+        readonly width: number | null;
+      };
+    };
+    readonly storage: AttachmentStorage | null;
+  };
+  readonly thumbnailMetadata?: {
+    readonly alt: string | null;
+  } | null;
+  readonly title?: string;
+  readonly " $fragmentType": "EntityHTMLHeadFragment";
 };
-export type EntityHTMLHeadFragment$data = EntityHTMLHeadFragment;
 export type EntityHTMLHeadFragment$key = {
-    readonly " $data"?: EntityHTMLHeadFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityHTMLHeadFragment">;
+  readonly " $data"?: EntityHTMLHeadFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityHTMLHeadFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -179,5 +181,7 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'c7a8a96c7e9976fda6c27c154240823b';
+
+(node as any).hash = "c7a8a96c7e9976fda6c27c154240823b";
+
 export default node;

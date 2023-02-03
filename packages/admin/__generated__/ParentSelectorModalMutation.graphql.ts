@@ -1,54 +1,32 @@
+/**
+ * @generated SignedSource<<e8b8abd19b3aec5388108c156d6b3b72>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ReparentEntityInput = {
-    childId: string;
-    parentId: string;
-    clientMutationId?: string | null | undefined;
+  childId: string;
+  clientMutationId?: string | null;
+  parentId: string;
 };
-export type ParentSelectorModalMutationVariables = {
-    input: ReparentEntityInput;
+export type ParentSelectorModalMutation$variables = {
+  input: ReparentEntityInput;
 };
-export type ParentSelectorModalMutationResponse = {
-    readonly reparentEntity: {
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
-    } | null;
+export type ParentSelectorModalMutation$data = {
+  readonly reparentEntity: {
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null;
 };
 export type ParentSelectorModalMutation = {
-    readonly response: ParentSelectorModalMutationResponse;
-    readonly variables: ParentSelectorModalMutationVariables;
+  response: ParentSelectorModalMutation$data;
+  variables: ParentSelectorModalMutation$variables;
 };
-
-
-
-/*
-mutation ParentSelectorModalMutation(
-  $input: ReparentEntityInput!
-) {
-  reparentEntity(input: $input) {
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -153,7 +131,9 @@ return {
           {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
-            "selections": (v3/*: any*/)
+            "selections": (v3/*: any*/),
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -190,5 +170,7 @@ return {
   }
 };
 })();
-(node as any).hash = '259008e66635366cf3f07bb80a846271';
+
+(node as any).hash = "259008e66635366cf3f07bb80a846271";
+
 export default node;

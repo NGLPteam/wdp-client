@@ -1,21 +1,23 @@
+/**
+ * @generated SignedSource<<3688e64eeb0070885bdc22682905d494>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SeriesLayoutFragment = {
-    readonly " $fragmentRefs": FragmentRefs<"BreadcrumbsBarFragment" | "SeriesHeroFragment" | "EntityNavBarFragment">;
-    readonly " $refType": "SeriesLayoutFragment";
+export type SeriesLayoutFragment$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbsBarFragment" | "EntityNavBarFragment" | "SeriesHeroFragment">;
+  readonly " $fragmentType": "SeriesLayoutFragment";
 };
-export type SeriesLayoutFragment$data = SeriesLayoutFragment;
 export type SeriesLayoutFragment$key = {
-    readonly " $data"?: SeriesLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SeriesLayoutFragment">;
+  readonly " $data"?: SeriesLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SeriesLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -42,5 +44,7 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '813ebc1958f3a40b77dfa5883ddc6668';
+
+(node as any).hash = "813ebc1958f3a40b77dfa5883ddc6668";
+
 export default node;

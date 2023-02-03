@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<2152868c4e8959754af0d901a0a49320>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type HowToCiteFragment = {
-    readonly citation: {
-        readonly content?: string | null | undefined;
-    } | null;
-    readonly " $refType": "HowToCiteFragment";
+export type HowToCiteFragment$data = {
+  readonly citation: {
+    readonly content?: string | null;
+  } | null;
+  readonly " $fragmentType": "HowToCiteFragment";
 };
-export type HowToCiteFragment$data = HowToCiteFragment;
 export type HowToCiteFragment$key = {
-    readonly " $data"?: HowToCiteFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"HowToCiteFragment">;
+  readonly " $data"?: HowToCiteFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"HowToCiteFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -60,5 +62,7 @@ const node: ReaderFragment = {
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = '6f1450703c4d1ab26f49383366d5434c';
+
+(node as any).hash = "6f1450703c4d1ab26f49383366d5434c";
+
 export default node;

@@ -1,31 +1,33 @@
+/**
+ * @generated SignedSource<<05e629bd1dbd128048d08aaf461faad1>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityDescendantsLayoutFragment = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly descendant: {
-                readonly slug?: string | undefined;
-                readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFactoryFragment">;
-            };
-        };
-    }>;
-    readonly pageInfo: {
-        readonly " $fragmentRefs": FragmentRefs<"BrowseListLayoutFragment">;
+export type EntityDescendantsLayoutFragment$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly descendant: {
+        readonly slug?: String;
+        readonly " $fragmentSpreads": FragmentRefs<"EntitySummaryFactoryFragment">;
+      };
     };
-    readonly " $refType": "EntityDescendantsLayoutFragment";
+  }>;
+  readonly pageInfo: {
+    readonly " $fragmentSpreads": FragmentRefs<"BrowseListLayoutFragment">;
+  };
+  readonly " $fragmentType": "EntityDescendantsLayoutFragment";
 };
-export type EntityDescendantsLayoutFragment$data = EntityDescendantsLayoutFragment;
 export type EntityDescendantsLayoutFragment$key = {
-    readonly " $data"?: EntityDescendantsLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityDescendantsLayoutFragment">;
+  readonly " $data"?: EntityDescendantsLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityDescendantsLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -118,5 +120,7 @@ const node: ReaderFragment = {
   "type": "EntityDescendantConnection",
   "abstractKey": null
 };
-(node as any).hash = '9e20e8bcb1bff1792122878645d537fa';
+
+(node as any).hash = "9e20e8bcb1bff1792122878645d537fa";
+
 export default node;

@@ -1,39 +1,41 @@
+/**
+ * @generated SignedSource<<a9432a0868f74b126b7b7659b0a4cdf0>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type UserCommunitiesListFragment = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly id: string;
-            readonly community: {
-                readonly id: string;
-                readonly title: string;
-                readonly slug: string;
-            };
-            readonly role: {
-                readonly id: string;
-                readonly name: string;
-            };
-            readonly user: {
-                readonly id: string;
-                readonly slug: string;
-            };
-        };
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "UserCommunitiesListFragment";
+export type UserCommunitiesListFragment$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly community: {
+        readonly id: string;
+        readonly slug: String;
+        readonly title: string;
+      };
+      readonly id: string;
+      readonly role: {
+        readonly id: string;
+        readonly name: string;
+      };
+      readonly user: {
+        readonly id: string;
+        readonly slug: String;
+      };
+    };
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "UserCommunitiesListFragment";
 };
-export type UserCommunitiesListFragment$data = UserCommunitiesListFragment;
 export type UserCommunitiesListFragment$key = {
-    readonly " $data"?: UserCommunitiesListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"UserCommunitiesListFragment">;
+  readonly " $data"?: UserCommunitiesListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"UserCommunitiesListFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -141,5 +143,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '4e2314d5412cceedd4ba9d2e3cd11b71';
+
+(node as any).hash = "4e2314d5412cceedd4ba9d2e3cd11b71";
+
 export default node;

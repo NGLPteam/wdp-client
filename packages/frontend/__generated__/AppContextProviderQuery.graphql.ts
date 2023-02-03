@@ -1,130 +1,29 @@
+/**
+ * @generated SignedSource<<790e4e17fb1f932fbf240811de27ef11>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AppContextProviderQueryVariables = {};
-export type AppContextProviderQueryResponse = {
-    readonly globalConfiguration: {
-        readonly theme: {
-            readonly color: string;
-            readonly font: string;
-        };
+export type AppContextProviderQuery$variables = {};
+export type AppContextProviderQuery$data = {
+  readonly globalConfiguration: {
+    readonly theme: {
+      readonly color: string;
+      readonly font: string;
     };
-    readonly " $fragmentRefs": FragmentRefs<"GlobalContextFragment">;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"GlobalContextFragment">;
 };
 export type AppContextProviderQuery = {
-    readonly response: AppContextProviderQueryResponse;
-    readonly variables: AppContextProviderQueryVariables;
+  response: AppContextProviderQuery$data;
+  variables: AppContextProviderQuery$variables;
 };
-
-
-
-/*
-query AppContextProviderQuery {
-  ...GlobalContextFragment
-  globalConfiguration {
-    theme {
-      color
-      font
-    }
-    id
-  }
-}
-
-fragment AppFooterFragment on Query {
-  communities {
-    pageInfo {
-      totalCount
-    }
-  }
-  globalConfiguration {
-    site {
-      installationName
-      footer {
-        copyrightStatement
-        description
-      }
-    }
-    id
-  }
-}
-
-fragment AppHeaderFragment on Query {
-  communities {
-    pageInfo {
-      totalCount
-    }
-  }
-  globalConfiguration {
-    site {
-      logoMode
-    }
-    id
-  }
-}
-
-fragment BreadcrumbsBarGlobalFragment on GlobalConfiguration {
-  site {
-    installationName
-  }
-}
-
-fragment CommunityPickerFragment on Query {
-  pickerCommunities: communities(order: POSITION_ASCENDING) {
-    edges {
-      node {
-        slug
-        title
-        id
-      }
-    }
-  }
-}
-
-fragment GlobalContextFragment on Query {
-  globalConfiguration {
-    ...InstallationNameFragment
-    ...BreadcrumbsBarGlobalFragment
-    id
-  }
-  ...CommunityPickerFragment
-  ...AppHeaderFragment
-  ...AppFooterFragment
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment InstallationNameFragment on GlobalConfiguration {
-  site {
-    installationName
-    logoMode
-  }
-  logo {
-    storage
-    original {
-      originalFilename
-      ...ImageFragment
-    }
-    sansText {
-      size
-      webp {
-        width
-        height
-        ...ImageFragment
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -195,6 +94,11 @@ return {
     "name": "AppContextProviderQuery",
     "selections": [
       {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "GlobalContextFragment"
+      },
+      {
         "alias": null,
         "args": null,
         "concreteType": "GlobalConfiguration",
@@ -205,11 +109,6 @@ return {
           (v0/*: any*/)
         ],
         "storageKey": null
-      },
-      {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "GlobalContextFragment"
       }
     ],
     "type": "Query",
@@ -466,5 +365,7 @@ return {
   }
 };
 })();
-(node as any).hash = '075f147f1bf97fbb197848635dd30287';
+
+(node as any).hash = "075f147f1bf97fbb197848635dd30287";
+
 export default node;

@@ -1,109 +1,32 @@
+/**
+ * @generated SignedSource<<daac16de7f156913244800fc8368414b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CollectionContributionEditDrawerQueryVariables = {
-    collectionContributionSlug: string;
+export type CollectionContributionEditDrawerQuery$variables = {
+  collectionContributionSlug: String;
 };
-export type CollectionContributionEditDrawerQueryResponse = {
-    readonly collectionContribution: {
-        readonly id: string;
-        readonly role: string | null;
-        readonly collection: {
-            readonly title: string;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"ContributionUpdateFormFragment">;
-    } | null;
+export type CollectionContributionEditDrawerQuery$data = {
+  readonly collectionContribution: {
+    readonly collection: {
+      readonly title: string;
+    };
+    readonly id: string;
+    readonly role: string | null;
+    readonly " $fragmentSpreads": FragmentRefs<"ContributionUpdateFormFragment">;
+  } | null;
 };
 export type CollectionContributionEditDrawerQuery = {
-    readonly response: CollectionContributionEditDrawerQueryResponse;
-    readonly variables: CollectionContributionEditDrawerQueryVariables;
+  response: CollectionContributionEditDrawerQuery$data;
+  variables: CollectionContributionEditDrawerQuery$variables;
 };
-
-
-
-/*
-query CollectionContributionEditDrawerQuery(
-  $collectionContributionSlug: Slug!
-) {
-  collectionContribution(slug: $collectionContributionSlug) {
-    ...ContributionUpdateFormFragment
-    id
-    role
-    collection {
-      title
-      id
-    }
-  }
-}
-
-fragment ContributionUpdateFormFieldsFragment on AnyContribution {
-  __isAnyContribution: __typename
-  ... on CollectionContribution {
-    role
-  }
-  ... on ItemContribution {
-    role
-  }
-}
-
-fragment ContributionUpdateFormFragment on AnyContribution {
-  __isAnyContribution: __typename
-  __typename
-  ... on CollectionContribution {
-    contributionId: id
-    contributor {
-      __typename
-      ... on OrganizationContributor {
-        slug
-        legalName
-      }
-      ... on PersonContributor {
-        slug
-        givenName
-        familyName
-      }
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-    collection {
-      title
-      id
-    }
-    ...ContributionUpdateFormFieldsFragment
-  }
-  ... on ItemContribution {
-    contributionId: id
-    contributor {
-      __typename
-      ... on OrganizationContributor {
-        slug
-        legalName
-      }
-      ... on PersonContributor {
-        slug
-        givenName
-        familyName
-      }
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-    item {
-      title
-      id
-    }
-    title
-    ...ContributionUpdateFormFieldsFragment
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -238,6 +161,11 @@ return {
         "name": "collectionContribution",
         "plural": false,
         "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "ContributionUpdateFormFragment"
+          },
           (v2/*: any*/),
           (v3/*: any*/),
           {
@@ -251,11 +179,6 @@ return {
               (v4/*: any*/)
             ],
             "storageKey": null
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "ContributionUpdateFormFragment"
           }
         ],
         "storageKey": null
@@ -342,5 +265,7 @@ return {
   }
 };
 })();
-(node as any).hash = '70cbcb659da322719a0814a7db237020';
+
+(node as any).hash = "70cbcb659da322719a0814a7db237020";
+
 export default node;

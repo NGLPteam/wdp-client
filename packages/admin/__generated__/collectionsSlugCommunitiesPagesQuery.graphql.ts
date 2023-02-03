@@ -1,380 +1,92 @@
+/**
+ * @generated SignedSource<<e965eb8f528a36ee6446835e7f65b5d0>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type EntityOrder = "OLDEST" | "POSITION_ASCENDING" | "POSITION_DESCENDING" | "PUBLISHED_ASCENDING" | "PUBLISHED_DESCENDING" | "RECENT" | "SCHEMA_NAME_ASCENDING" | "SCHEMA_NAME_DESCENDING" | "TITLE_ASCENDING" | "TITLE_DESCENDING" | "%future added value";
 export type SearchPredicateInput = {
-    and?: AndOperatorInput | null | undefined;
-    or?: OrOperatorInput | null | undefined;
-    dateEquals?: DateEqualsOperatorInput | null | undefined;
-    dateGTE?: DateGTEOperatorInput | null | undefined;
-    dateLTE?: DateLTEOperatorInput | null | undefined;
-    equals?: EqualsOperatorInput | null | undefined;
-    matches?: MatchesOperatorInput | null | undefined;
-    inAny?: InAnyOperatorInput | null | undefined;
-    numericGTE?: NumericGTEOperatorInput | null | undefined;
-    numericLTE?: NumericLTEOperatorInput | null | undefined;
+  and?: AndOperatorInput | null;
+  dateEquals?: DateEqualsOperatorInput | null;
+  dateGTE?: DateGTEOperatorInput | null;
+  dateLTE?: DateLTEOperatorInput | null;
+  equals?: EqualsOperatorInput | null;
+  inAny?: InAnyOperatorInput | null;
+  matches?: MatchesOperatorInput | null;
+  numericGTE?: NumericGTEOperatorInput | null;
+  numericLTE?: NumericLTEOperatorInput | null;
+  or?: OrOperatorInput | null;
 };
 export type AndOperatorInput = {
-    left: SearchPredicateInput;
-    right: SearchPredicateInput;
+  left: SearchPredicateInput;
+  right: SearchPredicateInput;
 };
 export type OrOperatorInput = {
-    left: SearchPredicateInput;
-    right: SearchPredicateInput;
+  left: SearchPredicateInput;
+  right: SearchPredicateInput;
 };
 export type DateEqualsOperatorInput = {
-    path: string;
-    value: string;
+  path: string;
+  value: String;
 };
 export type DateGTEOperatorInput = {
-    path: string;
-    value: string;
+  path: string;
+  value: String;
 };
 export type DateLTEOperatorInput = {
-    path: string;
-    value: string;
+  path: string;
+  value: String;
 };
 export type EqualsOperatorInput = {
-    path: string;
-    value: unknown;
+  path: string;
+  value: any;
 };
 export type MatchesOperatorInput = {
-    path: string;
-    value: string;
+  path: string;
+  value: string;
 };
 export type InAnyOperatorInput = {
-    path: string;
-    value: Array<string>;
+  path: string;
+  value: ReadonlyArray<string>;
 };
 export type NumericGTEOperatorInput = {
-    path: string;
-    value: number;
+  path: string;
+  value: number;
 };
 export type NumericLTEOperatorInput = {
-    path: string;
-    value: number;
+  path: string;
+  value: number;
 };
-export type collectionsSlugCommunitiesPagesQueryVariables = {
-    order?: EntityOrder | null | undefined;
-    page: number;
-    communitySlug: string;
-    predicates?: Array<SearchPredicateInput> | null | undefined;
-    query?: string | null | undefined;
-    hasQuery: boolean;
-    schema?: Array<string> | null | undefined;
+export type collectionsSlugCommunitiesPagesQuery$variables = {
+  communitySlug: String;
+  hasQuery: boolean;
+  order?: EntityOrder | null;
+  page: number;
+  predicates?: ReadonlyArray<SearchPredicateInput> | null;
+  query?: string | null;
+  schema?: ReadonlyArray<string> | null;
 };
-export type collectionsSlugCommunitiesPagesQueryResponse = {
-    readonly community: {
-        readonly collections: {
-            readonly " $fragmentRefs": FragmentRefs<"CollectionListFragment">;
-        };
-        readonly search: {
-            readonly " $fragmentRefs": FragmentRefs<"CollectionListSearchFragment">;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutQueryFragment">;
-    } | null;
+export type collectionsSlugCommunitiesPagesQuery$data = {
+  readonly community: {
+    readonly collections: {
+      readonly " $fragmentSpreads": FragmentRefs<"CollectionListFragment">;
+    };
+    readonly search: {
+      readonly " $fragmentSpreads": FragmentRefs<"CollectionListSearchFragment">;
+    };
+    readonly " $fragmentSpreads": FragmentRefs<"CommunityLayoutQueryFragment">;
+  } | null;
 };
 export type collectionsSlugCommunitiesPagesQuery = {
-    readonly response: collectionsSlugCommunitiesPagesQueryResponse;
-    readonly variables: collectionsSlugCommunitiesPagesQueryVariables;
+  response: collectionsSlugCommunitiesPagesQuery$data;
+  variables: collectionsSlugCommunitiesPagesQuery$variables;
 };
-
-
-
-/*
-query collectionsSlugCommunitiesPagesQuery(
-  $order: EntityOrder
-  $page: Int!
-  $communitySlug: Slug!
-  $predicates: [SearchPredicateInput!]
-  $query: String
-  $hasQuery: Boolean!
-  $schema: [String!]
-) {
-  community(slug: $communitySlug) {
-    ...CommunityLayoutQueryFragment
-    collections(order: $order, page: $page, perPage: 20) {
-      ...CollectionListFragment
-    }
-    search(visibility: ALL, maxDepth: 1) {
-      ...CollectionListSearchFragment_1V70IR
-    }
-    id
-  }
-}
-
-fragment AuthContextFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-
-fragment CollectionListFragment on CollectionConnection {
-  nodes {
-    id
-    createdAt
-    title
-    slug
-    schemaVersion {
-      name
-      number
-      id
-    }
-    allowedActions
-    ...EntityThumbnailColumnFragment
-    ...PublishedDateColumnFragment
-  }
-  ...ModelListPageFragment
-}
-
-fragment CollectionListSearchFragment_1V70IR on SearchScope {
-  results(query: $query, page: $page, perPage: 20, predicates: $predicates, order: $order, scope: COLLECTION, schema: $schema) @include(if: $hasQuery) {
-    nodes {
-      slug
-      entity {
-        __typename
-        ... on Sluggable {
-          __isSluggable: __typename
-          slug
-        }
-        ... on Node {
-          __isNode: __typename
-          id
-        }
-        ... on Entity {
-          __isEntity: __typename
-          title
-          schemaVersion {
-            name
-            number
-            id
-          }
-          allowedActions
-          ...PublishedDateColumnFragment
-          ...EntityThumbnailColumnFragment
-        }
-        ... on Collection {
-          createdAt
-        }
-        ... on Item {
-          createdAt
-        }
-      }
-      id
-    }
-    ...ModelListPageFragment
-  }
-  ...ModelListPageSearchFragment
-}
-
-fragment CommunityLayoutFragment on Community {
-  id
-  name
-  slug
-  allowedActions
-  ...useChildRouteLinksFragment
-}
-
-fragment CommunityLayoutQueryFragment on Community {
-  ...CommunityLayoutFragment
-  ...AuthContextFragment
-}
-
-fragment CoverImageFragment on ImageAttachment {
-  storage
-  medium {
-    webp {
-      ...ImageFragment
-    }
-  }
-}
-
-fragment CurrentSearchFiltersFragment on SearchScope {
-  coreProperties {
-    ... on SearchableProperty {
-      __isSearchableProperty: __typename
-      searchPath
-      label
-    }
-  }
-  schemas: availableSchemaVersions {
-    name
-    schemaDefinition {
-      slug
-      id
-    }
-    searchableProperties {
-      __typename
-      ... on SearchableProperty {
-        __isSearchableProperty: __typename
-        searchPath
-        label
-      }
-    }
-    id
-  }
-}
-
-fragment EntityThumbnailColumnFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  thumbnail {
-    storage
-    ...CoverImageFragment
-  }
-  ... on Node {
-    __isNode: __typename
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelListPageSearchFragment on SearchScope {
-  ...CurrentSearchFiltersFragment
-  ...SearchWithFiltersFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment PrecisionDateFragment on VariablePrecisionDate {
-  precision
-  value
-}
-
-fragment PublishedDateColumnFragment on ReferencesGlobalEntityDates {
-  __isReferencesGlobalEntityDates: __typename
-  published {
-    ...PrecisionDateFragment
-  }
-}
-
-fragment SearchFilterBooleanFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  label
-  description
-  searchPath
-  searchOperators
-}
-
-fragment SearchFilterDrawerFragment on SearchScope {
-  ...SearchFilterFormFragment
-}
-
-fragment SearchFilterFormFragment on SearchScope {
-  coreProperties {
-    ... on SearchableProperty {
-      __isSearchableProperty: __typename
-      searchPath
-    }
-    ...SearchFilterFragment
-  }
-  schemas: availableSchemaVersions {
-    searchableProperties {
-      __typename
-      ... on SearchableProperty {
-        __isSearchableProperty: __typename
-        searchPath
-        label
-      }
-      ...SearchFilterFragment
-    }
-    id
-  }
-  ...SearchSchemaFilterFragment
-}
-
-fragment SearchFilterFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  ... on ScalarProperty {
-    __isScalarProperty: __typename
-    type
-  }
-  ...SearchFilterInputFragment
-  ...SearchFilterSelectFragment
-  ...SearchFilterBooleanFragment
-}
-
-fragment SearchFilterInputFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  label
-  description
-  searchPath
-  searchOperators
-}
-
-fragment SearchFilterSelectFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  label
-  description
-  searchPath
-  searchOperators
-  ... on SelectProperty {
-    options {
-      label
-      value
-    }
-  }
-}
-
-fragment SearchSchemaFilterFragment on SearchScope {
-  schemas: availableSchemaVersions {
-    name
-    schemaDefinition {
-      slug
-      id
-    }
-    id
-  }
-}
-
-fragment SearchWithFiltersFragment on SearchScope {
-  ...SearchFilterDrawerFragment
-}
-
-fragment useChildRouteLinksFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -722,20 +434,6 @@ v29 = {
     },
     (v28/*: any*/),
     {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "description",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "searchOperators",
-      "storageKey": null
-    },
-    {
       "kind": "InlineFragment",
       "selections": [
         {
@@ -748,6 +446,20 @@ v29 = {
       ],
       "type": "ScalarProperty",
       "abstractKey": "__isScalarProperty"
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "description",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "searchOperators",
+      "storageKey": null
     },
     {
       "kind": "InlineFragment",
@@ -800,6 +512,11 @@ return {
         "plural": false,
         "selections": [
           {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CommunityLayoutQueryFragment"
+          },
+          {
             "alias": null,
             "args": (v11/*: any*/),
             "concreteType": "CollectionConnection",
@@ -841,11 +558,6 @@ return {
               }
             ],
             "storageKey": "search(maxDepth:1,visibility:\"ALL\")"
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "CommunityLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -1104,5 +816,7 @@ return {
   }
 };
 })();
-(node as any).hash = '5f5dbda19eae8836848777e210474b09';
+
+(node as any).hash = "5f5dbda19eae8836848777e210474b09";
+
 export default node;

@@ -1,47 +1,49 @@
+/**
+ * @generated SignedSource<<71593b91acc6ba8a1f841d702e5a2f80>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type DashboardInstallationFragment = {
-    readonly communities: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
+export type DashboardInstallationFragment$data = {
+  readonly communities: {
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly contributors: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
+  };
+  readonly contributors: {
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly users: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
+  };
+  readonly users: {
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly viewer: {
-        readonly allCollections: {
-            readonly pageInfo: {
-                readonly totalCount: number;
-            };
-        };
-        readonly allItems: {
-            readonly pageInfo: {
-                readonly totalCount: number;
-            };
-        };
+  };
+  readonly viewer: {
+    readonly allCollections: {
+      readonly pageInfo: {
+        readonly totalCount: number;
+      };
     };
-    readonly " $refType": "DashboardInstallationFragment";
+    readonly allItems: {
+      readonly pageInfo: {
+        readonly totalCount: number;
+      };
+    };
+  };
+  readonly " $fragmentType": "DashboardInstallationFragment";
 };
-export type DashboardInstallationFragment$data = DashboardInstallationFragment;
 export type DashboardInstallationFragment$key = {
-    readonly " $data"?: DashboardInstallationFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"DashboardInstallationFragment">;
+  readonly " $data"?: DashboardInstallationFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"DashboardInstallationFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -143,5 +145,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '5a6202c1dbab3780bac90bcd3b85cc65';
+
+(node as any).hash = "5a6202c1dbab3780bac90bcd3b85cc65";
+
 export default node;

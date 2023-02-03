@@ -1,31 +1,38 @@
+/**
+ * @generated SignedSource<<3e31dc67c0cc9ef41e8481ac511de39a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SetIntitialOrderingButtonFragment = {
-    readonly orderings?: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
-    } | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SetIntitialOrderingModalFragment">;
-    readonly " $refType": "SetIntitialOrderingButtonFragment";
+export type SetIntitialOrderingButtonFragment$data = {
+  readonly initOrderings?: {
+    readonly pageInfo: {
+      readonly totalCount: number;
+    };
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"SetIntitialOrderingModalFragment">;
+  readonly " $fragmentType": "SetIntitialOrderingButtonFragment";
 };
-export type SetIntitialOrderingButtonFragment$data = SetIntitialOrderingButtonFragment;
 export type SetIntitialOrderingButtonFragment$key = {
-    readonly " $data"?: SetIntitialOrderingButtonFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SetIntitialOrderingButtonFragment">;
+  readonly " $data"?: SetIntitialOrderingButtonFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SetIntitialOrderingButtonFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
   {
-    "alias": null,
+    "args": null,
+    "kind": "FragmentSpread",
+    "name": "SetIntitialOrderingModalFragment"
+  },
+  {
+    "alias": "initOrderings",
     "args": null,
     "concreteType": "OrderingConnection",
     "kind": "LinkedField",
@@ -52,11 +59,6 @@ var v0 = [
       }
     ],
     "storageKey": null
-  },
-  {
-    "args": null,
-    "kind": "FragmentSpread",
-    "name": "SetIntitialOrderingModalFragment"
   }
 ];
 return {
@@ -82,5 +84,7 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = 'b08fa88d150d61b67cd297d9120335de';
+
+(node as any).hash = "53a9110e82da5dd22857d6927397ecf2";
+
 export default node;

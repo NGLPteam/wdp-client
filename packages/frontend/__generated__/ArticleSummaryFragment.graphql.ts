@@ -1,40 +1,42 @@
+/**
+ * @generated SignedSource<<356c504aae90aae4462f6ff0401b2ba5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type ArticleSummaryFragment = {
-    readonly title: string;
-    readonly subtitle: string | null;
-    readonly thumbnail: {
-        readonly storage: AttachmentStorage | null;
-        readonly " $fragmentRefs": FragmentRefs<"SquareThumbnailFragment">;
-    };
-    readonly slug: string;
-    readonly summary: string | null;
-    readonly contributions: {
-        readonly " $fragmentRefs": FragmentRefs<"ContributorsListFragment">;
-    };
-    readonly published: {
-        readonly value: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
-    };
-    readonly journal?: {
-        readonly title?: string | undefined;
-    } | null | undefined;
-    readonly __typename: "Item";
-    readonly " $refType": "ArticleSummaryFragment";
+import { FragmentRefs } from "relay-runtime";
+export type ArticleSummaryFragment$data = {
+  readonly __typename: "Item";
+  readonly contributions: {
+    readonly " $fragmentSpreads": FragmentRefs<"ContributorsListFragment">;
+  };
+  readonly journal?: {
+    readonly title?: string;
+  } | null;
+  readonly published: {
+    readonly value: String | null;
+    readonly " $fragmentSpreads": FragmentRefs<"PrecisionDateFragment">;
+  };
+  readonly slug: String;
+  readonly subtitle: string | null;
+  readonly summary: string | null;
+  readonly thumbnail: {
+    readonly storage: AttachmentStorage | null;
+    readonly " $fragmentSpreads": FragmentRefs<"SquareThumbnailFragment">;
+  };
+  readonly title: string;
+  readonly " $fragmentType": "ArticleSummaryFragment";
 };
-export type ArticleSummaryFragment$data = ArticleSummaryFragment;
 export type ArticleSummaryFragment$key = {
-    readonly " $data"?: ArticleSummaryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleSummaryFragment">;
+  readonly " $data"?: ArticleSummaryFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleSummaryFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -184,5 +186,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '9f83c37a0b4b8ef092d16e1ebddc1dd8';
+
+(node as any).hash = "9f83c37a0b4b8ef092d16e1ebddc1dd8";
+
 export default node;

@@ -20,8 +20,8 @@ export default function SetIntitialOrderingButton({ data }: Props) {
 
   const dialog = useDialogState({ visible: false, animated: true });
 
-  return entityData?.orderings?.pageInfo &&
-    entityData.orderings.pageInfo?.totalCount > 0 ? (
+  return entityData?.initOrderings?.pageInfo &&
+    entityData.initOrderings.pageInfo?.totalCount > 0 ? (
     <>
       <DialogDisclosure as={ButtonControl} {...dialog} actions="self.update">
         {t("actions.set.initial_ordering")}
@@ -37,7 +37,7 @@ const fragment = graphql`
   fragment SetIntitialOrderingButtonFragment on Entity {
     ... on Item {
       ...SetIntitialOrderingModalFragment
-      orderings {
+      initOrderings: orderings {
         pageInfo {
           totalCount
         }
@@ -45,7 +45,7 @@ const fragment = graphql`
     }
     ... on Collection {
       ...SetIntitialOrderingModalFragment
-      orderings {
+      initOrderings: orderings {
         pageInfo {
           totalCount
         }

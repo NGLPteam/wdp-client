@@ -1,31 +1,33 @@
+/**
+ * @generated SignedSource<<790fd9da21f420d7dd61d891e5ed4365>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PrevNextIssueFragment = {
-    readonly slug: string;
-    readonly volume: {
-        readonly collections?: {
-            readonly edges: ReadonlyArray<{
-                readonly node: {
-                    readonly title: string;
-                    readonly slug: string;
-                };
-            }>;
-        } | undefined;
-    } | null;
-    readonly " $refType": "PrevNextIssueFragment";
+export type PrevNextIssueFragment$data = {
+  readonly slug: String;
+  readonly volume: {
+    readonly collections?: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly slug: String;
+          readonly title: string;
+        };
+      }>;
+    };
+  } | null;
+  readonly " $fragmentType": "PrevNextIssueFragment";
 };
-export type PrevNextIssueFragment$data = PrevNextIssueFragment;
 export type PrevNextIssueFragment$key = {
-    readonly " $data"?: PrevNextIssueFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"PrevNextIssueFragment">;
+  readonly " $data"?: PrevNextIssueFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"PrevNextIssueFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -120,5 +122,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '024fc37cb99391d502f9776c9b4c793a';
+
+(node as any).hash = "024fc37cb99391d502f9776c9b4c793a";
+
 export default node;

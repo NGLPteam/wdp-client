@@ -1,103 +1,66 @@
+/**
+ * @generated SignedSource<<50871dcef93e4977ecf791dbaa5d7f81>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
 export type CreatePageInput = {
-    entityId: string;
-    title: string;
-    slug: string;
-    position?: number | null | undefined;
-    body: string;
-    heroImage?: UploadedFileInput | null | undefined;
-    heroImageMetadata?: ImageMetadataInput | null | undefined;
-    clientMutationId?: string | null | undefined;
+  body: string;
+  clientMutationId?: string | null;
+  entityId: string;
+  heroImage?: UploadedFileInput | null;
+  heroImageMetadata?: ImageMetadataInput | null;
+  position?: number | null;
+  slug: string;
+  title: string;
 };
 export type UploadedFileInput = {
-    id: unknown;
-    storage?: UploadStorage | null | undefined;
-    metadata?: UploadedFileMetadataInput | null | undefined;
+  id: any;
+  metadata?: UploadedFileMetadataInput | null;
+  storage?: UploadStorage | null;
 };
 export type UploadedFileMetadataInput = {
-    alt?: string | null | undefined;
-    filename?: string | null | undefined;
-    mimeType?: string | null | undefined;
+  alt?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
 };
 export type ImageMetadataInput = {
-    alt?: string | null | undefined;
+  alt?: string | null;
 };
-export type EntityPageAddFormMutationVariables = {
-    input: CreatePageInput;
+export type EntityPageAddFormMutation$variables = {
+  input: CreatePageInput;
 };
-export type EntityPageAddFormMutationResponse = {
-    readonly createPage: {
-        readonly page: {
-            readonly id: string;
-            readonly title: string;
-            readonly slug: string;
-            readonly thumbnail: {
-                readonly image: {
-                    readonly png: {
-                        readonly url: string | null;
-                        readonly height: number | null;
-                        readonly width: number | null;
-                        readonly alt: string | null;
-                    };
-                };
-            };
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
+export type EntityPageAddFormMutation$data = {
+  readonly createPage: {
+    readonly page: {
+      readonly id: string;
+      readonly slug: string;
+      readonly thumbnail: {
+        readonly image: {
+          readonly png: {
+            readonly alt: string | null;
+            readonly height: number | null;
+            readonly url: string | null;
+            readonly width: number | null;
+          };
+        };
+      };
+      readonly title: string;
     } | null;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null;
 };
 export type EntityPageAddFormMutation = {
-    readonly response: EntityPageAddFormMutationResponse;
-    readonly variables: EntityPageAddFormMutationVariables;
+  response: EntityPageAddFormMutation$data;
+  variables: EntityPageAddFormMutation$variables;
 };
-
-
-
-/*
-mutation EntityPageAddFormMutation(
-  $input: CreatePageInput!
-) {
-  createPage(input: $input) {
-    page {
-      id
-      title
-      slug
-      thumbnail: heroImage {
-        image: medium {
-          png {
-            url
-            height
-            width
-            alt
-          }
-        }
-      }
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -296,7 +259,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v4/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -336,5 +301,7 @@ return {
   }
 };
 })();
-(node as any).hash = '2b17412d4a36777be7fdfdce93f37401';
+
+(node as any).hash = "2b17412d4a36777be7fdfdce93f37401";
+
 export default node;

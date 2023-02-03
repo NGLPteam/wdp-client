@@ -1,56 +1,30 @@
+/**
+ * @generated SignedSource<<691e97451dc6732ad683d59df5ee0af2>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityLinksAddDrawerQueryVariables = {
-    entitySlug: string;
+export type EntityLinksAddDrawerQuery$variables = {
+  entitySlug: String;
 };
-export type EntityLinksAddDrawerQueryResponse = {
-    readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityLinksAddFormFragment">;
-    } | null;
-    readonly collection: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityLinksAddFormFragment">;
-    } | null;
+export type EntityLinksAddDrawerQuery$data = {
+  readonly collection: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityLinksAddFormFragment">;
+  } | null;
+  readonly item: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityLinksAddFormFragment">;
+  } | null;
 };
 export type EntityLinksAddDrawerQuery = {
-    readonly response: EntityLinksAddDrawerQueryResponse;
-    readonly variables: EntityLinksAddDrawerQueryVariables;
+  response: EntityLinksAddDrawerQuery$data;
+  variables: EntityLinksAddDrawerQuery$variables;
 };
-
-
-
-/*
-query EntityLinksAddDrawerQuery(
-  $entitySlug: Slug!
-) {
-  item(slug: $entitySlug) {
-    ...EntityLinksAddFormFragment
-    id
-  }
-  collection(slug: $entitySlug) {
-    ...EntityLinksAddFormFragment
-    id
-  }
-}
-
-fragment EntityLinksAddFormFragment on AnyEntity {
-  __isAnyEntity: __typename
-  ... on Collection {
-    id
-    title
-    slug
-  }
-  ... on Item {
-    id
-    title
-    slug
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -187,5 +161,7 @@ return {
   }
 };
 })();
-(node as any).hash = '20ba05759bbf69c7c7a9176ced9abf33';
+
+(node as any).hash = "20ba05759bbf69c7c7a9176ced9abf33";
+
 export default node;

@@ -10,7 +10,6 @@ module.exports = {
     "**/.next/**",
     "**/__schema__/**",
   ],
-  extensions: ["ts", "tsx"],
   language: "typescript",
   artifactDirectory: "./__generated__",
   customScalars: {

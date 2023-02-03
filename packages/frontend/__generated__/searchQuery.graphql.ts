@@ -1,202 +1,23 @@
+/**
+ * @generated SignedSource<<a42e1b85d726ff00963db65761a22cc3>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type searchQueryVariables = {};
-export type searchQueryResponse = {
-    readonly " $fragmentRefs": FragmentRefs<"searchQueryFragment">;
+export type searchQuery$variables = {};
+export type searchQuery$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"searchQueryFragment">;
 };
 export type searchQuery = {
-    readonly response: searchQueryResponse;
-    readonly variables: searchQueryVariables;
+  response: searchQuery$data;
+  variables: searchQuery$variables;
 };
-
-
-
-/*
-query searchQuery {
-  ...searchQueryFragment
-}
-
-fragment PaginationFragment on PageInfo {
-  page
-  pageCount
-}
-
-fragment PrecisionDateFragment on VariablePrecisionDate {
-  precision
-  value
-}
-
-fragment SearchEntityResultFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  summary
-  schemaVersion {
-    name
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-  thumbnail {
-    storage
-    ...SquareThumbnailFragment
-  }
-  ... on ReferencesGlobalEntityDates {
-    __isReferencesGlobalEntityDates: __typename
-    published {
-      ...PrecisionDateFragment
-      value
-    }
-  }
-}
-
-fragment SearchFilterBooleanFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  label
-  description
-  searchPath
-  searchOperators
-}
-
-fragment SearchFilterDateFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  label
-  description
-  searchPath
-  searchOperators
-}
-
-fragment SearchFilterFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  ... on ScalarProperty {
-    __isScalarProperty: __typename
-    type
-  }
-  ...SearchFilterInputFragment
-  ...SearchFilterSelectFragment
-  ...SearchFilterDateFragment
-  ...SearchFilterNumberFragment
-  ...SearchFilterBooleanFragment
-}
-
-fragment SearchFilterInputFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  label
-  description
-  searchPath
-  searchOperators
-}
-
-fragment SearchFilterNumberFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  label
-  description
-  searchPath
-  searchOperators
-}
-
-fragment SearchFilterSelectFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  label
-  description
-  searchPath
-  searchOperators
-  ... on SelectProperty {
-    options {
-      label
-      value
-    }
-  }
-}
-
-fragment SearchFiltersFragment on SearchScope {
-  coreProperties {
-    ... on SearchableProperty {
-      __isSearchableProperty: __typename
-      searchPath
-    }
-    ...SearchFilterFragment
-  }
-  ...SearchSchemaFilterFragment
-  schemas: availableSchemaVersions {
-    searchableProperties {
-      __typename
-      ... on SearchableProperty {
-        __isSearchableProperty: __typename
-        searchPath
-        label
-      }
-      ...SearchFilterFragment
-    }
-    id
-  }
-}
-
-fragment SearchLayoutFragment_281H7Z on Searchable {
-  __isSearchable: __typename
-  search {
-    results(query: "", page: 1, perPage: 20, predicates: [], order: PUBLISHED_ASCENDING, schema: []) {
-      ...SearchResultsFragment
-    }
-    ...SearchFiltersFragment
-  }
-}
-
-fragment SearchResultFactoryFragment on AnyEntity {
-  __isAnyEntity: __typename
-  __typename
-  ...SearchEntityResultFragment
-}
-
-fragment SearchResultsFragment on SearchResultConnection {
-  nodes {
-    entity {
-      __typename
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-      ...SearchResultFactoryFragment
-    }
-    id
-  }
-  pageInfo {
-    totalCount
-    ...PaginationFragment
-  }
-}
-
-fragment SearchSchemaFilterFragment on SearchScope {
-  schemas: availableSchemaVersions {
-    name
-    schemaDefinition {
-      slug
-      id
-    }
-    id
-  }
-}
-
-fragment SquareThumbnailFragment on ImageAttachment {
-  image: medium {
-    webp {
-      alt
-      url
-    }
-  }
-}
-
-fragment searchQueryFragment on Query {
-  ...SearchLayoutFragment_281H7Z
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -238,7 +59,7 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "label",
+  "name": "searchPath",
   "storageKey": null
 },
 v6 = {
@@ -248,61 +69,53 @@ v6 = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "searchPath",
+      "name": "type",
       "storageKey": null
-    },
-    (v5/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "description",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "searchOperators",
-      "storageKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "type",
-          "storageKey": null
-        }
-      ],
-      "type": "ScalarProperty",
-      "abstractKey": "__isScalarProperty"
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "SelectOption",
-          "kind": "LinkedField",
-          "name": "options",
-          "plural": true,
-          "selections": [
-            (v5/*: any*/),
-            (v4/*: any*/)
-          ],
-          "storageKey": null
-        }
-      ],
-      "type": "SelectProperty",
-      "abstractKey": null
     }
   ],
-  "type": "SearchableProperty",
-  "abstractKey": "__isSearchableProperty"
+  "type": "ScalarProperty",
+  "abstractKey": "__isScalarProperty"
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "label",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "description",
+  "storageKey": null
+},
+v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "searchOperators",
+  "storageKey": null
+},
+v10 = {
+  "kind": "InlineFragment",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "SelectOption",
+      "kind": "LinkedField",
+      "name": "options",
+      "plural": true,
+      "selections": [
+        (v7/*: any*/),
+        (v4/*: any*/)
+      ],
+      "storageKey": null
+    }
+  ],
+  "type": "SelectProperty",
+  "abstractKey": null
 };
 return {
   "fragment": {
@@ -577,7 +390,19 @@ return {
                 "name": "coreProperties",
                 "plural": true,
                 "selections": [
-                  (v6/*: any*/)
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      (v5/*: any*/),
+                      (v6/*: any*/),
+                      (v7/*: any*/),
+                      (v8/*: any*/),
+                      (v9/*: any*/),
+                      (v10/*: any*/)
+                    ],
+                    "type": "SearchableProperty",
+                    "abstractKey": "__isSearchableProperty"
+                  }
                 ],
                 "storageKey": null
               },
@@ -613,7 +438,19 @@ return {
                     "plural": true,
                     "selections": [
                       (v0/*: any*/),
-                      (v6/*: any*/)
+                      {
+                        "kind": "InlineFragment",
+                        "selections": [
+                          (v5/*: any*/),
+                          (v7/*: any*/),
+                          (v6/*: any*/),
+                          (v8/*: any*/),
+                          (v9/*: any*/),
+                          (v10/*: any*/)
+                        ],
+                        "type": "SearchableProperty",
+                        "abstractKey": "__isSearchableProperty"
+                      }
                     ],
                     "storageKey": null
                   }
@@ -639,5 +476,7 @@ return {
   }
 };
 })();
-(node as any).hash = '4b634ef363bf5de2a5ea350d8c09ad75';
+
+(node as any).hash = "4b634ef363bf5de2a5ea350d8c09ad75";
+
 export default node;

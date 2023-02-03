@@ -1,28 +1,30 @@
+/**
+ * @generated SignedSource<<7bd99410763b967ef6159a4495836631>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ModelPageCountActionsFragment = {
-    readonly pageInfo: {
-        readonly page: number | null;
-        readonly pageCount: number | null;
-        readonly perPage: number | null;
-        readonly hasNextPage: boolean;
-        readonly hasPreviousPage: boolean;
-        readonly totalCount: number;
-    };
-    readonly " $refType": "ModelPageCountActionsFragment";
+export type ModelPageCountActionsFragment$data = {
+  readonly pageInfo: {
+    readonly hasNextPage: boolean;
+    readonly hasPreviousPage: boolean;
+    readonly page: number | null;
+    readonly pageCount: number | null;
+    readonly perPage: number | null;
+    readonly totalCount: number;
+  };
+  readonly " $fragmentType": "ModelPageCountActionsFragment";
 };
-export type ModelPageCountActionsFragment$data = ModelPageCountActionsFragment;
 export type ModelPageCountActionsFragment$key = {
-    readonly " $data"?: ModelPageCountActionsFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ModelPageCountActionsFragment">;
+  readonly " $data"?: ModelPageCountActionsFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelPageCountActionsFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -87,5 +89,7 @@ const node: ReaderFragment = {
   "type": "Paginated",
   "abstractKey": "__isPaginated"
 };
-(node as any).hash = '3ed4e550437e2b0a6845495023197b57';
+
+(node as any).hash = "3ed4e550437e2b0a6845495023197b57";
+
 export default node;

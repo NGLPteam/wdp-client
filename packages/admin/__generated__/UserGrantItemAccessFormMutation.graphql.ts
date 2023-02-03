@@ -1,55 +1,33 @@
+/**
+ * @generated SignedSource<<4ec515bdb367f8ffb803f1b077aa7edb>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type GrantAccessInput = {
-    entityId: string;
-    roleId: string;
-    userId: string;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null;
+  entityId: string;
+  roleId: string;
+  userId: string;
 };
-export type UserGrantItemAccessFormMutationVariables = {
-    input: GrantAccessInput;
+export type UserGrantItemAccessFormMutation$variables = {
+  input: GrantAccessInput;
 };
-export type UserGrantItemAccessFormMutationResponse = {
-    readonly grantAccess: {
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
-    } | null;
+export type UserGrantItemAccessFormMutation$data = {
+  readonly grantAccess: {
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null;
 };
 export type UserGrantItemAccessFormMutation = {
-    readonly response: UserGrantItemAccessFormMutationResponse;
-    readonly variables: UserGrantItemAccessFormMutationVariables;
+  response: UserGrantItemAccessFormMutation$data;
+  variables: UserGrantItemAccessFormMutation$variables;
 };
-
-
-
-/*
-mutation UserGrantItemAccessFormMutation(
-  $input: GrantAccessInput!
-) {
-  grantAccess(input: $input) {
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -154,7 +132,9 @@ return {
           {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
-            "selections": (v3/*: any*/)
+            "selections": (v3/*: any*/),
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -191,5 +171,7 @@ return {
   }
 };
 })();
-(node as any).hash = '937be9bf5058d219d299fa41dca12295';
+
+(node as any).hash = "937be9bf5058d219d299fa41dca12295";
+
 export default node;

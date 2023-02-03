@@ -1,38 +1,40 @@
+/**
+ * @generated SignedSource<<e9efdbf2ab741f31234e5c97075b9f06>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
-export type CollectionUpdateFormFieldsFragment = {
-    readonly title: string;
-    readonly subtitle: string | null;
-    readonly doi: string | null;
-    readonly issn: string | null;
-    readonly visibility: EntityVisibility;
-    readonly summary: string | null;
-    readonly visibleAfterAt: string | null;
-    readonly visibleUntilAt: string | null;
-    readonly thumbnail: {
-        readonly " $fragmentRefs": FragmentRefs<"FileUploadFragment">;
-    };
-    readonly heroImage: {
-        readonly " $fragmentRefs": FragmentRefs<"FileUploadFragment">;
-    };
-    readonly published: {
-        readonly " $fragmentRefs": FragmentRefs<"VariablePrecisionDateControlFragment">;
-    };
-    readonly " $refType": "CollectionUpdateFormFieldsFragment";
+import { FragmentRefs } from "relay-runtime";
+export type CollectionUpdateFormFieldsFragment$data = {
+  readonly doi: string | null;
+  readonly heroImage: {
+    readonly " $fragmentSpreads": FragmentRefs<"FileUploadFragment">;
+  };
+  readonly issn: string | null;
+  readonly published: {
+    readonly " $fragmentSpreads": FragmentRefs<"VariablePrecisionDateControlFragment">;
+  };
+  readonly subtitle: string | null;
+  readonly summary: string | null;
+  readonly thumbnail: {
+    readonly " $fragmentSpreads": FragmentRefs<"FileUploadFragment">;
+  };
+  readonly title: string;
+  readonly visibility: EntityVisibility;
+  readonly visibleAfterAt: String | null;
+  readonly visibleUntilAt: String | null;
+  readonly " $fragmentType": "CollectionUpdateFormFieldsFragment";
 };
-export type CollectionUpdateFormFieldsFragment$data = CollectionUpdateFormFieldsFragment;
 export type CollectionUpdateFormFieldsFragment$key = {
-    readonly " $data"?: CollectionUpdateFormFieldsFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CollectionUpdateFormFieldsFragment">;
+  readonly " $data"?: CollectionUpdateFormFieldsFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CollectionUpdateFormFieldsFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -145,5 +147,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '7805ff0459464511c3bbf2c8abf733d4';
+
+(node as any).hash = "7805ff0459464511c3bbf2c8abf733d4";
+
 export default node;

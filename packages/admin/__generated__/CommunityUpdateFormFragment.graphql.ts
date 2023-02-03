@@ -1,25 +1,27 @@
+/**
+ * @generated SignedSource<<0dad45e76a146c3498678abd3975dee5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CommunityUpdateFormFragment = {
-    readonly communityId: string;
-    readonly context: {
-        readonly " $fragmentRefs": FragmentRefs<"useSchemaContextFragment">;
-    };
-    readonly " $fragmentRefs": FragmentRefs<"CommunityUpdateFormFieldsFragment" | "SchemaFormFieldsFragment" | "useSchemaPropertiesFragment">;
-    readonly " $refType": "CommunityUpdateFormFragment";
+export type CommunityUpdateFormFragment$data = {
+  readonly communityId: string;
+  readonly context: {
+    readonly " $fragmentSpreads": FragmentRefs<"useSchemaContextFragment">;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityUpdateFormFieldsFragment" | "SchemaFormFieldsFragment" | "useSchemaPropertiesFragment">;
+  readonly " $fragmentType": "CommunityUpdateFormFragment";
 };
-export type CommunityUpdateFormFragment$data = CommunityUpdateFormFragment;
 export type CommunityUpdateFormFragment$key = {
-    readonly " $data"?: CommunityUpdateFormFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityUpdateFormFragment">;
+  readonly " $data"?: CommunityUpdateFormFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityUpdateFormFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -32,22 +34,6 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "id",
-      "storageKey": null
-    },
-    {
-      "alias": "context",
-      "args": null,
-      "concreteType": "SchemaInstanceContext",
-      "kind": "LinkedField",
-      "name": "schemaInstanceContext",
-      "plural": false,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "useSchemaContextFragment"
-        }
-      ],
       "storageKey": null
     },
     {
@@ -64,10 +50,28 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "useSchemaPropertiesFragment"
+    },
+    {
+      "alias": "context",
+      "args": null,
+      "concreteType": "SchemaInstanceContext",
+      "kind": "LinkedField",
+      "name": "schemaInstanceContext",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "useSchemaContextFragment"
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = '8f90f19a4c82db53f70bd466cc89c05b';
+
+(node as any).hash = "8f90f19a4c82db53f70bd466cc89c05b";
+
 export default node;

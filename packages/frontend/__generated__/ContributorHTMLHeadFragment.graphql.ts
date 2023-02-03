@@ -1,32 +1,34 @@
+/**
+ * @generated SignedSource<<4f270fee294bca88eb6b0d4233b9cd21>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ContributorHTMLHeadFragment = {
-    readonly __typename: "PersonContributor";
-    readonly familyName: string | null;
-    readonly givenName: string | null;
-    readonly " $refType": "ContributorHTMLHeadFragment";
+export type ContributorHTMLHeadFragment$data = {
+  readonly __typename: "OrganizationContributor";
+  readonly legalName: string | null;
+  readonly " $fragmentType": "ContributorHTMLHeadFragment";
 } | {
-    readonly __typename: "OrganizationContributor";
-    readonly legalName: string | null;
-    readonly " $refType": "ContributorHTMLHeadFragment";
+  readonly __typename: "PersonContributor";
+  readonly familyName: string | null;
+  readonly givenName: string | null;
+  readonly " $fragmentType": "ContributorHTMLHeadFragment";
 } | {
-    /*This will never be '%other', but we need some
-    value in case none of the concrete values match.*/
-    readonly __typename: "%other";
-    readonly " $refType": "ContributorHTMLHeadFragment";
+  // This will never be '%other', but we need some
+  // value in case none of the concrete values match.
+  readonly __typename: "%other";
+  readonly " $fragmentType": "ContributorHTMLHeadFragment";
 };
-export type ContributorHTMLHeadFragment$data = ContributorHTMLHeadFragment;
 export type ContributorHTMLHeadFragment$key = {
-    readonly " $data"?: ContributorHTMLHeadFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContributorHTMLHeadFragment">;
+  readonly " $data"?: ContributorHTMLHeadFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributorHTMLHeadFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -84,5 +86,7 @@ return {
   "abstractKey": "__isContributor"
 };
 })();
-(node as any).hash = '69ded73bf859d26023ad2193c7bef3c2';
+
+(node as any).hash = "69ded73bf859d26023ad2193c7bef3c2";
+
 export default node;

@@ -1,37 +1,39 @@
+/**
+ * @generated SignedSource<<ba2f3402d11492a1bfc587b581f3f7be>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ItemListFragment = {
-    readonly nodes: ReadonlyArray<{
-        readonly id: string;
-        readonly slug: string;
-        readonly title: string;
-        readonly schemaVersion: {
-            readonly name: string;
-            readonly number: string;
-        };
-        readonly items: {
-            readonly pageInfo: {
-                readonly totalCount: number;
-            };
-        };
-        readonly allowedActions: ReadonlyArray<string>;
-        readonly " $fragmentRefs": FragmentRefs<"ContributorsColumnFragment" | "EntityThumbnailColumnFragment" | "PublishedDateColumnFragment">;
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "ItemListFragment";
+export type ItemListFragment$data = {
+  readonly nodes: ReadonlyArray<{
+    readonly allowedActions: ReadonlyArray<string>;
+    readonly id: string;
+    readonly items: {
+      readonly pageInfo: {
+        readonly totalCount: number;
+      };
+    };
+    readonly schemaVersion: {
+      readonly name: string;
+      readonly number: string;
+    };
+    readonly slug: String;
+    readonly title: string;
+    readonly " $fragmentSpreads": FragmentRefs<"ContributorsColumnFragment" | "EntityThumbnailColumnFragment" | "PublishedDateColumnFragment">;
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "ItemListFragment";
 };
-export type ItemListFragment$data = ItemListFragment;
 export type ItemListFragment$key = {
-    readonly " $data"?: ItemListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ItemListFragment">;
+  readonly " $data"?: ItemListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ItemListFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -156,5 +158,7 @@ const node: ReaderFragment = {
   "type": "ItemConnection",
   "abstractKey": null
 };
-(node as any).hash = 'b571bf4f4d379ca09362443c55c47fce';
+
+(node as any).hash = "b571bf4f4d379ca09362443c55c47fce";
+
 export default node;

@@ -1,22 +1,24 @@
+/**
+ * @generated SignedSource<<0b8bb9f815d78613adb9865d9d3ff1fb>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CommunityPickerActiveFragment = {
-    readonly title: string;
-    readonly slug: string;
-    readonly " $refType": "CommunityPickerActiveFragment";
+export type CommunityPickerActiveFragment$data = {
+  readonly slug: String;
+  readonly title: string;
+  readonly " $fragmentType": "CommunityPickerActiveFragment";
 };
-export type CommunityPickerActiveFragment$data = CommunityPickerActiveFragment;
 export type CommunityPickerActiveFragment$key = {
-    readonly " $data"?: CommunityPickerActiveFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityPickerActiveFragment">;
+  readonly " $data"?: CommunityPickerActiveFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityPickerActiveFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -42,5 +44,7 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = 'c4e022f67450ab127ee465353c7150db';
+
+(node as any).hash = "c4e022f67450ab127ee465353c7150db";
+
 export default node;

@@ -1,39 +1,41 @@
+/**
+ * @generated SignedSource<<d85e41236218d4847a40c8b4620ba718>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArticleParentHeaderFragment = {
-    readonly schemaDefinition: {
-        readonly identifier: string;
-    };
-    readonly journal?: {
-        readonly title?: string | undefined;
-    } | null | undefined;
-    readonly issue?: {
-        readonly title?: string | undefined;
-        readonly " $fragmentRefs": FragmentRefs<"getEntityDisplayNameFragment">;
-    } | null | undefined;
-    readonly unit?: {
-        readonly title?: string | undefined;
-    } | null | undefined;
-    readonly series?: {
-        readonly title?: string | undefined;
-    } | null | undefined;
-    readonly campus?: {
-        readonly title?: string | undefined;
-    } | null | undefined;
-    readonly " $refType": "ArticleParentHeaderFragment";
+export type ArticleParentHeaderFragment$data = {
+  readonly campus?: {
+    readonly title?: string;
+  } | null;
+  readonly issue?: {
+    readonly title?: string;
+    readonly " $fragmentSpreads": FragmentRefs<"getEntityDisplayNameFragment">;
+  } | null;
+  readonly journal?: {
+    readonly title?: string;
+  } | null;
+  readonly schemaDefinition: {
+    readonly identifier: string;
+  };
+  readonly series?: {
+    readonly title?: string;
+  } | null;
+  readonly unit?: {
+    readonly title?: string;
+  } | null;
+  readonly " $fragmentType": "ArticleParentHeaderFragment";
 };
-export type ArticleParentHeaderFragment$data = ArticleParentHeaderFragment;
 export type ArticleParentHeaderFragment$key = {
-    readonly " $data"?: ArticleParentHeaderFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleParentHeaderFragment">;
+  readonly " $data"?: ArticleParentHeaderFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleParentHeaderFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -176,7 +178,7 @@ return {
                   "selections": [
                     (v0/*: any*/),
                     {
-                      "alias": "volume",
+                      "alias": "volumeByName",
                       "args": (v4/*: any*/),
                       "concreteType": null,
                       "kind": "LinkedField",
@@ -220,7 +222,7 @@ return {
                       "kind": "InlineFragment",
                       "selections": [
                         {
-                          "alias": "volume",
+                          "alias": "volumeByName",
                           "args": (v4/*: any*/),
                           "concreteType": null,
                           "kind": "LinkedField",
@@ -273,9 +275,13 @@ return {
                       "type": "Collection",
                       "abstractKey": null
                     }
-                  ]
+                  ],
+                  "args": null,
+                  "argumentDefinitions": []
                 }
-              ]
+              ],
+              "args": null,
+              "argumentDefinitions": []
             },
             (v2/*: any*/)
           ],
@@ -317,5 +323,7 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = '365fe3470f84c3057419b6435bf99d30';
+
+(node as any).hash = "365fe3470f84c3057419b6435bf99d30";
+
 export default node;

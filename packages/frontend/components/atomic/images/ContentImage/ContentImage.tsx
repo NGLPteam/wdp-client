@@ -9,7 +9,7 @@ export default function ContentImage({ data }: Props) {
 
   if (!imageData) return null;
 
-  const { image, placeholder } = imageData;
+  const { imageLarge: image, placeholder } = imageData;
 
   return image ? (
     <ContentImageBase
@@ -31,7 +31,7 @@ interface Props {
 
 const fragment = graphql`
   fragment ContentImageFragment on ImageAttachment {
-    image: large {
+    imageLarge: large {
       webp {
         alt
         url

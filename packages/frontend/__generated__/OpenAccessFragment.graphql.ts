@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<d5158cca2fbae87f456297c8c8b5aea3>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type OpenAccessFragment = {
-    readonly openAccess: {
-        readonly checked?: boolean | null | undefined;
-        readonly checkedByDefault?: boolean | null | undefined;
-    } | null;
-    readonly " $refType": "OpenAccessFragment";
+export type OpenAccessFragment$data = {
+  readonly openAccess: {
+    readonly checked?: boolean | null;
+    readonly checkedByDefault?: boolean | null;
+  } | null;
+  readonly " $fragmentType": "OpenAccessFragment";
 };
-export type OpenAccessFragment$data = OpenAccessFragment;
 export type OpenAccessFragment$key = {
-    readonly " $data"?: OpenAccessFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"OpenAccessFragment">;
+  readonly " $data"?: OpenAccessFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"OpenAccessFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -68,5 +70,7 @@ const node: ReaderFragment = {
   "type": "SchemaInstance",
   "abstractKey": "__isSchemaInstance"
 };
-(node as any).hash = 'f3ff42725c3dce5ecda6ada561f0e72e';
+
+(node as any).hash = "f3ff42725c3dce5ecda6ada561f0e72e";
+
 export default node;

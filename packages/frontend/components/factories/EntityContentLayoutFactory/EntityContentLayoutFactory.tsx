@@ -40,8 +40,8 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment EntityContentLayoutFactoryFragment on AnyEntity
-  @argumentDefinitions(page: { type: "Int", defaultValue: 1 }) {
+  fragment EntityContentLayoutFactoryFragment on AnyEntity {
+    # @argumentDefinitions(page: { type: "Int", defaultValue: 1 }) {
     ... on Collection {
       schemaDefinition {
         identifier

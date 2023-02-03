@@ -1,103 +1,33 @@
+/**
+ * @generated SignedSource<<31c7a8de7d152e647cb3f89f90ef2b91>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
-export type communitiesManageSlugUsersPagesQueryVariables = {
-    userSlug: string;
-    order?: SimpleOrder | null | undefined;
-    page: number;
+export type communitiesManageSlugUsersPagesQuery$variables = {
+  order?: SimpleOrder | null;
+  page: number;
+  userSlug: String;
 };
-export type communitiesManageSlugUsersPagesQueryResponse = {
-    readonly user: {
-        readonly communityAccessGrants: {
-            readonly " $fragmentRefs": FragmentRefs<"UserCommunitiesListFragment">;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"UserLayoutQueryFragment">;
-    } | null;
+export type communitiesManageSlugUsersPagesQuery$data = {
+  readonly user: {
+    readonly communityAccessGrants: {
+      readonly " $fragmentSpreads": FragmentRefs<"UserCommunitiesListFragment">;
+    };
+    readonly " $fragmentSpreads": FragmentRefs<"UserLayoutQueryFragment">;
+  } | null;
 };
 export type communitiesManageSlugUsersPagesQuery = {
-    readonly response: communitiesManageSlugUsersPagesQueryResponse;
-    readonly variables: communitiesManageSlugUsersPagesQueryVariables;
+  response: communitiesManageSlugUsersPagesQuery$data;
+  variables: communitiesManageSlugUsersPagesQuery$variables;
 };
-
-
-
-/*
-query communitiesManageSlugUsersPagesQuery(
-  $userSlug: Slug!
-  $order: SimpleOrder
-  $page: Int!
-) {
-  user(slug: $userSlug) {
-    ...UserLayoutQueryFragment
-    communityAccessGrants(order: $order, page: $page, perPage: 20) {
-      ...UserCommunitiesListFragment
-    }
-    id
-  }
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment UserCommunitiesListFragment on UserCommunityAccessGrantConnection {
-  edges {
-    node {
-      id
-      community {
-        id
-        title
-        slug
-      }
-      role {
-        id
-        name
-      }
-      user {
-        id
-        slug
-      }
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment UserLayoutFragment on User {
-  name
-  email
-}
-
-fragment UserLayoutQueryFragment on User {
-  ...UserLayoutFragment
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -180,6 +110,11 @@ return {
         "plural": false,
         "selections": [
           {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "UserLayoutQueryFragment"
+          },
+          {
             "alias": null,
             "args": (v4/*: any*/),
             "concreteType": "UserCommunityAccessGrantConnection",
@@ -194,11 +129,6 @@ return {
               }
             ],
             "storageKey": null
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "UserLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -389,5 +319,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'ad5db48ff8a61a60df4db746c30a7e3b';
+
+(node as any).hash = "ad5db48ff8a61a60df4db746c30a7e3b";
+
 export default node;

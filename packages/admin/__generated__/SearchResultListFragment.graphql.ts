@@ -1,43 +1,45 @@
+/**
+ * @generated SignedSource<<ab8880e9b8cbfbf389044487e8362bc9>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
-export type SearchResultListFragment = {
-    readonly results: {
-        readonly nodes: ReadonlyArray<{
-            readonly slug: string;
-            readonly entity: {
-                readonly id?: string | undefined;
-                readonly slug?: string | undefined;
-                readonly title?: string | undefined;
-                readonly schemaVersion?: {
-                    readonly name: string;
-                    readonly number: string;
-                    readonly kind: SchemaKind;
-                } | undefined;
-                readonly allowedActions?: ReadonlyArray<string> | undefined;
-                readonly " $fragmentRefs": FragmentRefs<"EntityThumbnailColumnFragment" | "PublishedDateColumnFragment">;
-            };
-        }>;
-        readonly pageInfo: {
-            readonly totalCount: number;
+import { FragmentRefs } from "relay-runtime";
+export type SearchResultListFragment$data = {
+  readonly results: {
+    readonly nodes: ReadonlyArray<{
+      readonly entity: {
+        readonly allowedActions?: ReadonlyArray<string>;
+        readonly id?: string;
+        readonly schemaVersion?: {
+          readonly kind: SchemaKind;
+          readonly name: string;
+          readonly number: string;
         };
-        readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
+        readonly slug?: String;
+        readonly title?: string;
+        readonly " $fragmentSpreads": FragmentRefs<"EntityThumbnailColumnFragment" | "PublishedDateColumnFragment">;
+      };
+      readonly slug: String;
+    }>;
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageSearchFragment">;
-    readonly " $refType": "SearchResultListFragment";
+    readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageSearchFragment">;
+  readonly " $fragmentType": "SearchResultListFragment";
 };
-export type SearchResultListFragment$data = SearchResultListFragment;
 export type SearchResultListFragment$key = {
-    readonly " $data"?: SearchResultListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SearchResultListFragment">;
+  readonly " $data"?: SearchResultListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchResultListFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -262,5 +264,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'f34824ebe5c99610a94d9a00953830a4';
+
+(node as any).hash = "cfaf9e46d08421519acbcc70d5698d8a";
+
 export default node;

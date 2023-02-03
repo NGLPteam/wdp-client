@@ -1,272 +1,28 @@
+/**
+ * @generated SignedSource<<05a7b9ad8aaa127f2a71d145a120c0f2>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type OrderingSlugCommunityQueryVariables = {
-    slug: string;
+export type OrderingSlugCommunityQuery$variables = {
+  slug: String;
 };
-export type OrderingSlugCommunityQueryResponse = {
-    readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityOrderingLayoutFactoryFragment">;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutQueryFragment">;
+export type OrderingSlugCommunityQuery$data = {
+  readonly community: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingLayoutFactoryFragment">;
+  } | null;
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityLayoutQueryFragment">;
 };
 export type OrderingSlugCommunityQuery = {
-    readonly response: OrderingSlugCommunityQueryResponse;
-    readonly variables: OrderingSlugCommunityQueryVariables;
+  response: OrderingSlugCommunityQuery$data;
+  variables: OrderingSlugCommunityQuery$variables;
 };
-
-
-
-/*
-query OrderingSlugCommunityQuery(
-  $slug: Slug!
-) {
-  community(slug: $slug) {
-    ...EntityOrderingLayoutFactoryFragment
-    id
-  }
-  ...CommunityLayoutQueryFragment_20J5Pl
-}
-
-fragment AppBodyCommunityFragment on Community {
-  ...AppHeaderCommunityFragment
-  ...AppFooterCommunityFragment
-}
-
-fragment AppBodyEntityFragment on Entity {
-  __isEntity: __typename
-  ...AppHeaderEntityFragment
-}
-
-fragment AppFooterCommunityFragment on Community {
-  slug
-  title
-  ...CommunityPickerActiveFragment
-  ...CommunityNameFragment
-}
-
-fragment AppHeaderCommunityFragment on Community {
-  ...CommunityPickerActiveFragment
-  ...CommunityNavListFragment
-  ...CommunityNameFragment
-}
-
-fragment AppHeaderEntityFragment on Entity {
-  __isEntity: __typename
-  ...SearchButtonFragment
-}
-
-fragment AppLayoutCommunityFragment on Community {
-  ...CommunityHTMLHeadFragment
-  ...CommunityNavBarFragment
-  ...AppBodyCommunityFragment
-}
-
-fragment AppLayoutEntityFragment on Entity {
-  __isEntity: __typename
-  ...CommunityNavBarEntityFragment
-  ...AppBodyEntityFragment
-}
-
-fragment CommunityHTMLHeadFragment on Community {
-  title
-}
-
-fragment CommunityLayoutFragment_20J5Pl on Query {
-  community(slug: $slug) {
-    ...AppLayoutCommunityFragment
-    ...AppLayoutEntityFragment
-    ...EntityHTMLHeadFragment
-    id
-  }
-  ...EntityHTMLHeadAppFragment
-}
-
-fragment CommunityLayoutQueryFragment_20J5Pl on Query {
-  ...CommunityLayoutFragment_20J5Pl
-}
-
-fragment CommunityLogoFragment on ImageAttachment {
-  storage
-  original {
-    url
-    width
-    height
-  }
-}
-
-fragment CommunityNameFragment on Community {
-  title
-  slug
-  logo {
-    storage
-    original {
-      width
-      height
-    }
-    ...CommunityLogoFragment
-  }
-}
-
-fragment CommunityNavBarEntityFragment on Entity {
-  __isEntity: __typename
-  ...SearchButtonFragment
-}
-
-fragment CommunityNavBarFragment on Community {
-  ...CommunityNameFragment
-  ...CommunityNavListFragment
-}
-
-fragment CommunityNavListFragment on Community {
-  slug
-  schemaRanks {
-    slug
-    name
-    count
-    kind
-    id
-  }
-  pages {
-    edges {
-      node {
-        slug
-        title
-        id
-      }
-    }
-  }
-}
-
-fragment CommunityPickerActiveFragment on Community {
-  title
-  slug
-}
-
-fragment EntityHTMLHeadAppFragment on Query {
-  globalConfiguration {
-    site {
-      installationName
-    }
-    id
-  }
-}
-
-fragment EntityHTMLHeadFragment on AnyEntity {
-  __isAnyEntity: __typename
-  ... on Entity {
-    __isEntity: __typename
-    title
-    summary
-    thumbnail {
-      storage
-      medium {
-        webp {
-          url
-          width
-          height
-        }
-      }
-    }
-    thumbnailMetadata {
-      alt
-    }
-    heroImage {
-      storage
-      medium {
-        webp {
-          url
-          width
-          height
-        }
-      }
-    }
-    heroImageMetadata {
-      alt
-    }
-  }
-}
-
-fragment EntityOrderSelectFragment on OrderingConnection {
-  edges {
-    node {
-      name
-      identifier
-      id
-    }
-  }
-}
-
-fragment EntityOrderingLayoutFactoryFragment on Entity {
-  __isEntity: __typename
-  schemaDefinition {
-    identifier
-    id
-  }
-  initialOrdering {
-    identifier
-    disabled
-    id
-  }
-  ...IssueSidebarNavFragment
-}
-
-fragment IssueSidebarNavFragment on Collection {
-  orderings(availability: ENABLED) {
-    ...EntityOrderSelectFragment
-  }
-  ...IssueSidebarNavListFragment
-}
-
-fragment IssueSidebarNavListFragment on Collection {
-  pages {
-    edges {
-      node {
-        slug
-        title
-        id
-      }
-    }
-  }
-}
-
-fragment SearchButtonFragment on Entity {
-  __isEntity: __typename
-  ...SearchModalFragment
-}
-
-fragment SearchModalFragment on Entity {
-  __isEntity: __typename
-  __typename
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-  title
-  breadcrumbs {
-    crumb {
-      __typename
-      ... on Sluggable {
-        __isSluggable: __typename
-        slug
-      }
-      ... on Entity {
-        __isEntity: __typename
-        title
-      }
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -777,5 +533,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'f57cf9ba6b112c3c850276e5a216081f';
+
+(node as any).hash = "f57cf9ba6b112c3c850276e5a216081f";
+
 export default node;

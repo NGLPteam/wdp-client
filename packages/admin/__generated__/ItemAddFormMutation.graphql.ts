@@ -1,96 +1,69 @@
+/**
+ * @generated SignedSource<<fc8e4163a46e467130b78e04267f6a0b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type DatePrecision = "DAY" | "MONTH" | "NONE" | "YEAR" | "%future added value";
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
 export type UploadStorage = "CACHE" | "%future added value";
 export type CreateItemInput = {
-    parentId: string;
-    schemaVersionSlug?: string | null | undefined;
-    title: string;
-    subtitle?: string | null | undefined;
-    summary?: string | null | undefined;
-    heroImage?: UploadedFileInput | null | undefined;
-    heroImageMetadata?: ImageMetadataInput | null | undefined;
-    thumbnail?: UploadedFileInput | null | undefined;
-    thumbnailMetadata?: ImageMetadataInput | null | undefined;
-    published?: VariablePrecisionDateInput | null | undefined;
-    visibility: EntityVisibility;
-    visibleAfterAt?: string | null | undefined;
-    visibleUntilAt?: string | null | undefined;
-    doi?: string | null | undefined;
-    issn?: string | null | undefined;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null;
+  doi?: string | null;
+  heroImage?: UploadedFileInput | null;
+  heroImageMetadata?: ImageMetadataInput | null;
+  issn?: string | null;
+  parentId: string;
+  published?: VariablePrecisionDateInput | null;
+  schemaVersionSlug?: string | null;
+  subtitle?: string | null;
+  summary?: string | null;
+  thumbnail?: UploadedFileInput | null;
+  thumbnailMetadata?: ImageMetadataInput | null;
+  title: string;
+  visibility: EntityVisibility;
+  visibleAfterAt?: String | null;
+  visibleUntilAt?: String | null;
 };
 export type UploadedFileInput = {
-    id: unknown;
-    storage?: UploadStorage | null | undefined;
-    metadata?: UploadedFileMetadataInput | null | undefined;
+  id: any;
+  metadata?: UploadedFileMetadataInput | null;
+  storage?: UploadStorage | null;
 };
 export type UploadedFileMetadataInput = {
-    alt?: string | null | undefined;
-    filename?: string | null | undefined;
-    mimeType?: string | null | undefined;
+  alt?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
 };
 export type ImageMetadataInput = {
-    alt?: string | null | undefined;
+  alt?: string | null;
 };
 export type VariablePrecisionDateInput = {
-    value?: string | null | undefined;
-    precision: DatePrecision;
+  precision: DatePrecision;
+  value?: String | null;
 };
-export type ItemAddFormMutationVariables = {
-    input: CreateItemInput;
+export type ItemAddFormMutation$variables = {
+  input: CreateItemInput;
 };
-export type ItemAddFormMutationResponse = {
-    readonly createItem: {
-        readonly item: {
-            readonly title: string;
-            readonly slug: string;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
+export type ItemAddFormMutation$data = {
+  readonly createItem: {
+    readonly item: {
+      readonly slug: String;
+      readonly title: string;
     } | null;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null;
 };
 export type ItemAddFormMutation = {
-    readonly response: ItemAddFormMutationResponse;
-    readonly variables: ItemAddFormMutationVariables;
+  response: ItemAddFormMutation$data;
+  variables: ItemAddFormMutation$variables;
 };
-
-
-
-/*
-mutation ItemAddFormMutation(
-  $input: CreateItemInput!
-) {
-  createItem(input: $input) {
-    item {
-      title
-      slug
-      id
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -222,7 +195,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v5/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -281,5 +256,7 @@ return {
   }
 };
 })();
-(node as any).hash = '9ea55b3e3aee29f4d3f5d1b4fc914724';
+
+(node as any).hash = "9ea55b3e3aee29f4d3f5d1b4fc914724";
+
 export default node;

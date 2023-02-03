@@ -1,144 +1,23 @@
+/**
+ * @generated SignedSource<<e00d675df1c9fcc8bb90bbfe2041ce55>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AppContextProviderQueryVariables = {};
-export type AppContextProviderQueryResponse = {
-    readonly " $fragmentRefs": FragmentRefs<"GlobalContextFragment" | "ViewerContextFragment">;
+export type AppContextProviderQuery$variables = {};
+export type AppContextProviderQuery$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"GlobalContextFragment" | "ViewerContextFragment">;
 };
 export type AppContextProviderQuery = {
-    readonly response: AppContextProviderQueryResponse;
-    readonly variables: AppContextProviderQueryVariables;
+  response: AppContextProviderQuery$data;
+  variables: AppContextProviderQuery$variables;
 };
-
-
-
-/*
-query AppContextProviderQuery {
-  ...GlobalContextFragment
-  ...ViewerContextFragment
-}
-
-fragment AvatarFragment on ImageAttachment {
-  storage
-  small {
-    webp {
-      ...ImageFragment
-    }
-  }
-}
-
-fragment FooterFragment on GlobalConfiguration {
-  site {
-    footer {
-      copyrightStatement
-      description
-    }
-  }
-}
-
-fragment GlobalContextFragment on Query {
-  globalConfiguration {
-    ...ProviderBarFragment
-    ...InstallationNameFragment
-    ...UnauthorizedMessageFragment
-    ...FooterFragment
-    ...InstallationLogoFragment
-    id
-  }
-  ...SchemaSelectorSchemasFragment
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment InstallationLogoFragment on GlobalConfiguration {
-  site {
-    installationName
-    logoMode
-  }
-  logo {
-    storage
-    original {
-      originalFilename
-      ...ImageFragment
-    }
-    sansText {
-      size
-      webp {
-        width
-        height
-        ...ImageFragment
-      }
-    }
-  }
-}
-
-fragment InstallationNameFragment on GlobalConfiguration {
-  site {
-    installationName
-  }
-}
-
-fragment ProviderBarFragment on GlobalConfiguration {
-  site {
-    providerName
-  }
-}
-
-fragment SchemaSelectorModalOptionsFragment on SchemaVersionConnection {
-  edges {
-    node {
-      name
-      namespace
-      identifier
-      kind
-      slug
-      number
-      id
-    }
-  }
-}
-
-fragment SchemaSelectorSchemasFragment on Query {
-  schemaVersions {
-    nodes {
-      name
-      kind
-      id
-    }
-    ...SchemaSelectorModalOptionsFragment
-  }
-}
-
-fragment UnauthorizedMessageFragment on GlobalConfiguration {
-  site {
-    providerName
-  }
-}
-
-fragment ViewerContextFragment on Query {
-  viewer {
-    name
-    allowedActions
-    uploadAccess
-    uploadToken
-    avatar {
-      ...AvatarFragment
-    }
-    globalAdmin
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -541,5 +420,7 @@ return {
   }
 };
 })();
-(node as any).hash = '9046c90d28e32c399d0e9b1426a162c7';
+
+(node as any).hash = "9046c90d28e32c399d0e9b1426a162c7";
+
 export default node;

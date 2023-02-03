@@ -1,54 +1,26 @@
+/**
+ * @generated SignedSource<<af1e60d9af7a2513048642acf9848d7d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
-export type CollectionAddDrawerRootQueryVariables = {
-    schemaKind: SchemaKind;
+export type CollectionAddDrawerRootQuery$variables = {
+  schemaKind: SchemaKind;
 };
-export type CollectionAddDrawerRootQueryResponse = {
-    readonly " $fragmentRefs": FragmentRefs<"CollectionAddFormFragment">;
+export type CollectionAddDrawerRootQuery$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"CollectionAddFormFragment">;
 };
 export type CollectionAddDrawerRootQuery = {
-    readonly response: CollectionAddDrawerRootQueryResponse;
-    readonly variables: CollectionAddDrawerRootQueryVariables;
+  response: CollectionAddDrawerRootQuery$data;
+  variables: CollectionAddDrawerRootQuery$variables;
 };
-
-
-
-/*
-query CollectionAddDrawerRootQuery(
-  $schemaKind: SchemaKind!
-) {
-  ...CollectionAddFormFragment
-}
-
-fragment CollectionAddFormFragment on Query {
-  ...SchemaSelectFragment
-  ...CommunitySelectFragment
-}
-
-fragment CommunitySelectFragment on Query {
-  communities {
-    edges {
-      node {
-        id
-        name
-      }
-    }
-  }
-}
-
-fragment SchemaSelectFragment on Query {
-  schemaVersionOptions(kind: $schemaKind) {
-    label
-    value
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -170,5 +142,7 @@ return {
   }
 };
 })();
-(node as any).hash = '8375bf489bd919098e6e68b4d7a35b80';
+
+(node as any).hash = "8375bf489bd919098e6e68b4d7a35b80";
+
 export default node;

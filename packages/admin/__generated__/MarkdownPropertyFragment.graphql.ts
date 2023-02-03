@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<3aa969771b04c72b4a414949f6bd127a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type MarkdownPropertyFragment = {
-    readonly content: string | null;
-    readonly default: string | null;
-    readonly " $fragmentRefs": FragmentRefs<"ScalarPropertyFragment">;
-    readonly " $refType": "MarkdownPropertyFragment";
+export type MarkdownPropertyFragment$data = {
+  readonly content: string | null;
+  readonly default: string | null;
+  readonly " $fragmentSpreads": FragmentRefs<"ScalarPropertyFragment">;
+  readonly " $fragmentType": "MarkdownPropertyFragment";
 };
-export type MarkdownPropertyFragment$data = MarkdownPropertyFragment;
 export type MarkdownPropertyFragment$key = {
-    readonly " $data"?: MarkdownPropertyFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"MarkdownPropertyFragment">;
+  readonly " $data"?: MarkdownPropertyFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"MarkdownPropertyFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -25,6 +27,11 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "MarkdownPropertyFragment",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ScalarPropertyFragment"
+    },
     {
       "alias": null,
       "args": null,
@@ -38,15 +45,12 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "default",
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ScalarPropertyFragment"
     }
   ],
   "type": "MarkdownProperty",
   "abstractKey": null
 };
-(node as any).hash = 'c8e040e5ce88994d58ddad36cc9cb526';
+
+(node as any).hash = "c8e040e5ce88994d58ddad36cc9cb526";
+
 export default node;

@@ -1,21 +1,23 @@
+/**
+ * @generated SignedSource<<8a6efcbec8eed8a9d902624d2ca407c4>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ContributorContributionsColumnFragment = {
-    readonly contributionCount: number;
-    readonly " $refType": "ContributorContributionsColumnFragment";
+export type ContributorContributionsColumnFragment$data = {
+  readonly contributionCount: number;
+  readonly " $fragmentType": "ContributorContributionsColumnFragment";
 };
-export type ContributorContributionsColumnFragment$data = ContributorContributionsColumnFragment;
 export type ContributorContributionsColumnFragment$key = {
-    readonly " $data"?: ContributorContributionsColumnFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContributorContributionsColumnFragment">;
+  readonly " $data"?: ContributorContributionsColumnFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributorContributionsColumnFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -34,5 +36,7 @@ const node: ReaderFragment = {
   "type": "Contributor",
   "abstractKey": "__isContributor"
 };
-(node as any).hash = '4a99393c668c49859bd1354d7776526a';
+
+(node as any).hash = "4a99393c668c49859bd1354d7776526a";
+
 export default node;

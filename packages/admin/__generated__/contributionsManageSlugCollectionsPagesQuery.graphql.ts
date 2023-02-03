@@ -1,178 +1,31 @@
+/**
+ * @generated SignedSource<<fc27f7ef98fb29df294879299629858a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type contributionsManageSlugCollectionsPagesQueryVariables = {
-    collectionSlug: string;
-    page: number;
+export type contributionsManageSlugCollectionsPagesQuery$variables = {
+  collectionSlug: String;
+  page: number;
 };
-export type contributionsManageSlugCollectionsPagesQueryResponse = {
-    readonly collection: {
-        readonly contributions: {
-            readonly " $fragmentRefs": FragmentRefs<"CollectionContributionListFragment">;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"CollectionLayoutQueryFragment">;
-    } | null;
+export type contributionsManageSlugCollectionsPagesQuery$data = {
+  readonly collection: {
+    readonly contributions: {
+      readonly " $fragmentSpreads": FragmentRefs<"CollectionContributionListFragment">;
+    };
+    readonly " $fragmentSpreads": FragmentRefs<"CollectionLayoutQueryFragment">;
+  } | null;
 };
 export type contributionsManageSlugCollectionsPagesQuery = {
-    readonly response: contributionsManageSlugCollectionsPagesQueryResponse;
-    readonly variables: contributionsManageSlugCollectionsPagesQueryVariables;
+  response: contributionsManageSlugCollectionsPagesQuery$data;
+  variables: contributionsManageSlugCollectionsPagesQuery$variables;
 };
-
-
-
-/*
-query contributionsManageSlugCollectionsPagesQuery(
-  $collectionSlug: Slug!
-  $page: Int!
-) {
-  collection(slug: $collectionSlug) {
-    ...CollectionLayoutQueryFragment
-    contributions(page: $page, perPage: 20) {
-      ...CollectionContributionListFragment
-    }
-    id
-  }
-}
-
-fragment AuthContextFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-
-fragment AvatarFragment on ImageAttachment {
-  storage
-  small {
-    webp {
-      ...ImageFragment
-    }
-  }
-}
-
-fragment CollectionContributionListFragment on CollectionContributionConnection {
-  nodes {
-    id
-    slug
-    createdAt
-    updatedAt
-    role
-    contributor {
-      __typename
-      ... on OrganizationContributor {
-        slug
-        legalName
-      }
-      ... on PersonContributor {
-        slug
-        givenName
-        familyName
-      }
-      ...ContributorNameColumnFragment
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-    collection {
-      title
-      slug
-      id
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment CollectionLayoutFragment on Collection {
-  title
-  slug
-  id
-  ...useBreadcrumbsFragment
-  ...useChildRouteLinksFragment
-}
-
-fragment CollectionLayoutQueryFragment on Collection {
-  ...CollectionLayoutFragment
-  ...AuthContextFragment
-}
-
-fragment ContributorNameColumnFragment on Contributor {
-  __isContributor: __typename
-  __typename
-  image {
-    ...AvatarFragment
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-  ... on OrganizationContributor {
-    legalName
-  }
-  ... on PersonContributor {
-    givenName
-    familyName
-  }
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment useBreadcrumbsFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  breadcrumbs {
-    depth
-    label
-    kind
-    slug
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-}
-
-fragment useChildRouteLinksFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -250,6 +103,11 @@ return {
         "plural": false,
         "selections": [
           {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CollectionLayoutQueryFragment"
+          },
+          {
             "alias": null,
             "args": (v2/*: any*/),
             "concreteType": "CollectionContributionConnection",
@@ -264,11 +122,6 @@ return {
               }
             ],
             "storageKey": null
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "CollectionLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -628,5 +481,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'c98c3f34008ce5b5099d28476f329f10';
+
+(node as any).hash = "c98c3f34008ce5b5099d28476f329f10";
+
 export default node;

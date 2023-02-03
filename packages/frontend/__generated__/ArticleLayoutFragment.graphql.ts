@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<492626db2bcaedef0b2e2f54d76655e7>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArticleLayoutFragment = {
-    readonly relatedItems: {
-        readonly " $fragmentRefs": FragmentRefs<"RelatedArticlesFragment">;
-    };
-    readonly " $fragmentRefs": FragmentRefs<"BreadcrumbsBarFragment" | "ArticleParentHeaderFragment" | "ArticleHeroFragment" | "ArticleTabNavFragment">;
-    readonly " $refType": "ArticleLayoutFragment";
+export type ArticleLayoutFragment$data = {
+  readonly relatedItems: {
+    readonly " $fragmentSpreads": FragmentRefs<"RelatedArticlesFragment">;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleHeroFragment" | "ArticleParentHeaderFragment" | "ArticleTabNavFragment" | "BreadcrumbsBarFragment">;
+  readonly " $fragmentType": "ArticleLayoutFragment";
 };
-export type ArticleLayoutFragment$data = ArticleLayoutFragment;
 export type ArticleLayoutFragment$key = {
-    readonly " $data"?: ArticleLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleLayoutFragment">;
+  readonly " $data"?: ArticleLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -26,22 +28,6 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "ArticleLayoutFragment",
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ItemConnection",
-      "kind": "LinkedField",
-      "name": "relatedItems",
-      "plural": false,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "RelatedArticlesFragment"
-        }
-      ],
-      "storageKey": null
-    },
     {
       "args": null,
       "kind": "FragmentSpread",
@@ -61,10 +47,28 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "ArticleTabNavFragment"
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ItemConnection",
+      "kind": "LinkedField",
+      "name": "relatedItems",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "RelatedArticlesFragment"
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = '79ccdf1baaa754542e9043908dc2004b';
+
+(node as any).hash = "79ccdf1baaa754542e9043908dc2004b";
+
 export default node;

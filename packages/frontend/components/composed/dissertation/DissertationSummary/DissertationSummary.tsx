@@ -52,8 +52,8 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment DissertationSummaryFragment on Item
-  @argumentDefinitions(showJournal: { type: "Boolean", defaultValue: false }) {
+  fragment DissertationSummaryFragment on Item {
+    # @argumentDefinitions(showJournal: { type: "Boolean", defaultValue: false }) {
     __typename
     id
     title

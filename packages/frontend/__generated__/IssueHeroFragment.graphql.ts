@@ -1,43 +1,45 @@
+/**
+ * @generated SignedSource<<e40b845390c07659fb9b7ca66d0e375a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
-export type IssueHeroFragment = {
-    readonly id: string;
-    readonly title: string;
-    readonly subtitle: string | null;
-    readonly summary: string | null;
-    readonly visibility: EntityVisibility;
-    readonly currentlyHidden: boolean;
-    readonly published: {
-        readonly value: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
-    };
-    readonly thumbnail: {
-        readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
-    };
-    readonly journal: {
-        readonly " $fragmentRefs": FragmentRefs<"JournalHeroCompactFragment" | "JournalHeroMetadataFragment">;
+import { FragmentRefs } from "relay-runtime";
+export type IssueHeroFragment$data = {
+  readonly currentlyHidden: boolean;
+  readonly id: string;
+  readonly journal: {
+    readonly " $fragmentSpreads": FragmentRefs<"JournalHeroCompactFragment" | "JournalHeroMetadataFragment">;
+  } | null;
+  readonly pdfVersion: {
+    readonly asset?: {
+      readonly " $fragmentSpreads": FragmentRefs<"AssetDownloadButtonFragment">;
     } | null;
-    readonly pdfVersion: {
-        readonly asset?: {
-            readonly " $fragmentRefs": FragmentRefs<"AssetDownloadButtonFragment">;
-        } | null | undefined;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"DOIFragment" | "getEntityDisplayNameFragment">;
-    readonly " $refType": "IssueHeroFragment";
+  } | null;
+  readonly published: {
+    readonly value: String | null;
+    readonly " $fragmentSpreads": FragmentRefs<"PrecisionDateFragment">;
+  };
+  readonly subtitle: string | null;
+  readonly summary: string | null;
+  readonly thumbnail: {
+    readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
+  };
+  readonly title: string;
+  readonly visibility: EntityVisibility;
+  readonly " $fragmentSpreads": FragmentRefs<"DOIFragment" | "getEntityDisplayNameFragment">;
+  readonly " $fragmentType": "IssueHeroFragment";
 };
-export type IssueHeroFragment$data = IssueHeroFragment;
 export type IssueHeroFragment$key = {
-    readonly " $data"?: IssueHeroFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"IssueHeroFragment">;
+  readonly " $data"?: IssueHeroFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"IssueHeroFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -97,6 +99,11 @@ return {
       "kind": "ScalarField",
       "name": "summary",
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "DOIFragment"
     },
     {
       "alias": null,
@@ -219,11 +226,6 @@ return {
       "storageKey": "schemaProperty(fullPath:\"pdf_version\")"
     },
     {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "DOIFragment"
-    },
-    {
       "kind": "InlineDataFragmentSpread",
       "name": "getEntityDisplayNameFragment",
       "selections": [
@@ -235,7 +237,7 @@ return {
               "selections": [
                 (v0/*: any*/),
                 {
-                  "alias": "volume",
+                  "alias": "volumeByName",
                   "args": (v1/*: any*/),
                   "concreteType": null,
                   "kind": "LinkedField",
@@ -281,7 +283,7 @@ return {
                   "kind": "InlineFragment",
                   "selections": [
                     {
-                      "alias": "volume",
+                      "alias": "volumeByName",
                       "args": (v1/*: any*/),
                       "concreteType": null,
                       "kind": "LinkedField",
@@ -334,18 +336,24 @@ return {
                   "type": "Collection",
                   "abstractKey": null
                 }
-              ]
+              ],
+              "args": null,
+              "argumentDefinitions": []
             }
           ],
           "type": "AnyEntity",
           "abstractKey": "__isAnyEntity"
         }
-      ]
+      ],
+      "args": null,
+      "argumentDefinitions": []
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
 })();
-(node as any).hash = '861d524e24c596c1abca8555acc0dd4b';
+
+(node as any).hash = "861d524e24c596c1abca8555acc0dd4b";
+
 export default node;

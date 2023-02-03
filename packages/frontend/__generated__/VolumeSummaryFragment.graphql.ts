@@ -1,44 +1,46 @@
+/**
+ * @generated SignedSource<<7fd47c6c023fc914cc693c83ac4a1428>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type VolumeSummaryFragment = {
-    readonly id: string;
-    readonly title: string;
-    readonly subtitle: string | null;
-    readonly slug: string;
-    readonly summary: string | null;
-    readonly cover: {
-        readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
+export type VolumeSummaryFragment$data = {
+  readonly articles: {
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly published: {
-        readonly value: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
-    };
-    readonly journal?: {
-        readonly title?: string | undefined;
-    } | null | undefined;
-    readonly properties: ReadonlyArray<{
-        readonly content?: string | null | undefined;
-        readonly path?: string | undefined;
-    }>;
-    readonly articles: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
-    };
-    readonly " $refType": "VolumeSummaryFragment";
+  };
+  readonly cover: {
+    readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
+  };
+  readonly id: string;
+  readonly journal?: {
+    readonly title?: string;
+  } | null;
+  readonly properties: ReadonlyArray<{
+    readonly content?: string | null;
+    readonly path?: string;
+  }>;
+  readonly published: {
+    readonly value: String | null;
+    readonly " $fragmentSpreads": FragmentRefs<"PrecisionDateFragment">;
+  };
+  readonly slug: String;
+  readonly subtitle: string | null;
+  readonly summary: string | null;
+  readonly title: string;
+  readonly " $fragmentType": "VolumeSummaryFragment";
 };
-export type VolumeSummaryFragment$data = VolumeSummaryFragment;
 export type VolumeSummaryFragment$key = {
-    readonly " $data"?: VolumeSummaryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"VolumeSummaryFragment">;
+  readonly " $data"?: VolumeSummaryFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"VolumeSummaryFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -129,6 +131,38 @@ return {
       "storageKey": null
     },
     {
+      "condition": "showJournal",
+      "kind": "Condition",
+      "passingValue": true,
+      "selections": [
+        {
+          "alias": "journal",
+          "args": [
+            {
+              "kind": "Literal",
+              "name": "schema",
+              "value": "nglp:journal"
+            }
+          ],
+          "concreteType": null,
+          "kind": "LinkedField",
+          "name": "ancestorOfType",
+          "plural": false,
+          "selections": [
+            {
+              "kind": "InlineFragment",
+              "selections": [
+                (v0/*: any*/)
+              ],
+              "type": "Collection",
+              "abstractKey": null
+            }
+          ],
+          "storageKey": "ancestorOfType(schema:\"nglp:journal\")"
+        }
+      ]
+    },
+    {
       "alias": "properties",
       "args": null,
       "concreteType": null,
@@ -194,43 +228,13 @@ return {
         }
       ],
       "storageKey": "items(schema:\"nglp:journal_article\")"
-    },
-    {
-      "condition": "showJournal",
-      "kind": "Condition",
-      "passingValue": true,
-      "selections": [
-        {
-          "alias": "journal",
-          "args": [
-            {
-              "kind": "Literal",
-              "name": "schema",
-              "value": "nglp:journal"
-            }
-          ],
-          "concreteType": null,
-          "kind": "LinkedField",
-          "name": "ancestorOfType",
-          "plural": false,
-          "selections": [
-            {
-              "kind": "InlineFragment",
-              "selections": [
-                (v0/*: any*/)
-              ],
-              "type": "Collection",
-              "abstractKey": null
-            }
-          ],
-          "storageKey": "ancestorOfType(schema:\"nglp:journal\")"
-        }
-      ]
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
 })();
-(node as any).hash = '5a660ff669e74640de424dd926b638d9';
+
+(node as any).hash = "5a660ff669e74640de424dd926b638d9";
+
 export default node;

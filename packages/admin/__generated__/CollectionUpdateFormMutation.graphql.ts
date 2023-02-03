@@ -1,142 +1,70 @@
+/**
+ * @generated SignedSource<<deb215cf125fcac441e2bc56ec31f063>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type DatePrecision = "DAY" | "MONTH" | "NONE" | "YEAR" | "%future added value";
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
 export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateCollectionInput = {
-    collectionId: string;
-    title: string;
-    subtitle?: string | null | undefined;
-    summary?: string | null | undefined;
-    heroImage?: UploadedFileInput | null | undefined;
-    heroImageMetadata?: ImageMetadataInput | null | undefined;
-    thumbnail?: UploadedFileInput | null | undefined;
-    thumbnailMetadata?: ImageMetadataInput | null | undefined;
-    published?: VariablePrecisionDateInput | null | undefined;
-    visibility: EntityVisibility;
-    visibleAfterAt?: string | null | undefined;
-    visibleUntilAt?: string | null | undefined;
-    clearHeroImage?: boolean | null | undefined;
-    clearThumbnail?: boolean | null | undefined;
-    schemaProperties?: unknown | null | undefined;
-    doi?: string | null | undefined;
-    issn?: string | null | undefined;
-    clientMutationId?: string | null | undefined;
+  clearHeroImage?: boolean | null;
+  clearThumbnail?: boolean | null;
+  clientMutationId?: string | null;
+  collectionId: string;
+  doi?: string | null;
+  heroImage?: UploadedFileInput | null;
+  heroImageMetadata?: ImageMetadataInput | null;
+  issn?: string | null;
+  published?: VariablePrecisionDateInput | null;
+  schemaProperties?: any | null;
+  subtitle?: string | null;
+  summary?: string | null;
+  thumbnail?: UploadedFileInput | null;
+  thumbnailMetadata?: ImageMetadataInput | null;
+  title: string;
+  visibility: EntityVisibility;
+  visibleAfterAt?: String | null;
+  visibleUntilAt?: String | null;
 };
 export type UploadedFileInput = {
-    id: unknown;
-    storage?: UploadStorage | null | undefined;
-    metadata?: UploadedFileMetadataInput | null | undefined;
+  id: any;
+  metadata?: UploadedFileMetadataInput | null;
+  storage?: UploadStorage | null;
 };
 export type UploadedFileMetadataInput = {
-    alt?: string | null | undefined;
-    filename?: string | null | undefined;
-    mimeType?: string | null | undefined;
+  alt?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
 };
 export type ImageMetadataInput = {
-    alt?: string | null | undefined;
+  alt?: string | null;
 };
 export type VariablePrecisionDateInput = {
-    value?: string | null | undefined;
-    precision: DatePrecision;
+  precision: DatePrecision;
+  value?: String | null;
 };
-export type CollectionUpdateFormMutationVariables = {
-    input: UpdateCollectionInput;
+export type CollectionUpdateFormMutation$variables = {
+  input: UpdateCollectionInput;
 };
-export type CollectionUpdateFormMutationResponse = {
-    readonly updateCollection: {
-        readonly collection: {
-            readonly " $fragmentRefs": FragmentRefs<"CollectionUpdateFormFieldsFragment">;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors" | "CollectionUpdateForm_schemaErrorsFragment">;
+export type CollectionUpdateFormMutation$data = {
+  readonly updateCollection: {
+    readonly collection: {
+      readonly " $fragmentSpreads": FragmentRefs<"CollectionUpdateFormFieldsFragment">;
     } | null;
+    readonly " $fragmentSpreads": FragmentRefs<"CollectionUpdateForm_schemaErrorsFragment" | "MutationForm_mutationErrors">;
+  } | null;
 };
 export type CollectionUpdateFormMutation = {
-    readonly response: CollectionUpdateFormMutationResponse;
-    readonly variables: CollectionUpdateFormMutationVariables;
+  response: CollectionUpdateFormMutation$data;
+  variables: CollectionUpdateFormMutation$variables;
 };
-
-
-
-/*
-mutation CollectionUpdateFormMutation(
-  $input: UpdateCollectionInput!
-) {
-  updateCollection(input: $input) {
-    collection {
-      ...CollectionUpdateFormFieldsFragment
-      id
-    }
-    ...MutationForm_mutationErrors
-    ...CollectionUpdateForm_schemaErrorsFragment
-  }
-}
-
-fragment CollectionUpdateFormFieldsFragment on Collection {
-  title
-  subtitle
-  doi
-  issn
-  visibility
-  summary
-  visibleAfterAt
-  visibleUntilAt
-  thumbnail {
-    ...FileUploadFragment
-  }
-  heroImage {
-    ...FileUploadFragment
-  }
-  published {
-    ...VariablePrecisionDateControlFragment
-  }
-}
-
-fragment CollectionUpdateForm_schemaErrorsFragment on UpdateCollectionPayload {
-  schemaErrors {
-    hint
-    message
-    metadata
-    path
-  }
-}
-
-fragment FileUploadFragment on ImageAttachment {
-  originalFilename
-  storage
-  thumb {
-    png {
-      alt
-      url
-    }
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-
-fragment VariablePrecisionDateControlFragment on VariablePrecisionDate {
-  precision
-  value
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -338,14 +266,18 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v5/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           },
           {
             "kind": "InlineDataFragmentSpread",
             "name": "CollectionUpdateForm_schemaErrorsFragment",
             "selections": [
               (v6/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -487,8 +419,8 @@ return {
             ],
             "storageKey": null
           },
-          (v6/*: any*/),
-          (v5/*: any*/)
+          (v5/*: any*/),
+          (v6/*: any*/)
         ],
         "storageKey": null
       }
@@ -504,5 +436,7 @@ return {
   }
 };
 })();
-(node as any).hash = '63dc64d2ba8d7e891af3729c05df92aa';
+
+(node as any).hash = "63dc64d2ba8d7e891af3729c05df92aa";
+
 export default node;

@@ -1,84 +1,29 @@
+/**
+ * @generated SignedSource<<26110f0335f9eb2eb154bf542d3b90fe>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type EntityOrder = "OLDEST" | "POSITION_ASCENDING" | "POSITION_DESCENDING" | "PUBLISHED_ASCENDING" | "PUBLISHED_DESCENDING" | "RECENT" | "SCHEMA_NAME_ASCENDING" | "SCHEMA_NAME_DESCENDING" | "TITLE_ASCENDING" | "TITLE_DESCENDING" | "%future added value";
-export type communitiesQueryVariables = {
-    order?: EntityOrder | null | undefined;
-    page: number;
+export type communitiesQuery$variables = {
+  order?: EntityOrder | null;
+  page: number;
 };
-export type communitiesQueryResponse = {
-    readonly communities: {
-        readonly " $fragmentRefs": FragmentRefs<"CommunityListFragment">;
-    };
+export type communitiesQuery$data = {
+  readonly communities: {
+    readonly " $fragmentSpreads": FragmentRefs<"CommunityListFragment">;
+  };
 };
 export type communitiesQuery = {
-    readonly response: communitiesQueryResponse;
-    readonly variables: communitiesQueryVariables;
+  response: communitiesQuery$data;
+  variables: communitiesQuery$variables;
 };
-
-
-
-/*
-query communitiesQuery(
-  $order: EntityOrder
-  $page: Int!
-) {
-  communities(order: $order, page: $page, perPage: 20) {
-    ...CommunityListFragment
-  }
-}
-
-fragment CommunityListFragment on CommunityConnection {
-  edges {
-    node {
-      slug
-      id
-      createdAt
-      updatedAt
-      name
-      allowedActions
-      position
-      ...CommunityNameColumnFragment
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment CommunityNameColumnFragment on Community {
-  name
-  slug
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -297,5 +242,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'a5e2fc04d3c5fc930cc2c18717fe2eca';
+
+(node as any).hash = "a5e2fc04d3c5fc930cc2c18717fe2eca";
+
 export default node;

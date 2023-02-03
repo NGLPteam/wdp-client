@@ -1,28 +1,30 @@
+/**
+ * @generated SignedSource<<01ea586b3fe420e7c481d01c194eae6c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ContributorNameColumnFragment = {
-    readonly __typename: string;
-    readonly image: {
-        readonly " $fragmentRefs": FragmentRefs<"AvatarFragment">;
-    };
-    readonly slug?: string | undefined;
-    readonly legalName?: string | null | undefined;
-    readonly givenName?: string | null | undefined;
-    readonly familyName?: string | null | undefined;
-    readonly " $refType": "ContributorNameColumnFragment";
+export type ContributorNameColumnFragment$data = {
+  readonly __typename: string;
+  readonly familyName?: string | null;
+  readonly givenName?: string | null;
+  readonly image: {
+    readonly " $fragmentSpreads": FragmentRefs<"AvatarFragment">;
+  };
+  readonly legalName?: string | null;
+  readonly slug?: String;
+  readonly " $fragmentType": "ContributorNameColumnFragment";
 };
-export type ContributorNameColumnFragment$data = ContributorNameColumnFragment;
 export type ContributorNameColumnFragment$key = {
-    readonly " $data"?: ContributorNameColumnFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContributorNameColumnFragment">;
+  readonly " $data"?: ContributorNameColumnFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributorNameColumnFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -106,5 +108,7 @@ const node: ReaderFragment = {
   "type": "Contributor",
   "abstractKey": "__isContributor"
 };
-(node as any).hash = '43bd73de5aa0162efdb3a942f3c551d3';
+
+(node as any).hash = "43bd73de5aa0162efdb3a942f3c551d3";
+
 export default node;

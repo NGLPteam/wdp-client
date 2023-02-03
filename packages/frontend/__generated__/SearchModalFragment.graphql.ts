@@ -1,30 +1,32 @@
+/**
+ * @generated SignedSource<<29ad03508bad5e0b4994a7a7722dee16>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SearchModalFragment = {
-    readonly __typename: string;
-    readonly slug?: string | undefined;
-    readonly title: string;
-    readonly breadcrumbs: ReadonlyArray<{
-        readonly crumb: {
-            readonly __typename: string;
-            readonly slug?: string | undefined;
-            readonly title?: string | undefined;
-        };
-    }>;
-    readonly " $refType": "SearchModalFragment";
+export type SearchModalFragment$data = {
+  readonly __typename: string;
+  readonly breadcrumbs: ReadonlyArray<{
+    readonly crumb: {
+      readonly __typename: string;
+      readonly slug?: String;
+      readonly title?: string;
+    };
+  }>;
+  readonly slug?: String;
+  readonly title: string;
+  readonly " $fragmentType": "SearchModalFragment";
 };
-export type SearchModalFragment$data = SearchModalFragment;
 export type SearchModalFragment$key = {
-    readonly " $data"?: SearchModalFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SearchModalFragment">;
+  readonly " $data"?: SearchModalFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchModalFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -35,13 +37,6 @@ var v0 = {
   "storageKey": null
 },
 v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-},
-v2 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -54,6 +49,13 @@ v2 = {
   ],
   "type": "Sluggable",
   "abstractKey": "__isSluggable"
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
 };
 return {
   "argumentDefinitions": [],
@@ -63,6 +65,7 @@ return {
   "selections": [
     (v0/*: any*/),
     (v1/*: any*/),
+    (v2/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -80,11 +83,11 @@ return {
           "plural": false,
           "selections": [
             (v0/*: any*/),
-            (v2/*: any*/),
+            (v1/*: any*/),
             {
               "kind": "InlineFragment",
               "selections": [
-                (v1/*: any*/)
+                (v2/*: any*/)
               ],
               "type": "Entity",
               "abstractKey": "__isEntity"
@@ -94,12 +97,13 @@ return {
         }
       ],
       "storageKey": null
-    },
-    (v2/*: any*/)
+    }
   ],
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = '10a685448b5c4bf11fb04706a05b7105';
+
+(node as any).hash = "10a685448b5c4bf11fb04706a05b7105";
+
 export default node;

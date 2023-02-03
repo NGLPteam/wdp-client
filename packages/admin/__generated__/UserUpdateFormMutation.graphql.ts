@@ -1,106 +1,58 @@
+/**
+ * @generated SignedSource<<8d85e4122f62a867578dc7d44179fe4d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateUserInput = {
-    userId: string;
-    avatar?: UploadedFileInput | null | undefined;
-    avatarMetadata?: ImageMetadataInput | null | undefined;
-    clearAvatar?: boolean | null | undefined;
-    profile: UserProfileInput;
-    clientMutationId?: string | null | undefined;
+  avatar?: UploadedFileInput | null;
+  avatarMetadata?: ImageMetadataInput | null;
+  clearAvatar?: boolean | null;
+  clientMutationId?: string | null;
+  profile: UserProfileInput;
+  userId: string;
 };
 export type UploadedFileInput = {
-    id: unknown;
-    storage?: UploadStorage | null | undefined;
-    metadata?: UploadedFileMetadataInput | null | undefined;
+  id: any;
+  metadata?: UploadedFileMetadataInput | null;
+  storage?: UploadStorage | null;
 };
 export type UploadedFileMetadataInput = {
-    alt?: string | null | undefined;
-    filename?: string | null | undefined;
-    mimeType?: string | null | undefined;
+  alt?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
 };
 export type ImageMetadataInput = {
-    alt?: string | null | undefined;
+  alt?: string | null;
 };
 export type UserProfileInput = {
-    givenName: string;
-    familyName: string;
-    email: string;
-    username: string;
+  email: string;
+  familyName: string;
+  givenName: string;
+  username: string;
 };
-export type UserUpdateFormMutationVariables = {
-    input: UpdateUserInput;
+export type UserUpdateFormMutation$variables = {
+  input: UpdateUserInput;
 };
-export type UserUpdateFormMutationResponse = {
-    readonly updateUser: {
-        readonly user: {
-            readonly " $fragmentRefs": FragmentRefs<"UserUpdateFormFragment">;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
+export type UserUpdateFormMutation$data = {
+  readonly updateUser: {
+    readonly user: {
+      readonly " $fragmentSpreads": FragmentRefs<"UserUpdateFormFragment">;
     } | null;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null;
 };
 export type UserUpdateFormMutation = {
-    readonly response: UserUpdateFormMutationResponse;
-    readonly variables: UserUpdateFormMutationVariables;
+  response: UserUpdateFormMutation$data;
+  variables: UserUpdateFormMutation$variables;
 };
-
-
-
-/*
-mutation UserUpdateFormMutation(
-  $input: UpdateUserInput!
-) {
-  updateUser(input: $input) {
-    user {
-      ...UserUpdateFormFragment
-      id
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment FileUploadFragment on ImageAttachment {
-  originalFilename
-  storage
-  thumb {
-    png {
-      alt
-      url
-    }
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-
-fragment UserUpdateFormFragment on User {
-  id
-  givenName
-  familyName
-  email
-  username
-  avatar {
-    ...FileUploadFragment
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -221,7 +173,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v3/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -367,5 +321,7 @@ return {
   }
 };
 })();
-(node as any).hash = '3c78d9622631027af3b5b8cc213411a5';
+
+(node as any).hash = "3c78d9622631027af3b5b8cc213411a5";
+
 export default node;

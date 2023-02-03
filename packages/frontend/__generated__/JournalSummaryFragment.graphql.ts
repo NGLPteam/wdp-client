@@ -1,37 +1,39 @@
+/**
+ * @generated SignedSource<<3a9a7e11ee16834129636c58de26639b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type JournalSummaryFragment = {
-    readonly id: string;
-    readonly slug: string;
-    readonly title: string;
-    readonly subtitle: string | null;
-    readonly updatedAt: string;
-    readonly summary: string | null;
-    readonly cover: {
-        readonly storage: AttachmentStorage | null;
-        readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
+import { FragmentRefs } from "relay-runtime";
+export type JournalSummaryFragment$data = {
+  readonly __typename: "Collection";
+  readonly cover: {
+    readonly storage: AttachmentStorage | null;
+    readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
+  };
+  readonly id: string;
+  readonly issues: {
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly issues: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
-    };
-    readonly __typename: "Collection";
-    readonly " $refType": "JournalSummaryFragment";
+  };
+  readonly slug: String;
+  readonly subtitle: string | null;
+  readonly summary: string | null;
+  readonly title: string;
+  readonly updatedAt: String;
+  readonly " $fragmentType": "JournalSummaryFragment";
 };
-export type JournalSummaryFragment$data = JournalSummaryFragment;
 export type JournalSummaryFragment$key = {
-    readonly " $data"?: JournalSummaryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"JournalSummaryFragment">;
+  readonly " $data"?: JournalSummaryFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"JournalSummaryFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -157,5 +159,7 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'dbd31231f3d56e4f8e86a95670e6d20d';
+
+(node as any).hash = "dbd31231f3d56e4f8e86a95670e6d20d";
+
 export default node;

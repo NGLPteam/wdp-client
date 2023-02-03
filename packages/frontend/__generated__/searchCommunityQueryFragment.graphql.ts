@@ -1,22 +1,24 @@
+/**
+ * @generated SignedSource<<ef2dc8538b1fb32a8e8c8e64873feb90>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-import SearchLayoutEntityQuery from "./SearchLayoutEntityQuery.graphql";
+import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type searchCommunityQueryFragment = {
-    readonly id?: string | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SearchLayoutFragment">;
-    readonly " $refType": "searchCommunityQueryFragment";
+export type searchCommunityQueryFragment$data = {
+  readonly id?: string;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchLayoutFragment">;
+  readonly " $fragmentType": "searchCommunityQueryFragment";
 };
-export type searchCommunityQueryFragment$data = searchCommunityQueryFragment;
 export type searchCommunityQueryFragment$key = {
-    readonly " $data"?: searchCommunityQueryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"searchCommunityQueryFragment">;
+  readonly " $data"?: searchCommunityQueryFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"searchCommunityQueryFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -53,7 +55,7 @@ const node: ReaderFragment = {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": SearchLayoutEntityQuery,
+      "operation": require('./SearchLayoutEntityQuery.graphql'),
       "identifierField": "id"
     }
   },
@@ -108,5 +110,7 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '91f4c13b0e95e069787f3f0c12252c3f';
+
+(node as any).hash = "91f4c13b0e95e069787f3f0c12252c3f";
+
 export default node;

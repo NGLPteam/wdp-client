@@ -1,62 +1,36 @@
+/**
+ * @generated SignedSource<<a667c50d226c7398c77680616c59a93a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SelectInitialOrderingInput = {
-    entityId: string;
-    orderingId: string;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null;
+  entityId: string;
+  orderingId: string;
 };
-export type SetIntitialOrderingModalMutationVariables = {
-    input: SelectInitialOrderingInput;
+export type SetIntitialOrderingModalMutation$variables = {
+  input: SelectInitialOrderingInput;
 };
-export type SetIntitialOrderingModalMutationResponse = {
-    readonly selectInitialOrdering: {
-        readonly ordering: {
-            readonly id: string;
-            readonly initial: boolean;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
+export type SetIntitialOrderingModalMutation$data = {
+  readonly selectInitialOrdering: {
+    readonly ordering: {
+      readonly id: string;
+      readonly initial: boolean;
     } | null;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null;
 };
 export type SetIntitialOrderingModalMutation = {
-    readonly response: SetIntitialOrderingModalMutationResponse;
-    readonly variables: SetIntitialOrderingModalMutationVariables;
+  response: SetIntitialOrderingModalMutation$data;
+  variables: SetIntitialOrderingModalMutation$variables;
 };
-
-
-
-/*
-mutation SetIntitialOrderingModalMutation(
-  $input: SelectInitialOrderingInput!
-) {
-  selectInitialOrdering(input: $input) {
-    ordering {
-      id
-      initial
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -187,7 +161,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v4/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -227,5 +203,7 @@ return {
   }
 };
 })();
-(node as any).hash = '75f8ee7eb1b04381c5a44785ff1b54f9';
+
+(node as any).hash = "75f8ee7eb1b04381c5a44785ff1b54f9";
+
 export default node;

@@ -1,60 +1,62 @@
+/**
+ * @generated SignedSource<<72fe5ff8598ab42895865a2561a45acb>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArticleMetadataFragment = {
-    readonly doi: string | null;
-    readonly journal: {
-        readonly title?: string | undefined;
-        readonly ccLicense?: {
-            readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-        } | null | undefined;
+export type ArticleMetadataFragment$data = {
+  readonly collectedMeta: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null;
+  readonly contributions: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly contributor: {
+          readonly " $fragmentSpreads": FragmentRefs<"ContributorNameFragment">;
+        };
+        readonly role: string | null;
+      };
+    }>;
+  };
+  readonly doi: string | null;
+  readonly journal: {
+    readonly ccLicense?: {
+      readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
     } | null;
-    readonly contributions: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly role: string | null;
-                readonly contributor: {
-                    readonly " $fragmentRefs": FragmentRefs<"ContributorNameFragment">;
-                };
-            };
-        }>;
-    };
-    readonly collectedMeta: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly published: {
-        readonly value: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
-    };
-    readonly pageCountMeta: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly pdfVersion: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly onlineVersion: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly preprintVersion: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly volumeIdMeta: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleIssueMetadataFragment">;
-    readonly " $refType": "ArticleMetadataFragment";
+    readonly title?: string;
+  } | null;
+  readonly onlineVersion: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null;
+  readonly pageCountMeta: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null;
+  readonly pdfVersion: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null;
+  readonly preprintVersion: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null;
+  readonly published: {
+    readonly value: String | null;
+    readonly " $fragmentSpreads": FragmentRefs<"PrecisionDateFragment">;
+  };
+  readonly volumeIdMeta: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null;
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleIssueMetadataFragment">;
+  readonly " $fragmentType": "ArticleMetadataFragment";
 };
-export type ArticleMetadataFragment$data = ArticleMetadataFragment;
 export type ArticleMetadataFragment$key = {
-    readonly " $data"?: ArticleMetadataFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleMetadataFragment">;
+  readonly " $data"?: ArticleMetadataFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleMetadataFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -316,5 +318,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '4a9264fa2bf922b086bed948577423c0';
+
+(node as any).hash = "4a9264fa2bf922b086bed948577423c0";
+
 export default node;

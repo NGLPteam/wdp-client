@@ -1,33 +1,35 @@
+/**
+ * @generated SignedSource<<3cd8df86ee798ba308c843891c37cbb2>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CollectionListFragment = {
-    readonly nodes: ReadonlyArray<{
-        readonly id: string;
-        readonly createdAt: string;
-        readonly title: string;
-        readonly slug: string;
-        readonly schemaVersion: {
-            readonly name: string;
-            readonly number: string;
-        };
-        readonly allowedActions: ReadonlyArray<string>;
-        readonly " $fragmentRefs": FragmentRefs<"EntityThumbnailColumnFragment" | "PublishedDateColumnFragment">;
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "CollectionListFragment";
+export type CollectionListFragment$data = {
+  readonly nodes: ReadonlyArray<{
+    readonly allowedActions: ReadonlyArray<string>;
+    readonly createdAt: String;
+    readonly id: string;
+    readonly schemaVersion: {
+      readonly name: string;
+      readonly number: string;
+    };
+    readonly slug: String;
+    readonly title: string;
+    readonly " $fragmentSpreads": FragmentRefs<"EntityThumbnailColumnFragment" | "PublishedDateColumnFragment">;
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "CollectionListFragment";
 };
-export type CollectionListFragment$data = CollectionListFragment;
 export type CollectionListFragment$key = {
-    readonly " $data"?: CollectionListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CollectionListFragment">;
+  readonly " $data"?: CollectionListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CollectionListFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -125,5 +127,7 @@ const node: ReaderFragment = {
   "type": "CollectionConnection",
   "abstractKey": null
 };
-(node as any).hash = 'fbfabfa98bae8db0f147e8e492f0cf39';
+
+(node as any).hash = "fbfabfa98bae8db0f147e8e492f0cf39";
+
 export default node;

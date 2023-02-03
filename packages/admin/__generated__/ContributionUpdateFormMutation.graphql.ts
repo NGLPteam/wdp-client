@@ -1,82 +1,42 @@
+/**
+ * @generated SignedSource<<521359a672b544187d6972dda3093350>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UpdateContributionInput = {
-    contributionId: string;
-    role?: string | null | undefined;
-    metadata?: ContributionMetadataInput | null | undefined;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null;
+  contributionId: string;
+  metadata?: ContributionMetadataInput | null;
+  role?: string | null;
 };
 export type ContributionMetadataInput = {
-    title?: string | null | undefined;
-    affiliation?: string | null | undefined;
-    displayName?: string | null | undefined;
-    location?: string | null | undefined;
+  affiliation?: string | null;
+  displayName?: string | null;
+  location?: string | null;
+  title?: string | null;
 };
-export type ContributionUpdateFormMutationVariables = {
-    input: UpdateContributionInput;
+export type ContributionUpdateFormMutation$variables = {
+  input: UpdateContributionInput;
 };
-export type ContributionUpdateFormMutationResponse = {
-    readonly updateContribution: {
-        readonly contribution: {
-            readonly " $fragmentRefs": FragmentRefs<"ContributionUpdateFormFieldsFragment">;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
+export type ContributionUpdateFormMutation$data = {
+  readonly updateContribution: {
+    readonly contribution: {
+      readonly " $fragmentSpreads": FragmentRefs<"ContributionUpdateFormFieldsFragment">;
     } | null;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null;
 };
 export type ContributionUpdateFormMutation = {
-    readonly response: ContributionUpdateFormMutationResponse;
-    readonly variables: ContributionUpdateFormMutationVariables;
+  response: ContributionUpdateFormMutation$data;
+  variables: ContributionUpdateFormMutation$variables;
 };
-
-
-
-/*
-mutation ContributionUpdateFormMutation(
-  $input: UpdateContributionInput!
-) {
-  updateContribution(input: $input) {
-    contribution {
-      __typename
-      ...ContributionUpdateFormFieldsFragment
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment ContributionUpdateFormFieldsFragment on AnyContribution {
-  __isAnyContribution: __typename
-  ... on CollectionContribution {
-    role
-  }
-  ... on ItemContribution {
-    role
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -206,7 +166,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v3/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -293,5 +255,7 @@ return {
   }
 };
 })();
-(node as any).hash = '6ecc4931761a40931004f5fb92221a1f';
+
+(node as any).hash = "6ecc4931761a40931004f5fb92221a1f";
+
 export default node;

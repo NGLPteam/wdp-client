@@ -1,267 +1,82 @@
+/**
+ * @generated SignedSource<<3f658d6b40c28784aecf936248b35712>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type EntityOrder = "OLDEST" | "POSITION_ASCENDING" | "POSITION_DESCENDING" | "PUBLISHED_ASCENDING" | "PUBLISHED_DESCENDING" | "RECENT" | "SCHEMA_NAME_ASCENDING" | "SCHEMA_NAME_DESCENDING" | "TITLE_ASCENDING" | "TITLE_DESCENDING" | "%future added value";
 export type SearchPredicateInput = {
-    and?: AndOperatorInput | null | undefined;
-    or?: OrOperatorInput | null | undefined;
-    dateEquals?: DateEqualsOperatorInput | null | undefined;
-    dateGTE?: DateGTEOperatorInput | null | undefined;
-    dateLTE?: DateLTEOperatorInput | null | undefined;
-    equals?: EqualsOperatorInput | null | undefined;
-    matches?: MatchesOperatorInput | null | undefined;
-    inAny?: InAnyOperatorInput | null | undefined;
-    numericGTE?: NumericGTEOperatorInput | null | undefined;
-    numericLTE?: NumericLTEOperatorInput | null | undefined;
+  and?: AndOperatorInput | null;
+  dateEquals?: DateEqualsOperatorInput | null;
+  dateGTE?: DateGTEOperatorInput | null;
+  dateLTE?: DateLTEOperatorInput | null;
+  equals?: EqualsOperatorInput | null;
+  inAny?: InAnyOperatorInput | null;
+  matches?: MatchesOperatorInput | null;
+  numericGTE?: NumericGTEOperatorInput | null;
+  numericLTE?: NumericLTEOperatorInput | null;
+  or?: OrOperatorInput | null;
 };
 export type AndOperatorInput = {
-    left: SearchPredicateInput;
-    right: SearchPredicateInput;
+  left: SearchPredicateInput;
+  right: SearchPredicateInput;
 };
 export type OrOperatorInput = {
-    left: SearchPredicateInput;
-    right: SearchPredicateInput;
+  left: SearchPredicateInput;
+  right: SearchPredicateInput;
 };
 export type DateEqualsOperatorInput = {
-    path: string;
-    value: string;
+  path: string;
+  value: String;
 };
 export type DateGTEOperatorInput = {
-    path: string;
-    value: string;
+  path: string;
+  value: String;
 };
 export type DateLTEOperatorInput = {
-    path: string;
-    value: string;
+  path: string;
+  value: String;
 };
 export type EqualsOperatorInput = {
-    path: string;
-    value: unknown;
+  path: string;
+  value: any;
 };
 export type MatchesOperatorInput = {
-    path: string;
-    value: string;
+  path: string;
+  value: string;
 };
 export type InAnyOperatorInput = {
-    path: string;
-    value: Array<string>;
+  path: string;
+  value: ReadonlyArray<string>;
 };
 export type NumericGTEOperatorInput = {
-    path: string;
-    value: number;
+  path: string;
+  value: number;
 };
 export type NumericLTEOperatorInput = {
-    path: string;
-    value: number;
+  path: string;
+  value: number;
 };
-export type SearchLayoutQueryVariables = {
-    order?: EntityOrder | null | undefined;
-    page?: number | null | undefined;
-    predicates?: Array<SearchPredicateInput> | null | undefined;
-    query?: string | null | undefined;
-    schema?: Array<string> | null | undefined;
+export type SearchLayoutQuery$variables = {
+  order?: EntityOrder | null;
+  page?: number | null;
+  predicates?: ReadonlyArray<SearchPredicateInput> | null;
+  query?: string | null;
+  schema?: ReadonlyArray<string> | null;
 };
-export type SearchLayoutQueryResponse = {
-    readonly " $fragmentRefs": FragmentRefs<"searchQueryFragment">;
+export type SearchLayoutQuery$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"searchQueryFragment">;
 };
 export type SearchLayoutQuery = {
-    readonly response: SearchLayoutQueryResponse;
-    readonly variables: SearchLayoutQueryVariables;
+  response: SearchLayoutQuery$data;
+  variables: SearchLayoutQuery$variables;
 };
-
-
-
-/*
-query SearchLayoutQuery(
-  $order: EntityOrder = PUBLISHED_ASCENDING
-  $page: Int = 1
-  $predicates: [SearchPredicateInput!] = []
-  $query: String = ""
-  $schema: [String!] = []
-) {
-  ...searchQueryFragment_dJrY9
-}
-
-fragment PaginationFragment on PageInfo {
-  page
-  pageCount
-}
-
-fragment PrecisionDateFragment on VariablePrecisionDate {
-  precision
-  value
-}
-
-fragment SearchEntityResultFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  summary
-  schemaVersion {
-    name
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-  thumbnail {
-    storage
-    ...SquareThumbnailFragment
-  }
-  ... on ReferencesGlobalEntityDates {
-    __isReferencesGlobalEntityDates: __typename
-    published {
-      ...PrecisionDateFragment
-      value
-    }
-  }
-}
-
-fragment SearchFilterBooleanFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  label
-  description
-  searchPath
-  searchOperators
-}
-
-fragment SearchFilterDateFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  label
-  description
-  searchPath
-  searchOperators
-}
-
-fragment SearchFilterFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  ... on ScalarProperty {
-    __isScalarProperty: __typename
-    type
-  }
-  ...SearchFilterInputFragment
-  ...SearchFilterSelectFragment
-  ...SearchFilterDateFragment
-  ...SearchFilterNumberFragment
-  ...SearchFilterBooleanFragment
-}
-
-fragment SearchFilterInputFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  label
-  description
-  searchPath
-  searchOperators
-}
-
-fragment SearchFilterNumberFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  label
-  description
-  searchPath
-  searchOperators
-}
-
-fragment SearchFilterSelectFragment on SearchableProperty {
-  __isSearchableProperty: __typename
-  label
-  description
-  searchPath
-  searchOperators
-  ... on SelectProperty {
-    options {
-      label
-      value
-    }
-  }
-}
-
-fragment SearchFiltersFragment on SearchScope {
-  coreProperties {
-    ... on SearchableProperty {
-      __isSearchableProperty: __typename
-      searchPath
-    }
-    ...SearchFilterFragment
-  }
-  ...SearchSchemaFilterFragment
-  schemas: availableSchemaVersions {
-    searchableProperties {
-      __typename
-      ... on SearchableProperty {
-        __isSearchableProperty: __typename
-        searchPath
-        label
-      }
-      ...SearchFilterFragment
-    }
-    id
-  }
-}
-
-fragment SearchLayoutFragment_dJrY9 on Searchable {
-  __isSearchable: __typename
-  search {
-    results(query: $query, page: $page, perPage: 20, predicates: $predicates, order: $order, schema: $schema) {
-      ...SearchResultsFragment
-    }
-    ...SearchFiltersFragment
-  }
-}
-
-fragment SearchResultFactoryFragment on AnyEntity {
-  __isAnyEntity: __typename
-  __typename
-  ...SearchEntityResultFragment
-}
-
-fragment SearchResultsFragment on SearchResultConnection {
-  nodes {
-    entity {
-      __typename
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-      ...SearchResultFactoryFragment
-    }
-    id
-  }
-  pageInfo {
-    totalCount
-    ...PaginationFragment
-  }
-}
-
-fragment SearchSchemaFilterFragment on SearchScope {
-  schemas: availableSchemaVersions {
-    name
-    schemaDefinition {
-      slug
-      id
-    }
-    id
-  }
-}
-
-fragment SquareThumbnailFragment on ImageAttachment {
-  image: medium {
-    webp {
-      alt
-      url
-    }
-  }
-}
-
-fragment searchQueryFragment_dJrY9 on Query {
-  ...SearchLayoutFragment_dJrY9
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -355,7 +170,7 @@ v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "label",
+  "name": "searchPath",
   "storageKey": null
 },
 v12 = {
@@ -365,61 +180,53 @@ v12 = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "searchPath",
+      "name": "type",
       "storageKey": null
-    },
-    (v11/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "description",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "searchOperators",
-      "storageKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "type",
-          "storageKey": null
-        }
-      ],
-      "type": "ScalarProperty",
-      "abstractKey": "__isScalarProperty"
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "SelectOption",
-          "kind": "LinkedField",
-          "name": "options",
-          "plural": true,
-          "selections": [
-            (v11/*: any*/),
-            (v10/*: any*/)
-          ],
-          "storageKey": null
-        }
-      ],
-      "type": "SelectProperty",
-      "abstractKey": null
     }
   ],
-  "type": "SearchableProperty",
-  "abstractKey": "__isSearchableProperty"
+  "type": "ScalarProperty",
+  "abstractKey": "__isScalarProperty"
+},
+v13 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "label",
+  "storageKey": null
+},
+v14 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "description",
+  "storageKey": null
+},
+v15 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "searchOperators",
+  "storageKey": null
+},
+v16 = {
+  "kind": "InlineFragment",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "SelectOption",
+      "kind": "LinkedField",
+      "name": "options",
+      "plural": true,
+      "selections": [
+        (v13/*: any*/),
+        (v10/*: any*/)
+      ],
+      "storageKey": null
+    }
+  ],
+  "type": "SelectProperty",
+  "abstractKey": null
 };
 return {
   "fragment": {
@@ -680,7 +487,19 @@ return {
                 "name": "coreProperties",
                 "plural": true,
                 "selections": [
-                  (v12/*: any*/)
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      (v11/*: any*/),
+                      (v12/*: any*/),
+                      (v13/*: any*/),
+                      (v14/*: any*/),
+                      (v15/*: any*/),
+                      (v16/*: any*/)
+                    ],
+                    "type": "SearchableProperty",
+                    "abstractKey": "__isSearchableProperty"
+                  }
                 ],
                 "storageKey": null
               },
@@ -716,7 +535,19 @@ return {
                     "plural": true,
                     "selections": [
                       (v6/*: any*/),
-                      (v12/*: any*/)
+                      {
+                        "kind": "InlineFragment",
+                        "selections": [
+                          (v11/*: any*/),
+                          (v13/*: any*/),
+                          (v12/*: any*/),
+                          (v14/*: any*/),
+                          (v15/*: any*/),
+                          (v16/*: any*/)
+                        ],
+                        "type": "SearchableProperty",
+                        "abstractKey": "__isSearchableProperty"
+                      }
                     ],
                     "storageKey": null
                   }
@@ -742,5 +573,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'a18edb185b5edea9a078e2afa881847b';
+
+(node as any).hash = "a18edb185b5edea9a078e2afa881847b";
+
 export default node;

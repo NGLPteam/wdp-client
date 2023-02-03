@@ -1,44 +1,46 @@
+/**
+ * @generated SignedSource<<43bae20a70992b646fcbfd840f1e7475>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type ContributorDetailFragment = {
-    readonly bio: string | null;
-    readonly orcid: string | null;
-    readonly collectionContributions: {
-        readonly nodes: ReadonlyArray<{
-            readonly " $fragmentRefs": FragmentRefs<"ContributionSummaryFragment">;
-        }>;
-    };
-    readonly itemContributions: {
-        readonly nodes: ReadonlyArray<{
-            readonly " $fragmentRefs": FragmentRefs<"ContributionSummaryFragment">;
-        }>;
-    };
-    readonly image: {
-        readonly storage: AttachmentStorage | null;
-        readonly " $fragmentRefs": FragmentRefs<"ContributorAvatarFragment">;
-    };
-    readonly links: ReadonlyArray<{
-        readonly title: string;
-        readonly url: string;
+import { FragmentRefs } from "relay-runtime";
+export type ContributorDetailFragment$data = {
+  readonly affiliation?: string | null;
+  readonly bio: string | null;
+  readonly collectionContributions: {
+    readonly nodes: ReadonlyArray<{
+      readonly " $fragmentSpreads": FragmentRefs<"ContributionSummaryFragment">;
     }>;
-    readonly affiliation?: string | null | undefined;
-    readonly title?: string | null | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContributorNameFragment">;
-    readonly " $refType": "ContributorDetailFragment";
+  };
+  readonly image: {
+    readonly storage: AttachmentStorage | null;
+    readonly " $fragmentSpreads": FragmentRefs<"ContributorAvatarFragment">;
+  };
+  readonly itemContributions: {
+    readonly nodes: ReadonlyArray<{
+      readonly " $fragmentSpreads": FragmentRefs<"ContributionSummaryFragment">;
+    }>;
+  };
+  readonly links: ReadonlyArray<{
+    readonly title: string;
+    readonly url: string;
+  }>;
+  readonly orcid: string | null;
+  readonly title?: string | null;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributorNameFragment">;
+  readonly " $fragmentType": "ContributorDetailFragment";
 };
-export type ContributorDetailFragment$data = ContributorDetailFragment;
 export type ContributorDetailFragment$key = {
-    readonly " $data"?: ContributorDetailFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContributorDetailFragment">;
+  readonly " $data"?: ContributorDetailFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributorDetailFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -61,6 +63,11 @@ return {
   "metadata": null,
   "name": "ContributorDetailFragment",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ContributorNameFragment"
+    },
     {
       "alias": null,
       "args": null,
@@ -160,11 +167,6 @@ return {
       "storageKey": null
     },
     {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ContributorNameFragment"
-    },
-    {
       "kind": "InlineFragment",
       "selections": [
         {
@@ -184,5 +186,7 @@ return {
   "abstractKey": "__isContributor"
 };
 })();
-(node as any).hash = '6f7ffe15cc20c4088a77520084f0bc56';
+
+(node as any).hash = "6f7ffe15cc20c4088a77520084f0bc56";
+
 export default node;

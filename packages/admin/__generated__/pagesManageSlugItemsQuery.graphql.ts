@@ -1,168 +1,28 @@
+/**
+ * @generated SignedSource<<3fc570a2246e8ec11fdee1aecc49ba90>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type pagesManageSlugItemsQueryVariables = {
-    itemSlug: string;
-    page: number;
+export type pagesManageSlugItemsQuery$variables = {
+  itemSlug: String;
+  page: number;
 };
-export type pagesManageSlugItemsQueryResponse = {
-    readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityPagesListFragment" | "ItemLayoutQueryFragment">;
-    } | null;
+export type pagesManageSlugItemsQuery$data = {
+  readonly item: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityPagesListFragment" | "ItemLayoutQueryFragment">;
+  } | null;
 };
 export type pagesManageSlugItemsQuery = {
-    readonly response: pagesManageSlugItemsQueryResponse;
-    readonly variables: pagesManageSlugItemsQueryVariables;
+  response: pagesManageSlugItemsQuery$data;
+  variables: pagesManageSlugItemsQuery$variables;
 };
-
-
-
-/*
-query pagesManageSlugItemsQuery(
-  $itemSlug: Slug!
-  $page: Int!
-) {
-  item(slug: $itemSlug) {
-    ...EntityPagesListFragment
-    ...ItemLayoutQueryFragment
-    id
-  }
-}
-
-fragment AuthContextFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-
-fragment EntityPagesListDataFragment on PageConnection {
-  edges {
-    node {
-      id
-      title
-      slug
-      entity {
-        __typename
-        ... on Sluggable {
-          __isSluggable: __typename
-          slug
-        }
-        ... on Node {
-          __isNode: __typename
-          id
-        }
-      }
-      ...PageHeroColumnFragment
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment EntityPagesListFragment on AnyEntity {
-  __isAnyEntity: __typename
-  ... on Community {
-    slug
-    pages(page: $page, perPage: 20) {
-      ...EntityPagesListDataFragment
-    }
-  }
-  ... on Collection {
-    slug
-    pages(page: $page, perPage: 20) {
-      ...EntityPagesListDataFragment
-    }
-  }
-  ... on Item {
-    slug
-    pages(page: $page, perPage: 20) {
-      ...EntityPagesListDataFragment
-    }
-  }
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment ItemLayoutFragment on Item {
-  title
-  slug
-  id
-  ...useBreadcrumbsFragment
-  ...useChildRouteLinksFragment
-}
-
-fragment ItemLayoutQueryFragment on Item {
-  ...ItemLayoutFragment
-  ...AuthContextFragment
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment PageHeroColumnFragment on Page {
-  heroImage {
-    storage
-    small {
-      webp {
-        ...ImageFragment
-      }
-    }
-  }
-}
-
-fragment useBreadcrumbsFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  breadcrumbs {
-    depth
-    label
-    kind
-    slug
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-}
-
-fragment useChildRouteLinksFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -566,5 +426,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'c4d21928dfad2a2be117d97dda264948';
+
+(node as any).hash = "c4d21928dfad2a2be117d97dda264948";
+
 export default node;

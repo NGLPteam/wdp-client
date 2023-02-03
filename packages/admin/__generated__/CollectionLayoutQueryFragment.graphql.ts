@@ -1,21 +1,23 @@
+/**
+ * @generated SignedSource<<a7172ebafe922ed89a38454fcc8631f6>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CollectionLayoutQueryFragment = {
-    readonly " $fragmentRefs": FragmentRefs<"CollectionLayoutFragment" | "AuthContextFragment">;
-    readonly " $refType": "CollectionLayoutQueryFragment";
+export type CollectionLayoutQueryFragment$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "CollectionLayoutFragment">;
+  readonly " $fragmentType": "CollectionLayoutQueryFragment";
 };
-export type CollectionLayoutQueryFragment$data = CollectionLayoutQueryFragment;
 export type CollectionLayoutQueryFragment$key = {
-    readonly " $data"?: CollectionLayoutQueryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CollectionLayoutQueryFragment">;
+  readonly " $data"?: CollectionLayoutQueryFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CollectionLayoutQueryFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -37,5 +39,7 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '614c237c4893094ac2513ab91a64c73a';
+
+(node as any).hash = "614c237c4893094ac2513ab91a64c73a";
+
 export default node;

@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<c97690cd879e1a6ec7e03d73e0c9a577>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type StringPropertyFragment = {
-    readonly content: string | null;
-    readonly default: string | null;
-    readonly " $fragmentRefs": FragmentRefs<"ScalarPropertyFragment">;
-    readonly " $refType": "StringPropertyFragment";
+export type StringPropertyFragment$data = {
+  readonly content: string | null;
+  readonly default: string | null;
+  readonly " $fragmentSpreads": FragmentRefs<"ScalarPropertyFragment">;
+  readonly " $fragmentType": "StringPropertyFragment";
 };
-export type StringPropertyFragment$data = StringPropertyFragment;
 export type StringPropertyFragment$key = {
-    readonly " $data"?: StringPropertyFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"StringPropertyFragment">;
+  readonly " $data"?: StringPropertyFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"StringPropertyFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -25,6 +27,11 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "StringPropertyFragment",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ScalarPropertyFragment"
+    },
     {
       "alias": null,
       "args": null,
@@ -38,15 +45,12 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "default",
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ScalarPropertyFragment"
     }
   ],
   "type": "StringProperty",
   "abstractKey": null
 };
-(node as any).hash = 'a7296c7bf5f2b78ffc7c65353af9218c';
+
+(node as any).hash = "a7296c7bf5f2b78ffc7c65353af9218c";
+
 export default node;

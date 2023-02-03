@@ -1,60 +1,25 @@
+/**
+ * @generated SignedSource<<4e296cfb9ec0cfd54833e04a288f1807>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type GlobalSettingsEditDrawerQueryVariables = {};
-export type GlobalSettingsEditDrawerQueryResponse = {
-    readonly globalConfiguration: {
-        readonly " $fragmentRefs": FragmentRefs<"GlobalSettingsEditFormFragment">;
-    };
+export type GlobalSettingsEditDrawerQuery$variables = {};
+export type GlobalSettingsEditDrawerQuery$data = {
+  readonly globalConfiguration: {
+    readonly " $fragmentSpreads": FragmentRefs<"GlobalSettingsEditFormFragment">;
+  };
 };
 export type GlobalSettingsEditDrawerQuery = {
-    readonly response: GlobalSettingsEditDrawerQueryResponse;
-    readonly variables: GlobalSettingsEditDrawerQueryVariables;
+  response: GlobalSettingsEditDrawerQuery$data;
+  variables: GlobalSettingsEditDrawerQuery$variables;
 };
-
-
-
-/*
-query GlobalSettingsEditDrawerQuery {
-  globalConfiguration {
-    ...GlobalSettingsEditFormFragment
-    id
-  }
-}
-
-fragment GlobalSettingsEditFormFragment on GlobalConfiguration {
-  site {
-    providerName
-    installationName
-    installationHomePageCopy
-    footer {
-      description
-      copyrightStatement
-    }
-    logoMode
-  }
-  theme {
-    color
-    font
-  }
-  logo {
-    ...SiteLogoUploadFragment
-  }
-}
-
-fragment SiteLogoUploadFragment on SiteLogoAttachment {
-  originalFilename
-  storage
-  original {
-    url
-    alt
-  }
-}
-*/
 
 const node: ConcreteRequest = {
   "fragment": {
@@ -257,5 +222,7 @@ const node: ConcreteRequest = {
     "text": "query GlobalSettingsEditDrawerQuery {\n  globalConfiguration {\n    ...GlobalSettingsEditFormFragment\n    id\n  }\n}\n\nfragment GlobalSettingsEditFormFragment on GlobalConfiguration {\n  site {\n    providerName\n    installationName\n    installationHomePageCopy\n    footer {\n      description\n      copyrightStatement\n    }\n    logoMode\n  }\n  theme {\n    color\n    font\n  }\n  logo {\n    ...SiteLogoUploadFragment\n  }\n}\n\nfragment SiteLogoUploadFragment on SiteLogoAttachment {\n  originalFilename\n  storage\n  original {\n    url\n    alt\n  }\n}\n"
   }
 };
-(node as any).hash = '14c05f979e57359ae35bfe24eb0c1ce9';
+
+(node as any).hash = "14c05f979e57359ae35bfe24eb0c1ce9";
+
 export default node;

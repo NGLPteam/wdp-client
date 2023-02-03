@@ -1,26 +1,28 @@
+/**
+ * @generated SignedSource<<d39d33670f539d644c842046bc3074c1>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityOrderSelectFragment = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly name: string | null;
-            readonly identifier: string;
-        };
-    }>;
-    readonly " $refType": "EntityOrderSelectFragment";
+export type EntityOrderSelectFragment$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly identifier: string;
+      readonly name: string | null;
+    };
+  }>;
+  readonly " $fragmentType": "EntityOrderSelectFragment";
 };
-export type EntityOrderSelectFragment$data = EntityOrderSelectFragment;
 export type EntityOrderSelectFragment$key = {
-    readonly " $data"?: EntityOrderSelectFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityOrderSelectFragment">;
+  readonly " $data"?: EntityOrderSelectFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityOrderSelectFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -68,5 +70,7 @@ const node: ReaderFragment = {
   "type": "OrderingConnection",
   "abstractKey": null
 };
-(node as any).hash = 'b374150022ecb5c4a4298027334687a9';
+
+(node as any).hash = "b374150022ecb5c4a4298027334687a9";
+
 export default node;

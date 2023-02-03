@@ -1,33 +1,35 @@
+/**
+ * @generated SignedSource<<1983846a25d75b60f72969fa9e09f5b9>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
-export type BrowseTreeItemFragment = {
-    readonly treeDepth: number | null;
-    readonly entry: {
-        readonly __typename: string;
-        readonly slug?: string | undefined;
-        readonly title?: string | undefined;
-        readonly schemaVersion?: {
-            readonly namespace: string;
-            readonly identifier: string;
-            readonly kind: SchemaKind;
-        } | undefined;
-        readonly " $fragmentRefs": FragmentRefs<"TeasersFragment">;
+import { FragmentRefs } from "relay-runtime";
+export type BrowseTreeItemFragment$data = {
+  readonly entry: {
+    readonly __typename: string;
+    readonly schemaVersion?: {
+      readonly identifier: string;
+      readonly kind: SchemaKind;
+      readonly namespace: string;
     };
-    readonly " $refType": "BrowseTreeItemFragment";
+    readonly slug?: String;
+    readonly title?: string;
+    readonly " $fragmentSpreads": FragmentRefs<"TeasersFragment">;
+  };
+  readonly treeDepth: number | null;
+  readonly " $fragmentType": "BrowseTreeItemFragment";
 };
-export type BrowseTreeItemFragment$data = BrowseTreeItemFragment;
 export type BrowseTreeItemFragment$key = {
-    readonly " $data"?: BrowseTreeItemFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"BrowseTreeItemFragment">;
+  readonly " $data"?: BrowseTreeItemFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"BrowseTreeItemFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -129,5 +131,7 @@ const node: ReaderFragment = {
   "type": "OrderingEntry",
   "abstractKey": null
 };
-(node as any).hash = '1b4feba8325fa90bf0fc3831aab852ef';
+
+(node as any).hash = "1b4feba8325fa90bf0fc3831aab852ef";
+
 export default node;

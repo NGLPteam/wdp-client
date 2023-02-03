@@ -1,36 +1,38 @@
+/**
+ * @generated SignedSource<<8b421dbb1daa6a7f8d81259652aaf02b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type EntityLinkOperator = "CONTAINS" | "REFERENCES" | "%future added value";
 export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
-export type EntityLinksListDataFragment = {
-    readonly nodes: ReadonlyArray<{
-        readonly id: string;
-        readonly slug: string;
-        readonly operator: EntityLinkOperator;
-        readonly target: {
-            readonly slug?: string | undefined;
-            readonly title?: string | undefined;
-            readonly schemaDefinition?: {
-                readonly name: string;
-                readonly kind: SchemaKind;
-            } | undefined;
-        };
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "EntityLinksListDataFragment";
+import { FragmentRefs } from "relay-runtime";
+export type EntityLinksListDataFragment$data = {
+  readonly nodes: ReadonlyArray<{
+    readonly id: string;
+    readonly operator: EntityLinkOperator;
+    readonly slug: String;
+    readonly target: {
+      readonly schemaDefinition?: {
+        readonly kind: SchemaKind;
+        readonly name: string;
+      };
+      readonly slug?: String;
+      readonly title?: string;
+    };
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "EntityLinksListDataFragment";
 };
-export type EntityLinksListDataFragment$data = EntityLinksListDataFragment;
 export type EntityLinksListDataFragment$key = {
-    readonly " $data"?: EntityLinksListDataFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityLinksListDataFragment">;
+  readonly " $data"?: EntityLinksListDataFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityLinksListDataFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -140,5 +142,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'b8cccc874b105cb0a5f726bee4222129';
+
+(node as any).hash = "b8cccc874b105cb0a5f726bee4222129";
+
 export default node;

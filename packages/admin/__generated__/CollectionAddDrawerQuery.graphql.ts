@@ -1,68 +1,33 @@
+/**
+ * @generated SignedSource<<2a662595f3784b3cbce2551348151684>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
-export type CollectionAddDrawerQueryVariables = {
-    parentSlug: string;
-    schemaKind: SchemaKind;
+export type CollectionAddDrawerQuery$variables = {
+  parentSlug: String;
+  schemaKind: SchemaKind;
 };
-export type CollectionAddDrawerQueryResponse = {
-    readonly collection: {
-        readonly id: string;
-    } | null;
-    readonly community: {
-        readonly id: string;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"CollectionAddFormFragment">;
+export type CollectionAddDrawerQuery$data = {
+  readonly collection: {
+    readonly id: string;
+  } | null;
+  readonly community: {
+    readonly id: string;
+  } | null;
+  readonly " $fragmentSpreads": FragmentRefs<"CollectionAddFormFragment">;
 };
 export type CollectionAddDrawerQuery = {
-    readonly response: CollectionAddDrawerQueryResponse;
-    readonly variables: CollectionAddDrawerQueryVariables;
+  response: CollectionAddDrawerQuery$data;
+  variables: CollectionAddDrawerQuery$variables;
 };
-
-
-
-/*
-query CollectionAddDrawerQuery(
-  $parentSlug: Slug!
-  $schemaKind: SchemaKind!
-) {
-  collection(slug: $parentSlug) {
-    id
-  }
-  community(slug: $parentSlug) {
-    id
-  }
-  ...CollectionAddFormFragment
-}
-
-fragment CollectionAddFormFragment on Query {
-  ...SchemaSelectFragment
-  ...CommunitySelectFragment
-}
-
-fragment CommunitySelectFragment on Query {
-  communities {
-    edges {
-      node {
-        id
-        name
-      }
-    }
-  }
-}
-
-fragment SchemaSelectFragment on Query {
-  schemaVersionOptions(kind: $schemaKind) {
-    label
-    value
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -224,5 +189,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'ab773d4f1d69ea7b0fac6bdeb935cd78';
+
+(node as any).hash = "ab773d4f1d69ea7b0fac6bdeb935cd78";
+
 export default node;

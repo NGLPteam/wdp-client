@@ -1,27 +1,29 @@
+/**
+ * @generated SignedSource<<41d675d1568cface5d684def7f1dcb45>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type SiteLogoUploadFragment = {
-    readonly originalFilename: string | null;
-    readonly storage: AttachmentStorage | null;
-    readonly original: {
-        readonly url: string | null;
-        readonly alt: string | null;
-    };
-    readonly " $refType": "SiteLogoUploadFragment";
+import { FragmentRefs } from "relay-runtime";
+export type SiteLogoUploadFragment$data = {
+  readonly original: {
+    readonly alt: string | null;
+    readonly url: string | null;
+  };
+  readonly originalFilename: string | null;
+  readonly storage: AttachmentStorage | null;
+  readonly " $fragmentType": "SiteLogoUploadFragment";
 };
-export type SiteLogoUploadFragment$data = SiteLogoUploadFragment;
 export type SiteLogoUploadFragment$key = {
-    readonly " $data"?: SiteLogoUploadFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SiteLogoUploadFragment">;
+  readonly " $data"?: SiteLogoUploadFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SiteLogoUploadFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -72,5 +74,7 @@ const node: ReaderFragment = {
   "type": "SiteLogoAttachment",
   "abstractKey": null
 };
-(node as any).hash = '296b68eacf1bf47c6681f21879479e1a';
+
+(node as any).hash = "296b68eacf1bf47c6681f21879479e1a";
+
 export default node;

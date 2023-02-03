@@ -1,27 +1,29 @@
+/**
+ * @generated SignedSource<<a88c90e9f902410ba75605011d731789>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ItemLayoutFragment = {
-    readonly item: {
-        readonly community: {
-            readonly " $fragmentRefs": FragmentRefs<"AppLayoutCommunityFragment">;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"AppLayoutEntityFragment" | "EntityHTMLHeadFragment" | "EntityLayoutFactoryFragment">;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"EntityHTMLHeadAppFragment">;
-    readonly " $refType": "ItemLayoutFragment";
+export type ItemLayoutFragment$data = {
+  readonly item: {
+    readonly community: {
+      readonly " $fragmentSpreads": FragmentRefs<"AppLayoutCommunityFragment">;
+    };
+    readonly " $fragmentSpreads": FragmentRefs<"AppLayoutEntityFragment" | "EntityHTMLHeadFragment" | "EntityLayoutFactoryFragment">;
+  } | null;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityHTMLHeadAppFragment">;
+  readonly " $fragmentType": "ItemLayoutFragment";
 };
-export type ItemLayoutFragment$data = ItemLayoutFragment;
 export type ItemLayoutFragment$key = {
-    readonly " $data"?: ItemLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ItemLayoutFragment">;
+  readonly " $data"?: ItemLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ItemLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -50,6 +52,21 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "AppLayoutEntityFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "EntityHTMLHeadFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "EntityLayoutFactoryFragment"
+        },
+        {
           "alias": null,
           "args": null,
           "concreteType": "Community",
@@ -64,21 +81,6 @@ const node: ReaderFragment = {
             }
           ],
           "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "AppLayoutEntityFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "EntityHTMLHeadFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "EntityLayoutFactoryFragment"
         }
       ],
       "storageKey": null
@@ -92,5 +94,7 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '158152d1e252a3e6f99d12ff8da3a206';
+
+(node as any).hash = "158152d1e252a3e6f99d12ff8da3a206";
+
 export default node;

@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<d0dcd3b1d9c435fa8f8ead6ebc241020>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AppFooterCommunityFragment = {
-    readonly slug: string;
-    readonly title: string;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityPickerActiveFragment" | "CommunityNameFragment">;
-    readonly " $refType": "AppFooterCommunityFragment";
+export type AppFooterCommunityFragment$data = {
+  readonly slug: String;
+  readonly title: string;
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityNameFragment" | "CommunityPickerActiveFragment">;
+  readonly " $fragmentType": "AppFooterCommunityFragment";
 };
-export type AppFooterCommunityFragment$data = AppFooterCommunityFragment;
 export type AppFooterCommunityFragment$key = {
-    readonly " $data"?: AppFooterCommunityFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AppFooterCommunityFragment">;
+  readonly " $data"?: AppFooterCommunityFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"AppFooterCommunityFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -53,5 +55,7 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = '2e0081a1626aed7bde3b1bfc9692a34f';
+
+(node as any).hash = "2e0081a1626aed7bde3b1bfc9692a34f";
+
 export default node;

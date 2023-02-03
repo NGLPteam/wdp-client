@@ -1,75 +1,39 @@
+/**
+ * @generated SignedSource<<3212e42d4a76a8436bf96cac9a78af52>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type EntityLinkOperator = "CONTAINS" | "REFERENCES" | "%future added value";
 export type LinkEntityInput = {
-    sourceId: string;
-    targetId: string;
-    operator: EntityLinkOperator;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null;
+  operator: EntityLinkOperator;
+  sourceId: string;
+  targetId: string;
 };
-export type EntityLinksAddFormMutationVariables = {
-    input: LinkEntityInput;
+export type EntityLinksAddFormMutation$variables = {
+  input: LinkEntityInput;
 };
-export type EntityLinksAddFormMutationResponse = {
-    readonly linkEntity: {
-        readonly link: {
-            readonly target: {
-                readonly title?: string | undefined;
-            };
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
+export type EntityLinksAddFormMutation$data = {
+  readonly linkEntity: {
+    readonly link: {
+      readonly target: {
+        readonly title?: string;
+      };
     } | null;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null;
 };
 export type EntityLinksAddFormMutation = {
-    readonly response: EntityLinksAddFormMutationResponse;
-    readonly variables: EntityLinksAddFormMutationVariables;
+  response: EntityLinksAddFormMutation$data;
+  variables: EntityLinksAddFormMutation$variables;
 };
-
-
-
-/*
-mutation EntityLinksAddFormMutation(
-  $input: LinkEntityInput!
-) {
-  linkEntity(input: $input) {
-    link {
-      target {
-        __typename
-        ... on Entity {
-          __isEntity: __typename
-          title
-        }
-        ... on Node {
-          __isNode: __typename
-          id
-        }
-      }
-      id
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -218,7 +182,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v4/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -296,5 +262,7 @@ return {
   }
 };
 })();
-(node as any).hash = '2f1a3551aee9908b614cd7720ad10af3';
+
+(node as any).hash = "2f1a3551aee9908b614cd7720ad10af3";
+
 export default node;

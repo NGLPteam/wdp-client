@@ -1,55 +1,33 @@
+/**
+ * @generated SignedSource<<9e8c20a42d06c8936a981c140b2a0554>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type GrantAccessInput = {
-    entityId: string;
-    roleId: string;
-    userId: string;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null;
+  entityId: string;
+  roleId: string;
+  userId: string;
 };
-export type UserGrantCommunityAccessFormMutationVariables = {
-    input: GrantAccessInput;
+export type UserGrantCommunityAccessFormMutation$variables = {
+  input: GrantAccessInput;
 };
-export type UserGrantCommunityAccessFormMutationResponse = {
-    readonly grantAccess: {
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
-    } | null;
+export type UserGrantCommunityAccessFormMutation$data = {
+  readonly grantAccess: {
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null;
 };
 export type UserGrantCommunityAccessFormMutation = {
-    readonly response: UserGrantCommunityAccessFormMutationResponse;
-    readonly variables: UserGrantCommunityAccessFormMutationVariables;
+  response: UserGrantCommunityAccessFormMutation$data;
+  variables: UserGrantCommunityAccessFormMutation$variables;
 };
-
-
-
-/*
-mutation UserGrantCommunityAccessFormMutation(
-  $input: GrantAccessInput!
-) {
-  grantAccess(input: $input) {
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -154,7 +132,9 @@ return {
           {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
-            "selections": (v3/*: any*/)
+            "selections": (v3/*: any*/),
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -191,5 +171,7 @@ return {
   }
 };
 })();
-(node as any).hash = '3cb57dde942ab3743100cd8b9fb224a0';
+
+(node as any).hash = "3cb57dde942ab3743100cd8b9fb224a0";
+
 export default node;

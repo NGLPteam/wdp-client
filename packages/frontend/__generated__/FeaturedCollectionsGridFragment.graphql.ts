@@ -1,25 +1,27 @@
+/**
+ * @generated SignedSource<<c3503545ef8ad42c574fffb8f611b4c3>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FeaturedCollectionsGridFragment = {
-    readonly entities: ReadonlyArray<{
-        readonly slug?: string | undefined;
-        readonly title?: string | undefined;
-        readonly " $fragmentRefs": FragmentRefs<"FeaturedCollectionsGridImageFragment">;
-    }>;
-    readonly " $refType": "FeaturedCollectionsGridFragment";
+export type FeaturedCollectionsGridFragment$data = {
+  readonly entities: ReadonlyArray<{
+    readonly slug?: String;
+    readonly title?: string;
+    readonly " $fragmentSpreads": FragmentRefs<"FeaturedCollectionsGridImageFragment">;
+  }>;
+  readonly " $fragmentType": "FeaturedCollectionsGridFragment";
 };
-export type FeaturedCollectionsGridFragment$data = FeaturedCollectionsGridFragment;
 export type FeaturedCollectionsGridFragment$key = {
-    readonly " $data"?: FeaturedCollectionsGridFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FeaturedCollectionsGridFragment">;
+  readonly " $data"?: FeaturedCollectionsGridFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FeaturedCollectionsGridFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -75,5 +77,7 @@ const node: ReaderFragment = {
   "type": "EntitiesProperty",
   "abstractKey": null
 };
-(node as any).hash = '082edf9e002d23ee04ec1de4ab0f5cc6';
+
+(node as any).hash = "082edf9e002d23ee04ec1de4ab0f5cc6";
+
 export default node;

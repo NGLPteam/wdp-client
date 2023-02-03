@@ -53,7 +53,8 @@
     "storybook:build:frontend": "yarn workspace @wdp/frontend run build-storybook",
     "storybook:build:admin": "yarn workspace @wdp/admin run build-storybook",
     "types:frontend": "yarn workspace @wdp/frontend run types",
-    "types:admin": "yarn workspace @wdp/admin run types"
+    "types:admin": "yarn workspace @wdp/admin run types",
+    "browserslist:update": "npx update-browserslist-db@latest"
   },
   "repository": {
     "type": "git",

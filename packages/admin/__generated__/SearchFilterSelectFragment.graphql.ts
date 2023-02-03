@@ -1,29 +1,31 @@
+/**
+ * @generated SignedSource<<d4b36aff3d6a65f238b071e560725673>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SearchOperator = "and" | "dateEquals" | "dateGTE" | "dateLTE" | "equals" | "inAny" | "matches" | "numericGTE" | "numericLTE" | "or" | "%future added value";
-export type SearchFilterSelectFragment = {
+import { FragmentRefs } from "relay-runtime";
+export type SearchFilterSelectFragment$data = {
+  readonly description: string | null;
+  readonly label: string;
+  readonly options?: ReadonlyArray<{
     readonly label: string;
-    readonly description: string | null;
-    readonly searchPath: string;
-    readonly searchOperators: ReadonlyArray<SearchOperator>;
-    readonly options?: ReadonlyArray<{
-        readonly label: string;
-        readonly value: string;
-    }> | undefined;
-    readonly " $refType": "SearchFilterSelectFragment";
+    readonly value: string;
+  }>;
+  readonly searchOperators: ReadonlyArray<SearchOperator>;
+  readonly searchPath: string;
+  readonly " $fragmentType": "SearchFilterSelectFragment";
 };
-export type SearchFilterSelectFragment$data = SearchFilterSelectFragment;
 export type SearchFilterSelectFragment$key = {
-    readonly " $data"?: SearchFilterSelectFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SearchFilterSelectFragment">;
+  readonly " $data"?: SearchFilterSelectFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchFilterSelectFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -92,5 +94,7 @@ return {
   "abstractKey": "__isSearchableProperty"
 };
 })();
-(node as any).hash = '66a70d08acede726490b6866f8ee03e0';
+
+(node as any).hash = "66a70d08acede726490b6866f8ee03e0";
+
 export default node;

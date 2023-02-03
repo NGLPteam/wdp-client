@@ -1,29 +1,31 @@
+/**
+ * @generated SignedSource<<47839eeeefce3ff0dfe6e6fc6dd93d74>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type TeasersFragment = {
-    readonly updatedAt: string;
-    readonly schema: {
-        readonly identifier: string;
-    };
-    readonly schemaRanks: ReadonlyArray<{
-        readonly count: number;
-        readonly identifier: string;
-        readonly namespace: string;
-    }>;
-    readonly " $refType": "TeasersFragment";
+export type TeasersFragment$data = {
+  readonly schema: {
+    readonly identifier: string;
+  };
+  readonly schemaRanks: ReadonlyArray<{
+    readonly count: number;
+    readonly identifier: string;
+    readonly namespace: string;
+  }>;
+  readonly updatedAt: String;
+  readonly " $fragmentType": "TeasersFragment";
 };
-export type TeasersFragment$data = TeasersFragment;
 export type TeasersFragment$key = {
-    readonly " $data"?: TeasersFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"TeasersFragment">;
+  readonly " $data"?: TeasersFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"TeasersFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -89,5 +91,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'e15ba5de4154c6f2566c0d817561bcc3';
+
+(node as any).hash = "e15ba5de4154c6f2566c0d817561bcc3";
+
 export default node;

@@ -1,109 +1,35 @@
+/**
+ * @generated SignedSource<<59f73302589045fddb4590dea19985ae>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type LinkTargetTypeaheadQueryVariables = {
-    slug: string;
-    title?: string | null | undefined;
+export type LinkTargetTypeaheadQuery$variables = {
+  slug: String;
+  title?: string | null;
 };
-export type LinkTargetTypeaheadQueryResponse = {
-    readonly collection: {
-        readonly linkTargetCandidates: {
-            readonly " $fragmentRefs": FragmentRefs<"LinkTargetTypeaheadFragment">;
-        };
-    } | null;
-    readonly item: {
-        readonly linkTargetCandidates: {
-            readonly " $fragmentRefs": FragmentRefs<"LinkTargetTypeaheadFragment">;
-        };
-    } | null;
+export type LinkTargetTypeaheadQuery$data = {
+  readonly collection: {
+    readonly linkTargetCandidates: {
+      readonly " $fragmentSpreads": FragmentRefs<"LinkTargetTypeaheadFragment">;
+    };
+  } | null;
+  readonly item: {
+    readonly linkTargetCandidates: {
+      readonly " $fragmentSpreads": FragmentRefs<"LinkTargetTypeaheadFragment">;
+    };
+  } | null;
 };
 export type LinkTargetTypeaheadQuery = {
-    readonly response: LinkTargetTypeaheadQueryResponse;
-    readonly variables: LinkTargetTypeaheadQueryVariables;
+  response: LinkTargetTypeaheadQuery$data;
+  variables: LinkTargetTypeaheadQuery$variables;
 };
-
-
-
-/*
-query LinkTargetTypeaheadQuery(
-  $slug: Slug!
-  $title: String
-) {
-  collection(slug: $slug) {
-    linkTargetCandidates(title: $title) {
-      ...LinkTargetTypeaheadFragment
-    }
-    id
-  }
-  item(slug: $slug) {
-    linkTargetCandidates(title: $title) {
-      ...LinkTargetTypeaheadFragment
-    }
-    id
-  }
-}
-
-fragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection {
-  edges {
-    node {
-      targetId
-      target {
-        __typename
-        ...getEntityTitleFragment
-        ... on Node {
-          __isNode: __typename
-          id
-        }
-      }
-      id
-    }
-  }
-}
-
-fragment getEntityTitleFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  schemaVersion {
-    identifier
-    id
-  }
-  ... on Collection {
-    namedAncestors {
-      ancestor {
-        __typename
-        ... on Entity {
-          __isEntity: __typename
-          title
-        }
-        ... on Node {
-          __isNode: __typename
-          id
-        }
-      }
-    }
-  }
-  ... on Item {
-    namedAncestors {
-      ancestor {
-        __typename
-        ... on Entity {
-          __isEntity: __typename
-          title
-        }
-        ... on Node {
-          __isNode: __typename
-          id
-        }
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -378,5 +304,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'bc6184d431bf659991e72f9ac20ffbd7';
+
+(node as any).hash = "bc6184d431bf659991e72f9ac20ffbd7";
+
 export default node;

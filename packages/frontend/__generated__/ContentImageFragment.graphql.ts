@@ -1,33 +1,35 @@
+/**
+ * @generated SignedSource<<f8c4a7b05a19993897a62540535bab43>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ContentImageFragment = {
-    readonly image: {
-        readonly webp: {
-            readonly alt: string | null;
-            readonly url: string | null;
-            readonly width: number | null;
-            readonly height: number | null;
-        };
+export type ContentImageFragment$data = {
+  readonly imageLarge: {
+    readonly webp: {
+      readonly alt: string | null;
+      readonly height: number | null;
+      readonly url: string | null;
+      readonly width: number | null;
     };
-    readonly placeholder: {
-        readonly webp: {
-            readonly url: string | null;
-        };
+  };
+  readonly placeholder: {
+    readonly webp: {
+      readonly url: string | null;
     };
-    readonly " $refType": "ContentImageFragment";
+  };
+  readonly " $fragmentType": "ContentImageFragment";
 };
-export type ContentImageFragment$data = ContentImageFragment;
 export type ContentImageFragment$key = {
-    readonly " $data"?: ContentImageFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
+  readonly " $data"?: ContentImageFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContentImageFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -44,7 +46,7 @@ return {
   "name": "ContentImageFragment",
   "selections": [
     {
-      "alias": "image",
+      "alias": "imageLarge",
       "args": null,
       "concreteType": "ImageSize",
       "kind": "LinkedField",
@@ -115,5 +117,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '5f086e33d828c95d8eaa0bc7b8669570';
+
+(node as any).hash = "39ed90c6c7a871334ba27e78e60da52f";
+
 export default node;

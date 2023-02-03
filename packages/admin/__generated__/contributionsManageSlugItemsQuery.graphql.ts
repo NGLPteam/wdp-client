@@ -1,173 +1,31 @@
+/**
+ * @generated SignedSource<<83b9ddf265a28f02949eec77eee77e89>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type contributionsManageSlugItemsQueryVariables = {
-    itemSlug: string;
-    page: number;
+export type contributionsManageSlugItemsQuery$variables = {
+  itemSlug: String;
+  page: number;
 };
-export type contributionsManageSlugItemsQueryResponse = {
-    readonly item: {
-        readonly contributions: {
-            readonly " $fragmentRefs": FragmentRefs<"ItemContributionListFragment">;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"ItemLayoutQueryFragment">;
-    } | null;
+export type contributionsManageSlugItemsQuery$data = {
+  readonly item: {
+    readonly contributions: {
+      readonly " $fragmentSpreads": FragmentRefs<"ItemContributionListFragment">;
+    };
+    readonly " $fragmentSpreads": FragmentRefs<"ItemLayoutQueryFragment">;
+  } | null;
 };
 export type contributionsManageSlugItemsQuery = {
-    readonly response: contributionsManageSlugItemsQueryResponse;
-    readonly variables: contributionsManageSlugItemsQueryVariables;
+  response: contributionsManageSlugItemsQuery$data;
+  variables: contributionsManageSlugItemsQuery$variables;
 };
-
-
-
-/*
-query contributionsManageSlugItemsQuery(
-  $itemSlug: Slug!
-  $page: Int!
-) {
-  item(slug: $itemSlug) {
-    ...ItemLayoutQueryFragment
-    contributions(page: $page, perPage: 20) {
-      ...ItemContributionListFragment
-    }
-    id
-  }
-}
-
-fragment AuthContextFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-
-fragment AvatarFragment on ImageAttachment {
-  storage
-  small {
-    webp {
-      ...ImageFragment
-    }
-  }
-}
-
-fragment ContributorNameColumnFragment on Contributor {
-  __isContributor: __typename
-  __typename
-  image {
-    ...AvatarFragment
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-  ... on OrganizationContributor {
-    legalName
-  }
-  ... on PersonContributor {
-    givenName
-    familyName
-  }
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment ItemContributionListFragment on ItemContributionConnection {
-  nodes {
-    id
-    slug
-    createdAt
-    updatedAt
-    role
-    contributor {
-      __typename
-      ... on Sluggable {
-        __isSluggable: __typename
-        slug
-      }
-      ...ContributorNameColumnFragment
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-    item {
-      slug
-      title
-      id
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment ItemLayoutFragment on Item {
-  title
-  slug
-  id
-  ...useBreadcrumbsFragment
-  ...useChildRouteLinksFragment
-}
-
-fragment ItemLayoutQueryFragment on Item {
-  ...ItemLayoutFragment
-  ...AuthContextFragment
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment useBreadcrumbsFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  breadcrumbs {
-    depth
-    label
-    kind
-    slug
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-}
-
-fragment useChildRouteLinksFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -245,6 +103,11 @@ return {
         "plural": false,
         "selections": [
           {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "ItemLayoutQueryFragment"
+          },
+          {
             "alias": null,
             "args": (v2/*: any*/),
             "concreteType": "ItemContributionConnection",
@@ -259,11 +122,6 @@ return {
               }
             ],
             "storageKey": null
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "ItemLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -621,5 +479,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'fdec28de17e3593297aa688f5bf2dcf6';
+
+(node as any).hash = "fdec28de17e3593297aa688f5bf2dcf6";
+
 export default node;

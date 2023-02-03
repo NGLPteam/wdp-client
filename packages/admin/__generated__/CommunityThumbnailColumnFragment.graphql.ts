@@ -1,36 +1,38 @@
+/**
+ * @generated SignedSource<<329c90ad101127b6ec4877c51a5c0e12>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type CommunityThumbnailColumnFragment = {
-    readonly slug: string;
-    readonly logo: {
-        readonly storage: AttachmentStorage | null;
-        readonly original: {
-            readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
-        };
+import { FragmentRefs } from "relay-runtime";
+export type CommunityThumbnailColumnFragment$data = {
+  readonly heroImage: {
+    readonly small: {
+      readonly webp: {
+        readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
+      };
     };
-    readonly heroImage: {
-        readonly storage: AttachmentStorage | null;
-        readonly small: {
-            readonly webp: {
-                readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
-            };
-        };
+    readonly storage: AttachmentStorage | null;
+  };
+  readonly logo: {
+    readonly original: {
+      readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
     };
-    readonly " $refType": "CommunityThumbnailColumnFragment";
+    readonly storage: AttachmentStorage | null;
+  };
+  readonly slug: String;
+  readonly " $fragmentType": "CommunityThumbnailColumnFragment";
 };
-export type CommunityThumbnailColumnFragment$data = CommunityThumbnailColumnFragment;
 export type CommunityThumbnailColumnFragment$key = {
-    readonly " $data"?: CommunityThumbnailColumnFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityThumbnailColumnFragment">;
+  readonly " $data"?: CommunityThumbnailColumnFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityThumbnailColumnFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -120,5 +122,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '38ca74abecf05ddd2f71350f992cf6e2';
+
+(node as any).hash = "38ca74abecf05ddd2f71350f992cf6e2";
+
 export default node;

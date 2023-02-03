@@ -1,25 +1,27 @@
+/**
+ * @generated SignedSource<<695144d97b2cba20735f48a530d8311e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type GroupPropertyFragment = {
-    readonly legend: string | null;
-    readonly path: string;
-    readonly properties: ReadonlyArray<{
-        readonly " $fragmentRefs": FragmentRefs<"SchemaPropertyFragment">;
-    }>;
-    readonly " $refType": "GroupPropertyFragment";
+export type GroupPropertyFragment$data = {
+  readonly legend: string | null;
+  readonly path: string;
+  readonly properties: ReadonlyArray<{
+    readonly " $fragmentSpreads": FragmentRefs<"SchemaPropertyFragment">;
+  }>;
+  readonly " $fragmentType": "GroupPropertyFragment";
 };
-export type GroupPropertyFragment$data = GroupPropertyFragment;
 export type GroupPropertyFragment$key = {
-    readonly " $data"?: GroupPropertyFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"GroupPropertyFragment">;
+  readonly " $data"?: GroupPropertyFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"GroupPropertyFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -61,5 +63,7 @@ const node: ReaderFragment = {
   "type": "GroupProperty",
   "abstractKey": null
 };
-(node as any).hash = 'adac117c59d8a44cdfb9750e08336ba2';
+
+(node as any).hash = "adac117c59d8a44cdfb9750e08336ba2";
+
 export default node;

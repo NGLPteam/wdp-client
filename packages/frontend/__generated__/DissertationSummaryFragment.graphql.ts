@@ -1,47 +1,43 @@
+/**
+ * @generated SignedSource<<533d46eccbfc576f75132e054daf6987>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type DissertationSummaryFragment = {
-    readonly id: string;
-    readonly title: string;
-    readonly subtitle: string | null;
-    readonly slug: string;
-    readonly summary: string | null;
-    readonly cover: {
-        readonly storage: AttachmentStorage | null;
-        readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
-    };
-    readonly contributions: {
-        readonly " $fragmentRefs": FragmentRefs<"ContributorsListFragment">;
-    };
-    readonly published: {
-        readonly value: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
-    };
-    readonly __typename: "Item";
-    readonly " $refType": "DissertationSummaryFragment";
+import { FragmentRefs } from "relay-runtime";
+export type DissertationSummaryFragment$data = {
+  readonly __typename: "Item";
+  readonly contributions: {
+    readonly " $fragmentSpreads": FragmentRefs<"ContributorsListFragment">;
+  };
+  readonly cover: {
+    readonly storage: AttachmentStorage | null;
+    readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
+  };
+  readonly id: string;
+  readonly published: {
+    readonly value: String | null;
+    readonly " $fragmentSpreads": FragmentRefs<"PrecisionDateFragment">;
+  };
+  readonly slug: String;
+  readonly subtitle: string | null;
+  readonly summary: string | null;
+  readonly title: string;
+  readonly " $fragmentType": "DissertationSummaryFragment";
 };
-export type DissertationSummaryFragment$data = DissertationSummaryFragment;
 export type DissertationSummaryFragment$key = {
-    readonly " $data"?: DissertationSummaryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"DissertationSummaryFragment">;
+  readonly " $data"?: DissertationSummaryFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"DissertationSummaryFragment">;
 };
-
-
 
 const node: ReaderFragment = {
-  "argumentDefinitions": [
-    {
-      "defaultValue": false,
-      "kind": "LocalArgument",
-      "name": "showJournal"
-    }
-  ],
+  "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "DissertationSummaryFragment",
@@ -154,5 +150,7 @@ const node: ReaderFragment = {
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = 'a580098ab4864530db07974ff10290d1';
+
+(node as any).hash = "61c7d9bb5a663e26e524413d5a2706e6";
+
 export default node;

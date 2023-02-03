@@ -1,62 +1,33 @@
+/**
+ * @generated SignedSource<<ba08e2f393eef82a74b95e88dd61d3f9>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityAnnouncementAddDrawerQueryVariables = {
-    entitySlug: string;
+export type EntityAnnouncementAddDrawerQuery$variables = {
+  entitySlug: String;
 };
-export type EntityAnnouncementAddDrawerQueryResponse = {
-    readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementAddFormFragment">;
-    } | null;
-    readonly collection: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementAddFormFragment">;
-    } | null;
-    readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementAddFormFragment">;
-    } | null;
+export type EntityAnnouncementAddDrawerQuery$data = {
+  readonly collection: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityAnnouncementAddFormFragment">;
+  } | null;
+  readonly community: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityAnnouncementAddFormFragment">;
+  } | null;
+  readonly item: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityAnnouncementAddFormFragment">;
+  } | null;
 };
 export type EntityAnnouncementAddDrawerQuery = {
-    readonly response: EntityAnnouncementAddDrawerQueryResponse;
-    readonly variables: EntityAnnouncementAddDrawerQueryVariables;
+  response: EntityAnnouncementAddDrawerQuery$data;
+  variables: EntityAnnouncementAddDrawerQuery$variables;
 };
-
-
-
-/*
-query EntityAnnouncementAddDrawerQuery(
-  $entitySlug: Slug!
-) {
-  item(slug: $entitySlug) {
-    ...EntityAnnouncementAddFormFragment
-    id
-  }
-  collection(slug: $entitySlug) {
-    ...EntityAnnouncementAddFormFragment
-    id
-  }
-  community(slug: $entitySlug) {
-    ...EntityAnnouncementAddFormFragment
-    id
-  }
-}
-
-fragment EntityAnnouncementAddFormFragment on AnyEntity {
-  __isAnyEntity: __typename
-  ... on Community {
-    id
-  }
-  ... on Collection {
-    id
-  }
-  ... on Item {
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -182,5 +153,7 @@ return {
   }
 };
 })();
-(node as any).hash = '72ed228f442e87a36f783dd2e823a7fa';
+
+(node as any).hash = "72ed228f442e87a36f783dd2e823a7fa";
+
 export default node;
