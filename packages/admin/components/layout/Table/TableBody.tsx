@@ -1,5 +1,5 @@
-import React from "react";
-import type { Row, Cell } from "react-table";
+import { flexRender } from "@tanstack/react-table";
+import type { Row } from "@tanstack/react-table";
 import times from "lodash/times";
 import * as Styled from "./Table.styles";
 import TableRow from "./TableRow";
@@ -15,14 +15,17 @@ function TableBody<T extends Record<string, unknown>>({
 
   /* eslint-disable react/jsx-key */
   /* keys are injected using the get props functions */
-  const renderCheckboxCell = (row: RowProps<T>) => {
-    if (!row.getToggleRowSelectedProps) return;
-    const props = row.getToggleRowSelectedProps();
-
+  const renderCheckboxCell = (row: Row<T>) => {
     return (
       <Styled.SelectCell role="gridcell">
         <Styled.SelectCellInner>
-          <Checkbox {...props} />
+          <Checkbox
+            {...{
+              checked: row.getIsSelected(),
+              indeterminate: row.getIsSomeSelected(),
+              onChange: row.getToggleSelectedHandler(),
+            }}
+          />
         </Styled.SelectCellInner>
       </Styled.SelectCell>
     );
@@ -43,23 +46,20 @@ function TableBody<T extends Record<string, unknown>>({
             );
           })
         : rows.map((row) => (
-            <TableRow {...row.getRowProps()}>
-              {row.getToggleRowSelectedProps ? (
+            <TableRow key={row.id}>
+              {row.getCanMultiSelect() ? (
                 renderCheckboxCell(row)
               ) : (
                 <Styled.Cell role="presentation" />
               )}
-              {row.cells.map((cell) => {
-                const cellProps = {
-                  ...(cell.getCellProps && cell.getCellProps()),
-                };
+              {row.getVisibleCells().map((cell) => {
                 return (
                   <Styled.Cell
-                    {...cellProps}
-                    data-cell-type={cell.column?.cellType}
-                    className={cell.column?.className}
+                    key={cell.id}
+                    data-cell-type={cell.column.columnDef.meta?.cellType}
+                    className={cell.column.columnDef.meta?.className}
                   >
-                    {cell.render("Cell")}
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </Styled.Cell>
                 );
               })}
@@ -71,26 +71,26 @@ function TableBody<T extends Record<string, unknown>>({
   /* eslint-enable react/jsx-key */
 }
 
-type RequiredCellProps<T extends Record<string, unknown>> = Pick<
-  Cell<T, Record<string, unknown>>,
-  "getCellProps" | "render"
->;
+// type RequiredCellContext<T extends Record<string, unknown>> = Pick<
+//   Cell<T, Record<string, unknown>>,
+//   "getCellContext" | "render"
+// >;
 
-type OptionalCellProps<T extends Record<string, unknown>> = Partial<
-  Pick<Cell<T, Record<string, unknown>>, "column">
->;
+// type OptionalCellContext<T extends Record<string, unknown>> = Partial<
+//   Pick<Cell<T, Record<string, unknown>>, "column">
+// >;
 
-type CellProps<T extends Record<string, unknown>> = RequiredCellProps<T> &
-  OptionalCellProps<T>;
+// type CellContext<T extends Record<string, unknown>> = RequiredCellContext<T> &
+//   OptionalCellContext<T>;
 
-interface RowProps<T extends Record<string, unknown>>
-  extends Pick<Row<T>, "getToggleRowSelectedProps" | "getRowProps"> {
-  cells: CellProps<T>[];
-}
+// interface RowProps<T extends Record<string, unknown>>
+//   extends Pick<Row<T>, "getToggleRowSelectedProps" | "getRowProps"> {
+//   cells[];
+// }
 
 interface Props<T extends Record<string, unknown>> {
   loading?: boolean;
-  rows: RowProps<T>[];
+  rows: Row<T>[];
 }
 
 export default TableBody;

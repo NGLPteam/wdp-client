@@ -1,4 +1,3 @@
-import React from "react";
 import * as Styled from "./AppBody.styles";
 import { usePageContext } from "hooks";
 import { checkFlexGap } from "helpers";

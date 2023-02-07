@@ -1,8 +1,7 @@
-import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import type { OperationType } from "relay-runtime";
-import type { ModelTableActionProps } from "react-table";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 import SetIntitialOrderingButton from "../SetIntitialOrderingButton";
 import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 import { EntityOrderingListFragment$key } from "@/relay/EntityOrderingListFragment.graphql";
@@ -14,6 +13,7 @@ import { PageHeader } from "components/layout";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
+import useResetOrdering from "hooks/useResetOrdering";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -25,6 +25,8 @@ function EntityOrderingList<T extends OperationType>({
   const { t } = useTranslation();
 
   const destroy = useDestroyer();
+
+  const resetOrdering = useResetOrdering();
 
   const drawerHelper = useDrawerHelper();
 
@@ -43,22 +45,24 @@ function EntityOrderingList<T extends OperationType>({
   /* Set the table columns */
   const columns = [
     ModelColumns.StringColumn<EntityOrderingNode>({
-      Header: <>{t("lists.name_column")}</>,
+      header: () => <>{t("lists.name_column")}</>,
       id: "name",
     }),
     ModelColumns.BooleanColumn<EntityOrderingNode>({
-      Header: <>{t("lists.inherited_from_schema_column")}</>,
+      header: () => <>{t("lists.inherited_from_schema_column")}</>,
       id: "inheritedFromSchema",
     }),
     ModelColumns.BooleanColumn<EntityOrderingNode>({
-      Header: <>{t("lists.disabled_column")}</>,
+      header: () => <>{t("lists.disabled_column")}</>,
       id: "disabled",
     }),
     ModelColumns.BooleanColumn<EntityOrderingNode>({
-      Header: <>{t("lists.initial_ordering_column")}</>,
+      header: () => <>{t("lists.initial_ordering_column")}</>,
       id: "initial",
     }),
-    ModelColumns.CreatedAtColumn<EntityOrderingNode>(),
+    ModelColumns.CreatedAtColumn<EntityOrderingNode>({
+      enableSorting: false,
+    }),
   ];
 
   /* eslint-disable no-console */
@@ -68,11 +72,29 @@ function EntityOrderingList<T extends OperationType>({
         { orderingId: row.original.id },
         row.original.name || "glossary.ordering"
       ),
+    hideDelete: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
+      row.original.inheritedFromSchema,
+    handleDisable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
+      destroy.ordering(
+        { orderingId: row.original.id },
+        row.original.name || "glossary.ordering"
+      ),
+    hideDisable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
+      !row.original.inheritedFromSchema || row.original.disabled,
     handleEdit: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       drawerHelper.open("editOrdering", {
         drawerSlug: sourceEntity?.slug || "",
         drawerIdentifier: row.original.identifier || "",
       }),
+    handleEnable: ({ row }: ModelTableActionProps<EntityOrderingNode>) => {
+      resetOrdering(
+        { orderingId: row.original.id },
+        row.original.name || "glossary.ordering",
+        ["orderings"]
+      );
+    },
+    hideEnable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
+      !row.original.inheritedFromSchema || !row.original.disabled,
   };
   /* eslint-enable no-console */
 

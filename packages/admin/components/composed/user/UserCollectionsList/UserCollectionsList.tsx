@@ -1,8 +1,7 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { OperationType } from "relay-runtime";
-import type { CellProps, ModelTableActionProps } from "react-table";
+import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 import {
   useDestroyer,
   useDrawerHelper,
@@ -36,13 +35,14 @@ const UserCollectionsList = <T extends OperationType>({ data }: Props) => {
   const columns = [
     ModelColumns.EntityThumbnailColumn<Node>({
       // Return the data that contains the thumbnail fragment
-      accessor: (originalRow: Node) => originalRow?.collection,
+      accessorFn: (originalRow: Node) => originalRow?.collection,
     }),
     ModelColumns.NameColumn<Node>({
       route: "collection",
-      accessor: "collection",
-      Cell: ({ row, value }: CellProps<Node>) => {
-        if (!row?.original?.collection?.slug) return value;
+      accessorKey: "collection",
+      cell: ({ row, getValue }: CellContext<Node, unknown>) => {
+        const value = getValue();
+        if (!row?.original?.collection?.slug) return value || null;
         return (
           <NamedLink
             route="collection"
@@ -57,9 +57,9 @@ const UserCollectionsList = <T extends OperationType>({ data }: Props) => {
       },
     }),
     ModelColumns.StringColumn<Node>({
-      Header: <>{t("lists.role_column")}</>,
+      header: () => <>{t("lists.role_column")}</>,
       id: "role",
-      accessor: (row: Node) => {
+      accessorFn: (row: Node) => {
         return row?.role.name;
       },
     }),

@@ -48,6 +48,13 @@ v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
 };
@@ -83,18 +90,67 @@ return {
               "plural": false,
               "selections": [
                 (v0/*: any*/),
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "title",
-                  "storageKey": null
-                },
                 (v1/*: any*/),
+                (v2/*: any*/),
                 {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "EntityThumbnailColumnFragment"
+                  "kind": "InlineDataFragmentSpread",
+                  "name": "EntityThumbnailColumnFragment",
+                  "selections": [
+                    {
+                      "kind": "InlineFragment",
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "__typename",
+                          "storageKey": null
+                        },
+                        (v1/*: any*/),
+                        {
+                          "alias": null,
+                          "args": null,
+                          "concreteType": "ImageAttachment",
+                          "kind": "LinkedField",
+                          "name": "thumbnail",
+                          "plural": false,
+                          "selections": [
+                            {
+                              "alias": null,
+                              "args": null,
+                              "kind": "ScalarField",
+                              "name": "storage",
+                              "storageKey": null
+                            },
+                            {
+                              "args": null,
+                              "kind": "FragmentSpread",
+                              "name": "CoverImageFragment"
+                            }
+                          ],
+                          "storageKey": null
+                        },
+                        {
+                          "kind": "InlineFragment",
+                          "selections": [
+                            (v0/*: any*/)
+                          ],
+                          "type": "Node",
+                          "abstractKey": "__isNode"
+                        },
+                        {
+                          "kind": "InlineFragment",
+                          "selections": [
+                            (v2/*: any*/)
+                          ],
+                          "type": "Sluggable",
+                          "abstractKey": "__isSluggable"
+                        }
+                      ],
+                      "type": "Entity",
+                      "abstractKey": "__isEntity"
+                    }
+                  ]
                 }
               ],
               "storageKey": null
@@ -127,7 +183,7 @@ return {
               "plural": false,
               "selections": [
                 (v0/*: any*/),
-                (v1/*: any*/)
+                (v2/*: any*/)
               ],
               "storageKey": null
             }

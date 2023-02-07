@@ -1,31 +1,42 @@
-import React from "react";
-import { CellProps, Column } from "react-table";
+import type { AccessorFn, ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import { RequiredColumnish, Node } from "./types";
+import { isFunction } from "lodash";
+import { Node } from "./types";
 import { NamedLink } from "components/atomic";
 
-type NameColumn<T extends Node> = RequiredColumnish<T> & { route?: string };
+type NameColumn<T extends Node> = Partial<ColumnDef<T>> & {
+  route?: string;
+  cellType?: string;
+  className?: string;
+  accessor?: AccessorFn<T> | string;
+};
 
-const NameColumn = <NodeType extends Node>({
-  route,
-  cellType = "name",
-  disableSortBy = true,
-  ...props
-}: NameColumn<NodeType>): Column<NodeType> => {
+// disableSortBy is getting replaced with enableSorting
+const NameColumn = <NodeType extends Node>(
+  { route, cellType, className, accessor, ...props }: NameColumn<NodeType> = {
+    cellType: "name",
+  }
+): ColumnDef<NodeType> => {
   const { t } = useTranslation();
 
+  const accessorKey = typeof accessor === "string" ? accessor : undefined;
+  const accessorFn = isFunction(accessor) ? accessor : undefined;
+
   return {
-    Header: <>{t("lists.name_column")}</>,
+    header: t("lists.name_column"),
     id: "name",
-    disableSortBy,
-    cellType: cellType,
-    Cell: ({ row, value }: CellProps<NodeType>) => {
-      return route && row?.original?.slug ? (
-        <NamedLink
-          route={route}
-          routeParams={{ slug: row.original.slug }}
-          passHref
-        >
+    accessorKey,
+    accessorFn,
+    meta: {
+      cellType,
+      className,
+    },
+    cell: (info) => {
+      const slug = info.row?.original?.slug;
+      const value = info.getValue() as string;
+
+      return route && slug ? (
+        <NamedLink route={route} routeParams={{ slug }} passHref>
           <a className="t-weight-md a-link">{value}</a>
         </NamedLink>
       ) : (

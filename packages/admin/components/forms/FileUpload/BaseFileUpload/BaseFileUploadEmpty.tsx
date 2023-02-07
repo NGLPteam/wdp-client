@@ -1,4 +1,3 @@
-import React from "react";
 import { IconFactory } from "components/factories";
 
 const FileUploadEmpty = () => {

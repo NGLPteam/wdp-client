@@ -1,17 +1,19 @@
 import { useTranslation } from "react-i18next";
-import { Column } from "react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import { PartialColumnish, Node } from "./types";
 
 const EmailColumn = <NodeType extends Node>(
   props: PartialColumnish<NodeType> = {}
-): Column<NodeType> => {
+): ColumnDef<NodeType> => {
   const { t } = useTranslation();
 
   return {
-    Header: <>{t("lists.email_column")}</>,
+    header: () => <>{t("lists.email_column")}</>,
     id: "email",
-    accessor: (originalRow: NodeType) => originalRow.email,
-    className: "t-truncate",
+    accessorFn: (originalRow: NodeType) => originalRow.email,
+    meta: {
+      className: "t-truncate",
+    },
     ...props,
   };
 };

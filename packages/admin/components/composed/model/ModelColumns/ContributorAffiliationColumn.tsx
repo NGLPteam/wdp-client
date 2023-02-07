@@ -1,8 +1,6 @@
-import React from "react";
-import { graphql } from "react-relay";
-import { Column, CellProps } from "react-table";
+import { graphql, readInlineData } from "react-relay";
+import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { PartialColumnish, Node } from "./types";
 import { ContributorAffiliationColumnFragment$key } from "@/relay/ContributorAffiliationColumnFragment.graphql";
 
@@ -12,16 +10,17 @@ type Row = Node & ContributorAffiliationColumnFragment$key;
 
 const ContributorAffiliationColumn = <T extends Node>(
   props: Props<T> = {}
-): Column<T> => {
+): ColumnDef<T> => {
   const { t } = useTranslation();
 
   return {
-    Header: <span>{t("lists.affiliation_column")}</span>,
+    header: () => <span>{t("lists.affiliation_column")}</span>,
     id: "affiliation",
-    accessor: (originalRow: T | Row) => originalRow,
-    disableSortBy: false,
-    Cell: ({ value }: CellProps<T>) => {
-      const contributor = useMaybeFragment(fragment, value);
+    accessorFn: (originalRow: T | Row) => originalRow,
+    enableSorting: true,
+    cell: ({ getValue }) => {
+      const value = getValue() as ContributorAffiliationColumnFragment$key;
+      const contributor = readInlineData(fragment, value);
 
       return contributor?.affiliation || "";
     },
@@ -32,7 +31,7 @@ const ContributorAffiliationColumn = <T extends Node>(
 export default ContributorAffiliationColumn;
 
 const fragment = graphql`
-  fragment ContributorAffiliationColumnFragment on Contributor {
+  fragment ContributorAffiliationColumnFragment on Contributor @inline {
     ... on PersonContributor {
       affiliation
     }

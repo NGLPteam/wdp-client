@@ -1,7 +1,6 @@
-import React from "react";
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import type { CellProps, ModelTableActionProps } from "react-table";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import {
   FileListFragment,
@@ -35,16 +34,21 @@ function FileList<T extends OperationType>({
   const columns = [
     ModelColumns.AssetThumbnailColumn<FileNode>({}),
     ModelColumns.NameColumn<FileNode>({
-      accessor: "name",
+      accessorKey: "name",
+      enableSorting: false,
     }),
     ModelColumns.StringColumn<FileNode>({
-      Header: <>{t("lists.kind_column")}</>,
+      header: () => <>{t("lists.kind_column")}</>,
       id: "kind",
-      Cell: ({ value }: CellProps<T>) => (
-        <div className={value === "pdf" ? "t-uppercase" : "t-capitalize"}>
-          {value}
-        </div>
-      ),
+      cell: ({ getValue }) => {
+        const value = getValue() as string;
+
+        return (
+          <div className={value === "pdf" ? "t-uppercase" : "t-capitalize"}>
+            {value}
+          </div>
+        );
+      },
     }),
   ];
 

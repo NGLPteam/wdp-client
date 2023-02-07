@@ -1,9 +1,7 @@
-import React from "react";
-import { graphql } from "react-relay";
-import { Column, CellProps } from "react-table";
+import { graphql, readInlineData } from "react-relay";
+import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import get from "lodash/get";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { PartialColumnish, Node } from "./types";
 import { Image } from "components/atomic";
 import { AssetThumbnailColumnFragment$key } from "@/relay/AssetThumbnailColumnFragment.graphql";
@@ -14,17 +12,19 @@ type Row = Node & AssetThumbnailColumnFragment$key;
 
 const AssetThumbnailColumn = <T extends Row>(
   props: Props<T> = {}
-): Column<T> => {
+): ColumnDef<T> => {
   const { t } = useTranslation();
 
   return {
-    Header: <span className="a-hidden">{t("lists.thumbnail")}</span>,
+    header: () => <span className="a-hidden">{t("lists.thumbnail")}</span>,
     id: "thumbnail",
-    accessor: (originalRow: T) => get(originalRow, "thumbnail"),
-    disableSortBy: true,
-    cellType: "thumbnail",
-    Cell: ({ row }: CellProps<T>) => {
-      const asset = useMaybeFragment(fragment, row.original);
+    accessorFn: (originalRow: T) => get(originalRow, "thumbnail"),
+    enableSorting: false,
+    meta: {
+      cellType: "thumbnail",
+    },
+    cell: ({ row }) => {
+      const asset = readInlineData(fragment, row.original);
 
       const image = asset?.thumbnail?.storage
         ? asset.thumbnail.image?.png
@@ -39,7 +39,7 @@ const AssetThumbnailColumn = <T extends Row>(
 export default AssetThumbnailColumn;
 
 const fragment = graphql`
-  fragment AssetThumbnailColumnFragment on Asset {
+  fragment AssetThumbnailColumnFragment on Asset @inline {
     thumbnail: preview {
       storage
       image: medium {

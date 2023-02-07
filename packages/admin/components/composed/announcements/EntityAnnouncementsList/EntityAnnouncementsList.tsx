@@ -1,8 +1,7 @@
-import React from "react";
 import { graphql } from "react-relay";
 import type { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import { ModelTableActionProps } from "react-table";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 import { formatDate } from "@wdp/lib/helpers";
 import { useDestroyer, useDrawerHelper, useMaybeFragment } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
@@ -41,13 +40,13 @@ function EntityAnnouncementsList<T extends OperationType>({
   /** Columns */
   const columns = [
     ModelColumns.StringColumn<Node>({
-      Header: <>{t("lists.header_column")}</>,
+      header: () => <>{t("lists.header_column")}</>,
       id: "header",
     }),
     ModelColumns.StringColumn<Node>({
-      Header: <>{t("lists.published_column")}</>,
+      header: () => <>{t("lists.published_column")}</>,
       id: "publishedOn",
-      accessor: (originalRow: Node) => {
+      accessorFn: (originalRow: Node) => {
         if (!originalRow.publishedOn) return null;
         return formatDate(originalRow.publishedOn);
       },

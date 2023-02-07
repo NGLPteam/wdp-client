@@ -1,4 +1,3 @@
-import React from "react";
 import { Story } from "@storybook/react";
 import IconFactory, { IconKeys, ICON_MAP, SIZE_MAP } from "./IconFactory";
 type Props = React.ComponentProps<typeof IconFactory>;

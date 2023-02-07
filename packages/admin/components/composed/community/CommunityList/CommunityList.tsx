@@ -2,7 +2,7 @@ import React from "react";
 import { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
-import type { ModelTableActionProps } from "react-table";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 import {
   CommunityListFragment$key,
   CommunityListFragment,
@@ -10,9 +10,10 @@ import {
 import { useMaybeFragment, useDrawerHelper, useDestroyer } from "hooks";
 
 import ModelListPage from "components/composed/model/ModelListPage";
-import ModelColumns from "components/composed/model/ModelColumns";
+// import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
+import ModelColumns from "components/composed/model/ModelColumns";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -32,9 +33,7 @@ function CommunityList<T extends OperationType>({
 
   const columns = [
     // ModelColumns.PositionColumn<Node>(),
-    ModelColumns.CommunityNameColumn<Node>({
-      accessor: (row: Node) => row,
-    }),
+    ModelColumns.CommunityNameColumn<Node>(),
     ModelColumns.CreatedAtColumn<Node>(),
   ];
 

@@ -1,4 +1,3 @@
-import React from "react";
 import { Trans, useTranslation } from "react-i18next";
 import * as Styled from "./PageCountActions.styles";
 import { PageInfo } from "types/graphql-schema";

@@ -30,7 +30,9 @@
       "sign_out": "Sign Out",
       "and_x_more": ", and {{count}} more",
       "submit": "Submit",
-      "reset": "Reset"
+      "reset": "Reset",
+      "enable": "Enable",
+      "disable": "Disable"
     },
     "glossary": {
       "community": "community",
@@ -199,6 +201,8 @@
       "disable": {
         "confirm": "Are you sure you want to disable $t({{ name }})?",
         "success": "$t({{ name }}) disabled successfully.",
+        "confirm_label": "Confirm Disable",
+        "confirm_body": "Are you sure you want to disable this record?",
         "failure": "Failed to disable $t({{ name }}).",
         "ordering_success": "Ordering disabled successfully.",
         "ordering_failure": "Failed to disable ordering."
@@ -208,6 +212,13 @@
         "failure": "Failed to revoke $t({{ name }}).",
         "access_success": "Access revoked successfully.",
         "access_failure": "Failed to revoke access."
+      },
+      "enable": {
+        "confirm_label": "Confirm",
+        "confirm_body": "Are you sure you want to enable this record?",
+        "confirm_body_name": "Are you sure you want to enable {{ name }}?",
+        "success": "$t({{ name }}) enabled successfully.",
+        "failure": "Failed to enable $t({{ name }})."
       }
     },
     "actions": {

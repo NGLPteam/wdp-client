@@ -1,11 +1,10 @@
-import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import MutationForm, {
   useRenderForm,
   Forms,
 } from "components/api/MutationForm";
-import { EntitySelector } from "components/forms";
+import EntitySelectorDisclosure from "components/forms/EntitySelector/EntitySelectorDisclosure";
 import type {
   UpsertContributionInput,
   ContributionCreateFormMutation,
@@ -65,7 +64,7 @@ export default function ContributionCreateForm({
               />
             </>
           ) : (
-            <EntitySelector
+            <EntitySelectorDisclosure
               {...register("contributableId", { required: true })}
               onSelect={onSelect}
               label={

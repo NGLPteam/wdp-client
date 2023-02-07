@@ -1,4 +1,3 @@
-import React from "react";
 import BaseInputLabel from "../BaseInputLabel";
 import * as Styled from "./Fieldset.styles";
 

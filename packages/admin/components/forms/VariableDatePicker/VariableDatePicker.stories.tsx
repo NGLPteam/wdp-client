@@ -1,4 +1,3 @@
-import React from "react";
 import { Controller } from "react-hook-form";
 import { Story } from "@storybook/react";
 import VariableDatePicker from "./VariableDatePicker";

@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import type { DialogState } from "reakit/Dialog";
@@ -15,6 +14,8 @@ import {
   ParentSelectorModalMutation,
 } from "@/relay/ParentSelectorModalMutation.graphql";
 import type { SchemaVersion } from "types/graphql-schema";
+
+import type { EntityOption } from "components/forms/EntitySelector/EntitySelectorController";
 
 export default function ParentSelectorModal({
   dialog,
@@ -46,7 +47,8 @@ export default function ParentSelectorModal({
 
   const renderForm = useRenderForm<Fields>(
     ({ form: { setValue, register } }) => {
-      const onSelect = (id: string) => setValue("parentId", id);
+      const onSelect = (entity: EntityOption | undefined) =>
+        setValue("parentId", entity?.id ?? parentId);
       return (
         <EntitySelector
           {...register("parentId", { required: true })}

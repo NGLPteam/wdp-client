@@ -101,9 +101,55 @@ return {
               "storageKey": null
             },
             {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "PageHeroColumnFragment"
+              "kind": "InlineDataFragmentSpread",
+              "name": "PageHeroColumnFragment",
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "ImageAttachment",
+                  "kind": "LinkedField",
+                  "name": "heroImage",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "storage",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "concreteType": "ImageSize",
+                      "kind": "LinkedField",
+                      "name": "small",
+                      "plural": false,
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "concreteType": "ImageDerivative",
+                          "kind": "LinkedField",
+                          "name": "webp",
+                          "plural": false,
+                          "selections": [
+                            {
+                              "args": null,
+                              "kind": "FragmentSpread",
+                              "name": "ImageFragment"
+                            }
+                          ],
+                          "storageKey": null
+                        }
+                      ],
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
+                }
+              ]
             }
           ],
           "storageKey": null

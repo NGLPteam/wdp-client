@@ -1,4 +1,3 @@
-import React from "react";
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import Drawer from "components/layout/Drawer";

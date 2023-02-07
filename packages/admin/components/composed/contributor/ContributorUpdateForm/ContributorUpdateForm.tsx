@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql } from "react-relay";
 import ContributorUpdatePersonForm from "components/composed/contributor/ContributorUpdatePersonForm";
 import ContributorUpdateOrganizationForm from "components/composed/contributor/ContributorUpdateOrganizationForm";

@@ -1,4 +1,3 @@
-import React from "react";
 import { NamedLink } from "components/atomic";
 import { Tab } from "components/atomic/navs/TabNav";
 

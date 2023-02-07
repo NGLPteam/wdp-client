@@ -1,5 +1,3 @@
-import React from "react";
-
 import * as Styled from "./GlobalErrors.styles";
 import { ContentHeader } from "components/layout";
 import { IconFactory } from "components/factories";

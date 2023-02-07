@@ -1,4 +1,3 @@
-import React from "react";
 import * as Styled from "./Table.styles";
 
 function TableCell({
@@ -7,7 +6,7 @@ function TableCell({
   align,
   truncate,
   ...cellProps
-}: CellProps) {
+}: CellContext) {
   // role should be rowheader if first
   return (
     <Styled.Cell
@@ -21,7 +20,7 @@ function TableCell({
   );
 }
 
-interface CellProps {
+interface CellContext {
   children?: React.ReactNode | React.ReactNode[] | Element | Element[];
   role: "gridcell" | "rowheader";
   align?: "left" | "right" | "center";

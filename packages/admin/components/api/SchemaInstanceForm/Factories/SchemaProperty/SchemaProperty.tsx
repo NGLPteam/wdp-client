@@ -1,4 +1,3 @@
-import React from "react";
 import { useFragment } from "relay-hooks";
 import { graphql } from "relay-runtime";
 

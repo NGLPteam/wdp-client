@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql } from "react-relay";
 import MutationForm, { Forms } from "components/api/MutationForm";
 

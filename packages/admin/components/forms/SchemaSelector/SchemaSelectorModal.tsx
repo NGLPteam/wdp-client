@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql, useFragment } from "react-relay";
 import type { DialogState } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";

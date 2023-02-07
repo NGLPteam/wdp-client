@@ -1,4 +1,3 @@
-import React from "react";
 import { UrlObject } from "url";
 import Link from "next/link";
 import * as Styled from "./MessageBlock.styles";

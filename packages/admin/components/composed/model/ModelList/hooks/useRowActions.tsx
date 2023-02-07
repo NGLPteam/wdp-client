@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useMemo } from "react";
 import i18next from "i18next";
-import type { Hooks, Row } from "react-table";
+import type {
+  ColumnDef,
+  ModelTableActionProps,
+  Row,
+} from "@tanstack/react-table";
 import {
   ButtonControlGroup,
   ButtonControl,
@@ -14,10 +18,27 @@ type IconFactoryProps = React.ComponentProps<typeof IconFactory>;
 type ActionConfig<D extends Record<string, unknown>> = {
   handleClick: ({ row }: { row: Row<D> }) => void;
   modalConfirm?: boolean;
-  handleLink?: ({ row }: { row: Row<D> }) => string;
+  handleHide?: ({ row }: { row: Row<D> }) => boolean;
+  handleLink?: ({ row }: { row: Row<D> }) => string | void;
 };
 
-type ActionKeys = "download" | "edit" | "delete" | "view";
+type ActionKeys =
+  | "download"
+  | "edit"
+  | "delete"
+  | "view"
+  | "enable"
+  | "disable";
+
+// Change the sort order of action buttons here
+const ACTION_ORDER = [
+  "download",
+  "view",
+  "edit",
+  "enable",
+  "disable",
+  "delete",
+];
 
 interface ActionDefinition {
   label: string;
@@ -58,6 +79,22 @@ const availableActions: ActionDefinitions = {
   view: {
     label: i18next.t("common.view"),
   },
+  enable: {
+    label: i18next.t("common.enable"),
+    action: "self.edit",
+    modalLabel: i18next.t("messages.enable.confirm_label"),
+    modalBody: (
+      <p className="t-copy-sm">{i18next.t("messages.enable.confirm_body")}</p>
+    ),
+  },
+  disable: {
+    label: i18next.t("common.disable"),
+    action: "self.delete",
+    modalLabel: i18next.t("messages.disable.confirm_label"),
+    modalBody: (
+      <p className="t-copy-sm">{i18next.t("messages.disable.confirm_body")}</p>
+    ),
+  },
 };
 
 function getButtonControlChildren<D extends Record<string, unknown>>(
@@ -66,6 +103,9 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
   actionConfig?: ActionConfig<D>
 ) {
   const actionDefinition = availableActions[action];
+
+  if (actionConfig?.handleHide && actionConfig?.handleHide({ row }))
+    return <></>;
 
   const buttonControl = actionConfig?.modalConfirm ? (
     <ButtonControlConfirm
@@ -78,7 +118,9 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
       })}
       modalLabel={actionDefinition.modalLabel}
       modalBody={actionDefinition.modalBody ?? null}
-    ></ButtonControlConfirm>
+    >
+      {actionDefinition.icon ? null : actionDefinition.label}
+    </ButtonControlConfirm>
   ) : action === "download" && actionConfig?.handleLink ? (
     <ButtonControlDownload
       key={action}
@@ -104,7 +146,9 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
       {...(actionConfig?.handleClick && {
         onClick: () => actionConfig.handleClick({ row }),
       })}
-    ></ButtonControl>
+    >
+      {actionDefinition.icon ? null : actionDefinition.label}
+    </ButtonControl>
   );
 
   const allowedActions = row?.original?.allowedActions as string[] | undefined;
@@ -124,9 +168,8 @@ function renderActions<D extends Record<string, unknown>>(
   const keys = Object.keys(configuration) as Array<ActionKeys>;
 
   const buttons = keys
-    .sort((actionA) => {
-      // Delete button should be last
-      return actionA === "delete" ? 1 : -1;
+    .sort((actionA, actionB) => {
+      return ACTION_ORDER.indexOf(actionA) - ACTION_ORDER.indexOf(actionB);
     })
     .filter((action) => {
       // Filter out any actions that are not configured
@@ -150,21 +193,73 @@ function renderActions<D extends Record<string, unknown>>(
   ) : null;
 }
 
-function useRowActions<D extends Record<string, unknown>>(hooks: Hooks<D>) {
-  hooks.allColumns.push((columns, { instance }) => {
-    const { actions } = instance;
-    if (!actions) return columns;
-    const actionColumn = {
-      Header: () => null,
-      id: "actions",
-      cellType: "actions",
-      Cell: ({ row }: { row: Row<D> }) => {
-        return renderActions<D>(row, actions);
-      },
-    };
+export interface Actions<T extends Record<string, unknown>> {
+  handleEdit?: (props: ModelTableActionProps<T>) => void;
+  handleDelete?: (props: ModelTableActionProps<T>) => void;
+  hideDelete?: (props: ModelTableActionProps<T>) => boolean;
+  handleDownload?: (props: ModelTableActionProps<T>) => void;
+  handleView?: (props: ModelTableActionProps<T>) => void;
+  handleEnable?: (props: ModelTableActionProps<T>) => void;
+  hideEnable?: (props: ModelTableActionProps<T>) => boolean;
+  handleDisable?: (props: ModelTableActionProps<T>) => void;
+  hideDisable?: (props: ModelTableActionProps<T>) => boolean;
+}
 
-    return [...columns, actionColumn];
-  });
+function useRowActions<D extends Record<string, unknown>>(
+  columns: ColumnDef<D>[],
+  actions: Actions<D>
+) {
+  // Setup actions
+  const rowActions = useMemo(
+    () => ({
+      ...(actions.handleEdit && { edit: { handleClick: actions.handleEdit } }),
+      ...(actions.handleDelete && {
+        delete: {
+          handleClick: actions.handleDelete,
+          modalConfirm: true,
+          handleHide: actions.hideDelete,
+        },
+      }),
+      ...(actions.handleDownload && {
+        download: {
+          handleLink: actions.handleDownload,
+          handleClick: () => null,
+        },
+      }),
+      ...(actions.handleView && {
+        view: { handleLink: actions.handleView, handleClick: () => null },
+      }),
+      ...(actions.handleEnable && {
+        enable: {
+          handleClick: actions.handleEnable,
+          handleHide: actions.hideEnable,
+          modalConfirm: true,
+        },
+      }),
+      ...(actions.handleDisable && {
+        disable: {
+          handleClick: actions.handleDisable,
+          handleHide: actions.hideDisable,
+          modalConfirm: true,
+        },
+      }),
+    }),
+    [actions]
+  );
+
+  const actionColumn = {
+    header: () => <span className="a-hidden">Actions</span>,
+    id: "actions",
+    cell: ({ row }: { row: Row<D> }) => {
+      return renderActions<D>(row, rowActions);
+    },
+    meta: {
+      cellType: "actions",
+      columnAlign: "right",
+    },
+  };
+
+  return [...columns, actionColumn];
 }
 
 useRowActions.pluginName = "useRowActions";
