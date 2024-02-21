@@ -31,7 +31,7 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
       <Link
         href={{ pathname, query: { ...params, page: currentPage - 1 } }}
         passHref
-      >
+        legacyBehavior>
         <ButtonControl
           as="a"
           icon="arrow"
@@ -50,7 +50,7 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
       <Link
         href={{ pathname, query: { ...params, page: currentPage + 1 } }}
         passHref
-      >
+        legacyBehavior>
         <ButtonControl
           as="a"
           icon="arrow"

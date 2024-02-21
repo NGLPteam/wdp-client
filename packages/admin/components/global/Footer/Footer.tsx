@@ -43,8 +43,8 @@ function Footer() {
           }`}
         >
           <InstallationLogo />
-          <Link href="/" passHref>
-            <a className="a-link">{t("app.powered_by")}</a>
+          <Link href="/" passHref className="a-link">
+            {t("app.powered_by")}
           </Link>
         </div>
         {footerData.navigation.map((nav, i) => (

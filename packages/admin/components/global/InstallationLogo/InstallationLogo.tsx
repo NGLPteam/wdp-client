@@ -27,7 +27,7 @@ const InstallationLogo = ({ className }: Props) => {
   }, [siteData]);
 
   return (
-    <Link href="/" passHref>
+    <Link href="/" passHref legacyBehavior>
       <Styled.LogoLink className={className}>
         {siteData?.logo?.storage && (
           <Image

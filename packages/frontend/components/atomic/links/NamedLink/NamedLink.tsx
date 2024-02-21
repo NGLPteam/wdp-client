@@ -45,7 +45,7 @@ const NamedLink = forwardRef(
         href={{ pathname: path, query: nextQuery }}
         passHref={passHref}
         {...props}
-      >
+        legacyBehavior>
         {React.isValidElement(children)
           ? React.cloneElement(children, { ref, ...props })
           : children}

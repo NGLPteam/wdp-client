@@ -56,8 +56,8 @@ const renderNavLink = (
   if (href) {
     linkComponent = (
       <Wrapper key={i}>
-        <Link href={href} passHref>
-          <a className="t-capitalize a-link">{i18next.t(label)}</a>
+        <Link href={href} passHref className="t-capitalize a-link">
+          {i18next.t(label)}
         </Link>
       </Wrapper>
     );

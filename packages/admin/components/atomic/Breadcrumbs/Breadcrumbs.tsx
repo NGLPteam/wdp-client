@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import styled from "styled-components";
-import CICBreadcrumbs from "@castiron/components-breadcrumbs";
+import CICBreadcrumbs from "@castiron/components-breadcrumbs/dist";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { Dropdown } from "components/atomic";
@@ -33,10 +33,8 @@ const BreadcrumbsWrapper = ({
     if (!data) return [];
 
     const getLink = ({ label, href, ...props }: Crumbs, i: number) => (
-      <Link key={i} href={href} {...props}>
-        <a className={`${className}__link`}>
-          <span className="t-copy-sm t-truncate">{label}</span>
-        </a>
+      <Link key={i} href={href} {...props} className={`${className}__link`}>
+        <span className="t-copy-sm t-truncate">{label}</span>
       </Link>
     );
 

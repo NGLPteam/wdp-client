@@ -5,7 +5,7 @@ export default function CollectionList() {
     <div>
       <h1>Page not found</h1>
       <Link href="/">
-        <a>Return to the dashboard.</a>
+        Return to the dashboard.
       </Link>
     </div>
   );

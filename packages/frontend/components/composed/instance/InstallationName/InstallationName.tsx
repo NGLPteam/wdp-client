@@ -30,7 +30,7 @@ export default function InstallationName({ className = "t-label-mix" }: Props) {
   }, [siteData]);
 
   return siteData?.site?.installationName ? (
-    <Link href="/" passHref>
+    <Link href="/" passHref legacyBehavior>
       <Styled.Link className={className}>
         {siteData?.logo?.storage && (
           <Image

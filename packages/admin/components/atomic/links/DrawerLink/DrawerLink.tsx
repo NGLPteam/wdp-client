@@ -20,7 +20,7 @@ const DrawerLink = forwardRef(
         href={drawerHelper.href(drawer, drawerQuery)}
         passHref={passHref}
         {...props}
-      >
+        legacyBehavior>
         {React.isValidElement(children)
           ? React.cloneElement(children, { ref, ...props })
           : children}
