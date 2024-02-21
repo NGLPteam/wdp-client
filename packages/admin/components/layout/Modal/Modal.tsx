@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useUID } from "react-uid";
+import { useId } from "react";
 import { useTranslation } from "react-i18next";
 import type { DialogProps } from "reakit/Dialog";
 import usePreventBodyScroll from "./hooks/usePreventBodyScroll";
@@ -12,8 +12,8 @@ const Modal = ({
   children,
   hideOnClickOutside = true,
 }: Props) => {
-  const uidLabel = useUID();
-  const uidDesc = useUID();
+  const uidLabel = useId();
+  const uidDesc = useId();
   const { t } = useTranslation();
 
   usePreventBodyScroll(dialog.visible);

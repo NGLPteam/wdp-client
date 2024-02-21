@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { MaybeInputRef } from "@castiron/common-types";
-import { useUID } from "react-uid";
+import { useId } from "react";
 import type { EntityOption } from "../EntitySelectorController";
 import * as Styled from "./EntitySelectorItem.styles";
 import { IconFactory } from "components/factories";
@@ -29,7 +29,7 @@ const EntitySelectorItem = forwardRef(
     }: Props,
     ref: MaybeInputRef
   ) => {
-    const id = useUID();
+    const id = useId();
 
     /* preventDefault is required to not trigger form submit events. -LD */
     const handleSelect = (

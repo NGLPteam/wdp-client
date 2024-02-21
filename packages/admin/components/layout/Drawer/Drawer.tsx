@@ -1,4 +1,4 @@
-import { useUID } from "react-uid";
+import { useId } from "react";
 import { useTranslation } from "react-i18next";
 import type { DialogProps } from "reakit/Dialog";
 import type { BaseRoute } from "@wdp/lib/routes";
@@ -21,8 +21,8 @@ const Drawer = ({
   onClose,
   hideOnClickOutside = true,
 }: Props) => {
-  const uidLabel = useUID();
-  const uidDesc = useUID();
+  const uidLabel = useId();
+  const uidDesc = useId();
   const { t } = useTranslation();
   const { loading } = useQueryStateContext();
 

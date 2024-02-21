@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-import { useUID } from "react-uid";
+import { useId } from "react";
 
 interface Params {
   initialVisible?: boolean;
@@ -13,7 +13,7 @@ export default function useDisclosureState({
   const [visible, setVisible] = useState(initialVisible);
   const toggleVisible = () => setVisible(!visible);
 
-  const id = useUID();
+  const id = useId();
 
   // Must initiate with null for use with @castiron Maybe types.
   const disclosureRef = useRef<HTMLButtonElement>(null);

@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import startCase from "lodash/startCase";
 import { useTranslation } from "react-i18next";
 import { OperationType } from "relay-runtime";
-import { useUID } from "react-uid";
+import { useId } from "react";
 import ModelPageCountActions from "../ModelPageCountActions";
 import ModelPagination from "../ModelPagination";
 import { Connectionish } from "types/graphql-helpers";
@@ -71,7 +71,7 @@ function ModelListPage<
   const view = isMobile ? ViewOptions.grid : selectedView;
 
   // List ID needed for view controls to reference table or grid area
-  const listId = useUID();
+  const listId = useId();
 
   const pageHeader = modelName
     ? startCase(t(`glossary.${modelName}`, { count: 2 }))

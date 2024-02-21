@@ -1,13 +1,13 @@
 import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useUID } from "react-uid";
+import { useId } from "react";
 import BaseInputError from "../BaseInputError";
 import * as Styled from "./TagsInput.styles";
 
 const TagsInputAdd = ({ placeholder, onEnter, onBlur }: Props) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { t } = useTranslation();
-  const uID = useUID();
+  const uID = useId();
   const [error, setError] = useState("");
 
   function isTagValid(tag: string) {
