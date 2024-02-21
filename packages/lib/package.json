@@ -14,7 +14,7 @@
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "@babel/core": "^7.16.0",
     "@castiron/style-mixins": "^1.0.6",
     "@spissvinkel/alea": "^1.2.1",
@@ -32,9 +32,7 @@
     "relay-hooks": "^6.0.0",
     "relay-runtime": "^12.0.0",
     "styled-components": "^5.3.0",
-    "typescript": "^4.3.5"
-  },
-  "devDependencies": {
+    "typescript": "^4.3.5",
     "@graphql-codegen/cli": "^1.21.6",
     "@graphql-codegen/introspection": "^1.18.2",
     "@graphql-codegen/schema-ast": "^1.18.3",

@@ -1,29 +1,50 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const transpiler = require("next-transpile-modules");
+/** @type {import('next').NextConfig} */
 
-const imageDomains = process.env.IMAGE_DOMAINS
-  ? process.env.IMAGE_DOMAINS.split(",")
-  : [
-      "lorempixel.com",
-      "picsum.photos",
-      "wdp-api-staging.s3.us-west-2.amazonaws.com",
-      "wdp-api-stg.s3.us-west-2.amazonaws.com",
-      "via.placeholder.com",
-      "localhost:6006",
-      "localhost:3000",
-      "localhost:10042",
-      "localhost",
-      "api.staging.nglp.org",
-    ];
+const images = {
+  remotePatterns: [
+    {
+      protocol: "https",
+      hostname: "api.staging.nglp.org",
+      port: "",
+    },
+    {
+      protocol: "https",
+      hostname: "wdp-api-staging.s3.us-west-2.amazonaws.com",
+      port: "",
+    },
+    {
+      protocol: "https",
+      hostname: "wdp-api-stg.s3.us-west-2.amazonaws.com",
+      port: "",
+    },
+    {
+      protocol: "http",
+      hostname: "localhost",
+      port: "6006",
+    },
+    {
+      protocol: "http",
+      hostname: "localhost",
+      port: "3000",
+    },
+    {
+      protocol: "http",
+      hostname: "localhost",
+      port: "10042",
+    },
+  ],
+  deviceSizes: [640, 750, 828, 1080, 1200, 1310, 1920],
+  formats: ["image/avif", "image/webp"],
+  imageSizes: [128, 256, 384],
+};
 
-const withTM = transpiler(["@spissvinkel/alea"]);
-
-module.exports = withTM({
-  experimental: {
-    externalDir: true,
-  },
-  images: {
-    domains: imageDomains,
+const nextConfig = {
+  transpilePackages: ["@spissvinkel/alea"],
+  images,
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
   },
   async headers() {
     return [
@@ -38,4 +59,6 @@ module.exports = withTM({
       },
     ];
   },
-});
+};
+
+module.exports = nextConfig;
