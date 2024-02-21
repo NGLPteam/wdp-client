@@ -16,7 +16,7 @@ const MessageBlock = ({ type = "error", name, message, link }: Props) => {
         )}
         {link && (
           <Styled.ButtonWrapper>
-            <Link href={link.href} passHref>
+            <Link href={link.href} passHref legacyBehavior>
               <Button as="a">{link.label}</Button>
             </Link>
           </Styled.ButtonWrapper>

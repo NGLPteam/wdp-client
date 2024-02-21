@@ -15,7 +15,7 @@ export default function InstallationName() {
   );
 
   return siteData ? (
-    <Link href="/" passHref>
+    <Link href="/" passHref legacyBehavior>
       <Styled.Link className="t-weight-md">
         {siteData.site.installationName}
       </Styled.Link>

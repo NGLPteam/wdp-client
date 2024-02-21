@@ -35,8 +35,8 @@ export default function AssetProperty(props: Props) {
         : null;
 
     return (
-      <Link href={{ pathname: filesRoute?.path, query: { slug } }}>
-        <a className="a-link">{children}</a>
+      <Link href={{ pathname: filesRoute?.path, query: { slug } }} className="a-link">
+        {children}
       </Link>
     );
   };
