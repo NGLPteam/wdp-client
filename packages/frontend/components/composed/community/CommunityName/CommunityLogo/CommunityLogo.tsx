@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import * as Styled from "./CommunityLogo.styles";
 import { NamedLink } from "components/atomic";

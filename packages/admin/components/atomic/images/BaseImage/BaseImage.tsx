@@ -1,4 +1,4 @@
-import NextImage from "next/image";
+import NextImage from "next/legacy/image";
 type NextImageProps = React.ComponentProps<typeof NextImage>;
 
 function Image(props: Props) {

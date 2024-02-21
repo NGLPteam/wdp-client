@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import * as Styled from "./Avatar.styles";
 import { IconFactory } from "components/factories";

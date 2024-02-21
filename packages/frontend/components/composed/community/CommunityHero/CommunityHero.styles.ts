@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import BaseImage from "next/image";
+import BaseImage from "next/legacy/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { fluidScale, respond } from "theme/mixins";
 import { containerWidths } from "theme/base/variables";
