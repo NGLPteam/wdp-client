@@ -38,6 +38,15 @@ const images = {
   imageSizes: [128, 256, 384],
 };
 
+const compiler = {
+  relay: {
+    src: "./",
+    language: "typescript",
+    artifactDirectory: "__generated__",
+  },
+  styledComponents: true,
+};
+
 const nextConfig = {
   transpilePackages: ["@spissvinkel/alea"],
   images,
@@ -46,6 +55,7 @@ const nextConfig = {
       fullUrl: true,
     },
   },
+  compiler,
   async headers() {
     return [
       {
