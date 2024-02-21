@@ -79,7 +79,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:>=7.9.0, @babel/core@npm:^7.1.0, @babel/core@npm:^7.12.10, @babel/core@npm:^7.12.3, @babel/core@npm:^7.14.0, @babel/core@npm:^7.7.5, @babel/core@npm:^7.9.6":
+"@babel/core@npm:>=7.9.0, @babel/core@npm:^7.1.0, @babel/core@npm:^7.12.10, @babel/core@npm:^7.12.3, @babel/core@npm:^7.14.0, @babel/core@npm:^7.7.5":
   version: 7.16.5
   resolution: "@babel/core@npm:7.16.5"
   dependencies:
@@ -161,7 +161,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-annotate-as-pure@npm:^7.15.4, @babel/helper-annotate-as-pure@npm:^7.16.0":
+"@babel/helper-annotate-as-pure@npm:^7.16.0":
   version: 7.16.0
   resolution: "@babel/helper-annotate-as-pure@npm:7.16.0"
   dependencies:
@@ -340,7 +340,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/helper-module-imports@npm:^7.0.0, @babel/helper-module-imports@npm:^7.12.13, @babel/helper-module-imports@npm:^7.15.4":
+"@babel/helper-module-imports@npm:^7.0.0, @babel/helper-module-imports@npm:^7.12.13":
   version: 7.16.0
   resolution: "@babel/helper-module-imports@npm:7.16.0"
   dependencies:
@@ -628,7 +628,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-proposal-class-properties@npm:^7.0.0, @babel/plugin-proposal-class-properties@npm:^7.12.1, @babel/plugin-proposal-class-properties@npm:^7.12.13, @babel/plugin-proposal-class-properties@npm:^7.16.0, @babel/plugin-proposal-class-properties@npm:^7.16.5":
+"@babel/plugin-proposal-class-properties@npm:^7.0.0, @babel/plugin-proposal-class-properties@npm:^7.12.1, @babel/plugin-proposal-class-properties@npm:^7.12.13, @babel/plugin-proposal-class-properties@npm:^7.16.5":
   version: 7.16.5
   resolution: "@babel/plugin-proposal-class-properties@npm:7.16.5"
   dependencies:
@@ -5680,8 +5680,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@wdp/admin@workspace:packages/admin"
   dependencies:
-    "@babel/core": "npm:^7.9.6"
-    "@babel/plugin-proposal-class-properties": "npm:^7.16.0"
     "@bedrock-layout/use-stateful-ref": "npm:^1.1.2"
     "@castiron/common-types": "npm:^1.0.0"
     "@castiron/components-breadcrumbs": "npm:2.0.2"
@@ -5732,9 +5730,6 @@ __metadata:
     "@uppy/tus": "npm:^1.9.2"
     "@wdp/lib": "npm:1.0.0"
     aria-live-storybook-addon: "npm:^0.0.6"
-    babel-loader: "npm:^8.0.0"
-    babel-plugin-relay: "npm:^12.0.0"
-    babel-plugin-styled-components: "npm:^1.13.1"
     cookie: "npm:^0.4.1"
     csstype: "npm:^2.6.2"
     date-fns: "npm:^2.25.0"
@@ -5803,8 +5798,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@wdp/frontend@workspace:packages/frontend"
   dependencies:
-    "@babel/core": "npm:^7.13.10"
-    "@babel/plugin-proposal-class-properties": "npm:^7.16.0"
     "@bedrock-layout/use-stateful-ref": "npm:^1.1.2"
     "@castiron/common-types": "npm:^1.0.0"
     "@castiron/style-mixins": "npm:^1.0.0"
@@ -5843,9 +5836,6 @@ __metadata:
     "@types/styled-components": "npm:^5.1.11"
     "@wdp/lib": "npm:1.0.0"
     aria-live-storybook-addon: "npm:^0.0.6"
-    babel-loader: "npm:^8.0.0"
-    babel-plugin-relay: "npm:^12.0.0"
-    babel-plugin-styled-components: "npm:^1.13.1"
     chunk-text: "npm:^2.0.1"
     cookie: "npm:^0.4.1"
     csstype: "npm:^2.6.2"
@@ -5900,7 +5890,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@wdp/lib@workspace:packages/lib"
   peerDependencies:
-    "@babel/core": ^7.16.0
     "@castiron/style-mixins": ^1.0.6
     "@graphql-codegen/cli": ^1.21.6
     "@graphql-codegen/introspection": ^1.18.2
@@ -5915,8 +5904,6 @@ __metadata:
     "@types/relay-runtime": ^12.0.0
     "@types/relay-test-utils": ^6.0.5
     "@types/styled-components": ^5.1.15
-    babel-plugin-relay: ^12.0.0
-    babel-plugin-styled-components: ^1.13.1
     chunk-text: ^2.0.1
     graphql: ^15.5.1
     npm-run-all: ^4.1.5
@@ -7145,31 +7132,6 @@ __metadata:
     lodash: "npm:^4.17.15"
     react-docgen: "npm:^5.0.0"
   checksum: 10c0/9f7af20e6ebd794beae14aa1ffe4f1c1c5855821a5a9f205099602c89b557e33b9cb3dc3fe0b3a2f2ca35007c6ab45f52da9695a681d8495ad0f5494ef78ec34
-  languageName: node
-  linkType: hard
-
-"babel-plugin-relay@npm:^12.0.0":
-  version: 12.0.0
-  resolution: "babel-plugin-relay@npm:12.0.0"
-  dependencies:
-    babel-plugin-macros: "npm:^2.0.0"
-  peerDependencies:
-    graphql: ^15.0.0
-  checksum: 10c0/078af50dd6988a5da4f7faba4b83ab801cef83b8692f8e3e44d212d083f5e913b9b9330e86163403dec25c0c8d244d1ef859a2bc6901d16409d00185018b5651
-  languageName: node
-  linkType: hard
-
-"babel-plugin-styled-components@npm:^1.13.1":
-  version: 1.13.3
-  resolution: "babel-plugin-styled-components@npm:1.13.3"
-  dependencies:
-    "@babel/helper-annotate-as-pure": "npm:^7.15.4"
-    "@babel/helper-module-imports": "npm:^7.15.4"
-    babel-plugin-syntax-jsx: "npm:^6.18.0"
-    lodash: "npm:^4.17.11"
-  peerDependencies:
-    styled-components: ">= 2"
-  checksum: 10c0/d689693dd5ad25ef2fd9a448cec4ab09a03ac364b443a9dd063607c12dc3955ee6d808550ed0cf9666cf11f9661193e97991dc836f92e3f8bbefafa2b6b0f09b
   languageName: node
   linkType: hard
 
@@ -14017,7 +13979,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:4.17.21, lodash@npm:^4.17.11, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:~4.17.0":
+"lodash@npm:4.17.21, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:~4.17.0":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: 10c0/d8cbea072bb08655bb4c989da418994b073a608dffa608b09ac04b43a791b12aeae7cd7ad919aa4c925f33b48490b5cfe6c1f71d827956071dae2e7bb3a6b74c

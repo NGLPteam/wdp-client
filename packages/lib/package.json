@@ -14,7 +14,6 @@
   "author": "",
   "license": "MIT",
   "peerDependencies": {
-    "@babel/core": "^7.16.0",
     "@castiron/style-mixins": "^1.0.6",
     "@graphql-codegen/cli": "^1.21.6",
     "@graphql-codegen/introspection": "^1.18.2",
@@ -29,8 +28,6 @@
     "@types/relay-runtime": "^12.0.0",
     "@types/relay-test-utils": "^6.0.5",
     "@types/styled-components": "^5.1.15",
-    "babel-plugin-relay": "^12.0.0",
-    "babel-plugin-styled-components": "^1.13.1",
     "chunk-text": "^2.0.1",
     "graphql": "^15.5.1",
     "npm-run-all": "^4.1.5",

@@ -19,8 +19,6 @@
     "types": "npx tsc --strict -w"
   },
   "dependencies": {
-    "@babel/core": "^7.13.10",
-    "@babel/plugin-proposal-class-properties": "^7.16.0",
     "@bedrock-layout/use-stateful-ref": "^1.1.2",
     "@castiron/common-types": "^1.0.0",
     "@castiron/style-mixins": "^1.0.0",
@@ -32,7 +30,6 @@
     "@types/react": "^18.2.57",
     "@types/react-dom": "^18.2.19",
     "@wdp/lib": "1.0.0",
-    "babel-loader": "^8.0.0",
     "chunk-text": "^2.0.1",
     "cookie": "^0.4.1",
     "csstype": "^2.6.2",
@@ -106,8 +103,6 @@
     "@types/relay-runtime": "^12.0.0",
     "@types/styled-components": "^5.1.11",
     "aria-live-storybook-addon": "^0.0.6",
-    "babel-plugin-relay": "^12.0.0",
-    "babel-plugin-styled-components": "^1.13.1",
     "storybook-addon-next-router": "^3.1.1",
     "storybook-addon-themes": "^6.1.0",
     "storybook-react-i18next": "^1.0.17",
