@@ -1,10 +1,8 @@
 {
   "name": "@wdp/stylelint-config",
   "version": "1.0.0",
-  "private": "true",
   "description": "",
   "main": "index.js",
-  "scripts": {},
   "author": "",
   "license": "MIT",
   "devDependencies": {
@@ -13,7 +11,5 @@
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.10.0",
     "stylelint-use-logical": "^1.1.0"
-  },
-  "dependencies": {
   }
 }

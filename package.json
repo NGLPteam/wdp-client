@@ -16,10 +16,13 @@
     "packages/common/stylelint-config/node_modules",
     "packages/lib/node_modules"
   ],
-  "private": "true",
   "version": "1.0.0",
   "description": "NGLP Web Delivery Platform client application",
   "main": "index.js",
+  "engines": {
+    "node": "20.x"
+  },
+  "packageManager": "yarn@4.1.0",
   "scripts": {
     "dev": "npm-run-all -l --parallel dev:*",
     "dev:frontend": "yarn workspace @wdp/frontend run dev",
@@ -71,8 +74,5 @@
   },
   "devDependencies": {
     "install": "^0.13.0"
-  },
-  "engines": {
-    "node": "20.x"
   }
 }
