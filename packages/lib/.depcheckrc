@@ -1,0 +1,9 @@
+ignores: [
+   "typescript",
+
+   # ignore depcheck!
+   "depcheck",
+
+   "@wdp/eslint-config"
+
+]
