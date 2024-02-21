@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useUID } from "react-uid";
+import { useId } from "react";
 import { useFocusTrap } from "@castiron/hooks/";
 
 import ProviderBar from "../ProviderBar";
@@ -22,7 +22,7 @@ import SearchModal from "components/composed/search/SearchModal";
 
 function Header() {
   const { t } = useTranslation();
-  const mobileNavId = useUID();
+  const mobileNavId = useId();
   const mobileNavRef = useRef(null);
   const [isActive, toggleActive, setActive] = useToggle();
 

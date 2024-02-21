@@ -1,4 +1,4 @@
-import { useUID } from "react-uid";
+import { useId } from "react";
 import { mkState, nextT, mkAlea } from "@spissvinkel/alea";
 import type { AleaState } from "@spissvinkel/alea";
 import chunk from "chunk-text";
@@ -12,7 +12,7 @@ export default function CoverPlaceholder({
   maxHeight,
   style,
 }: Props) {
-  const uid = useUID();
+  const uid = useId();
   const randomState = mkState(seed);
   const nextBool: (state: AleaState) => boolean = nextT((n) => n < 0.5);
   const mkNext0toMax = (

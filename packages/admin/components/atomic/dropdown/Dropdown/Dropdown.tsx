@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from "react";
-import { useUID } from "react-uid";
+import { useId } from "react";
 import { useFocusTrap } from "@castiron/hooks/";
 import isFunction from "lodash/isFunction";
 import * as Styled from "./Dropdown.styles";
@@ -16,7 +16,7 @@ const Dropdown = ({
   label,
   alignRight = false,
 }: Props) => {
-  const uid = useUID();
+  const uid = useId();
   const wrapperRef = useRef(null);
   const [active, setActive] = useState(false);
   const [elRef, out] = useIsOutOfViewport<HTMLUListElement>();
