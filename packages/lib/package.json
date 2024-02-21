@@ -9,7 +9,8 @@
     "lint:css": "stylelint --config .stylelintrc.js \"**/*.{ts,tsx}\"",
     "fix": "npm-run-all fix:*",
     "fix:js": "eslint --cache -c .eslintrc.js \"**/*.{ts,tsx}\" --fix",
-    "types": "npx tsc --strict -w"
+    "types": "npx tsc --strict -w",
+    "depcheck": "depcheck"
   },
   "author": "",
   "license": "MIT",
@@ -20,6 +21,7 @@
     "@graphql-codegen/schema-ast": "^1.18.3",
     "@graphql-codegen/typescript": "^1.22.4",
     "@graphql-codegen/typescript-resolvers": "^1.19.5",
+    "@react-keycloak/ssr": "*",
     "@spissvinkel/alea": "^1.2.1",
     "@types/chunk-text": "^1.0.0",
     "@types/react": "~17.0.33",
@@ -29,7 +31,12 @@
     "@types/relay-test-utils": "^6.0.5",
     "@types/styled-components": "^5.1.15",
     "chunk-text": "^2.0.1",
+    "cookie": "*",
+    "date-fns": "*",
     "graphql": "^15.5.1",
+    "keycloak-js": "*",
+    "lodash": "*",
+    "next": "*",
     "npm-run-all": "^4.1.5",
     "react": "^18.2.0",
     "react-confirm": "^0.1.23",
@@ -37,13 +44,17 @@
     "react-relay": "^12.0.0",
     "react-relay-network-modern": "^6.0.0",
     "react-relay-network-modern-ssr": "^1.4.0",
+    "regenerator-runtime": "*",
     "relay-compiler": ">=12.0.0",
     "relay-compiler-language-typescript": "^15.0.0",
     "relay-config": "^12.0.0",
     "relay-hooks": "^6.0.0",
     "relay-runtime": "^12.0.0",
     "relay-test-utils": "^13.1.1",
-    "styled-components": "^5.3.0",
+    "styled-components": "*",
     "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "depcheck": "^1.4.7"
   }
 }
