@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { graphql } from "react-relay";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { formatDate, formatFileSize } from "@wdp/lib/helpers";
 import { useRouteSlug } from "@wdp/lib/routes";

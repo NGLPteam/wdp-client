@@ -1,6 +1,6 @@
 import GlobalStyles from "theme/globalStyles";
 import { baseColors, customColors } from "theme/base/variables";
-import * as nextImage from "next/image";
+import * as nextImage from "next/legacy/image";
 import { ThemeProvider } from "styled-components";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import i18n, { SUPPORTED_LOCALES, DEFAULT_LNG } from "../i18n";

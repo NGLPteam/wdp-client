@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import BaseImage from "next/image";
+import BaseImage from "next/legacy/image";
 import { respond, lGrid } from "theme/mixins";
 import { ArrowList } from "components/atomic";
 

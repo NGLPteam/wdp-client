@@ -1,7 +1,7 @@
 import get from "lodash/get";
 import { Story } from "@storybook/react";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
-import * as nextImage from "next/image";
+import * as nextImage from "next/legacy/image";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import GlobalStyles from "../theme/globalStyles";
 import { colors } from "../theme/base/variables";

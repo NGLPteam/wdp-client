@@ -1,6 +1,6 @@
 import styled from "styled-components";
 // eslint-disable-next-line import/no-named-default
-import { default as BaseImage } from "next/image";
+import { default as BaseImage } from "next/legacy/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { aBgNeutral00, aFocus, fluidScale, respond } from "theme/mixins";
 import { NamedLink as BaseNamedLink } from "components/atomic";

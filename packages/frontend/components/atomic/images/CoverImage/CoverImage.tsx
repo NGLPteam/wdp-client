@@ -1,6 +1,6 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { graphql } from "react-relay";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { CoverPlaceholder } from "@wdp/lib/atomic";

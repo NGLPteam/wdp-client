@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import * as Styled from "./SquareThumbnail.styles";
 
 export default function SquareThumbnailBase({ alt, url, size }: BaseProps) {
