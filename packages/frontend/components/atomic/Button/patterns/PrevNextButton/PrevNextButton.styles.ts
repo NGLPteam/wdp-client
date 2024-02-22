@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { Button } from "components/atomic";
+import Button from "../..";
 import { aButton, respond } from "theme/mixins";
 
 export const FixedWidthButton = styled(Button)`
