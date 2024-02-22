@@ -5578,6 +5578,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/chunk-text@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@types/chunk-text@npm:1.0.2"
+  checksum: 10c0/6d267ef9bf699d719f32adb2631e444c6ed35d48e506192a8e237c78b6e4a9da22d3dfddde4a3be227d613bab0c6f150adc395e4cdfe7ec465e923ed1a41e12f
+  languageName: node
+  linkType: hard
+
 "@types/color-convert@npm:^2.0.0":
   version: 2.0.0
   resolution: "@types/color-convert@npm:2.0.0"
@@ -6064,7 +6071,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-relay@npm:^16.0.6":
+"@types/react-relay@npm:*, @types/react-relay@npm:^16.0.6":
   version: 16.0.6
   resolution: "@types/react-relay@npm:16.0.6"
   dependencies:
@@ -6123,6 +6130,17 @@ __metadata:
   version: 14.1.23
   resolution: "@types/relay-runtime@npm:14.1.23"
   checksum: 10c0/cc19503b42a1064f7e323c06be5de517691a0a7dd7f059c8cc1974c8f39751fe98ff309fe29aca87098dba14a2cae6d197025653c72edce1875e7163f76e3033
+  languageName: node
+  linkType: hard
+
+"@types/relay-test-utils@npm:^14.1.4":
+  version: 14.1.4
+  resolution: "@types/relay-test-utils@npm:14.1.4"
+  dependencies:
+    "@types/react": "npm:*"
+    "@types/react-relay": "npm:*"
+    "@types/relay-runtime": "npm:*"
+  checksum: 10c0/48ced50f602b95ca66d007a9038467edcc1603afdff51dbd7b0287169e072ab27cc150f6a34df48b3943b41263889edcfe9a0f2c2999bec4e4827aa4b4523052
   languageName: node
   linkType: hard
 
@@ -6603,6 +6621,7 @@ __metadata:
     "@storybook/react": "npm:6.4.19"
     "@storybook/theming": "npm:6.4.19"
     "@tanstack/react-table": "npm:^8.5.15"
+    "@types/chunk-text": "npm:^1.0.2"
     "@types/lodash": "npm:^4.14.171"
     "@types/node": "npm:^16.0.0"
     "@types/react": "npm:^18.2.57"
@@ -6611,11 +6630,13 @@ __metadata:
     "@types/react-relay": "npm:^16.0.6"
     "@types/regenerator-runtime": "npm:^0.13.0"
     "@types/relay-runtime": "npm:^14.1.23"
+    "@types/relay-test-utils": "npm:^14.1.4"
     "@types/styled-components": "npm:^5.1.11"
     "@uppy/core": "npm:^1.20.1"
     "@uppy/tus": "npm:^1.9.2"
     "@wdp/lib": "npm:1.0.0"
     aria-live-storybook-addon: "npm:^0.0.6"
+    chunk-text: "npm:^2.0.1"
     concurrently: "npm:^8.2.2"
     cookie: "npm:^0.4.1"
     date-fns: "npm:^2.25.0"
@@ -6647,6 +6668,7 @@ __metadata:
     relay-config: "npm:^12.0.1"
     relay-hooks: "npm:^9.0.0"
     relay-runtime: "npm:^16.2.0"
+    relay-test-utils: "npm:^16.2.0"
     storybook-addon-designs: "npm:^6.2.1"
     storybook-addon-grid: "npm:^0.0.14"
     storybook-addon-next-router: "npm:^3.1.1"
@@ -6697,6 +6719,7 @@ __metadata:
     "@storybook/addons": "npm:6.4.19"
     "@storybook/client-api": "npm:6.4.19"
     "@storybook/react": "npm:6.4.19"
+    "@types/chunk-text": "npm:^1.0.2"
     "@types/lodash": "npm:^4.14.171"
     "@types/node": "npm:^16.0.0"
     "@types/react": "npm:^18.2.57"
@@ -6704,6 +6727,7 @@ __metadata:
     "@types/react-pdf": "npm:^5.0.9"
     "@types/react-relay": "npm:^16.0.6"
     "@types/relay-runtime": "npm:^14.1.23"
+    "@types/relay-test-utils": "npm:^14.1.4"
     "@types/styled-components": "npm:^5.1.11"
     "@wdp/lib": "workspace:^"
     chunk-text: "npm:^2.0.1"
@@ -6739,6 +6763,7 @@ __metadata:
     relay-config: "npm:^12.0.1"
     relay-hooks: "npm:^9.0.0"
     relay-runtime: "npm:^16.2.0"
+    relay-test-utils: "npm:^16.2.0"
     storybook-addon-next-router: "npm:^3.1.1"
     storybook-addon-themes: "npm:^6.1.0"
     styled-components: "npm:^6.1.8"
@@ -6754,31 +6779,31 @@ __metadata:
     concurrently: "npm:^8.2.2"
     depcheck: "npm:^1.4.7"
   peerDependencies:
-    "@castiron/style-mixins": ^1.0.6
-    "@graphql-codegen/cli": ^1.21.6
-    "@graphql-codegen/introspection": ^1.18.2
-    "@graphql-codegen/schema-ast": ^1.18.3
-    "@graphql-codegen/typescript": ^1.22.4
-    "@graphql-codegen/typescript-resolvers": ^1.19.5
+    "@castiron/style-mixins": "*"
+    "@graphql-codegen/cli": "*"
+    "@graphql-codegen/introspection": "*"
+    "@graphql-codegen/schema-ast": "*"
+    "@graphql-codegen/typescript": "*"
+    "@graphql-codegen/typescript-resolvers": "*"
     "@react-keycloak/ssr": "*"
-    "@spissvinkel/alea": ^1.2.1
-    "@types/chunk-text": ^1.0.0
-    "@types/react": ^18.2.57
-    "@types/react-dom": ^18.2.19
+    "@spissvinkel/alea": "*"
+    "@types/chunk-text": "*"
+    "@types/react": "*"
+    "@types/react-dom": "*"
     "@types/react-relay": "*"
     "@types/relay-runtime": "*"
-    "@types/relay-test-utils": ^6.0.5
-    "@types/styled-components": ^5.1.15
-    chunk-text: ^2.0.1
+    "@types/relay-test-utils": "*"
+    "@types/styled-components": "*"
+    chunk-text: "*"
     cookie: "*"
     date-fns: "*"
-    graphql: ^15.5.1
+    graphql: "*"
     keycloak-js: "*"
     lodash: "*"
     next: "*"
-    react: ^18.2.0
-    react-confirm: ^0.1.23
-    react-dom: ^18.2.0
+    react: "*"
+    react-confirm: "*"
+    react-dom: "*"
     react-relay: "*"
     react-relay-network-modern: "*"
     react-relay-network-modern-ssr: "*"
@@ -6787,8 +6812,8 @@ __metadata:
     relay-compiler-language-typescript: "*"
     relay-config: "*"
     relay-hooks: "*"
-    relay-runtime: ^16.2.0
-    relay-test-utils: ^13.1.1
+    relay-runtime: "*"
+    relay-test-utils: "*"
     styled-components: "*"
     typescript: "*"
   languageName: unknown
@@ -19351,6 +19376,18 @@ __metadata:
     fbjs: "npm:^3.0.2"
     invariant: "npm:^2.2.4"
   checksum: 10c0/770dc36203a3d0a7c285ac446ac601cfa8a87da2af8ee9a9cc3c5533c506655e457b276bc40c6e0f274556dce258b2407a5d17e6582bbc9902af5f1dd9081c3a
+  languageName: node
+  linkType: hard
+
+"relay-test-utils@npm:^16.2.0":
+  version: 16.2.0
+  resolution: "relay-test-utils@npm:16.2.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.0.0"
+    fbjs: "npm:^3.0.2"
+    invariant: "npm:^2.2.4"
+    relay-runtime: "npm:16.2.0"
+  checksum: 10c0/8a5c258dd363158eda608256b78261cb359c4038c3140b327ea9ba06d9f184616e849818b7264c6338eeaedeaffe1d1339738d84f1bfda49a96c87e0eed64617
   languageName: node
   linkType: hard
 
