@@ -8,7 +8,7 @@ import {
   RelayNetworkLayer,
   retryMiddleware,
   urlMiddleware,
-} from "react-relay-network-modern/node8";
+} from "react-relay-network-modern";
 import { SSRCookies } from "@react-keycloak/ssr";
 import RelayServerSSR from "react-relay-network-modern-ssr/lib/server";
 
