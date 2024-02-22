@@ -24,7 +24,7 @@
   },
   "packageManager": "yarn@4.1.0",
   "scripts": {
-    "dev": "npm-run-all -l --parallel dev:*",
+    "dev": "concurrently -c \"auto\" \"yarn:dev:*\"",
     "dev:frontend": "yarn workspace @wdp/frontend run dev",
     "dev:admin": "yarn workspace @wdp/admin run dev",
     "build": "scripts/do.sh build",
@@ -33,29 +33,29 @@
     "start": "scripts/do.sh start",
     "start:frontend": "yarn workspace @wdp/frontend run start",
     "start:admin": "yarn workspace @wdp/admin run start",
-    "lint": "npm-run-all -l --parallel lint:js lint:css",
-    "lint:js": "npm-run-all -l --parallel lint:js:*",
+    "lint": "concurrently -c \"auto\" \"yarn:lint:js\" \"yarn:lint:css\"",
+    "lint:js": "concurrently -c \"auto\" \"yarn:lint:js:*\"",
     "lint:js:frontend": "yarn workspace @wdp/frontend run lint:js",
     "lint:js:admin": "yarn workspace @wdp/admin run lint:js",
-    "lint:css": "npm-run-all -l --parallel lint:css:*",
+    "lint:css": "concurrently -c \"auto\" \"yarn:lint:css:*\"",
     "lint:css:frontend": "yarn workspace @wdp/frontend run lint:css",
     "lint:css:admin": "yarn workspace @wdp/admin run lint:css",
-    "fix": "npm-run-all -l --parallel fix:*",
+    "fix": "concurrently -c \"auto\" \"yarn:fix:*\"",
     "fix:frontend": "yarn workspace @wdp/frontend run fix",
     "fix:admin": "yarn workspace @wdp/admin run fix",
-    "schema": "npm-run-all -l --parallel schema:*",
+    "schema": "concurrently -c \"auto\" \"yarn:schema:*\"",
     "schema:frontend": "yarn workspace @wdp/frontend run schema",
     "schema:admin": "yarn workspace @wdp/admin run schema",
-    "relay": "npm-run-all -l --parallel relay:*",
+    "relay": "concurrently -c \"auto\" \"yarn:relay:*\"",
     "relay:frontend": "yarn workspace @wdp/frontend run relay",
     "relay:admin": "yarn workspace @wdp/admin run relay",
-    "storybook": "npm-run-all -l --parallel storybook:run:*",
+    "storybook": "concurrently -c \"auto\" \"yarn:storybook:run:*\"",
     "storybook:run:frontend": "yarn workspace @wdp/frontend run storybook",
     "storybook:run:admin": "yarn workspace @wdp/admin run storybook",
-    "storybook:build": "npm-run-all -l --parallel storybook:build:*",
+    "storybook:build": "concurrently  -c \"auto\" \"yarn:storybook:build:*\"",
     "storybook:build:frontend": "yarn workspace @wdp/frontend run build-storybook",
     "storybook:build:admin": "yarn workspace @wdp/admin run build-storybook",
-    "types": "run-p types:*",
+    "types": "concurrently -c \"auto\" \"yarn:types:*\"",
     "types:frontend": "yarn workspace @wdp/frontend run types",
     "types:admin": "yarn workspace @wdp/admin run types"
   },
@@ -69,10 +69,8 @@
     "url": "https://github.com/nglpteam/wdp-client/issues"
   },
   "homepage": "https://github.com/nglpteam/wdp-client#readme",
-  "dependencies": {
-    "npm-run-all": "^4.1.5"
-  },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "install": "^0.13.0"
   }
 }
