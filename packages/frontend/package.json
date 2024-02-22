@@ -26,6 +26,8 @@
     "@castiron/style-mixins": "^1.0.0",
     "@react-keycloak/ssr": "^3.3.0",
     "@spissvinkel/alea": "^1.2.1",
+    "@types/chunk-text": "^1.0.2",
+    "@types/relay-test-utils": "^14.1.4",
     "@wdp/lib": "workspace:^",
     "chunk-text": "^2.0.1",
     "cookie": "^0.4.1",
@@ -58,6 +60,7 @@
     "relay-config": "^12.0.1",
     "relay-hooks": "^9.0.0",
     "relay-runtime": "^16.2.0",
+    "relay-test-utils": "^16.2.0",
     "styled-components": "^6.1.8",
     "webpack": ">=2"
   },
