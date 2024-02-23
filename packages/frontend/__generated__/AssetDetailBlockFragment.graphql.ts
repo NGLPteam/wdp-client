@@ -1,35 +1,37 @@
+/**
+ * @generated SignedSource<<3d71346ceb62f6a781af113d004dd16e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AssetKind = "audio" | "document" | "image" | "pdf" | "unknown" | "video" | "%future added value";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type AssetDetailBlockFragment = {
-    readonly slug?: string | undefined;
-    readonly caption?: string | null | undefined;
-    readonly kind?: AssetKind | undefined;
-    readonly downloadUrl?: string | null | undefined;
-    readonly fileSize?: number | undefined;
-    readonly name?: string | undefined;
-    readonly altText?: string | null | undefined;
-    readonly preview?: {
-        readonly storage: AttachmentStorage | null;
-        readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
-    } | undefined;
-    readonly updatedAt?: string | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AssetPDFPreviewFragment">;
-    readonly " $refType": "AssetDetailBlockFragment";
+import { FragmentRefs } from "relay-runtime";
+export type AssetDetailBlockFragment$data = {
+  readonly altText?: string | null | undefined;
+  readonly caption?: string | null | undefined;
+  readonly downloadUrl?: string | null | undefined;
+  readonly fileSize?: number;
+  readonly kind?: AssetKind;
+  readonly name?: string;
+  readonly preview?: {
+    readonly storage: AttachmentStorage | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"ContentImageFragment">;
+  };
+  readonly slug?: string;
+  readonly updatedAt?: string;
+  readonly " $fragmentSpreads": FragmentRefs<"AssetPDFPreviewFragment">;
+  readonly " $fragmentType": "AssetDetailBlockFragment";
 };
-export type AssetDetailBlockFragment$data = AssetDetailBlockFragment;
 export type AssetDetailBlockFragment$key = {
-    readonly " $data"?: AssetDetailBlockFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AssetDetailBlockFragment">;
+  readonly " $data"?: AssetDetailBlockFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"AssetDetailBlockFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -139,5 +141,7 @@ const node: ReaderFragment = {
   "type": "Node",
   "abstractKey": "__isNode"
 };
-(node as any).hash = 'e719c5acd5823d2a8061a8f6236eadb6';
+
+(node as any).hash = "e719c5acd5823d2a8061a8f6236eadb6";
+
 export default node;

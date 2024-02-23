@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import { graphql } from "react-relay";
 import { useRouteSlug } from "@wdp/lib/routes";
 import * as Styled from "./EntityAnnouncements.styles";

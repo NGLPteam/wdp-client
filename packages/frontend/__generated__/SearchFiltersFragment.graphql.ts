@@ -1,32 +1,34 @@
+/**
+ * @generated SignedSource<<abcc979b9a8a27cedcf3008984f5e152>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SearchFiltersFragment = {
-    readonly coreProperties: ReadonlyArray<{
-        readonly searchPath?: string | undefined;
-        readonly " $fragmentRefs": FragmentRefs<"SearchFilterFragment">;
+export type SearchFiltersFragment$data = {
+  readonly coreProperties: ReadonlyArray<{
+    readonly searchPath?: string;
+    readonly " $fragmentSpreads": FragmentRefs<"SearchFilterFragment">;
+  }>;
+  readonly schemas: ReadonlyArray<{
+    readonly searchableProperties: ReadonlyArray<{
+      readonly label?: string;
+      readonly searchPath?: string;
+      readonly " $fragmentSpreads": FragmentRefs<"SearchFilterFragment">;
     }>;
-    readonly schemas: ReadonlyArray<{
-        readonly searchableProperties: ReadonlyArray<{
-            readonly searchPath?: string | undefined;
-            readonly label?: string | undefined;
-            readonly " $fragmentRefs": FragmentRefs<"SearchFilterFragment">;
-        }>;
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"SearchSchemaFilterFragment">;
-    readonly " $refType": "SearchFiltersFragment";
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchSchemaFilterFragment">;
+  readonly " $fragmentType": "SearchFiltersFragment";
 };
-export type SearchFiltersFragment$data = SearchFiltersFragment;
 export type SearchFiltersFragment$key = {
-    readonly " $data"?: SearchFiltersFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SearchFiltersFragment">;
+  readonly " $data"?: SearchFiltersFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchFiltersFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -68,6 +70,11 @@ return {
       "storageKey": null
     },
     {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "SearchSchemaFilterFragment"
+    },
+    {
       "alias": "schemas",
       "args": null,
       "concreteType": "SchemaVersion",
@@ -104,16 +111,13 @@ return {
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "SearchSchemaFilterFragment"
     }
   ],
   "type": "SearchScope",
   "abstractKey": null
 };
 })();
-(node as any).hash = '94dc02f005d7c9cc6be5a8d9cfcfdde0';
+
+(node as any).hash = "94dc02f005d7c9cc6be5a8d9cfcfdde0";
+
 export default node;

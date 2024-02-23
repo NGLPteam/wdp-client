@@ -1,5 +1,5 @@
 import React from "react";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import {
   TagsProperty,

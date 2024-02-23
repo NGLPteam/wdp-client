@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
+import { GraphQLTaggedNode } from "react-relay";
 import { useAuthenticatedQuery, useMaybeFragment } from "@wdp/lib/api/hooks";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
@@ -7,7 +8,7 @@ import { EntityOrderingLayoutFactoryFragment$key } from "@/relay/EntityOrderingL
 import EntityOrderingLayout from "components/composed/entity/EntityOrderingLayout";
 import {
   EntityOrderingLayoutFactoryQuery as Query,
-  EntityOrderingLayoutFactoryQueryResponse,
+  EntityOrderingLayoutFactoryQuery$data,
 } from "@/relay/EntityOrderingLayoutFactoryQuery.graphql";
 import { LoadingBlock } from "components/atomic";
 import IssueSidebarNav from "components/composed/issue/IssueSidebarNav";
@@ -19,7 +20,7 @@ import { RouteHelper } from "routes";
  * If no ordering identifier is provided, uses the first ordering on the entity.
  */
 export default function EntityOrderingLayoutFactory({ data, ordering }: Props) {
-  const entity = useMaybeFragment(fragment, data);
+  const entity = useMaybeFragment(fragment as GraphQLTaggedNode, data);
 
   const { push: routerPush, ...router } = useRouter();
 
@@ -63,9 +64,7 @@ export default function EntityOrderingLayoutFactory({ data, ordering }: Props) {
     }
   }, [orderingData, slug, routerPush]);
 
-  const getLayout = (
-    data?: EntityOrderingLayoutFactoryQueryResponse | null
-  ) => {
+  const getLayout = (data?: EntityOrderingLayoutFactoryQuery$data | null) => {
     switch (entity?.schemaDefinition?.identifier) {
       case "journal_issue":
         return (

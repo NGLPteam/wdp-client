@@ -1,7 +1,6 @@
 import React from "react";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { QueryWrapper } from "@wdp/lib/api/components";
-import { useRouteSlug } from "@wdp/lib/routes";
 import InstanceContentLayout from "components/composed/instance/InstanceContentLayout";
 import { pagesQuery as Query } from "@/relay/pagesQuery.graphql";
 
@@ -21,11 +20,9 @@ export async function getStaticProps() {
 }
 
 export default function HomePage() {
-  const slug = useRouteSlug();
-
   return (
     <>
-      <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
+      <QueryWrapper<Query> query={query}>
         {({ data }) => (
           <AppLayout>
             <InstanceContentLayout data={data} />

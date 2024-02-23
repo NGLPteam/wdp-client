@@ -1,34 +1,36 @@
+/**
+ * @generated SignedSource<<5d814a07a3fae9e6c3e01f238ce55887>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AssetKind = "audio" | "document" | "image" | "pdf" | "unknown" | "video" | "%future added value";
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type AssetThumbnailFragment = {
-    readonly kind: AssetKind;
-    readonly slug: string;
-    readonly altText: string | null;
-    readonly preview: {
-        readonly storage: AttachmentStorage | null;
-        readonly image: {
-            readonly webp: {
-                readonly alt: string | null;
-                readonly url: string | null;
-            };
-        };
+import { FragmentRefs } from "relay-runtime";
+export type AssetThumbnailFragment$data = {
+  readonly altText: string | null | undefined;
+  readonly kind: AssetKind;
+  readonly preview: {
+    readonly image: {
+      readonly webp: {
+        readonly alt: string | null | undefined;
+        readonly url: string | null | undefined;
+      };
     };
-    readonly " $refType": "AssetThumbnailFragment";
+    readonly storage: AttachmentStorage | null | undefined;
+  };
+  readonly slug: string;
+  readonly " $fragmentType": "AssetThumbnailFragment";
 };
-export type AssetThumbnailFragment$data = AssetThumbnailFragment;
 export type AssetThumbnailFragment$key = {
-    readonly " $data"?: AssetThumbnailFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AssetThumbnailFragment">;
+  readonly " $data"?: AssetThumbnailFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"AssetThumbnailFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -115,5 +117,7 @@ const node: ReaderFragment = {
   "type": "Asset",
   "abstractKey": "__isAsset"
 };
-(node as any).hash = 'e4cc04367359736dc5d506df212e9915';
+
+(node as any).hash = "e4cc04367359736dc5d506df212e9915";
+
 export default node;

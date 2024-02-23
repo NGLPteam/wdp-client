@@ -18,6 +18,6 @@ export default function SquareThumbnailBase({ alt, url, size }: BaseProps) {
 
 interface BaseProps {
   alt?: string | null;
-  url: string | null;
+  url?: string | null;
   size?: number;
 }

@@ -1,42 +1,44 @@
+/**
+ * @generated SignedSource<<f158524b9a299dba2604ed7367299864>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArticleTabNavFragment = {
-    readonly schemaVersion: {
-        readonly identifier: string;
-        readonly name: string;
+export type ArticleTabNavFragment$data = {
+  readonly assets: {
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly pages: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly title: string;
-                readonly slug: string;
-            };
-        }>;
+  };
+  readonly contributions: {
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly contributions: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
-    };
-    readonly assets: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
-    };
-    readonly " $refType": "ArticleTabNavFragment";
+  };
+  readonly pages: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly slug: string;
+        readonly title: string;
+      };
+    }>;
+  };
+  readonly schemaVersion: {
+    readonly identifier: string;
+    readonly name: string;
+  };
+  readonly " $fragmentType": "ArticleTabNavFragment";
 };
-export type ArticleTabNavFragment$data = ArticleTabNavFragment;
 export type ArticleTabNavFragment$key = {
-    readonly " $data"?: ArticleTabNavFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleTabNavFragment">;
+  readonly " $data"?: ArticleTabNavFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleTabNavFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -162,5 +164,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'f8a618c291c677ca6f5e7998d43eb163';
+
+(node as any).hash = "f8a618c291c677ca6f5e7998d43eb163";
+
 export default node;

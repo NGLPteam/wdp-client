@@ -1,8 +1,8 @@
 import React, { createContext } from "react";
-import { getStaticGlobalContextDataQueryResponse } from "@/relay/getStaticGlobalContextDataQuery.graphql";
+import { getStaticGlobalContextDataQuery$data } from "@/relay/getStaticGlobalContextDataQuery.graphql";
 import { getStaticEntityDataFragment$data } from "@/relay/getStaticEntityDataFragment.graphql";
 
-export type GlobalStaticData = getStaticGlobalContextDataQueryResponse;
+export type GlobalStaticData = getStaticGlobalContextDataQuery$data;
 
 type GlobalEntityData = {
   entityData?: getStaticEntityDataFragment$data;

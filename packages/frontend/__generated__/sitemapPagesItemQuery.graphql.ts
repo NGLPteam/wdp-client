@@ -1,49 +1,33 @@
+/**
+ * @generated SignedSource<<460f63617fecdba3a10b5f156703672c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
-export type sitemapPagesItemQueryVariables = {
-    slug: string;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type sitemapPagesItemQuery$variables = {
+  slug: string;
 };
-export type sitemapPagesItemQueryResponse = {
-    readonly item: {
+export type sitemapPagesItemQuery$data = {
+  readonly item: {
+    readonly pages: {
+      readonly nodes: ReadonlyArray<{
         readonly slug: string;
         readonly updatedAt: string;
-        readonly pages: {
-            readonly nodes: ReadonlyArray<{
-                readonly slug: string;
-                readonly updatedAt: string;
-            }>;
-        };
-    } | null;
+      }>;
+    };
+    readonly slug: string;
+    readonly updatedAt: string;
+  } | null | undefined;
 };
 export type sitemapPagesItemQuery = {
-    readonly response: sitemapPagesItemQueryResponse;
-    readonly variables: sitemapPagesItemQueryVariables;
+  response: sitemapPagesItemQuery$data;
+  variables: sitemapPagesItemQuery$variables;
 };
-
-
-
-/*
-query sitemapPagesItemQuery(
-  $slug: Slug!
-) {
-  item(slug: $slug) {
-    slug
-    updatedAt
-    pages {
-      nodes {
-        slug
-        updatedAt
-        id
-      }
-    }
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -186,5 +170,7 @@ return {
   }
 };
 })();
-(node as any).hash = '107bb76df6302b4197738172bb958fce';
+
+(node as any).hash = "107bb76df6302b4197738172bb958fce";
+
 export default node;

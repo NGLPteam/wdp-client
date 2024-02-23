@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<7d6e3976e563b686d7fdf14351280299>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PeerReviewedFragment = {
-    readonly peerReviewed: {
-        readonly checked?: boolean | null | undefined;
-        readonly checkedByDefault?: boolean | null | undefined;
-    } | null;
-    readonly " $refType": "PeerReviewedFragment";
+export type PeerReviewedFragment$data = {
+  readonly peerReviewed: {
+    readonly checked?: boolean | null | undefined;
+    readonly checkedByDefault?: boolean | null | undefined;
+  } | null | undefined;
+  readonly " $fragmentType": "PeerReviewedFragment";
 };
-export type PeerReviewedFragment$data = PeerReviewedFragment;
 export type PeerReviewedFragment$key = {
-    readonly " $data"?: PeerReviewedFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"PeerReviewedFragment">;
+  readonly " $data"?: PeerReviewedFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"PeerReviewedFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -68,5 +70,7 @@ const node: ReaderFragment = {
   "type": "SchemaInstance",
   "abstractKey": "__isSchemaInstance"
 };
-(node as any).hash = 'c0a447a7e50caebb2f86f4b55973f1e5';
+
+(node as any).hash = "c0a447a7e50caebb2f86f4b55973f1e5";
+
 export default node;

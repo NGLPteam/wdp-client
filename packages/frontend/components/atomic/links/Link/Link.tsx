@@ -10,7 +10,7 @@ type LinkProps = React.ComponentProps<typeof Styled.Link>;
  * style can be changed using the className property */
 function Link(
   { children, icon, iconLeft, ...props }: Props & LinkProps,
-  ref: MaybeLinkRef | Ref<HTMLSpanElement>
+  ref: MaybeLinkRef | Ref<HTMLAnchorElement>
 ) {
   return children ? (
     <Styled.Link ref={ref} {...props}>
@@ -28,6 +28,8 @@ function Link(
 interface Props {
   icon?: IconProps["icon"];
   iconLeft?: true;
+  as?: "span" | "button";
+  active?: boolean;
 }
 
 export default forwardRef(Link);

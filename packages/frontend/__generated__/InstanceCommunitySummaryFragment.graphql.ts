@@ -1,44 +1,46 @@
+/**
+ * @generated SignedSource<<8b7691fb358412ed709b08963d5e4697>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type InstanceCommunitySummaryFragment = {
+import { FragmentRefs } from "relay-runtime";
+export type InstanceCommunitySummaryFragment$data = {
+  readonly heroImage: {
+    readonly large: {
+      readonly webp: {
+        readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
+      };
+    };
+    readonly storage: AttachmentStorage | null | undefined;
+  };
+  readonly logo: {
+    readonly original: {
+      readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
+    };
+    readonly storage: AttachmentStorage | null | undefined;
+  };
+  readonly schemaRanks: ReadonlyArray<{
+    readonly count: number;
+    readonly name: string;
     readonly slug: string;
-    readonly title: string;
-    readonly tagline: string | null;
-    readonly summary: string | null;
-    readonly schemaRanks: ReadonlyArray<{
-        readonly slug: string;
-        readonly name: string;
-        readonly count: number;
-    }>;
-    readonly heroImage: {
-        readonly storage: AttachmentStorage | null;
-        readonly large: {
-            readonly webp: {
-                readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
-            };
-        };
-    };
-    readonly logo: {
-        readonly storage: AttachmentStorage | null;
-        readonly original: {
-            readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
-        };
-    };
-    readonly " $refType": "InstanceCommunitySummaryFragment";
+  }>;
+  readonly slug: string;
+  readonly summary: string | null | undefined;
+  readonly tagline: string | null | undefined;
+  readonly title: string;
+  readonly " $fragmentType": "InstanceCommunitySummaryFragment";
 };
-export type InstanceCommunitySummaryFragment$data = InstanceCommunitySummaryFragment;
 export type InstanceCommunitySummaryFragment$key = {
-    readonly " $data"?: InstanceCommunitySummaryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"InstanceCommunitySummaryFragment">;
+  readonly " $data"?: InstanceCommunitySummaryFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"InstanceCommunitySummaryFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -176,5 +178,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'ad480d76ff879209eac700fd6db1cde1';
+
+(node as any).hash = "ad480d76ff879209eac700fd6db1cde1";
+
 export default node;

@@ -15,7 +15,7 @@ export default async function getStaticCommunityData(urlQuery: ParsedUrlQuery) {
     slug,
   }).toPromise();
 
-  if (data) {
+  if (data?.community) {
     return readInlineData(fragment, data.community);
   }
 }

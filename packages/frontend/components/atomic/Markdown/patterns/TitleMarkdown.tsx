@@ -1,5 +1,6 @@
 import * as React from "react";
 import Markdown from "../BaseMarkdown";
+import { Components } from "react-markdown";
 
 type MarkdownProps = React.ComponentProps<typeof Markdown>;
 
@@ -28,7 +29,12 @@ const FakeList = ({
 export default function TitleMarkdown({ children, ...props }: MarkdownProps) {
   return (
     <Markdown
-      components={{ p: "span", li: "span", ol: FakeList, ul: "span" }}
+      components={{
+        p: "span",
+        li: "span",
+        ol: FakeList as unknown as keyof Components,
+        ul: "span",
+      }}
       {...props}
     >
       {children}

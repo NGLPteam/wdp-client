@@ -1,28 +1,30 @@
+/**
+ * @generated SignedSource<<0ea1b9043b310b39707da73a7204a8eb>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CCLicenseFragment = {
-    readonly ccLicense: {
-        readonly selection?: string | null | undefined;
-        readonly defaultSelection?: string | null | undefined;
-        readonly options?: ReadonlyArray<{
-            readonly label: string;
-            readonly value: string;
-        }> | undefined;
-    } | null;
-    readonly " $refType": "CCLicenseFragment";
+export type CCLicenseFragment$data = {
+  readonly ccLicense: {
+    readonly defaultSelection?: string | null | undefined;
+    readonly options?: ReadonlyArray<{
+      readonly label: string;
+      readonly value: string;
+    }>;
+    readonly selection?: string | null | undefined;
+  } | null | undefined;
+  readonly " $fragmentType": "CCLicenseFragment";
 };
-export type CCLicenseFragment$data = CCLicenseFragment;
 export type CCLicenseFragment$key = {
-    readonly " $data"?: CCLicenseFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CCLicenseFragment">;
+  readonly " $data"?: CCLicenseFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CCLicenseFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -97,5 +99,7 @@ const node: ReaderFragment = {
   "type": "SchemaInstance",
   "abstractKey": "__isSchemaInstance"
 };
-(node as any).hash = '4bbb9731d39ac790f320211388bf9765';
+
+(node as any).hash = "4bbb9731d39ac790f320211388bf9765";
+
 export default node;

@@ -1,4 +1,4 @@
-import { graphql, readInlineData } from "relay-runtime";
+import { readInlineData, graphql } from "relay-runtime";
 import EXTERNAL_DATA_URL from "./externalDataUrl";
 import { getEntitySitemapFragment$key } from "@/relay/getEntitySitemapFragment.graphql";
 

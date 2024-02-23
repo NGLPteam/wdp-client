@@ -1,43 +1,45 @@
+/**
+ * @generated SignedSource<<6906b6c2ce5378abfcd0680ab482ecd6>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RelatedIssueBlockFragment = {
-    readonly title: string;
-    readonly subtitle: string | null;
-    readonly slug: string;
-    readonly id: string;
-    readonly thumbnail: {
-        readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
+export type RelatedIssueBlockFragment$data = {
+  readonly __typename: "Collection";
+  readonly articles: {
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly published: {
-        readonly value: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
-    };
-    readonly volume: {
-        readonly title?: string | undefined;
-    } | null;
-    readonly journal: {
-        readonly title?: string | undefined;
-    } | null;
-    readonly articles: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
-    };
-    readonly __typename: "Collection";
-    readonly " $refType": "RelatedIssueBlockFragment";
+  };
+  readonly id: string;
+  readonly journal: {
+    readonly title?: string;
+  } | null | undefined;
+  readonly published: {
+    readonly value: string | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"PrecisionDateFragment">;
+  };
+  readonly slug: string;
+  readonly subtitle: string | null | undefined;
+  readonly thumbnail: {
+    readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
+  };
+  readonly title: string;
+  readonly volume: {
+    readonly title?: string;
+  } | null | undefined;
+  readonly " $fragmentType": "RelatedIssueBlockFragment";
 };
-export type RelatedIssueBlockFragment$data = RelatedIssueBlockFragment;
 export type RelatedIssueBlockFragment$key = {
-    readonly " $data"?: RelatedIssueBlockFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"RelatedIssueBlockFragment">;
+  readonly " $data"?: RelatedIssueBlockFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"RelatedIssueBlockFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -203,5 +205,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '2f4628fa35359d8ab5f537a340b17e33';
+
+(node as any).hash = "2f4628fa35359d8ab5f537a340b17e33";
+
 export default node;

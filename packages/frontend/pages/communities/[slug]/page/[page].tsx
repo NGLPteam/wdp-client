@@ -1,5 +1,5 @@
 import React from "react";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { useRoutePageSlug } from "@wdp/lib/routes";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";

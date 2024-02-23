@@ -1,30 +1,32 @@
+/**
+ * @generated SignedSource<<412ce1eaa349631ac23404cbe61d0239>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type HeroImageFragment = {
-    readonly image: {
-        readonly webp: {
-            readonly url: string | null;
-        };
+export type HeroImageFragment$data = {
+  readonly image: {
+    readonly webp: {
+      readonly url: string | null | undefined;
     };
-    readonly placeholder: {
-        readonly webp: {
-            readonly url: string | null;
-        };
+  };
+  readonly placeholder: {
+    readonly webp: {
+      readonly url: string | null | undefined;
     };
-    readonly " $refType": "HeroImageFragment";
+  };
+  readonly " $fragmentType": "HeroImageFragment";
 };
-export type HeroImageFragment$data = HeroImageFragment;
 export type HeroImageFragment$key = {
-    readonly " $data"?: HeroImageFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"HeroImageFragment">;
+  readonly " $data"?: HeroImageFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"HeroImageFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -78,5 +80,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '2d32646ff69656f2e801a8977e890e63';
+
+(node as any).hash = "2d32646ff69656f2e801a8977e890e63";
+
 export default node;

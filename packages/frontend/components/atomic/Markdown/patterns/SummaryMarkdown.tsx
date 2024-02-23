@@ -1,13 +1,14 @@
 import * as React from "react";
 import Markdown from "../BaseMarkdown";
+import { Components } from "react-markdown";
 
 type MarkdownProps = React.ComponentProps<typeof Markdown>;
 
-const Header = ({ children, ...props }: { children: React.ReactNode }) => (
+const Header = (({ children, ...props }: { children: React.ReactNode }) => (
   <p style={{ fontWeight: "500" }} {...props}>
     {children}
   </p>
-);
+)) as unknown as keyof Components;
 
 export default function SummaryMarkdown({
   children,

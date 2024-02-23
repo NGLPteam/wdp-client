@@ -1,37 +1,39 @@
+/**
+ * @generated SignedSource<<ed6a016f8b6eb6902b29a147f47ec2d5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityNavListFragment = {
-    readonly __typename: string;
-    readonly orderings: {
-        readonly nodes: ReadonlyArray<{
-            readonly name: string | null;
-            readonly slug: string;
-            readonly identifier: string;
-            readonly count: number;
-        }>;
-    };
-    readonly pages: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly title: string;
-                readonly slug: string;
-            };
-        }>;
-    };
-    readonly " $refType": "EntityNavListFragment";
+export type EntityNavListFragment$data = {
+  readonly __typename: string;
+  readonly orderings: {
+    readonly nodes: ReadonlyArray<{
+      readonly count: number;
+      readonly identifier: string;
+      readonly name: string | null | undefined;
+      readonly slug: string;
+    }>;
+  };
+  readonly pages: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly slug: string;
+        readonly title: string;
+      };
+    }>;
+  };
+  readonly " $fragmentType": "EntityNavListFragment";
 };
-export type EntityNavListFragment$data = EntityNavListFragment;
 export type EntityNavListFragment$key = {
-    readonly " $data"?: EntityNavListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityNavListFragment">;
+  readonly " $data"?: EntityNavListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityNavListFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -150,5 +152,7 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = 'ae90df0610ab9612dfa50d761f07206b';
+
+(node as any).hash = "ae90df0610ab9612dfa50d761f07206b";
+
 export default node;

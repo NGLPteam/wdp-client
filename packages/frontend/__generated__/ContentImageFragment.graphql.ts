@@ -1,33 +1,35 @@
+/**
+ * @generated SignedSource<<ed40bd5a28bd31e532602dbbf26c8ac4>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ContentImageFragment = {
-    readonly image: {
-        readonly webp: {
-            readonly alt: string | null;
-            readonly url: string | null;
-            readonly width: number | null;
-            readonly height: number | null;
-        };
+export type ContentImageFragment$data = {
+  readonly image: {
+    readonly webp: {
+      readonly alt: string | null | undefined;
+      readonly height: number | null | undefined;
+      readonly url: string | null | undefined;
+      readonly width: number | null | undefined;
     };
-    readonly placeholder: {
-        readonly webp: {
-            readonly url: string | null;
-        };
+  };
+  readonly placeholder: {
+    readonly webp: {
+      readonly url: string | null | undefined;
     };
-    readonly " $refType": "ContentImageFragment";
+  };
+  readonly " $fragmentType": "ContentImageFragment";
 };
-export type ContentImageFragment$data = ContentImageFragment;
 export type ContentImageFragment$key = {
-    readonly " $data"?: ContentImageFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
+  readonly " $data"?: ContentImageFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContentImageFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -115,5 +117,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '5f086e33d828c95d8eaa0bc7b8669570';
+
+(node as any).hash = "5f086e33d828c95d8eaa0bc7b8669570";
+
 export default node;

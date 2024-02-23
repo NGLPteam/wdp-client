@@ -1,50 +1,30 @@
+/**
+ * @generated SignedSource<<8d0515820f38fd016e7ce395e8dfbd4e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type sitemapItemsChildrenQueryVariables = {
-    slug: string;
-    page: number;
+export type sitemapItemsChildrenQuery$variables = {
+  page: number;
+  slug: string;
 };
-export type sitemapItemsChildrenQueryResponse = {
-    readonly item: {
-        readonly items: {
-            readonly " $fragmentRefs": FragmentRefs<"getItemsSitemapFragment">;
-        };
-    } | null;
+export type sitemapItemsChildrenQuery$data = {
+  readonly item: {
+    readonly items: {
+      readonly " $fragmentSpreads": FragmentRefs<"getItemsSitemapFragment">;
+    };
+  } | null | undefined;
 };
 export type sitemapItemsChildrenQuery = {
-    readonly response: sitemapItemsChildrenQueryResponse;
-    readonly variables: sitemapItemsChildrenQueryVariables;
+  response: sitemapItemsChildrenQuery$data;
+  variables: sitemapItemsChildrenQuery$variables;
 };
-
-
-
-/*
-query sitemapItemsChildrenQuery(
-  $slug: Slug!
-  $page: Int!
-) {
-  item(slug: $slug) {
-    items(page: $page, perPage: 50) {
-      ...getItemsSitemapFragment
-    }
-    id
-  }
-}
-
-fragment getItemsSitemapFragment on ItemConnection {
-  nodes {
-    __typename
-    slug
-    updatedAt
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -148,7 +128,9 @@ return {
                     ],
                     "storageKey": null
                   }
-                ]
+                ],
+                "args": null,
+                "argumentDefinitions": []
               }
             ],
             "storageKey": null
@@ -219,5 +201,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'deb513aa4a49b992a3a77f52d0a18242';
+
+(node as any).hash = "deb513aa4a49b992a3a77f52d0a18242";
+
 export default node;

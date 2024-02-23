@@ -1,49 +1,51 @@
+/**
+ * @generated SignedSource<<6817e45bdc1f56821136e46951506e14>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PaperMetadataFragment = {
-    readonly issn: string | null;
-    readonly contributions: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly role: string | null;
-                readonly contributor: {
-                    readonly " $fragmentRefs": FragmentRefs<"ContributorNameFragment">;
-                };
-            };
-        }>;
-    };
-    readonly pdfVersion: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly textVersion: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly accessioned: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly available: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly host: {
-        readonly properties?: ReadonlyArray<{
-            readonly path?: string | undefined;
-            readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-        }> | undefined;
-    } | null;
-    readonly " $refType": "PaperMetadataFragment";
+export type PaperMetadataFragment$data = {
+  readonly accessioned: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null | undefined;
+  readonly available: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null | undefined;
+  readonly contributions: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly contributor: {
+          readonly " $fragmentSpreads": FragmentRefs<"ContributorNameFragment">;
+        };
+        readonly role: string | null | undefined;
+      };
+    }>;
+  };
+  readonly host: {
+    readonly properties?: ReadonlyArray<{
+      readonly path?: string;
+      readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+    }>;
+  } | null | undefined;
+  readonly issn: string | null | undefined;
+  readonly pdfVersion: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null | undefined;
+  readonly textVersion: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null | undefined;
+  readonly " $fragmentType": "PaperMetadataFragment";
 };
-export type PaperMetadataFragment$data = PaperMetadataFragment;
 export type PaperMetadataFragment$key = {
-    readonly " $data"?: PaperMetadataFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"PaperMetadataFragment">;
+  readonly " $data"?: PaperMetadataFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"PaperMetadataFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -242,5 +244,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '1837ef7db7294e9ff5214d23b08b6110';
+
+(node as any).hash = "1837ef7db7294e9ff5214d23b08b6110";
+
 export default node;

@@ -1,41 +1,43 @@
+/**
+ * @generated SignedSource<<bccccedfe7f7d4e13dd3a8dae5e773ad>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type ContributionAuthorBlockFragment = {
-    readonly affiliation: string | null;
-    readonly role: string | null;
-    readonly contributor: {
-        readonly slug?: string | undefined;
-        readonly __typename: "PersonContributor";
-        readonly title?: string | null | undefined;
-        readonly bio?: string | null | undefined;
-        readonly affiliation?: string | null | undefined;
-        readonly image?: {
-            readonly storage: AttachmentStorage | null;
-            readonly " $fragmentRefs": FragmentRefs<"ContributorAvatarFragment">;
-        } | undefined;
-        readonly " $fragmentRefs": FragmentRefs<"ContributorNameFragment">;
+import { FragmentRefs } from "relay-runtime";
+export type ContributionAuthorBlockFragment$data = {
+  readonly affiliation: string | null | undefined;
+  readonly collection?: {
+    readonly slug: string;
+  };
+  readonly contributor: {
+    readonly __typename: "PersonContributor";
+    readonly affiliation?: string | null | undefined;
+    readonly bio?: string | null | undefined;
+    readonly image?: {
+      readonly storage: AttachmentStorage | null | undefined;
+      readonly " $fragmentSpreads": FragmentRefs<"ContributorAvatarFragment">;
     };
-    readonly collection?: {
-        readonly slug: string;
-    } | undefined;
-    readonly item?: {
-        readonly slug: string;
-    } | undefined;
-    readonly " $refType": "ContributionAuthorBlockFragment";
+    readonly slug?: string;
+    readonly title?: string | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"ContributorNameFragment">;
+  };
+  readonly item?: {
+    readonly slug: string;
+  };
+  readonly role: string | null | undefined;
+  readonly " $fragmentType": "ContributionAuthorBlockFragment";
 };
-export type ContributionAuthorBlockFragment$data = ContributionAuthorBlockFragment;
 export type ContributionAuthorBlockFragment$key = {
-    readonly " $data"?: ContributionAuthorBlockFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContributionAuthorBlockFragment">;
+  readonly " $data"?: ContributionAuthorBlockFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributionAuthorBlockFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -111,6 +113,40 @@ return {
       "storageKey": null
     },
     {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Collection",
+          "kind": "LinkedField",
+          "name": "collection",
+          "plural": false,
+          "selections": (v1/*: any*/),
+          "storageKey": null
+        }
+      ],
+      "type": "CollectionContribution",
+      "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Item",
+          "kind": "LinkedField",
+          "name": "item",
+          "plural": false,
+          "selections": (v1/*: any*/),
+          "storageKey": null
+        }
+      ],
+      "type": "ItemContribution",
+      "abstractKey": null
+    },
+    {
       "alias": null,
       "args": null,
       "concreteType": null,
@@ -156,45 +192,13 @@ return {
         }
       ],
       "storageKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "Collection",
-          "kind": "LinkedField",
-          "name": "collection",
-          "plural": false,
-          "selections": (v1/*: any*/),
-          "storageKey": null
-        }
-      ],
-      "type": "CollectionContribution",
-      "abstractKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "Item",
-          "kind": "LinkedField",
-          "name": "item",
-          "plural": false,
-          "selections": (v1/*: any*/),
-          "storageKey": null
-        }
-      ],
-      "type": "ItemContribution",
-      "abstractKey": null
     }
   ],
   "type": "Contribution",
   "abstractKey": "__isContribution"
 };
 })();
-(node as any).hash = 'f3b6a68100a97ffee12ba1a3eea97375';
+
+(node as any).hash = "f3b6a68100a97ffee12ba1a3eea97375";
+
 export default node;

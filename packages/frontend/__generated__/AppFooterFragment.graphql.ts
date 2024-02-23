@@ -1,25 +1,27 @@
+/**
+ * @generated SignedSource<<db8c7f58c2c17a600da74b3089cb8c71>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AppFooterFragment = {
-    readonly communities: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
+export type AppFooterFragment$data = {
+  readonly communities: {
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly " $refType": "AppFooterFragment";
+  };
+  readonly " $fragmentType": "AppFooterFragment";
 };
-export type AppFooterFragment$data = AppFooterFragment;
 export type AppFooterFragment$key = {
-    readonly " $data"?: AppFooterFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AppFooterFragment">;
+  readonly " $data"?: AppFooterFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"AppFooterFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -60,5 +62,7 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '4794cc226705eef8c3f78ddbe7f8ce10';
+
+(node as any).hash = "4794cc226705eef8c3f78ddbe7f8ce10";
+
 export default node;

@@ -24,6 +24,7 @@
     "@react-keycloak/ssr": "*",
     "@spissvinkel/alea": "*",
     "@types/chunk-text": "*",
+    "@types/cookie": "*",
     "@types/react": "*",
     "@types/react-dom": "*",
     "@types/react-relay": "*",

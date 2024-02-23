@@ -1,5 +1,5 @@
 import { useState, useEffect, useReducer } from "react";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { useRefetchable } from "relay-hooks";
 import dynamic from "next/dynamic";
 import ChartControls from "../ChartControls";
@@ -9,7 +9,7 @@ import * as Styled from "./ArticleAnalyticsBlock.styles";
 import { ArticleAnalyticsBlockFragment$key } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
 import {
   ArticleAnalyticsBlockQuery,
-  ArticleAnalyticsBlockQueryVariables,
+  ArticleAnalyticsBlockQuery$variables,
 } from "@/relay/ArticleAnalyticsBlockQuery.graphql";
 import { LoadingBlock } from "components/atomic";
 
@@ -42,7 +42,7 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
     dateRange: {},
     dateLabel: "all",
     usOnly: false,
-    minDate,
+    minDate: minDate ?? null,
     updated: false,
   };
 
@@ -54,7 +54,7 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
     // Don't refetch until the user interacts with the chart the first time to give the google scripts a chance to load. Could probably also fix this by not conditionally rendering on isLoading, but we'd need to sync up state changes on chart labels with new data. Is this preferable?
     if (settings.updated) {
       const { chartType, minDate, updated, dateLabel, ...queryVars } = settings;
-      refetch(queryVars as unknown as ArticleAnalyticsBlockQueryVariables);
+      refetch(queryVars as unknown as ArticleAnalyticsBlockQuery$variables);
     }
   }, [refetch, settings]);
 

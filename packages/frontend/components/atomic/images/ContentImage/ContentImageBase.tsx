@@ -27,7 +27,7 @@ export default function ContentImageBase({
 
 interface BaseProps extends Pick<ImageProps, "placeholder" | "blurDataURL"> {
   alt?: string | null;
-  url: string | null;
-  width: number | null;
-  height: number | null;
+  url?: string | null;
+  width?: number | null;
+  height?: number | null;
 }

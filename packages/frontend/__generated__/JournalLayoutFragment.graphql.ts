@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<6993ced5c023d8d61b5e4f0e54af09ed>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type JournalLayoutFragment = {
-    readonly related: {
-        readonly " $fragmentRefs": FragmentRefs<"RelatedJournalsFragment">;
-    };
-    readonly " $fragmentRefs": FragmentRefs<"JournalHeroFragment" | "EntityNavBarFragment" | "BreadcrumbsBarFragment">;
-    readonly " $refType": "JournalLayoutFragment";
+export type JournalLayoutFragment$data = {
+  readonly related: {
+    readonly " $fragmentSpreads": FragmentRefs<"RelatedJournalsFragment">;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbsBarFragment" | "EntityNavBarFragment" | "JournalHeroFragment">;
+  readonly " $fragmentType": "JournalLayoutFragment";
 };
-export type JournalLayoutFragment$data = JournalLayoutFragment;
 export type JournalLayoutFragment$key = {
-    readonly " $data"?: JournalLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"JournalLayoutFragment">;
+  readonly " $data"?: JournalLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"JournalLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -26,6 +28,21 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "JournalLayoutFragment",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "JournalHeroFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "EntityNavBarFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "BreadcrumbsBarFragment"
+    },
     {
       "alias": "related",
       "args": [
@@ -52,25 +69,12 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": "relatedCollections(order:\"RECENT\",perPage:4)"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "JournalHeroFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "EntityNavBarFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "BreadcrumbsBarFragment"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'ea54fdeb7b8c9cc13461ea332773f7a3';
+
+(node as any).hash = "ea54fdeb7b8c9cc13461ea332773f7a3";
+
 export default node;

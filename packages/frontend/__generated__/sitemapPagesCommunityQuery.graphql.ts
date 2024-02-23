@@ -1,63 +1,40 @@
+/**
+ * @generated SignedSource<<0e27633646e83123e33cc0e31b172a8d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
-export type sitemapPagesCommunityQueryVariables = {
-    slug: string;
+export type sitemapPagesCommunityQuery$variables = {
+  slug: string;
 };
-export type sitemapPagesCommunityQueryResponse = {
-    readonly community: {
+export type sitemapPagesCommunityQuery$data = {
+  readonly community: {
+    readonly pages: {
+      readonly nodes: ReadonlyArray<{
         readonly slug: string;
         readonly updatedAt: string;
-        readonly schemaRanks: ReadonlyArray<{
-            readonly slug: string;
-            readonly name: string;
-            readonly count: number;
-            readonly kind: SchemaKind;
-        }>;
-        readonly pages: {
-            readonly nodes: ReadonlyArray<{
-                readonly slug: string;
-                readonly updatedAt: string;
-            }>;
-        };
-    } | null;
+      }>;
+    };
+    readonly schemaRanks: ReadonlyArray<{
+      readonly count: number;
+      readonly kind: SchemaKind;
+      readonly name: string;
+      readonly slug: string;
+    }>;
+    readonly slug: string;
+    readonly updatedAt: string;
+  } | null | undefined;
 };
 export type sitemapPagesCommunityQuery = {
-    readonly response: sitemapPagesCommunityQueryResponse;
-    readonly variables: sitemapPagesCommunityQueryVariables;
+  response: sitemapPagesCommunityQuery$data;
+  variables: sitemapPagesCommunityQuery$variables;
 };
-
-
-
-/*
-query sitemapPagesCommunityQuery(
-  $slug: Slug!
-) {
-  community(slug: $slug) {
-    slug
-    updatedAt
-    schemaRanks {
-      slug
-      name
-      count
-      kind
-      id
-    }
-    pages {
-      nodes {
-        slug
-        updatedAt
-        id
-      }
-    }
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -252,5 +229,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'e8a9d48c7e27db380e91767e2caf25e1';
+
+(node as any).hash = "e8a9d48c7e27db380e91767e2caf25e1";
+
 export default node;

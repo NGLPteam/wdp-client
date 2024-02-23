@@ -1,50 +1,30 @@
+/**
+ * @generated SignedSource<<c7970dd03c8c2df101b48413f57473b3>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type sitemapCollectionsCommunityQueryVariables = {
-    slug: string;
-    page: number;
+export type sitemapCollectionsCommunityQuery$variables = {
+  page: number;
+  slug: string;
 };
-export type sitemapCollectionsCommunityQueryResponse = {
-    readonly community: {
-        readonly collections: {
-            readonly " $fragmentRefs": FragmentRefs<"getCollectionsSitemapFragment">;
-        };
-    } | null;
+export type sitemapCollectionsCommunityQuery$data = {
+  readonly community: {
+    readonly collections: {
+      readonly " $fragmentSpreads": FragmentRefs<"getCollectionsSitemapFragment">;
+    };
+  } | null | undefined;
 };
 export type sitemapCollectionsCommunityQuery = {
-    readonly response: sitemapCollectionsCommunityQueryResponse;
-    readonly variables: sitemapCollectionsCommunityQueryVariables;
+  response: sitemapCollectionsCommunityQuery$data;
+  variables: sitemapCollectionsCommunityQuery$variables;
 };
-
-
-
-/*
-query sitemapCollectionsCommunityQuery(
-  $slug: Slug!
-  $page: Int!
-) {
-  community(slug: $slug) {
-    collections(page: $page, perPage: 50) {
-      ...getCollectionsSitemapFragment
-    }
-    id
-  }
-}
-
-fragment getCollectionsSitemapFragment on CollectionConnection {
-  nodes {
-    __typename
-    slug
-    updatedAt
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -148,7 +128,9 @@ return {
                     ],
                     "storageKey": null
                   }
-                ]
+                ],
+                "args": null,
+                "argumentDefinitions": []
               }
             ],
             "storageKey": null
@@ -219,5 +201,7 @@ return {
   }
 };
 })();
-(node as any).hash = '494df6c08c64621a74b451858dce0cc5';
+
+(node as any).hash = "494df6c08c64621a74b451858dce0cc5";
+
 export default node;

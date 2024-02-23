@@ -1,61 +1,63 @@
+/**
+ * @generated SignedSource<<cff7dfd018eb3a68291c8bbe5263118c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type DissertationMetadataFragment = {
-    readonly issn: string | null;
-    readonly contributions: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly role: string | null;
-                readonly contributor: {
-                    readonly " $fragmentRefs": FragmentRefs<"ContributorNameFragment">;
-                };
-            };
-        }>;
-    };
-    readonly pdfVersion: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly textVersion: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly publisher: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly advisor: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly language: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly ccLicense: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly accessioned: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly available: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly media: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly keywords: {
-        readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
-    } | null;
-    readonly " $refType": "DissertationMetadataFragment";
+export type DissertationMetadataFragment$data = {
+  readonly accessioned: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null | undefined;
+  readonly advisor: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null | undefined;
+  readonly available: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null | undefined;
+  readonly ccLicense: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null | undefined;
+  readonly contributions: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly contributor: {
+          readonly " $fragmentSpreads": FragmentRefs<"ContributorNameFragment">;
+        };
+        readonly role: string | null | undefined;
+      };
+    }>;
+  };
+  readonly issn: string | null | undefined;
+  readonly keywords: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null | undefined;
+  readonly language: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null | undefined;
+  readonly media: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null | undefined;
+  readonly pdfVersion: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null | undefined;
+  readonly publisher: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null | undefined;
+  readonly textVersion: {
+    readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
+  } | null | undefined;
+  readonly " $fragmentType": "DissertationMetadataFragment";
 };
-export type DissertationMetadataFragment$data = DissertationMetadataFragment;
 export type DissertationMetadataFragment$key = {
-    readonly " $data"?: DissertationMetadataFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"DissertationMetadataFragment">;
+  readonly " $data"?: DissertationMetadataFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"DissertationMetadataFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -299,5 +301,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '8a2770f0301016e263d7ab5829ea29ef';
+
+(node as any).hash = "8a2770f0301016e263d7ab5829ea29ef";
+
 export default node;

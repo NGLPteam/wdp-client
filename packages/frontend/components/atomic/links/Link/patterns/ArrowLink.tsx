@@ -6,7 +6,7 @@ type BaseProps = React.ComponentProps<typeof Link>;
 
 function ArrowLink(
   { children, ...props }: BaseProps,
-  ref: MaybeLinkRef | Ref<HTMLSpanElement>
+  ref: MaybeLinkRef | Ref<HTMLAnchorElement>
 ) {
   return (
     <Link ref={ref} {...props} icon="arrowRight">
