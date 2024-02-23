@@ -1,28 +1,30 @@
+/**
+ * @generated SignedSource<<5b3be2ea52b6b98b786cdcb4ff4487ec>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CoverImageFragment = {
-    readonly image: {
-        readonly webp: {
-            readonly url: string | null;
-            readonly alt: string | null;
-            readonly width: number | null;
-            readonly height: number | null;
-        };
+export type CoverImageFragment$data = {
+  readonly image: {
+    readonly webp: {
+      readonly alt: string | null | undefined;
+      readonly height: number | null | undefined;
+      readonly url: string | null | undefined;
+      readonly width: number | null | undefined;
     };
-    readonly " $refType": "CoverImageFragment";
+  };
+  readonly " $fragmentType": "CoverImageFragment";
 };
-export type CoverImageFragment$data = CoverImageFragment;
 export type CoverImageFragment$key = {
-    readonly " $data"?: CoverImageFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
+  readonly " $data"?: CoverImageFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -84,5 +86,7 @@ const node: ReaderFragment = {
   "type": "ImageAttachment",
   "abstractKey": null
 };
-(node as any).hash = 'dafb0a22ac3f75f43e228c73bf36c68b';
+
+(node as any).hash = "dafb0a22ac3f75f43e228c73bf36c68b";
+
 export default node;

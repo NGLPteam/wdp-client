@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { Provider as ReakitSSRProvider } from "reakit";
 import { PageContextProvider } from "@wdp/lib/api/contexts/PageContext";
 import { ThemeProvider } from "styled-components";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
 import { ViewerContextProvider } from "./ViewerContext";
 import { GlobalContextProvider } from "./GlobalContext";

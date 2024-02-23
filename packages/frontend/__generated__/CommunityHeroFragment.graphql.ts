@@ -1,41 +1,43 @@
+/**
+ * @generated SignedSource<<df21a200505606371d9301d39d157f55>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type HeroImageLayout = "ONE_COLUMN" | "TWO_COLUMN" | "%future added value";
-export type CommunityHeroFragment = {
-    readonly title: string;
-    readonly tagline: string | null;
-    readonly summary: string | null;
-    readonly heroImage: {
-        readonly storage: AttachmentStorage | null;
-        readonly image: {
-            readonly webp: {
-                readonly url: string | null;
-                readonly width: number | null;
-                readonly height: number | null;
-            };
-        };
-        readonly placeholder: {
-            readonly webp: {
-                readonly url: string | null;
-            };
-        };
+import { FragmentRefs } from "relay-runtime";
+export type CommunityHeroFragment$data = {
+  readonly heroImage: {
+    readonly image: {
+      readonly webp: {
+        readonly height: number | null | undefined;
+        readonly url: string | null | undefined;
+        readonly width: number | null | undefined;
+      };
     };
-    readonly heroImageLayout: HeroImageLayout;
-    readonly " $refType": "CommunityHeroFragment";
+    readonly placeholder: {
+      readonly webp: {
+        readonly url: string | null | undefined;
+      };
+    };
+    readonly storage: AttachmentStorage | null | undefined;
+  };
+  readonly heroImageLayout: HeroImageLayout;
+  readonly summary: string | null | undefined;
+  readonly tagline: string | null | undefined;
+  readonly title: string;
+  readonly " $fragmentType": "CommunityHeroFragment";
 };
-export type CommunityHeroFragment$data = CommunityHeroFragment;
 export type CommunityHeroFragment$key = {
-    readonly " $data"?: CommunityHeroFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityHeroFragment">;
+  readonly " $data"?: CommunityHeroFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityHeroFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -162,5 +164,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '965c10c1e715d21fc156aff05ad5a316';
+
+(node as any).hash = "965c10c1e715d21fc156aff05ad5a316";
+
 export default node;

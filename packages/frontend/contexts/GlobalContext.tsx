@@ -2,11 +2,13 @@ import React, { createContext } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import {
-  GlobalContextFragment,
+  GlobalContextFragment$data,
   GlobalContextFragment$key,
 } from "@/relay/GlobalContextFragment.graphql";
 
-const GlobalContext = createContext<GlobalContextFragment | null>(null);
+const GlobalContext = createContext<
+  GlobalContextFragment$data | undefined | null
+>(null);
 
 function GlobalContextProvider({ children, data }: Props) {
   const siteData = useMaybeFragment(fragment, data);

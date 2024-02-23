@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<be611517856dbacded5275bb44a62123>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type StringPropertyFragment = {
-    readonly fullPath: string;
-    readonly label: string;
-    readonly content: string | null;
-    readonly " $refType": "StringPropertyFragment";
+export type StringPropertyFragment$data = {
+  readonly content: string | null | undefined;
+  readonly fullPath: string;
+  readonly label: string;
+  readonly " $fragmentType": "StringPropertyFragment";
 };
-export type StringPropertyFragment$data = StringPropertyFragment;
 export type StringPropertyFragment$key = {
-    readonly " $data"?: StringPropertyFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"StringPropertyFragment">;
+  readonly " $data"?: StringPropertyFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"StringPropertyFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -50,5 +52,7 @@ const node: ReaderFragment = {
   "type": "StringProperty",
   "abstractKey": null
 };
-(node as any).hash = '3bf3aa26d2c2526f8ee9b1a9171525fb';
+
+(node as any).hash = "3bf3aa26d2c2526f8ee9b1a9171525fb";
+
 export default node;

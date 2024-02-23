@@ -1,84 +1,33 @@
+/**
+ * @generated SignedSource<<f7b9dbbe17e8195b35db67e86f761fa8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type getStaticEntityDataQueryVariables = {
-    slug: string;
+export type getStaticEntityDataQuery$variables = {
+  slug: string;
 };
-export type getStaticEntityDataQueryResponse = {
-    readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"getStaticEntityDataFragment">;
-    } | null;
-    readonly collection: {
-        readonly " $fragmentRefs": FragmentRefs<"getStaticEntityDataFragment">;
-    } | null;
-    readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"getStaticEntityDataFragment">;
-    } | null;
+export type getStaticEntityDataQuery$data = {
+  readonly collection: {
+    readonly " $fragmentSpreads": FragmentRefs<"getStaticEntityDataFragment">;
+  } | null | undefined;
+  readonly community: {
+    readonly " $fragmentSpreads": FragmentRefs<"getStaticEntityDataFragment">;
+  } | null | undefined;
+  readonly item: {
+    readonly " $fragmentSpreads": FragmentRefs<"getStaticEntityDataFragment">;
+  } | null | undefined;
 };
 export type getStaticEntityDataQuery = {
-    readonly response: getStaticEntityDataQueryResponse;
-    readonly variables: getStaticEntityDataQueryVariables;
+  response: getStaticEntityDataQuery$data;
+  variables: getStaticEntityDataQuery$variables;
 };
-
-
-
-/*
-query getStaticEntityDataQuery(
-  $slug: Slug!
-) {
-  community(slug: $slug) {
-    ...getStaticEntityDataFragment
-    id
-  }
-  collection(slug: $slug) {
-    ...getStaticEntityDataFragment
-    id
-  }
-  item(slug: $slug) {
-    ...getStaticEntityDataFragment
-    id
-  }
-}
-
-fragment getStaticEntityDataFragment on AnyEntity {
-  __isAnyEntity: __typename
-  ... on Entity {
-    __isEntity: __typename
-    title
-    summary
-    thumbnail {
-      storage
-      medium {
-        webp {
-          url
-          width
-          height
-        }
-      }
-    }
-    thumbnailMetadata {
-      alt
-    }
-    heroImage {
-      storage
-      medium {
-        webp {
-          url
-          width
-          height
-        }
-      }
-    }
-    heroImageMetadata {
-      alt
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -230,18 +179,20 @@ v5 = [
     "name": "getStaticEntityDataFragment",
     "selections": [
       (v4/*: any*/)
-    ]
+    ],
+    "args": null,
+    "argumentDefinitions": ([]/*: any*/)
   }
 ],
 v6 = [
+  (v4/*: any*/),
   {
     "alias": null,
     "args": null,
     "kind": "ScalarField",
     "name": "id",
     "storageKey": null
-  },
-  (v4/*: any*/)
+  }
 ];
 return {
   "fragment": {
@@ -332,5 +283,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'cce95af049edab933c6781a5c1b213db';
+
+(node as any).hash = "cce95af049edab933c6781a5c1b213db";
+
 export default node;

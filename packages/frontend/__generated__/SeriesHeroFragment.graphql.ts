@@ -1,39 +1,41 @@
+/**
+ * @generated SignedSource<<b5b7928f2bae44910eea666f6d92814c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
-export type SeriesHeroFragment = {
-    readonly slug: string;
-    readonly title: string;
-    readonly subtitle: string | null;
-    readonly visibility: EntityVisibility;
-    readonly currentlyHidden: boolean;
-    readonly published: {
-        readonly value: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
-    };
-    readonly about: {
-        readonly content?: string | null | undefined;
-    } | null;
-    readonly thumbnail: {
-        readonly storage: AttachmentStorage | null;
-        readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
-    };
-    readonly " $fragmentRefs": FragmentRefs<"ArticleParentHeaderFragment">;
-    readonly " $refType": "SeriesHeroFragment";
+import { FragmentRefs } from "relay-runtime";
+export type SeriesHeroFragment$data = {
+  readonly about: {
+    readonly content?: string | null | undefined;
+  } | null | undefined;
+  readonly currentlyHidden: boolean;
+  readonly published: {
+    readonly value: string | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"PrecisionDateFragment">;
+  };
+  readonly slug: string;
+  readonly subtitle: string | null | undefined;
+  readonly thumbnail: {
+    readonly storage: AttachmentStorage | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"ContentImageFragment">;
+  };
+  readonly title: string;
+  readonly visibility: EntityVisibility;
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleParentHeaderFragment">;
+  readonly " $fragmentType": "SeriesHeroFragment";
 };
-export type SeriesHeroFragment$data = SeriesHeroFragment;
 export type SeriesHeroFragment$key = {
-    readonly " $data"?: SeriesHeroFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SeriesHeroFragment">;
+  readonly " $data"?: SeriesHeroFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SeriesHeroFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -85,16 +87,16 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "PrecisionDateFragment"
+        },
+        {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
           "name": "value",
           "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "PrecisionDateFragment"
         }
       ],
       "storageKey": null
@@ -131,6 +133,11 @@ const node: ReaderFragment = {
       "storageKey": "schemaProperty(fullPath:\"about\")"
     },
     {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ArticleParentHeaderFragment"
+    },
+    {
       "alias": null,
       "args": null,
       "concreteType": "ImageAttachment",
@@ -152,15 +159,12 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ArticleParentHeaderFragment"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = 'ff5aa500500d107b0f23f8d144c9128c';
+
+(node as any).hash = "ff5aa500500d107b0f23f8d144c9128c";
+
 export default node;

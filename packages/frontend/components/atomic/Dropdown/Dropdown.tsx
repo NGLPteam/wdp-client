@@ -15,16 +15,14 @@ const Dropdown = ({
 }: Props) => {
   return (
     <BaseDropdown label={label} disclosure={disclosure} {...dropdownProps}>
-      {({ onClick }) => (
-        <Styled.DropdownWrapper onClick={onClick} className="a-bg-neutral00">
-          <Styled.List>
-            {menuItems.map((item, i) => {
-              if (item === null) return null;
-              return <Styled.Item key={i}>{item}</Styled.Item>;
-            })}
-          </Styled.List>
-        </Styled.DropdownWrapper>
-      )}
+      <Styled.DropdownWrapper className="a-bg-neutral00">
+        <Styled.List>
+          {menuItems.map((item, i) => {
+            if (item === null) return null;
+            return <Styled.Item key={i}>{item}</Styled.Item>;
+          })}
+        </Styled.List>
+      </Styled.DropdownWrapper>
     </BaseDropdown>
   );
 };

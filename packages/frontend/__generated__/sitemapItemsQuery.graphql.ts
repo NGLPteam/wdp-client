@@ -1,72 +1,27 @@
+/**
+ * @generated SignedSource<<bcd8b8626e07f139b6530a39195c51f9>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type sitemapItemsQueryVariables = {
-    slug: string;
+export type sitemapItemsQuery$variables = {
+  slug: string;
 };
-export type sitemapItemsQueryResponse = {
-    readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"getEntitySitemapFragment">;
-    } | null;
+export type sitemapItemsQuery$data = {
+  readonly item: {
+    readonly " $fragmentSpreads": FragmentRefs<"getEntitySitemapFragment">;
+  } | null | undefined;
 };
 export type sitemapItemsQuery = {
-    readonly response: sitemapItemsQueryResponse;
-    readonly variables: sitemapItemsQueryVariables;
+  response: sitemapItemsQuery$data;
+  variables: sitemapItemsQuery$variables;
 };
-
-
-
-/*
-query sitemapItemsQuery(
-  $slug: Slug!
-) {
-  item(slug: $slug) {
-    ...getEntitySitemapFragment
-    id
-  }
-}
-
-fragment getEntitySitemapFragment on AnyEntity {
-  __isAnyEntity: __typename
-  __typename
-  ... on Community {
-    slug
-    updatedAt
-    collections(perPage: 50) {
-      pageInfo {
-        pageCount
-      }
-    }
-  }
-  ... on Collection {
-    slug
-    updatedAt
-    collections(perPage: 50) {
-      pageInfo {
-        pageCount
-      }
-    }
-    items(perPage: 50) {
-      pageInfo {
-        pageCount
-      }
-    }
-  }
-  ... on Item {
-    slug
-    updatedAt
-    items(perPage: 50) {
-      pageInfo {
-        pageCount
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -209,7 +164,9 @@ return {
             "name": "getEntitySitemapFragment",
             "selections": [
               (v8/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -232,14 +189,14 @@ return {
         "name": "item",
         "plural": false,
         "selections": [
+          (v8/*: any*/),
           {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
             "name": "id",
             "storageKey": null
-          },
-          (v8/*: any*/)
+          }
         ],
         "storageKey": null
       }
@@ -255,5 +212,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'b6928ee2555535583108a5b8144f3dc0';
+
+(node as any).hash = "b6928ee2555535583108a5b8144f3dc0";
+
 export default node;

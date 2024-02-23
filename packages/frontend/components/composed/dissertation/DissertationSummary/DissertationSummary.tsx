@@ -1,5 +1,5 @@
 import React from "react";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { CoverImage, DotList, PrecisionDate } from "components/atomic";
 import ContributorsList from "components/composed/contributor/ContributorsList";
@@ -52,8 +52,7 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment DissertationSummaryFragment on Item
-  @argumentDefinitions(showJournal: { type: "Boolean", defaultValue: false }) {
+  fragment DissertationSummaryFragment on Item {
     __typename
     id
     title

@@ -1,5 +1,5 @@
 import React from "react";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { routeQueryArrayToString, useRouteSlug } from "@wdp/lib/routes";
 import { useRouter } from "next/router";

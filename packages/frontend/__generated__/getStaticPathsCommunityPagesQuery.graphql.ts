@@ -1,45 +1,31 @@
+/**
+ * @generated SignedSource<<926d6e436b1e7d22ce8168785fe74912>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
-export type getStaticPathsCommunityPagesQueryVariables = {};
-export type getStaticPathsCommunityPagesQueryResponse = {
-    readonly communities: {
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type getStaticPathsCommunityPagesQuery$variables = Record<PropertyKey, never>;
+export type getStaticPathsCommunityPagesQuery$data = {
+  readonly communities: {
+    readonly nodes: ReadonlyArray<{
+      readonly pages: {
         readonly nodes: ReadonlyArray<{
-            readonly slug: string;
-            readonly pages: {
-                readonly nodes: ReadonlyArray<{
-                    readonly slug: string;
-                }>;
-            };
+          readonly slug: string;
         }>;
-    };
+      };
+      readonly slug: string;
+    }>;
+  };
 };
 export type getStaticPathsCommunityPagesQuery = {
-    readonly response: getStaticPathsCommunityPagesQueryResponse;
-    readonly variables: getStaticPathsCommunityPagesQueryVariables;
+  response: getStaticPathsCommunityPagesQuery$data;
+  variables: getStaticPathsCommunityPagesQuery$variables;
 };
-
-
-
-/*
-query getStaticPathsCommunityPagesQuery {
-  communities {
-    nodes {
-      slug
-      pages {
-        nodes {
-          slug
-          id
-        }
-      }
-      id
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -179,5 +165,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'b72e479857113d4ec69811646260ed96';
+
+(node as any).hash = "b72e479857113d4ec69811646260ed96";
+
 export default node;

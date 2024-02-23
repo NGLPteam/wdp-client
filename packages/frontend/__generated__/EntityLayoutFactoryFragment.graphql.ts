@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<ad36637016eca550e19b16aa4173b582>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityLayoutFactoryFragment = {
-    readonly schemaDefinition?: {
-        readonly identifier: string;
-    } | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFragment" | "JournalLayoutFragment" | "IssueLayoutFragment" | "VolumeLayoutFragment" | "SeriesLayoutFragment" | "ArticleLayoutFragment">;
-    readonly " $refType": "EntityLayoutFactoryFragment";
+export type EntityLayoutFactoryFragment$data = {
+  readonly schemaDefinition?: {
+    readonly identifier: string;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleLayoutFragment" | "EntityLayoutFragment" | "IssueLayoutFragment" | "JournalLayoutFragment" | "SeriesLayoutFragment" | "VolumeLayoutFragment">;
+  readonly " $fragmentType": "EntityLayoutFactoryFragment";
 };
-export type EntityLayoutFactoryFragment$data = EntityLayoutFactoryFragment;
 export type EntityLayoutFactoryFragment$key = {
-    readonly " $data"?: EntityLayoutFactoryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityLayoutFactoryFragment">;
+  readonly " $data"?: EntityLayoutFactoryFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityLayoutFactoryFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -98,5 +100,7 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'b657cc10d01854b564febf35e4433771';
+
+(node as any).hash = "b657cc10d01854b564febf35e4433771";
+
 export default node;

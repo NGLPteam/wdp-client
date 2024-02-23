@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<6969f2157e85ea7430796edfed36d2c5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EmailPropertyFragment = {
-    readonly fullPath: string;
-    readonly label: string;
-    readonly address: string | null;
-    readonly defaultAddress: string | null;
-    readonly " $refType": "EmailPropertyFragment";
+export type EmailPropertyFragment$data = {
+  readonly address: string | null | undefined;
+  readonly defaultAddress: string | null | undefined;
+  readonly fullPath: string;
+  readonly label: string;
+  readonly " $fragmentType": "EmailPropertyFragment";
 };
-export type EmailPropertyFragment$data = EmailPropertyFragment;
 export type EmailPropertyFragment$key = {
-    readonly " $data"?: EmailPropertyFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EmailPropertyFragment">;
+  readonly " $data"?: EmailPropertyFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EmailPropertyFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -58,5 +60,7 @@ const node: ReaderFragment = {
   "type": "EmailProperty",
   "abstractKey": null
 };
-(node as any).hash = 'b2d81afac19abeee3f3bf99762a6ed61';
+
+(node as any).hash = "b2d81afac19abeee3f3bf99762a6ed61";
+
 export default node;

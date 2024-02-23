@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<c82519af6ba8ee3eb9b7cdb3bb438beb>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PreprintVersionFragment = {
-    readonly prePrintVersion: {
-        readonly checked?: boolean | null | undefined;
-        readonly checkedByDefault?: boolean | null | undefined;
-    } | null;
-    readonly " $refType": "PreprintVersionFragment";
+export type PreprintVersionFragment$data = {
+  readonly prePrintVersion: {
+    readonly checked?: boolean | null | undefined;
+    readonly checkedByDefault?: boolean | null | undefined;
+  } | null | undefined;
+  readonly " $fragmentType": "PreprintVersionFragment";
 };
-export type PreprintVersionFragment$data = PreprintVersionFragment;
 export type PreprintVersionFragment$key = {
-    readonly " $data"?: PreprintVersionFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"PreprintVersionFragment">;
+  readonly " $data"?: PreprintVersionFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"PreprintVersionFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -68,5 +70,7 @@ const node: ReaderFragment = {
   "type": "SchemaInstance",
   "abstractKey": "__isSchemaInstance"
 };
-(node as any).hash = '86c9288b3aaac3f6413593995366ce24';
+
+(node as any).hash = "86c9288b3aaac3f6413593995366ce24";
+
 export default node;

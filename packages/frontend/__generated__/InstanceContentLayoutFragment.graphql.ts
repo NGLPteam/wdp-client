@@ -1,32 +1,34 @@
+/**
+ * @generated SignedSource<<f77f9334e678a5338fe21cbbfe15f9e9>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type InstanceContentLayoutFragment = {
-    readonly communities: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly slug: string;
-            };
-        }>;
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"InstanceCommunitiesFragment">;
+export type InstanceContentLayoutFragment$data = {
+  readonly communities: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly slug: string;
+      };
+    }>;
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly " $fragmentRefs": FragmentRefs<"InstanceHeroFragment">;
-    readonly " $refType": "InstanceContentLayoutFragment";
+    readonly " $fragmentSpreads": FragmentRefs<"InstanceCommunitiesFragment">;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"InstanceHeroFragment">;
+  readonly " $fragmentType": "InstanceContentLayoutFragment";
 };
-export type InstanceContentLayoutFragment$data = InstanceContentLayoutFragment;
 export type InstanceContentLayoutFragment$key = {
-    readonly " $data"?: InstanceContentLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"InstanceContentLayoutFragment">;
+  readonly " $data"?: InstanceContentLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"InstanceContentLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -112,5 +114,7 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '3f0a5792ceb06dabcecb124098ccdcf4';
+
+(node as any).hash = "3f0a5792ceb06dabcecb124098ccdcf4";
+
 export default node;

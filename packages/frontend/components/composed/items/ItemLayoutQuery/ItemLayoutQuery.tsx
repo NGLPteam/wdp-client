@@ -1,6 +1,6 @@
 import React, { ComponentProps } from "react";
 import ErrorPage from "next/error";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import type {
   QueryLayoutProps,
   QueryPageComponentProps,
@@ -8,11 +8,11 @@ import type {
 import { FragmentWrapper, QueryWrapper } from "@wdp/lib/api/components";
 import { useRouteSlug } from "@wdp/lib/routes";
 import ItemLayout from "../ItemLayout";
-import { HasFragment } from "types/graphql-helpers";
+import { GraphQLTaggedNode } from "react-relay";
 import { ItemLayoutQueryFragment$key } from "@/relay/ItemLayoutQueryFragment.graphql";
 
 type ItemQuery = {
-  readonly response: HasFragment<"ItemLayoutQueryFragment">;
+  readonly response: ItemLayoutQueryFragment$key;
   readonly variables: { slug: string };
 };
 
@@ -41,7 +41,7 @@ function ItemLayoutQuery<
       {({ data }) => (
         <FragmentWrapper<ItemLayoutQueryFragment$key>
           data={data}
-          fragment={fragment}
+          fragment={fragment as GraphQLTaggedNode}
         >
           {({ enhancedData }) => (
             <ItemLayout data={enhancedData} {...layoutProps}>

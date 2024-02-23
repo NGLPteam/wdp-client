@@ -19,7 +19,7 @@ export default function AssetPDFPreview({ data }: Props) {
   const isMounted = useIsMounted();
 
   const onLoadSuccess = useCallback(
-    ({ numPages }) => {
+    ({ numPages }: { numPages: number }) => {
       setNumPages(numPages);
     },
     [setNumPages]
@@ -27,12 +27,7 @@ export default function AssetPDFPreview({ data }: Props) {
 
   return isMounted && file ? (
     <Document
-      file={{
-        url: file,
-        httpHeaders: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      }}
+      file={file}
       onLoadSuccess={onLoadSuccess}
       loading={<LoadingBlock label="common.loading_pdf" />}
       onLoadError={(err) => console.info(err.message)}

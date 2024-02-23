@@ -20,14 +20,14 @@ const Button = forwardRef(
       hideLabelOnMobile,
       isBlock,
       ...props
-    }: Props & ButtonProps,
+    }: (Props | LinkProps) & ButtonProps,
     ref: MaybeButtonRef
   ) => {
     return (
       <Styles.ButtonStyles
         ref={ref}
         className={className}
-        $hideLabelOnMobile={hideLabelOnMobile && icon}
+        $hideLabelOnMobile={(hideLabelOnMobile && !!icon) || undefined}
         $isBlock={isBlock}
         $size={size}
         $style={secondary ? "secondary" : "primary"}
@@ -37,7 +37,9 @@ const Button = forwardRef(
           <IconFactory icon={icon} role={children ? "presentation" : "img"} />
         )}
         {children && (
-          <Styles.ButtonLabel $hideOnMobile={hideLabelOnMobile && icon}>
+          <Styles.ButtonLabel
+            $hideOnMobile={(hideLabelOnMobile && !!icon) || undefined}
+          >
             {children}
           </Styles.ButtonLabel>
         )}
@@ -62,4 +64,12 @@ interface Props {
   isBlock?: true;
   /** Use secondary style */
   secondary?: true;
+  icon?: React.ComponentProps<typeof IconFactory>["icon"];
 }
+
+type LinkProps = Props & {
+  as: "a";
+  href: string;
+  target?: string;
+  download?: boolean;
+};

@@ -56,6 +56,10 @@ const nextConfig = {
     },
   },
   compiler,
+  webpack: (config) => {
+    config.resolve.alias.canvas = false;
+    return config;
+  },
   async headers() {
     return [
       {

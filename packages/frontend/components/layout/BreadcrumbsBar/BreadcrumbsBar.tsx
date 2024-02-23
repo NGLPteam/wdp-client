@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import * as Styled from "./BreadcrumbsBar.styles";
 import { BreadcrumbsBarFragment$key } from "@/relay/BreadcrumbsBarFragment.graphql";

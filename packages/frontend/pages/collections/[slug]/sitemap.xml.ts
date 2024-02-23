@@ -4,11 +4,11 @@ import { GetServerSidePropsContext } from "next";
 import { fetchQuery, graphql } from "relay-runtime";
 import {
   sitemapCollectionsQuery,
-  sitemapCollectionsQueryResponse,
+  sitemapCollectionsQuery$data,
 } from "@/relay/sitemapCollectionsQuery.graphql";
 import { buildSiteMap, getEntitySitemap } from "helpers";
 
-function generateSiteMap(data: sitemapCollectionsQueryResponse) {
+function generateSiteMap(data: sitemapCollectionsQuery$data) {
   return data.collection ? getEntitySitemap(data.collection) : "";
 }
 

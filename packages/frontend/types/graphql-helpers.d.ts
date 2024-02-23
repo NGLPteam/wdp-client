@@ -41,5 +41,5 @@ export type ExtractConnectionType<
   : never;
 
 export type HasFragment<FragmentName> = {
-  " $fragmentRefs": FragmentRefs<FragmentName>;
+  " $fragmentSpreads": FragmentRefs<FragmentName>;
 };

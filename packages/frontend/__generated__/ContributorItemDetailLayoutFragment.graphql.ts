@@ -1,29 +1,31 @@
+/**
+ * @generated SignedSource<<302c6e8fb33f7c87c48cb9ca2bb3c098>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ContributorItemDetailLayoutFragment = {
-    readonly contributor: {
-        readonly " $fragmentRefs": FragmentRefs<"ContributorHTMLHeadFragment" | "ContributorDetailFragment">;
-    } | null;
-    readonly item: {
-        readonly community: {
-            readonly " $fragmentRefs": FragmentRefs<"AppLayoutCommunityFragment">;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"ContributorDetailNavFragment">;
-    } | null;
-    readonly " $refType": "ContributorItemDetailLayoutFragment";
+export type ContributorItemDetailLayoutFragment$data = {
+  readonly contributor: {
+    readonly " $fragmentSpreads": FragmentRefs<"ContributorDetailFragment" | "ContributorHTMLHeadFragment">;
+  } | null | undefined;
+  readonly item: {
+    readonly community: {
+      readonly " $fragmentSpreads": FragmentRefs<"AppLayoutCommunityFragment">;
+    };
+    readonly " $fragmentSpreads": FragmentRefs<"ContributorDetailNavFragment">;
+  } | null | undefined;
+  readonly " $fragmentType": "ContributorItemDetailLayoutFragment";
 };
-export type ContributorItemDetailLayoutFragment$data = ContributorItemDetailLayoutFragment;
 export type ContributorItemDetailLayoutFragment$key = {
-    readonly " $data"?: ContributorItemDetailLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContributorItemDetailLayoutFragment">;
+  readonly " $data"?: ContributorItemDetailLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributorItemDetailLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -82,6 +84,11 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "ContributorDetailNavFragment"
+        },
+        {
           "alias": null,
           "args": null,
           "concreteType": "Community",
@@ -96,11 +103,6 @@ const node: ReaderFragment = {
             }
           ],
           "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "ContributorDetailNavFragment"
         }
       ],
       "storageKey": null
@@ -109,5 +111,7 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '50b15f9b9c9dc0dc16c855baf413d0f1';
+
+(node as any).hash = "50b15f9b9c9dc0dc16c855baf413d0f1";
+
 export default node;

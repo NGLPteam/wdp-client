@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { AnyContributor } from "types/graphql-schema";
 import {
-  ContributorNameFragment,
+  ContributorNameFragment$data,
   ContributorNameFragment$key,
 } from "@/relay/ContributorNameFragment.graphql";
 
@@ -39,7 +39,7 @@ const fragment = graphql`
 `;
 
 export function getContributorDisplayName(
-  contributor: Partial<AnyContributor> | ContributorNameFragment,
+  contributor: Partial<AnyContributor> | ContributorNameFragment$data,
   reverse?: boolean
 ): string {
   if (!contributor) return "";

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import * as Styled from "./ContributorDetailNav.styles";
 import { BackButton, NamedLink } from "components/atomic";
 import { ContributorDetailNavFragment$key } from "@/relay/ContributorDetailNavFragment.graphql";

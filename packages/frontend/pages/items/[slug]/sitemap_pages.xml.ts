@@ -5,10 +5,10 @@ import { fetchQuery, graphql } from "relay-runtime";
 import { buildSiteMap, EXTERNAL_DATA_URL } from "helpers";
 import {
   sitemapPagesItemQuery,
-  sitemapPagesItemQueryResponse,
+  sitemapPagesItemQuery$data,
 } from "@/relay/sitemapPagesItemQuery.graphql";
 
-function generateSiteMap(data: sitemapPagesItemQueryResponse) {
+function generateSiteMap(data: sitemapPagesItemQuery$data) {
   const slug = data?.item?.slug;
 
   const pages = data?.item?.pages?.nodes.map(({ slug, updatedAt }) => {

@@ -1,26 +1,28 @@
+/**
+ * @generated SignedSource<<7fb61fc44349537f11f8c874a1bdb16b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
-export type EntityMetadataFactoryFragment = {
-    readonly schemaDefinition?: {
-        readonly kind: SchemaKind;
-        readonly identifier: string;
-    } | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleMetadataFragment" | "DissertationMetadataFragment" | "PaperMetadataFragment">;
-    readonly " $refType": "EntityMetadataFactoryFragment";
+import { FragmentRefs } from "relay-runtime";
+export type EntityMetadataFactoryFragment$data = {
+  readonly schemaDefinition?: {
+    readonly identifier: string;
+    readonly kind: SchemaKind;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleMetadataFragment" | "DissertationMetadataFragment" | "PaperMetadataFragment">;
+  readonly " $fragmentType": "EntityMetadataFactoryFragment";
 };
-export type EntityMetadataFactoryFragment$data = EntityMetadataFactoryFragment;
 export type EntityMetadataFactoryFragment$key = {
-    readonly " $data"?: EntityMetadataFactoryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityMetadataFactoryFragment">;
+  readonly " $data"?: EntityMetadataFactoryFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityMetadataFactoryFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -90,5 +92,7 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '0f81756ab49083980bbb4db2ff67ba35';
+
+(node as any).hash = "0f81756ab49083980bbb4db2ff67ba35";
+
 export default node;

@@ -1,45 +1,47 @@
+/**
+ * @generated SignedSource<<6a9fbcb0ffe68cb899d23c1cebb65c53>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type OrderingRenderMode = "FLAT" | "TREE" | "%future added value";
-export type EntityOrderingLayoutFragment = {
-    readonly name: string | null;
-    readonly header: string | null;
-    readonly render: {
-        readonly mode: OrderingRenderMode;
-    };
-    readonly entity: {
-        readonly __typename: string;
-        readonly slug?: string | undefined;
-    };
-    readonly children: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly id: string;
-                readonly entry: {
-                    readonly slug?: string | undefined;
-                    readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFactoryFragment">;
-                };
-            };
-        }>;
-        readonly pageInfo: {
-            readonly " $fragmentRefs": FragmentRefs<"BrowseListLayoutFragment">;
+import { FragmentRefs } from "relay-runtime";
+export type EntityOrderingLayoutFragment$data = {
+  readonly children: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly entry: {
+          readonly slug?: string;
+          readonly " $fragmentSpreads": FragmentRefs<"EntitySummaryFactoryFragment">;
         };
-        readonly " $fragmentRefs": FragmentRefs<"BrowseTreeLayoutFragment">;
+        readonly id: string;
+      };
+    }>;
+    readonly pageInfo: {
+      readonly " $fragmentSpreads": FragmentRefs<"BrowseListLayoutFragment">;
     };
-    readonly " $refType": "EntityOrderingLayoutFragment";
+    readonly " $fragmentSpreads": FragmentRefs<"BrowseTreeLayoutFragment">;
+  };
+  readonly entity: {
+    readonly __typename: string;
+    readonly slug?: string;
+  };
+  readonly header: string | null | undefined;
+  readonly name: string | null | undefined;
+  readonly render: {
+    readonly mode: OrderingRenderMode;
+  };
+  readonly " $fragmentType": "EntityOrderingLayoutFragment";
 };
-export type EntityOrderingLayoutFragment$data = EntityOrderingLayoutFragment;
 export type EntityOrderingLayoutFragment$key = {
-    readonly " $data"?: EntityOrderingLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityOrderingLayoutFragment">;
+  readonly " $data"?: EntityOrderingLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -218,5 +220,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '5761e0a1e0d6339a6e8283f4df86929e';
+
+(node as any).hash = "5761e0a1e0d6339a6e8283f4df86929e";
+
 export default node;

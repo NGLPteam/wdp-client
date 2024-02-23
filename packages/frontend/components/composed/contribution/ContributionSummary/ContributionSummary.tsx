@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import capitalize from "lodash/capitalize";
 import { useTranslation } from "react-i18next";

@@ -13,9 +13,9 @@ module.exports = {
   extensions: ["ts", "tsx"],
   language: "typescript",
   artifactDirectory: "./__generated__",
-  customScalars: {
-    Slug: "String",
-    ISO8601DateTime: "String",
-    ISO8601Date: "String",
+  customScalarTypes: {
+    Slug: "string",
+    ISO8601DateTime: "string",
+    ISO8601Date: "string",
   },
 };

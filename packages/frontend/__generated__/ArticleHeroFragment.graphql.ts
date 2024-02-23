@@ -1,52 +1,54 @@
+/**
+ * @generated SignedSource<<994ec20d27d6482c39a50252908cad4b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
-export type ArticleHeroFragment = {
-    readonly slug: string;
-    readonly title: string;
-    readonly subtitle: string | null;
-    readonly summary: string | null;
-    readonly visibility: EntityVisibility;
-    readonly currentlyHidden: boolean;
-    readonly published: {
-        readonly value: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
-    };
-    readonly contributions: {
-        readonly " $fragmentRefs": FragmentRefs<"ContributorsListFragment">;
-    };
-    readonly pdfVersion: {
-        readonly asset?: {
-            readonly " $fragmentRefs": FragmentRefs<"AssetDownloadButtonFragment">;
-        } | null | undefined;
-    } | null;
-    readonly journal: {
-        readonly " $fragmentRefs": FragmentRefs<"PeerReviewedFragment" | "PreprintVersionFragment" | "OpenAccessFragment" | "CCLicenseFragment">;
-    } | null;
-    readonly abstract: {
-        readonly " $fragmentRefs": FragmentRefs<"FullTextFragment">;
-    } | null;
-    readonly entityViews: {
-        readonly " $fragmentRefs": FragmentRefs<"ViewCountFragment">;
-    };
-    readonly assetDownloads: {
-        readonly " $fragmentRefs": FragmentRefs<"DownloadCountFragment">;
-    };
-    readonly " $fragmentRefs": FragmentRefs<"DOIFragment" | "CCLicenseFragment" | "PeerReviewedFragment" | "OpenAccessFragment">;
-    readonly " $refType": "ArticleHeroFragment";
+import { FragmentRefs } from "relay-runtime";
+export type ArticleHeroFragment$data = {
+  readonly abstract: {
+    readonly " $fragmentSpreads": FragmentRefs<"FullTextFragment">;
+  } | null | undefined;
+  readonly assetDownloads: {
+    readonly " $fragmentSpreads": FragmentRefs<"DownloadCountFragment">;
+  };
+  readonly contributions: {
+    readonly " $fragmentSpreads": FragmentRefs<"ContributorsListFragment">;
+  };
+  readonly currentlyHidden: boolean;
+  readonly entityViews: {
+    readonly " $fragmentSpreads": FragmentRefs<"ViewCountFragment">;
+  };
+  readonly journal: {
+    readonly " $fragmentSpreads": FragmentRefs<"CCLicenseFragment" | "OpenAccessFragment" | "PeerReviewedFragment" | "PreprintVersionFragment">;
+  } | null | undefined;
+  readonly pdfVersion: {
+    readonly asset?: {
+      readonly " $fragmentSpreads": FragmentRefs<"AssetDownloadButtonFragment">;
+    } | null | undefined;
+  } | null | undefined;
+  readonly published: {
+    readonly value: string | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"PrecisionDateFragment">;
+  };
+  readonly slug: string;
+  readonly subtitle: string | null | undefined;
+  readonly summary: string | null | undefined;
+  readonly title: string;
+  readonly visibility: EntityVisibility;
+  readonly " $fragmentSpreads": FragmentRefs<"CCLicenseFragment" | "DOIFragment" | "OpenAccessFragment" | "PeerReviewedFragment">;
+  readonly " $fragmentType": "ArticleHeroFragment";
 };
-export type ArticleHeroFragment$data = ArticleHeroFragment;
 export type ArticleHeroFragment$key = {
-    readonly " $data"?: ArticleHeroFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleHeroFragment">;
+  readonly " $data"?: ArticleHeroFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleHeroFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -113,6 +115,11 @@ return {
       "storageKey": null
     },
     {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "DOIFragment"
+    },
+    {
       "alias": null,
       "args": null,
       "concreteType": "VariablePrecisionDate",
@@ -121,16 +128,16 @@ return {
       "plural": false,
       "selections": [
         {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "PrecisionDateFragment"
+        },
+        {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
           "name": "value",
           "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "PrecisionDateFragment"
         }
       ],
       "storageKey": null
@@ -270,11 +277,6 @@ return {
       ],
       "storageKey": null
     },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "DOIFragment"
-    },
     (v2/*: any*/),
     (v0/*: any*/),
     (v1/*: any*/)
@@ -283,5 +285,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '052141ecb2fb288b2c7db3789144caea';
+
+(node as any).hash = "052141ecb2fb288b2c7db3789144caea";
+
 export default node;

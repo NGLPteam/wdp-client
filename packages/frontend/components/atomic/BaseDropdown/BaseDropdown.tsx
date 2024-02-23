@@ -4,7 +4,9 @@ import { usePopoverState, PopoverDisclosure } from "reakit/Popover";
 import type { PopoverStateReturn } from "reakit/Popover";
 import * as Styled from "./BaseDropdown.styles";
 
-type ButtonProps = Partial<React.ComponentProps<typeof PopoverDisclosure>>;
+type ButtonProps = Partial<
+  Omit<React.ComponentProps<typeof PopoverDisclosure>, "onClick">
+>;
 
 /**
  * This component includes the base functionality for a dropdown.
@@ -35,7 +37,7 @@ const BaseDropdown = React.forwardRef<HTMLButtonElement, Props>(
     return isMounted ? (
       <>
         <PopoverDisclosure ref={ref} {...popoverState} {...props}>
-          {(disclosureProps) => React.cloneElement(disclosure, disclosureProps)}
+          {disclosure}
         </PopoverDisclosure>
         <Styled.Popover
           hideOnEsc={hideOnEsc}

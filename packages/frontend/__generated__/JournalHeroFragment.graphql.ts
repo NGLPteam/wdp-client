@@ -1,35 +1,37 @@
+/**
+ * @generated SignedSource<<52cd8a5ae7ea4a191ab6a236119c2dcc>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
-export type JournalHeroFragment = {
-    readonly slug: string;
-    readonly title: string;
-    readonly subtitle: string | null;
-    readonly visibility: EntityVisibility;
-    readonly currentlyHidden: boolean;
-    readonly heroImage: {
-        readonly storage: AttachmentStorage | null;
-        readonly " $fragmentRefs": FragmentRefs<"HeroImageFragment">;
-    };
-    readonly heroImageMetadata: {
-        readonly " $fragmentRefs": FragmentRefs<"HeroImageMetadataFragment">;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"DOIFragment" | "JournalHeroMetadataFragment">;
-    readonly " $refType": "JournalHeroFragment";
+import { FragmentRefs } from "relay-runtime";
+export type JournalHeroFragment$data = {
+  readonly currentlyHidden: boolean;
+  readonly heroImage: {
+    readonly storage: AttachmentStorage | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"HeroImageFragment">;
+  };
+  readonly heroImageMetadata: {
+    readonly " $fragmentSpreads": FragmentRefs<"HeroImageMetadataFragment">;
+  } | null | undefined;
+  readonly slug: string;
+  readonly subtitle: string | null | undefined;
+  readonly title: string;
+  readonly visibility: EntityVisibility;
+  readonly " $fragmentSpreads": FragmentRefs<"DOIFragment" | "JournalHeroMetadataFragment">;
+  readonly " $fragmentType": "JournalHeroFragment";
 };
-export type JournalHeroFragment$data = JournalHeroFragment;
 export type JournalHeroFragment$key = {
-    readonly " $data"?: JournalHeroFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"JournalHeroFragment">;
+  readonly " $data"?: JournalHeroFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"JournalHeroFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -125,5 +127,7 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '39ac9ce0774308a024b5b12ced75f01b';
+
+(node as any).hash = "39ac9ce0774308a024b5b12ced75f01b";
+
 export default node;

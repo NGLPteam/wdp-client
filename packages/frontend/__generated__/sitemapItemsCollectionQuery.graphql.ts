@@ -1,50 +1,30 @@
+/**
+ * @generated SignedSource<<e3663e5b434cfdf3394edae57a393202>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type sitemapItemsCollectionQueryVariables = {
-    slug: string;
-    page: number;
+export type sitemapItemsCollectionQuery$variables = {
+  page: number;
+  slug: string;
 };
-export type sitemapItemsCollectionQueryResponse = {
-    readonly collection: {
-        readonly items: {
-            readonly " $fragmentRefs": FragmentRefs<"getItemsSitemapFragment">;
-        };
-    } | null;
+export type sitemapItemsCollectionQuery$data = {
+  readonly collection: {
+    readonly items: {
+      readonly " $fragmentSpreads": FragmentRefs<"getItemsSitemapFragment">;
+    };
+  } | null | undefined;
 };
 export type sitemapItemsCollectionQuery = {
-    readonly response: sitemapItemsCollectionQueryResponse;
-    readonly variables: sitemapItemsCollectionQueryVariables;
+  response: sitemapItemsCollectionQuery$data;
+  variables: sitemapItemsCollectionQuery$variables;
 };
-
-
-
-/*
-query sitemapItemsCollectionQuery(
-  $slug: Slug!
-  $page: Int!
-) {
-  collection(slug: $slug) {
-    items(page: $page, perPage: 50) {
-      ...getItemsSitemapFragment
-    }
-    id
-  }
-}
-
-fragment getItemsSitemapFragment on ItemConnection {
-  nodes {
-    __typename
-    slug
-    updatedAt
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -148,7 +128,9 @@ return {
                     ],
                     "storageKey": null
                   }
-                ]
+                ],
+                "args": null,
+                "argumentDefinitions": []
               }
             ],
             "storageKey": null
@@ -219,5 +201,7 @@ return {
   }
 };
 })();
-(node as any).hash = '7ef560bad9600a0e3acc23ab94ca85c2';
+
+(node as any).hash = "7ef560bad9600a0e3acc23ab94ca85c2";
+
 export default node;

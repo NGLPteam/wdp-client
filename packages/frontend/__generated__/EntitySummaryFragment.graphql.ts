@@ -1,40 +1,42 @@
+/**
+ * @generated SignedSource<<b429c89ba0bfb7666babdd665fd8dd82>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type EntitySummaryFragment = {
-    readonly __typename: string;
-    readonly title: string;
-    readonly subtitle: string | null;
-    readonly thumbnail: {
-        readonly storage: AttachmentStorage | null;
-        readonly " $fragmentRefs": FragmentRefs<"ContentImageFragment">;
-    };
-    readonly schemaRanks: ReadonlyArray<{
-        readonly count: number;
-        readonly namespace: string;
-        readonly identifier: string;
-    }>;
-    readonly published?: {
-        readonly value: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
-    } | undefined;
-    readonly slug?: string | undefined;
-    readonly summary?: string | null | undefined;
-    readonly updatedAt?: string | undefined;
-    readonly " $refType": "EntitySummaryFragment";
+import { FragmentRefs } from "relay-runtime";
+export type EntitySummaryFragment$data = {
+  readonly __typename: string;
+  readonly published?: {
+    readonly value: string | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"PrecisionDateFragment">;
+  };
+  readonly schemaRanks: ReadonlyArray<{
+    readonly count: number;
+    readonly identifier: string;
+    readonly namespace: string;
+  }>;
+  readonly slug?: string;
+  readonly subtitle: string | null | undefined;
+  readonly summary?: string | null | undefined;
+  readonly thumbnail: {
+    readonly storage: AttachmentStorage | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"ContentImageFragment">;
+  };
+  readonly title: string;
+  readonly updatedAt?: string;
+  readonly " $fragmentType": "EntitySummaryFragment";
 };
-export type EntitySummaryFragment$data = EntitySummaryFragment;
 export type EntitySummaryFragment$key = {
-    readonly " $data"?: EntitySummaryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFragment">;
+  readonly " $data"?: EntitySummaryFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntitySummaryFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -196,5 +198,7 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = 'c32c47f5c86de179f108b5feb1d37384';
+
+(node as any).hash = "c32c47f5c86de179f108b5feb1d37384";
+
 export default node;

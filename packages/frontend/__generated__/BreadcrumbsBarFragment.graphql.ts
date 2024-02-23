@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<16f8a924523dc8566b64afda081782e1>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type BreadcrumbsBarFragment = {
-    readonly __typename: string;
-    readonly title: string;
-    readonly slug?: string | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"BreadcrumbsFragment">;
-    readonly " $refType": "BreadcrumbsBarFragment";
+export type BreadcrumbsBarFragment$data = {
+  readonly __typename: string;
+  readonly slug?: string;
+  readonly title: string;
+  readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbsFragment">;
+  readonly " $fragmentType": "BreadcrumbsBarFragment";
 };
-export type BreadcrumbsBarFragment$data = BreadcrumbsBarFragment;
 export type BreadcrumbsBarFragment$key = {
-    readonly " $data"?: BreadcrumbsBarFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"BreadcrumbsBarFragment">;
+  readonly " $data"?: BreadcrumbsBarFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbsBarFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -63,5 +65,7 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '59de2626a642eb171bc8dfc0152d1079';
+
+(node as any).hash = "59de2626a642eb171bc8dfc0152d1079";
+
 export default node;

@@ -25,7 +25,7 @@ export default function BaseForm<T extends FieldValues = FieldValues>({
   const { handleSubmit } = form;
 
   const submitHandler = useCallback(
-    (data) => {
+    (data: UnpackNestedValue<T>) => {
       if (typeof onSubmitCallback === "function") {
         onSubmitCallback(data);
       }

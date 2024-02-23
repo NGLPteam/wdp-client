@@ -1,62 +1,64 @@
+/**
+ * @generated SignedSource<<a493ada0b9ae6183559d29aff11f4b21>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FeaturedIssueFragment = {
-    readonly id: string;
-    readonly title: string;
-    readonly subtitle: string | null;
-    readonly slug: string;
-    readonly thumbnail: {
-        readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
+export type FeaturedIssueFragment$data = {
+  readonly articles: {
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly published: {
-        readonly value: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
-    };
-    readonly volume: {
-        readonly title?: string | undefined;
-    } | null;
-    readonly articles: {
-        readonly pageInfo: {
-            readonly totalCount: number;
+  };
+  readonly featuredArticles: {
+    readonly entities?: ReadonlyArray<{
+      readonly slug?: string;
+      readonly " $fragmentSpreads": FragmentRefs<"ArticleSummaryFragment">;
+    }>;
+  } | null | undefined;
+  readonly id: string;
+  readonly ordering: {
+    readonly children: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly entry: {
+            readonly slug?: string;
+            readonly " $fragmentSpreads": FragmentRefs<"ArticleSummaryFragment">;
+          };
         };
+      }>;
+      readonly pageInfo: {
+        readonly totalCount: number;
+      };
     };
-    readonly ordering: {
-        readonly identifier: string;
-        readonly children: {
-            readonly edges: ReadonlyArray<{
-                readonly node: {
-                    readonly entry: {
-                        readonly slug?: string | undefined;
-                        readonly " $fragmentRefs": FragmentRefs<"ArticleSummaryFragment">;
-                    };
-                };
-            }>;
-            readonly pageInfo: {
-                readonly totalCount: number;
-            };
-        };
-    } | null;
-    readonly featuredArticles: {
-        readonly entities?: ReadonlyArray<{
-            readonly slug?: string | undefined;
-            readonly " $fragmentRefs": FragmentRefs<"ArticleSummaryFragment">;
-        }> | undefined;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"getEntityDisplayNameFragment">;
-    readonly " $refType": "FeaturedIssueFragment";
+    readonly identifier: string;
+  } | null | undefined;
+  readonly published: {
+    readonly value: string | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"PrecisionDateFragment">;
+  };
+  readonly slug: string;
+  readonly subtitle: string | null | undefined;
+  readonly thumbnail: {
+    readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
+  };
+  readonly title: string;
+  readonly volume: {
+    readonly title?: string;
+  } | null | undefined;
+  readonly " $fragmentSpreads": FragmentRefs<"getEntityDisplayNameFragment">;
+  readonly " $fragmentType": "FeaturedIssueFragment";
 };
-export type FeaturedIssueFragment$data = FeaturedIssueFragment;
 export type FeaturedIssueFragment$key = {
-    readonly " $data"?: FeaturedIssueFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FeaturedIssueFragment">;
+  readonly " $data"?: FeaturedIssueFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FeaturedIssueFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -354,7 +356,7 @@ return {
               "selections": [
                 (v0/*: any*/),
                 {
-                  "alias": "volume",
+                  "alias": "vol",
                   "args": (v5/*: any*/),
                   "concreteType": null,
                   "kind": "LinkedField",
@@ -391,7 +393,7 @@ return {
                   "kind": "InlineFragment",
                   "selections": [
                     {
-                      "alias": "volume",
+                      "alias": "vol",
                       "args": (v5/*: any*/),
                       "concreteType": null,
                       "kind": "LinkedField",
@@ -444,18 +446,24 @@ return {
                   "type": "Collection",
                   "abstractKey": null
                 }
-              ]
+              ],
+              "args": null,
+              "argumentDefinitions": []
             }
           ],
           "type": "AnyEntity",
           "abstractKey": "__isAnyEntity"
         }
-      ]
+      ],
+      "args": null,
+      "argumentDefinitions": []
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
 })();
-(node as any).hash = '99691aeb52483dcb6f5f66c78183d8c9';
+
+(node as any).hash = "99691aeb52483dcb6f5f66c78183d8c9";
+
 export default node;

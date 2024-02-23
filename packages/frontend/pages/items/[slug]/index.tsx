@@ -1,5 +1,5 @@
 import React from "react";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
 import { SlugItemQuery as Query } from "@/relay/SlugItemQuery.graphql";

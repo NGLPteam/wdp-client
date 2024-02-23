@@ -1,5 +1,5 @@
 import React from "react";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { useRefetchable } from "relay-hooks";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import AppLayout from "components/global/AppLayout";

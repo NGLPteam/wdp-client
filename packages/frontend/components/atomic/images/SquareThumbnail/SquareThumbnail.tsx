@@ -13,7 +13,7 @@ export default function SquareThumbnail({
   ...props
 }: Props & ImageProps) {
   const imageData = useMaybeFragment(fragment, data);
-  const image = imageData?.image?.webp;
+  const image = imageData?.thumb?.webp;
 
   return image ? (
     <SquareThumbnailBase {...props} alt={image.alt} url={image.url} />
@@ -26,7 +26,7 @@ interface Props {
 
 const fragment = graphql`
   fragment SquareThumbnailFragment on ImageAttachment {
-    image: medium {
+    thumb: medium {
       webp {
         alt
         url
