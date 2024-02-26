@@ -49,12 +49,6 @@
     "relay": "concurrently -c \"auto\" \"yarn:relay:*\"",
     "relay:frontend": "yarn workspace @wdp/frontend run relay",
     "relay:admin": "yarn workspace @wdp/admin run relay",
-    "storybook": "concurrently -c \"auto\" \"yarn:storybook:run:*\"",
-    "storybook:run:frontend": "yarn workspace @wdp/frontend run storybook",
-    "storybook:run:admin": "yarn workspace @wdp/admin run storybook",
-    "storybook:build": "concurrently  -c \"auto\" \"yarn:storybook:build:*\"",
-    "storybook:build:frontend": "yarn workspace @wdp/frontend run build-storybook",
-    "storybook:build:admin": "yarn workspace @wdp/admin run build-storybook",
     "types": "concurrently -c \"auto\" \"yarn:types:*\"",
     "types:frontend": "yarn workspace @wdp/frontend run types",
     "types:admin": "yarn workspace @wdp/admin run types"
