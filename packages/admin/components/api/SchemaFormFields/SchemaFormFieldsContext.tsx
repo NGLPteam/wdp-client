@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from "react";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { useRefetchable } from "relay-hooks";
 import type { SchemaContextState } from "components/api/hooks/types";
 import { useSchemaContext } from "components/api/hooks";

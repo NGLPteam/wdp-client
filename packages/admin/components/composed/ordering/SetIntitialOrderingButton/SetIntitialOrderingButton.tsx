@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { DialogDisclosure, useDialogState } from "reakit/Dialog";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import SetIntitialOrderingModal from "../SetIntitialOrderingModal/SetIntitialOrderingModal";
 import { SetIntitialOrderingButtonFragment$key } from "@/relay/SetIntitialOrderingButtonFragment.graphql";
@@ -37,7 +37,7 @@ const fragment = graphql`
   fragment SetIntitialOrderingButtonFragment on Entity {
     ... on Item {
       ...SetIntitialOrderingModalFragment
-      orderings {
+      orderings(page: $page) {
         pageInfo {
           totalCount
         }
@@ -45,7 +45,7 @@ const fragment = graphql`
     }
     ... on Collection {
       ...SetIntitialOrderingModalFragment
-      orderings {
+      orderings(page: $page) {
         pageInfo {
           totalCount
         }

@@ -32,7 +32,11 @@ export default {
 };
 
 export const Default: Story<Props> = (args) => (
-  <PageHeader {...args} breadcrumbsProps={{ data }} tabRoutes={tabRoutes} />
+  <PageHeader
+    {...args}
+    breadcrumbsProps={{ data, className: "", delimiter: ">" }}
+    tabRoutes={tabRoutes}
+  />
 );
 
 Default.args = {

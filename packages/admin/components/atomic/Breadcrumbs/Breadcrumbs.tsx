@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import styled from "styled-components";
-import CICBreadcrumbs from "@castiron/components-breadcrumbs/dist";
+import CICBreadcrumbs from "@castiron/components-breadcrumbs";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { Dropdown } from "components/atomic";
@@ -16,9 +16,9 @@ const BreadcrumbsWrapper = ({
   delimiter = " / ",
   ...args
 }: {
-  className: string;
+  className?: string;
   data: Crumbs[];
-  delimiter: string;
+  delimiter?: string;
 }) => {
   const classes = {
     ol: `${className}__ol`,
@@ -116,9 +116,9 @@ const Breadcrumbs = styled(BreadcrumbsWrapper)<Props>`
 `;
 
 interface Props {
-  className: string;
-  data: Record<string, string>[];
-  delimiter: string;
+  className?: string;
+  data: Record<string, any>[];
+  delimiter?: string;
 }
 
 export default Breadcrumbs;

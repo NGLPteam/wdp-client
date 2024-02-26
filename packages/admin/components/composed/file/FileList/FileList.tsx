@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import type { ModelTableActionProps } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import {
-  FileListFragment,
+  FileListFragment$data,
   FileListFragment$key,
 } from "@/relay/FileListFragment.graphql";
 import {
@@ -84,7 +84,7 @@ function FileList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, FileListFragment, FileNode>
+    <ModelListPage<T, FileListFragment$data, FileNode>
       modelName="file"
       columns={columns}
       data={files}
@@ -101,7 +101,7 @@ interface FileListProps
   data?: FileListFragment$key;
 }
 
-type FileNode = FileListFragment["nodes"][number];
+type FileNode = FileListFragment$data["nodes"][number];
 
 const fragment = graphql`
   fragment FileListFragment on AnyAssetConnection {

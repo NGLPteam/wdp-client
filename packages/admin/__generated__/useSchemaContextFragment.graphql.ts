@@ -1,36 +1,38 @@
+/**
+ * @generated SignedSource<<3d42c7c7a6c1f3468fa3f30b109d561b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AssetKind = "audio" | "document" | "image" | "pdf" | "unknown" | "video" | "%future added value";
 export type ContributorKind = "organization" | "person" | "%future added value";
-export type useSchemaContextFragment = {
-    readonly assets: ReadonlyArray<{
-        readonly kind: AssetKind;
-        readonly label: string;
-        readonly value: string;
-    }>;
-    readonly contributors: ReadonlyArray<{
-        readonly kind: ContributorKind;
-        readonly label: string;
-        readonly value: string;
-    }>;
-    readonly defaultValues: unknown;
-    readonly entityId: string;
-    readonly fieldValues: unknown;
-    readonly schemaVersionSlug: string;
-    readonly " $refType": "useSchemaContextFragment";
+import { FragmentRefs } from "relay-runtime";
+export type useSchemaContextFragment$data = {
+  readonly assets: ReadonlyArray<{
+    readonly kind: AssetKind;
+    readonly label: string;
+    readonly value: string;
+  }>;
+  readonly contributors: ReadonlyArray<{
+    readonly kind: ContributorKind;
+    readonly label: string;
+    readonly value: string;
+  }>;
+  readonly defaultValues: any;
+  readonly entityId: string;
+  readonly fieldValues: any;
+  readonly schemaVersionSlug: string;
+  readonly " $fragmentType": "useSchemaContextFragment";
 };
-export type useSchemaContextFragment$data = useSchemaContextFragment;
 export type useSchemaContextFragment$key = {
-    readonly " $data"?: useSchemaContextFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"useSchemaContextFragment">;
+  readonly " $data"?: useSchemaContextFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"useSchemaContextFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -115,5 +117,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '1f7fd64885110759ccc4bc870c95246d';
+
+(node as any).hash = "1f7fd64885110759ccc4bc870c95246d";
+
 export default node;

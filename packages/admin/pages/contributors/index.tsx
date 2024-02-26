@@ -1,4 +1,4 @@
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { QueryWrapper } from "components/api";
 import { contributorsQuery as Query } from "__generated__/contributorsQuery.graphql";
 import { useContributorQueryVars } from "hooks";

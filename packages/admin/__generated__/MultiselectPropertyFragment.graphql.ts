@@ -1,25 +1,27 @@
+/**
+ * @generated SignedSource<<c276695318481dbba49fd58834593268>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type MultiselectPropertyFragment = {
-    readonly options: ReadonlyArray<{
-        readonly label: string;
-        readonly value: string;
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ScalarPropertyFragment">;
-    readonly " $refType": "MultiselectPropertyFragment";
+export type MultiselectPropertyFragment$data = {
+  readonly options: ReadonlyArray<{
+    readonly label: string;
+    readonly value: string;
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ScalarPropertyFragment">;
+  readonly " $fragmentType": "MultiselectPropertyFragment";
 };
-export type MultiselectPropertyFragment$data = MultiselectPropertyFragment;
 export type MultiselectPropertyFragment$key = {
-    readonly " $data"?: MultiselectPropertyFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"MultiselectPropertyFragment">;
+  readonly " $data"?: MultiselectPropertyFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"MultiselectPropertyFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -27,6 +29,11 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "MultiselectPropertyFragment",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ScalarPropertyFragment"
+    },
     {
       "alias": null,
       "args": null,
@@ -51,15 +58,12 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ScalarPropertyFragment"
     }
   ],
   "type": "MultiselectProperty",
   "abstractKey": null
 };
-(node as any).hash = '3d56f215a92aa503989f44d1ee6682ec';
+
+(node as any).hash = "3d56f215a92aa503989f44d1ee6682ec";
+
 export default node;

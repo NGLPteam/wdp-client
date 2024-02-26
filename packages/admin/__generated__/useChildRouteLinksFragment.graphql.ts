@@ -1,21 +1,23 @@
+/**
+ * @generated SignedSource<<e64ede45c50482f786501bdec3ece2af>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type useChildRouteLinksFragment = {
-    readonly allowedActions: ReadonlyArray<string>;
-    readonly " $refType": "useChildRouteLinksFragment";
+export type useChildRouteLinksFragment$data = {
+  readonly allowedActions: ReadonlyArray<string>;
+  readonly " $fragmentType": "useChildRouteLinksFragment";
 };
-export type useChildRouteLinksFragment$data = useChildRouteLinksFragment;
 export type useChildRouteLinksFragment$key = {
-    readonly " $data"?: useChildRouteLinksFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"useChildRouteLinksFragment">;
+  readonly " $data"?: useChildRouteLinksFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"useChildRouteLinksFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -34,5 +36,7 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = 'a6750f30478df340431ae2f3d7be0982';
+
+(node as any).hash = "a6750f30478df340431ae2f3d7be0982";
+
 export default node;

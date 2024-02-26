@@ -1,255 +1,130 @@
+/**
+ * @generated SignedSource<<7d7010fa1d7f7a609c9ad9eec5702ae7>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
-export type EntitySelectorControllerEntityQueryVariables = {
-    slug: string;
+export type EntitySelectorControllerEntityQuery$variables = {
+  slug: string;
 };
-export type EntitySelectorControllerEntityQueryResponse = {
-    readonly community: {
-        readonly title: string;
-        readonly collections: {
-            readonly edges: ReadonlyArray<{
-                readonly node: {
-                    readonly __typename: string;
-                    readonly id: string;
-                    readonly title: string;
-                    readonly slug: string;
-                    readonly hasItems: boolean;
-                    readonly hasCollections: boolean;
-                    readonly schemaVersion: {
-                        readonly name: string;
-                        readonly kind: SchemaKind;
-                        readonly identifier: string;
-                        readonly namespace: string;
-                    };
-                };
-            }>;
+export type EntitySelectorControllerEntityQuery$data = {
+  readonly collection: {
+    readonly collections: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly __typename: "Collection";
+          readonly hasCollections: boolean;
+          readonly hasItems: boolean;
+          readonly id: string;
+          readonly schemaVersion: {
+            readonly identifier: string;
+            readonly kind: SchemaKind;
+            readonly name: string;
+            readonly namespace: string;
+          };
+          readonly slug: string;
+          readonly title: string;
         };
-    } | null;
-    readonly collection: {
-        readonly title: string;
-        readonly parent: ({
-            readonly __typename: "Collection";
-            readonly slug: string;
-            readonly title: string;
-        } | {
-            readonly __typename: "Community";
-            readonly slug: string;
-            readonly title: string;
-        } | {
-            /*This will never be '%other', but we need some
-            value in case none of the concrete values match.*/
-            readonly __typename: "%other";
-        }) | null;
-        readonly collections: {
-            readonly edges: ReadonlyArray<{
-                readonly node: {
-                    readonly __typename: string;
-                    readonly id: string;
-                    readonly title: string;
-                    readonly slug: string;
-                    readonly hasItems: boolean;
-                    readonly hasCollections: boolean;
-                    readonly schemaVersion: {
-                        readonly name: string;
-                        readonly kind: SchemaKind;
-                        readonly identifier: string;
-                        readonly namespace: string;
-                    };
-                };
-            }>;
+      }>;
+    };
+    readonly items: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly __typename: "Item";
+          readonly hasItems: boolean;
+          readonly id: string;
+          readonly schemaVersion: {
+            readonly identifier: string;
+            readonly kind: SchemaKind;
+            readonly name: string;
+            readonly namespace: string;
+          };
+          readonly slug: string;
+          readonly title: string;
         };
-        readonly items: {
-            readonly edges: ReadonlyArray<{
-                readonly node: {
-                    readonly __typename: string;
-                    readonly id: string;
-                    readonly title: string;
-                    readonly slug: string;
-                    readonly hasItems: boolean;
-                    readonly schemaVersion: {
-                        readonly name: string;
-                        readonly kind: SchemaKind;
-                        readonly identifier: string;
-                        readonly namespace: string;
-                    };
-                };
-            }>;
+      }>;
+    };
+    readonly parent: {
+      readonly __typename: "Collection";
+      readonly slug: string;
+      readonly title: string;
+    } | {
+      readonly __typename: "Community";
+      readonly slug: string;
+      readonly title: string;
+    } | {
+      // This will never be '%other', but we need some
+      // value in case none of the concrete values match.
+      readonly __typename: "%other";
+    } | null | undefined;
+    readonly title: string;
+  } | null | undefined;
+  readonly community: {
+    readonly collections: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly __typename: "Collection";
+          readonly hasCollections: boolean;
+          readonly hasItems: boolean;
+          readonly id: string;
+          readonly schemaVersion: {
+            readonly identifier: string;
+            readonly kind: SchemaKind;
+            readonly name: string;
+            readonly namespace: string;
+          };
+          readonly slug: string;
+          readonly title: string;
         };
-    } | null;
-    readonly item: {
-        readonly __typename: string;
-        readonly title: string;
-        readonly parent: ({
-            readonly __typename: "Collection";
-            readonly slug: string;
-            readonly title: string;
-        } | {
-            readonly __typename: "Item";
-            readonly slug: string;
-            readonly title: string;
-        } | {
-            /*This will never be '%other', but we need some
-            value in case none of the concrete values match.*/
-            readonly __typename: "%other";
-        }) | null;
-        readonly items: {
-            readonly edges: ReadonlyArray<{
-                readonly node: {
-                    readonly __typename: string;
-                    readonly id: string;
-                    readonly title: string;
-                    readonly slug: string;
-                    readonly hasItems: boolean;
-                    readonly schemaVersion: {
-                        readonly name: string;
-                        readonly kind: SchemaKind;
-                        readonly identifier: string;
-                        readonly namespace: string;
-                    };
-                };
-            }>;
+      }>;
+    };
+    readonly title: string;
+  } | null | undefined;
+  readonly item: {
+    readonly __typename: "Item";
+    readonly items: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly __typename: "Item";
+          readonly hasItems: boolean;
+          readonly id: string;
+          readonly schemaVersion: {
+            readonly identifier: string;
+            readonly kind: SchemaKind;
+            readonly name: string;
+            readonly namespace: string;
+          };
+          readonly slug: string;
+          readonly title: string;
         };
-    } | null;
+      }>;
+    };
+    readonly parent: {
+      readonly __typename: "Collection";
+      readonly slug: string;
+      readonly title: string;
+    } | {
+      readonly __typename: "Item";
+      readonly slug: string;
+      readonly title: string;
+    } | {
+      // This will never be '%other', but we need some
+      // value in case none of the concrete values match.
+      readonly __typename: "%other";
+    } | null | undefined;
+    readonly title: string;
+  } | null | undefined;
 };
 export type EntitySelectorControllerEntityQuery = {
-    readonly response: EntitySelectorControllerEntityQueryResponse;
-    readonly variables: EntitySelectorControllerEntityQueryVariables;
+  response: EntitySelectorControllerEntityQuery$data;
+  variables: EntitySelectorControllerEntityQuery$variables;
 };
-
-
-
-/*
-query EntitySelectorControllerEntityQuery(
-  $slug: Slug!
-) {
-  community(slug: $slug) {
-    title
-    collections {
-      edges {
-        node {
-          __typename
-          id
-          title
-          slug
-          hasItems
-          hasCollections
-          schemaVersion {
-            name
-            kind
-            identifier
-            namespace
-            id
-          }
-        }
-      }
-    }
-    id
-  }
-  collection(slug: $slug) {
-    title
-    parent {
-      __typename
-      ... on Collection {
-        __typename
-        slug
-        title
-      }
-      ... on Community {
-        __typename
-        slug
-        title
-      }
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-    collections {
-      edges {
-        node {
-          __typename
-          id
-          title
-          slug
-          hasItems
-          hasCollections
-          schemaVersion {
-            name
-            kind
-            identifier
-            namespace
-            id
-          }
-        }
-      }
-    }
-    items {
-      edges {
-        node {
-          __typename
-          id
-          title
-          slug
-          hasItems
-          schemaVersion {
-            name
-            kind
-            identifier
-            namespace
-            id
-          }
-        }
-      }
-    }
-    id
-  }
-  item(slug: $slug) {
-    __typename
-    title
-    parent {
-      __typename
-      ... on Collection {
-        __typename
-        slug
-        title
-      }
-      ... on Item {
-        __typename
-        slug
-        title
-      }
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-    items {
-      edges {
-        node {
-          __typename
-          id
-          title
-          slug
-          hasItems
-          schemaVersion {
-            name
-            kind
-            identifier
-            namespace
-            id
-          }
-        }
-      }
-    }
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -744,5 +619,7 @@ return {
   }
 };
 })();
-(node as any).hash = '00add991ce0abe760b87f7b0f8dbe4bc';
+
+(node as any).hash = "00add991ce0abe760b87f7b0f8dbe4bc";
+
 export default node;

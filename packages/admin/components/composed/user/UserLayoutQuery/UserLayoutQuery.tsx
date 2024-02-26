@@ -1,6 +1,7 @@
 import React, { ComponentProps } from "react";
 import ErrorPage from "next/error";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
+import { GraphQLTaggedNode } from "react-relay";
 import type {
   QueryLayoutProps,
   QueryPageComponentProps,
@@ -34,7 +35,7 @@ function UserLayoutQuery<
       {({ data }) => (
         <FragmentWrapper<UserLayoutQueryFragment$key>
           data={data?.user}
-          fragment={fragment}
+          fragment={fragment as GraphQLTaggedNode}
         >
           {({ enhancedData }) => (
             <UserLayout {...layoutProps} data={enhancedData}>
@@ -49,7 +50,7 @@ function UserLayoutQuery<
 
 type UserQuery = {
   readonly response: {
-    user: HasFragment<"UserLayoutQueryFragment"> | null;
+    user?: HasFragment<"UserLayoutQueryFragment"> | null;
   };
   readonly variables: { userSlug: string };
 };

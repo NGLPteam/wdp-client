@@ -78,7 +78,7 @@ const FullTextInput = forwardRef(
   }
 );
 
-type Value = {
+export type Value = {
   content?: string;
   kind?: string;
   lang?: string;

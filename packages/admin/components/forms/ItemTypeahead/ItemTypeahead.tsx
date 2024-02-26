@@ -1,14 +1,14 @@
 import React, { Ref, useState } from "react";
 import { Controller } from "react-hook-form";
 import { QueryWrapper } from "@wdp/lib/api/components";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import type { FieldValues, Control, Path } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import debounce from "lodash/debounce";
 import BaseTypeahead from "components/forms/BaseTypeahead";
 import {
   ItemTypeaheadQuery as Query,
-  ItemTypeaheadQueryResponse as Response,
+  ItemTypeaheadQuery$data as Response,
 } from "__generated__/ItemTypeaheadQuery.graphql";
 
 type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
@@ -67,7 +67,8 @@ const ItemTypeahead = <T extends FieldValues = FieldValues>(
   );
 };
 
-interface Props<T> extends Omit<TypeaheadProps, "options" | "name"> {
+interface Props<T extends FieldValues = FieldValues>
+  extends Omit<TypeaheadProps, "options" | "name"> {
   control: Control<T>;
   name: Path<T>;
 }

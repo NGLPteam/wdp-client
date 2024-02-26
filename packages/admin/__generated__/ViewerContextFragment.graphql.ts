@@ -1,30 +1,32 @@
+/**
+ * @generated SignedSource<<f23dfcae3525321ac9fda457bddcf5b0>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ViewerContextFragment = {
-    readonly viewer: {
-        readonly name: string | null;
-        readonly allowedActions: ReadonlyArray<string>;
-        readonly uploadAccess: boolean;
-        readonly uploadToken: string | null;
-        readonly avatar: {
-            readonly " $fragmentRefs": FragmentRefs<"AvatarFragment">;
-        };
-        readonly globalAdmin: boolean;
+export type ViewerContextFragment$data = {
+  readonly viewer: {
+    readonly allowedActions: ReadonlyArray<string>;
+    readonly avatar: {
+      readonly " $fragmentSpreads": FragmentRefs<"AvatarFragment">;
     };
-    readonly " $refType": "ViewerContextFragment";
+    readonly globalAdmin: boolean;
+    readonly name: string | null | undefined;
+    readonly uploadAccess: boolean;
+    readonly uploadToken: string | null | undefined;
+  };
+  readonly " $fragmentType": "ViewerContextFragment";
 };
-export type ViewerContextFragment$data = ViewerContextFragment;
 export type ViewerContextFragment$key = {
-    readonly " $data"?: ViewerContextFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ViewerContextFragment">;
+  readonly " $data"?: ViewerContextFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ViewerContextFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -98,5 +100,7 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '953b219e45e60e9e3a7cb9278c03215e';
+
+(node as any).hash = "953b219e45e60e9e3a7cb9278c03215e";
+
 export default node;

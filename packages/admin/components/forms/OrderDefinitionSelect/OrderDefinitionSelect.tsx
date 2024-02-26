@@ -1,5 +1,6 @@
 import React, { forwardRef, Ref, useMemo, useRef } from "react";
-import { graphql, useFragment } from "react-relay";
+import { graphql } from "relay-runtime";
+import { useFragment, GraphQLTaggedNode } from "react-relay";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
 import Select from "../Select";
 import OrderDefinitionSelectedList from "./OrderDefinitionSelectedList";
@@ -31,7 +32,10 @@ function OrderDefinitionSelect(
   const selectRef = useRef<HTMLSelectElement | null>(null);
 
   // Get the entity schema ranks
-  const entity = useFragment<OrderDefinitionSelectFragment$key>(fragment, data);
+  const entity = useFragment<OrderDefinitionSelectFragment$key>(
+    fragment as GraphQLTaggedNode,
+    data
+  );
 
   // Get the list of possible orders by schema ranks
   const { data: orderingData } = useAuthenticatedQuery<Query>(query, {

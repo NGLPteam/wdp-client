@@ -1,118 +1,62 @@
+/**
+ * @generated SignedSource<<10d9b9cca2bef81cd123016fde81ec4e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateOrganizationContributorInput = {
-    email?: string | null | undefined;
-    url?: string | null | undefined;
-    bio?: string | null | undefined;
-    links?: Array<ContributorLinkInput> | null | undefined;
-    orcid?: string | null | undefined;
-    image?: UploadedFileInput | null | undefined;
-    imageMetadata?: ImageMetadataInput | null | undefined;
-    legalName?: string | null | undefined;
-    location?: string | null | undefined;
-    contributorId: string;
-    clearImage?: boolean | null | undefined;
-    clientMutationId?: string | null | undefined;
-};
-export type ContributorLinkInput = {
-    title: string;
-    url: string;
+  bio?: string | null | undefined;
+  clearImage?: boolean | null | undefined;
+  clientMutationId?: string | null | undefined;
+  contributorId: string;
+  email?: string | null | undefined;
+  image?: UploadedFileInput | null | undefined;
+  imageMetadata?: ImageMetadataInput | null | undefined;
+  legalName?: string | null | undefined;
+  links?: ReadonlyArray<ContributorLinkInput> | null | undefined;
+  location?: string | null | undefined;
+  orcid?: string | null | undefined;
+  url?: string | null | undefined;
 };
 export type UploadedFileInput = {
-    id: unknown;
-    storage?: UploadStorage | null | undefined;
-    metadata?: UploadedFileMetadataInput | null | undefined;
+  id: any;
+  metadata?: UploadedFileMetadataInput | null | undefined;
+  storage?: UploadStorage | null | undefined;
 };
 export type UploadedFileMetadataInput = {
-    alt?: string | null | undefined;
-    filename?: string | null | undefined;
-    mimeType?: string | null | undefined;
+  alt?: string | null | undefined;
+  filename?: string | null | undefined;
+  mimeType?: string | null | undefined;
 };
 export type ImageMetadataInput = {
-    alt?: string | null | undefined;
+  alt?: string | null | undefined;
 };
-export type ContributorUpdateOrganizationFormMutationVariables = {
-    input: UpdateOrganizationContributorInput;
+export type ContributorLinkInput = {
+  title: string;
+  url: string;
 };
-export type ContributorUpdateOrganizationFormMutationResponse = {
-    readonly updateOrganizationContributor: {
-        readonly contributor: {
-            readonly " $fragmentRefs": FragmentRefs<"ContributorUpdateOrganizationFormFieldsFragment">;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
-    } | null;
+export type ContributorUpdateOrganizationFormMutation$variables = {
+  input: UpdateOrganizationContributorInput;
+};
+export type ContributorUpdateOrganizationFormMutation$data = {
+  readonly updateOrganizationContributor: {
+    readonly contributor: {
+      readonly " $fragmentSpreads": FragmentRefs<"ContributorUpdateOrganizationFormFieldsFragment">;
+    } | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null | undefined;
 };
 export type ContributorUpdateOrganizationFormMutation = {
-    readonly response: ContributorUpdateOrganizationFormMutationResponse;
-    readonly variables: ContributorUpdateOrganizationFormMutationVariables;
+  response: ContributorUpdateOrganizationFormMutation$data;
+  variables: ContributorUpdateOrganizationFormMutation$variables;
 };
-
-
-
-/*
-mutation ContributorUpdateOrganizationFormMutation(
-  $input: UpdateOrganizationContributorInput!
-) {
-  updateOrganizationContributor(input: $input) {
-    contributor {
-      ...ContributorUpdateOrganizationFormFieldsFragment
-      id
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {
-  __isAnyContributor: __typename
-  ... on OrganizationContributor {
-    legalName
-    email
-    location
-    bio
-    url
-    orcid
-    image {
-      ...FileUploadFragment
-    }
-    links {
-      title
-      url
-    }
-  }
-}
-
-fragment FileUploadFragment on ImageAttachment {
-  originalFilename
-  storage
-  thumb {
-    png {
-      alt
-      url
-    }
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -240,7 +184,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v3/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -271,13 +217,6 @@ return {
             "name": "contributor",
             "plural": false,
             "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "id",
-                "storageKey": null
-              },
               {
                 "kind": "InlineFragment",
                 "selections": [
@@ -401,6 +340,13 @@ return {
                 ],
                 "type": "AnyContributor",
                 "abstractKey": "__isAnyContributor"
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "id",
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -421,5 +367,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'cb2d4047fc230e76269381002bc0062d';
+
+(node as any).hash = "cb2d4047fc230e76269381002bc0062d";
+
 export default node;

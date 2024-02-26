@@ -1,110 +1,29 @@
+/**
+ * @generated SignedSource<<06a67462fbb417d76dc0c8394a0ffd56>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UserOrder = "ADMINS_FIRST" | "ADMINS_LAST" | "ADMINS_OLDEST" | "ADMINS_RECENT" | "EMAIL_ASCENDING" | "EMAIL_DESCENDING" | "NAME_ASCENDING" | "NAME_DESCENDING" | "OLDEST" | "RECENT" | "%future added value";
-export type usersQueryVariables = {
-    order?: UserOrder | null | undefined;
-    page: number;
+export type usersQuery$variables = {
+  order?: UserOrder | null | undefined;
+  page: number;
 };
-export type usersQueryResponse = {
-    readonly users: {
-        readonly " $fragmentRefs": FragmentRefs<"UserListFragment">;
-    };
+export type usersQuery$data = {
+  readonly users: {
+    readonly " $fragmentSpreads": FragmentRefs<"UserListFragment">;
+  };
 };
 export type usersQuery = {
-    readonly response: usersQueryResponse;
-    readonly variables: usersQueryVariables;
+  response: usersQuery$data;
+  variables: usersQuery$variables;
 };
-
-
-
-/*
-query usersQuery(
-  $order: UserOrder
-  $page: Int!
-) {
-  users(order: $order, page: $page, perPage: 20) {
-    ...UserListFragment
-  }
-}
-
-fragment AvatarFragment on ImageAttachment {
-  storage
-  small {
-    webp {
-      ...ImageFragment
-    }
-  }
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment UserAvatarFragment on User {
-  avatar {
-    ...AvatarFragment
-  }
-}
-
-fragment UserListFragment on UserConnection {
-  nodes {
-    email
-    globalAdmin
-    name
-    slug
-    createdAt
-    updatedAt
-    ...UserNameColumnFragment
-    id
-  }
-  ...ModelListPageFragment
-}
-
-fragment UserNameColumnCellFragment on User {
-  name
-  slug
-  ...UserAvatarFragment
-}
-
-fragment UserNameColumnFragment on User {
-  ...UserNameColumnCellFragment
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -387,5 +306,7 @@ return {
   }
 };
 })();
-(node as any).hash = '24980963498e8aeb38912fa4ae5148c6';
+
+(node as any).hash = "24980963498e8aeb38912fa4ae5148c6";
+
 export default node;

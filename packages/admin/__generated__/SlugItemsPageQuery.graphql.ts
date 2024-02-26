@@ -1,85 +1,27 @@
+/**
+ * @generated SignedSource<<db971b26193ab2fcee94771f9103d667>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SlugItemsPageQueryVariables = {
-    itemSlug: string;
+export type SlugItemsPageQuery$variables = {
+  itemSlug: string;
 };
-export type SlugItemsPageQueryResponse = {
-    readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"ItemLayoutQueryFragment" | "ItemSlugRedirectFragment">;
-    } | null;
+export type SlugItemsPageQuery$data = {
+  readonly item: {
+    readonly " $fragmentSpreads": FragmentRefs<"ItemLayoutQueryFragment" | "ItemSlugRedirectFragment">;
+  } | null | undefined;
 };
 export type SlugItemsPageQuery = {
-    readonly response: SlugItemsPageQueryResponse;
-    readonly variables: SlugItemsPageQueryVariables;
+  response: SlugItemsPageQuery$data;
+  variables: SlugItemsPageQuery$variables;
 };
-
-
-
-/*
-query SlugItemsPageQuery(
-  $itemSlug: Slug!
-) {
-  item(slug: $itemSlug) {
-    ...ItemLayoutQueryFragment
-    ...ItemSlugRedirectFragment
-    id
-  }
-}
-
-fragment AuthContextFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-
-fragment ItemLayoutFragment on Item {
-  title
-  slug
-  id
-  ...useBreadcrumbsFragment
-  ...useChildRouteLinksFragment
-}
-
-fragment ItemLayoutQueryFragment on Item {
-  ...ItemLayoutFragment
-  ...AuthContextFragment
-}
-
-fragment ItemSlugRedirectFragment on Item {
-  slug
-  items {
-    pageInfo {
-      totalCount
-    }
-  }
-}
-
-fragment useBreadcrumbsFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  breadcrumbs {
-    depth
-    label
-    kind
-    slug
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-}
-
-fragment useChildRouteLinksFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -268,5 +210,7 @@ return {
   }
 };
 })();
-(node as any).hash = '9870ce8f0171538245e5bf3849fc07d3';
+
+(node as any).hash = "9870ce8f0171538245e5bf3849fc07d3";
+
 export default node;

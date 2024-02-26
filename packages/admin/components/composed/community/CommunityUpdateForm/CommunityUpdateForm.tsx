@@ -1,4 +1,5 @@
-import { graphql, readInlineData, useFragment } from "react-relay";
+import { graphql, readInlineData } from "relay-runtime";
+import { useFragment } from "relay-hooks";
 import pick from "lodash/pick";
 import MutationForm, {
   useRenderForm,
@@ -17,12 +18,13 @@ import type { CommunityUpdateFormFieldsFragment$key } from "@/relay/CommunityUpd
 import SchemaFormFields from "components/api/SchemaFormFields";
 import { useSchemaContext, useSchemaProperties } from "components/api/hooks";
 import {
-  CommunityUpdateFormSchemaErrorsFragment,
+  CommunityUpdateFormSchemaErrorsFragment$data,
   CommunityUpdateFormSchemaErrorsFragment$key,
 } from "@/relay/CommunityUpdateFormSchemaErrorsFragment.graphql";
 import { convertSchemaErrors } from "components/api/SchemaInstanceForm/convertSchemaErrors";
 
-type SchemaErrors = CommunityUpdateFormSchemaErrorsFragment["schemaErrors"];
+type SchemaErrors =
+  CommunityUpdateFormSchemaErrorsFragment$data["schemaErrors"];
 
 export default function CommunityUpdateForm({
   data,
@@ -86,7 +88,7 @@ export default function CommunityUpdateForm({
       const errors =
         readInlineData<CommunityUpdateFormSchemaErrorsFragment$key>(
           schemaErrorsFragment,
-          response[mutationName]
+          response[mutationName] ?? null
         );
 
       return !errors?.schemaErrors || errors.schemaErrors.length === 0;
@@ -99,7 +101,7 @@ export default function CommunityUpdateForm({
       const errors =
         readInlineData<CommunityUpdateFormSchemaErrorsFragment$key>(
           schemaErrorsFragment,
-          response[mutationName]
+          response[mutationName] ?? null
         );
 
       if (errors?.schemaErrors) {

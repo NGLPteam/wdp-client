@@ -1,5 +1,10 @@
 import React, { useCallback, useMemo } from "react";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  DragUpdate,
+} from "react-beautiful-dnd";
 import BaseArrayList, { BaseArrayListItem } from "../BaseArrayList";
 import { Option, Value } from "./AssetsPropertySelect";
 
@@ -17,14 +22,14 @@ export default function AssetsPropertySelectedList({
   }, [value, options]);
 
   const handleRemove = useCallback(
-    (index) => {
+    (index: number) => {
       if (onRemove) onRemove(index);
     },
     [onRemove]
   );
 
   const handleDragEnd = useCallback(
-    ({ destination, source }) => {
+    ({ destination, source }: DragUpdate) => {
       if (!destination || !source || destination.index === source.index) return;
 
       onDragEnd(source.index, destination.index);

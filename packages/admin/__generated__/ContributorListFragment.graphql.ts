@@ -1,31 +1,33 @@
+/**
+ * @generated SignedSource<<8bb1c5bc6bb5238a9f83fee3b06c9777>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ContributorListFragment = {
-    readonly nodes: ReadonlyArray<{
-        readonly __typename: string;
-        readonly id?: string | undefined;
-        readonly slug?: string | undefined;
-        readonly legalName?: string | null | undefined;
-        readonly createdAt?: string | undefined;
-        readonly givenName?: string | null | undefined;
-        readonly familyName?: string | null | undefined;
-        readonly " $fragmentRefs": FragmentRefs<"ContributorNameColumnFragment" | "ContributorAffiliationColumnFragment" | "ContributorContributionsColumnFragment">;
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "ContributorListFragment";
+export type ContributorListFragment$data = {
+  readonly nodes: ReadonlyArray<{
+    readonly __typename: string;
+    readonly createdAt?: string;
+    readonly familyName?: string | null | undefined;
+    readonly givenName?: string | null | undefined;
+    readonly id?: string;
+    readonly legalName?: string | null | undefined;
+    readonly slug?: string;
+    readonly " $fragmentSpreads": FragmentRefs<"ContributorAffiliationColumnFragment" | "ContributorContributionsColumnFragment" | "ContributorNameColumnFragment">;
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "ContributorListFragment";
 };
-export type ContributorListFragment$data = ContributorListFragment;
 export type ContributorListFragment$key = {
-    readonly " $data"?: ContributorListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContributorListFragment">;
+  readonly " $data"?: ContributorListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributorListFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -130,7 +132,9 @@ v7 = {
       "type": "Contributor",
       "abstractKey": "__isContributor"
     }
-  ]
+  ],
+  "args": null,
+  "argumentDefinitions": ([]/*: any*/)
 };
 return {
   "argumentDefinitions": [],
@@ -197,7 +201,9 @@ return {
               "type": "Contributor",
               "abstractKey": "__isContributor"
             }
-          ]
+          ],
+          "args": null,
+          "argumentDefinitions": []
         },
         {
           "kind": "InlineDataFragmentSpread",
@@ -217,7 +223,9 @@ return {
               "type": "Contributor",
               "abstractKey": "__isContributor"
             }
-          ]
+          ],
+          "args": null,
+          "argumentDefinitions": []
         }
       ],
       "storageKey": null
@@ -232,5 +240,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '88a84a69e8cbd5fbad2bb624810768b5';
+
+(node as any).hash = "88a84a69e8cbd5fbad2bb624810768b5";
+
 export default node;

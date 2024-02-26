@@ -1,6 +1,6 @@
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { getContributorDisplayName } from "../ContributorDisplayName";
 import { useDrawerHelper, useDestroyer } from "hooks";
 import { RouteHelper } from "routes";
@@ -10,7 +10,7 @@ import DrawerActions from "components/layout/Drawer/DrawerActions";
 import ContributorUpdateForm from "components/composed/contributor/ContributorUpdateForm";
 import type {
   ContributorUpdateDrawerQuery as Query,
-  ContributorUpdateDrawerQueryResponse as Response,
+  ContributorUpdateDrawerQuery$data as Response,
 } from "__generated__/ContributorUpdateDrawerQuery.graphql";
 
 export default function ContributorUpdateDrawer({

@@ -24,7 +24,7 @@ const Typeahead = forwardRef(
       onInputChange,
       value,
       isWide,
-      withBrowse,
+      withBrowse = false,
       isLoading,
       ...inputProps
     }: Props,
@@ -36,7 +36,6 @@ const Typeahead = forwardRef(
       getLabelProps,
       getMenuProps,
       getInputProps,
-      getComboboxProps,
       getItemProps,
     } = useCombobox({
       items: options,
@@ -69,7 +68,7 @@ const Typeahead = forwardRef(
         required={required}
         isWide={isWide}
       >
-        <Styled.InputWrapper {...getComboboxProps()}>
+        <Styled.InputWrapper>
           {/* Hidden input field for react-hook-form or other form control */}
           <input
             ref={ref}
@@ -100,7 +99,6 @@ const Typeahead = forwardRef(
             {isOpen &&
               options?.map((item, index) => (
                 <Styled.ListItem
-                  key={index}
                   {...getItemProps({ key: item.value, index, item })}
                 >
                   {item.node ? item.node : item.label}

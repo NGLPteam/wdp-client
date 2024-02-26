@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
+import { GraphQLTaggedNode } from "react-relay";
 import { debounce } from "lodash";
 import type { FieldValues, Control, Path } from "react-hook-form";
 import { Controller } from "react-hook-form";
@@ -29,7 +30,7 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
   const { data, isLoading } = useAuthenticatedQuery<Query>(query, variables);
 
   const optionsData = useMaybeFragment<LinkTargetTypeaheadFragment$key>(
-    fragment,
+    fragment as GraphQLTaggedNode,
     data?.collection?.linkTargetCandidates || data?.item?.linkTargetCandidates
   );
 
@@ -74,7 +75,8 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
   );
 };
 
-interface Props<T> extends Omit<TypeaheadProps, "options" | "name"> {
+interface Props<T extends FieldValues = FieldValues>
+  extends Omit<TypeaheadProps, "options" | "name"> {
   data?: LinkTargetTypeaheadFragment$key | null;
   control: Control<T>;
   name: Path<T>;

@@ -1,4 +1,4 @@
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { usersQuery as Query } from "__generated__/usersQuery.graphql";
 import { QueryWrapper } from "components/api";
 import UserList from "components/composed/user/UserList";

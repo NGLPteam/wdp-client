@@ -11,7 +11,7 @@ import {
   useSearchQueryVars,
 } from "hooks";
 import {
-  CollectionListFragment,
+  CollectionListFragment$data,
   CollectionListFragment$key,
 } from "@/relay/CollectionListFragment.graphql";
 import ModelColumns from "components/composed/model/ModelColumns";
@@ -19,7 +19,7 @@ import PageHeader from "components/layout/PageHeader";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 import {
-  CollectionListSearchFragment,
+  CollectionListSearchFragment$data,
   CollectionListSearchFragment$key,
 } from "@/relay/CollectionListSearchFragment.graphql";
 
@@ -125,13 +125,13 @@ interface CollectionListProps
 }
 
 type ListFragment =
-  | CollectionListFragment
-  | NonNullable<CollectionListSearchFragment["results"]>;
+  | CollectionListFragment$data
+  | NonNullable<CollectionListSearchFragment$data["results"]>;
 
-type CollectionNode = CollectionListFragment["nodes"][number];
+type CollectionNode = CollectionListFragment$data["nodes"][number];
 
 type CollectionSearchNode = NonNullable<
-  CollectionListSearchFragment["results"]
+  CollectionListSearchFragment$data["results"]
 >["nodes"][number];
 
 type Node = CollectionNode & CollectionSearchNode;

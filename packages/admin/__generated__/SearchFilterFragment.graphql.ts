@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<4a8a949447c30c8836d2a08bc0e84ddb>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SchemaPropertyType = "ASSET" | "ASSETS" | "BOOLEAN" | "CONTRIBUTOR" | "CONTRIBUTORS" | "DATE" | "EMAIL" | "ENTITIES" | "ENTITY" | "FLOAT" | "FULL_TEXT" | "GROUP" | "INTEGER" | "MARKDOWN" | "MULTISELECT" | "SELECT" | "STRING" | "TAGS" | "TIMESTAMP" | "UNKNOWN" | "URL" | "VARIABLE_DATE" | "%future added value";
-export type SearchFilterFragment = {
-    readonly type?: SchemaPropertyType | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SearchFilterInputFragment" | "SearchFilterSelectFragment" | "SearchFilterBooleanFragment">;
-    readonly " $refType": "SearchFilterFragment";
+import { FragmentRefs } from "relay-runtime";
+export type SearchFilterFragment$data = {
+  readonly type?: SchemaPropertyType;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchFilterBooleanFragment" | "SearchFilterInputFragment" | "SearchFilterSelectFragment">;
+  readonly " $fragmentType": "SearchFilterFragment";
 };
-export type SearchFilterFragment$data = SearchFilterFragment;
 export type SearchFilterFragment$key = {
-    readonly " $data"?: SearchFilterFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SearchFilterFragment">;
+  readonly " $data"?: SearchFilterFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchFilterFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -58,5 +60,7 @@ const node: ReaderFragment = {
   "type": "SearchableProperty",
   "abstractKey": "__isSearchableProperty"
 };
-(node as any).hash = '4bdc81dfe224e4c5a8be20ce8e6ebb9f';
+
+(node as any).hash = "4bdc81dfe224e4c5a8be20ce8e6ebb9f";
+
 export default node;

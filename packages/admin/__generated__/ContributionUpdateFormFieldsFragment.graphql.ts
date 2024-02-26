@@ -1,21 +1,23 @@
+/**
+ * @generated SignedSource<<e9497be324b1cb5ed6c466a9a2cadd3a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ContributionUpdateFormFieldsFragment = {
-    readonly role?: string | null | undefined;
-    readonly " $refType": "ContributionUpdateFormFieldsFragment";
+export type ContributionUpdateFormFieldsFragment$data = {
+  readonly role?: string | null | undefined;
+  readonly " $fragmentType": "ContributionUpdateFormFieldsFragment";
 };
-export type ContributionUpdateFormFieldsFragment$data = ContributionUpdateFormFieldsFragment;
 export type ContributionUpdateFormFieldsFragment$key = {
-    readonly " $data"?: ContributionUpdateFormFieldsFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContributionUpdateFormFieldsFragment">;
+  readonly " $data"?: ContributionUpdateFormFieldsFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributionUpdateFormFieldsFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -50,5 +52,7 @@ return {
   "abstractKey": "__isAnyContribution"
 };
 })();
-(node as any).hash = '2f7c3e330b6e704fb3e0e8d315360615';
+
+(node as any).hash = "2f7c3e330b6e704fb3e0e8d315360615";
+
 export default node;

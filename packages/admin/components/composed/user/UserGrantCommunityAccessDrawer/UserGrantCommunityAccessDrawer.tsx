@@ -1,4 +1,4 @@
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import type { DialogProps } from "reakit/Dialog";
 import UserGrantCommunityAccessForm from "../UserGrantCommunityAccessForm";

@@ -1,121 +1,64 @@
+/**
+ * @generated SignedSource<<c2a0f66e65f499e56aedcc1e12eda8fe>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
 export type UpdatePersonContributorInput = {
-    email?: string | null | undefined;
-    url?: string | null | undefined;
-    bio?: string | null | undefined;
-    links?: Array<ContributorLinkInput> | null | undefined;
-    orcid?: string | null | undefined;
-    image?: UploadedFileInput | null | undefined;
-    imageMetadata?: ImageMetadataInput | null | undefined;
-    givenName?: string | null | undefined;
-    familyName?: string | null | undefined;
-    title?: string | null | undefined;
-    affiliation?: string | null | undefined;
-    contributorId: string;
-    clearImage?: boolean | null | undefined;
-    clientMutationId?: string | null | undefined;
-};
-export type ContributorLinkInput = {
-    title: string;
-    url: string;
+  affiliation?: string | null | undefined;
+  bio?: string | null | undefined;
+  clearImage?: boolean | null | undefined;
+  clientMutationId?: string | null | undefined;
+  contributorId: string;
+  email?: string | null | undefined;
+  familyName?: string | null | undefined;
+  givenName?: string | null | undefined;
+  image?: UploadedFileInput | null | undefined;
+  imageMetadata?: ImageMetadataInput | null | undefined;
+  links?: ReadonlyArray<ContributorLinkInput> | null | undefined;
+  orcid?: string | null | undefined;
+  title?: string | null | undefined;
+  url?: string | null | undefined;
 };
 export type UploadedFileInput = {
-    id: unknown;
-    storage?: UploadStorage | null | undefined;
-    metadata?: UploadedFileMetadataInput | null | undefined;
+  id: any;
+  metadata?: UploadedFileMetadataInput | null | undefined;
+  storage?: UploadStorage | null | undefined;
 };
 export type UploadedFileMetadataInput = {
-    alt?: string | null | undefined;
-    filename?: string | null | undefined;
-    mimeType?: string | null | undefined;
+  alt?: string | null | undefined;
+  filename?: string | null | undefined;
+  mimeType?: string | null | undefined;
 };
 export type ImageMetadataInput = {
-    alt?: string | null | undefined;
+  alt?: string | null | undefined;
 };
-export type ContributorUpdatePersonFormMutationVariables = {
-    input: UpdatePersonContributorInput;
+export type ContributorLinkInput = {
+  title: string;
+  url: string;
 };
-export type ContributorUpdatePersonFormMutationResponse = {
-    readonly updatePersonContributor: {
-        readonly contributor: {
-            readonly " $fragmentRefs": FragmentRefs<"ContributorUpdatePersonFormFieldsFragment">;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
-    } | null;
+export type ContributorUpdatePersonFormMutation$variables = {
+  input: UpdatePersonContributorInput;
+};
+export type ContributorUpdatePersonFormMutation$data = {
+  readonly updatePersonContributor: {
+    readonly contributor: {
+      readonly " $fragmentSpreads": FragmentRefs<"ContributorUpdatePersonFormFieldsFragment">;
+    } | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null | undefined;
 };
 export type ContributorUpdatePersonFormMutation = {
-    readonly response: ContributorUpdatePersonFormMutationResponse;
-    readonly variables: ContributorUpdatePersonFormMutationVariables;
+  response: ContributorUpdatePersonFormMutation$data;
+  variables: ContributorUpdatePersonFormMutation$variables;
 };
-
-
-
-/*
-mutation ContributorUpdatePersonFormMutation(
-  $input: UpdatePersonContributorInput!
-) {
-  updatePersonContributor(input: $input) {
-    contributor {
-      ...ContributorUpdatePersonFormFieldsFragment
-      id
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment ContributorUpdatePersonFormFieldsFragment on AnyContributor {
-  __isAnyContributor: __typename
-  ... on PersonContributor {
-    givenName
-    familyName
-    title
-    email
-    affiliation
-    bio
-    orcid
-    image {
-      ...FileUploadFragment
-    }
-    links {
-      title
-      url
-    }
-  }
-}
-
-fragment FileUploadFragment on ImageAttachment {
-  originalFilename
-  storage
-  thumb {
-    png {
-      alt
-      url
-    }
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -250,7 +193,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v3/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -281,13 +226,6 @@ return {
             "name": "contributor",
             "plural": false,
             "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "id",
-                "storageKey": null
-              },
               {
                 "kind": "InlineFragment",
                 "selections": [
@@ -412,6 +350,13 @@ return {
                 ],
                 "type": "AnyContributor",
                 "abstractKey": "__isAnyContributor"
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "id",
+                "storageKey": null
               }
             ],
             "storageKey": null
@@ -432,5 +377,7 @@ return {
   }
 };
 })();
-(node as any).hash = '6a6305a34f8b3f5338d0dde176317d5f';
+
+(node as any).hash = "6a6305a34f8b3f5338d0dde176317d5f";
+
 export default node;

@@ -1,21 +1,23 @@
+/**
+ * @generated SignedSource<<7c2fdffebd91c496218d2e3cc54726ee>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type DashboardLayoutFragment = {
-    readonly " $fragmentRefs": FragmentRefs<"DashboardInstallationFragment" | "DashboardCollectionsFragment">;
-    readonly " $refType": "DashboardLayoutFragment";
+export type DashboardLayoutFragment$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"DashboardCollectionsFragment" | "DashboardInstallationFragment">;
+  readonly " $fragmentType": "DashboardLayoutFragment";
 };
-export type DashboardLayoutFragment$data = DashboardLayoutFragment;
 export type DashboardLayoutFragment$key = {
-    readonly " $data"?: DashboardLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"DashboardLayoutFragment">;
+  readonly " $data"?: DashboardLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"DashboardLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -59,5 +61,7 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = 'c89c9967d9b88bf575bc4df05c619b54';
+
+(node as any).hash = "c89c9967d9b88bf575bc4df05c619b54";
+
 export default node;

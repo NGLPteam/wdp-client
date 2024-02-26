@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@castiron/common-types": "^2.0.1",
-    "@castiron/components-breadcrumbs": "2.0.2",
+    "@castiron/components-breadcrumbs": "1.0.0",
     "@castiron/components-pagination": "^2.0.2",
     "@castiron/hooks": "^1.2.1-alpha.0",
     "@castiron/style-mixins": "^1.0.0",
@@ -50,7 +50,7 @@
     "react-beautiful-dnd": "^13.1.0",
     "react-confirm": "^0.3.0-7",
     "react-dom": "^18.2.0",
-    "react-hook-form": "7.12.2",
+    "react-hook-form": "^7.50.1",
     "react-hot-toast": "^2.1.1",
     "react-i18next": "^14.0.5",
     "react-relay": "^16.2.0",

@@ -1,4 +1,4 @@
-import { graphql, readInlineData } from "react-relay";
+import { graphql, readInlineData } from "relay-runtime";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import get from "lodash/get";

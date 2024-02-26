@@ -1,106 +1,58 @@
+/**
+ * @generated SignedSource<<8c9c922cbfe3dd6b2430c2c9f075bbf7>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateUserInput = {
-    userId: string;
-    avatar?: UploadedFileInput | null | undefined;
-    avatarMetadata?: ImageMetadataInput | null | undefined;
-    clearAvatar?: boolean | null | undefined;
-    profile: UserProfileInput;
-    clientMutationId?: string | null | undefined;
+  avatar?: UploadedFileInput | null | undefined;
+  avatarMetadata?: ImageMetadataInput | null | undefined;
+  clearAvatar?: boolean | null | undefined;
+  clientMutationId?: string | null | undefined;
+  profile: UserProfileInput;
+  userId: string;
 };
 export type UploadedFileInput = {
-    id: unknown;
-    storage?: UploadStorage | null | undefined;
-    metadata?: UploadedFileMetadataInput | null | undefined;
+  id: any;
+  metadata?: UploadedFileMetadataInput | null | undefined;
+  storage?: UploadStorage | null | undefined;
 };
 export type UploadedFileMetadataInput = {
-    alt?: string | null | undefined;
-    filename?: string | null | undefined;
-    mimeType?: string | null | undefined;
+  alt?: string | null | undefined;
+  filename?: string | null | undefined;
+  mimeType?: string | null | undefined;
 };
 export type ImageMetadataInput = {
-    alt?: string | null | undefined;
+  alt?: string | null | undefined;
 };
 export type UserProfileInput = {
-    givenName: string;
-    familyName: string;
-    email: string;
-    username: string;
+  email: string;
+  familyName: string;
+  givenName: string;
+  username: string;
 };
-export type UserUpdateFormMutationVariables = {
-    input: UpdateUserInput;
+export type UserUpdateFormMutation$variables = {
+  input: UpdateUserInput;
 };
-export type UserUpdateFormMutationResponse = {
-    readonly updateUser: {
-        readonly user: {
-            readonly " $fragmentRefs": FragmentRefs<"UserUpdateFormFragment">;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
-    } | null;
+export type UserUpdateFormMutation$data = {
+  readonly updateUser: {
+    readonly user: {
+      readonly " $fragmentSpreads": FragmentRefs<"UserUpdateFormFragment">;
+    } | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null | undefined;
 };
 export type UserUpdateFormMutation = {
-    readonly response: UserUpdateFormMutationResponse;
-    readonly variables: UserUpdateFormMutationVariables;
+  response: UserUpdateFormMutation$data;
+  variables: UserUpdateFormMutation$variables;
 };
-
-
-
-/*
-mutation UserUpdateFormMutation(
-  $input: UpdateUserInput!
-) {
-  updateUser(input: $input) {
-    user {
-      ...UserUpdateFormFragment
-      id
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment FileUploadFragment on ImageAttachment {
-  originalFilename
-  storage
-  thumb {
-    png {
-      alt
-      url
-    }
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-
-fragment UserUpdateFormFragment on User {
-  id
-  givenName
-  familyName
-  email
-  username
-  avatar {
-    ...FileUploadFragment
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -221,7 +173,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v3/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -367,5 +321,7 @@ return {
   }
 };
 })();
-(node as any).hash = '3c78d9622631027af3b5b8cc213411a5';
+
+(node as any).hash = "3c78d9622631027af3b5b8cc213411a5";
+
 export default node;

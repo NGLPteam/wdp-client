@@ -1,134 +1,67 @@
+/**
+ * @generated SignedSource<<27210dbc79c3308e7307e8ef9a4be202>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type HeroImageLayout = "ONE_COLUMN" | "TWO_COLUMN" | "%future added value";
 export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateCommunityInput = {
-    communityId: string;
-    position?: number | null | undefined;
-    title: string;
-    subtitle?: string | null | undefined;
-    summary?: string | null | undefined;
-    heroImage?: UploadedFileInput | null | undefined;
-    heroImageMetadata?: ImageMetadataInput | null | undefined;
-    thumbnail?: UploadedFileInput | null | undefined;
-    thumbnailMetadata?: ImageMetadataInput | null | undefined;
-    clearHeroImage?: boolean | null | undefined;
-    clearThumbnail?: boolean | null | undefined;
-    schemaProperties?: unknown | null | undefined;
-    heroImageLayout: HeroImageLayout;
-    tagline?: string | null | undefined;
-    logo?: UploadedFileInput | null | undefined;
-    logoMetadata?: ImageMetadataInput | null | undefined;
-    clearLogo?: boolean | null | undefined;
-    clientMutationId?: string | null | undefined;
+  clearHeroImage?: boolean | null | undefined;
+  clearLogo?: boolean | null | undefined;
+  clearThumbnail?: boolean | null | undefined;
+  clientMutationId?: string | null | undefined;
+  communityId: string;
+  heroImage?: UploadedFileInput | null | undefined;
+  heroImageLayout: HeroImageLayout;
+  heroImageMetadata?: ImageMetadataInput | null | undefined;
+  logo?: UploadedFileInput | null | undefined;
+  logoMetadata?: ImageMetadataInput | null | undefined;
+  position?: number | null | undefined;
+  schemaProperties?: any | null | undefined;
+  subtitle?: string | null | undefined;
+  summary?: string | null | undefined;
+  tagline?: string | null | undefined;
+  thumbnail?: UploadedFileInput | null | undefined;
+  thumbnailMetadata?: ImageMetadataInput | null | undefined;
+  title: string;
 };
 export type UploadedFileInput = {
-    id: unknown;
-    storage?: UploadStorage | null | undefined;
-    metadata?: UploadedFileMetadataInput | null | undefined;
+  id: any;
+  metadata?: UploadedFileMetadataInput | null | undefined;
+  storage?: UploadStorage | null | undefined;
 };
 export type UploadedFileMetadataInput = {
-    alt?: string | null | undefined;
-    filename?: string | null | undefined;
-    mimeType?: string | null | undefined;
+  alt?: string | null | undefined;
+  filename?: string | null | undefined;
+  mimeType?: string | null | undefined;
 };
 export type ImageMetadataInput = {
-    alt?: string | null | undefined;
+  alt?: string | null | undefined;
 };
-export type CommunityUpdateFormMutationVariables = {
-    input: UpdateCommunityInput;
+export type CommunityUpdateFormMutation$variables = {
+  input: UpdateCommunityInput;
 };
-export type CommunityUpdateFormMutationResponse = {
-    readonly updateCommunity: {
-        readonly community: {
-            readonly name: string;
-            readonly position: number | null;
-            readonly " $fragmentRefs": FragmentRefs<"CommunityUpdateFormFieldsFragment">;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors" | "CommunityUpdateFormSchemaErrorsFragment">;
-    } | null;
+export type CommunityUpdateFormMutation$data = {
+  readonly updateCommunity: {
+    readonly community: {
+      readonly name: string;
+      readonly position: number | null | undefined;
+      readonly " $fragmentSpreads": FragmentRefs<"CommunityUpdateFormFieldsFragment">;
+    } | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"CommunityUpdateFormSchemaErrorsFragment" | "MutationForm_mutationErrors">;
+  } | null | undefined;
 };
 export type CommunityUpdateFormMutation = {
-    readonly response: CommunityUpdateFormMutationResponse;
-    readonly variables: CommunityUpdateFormMutationVariables;
+  response: CommunityUpdateFormMutation$data;
+  variables: CommunityUpdateFormMutation$variables;
 };
-
-
-
-/*
-mutation CommunityUpdateFormMutation(
-  $input: UpdateCommunityInput!
-) {
-  updateCommunity(input: $input) {
-    community {
-      name
-      position
-      ...CommunityUpdateFormFieldsFragment
-      id
-    }
-    ...MutationForm_mutationErrors
-    ...CommunityUpdateFormSchemaErrorsFragment
-  }
-}
-
-fragment CommunityUpdateFormFieldsFragment on Community {
-  title
-  name
-  tagline
-  summary
-  heroImageLayout
-  position
-  heroImage {
-    ...FileUploadFragment
-  }
-  logo {
-    ...FileUploadFragment
-  }
-  heroImageMetadata {
-    alt
-  }
-}
-
-fragment CommunityUpdateFormSchemaErrorsFragment on UpdateCommunityPayload {
-  schemaErrors {
-    hint
-    message
-    metadata
-    path
-  }
-}
-
-fragment FileUploadFragment on ImageAttachment {
-  originalFilename
-  storage
-  thumb {
-    png {
-      alt
-      url
-    }
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -347,14 +280,18 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v7/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           },
           {
             "kind": "InlineDataFragmentSpread",
             "name": "CommunityUpdateFormSchemaErrorsFragment",
             "selections": [
               (v8/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -457,8 +394,8 @@ return {
             ],
             "storageKey": null
           },
-          (v8/*: any*/),
-          (v7/*: any*/)
+          (v7/*: any*/),
+          (v8/*: any*/)
         ],
         "storageKey": null
       }
@@ -474,5 +411,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'ca72c799ad4ca8c486a003fe79505010';
+
+(node as any).hash = "ca72c799ad4ca8c486a003fe79505010";
+
 export default node;

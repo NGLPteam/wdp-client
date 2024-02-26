@@ -1,6 +1,7 @@
 import React, { ComponentProps } from "react";
 import ErrorPage from "next/error";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
+import { GraphQLTaggedNode } from "react-relay";
 import type {
   QueryLayoutProps,
   QueryPageComponentProps,
@@ -48,7 +49,7 @@ function CommunityLayoutQuery<
       {({ data }) => (
         <FragmentWrapper<CommunityLayoutQueryFragment$key>
           data={data?.community}
-          fragment={fragment}
+          fragment={fragment as GraphQLTaggedNode}
         >
           {({ enhancedData }) => (
             <AuthContextProvider data={enhancedData}>
@@ -65,7 +66,7 @@ function CommunityLayoutQuery<
 
 type CommunityQuery = {
   readonly response: {
-    community: HasFragment<"CommunityLayoutQueryFragment"> | null;
+    community?: HasFragment<"CommunityLayoutQueryFragment"> | null;
   };
   readonly variables: { communitySlug: string; hasQuery?: boolean };
 };

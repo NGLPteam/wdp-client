@@ -1,4 +1,4 @@
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { GetLayout } from "@wdp/lib/types/page";
 import { SlugCollectionsPageQuery as Query } from "@/relay/SlugCollectionsPageQuery.graphql";
 import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";

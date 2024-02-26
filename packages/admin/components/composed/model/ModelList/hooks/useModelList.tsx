@@ -37,7 +37,7 @@ function useModelList<
   const entities = useMemo(() => toEntities<U, V>(data), [data]);
 
   // Set the row's id to either the slug or item id
-  const getRowId = useCallback((orignalRow) => {
+  const getRowId = useCallback((orignalRow: V) => {
     return orignalRow?.slug || orignalRow?.id;
   }, []);
 

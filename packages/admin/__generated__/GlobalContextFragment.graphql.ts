@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<e05541fed40c18270bb6b20f42367441>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type GlobalContextFragment = {
-    readonly globalConfiguration: {
-        readonly " $fragmentRefs": FragmentRefs<"ProviderBarFragment" | "InstallationNameFragment" | "UnauthorizedMessageFragment" | "FooterFragment" | "InstallationLogoFragment">;
-    };
-    readonly " $fragmentRefs": FragmentRefs<"SchemaSelectorSchemasFragment">;
-    readonly " $refType": "GlobalContextFragment";
+export type GlobalContextFragment$data = {
+  readonly globalConfiguration: {
+    readonly " $fragmentSpreads": FragmentRefs<"FooterFragment" | "InstallationLogoFragment" | "InstallationNameFragment" | "ProviderBarFragment" | "UnauthorizedMessageFragment">;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"SchemaSelectorSchemasFragment">;
+  readonly " $fragmentType": "GlobalContextFragment";
 };
-export type GlobalContextFragment$data = GlobalContextFragment;
 export type GlobalContextFragment$key = {
-    readonly " $data"?: GlobalContextFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"GlobalContextFragment">;
+  readonly " $data"?: GlobalContextFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"GlobalContextFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -107,11 +109,15 @@ const node: ReaderFragment = {
           ],
           "storageKey": null
         }
-      ]
+      ],
+      "args": null,
+      "argumentDefinitions": []
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = 'cf89f641e87bc805a335858cd96e6976';
+
+(node as any).hash = "cf89f641e87bc805a335858cd96e6976";
+
 export default node;

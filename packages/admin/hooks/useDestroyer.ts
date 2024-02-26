@@ -1,7 +1,7 @@
 import { useCallback } from "react";
-import { useMutation } from "relay-hooks";
 import { useTranslation } from "react-i18next";
-import { graphql, readInlineData } from "react-relay";
+import { graphql, readInlineData } from "relay-runtime";
+import { useMutation } from "relay-hooks";
 import { useNotify, usePageContext } from "hooks";
 import type {
   DestroyCommunityInput,
@@ -55,7 +55,7 @@ export function useDestroyer() {
 
   const handleResponse = useCallback(
     (
-      data: useDestroyerFragment$key | null,
+      data: useDestroyerFragment$key | null | undefined,
       name: string,
       refetchTags: string[]
     ) => {

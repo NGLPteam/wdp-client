@@ -1,4 +1,4 @@
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { QueryWrapper } from "components/api";
 import { useBaseListQueryVars, useIsAuthenticated } from "hooks";
 import { DashboardLayout } from "components/composed/dashboard";

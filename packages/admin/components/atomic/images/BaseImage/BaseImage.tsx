@@ -57,8 +57,8 @@ interface FillImage {
 }
 
 interface DimensionalImage extends FillImage {
-  height: number | string;
-  width: number | string;
+  height: number;
+  width: number;
 }
 
 type Props =

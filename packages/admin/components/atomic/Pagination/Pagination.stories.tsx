@@ -13,7 +13,13 @@ export default {
   },
 };
 
-export const Default: Story<Props> = (args) => <Pagination {...args} />;
+export const Default: Story<
+  Props & {
+    onNextPage: string;
+    onPrevPage: string;
+    onSubmit: (val: string) => void;
+  }
+> = (args) => <Pagination {...args} />;
 
 Default.args = {
   currentPage: 1,

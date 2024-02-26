@@ -13,7 +13,7 @@ import { useSchemaContext } from "components/api/hooks";
 import type { SchemaContextState } from "components/api/hooks/types";
 import type {
   SchemaInstanceProviderApplyMutation,
-  SchemaInstanceProviderApplyMutationResponse as MutationResponse,
+  SchemaInstanceProviderApplyMutation$data as MutationResponse,
   ApplySchemaPropertiesInput,
 } from "@/relay/SchemaInstanceProviderApplyMutation.graphql";
 import type { SchemaInstanceProviderFragment$key } from "@/relay/SchemaInstanceProviderFragment.graphql";
@@ -32,9 +32,8 @@ export default function SchemaInstanceProvider({
   const { t } = useTranslation();
 
   // eslint-disable-next-line prettier/prettier
-  const [apply] = useMutation<SchemaInstanceProviderApplyMutation>(
-    applyMutation
-  );
+  const [apply] =
+    useMutation<SchemaInstanceProviderApplyMutation>(applyMutation);
 
   const form = useForm({
     defaultValues: context.fieldValues,

@@ -1,4 +1,4 @@
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import MutationForm, { Forms } from "components/api/MutationForm";
 import type {
   UserGrantCollectionAccessFormMutation as Mutation,

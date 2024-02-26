@@ -1,6 +1,7 @@
 import React, { ComponentProps } from "react";
 import ErrorPage from "next/error";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
+import { GraphQLTaggedNode } from "react-relay";
 import type {
   QueryLayoutProps,
   QueryPageComponentProps,
@@ -32,7 +33,7 @@ function ContributorLayoutQuery<
       {({ data }) => (
         <FragmentWrapper<ContributorLayoutQueryFragment$key>
           data={data?.contributor}
-          fragment={fragment}
+          fragment={fragment as GraphQLTaggedNode}
         >
           {({ enhancedData }) => (
             <ContributorLayout {...layoutProps} data={enhancedData}>
@@ -47,7 +48,7 @@ function ContributorLayoutQuery<
 
 type ContributorQuery = {
   readonly response: {
-    contributor: HasFragment<"ContributorLayoutQueryFragment"> | null;
+    contributor?: HasFragment<"ContributorLayoutQueryFragment"> | null;
   };
   readonly variables: { contributorSlug: string };
 };

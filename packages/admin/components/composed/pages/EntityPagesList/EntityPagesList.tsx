@@ -1,5 +1,6 @@
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import type { OperationType } from "relay-runtime";
+import { GraphQLTaggedNode } from "react-relay";
 import { useTranslation } from "react-i18next";
 import type { ModelTableActionProps } from "@tanstack/react-table";
 import { useDestroyer, useDrawerHelper, useMaybeFragment } from "hooks";
@@ -8,7 +9,7 @@ import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import type { EntityPagesListFragment$key } from "@/relay/EntityPagesListFragment.graphql";
 import type {
-  EntityPagesListDataFragment,
+  EntityPagesListDataFragment$data,
   EntityPagesListDataFragment$key,
 } from "@/relay/EntityPagesListDataFragment.graphql";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
@@ -26,11 +27,11 @@ function EntityPagesList<T extends OperationType>({
 
   /* eslint-disable max-len */
   const sourceEntity = useMaybeFragment<EntityPagesListFragment$key>(
-    fragment,
+    fragment as GraphQLTaggedNode,
     data
   );
   const pagesData = useMaybeFragment<EntityPagesListDataFragment$key>(
-    linksFragment,
+    linksFragment as GraphQLTaggedNode,
     sourceEntity?.pages
   );
   /* eslint-enable max-len */
@@ -89,7 +90,7 @@ function EntityPagesList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, EntityPagesListDataFragment, Node>
+    <ModelListPage<T, EntityPagesListDataFragment$data, Node>
       modelName={"page"}
       columns={columns}
       data={pagesData}
@@ -106,7 +107,7 @@ interface EntityPagesListProps
   data?: EntityPagesListFragment$key | null;
 }
 
-type Node = EntityPagesListDataFragment["edges"][number]["node"];
+type Node = EntityPagesListDataFragment$data["edges"][number]["node"];
 
 const linksFragment = graphql`
   fragment EntityPagesListDataFragment on PageConnection {

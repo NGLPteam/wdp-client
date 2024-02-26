@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<1f561220ed2ba528bf659b2139fdad29>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SearchLayoutFragment = {
-    readonly search: {
-        readonly " $fragmentRefs": FragmentRefs<"SearchResultListFragment">;
-    };
-    readonly " $refType": "SearchLayoutFragment";
+export type SearchLayoutFragment$data = {
+  readonly search: {
+    readonly " $fragmentSpreads": FragmentRefs<"SearchResultListFragment">;
+  };
+  readonly " $fragmentType": "SearchLayoutFragment";
 };
-export type SearchLayoutFragment$data = SearchLayoutFragment;
 export type SearchLayoutFragment$key = {
-    readonly " $data"?: SearchLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SearchLayoutFragment">;
+  readonly " $data"?: SearchLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -103,5 +105,7 @@ const node: ReaderFragment = {
   "type": "Searchable",
   "abstractKey": "__isSearchable"
 };
-(node as any).hash = '6a8b538162f3c7c3ffae01ec3db7edff';
+
+(node as any).hash = "6a8b538162f3c7c3ffae01ec3db7edff";
+
 export default node;

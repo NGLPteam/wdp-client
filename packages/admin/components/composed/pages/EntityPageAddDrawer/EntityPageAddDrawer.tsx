@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import EntityPageAddForm from "components/composed/pages/EntityPageAddForm";
 import Drawer from "components/layout/Drawer";
 import { QueryWrapper } from "components/api";

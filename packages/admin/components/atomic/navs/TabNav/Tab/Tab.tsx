@@ -1,5 +1,4 @@
 import React, { forwardRef } from "react";
-import { MaybeButtonOrLinkRef } from "@castiron/common-types";
 import * as Styled from "./Tab.styles";
 
 type BaseProps = React.ComponentProps<typeof Styled.Tab>;
@@ -11,10 +10,9 @@ const Tab = (
     size = "md",
     bottomBorder = false,
     as = "a",
-    icon,
     ...props
   }: Props & BaseProps,
-  ref: MaybeButtonOrLinkRef
+  ref?: React.LegacyRef<HTMLAnchorElement>
 ) => {
   return (
     <Styled.Tab
@@ -35,6 +33,8 @@ interface Props {
   children?: string | React.ReactNode;
   size?: "md" | "lg";
   bottomBorder?: boolean;
+  as?: "a" | "button";
+  icon?: string;
 }
 
 export default forwardRef(Tab);

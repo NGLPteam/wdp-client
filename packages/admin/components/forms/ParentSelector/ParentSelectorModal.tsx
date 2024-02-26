@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import type { DialogState } from "reakit/Dialog";
 import * as Styled from "./ParentSelector.styles";
 import Modal from "components/layout/Modal";

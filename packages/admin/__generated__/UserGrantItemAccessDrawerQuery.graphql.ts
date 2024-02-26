@@ -1,35 +1,27 @@
+/**
+ * @generated SignedSource<<6c9dab88f9f27c94173639b946d50675>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
-export type UserGrantItemAccessDrawerQueryVariables = {
-    slug: string;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type UserGrantItemAccessDrawerQuery$variables = {
+  slug: string;
 };
-export type UserGrantItemAccessDrawerQueryResponse = {
-    readonly user: {
-        readonly id: string;
-        readonly name: string | null;
-    } | null;
+export type UserGrantItemAccessDrawerQuery$data = {
+  readonly user: {
+    readonly id: string;
+    readonly name: string | null | undefined;
+  } | null | undefined;
 };
 export type UserGrantItemAccessDrawerQuery = {
-    readonly response: UserGrantItemAccessDrawerQueryResponse;
-    readonly variables: UserGrantItemAccessDrawerQueryVariables;
+  response: UserGrantItemAccessDrawerQuery$data;
+  variables: UserGrantItemAccessDrawerQuery$variables;
 };
-
-
-
-/*
-query UserGrantItemAccessDrawerQuery(
-  $slug: Slug!
-) {
-  user(slug: $slug) {
-    id
-    name
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -99,5 +91,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'd0d6359140c4b94da464948912273332';
+
+(node as any).hash = "d0d6359140c4b94da464948912273332";
+
 export default node;

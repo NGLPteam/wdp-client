@@ -1,10 +1,6 @@
 import { useReducer } from "react";
 import type { Dispatch, Reducer } from "react";
-import type {
-  FieldValues,
-  UseFormReturn,
-  UnpackNestedValue,
-} from "react-hook-form";
+import type { FieldValues, UseFormReturn } from "react-hook-form";
 import type { MutationParameters } from "relay-runtime";
 
 import { ErrorMap, MutationName } from "./types";
@@ -101,7 +97,7 @@ type Action<
   M extends MutationParameters,
   T extends FieldValues = FieldValues
 > =
-  | { type: "submit"; variables: M["variables"]; values: UnpackNestedValue<T> }
+  | { type: "submit"; variables: M["variables"]; values: T }
   | { type: "clear" }
   | { type: "success"; response: M["response"] }
   | { type: "failure"; errors: ErrorMap<T> }
@@ -151,7 +147,7 @@ interface State<
   /**
    * A copy of the last-submitted form values
    */
-  values?: UnpackNestedValue<T>;
+  values?: T;
 
   /**
    * A copy of the last-submitted mutation variables

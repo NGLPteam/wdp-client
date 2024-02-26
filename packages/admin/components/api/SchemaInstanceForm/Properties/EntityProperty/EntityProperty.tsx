@@ -23,9 +23,15 @@ export default function EntityProperty(props: Props) {
     }));
   }, [field]);
 
-  const handleChange = useCallback((e, onChange) => {
-    onChange(e.target.value || undefined);
-  }, []);
+  const handleChange = useCallback(
+    (
+      e: React.ChangeEvent<HTMLSelectElement>,
+      onChange: (val?: string) => void
+    ) => {
+      onChange(e.target.value || undefined);
+    },
+    []
+  );
 
   return (
     <ScalarProperty field={field}>
@@ -39,7 +45,9 @@ export default function EntityProperty(props: Props) {
               required={required}
               options={options}
               isWide={isWide}
-              onChange={(value: string) => handleChange(value, onChange)}
+              onChange={(value: React.ChangeEvent<HTMLSelectElement>) =>
+                handleChange(value, onChange)
+              }
               placeholder={
                 required ? undefined : t("forms.fields.select_placeholder")
               }

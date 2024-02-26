@@ -42,7 +42,7 @@ export default class AppDocument extends Document<Props> {
         enhanceComponent: (Component) => (props) => {
           return (
             <RelayEnvironmentProvider environment={env}>
-              <StyleSheetManager sheet={sheet.instance} disableVendorPrefixes>
+              <StyleSheetManager sheet={sheet.instance}>
                 <AppBody>
                   <Component {...props} />
                 </AppBody>

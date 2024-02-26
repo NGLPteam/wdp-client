@@ -1,33 +1,35 @@
+/**
+ * @generated SignedSource<<17036e9ae7d031d63aca7e2ee8cf06a7>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CommunityListFragment = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly slug: string;
-            readonly id: string;
-            readonly createdAt: string;
-            readonly updatedAt: string;
-            readonly name: string;
-            readonly allowedActions: ReadonlyArray<string>;
-            readonly position: number | null;
-            readonly " $fragmentRefs": FragmentRefs<"CommunityNameColumnFragment">;
-        };
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "CommunityListFragment";
+export type CommunityListFragment$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly allowedActions: ReadonlyArray<string>;
+      readonly createdAt: string;
+      readonly id: string;
+      readonly name: string;
+      readonly position: number | null | undefined;
+      readonly slug: string;
+      readonly updatedAt: string;
+      readonly " $fragmentSpreads": FragmentRefs<"CommunityNameColumnFragment">;
+    };
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "CommunityListFragment";
 };
-export type CommunityListFragment$data = CommunityListFragment;
 export type CommunityListFragment$key = {
-    readonly " $data"?: CommunityListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityListFragment">;
+  readonly " $data"?: CommunityListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityListFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -109,7 +111,9 @@ return {
               "selections": [
                 (v1/*: any*/),
                 (v0/*: any*/)
-              ]
+              ],
+              "args": null,
+              "argumentDefinitions": []
             }
           ],
           "storageKey": null
@@ -127,5 +131,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'cc27900d4befec6d8dc73111206a4f2e';
+
+(node as any).hash = "cc27900d4befec6d8dc73111206a4f2e";
+
 export default node;

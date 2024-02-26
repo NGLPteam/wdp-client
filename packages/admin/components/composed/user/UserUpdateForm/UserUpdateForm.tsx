@@ -1,4 +1,5 @@
-import { graphql, useFragment } from "react-relay";
+import { graphql } from "relay-runtime";
+import { useFragment } from "relay-hooks";
 import { UserUpdateFormFragment$key } from "@/relay/UserUpdateFormFragment.graphql";
 import type {
   UpdateUserInput as Input,

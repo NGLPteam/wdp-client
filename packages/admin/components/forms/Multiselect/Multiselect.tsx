@@ -5,7 +5,12 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  DragUpdate,
+} from "react-beautiful-dnd";
 import type { DraggingStyle, NotDraggingStyle } from "react-beautiful-dnd";
 import { useCombobox, useMultipleSelection } from "downshift";
 import BaseInputWrapper from "../BaseInputWrapper";
@@ -87,7 +92,6 @@ function Multiselect<T extends Record<string, unknown>>(
     getLabelProps,
     getMenuProps,
     getInputProps,
-    getComboboxProps,
     getItemProps,
   } = useCombobox({
     inputValue,
@@ -125,7 +129,7 @@ function Multiselect<T extends Record<string, unknown>>(
   );
 
   const handleDragEnd = useCallback(
-    ({ destination, source }) => {
+    ({ destination, source }: DragUpdate) => {
       if (!destination || !source || destination.index === source.index) return;
       onDragEnd(source.index, destination.index);
     },
@@ -170,7 +174,7 @@ function Multiselect<T extends Record<string, unknown>>(
       isWide={isWide}
     >
       <>
-        <Styled.InputWrapper {...getComboboxProps()}>
+        <Styled.InputWrapper>
           {/* Hidden input field for react-hook-form or other form control */}
           <HiddenMultiselect<T>
             ref={ref}
@@ -195,7 +199,6 @@ function Multiselect<T extends Record<string, unknown>>(
           <Styled.List {...getMenuProps()} open={isOpen}>
             {getFilteredOptions().map((item, index) => (
               <Styled.ListItem
-                key={`item${index}`}
                 {...getItemProps({ key: `item${index}`, index, item })}
               >
                 {item.node || item.label}

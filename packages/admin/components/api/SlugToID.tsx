@@ -1,6 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import React, { useCallback } from "react";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import type { GraphQLTaggedNode, OperationType } from "relay-runtime";
 
 import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";

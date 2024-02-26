@@ -2,7 +2,7 @@
 import groupBy from "lodash/groupBy";
 import transform from "lodash/transform";
 
-import { readInlineData } from "react-relay";
+import { readInlineData } from "relay-runtime";
 import type { FieldValues, Path } from "react-hook-form";
 import type { GraphQLTaggedNode } from "relay-runtime";
 
@@ -12,7 +12,7 @@ import type {
   RemappedAttributeError,
 } from "./types";
 import {
-  MutationForm_mutationErrors,
+  MutationForm_mutationErrors$data,
   MutationForm_mutationErrors$key,
 } from "@/relay/MutationForm_mutationErrors.graphql";
 
@@ -39,7 +39,7 @@ export function extractErrors<T extends FieldValues = FieldValues>(
 }
 
 function transformAttributeErrors<T extends FieldValues = FieldValues>(
-  errors: MutationForm_mutationErrors["attributeErrors"]
+  errors: MutationForm_mutationErrors$data["attributeErrors"]
 ): RemappedAttributeError<T>[] {
   const grouped = groupBy(errors, "path");
 

@@ -1,34 +1,36 @@
+/**
+ * @generated SignedSource<<190345f44fbfed2c000b85d2441e0c04>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ContributorUpdatePersonFormFieldsFragment = {
-    readonly givenName?: string | null | undefined;
-    readonly familyName?: string | null | undefined;
-    readonly title?: string | null | undefined;
-    readonly email?: string | null | undefined;
-    readonly affiliation?: string | null | undefined;
-    readonly bio?: string | null | undefined;
-    readonly orcid?: string | null | undefined;
-    readonly image?: {
-        readonly " $fragmentRefs": FragmentRefs<"FileUploadFragment">;
-    } | undefined;
-    readonly links?: ReadonlyArray<{
-        readonly title: string;
-        readonly url: string;
-    }> | undefined;
-    readonly " $refType": "ContributorUpdatePersonFormFieldsFragment";
+export type ContributorUpdatePersonFormFieldsFragment$data = {
+  readonly affiliation?: string | null | undefined;
+  readonly bio?: string | null | undefined;
+  readonly email?: string | null | undefined;
+  readonly familyName?: string | null | undefined;
+  readonly givenName?: string | null | undefined;
+  readonly image?: {
+    readonly " $fragmentSpreads": FragmentRefs<"FileUploadFragment">;
+  };
+  readonly links?: ReadonlyArray<{
+    readonly title: string;
+    readonly url: string;
+  }>;
+  readonly orcid?: string | null | undefined;
+  readonly title?: string | null | undefined;
+  readonly " $fragmentType": "ContributorUpdatePersonFormFieldsFragment";
 };
-export type ContributorUpdatePersonFormFieldsFragment$data = ContributorUpdatePersonFormFieldsFragment;
 export type ContributorUpdatePersonFormFieldsFragment$key = {
-    readonly " $data"?: ContributorUpdatePersonFormFieldsFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContributorUpdatePersonFormFieldsFragment">;
+  readonly " $data"?: ContributorUpdatePersonFormFieldsFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributorUpdatePersonFormFieldsFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -134,5 +136,7 @@ return {
   "abstractKey": "__isAnyContributor"
 };
 })();
-(node as any).hash = 'b9e3acbb91341d96ec0c2bcb75e52f10';
+
+(node as any).hash = "b9e3acbb91341d96ec0c2bcb75e52f10";
+
 export default node;

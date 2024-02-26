@@ -55,7 +55,8 @@ function RoleAccessList<T extends OperationType>({
               : { slug, inherited: true },
           }}
           passHref
-          legacyBehavior>
+          legacyBehavior
+        >
           <ButtonControl as="a">
             {t(
               `actions.${

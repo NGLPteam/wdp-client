@@ -1,6 +1,6 @@
 /** This context is for wrapping all app wide contexts */
 
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
 import { GlobalContextProvider } from "./GlobalContext";
 import { PageContextProvider, ViewerContextProvider } from "contexts";

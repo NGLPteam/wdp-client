@@ -1,25 +1,27 @@
+/**
+ * @generated SignedSource<<be0eb55c873987e50197da2442a4d1c1>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CommunityLayoutFragment = {
-    readonly id: string;
-    readonly name: string;
-    readonly slug: string;
-    readonly allowedActions: ReadonlyArray<string>;
-    readonly " $fragmentRefs": FragmentRefs<"useChildRouteLinksFragment">;
-    readonly " $refType": "CommunityLayoutFragment";
+export type CommunityLayoutFragment$data = {
+  readonly allowedActions: ReadonlyArray<string>;
+  readonly id: string;
+  readonly name: string;
+  readonly slug: string;
+  readonly " $fragmentSpreads": FragmentRefs<"useChildRouteLinksFragment">;
+  readonly " $fragmentType": "CommunityLayoutFragment";
 };
-export type CommunityLayoutFragment$data = CommunityLayoutFragment;
 export type CommunityLayoutFragment$key = {
-    readonly " $data"?: CommunityLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutFragment">;
+  readonly " $data"?: CommunityLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -64,5 +66,7 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = '98066e304b4ac8e327f91473228304e0';
+
+(node as any).hash = "98066e304b4ac8e327f91473228304e0";
+
 export default node;

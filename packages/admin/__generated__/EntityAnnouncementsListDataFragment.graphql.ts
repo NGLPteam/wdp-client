@@ -1,29 +1,31 @@
+/**
+ * @generated SignedSource<<1fc729429af1305c6bb5ce62d4f9df7a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityAnnouncementsListDataFragment = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly id: string;
-            readonly slug: string;
-            readonly header: string;
-            readonly publishedOn: string;
-        };
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "EntityAnnouncementsListDataFragment";
+export type EntityAnnouncementsListDataFragment$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly header: string;
+      readonly id: string;
+      readonly publishedOn: string;
+      readonly slug: string;
+    };
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "EntityAnnouncementsListDataFragment";
 };
-export type EntityAnnouncementsListDataFragment$data = EntityAnnouncementsListDataFragment;
 export type EntityAnnouncementsListDataFragment$key = {
-    readonly " $data"?: EntityAnnouncementsListDataFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementsListDataFragment">;
+  readonly " $data"?: EntityAnnouncementsListDataFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityAnnouncementsListDataFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -90,5 +92,7 @@ const node: ReaderFragment = {
   "type": "AnnouncementConnection",
   "abstractKey": null
 };
-(node as any).hash = 'bd51240a0d61ebc06f83b588b1221275';
+
+(node as any).hash = "bd51240a0d61ebc06f83b588b1221275";
+
 export default node;

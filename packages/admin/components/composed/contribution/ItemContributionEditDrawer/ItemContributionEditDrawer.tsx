@@ -1,13 +1,13 @@
 import { useTranslation } from "react-i18next";
 import type { DialogProps } from "reakit/Dialog";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { useDrawerHelper, useDestroyer } from "hooks";
 import { QueryWrapper } from "components/api";
 import Drawer from "components/layout/Drawer";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
 import type {
   ItemContributionEditDrawerQuery as Query,
-  ItemContributionEditDrawerQueryResponse as Response,
+  ItemContributionEditDrawerQuery$data as Response,
 } from "__generated__/ItemContributionEditDrawerQuery.graphql";
 import ContributionUpdateForm from "components/composed/contribution/ContributionUpdateForm";
 

@@ -1,104 +1,57 @@
+/**
+ * @generated SignedSource<<0ac3cbe13a06cf0d06469c1bb1def488>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateViewerSettingsInput = {
-    avatar?: UploadedFileInput | null | undefined;
-    avatarMetadata?: ImageMetadataInput | null | undefined;
-    clearAvatar?: boolean | null | undefined;
-    profile: UserProfileInput;
-    clientMutationId?: string | null | undefined;
+  avatar?: UploadedFileInput | null | undefined;
+  avatarMetadata?: ImageMetadataInput | null | undefined;
+  clearAvatar?: boolean | null | undefined;
+  clientMutationId?: string | null | undefined;
+  profile: UserProfileInput;
 };
 export type UploadedFileInput = {
-    id: unknown;
-    storage?: UploadStorage | null | undefined;
-    metadata?: UploadedFileMetadataInput | null | undefined;
+  id: any;
+  metadata?: UploadedFileMetadataInput | null | undefined;
+  storage?: UploadStorage | null | undefined;
 };
 export type UploadedFileMetadataInput = {
-    alt?: string | null | undefined;
-    filename?: string | null | undefined;
-    mimeType?: string | null | undefined;
+  alt?: string | null | undefined;
+  filename?: string | null | undefined;
+  mimeType?: string | null | undefined;
 };
 export type ImageMetadataInput = {
-    alt?: string | null | undefined;
+  alt?: string | null | undefined;
 };
 export type UserProfileInput = {
-    givenName: string;
-    familyName: string;
-    email: string;
-    username: string;
+  email: string;
+  familyName: string;
+  givenName: string;
+  username: string;
 };
-export type UserProfileUpdateFormMutationVariables = {
-    input: UpdateViewerSettingsInput;
+export type UserProfileUpdateFormMutation$variables = {
+  input: UpdateViewerSettingsInput;
 };
-export type UserProfileUpdateFormMutationResponse = {
-    readonly updateViewerSettings: {
-        readonly user: {
-            readonly " $fragmentRefs": FragmentRefs<"UserProfileUpdateFormFragment">;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
-    } | null;
+export type UserProfileUpdateFormMutation$data = {
+  readonly updateViewerSettings: {
+    readonly user: {
+      readonly " $fragmentSpreads": FragmentRefs<"UserProfileUpdateFormFragment">;
+    } | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null | undefined;
 };
 export type UserProfileUpdateFormMutation = {
-    readonly response: UserProfileUpdateFormMutationResponse;
-    readonly variables: UserProfileUpdateFormMutationVariables;
+  response: UserProfileUpdateFormMutation$data;
+  variables: UserProfileUpdateFormMutation$variables;
 };
-
-
-
-/*
-mutation UserProfileUpdateFormMutation(
-  $input: UpdateViewerSettingsInput!
-) {
-  updateViewerSettings(input: $input) {
-    user {
-      ...UserProfileUpdateFormFragment
-      id
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment FileUploadFragment on ImageAttachment {
-  originalFilename
-  storage
-  thumb {
-    png {
-      alt
-      url
-    }
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-
-fragment UserProfileUpdateFormFragment on User {
-  givenName
-  familyName
-  email
-  username
-  avatar {
-    ...FileUploadFragment
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -219,7 +172,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v3/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -365,5 +320,7 @@ return {
   }
 };
 })();
-(node as any).hash = '90c10ed112ea0cf866fbf2076a6452a6';
+
+(node as any).hash = "90c10ed112ea0cf866fbf2076a6452a6";
+
 export default node;

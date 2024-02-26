@@ -3,7 +3,6 @@ import type {
   FieldValues,
   MultipleFieldErrors,
   Path,
-  UnpackNestedValue,
   UseFormReturn,
   ValidateResult,
 } from "react-hook-form";
@@ -34,7 +33,7 @@ export type HasSchemaErrorFragment = MutationForm_schemaErrors$key;
 export type IsSuccessPredicate<
   M extends MutationParameters,
   T extends FieldValues
-> = (response: M["response"], data: UnpackNestedValue<T>) => boolean;
+> = (response: M["response"], data: T) => boolean;
 
 export type OnFailureCallback<
   M extends MutationParameters,
@@ -48,7 +47,7 @@ interface OnFailureResponse<
   errors: ErrorMap<T>;
   response: M["response"];
   variables: M["variables"];
-  values: UnpackNestedValue<T>;
+  values: T;
   setError: UseFormSetError<T>;
 }
 
@@ -63,7 +62,7 @@ interface OnSuccessResponse<
 > {
   response: M["response"];
   variables: M["variables"];
-  values: UnpackNestedValue<T>;
+  values: T;
 }
 
 /**
@@ -81,9 +80,8 @@ export type MutationName<M extends MutationParameters> = {
 }[keyof M["response"]];
 
 // eslint-disable-next-line prettier/prettier
-export type PayloadWithErrors<
-  M extends MutationParameters
-> = M["response"][MutationName<M>] & MutationForm_mutationErrors$key;
+export type PayloadWithErrors<M extends MutationParameters> =
+  M["response"][MutationName<M>] & MutationForm_mutationErrors$key;
 
 interface PayloadFragments {
   __fragments?: {
@@ -92,9 +90,9 @@ interface PayloadFragments {
 }
 
 // eslint-disable-next-line prettier/prettier
-export type PayloadWithFragments<
-  M extends MutationParameters
-> = M["response"][MutationName<M>] & PayloadFragments;
+export type PayloadWithFragments<M extends MutationParameters> = NonNullable<
+  M["response"][MutationName<M>] & PayloadFragments
+>;
 
 interface RemappedAttributeError<T> {
   path: Path<T>;
@@ -142,7 +140,7 @@ interface RenderFormProps<T extends FieldValues = FieldValues> {
 export type VariableTransformer<
   M extends MutationParameters,
   T extends FieldValues = FieldValues
-> = (data: UnpackNestedValue<T>) => M["variables"];
+> = (data: T) => M["variables"];
 
 interface RequiresToVariables<
   M extends MutationParameters,

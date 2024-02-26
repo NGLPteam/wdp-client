@@ -4,7 +4,6 @@ import type {
   DefaultValues,
   FieldValues,
   SubmitHandler,
-  UnpackNestedValue,
   UseFormReturn,
 } from "react-hook-form";
 
@@ -115,6 +114,4 @@ type RenderProps<T extends FieldValues> = (props: {
   form: UseFormReturn<T>;
 }) => JSX.Element;
 
-type OnSubmitCallback<T extends FieldValues = FieldValues> = (
-  data: UnpackNestedValue<T>
-) => void;
+type OnSubmitCallback<T extends FieldValues = FieldValues> = (data: T) => void;

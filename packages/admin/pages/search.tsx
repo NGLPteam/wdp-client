@@ -1,4 +1,4 @@
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { QueryWrapper } from "components/api";
 import { useIsAuthenticated, useSearchQueryVars } from "hooks";
 import { searchQuery as Query } from "__generated__/searchQuery.graphql";

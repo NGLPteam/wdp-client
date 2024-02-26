@@ -1,66 +1,32 @@
+/**
+ * @generated SignedSource<<e09f81556b2f77edf58e282213b0cf34>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type DestroyContributorInput = {
-    contributorId: string;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null | undefined;
+  contributorId: string;
 };
-export type useDestroyerDestroyContributorMutationVariables = {
-    input: DestroyContributorInput;
+export type useDestroyerDestroyContributorMutation$variables = {
+  input: DestroyContributorInput;
 };
-export type useDestroyerDestroyContributorMutationResponse = {
-    readonly destroyContributor: {
-        readonly destroyedId: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"useDestroyerFragment">;
-    } | null;
+export type useDestroyerDestroyContributorMutation$data = {
+  readonly destroyContributor: {
+    readonly destroyedId: string | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"useDestroyerFragment">;
+  } | null | undefined;
 };
 export type useDestroyerDestroyContributorMutation = {
-    readonly response: useDestroyerDestroyContributorMutationResponse;
-    readonly variables: useDestroyerDestroyContributorMutationVariables;
+  response: useDestroyerDestroyContributorMutation$data;
+  variables: useDestroyerDestroyContributorMutation$variables;
 };
-
-
-
-/*
-mutation useDestroyerDestroyContributorMutation(
-  $input: DestroyContributorInput!
-) {
-  destroyContributor(input: $input) {
-    destroyedId
-    ...useDestroyerFragment
-  }
-}
-
-fragment useDestroyerFragment on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  ... on DestroyMutationPayload {
-    __isDestroyMutationPayload: __typename
-    destroyed
-    globalErrors {
-      message
-      type
-    }
-  }
-  ... on RevokeAccessPayload {
-    revoked
-    globalErrors {
-      message
-      type
-    }
-  }
-  ... on DestroyOrderingPayload {
-    disabled
-    globalErrors {
-      message
-      type
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -182,7 +148,9 @@ return {
             "name": "useDestroyerFragment",
             "selections": [
               (v4/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -231,5 +199,7 @@ return {
   }
 };
 })();
-(node as any).hash = '8ffa39aa65dde067a52bbf0d8dd6bf32';
+
+(node as any).hash = "8ffa39aa65dde067a52bbf0d8dd6bf32";
+
 export default node;

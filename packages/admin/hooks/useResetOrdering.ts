@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useMutation } from "relay-hooks";
 import { useTranslation } from "react-i18next";
-import { graphql, readInlineData } from "react-relay";
+import { graphql, readInlineData } from "relay-runtime";
 import { useNotify, usePageContext } from "hooks";
 
 import type { useResetOrderingFragment$key } from "@/relay/useResetOrderingFragment.graphql";
@@ -15,7 +15,7 @@ export function useResetOrdering() {
 
   const handleResponse = useCallback(
     (
-      data: useResetOrderingFragment$key | null,
+      data: useResetOrderingFragment$key | null | undefined,
       name: string,
       refetchTags: string[]
     ) => {

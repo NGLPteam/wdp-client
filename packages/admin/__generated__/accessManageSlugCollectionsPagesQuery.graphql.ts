@@ -1,244 +1,28 @@
+/**
+ * @generated SignedSource<<ad0d48ca15f83bacbbad6c67f9c0ae92>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type accessManageSlugCollectionsPagesQueryVariables = {
-    collectionSlug: string;
-    page: number;
+export type accessManageSlugCollectionsPagesQuery$variables = {
+  collectionSlug: string;
+  page: number;
 };
-export type accessManageSlugCollectionsPagesQueryResponse = {
-    readonly collection: {
-        readonly " $fragmentRefs": FragmentRefs<"CollectionLayoutQueryFragment" | "RoleAccessListFragment">;
-    } | null;
+export type accessManageSlugCollectionsPagesQuery$data = {
+  readonly collection: {
+    readonly " $fragmentSpreads": FragmentRefs<"CollectionLayoutQueryFragment" | "RoleAccessListFragment">;
+  } | null | undefined;
 };
 export type accessManageSlugCollectionsPagesQuery = {
-    readonly response: accessManageSlugCollectionsPagesQueryResponse;
-    readonly variables: accessManageSlugCollectionsPagesQueryVariables;
+  response: accessManageSlugCollectionsPagesQuery$data;
+  variables: accessManageSlugCollectionsPagesQuery$variables;
 };
-
-
-
-/*
-query accessManageSlugCollectionsPagesQuery(
-  $collectionSlug: Slug!
-  $page: Int!
-) {
-  collection(slug: $collectionSlug) {
-    ...CollectionLayoutQueryFragment
-    ...RoleAccessListFragment
-    id
-  }
-}
-
-fragment AuthContextFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-
-fragment AvatarFragment on ImageAttachment {
-  storage
-  small {
-    webp {
-      ...ImageFragment
-    }
-  }
-}
-
-fragment CollectionLayoutFragment on Collection {
-  title
-  slug
-  id
-  ...useBreadcrumbsFragment
-  ...useChildRouteLinksFragment
-}
-
-fragment CollectionLayoutQueryFragment on Collection {
-  ...CollectionLayoutFragment
-  ...AuthContextFragment
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment RoleAccessGrantsListDataFragment on AnyAccessGrantConnection {
-  edges {
-    node {
-      __typename
-      ... on UserCollectionAccessGrant {
-        id
-        slug
-        role {
-          id
-          name
-        }
-        user {
-          id
-          slug
-          name
-          email
-          ...UserNameColumnFragment
-        }
-        entity: collection {
-          id
-        }
-      }
-      ... on UserItemAccessGrant {
-        id
-        slug
-        role {
-          id
-          name
-        }
-        user {
-          id
-          slug
-          name
-          email
-          ...UserNameColumnFragment
-        }
-        entity: item {
-          id
-        }
-      }
-      ... on UserCommunityAccessGrant {
-        id
-        slug
-        role {
-          id
-          name
-        }
-        user {
-          id
-          slug
-          name
-          email
-          ...UserNameColumnFragment
-        }
-        entity: community {
-          id
-        }
-      }
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment RoleAccessGrantsListFragment on Entity {
-  __isEntity: __typename
-  allAccessGrants(page: $page, perPage: 20) {
-    ...RoleAccessGrantsListDataFragment
-  }
-}
-
-fragment RoleAccessListFragment on Entity {
-  __isEntity: __typename
-  ...RoleAccessGrantsListFragment
-  ...RoleAssignedUsersListFragment
-}
-
-fragment RoleAssignedUsersListDataFragment on ContextualPermissionConnection {
-  edges {
-    node {
-      id
-      roles {
-        name
-        id
-      }
-      user {
-        id
-        name
-        email
-        slug
-        ...UserNameColumnCellFragment
-      }
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment RoleAssignedUsersListFragment on Entity {
-  __isEntity: __typename
-  assignedUsers(page: $page, perPage: 20) {
-    ...RoleAssignedUsersListDataFragment
-  }
-}
-
-fragment UserAvatarFragment on User {
-  avatar {
-    ...AvatarFragment
-  }
-}
-
-fragment UserNameColumnCellFragment on User {
-  name
-  slug
-  ...UserAvatarFragment
-}
-
-fragment UserNameColumnFragment on User {
-  ...UserNameColumnCellFragment
-}
-
-fragment useBreadcrumbsFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  breadcrumbs {
-    depth
-    label
-    kind
-    slug
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-}
-
-fragment useChildRouteLinksFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -765,5 +549,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'cda611b77609cdefafdc60796ae1e223';
+
+(node as any).hash = "cda611b77609cdefafdc60796ae1e223";
+
 export default node;

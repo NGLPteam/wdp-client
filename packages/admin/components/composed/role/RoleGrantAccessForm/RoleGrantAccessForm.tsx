@@ -1,6 +1,6 @@
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import MutationForm, { Forms } from "components/api/MutationForm";
-
+import { GraphQLTaggedNode } from "react-relay";
 import type {
   RoleGrantAccessFormMutation as Mutation,
   GrantAccessInput as Fields,
@@ -16,7 +16,7 @@ const RoleGrantAccessForm = ({
   onCancel,
   entityId,
 }: Props) => {
-  const roles = useMaybeFragment(rolesFragment, rolesData);
+  const roles = useMaybeFragment(rolesFragment as GraphQLTaggedNode, rolesData);
 
   const defaultValues = {
     entityId,
