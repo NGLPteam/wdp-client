@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import styled from "styled-components";
-import CICBreadcrumbs from "@castiron/components-breadcrumbs";
+import CICBreadcrumbs from "./CICBreadcrumbs";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { Dropdown } from "components/atomic";
@@ -67,9 +67,12 @@ const BreadcrumbsWrapper = ({
   }, [data, className, t]);
 
   return items ? (
-    <CICBreadcrumbs classes={classes} delimiter={delimiter} {...args}>
-      {items}
-    </CICBreadcrumbs>
+    <CICBreadcrumbs
+      classes={classes}
+      delimiter={delimiter}
+      breadcrumbs={items}
+      {...args}
+    />
   ) : null;
 };
 

@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@castiron/common-types": "^2.0.1",
-    "@castiron/components-breadcrumbs": "1.0.0",
     "@castiron/components-pagination": "^2.0.2",
     "@castiron/hooks": "^1.2.1-alpha.0",
     "@castiron/style-mixins": "^1.0.0",
