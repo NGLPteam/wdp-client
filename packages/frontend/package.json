@@ -60,8 +60,7 @@
     "relay-hooks": "^9.0.0",
     "relay-runtime": "^16.2.0",
     "relay-test-utils": "^16.2.0",
-    "styled-components": "^6.1.8",
-    "webpack": ">=2"
+    "styled-components": "^6.1.8"
   },
   "devDependencies": {
     "@castiron/common-types": "^2.0.1",
