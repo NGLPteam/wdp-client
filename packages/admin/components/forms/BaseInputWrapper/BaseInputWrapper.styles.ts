@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{
+  css?: Record<string, string> | boolean | undefined;
+}>`
   display: flex;
   flex-direction: column;
   flex-basis: var(--form-grid-item-width);

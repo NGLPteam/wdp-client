@@ -9,12 +9,6 @@ npm run dev # to start dev client
 
 That's it! Now go to http://localhost:3000/
 
-### Storybook
-
-```sh
-npm run storybook
-```
-
 ### Client architecture
 
 - `/pages` — a single component that dynamically generates static pages for all routes.
