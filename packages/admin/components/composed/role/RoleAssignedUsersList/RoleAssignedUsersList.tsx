@@ -9,7 +9,7 @@ import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import {
-  RoleAssignedUsersListDataFragment,
+  RoleAssignedUsersListDataFragment$data,
   RoleAssignedUsersListDataFragment$key,
 } from "@/relay/RoleAssignedUsersListDataFragment.graphql";
 import UserNameColumnCell from "components/composed/model/ModelColumns/UserNameColumnCell";
@@ -60,7 +60,7 @@ function RoleAssignedUsersList<T extends OperationType>({
   ];
 
   return (
-    <ModelListPage<T, RoleAssignedUsersListDataFragment, Node>
+    <ModelListPage<T, RoleAssignedUsersListDataFragment$data, Node>
       modelName="role"
       columns={columns}
       data={users}
@@ -77,7 +77,7 @@ interface RoleAssignedUsersListProps
   header?: string;
 }
 
-type Node = RoleAssignedUsersListDataFragment["edges"][number]["node"];
+type Node = RoleAssignedUsersListDataFragment$data["edges"][number]["node"];
 
 const fragment = graphql`
   fragment RoleAssignedUsersListFragment on Entity {

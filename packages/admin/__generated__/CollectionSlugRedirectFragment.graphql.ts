@@ -1,31 +1,33 @@
+/**
+ * @generated SignedSource<<eb1f38dfe1699f723ba7e8ac432f7e47>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CollectionSlugRedirectFragment = {
-    readonly slug: string;
-    readonly collections: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
+export type CollectionSlugRedirectFragment$data = {
+  readonly collections: {
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly items: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
+  };
+  readonly items: {
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly " $refType": "CollectionSlugRedirectFragment";
+  };
+  readonly slug: string;
+  readonly " $fragmentType": "CollectionSlugRedirectFragment";
 };
-export type CollectionSlugRedirectFragment$data = CollectionSlugRedirectFragment;
 export type CollectionSlugRedirectFragment$key = {
-    readonly " $data"?: CollectionSlugRedirectFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CollectionSlugRedirectFragment">;
+  readonly " $data"?: CollectionSlugRedirectFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CollectionSlugRedirectFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -86,5 +88,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '339d07584a301e80ffd37612e4320d8b';
+
+(node as any).hash = "339d07584a301e80ffd37612e4320d8b";
+
 export default node;

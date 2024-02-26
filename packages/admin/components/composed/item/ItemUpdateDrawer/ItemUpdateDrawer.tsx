@@ -1,6 +1,6 @@
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import Drawer from "components/layout/Drawer";
 import { RouteHelper } from "routes";
 import { useDrawerHelper, useDestroyer } from "hooks";
@@ -10,7 +10,7 @@ import ItemUpdateForm from "components/composed/item/ItemUpdateForm";
 
 import type {
   ItemUpdateDrawerQuery as Query,
-  ItemUpdateDrawerQueryResponse as Response,
+  ItemUpdateDrawerQuery$data as Response,
 } from "__generated__/ItemUpdateDrawerQuery.graphql";
 
 export default function ItemUpdateDrawer({

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useFragment } from "react-relay";
+import { useFragment } from "relay-hooks";
 import { graphql } from "relay-runtime";
 import isEmpty from "lodash/isEmpty";
 import * as Styled from "./SetIntitialOrderingModal.styles";
@@ -102,7 +102,7 @@ const fragment = graphql`
     ... on Item {
       id
       title
-      orderings {
+      orderings(page: $page) {
         edges {
           node {
             id
@@ -115,7 +115,7 @@ const fragment = graphql`
     ... on Collection {
       id
       title
-      orderings {
+      orderings(page: $page) {
         edges {
           node {
             id

@@ -1,58 +1,27 @@
+/**
+ * @generated SignedSource<<92cc34d349ac911892e53d148669adea>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type rolesManageSlugCommunitiesPagesQueryVariables = {
-    communitySlug: string;
+export type rolesManageSlugCommunitiesPagesQuery$variables = {
+  communitySlug: string;
 };
-export type rolesManageSlugCommunitiesPagesQueryResponse = {
-    readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"CommunityLayoutQueryFragment">;
-    } | null;
+export type rolesManageSlugCommunitiesPagesQuery$data = {
+  readonly community: {
+    readonly " $fragmentSpreads": FragmentRefs<"CommunityLayoutQueryFragment">;
+  } | null | undefined;
 };
 export type rolesManageSlugCommunitiesPagesQuery = {
-    readonly response: rolesManageSlugCommunitiesPagesQueryResponse;
-    readonly variables: rolesManageSlugCommunitiesPagesQueryVariables;
+  response: rolesManageSlugCommunitiesPagesQuery$data;
+  variables: rolesManageSlugCommunitiesPagesQuery$variables;
 };
-
-
-
-/*
-query rolesManageSlugCommunitiesPagesQuery(
-  $communitySlug: Slug!
-) {
-  community(slug: $communitySlug) {
-    ...CommunityLayoutQueryFragment
-    id
-  }
-}
-
-fragment AuthContextFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-
-fragment CommunityLayoutFragment on Community {
-  id
-  name
-  slug
-  allowedActions
-  ...useChildRouteLinksFragment
-}
-
-fragment CommunityLayoutQueryFragment on Community {
-  ...CommunityLayoutFragment
-  ...AuthContextFragment
-}
-
-fragment useChildRouteLinksFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -157,5 +126,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'a135771fc903da591a5a7237c5fb8ef2';
+
+(node as any).hash = "a135771fc903da591a5a7237c5fb8ef2";
+
 export default node;

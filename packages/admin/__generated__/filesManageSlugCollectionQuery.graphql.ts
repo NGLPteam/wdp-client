@@ -1,149 +1,31 @@
+/**
+ * @generated SignedSource<<0082868e604aff759611f014fdbb486e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type filesManageSlugCollectionQueryVariables = {
-    collectionSlug: string;
-    page: number;
+export type filesManageSlugCollectionQuery$variables = {
+  collectionSlug: string;
+  page: number;
 };
-export type filesManageSlugCollectionQueryResponse = {
-    readonly collection: {
-        readonly assets: {
-            readonly " $fragmentRefs": FragmentRefs<"FileListFragment">;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"CollectionLayoutQueryFragment">;
-    } | null;
+export type filesManageSlugCollectionQuery$data = {
+  readonly collection: {
+    readonly assets: {
+      readonly " $fragmentSpreads": FragmentRefs<"FileListFragment">;
+    };
+    readonly " $fragmentSpreads": FragmentRefs<"CollectionLayoutQueryFragment">;
+  } | null | undefined;
 };
 export type filesManageSlugCollectionQuery = {
-    readonly response: filesManageSlugCollectionQueryResponse;
-    readonly variables: filesManageSlugCollectionQueryVariables;
+  response: filesManageSlugCollectionQuery$data;
+  variables: filesManageSlugCollectionQuery$variables;
 };
-
-
-
-/*
-query filesManageSlugCollectionQuery(
-  $collectionSlug: Slug!
-  $page: Int!
-) {
-  collection(slug: $collectionSlug) {
-    ...CollectionLayoutQueryFragment
-    assets(page: $page, perPage: 20) {
-      ...FileListFragment
-    }
-    id
-  }
-}
-
-fragment AssetThumbnailColumnFragment on Asset {
-  __isAsset: __typename
-  thumbnail: preview {
-    storage
-    image: medium {
-      png {
-        ...ImageFragment
-      }
-    }
-  }
-}
-
-fragment AuthContextFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-
-fragment CollectionLayoutFragment on Collection {
-  title
-  slug
-  id
-  ...useBreadcrumbsFragment
-  ...useChildRouteLinksFragment
-}
-
-fragment CollectionLayoutQueryFragment on Collection {
-  ...CollectionLayoutFragment
-  ...AuthContextFragment
-}
-
-fragment FileListFragment on AnyAssetConnection {
-  nodes {
-    __typename
-    ... on Asset {
-      __isAsset: __typename
-      id
-      slug
-      kind
-      name
-      downloadUrl
-      ...AssetThumbnailColumnFragment
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment useBreadcrumbsFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  breadcrumbs {
-    depth
-    label
-    kind
-    slug
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-}
-
-fragment useChildRouteLinksFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -221,6 +103,11 @@ return {
         "plural": false,
         "selections": [
           {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "CollectionLayoutQueryFragment"
+          },
+          {
             "alias": null,
             "args": (v2/*: any*/),
             "concreteType": "AnyAssetConnection",
@@ -235,11 +122,6 @@ return {
               }
             ],
             "storageKey": null
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "CollectionLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -523,5 +405,7 @@ return {
   }
 };
 })();
-(node as any).hash = '85545ebf8d7f23426112dc44509d242f';
+
+(node as any).hash = "85545ebf8d7f23426112dc44509d242f";
+
 export default node;

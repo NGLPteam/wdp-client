@@ -1,4 +1,4 @@
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import type { DialogProps } from "reakit/Dialog";
 
@@ -7,8 +7,8 @@ import Drawer from "components/layout/Drawer";
 import RoleGrantAccessForm from "components/composed/role/RoleGrantAccessForm";
 import {
   RoleGrantAccessDrawerQuery as Query,
-  RoleGrantAccessDrawerQueryResponse as Response,
-  RoleGrantAccessDrawerQueryResponse,
+  RoleGrantAccessDrawerQuery$data as Response,
+  RoleGrantAccessDrawerQuery$data,
 } from "@/relay/RoleGrantAccessDrawerQuery.graphql";
 
 // Drawer params required: drawerSlug and drawerEntity
@@ -89,9 +89,9 @@ interface Props {
 }
 
 type EntityData =
-  | RoleGrantAccessDrawerQueryResponse["community"]
-  | RoleGrantAccessDrawerQueryResponse["collection"]
-  | RoleGrantAccessDrawerQueryResponse["item"];
+  | RoleGrantAccessDrawerQuery$data["community"]
+  | RoleGrantAccessDrawerQuery$data["collection"]
+  | RoleGrantAccessDrawerQuery$data["item"];
 
 // This fun little query gets the right id and title depending on the entity type.
 const query = graphql`

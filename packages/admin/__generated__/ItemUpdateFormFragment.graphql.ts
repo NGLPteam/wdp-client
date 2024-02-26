@@ -1,25 +1,27 @@
+/**
+ * @generated SignedSource<<ba69532a20060dbf76439ad2d07cfaa8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ItemUpdateFormFragment = {
-    readonly itemId: string;
-    readonly context: {
-        readonly " $fragmentRefs": FragmentRefs<"useSchemaContextFragment">;
-    };
-    readonly " $fragmentRefs": FragmentRefs<"ParentSelectorFragment" | "ItemUpdateFormFieldsFragment" | "SchemaFormFieldsFragment" | "useSchemaPropertiesFragment">;
-    readonly " $refType": "ItemUpdateFormFragment";
+export type ItemUpdateFormFragment$data = {
+  readonly context: {
+    readonly " $fragmentSpreads": FragmentRefs<"useSchemaContextFragment">;
+  };
+  readonly itemId: string;
+  readonly " $fragmentSpreads": FragmentRefs<"ItemUpdateFormFieldsFragment" | "ParentSelectorFragment" | "SchemaFormFieldsFragment" | "useSchemaPropertiesFragment">;
+  readonly " $fragmentType": "ItemUpdateFormFragment";
 };
-export type ItemUpdateFormFragment$data = ItemUpdateFormFragment;
 export type ItemUpdateFormFragment$key = {
-    readonly " $data"?: ItemUpdateFormFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ItemUpdateFormFragment">;
+  readonly " $data"?: ItemUpdateFormFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ItemUpdateFormFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -33,6 +35,11 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "id",
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ParentSelectorFragment"
     },
     {
       "alias": "context",
@@ -53,11 +60,6 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "ParentSelectorFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
       "name": "ItemUpdateFormFieldsFragment"
     },
     {
@@ -74,5 +76,7 @@ const node: ReaderFragment = {
   "type": "Item",
   "abstractKey": null
 };
-(node as any).hash = 'd12815b3082c43ddb1e4c7cd8f914c48';
+
+(node as any).hash = "d12815b3082c43ddb1e4c7cd8f914c48";
+
 export default node;

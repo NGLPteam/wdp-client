@@ -1,56 +1,35 @@
+/**
+ * @generated SignedSource<<4cf2e85e0ff8c541e7b4371e08924c16>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
-export type CollectionTypeaheadQueryVariables = {
-    query: string;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type CollectionTypeaheadQuery$variables = {
+  query: string;
 };
-export type CollectionTypeaheadQueryResponse = {
-    readonly search: {
-        readonly results: {
-            readonly edges: ReadonlyArray<{
-                readonly node: {
-                    readonly title: string;
-                    readonly entity: {
-                        readonly id?: string | undefined;
-                    };
-                };
-            }>;
+export type CollectionTypeaheadQuery$data = {
+  readonly search: {
+    readonly results: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly entity: {
+            readonly id?: string;
+          };
+          readonly title: string;
         };
+      }>;
     };
+  };
 };
 export type CollectionTypeaheadQuery = {
-    readonly response: CollectionTypeaheadQueryResponse;
-    readonly variables: CollectionTypeaheadQueryVariables;
+  response: CollectionTypeaheadQuery$data;
+  variables: CollectionTypeaheadQuery$variables;
 };
-
-
-
-/*
-query CollectionTypeaheadQuery(
-  $query: String!
-) {
-  search(visibility: ALL) {
-    results(prefix: $query, page: 1, perPage: 50, order: TITLE_ASCENDING, scope: COLLECTION) {
-      edges {
-        node {
-          title
-          entity {
-            __typename
-            ... on Node {
-              __isNode: __typename
-              id
-            }
-          }
-          id
-        }
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -267,5 +246,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'b9a01ea5a462c5bb91396c3c674478ac';
+
+(node as any).hash = "bad77d6a07fbf2d422b23cdaa9278671";
+
 export default node;

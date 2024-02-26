@@ -1,4 +1,5 @@
-import { graphql, useFragment } from "react-relay";
+import { graphql } from "relay-runtime";
+import { useFragment } from "relay-hooks";
 import type { DialogState } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./SchemaSelector.styles";

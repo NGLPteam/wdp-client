@@ -1,90 +1,27 @@
+/**
+ * @generated SignedSource<<bcaeb91bb2cbe7c57c00e8eb716fa2de>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SlugCollectionsPageQueryVariables = {
-    collectionSlug: string;
+export type SlugCollectionsPageQuery$variables = {
+  collectionSlug: string;
 };
-export type SlugCollectionsPageQueryResponse = {
-    readonly collection: {
-        readonly " $fragmentRefs": FragmentRefs<"CollectionLayoutQueryFragment" | "CollectionSlugRedirectFragment">;
-    } | null;
+export type SlugCollectionsPageQuery$data = {
+  readonly collection: {
+    readonly " $fragmentSpreads": FragmentRefs<"CollectionLayoutQueryFragment" | "CollectionSlugRedirectFragment">;
+  } | null | undefined;
 };
 export type SlugCollectionsPageQuery = {
-    readonly response: SlugCollectionsPageQueryResponse;
-    readonly variables: SlugCollectionsPageQueryVariables;
+  response: SlugCollectionsPageQuery$data;
+  variables: SlugCollectionsPageQuery$variables;
 };
-
-
-
-/*
-query SlugCollectionsPageQuery(
-  $collectionSlug: Slug!
-) {
-  collection(slug: $collectionSlug) {
-    ...CollectionLayoutQueryFragment
-    ...CollectionSlugRedirectFragment
-    id
-  }
-}
-
-fragment AuthContextFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-
-fragment CollectionLayoutFragment on Collection {
-  title
-  slug
-  id
-  ...useBreadcrumbsFragment
-  ...useChildRouteLinksFragment
-}
-
-fragment CollectionLayoutQueryFragment on Collection {
-  ...CollectionLayoutFragment
-  ...AuthContextFragment
-}
-
-fragment CollectionSlugRedirectFragment on Collection {
-  slug
-  collections {
-    pageInfo {
-      totalCount
-    }
-  }
-  items {
-    pageInfo {
-      totalCount
-    }
-  }
-}
-
-fragment useBreadcrumbsFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  breadcrumbs {
-    depth
-    label
-    kind
-    slug
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-}
-
-fragment useChildRouteLinksFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -284,5 +221,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'b9287cef6d9ecada81b655f075721888';
+
+(node as any).hash = "b9287cef6d9ecada81b655f075721888";
+
 export default node;

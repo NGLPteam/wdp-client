@@ -1,33 +1,37 @@
+/**
+ * @generated SignedSource<<d90b63552f3886557aa2fbcc3555332b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderInlineDataFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { InlineFragment, ReaderInlineDataFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type PageHeroColumnFragment = {
-    readonly heroImage: {
-        readonly storage: AttachmentStorage | null;
-        readonly small: {
-            readonly webp: {
-                readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
-            };
-        };
+import { FragmentRefs } from "relay-runtime";
+export type PageHeroColumnFragment$data = {
+  readonly heroImage: {
+    readonly small: {
+      readonly webp: {
+        readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
+      };
     };
-    readonly " $refType": "PageHeroColumnFragment";
+    readonly storage: AttachmentStorage | null | undefined;
+  };
+  readonly " $fragmentType": "PageHeroColumnFragment";
 };
-export type PageHeroColumnFragment$data = PageHeroColumnFragment;
 export type PageHeroColumnFragment$key = {
-    readonly " $data"?: PageHeroColumnFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"PageHeroColumnFragment">;
+  readonly " $data"?: PageHeroColumnFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"PageHeroColumnFragment">;
 };
-
-
 
 const node: ReaderInlineDataFragment = {
   "kind": "InlineDataFragment",
   "name": "PageHeroColumnFragment"
 };
-(node as any).hash = '7652a723554e6939d6453de6ffd779ca';
+
+(node as any).hash = "7652a723554e6939d6453de6ffd779ca";
+
 export default node;

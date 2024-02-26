@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import type { DialogState } from "reakit/Dialog";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import get from "lodash/get";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToString";
@@ -18,7 +18,7 @@ const FileCreateModal = ({ dialog, onSuccess }: Props) => {
   const drawerSlug = routeQueryArrayToString(drawerSlugQ);
 
   const handleSuccess = useCallback(
-    (newAssetId) => {
+    (newAssetId: string) => {
       if (onSuccess) onSuccess(newAssetId);
     },
     [onSuccess]
@@ -40,7 +40,7 @@ const FileCreateModal = ({ dialog, onSuccess }: Props) => {
               entityId={data?.item?.id || data?.collection?.id || ""}
               onSuccess={(data) => {
                 const assetId = get(data, "response.createAsset.asset.id");
-                handleSuccess(assetId);
+                handleSuccess(assetId ?? "");
                 handleClose();
               }}
             />

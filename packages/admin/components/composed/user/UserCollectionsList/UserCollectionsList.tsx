@@ -9,7 +9,6 @@ import {
   useRouteSlug,
 } from "hooks";
 import {
-  UserCollectionsListFragment,
   UserCollectionsListFragment$data,
   UserCollectionsListFragment$key,
 } from "@/relay/UserCollectionsListFragment.graphql";
@@ -104,7 +103,7 @@ const UserCollectionsList = <T extends OperationType>({ data }: Props) => {
   );
 
   return communities ? (
-    <ModelListPage<T, UserCollectionsListFragment, Node>
+    <ModelListPage<T, UserCollectionsListFragment$data, Node>
       modelName="role"
       columns={columns}
       data={communities}

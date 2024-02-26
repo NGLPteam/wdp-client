@@ -7,7 +7,9 @@ export default {
   component: NavLink,
 };
 
-const Template: Story<Props> = (args) => <NavLink {...args} />;
+const Template: Story<Props & { route: string }> = (args) => (
+  <NavLink {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {

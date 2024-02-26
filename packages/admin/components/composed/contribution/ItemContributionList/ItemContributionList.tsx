@@ -4,7 +4,7 @@ import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import CreateContributionButton from "../CreateContributionButton";
 import {
-  ItemContributionListFragment,
+  ItemContributionListFragment$data,
   ItemContributionListFragment$key,
 } from "@/relay/ItemContributionListFragment.graphql";
 import {
@@ -99,7 +99,7 @@ function ItemContributionList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, ItemContributionListFragment, ItemContributionNode>
+    <ModelListPage<T, ItemContributionListFragment$data, ItemContributionNode>
       modelName={onContributor ? "item_contribution" : "item_contributor"}
       columns={columns}
       actions={actions}
@@ -117,7 +117,7 @@ interface ItemContributionListProps
   nameColumn?: "item" | "contributor";
 }
 
-type ItemContributionNode = ItemContributionListFragment["nodes"][number];
+type ItemContributionNode = ItemContributionListFragment$data["nodes"][number];
 
 const fragment = graphql`
   fragment ItemContributionListFragment on ItemContributionConnection {

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { UrlObject } from "url";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useBreadcrumbsFragment$key } from "@/relay/useBreadcrumbsFragment.graphql";
 import { RouteHelper } from "routes";
 import { useMaybeFragment } from "hooks";

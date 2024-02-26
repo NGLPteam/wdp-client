@@ -4,7 +4,7 @@ import type { ModelTableActionProps } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import { useDrawerHelper, useMaybeFragment } from "hooks";
 import type {
-  UserListFragment,
+  UserListFragment$data,
   UserListFragment$key,
 } from "@/relay/UserListFragment.graphql";
 
@@ -42,7 +42,7 @@ function UserList<T extends OperationType>({
   };
 
   return (
-    <ModelListPage<T, UserListFragment, UserNode>
+    <ModelListPage<T, UserListFragment$data, UserNode>
       modelName="user"
       columns={columns}
       data={users}
@@ -58,7 +58,7 @@ interface UserListProps
   data?: UserListFragment$key;
 }
 
-type UserNode = UserListFragment["nodes"][number];
+type UserNode = UserListFragment$data["nodes"][number];
 
 const fragment = graphql`
   fragment UserListFragment on UserConnection {

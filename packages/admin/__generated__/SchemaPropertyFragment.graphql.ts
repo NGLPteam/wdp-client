@@ -1,99 +1,101 @@
+/**
+ * @generated SignedSource<<74a9542a9a150a224a16e6c22927c111>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SchemaPropertyFragment = {
-    readonly __typename: "AssetProperty";
-    readonly " $fragmentRefs": FragmentRefs<"AssetPropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+export type SchemaPropertyFragment$data = {
+  readonly __typename: "AssetProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"AssetPropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "AssetsProperty";
-    readonly " $fragmentRefs": FragmentRefs<"AssetsPropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "AssetsProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"AssetsPropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "BooleanProperty";
-    readonly " $fragmentRefs": FragmentRefs<"BooleanPropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "BooleanProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"BooleanPropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "ContributorProperty";
-    readonly " $fragmentRefs": FragmentRefs<"ContributorPropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "ContributorProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"ContributorPropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "ContributorsProperty";
-    readonly " $fragmentRefs": FragmentRefs<"ContributorsPropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "ContributorsProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"ContributorsPropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "DateProperty";
-    readonly " $fragmentRefs": FragmentRefs<"DatePropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "DateProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"DatePropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "EmailProperty";
-    readonly " $fragmentRefs": FragmentRefs<"EmailPropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "EmailProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"EmailPropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "FloatProperty";
-    readonly " $fragmentRefs": FragmentRefs<"FloatPropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "EntitiesProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"EntitiesPropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "IntegerProperty";
-    readonly " $fragmentRefs": FragmentRefs<"IntegerPropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "EntityProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"EntityPropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "MarkdownProperty";
-    readonly " $fragmentRefs": FragmentRefs<"MarkdownPropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "FloatProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"FloatPropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "MultiselectProperty";
-    readonly " $fragmentRefs": FragmentRefs<"MultiselectPropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "FullTextProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"FullTextPropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "SelectProperty";
-    readonly " $fragmentRefs": FragmentRefs<"SelectPropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "IntegerProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"IntegerPropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "StringProperty";
-    readonly " $fragmentRefs": FragmentRefs<"StringPropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "MarkdownProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"MarkdownPropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "TagsProperty";
-    readonly " $fragmentRefs": FragmentRefs<"TagsPropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "MultiselectProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"MultiselectPropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "FullTextProperty";
-    readonly " $fragmentRefs": FragmentRefs<"FullTextPropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "SelectProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"SelectPropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "URLProperty";
-    readonly " $fragmentRefs": FragmentRefs<"URLPropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "StringProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"StringPropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "VariableDateProperty";
-    readonly " $fragmentRefs": FragmentRefs<"VariableDatePropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "TagsProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"TagsPropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "EntityProperty";
-    readonly " $fragmentRefs": FragmentRefs<"EntityPropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "URLProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"URLPropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    readonly __typename: "EntitiesProperty";
-    readonly " $fragmentRefs": FragmentRefs<"EntitiesPropertyFragment">;
-    readonly " $refType": "SchemaPropertyFragment";
+  readonly __typename: "VariableDateProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"VariableDatePropertyFragment">;
+  readonly " $fragmentType": "SchemaPropertyFragment";
 } | {
-    /*This will never be '%other', but we need some
-    value in case none of the concrete values match.*/
-    readonly __typename: "%other";
-    readonly " $refType": "SchemaPropertyFragment";
+  // This will never be '%other', but we need some
+  // value in case none of the concrete values match.
+  readonly __typename: "%other";
+  readonly " $fragmentType": "SchemaPropertyFragment";
 };
-export type SchemaPropertyFragment$data = SchemaPropertyFragment;
 export type SchemaPropertyFragment$key = {
-    readonly " $data"?: SchemaPropertyFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SchemaPropertyFragment">;
+  readonly " $data"?: SchemaPropertyFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SchemaPropertyFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -340,5 +342,7 @@ const node: ReaderFragment = {
   "type": "AnyScalarProperty",
   "abstractKey": "__isAnyScalarProperty"
 };
-(node as any).hash = '71e8ded7627f77515decc8d1b02f35cb';
+
+(node as any).hash = "71e8ded7627f77515decc8d1b02f35cb";
+
 export default node;

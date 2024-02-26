@@ -16,7 +16,7 @@ import {
 
 import type { EntityLinksListFragment$key } from "@/relay/EntityLinksListFragment.graphql";
 import type {
-  EntityLinksListDataFragment,
+  EntityLinksListDataFragment$data,
   EntityLinksListDataFragment$key,
 } from "@/relay/EntityLinksListDataFragment.graphql";
 
@@ -102,7 +102,7 @@ function EntityLinksList<T extends OperationType>({
   };
 
   return (
-    <ModelListPage<T, EntityLinksListDataFragment, EntityLinksNode>
+    <ModelListPage<T, EntityLinksListDataFragment$data, EntityLinksNode>
       modelName={"link"}
       columns={columns}
       actions={actions}
@@ -119,7 +119,7 @@ interface EntityLinksListProps
   data?: EntityLinksListFragment$key;
 }
 
-type EntityLinksNode = EntityLinksListDataFragment["nodes"][number];
+type EntityLinksNode = EntityLinksListDataFragment$data["nodes"][number];
 
 const linksFragment = graphql`
   fragment EntityLinksListDataFragment on EntityLinkConnection {

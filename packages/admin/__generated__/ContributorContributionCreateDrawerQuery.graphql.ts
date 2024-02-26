@@ -1,49 +1,29 @@
+/**
+ * @generated SignedSource<<b6e276f27614adbf672c8b104c18a934>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
-export type ContributorContributionCreateDrawerQueryVariables = {
-    slug: string;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type ContributorContributionCreateDrawerQuery$variables = {
+  slug: string;
 };
-export type ContributorContributionCreateDrawerQueryResponse = {
-    readonly contributor: {
-        readonly id?: string | undefined;
-        readonly legalName?: string | null | undefined;
-        readonly givenName?: string | null | undefined;
-        readonly familyName?: string | null | undefined;
-    } | null;
+export type ContributorContributionCreateDrawerQuery$data = {
+  readonly contributor: {
+    readonly familyName?: string | null | undefined;
+    readonly givenName?: string | null | undefined;
+    readonly id?: string;
+    readonly legalName?: string | null | undefined;
+  } | null | undefined;
 };
 export type ContributorContributionCreateDrawerQuery = {
-    readonly response: ContributorContributionCreateDrawerQueryResponse;
-    readonly variables: ContributorContributionCreateDrawerQueryVariables;
+  response: ContributorContributionCreateDrawerQuery$data;
+  variables: ContributorContributionCreateDrawerQuery$variables;
 };
-
-
-
-/*
-query ContributorContributionCreateDrawerQuery(
-  $slug: Slug!
-) {
-  contributor(slug: $slug) {
-    __typename
-    ... on OrganizationContributor {
-      id
-      legalName
-    }
-    ... on PersonContributor {
-      id
-      givenName
-      familyName
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -174,5 +154,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'dda415b6ee3fb1015d4040cbd32de8b1';
+
+(node as any).hash = "dda415b6ee3fb1015d4040cbd32de8b1";
+
 export default node;

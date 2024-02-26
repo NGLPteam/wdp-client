@@ -1,4 +1,5 @@
-import { graphql, useFragment } from "react-relay";
+import { GraphQLTaggedNode, useFragment } from "react-relay";
+import { graphql } from "relay-runtime";
 import MutationForm, {
   useRenderForm,
   useToVariables,
@@ -17,7 +18,10 @@ export default function EntityAnnouncementUpdateForm({
   onCancel,
 }: Props) {
   const { announcement } =
-    useFragment<EntityAnnouncementUpdateFormFragment$key>(fragment, data);
+    useFragment<EntityAnnouncementUpdateFormFragment$key>(
+      fragment as GraphQLTaggedNode,
+      data
+    );
 
   const toVariables = useToVariables<
     EntityAnnouncementUpdateFormMutation,

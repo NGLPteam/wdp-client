@@ -1,5 +1,5 @@
 import * as React from "react";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import type { DialogProps } from "reakit/Dialog";
 import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";

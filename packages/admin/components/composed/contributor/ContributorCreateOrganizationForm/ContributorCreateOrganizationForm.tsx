@@ -1,4 +1,4 @@
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 
 import MutationForm, {
   useRenderForm,

@@ -1,66 +1,33 @@
+/**
+ * @generated SignedSource<<da9f0e1a56c4285a95cd25c600fab946>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RevokeAccessInput = {
-    entityId: string;
-    roleId: string;
-    userId: string;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null | undefined;
+  entityId: string;
+  roleId: string;
+  userId: string;
 };
-export type useDestroyerRevokeAccessMutationVariables = {
-    input: RevokeAccessInput;
+export type useDestroyerRevokeAccessMutation$variables = {
+  input: RevokeAccessInput;
 };
-export type useDestroyerRevokeAccessMutationResponse = {
-    readonly revokeAccess: {
-        readonly " $fragmentRefs": FragmentRefs<"useDestroyerFragment">;
-    } | null;
+export type useDestroyerRevokeAccessMutation$data = {
+  readonly revokeAccess: {
+    readonly " $fragmentSpreads": FragmentRefs<"useDestroyerFragment">;
+  } | null | undefined;
 };
 export type useDestroyerRevokeAccessMutation = {
-    readonly response: useDestroyerRevokeAccessMutationResponse;
-    readonly variables: useDestroyerRevokeAccessMutationVariables;
+  response: useDestroyerRevokeAccessMutation$data;
+  variables: useDestroyerRevokeAccessMutation$variables;
 };
-
-
-
-/*
-mutation useDestroyerRevokeAccessMutation(
-  $input: RevokeAccessInput!
-) {
-  revokeAccess(input: $input) {
-    ...useDestroyerFragment
-  }
-}
-
-fragment useDestroyerFragment on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  ... on DestroyMutationPayload {
-    __isDestroyMutationPayload: __typename
-    destroyed
-    globalErrors {
-      message
-      type
-    }
-  }
-  ... on RevokeAccessPayload {
-    revoked
-    globalErrors {
-      message
-      type
-    }
-  }
-  ... on DestroyOrderingPayload {
-    disabled
-    globalErrors {
-      message
-      type
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -174,7 +141,9 @@ return {
           {
             "kind": "InlineDataFragmentSpread",
             "name": "useDestroyerFragment",
-            "selections": (v3/*: any*/)
+            "selections": (v3/*: any*/),
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -211,5 +180,7 @@ return {
   }
 };
 })();
-(node as any).hash = '14c4544e86d92135c786bd7b9d357d83';
+
+(node as any).hash = "14c4544e86d92135c786bd7b9d357d83";
+
 export default node;

@@ -9,7 +9,7 @@ import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import type { EntityAnnouncementsListFragment$key } from "@/relay/EntityAnnouncementsListFragment.graphql";
 import type {
-  EntityAnnouncementsListDataFragment,
+  EntityAnnouncementsListDataFragment$data,
   EntityAnnouncementsListDataFragment$key,
 } from "@/relay/EntityAnnouncementsListDataFragment.graphql";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
@@ -82,7 +82,7 @@ function EntityAnnouncementsList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, EntityAnnouncementsListDataFragment, Node>
+    <ModelListPage<T, EntityAnnouncementsListDataFragment$data, Node>
       modelName={"announcement"}
       columns={columns}
       data={announcementsData}
@@ -99,7 +99,7 @@ interface EntityAnnouncementsListProps
   data?: EntityAnnouncementsListFragment$key | null;
 }
 
-type Node = EntityAnnouncementsListDataFragment["edges"][number]["node"];
+type Node = EntityAnnouncementsListDataFragment$data["edges"][number]["node"];
 
 const linksFragment = graphql`
   fragment EntityAnnouncementsListDataFragment on AnnouncementConnection {

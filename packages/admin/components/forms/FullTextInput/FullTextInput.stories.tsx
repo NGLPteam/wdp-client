@@ -1,6 +1,7 @@
 import { Story } from "@storybook/react";
 import { Controller } from "react-hook-form";
 import FullTextInput from ".";
+import type { Value } from "./FullTextInput";
 import NullForm from "components/api/NullForm";
 
 type FieldValues = {
@@ -32,7 +33,13 @@ export const InAForm: Story<Props> = ({ defaultValue, ...args }) => {
           control={control}
           defaultValue={defaultValue}
           render={({ field }) => {
-            return <FullTextInput {...args} {...field} />;
+            return (
+              <FullTextInput
+                {...args}
+                {...field}
+                value={field.value as Value}
+              />
+            );
           }}
         />
       )}
@@ -46,7 +53,7 @@ InAForm.args = {
     content: "Some content",
     kind: "TEXT",
     lang: "en",
-  },
+  } as Value,
   required: false,
 };
 

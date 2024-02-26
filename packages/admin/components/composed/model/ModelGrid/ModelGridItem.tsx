@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import type { Cell, Row } from "@tanstack/react-table";
-import { flexRender } from "@tanstack/react-table";
+import { flexRender, HeaderContext } from "@tanstack/react-table";
 import Grid from "components/layout/Grid/Grid";
 
 function ModelGridItem<T extends Record<string, unknown>>({ row }: Props<T>) {
@@ -42,7 +42,10 @@ function ModelGridItem<T extends Record<string, unknown>>({ row }: Props<T>) {
               {cell.column.id.toLowerCase() !== "title" &&
                 cell.column.id.toLowerCase() !== "name" && (
                   <span>
-                    {flexRender(cell.column.columnDef.header, {})}
+                    {flexRender(
+                      cell.column.columnDef.header,
+                      {} as HeaderContext<T, unknown>
+                    )}
                     {`: `}
                   </span>
                 )}

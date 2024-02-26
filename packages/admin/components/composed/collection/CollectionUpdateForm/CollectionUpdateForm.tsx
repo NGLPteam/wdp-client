@@ -1,4 +1,5 @@
-import { graphql, useFragment, readInlineData } from "react-relay";
+import { graphql, readInlineData } from "relay-runtime";
+import { useFragment } from "relay-hooks";
 import { getDateOnly } from "@wdp/lib/helpers";
 import pick from "lodash/pick";
 import MutationForm, {
@@ -18,7 +19,7 @@ import SchemaFormFields from "components/api/SchemaFormFields";
 import { useSchemaContext, useSchemaProperties } from "components/api/hooks";
 import { sanitizeDateField } from "helpers";
 import {
-  CollectionUpdateForm_schemaErrorsFragment,
+  CollectionUpdateForm_schemaErrorsFragment$data,
   // eslint-disable-next-line max-len
   CollectionUpdateForm_schemaErrorsFragment$key as SchemaErrorsFragment$key,
 } from "@/relay/CollectionUpdateForm_schemaErrorsFragment.graphql";
@@ -26,7 +27,8 @@ import { convertSchemaErrors } from "components/api/SchemaInstanceForm/convertSc
 import { ParentSelector } from "components/forms";
 
 // eslint-disable-next-line camelcase, prettier/prettier
-type SchemaErrors = CollectionUpdateForm_schemaErrorsFragment["schemaErrors"];
+type SchemaErrors =
+  CollectionUpdateForm_schemaErrorsFragment$data["schemaErrors"];
 
 export default function CollectionUpdateForm({
   data,
@@ -64,7 +66,7 @@ export default function CollectionUpdateForm({
     function (response) {
       const errors = readInlineData<SchemaErrorsFragment$key>(
         schemaErrorsFragment,
-        response[mutationName]
+        response[mutationName] ?? null
       );
 
       return !errors?.schemaErrors || errors.schemaErrors.length === 0;
@@ -76,7 +78,7 @@ export default function CollectionUpdateForm({
     function ({ response, setError }) {
       const errors = readInlineData<SchemaErrorsFragment$key>(
         schemaErrorsFragment,
-        response[mutationName]
+        response[mutationName] ?? null
       );
 
       if (errors?.schemaErrors) {

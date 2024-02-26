@@ -42,7 +42,7 @@ export default function CommunityLayout({
   const destroy = useDestroyer();
 
   const handleDelete = useCallback(
-    (hideDialog) => {
+    (hideDialog: () => void) => {
       if (community) {
         destroy.community(
           { communityId: community.id },

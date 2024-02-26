@@ -1,27 +1,29 @@
+/**
+ * @generated SignedSource<<b5aa366fa2000ac93b73608ddf0102d5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SchemaInstanceFormFragment = {
-    readonly context: {
-        readonly " $fragmentRefs": FragmentRefs<"SchemaInstanceProviderFragment">;
-    };
-    readonly properties: ReadonlyArray<{
-        readonly " $fragmentRefs": FragmentRefs<"SchemaInstancePropertyFragment">;
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"SchemaFormFieldsFragment" | "SchemaSelectorDataFragment">;
-    readonly " $refType": "SchemaInstanceFormFragment";
+export type SchemaInstanceFormFragment$data = {
+  readonly context: {
+    readonly " $fragmentSpreads": FragmentRefs<"SchemaInstanceProviderFragment">;
+  };
+  readonly properties: ReadonlyArray<{
+    readonly " $fragmentSpreads": FragmentRefs<"SchemaInstancePropertyFragment">;
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"SchemaFormFieldsFragment" | "SchemaSelectorDataFragment">;
+  readonly " $fragmentType": "SchemaInstanceFormFragment";
 };
-export type SchemaInstanceFormFragment$data = SchemaInstanceFormFragment;
 export type SchemaInstanceFormFragment$key = {
-    readonly " $data"?: SchemaInstanceFormFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SchemaInstanceFormFragment">;
+  readonly " $data"?: SchemaInstanceFormFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SchemaInstanceFormFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -75,5 +77,7 @@ const node: ReaderFragment = {
   "type": "SchemaInstance",
   "abstractKey": "__isSchemaInstance"
 };
-(node as any).hash = '083ca8be2d9c353b3973c5f3c9d13bba';
+
+(node as any).hash = "083ca8be2d9c353b3973c5f3c9d13bba";
+
 export default node;

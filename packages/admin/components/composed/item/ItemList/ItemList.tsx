@@ -13,11 +13,11 @@ import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import type {
-  ItemListFragment,
+  ItemListFragment$data,
   ItemListFragment$key,
 } from "@/relay/ItemListFragment.graphql";
 import {
-  ItemListSearchFragment,
+  ItemListSearchFragment$data,
   ItemListSearchFragment$key,
 } from "@/relay/ItemListSearchFragment.graphql";
 
@@ -111,13 +111,13 @@ interface ItemListProps
 }
 
 type ListFragment =
-  | ItemListFragment
-  | NonNullable<ItemListSearchFragment["results"]>;
+  | ItemListFragment$data
+  | NonNullable<ItemListSearchFragment$data["results"]>;
 
-type ItemNode = ItemListFragment["nodes"][number];
+type ItemNode = ItemListFragment$data["nodes"][number];
 
 type ItemSearchNode = NonNullable<
-  ItemListSearchFragment["results"]
+  ItemListSearchFragment$data["results"]
 >["nodes"][number];
 
 type Node = ItemNode & ItemSearchNode;

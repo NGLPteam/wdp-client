@@ -13,7 +13,7 @@ export default {
   },
 };
 
-const Template: Story<Props> = (args) => {
+const Template: Story<Props & { label: string }> = (args) => {
   return (
     <div style={{ height: "40px", width: "400px" }}>
       <LoadingSkeleton {...args} />
@@ -21,7 +21,7 @@ const Template: Story<Props> = (args) => {
   );
 };
 
-export const Default: Story<Props> = Template.bind({});
+export const Default: Story<Props & { label: string }> = Template.bind({});
 Default.args = {
   label: "Loading",
 };

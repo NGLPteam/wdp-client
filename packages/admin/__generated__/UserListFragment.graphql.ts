@@ -1,30 +1,32 @@
+/**
+ * @generated SignedSource<<09634a3c8eefe917d9fbcb9241d51d6e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type UserListFragment = {
-    readonly nodes: ReadonlyArray<{
-        readonly email: string | null;
-        readonly globalAdmin: boolean;
-        readonly name: string | null;
-        readonly slug: string;
-        readonly createdAt: string;
-        readonly updatedAt: string;
-        readonly " $fragmentRefs": FragmentRefs<"UserNameColumnFragment">;
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "UserListFragment";
+export type UserListFragment$data = {
+  readonly nodes: ReadonlyArray<{
+    readonly createdAt: string;
+    readonly email: string | null | undefined;
+    readonly globalAdmin: boolean;
+    readonly name: string | null | undefined;
+    readonly slug: string;
+    readonly updatedAt: string;
+    readonly " $fragmentSpreads": FragmentRefs<"UserNameColumnFragment">;
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "UserListFragment";
 };
-export type UserListFragment$data = UserListFragment;
 export type UserListFragment$key = {
-    readonly " $data"?: UserListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"UserListFragment">;
+  readonly " $data"?: UserListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"UserListFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -91,7 +93,9 @@ const node: ReaderFragment = {
               "kind": "FragmentSpread",
               "name": "UserNameColumnCellFragment"
             }
-          ]
+          ],
+          "args": null,
+          "argumentDefinitions": []
         }
       ],
       "storageKey": null
@@ -105,5 +109,7 @@ const node: ReaderFragment = {
   "type": "UserConnection",
   "abstractKey": null
 };
-(node as any).hash = '8b074f2408b1d4231f8548171afca747';
+
+(node as any).hash = "8b074f2408b1d4231f8548171afca747";
+
 export default node;

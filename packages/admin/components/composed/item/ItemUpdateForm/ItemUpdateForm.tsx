@@ -1,4 +1,5 @@
-import { graphql, readInlineData, useFragment } from "react-relay";
+import { graphql, readInlineData } from "relay-runtime";
+import { useFragment } from "relay-hooks";
 import { useTranslation } from "react-i18next";
 import { getDateOnly } from "@wdp/lib/helpers";
 import pick from "lodash/pick";
@@ -18,7 +19,7 @@ import type { ItemUpdateFormFieldsFragment$key } from "@/relay/ItemUpdateFormFie
 import { sanitizeDateField } from "helpers";
 import { useSchemaContext, useSchemaProperties } from "components/api/hooks";
 import {
-  ItemUpdateForm_schemaErrorsFragment,
+  ItemUpdateForm_schemaErrorsFragment$data,
   // eslint-disable-next-line max-len
   ItemUpdateForm_schemaErrorsFragment$key as SchemaErrorsFragment$key,
 } from "@/relay/ItemUpdateForm_schemaErrorsFragment.graphql";
@@ -27,7 +28,7 @@ import SchemaFormFields from "components/api/SchemaFormFields";
 import { ParentSelector } from "components/forms";
 
 // eslint-disable-next-line camelcase, prettier/prettier
-type SchemaErrors = ItemUpdateForm_schemaErrorsFragment["schemaErrors"];
+type SchemaErrors = ItemUpdateForm_schemaErrorsFragment$data["schemaErrors"];
 
 export default function ItemUpdateForm({
   data,
@@ -70,7 +71,7 @@ export default function ItemUpdateForm({
     function (response) {
       const errors = readInlineData<SchemaErrorsFragment$key>(
         schemaErrorsFragment,
-        response[mutationName]
+        response[mutationName] ?? null
       );
 
       return !errors?.schemaErrors || errors.schemaErrors.length === 0;
@@ -84,7 +85,7 @@ export default function ItemUpdateForm({
   }) {
     const errors = readInlineData<SchemaErrorsFragment$key>(
       schemaErrorsFragment,
-      response[mutationName]
+      response[mutationName] ?? null
     );
 
     if (errors?.schemaErrors) {

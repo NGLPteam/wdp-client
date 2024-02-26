@@ -18,11 +18,11 @@ export default {
   },
 };
 
-const Template: Story<Props> = ({ text, ...args }) => (
+const Template: Story<Props & { text: string }> = ({ text, ...args }) => (
   <Button {...args}>{text}</Button>
 );
 
-export const Primary: Story<Props> = Template.bind({});
+export const Primary: Story<Props & { text: string }> = Template.bind({});
 
 Primary.args = {
   text: "A Button!",
@@ -30,7 +30,7 @@ Primary.args = {
   disabled: false,
 };
 
-export const Secondary: Story<Props> = Template.bind({});
+export const Secondary: Story<Props & { text: string }> = Template.bind({});
 
 Secondary.args = {
   text: "A Secondary Button!",

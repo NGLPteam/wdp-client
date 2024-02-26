@@ -1,99 +1,31 @@
+/**
+ * @generated SignedSource<<7641a07efc56a227ba1b3ab8f6d42d52>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityOrderingEditDrawerQueryVariables = {
-    slug: string;
-    identifier: string;
+export type EntityOrderingEditDrawerQuery$variables = {
+  identifier: string;
+  slug: string;
 };
-export type EntityOrderingEditDrawerQueryResponse = {
-    readonly collection: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityOrderingEditFormFragment">;
-    } | null;
-    readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityOrderingEditFormFragment">;
-    } | null;
+export type EntityOrderingEditDrawerQuery$data = {
+  readonly collection: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingEditFormFragment">;
+  } | null | undefined;
+  readonly item: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingEditFormFragment">;
+  } | null | undefined;
 };
 export type EntityOrderingEditDrawerQuery = {
-    readonly response: EntityOrderingEditDrawerQueryResponse;
-    readonly variables: EntityOrderingEditDrawerQueryVariables;
+  response: EntityOrderingEditDrawerQuery$data;
+  variables: EntityOrderingEditDrawerQuery$variables;
 };
-
-
-
-/*
-query EntityOrderingEditDrawerQuery(
-  $slug: Slug!
-  $identifier: String!
-) {
-  collection(slug: $slug) {
-    ...EntityOrderingEditFormFragment
-    id
-  }
-  item(slug: $slug) {
-    ...EntityOrderingEditFormFragment
-    id
-  }
-}
-
-fragment EntityOrderingEditFormFragment on Entity {
-  __isEntity: __typename
-  ...OrderDefinitionSelectControlFragment
-  ...SchemaCheckboxGroupFragment
-  ordering(identifier: $identifier) {
-    id
-    name
-    render {
-      mode
-    }
-    order {
-      path
-      direction
-    }
-    select {
-      direct
-      links {
-        contains
-        references
-      }
-    }
-    filter {
-      schemas {
-        namespace
-        identifier
-        version
-      }
-    }
-  }
-}
-
-fragment OrderDefinitionSelectControlFragment on Entity {
-  __isEntity: __typename
-  ...OrderDefinitionSelectFragment
-}
-
-fragment OrderDefinitionSelectFragment on Entity {
-  __isEntity: __typename
-  schemaRanks {
-    namespace
-    identifier
-    id
-  }
-}
-
-fragment SchemaCheckboxGroupFragment on Entity {
-  __isEntity: __typename
-  schemaRanks {
-    name
-    namespace
-    identifier
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -124,21 +56,21 @@ v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "namespace",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "namespace",
+  "name": "identifier",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "identifier",
+  "name": "id",
   "storageKey": null
 },
 v7 = {
@@ -149,7 +81,6 @@ v7 = {
   "storageKey": null
 },
 v8 = [
-  (v4/*: any*/),
   {
     "kind": "InlineFragment",
     "selections": [
@@ -161,9 +92,9 @@ v8 = [
         "name": "schemaRanks",
         "plural": true,
         "selections": [
+          (v4/*: any*/),
           (v5/*: any*/),
           (v6/*: any*/),
-          (v4/*: any*/),
           (v7/*: any*/)
         ],
         "storageKey": null
@@ -182,7 +113,7 @@ v8 = [
         "name": "ordering",
         "plural": false,
         "selections": [
-          (v4/*: any*/),
+          (v6/*: any*/),
           (v7/*: any*/),
           {
             "alias": null,
@@ -286,8 +217,8 @@ v8 = [
                 "name": "schemas",
                 "plural": true,
                 "selections": [
+                  (v4/*: any*/),
                   (v5/*: any*/),
-                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -307,7 +238,8 @@ v8 = [
     ],
     "type": "Entity",
     "abstractKey": "__isEntity"
-  }
+  },
+  (v6/*: any*/)
 ];
 return {
   "fragment": {
@@ -384,5 +316,7 @@ return {
   }
 };
 })();
-(node as any).hash = '8f777cfe02777dcb48001bd33f57054a';
+
+(node as any).hash = "8f777cfe02777dcb48001bd33f57054a";
+
 export default node;

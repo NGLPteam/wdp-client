@@ -25,7 +25,9 @@ export default function useUploadReducer({
 
   const fileInputRef = useWatchUppy(dispatch, uppy);
 
-  const selectFile = useCallback(function (event) {
+  const selectFile = useCallback(function (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) {
     event.stopPropagation();
 
     const file = event?.target?.files?.item(0) ?? null;
@@ -35,7 +37,8 @@ export default function useUploadReducer({
     } else {
       dispatch({ type: "deselect" });
     }
-  }, []);
+  },
+  []);
 
   useEffect(
     function startUpload() {

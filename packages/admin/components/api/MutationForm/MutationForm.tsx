@@ -1,15 +1,15 @@
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useMutation } from "relay-hooks";
 import { useForm, FormProvider } from "react-hook-form";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import type {
   DefaultValues,
   FieldValues,
   SubmitHandler,
-  UnpackNestedValue,
 } from "react-hook-form";
 import type { GraphQLTaggedNode, MutationParameters } from "relay-runtime";
 import { useTranslation } from "react-i18next";
+import has from "lodash/has";
 
 import * as Styled from "./MutationForm.styles";
 
@@ -418,7 +418,7 @@ type Props<M extends MutationParameters, T extends FieldValues> = BaseProps<
 function checkSuccess<M extends MutationParameters, T extends FieldValues>(
   response: M["response"],
   errors: ErrorMap<T>,
-  data: UnpackNestedValue<T>,
+  data: T,
   isSuccess?: IsSuccessPredicate<M, T>
 ): boolean {
   if (typeof isSuccess === "function") {
@@ -448,7 +448,7 @@ function hasErrors<M extends MutationParameters>(
 function hasFragments<M extends MutationParameters>(
   payload: M["response"][MutationName<M>]
 ): payload is PayloadWithFragments<M> {
-  return "__fragments" in payload;
+  return has(payload, "__fragments");
 }
 
 const errorFragment = graphql`

@@ -1,38 +1,40 @@
+/**
+ * @generated SignedSource<<102ec92ad84cf7f70e60211ba1de62d5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SiteLogoMode = "NONE" | "SANS_TEXT" | "WITH_TEXT" | "%future added value";
-export type GlobalSettingsEditFormFragment = {
-    readonly site: {
-        readonly providerName: string;
-        readonly installationName: string;
-        readonly installationHomePageCopy: string;
-        readonly footer: {
-            readonly description: string;
-            readonly copyrightStatement: string;
-        };
-        readonly logoMode: SiteLogoMode;
+import { FragmentRefs } from "relay-runtime";
+export type GlobalSettingsEditFormFragment$data = {
+  readonly logo: {
+    readonly " $fragmentSpreads": FragmentRefs<"SiteLogoUploadFragment">;
+  };
+  readonly site: {
+    readonly footer: {
+      readonly copyrightStatement: string;
+      readonly description: string;
     };
-    readonly theme: {
-        readonly color: string;
-        readonly font: string;
-    };
-    readonly logo: {
-        readonly " $fragmentRefs": FragmentRefs<"SiteLogoUploadFragment">;
-    };
-    readonly " $refType": "GlobalSettingsEditFormFragment";
+    readonly installationHomePageCopy: string;
+    readonly installationName: string;
+    readonly logoMode: SiteLogoMode;
+    readonly providerName: string;
+  };
+  readonly theme: {
+    readonly color: string;
+    readonly font: string;
+  };
+  readonly " $fragmentType": "GlobalSettingsEditFormFragment";
 };
-export type GlobalSettingsEditFormFragment$data = GlobalSettingsEditFormFragment;
 export type GlobalSettingsEditFormFragment$key = {
-    readonly " $data"?: GlobalSettingsEditFormFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"GlobalSettingsEditFormFragment">;
+  readonly " $data"?: GlobalSettingsEditFormFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"GlobalSettingsEditFormFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -149,5 +151,7 @@ const node: ReaderFragment = {
   "type": "GlobalConfiguration",
   "abstractKey": null
 };
-(node as any).hash = '68466ff87c0c38065073a60b36af424b';
+
+(node as any).hash = "68466ff87c0c38065073a60b36af424b";
+
 export default node;

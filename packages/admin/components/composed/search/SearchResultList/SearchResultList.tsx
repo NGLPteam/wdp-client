@@ -9,7 +9,7 @@ import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import { NamedLink } from "components/atomic";
 import type {
-  SearchResultListFragment,
+  SearchResultListFragment$data,
   SearchResultListFragment$key,
 } from "@/relay/SearchResultListFragment.graphql";
 
@@ -84,7 +84,7 @@ function SearchResultList<T extends OperationType>({
   };
 
   return (
-    <ModelListPage<T, SearchResultListFragment["results"], Node>
+    <ModelListPage<T, SearchResultListFragment$data["results"], Node>
       modelName="item"
       header={
         <Trans
@@ -113,7 +113,7 @@ interface SearchResultListProps
   isLoading?: boolean;
 }
 
-type Node = SearchResultListFragment["results"]["nodes"][number];
+type Node = SearchResultListFragment$data["results"]["nodes"][number];
 
 const fragment = graphql`
   fragment SearchResultListFragment on SearchScope

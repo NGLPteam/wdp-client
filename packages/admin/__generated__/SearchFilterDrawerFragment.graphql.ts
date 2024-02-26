@@ -1,21 +1,23 @@
+/**
+ * @generated SignedSource<<27e475a28ac98c836e6107a7d72f193c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SearchFilterDrawerFragment = {
-    readonly " $fragmentRefs": FragmentRefs<"SearchFilterFormFragment">;
-    readonly " $refType": "SearchFilterDrawerFragment";
+export type SearchFilterDrawerFragment$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"SearchFilterFormFragment">;
+  readonly " $fragmentType": "SearchFilterDrawerFragment";
 };
-export type SearchFilterDrawerFragment$data = SearchFilterDrawerFragment;
 export type SearchFilterDrawerFragment$key = {
-    readonly " $data"?: SearchFilterDrawerFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SearchFilterDrawerFragment">;
+  readonly " $data"?: SearchFilterDrawerFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchFilterDrawerFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -32,5 +34,7 @@ const node: ReaderFragment = {
   "type": "SearchScope",
   "abstractKey": null
 };
-(node as any).hash = '420a03db0d9cfb17060d93955af81c87';
+
+(node as any).hash = "420a03db0d9cfb17060d93955af81c87";
+
 export default node;

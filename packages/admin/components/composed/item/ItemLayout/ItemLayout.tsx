@@ -40,7 +40,7 @@ export default function ItemLayout({
   const router = useRouter();
 
   const handleDelete = useCallback(
-    (hideDialog) => {
+    (hideDialog: () => void) => {
       if (memoizedItem && breadcrumbs && breadcrumbs.length > 0) {
         destroy.item(
           { itemId: memoizedItem.id },
@@ -77,7 +77,11 @@ export default function ItemLayout({
     <section>
       <PageHeader
         title={memoizedItem?.title}
-        breadcrumbsProps={{ data: breadcrumbs }}
+        breadcrumbsProps={
+          breadcrumbs
+            ? { data: breadcrumbs, className: "", delimiter: ">" }
+            : undefined
+        }
         tabRoutes={tabRoutes}
         sidebarLinks={manageRoutes}
         buttons={buttons}

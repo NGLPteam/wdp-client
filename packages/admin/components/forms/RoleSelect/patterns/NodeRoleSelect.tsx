@@ -1,4 +1,4 @@
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { useFormContext } from "react-hook-form";
 import useAuthenticatedQuery from "@wdp/lib/api/hooks/useAuthenticatedQuery";
 import { Forms } from "components/api/MutationForm";

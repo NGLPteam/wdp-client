@@ -1,33 +1,35 @@
+/**
+ * @generated SignedSource<<bd28079476d4b45bd487582409f00817>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CollectionListFragment = {
-    readonly nodes: ReadonlyArray<{
-        readonly id: string;
-        readonly createdAt: string;
-        readonly title: string;
-        readonly slug: string;
-        readonly schemaVersion: {
-            readonly name: string;
-            readonly number: string;
-        };
-        readonly allowedActions: ReadonlyArray<string>;
-        readonly " $fragmentRefs": FragmentRefs<"EntityThumbnailColumnFragment" | "PublishedDateColumnFragment">;
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "CollectionListFragment";
+export type CollectionListFragment$data = {
+  readonly nodes: ReadonlyArray<{
+    readonly allowedActions: ReadonlyArray<string>;
+    readonly createdAt: string;
+    readonly id: string;
+    readonly schemaVersion: {
+      readonly name: string;
+      readonly number: string;
+    };
+    readonly slug: string;
+    readonly title: string;
+    readonly " $fragmentSpreads": FragmentRefs<"EntityThumbnailColumnFragment" | "PublishedDateColumnFragment">;
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "CollectionListFragment";
 };
-export type CollectionListFragment$data = CollectionListFragment;
 export type CollectionListFragment$key = {
-    readonly " $data"?: CollectionListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CollectionListFragment">;
+  readonly " $data"?: CollectionListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CollectionListFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -165,7 +167,9 @@ return {
               "type": "Entity",
               "abstractKey": "__isEntity"
             }
-          ]
+          ],
+          "args": null,
+          "argumentDefinitions": []
         },
         {
           "kind": "InlineDataFragmentSpread",
@@ -194,7 +198,9 @@ return {
               "type": "ReferencesGlobalEntityDates",
               "abstractKey": "__isReferencesGlobalEntityDates"
             }
-          ]
+          ],
+          "args": null,
+          "argumentDefinitions": []
         }
       ],
       "storageKey": null
@@ -209,5 +215,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'fbfabfa98bae8db0f147e8e492f0cf39';
+
+(node as any).hash = "fbfabfa98bae8db0f147e8e492f0cf39";
+
 export default node;

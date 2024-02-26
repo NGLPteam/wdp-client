@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import type { DialogProps } from "reakit/Dialog";
 import ContributionCreateForm from "../ContributionCreateForm";
 import { useDrawerHelper } from "hooks";

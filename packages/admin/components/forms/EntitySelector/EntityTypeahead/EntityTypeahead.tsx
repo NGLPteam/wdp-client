@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import type { FieldValues, Path } from "react-hook-form";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
 import { useManagedVariables } from "@wdp/lib/api/components/QueryWrapper";
@@ -8,7 +8,7 @@ import type { EntityOption } from "../EntitySelectorController";
 import BaseTypeahead from "components/forms/BaseTypeahead";
 import {
   EntityTypeaheadQuery as Query,
-  EntityTypeaheadQueryResponse as Response,
+  EntityTypeaheadQuery$data as Response,
 } from "__generated__/EntityTypeaheadQuery.graphql";
 import type { EntityDescendantScopeFilter } from "types/graphql-schema";
 import type { TypeaheadOption } from "components/forms/BaseTypeahead";

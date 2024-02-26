@@ -1,149 +1,31 @@
+/**
+ * @generated SignedSource<<fd3a5e6074e8e71cad3f28ee56b037ef>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type filesManageSlugItemsQueryVariables = {
-    itemSlug: string;
-    page: number;
+export type filesManageSlugItemsQuery$variables = {
+  itemSlug: string;
+  page: number;
 };
-export type filesManageSlugItemsQueryResponse = {
-    readonly item: {
-        readonly assets: {
-            readonly " $fragmentRefs": FragmentRefs<"FileListFragment">;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"ItemLayoutQueryFragment">;
-    } | null;
+export type filesManageSlugItemsQuery$data = {
+  readonly item: {
+    readonly assets: {
+      readonly " $fragmentSpreads": FragmentRefs<"FileListFragment">;
+    };
+    readonly " $fragmentSpreads": FragmentRefs<"ItemLayoutQueryFragment">;
+  } | null | undefined;
 };
 export type filesManageSlugItemsQuery = {
-    readonly response: filesManageSlugItemsQueryResponse;
-    readonly variables: filesManageSlugItemsQueryVariables;
+  response: filesManageSlugItemsQuery$data;
+  variables: filesManageSlugItemsQuery$variables;
 };
-
-
-
-/*
-query filesManageSlugItemsQuery(
-  $itemSlug: Slug!
-  $page: Int!
-) {
-  item(slug: $itemSlug) {
-    ...ItemLayoutQueryFragment
-    assets(page: $page, perPage: 20) {
-      ...FileListFragment
-    }
-    id
-  }
-}
-
-fragment AssetThumbnailColumnFragment on Asset {
-  __isAsset: __typename
-  thumbnail: preview {
-    storage
-    image: medium {
-      png {
-        ...ImageFragment
-      }
-    }
-  }
-}
-
-fragment AuthContextFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-
-fragment FileListFragment on AnyAssetConnection {
-  nodes {
-    __typename
-    ... on Asset {
-      __isAsset: __typename
-      id
-      slug
-      kind
-      name
-      downloadUrl
-      ...AssetThumbnailColumnFragment
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment ItemLayoutFragment on Item {
-  title
-  slug
-  id
-  ...useBreadcrumbsFragment
-  ...useChildRouteLinksFragment
-}
-
-fragment ItemLayoutQueryFragment on Item {
-  ...ItemLayoutFragment
-  ...AuthContextFragment
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment useBreadcrumbsFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  breadcrumbs {
-    depth
-    label
-    kind
-    slug
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-}
-
-fragment useChildRouteLinksFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -221,6 +103,11 @@ return {
         "plural": false,
         "selections": [
           {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "ItemLayoutQueryFragment"
+          },
+          {
             "alias": null,
             "args": (v2/*: any*/),
             "concreteType": "AnyAssetConnection",
@@ -235,11 +122,6 @@ return {
               }
             ],
             "storageKey": null
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "ItemLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -523,5 +405,7 @@ return {
   }
 };
 })();
-(node as any).hash = '884182a94fa26b29061c6edd8f0f1d29';
+
+(node as any).hash = "884182a94fa26b29061c6edd8f0f1d29";
+
 export default node;

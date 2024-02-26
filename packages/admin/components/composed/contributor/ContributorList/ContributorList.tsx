@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { getContributorDisplayName } from "../ContributorDisplayName";
 import ModelListPage from "components/composed/model/ModelListPage";
 import {
-  ContributorListFragment,
+  ContributorListFragment$data,
   ContributorListFragment$key,
 } from "@/relay/ContributorListFragment.graphql";
 import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
@@ -64,7 +64,7 @@ function ContributorList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, ContributorListFragment, ContributorNode>
+    <ModelListPage<T, ContributorListFragment$data, ContributorNode>
       modelName="contributor"
       buttons={buttons}
       columns={columns}
@@ -82,7 +82,7 @@ interface ContributorListProps
   data?: ContributorListFragment$key;
 }
 
-type ContributorNode = ContributorListFragment["nodes"][number];
+type ContributorNode = ContributorListFragment$data["nodes"][number];
 
 const fragment = graphql`
   fragment ContributorListFragment on AnyContributorConnection {

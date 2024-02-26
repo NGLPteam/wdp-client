@@ -1,6 +1,6 @@
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { useDrawerHelper, useDestroyer } from "hooks";
 import { RouteHelper } from "routes";
 import { QueryWrapper } from "components/api";
@@ -10,7 +10,7 @@ import CommunityUpdateForm from "components/composed/community/CommunityUpdateFo
 
 import type {
   CommunityUpdateDrawerQuery as Query,
-  CommunityUpdateDrawerQueryResponse as Response,
+  CommunityUpdateDrawerQuery$data as Response,
 } from "__generated__/CommunityUpdateDrawerQuery.graphql";
 
 export default function CommunityUpdateDrawer({

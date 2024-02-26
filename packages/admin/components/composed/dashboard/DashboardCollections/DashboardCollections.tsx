@@ -8,7 +8,7 @@ import { ViewOptions } from "utils/view-options";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { DashboardCollectionsFragment$key } from "@/relay/DashboardCollectionsFragment.graphql";
 import {
-  DashboardCollectionsListFragment,
+  DashboardCollectionsListFragment$data,
   DashboardCollectionsListFragment$key,
 } from "@/relay/DashboardCollectionsListFragment.graphql";
 import ModelPagination from "components/composed/model/ModelPagination";
@@ -42,7 +42,7 @@ export default function DashboardCollections({ data }: Props) {
         title={t("glossary.collection_plural")}
       />
       <ModelPageCountActions data={collections} />
-      <ModelList<OperationType, DashboardCollectionsListFragment, Node>
+      <ModelList<OperationType, DashboardCollectionsListFragment$data, Node>
         view={ViewOptions.grid}
         columns={columns}
         data={collections}
@@ -71,7 +71,7 @@ const fragment = graphql`
   }
 `;
 
-type Node = DashboardCollectionsListFragment["nodes"][number];
+type Node = DashboardCollectionsListFragment$data["nodes"][number];
 
 const listFragment = graphql`
   fragment DashboardCollectionsListFragment on CollectionConnection {

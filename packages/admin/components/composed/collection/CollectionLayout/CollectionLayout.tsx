@@ -45,7 +45,7 @@ export default function CollectionLayout({
   const router = useRouter();
 
   const handleDelete = useCallback(
-    (hideDialog) => {
+    (hideDialog: () => void) => {
       if (memoizedCollection && breadcrumbs && breadcrumbs.length > 0) {
         destroy.collection(
           { collectionId: memoizedCollection.id },
@@ -83,7 +83,7 @@ export default function CollectionLayout({
     <section>
       <PageHeader
         title={memoizedCollection?.title}
-        breadcrumbsProps={{ data: breadcrumbs }}
+        breadcrumbsProps={breadcrumbs ? { data: breadcrumbs } : undefined}
         tabRoutes={tabRoutes}
         sidebarLinks={manageRoutes}
         buttons={buttons}

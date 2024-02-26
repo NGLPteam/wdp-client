@@ -1,6 +1,6 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import { graphql, readInlineData } from "react-relay";
+import { graphql, readInlineData } from "relay-runtime";
 import { UpdatableNode, PartialColumnish } from "./types";
 import { NamedLink } from "components/atomic";
 import { getContributorDisplayName } from "components/composed/contributor/ContributorDisplayName";

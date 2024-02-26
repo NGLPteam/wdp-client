@@ -1,67 +1,40 @@
+/**
+ * @generated SignedSource<<51d3cbc6cd9948a7a80753d9296b2ee1>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CreateAnnouncementInput = {
-    entityId: string;
-    publishedOn: string;
-    header: string;
-    teaser: string;
-    body: string;
-    clientMutationId?: string | null | undefined;
+  body: string;
+  clientMutationId?: string | null | undefined;
+  entityId: string;
+  header: string;
+  publishedOn: string;
+  teaser: string;
 };
-export type EntityAnnouncementAddFormMutationVariables = {
-    input: CreateAnnouncementInput;
+export type EntityAnnouncementAddFormMutation$variables = {
+  input: CreateAnnouncementInput;
 };
-export type EntityAnnouncementAddFormMutationResponse = {
-    readonly createAnnouncement: {
-        readonly announcement: {
-            readonly id: string;
-            readonly slug: string;
-            readonly header: string;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
-    } | null;
+export type EntityAnnouncementAddFormMutation$data = {
+  readonly createAnnouncement: {
+    readonly announcement: {
+      readonly header: string;
+      readonly id: string;
+      readonly slug: string;
+    } | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null | undefined;
 };
 export type EntityAnnouncementAddFormMutation = {
-    readonly response: EntityAnnouncementAddFormMutationResponse;
-    readonly variables: EntityAnnouncementAddFormMutationVariables;
+  response: EntityAnnouncementAddFormMutation$data;
+  variables: EntityAnnouncementAddFormMutation$variables;
 };
-
-
-
-/*
-mutation EntityAnnouncementAddFormMutation(
-  $input: CreateAnnouncementInput!
-) {
-  createAnnouncement(input: $input) {
-    announcement {
-      id
-      slug
-      header
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -199,7 +172,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v4/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -239,5 +214,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'e5ec4a841ece6dc4f6647e23d6299824';
+
+(node as any).hash = "e5ec4a841ece6dc4f6647e23d6299824";
+
 export default node;

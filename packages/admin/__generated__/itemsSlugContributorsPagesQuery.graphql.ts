@@ -1,166 +1,34 @@
+/**
+ * @generated SignedSource<<c825d2e705a7ae8586ec3afd2b4cf6b9>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ContributionOrder = "OLDEST" | "RECENT" | "TARGET_TITLE_ASCENDING" | "TARGET_TITLE_DESCENDING" | "%future added value";
-export type itemsSlugContributorsPagesQueryVariables = {
-    contributorSlug: string;
-    order?: ContributionOrder | null | undefined;
-    page: number;
+export type itemsSlugContributorsPagesQuery$variables = {
+  contributorSlug: string;
+  order?: ContributionOrder | null | undefined;
+  page: number;
 };
-export type itemsSlugContributorsPagesQueryResponse = {
-    readonly contributor: {
-        readonly __typename: string;
-        readonly itemContributions?: {
-            readonly " $fragmentRefs": FragmentRefs<"ItemContributionListFragment">;
-        } | undefined;
-        readonly " $fragmentRefs": FragmentRefs<"ContributorLayoutQueryFragment">;
-    } | null;
+export type itemsSlugContributorsPagesQuery$data = {
+  readonly contributor: {
+    readonly __typename: string;
+    readonly itemContributions?: {
+      readonly " $fragmentSpreads": FragmentRefs<"ItemContributionListFragment">;
+    };
+    readonly " $fragmentSpreads": FragmentRefs<"ContributorLayoutQueryFragment">;
+  } | null | undefined;
 };
 export type itemsSlugContributorsPagesQuery = {
-    readonly response: itemsSlugContributorsPagesQueryResponse;
-    readonly variables: itemsSlugContributorsPagesQueryVariables;
+  response: itemsSlugContributorsPagesQuery$data;
+  variables: itemsSlugContributorsPagesQuery$variables;
 };
-
-
-
-/*
-query itemsSlugContributorsPagesQuery(
-  $contributorSlug: Slug!
-  $order: ContributionOrder
-  $page: Int!
-) {
-  contributor(slug: $contributorSlug) {
-    __typename
-    ...ContributorLayoutQueryFragment
-    ... on OrganizationContributor {
-      itemContributions(page: $page, perPage: 20, order: $order) {
-        ...ItemContributionListFragment
-      }
-    }
-    ... on PersonContributor {
-      itemContributions(page: $page, perPage: 20, order: $order) {
-        ...ItemContributionListFragment
-      }
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-  }
-}
-
-fragment AvatarFragment on ImageAttachment {
-  storage
-  small {
-    webp {
-      ...ImageFragment
-    }
-  }
-}
-
-fragment ContributorLayoutFragment on AnyContributor {
-  __isAnyContributor: __typename
-  __typename
-  ... on OrganizationContributor {
-    slug
-    legalName
-  }
-  ... on PersonContributor {
-    givenName
-    familyName
-  }
-}
-
-fragment ContributorLayoutQueryFragment on Contributor {
-  __isContributor: __typename
-  ...ContributorLayoutFragment
-}
-
-fragment ContributorNameColumnFragment on Contributor {
-  __isContributor: __typename
-  __typename
-  image {
-    ...AvatarFragment
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-  ... on OrganizationContributor {
-    legalName
-  }
-  ... on PersonContributor {
-    givenName
-    familyName
-  }
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment ItemContributionListFragment on ItemContributionConnection {
-  nodes {
-    id
-    slug
-    createdAt
-    updatedAt
-    role
-    contributor {
-      __typename
-      ... on Sluggable {
-        __isSluggable: __typename
-        slug
-      }
-      ...ContributorNameColumnFragment
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-    item {
-      slug
-      title
-      id
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -625,5 +493,7 @@ return {
   }
 };
 })();
-(node as any).hash = '22c6950703e334fede700b77444209ad';
+
+(node as any).hash = "22c6950703e334fede700b77444209ad";
+
 export default node;

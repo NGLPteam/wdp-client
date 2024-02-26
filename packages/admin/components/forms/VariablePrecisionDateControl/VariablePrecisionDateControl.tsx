@@ -1,4 +1,4 @@
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { Controller, useFormContext } from "react-hook-form";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { Forms } from "components/api/MutationForm";

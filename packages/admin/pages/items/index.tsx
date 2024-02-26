@@ -1,4 +1,4 @@
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import { useSearchQueryVars } from "hooks";
 import { QueryWrapper } from "components/api";
 import ItemList from "components/composed/item/ItemList";

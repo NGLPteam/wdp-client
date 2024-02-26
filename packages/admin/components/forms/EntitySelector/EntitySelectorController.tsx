@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
 import EntitySelectorItem from "./EntitySelectorItem";
 import * as Styled from "./EntitySelector.styles";
@@ -7,7 +7,7 @@ import { LoadingCircle } from "components/atomic";
 import { EntitySelectorControllerCommunitiesQuery as Query } from "@/relay/EntitySelectorControllerCommunitiesQuery.graphql";
 import {
   EntitySelectorControllerEntityQuery as EntityQuery,
-  EntitySelectorControllerEntityQueryResponse as EntityResponse,
+  EntitySelectorControllerEntityQuery$data as EntityResponse,
 } from "@/relay/EntitySelectorControllerEntityQuery.graphql";
 
 import type {
@@ -166,7 +166,7 @@ export default function Controller({
   };
 
   return !currentEntity ? (
-    <QueryWrapper<Query> query={communitiesQuery} initialVariables={queryVars}>
+    <QueryWrapper<Query> query={communitiesQuery}>
       {({ data }) =>
         data?.communities?.edges.length ? (
           <>{renderOptions(data.communities.edges)}</>

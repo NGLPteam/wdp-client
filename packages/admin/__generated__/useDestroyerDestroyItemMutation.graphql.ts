@@ -1,66 +1,32 @@
+/**
+ * @generated SignedSource<<818581b360178614683ef2367762a03e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type DestroyItemInput = {
-    itemId: string;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null | undefined;
+  itemId: string;
 };
-export type useDestroyerDestroyItemMutationVariables = {
-    input: DestroyItemInput;
+export type useDestroyerDestroyItemMutation$variables = {
+  input: DestroyItemInput;
 };
-export type useDestroyerDestroyItemMutationResponse = {
-    readonly destroyItem: {
-        readonly destroyedId: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"useDestroyerFragment">;
-    } | null;
+export type useDestroyerDestroyItemMutation$data = {
+  readonly destroyItem: {
+    readonly destroyedId: string | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"useDestroyerFragment">;
+  } | null | undefined;
 };
 export type useDestroyerDestroyItemMutation = {
-    readonly response: useDestroyerDestroyItemMutationResponse;
-    readonly variables: useDestroyerDestroyItemMutationVariables;
+  response: useDestroyerDestroyItemMutation$data;
+  variables: useDestroyerDestroyItemMutation$variables;
 };
-
-
-
-/*
-mutation useDestroyerDestroyItemMutation(
-  $input: DestroyItemInput!
-) {
-  destroyItem(input: $input) {
-    destroyedId
-    ...useDestroyerFragment
-  }
-}
-
-fragment useDestroyerFragment on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  ... on DestroyMutationPayload {
-    __isDestroyMutationPayload: __typename
-    destroyed
-    globalErrors {
-      message
-      type
-    }
-  }
-  ... on RevokeAccessPayload {
-    revoked
-    globalErrors {
-      message
-      type
-    }
-  }
-  ... on DestroyOrderingPayload {
-    disabled
-    globalErrors {
-      message
-      type
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -182,7 +148,9 @@ return {
             "name": "useDestroyerFragment",
             "selections": [
               (v4/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -231,5 +199,7 @@ return {
   }
 };
 })();
-(node as any).hash = '84c31de80ed917c97842a0d3cda33b2e';
+
+(node as any).hash = "84c31de80ed917c97842a0d3cda33b2e";
+
 export default node;

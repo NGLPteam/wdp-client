@@ -12,7 +12,7 @@ const AssetsPropertySelect = forwardRef(
     const selectRef = useRef<HTMLSelectElement | null>(null);
 
     const handleOnChange = useCallback(
-      (e) => {
+      (e: React.ChangeEvent<HTMLSelectElement>) => {
         if (!e || !e.target.value) return;
 
         const selectedValue = e.target.value;

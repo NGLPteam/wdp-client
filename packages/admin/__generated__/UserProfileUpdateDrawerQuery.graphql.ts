@@ -1,54 +1,26 @@
+/**
+ * @generated SignedSource<<98a00a9296a20f39f79ad95cb80cde7c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type UserProfileUpdateDrawerQueryVariables = {};
-export type UserProfileUpdateDrawerQueryResponse = {
-    readonly viewer: {
-        readonly name: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"UserProfileUpdateFormFragment">;
-    };
+export type UserProfileUpdateDrawerQuery$variables = Record<PropertyKey, never>;
+export type UserProfileUpdateDrawerQuery$data = {
+  readonly viewer: {
+    readonly name: string | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"UserProfileUpdateFormFragment">;
+  };
 };
 export type UserProfileUpdateDrawerQuery = {
-    readonly response: UserProfileUpdateDrawerQueryResponse;
-    readonly variables: UserProfileUpdateDrawerQueryVariables;
+  response: UserProfileUpdateDrawerQuery$data;
+  variables: UserProfileUpdateDrawerQuery$variables;
 };
-
-
-
-/*
-query UserProfileUpdateDrawerQuery {
-  viewer {
-    name
-    ...UserProfileUpdateFormFragment
-    id
-  }
-}
-
-fragment FileUploadFragment on ImageAttachment {
-  originalFilename
-  storage
-  thumb {
-    png {
-      alt
-      url
-    }
-  }
-}
-
-fragment UserProfileUpdateFormFragment on User {
-  givenName
-  familyName
-  email
-  username
-  avatar {
-    ...FileUploadFragment
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -212,5 +184,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'e7efc74c97cd06f44c38f7e7a266fa33';
+
+(node as any).hash = "e7efc74c97cd06f44c38f7e7a266fa33";
+
 export default node;

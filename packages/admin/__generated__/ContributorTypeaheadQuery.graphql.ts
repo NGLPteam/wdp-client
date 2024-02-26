@@ -1,67 +1,41 @@
+/**
+ * @generated SignedSource<<a3a6fc82d43f7dd4cc1836ef6d4f108e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
-export type ContributorTypeaheadQueryVariables = {
-    query: string;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type ContributorTypeaheadQuery$variables = {
+  query: string;
 };
-export type ContributorTypeaheadQueryResponse = {
-    readonly contributors: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly __typename: "PersonContributor";
-                readonly givenName: string | null;
-                readonly familyName: string | null;
-                readonly id: string;
-            } | {
-                readonly __typename: "OrganizationContributor";
-                readonly legalName: string | null;
-                readonly id: string;
-            } | {
-                /*This will never be '%other', but we need some
-                value in case none of the concrete values match.*/
-                readonly __typename: "%other";
-            };
-        }>;
-    };
+export type ContributorTypeaheadQuery$data = {
+  readonly contributors: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly __typename: "OrganizationContributor";
+        readonly id: string;
+        readonly legalName: string | null | undefined;
+      } | {
+        readonly __typename: "PersonContributor";
+        readonly familyName: string | null | undefined;
+        readonly givenName: string | null | undefined;
+        readonly id: string;
+      } | {
+        // This will never be '%other', but we need some
+        // value in case none of the concrete values match.
+        readonly __typename: "%other";
+      };
+    }>;
+  };
 };
 export type ContributorTypeaheadQuery = {
-    readonly response: ContributorTypeaheadQueryResponse;
-    readonly variables: ContributorTypeaheadQueryVariables;
+  response: ContributorTypeaheadQuery$data;
+  variables: ContributorTypeaheadQuery$variables;
 };
-
-
-
-/*
-query ContributorTypeaheadQuery(
-  $query: String!
-) {
-  contributors(prefix: $query, page: 1, perPage: 50, order: NAME_ASCENDING) {
-    edges {
-      node {
-        __typename
-        ... on PersonContributor {
-          __typename
-          givenName
-          familyName
-          id
-        }
-        ... on OrganizationContributor {
-          __typename
-          legalName
-          id
-        }
-        ... on Node {
-          __isNode: __typename
-          id
-        }
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -272,5 +246,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'a24a78e78b7348615d2dd397accfa3a4';
+
+(node as any).hash = "a24a78e78b7348615d2dd397accfa3a4";
+
 export default node;

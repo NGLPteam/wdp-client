@@ -53,11 +53,13 @@ const Dropdown = ({
   };
 
   function renderDisclosure(
-    disclosure: JSX.Element | ((props: BaseDisclosureProps) => void),
+    disclosure:
+      | React.ReactElement
+      | ((props: BaseDisclosureProps) => React.ReactNode),
     disclosureProps: BaseDisclosureProps
   ) {
     if (isFunction(disclosure)) return disclosure(disclosureProps);
-    return React.cloneElement(disclosure, disclosureProps);
+    return disclosure ? React.cloneElement(disclosure, disclosureProps) : null;
   }
 
   return (
@@ -72,7 +74,9 @@ const Dropdown = ({
 
 interface Props {
   className?: string;
-  disclosure: JSX.Element | ((props: BaseDisclosureProps) => void);
+  disclosure:
+    | React.ReactElement
+    | ((props: BaseDisclosureProps) => React.ReactNode);
   label: string;
   menuItems: (JSX.Element | null)[];
   alignRight?: boolean;

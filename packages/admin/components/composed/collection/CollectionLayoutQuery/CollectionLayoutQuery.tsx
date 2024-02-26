@@ -1,6 +1,7 @@
 import React, { ComponentProps } from "react";
 import ErrorPage from "next/error";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
+import { GraphQLTaggedNode } from "react-relay";
 import type {
   QueryLayoutProps,
   QueryPageComponentProps,
@@ -47,7 +48,7 @@ function CollectionLayoutQuery<
       {({ data }) => (
         <FragmentWrapper<CollectionLayoutQueryFragment$key>
           data={data?.collection}
-          fragment={fragment}
+          fragment={fragment as GraphQLTaggedNode}
         >
           {({ enhancedData }) => (
             <AuthContextProvider data={enhancedData}>
@@ -64,7 +65,7 @@ function CollectionLayoutQuery<
 
 type CollectionQuery = {
   readonly response: {
-    collection: HasFragment<"CollectionLayoutQueryFragment"> | null;
+    collection?: HasFragment<"CollectionLayoutQueryFragment"> | null;
   };
   readonly variables: { collectionSlug: string; hasQuery?: boolean };
 };

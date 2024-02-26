@@ -1,44 +1,27 @@
+/**
+ * @generated SignedSource<<8206ec18898274da1af0cd6a126b2e39>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type NodeRoleSelectQueryVariables = {
-    id: string;
+export type NodeRoleSelectQuery$variables = {
+  id: string;
 };
-export type NodeRoleSelectQueryResponse = {
-    readonly node: {
-        readonly " $fragmentRefs": FragmentRefs<"RoleSelectFragment">;
-    } | null;
+export type NodeRoleSelectQuery$data = {
+  readonly node: {
+    readonly " $fragmentSpreads": FragmentRefs<"RoleSelectFragment">;
+  } | null | undefined;
 };
 export type NodeRoleSelectQuery = {
-    readonly response: NodeRoleSelectQueryResponse;
-    readonly variables: NodeRoleSelectQueryVariables;
+  response: NodeRoleSelectQuery$data;
+  variables: NodeRoleSelectQuery$variables;
 };
-
-
-
-/*
-query NodeRoleSelectQuery(
-  $id: ID!
-) {
-  node(id: $id) {
-    __typename
-    ...RoleSelectFragment
-    id
-  }
-}
-
-fragment RoleSelectFragment on Entity {
-  __isEntity: __typename
-  assignableRoles {
-    id
-    name
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -110,7 +93,6 @@ return {
             "name": "__typename",
             "storageKey": null
           },
-          (v2/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
@@ -136,7 +118,8 @@ return {
             ],
             "type": "Entity",
             "abstractKey": "__isEntity"
-          }
+          },
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
@@ -152,5 +135,7 @@ return {
   }
 };
 })();
-(node as any).hash = '4aac81f1ac08c01dbde0239fd9a113e4';
+
+(node as any).hash = "4aac81f1ac08c01dbde0239fd9a113e4";
+
 export default node;

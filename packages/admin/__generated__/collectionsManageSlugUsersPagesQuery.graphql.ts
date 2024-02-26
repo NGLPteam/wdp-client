@@ -1,139 +1,33 @@
+/**
+ * @generated SignedSource<<43c7273b9e801239e8cea623c54fe67e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
-export type collectionsManageSlugUsersPagesQueryVariables = {
-    userSlug: string;
-    order?: SimpleOrder | null | undefined;
-    page: number;
+export type collectionsManageSlugUsersPagesQuery$variables = {
+  order?: SimpleOrder | null | undefined;
+  page: number;
+  userSlug: string;
 };
-export type collectionsManageSlugUsersPagesQueryResponse = {
-    readonly user: {
-        readonly collectionAccessGrants: {
-            readonly " $fragmentRefs": FragmentRefs<"UserCollectionsListFragment">;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"UserLayoutQueryFragment">;
-    } | null;
+export type collectionsManageSlugUsersPagesQuery$data = {
+  readonly user: {
+    readonly collectionAccessGrants: {
+      readonly " $fragmentSpreads": FragmentRefs<"UserCollectionsListFragment">;
+    };
+    readonly " $fragmentSpreads": FragmentRefs<"UserLayoutQueryFragment">;
+  } | null | undefined;
 };
 export type collectionsManageSlugUsersPagesQuery = {
-    readonly response: collectionsManageSlugUsersPagesQueryResponse;
-    readonly variables: collectionsManageSlugUsersPagesQueryVariables;
+  response: collectionsManageSlugUsersPagesQuery$data;
+  variables: collectionsManageSlugUsersPagesQuery$variables;
 };
-
-
-
-/*
-query collectionsManageSlugUsersPagesQuery(
-  $userSlug: Slug!
-  $order: SimpleOrder
-  $page: Int!
-) {
-  user(slug: $userSlug) {
-    ...UserLayoutQueryFragment
-    collectionAccessGrants(order: $order, page: $page, perPage: 20) {
-      ...UserCollectionsListFragment
-    }
-    id
-  }
-}
-
-fragment CoverImageFragment on ImageAttachment {
-  storage
-  medium {
-    webp {
-      ...ImageFragment
-    }
-  }
-}
-
-fragment EntityThumbnailColumnFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  thumbnail {
-    storage
-    ...CoverImageFragment
-  }
-  ... on Node {
-    __isNode: __typename
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment UserCollectionsListFragment on UserCollectionAccessGrantConnection {
-  edges {
-    node {
-      id
-      collection {
-        id
-        title
-        slug
-        ...EntityThumbnailColumnFragment
-      }
-      role {
-        id
-        name
-      }
-      user {
-        id
-        slug
-      }
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment UserLayoutFragment on User {
-  name
-  email
-}
-
-fragment UserLayoutQueryFragment on User {
-  ...UserLayoutFragment
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -216,6 +110,11 @@ return {
         "plural": false,
         "selections": [
           {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "UserLayoutQueryFragment"
+          },
+          {
             "alias": null,
             "args": (v4/*: any*/),
             "concreteType": "UserCollectionAccessGrantConnection",
@@ -230,11 +129,6 @@ return {
               }
             ],
             "storageKey": null
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "UserLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -522,5 +416,7 @@ return {
   }
 };
 })();
-(node as any).hash = '3d0157eb2e4704d58a8c31ce0c5549a9';
+
+(node as any).hash = "3d0157eb2e4704d58a8c31ce0c5549a9";
+
 export default node;

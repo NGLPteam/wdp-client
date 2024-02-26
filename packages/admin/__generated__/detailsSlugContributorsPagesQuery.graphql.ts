@@ -1,135 +1,27 @@
+/**
+ * @generated SignedSource<<931eea2f258860c8eca0e900b692f0d2>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type detailsSlugContributorsPagesQueryVariables = {
-    contributorSlug: string;
+export type detailsSlugContributorsPagesQuery$variables = {
+  contributorSlug: string;
 };
-export type detailsSlugContributorsPagesQueryResponse = {
-    readonly contributor: {
-        readonly " $fragmentRefs": FragmentRefs<"ContributorUpdateFormFragment" | "ContributorLayoutQueryFragment">;
-    } | null;
+export type detailsSlugContributorsPagesQuery$data = {
+  readonly contributor: {
+    readonly " $fragmentSpreads": FragmentRefs<"ContributorLayoutQueryFragment" | "ContributorUpdateFormFragment">;
+  } | null | undefined;
 };
 export type detailsSlugContributorsPagesQuery = {
-    readonly response: detailsSlugContributorsPagesQueryResponse;
-    readonly variables: detailsSlugContributorsPagesQueryVariables;
+  response: detailsSlugContributorsPagesQuery$data;
+  variables: detailsSlugContributorsPagesQuery$variables;
 };
-
-
-
-/*
-query detailsSlugContributorsPagesQuery(
-  $contributorSlug: Slug!
-) {
-  contributor(slug: $contributorSlug) {
-    __typename
-    ...ContributorUpdateFormFragment
-    ...ContributorLayoutQueryFragment
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-  }
-}
-
-fragment ContributorLayoutFragment on AnyContributor {
-  __isAnyContributor: __typename
-  __typename
-  ... on OrganizationContributor {
-    slug
-    legalName
-  }
-  ... on PersonContributor {
-    givenName
-    familyName
-  }
-}
-
-fragment ContributorLayoutQueryFragment on Contributor {
-  __isContributor: __typename
-  ...ContributorLayoutFragment
-}
-
-fragment ContributorUpdateFormFragment on AnyContributor {
-  __isAnyContributor: __typename
-  __typename
-  ... on PersonContributor {
-    ...ContributorUpdatePersonFormFragment
-  }
-  ... on OrganizationContributor {
-    ...ContributorUpdateOrganizationFormFragment
-  }
-}
-
-fragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {
-  __isAnyContributor: __typename
-  ... on OrganizationContributor {
-    legalName
-    email
-    location
-    bio
-    url
-    orcid
-    image {
-      ...FileUploadFragment
-    }
-    links {
-      title
-      url
-    }
-  }
-}
-
-fragment ContributorUpdateOrganizationFormFragment on AnyContributor {
-  __isAnyContributor: __typename
-  ... on OrganizationContributor {
-    contributorId: id
-    ...ContributorUpdateOrganizationFormFieldsFragment
-  }
-}
-
-fragment ContributorUpdatePersonFormFieldsFragment on AnyContributor {
-  __isAnyContributor: __typename
-  ... on PersonContributor {
-    givenName
-    familyName
-    title
-    email
-    affiliation
-    bio
-    orcid
-    image {
-      ...FileUploadFragment
-    }
-    links {
-      title
-      url
-    }
-  }
-}
-
-fragment ContributorUpdatePersonFormFragment on AnyContributor {
-  __isAnyContributor: __typename
-  ... on PersonContributor {
-    contributorId: id
-    ...ContributorUpdatePersonFormFieldsFragment
-  }
-}
-
-fragment FileUploadFragment on ImageAttachment {
-  originalFilename
-  storage
-  thumb {
-    png {
-      alt
-      url
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -502,5 +394,7 @@ return {
   }
 };
 })();
-(node as any).hash = '1f02d5d710fb4dfeee78a110250aab37';
+
+(node as any).hash = "1f02d5d710fb4dfeee78a110250aab37";
+
 export default node;

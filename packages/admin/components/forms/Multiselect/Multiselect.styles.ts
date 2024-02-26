@@ -64,7 +64,7 @@ export const List = styled.ul<ListProps>`
 `;
 
 interface ListProps {
-  isOpen?: boolean;
+  open?: boolean;
 }
 
 export const ListItem = styled.li<ListItemProps>`

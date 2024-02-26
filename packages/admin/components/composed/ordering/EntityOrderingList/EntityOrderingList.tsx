@@ -1,12 +1,12 @@
-import { graphql } from "react-relay";
+import { GraphQLTaggedNode } from "react-relay";
 import { useTranslation } from "react-i18next";
-import type { OperationType } from "relay-runtime";
+import { OperationType, graphql } from "relay-runtime";
 import type { ModelTableActionProps } from "@tanstack/react-table";
 import SetIntitialOrderingButton from "../SetIntitialOrderingButton";
 import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 import { EntityOrderingListFragment$key } from "@/relay/EntityOrderingListFragment.graphql";
 import {
-  EntityOrderingListDataFragment,
+  EntityOrderingListDataFragment$data,
   EntityOrderingListDataFragment$key,
 } from "@/relay/EntityOrderingListDataFragment.graphql";
 import { PageHeader } from "components/layout";
@@ -32,13 +32,13 @@ function EntityOrderingList<T extends OperationType>({
 
   /* Get the order data */
   const sourceEntity = useMaybeFragment<EntityOrderingListFragment$key>(
-    fragment,
+    fragment as GraphQLTaggedNode,
     data
   );
 
   const collectionOrderings =
     useMaybeFragment<EntityOrderingListDataFragment$key>(
-      orderingsfragment,
+      orderingsfragment as GraphQLTaggedNode,
       sourceEntity?.orderings
     );
 
@@ -115,7 +115,7 @@ function EntityOrderingList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, EntityOrderingListDataFragment, EntityOrderingNode>
+    <ModelListPage<T, EntityOrderingListDataFragment$data, EntityOrderingNode>
       modelName="ordering"
       columns={columns}
       data={collectionOrderings}
@@ -128,7 +128,7 @@ function EntityOrderingList<T extends OperationType>({
 }
 
 type EntityOrderingNode =
-  EntityOrderingListDataFragment["edges"][number]["node"];
+  EntityOrderingListDataFragment$data["edges"][number]["node"];
 
 interface Props extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
   data?: EntityOrderingListFragment$key;

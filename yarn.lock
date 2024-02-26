@@ -1740,13 +1740,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@castiron/components-breadcrumbs@npm:2.0.2":
-  version: 2.0.2
-  resolution: "@castiron/components-breadcrumbs@npm:2.0.2"
-  peerDependencies:
-    react: ">= 16.8"
-    react-dom: ">= 16.8"
-  checksum: 10c0/de3ee35f86663c0f3b58906260feea1c62b57b3f0f878544ed020f2740fba6b32c9b742c946387561bed98d616e5c2787a8dcb3e97d9ccd9548830d27859147c
+"@castiron/components-breadcrumbs@npm:1.0.0":
+  version: 1.0.0
+  resolution: "@castiron/components-breadcrumbs@npm:1.0.0"
+  dependencies:
+    react: "npm:^17.0.1"
+    react-dom: "npm:^17.0.1"
+  checksum: 10c0/5ac6781b188f3ba19894b03260c0bc9f2aec2fe7fa18b1469303eb40a8a13374e5c3aefbe6cb61b0675ac3d8293309cf4030b43e29dd47cced8befb34f92b4d8
   languageName: node
   linkType: hard
 
@@ -6862,7 +6862,7 @@ __metadata:
   resolution: "@wdp/admin@workspace:packages/admin"
   dependencies:
     "@castiron/common-types": "npm:^2.0.1"
-    "@castiron/components-breadcrumbs": "npm:2.0.2"
+    "@castiron/components-breadcrumbs": "npm:1.0.0"
     "@castiron/components-pagination": "npm:^2.0.2"
     "@castiron/hooks": "npm:^1.2.1-alpha.0"
     "@castiron/style-mixins": "npm:^1.0.0"
@@ -6923,7 +6923,7 @@ __metadata:
     react-beautiful-dnd: "npm:^13.1.0"
     react-confirm: "npm:^0.3.0-7"
     react-dom: "npm:^18.2.0"
-    react-hook-form: "npm:7.12.2"
+    react-hook-form: "npm:^7.50.1"
     react-hot-toast: "npm:^2.1.1"
     react-i18next: "npm:^14.0.5"
     react-relay: "npm:^16.2.0"
@@ -7017,7 +7017,7 @@ __metadata:
     react-confirm: "npm:^0.3.0-7"
     react-dom: "npm:^18.2.0"
     react-google-charts: "npm:^4.0.1"
-    react-hook-form: "npm:^7.30.0"
+    react-hook-form: "npm:^7.50.1"
     react-i18next: "npm:^14.0.5"
     react-intersection-observer: "npm:^9.8.0"
     react-markdown: "npm:^9.0.1"
@@ -18843,6 +18843,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-dom@npm:^17.0.1":
+  version: 17.0.2
+  resolution: "react-dom@npm:17.0.2"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+    object-assign: "npm:^4.1.1"
+    scheduler: "npm:^0.20.2"
+  peerDependencies:
+    react: 17.0.2
+  checksum: 10c0/51abbcb72450fe527ebf978c3bc989ba266630faaa53f47a2fae5392369729e8de62b2e4683598cbe651ea7873cd34ec7d5127e2f50bf4bfe6bd0c3ad9bddcb0
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
@@ -18915,21 +18928,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:7.12.2":
-  version: 7.12.2
-  resolution: "react-hook-form@npm:7.12.2"
-  peerDependencies:
-    react: ^16.8.0 || ^17
-  checksum: 10c0/eaea03d25ce4b16260ec71e98e410b6a614cdd403dbeaaff4650e7caa7923430533e7c7458137e4b5c1cefa903a567a01ec3cda2172c61d38cc1a66a3f961791
-  languageName: node
-  linkType: hard
-
-"react-hook-form@npm:^7.30.0":
-  version: 7.30.0
-  resolution: "react-hook-form@npm:7.30.0"
+"react-hook-form@npm:^7.50.1":
+  version: 7.50.1
+  resolution: "react-hook-form@npm:7.50.1"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18
-  checksum: 10c0/c76c705bfc02c8e4beecdf20b0ff624997d86385982269231d5b7ae953c47abfd936af317c55448ffc4eeb85bde82b582629108e4e63d199f7176d7bfa6fb470
+  checksum: 10c0/4905c33afbea67dc817e8be53c360d5c009dfd5c5a93f6ac632e1fc258a8a59587add364842b2d39f7bf126e4e20b1883e90f9c3a2f916c5b79173ce4cf30491
   languageName: node
   linkType: hard
 
@@ -19276,6 +19280,16 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0
   checksum: 10c0/d72340a058da1ce6552281abf87bc1869b1635b298bda0e2e8c50e1ed90c3b6b40df45abe8d22ca2a495f24371ea7fe40420cd5ce7ba9fd41e62b959058ca548
+  languageName: node
+  linkType: hard
+
+"react@npm:^17.0.1":
+  version: 17.0.2
+  resolution: "react@npm:17.0.2"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+    object-assign: "npm:^4.1.1"
+  checksum: 10c0/07ae8959acf1596f0550685102fd6097d461a54a4fd46a50f88a0cd7daaa97fdd6415de1dcb4bfe0da6aa43221a6746ce380410fa848acc60f8ac41f6649c148
   languageName: node
   linkType: hard
 
@@ -20152,6 +20166,16 @@ __metadata:
     loose-envify: "npm:^1.1.0"
     object-assign: "npm:^4.1.1"
   checksum: 10c0/662a665a471ea93f6eddd64fa426c3ac78014e4ebe4ee248d444eb5f7448d99a72695ec45ec2faea76c034cc307843fd1e438552d2f9cb02efe38440fb3d5636
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.20.2":
+  version: 0.20.2
+  resolution: "scheduler@npm:0.20.2"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+    object-assign: "npm:^4.1.1"
+  checksum: 10c0/b0982e4b0f34f4ffa4f2f486161c0fd9ce9b88680b045dccbf250eb1aa4fd27413570645455187a83535e2370f5c667a251045547765408492bd883cbe95fcdb
   languageName: node
   linkType: hard
 

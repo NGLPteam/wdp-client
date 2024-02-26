@@ -1,32 +1,34 @@
+/**
+ * @generated SignedSource<<7810fb84799d53dd1a531122bb4f47a7>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SearchFilterFormFragment = {
-    readonly coreProperties: ReadonlyArray<{
-        readonly searchPath?: string | undefined;
-        readonly " $fragmentRefs": FragmentRefs<"SearchFilterFragment">;
+export type SearchFilterFormFragment$data = {
+  readonly coreProperties: ReadonlyArray<{
+    readonly searchPath?: string;
+    readonly " $fragmentSpreads": FragmentRefs<"SearchFilterFragment">;
+  }>;
+  readonly schemas: ReadonlyArray<{
+    readonly searchableProperties: ReadonlyArray<{
+      readonly label?: string;
+      readonly searchPath?: string;
+      readonly " $fragmentSpreads": FragmentRefs<"SearchFilterFragment">;
     }>;
-    readonly schemas: ReadonlyArray<{
-        readonly searchableProperties: ReadonlyArray<{
-            readonly searchPath?: string | undefined;
-            readonly label?: string | undefined;
-            readonly " $fragmentRefs": FragmentRefs<"SearchFilterFragment">;
-        }>;
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"SearchSchemaFilterFragment">;
-    readonly " $refType": "SearchFilterFormFragment";
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchSchemaFilterFragment">;
+  readonly " $fragmentType": "SearchFilterFormFragment";
 };
-export type SearchFilterFormFragment$data = SearchFilterFormFragment;
 export type SearchFilterFormFragment$key = {
-    readonly " $data"?: SearchFilterFormFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SearchFilterFormFragment">;
+  readonly " $data"?: SearchFilterFormFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchFilterFormFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -115,5 +117,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'f43a48d3c0138252fcd59da69024ee46';
+
+(node as any).hash = "f43a48d3c0138252fcd59da69024ee46";
+
 export default node;

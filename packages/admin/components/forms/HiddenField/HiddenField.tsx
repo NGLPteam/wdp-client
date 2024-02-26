@@ -17,7 +17,7 @@ function HiddenField<T extends FieldValues = FieldValues>({
   );
 }
 
-interface Props<T> {
+interface Props<T extends FieldValues = FieldValues> {
   watch: UseFormWatch<T>;
   showOn?: string | boolean | number | null;
   field: Path<T>;

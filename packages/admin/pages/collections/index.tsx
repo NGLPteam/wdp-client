@@ -1,4 +1,4 @@
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import CollectionList from "components/composed/collection/CollectionList";
 import { QueryWrapper } from "components/api";
 import { collectionsQuery as Query } from "__generated__/collectionsQuery.graphql";

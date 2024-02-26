@@ -1,53 +1,29 @@
+/**
+ * @generated SignedSource<<942c9f3bd70b8c0d41d3d2272a1176cf>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type UserGrantCommunityAccessDrawerQueryVariables = {
-    slug: string;
+export type UserGrantCommunityAccessDrawerQuery$variables = {
+  slug: string;
 };
-export type UserGrantCommunityAccessDrawerQueryResponse = {
-    readonly user: {
-        readonly id: string;
-        readonly name: string | null;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"UserGrantCommunityAccessFormFragment">;
+export type UserGrantCommunityAccessDrawerQuery$data = {
+  readonly user: {
+    readonly id: string;
+    readonly name: string | null | undefined;
+  } | null | undefined;
+  readonly " $fragmentSpreads": FragmentRefs<"UserGrantCommunityAccessFormFragment">;
 };
 export type UserGrantCommunityAccessDrawerQuery = {
-    readonly response: UserGrantCommunityAccessDrawerQueryResponse;
-    readonly variables: UserGrantCommunityAccessDrawerQueryVariables;
+  response: UserGrantCommunityAccessDrawerQuery$data;
+  variables: UserGrantCommunityAccessDrawerQuery$variables;
 };
-
-
-
-/*
-query UserGrantCommunityAccessDrawerQuery(
-  $slug: Slug!
-) {
-  user(slug: $slug) {
-    id
-    name
-  }
-  ...UserGrantCommunityAccessFormFragment
-}
-
-fragment CommunitySelectFragment on Query {
-  communities {
-    edges {
-      node {
-        id
-        name
-      }
-    }
-  }
-}
-
-fragment UserGrantCommunityAccessFormFragment on Query {
-  ...CommunitySelectFragment
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -157,5 +133,7 @@ return {
   }
 };
 })();
-(node as any).hash = '0ddbec5e04a7a01e87b1e9232456d988';
+
+(node as any).hash = "0ddbec5e04a7a01e87b1e9232456d988";
+
 export default node;

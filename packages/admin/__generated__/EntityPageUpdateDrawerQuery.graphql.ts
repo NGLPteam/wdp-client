@@ -1,79 +1,34 @@
+/**
+ * @generated SignedSource<<a6fbb31e074659659dd01c1548b6e51b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityPageUpdateDrawerQueryVariables = {
-    entitySlug: string;
-    pageSlug: string;
+export type EntityPageUpdateDrawerQuery$variables = {
+  entitySlug: string;
+  pageSlug: string;
 };
-export type EntityPageUpdateDrawerQueryResponse = {
-    readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityPageUpdateFormFragment">;
-    } | null;
-    readonly collection: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityPageUpdateFormFragment">;
-    } | null;
-    readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityPageUpdateFormFragment">;
-    } | null;
+export type EntityPageUpdateDrawerQuery$data = {
+  readonly collection: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityPageUpdateFormFragment">;
+  } | null | undefined;
+  readonly community: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityPageUpdateFormFragment">;
+  } | null | undefined;
+  readonly item: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityPageUpdateFormFragment">;
+  } | null | undefined;
 };
 export type EntityPageUpdateDrawerQuery = {
-    readonly response: EntityPageUpdateDrawerQueryResponse;
-    readonly variables: EntityPageUpdateDrawerQueryVariables;
+  response: EntityPageUpdateDrawerQuery$data;
+  variables: EntityPageUpdateDrawerQuery$variables;
 };
-
-
-
-/*
-query EntityPageUpdateDrawerQuery(
-  $entitySlug: Slug!
-  $pageSlug: String!
-) {
-  item(slug: $entitySlug) {
-    ...EntityPageUpdateFormFragment
-    id
-  }
-  collection(slug: $entitySlug) {
-    ...EntityPageUpdateFormFragment
-    id
-  }
-  community(slug: $entitySlug) {
-    ...EntityPageUpdateFormFragment
-    id
-  }
-}
-
-fragment EntityPageUpdateFormFragment on AnyEntity {
-  __isAnyEntity: __typename
-  ... on Entity {
-    __isEntity: __typename
-    page(slug: $pageSlug) {
-      id
-      title
-      slug
-      body
-      position
-      heroImage {
-        ...FileUploadFragment
-      }
-    }
-  }
-}
-
-fragment FileUploadFragment on ImageAttachment {
-  originalFilename
-  storage
-  thumb {
-    png {
-      alt
-      url
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -110,7 +65,6 @@ v3 = {
   "storageKey": null
 },
 v4 = [
-  (v3/*: any*/),
   {
     "kind": "InlineFragment",
     "selections": [
@@ -231,7 +185,8 @@ v4 = [
     ],
     "type": "AnyEntity",
     "abstractKey": "__isAnyEntity"
-  }
+  },
+  (v3/*: any*/)
 ];
 return {
   "fragment": {
@@ -322,5 +277,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'd039e78847ccf32bb8d6069cba3913fd';
+
+(node as any).hash = "d039e78847ccf32bb8d6069cba3913fd";
+
 export default node;

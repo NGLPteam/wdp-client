@@ -5,7 +5,7 @@ import { graphql } from "react-relay";
 import type { ModelTableActionProps } from "@tanstack/react-table";
 import {
   CommunityListFragment$key,
-  CommunityListFragment,
+  CommunityListFragment$data,
 } from "@/relay/CommunityListFragment.graphql";
 import { useMaybeFragment, useDrawerHelper, useDestroyer } from "hooks";
 
@@ -74,9 +74,9 @@ interface CommunityListProps
   data?: CommunityListFragment$key | null;
 }
 
-type ListFragment = CommunityListFragment;
+type ListFragment = CommunityListFragment$data;
 
-type CommunityNode = CommunityListFragment["edges"][number]["node"];
+type CommunityNode = CommunityListFragment$data["edges"][number]["node"];
 
 type Node = CommunityNode;
 

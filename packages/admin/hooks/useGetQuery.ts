@@ -7,7 +7,9 @@ import get from "lodash/get";
  * @param paramName
  * @returns the value of the param
  */
-export default function useGetQuery(paramName: string): string | string[] {
+export default function useGetQuery(
+  paramName: string
+): string | string[] | undefined {
   const router = useRouter();
 
   return get(router, `query.${paramName}`);

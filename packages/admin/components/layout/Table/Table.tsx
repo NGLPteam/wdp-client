@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, PropsWithChildren } from "react";
 import * as Styled from "./Table.styles";
 
 import TableHeader from "./TableHeader";
@@ -30,8 +30,7 @@ const Table = ({
   );
 };
 
-interface Props {
-  children: React.ReactNode[] | Element[];
+interface Props extends PropsWithChildren {
   "aria-label": string;
   selectable?: boolean;
   showCheckboxes?: boolean;

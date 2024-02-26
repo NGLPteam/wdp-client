@@ -1,6 +1,6 @@
 import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import { graphql } from "react-relay";
+import { graphql } from "relay-runtime";
 import CollectionUpdateForm from "../CollectionUpdateForm";
 import { useDestroyer, useDrawerHelper } from "hooks";
 import { QueryWrapper } from "components/api";
@@ -8,7 +8,7 @@ import Drawer from "components/layout/Drawer";
 
 import type {
   CollectionUpdateDrawerQuery as Query,
-  CollectionUpdateDrawerQueryResponse as Response,
+  CollectionUpdateDrawerQuery$data as Response,
 } from "__generated__/CollectionUpdateDrawerQuery.graphql";
 import { RouteHelper } from "routes";
 import DrawerActions from "components/layout/Drawer/DrawerActions";

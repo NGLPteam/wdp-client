@@ -1,26 +1,28 @@
+/**
+ * @generated SignedSource<<d0f9d9f767b5445bcefa2eec09d1cd98>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FooterFragment = {
-    readonly site: {
-        readonly footer: {
-            readonly copyrightStatement: string;
-            readonly description: string;
-        };
+export type FooterFragment$data = {
+  readonly site: {
+    readonly footer: {
+      readonly copyrightStatement: string;
+      readonly description: string;
     };
-    readonly " $refType": "FooterFragment";
+  };
+  readonly " $fragmentType": "FooterFragment";
 };
-export type FooterFragment$data = FooterFragment;
 export type FooterFragment$key = {
-    readonly " $data"?: FooterFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FooterFragment">;
+  readonly " $data"?: FooterFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FooterFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -68,5 +70,7 @@ const node: ReaderFragment = {
   "type": "GlobalConfiguration",
   "abstractKey": null
 };
-(node as any).hash = 'e1d0747a2a12c7c322d9147535873e3a';
+
+(node as any).hash = "e1d0747a2a12c7c322d9147535873e3a";
+
 export default node;

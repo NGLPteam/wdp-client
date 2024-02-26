@@ -1,55 +1,57 @@
+/**
+ * @generated SignedSource<<cff55b935376886beedddf44eabb765b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ParentSelectorFragment = {
-    readonly __typename: "Collection";
-    readonly entityId: string;
-    readonly schemaVersion: {
-        readonly enforcesParent: boolean;
-        readonly enforcedParentVersions: ReadonlyArray<{
-            readonly identifier: string;
-            readonly namespace: string;
-        }>;
-    };
-    readonly parent: {
-        readonly id?: string | undefined;
-        readonly slug?: string | undefined;
-        readonly title?: string | undefined;
-    } | null;
-    readonly " $refType": "ParentSelectorFragment";
+export type ParentSelectorFragment$data = {
+  readonly __typename: "Collection";
+  readonly entityId: string;
+  readonly parent: {
+    readonly id?: string;
+    readonly slug?: string;
+    readonly title?: string;
+  } | null | undefined;
+  readonly schemaVersion: {
+    readonly enforcedParentVersions: ReadonlyArray<{
+      readonly identifier: string;
+      readonly namespace: string;
+    }>;
+    readonly enforcesParent: boolean;
+  };
+  readonly " $fragmentType": "ParentSelectorFragment";
 } | {
-    readonly __typename: "Item";
-    readonly entityId: string;
-    readonly schemaVersion: {
-        readonly enforcesParent: boolean;
-        readonly enforcedParentVersions: ReadonlyArray<{
-            readonly identifier: string;
-            readonly namespace: string;
-        }>;
-    };
-    readonly parent: {
-        readonly id?: string | undefined;
-        readonly slug?: string | undefined;
-        readonly title?: string | undefined;
-    } | null;
-    readonly " $refType": "ParentSelectorFragment";
+  readonly __typename: "Item";
+  readonly entityId: string;
+  readonly parent: {
+    readonly id?: string;
+    readonly slug?: string;
+    readonly title?: string;
+  } | null | undefined;
+  readonly schemaVersion: {
+    readonly enforcedParentVersions: ReadonlyArray<{
+      readonly identifier: string;
+      readonly namespace: string;
+    }>;
+    readonly enforcesParent: boolean;
+  };
+  readonly " $fragmentType": "ParentSelectorFragment";
 } | {
-    /*This will never be '%other', but we need some
-    value in case none of the concrete values match.*/
-    readonly __typename: "%other";
-    readonly " $refType": "ParentSelectorFragment";
+  // This will never be '%other', but we need some
+  // value in case none of the concrete values match.
+  readonly __typename: "%other";
+  readonly " $fragmentType": "ParentSelectorFragment";
 };
-export type ParentSelectorFragment$data = ParentSelectorFragment;
 export type ParentSelectorFragment$key = {
-    readonly " $data"?: ParentSelectorFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ParentSelectorFragment">;
+  readonly " $data"?: ParentSelectorFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ParentSelectorFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -205,5 +207,7 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'ecc064f08a74455699582c7127178e1a';
+
+(node as any).hash = "ecc064f08a74455699582c7127178e1a";
+
 export default node;
