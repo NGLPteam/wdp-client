@@ -5,3 +5,4 @@ export { default as usePageContext } from "./usePageContext";
 export { default as useQueryStateContext } from "./useQueryStateContext";
 export { default as useIsAuthenticated } from "./useIsAuthenticated";
 export { default as useQueryVariablesContext } from "./useQueryVariablesContext";
+export { default as usePreloadOnMount } from "./usePreloadOnMount";

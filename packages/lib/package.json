@@ -41,6 +41,7 @@
     "react": "*",
     "react-confirm": "*",
     "react-dom": "*",
+    "react-error-boundary": "*",
     "react-relay": "*",
     "react-relay-network-modern": "*",
     "react-relay-network-modern-ssr": "*",
