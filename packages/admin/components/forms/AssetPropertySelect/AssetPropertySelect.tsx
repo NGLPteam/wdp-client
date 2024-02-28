@@ -1,17 +1,21 @@
 import React, { forwardRef, Ref, useCallback } from "react";
 import { DialogDisclosure, useDialogState } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import BaseInputWrapper from "../BaseInputWrapper";
-import BaseSelect from "../BaseSelect";
-import * as Styled from "./AssetPropertySelect.styles";
 import { ButtonControl } from "components/atomic/buttons/ButtonControl/ButtonControl.styles";
 import Select from "components/forms/Select";
 import FileCreateModal from "components/composed/file/FileCreateModal";
+import BaseInputWrapper from "../BaseInputWrapper";
+import BaseSelect from "../BaseSelect";
+import * as Styled from "./AssetPropertySelect.styles";
 
 type BaseProps = React.ComponentProps<typeof Select> & {
   refetchAssets?: () => void;
+  onChange: (
+    e: React.ChangeEvent<HTMLSelectElement> | string | string[] | null,
+  ) => void;
 };
 
+/* eslint-disable react/prop-types */
 const AssetPropertySelect = forwardRef(
   (
     {
@@ -24,8 +28,8 @@ const AssetPropertySelect = forwardRef(
       refetchAssets,
       onChange,
       ...inputProps
-    }: Props,
-    ref: Ref<HTMLSelectElement>
+    }: BaseProps,
+    ref: Ref<HTMLSelectElement>,
   ) => {
     const dialog = useDialogState({ visible: false, animated: true });
     const { t } = useTranslation();
@@ -35,7 +39,7 @@ const AssetPropertySelect = forwardRef(
         if (refetchAssets) refetchAssets();
         if (newAssetId) onChange(newAssetId);
       },
-      [refetchAssets, onChange]
+      [refetchAssets, onChange],
     );
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
@@ -74,9 +78,7 @@ const AssetPropertySelect = forwardRef(
         <FileCreateModal dialog={dialog} onSuccess={handleSuccess} />
       </>
     );
-  }
+  },
 );
-
-type Props = BaseProps;
 
 export default AssetPropertySelect;

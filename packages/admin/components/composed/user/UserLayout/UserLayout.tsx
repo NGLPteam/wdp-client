@@ -1,4 +1,3 @@
-import React, { ReactNode } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import {
@@ -17,7 +16,7 @@ import { RouteHelper } from "routes";
 import { UserLayoutFragment$key } from "@/relay/UserLayoutFragment.graphql";
 
 type Props = {
-  children: ReactNode;
+  children: React.ReactNode;
   showSidebar?: boolean;
   data?: UserLayoutFragment$key | null;
   useRouteHeader?: boolean;

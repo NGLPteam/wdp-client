@@ -1,9 +1,9 @@
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { IconFactory } from "components/factories";
+import { AvatarFragment$key } from "@/relay/AvatarFragment.graphql";
 import Image from "../Image";
 import * as Styled from "./Avatar.styles";
-import { AvatarFragment$key } from "@/relay/AvatarFragment.graphql";
-import { IconFactory } from "components/factories";
 
 const Avatar = ({ data, size = 32, placeholder }: Props) => {
   const avatar = useMaybeFragment(fragment, data);

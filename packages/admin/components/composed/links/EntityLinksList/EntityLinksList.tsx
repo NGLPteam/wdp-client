@@ -1,7 +1,5 @@
 import { graphql } from "react-relay";
-import type { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 import { capitalize } from "lodash";
 import { useMaybeFragment, useDestroyer } from "hooks";
 
@@ -19,6 +17,8 @@ import type {
   EntityLinksListDataFragment$data,
   EntityLinksListDataFragment$key,
 } from "@/relay/EntityLinksListDataFragment.graphql";
+import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
+import type { OperationType } from "relay-runtime";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -33,11 +33,11 @@ function EntityLinksList<T extends OperationType>({
   /* eslint-disable max-len */
   const sourceEntity = useMaybeFragment<EntityLinksListFragment$key>(
     fragment,
-    data
+    data,
   );
   const linksData = useMaybeFragment<EntityLinksListDataFragment$key>(
     linksFragment,
-    sourceEntity?.links
+    sourceEntity?.links,
   );
   /* eslint-enable max-len */
 
@@ -97,7 +97,7 @@ function EntityLinksList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<EntityLinksNode>) =>
       destroy.link(
         { entityLinkId: row.original.id },
-        row.original.target.title || "glossary.link"
+        row.original.target.title || "glossary.link",
       ),
   };
 

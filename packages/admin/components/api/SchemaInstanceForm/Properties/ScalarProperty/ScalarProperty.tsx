@@ -40,7 +40,7 @@ interface RenderScalarProps {
   isWide?: boolean;
 }
 
-type RenderScalarProperty = (props: RenderScalarProps) => JSX.Element;
+type RenderScalarProperty = (props: RenderScalarProps) => React.JSX.Element;
 
 const fragment = graphql`
   fragment ScalarPropertyFragment on ScalarProperty {

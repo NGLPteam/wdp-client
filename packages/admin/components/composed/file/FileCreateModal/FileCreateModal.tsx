@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import type { DialogState } from "reakit/Dialog";
 import { graphql } from "relay-runtime";
 import get from "lodash/get";
 import { QueryWrapper } from "@wdp/lib/api/components";
@@ -8,6 +7,7 @@ import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToSt
 import { useRouter } from "next/router";
 import Modal from "components/layout/Modal";
 import FileCreateForm from "components/composed/file/FileCreateForm";
+import type { DialogState } from "reakit/Dialog";
 import type { FileCreateModalQuery as Query } from "__generated__/FileCreateModalQuery.graphql";
 
 const FileCreateModal = ({ dialog, onSuccess }: Props) => {
@@ -21,7 +21,7 @@ const FileCreateModal = ({ dialog, onSuccess }: Props) => {
     (newAssetId: string) => {
       if (onSuccess) onSuccess(newAssetId);
     },
-    [onSuccess]
+    [onSuccess],
   );
 
   return (

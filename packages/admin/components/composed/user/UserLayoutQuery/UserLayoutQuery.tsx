@@ -2,19 +2,19 @@ import React, { ComponentProps } from "react";
 import ErrorPage from "next/error";
 import { graphql } from "relay-runtime";
 import { GraphQLTaggedNode } from "react-relay";
-import type {
-  QueryLayoutProps,
-  QueryPageComponentProps,
-} from "@wdp/lib/types/page";
-import UserLayout from "../UserLayout";
 import { FragmentWrapper, QueryWrapper } from "components/api";
 import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import { HasFragment } from "types/graphql-helpers";
 import type { UserLayoutQueryFragment$key } from "@/relay/UserLayoutQueryFragment.graphql";
+import UserLayout from "../UserLayout";
+import type {
+  QueryLayoutProps,
+  QueryPageComponentProps,
+} from "@wdp/lib/types/page";
 
 function UserLayoutQuery<
   Query extends UserQuery,
-  P extends QueryPageComponentProps<Query>
+  P extends QueryPageComponentProps<Query>,
 >({
   query,
   PageComponent,

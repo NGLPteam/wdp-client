@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import type { ValidateResult } from "react-hook-form";
 import capitalize from "lodash/capitalize";
 import * as Styled from "./Message.styles";
+import type { ValidateResult } from "react-hook-form";
 
 export default function Message({ type, result }: Props) {
   const { t } = useTranslation();

@@ -1,19 +1,19 @@
 import { GraphQLTaggedNode } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { OperationType, graphql } from "relay-runtime";
-import type { ModelTableActionProps } from "@tanstack/react-table";
-import SetIntitialOrderingButton from "../SetIntitialOrderingButton";
 import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
-import { EntityOrderingListFragment$key } from "@/relay/EntityOrderingListFragment.graphql";
-import {
-  EntityOrderingListDataFragment$data,
-  EntityOrderingListDataFragment$key,
-} from "@/relay/EntityOrderingListDataFragment.graphql";
 import { PageHeader } from "components/layout";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 import useResetOrdering from "hooks/useResetOrdering";
+import {
+  EntityOrderingListDataFragment$data,
+  EntityOrderingListDataFragment$key,
+} from "@/relay/EntityOrderingListDataFragment.graphql";
+import { EntityOrderingListFragment$key } from "@/relay/EntityOrderingListFragment.graphql";
+import SetIntitialOrderingButton from "../SetIntitialOrderingButton";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -33,13 +33,13 @@ function EntityOrderingList<T extends OperationType>({
   /* Get the order data */
   const sourceEntity = useMaybeFragment<EntityOrderingListFragment$key>(
     fragment as GraphQLTaggedNode,
-    data
+    data,
   );
 
   const collectionOrderings =
     useMaybeFragment<EntityOrderingListDataFragment$key>(
       orderingsfragment as GraphQLTaggedNode,
-      sourceEntity?.orderings
+      sourceEntity?.orderings,
     );
 
   /* Set the table columns */
@@ -70,14 +70,14 @@ function EntityOrderingList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       destroy.ordering(
         { orderingId: row.original.id },
-        row.original.name || "glossary.ordering"
+        row.original.name || "glossary.ordering",
       ),
     hideDelete: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       row.original.inheritedFromSchema,
     handleDisable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       destroy.ordering(
         { orderingId: row.original.id },
-        row.original.name || "glossary.ordering"
+        row.original.name || "glossary.ordering",
       ),
     hideDisable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       !row.original.inheritedFromSchema || row.original.disabled,
@@ -90,7 +90,7 @@ function EntityOrderingList<T extends OperationType>({
       resetOrdering(
         { orderingId: row.original.id },
         row.original.name || "glossary.ordering",
-        ["orderings"]
+        ["orderings"],
       );
     },
     hideEnable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>

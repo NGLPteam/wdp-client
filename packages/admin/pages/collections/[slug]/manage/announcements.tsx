@@ -1,9 +1,9 @@
 import { graphql } from "relay-runtime";
-import type { GetLayout } from "@wdp/lib/types/page";
-import type { announcementsManageSlugCollectionsPagesQuery as Query } from "@/relay/announcementsManageSlugCollectionsPagesQuery.graphql";
 
 import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
 import EntityAnnouncementsList from "components/composed/announcements/EntityAnnouncementsList";
+import type { announcementsManageSlugCollectionsPagesQuery as Query } from "@/relay/announcementsManageSlugCollectionsPagesQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function CollectionAnnouncements({ data }: Props) {
   return (

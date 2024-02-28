@@ -1,6 +1,6 @@
 import { Trans, useTranslation } from "react-i18next";
-import * as Styled from "./PageCountActions.styles";
 import { PageInfo } from "types/graphql-schema";
+import * as Styled from "./PageCountActions.styles";
 
 /**
  * Shows number of items or number of selected items.
@@ -63,7 +63,7 @@ interface Props {
   /** Number of selected items */
   selectedCount?: number;
   /** Multiselect multiselectActions, an array of buttons */
-  multiselectActions?: JSX.Element | JSX.Element[];
+  multiselectActions?: React.JSX.Element | React.JSX.Element[];
   /** Loading state */
   loading?: boolean;
 }

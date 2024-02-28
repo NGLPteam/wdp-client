@@ -1,17 +1,17 @@
 import React, { useMemo } from "react";
-import type { Cell, Row } from "@tanstack/react-table";
 import { flexRender, HeaderContext } from "@tanstack/react-table";
 import Grid from "components/layout/Grid/Grid";
+import type { Cell, Row } from "@tanstack/react-table";
 
 function ModelGridItem<T extends Record<string, unknown>>({ row }: Props<T>) {
   const actions = useMemo(
     () => row.getVisibleCells().find((cell) => cell.column.id === "actions"),
-    [row]
+    [row],
   );
 
   const thumbnail = useMemo(
     () => row.getVisibleCells().find((cell) => cell.column.id === "thumbnail"),
-    [row]
+    [row],
   );
 
   function renderCell(cell: Cell<T, unknown>) {
@@ -44,7 +44,7 @@ function ModelGridItem<T extends Record<string, unknown>>({ row }: Props<T>) {
                   <span>
                     {flexRender(
                       cell.column.columnDef.header,
-                      {} as HeaderContext<T, unknown>
+                      {} as HeaderContext<T, unknown>,
                     )}
                     {`: `}
                   </span>

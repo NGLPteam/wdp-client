@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
-import BaseInputDescription from "../BaseInputDescription";
 import { pxToRem } from "theme/mixins/functions";
 import { respond } from "theme/mixins/base";
+import BaseInputDescription from "../BaseInputDescription";
 
 export const Fieldset = styled.fieldset`
   flex-basis: var(--form-grid-item-width-wide);
@@ -37,7 +37,7 @@ export const Fields = styled.div`
       flex-direction: column;
       border-bottom: var(--table-border);
     `,
-    50
+    50,
   )}
 `;
 
@@ -47,7 +47,7 @@ export const Field = styled.div`
     css`
       width: 100%;
     `,
-    50
+    50,
   )}
 `;
 
@@ -64,7 +64,7 @@ export const Actions = styled.div`
       padding-block-end: var(--fieldset-actions-column-spacing);
       padding-block-start: 0;
     `,
-    50
+    50,
   )}
 `;
 

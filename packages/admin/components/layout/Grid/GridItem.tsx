@@ -1,5 +1,5 @@
-import * as Styled from "./Grid.styles";
 import { Checkbox } from "components/forms";
+import * as Styled from "./Grid.styles";
 
 type CheckboxProps = React.ComponentProps<typeof Checkbox>;
 
@@ -25,11 +25,11 @@ const GridItem = ({
 };
 
 interface Props {
-  children: JSX.Element;
+  children: React.JSX.Element;
   selectable?: boolean;
   checkboxProps?: CheckboxProps;
-  thumbnail?: JSX.Element | React.ReactNode;
-  actions?: JSX.Element | React.ReactNode;
+  thumbnail?: React.JSX.Element | React.ReactNode;
+  actions?: React.JSX.Element | React.ReactNode;
 }
 
 export default GridItem;

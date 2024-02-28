@@ -1,8 +1,6 @@
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
-import type { DialogState } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./SchemaSelector.styles";
 import Modal from "components/layout/Modal";
 // These API components must use default imports to work
 import MutationForm, {
@@ -11,12 +9,14 @@ import MutationForm, {
   useToVariables,
 } from "components/api/MutationForm";
 
+import { SchemaKind } from "types/graphql-schema";
 import {
   AlterSchemaVersionInput,
   SchemaSelectorModalMutation,
 } from "@/relay/SchemaSelectorModalMutation.graphql";
-import { SchemaKind } from "types/graphql-schema";
 import { SchemaSelectorModalOptionsFragment$key } from "@/relay/SchemaSelectorModalOptionsFragment.graphql";
+import * as Styled from "./SchemaSelector.styles";
+import type { DialogState } from "reakit/Dialog";
 
 const SchemaSelectorModal = ({
   data,
@@ -37,7 +37,7 @@ const SchemaSelectorModal = ({
     (data) => ({
       input: { ...data, entityId, propertyValues: {} },
     }),
-    []
+    [],
   );
 
   const options =
@@ -57,7 +57,7 @@ const SchemaSelectorModal = ({
         {...register("schemaVersionSlug")}
       />
     ),
-    [options]
+    [options],
   );
 
   return (

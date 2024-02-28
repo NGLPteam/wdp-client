@@ -121,5 +121,4 @@ export const reverseMapSortBy: ReverseMapSortBy = (order) => {
     default:
       return null;
   }
-  return null;
 };

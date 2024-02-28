@@ -7,12 +7,12 @@ import MutationForm, {
   Forms,
 } from "components/api/MutationForm";
 
+import LinkTargetTypeahead from "components/forms/LinkTargetTypeahead";
 import type {
   EntityLinksAddFormMutation,
   LinkEntityInput,
 } from "@/relay/EntityLinksAddFormMutation.graphql";
 import type { EntityLinksAddFormFragment$key } from "@/relay/EntityLinksAddFormFragment.graphql";
-import LinkTargetTypeahead from "components/forms/LinkTargetTypeahead";
 
 export default function EntityLinksAddForm({
   data,
@@ -23,12 +23,12 @@ export default function EntityLinksAddForm({
 
   const sourceEntity = useFragment<EntityLinksAddFormFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const toVariables = useToVariables<EntityLinksAddFormMutation, Fields>(
     (data) => ({ input: { ...data, sourceId: sourceEntity.id || "" } }),
-    []
+    [],
   );
 
   const renderForm = useRenderForm<Fields>(
@@ -55,7 +55,7 @@ export default function EntityLinksAddForm({
         />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

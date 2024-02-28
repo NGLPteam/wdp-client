@@ -1,7 +1,7 @@
 import { graphql } from "react-relay";
-import BaseFileUpload from "./BaseFileUpload";
-import { FileUploadFragment$key } from "@/relay/FileUploadFragment.graphql";
 import { useMaybeFragment } from "hooks";
+import { FileUploadFragment$key } from "@/relay/FileUploadFragment.graphql";
+import BaseFileUpload from "./BaseFileUpload";
 type UploadProps = React.ComponentProps<typeof BaseFileUpload>;
 
 export default function FileUpload({ data, ...inputProps }: Props) {

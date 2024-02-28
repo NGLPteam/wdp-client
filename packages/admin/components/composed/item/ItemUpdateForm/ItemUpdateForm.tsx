@@ -10,22 +10,22 @@ import MutationForm, {
   useIsSuccess,
   useOnFailure,
 } from "components/api/MutationForm";
-import type {
-  UpdateItemInput,
-  ItemUpdateFormMutation,
-} from "@/relay/ItemUpdateFormMutation.graphql";
-import type { ItemUpdateFormFragment$key } from "@/relay/ItemUpdateFormFragment.graphql";
-import type { ItemUpdateFormFieldsFragment$key } from "@/relay/ItemUpdateFormFieldsFragment.graphql";
 import { sanitizeDateField } from "helpers";
 import { useSchemaContext, useSchemaProperties } from "components/api/hooks";
+import { convertSchemaErrors } from "components/api/SchemaInstanceForm/convertSchemaErrors";
+import SchemaFormFields from "components/api/SchemaFormFields";
+import { ParentSelector } from "components/forms";
 import {
   ItemUpdateForm_schemaErrorsFragment$data,
   // eslint-disable-next-line max-len
   ItemUpdateForm_schemaErrorsFragment$key as SchemaErrorsFragment$key,
 } from "@/relay/ItemUpdateForm_schemaErrorsFragment.graphql";
-import { convertSchemaErrors } from "components/api/SchemaInstanceForm/convertSchemaErrors";
-import SchemaFormFields from "components/api/SchemaFormFields";
-import { ParentSelector } from "components/forms";
+import type { ItemUpdateFormFieldsFragment$key } from "@/relay/ItemUpdateFormFieldsFragment.graphql";
+import type { ItemUpdateFormFragment$key } from "@/relay/ItemUpdateFormFragment.graphql";
+import type {
+  UpdateItemInput,
+  ItemUpdateFormMutation,
+} from "@/relay/ItemUpdateFormMutation.graphql";
 
 // eslint-disable-next-line camelcase, prettier/prettier
 type SchemaErrors = ItemUpdateForm_schemaErrorsFragment$data["schemaErrors"];
@@ -71,12 +71,12 @@ export default function ItemUpdateForm({
     function (response) {
       const errors = readInlineData<SchemaErrorsFragment$key>(
         schemaErrorsFragment,
-        response[mutationName] ?? null
+        response[mutationName] ?? null,
       );
 
       return !errors?.schemaErrors || errors.schemaErrors.length === 0;
     },
-    [mutationName]
+    [mutationName],
   );
 
   const onFailure = useOnFailure<ItemUpdateFormMutation, Fields>(function ({
@@ -85,20 +85,19 @@ export default function ItemUpdateForm({
   }) {
     const errors = readInlineData<SchemaErrorsFragment$key>(
       schemaErrorsFragment,
-      response[mutationName] ?? null
+      response[mutationName] ?? null,
     );
 
     if (errors?.schemaErrors) {
       const convertedErrors = convertSchemaErrors<SchemaErrors>(
-        errors.schemaErrors
+        errors.schemaErrors,
       );
 
       for (const { path, error } of convertedErrors) {
         setError(path, error);
       }
     }
-  },
-  []);
+  }, []);
 
   const toVariables = useToVariables<ItemUpdateFormMutation, Fields>((data) => {
     const inputValues = pick(data, [
@@ -177,7 +176,7 @@ export default function ItemUpdateForm({
         <SchemaFormFields data={fieldsData} schemaKind="ITEM" />
       </>
     ),
-    [fieldsData]
+    [fieldsData],
   );
 
   return (

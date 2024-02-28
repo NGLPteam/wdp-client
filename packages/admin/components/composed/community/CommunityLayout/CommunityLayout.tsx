@@ -1,8 +1,7 @@
-import React, { ReactNode, useCallback } from "react";
+import React, { useCallback } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
-import type { CommunityLayoutFragment$key } from "@/relay/CommunityLayoutFragment.graphql";
 import { PageHeader, ContentSidebar, ContentHeader } from "components/layout";
 import {
   useChildRouteLinks,
@@ -15,6 +14,7 @@ import { RouteHelper } from "routes";
 import { ButtonControlConfirm, ButtonControlGroup } from "components/atomic";
 import CollectionCreateButton from "components/composed/collection/CollectionCreateButton";
 import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
+import type { CommunityLayoutFragment$key } from "@/relay/CommunityLayoutFragment.graphql";
 
 export default function CommunityLayout({
   children,
@@ -22,7 +22,7 @@ export default function CommunityLayout({
   data,
   useRouteHeader = true,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
   showSidebar?: boolean;
   data?: CommunityLayoutFragment$key | null;
   useRouteHeader?: boolean;
@@ -35,7 +35,7 @@ export default function CommunityLayout({
   const manageRoutes = useChildRouteLinks(
     "community.manage",
     { slug },
-    community
+    community,
   );
   const tabRoutes = useChildRouteLinks("community", { slug }, community);
   const router = useRouter();
@@ -46,13 +46,13 @@ export default function CommunityLayout({
       if (community) {
         destroy.community(
           { communityId: community.id },
-          community.name || "glossary.community"
+          community.name || "glossary.community",
         );
         hideDialog();
         router.back();
       }
     },
-    [community, destroy, router]
+    [community, destroy, router],
   );
 
   const buttons = (

@@ -1,10 +1,10 @@
-import type { AccessorFn, ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import { isFunction } from "lodash";
-import { Node } from "./types";
 import { NamedLink } from "components/atomic";
+import { Node } from "./types";
+import type { AccessorFn, ColumnDef } from "@tanstack/react-table";
 
-type NameColumn<T extends Node> = Partial<ColumnDef<T>> & {
+type NameColumnType<T extends Node> = Partial<ColumnDef<T>> & {
   route?: string;
   cellType?: string;
   className?: string;
@@ -13,9 +13,15 @@ type NameColumn<T extends Node> = Partial<ColumnDef<T>> & {
 
 // disableSortBy is getting replaced with enableSorting
 const NameColumn = <NodeType extends Node>(
-  { route, cellType, className, accessor, ...props }: NameColumn<NodeType> = {
+  {
+    route,
+    cellType,
+    className,
+    accessor,
+    ...props
+  }: NameColumnType<NodeType> = {
     cellType: "name",
-  }
+  },
 ): ColumnDef<NodeType> => {
   const { t } = useTranslation();
 

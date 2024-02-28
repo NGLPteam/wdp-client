@@ -2,7 +2,6 @@ import React, { Ref, useState } from "react";
 import { Controller } from "react-hook-form";
 import { QueryWrapper } from "@wdp/lib/api/components";
 import { graphql } from "relay-runtime";
-import type { FieldValues, Control, Path } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import debounce from "lodash/debounce";
 import BaseTypeahead from "components/forms/BaseTypeahead";
@@ -10,13 +9,14 @@ import {
   ItemTypeaheadQuery as Query,
   ItemTypeaheadQuery$data as Response,
 } from "__generated__/ItemTypeaheadQuery.graphql";
+import type { FieldValues, Control, Path } from "react-hook-form";
 
 type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
 
 const ItemTypeahead = <T extends FieldValues = FieldValues>(
   { control, name, label, disabled, required }: Props<T>,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  ref: Ref<HTMLInputElement>
+  ref: Ref<HTMLInputElement>,
 ) => {
   const [q, setQ] = useState("a");
 

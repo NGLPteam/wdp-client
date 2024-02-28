@@ -1,12 +1,6 @@
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import CreateContributionButton from "../CreateContributionButton";
-import {
-  ItemContributionListFragment$data,
-  ItemContributionListFragment$key,
-} from "@/relay/ItemContributionListFragment.graphql";
 import {
   useMaybeFragment,
   useDestroyer,
@@ -18,6 +12,12 @@ import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { ButtonControlGroup, NamedLink } from "components/atomic";
 import PageHeader from "components/layout/PageHeader";
+import {
+  ItemContributionListFragment$data,
+  ItemContributionListFragment$key,
+} from "@/relay/ItemContributionListFragment.graphql";
+import CreateContributionButton from "../CreateContributionButton";
+import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -29,7 +29,7 @@ function ItemContributionList<T extends OperationType>({
 }: ItemContributionListProps) {
   const itemContributions = useMaybeFragment<ItemContributionListFragment$key>(
     fragment,
-    data
+    data,
   );
   const drawerHelper = useDrawerHelper();
   const destroy = useDestroyer();
@@ -82,7 +82,7 @@ function ItemContributionList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<ItemContributionNode>) =>
       destroy.contribution(
         { contributionId: row.original.id },
-        "glossary.contribution"
+        "glossary.contribution",
       ),
   };
 

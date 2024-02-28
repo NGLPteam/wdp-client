@@ -2,9 +2,9 @@ import { useTranslation } from "react-i18next";
 import { DialogDisclosure, useDialogState } from "reakit/Dialog";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import SetIntitialOrderingModal from "../SetIntitialOrderingModal/SetIntitialOrderingModal";
-import { SetIntitialOrderingButtonFragment$key } from "@/relay/SetIntitialOrderingButtonFragment.graphql";
 import { ButtonControl } from "components/atomic";
+import { SetIntitialOrderingButtonFragment$key } from "@/relay/SetIntitialOrderingButtonFragment.graphql";
+import SetIntitialOrderingModal from "../SetIntitialOrderingModal/SetIntitialOrderingModal";
 
 interface Props {
   data?: SetIntitialOrderingButtonFragment$key | null;
@@ -15,7 +15,7 @@ export default function SetIntitialOrderingButton({ data }: Props) {
 
   const entityData = useMaybeFragment<SetIntitialOrderingButtonFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const dialog = useDialogState({ visible: false, animated: true });

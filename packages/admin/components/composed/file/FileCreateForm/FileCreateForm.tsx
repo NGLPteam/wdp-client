@@ -16,7 +16,7 @@ export default function FileCreateForm({ entityId, onSuccess }: Props) {
   /** Convert values to variables, pass in entityId */
   const toVariables = useToVariables<FileCreateFormMutation, Fields>(
     (data) => ({ input: { ...data, entityId } }),
-    [entityId]
+    [entityId],
   );
 
   /** Render the form */
@@ -52,7 +52,7 @@ export default function FileCreateForm({ entityId, onSuccess }: Props) {
         />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

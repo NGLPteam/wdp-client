@@ -25,10 +25,10 @@ export type BooleanPath<T extends FieldValues> = Path<T> &
  * This generic overloads the RHF setValue to allow setting a boolean directly.
  */
 export type SetBooleanValue<T extends FieldValues> = (<
-  TFieldName extends BooleanPath<T>
+  TFieldName extends BooleanPath<T>,
 >(
   name: TFieldName,
   value: boolean,
-  options?: Parameters<UseFormSetValue<T>>[2]
+  options?: Parameters<UseFormSetValue<T>>[2],
 ) => ReturnType<UseFormSetValue<T>>) &
   UseFormSetValue<T>;

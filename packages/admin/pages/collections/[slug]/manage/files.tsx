@@ -1,9 +1,9 @@
 import { graphql } from "relay-runtime";
-import type { GetLayout } from "@wdp/lib/types/page";
-import type { filesManageSlugCollectionQuery as Query } from "@/relay/filesManageSlugCollectionQuery.graphql";
 
 import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
 import FileList from "components/composed/file/FileList";
+import type { filesManageSlugCollectionQuery as Query } from "@/relay/filesManageSlugCollectionQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function ManageFiles({ data }: Props) {
   return <FileList data={data?.collection?.assets} headerStyle="secondary" />;

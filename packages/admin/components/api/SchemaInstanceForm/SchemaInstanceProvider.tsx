@@ -3,20 +3,20 @@ import { useFragment, useMutation } from "relay-hooks";
 import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import { useForm, useWatch, FormProvider } from "react-hook-form";
-import type { Control } from "react-hook-form";
-import Actions from "./Actions";
-import Context from "./Context";
-import type { OnSuccessCallback } from "./types";
-import { convertSchemaErrors } from "./convertSchemaErrors";
 import { useNotify } from "hooks";
 import { useSchemaContext } from "components/api/hooks";
-import type { SchemaContextState } from "components/api/hooks/types";
 import type {
   SchemaInstanceProviderApplyMutation,
   SchemaInstanceProviderApplyMutation$data as MutationResponse,
   ApplySchemaPropertiesInput,
 } from "@/relay/SchemaInstanceProviderApplyMutation.graphql";
 import type { SchemaInstanceProviderFragment$key } from "@/relay/SchemaInstanceProviderFragment.graphql";
+import Actions from "./Actions";
+import Context from "./Context";
+import { convertSchemaErrors } from "./convertSchemaErrors";
+import type { OnSuccessCallback } from "./types";
+import type { SchemaContextState } from "components/api/hooks/types";
+import type { Control } from "react-hook-form";
 
 type SchemaErrors = NonNullable<
   MutationResponse["applySchemaProperties"]
@@ -165,7 +165,7 @@ function Watcher({ control }: { control: Control }) {
       /* eslint-disable no-console */
       console.dir({ value: formState });
     },
-    [formState]
+    [formState],
   );
 
   return null;

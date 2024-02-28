@@ -20,7 +20,7 @@ export default function EntityAnnouncementUpdateForm({
   const { announcement } =
     useFragment<EntityAnnouncementUpdateFormFragment$key>(
       fragment as GraphQLTaggedNode,
-      data
+      data,
     );
 
   const toVariables = useToVariables<
@@ -28,7 +28,7 @@ export default function EntityAnnouncementUpdateForm({
     Fields
   >(
     (data) => ({ input: { ...data, announcementId: announcement?.id || "" } }),
-    []
+    [],
   );
 
   const defaultValues = {
@@ -63,7 +63,7 @@ export default function EntityAnnouncementUpdateForm({
         />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

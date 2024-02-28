@@ -4,17 +4,17 @@ import { Connectionish } from "types/graphql-helpers";
 import { NoResultsMessage } from "components/atomic";
 import ModelTable from "components/composed/model/ModelTable";
 import ModelGrid from "components/composed/model/ModelGrid";
-import type { PaginatedConnectionish } from "components/composed/model/ModelListPage";
 import useModelList from "components/composed/model/ModelList/hooks/useModelList";
-import type { UseModelListProps } from "components/composed/model/ModelList/hooks/useModelList";
 import { ModelNames } from "helpers";
 import { useQueryStateContext } from "hooks";
 import { ViewOptions } from "utils/view-options";
+import type { UseModelListProps } from "components/composed/model/ModelList/hooks/useModelList";
+import type { PaginatedConnectionish } from "components/composed/model/ModelListPage";
 
 export interface ModelListProps<
   T extends OperationType,
   U extends PaginatedConnectionish | Connectionish,
-  V extends Record<string, unknown>
+  V extends Record<string, unknown>,
 > extends UseModelListProps<T, U, V> {
   view: ViewOptions;
   modelName: Lowercase<ModelNames>;
@@ -24,7 +24,7 @@ export interface ModelListProps<
 function ModelList<
   T extends OperationType,
   U extends PaginatedConnectionish | Connectionish,
-  V extends Record<string, unknown>
+  V extends Record<string, unknown>,
 >({
   modelName,
   selectable = false,

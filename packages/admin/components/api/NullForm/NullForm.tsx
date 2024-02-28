@@ -1,15 +1,15 @@
 import React, { useCallback, useMemo } from "react";
 import { useForm, FormProvider } from "react-hook-form";
+
+import { useTranslation } from "react-i18next";
+import { Button } from "components/atomic";
+import { ContentHeader } from "components/layout";
 import type {
   DefaultValues,
   FieldValues,
   SubmitHandler,
   UseFormReturn,
 } from "react-hook-form";
-
-import { useTranslation } from "react-i18next";
-import { Button } from "components/atomic";
-import { ContentHeader } from "components/layout";
 
 /**
  * Our form inputs need a form context to be set.
@@ -41,12 +41,12 @@ export default function NullForm<T extends FieldValues = FieldValues>({
         onSubmitCallback(data);
       }
     },
-    [onSubmitCallback]
+    [onSubmitCallback],
   );
 
   const onSubmit = useMemo(
     () => handleSubmit(submitHandler),
-    [handleSubmit, submitHandler]
+    [handleSubmit, submitHandler],
   );
 
   const onReset = useCallback(() => {
@@ -112,6 +112,6 @@ interface Props<T extends FieldValues = FieldValues> {
 
 type RenderProps<T extends FieldValues> = (props: {
   form: UseFormReturn<T>;
-}) => JSX.Element;
+}) => React.JSX.Element;
 
 type OnSubmitCallback<T extends FieldValues = FieldValues> = (data: T) => void;

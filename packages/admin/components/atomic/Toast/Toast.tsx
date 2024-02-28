@@ -1,6 +1,6 @@
 import { Toaster } from "react-hot-toast";
-import * as Styled from "./Toast.styles";
 import { IconFactory } from "components/factories";
+import * as Styled from "./Toast.styles";
 
 function Toast({ ...toastProps }: Props) {
   function getIcon(type: string) {

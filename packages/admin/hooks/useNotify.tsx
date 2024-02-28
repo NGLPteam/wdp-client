@@ -23,7 +23,7 @@ export default function useNotify() {
     (errors: Readonly<MutationGlobalError[]>) => {
       errors.forEach((e) => error(e.message));
     },
-    [error]
+    [error],
   );
 
   return {

@@ -1,7 +1,7 @@
-import type { Row } from "@tanstack/react-table";
-import ModelGridItem from "./ModelGridItem";
 import Grid from "components/layout/Grid/Grid";
 import { useQueryStateContext } from "hooks";
+import ModelGridItem from "./ModelGridItem";
+import type { Row } from "@tanstack/react-table";
 
 type ModelGridProps<U extends Record<string, unknown>> = {
   rows: Row<U>[];

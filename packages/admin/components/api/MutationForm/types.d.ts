@@ -1,14 +1,15 @@
 /* eslint-disable camelcase */
+import type { MutationForm_mutationErrors$key } from "@/relay/MutationForm_mutationErrors.graphql";
+import type { MutationForm_schemaErrors$key } from "@/relay/MutationForm_schemaErrors.graphql";
 import type {
   FieldValues,
   MultipleFieldErrors,
   Path,
   UseFormReturn,
   ValidateResult,
+  UseFormSetError,
 } from "react-hook-form";
 import type { MutationParameters } from "relay-runtime";
-
-import type { MutationForm_mutationErrors$key } from "@/relay/MutationForm_mutationErrors.graphql";
 
 export interface ErrorMap<T extends FieldValues> {
   attributes: readonly RemappedAttributeError<T>[];
@@ -17,11 +18,11 @@ export interface ErrorMap<T extends FieldValues> {
 }
 
 export type GetErrors<M extends MutationParameters> = (
-  response: M["response"]
+  response: M["response"],
 ) => HasErrorFragment | null;
 
 export type GetSchemaErrors<M extends MutationParameters> = (
-  response: M["response"]
+  response: M["response"],
 ) => HasSchemaErrorFragment | null;
 
 export type GlobalError = ValidateResult;
@@ -32,17 +33,17 @@ export type HasSchemaErrorFragment = MutationForm_schemaErrors$key;
 
 export type IsSuccessPredicate<
   M extends MutationParameters,
-  T extends FieldValues
+  T extends FieldValues,
 > = (response: M["response"], data: T) => boolean;
 
 export type OnFailureCallback<
   M extends MutationParameters,
-  T extends FieldValues
+  T extends FieldValues,
 > = (params: OnFailureResponse<M, T>) => void;
 
 interface OnFailureResponse<
   M extends MutationParameters,
-  T extends FieldValues
+  T extends FieldValues,
 > {
   errors: ErrorMap<T>;
   response: M["response"];
@@ -53,12 +54,12 @@ interface OnFailureResponse<
 
 export type OnSuccessCallback<
   M extends MutationParameters,
-  T extends FieldValues
+  T extends FieldValues,
 > = (params: OnSuccessResponse<M, T>) => void;
 
 interface OnSuccessResponse<
   M extends MutationParameters,
-  T extends FieldValues
+  T extends FieldValues,
 > {
   response: M["response"];
   variables: M["variables"];
@@ -80,8 +81,9 @@ export type MutationName<M extends MutationParameters> = {
 }[keyof M["response"]];
 
 // eslint-disable-next-line prettier/prettier
-export type PayloadWithErrors<M extends MutationParameters> =
-  M["response"][MutationName<M>] & MutationForm_mutationErrors$key;
+export type PayloadWithErrors<
+  M extends MutationParameters
+> = M["response"][MutationName<M>] & MutationForm_mutationErrors$key;
 
 interface PayloadFragments {
   __fragments?: {
@@ -117,8 +119,8 @@ interface RemappedAttributeError<T> {
  * ), []);
  */
 export type RenderForm<T extends FieldValues = FieldValues> = (
-  props: RenderFormProps<T>
-) => JSX.Element;
+  props: RenderFormProps<T>,
+) => React.JSX.Element;
 
 interface RenderFormProps<T extends FieldValues = FieldValues> {
   form: UseFormReturn<T>;
@@ -139,12 +141,12 @@ interface RenderFormProps<T extends FieldValues = FieldValues> {
  */
 export type VariableTransformer<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues
+  T extends FieldValues = FieldValues,
 > = (data: T) => M["variables"];
 
 interface RequiresToVariables<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues
+  T extends FieldValues = FieldValues,
 > {
   /**
    * We often need to perform a little bit of transformation on the mutation
@@ -164,12 +166,12 @@ interface RequiresToVariables<
 
 type OptionalToVariables<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues
+  T extends FieldValues = FieldValues,
 > = Partial<RequiresToVariables<M, T>>;
 
 export type AcceptsToVariables<
   M extends MutationParameters,
-  T extends FieldValues
+  T extends FieldValues,
 > = { input: T } extends M["variables"]
   ? OptionalToVariables<M, T>
   : RequiresToVariables<M, T>;

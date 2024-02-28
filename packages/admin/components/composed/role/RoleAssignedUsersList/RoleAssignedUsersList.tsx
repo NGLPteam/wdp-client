@@ -1,18 +1,18 @@
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import type { CellContext } from "@tanstack/react-table";
 import { useMaybeFragment } from "hooks";
-import { RoleAssignedUsersListFragment$key } from "@/relay/RoleAssignedUsersListFragment.graphql";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
+import UserNameColumnCell from "components/composed/model/ModelColumns/UserNameColumnCell";
 import {
   RoleAssignedUsersListDataFragment$data,
   RoleAssignedUsersListDataFragment$key,
 } from "@/relay/RoleAssignedUsersListDataFragment.graphql";
-import UserNameColumnCell from "components/composed/model/ModelColumns/UserNameColumnCell";
+import { RoleAssignedUsersListFragment$key } from "@/relay/RoleAssignedUsersListFragment.graphql";
+import type { CellContext } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -25,11 +25,11 @@ function RoleAssignedUsersList<T extends OperationType>({
 }: RoleAssignedUsersListProps) {
   const entity = useMaybeFragment<RoleAssignedUsersListFragment$key>(
     fragment,
-    data
+    data,
   );
   const users = useMaybeFragment<RoleAssignedUsersListDataFragment$key>(
     listDataFragment,
-    entity?.assignedUsers
+    entity?.assignedUsers,
   );
 
   const { t } = useTranslation();

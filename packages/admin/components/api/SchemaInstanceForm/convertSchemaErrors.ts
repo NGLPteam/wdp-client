@@ -1,11 +1,11 @@
-import type { FieldValues, MultipleFieldErrors, Path } from "react-hook-form";
 import groupBy from "lodash/groupBy";
 import { SchemaValueError } from "types/graphql-schema";
+import type { FieldValues, MultipleFieldErrors, Path } from "react-hook-form";
 
 type BaseSchemaErrors = Readonly<Omit<SchemaValueError, "base">[]>;
 
 export function convertSchemaErrors<E extends BaseSchemaErrors>(
-  schemaErrors: E
+  schemaErrors: E,
 ): ConvertedSchemaError[] {
   if (schemaErrors.length === 0) {
     return [];

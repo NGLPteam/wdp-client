@@ -1,11 +1,11 @@
 import * as React from "react";
-import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import { graphql } from "relay-runtime";
-import EntityOrderingEditForm from "../EntityOrderingEditForm";
 import Drawer from "components/layout/Drawer";
 import { QueryWrapper } from "components/api";
 import { EntityOrderingEditDrawerQuery as Query } from "@/relay/EntityOrderingEditDrawerQuery.graphql";
+import EntityOrderingEditForm from "../EntityOrderingEditForm";
+import type { DialogProps } from "reakit/Dialog";
 
 export default function EntityOrderingEditDrawer({
   dialog,

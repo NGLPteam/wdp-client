@@ -1,11 +1,11 @@
 import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import type { DialogProps } from "reakit/Dialog";
-import UserProfileUpdateForm from "../UserProfileUpdateForm";
 import { useDrawerHelper, useIsAuthenticated } from "hooks";
 import { QueryWrapper } from "components/api";
 import Drawer from "components/layout/Drawer";
 import { UserProfileUpdateDrawerQuery as Query } from "@/relay/UserProfileUpdateDrawerQuery.graphql";
+import UserProfileUpdateForm from "../UserProfileUpdateForm";
+import type { DialogProps } from "reakit/Dialog";
 
 export default function UserProfileUpdateDrawer({ dialog }: Props) {
   const drawerHelper = useDrawerHelper();

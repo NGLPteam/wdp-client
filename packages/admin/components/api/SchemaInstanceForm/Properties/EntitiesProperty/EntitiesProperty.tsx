@@ -3,15 +3,15 @@ import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import ScalarProperty from "../ScalarProperty";
 import Multiselect from "components/forms/Multiselect";
-import type { EntitiesPropertyFragment$key } from "@/relay/EntitiesPropertyFragment.graphql";
 import { getEntityTitle } from "components/factories/EntityTitleFactory";
+import type { EntitiesPropertyFragment$key } from "@/relay/EntitiesPropertyFragment.graphql";
+import ScalarProperty from "../ScalarProperty";
 
 export default function EntitiesProperty(props: Props) {
   const field = useFragment<EntitiesPropertyFragment$key>(
     fragment,
-    props.field
+    props.field,
   );
 
   const { control } = useFormContext();

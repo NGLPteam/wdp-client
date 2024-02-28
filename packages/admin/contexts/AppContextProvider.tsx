@@ -2,9 +2,9 @@
 
 import { graphql } from "relay-runtime";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
-import { GlobalContextProvider } from "./GlobalContext";
 import { PageContextProvider, ViewerContextProvider } from "contexts";
 import { AppContextProviderQuery as Query } from "@/relay/AppContextProviderQuery.graphql";
+import { GlobalContextProvider } from "./GlobalContext";
 
 const AppContextProvider = ({ children }: Props) => {
   const { data } = useAuthenticatedQuery<Query>(query);

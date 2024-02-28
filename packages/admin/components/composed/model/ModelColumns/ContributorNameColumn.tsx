@@ -1,17 +1,17 @@
 import { graphql, readInlineData } from "relay-runtime";
-import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import { PartialColumnish, Node } from "./types";
 import { Avatar, NamedLink } from "components/atomic";
-import { ContributorNameColumnFragment$key } from "@/relay/ContributorNameColumnFragment.graphql";
 import { getContributorDisplayName } from "components/composed/contributor/ContributorDisplayName";
+import { ContributorNameColumnFragment$key } from "@/relay/ContributorNameColumnFragment.graphql";
+import { PartialColumnish, Node } from "./types";
+import type { ColumnDef } from "@tanstack/react-table";
 
 type Props<T extends Node> = PartialColumnish<T>;
 
 type Row = Node & ContributorNameColumnFragment$key;
 
 const ContributorNameColumn = <T extends Node>(
-  props: Props<T> = {}
+  props: Props<T> = {},
 ): ColumnDef<T> => {
   const { t } = useTranslation();
 

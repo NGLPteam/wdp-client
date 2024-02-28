@@ -1,17 +1,17 @@
 import { graphql, readInlineData } from "relay-runtime";
-import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import get from "lodash/get";
-import { PartialColumnish, Node } from "./types";
 import { Image } from "components/atomic";
 import { AssetThumbnailColumnFragment$key } from "@/relay/AssetThumbnailColumnFragment.graphql";
+import { PartialColumnish, Node } from "./types";
+import type { ColumnDef } from "@tanstack/react-table";
 
 type Props<T extends Node> = PartialColumnish<T>;
 
 type Row = Node & AssetThumbnailColumnFragment$key;
 
 const AssetThumbnailColumn = <T extends Row>(
-  props: Props<T> = {}
+  props: Props<T> = {},
 ): ColumnDef<T> => {
   const { t } = useTranslation();
 

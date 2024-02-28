@@ -6,12 +6,12 @@ import { filterSearchableProperties } from "@wdp/lib/search";
 import { useTranslation } from "react-i18next";
 import { graphql, useFragment } from "react-relay";
 import { normalizeRouteQueryArray } from "@wdp/lib/routes";
-import * as Styled from "./CurrentSearchFilters.styles";
 import { ButtonControl } from "components/atomic";
 import {
   CurrentSearchFiltersFragment$data,
   CurrentSearchFiltersFragment$key,
 } from "@/relay/CurrentSearchFiltersFragment.graphql";
+import * as Styled from "./CurrentSearchFilters.styles";
 
 export default function CurrentFilters({ data }: Props) {
   const searchData = useFragment(fragment, data);
@@ -29,7 +29,7 @@ export default function CurrentFilters({ data }: Props) {
 
     return schemaQuery.map((s) => {
       const obj = searchData.schemas.find(
-        (schema) => `${schema.schemaDefinition.slug}` === s
+        (schema) => `${schema.schemaDefinition.slug}` === s,
       );
 
       return {
@@ -53,7 +53,7 @@ export default function CurrentFilters({ data }: Props) {
       undefined,
       {
         shallow: true,
-      }
+      },
     );
   };
 
@@ -69,7 +69,7 @@ export default function CurrentFilters({ data }: Props) {
       undefined,
       {
         shallow: true,
-      }
+      },
     );
   };
 
@@ -77,16 +77,16 @@ export default function CurrentFilters({ data }: Props) {
   const allFilters = useMemo(() => {
     if (!searchData) return [];
 
-    const flat = flatMap(searchData.schemas, (props) => {
-      return props.searchableProperties;
+    const flat = flatMap(searchData.schemas, (args) => {
+      return args.searchableProperties;
     });
 
     const schemaProps = filterSearchableProperties<Node>(
-      uniqBy(flat, "searchPath")
+      uniqBy(flat, "searchPath"),
     );
 
     const coreProps = filterSearchableProperties<Node>(
-      searchData?.coreProperties
+      searchData?.coreProperties,
     );
 
     return [...coreProps, ...schemaProps];

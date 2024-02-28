@@ -1,7 +1,7 @@
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import SearchResultList from "../SearchResultList";
 import { SearchLayoutFragment$key } from "@/relay/SearchLayoutFragment.graphql";
+import SearchResultList from "../SearchResultList";
 
 export default function SearchLayout({ data }: Props) {
   const searchData = useMaybeFragment(fragment, data);

@@ -3,12 +3,6 @@ import { useTranslation } from "react-i18next";
 import { useId } from "react";
 import { useFocusTrap } from "@castiron/hooks/";
 
-import ProviderBar from "../ProviderBar";
-import InstallationName from "../InstallationName";
-import HeaderAccount from "./HeaderAccount";
-import * as Styled from "./Header.styles";
-import HeaderNavLinks from "./HeaderNavLinks";
-import HeaderWrapper from "./HeaderWrapper";
 import { useViewerContext } from "contexts";
 import appData from "fixtures/app.data";
 import { useToggle } from "hooks";
@@ -19,6 +13,12 @@ import { renderNavLink } from "helpers";
 import SignInOut from "components/auth/SignInOut";
 import { DrawerLink } from "components/atomic";
 import SearchModal from "components/composed/search/SearchModal";
+import InstallationName from "../InstallationName";
+import ProviderBar from "../ProviderBar";
+import HeaderWrapper from "./HeaderWrapper";
+import HeaderNavLinks from "./HeaderNavLinks";
+import * as Styled from "./Header.styles";
+import HeaderAccount from "./HeaderAccount";
 
 function Header() {
   const { t } = useTranslation();

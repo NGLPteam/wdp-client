@@ -23,7 +23,7 @@ export default function CommunityCreateForm({ onSuccess }: Props) {
         },
       };
     },
-    []
+    [],
   );
 
   const renderForm = useRenderForm<Fields>(
@@ -67,7 +67,7 @@ export default function CommunityCreateForm({ onSuccess }: Props) {
         />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

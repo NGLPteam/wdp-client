@@ -2,8 +2,8 @@ import React, { useState, useRef, useCallback } from "react";
 import { useId } from "react";
 import { useFocusTrap } from "@castiron/hooks/";
 import isFunction from "lodash/isFunction";
-import * as Styled from "./Dropdown.styles";
 import useIsOutOfViewport from "hooks/useIsOutOfViewport";
+import * as Styled from "./Dropdown.styles";
 
 /**
  * A dropdown for navigation submenus.
@@ -56,7 +56,7 @@ const Dropdown = ({
     disclosure:
       | React.ReactElement
       | ((props: BaseDisclosureProps) => React.ReactNode),
-    disclosureProps: BaseDisclosureProps
+    disclosureProps: BaseDisclosureProps,
   ) {
     if (isFunction(disclosure)) return disclosure(disclosureProps);
     return disclosure ? React.cloneElement(disclosure, disclosureProps) : null;
@@ -78,7 +78,7 @@ interface Props {
     | React.ReactElement
     | ((props: BaseDisclosureProps) => React.ReactNode);
   label: string;
-  menuItems: (JSX.Element | null)[];
+  menuItems: (React.JSX.Element | null)[];
   alignRight?: boolean;
 }
 export interface BaseDisclosureProps {

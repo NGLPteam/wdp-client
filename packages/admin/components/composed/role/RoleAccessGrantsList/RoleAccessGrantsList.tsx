@@ -1,23 +1,23 @@
 import { GraphQLTaggedNode } from "react-relay";
 import { graphql, OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import type { ModelTableActionProps } from "@tanstack/react-table";
 import {
   useDestroyer,
   useDrawerHelper,
   useMaybeFragment,
   useRouteSlug,
 } from "hooks";
-import { RoleAccessGrantsListFragment$key } from "@/relay/RoleAccessGrantsListFragment.graphql";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
+import { Role } from "types/graphql-schema";
 import {
   RoleAccessGrantsListDataFragment$data,
   RoleAccessGrantsListDataFragment$key,
 } from "@/relay/RoleAccessGrantsListDataFragment.graphql";
-import { Role } from "types/graphql-schema";
+import { RoleAccessGrantsListFragment$key } from "@/relay/RoleAccessGrantsListFragment.graphql";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -31,11 +31,11 @@ function RoleAccessGrantsList<T extends OperationType>({
 }: RoleAccessGrantsListProps) {
   const entity = useMaybeFragment<RoleAccessGrantsListFragment$key>(
     fragment as GraphQLTaggedNode,
-    data
+    data,
   );
   const roles = useMaybeFragment<RoleAccessGrantsListDataFragment$key>(
     listDataFragment as GraphQLTaggedNode,
-    entity?.allAccessGrants
+    entity?.allAccessGrants,
   );
 
   const { t } = useTranslation();
@@ -80,7 +80,7 @@ function RoleAccessGrantsList<T extends OperationType>({
             roleId: role.id,
             userId: user.id,
           },
-          "glossary.access"
+          "glossary.access",
         );
       }
 

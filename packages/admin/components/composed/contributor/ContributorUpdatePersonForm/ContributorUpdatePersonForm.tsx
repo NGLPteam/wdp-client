@@ -25,7 +25,7 @@ export default function ContributorUpdatePersonForm({
   const { image, links, ...otherValues } =
     useFragment<ContributorUpdatePersonFormFieldsFragment$key>(
       fieldsFragment,
-      fieldsData
+      fieldsData,
     );
 
   // We need to transform the links value to a mutable value and remove nulls to satisfy
@@ -84,7 +84,7 @@ export default function ContributorUpdatePersonForm({
         />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

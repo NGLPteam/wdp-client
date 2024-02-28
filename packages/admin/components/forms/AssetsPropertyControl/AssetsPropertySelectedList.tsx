@@ -25,7 +25,7 @@ export default function AssetsPropertySelectedList({
     (index: number) => {
       if (onRemove) onRemove(index);
     },
-    [onRemove]
+    [onRemove],
   );
 
   const handleDragEnd = useCallback(
@@ -34,7 +34,7 @@ export default function AssetsPropertySelectedList({
 
       onDragEnd(source.index, destination.index);
     },
-    [onDragEnd]
+    [onDragEnd],
   );
 
   return value ? (

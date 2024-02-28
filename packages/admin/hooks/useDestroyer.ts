@@ -3,6 +3,10 @@ import { useTranslation } from "react-i18next";
 import { graphql, readInlineData } from "relay-runtime";
 import { useMutation } from "relay-hooks";
 import { useNotify, usePageContext } from "hooks";
+import {
+  DestroyAnnouncementInput,
+  RevokeAccessInput,
+} from "types/graphql-schema";
 import type {
   DestroyCommunityInput,
   useDestroyerDestroyCommunityMutation,
@@ -36,10 +40,6 @@ import type {
   useDestroyerDestroyPageMutation,
 } from "@/relay/useDestroyerDestroyPageMutation.graphql";
 import type { useDestroyerFragment$key } from "@/relay/useDestroyerFragment.graphql";
-import {
-  DestroyAnnouncementInput,
-  RevokeAccessInput,
-} from "types/graphql-schema";
 import { useDestroyerRevokeAccessMutation } from "@/relay/useDestroyerRevokeAccessMutation.graphql";
 import {
   DestroyAssetInput,
@@ -57,12 +57,12 @@ export function useDestroyer() {
     (
       data: useDestroyerFragment$key | null | undefined,
       name: string,
-      refetchTags: string[]
+      refetchTags: string[],
     ) => {
       if (!data) return;
       const results = readInlineData<useDestroyerFragment$key>(
         destroyFragment,
-        data
+        data,
       );
       if (results.revoked) {
         notify.success(t("messages.revoke.success", { name }));
@@ -77,13 +77,13 @@ export function useDestroyer() {
         notify.mutationGlobalError(results.globalErrors);
       }
     },
-    [notify, t, setTriggeredRefetchTags]
+    [notify, t, setTriggeredRefetchTags],
   );
 
   /* Destroy a collection */
   const [commitDestroyCollection] =
     useMutation<useDestroyerDestroyCollectionMutation>(
-      destroyCollectionMutation
+      destroyCollectionMutation,
     );
 
   const collection = useCallback(
@@ -91,7 +91,7 @@ export function useDestroyer() {
       const response = await commitDestroyCollection({ variables: { input } });
       return handleResponse(response.destroyCollection, label, ["collections"]);
     },
-    [commitDestroyCollection, handleResponse]
+    [commitDestroyCollection, handleResponse],
   );
 
   /* Destroy a item */
@@ -103,13 +103,13 @@ export function useDestroyer() {
       const response = await commitDestroyItem({ variables: { input } });
       return handleResponse(response.destroyItem, label, ["items"]);
     },
-    [commitDestroyItem, handleResponse]
+    [commitDestroyItem, handleResponse],
   );
 
   /* Destroy a contribution */
   const [commitDestroyContribution] =
     useMutation<useDestroyerDestroyContributionMutation>(
-      destroyContributionMutation
+      destroyContributionMutation,
     );
 
   const contribution = useCallback(
@@ -121,7 +121,7 @@ export function useDestroyer() {
         "contributions",
       ]);
     },
-    [commitDestroyContribution, handleResponse]
+    [commitDestroyContribution, handleResponse],
   );
 
   /* Destroy a community */
@@ -133,13 +133,13 @@ export function useDestroyer() {
       const response = await commitDestroyCommunity({ variables: { input } });
       return handleResponse(response.destroyCommunity, label, ["communities"]);
     },
-    [commitDestroyCommunity, handleResponse]
+    [commitDestroyCommunity, handleResponse],
   );
 
   /* Destroy a contributor */
   const [commitDestroyContributor] =
     useMutation<useDestroyerDestroyContributorMutation>(
-      destroyContributorMutation
+      destroyContributorMutation,
     );
 
   const contributor = useCallback(
@@ -149,7 +149,7 @@ export function useDestroyer() {
         "contributors",
       ]);
     },
-    [commitDestroyContributor, handleResponse]
+    [commitDestroyContributor, handleResponse],
   );
 
   /* Destroy a file */
@@ -163,7 +163,7 @@ export function useDestroyer() {
       });
       return handleResponse(response.destroyAsset, label, ["assets"]);
     },
-    [commitDestroyAsset, handleResponse]
+    [commitDestroyAsset, handleResponse],
   );
 
   /* Disable or destroy an ordering */
@@ -177,7 +177,7 @@ export function useDestroyer() {
       });
       return handleResponse(response.destroyOrdering, label, ["orderings"]);
     },
-    [commitDisableOrDestroyOrdering, handleResponse]
+    [commitDisableOrDestroyOrdering, handleResponse],
   );
 
   /* Revoke access */
@@ -189,13 +189,13 @@ export function useDestroyer() {
       const response = await commitRevokeAccess({ variables: { input } });
       return handleResponse(response.revokeAccess, label, ["allAccessGrants"]);
     },
-    [commitRevokeAccess, handleResponse]
+    [commitRevokeAccess, handleResponse],
   );
 
   /* Destroy a link */
   const [commitDestroyLink] =
     useMutation<useDestroyerDestroyEntityLinkMutation>(
-      destroyEntityLinkMutation
+      destroyEntityLinkMutation,
     );
 
   const link = useCallback(
@@ -203,7 +203,7 @@ export function useDestroyer() {
       const response = await commitDestroyLink({ variables: { input } });
       return handleResponse(response.destroyEntityLink, label, ["links"]);
     },
-    [commitDestroyLink, handleResponse]
+    [commitDestroyLink, handleResponse],
   );
 
   /* Destroy a page */
@@ -215,13 +215,13 @@ export function useDestroyer() {
       const response = await commitDestroyPage({ variables: { input } });
       return handleResponse(response.destroyPage, label, ["pages"]);
     },
-    [commitDestroyPage, handleResponse]
+    [commitDestroyPage, handleResponse],
   );
 
   /* Destroy an announcement */
   const [commitDestroyAnnouncement] =
     useMutation<useDestroyerDestroyAnnouncementMutation>(
-      destroyAnnouncementMutation
+      destroyAnnouncementMutation,
     );
 
   const announcement = useCallback(
@@ -233,7 +233,7 @@ export function useDestroyer() {
         "announcements",
       ]);
     },
-    [commitDestroyAnnouncement, handleResponse]
+    [commitDestroyAnnouncement, handleResponse],
   );
 
   return {

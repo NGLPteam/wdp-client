@@ -26,7 +26,7 @@ export default function AddCollectionForm({
 }: Props) {
   const [prevRedirectState, setPrevRedirect] = useLocalStorage(
     "nglp::open_entity_on_save",
-    true
+    true,
   );
   const [redirectOnSuccess, setRedirectOnSuccess] = useState(prevRedirectState);
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -42,7 +42,7 @@ export default function AddCollectionForm({
         query: { slug },
       });
     },
-    [router]
+    [router],
   );
 
   const onSuccessWithRedirect = useOnSuccess<CollectionAddFormMutation, Fields>(
@@ -62,7 +62,7 @@ export default function AddCollectionForm({
           redirect(response.createCollection.collection.slug, routeName);
       }
     },
-    [onSuccess, redirect]
+    [onSuccess, redirect],
   );
   const onSuccessNoRedirect = ({
     response,
@@ -79,7 +79,7 @@ export default function AddCollectionForm({
 
   const formData = useFragment<CollectionAddFormFragment$key>(
     fragment as GraphQLTaggedNode,
-    data
+    data,
   );
 
   const toVariables = useToVariables<CollectionAddFormMutation, Fields>(
@@ -91,7 +91,7 @@ export default function AddCollectionForm({
         parentId: parentId || data.parentId || "",
       },
     }),
-    []
+    [],
   );
 
   const defaultValues = {
@@ -148,7 +148,7 @@ export default function AddCollectionForm({
         </Forms.Checkbox>
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

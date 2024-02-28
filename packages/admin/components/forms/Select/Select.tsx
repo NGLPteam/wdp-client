@@ -3,6 +3,7 @@ import BaseInputWrapper from "../BaseInputWrapper";
 import BaseSelect from "../BaseSelect";
 import type InputProps from "../inputType";
 
+/* eslint-disable react/prop-types */
 const Select = forwardRef(
   (
     {
@@ -11,12 +12,11 @@ const Select = forwardRef(
       hideLabel,
       description,
       options,
-      error,
       multiple,
       isWide,
       ...inputProps
     }: Props,
-    ref: Ref<HTMLSelectElement>
+    ref: Ref<HTMLSelectElement>,
   ) => {
     return (
       <BaseInputWrapper
@@ -39,7 +39,7 @@ const Select = forwardRef(
         )}
       </BaseInputWrapper>
     );
-  }
+  },
 );
 
 type Props = React.ComponentProps<typeof BaseSelect> & {

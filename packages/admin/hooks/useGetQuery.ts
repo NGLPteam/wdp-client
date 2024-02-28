@@ -8,7 +8,7 @@ import get from "lodash/get";
  * @returns the value of the param
  */
 export default function useGetQuery(
-  paramName: string
+  paramName: string,
 ): string | string[] | undefined {
   const router = useRouter();
 

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import MessageBlock from "./MessageBlock";
 import { pxToRem } from "theme/mixins/functions";
+import MessageBlock from "./MessageBlock";
 type BaseProps = React.ComponentProps<typeof MessageBlock>;
 
 export const Wrapper = styled.div<Partial<BaseProps>>`

@@ -9,15 +9,15 @@ import { removeEmptyKeys } from "@wdp/lib/helpers";
 import { useRouter } from "next/router";
 import omitBy from "lodash/omitBy";
 import { normalizeRouteQueryArray } from "@wdp/lib/routes";
-import SearchFilter from "../SearchFilter";
-import SearchSchemaFilter from "../SearchSchemaFilter";
-import * as Styled from "./SearchFilterForm.styles";
 import { Grid } from "components/forms";
 import { NullForm } from "components/api";
 import {
   SearchFilterFormFragment$data,
   SearchFilterFormFragment$key,
 } from "@/relay/SearchFilterFormFragment.graphql";
+import SearchFilter from "../SearchFilter";
+import SearchSchemaFilter from "../SearchSchemaFilter";
+import * as Styled from "./SearchFilterForm.styles";
 
 export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
   const searchData = useMaybeFragment(fragment, data);
@@ -53,7 +53,7 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
         },
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
   };
 
@@ -69,7 +69,7 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
         },
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
     if (onCancel) onCancel();
   };
@@ -77,8 +77,8 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
   const schemaProps = useMemo(() => {
     if (!searchData) return [];
 
-    const flat = flatMap(searchData.schemas, (props) => {
-      return props.searchableProperties;
+    const flat = flatMap(searchData.schemas, (args) => {
+      return args.searchableProperties;
     });
 
     return filterSearchableProperties<Node>(uniqBy(flat, "searchPath"));

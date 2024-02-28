@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Fieldset } from "../FieldsetSection/FieldsetSection.styles";
 import { respond } from "theme/mixins/base";
+import { Fieldset } from "../FieldsetSection/FieldsetSection.styles";
 
 export const Grid = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ export const Grid = styled.div`
     --form-grid-item-width: 100%;
     flex-direction: column;
     `,
-    50
+    50,
   )}
 
   fieldset & {

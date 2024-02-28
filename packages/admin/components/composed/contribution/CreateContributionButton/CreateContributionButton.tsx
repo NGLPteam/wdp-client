@@ -11,8 +11,8 @@ export default function CreateContributionButton({
   const drawer = onContributor
     ? "addContributorContribution"
     : type === "item"
-    ? "addItemContribution"
-    : "addCollectionContribution";
+      ? "addItemContribution"
+      : "addCollectionContribution";
 
   return parentSlug ? (
     <ButtonControlDrawer

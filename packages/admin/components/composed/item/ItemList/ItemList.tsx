@@ -1,6 +1,4 @@
-import type { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import type { ModelTableActionProps } from "@tanstack/react-table";
 import { useLatestPresentValue } from "@wdp/lib/hooks";
 import {
   useMaybeFragment,
@@ -20,6 +18,8 @@ import {
   ItemListSearchFragment$data,
   ItemListSearchFragment$key,
 } from "@/relay/ItemListSearchFragment.graphql";
+import type { ModelTableActionProps } from "@tanstack/react-table";
+import type { OperationType } from "relay-runtime";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -35,7 +35,7 @@ function ItemList<T extends OperationType>({
 
   const searchScope = useMaybeFragment<ItemListSearchFragment$key>(
     searchFragment,
-    searchData
+    searchData,
   );
 
   const { current: memoizedSearch } = useLatestPresentValue(searchScope);
@@ -76,7 +76,7 @@ function ItemList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.item(
         { itemId: row.original.entity?.id || row.original.id },
-        row.original.entity?.title || row.original.title || "glossary.item"
+        row.original.entity?.title || row.original.title || "glossary.item",
       ),
     handleView: ({ row }: ModelTableActionProps<Node>) =>
       row.original.slug

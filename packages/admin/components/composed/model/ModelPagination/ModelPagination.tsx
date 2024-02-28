@@ -11,7 +11,7 @@ function ModelPagination<T extends ModelPaginationFragment$key>({
 }: ModelPaginationProps<T>) {
   const enhancedData = useFragment<ModelPaginationFragment$key>(
     fragment,
-    data || null
+    data || null,
   );
   if (
     !enhancedData ||

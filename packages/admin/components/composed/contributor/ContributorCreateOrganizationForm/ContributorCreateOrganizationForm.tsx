@@ -44,7 +44,7 @@ export default function ContributorCreateOrganizationForm({
         />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

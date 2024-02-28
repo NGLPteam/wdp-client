@@ -2,16 +2,16 @@ import * as React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import Link from "next/link";
-import * as Styled from "./InstallationName.styles";
 import { useGlobalContext } from "contexts";
 import { InstallationNameFragment$key } from "@/relay/InstallationNameFragment.graphql";
+import * as Styled from "./InstallationName.styles";
 
 export default function InstallationName() {
   const data = useGlobalContext();
 
   const siteData = useMaybeFragment<InstallationNameFragment$key>(
     fragment,
-    data?.globalConfiguration
+    data?.globalConfiguration,
   );
 
   return siteData ? (

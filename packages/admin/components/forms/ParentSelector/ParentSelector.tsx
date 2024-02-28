@@ -1,13 +1,13 @@
 import { graphql } from "react-relay";
 import { DialogDisclosure, useDialogState } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./ParentSelector.styles";
-import ParentSelectorModal from "./ParentSelectorModal";
 import { useMaybeFragment } from "hooks";
 import BaseInputLabel from "components/forms/BaseInputLabel";
 import { ButtonControl } from "components/atomic";
 
 import { ParentSelectorFragment$key } from "@/relay/ParentSelectorFragment.graphql";
+import ParentSelectorModal from "./ParentSelectorModal";
+import * as Styled from "./ParentSelector.styles";
 
 const ParentSelector = ({ data }: Props) => {
   const entity = useMaybeFragment(fragment, data);

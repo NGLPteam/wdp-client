@@ -1,12 +1,12 @@
 import { useFragment } from "relay-hooks";
 import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import Property from "../SchemaInstanceForm/SchemaInstanceProperty";
-import { SchemaFormFieldsContextProvider } from "./SchemaFormFieldsContext";
 import FormGrid from "components/forms/FormGrid";
 import { ContentHeader } from "components/layout";
 import SchemaSelector from "components/forms/SchemaSelector";
 import type { SchemaFormFieldsFragment$key } from "@/relay/SchemaFormFieldsFragment.graphql";
+import Property from "../SchemaInstanceForm/SchemaInstanceProperty";
+import { SchemaFormFieldsContextProvider } from "./SchemaFormFieldsContext";
 
 export default function SchemaFormFields({
   title = "forms.schema.label",

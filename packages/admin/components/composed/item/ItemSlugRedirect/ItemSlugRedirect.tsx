@@ -21,7 +21,7 @@ function ItemSlugRedirect({ data }: Props) {
         query: { slug },
       });
     },
-    [router]
+    [router],
   );
 
   useEffect(() => {

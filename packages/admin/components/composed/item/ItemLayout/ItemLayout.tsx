@@ -1,8 +1,7 @@
-import React, { ReactNode, useCallback } from "react";
+import React, { useCallback } from "react";
 import { graphql } from "react-relay";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import ItemCreateButton from "../ItemCreateButton";
 import { ItemLayoutFragment$key } from "__generated__/ItemLayoutFragment.graphql";
 import {
   useRouteSlug,
@@ -16,6 +15,7 @@ import { RouteHelper } from "routes";
 import { ButtonControlGroup, ButtonControlConfirm } from "components/atomic";
 import { ContentSidebar, ContentHeader, PageHeader } from "components/layout";
 import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
+import ItemCreateButton from "../ItemCreateButton";
 
 export default function ItemLayout({
   children,
@@ -23,7 +23,7 @@ export default function ItemLayout({
   data,
   useRouteHeader = true,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
   showSidebar?: boolean;
   data?: ItemLayoutFragment$key | null;
   useRouteHeader?: boolean;
@@ -44,13 +44,13 @@ export default function ItemLayout({
       if (memoizedItem && breadcrumbs && breadcrumbs.length > 0) {
         destroy.item(
           { itemId: memoizedItem.id },
-          memoizedItem.title || "glossary.item"
+          memoizedItem.title || "glossary.item",
         );
         hideDialog();
         router.replace(breadcrumbs[breadcrumbs.length - 2]?.href);
       }
     },
-    [memoizedItem, breadcrumbs, destroy, router]
+    [memoizedItem, breadcrumbs, destroy, router],
   );
 
   const buttons = (

@@ -16,7 +16,7 @@ const ButtonControlDrawer = forwardRef(
       closeDropdown,
       ...buttonProps
     }: Props,
-    ref
+    ref,
   ) => {
     return (
       <DrawerLink drawer={drawer} drawerQuery={drawerQuery} passHref>
@@ -31,7 +31,7 @@ const ButtonControlDrawer = forwardRef(
         </ButtonControl>
       </DrawerLink>
     );
-  }
+  },
 );
 
 type Props = BaseProps & Pick<DrawerLinkProps, "drawer" | "drawerQuery">;

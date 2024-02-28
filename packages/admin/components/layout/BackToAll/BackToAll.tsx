@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
-import { NamedLink } from "../../atomic";
-import * as Styled from "./BackToAll.styles";
 import { RouteHelper } from "routes";
 import { IconFactory } from "components/factories";
+import { NamedLink } from "../../atomic";
+import * as Styled from "./BackToAll.styles";
 
 interface Props {
   route: string;

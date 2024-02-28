@@ -1,9 +1,7 @@
-import React, { ReactNode, useCallback } from "react";
+import React, { useCallback } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
-import CollectionCreateButton from "../CollectionCreateButton";
-import type { CollectionLayoutFragment$key } from "@/relay/CollectionLayoutFragment.graphql";
 import { ContentHeader, ContentSidebar, PageHeader } from "components/layout";
 import { ButtonControlGroup, ButtonControlConfirm } from "components/atomic";
 import { RouteHelper } from "routes";
@@ -17,6 +15,8 @@ import {
 import useBreadcrumbs from "hooks/useBreadcrumbs";
 import ItemCreateButton from "components/composed/item/ItemCreateButton";
 import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
+import type { CollectionLayoutFragment$key } from "@/relay/CollectionLayoutFragment.graphql";
+import CollectionCreateButton from "../CollectionCreateButton";
 
 export default function CollectionLayout({
   children,
@@ -24,7 +24,7 @@ export default function CollectionLayout({
   data,
   useRouteHeader = true,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
   showSidebar?: boolean;
   data?: CollectionLayoutFragment$key | null;
   useRouteHeader?: boolean;
@@ -37,7 +37,7 @@ export default function CollectionLayout({
   const manageRoutes = useChildRouteLinks(
     "collection.manage",
     { slug },
-    collection
+    collection,
   );
   const tabRoutes = useChildRouteLinks("collection", { slug }, collection);
   const breadcrumbs = useBreadcrumbs(memoizedCollection || null);
@@ -49,13 +49,13 @@ export default function CollectionLayout({
       if (memoizedCollection && breadcrumbs && breadcrumbs.length > 0) {
         destroy.collection(
           { collectionId: memoizedCollection.id },
-          memoizedCollection.title || "glossary.item"
+          memoizedCollection.title || "glossary.item",
         );
         hideDialog();
         router.replace(breadcrumbs[breadcrumbs.length - 1]?.href);
       }
     },
-    [memoizedCollection, breadcrumbs, destroy, router]
+    [memoizedCollection, breadcrumbs, destroy, router],
   );
 
   const buttons = (

@@ -1,10 +1,10 @@
 import * as React from "react";
-import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import { graphql } from "relay-runtime";
 import Drawer from "components/layout/Drawer";
 import { QueryWrapper } from "components/api";
 import EntityOrderingAddForm from "components/composed/ordering/EntityOrderingAddForm";
+import type { DialogProps } from "reakit/Dialog";
 
 import type { EntityOrderingAddDrawerQuery as Query } from "__generated__/EntityOrderingAddDrawerQuery.graphql";
 

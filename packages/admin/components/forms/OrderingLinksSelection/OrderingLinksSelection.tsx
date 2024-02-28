@@ -1,9 +1,9 @@
 import React, { forwardRef, Ref } from "react";
 import { useTranslation } from "react-i18next";
-import type { UseFormRegisterReturn } from "react-hook-form";
+import BaseInputLabel from "components/forms/BaseInputLabel";
 import Checkbox from "../Checkbox";
 import * as Styled from "./OrderingLinksSelection.styles";
-import BaseInputLabel from "components/forms/BaseInputLabel";
+import type { UseFormRegisterReturn } from "react-hook-form";
 
 interface Props
   extends Pick<
@@ -16,7 +16,7 @@ interface Props
 
 function OrderingLinkSelectionInput(
   { id, contains, references, ...props }: Props,
-  ref: Ref<HTMLInputElement>
+  ref: Ref<HTMLInputElement>,
 ) {
   const { t } = useTranslation();
 

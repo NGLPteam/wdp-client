@@ -1,6 +1,10 @@
 import Props from "./iconType";
 
-const IconCheckbox = ({ title, fill, ...props }: CheckboxProps) => {
+const IconCheckbox = ({
+  title: _title,
+  fill: _fill,
+  ...props
+}: CheckboxProps) => {
   return (
     <svg
       viewBox="0 0 16 16"

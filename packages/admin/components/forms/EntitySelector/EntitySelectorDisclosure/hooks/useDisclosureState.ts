@@ -20,7 +20,7 @@ export default function useDisclosureState({
   const contentRef = useRef<HTMLDivElement>(null);
 
   function handleBlur(
-    event: React.FocusEvent<HTMLButtonElement | HTMLDivElement>
+    event: React.FocusEvent<HTMLButtonElement | HTMLDivElement>,
   ) {
     if (!contentRef.current || !disclosureRef.current) return;
     if (
@@ -62,7 +62,7 @@ export default function useDisclosureState({
       disclosureProps,
       contentProps,
     }),
-    [visible, id] // eslint-disable-line react-hooks/exhaustive-deps
+    [visible, id], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   useEffect(() => {

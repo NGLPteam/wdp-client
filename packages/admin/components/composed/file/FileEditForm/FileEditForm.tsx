@@ -1,5 +1,4 @@
-import { useFragment } from "relay-hooks";
-import { graphql } from "relay-runtime";
+import { useFragment, graphql } from "react-relay";
 import MutationForm, {
   useRenderForm,
   Forms,
@@ -13,14 +12,21 @@ import type {
 import { FileEditFormFragment$key } from "@/relay/FileEditFormFragment.graphql";
 
 export default function FileEditForm({ data, onSuccess }: Props) {
-  const { id, preview, previewMetadata, kind, fileSize, ...values } =
-    useFragment(fragment, data);
+  const {
+    id,
+    preview,
+    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+    previewMetadata: _previewMetadata,
+    kind,
+    fileSize,
+    ...values
+  } = useFragment(fragment, data);
 
   const toVariables = useToVariables<FileEditFormMutation, Fields>(
     (data) => ({
       input: { ...data, assetId: id },
     }),
-    [id]
+    [id],
   );
 
   /** Render the form */
@@ -39,7 +45,7 @@ export default function FileEditForm({ data, onSuccess }: Props) {
         <Forms.Textarea label="forms.fields.caption" {...register("caption")} />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

@@ -1,16 +1,11 @@
-import type { ReactNode } from "react";
 import { graphql } from "react-relay";
 import startCase from "lodash/startCase";
 import { useTranslation } from "react-i18next";
 import { OperationType } from "relay-runtime";
 import { useId } from "react";
-import ModelPageCountActions from "../ModelPageCountActions";
-import ModelPagination from "../ModelPagination";
 import { Connectionish } from "types/graphql-helpers";
 import ModelList from "components/composed/model/ModelList";
 import ModelListActions from "components/composed/model/ModelListActions";
-import type { ModelListProps } from "components/composed/model/ModelList";
-import type { ModelListActionsProps } from "components/composed/model/ModelListActions";
 import { PageHeader } from "components/layout";
 import { useIsMobile, useMaybeFragment, useViewPreference } from "hooks";
 import { ViewOptions } from "utils/view-options";
@@ -19,6 +14,10 @@ import SearchWithFilters from "components/composed/search/SearchWithFilters";
 import Search from "components/composed/search/Search";
 import { ModelListPageFragment$key } from "@/relay/ModelListPageFragment.graphql";
 import { ModelListPageSearchFragment$key } from "@/relay/ModelListPageSearchFragment.graphql";
+import ModelPagination from "../ModelPagination";
+import ModelPageCountActions from "../ModelPageCountActions";
+import type { ModelListActionsProps } from "components/composed/model/ModelListActions";
+import type { ModelListProps } from "components/composed/model/ModelList";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -27,12 +26,12 @@ export type PaginatedConnectionish = Connectionish & ModelListPageFragment$key;
 type ModelListPageProps<
   T extends OperationType,
   U extends PaginatedConnectionish,
-  V extends Record<string, unknown> = Record<string, unknown>
+  V extends Record<string, unknown> = Record<string, unknown>,
 > = Omit<ModelListProps<T, U, V>, "view"> &
   Pick<ModelListActionsProps, "viewOptions"> &
   Pick<HeaderProps, "headerStyle" | "hideHeader"> & {
-    buttons?: ReactNode;
-    header?: ReactNode;
+    buttons?: React.ReactNode;
+    header?: React.ReactNode;
     showSearch?: boolean;
     hideFilters?: boolean;
     searchData?: ModelListPageSearchFragment$key | null;
@@ -41,7 +40,7 @@ type ModelListPageProps<
 function ModelListPage<
   T extends OperationType,
   U extends PaginatedConnectionish,
-  V extends Record<string, unknown>
+  V extends Record<string, unknown>,
 >({
   modelName,
   buttons,
@@ -62,7 +61,7 @@ function ModelListPage<
   const searchScope = useMaybeFragment(searchFragment, searchData);
 
   const [selectedView, setView] = useViewPreference(
-    `nglp::${modelName}.listView`
+    `nglp::${modelName}.listView`,
   );
 
   const isMobile = useIsMobile();

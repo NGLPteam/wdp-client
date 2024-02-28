@@ -1,4 +1,3 @@
-import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import { graphql } from "relay-runtime";
 import { useDrawerHelper, useDestroyer } from "hooks";
@@ -7,6 +6,7 @@ import { QueryWrapper } from "components/api";
 import Drawer from "components/layout/Drawer";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
 import CommunityUpdateForm from "components/composed/community/CommunityUpdateForm";
+import type { DialogProps } from "reakit/Dialog";
 
 import type {
   CommunityUpdateDrawerQuery as Query,
@@ -48,7 +48,7 @@ export default function CommunityUpdateDrawer({
       if (data.community) {
         destroy.community(
           { communityId: data.community.id },
-          data?.community?.title || t("glossary.community")
+          data?.community?.title || t("glossary.community"),
         );
       }
       if (dialog?.hide) dialog.hide();

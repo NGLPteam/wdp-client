@@ -1,9 +1,9 @@
 import { graphql, useFragment } from "react-relay";
-import type { SchemaContextState } from "./types";
 import {
   useSchemaContextFragment$key,
   useSchemaContextFragment$data,
 } from "@/relay/useSchemaContextFragment.graphql";
+import type { SchemaContextState } from "./types";
 
 /**
  * Retyurns the schema default values
@@ -40,7 +40,7 @@ const fragment = graphql`
 `;
 
 function enforceContext(
-  context: useSchemaContextFragment$data
+  context: useSchemaContextFragment$data,
 ): SchemaContextState {
   if (isValidContext(context)) {
     return context;

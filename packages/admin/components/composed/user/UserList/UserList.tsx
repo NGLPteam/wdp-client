@@ -1,16 +1,16 @@
-import type { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import type { ModelTableActionProps } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import { useDrawerHelper, useMaybeFragment } from "hooks";
-import type {
-  UserListFragment$data,
-  UserListFragment$key,
-} from "@/relay/UserListFragment.graphql";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
+import type {
+  UserListFragment$data,
+  UserListFragment$key,
+} from "@/relay/UserListFragment.graphql";
+import type { ModelTableActionProps } from "@tanstack/react-table";
+import type { OperationType } from "relay-runtime";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 

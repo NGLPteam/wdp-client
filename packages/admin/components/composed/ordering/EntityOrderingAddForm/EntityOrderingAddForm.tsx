@@ -8,6 +8,7 @@ import MutationForm, {
 } from "components/api/MutationForm";
 import { convertToSlug } from "helpers";
 
+import { OrderingRenderDefinitionInput } from "types/graphql-schema";
 import type {
   EntityOrderingAddFormMutation,
   CreateOrderingInput,
@@ -16,7 +17,6 @@ import type {
   OrderDefinitionInput,
 } from "@/relay/EntityOrderingAddFormMutation.graphql";
 import type { EntityOrderingAddFormFragment$key } from "@/relay/EntityOrderingAddFormFragment.graphql";
-import { OrderingRenderDefinitionInput } from "types/graphql-schema";
 
 export default function EntityOrderingAddForm({
   data,
@@ -25,7 +25,7 @@ export default function EntityOrderingAddForm({
 }: Props) {
   const formData = useFragment<EntityOrderingAddFormFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const entity = formData.item ?? formData.collection;
@@ -63,7 +63,7 @@ export default function EntityOrderingAddForm({
 
       return { input };
     },
-    []
+    [],
   );
 
   const defaultValues = {
@@ -106,7 +106,7 @@ export default function EntityOrderingAddForm({
         </Forms.Grid>
       );
     },
-    [entity]
+    [entity],
   );
 
   return (

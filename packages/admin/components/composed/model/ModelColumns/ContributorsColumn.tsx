@@ -1,10 +1,10 @@
-import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import { graphql, readInlineData } from "relay-runtime";
-import { UpdatableNode, PartialColumnish } from "./types";
 import { NamedLink } from "components/atomic";
 import { getContributorDisplayName } from "components/composed/contributor/ContributorDisplayName";
 import { ContributorsColumnFragment$key } from "@/relay/ContributorsColumnFragment.graphql";
+import { UpdatableNode, PartialColumnish } from "./types";
+import type { ColumnDef } from "@tanstack/react-table";
 
 function ContributorsColumnCell({
   data,
@@ -44,9 +44,9 @@ function ContributorsColumnCell({
 }
 
 const ContributorsColumn = <
-  NodeType extends UpdatableNode & ContributorsColumnFragment$key
+  NodeType extends UpdatableNode & ContributorsColumnFragment$key,
 >(
-  props: PartialColumnish<NodeType> = {}
+  props: PartialColumnish<NodeType> = {},
 ): ColumnDef<NodeType> => {
   const { t } = useTranslation();
 

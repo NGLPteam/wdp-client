@@ -2,18 +2,18 @@ import React, { useMemo, useState } from "react";
 import { graphql } from "relay-runtime";
 import { GraphQLTaggedNode } from "react-relay";
 import { debounce } from "lodash";
-import type { FieldValues, Control, Path } from "react-hook-form";
 import { Controller } from "react-hook-form";
 import useAuthenticatedQuery from "@wdp/lib/api/hooks/useAuthenticatedQuery";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "hooks";
+import BaseTypeahead from "components/forms/BaseTypeahead";
+import { getEntityTitle } from "components/factories/EntityTitleFactory";
 import { LinkTargetTypeaheadQuery as Query } from "@/relay/LinkTargetTypeaheadQuery.graphql";
 import {
   LinkTargetTypeaheadFragment$data,
   LinkTargetTypeaheadFragment$key,
 } from "@/relay/LinkTargetTypeaheadFragment.graphql";
-import BaseTypeahead from "components/forms/BaseTypeahead";
-import { getEntityTitle } from "components/factories/EntityTitleFactory";
+import type { FieldValues, Control, Path } from "react-hook-form";
 
 type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
 type Edge = LinkTargetTypeaheadFragment$data["edges"][number];
@@ -31,7 +31,7 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
 
   const optionsData = useMaybeFragment<LinkTargetTypeaheadFragment$key>(
     fragment as GraphQLTaggedNode,
-    data?.collection?.linkTargetCandidates || data?.item?.linkTargetCandidates
+    data?.collection?.linkTargetCandidates || data?.item?.linkTargetCandidates,
   );
 
   const options = useMemo(() => {

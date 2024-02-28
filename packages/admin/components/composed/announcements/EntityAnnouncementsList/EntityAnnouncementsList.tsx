@@ -1,18 +1,18 @@
 import { graphql } from "react-relay";
-import type { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import type { ModelTableActionProps } from "@tanstack/react-table";
 import { formatDate } from "@wdp/lib/helpers";
 import { useDestroyer, useDrawerHelper, useMaybeFragment } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
+import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 import type { EntityAnnouncementsListFragment$key } from "@/relay/EntityAnnouncementsListFragment.graphql";
 import type {
   EntityAnnouncementsListDataFragment$data,
   EntityAnnouncementsListDataFragment$key,
 } from "@/relay/EntityAnnouncementsListDataFragment.graphql";
-import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
+import type { ModelTableActionProps } from "@tanstack/react-table";
+import type { OperationType } from "relay-runtime";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -28,12 +28,12 @@ function EntityAnnouncementsList<T extends OperationType>({
   /* eslint-disable max-len */
   const sourceEntity = useMaybeFragment<EntityAnnouncementsListFragment$key>(
     fragment,
-    data
+    data,
   );
   const announcementsData =
     useMaybeFragment<EntityAnnouncementsListDataFragment$key>(
       linksFragment,
-      sourceEntity?.announcements
+      sourceEntity?.announcements,
     );
   /* eslint-enable max-len */
 
@@ -62,7 +62,7 @@ function EntityAnnouncementsList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.announcement(
         { announcementId: row.original.id },
-        row.original.header || "glossary.announcement"
+        row.original.header || "glossary.announcement",
       ),
   };
 

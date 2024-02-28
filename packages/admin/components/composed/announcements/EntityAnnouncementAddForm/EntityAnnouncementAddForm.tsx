@@ -19,7 +19,7 @@ export default function EntityAnnouncementAddForm({
 }: Props) {
   const sourceEntity = useFragment<EntityAnnouncementAddFormFragment$key>(
     fragment as GraphQLTaggedNode,
-    data
+    data,
   );
 
   // Sets the slug to the title if no slug is provided
@@ -32,7 +32,7 @@ export default function EntityAnnouncementAddForm({
         },
       };
     },
-    []
+    [],
   );
 
   const renderForm = useRenderForm<Fields>(({ form: { register } }) => {

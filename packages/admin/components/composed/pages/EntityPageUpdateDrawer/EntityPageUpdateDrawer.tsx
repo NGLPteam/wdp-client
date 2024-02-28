@@ -1,10 +1,10 @@
 import * as React from "react";
-import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import { graphql } from "relay-runtime";
 import EntityPageUpdateForm from "components/composed/pages/EntityPageUpdateForm";
 import Drawer from "components/layout/Drawer";
 import { QueryWrapper } from "components/api";
+import type { DialogProps } from "reakit/Dialog";
 
 import type { EntityPageUpdateDrawerQuery as Query } from "__generated__/EntityPageUpdateDrawerQuery.graphql";
 

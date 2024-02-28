@@ -1,16 +1,16 @@
 import React, { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
-import type InputProps from "../inputType";
+import BaseInputLabel from "components/forms/BaseInputLabel";
 import Radio from "./Radio";
 import * as Styled from "./RadioGroup.styles";
-import BaseInputLabel from "components/forms/BaseInputLabel";
+import type InputProps from "../inputType";
 
 const RadioGroup = forwardRef(
   (
     { label, name, description, options, hideLabel, ...props }: Props,
     // ref is passed to radio button input
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ref: React.Ref<HTMLInputElement>
+    ref: React.Ref<HTMLInputElement>,
   ) => {
     const { t } = useTranslation();
 
@@ -39,7 +39,7 @@ const RadioGroup = forwardRef(
         {radios}
       </Styled.Group>
     );
-  }
+  },
 );
 
 type BaseProps = Pick<

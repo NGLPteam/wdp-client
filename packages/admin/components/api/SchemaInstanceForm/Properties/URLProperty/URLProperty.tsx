@@ -2,11 +2,11 @@ import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import ScalarProperty from "../ScalarProperty";
 import Fieldset from "components/forms/Fieldset";
 import FormGrid from "components/forms/FormGrid";
 import Input from "components/forms/Input";
 import type { URLPropertyFragment$key } from "@/relay/URLPropertyFragment.graphql";
+import ScalarProperty from "../ScalarProperty";
 
 export default function URLProperty(props: Props) {
   const field = useFragment<URLPropertyFragment$key>(fragment, props.field);

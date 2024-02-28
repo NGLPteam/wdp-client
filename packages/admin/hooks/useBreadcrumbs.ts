@@ -1,9 +1,9 @@
-import { useMemo } from "react";
 import { UrlObject } from "url";
+import { useMemo } from "react";
 import { graphql } from "react-relay";
-import { useBreadcrumbsFragment$key } from "@/relay/useBreadcrumbsFragment.graphql";
 import { RouteHelper } from "routes";
 import { useMaybeFragment } from "hooks";
+import { useBreadcrumbsFragment$key } from "@/relay/useBreadcrumbsFragment.graphql";
 
 declare type Url = string | UrlObject;
 
@@ -22,7 +22,7 @@ export type BreadcrumbListType =
   | null;
 
 export default function useBreadcrumbs(
-  entity?: useBreadcrumbsFragment$key | null
+  entity?: useBreadcrumbsFragment$key | null,
 ): BreadcrumbListType {
   const data = useMaybeFragment<useBreadcrumbsFragment$key>(fragment, entity);
 
@@ -30,7 +30,7 @@ export default function useBreadcrumbs(
     if (!data) return null;
 
     const currentRoute = RouteHelper.findRouteByName(
-      data.__typename.toLowerCase()
+      data.__typename.toLowerCase(),
     );
     const currentPageCrumb = {
       label: data.title,
@@ -42,7 +42,7 @@ export default function useBreadcrumbs(
 
       if (!routeName) {
         throw new Error(
-          `Unable to find route for "${routeName} in useBreadcrumbs`
+          `Unable to find route for "${routeName} in useBreadcrumbs`,
         );
       }
 
@@ -50,7 +50,7 @@ export default function useBreadcrumbs(
 
       if (!route) {
         throw new Error(
-          `Unable to find route for "${routeName} in useBreadcrumbs`
+          `Unable to find route for "${routeName} in useBreadcrumbs`,
         );
       }
 

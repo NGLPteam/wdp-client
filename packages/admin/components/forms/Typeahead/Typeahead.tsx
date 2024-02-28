@@ -6,22 +6,20 @@ type BaseProps = React.ComponentProps<typeof BaseTypeahead>;
  * A typeahead single select.
  * Uses `downshift` library for accessibility and state management
  */
+/* eslint-disable react/prop-types */
 const Typeahead = forwardRef(
   (
     {
       label,
       name,
       hideLabel,
-      description,
-      placeholder,
       options,
       required,
       onInputChange,
-      value,
       isWide,
       ...inputProps
     }: Props,
-    ref: Ref<HTMLInputElement>
+    ref: Ref<HTMLInputElement>,
   ) => {
     const [inputOptions, setInputOptions] = useState(options);
 
@@ -35,8 +33,8 @@ const Typeahead = forwardRef(
       // Filter options by current input value
       setInputOptions(
         options?.filter((item) =>
-          item.label.toLowerCase().includes(value.toLowerCase())
-        )
+          item.label.toLowerCase().includes(value.toLowerCase()),
+        ),
       );
 
       if (onInputChange) onInputChange(value);
@@ -55,7 +53,7 @@ const Typeahead = forwardRef(
         {...inputProps}
       />
     ) : null;
-  }
+  },
 );
 
 type Props = BaseProps;

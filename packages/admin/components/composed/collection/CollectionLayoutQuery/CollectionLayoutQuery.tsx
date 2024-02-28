@@ -2,21 +2,21 @@ import React, { ComponentProps } from "react";
 import ErrorPage from "next/error";
 import { graphql } from "relay-runtime";
 import { GraphQLTaggedNode } from "react-relay";
-import type {
-  QueryLayoutProps,
-  QueryPageComponentProps,
-} from "@wdp/lib/types/page";
-import CollectionLayout from "../CollectionLayout";
 import { QueryWrapper, FragmentWrapper } from "components/api";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import { HasFragment } from "types/graphql-helpers";
 
-import { CollectionLayoutQueryFragment$key } from "@/relay/CollectionLayoutQueryFragment.graphql";
 import { AuthContextProvider } from "contexts/AuthContext";
+import { CollectionLayoutQueryFragment$key } from "@/relay/CollectionLayoutQueryFragment.graphql";
+import CollectionLayout from "../CollectionLayout";
+import type {
+  QueryLayoutProps,
+  QueryPageComponentProps,
+} from "@wdp/lib/types/page";
 
 function CollectionLayoutQuery<
   Query extends CollectionQuery,
-  P extends QueryPageComponentProps<Query>
+  P extends QueryPageComponentProps<Query>,
 >({
   query,
   refetchTags,

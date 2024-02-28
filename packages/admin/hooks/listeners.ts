@@ -2,7 +2,7 @@ import { RefObject, useEffect } from "react";
 
 export const useEventListener = (
   event: keyof HTMLElementEventMap,
-  callback: EventListenerOrEventListenerObject
+  callback: EventListenerOrEventListenerObject,
 ) => {
   useEffect(() => {
     window.addEventListener(event, callback);
@@ -11,7 +11,7 @@ export const useEventListener = (
 };
 
 export const useKeyDownEvent = (
-  callback: EventListenerOrEventListenerObject
+  callback: EventListenerOrEventListenerObject,
 ) => {
   useEventListener("keydown", callback);
 };
@@ -23,7 +23,7 @@ export const useClickEvent = (callback: EventListenerOrEventListenerObject) => {
 // Hook
 export const useOnClickOutside = <T extends HTMLElement>(
   ref: RefObject<T>,
-  handler: EventListener
+  handler: EventListener,
 ) => {
   useEffect(
     () => {
@@ -53,6 +53,6 @@ export const useOnClickOutside = <T extends HTMLElement>(
     // ... callback/cleanup to run every render. It's not a big deal ...
     // ... but to optimize you can wrap handler in useCallback before ...
     // ... passing it into this hook.
-    [ref, handler]
+    [ref, handler],
   );
 };

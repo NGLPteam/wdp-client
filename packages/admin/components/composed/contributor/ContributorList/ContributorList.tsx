@@ -1,18 +1,18 @@
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import type { ModelTableActionProps } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import { getContributorDisplayName } from "../ContributorDisplayName";
 import ModelListPage from "components/composed/model/ModelListPage";
-import {
-  ContributorListFragment$data,
-  ContributorListFragment$key,
-} from "@/relay/ContributorListFragment.graphql";
 import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 
 import ModelColumns from "components/composed/model/ModelColumns";
 import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
 import PageHeader from "components/layout/PageHeader";
+import {
+  ContributorListFragment$data,
+  ContributorListFragment$key,
+} from "@/relay/ContributorListFragment.graphql";
+import { getContributorDisplayName } from "../ContributorDisplayName";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -43,7 +43,7 @@ function ContributorList<T extends OperationType>({
       if (row.original.__typename === "%other") return;
       destroy.contributor(
         { contributorId: row.original.id || "" },
-        getContributorDisplayName(row.original) || "glossary.collection"
+        getContributorDisplayName(row.original) || "glossary.collection",
       );
     },
     handleView: ({ row }: ModelTableActionProps<ContributorNode>) =>

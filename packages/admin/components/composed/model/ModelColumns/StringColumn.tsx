@@ -1,6 +1,6 @@
-import type { ColumnDef } from "@tanstack/react-table";
 import get from "lodash/get";
 import { PartialColumnish, Node } from "./types";
+import type { ColumnDef } from "@tanstack/react-table";
 
 type Props<T extends Node> = PartialColumnish<T> & {
   header: () => string | React.ReactNode;
