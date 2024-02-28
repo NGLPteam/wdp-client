@@ -1,72 +1,43 @@
-import { Environment, RecordSource, Store } from "relay-runtime";
-import "regenerator-runtime/runtime";
-/* eslint-disable @next/next/no-document-import-in-page */
-import { DocumentContext } from "next/document";
-/* eslint-enable @next/next/no-document-import-in-page */
-import {
-  authMiddleware,
-  RelayNetworkLayer,
-  retryMiddleware,
-  urlMiddleware,
-} from "react-relay-network-modern";
-import { SSRCookies } from "@react-keycloak/ssr";
-import RelayServerSSR from "react-relay-network-modern-ssr/lib/server";
+import { useMemo } from "react";
+import { RecordSource } from "relay-runtime";
+import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
+import buildEnvironment from "./buildEnvironment";
+import { Environment } from "react-relay";
 
-type TokenPersistor = ReturnType<typeof SSRCookies>;
+import type { KeycloakRef } from "../types/keycloak";
 
-export default function buildInitialEnvironment(
-  relayServerSSR: RelayServerSSR,
-  ssrCookies: TokenPersistor,
-  ctx: DocumentContext,
-  isAdmin?: boolean
+let relayEnvironment: Environment;
+
+export default function initEnvironment(
+  keycloakRef?: KeycloakRef,
+  initialRecords?: RecordMap,
+  isAdmin?: Boolean
 ) {
-  const network = new RelayNetworkLayer([
-    relayServerSSR.getMiddleware(),
-    (next) => async (req) => {
-      try {
-        return await next(req);
-        /* eslint-disable @typescript-eslint/no-explicit-any */
-      } catch (err: any) {
-        if (err?.res?.status === 401) {
-          ctx?.res?.writeHead(302, { Location: "/sign_in" });
-          ctx?.res?.end();
-          return Promise.reject(Error("Invalid keycloak token."));
-        } else {
-          throw err;
-        }
-      }
-      /* eslint-enable @typescript-eslint/no-explicit-any */
-    },
-    urlMiddleware({
-      url: process.env.NEXT_PUBLIC_API_URL || "",
-      headers: isAdmin ? { "X-Analytics-Context": "admin" } : {},
-    }),
-    retryMiddleware({
-      statusCodes(statusCode) {
-        if (statusCode === 401) {
-          return false;
-        }
+  // Create a network layer from the fetch function
+  const environment =
+    relayEnvironment ?? buildEnvironment(keycloakRef, initialRecords, isAdmin);
 
-        return statusCode < 200 || statusCode > 400;
-      },
-    }),
-    authMiddleware({
-      allowEmptyToken: true,
-      token: () => {
-        const { token } = ssrCookies.getTokens();
+  // If your page has Next.js data fetching methods that use Relay, the initial records
+  // will get hydrated here
+  if (initialRecords) {
+    environment.getStore().publish(new RecordSource(initialRecords));
+  }
+  // For SSG and SSR always create a new Relay environment
+  if (typeof window === "undefined") return environment;
+  // Create the Relay environment once in the client
+  if (!relayEnvironment) relayEnvironment = environment;
 
-        if (token) {
-          return token;
-        }
+  return relayEnvironment;
+}
 
-        return "";
-      },
-      tokenRefreshPromise: async () => "",
-    }),
-  ]);
-
-  return new Environment({
-    network,
-    store: new Store(new RecordSource()),
-  });
+export function useEnvironment(
+  keycloakRef?: KeycloakRef,
+  initialRecords?: RecordMap,
+  isAdmin?: Boolean
+) {
+  const store = useMemo(
+    () => initEnvironment(keycloakRef, initialRecords, isAdmin),
+    [keycloakRef, initialRecords]
+  );
+  return store;
 }
