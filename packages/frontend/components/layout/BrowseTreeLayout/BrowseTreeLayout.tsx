@@ -1,15 +1,15 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import NoContent from "../NoContent";
-import * as Styled from "./BrowseTreeLayout.styles";
 import { PageCount, Pagination } from "components/atomic";
 import BrowseTreeItem from "components/layout/BrowseTreeLayout/BrowseTreeItem";
+import TreeAccordion from "components/atomic/accordions/TreeAccordion";
 import {
   BrowseTreeLayoutFragment$data,
   BrowseTreeLayoutFragment$key,
 } from "@/relay/BrowseTreeLayoutFragment.graphql";
-import TreeAccordion from "components/atomic/accordions/TreeAccordion";
+import NoContent from "../NoContent";
+import * as Styled from "./BrowseTreeLayout.styles";
 
 export default function BrowseTreeLayout({
   data,
@@ -38,7 +38,7 @@ export default function BrowseTreeLayout({
         </TreeAccordion>
       ) : (
         <BrowseTreeItem key={node.id} data={node} />
-      )
+      ),
     );
   }
 
@@ -68,10 +68,6 @@ export default function BrowseTreeLayout({
 }
 
 type Node = BrowseTreeLayoutFragment$data["nodes"][number];
-
-interface TreeNode extends Node {
-  children?: TreeNode[];
-}
 
 interface Props {
   header?: string | null;

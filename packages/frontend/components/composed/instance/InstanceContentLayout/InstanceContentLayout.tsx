@@ -3,23 +3,23 @@ import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { useRouter } from "next/router";
 import InstanceCommunities from "components/composed/instance/InstanceCommunities";
 import InstanceHero from "components/composed/instance/InstanceHero";
-import { InstanceContentLayoutQuery } from "@/relay/InstanceContentLayoutQuery.graphql";
 import { RouteHelper } from "routes";
+import { InstanceContentLayoutQuery } from "@/relay/InstanceContentLayoutQuery.graphql";
 
 export default function InstanceContentLayout({ queryRef }: Props) {
   const instance = usePreloadedQuery<InstanceContentLayoutQuery>(
     query,
-    queryRef
+    queryRef,
   );
 
   const total = useMemo(
     () => instance?.communities?.pageInfo?.totalCount || 0,
-    [instance]
+    [instance],
   );
 
   const firstSlug = useMemo(
     () => instance?.communities?.edges[0]?.node?.slug || null,
-    [instance]
+    [instance],
   );
 
   const router = useRouter();

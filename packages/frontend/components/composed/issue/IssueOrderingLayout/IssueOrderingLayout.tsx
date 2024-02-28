@@ -2,14 +2,14 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./IssueOrderingLayout.styles";
 import EntitySummaryFactory from "components/factories/EntitySummaryFactory";
+import { Pagination } from "components/atomic";
+import { NoContent } from "components/layout";
 import {
   IssueOrderingLayoutFragment$data,
   IssueOrderingLayoutFragment$key,
 } from "@/relay/IssueOrderingLayoutFragment.graphql";
-import { Pagination } from "components/atomic";
-import { NoContent } from "components/layout";
+import * as Styled from "./IssueOrderingLayout.styles";
 
 export default function IssueOrderingLayout({ data }: Props) {
   const content = useMaybeFragment(fragment, data);
@@ -28,7 +28,7 @@ export default function IssueOrderingLayout({ data }: Props) {
               <Styled.ListItem key={node.entry.slug}>
                 <EntitySummaryFactory data={node.entry} />
               </Styled.ListItem>
-            ) : null
+            ) : null,
           )}
         </Styled.List>
       ) : (

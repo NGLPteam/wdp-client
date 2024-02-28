@@ -1,5 +1,6 @@
 import { css } from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
+import { fluidScale } from "theme/mixins";
 import {
   baseColors,
   baseSansSerifFont,
@@ -9,21 +10,21 @@ import {
   zIndex,
 } from "./variables";
 import { getColorsByKey } from "./functions";
-import { fluidScale } from "theme/mixins";
 
 function setCustomColors(colorName: string) {
   const colors = getColorsByKey(colorName, customColors);
 
   if (colors) {
     return Object.entries(colors).map(
-      ([key, value]) => `--${key.replace(colorName, "color-custom")}: ${value};`
+      ([key, value]) =>
+        `--${key.replace(colorName, "color-custom")}: ${value};`,
     );
   }
 }
 
 function setBaseColors() {
   return Object.entries(baseColors).map(
-    ([key, value]) => `--color-base-${key}: ${value};`
+    ([key, value]) => `--color-base-${key}: ${value};`,
   );
 }
 
@@ -201,14 +202,14 @@ export default css`
     ${Object.entries(zIndex).map(
       ([key, value]) => `
       --z-index-${key}: ${value};
-    `
+    `,
     )}
 
     /* border radius */
     ${Object.entries(borderRadius).map(
       ([key, value]) => `
       --border-radius-${key}: ${value};
-    `
+    `,
     )}
 
     /* padding */

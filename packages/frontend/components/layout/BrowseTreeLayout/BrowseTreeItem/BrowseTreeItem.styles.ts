@@ -10,8 +10,8 @@ export const Row = styled.div<{ $level?: number }>`
     !$level || $level === 1
       ? "0"
       : $level === 2
-      ? `var(--BrowseTreeItem-row-margin-left)`
-      : `calc(var(--BrowseTreeItem-row-margin-left) * ${$level})`};
+        ? `var(--BrowseTreeItem-row-margin-left)`
+        : `calc(var(--BrowseTreeItem-row-margin-left) * ${$level})`};
 
   > * + * {
     margin-block-start: ${pxToRem(4)};

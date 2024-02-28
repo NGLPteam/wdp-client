@@ -26,7 +26,7 @@ export const Block = styled.div`
       "stats";
     gap: 30px;
     `,
-    100
+    100,
   )}
 
   ${respond(`padding-inline: var(--container-padding-sm)`, 50)}

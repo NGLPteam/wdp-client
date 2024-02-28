@@ -1,9 +1,9 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { Link, NamedLink } from "..";
 import { getRouteByEntityKind } from "helpers";
 import { BreadcrumbLinkFragment$key } from "@/relay/BreadcrumbLinkFragment.graphql";
+import { Link, NamedLink } from "..";
 
 export default function BreadcrumbLink({ data }: Props) {
   const crumb = useMaybeFragment(fragment, data);

@@ -17,14 +17,14 @@ const NamedLink = forwardRef(
       passHref,
       ...props
     }: Props,
-    ref
+    ref,
   ) => {
     // Find the route
     const route = RouteHelper.findRouteByName(routeName);
 
     const { allowedActions } = useViewerContext();
 
-    const isAuthorized = !!route?.actions?.length
+    const isAuthorized = route?.actions?.length
       ? route.actions.some((action) => allowedActions.includes(action))
       : true;
 
@@ -52,7 +52,7 @@ const NamedLink = forwardRef(
           : children}
       </Link>
     ) : null;
-  }
+  },
 );
 export interface Props extends Omit<LinkProps, "href"> {
   /** The named route */

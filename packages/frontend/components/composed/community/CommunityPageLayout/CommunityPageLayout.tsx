@@ -1,9 +1,9 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import * as Styled from "./CommunityPageLayout.styles";
 import { HeroImage, LoadingBlock, Markdown } from "components/atomic";
 import { CommunityPageLayoutFragment$key } from "@/relay/CommunityPageLayoutFragment.graphql";
+import * as Styled from "./CommunityPageLayout.styles";
 
 export default function CommunityPageLayout({ data }: Props) {
   const page = useMaybeFragment(fragment, data);

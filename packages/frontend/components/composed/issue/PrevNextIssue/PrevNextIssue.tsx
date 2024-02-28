@@ -3,11 +3,11 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
 import { useWindowSize } from "@wdp/lib/hooks";
-import * as Styled from "./PrevNextIssue.styles";
 import { PrevNextButton } from "components/atomic/Button/patterns";
 import { NamedLink } from "components/atomic";
 import { breakpoints } from "theme/base/variables";
 import { PrevNextIssueFragment$key } from "@/relay/PrevNextIssueFragment.graphql";
+import * as Styled from "./PrevNextIssue.styles";
 
 export default function PrevNextIssue({ data }: Props) {
   const { t } = useTranslation();

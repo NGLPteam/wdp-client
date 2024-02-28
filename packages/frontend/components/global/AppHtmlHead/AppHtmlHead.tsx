@@ -25,10 +25,10 @@ export default function AppHtmlHead() {
   const image = !entity
     ? null
     : entity.heroImage?.storage
-    ? entity.heroImage.medium?.webp
-    : entity.thumbnail?.storage
-    ? entity.thumbnail.medium?.webp
-    : null;
+      ? entity.heroImage.medium?.webp
+      : entity.thumbnail?.storage
+        ? entity.thumbnail.medium?.webp
+        : null;
 
   const imageMetadata = entity?.heroImageMetadata || entity?.thumbnailMetadata;
 

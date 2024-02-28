@@ -1,8 +1,8 @@
 import React from "react";
 import { usePageContext } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./BaseContributionsBlock.styles";
 import { LoadingBlock } from "components/atomic";
+import * as Styled from "./BaseContributionsBlock.styles";
 
 const BaseContributionsBlock = ({
   children,

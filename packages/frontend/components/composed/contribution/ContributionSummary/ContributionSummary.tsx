@@ -16,7 +16,7 @@ export default function ContributionSummary({ data, showReadMore }: Props) {
 
   const entity = useMaybeFragment<ContributionSummaryEntityFragment$key>(
     entityFragment,
-    contribution?.entity
+    contribution?.entity,
   );
 
   const route = useMemo(() => {

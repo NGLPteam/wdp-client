@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
+import { Link, NamedLink } from "components/atomic";
+import { CommunityNameFragment$key } from "@/relay/CommunityNameFragment.graphql";
 import * as Styled from "./CommunityName.styles";
 import CommunityLogo from "./CommunityLogo";
-import { CommunityNameFragment$key } from "@/relay/CommunityNameFragment.graphql";
-import { Link, NamedLink } from "components/atomic";
 
 export default function CommunityName({ data }: Props) {
   const community = useMaybeFragment(fragment, data);
@@ -15,9 +15,9 @@ export default function CommunityName({ data }: Props) {
       community.logo.original.width &&
       community.logo.original.height &&
       Math.floor(
-        community.logo.original.width / community.logo.original.height
+        community.logo.original.width / community.logo.original.height,
       ) > 1,
-    [community]
+    [community],
   );
 
   return (

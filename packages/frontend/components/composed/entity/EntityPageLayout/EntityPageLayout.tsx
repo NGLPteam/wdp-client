@@ -1,9 +1,9 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import * as Styled from "./EntityPageLayout.styles";
-import { EntityPageLayoutFragment$key } from "@/relay/EntityPageLayoutFragment.graphql";
 import { ContentImage, Markdown } from "components/atomic";
+import { EntityPageLayoutFragment$key } from "@/relay/EntityPageLayoutFragment.graphql";
+import * as Styled from "./EntityPageLayout.styles";
 
 export default function EntityPageLayout({ data }: Props) {
   const page = useMaybeFragment(fragment, data);

@@ -1,8 +1,8 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { StringPropertyFragment$key } from "@/relay/StringPropertyFragment.graphql";
 import { MetadataProperty } from "components/layout";
+import { StringPropertyFragment$key } from "@/relay/StringPropertyFragment.graphql";
 
 export default function StringProperty({
   data,

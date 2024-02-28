@@ -11,8 +11,8 @@ const NoContent = ({ message }: Props) => {
         {!message
           ? t("common.no_content")
           : typeof message === "string"
-          ? t(message)
-          : message}
+            ? t(message)
+            : message}
       </p>
     </Styled.Wrapper>
   );

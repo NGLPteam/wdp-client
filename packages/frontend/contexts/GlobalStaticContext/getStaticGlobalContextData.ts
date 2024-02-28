@@ -7,7 +7,7 @@ export default async function getStaticGlobalContextData() {
   const globalStaticData = await fetchQuery<getStaticGlobalContextDataQuery>(
     env,
     query,
-    {}
+    {},
   ).toPromise();
 
   return globalStaticData;

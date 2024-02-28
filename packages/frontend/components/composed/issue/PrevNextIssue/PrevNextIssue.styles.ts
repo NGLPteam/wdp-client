@@ -15,7 +15,7 @@ export const Inner = styled.div`
       margin-inline-start: var(--grid-column-gap-lg);
     }
     `,
-    70
+    70,
   )}
 `;
 

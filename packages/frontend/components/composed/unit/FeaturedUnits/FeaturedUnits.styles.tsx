@@ -14,7 +14,7 @@ export const Inner = styled.div`
     `
     grid-template-areas: ". text text text text text . image image image image image";
     `,
-    120
+    120,
   )}
 
   ${respond(
@@ -26,7 +26,7 @@ export const Inner = styled.div`
         "image";
       row-gap: var(--padding-xl);
     `,
-    100
+    100,
   )}
 `;
 

@@ -3,13 +3,13 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import get from "lodash/get";
+import { ExternalLink, Markdown, ORCIDLink } from "components/atomic";
+import { BackToTopBlock } from "components/layout";
+import ContributionSummary from "components/composed/contribution/ContributionSummary";
+import { ContributorDetailFragment$key } from "@/relay/ContributorDetailFragment.graphql";
 import ContributorName from "../ContributorName";
 import ContributorAvatar from "../ContributorAvatar";
 import * as Styled from "./ContributorDetail.styles";
-import { ExternalLink, Markdown, ORCIDLink } from "components/atomic";
-import { BackToTopBlock } from "components/layout";
-import { ContributorDetailFragment$key } from "@/relay/ContributorDetailFragment.graphql";
-import ContributionSummary from "components/composed/contribution/ContributionSummary";
 
 export default function ContributorDetail({ data }: Props) {
   const contributor = useMaybeFragment(fragment, data);
@@ -19,12 +19,12 @@ export default function ContributorDetail({ data }: Props) {
     () =>
       get(contributor, "collectionContributions.nodes", []).length +
       get(contributor, "itemContributions.nodes", []).length,
-    [contributor]
+    [contributor],
   );
 
   const hasLinks = useMemo(
     () => contributor && contributor.links && contributor.links.length > 0,
-    [contributor]
+    [contributor],
   );
 
   return contributor ? (

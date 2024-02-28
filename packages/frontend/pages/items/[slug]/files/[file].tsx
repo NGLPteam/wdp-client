@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
 import AssetDetailBlock from "components/composed/asset/AssetDetailBlock";
-import { FileSlugItemQuery as Query } from "@/relay/FileSlugItemQuery.graphql";
 import {
   getStaticEntityData,
   getStaticGlobalContextData,
@@ -17,6 +16,7 @@ import { LoadingBlock } from "components/atomic";
 import ErrorPage from "next/error";
 import AppLayout from "components/global/AppLayout";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
+import { FileSlugItemQuery as Query } from "@/relay/FileSlugItemQuery.graphql";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -47,6 +47,7 @@ export default function ItemFile({ queryRef }: Props) {
   ) : null;
 }
 
+/* eslint-disable react/prop-types */
 const GetFileLayout: GetLayout<Props> = (props) => {
   const slug = useRouteSlug();
   const router = useRouter();

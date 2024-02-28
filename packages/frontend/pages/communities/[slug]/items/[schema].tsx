@@ -2,7 +2,6 @@ import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
 import EntityDescendantsLayout from "components/composed/entity/EntityDescendantsLayout";
-import { SchemaCommunityItemsQuery as Query } from "@/relay/SchemaCommunityItemsQuery.graphql";
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
 import { useDescendantListQueryVars } from "hooks";
 import {
@@ -14,6 +13,7 @@ import { useRouteSlug } from "@wdp/lib/routes";
 import { LoadingBlock } from "components/atomic";
 import ErrorPage from "next/error";
 import AppLayout from "components/global/AppLayout";
+import { SchemaCommunityItemsQuery as Query } from "@/relay/SchemaCommunityItemsQuery.graphql";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -48,6 +48,7 @@ export default function CommunityItemsSchema({ queryRef }: Props) {
   ) : null;
 }
 
+/* eslint-disable react/prop-types */
 const GetItemsLayout: GetLayout<Props> = (props) => {
   const queryVars = useDescendantListQueryVars();
   const slug = useRouteSlug();

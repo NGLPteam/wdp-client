@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { useRouteSlug } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
-import * as Styled from "./SearchHero.styles";
 import { RouteHelper } from "routes";
 import { IconFactory } from "components/factories";
+import * as Styled from "./SearchHero.styles";
 
 export default function SearchHero() {
   const { t } = useTranslation();
@@ -31,7 +31,7 @@ export default function SearchHero() {
         },
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
   };
 

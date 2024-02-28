@@ -1,10 +1,10 @@
 import React from "react";
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import ContributorDetailNav from "../ContributorDetailNav";
 import ContributorDetail from "components/composed/contributor/ContributorDetail";
 import ContributorHTMLHead from "components/composed/contributor/ContributorHTMLHead";
-import { ContributorCollectionDetailLayoutQuery } from "@/relay/ContributorCollectionDetailLayoutQuery.graphql";
 import AppLayout from "components/global/AppLayout";
+import { ContributorCollectionDetailLayoutQuery } from "@/relay/ContributorCollectionDetailLayoutQuery.graphql";
+import ContributorDetailNav from "../ContributorDetailNav";
 
 export default function ContributorCollectionDetailLayout({
   queryRef,
@@ -13,7 +13,7 @@ export default function ContributorCollectionDetailLayout({
 }) {
   const layoutData = usePreloadedQuery<ContributorCollectionDetailLayoutQuery>(
     query,
-    queryRef
+    queryRef,
   );
 
   return layoutData ? (

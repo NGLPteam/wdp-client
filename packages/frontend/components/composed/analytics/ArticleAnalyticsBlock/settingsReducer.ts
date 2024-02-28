@@ -61,6 +61,7 @@ const getDateVars = (minDate: string | null, value: string) => {
 
 export const chartSettingsReducer = (state: State, action: Action) => {
   /* eslint-disable no-var */
+  /* eslint-disable no-redeclare */
   switch (action.type) {
     case "dateRange":
       var dateVars = getDateVars(state.minDate, action.value);

@@ -1,10 +1,10 @@
 import { graphql, useFragment } from "react-relay";
+import { SearchFilterFragment$key } from "@/relay/SearchFilterFragment.graphql";
 import SearchFilterSelect from "./Filters/SearchFilterSelect";
 import SearchFilterInput from "./Filters/SearchFilterInput";
 import SearchFilterDate from "./Filters/SearchFilterDate";
 import SearchFilterNumber from "./Filters/SearchFilterNumber";
 import SearchFilterBoolean from "./Filters/SearchFilterBoolean";
-import { SearchFilterFragment$key } from "@/relay/SearchFilterFragment.graphql";
 
 export default function SearchFilter({ data }: Props) {
   const filter = useFragment(fragment, data);

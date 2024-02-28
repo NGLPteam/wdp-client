@@ -3,12 +3,12 @@ import { Document, pdfjs } from "react-pdf";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { Trans } from "react-i18next";
-import * as Styled from "./AssetInlinePDF.styles";
-import AssetInlinePDFNav from "./AssetInlinePDFNav";
-import AssetInlinePDFPage from "./AssetInlinePDFPage";
 import { NoContent } from "components/layout";
 import { BackToTopButton, LoadingBlock } from "components/atomic";
 import { AssetInlinePDFFragment$key } from "@/relay/AssetInlinePDFFragment.graphql";
+import * as Styled from "./AssetInlinePDF.styles";
+import AssetInlinePDFNav from "./AssetInlinePDFNav";
+import AssetInlinePDFPage from "./AssetInlinePDFPage";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 

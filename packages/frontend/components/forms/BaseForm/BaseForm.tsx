@@ -29,12 +29,12 @@ export default function BaseForm<T extends FieldValues = FieldValues>({
         onSubmitCallback(data);
       }
     },
-    [onSubmitCallback]
+    [onSubmitCallback],
   );
 
   const onSubmit = useMemo(
     () => handleSubmit(submitHandler),
-    [handleSubmit, submitHandler]
+    [handleSubmit, submitHandler],
   );
 
   return (
@@ -59,6 +59,6 @@ interface Props<T extends FieldValues = FieldValues> {
 
 type RenderProps<T extends FieldValues> = (props: {
   form: UseFormReturn<T>;
-}) => JSX.Element;
+}) => React.JSX.Element;
 
 type OnSubmitCallback<T extends FieldValues = FieldValues> = (data: T) => void;

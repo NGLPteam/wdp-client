@@ -2,14 +2,14 @@ import { useTranslation } from "react-i18next";
 import { useFragment } from "react-relay";
 import { graphql } from "react-relay";
 import { useRouteSlug } from "@wdp/lib/routes";
-import * as Styled from "./EntityAnnouncements.styles";
 import { Link, NamedLink, ReadMoreLink } from "components/atomic";
 import { EntityAnnouncementsFragment$key } from "@/relay/EntityAnnouncementsFragment.graphql";
+import * as Styled from "./EntityAnnouncements.styles";
 
 export default function EntityAnnouncements({ data }: Props) {
   const announcements = useFragment<EntityAnnouncementsFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const { t } = useTranslation();

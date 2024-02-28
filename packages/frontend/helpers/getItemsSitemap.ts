@@ -1,6 +1,6 @@
 import { graphql, readInlineData } from "relay-runtime";
-import EXTERNAL_DATA_URL from "./externalDataUrl";
 import { getItemsSitemapFragment$key } from "@/relay/getItemsSitemapFragment.graphql";
+import EXTERNAL_DATA_URL from "./externalDataUrl";
 
 export default function getItemsSitemap(data: getItemsSitemapFragment$key) {
   const entity = readInlineData(fragment, data);
@@ -14,7 +14,7 @@ export default function getItemsSitemap(data: getItemsSitemapFragment$key) {
             <loc>${`${EXTERNAL_DATA_URL}/items/${slug}/sitemap.xml`}</loc>
             <lastmod>${updatedAt}</lastmod>
           </sitemap>
-        `
+        `,
         )
         .join("")}
     </sitemapindex>

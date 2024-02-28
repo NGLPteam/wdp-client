@@ -3,10 +3,10 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { formatDate } from "@wdp/lib/helpers";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./RelatedJournal.styles";
 import { NamedLink, CoverImage } from "components/atomic";
-import { RelatedJournalFragment$key } from "@/relay/RelatedJournalFragment.graphql";
 import { getRouteByEntityType } from "helpers";
+import { RelatedJournalFragment$key } from "@/relay/RelatedJournalFragment.graphql";
+import * as Styled from "./RelatedJournal.styles";
 
 export default function RelatedJournal({ data }: Props) {
   const journal = useMaybeFragment(fragment, data);

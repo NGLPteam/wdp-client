@@ -1,6 +1,6 @@
 import { useDetailsToggle } from "@wdp/lib/hooks";
-import * as Styled from "./TreeAccordion.styles";
 import { IconKeys } from "components/factories/IconFactory/IconFactory";
+import * as Styled from "./TreeAccordion.styles";
 
 export default function TreeAccordion({
   SummaryComponent,

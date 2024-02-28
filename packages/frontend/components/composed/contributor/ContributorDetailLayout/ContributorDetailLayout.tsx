@@ -2,8 +2,8 @@ import React from "react";
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import ContributorDetail from "components/composed/contributor/ContributorDetail";
 import ContributorHTMLHead from "components/composed/contributor/ContributorHTMLHead";
-import { ContributorDetailLayoutQuery } from "@/relay/ContributorDetailLayoutQuery.graphql";
 import AppLayout from "components/global/AppLayout";
+import { ContributorDetailLayoutQuery } from "@/relay/ContributorDetailLayoutQuery.graphql";
 
 export default function ContributorDetailLayout({
   queryRef,
@@ -12,7 +12,7 @@ export default function ContributorDetailLayout({
 }) {
   const layoutData = usePreloadedQuery<ContributorDetailLayoutQuery>(
     query,
-    queryRef
+    queryRef,
   );
   return layoutData ? (
     <AppLayout>

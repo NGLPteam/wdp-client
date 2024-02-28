@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { format, parseISO } from "date-fns";
+import { ArticleAnalyticsBlockFragment$data } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
 import GeoChart from "../GeoChart";
 import LineColChart from "../LineColChart";
 import * as Styled from "./ChartBlock.styles";
-import { ArticleAnalyticsBlockFragment$data } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
 
 type Props = {
   data: ArticleAnalyticsBlockFragment$data;
@@ -24,8 +24,8 @@ export default function ChartBlock({
     (data: ArticleAnalyticsBlockFragment$data) => {
       const subset =
         mode === "views"
-          ? data.entityViewsByRegion.results
-          : data.assetDownloadsByRegion.results;
+          ? data.entityViewsByRegion?.results
+          : data.assetDownloadsByRegion?.results;
 
       if (region === "US") {
         return [

@@ -5,11 +5,11 @@ import { PageContextProvider } from "@wdp/lib/api/contexts/PageContext";
 import { ThemeProvider } from "styled-components";
 import { graphql } from "react-relay";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
+import GlobalStyles from "theme";
+import { LoadingPage } from "components/atomic";
+import { AppContextProviderQuery as Query } from "@/relay/AppContextProviderQuery.graphql";
 import { ViewerContextProvider } from "./ViewerContext";
 import { GlobalContextProvider } from "./GlobalContext";
-import GlobalStyles from "theme";
-import { AppContextProviderQuery as Query } from "@/relay/AppContextProviderQuery.graphql";
-import { LoadingPage } from "components/atomic";
 
 /** Wraps the app with all necessary providers
  * ReakitSSRProvider - Reakit SSR support

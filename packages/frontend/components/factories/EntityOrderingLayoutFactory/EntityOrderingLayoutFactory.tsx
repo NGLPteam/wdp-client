@@ -3,12 +3,12 @@ import { graphql, useFragment } from "react-relay";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
-import { EntityOrderingLayoutFactoryFragment$key } from "@/relay/EntityOrderingLayoutFactoryFragment.graphql";
 import EntityOrderingLayout from "components/composed/entity/EntityOrderingLayout";
-import { EntityOrderingLayoutFactoryQuery as Query } from "@/relay/EntityOrderingLayoutFactoryQuery.graphql";
 import IssueSidebarNav from "components/composed/issue/IssueSidebarNav";
 import IssueOrderingLayout from "components/composed/issue/IssueOrderingLayout";
 import { RouteHelper } from "routes";
+import { EntityOrderingLayoutFactoryQuery as Query } from "@/relay/EntityOrderingLayoutFactoryQuery.graphql";
+import { EntityOrderingLayoutFactoryFragment$key } from "@/relay/EntityOrderingLayoutFactoryFragment.graphql";
 
 /**
  * Fetches the ordering data and gets the right layout based on the schema identifier.
@@ -46,7 +46,7 @@ export default function EntityOrderingLayoutFactory({ data, ordering }: Props) {
       !!orderingData?.community?.ordering?.disabled;
 
     const route = RouteHelper.findRouteByName(
-      orderingData?.collection ? "collection" : "community"
+      orderingData?.collection ? "collection" : "community",
     );
 
     if (isDisabled) {

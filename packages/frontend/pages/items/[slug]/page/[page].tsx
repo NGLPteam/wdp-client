@@ -4,7 +4,6 @@ import { useRoutePageSlug } from "@wdp/lib/routes";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
 import EntityPageLayoutFactory from "components/factories/EntityPageLayoutFactory";
-import { PageSlugItemQuery as Query } from "@/relay/PageSlugItemQuery.graphql";
 import {
   getStaticEntityData,
   getStaticGlobalContextData,
@@ -16,6 +15,7 @@ import { LoadingBlock } from "components/atomic";
 import ErrorPage from "next/error";
 import AppLayout from "components/global/AppLayout";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
+import { PageSlugItemQuery as Query } from "@/relay/PageSlugItemQuery.graphql";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -46,6 +46,7 @@ export default function ItemPage({ queryRef }: Props) {
   ) : null;
 }
 
+/* eslint-disable react-hooks/rules-of-hooks */
 const getLayout: GetLayout<Props> = (props) => {
   const slug = useRouteSlug();
   const pageSlug = useRoutePageSlug();

@@ -1,10 +1,10 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import SeriesHero from "../SeriesHero";
 import { BreadcrumbsBar } from "components/layout";
-import { SeriesLayoutFragment$key } from "@/relay/SeriesLayoutFragment.graphql";
 import EntityNavBar from "components/composed/entity/EntityNavBar";
+import { SeriesLayoutFragment$key } from "@/relay/SeriesLayoutFragment.graphql";
+import SeriesHero from "../SeriesHero";
 
 export default function SeriesLayout({ data, children }: Props) {
   const volume = useMaybeFragment(fragment, data);

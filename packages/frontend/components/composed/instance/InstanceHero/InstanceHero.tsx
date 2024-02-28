@@ -1,9 +1,9 @@
 import React from "react";
 import { graphql, useFragment } from "react-relay";
-import * as Styled from "./InstanceHero.styles";
 import SearchHero from "components/composed/search/SearchHero";
-import { InstanceHeroFragment$key } from "@/relay/InstanceHeroFragment.graphql";
 import { Markdown } from "components/atomic";
+import { InstanceHeroFragment$key } from "@/relay/InstanceHeroFragment.graphql";
+import * as Styled from "./InstanceHero.styles";
 
 export default function InstanceHero({ data }: Props) {
   const app = useFragment(fragment, data);

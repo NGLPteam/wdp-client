@@ -1,8 +1,8 @@
 import React, { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 import { MaybeButtonRef } from "@castiron/common-types";
-import * as Styled from "./MobileMenuToggle.styles";
 import { IconFactory } from "components/factories";
+import * as Styled from "./MobileMenuToggle.styles";
 
 function MobileMenuToggle({ ...props }, ref: MaybeButtonRef) {
   const { t } = useTranslation();

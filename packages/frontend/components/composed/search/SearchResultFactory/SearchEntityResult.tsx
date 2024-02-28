@@ -1,9 +1,9 @@
 import React from "react";
 import { graphql, useFragment } from "react-relay";
-import SearchResultBase from "./SearchResultBase";
-import { SearchEntityResultFragment$key } from "@/relay/SearchEntityResultFragment.graphql";
 import { PrecisionDate, SquareThumbnail } from "components/atomic";
 import { getRouteByEntityType } from "helpers";
+import { SearchEntityResultFragment$key } from "@/relay/SearchEntityResultFragment.graphql";
+import SearchResultBase from "./SearchResultBase";
 
 export default function SearchEntityResult({ data }: Props) {
   const entity = useFragment<SearchEntityResultFragment$key>(fragment, data);

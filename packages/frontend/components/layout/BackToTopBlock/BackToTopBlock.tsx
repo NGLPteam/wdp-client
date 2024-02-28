@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useWindowSize } from "@wdp/lib/hooks";
-import * as Styled from "./BackToTopBlock.styles";
 import { BackToTopButton } from "components/atomic";
+import * as Styled from "./BackToTopBlock.styles";
 
 /**
  * A block of content with a contained back to top button.

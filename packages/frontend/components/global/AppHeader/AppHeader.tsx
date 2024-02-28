@@ -3,8 +3,6 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
-import SkipLink from "../SkipLink";
-import * as Styled from "./AppHeader.styles";
 import { SearchButton } from "components/atomic";
 import MobileMenuToggle from "components/layout/MobileMenuToggle";
 import InstallationName from "components/composed/instance/InstallationName";
@@ -12,13 +10,15 @@ import CommunityPicker from "components/composed/instance/CommunityPicker";
 import AccountDropdown from "components/composed/viewer/AccountDropdown";
 import CommunityNavList from "components/composed/community/CommunityNavList";
 import Search from "components/forms/Search";
-import { AppHeaderCommunityFragment$key } from "@/relay/AppHeaderCommunityFragment.graphql";
 import { RouteHelper } from "routes";
 import CommunityName from "components/composed/community/CommunityName";
 import BaseDrawer from "components/layout/BaseDrawer";
 import { useGlobalContext } from "contexts";
+import { AppHeaderCommunityFragment$key } from "@/relay/AppHeaderCommunityFragment.graphql";
 import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
 import { AppHeaderEntityFragment$key } from "@/relay/AppHeaderEntityFragment.graphql";
+import SkipLink from "../SkipLink";
+import * as Styled from "./AppHeader.styles";
 
 function AppHeader({ communityData, entityData }: Props) {
   const globalData = useGlobalContext();

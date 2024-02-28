@@ -4,9 +4,6 @@ import Image from "next/legacy/image";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { formatDate, formatFileSize } from "@wdp/lib/helpers";
 import { useRouteSlug } from "@wdp/lib/routes";
-import AssetPDFPreview from "../AssetPDFPreview";
-import * as Styled from "./AssetDetailBlock.styles";
-import { AssetDetailBlockFragment$key } from "@/relay/AssetDetailBlockFragment.graphql";
 import {
   BackButton,
   ContentImage,
@@ -14,6 +11,9 @@ import {
   LoadingBlock,
   NamedLink,
 } from "components/atomic";
+import { AssetDetailBlockFragment$key } from "@/relay/AssetDetailBlockFragment.graphql";
+import AssetPDFPreview from "../AssetPDFPreview";
+import * as Styled from "./AssetDetailBlock.styles";
 
 export default function AssetDetailBlock({ data }: Props) {
   const [loaded, setLoaded] = useState<boolean>(false);

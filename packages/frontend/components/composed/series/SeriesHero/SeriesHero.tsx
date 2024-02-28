@@ -3,9 +3,9 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
 import { Markdown, PrecisionDate, Alert } from "components/atomic";
-import { SeriesHeroFragment$key } from "@/relay/SeriesHeroFragment.graphql";
 import ArticleParentHeader from "components/composed/article/ArticleParentHeader";
 import { PrimaryHero } from "components/layout/hero";
+import { SeriesHeroFragment$key } from "@/relay/SeriesHeroFragment.graphql";
 
 export default function SeriesHero({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);

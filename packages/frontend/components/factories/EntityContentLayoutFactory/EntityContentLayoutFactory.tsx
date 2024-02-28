@@ -1,13 +1,13 @@
 import { Suspense } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import EntityOrderingLayoutFactory from "../EntityOrderingLayoutFactory";
 import JournalContent from "components/composed/journal/JournalContent";
 import ArticleText from "components/composed/article/ArticleText";
 import ArticleContributor from "components/composed/article/ArticleContributor";
 import HowToCite from "components/composed/article/HowToCite";
-import { EntityContentLayoutFactoryFragment$key } from "@/relay/EntityContentLayoutFactoryFragment.graphql";
 import { LoadingBlock } from "components/atomic";
+import { EntityContentLayoutFactoryFragment$key } from "@/relay/EntityContentLayoutFactoryFragment.graphql";
+import EntityOrderingLayoutFactory from "../EntityOrderingLayoutFactory";
 
 export default function EntityContentLayoutFactory({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);

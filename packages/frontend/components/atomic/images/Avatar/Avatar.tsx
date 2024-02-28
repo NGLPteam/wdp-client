@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/legacy/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import * as Styled from "./Avatar.styles";
 import { IconFactory } from "components/factories";
+import * as Styled from "./Avatar.styles";
 
 const Avatar = ({ url, alt, size = "sm" }: Props) => {
   const imageSize = size === "sm" ? 32 : 60;

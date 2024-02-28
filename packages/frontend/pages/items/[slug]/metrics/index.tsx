@@ -3,7 +3,6 @@ import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
 import ArticleAnalyticsBlock from "components/composed/analytics/ArticleAnalyticsBlock";
-import { metricsSlugItemQuery as Query } from "@/relay/metricsSlugItemQuery.graphql";
 import { LoadingBlock } from "components/atomic";
 import { AnalyticsPrecision } from "types/graphql-schema";
 import {
@@ -17,6 +16,7 @@ import ErrorPage from "next/error";
 import AppLayout from "components/global/AppLayout";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 import * as Styled from "components/composed/analytics/ArticleAnalyticsBlock/ArticleAnalyticsBlock.styles";
+import { metricsSlugItemQuery as Query } from "@/relay/metricsSlugItemQuery.graphql";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -55,6 +55,7 @@ export default function MetricsSlugItemPage({ queryRef }: Props) {
   ) : null;
 }
 
+/* eslint-disable react-hooks/rules-of-hooks */
 const getLayout: GetLayout<Props> = (props) => {
   const slug = useRouteSlug();
 

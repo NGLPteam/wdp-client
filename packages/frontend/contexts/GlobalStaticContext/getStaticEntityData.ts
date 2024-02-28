@@ -5,7 +5,7 @@ import { GetStaticPropsContext } from "next";
 import { getStaticEntityDataQuery } from "@/relay/getStaticEntityDataQuery.graphql";
 
 export default async function getStaticEntityData(
-  context: GetStaticPropsContext
+  context: GetStaticPropsContext,
 ) {
   const { params: urlQuery } = context;
 
@@ -22,7 +22,7 @@ export default async function getStaticEntityData(
   if (data) {
     return readInlineData(
       fragment,
-      data.community || data.collection || data.item || null
+      data.community || data.collection || data.item || null,
     );
   }
 }

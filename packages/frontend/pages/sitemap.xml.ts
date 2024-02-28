@@ -1,8 +1,8 @@
 import { buildEnvironment as environment } from "@wdp/lib/app";
 import { GetServerSidePropsContext } from "next";
 import { fetchQuery, graphql } from "relay-runtime";
-import { sitemapQuery, sitemapQuery$data } from "@/relay/sitemapQuery.graphql";
 import { buildSiteMap, EXTERNAL_DATA_URL } from "helpers";
+import { sitemapQuery, sitemapQuery$data } from "@/relay/sitemapQuery.graphql";
 
 function generateSiteMap(data: sitemapQuery$data) {
   return `<?xml version="1.0" encoding="UTF-8"?>

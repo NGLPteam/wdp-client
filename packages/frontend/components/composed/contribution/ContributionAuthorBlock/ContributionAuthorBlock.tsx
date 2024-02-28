@@ -2,11 +2,11 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import capitalize from "lodash/capitalize";
-import * as Styled from "./ContributionAuthorBlock.styles";
 import ContributorAvatar from "components/composed/contributor/ContributorAvatar";
 import ContributorName from "components/composed/contributor/ContributorName";
 import { DotList, Link, NamedLink, Markdown } from "components/atomic";
 import { ContributionAuthorBlockFragment$key } from "@/relay/ContributionAuthorBlockFragment.graphql";
+import * as Styled from "./ContributionAuthorBlock.styles";
 
 export default function ContributionAuthorBlock({ data }: Props) {
   const contribution = useMaybeFragment(fragment, data);

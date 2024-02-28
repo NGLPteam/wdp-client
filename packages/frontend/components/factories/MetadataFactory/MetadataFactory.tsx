@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import type { MetadataFactoryFragment$key } from "@/relay/MetadataFactoryFragment.graphql";
 import {
   TagsProperty,
   StringProperty,
@@ -13,7 +14,6 @@ import {
   URLProperty,
   SelectProperty,
 } from "./properties";
-import type { MetadataFactoryFragment$key } from "@/relay/MetadataFactoryFragment.graphql";
 
 /**
  * A factory that dispatches on `__typename` and renders

@@ -2,8 +2,6 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./VolumeHero.styles";
-import { VolumeHeroFragment$key } from "@/relay/VolumeHeroFragment.graphql";
 import {
   DotList,
   PrecisionDate,
@@ -13,6 +11,8 @@ import {
 } from "components/atomic";
 import JournalHeroCompact from "components/composed/journal/JournalHeroCompact";
 import JournalHeroMetadata from "components/composed/journal/JournalHeroMetadata";
+import { VolumeHeroFragment$key } from "@/relay/VolumeHeroFragment.graphql";
+import * as Styled from "./VolumeHero.styles";
 
 export default function VolumeHero({ data }: Props) {
   const volume = useMaybeFragment(fragment, data);

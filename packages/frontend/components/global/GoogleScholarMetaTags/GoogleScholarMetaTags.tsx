@@ -22,7 +22,7 @@ export default function GoogleScholarHtmlHead({
 
   const published = getPrecisionCitationDateDisplay(
     entity.published?.precision,
-    entity.published?.value
+    entity.published?.value,
   );
 
   const journal = entity.journal?.title;
@@ -31,7 +31,7 @@ export default function GoogleScholarHtmlHead({
 
   const authors =
     entity.contributions?.nodes?.filter(
-      ({ role }: { role?: string | null }) => role === "author"
+      ({ role }: { role?: string | null }) => role === "author",
     ) || [];
 
   switch (identifier) {

@@ -1,7 +1,7 @@
 import React from "react";
 import { useDetailsToggle } from "@wdp/lib/hooks";
-import * as Styled from "./Accordion.styles";
 import { IconKeys } from "components/factories/IconFactory/IconFactory";
+import * as Styled from "./Accordion.styles";
 
 export default function Accordion({ label, menuItems }: Props) {
   const { ref, icon, onToggle } = useDetailsToggle<IconKeys>({
@@ -26,5 +26,5 @@ export default function Accordion({ label, menuItems }: Props) {
 
 type Props = {
   label: string;
-  menuItems?: JSX.Element[];
+  menuItems?: React.JSX.Element[];
 };

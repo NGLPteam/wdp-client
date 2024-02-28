@@ -1,6 +1,6 @@
 import React from "react";
-import * as Styled from "./SearchResultBase.styles";
 import { Markdown, NamedLink } from "components/atomic";
+import * as Styled from "./SearchResultBase.styles";
 
 type LinkProps = React.ComponentProps<typeof NamedLink>;
 

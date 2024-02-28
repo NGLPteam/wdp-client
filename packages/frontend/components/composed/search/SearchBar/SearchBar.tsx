@@ -1,13 +1,13 @@
 import React, { forwardRef, Ref } from "react";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./SearchBar.styles";
 import { IconFactory } from "components/factories";
+import * as Styled from "./SearchBar.styles";
 
 type InputProps = Pick<React.HTMLProps<HTMLInputElement>, "defaultValue">;
 
 function SearchBar(
   { id, ...inputProps }: Props & InputProps,
-  ref: Ref<HTMLInputElement>
+  ref: Ref<HTMLInputElement>,
 ) {
   const { t } = useTranslation();
 

@@ -1,5 +1,3 @@
-import type { AppProps, AppContext } from "next/app";
-import type { KeycloakInitOptions } from "keycloak-js";
 import { SSRKeycloakProvider, SSRCookies } from "@react-keycloak/ssr";
 import {
   parseCookies,
@@ -8,13 +6,15 @@ import {
 } from "@wdp/lib/app";
 import { KeycloakRelayProvider, keycloakConfig } from "@wdp/lib/keycloak";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
-import type { Page } from "@wdp/lib/types/page";
 import { AppHtmlHead } from "components/global";
 import { updateI18n } from "i18n";
 import { AppContextProvider } from "contexts";
 import { LoadingPage } from "components/atomic";
 import { GlobalStaticContextProvider } from "contexts/GlobalStaticContext";
 import GoogleScholarMetaTags from "components/global/GoogleScholarMetaTags";
+import type { Page } from "@wdp/lib/types/page";
+import type { KeycloakInitOptions } from "keycloak-js";
+import type { AppProps, AppContext } from "next/app";
 
 type KeycloakProviderProps = React.ComponentProps<typeof SSRKeycloakProvider>;
 

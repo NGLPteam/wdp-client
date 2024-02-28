@@ -1,8 +1,8 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { NumberPropertyFragment$key } from "@/relay/NumberPropertyFragment.graphql";
 import { MetadataProperty } from "components/layout";
+import { NumberPropertyFragment$key } from "@/relay/NumberPropertyFragment.graphql";
 
 export default function NumberProperty({
   data,
@@ -16,8 +16,8 @@ export default function NumberProperty({
     ? property.integerValue
       ? property.integerValue || property.defaultInteger
       : property.floatValue
-      ? property.floatValue || property.defaultFloat
-      : null
+        ? property.floatValue || property.defaultFloat
+        : null
     : null;
 
   return hasLabel && (value || showPlaceholder) ? (

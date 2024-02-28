@@ -2,10 +2,10 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./RelatedIssues.styles";
 import { NamedLink, CoverImage, PrecisionDate, Link } from "components/atomic";
-import { RelatedIssueBlockFragment$key } from "@/relay/RelatedIssueBlockFragment.graphql";
 import { getRouteByEntityType } from "helpers";
+import { RelatedIssueBlockFragment$key } from "@/relay/RelatedIssueBlockFragment.graphql";
+import * as Styled from "./RelatedIssues.styles";
 
 export default function RelatedIssueBlock({ data }: Props) {
   const issue = useMaybeFragment(fragment, data);

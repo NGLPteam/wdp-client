@@ -2,7 +2,6 @@ import React from "react";
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
-import { OrderingSlugCommunityQuery as Query } from "@/relay/OrderingSlugCommunityQuery.graphql";
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
 import {
   getStaticGlobalContextData,
@@ -14,6 +13,7 @@ import { useRouteSlug } from "@wdp/lib/routes";
 import { LoadingBlock } from "components/atomic";
 import ErrorPage from "next/error";
 import AppLayout from "components/global/AppLayout";
+import { OrderingSlugCommunityQuery as Query } from "@/relay/OrderingSlugCommunityQuery.graphql";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -42,6 +42,8 @@ export default function OrderingSlugCommunity({ queryRef }: Props) {
   ) : null;
 }
 
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react/prop-types */
 const getLayout: GetLayout<Props> = (props) => {
   const slug = useRouteSlug();
 

@@ -28,7 +28,7 @@ const Dropdown = ({
 };
 
 interface Props extends Omit<BaseProps, "children"> {
-  menuItems: (JSX.Element | null)[];
+  menuItems: (React.JSX.Element | null)[];
 }
 
 export default Dropdown;

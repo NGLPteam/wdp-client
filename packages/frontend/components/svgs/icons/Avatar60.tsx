@@ -2,7 +2,7 @@ import Props from "./iconType";
 
 // This icon uses a lighter color than the default,
 // so if no class name is passed "t-copy-lighter" is applied
-function Avatar60({ title, fill, ...props }: Props) {
+function Avatar60({ title, fill: _fill, ...props }: Props) {
   return (
     <svg
       viewBox="0 0 60 60"

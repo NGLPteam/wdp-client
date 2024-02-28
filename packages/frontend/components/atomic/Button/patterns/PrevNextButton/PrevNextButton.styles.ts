@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import Button from "../..";
 import { aButton, respond } from "theme/mixins";
+import Button from "../..";
 
 export const FixedWidthButton = styled(Button)`
   ${aButton("primary", "lg")}

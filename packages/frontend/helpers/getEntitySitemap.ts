@@ -1,6 +1,6 @@
 import { readInlineData, graphql } from "relay-runtime";
-import EXTERNAL_DATA_URL from "./externalDataUrl";
 import { getEntitySitemapFragment$key } from "@/relay/getEntitySitemapFragment.graphql";
+import EXTERNAL_DATA_URL from "./externalDataUrl";
 
 export default function getEntitySitemap(data: getEntitySitemapFragment$key) {
   const entity = readInlineData(fragment, data);
@@ -11,8 +11,8 @@ export default function getEntitySitemap(data: getEntitySitemapFragment$key) {
     entity.__typename === "Community"
       ? `${EXTERNAL_DATA_URL}/communities`
       : entity.__typename === "Collection"
-      ? `${EXTERNAL_DATA_URL}/collections`
-      : `${EXTERNAL_DATA_URL}/items`;
+        ? `${EXTERNAL_DATA_URL}/collections`
+        : `${EXTERNAL_DATA_URL}/items`;
 
   const collectionCount =
     entity.__typename === "Item" ? 0 : entity.collections?.pageInfo.pageCount;
@@ -34,7 +34,7 @@ export default function getEntitySitemap(data: getEntitySitemapFragment$key) {
             }`}</loc>
             <lastmod>${entity.updatedAt}</lastmod>
           </sitemap>
-        `
+        `,
       )}
       ${[...Array(itemCount).keys()].map(
         (i) => `
@@ -44,7 +44,7 @@ export default function getEntitySitemap(data: getEntitySitemapFragment$key) {
             }`}</loc>
             <lastmod>${entity.updatedAt}</lastmod>
           </sitemap>
-        `
+        `,
       )}
     </sitemapindex>
   `;

@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
     `
     flex-direction: column-reverse;
   `,
-    50
+    50,
   )}
 `;
 
@@ -29,7 +29,7 @@ export const Image = styled.div`
     margin-inline-start: 0;
     margin-block-end: ${pxToRem(20)};
   `,
-    50
+    50,
   )}
 `;
 

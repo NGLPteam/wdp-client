@@ -1,14 +1,14 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment, usePageContext } from "@wdp/lib/api/hooks";
+import { LoadingBlock } from "components/atomic";
+import EntityMetadataBlock from "components/composed/entity/EntityMetadataBlock";
+import { EntityMetadataFactoryFragment$key } from "@/relay/EntityMetadataFactoryFragment.graphql";
 import {
   ArticleMetadata,
   DissertationMetadata,
   PaperMetadata,
 } from "./patterns";
-import { LoadingBlock } from "components/atomic";
-import EntityMetadataBlock from "components/composed/entity/EntityMetadataBlock";
-import { EntityMetadataFactoryFragment$key } from "@/relay/EntityMetadataFactoryFragment.graphql";
 
 export default function EntityMetadataFactory({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);

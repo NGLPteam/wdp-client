@@ -10,7 +10,7 @@ import { EntityOrderSelectFragment$key } from "@/relay/EntityOrderSelectFragment
 export default function EntityOrderSelect({ data }: Props) {
   const orderings = useMaybeFragment<EntityOrderSelectFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const { t } = useTranslation();

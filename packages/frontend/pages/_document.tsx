@@ -34,7 +34,7 @@ const FONTS = [
 
 export default class AppDocument extends Document<Props> {
   static async getInitialProps(
-    ctx: DocumentContext
+    ctx: DocumentContext,
   ): Promise<DocumentInitialProps & Props> {
     const sheet = new ServerStyleSheet();
 
@@ -71,7 +71,7 @@ export default class AppDocument extends Document<Props> {
                 {...props}
                 // @ts-expect-error scaffolding
                 records={records}
-              />
+              />,
             );
           },
         });

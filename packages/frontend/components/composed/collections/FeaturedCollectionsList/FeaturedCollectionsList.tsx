@@ -2,12 +2,12 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import * as Styled from "./FeaturedCollectionsList.styled";
 import { ArrowList, Link, NamedLink } from "components/atomic";
 import {
   FeaturedCollectionsListFragment$data,
   FeaturedCollectionsListFragment$key,
 } from "@/relay/FeaturedCollectionsListFragment.graphql";
+import * as Styled from "./FeaturedCollectionsList.styled";
 
 export default function FeaturedCollectionsList({ data, header }: Props) {
   const collections = useMaybeFragment(fragment, data);

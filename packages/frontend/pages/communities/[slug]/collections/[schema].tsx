@@ -4,7 +4,6 @@ import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
 import { useDescendantListQueryVars } from "hooks";
 import EntityDescendantsLayout from "components/composed/entity/EntityDescendantsLayout";
-import { SchemaCommunityCollectionsQuery as Query } from "@/relay/SchemaCommunityCollectionsQuery.graphql";
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
 import {
   getStaticGlobalContextData,
@@ -15,6 +14,7 @@ import { useRouteSlug } from "@wdp/lib/routes";
 import { LoadingBlock } from "components/atomic";
 import ErrorPage from "next/error";
 import AppLayout from "components/global/AppLayout";
+import { SchemaCommunityCollectionsQuery as Query } from "@/relay/SchemaCommunityCollectionsQuery.graphql";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -49,6 +49,7 @@ export default function CommunityCollectionsSchema({ queryRef }: Props) {
   ) : null;
 }
 
+/* eslint-disable react/prop-types */
 const GetCommunityLayout: GetLayout<Props> = (props) => {
   const queryVars = useDescendantListQueryVars();
   const slug = useRouteSlug();

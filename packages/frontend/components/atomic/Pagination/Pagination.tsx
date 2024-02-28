@@ -1,8 +1,8 @@
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useRouter } from "next/router";
-import BasePagination from "./BasePagination";
 import { PaginationFragment$key } from "@/relay/PaginationFragment.graphql";
+import BasePagination from "./BasePagination";
 
 export default function Pagination({ data }: Props) {
   const pageData = useMaybeFragment(fragment, data);

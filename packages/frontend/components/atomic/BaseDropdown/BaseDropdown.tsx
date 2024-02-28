@@ -1,8 +1,8 @@
 import React from "react";
 import { useIsMounted } from "@wdp/lib/hooks";
 import { usePopoverState, PopoverDisclosure } from "reakit/Popover";
-import type { PopoverStateReturn } from "reakit/Popover";
 import * as Styled from "./BaseDropdown.styles";
+import type { PopoverStateReturn } from "reakit/Popover";
 
 type ButtonProps = Partial<
   Omit<React.ComponentProps<typeof PopoverDisclosure>, "onClick">
@@ -26,7 +26,7 @@ const BaseDropdown = React.forwardRef<HTMLButtonElement, Props>(
       placement,
       ...props
     },
-    ref
+    ref,
   ) => {
     const isMounted = useIsMounted();
 
@@ -52,7 +52,7 @@ const BaseDropdown = React.forwardRef<HTMLButtonElement, Props>(
         </Styled.Popover>
       </>
     ) : null;
-  }
+  },
 );
 
 interface ExtendedProps {
@@ -61,7 +61,7 @@ interface ExtendedProps {
   /* dropdown children */
   children: React.ReactNode;
   /* disclosure element (usually a button) */
-  disclosure: JSX.Element;
+  disclosure: React.JSX.Element;
   /* pixel distance between the button and the dropdown */
   gutter?: number;
   /* Hide the dropdown on esc? Default is true. */

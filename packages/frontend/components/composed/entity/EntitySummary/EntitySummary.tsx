@@ -4,9 +4,9 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { formatDate } from "@wdp/lib/helpers";
 import { useTranslation } from "react-i18next";
 import { DotList, PrecisionDate, ContentImage } from "components/atomic";
-import { EntitySummaryFragment$key } from "@/relay/EntitySummaryFragment.graphql";
 import { getRouteByEntityType } from "helpers";
 import Summary from "components/layout/Summary";
+import { EntitySummaryFragment$key } from "@/relay/EntitySummaryFragment.graphql";
 
 export default function EntitySummary({ data, showReadMore }: Props) {
   const entity = useMaybeFragment(fragment, data);

@@ -2,7 +2,6 @@ import React from "react";
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
-import { SlugItemQuery as Query } from "@/relay/SlugItemQuery.graphql";
 import EntityContentLayoutFactory from "components/factories/EntityContentLayoutFactory";
 import {
   getStaticEntityData,
@@ -16,6 +15,7 @@ import { LoadingBlock } from "components/atomic";
 import ErrorPage from "next/error";
 import AppLayout from "components/global/AppLayout";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
+import { SlugItemQuery as Query } from "@/relay/SlugItemQuery.graphql";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -47,6 +47,7 @@ export default function ItemPage({ queryRef }: Props) {
   ) : null;
 }
 
+/* eslint-disable react-hooks/rules-of-hooks */
 const getLayout: GetLayout<Props> = (props) => {
   const slug = useRouteSlug();
 

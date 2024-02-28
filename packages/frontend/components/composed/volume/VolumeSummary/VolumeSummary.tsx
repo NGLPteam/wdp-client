@@ -2,7 +2,6 @@ import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./VolumeSummary.styles";
 import {
   ReadMoreLink,
   PrecisionDate,
@@ -11,6 +10,7 @@ import {
   Link,
 } from "components/atomic";
 import { VolumeSummaryFragment$key } from "@/relay/VolumeSummaryFragment.graphql";
+import * as Styled from "./VolumeSummary.styles";
 
 export default function VolumeSummary({ data, showReadMore }: Props) {
   const volume = useMaybeFragment(fragment, data);

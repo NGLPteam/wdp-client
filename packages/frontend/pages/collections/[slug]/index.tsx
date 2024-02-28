@@ -10,12 +10,12 @@ import {
 } from "contexts/GlobalStaticContext";
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import AppLayout from "components/global/AppLayout";
-import { SlugCollectionQuery } from "@/relay/SlugCollectionQuery.graphql";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 import { QueryLoaderWrapper } from "@wdp/lib/api/components";
 import { useRouteSlug } from "@wdp/lib/routes";
 import { LoadingBlock } from "components/atomic";
 import ErrorPage from "next/error";
+import { SlugCollectionQuery } from "@/relay/SlugCollectionQuery.graphql";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -37,7 +37,7 @@ export async function getStaticPaths() {
 export default function SlugCollection({ queryRef }: Props) {
   const { collection } = usePreloadedQuery<SlugCollectionQuery>(
     query,
-    queryRef
+    queryRef,
   );
 
   const pageComponent = () => {
@@ -60,6 +60,7 @@ export default function SlugCollection({ queryRef }: Props) {
   ) : null;
 }
 
+/* eslint-disable react-hooks/rules-of-hooks */
 const getLayout: GetLayout<Props> = (props) => {
   const slug = useRouteSlug();
 

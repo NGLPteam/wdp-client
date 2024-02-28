@@ -2,10 +2,10 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import * as Styled from "./CommunityHero.styles";
-import { CommunityHeroFragment$key } from "@/relay/CommunityHeroFragment.graphql";
 import SearchHero from "components/composed/search/SearchHero";
 import { Markdown } from "components/atomic";
+import { CommunityHeroFragment$key } from "@/relay/CommunityHeroFragment.graphql";
+import * as Styled from "./CommunityHero.styles";
 
 export default function CommunityHero({ data }: Props) {
   const community = useMaybeFragment(fragment, data);
@@ -24,8 +24,8 @@ export default function CommunityHero({ data }: Props) {
         community.heroImageLayout === "ONE_COLUMN"
           ? "a-bg-neutral90"
           : community.heroImage?.storage
-          ? "a-bg-custom20"
-          : "a-bg-custom10"
+            ? "a-bg-custom20"
+            : "a-bg-custom10"
       }
     >
       <Styled.Hero
@@ -41,21 +41,22 @@ export default function CommunityHero({ data }: Props) {
           )}
         </Styled.HeroInner>
         {/* eslint-disable-next-line max-len */}
-        {community.heroImage?.storage && community.heroImage.image?.webp?.url && (
-          <Styled.ImageWrapper>
-            <Styled.Image
-              alt=""
-              src={community.heroImage.image?.webp?.url}
-              layout="fill"
-              objectFit="cover"
-              objectPosition="center"
-              {...(community.heroImage.placeholder?.webp?.url && {
-                placeholder: "blur",
-                blurDataURL: community.heroImage.placeholder.webp.url,
-              })}
-            />
-          </Styled.ImageWrapper>
-        )}
+        {community.heroImage?.storage &&
+          community.heroImage.image?.webp?.url && (
+            <Styled.ImageWrapper>
+              <Styled.Image
+                alt=""
+                src={community.heroImage.image?.webp?.url}
+                layout="fill"
+                objectFit="cover"
+                objectPosition="center"
+                {...(community.heroImage.placeholder?.webp?.url && {
+                  placeholder: "blur",
+                  blurDataURL: community.heroImage.placeholder.webp.url,
+                })}
+              />
+            </Styled.ImageWrapper>
+          )}
       </Styled.Hero>
       <SearchHero />
     </div>

@@ -1,6 +1,6 @@
 import * as React from "react";
-import Markdown from "../BaseMarkdown";
 import { Components } from "react-markdown";
+import Markdown from "../BaseMarkdown";
 
 type MarkdownProps = React.ComponentProps<typeof Markdown>;
 
