@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b77555c90e676e73c507fc5e924b0472>>
+ * @generated SignedSource<<592d1bde99a22a5ac88ec143856eadc7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,38 +10,74 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type pagesQuery$variables = Record<PropertyKey, never>;
-export type pagesQuery$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"InstanceContentLayoutFragment">;
+export type InstanceContentLayoutQuery$variables = Record<PropertyKey, never>;
+export type InstanceContentLayoutQuery$data = {
+  readonly communities: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly slug: string;
+      };
+    }>;
+    readonly pageInfo: {
+      readonly totalCount: number;
+    };
+    readonly " $fragmentSpreads": FragmentRefs<"InstanceCommunitiesFragment">;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"InstanceHeroFragment">;
 };
-export type pagesQuery = {
-  response: pagesQuery$data;
-  variables: pagesQuery$variables;
+export type InstanceContentLayoutQuery = {
+  response: InstanceContentLayoutQuery$data;
+  variables: InstanceContentLayoutQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = {
+var v0 = [
+  {
+    "kind": "Literal",
+    "name": "order",
+    "value": "POSITION_ASCENDING"
+  }
+],
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
 },
-v1 = {
+v2 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "PageInfo",
+  "kind": "LinkedField",
+  "name": "pageInfo",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "totalCount",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v2 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "storage",
   "storageKey": null
 },
-v3 = [
+v5 = [
   {
     "kind": "InlineFragment",
     "selections": [
@@ -83,32 +119,11 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "pagesQuery",
-    "selections": [
-      {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "InstanceContentLayoutFragment"
-      }
-    ],
-    "type": "Query",
-    "abstractKey": null
-  },
-  "kind": "Request",
-  "operation": {
-    "argumentDefinitions": [],
-    "kind": "Operation",
-    "name": "pagesQuery",
+    "name": "InstanceContentLayoutQuery",
     "selections": [
       {
         "alias": null,
-        "args": [
-          {
-            "kind": "Literal",
-            "name": "order",
-            "value": "POSITION_ASCENDING"
-          }
-        ],
+        "args": (v0/*: any*/),
         "concreteType": "CommunityConnection",
         "kind": "LinkedField",
         "name": "communities",
@@ -130,8 +145,63 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v0/*: any*/),
+                  (v1/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          (v2/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "InstanceCommunitiesFragment"
+          }
+        ],
+        "storageKey": "communities(order:\"POSITION_ASCENDING\")"
+      },
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "InstanceHeroFragment"
+      }
+    ],
+    "type": "Query",
+    "abstractKey": null
+  },
+  "kind": "Request",
+  "operation": {
+    "argumentDefinitions": [],
+    "kind": "Operation",
+    "name": "InstanceContentLayoutQuery",
+    "selections": [
+      {
+        "alias": null,
+        "args": (v0/*: any*/),
+        "concreteType": "CommunityConnection",
+        "kind": "LinkedField",
+        "name": "communities",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "CommunityEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Community",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
                   (v1/*: any*/),
+                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -161,7 +231,7 @@ return {
                     "name": "schemaRanks",
                     "plural": true,
                     "selections": [
-                      (v0/*: any*/),
+                      (v1/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -176,7 +246,7 @@ return {
                         "name": "count",
                         "storageKey": null
                       },
-                      (v1/*: any*/)
+                      (v3/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -188,7 +258,7 @@ return {
                     "name": "heroImage",
                     "plural": false,
                     "selections": [
-                      (v2/*: any*/),
+                      (v4/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -204,7 +274,7 @@ return {
                             "kind": "LinkedField",
                             "name": "webp",
                             "plural": false,
-                            "selections": (v3/*: any*/),
+                            "selections": (v5/*: any*/),
                             "storageKey": null
                           }
                         ],
@@ -221,7 +291,7 @@ return {
                     "name": "logo",
                     "plural": false,
                     "selections": [
-                      (v2/*: any*/),
+                      (v4/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -229,7 +299,7 @@ return {
                         "kind": "LinkedField",
                         "name": "original",
                         "plural": false,
-                        "selections": (v3/*: any*/),
+                        "selections": (v5/*: any*/),
                         "storageKey": null
                       }
                     ],
@@ -241,24 +311,7 @@ return {
             ],
             "storageKey": null
           },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "PageInfo",
-            "kind": "LinkedField",
-            "name": "pageInfo",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "totalCount",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
+          (v2/*: any*/)
         ],
         "storageKey": "communities(order:\"POSITION_ASCENDING\")"
       },
@@ -302,23 +355,23 @@ return {
             ],
             "storageKey": null
           },
-          (v1/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "194b6b201438263cdf26a3b45b5e19c4",
+    "cacheID": "ef19ff8eeab5306f8a7271dfd404c9ae",
     "id": null,
     "metadata": {},
-    "name": "pagesQuery",
+    "name": "InstanceContentLayoutQuery",
     "operationKind": "query",
-    "text": "query pagesQuery {\n  ...InstanceContentLayoutFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstanceCommunitiesFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      ...InstanceCommunitySummaryFragment\n      id\n    }\n  }\n}\n\nfragment InstanceCommunitySummaryFragment on Community {\n  slug\n  title\n  tagline\n  summary\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  heroImage {\n    storage\n    large {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n  logo {\n    storage\n    original {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment InstanceContentLayoutFragment on Query {\n  communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        id\n      }\n    }\n    pageInfo {\n      totalCount\n    }\n    ...InstanceCommunitiesFragment\n  }\n  ...InstanceHeroFragment\n}\n\nfragment InstanceHeroFragment on Query {\n  globalConfiguration {\n    site {\n      providerName\n      installationName\n      installationHomePageCopy\n    }\n    id\n  }\n}\n"
+    "text": "query InstanceContentLayoutQuery {\n  communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        id\n      }\n    }\n    pageInfo {\n      totalCount\n    }\n    ...InstanceCommunitiesFragment\n  }\n  ...InstanceHeroFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstanceCommunitiesFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      ...InstanceCommunitySummaryFragment\n      id\n    }\n  }\n}\n\nfragment InstanceCommunitySummaryFragment on Community {\n  slug\n  title\n  tagline\n  summary\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  heroImage {\n    storage\n    large {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n  logo {\n    storage\n    original {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment InstanceHeroFragment on Query {\n  globalConfiguration {\n    site {\n      providerName\n      installationName\n      installationHomePageCopy\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "14a2f8f39c9615b1685607cca9685860";
+(node as any).hash = "982e03574cd809149ae09cac5c58f6a3";
 
 export default node;

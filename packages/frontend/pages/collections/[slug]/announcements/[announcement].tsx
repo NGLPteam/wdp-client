@@ -1,17 +1,22 @@
 import React from "react";
-import { graphql } from "relay-runtime";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
 import { AnnouncementSlugCollectionQuery as Query } from "@/relay/AnnouncementSlugCollectionQuery.graphql";
 import EntityAnnouncementLayoutFactory from "components/factories/EntityAnnouncementLayoutFactory";
-import CollectionLayoutQuery from "components/composed/collections/CollectionLayoutQuery";
 import {
   getStaticGlobalContextData,
   getStaticEntityData,
   STATIC_PROPS_REVALIDATE,
 } from "contexts/GlobalStaticContext";
+import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
+import { QueryLoaderWrapper } from "@wdp/lib/api/components";
+import { useRouteSlug } from "@wdp/lib/routes";
+import { LoadingBlock } from "components/atomic";
+import ErrorPage from "next/error";
+import AppLayout from "components/global/AppLayout";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -30,25 +35,45 @@ export async function getStaticPaths() {
   };
 }
 
-export default function AnnouncementPage({ data }: Props) {
-  return <EntityAnnouncementLayoutFactory data={data?.collection} />;
+export default function AnnouncementPage({ queryRef }: Props) {
+  const { collection } = usePreloadedQuery<Query>(query, queryRef);
+
+  return collection ? (
+    <AppLayout communityData={collection.community} entityData={collection}>
+      <EntityLayoutFactory data={collection}>
+        <EntityAnnouncementLayoutFactory data={collection} />
+      </EntityLayoutFactory>
+    </AppLayout>
+  ) : null;
 }
 
 const GetCollectionLayout: GetLayout<Props> = (props) => {
   const router = useRouter();
   const announcementSlug = routeQueryArrayToString(router.query.announcement);
 
+  const slug = useRouteSlug();
+
+  if (!slug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
+
   return (
-    <CollectionLayoutQuery<Query, Props>
+    <QueryLoaderWrapper<Query>
       query={query}
-      variables={{ announcementSlug }}
-      {...props}
-    />
+      variables={{ slug, announcementSlug }}
+      loadingFallback={<LoadingBlock />}
+    >
+      {({ queryRef }) =>
+        queryRef && (
+          <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        )
+      }
+    </QueryLoaderWrapper>
   );
 };
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
 };
 
 AnnouncementPage.getLayout = GetCollectionLayout;
@@ -60,7 +85,11 @@ const query = graphql`
   ) {
     collection(slug: $slug) {
       ...EntityAnnouncementLayoutFactoryFragment
+      ...AppLayoutEntityFragment
+      ...EntityLayoutFactoryFragment
+      community {
+        ...AppLayoutCommunityFragment
+      }
     }
-    ...CollectionLayoutQueryFragment @arguments(slug: $slug)
   }
 `;

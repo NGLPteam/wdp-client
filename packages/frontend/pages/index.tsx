@@ -1,8 +1,9 @@
 import React from "react";
-import { graphql } from "relay-runtime";
-import { QueryWrapper } from "@wdp/lib/api/components";
+import { PreloadedQuery } from "react-relay";
+import { QueryLoaderWrapper } from "@wdp/lib/api/components";
 import InstanceContentLayout from "components/composed/instance/InstanceContentLayout";
-import { pagesQuery as Query } from "@/relay/pagesQuery.graphql";
+import { query } from "components/composed/instance/InstanceContentLayout/InstanceContentLayout";
+import { InstanceContentLayoutQuery } from "@/relay/InstanceContentLayoutQuery.graphql";
 
 import AppLayout from "components/global/AppLayout";
 import {
@@ -19,22 +20,25 @@ export async function getStaticProps() {
   };
 }
 
-export default function HomePage() {
+type Props = {
+  initialQueryRef?: PreloadedQuery<InstanceContentLayoutQuery>;
+};
+
+export default function HomePage({ initialQueryRef }: Props) {
   return (
     <>
-      <QueryWrapper<Query> query={query}>
-        {({ data }) => (
-          <AppLayout>
-            <InstanceContentLayout data={data} />
-          </AppLayout>
-        )}
-      </QueryWrapper>
+      <QueryLoaderWrapper<InstanceContentLayoutQuery>
+        query={query}
+        initialQueryRef={initialQueryRef}
+      >
+        {({ queryRef }) =>
+          queryRef && (
+            <AppLayout>
+              <InstanceContentLayout queryRef={queryRef} />
+            </AppLayout>
+          )
+        }
+      </QueryLoaderWrapper>
     </>
   );
 }
-
-const query = graphql`
-  query pagesQuery {
-    ...InstanceContentLayoutFragment
-  }
-`;
