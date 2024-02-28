@@ -1,6 +1,5 @@
 import { useState, useEffect, useReducer } from "react";
-import { graphql } from "relay-runtime";
-import { useRefetchable } from "relay-hooks";
+import { graphql, useRefetchableFragment } from "react-relay";
 import dynamic from "next/dynamic";
 import ChartControls from "../ChartControls";
 import StatBlocks from "../StatBlocks";
@@ -11,7 +10,6 @@ import {
   ArticleAnalyticsBlockQuery,
   ArticleAnalyticsBlockQuery$variables,
 } from "@/relay/ArticleAnalyticsBlockQuery.graphql";
-import { LoadingBlock } from "components/atomic";
 
 type Props = {
   data: ArticleAnalyticsBlockFragment$key;
@@ -20,11 +18,7 @@ type Props = {
 const ChartBlock = dynamic(() => import("../ChartBlock"), { ssr: false });
 
 export default function ArticleAnalyticsBlock({ data }: Props) {
-  const {
-    data: chartData,
-    isLoading,
-    refetch,
-  } = useRefetchable<
+  const [chartData, refetch] = useRefetchableFragment<
     ArticleAnalyticsBlockQuery,
     ArticleAnalyticsBlockFragment$key
   >(fragment, data);
@@ -60,7 +54,7 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
 
   const region = settings.usOnly ? "US" : "world";
 
-  return (
+  return chartData ? (
     <div className="l-container-wide">
       <Styled.Block>
         <ChartControls
@@ -71,19 +65,13 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
           dispatchSettingsUpdate={dispatchSettingsUpdate}
           dateLabel={settings.dateLabel}
         />
-        {isLoading ? (
-          <Styled.LoaderWrapper>
-            <LoadingBlock />
-          </Styled.LoaderWrapper>
-        ) : (
-          <ChartBlock
-            data={chartData}
-            chartType={settings.chartType}
-            region={region}
-            mode={mode}
-            precision={settings.precision}
-          />
-        )}
+        <ChartBlock
+          data={chartData}
+          chartType={settings.chartType}
+          region={region}
+          mode={mode}
+          precision={settings.precision}
+        />
         <StatBlocks
           data={chartData}
           region={region}
@@ -92,7 +80,7 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
         />
       </Styled.Block>
     </div>
-  );
+  ) : null;
 }
 
 const fragment = graphql`

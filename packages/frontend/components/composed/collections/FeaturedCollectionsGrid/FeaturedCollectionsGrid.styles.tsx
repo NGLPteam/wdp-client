@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { default as BaseImage } from "next/legacy/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { aBgNeutral00, aFocus, fluidScale, respond } from "theme/mixins";
-import { NamedLink as BaseNamedLink } from "components/atomic";
+import { NamedLink as BaseNamedLink } from "components/atomic/links";
 import { transition } from "theme/base/variables";
 
 export const Section = styled.section`

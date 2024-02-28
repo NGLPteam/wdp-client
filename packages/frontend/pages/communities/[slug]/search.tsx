@@ -1,6 +1,10 @@
-import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import { GraphQLTaggedNode } from "relay-runtime";
-import { useRefetchable } from "relay-hooks/lib/useRefetchable";
+import { Suspense } from "react";
+import {
+  graphql,
+  usePreloadedQuery,
+  PreloadedQuery,
+  useRefetchableFragment,
+} from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
 import { searchCommunityQuery as Query } from "@/relay/searchCommunityQuery.graphql";
@@ -40,18 +44,12 @@ function SearchLayoutQuery({
 }: {
   data: searchCommunityQueryFragment$key;
 }) {
-  const {
-    data: searchData,
-    refetch,
-    isLoading,
-  } = useRefetchable<SearchLayoutEntityQuery, searchCommunityQueryFragment$key>(
-    fragment as GraphQLTaggedNode,
-    data
-  );
+  const [searchData, refetch] = useRefetchableFragment<
+    SearchLayoutEntityQuery,
+    searchCommunityQueryFragment$key
+  >(fragment, data);
 
-  return (
-    <SearchLayout refetch={refetch} data={searchData} isLoading={isLoading} />
-  );
+  return <SearchLayout refetch={refetch} data={searchData} />;
 }
 
 export default function SearchPage({ queryRef }: Props) {
@@ -59,7 +57,9 @@ export default function SearchPage({ queryRef }: Props) {
 
   return community ? (
     <AppLayout communityData={community} entityData={community}>
-      <SearchLayoutQuery data={community} />
+      <Suspense fallback={<LoadingBlock />}>
+        <SearchLayoutQuery data={community} />
+      </Suspense>
     </AppLayout>
   ) : null;
 }

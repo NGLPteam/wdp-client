@@ -1,16 +1,11 @@
-import React, { useEffect } from "react";
-import { graphql } from "relay-runtime";
-import { GraphQLTaggedNode } from "react-relay";
-import { useAuthenticatedQuery, useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useEffect } from "react";
+import { graphql, useFragment } from "react-relay";
+import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
 import { EntityOrderingLayoutFactoryFragment$key } from "@/relay/EntityOrderingLayoutFactoryFragment.graphql";
 import EntityOrderingLayout from "components/composed/entity/EntityOrderingLayout";
-import {
-  EntityOrderingLayoutFactoryQuery as Query,
-  EntityOrderingLayoutFactoryQuery$data,
-} from "@/relay/EntityOrderingLayoutFactoryQuery.graphql";
-import { LoadingBlock } from "components/atomic";
+import { EntityOrderingLayoutFactoryQuery as Query } from "@/relay/EntityOrderingLayoutFactoryQuery.graphql";
 import IssueSidebarNav from "components/composed/issue/IssueSidebarNav";
 import IssueOrderingLayout from "components/composed/issue/IssueOrderingLayout";
 import { RouteHelper } from "routes";
@@ -20,7 +15,7 @@ import { RouteHelper } from "routes";
  * If no ordering identifier is provided, uses the first ordering on the entity.
  */
 export default function EntityOrderingLayoutFactory({ data, ordering }: Props) {
-  const entity = useMaybeFragment(fragment as GraphQLTaggedNode, data);
+  const entity = useFragment(fragment, data);
 
   const { push: routerPush, ...router } = useRouter();
 
@@ -38,14 +33,11 @@ export default function EntityOrderingLayoutFactory({ data, ordering }: Props) {
 
   const page = parseInt(routeQueryArrayToString(router.query.page)) || 1;
 
-  const { data: orderingData, isLoading } = useAuthenticatedQuery<Query>(
-    query,
-    {
-      identifier,
-      page,
-      slug,
-    }
-  );
+  const orderingData = useAuthenticatedQuery<Query>(query, {
+    identifier,
+    page,
+    slug,
+  });
 
   // If an ordering is disabled, redirect to the parent entity
   useEffect(() => {
@@ -64,31 +56,17 @@ export default function EntityOrderingLayoutFactory({ data, ordering }: Props) {
     }
   }, [orderingData, slug, routerPush]);
 
-  const getLayout = (data?: EntityOrderingLayoutFactoryQuery$data | null) => {
-    switch (entity?.schemaDefinition?.identifier) {
-      case "journal_issue":
-        return (
-          <IssueSidebarNav data={entity}>
-            {isLoading ? (
-              <LoadingBlock />
-            ) : (
-              <IssueOrderingLayout data={data?.collection?.ordering} />
-            )}
-          </IssueSidebarNav>
-        );
-
-      default:
-        return isLoading ? (
-          <LoadingBlock />
-        ) : (
-          <EntityOrderingLayout
-            data={data?.community?.ordering || data?.collection?.ordering}
-          />
-        );
-    }
-  };
-
-  return entity ? getLayout(orderingData) : <LoadingBlock />;
+  return entity?.schemaDefinition?.identifier === "journal_issue" ? (
+    <IssueSidebarNav data={entity}>
+      <IssueOrderingLayout data={orderingData?.collection?.ordering} />
+    </IssueSidebarNav>
+  ) : (
+    <EntityOrderingLayout
+      data={
+        orderingData?.community?.ordering || orderingData?.collection?.ordering
+      }
+    />
+  );
 }
 
 interface Props {

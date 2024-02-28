@@ -1,4 +1,3 @@
-import "focus-visible";
 import type { AppProps, AppContext } from "next/app";
 import type { KeycloakInitOptions } from "keycloak-js";
 import { SSRKeycloakProvider, SSRCookies } from "@react-keycloak/ssr";
@@ -60,22 +59,24 @@ function App({
   const { googleScholarData, ...globalData } = pageProps;
 
   return (
-    <GlobalStaticContextProvider globalData={globalData}>
-      <AppHtmlHead />
-      {googleScholarData && (
-        <GoogleScholarMetaTags entity={googleScholarData} />
-      )}
-      <SSRKeycloakProvider {...ssrProps}>
-        <KeycloakRelayProvider records={records}>
-          <AppContextProvider>
-            {getLayout({
-              PageComponent: Component,
-              pageComponentProps: pageProps,
-            })}
-          </AppContextProvider>
-        </KeycloakRelayProvider>
-      </SSRKeycloakProvider>
-    </GlobalStaticContextProvider>
+    <>
+      <GlobalStaticContextProvider globalData={globalData}>
+        <AppHtmlHead />
+        {googleScholarData && (
+          <GoogleScholarMetaTags entity={googleScholarData} />
+        )}
+        <SSRKeycloakProvider {...ssrProps}>
+          <KeycloakRelayProvider records={records}>
+            <AppContextProvider>
+              {getLayout({
+                PageComponent: Component,
+                pageComponentProps: pageProps,
+              })}
+            </AppContextProvider>
+          </KeycloakRelayProvider>
+        </SSRKeycloakProvider>
+      </GlobalStaticContextProvider>
+    </>
   );
 }
 export default App;

@@ -1,4 +1,4 @@
-import { environment } from "@wdp/lib/app";
+import { buildEnvironment as environment } from "@wdp/lib/app";
 import { fetchQuery, graphql } from "relay-runtime";
 import { getStaticPathsCommunitiesQuery } from "@/relay/getStaticPathsCommunitiesQuery.graphql";
 import { getStaticPathsCommunityPagesQuery } from "@/relay/getStaticPathsCommunityPagesQuery.graphql";

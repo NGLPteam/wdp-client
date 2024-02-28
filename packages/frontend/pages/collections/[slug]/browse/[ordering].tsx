@@ -1,4 +1,4 @@
-import React from "react";
+import { Suspense } from "react";
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";

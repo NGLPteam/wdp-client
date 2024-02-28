@@ -1,12 +1,15 @@
-import React from "react";
-import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import { GraphQLTaggedNode } from "relay-runtime";
-import { useRefetchable } from "relay-hooks/lib/useRefetchable";
+import { Suspense } from "react";
+import {
+  graphql,
+  usePreloadedQuery,
+  PreloadedQuery,
+  useRefetchableFragment,
+} from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
 import { searchCollectionQuery as Query } from "@/relay/searchCollectionQuery.graphql";
 import SearchLayout from "components/composed/search/SearchLayout";
-import { SearchLayoutEntityQuery } from "@/relay/SearchLayoutEntityQuery.graphql";
+import { SearchLayoutCollectionQuery } from "@/relay/SearchLayoutCollectionQuery.graphql";
 import { searchCollectionQueryFragment$key } from "@/relay/searchCollectionQueryFragment.graphql";
 import {
   getStaticGlobalContextData,
@@ -42,18 +45,12 @@ function SearchLayoutQuery({
 }: {
   data: searchCollectionQueryFragment$key;
 }) {
-  const {
-    data: searchData,
-    refetch,
-    isLoading,
-  } = useRefetchable<
-    SearchLayoutEntityQuery,
+  const [searchData, refetch] = useRefetchableFragment<
+    SearchLayoutCollectionQuery,
     searchCollectionQueryFragment$key
-  >(fragment as GraphQLTaggedNode, data);
+  >(fragment, data);
 
-  return (
-    <SearchLayout refetch={refetch} data={searchData} isLoading={isLoading} />
-  );
+  return <SearchLayout refetch={refetch} data={searchData} />;
 }
 
 export default function SearchPage({ queryRef }: Props) {
@@ -62,7 +59,9 @@ export default function SearchPage({ queryRef }: Props) {
   return collection ? (
     <AppLayout communityData={collection.community} entityData={collection}>
       <EntityLayoutFactory data={collection}>
-        <SearchLayoutQuery data={collection} />
+        <Suspense fallback={<LoadingBlock />}>
+          <SearchLayoutQuery data={collection} />
+        </Suspense>
       </EntityLayoutFactory>
     </AppLayout>
   ) : null;
