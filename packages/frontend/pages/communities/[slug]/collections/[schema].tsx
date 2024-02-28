@@ -1,16 +1,20 @@
 import React from "react";
-import { graphql } from "relay-runtime";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
 import { useDescendantListQueryVars } from "hooks";
 import EntityDescendantsLayout from "components/composed/entity/EntityDescendantsLayout";
 import { SchemaCommunityCollectionsQuery as Query } from "@/relay/SchemaCommunityCollectionsQuery.graphql";
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
-import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
 import {
   getStaticGlobalContextData,
   getStaticEntityData,
 } from "contexts/GlobalStaticContext";
+import { QueryLoaderWrapper } from "@wdp/lib/api/components";
+import { useRouteSlug } from "@wdp/lib/routes";
+import { LoadingBlock } from "components/atomic";
+import ErrorPage from "next/error";
+import AppLayout from "components/global/AppLayout";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -28,30 +32,48 @@ export async function getStaticPaths() {
   };
 }
 
-export default function CommunityCollectionsSchema({ data }: Props) {
-  return data?.community?.orderingForSchema ? (
-    <EntityOrderingLayoutFactory
-      data={data.community}
-      ordering={data.community.orderingForSchema.identifier}
-    />
-  ) : (
-    <EntityDescendantsLayout data={data?.community?.descendants} />
-  );
+export default function CommunityCollectionsSchema({ queryRef }: Props) {
+  const { community } = usePreloadedQuery<Query>(query, queryRef);
+
+  return community ? (
+    <AppLayout communityData={community} entityData={community}>
+      {community.orderingForSchema ? (
+        <EntityOrderingLayoutFactory
+          data={community}
+          ordering={community.orderingForSchema.identifier}
+        />
+      ) : (
+        <EntityDescendantsLayout data={community.descendants} />
+      )}
+    </AppLayout>
+  ) : null;
 }
 
 const GetCommunityLayout: GetLayout<Props> = (props) => {
   const queryVars = useDescendantListQueryVars();
+  const slug = useRouteSlug();
+
+  if (!slug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
+
   return (
-    <CommunityLayoutQuery<Query, Props>
+    <QueryLoaderWrapper<Query>
       query={query}
       variables={queryVars}
-      {...props}
-    />
+      loadingFallback={<LoadingBlock />}
+    >
+      {({ queryRef }) =>
+        queryRef && (
+          <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        )
+      }
+    </QueryLoaderWrapper>
   );
 };
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
 };
 
 CommunityCollectionsSchema.getLayout = GetCommunityLayout;
@@ -77,11 +99,9 @@ const query = graphql`
       ) {
         ...EntityDescendantsLayoutFragment
       }
+      ...AppLayoutCommunityFragment
+      ...AppLayoutEntityFragment
       ...EntityOrderingLayoutFactoryFragment
-      # orderingForSchema($schema) {
-      #    ...EntityOrderingsFragment
-      # }
     }
-    ...CommunityLayoutQueryFragment @arguments(slug: $slug)
   }
 `;

@@ -1,15 +1,19 @@
 import React from "react";
-import { graphql } from "relay-runtime";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
 import { OrderingSlugCommunityQuery as Query } from "@/relay/OrderingSlugCommunityQuery.graphql";
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
-import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
 import {
   getStaticGlobalContextData,
   getStaticEntityData,
   STATIC_PROPS_REVALIDATE,
 } from "contexts/GlobalStaticContext";
+import { QueryLoaderWrapper } from "@wdp/lib/api/components";
+import { useRouteSlug } from "@wdp/lib/routes";
+import { LoadingBlock } from "components/atomic";
+import ErrorPage from "next/error";
+import AppLayout from "components/global/AppLayout";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -28,25 +32,50 @@ export async function getStaticPaths() {
   };
 }
 
-export default function OrderingSlugCommunity({ data }: Props) {
-  return <EntityOrderingLayoutFactory data={data?.community} />;
+export default function OrderingSlugCommunity({ queryRef }: Props) {
+  const { community } = usePreloadedQuery<Query>(query, queryRef);
+
+  return community ? (
+    <AppLayout communityData={community} entityData={community}>
+      <EntityOrderingLayoutFactory data={community} />
+    </AppLayout>
+  ) : null;
 }
 
-const GetCollectionLayout: GetLayout<Props> = (props) => {
-  return <CommunityLayoutQuery<Query, Props> query={query} {...props} />;
+const getLayout: GetLayout<Props> = (props) => {
+  const slug = useRouteSlug();
+
+  if (!slug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
+
+  return (
+    <QueryLoaderWrapper<Query>
+      query={query}
+      variables={{ slug }}
+      loadingFallback={<LoadingBlock />}
+    >
+      {({ queryRef }) =>
+        queryRef && (
+          <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        )
+      }
+    </QueryLoaderWrapper>
+  );
 };
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
 };
 
-OrderingSlugCommunity.getLayout = GetCollectionLayout;
+OrderingSlugCommunity.getLayout = getLayout;
 
 const query = graphql`
   query OrderingSlugCommunityQuery($slug: Slug!) {
     community(slug: $slug) {
       ...EntityOrderingLayoutFactoryFragment
+      ...AppLayoutCommunityFragment
+      ...AppLayoutEntityFragment
     }
-    ...CommunityLayoutQueryFragment @arguments(slug: $slug)
   }
 `;

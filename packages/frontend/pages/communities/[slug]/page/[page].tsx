@@ -1,17 +1,21 @@
 import React from "react";
-import { graphql } from "relay-runtime";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { useRoutePageSlug } from "@wdp/lib/routes";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
 import CommunityPageLayout from "components/composed/community/CommunityPageLayout";
 import { PageCommunityQuery as Query } from "@/relay/PageCommunityQuery.graphql";
-import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
 import {
   getStaticGlobalContextData,
   getStaticEntityData,
   STATIC_PROPS_REVALIDATE,
 } from "contexts/GlobalStaticContext";
 import { getStaticCommunityPagePaths } from "helpers";
+import { QueryLoaderWrapper } from "@wdp/lib/api/components";
+import { useRouteSlug } from "@wdp/lib/routes";
+import { LoadingBlock } from "components/atomic";
+import ErrorPage from "next/error";
+import AppLayout from "components/global/AppLayout";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -30,24 +34,41 @@ export async function getStaticPaths() {
   };
 }
 
-export default function CommunityPage({ data }: Props) {
-  return <CommunityPageLayout data={data?.community?.page} />;
+export default function CommunityPage({ queryRef }: Props) {
+  const { community } = usePreloadedQuery<Query>(query, queryRef);
+
+  return community ? (
+    <AppLayout communityData={community} entityData={community}>
+      <CommunityPageLayout data={community?.page} />
+    </AppLayout>
+  ) : null;
 }
 
 const GetCommunityLayout: GetLayout<Props> = (props) => {
   const pageSlug = useRoutePageSlug();
+  const slug = useRouteSlug();
+
+  if (!slug || !pageSlug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
 
   return (
-    <CommunityLayoutQuery<Query, Props>
+    <QueryLoaderWrapper<Query>
       query={query}
-      variables={{ pageSlug }}
-      {...props}
-    />
+      variables={{ slug, pageSlug }}
+      loadingFallback={<LoadingBlock />}
+    >
+      {({ queryRef }) =>
+        queryRef && (
+          <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        )
+      }
+    </QueryLoaderWrapper>
   );
 };
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
 };
 
 CommunityPage.getLayout = GetCommunityLayout;
@@ -58,7 +79,8 @@ const query = graphql`
       page(slug: $pageSlug) {
         ...CommunityPageLayoutFragment
       }
+      ...AppLayoutCommunityFragment
+      ...AppLayoutEntityFragment
     }
-    ...CommunityLayoutQueryFragment @arguments(slug: $slug)
   }
 `;
