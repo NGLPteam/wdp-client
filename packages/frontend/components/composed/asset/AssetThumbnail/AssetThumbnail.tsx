@@ -2,9 +2,9 @@ import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { useRouteSlug } from "@wdp/lib/routes";
-import * as Styled from "./AssetThumbnail.styles";
 import { FileThumbnail, NamedLink } from "components/atomic";
 import { AssetThumbnailFragment$key } from "@/relay/AssetThumbnailFragment.graphql";
+import * as Styled from "./AssetThumbnail.styles";
 
 export default function AssetThumbnail({ data }: Props) {
   const asset = useMaybeFragment(fragment, data);

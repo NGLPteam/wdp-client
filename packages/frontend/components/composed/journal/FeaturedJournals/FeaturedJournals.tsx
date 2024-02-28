@@ -4,13 +4,13 @@ import { useRouteSlug } from "@wdp/lib/routes";
 import { graphql } from "react-relay";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./FeaturedJournals.styles";
-import FeaturedJournal from "./FeaturedJournal";
 import { Button, NamedLink } from "components/atomic";
 import {
   FeaturedJournalsFragment$data,
   FeaturedJournalsFragment$key,
 } from "@/relay/FeaturedJournalsFragment.graphql";
+import * as Styled from "./FeaturedJournals.styles";
+import FeaturedJournal from "./FeaturedJournal";
 
 export default function FeaturedJournals({ data }: Props) {
   const collections = useMaybeFragment(fragment, data);

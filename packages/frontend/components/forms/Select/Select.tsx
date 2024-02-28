@@ -1,8 +1,8 @@
 import React, { forwardRef, SelectHTMLAttributes } from "react";
 import { MaybeSelectRef } from "@castiron/common-types";
+import { IconFactory } from "components/factories";
 import Label from "../Label";
 import * as Styled from "./Select.styles";
-import { IconFactory } from "components/factories";
 
 function Select(
   {
@@ -16,7 +16,7 @@ function Select(
     className,
     ...props
   }: Props & Omit<SelectHTMLAttributes<HTMLSelectElement>, "size">,
-  ref: MaybeSelectRef
+  ref: MaybeSelectRef,
 ) {
   return (
     <div className={className}>

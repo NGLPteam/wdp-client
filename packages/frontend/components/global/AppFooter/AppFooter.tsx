@@ -1,10 +1,8 @@
-import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import * as Styled from "./AppFooter.styles";
 import { RouteHelper } from "routes";
 import { useGlobalContext } from "contexts";
 import InstallationName from "components/composed/instance/InstallationName";
@@ -13,9 +11,10 @@ import CommunityPicker from "components/composed/instance/CommunityPicker";
 import CommunityName from "components/composed/community/CommunityName";
 import AnnouncementModal from "components/layout/AnnouncementModal";
 import { Link as LinkStyle, NamedLink } from "components/atomic";
+import { useGlobalStaticContext } from "contexts/GlobalStaticContext";
 import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
 import { AppFooterCommunityFragment$key } from "@/relay/AppFooterCommunityFragment.graphql";
-import { useGlobalStaticContext } from "contexts/GlobalStaticContext";
+import * as Styled from "./AppFooter.styles";
 
 // Note: About text and community name will come from backend data
 function AppFooter({ communityData }: Props) {

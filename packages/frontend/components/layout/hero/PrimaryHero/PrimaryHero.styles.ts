@@ -13,7 +13,7 @@ export const Inner = styled.div`
 
   ${respond(
     `grid-template-areas: "left left left left left left left left right right right right";`,
-    TABLET_BREAK
+    TABLET_BREAK,
   )}
 
   ${respond(
@@ -24,7 +24,7 @@ export const Inner = styled.div`
     "left"
     "right";
   `,
-    MOBILE_BREAK
+    MOBILE_BREAK,
   )}
 `;
 
@@ -46,7 +46,7 @@ export const RightSide = styled.div`
     padding-block-start: var(--padding-rg);
 
   `,
-    MOBILE_BREAK
+    MOBILE_BREAK,
   )}
 `;
 

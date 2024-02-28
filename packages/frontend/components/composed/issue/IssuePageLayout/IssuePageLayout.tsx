@@ -1,8 +1,8 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import { IssuePageLayoutFragment$key } from "@/relay/IssuePageLayoutFragment.graphql";
 import { ContentImage, Markdown } from "components/atomic";
+import { IssuePageLayoutFragment$key } from "@/relay/IssuePageLayoutFragment.graphql";
 
 export default function IssuePageLayout({ data }: Props) {
   const page = useMaybeFragment(fragment, data);

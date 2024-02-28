@@ -2,9 +2,9 @@ import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { useRouteSlug } from "@wdp/lib/routes";
-import * as Styled from "./IssueSidebarNavList.styles";
-import { IssueSidebarNavListFragment$key } from "@/relay/IssueSidebarNavListFragment.graphql";
 import { NamedLink } from "components/atomic";
+import { IssueSidebarNavListFragment$key } from "@/relay/IssueSidebarNavListFragment.graphql";
+import * as Styled from "./IssueSidebarNavList.styles";
 
 export default function IssueSidebarNavList({ data }: Props) {
   const issue = useMaybeFragment(fragment, data);
@@ -24,7 +24,7 @@ export default function IssueSidebarNavList({ data }: Props) {
               <a className="t-label-sm t-copy-light">{node.title}</a>
             </NamedLink>
           </Styled.ListItem>
-        ) : null
+        ) : null,
       )}
     </Styled.List>
   ) : null;

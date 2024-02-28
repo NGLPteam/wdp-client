@@ -3,13 +3,13 @@ import { PreloadedQuery } from "react-relay";
 import { QueryLoaderWrapper } from "@wdp/lib/api/components";
 import InstanceContentLayout from "components/composed/instance/InstanceContentLayout";
 import { query } from "components/composed/instance/InstanceContentLayout/InstanceContentLayout";
-import { InstanceContentLayoutQuery } from "@/relay/InstanceContentLayoutQuery.graphql";
 
 import AppLayout from "components/global/AppLayout";
 import {
   getStaticGlobalContextData,
   STATIC_PROPS_REVALIDATE,
 } from "contexts/GlobalStaticContext";
+import { InstanceContentLayoutQuery } from "@/relay/InstanceContentLayoutQuery.graphql";
 
 export async function getStaticProps() {
   const props = await getStaticGlobalContextData();

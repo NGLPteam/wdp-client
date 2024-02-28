@@ -31,7 +31,7 @@ export const Header = styled.header`
     padding-block-start: ${pxToRem(34)};
     padding-block-end: ${pxToRem(34)};
     min-height: ${pxToRem(100)}
-    `
+    `,
   )}
 `;
 
@@ -48,7 +48,7 @@ export const HeaderInner = styled.div`
       padding-inline-start: var(--container-v-padding-sm);
       padding-inline-end: var(--container-v-padding-sm);
     }
-    `
+    `,
   )}
 `;
 
@@ -72,7 +72,7 @@ export const InstallationNameWrapper = styled.span<{
         max-width: 33vw;
         margin-inline-end: var(--grid-column-gap-sm);
       `,
-        80
+        80,
       );
     }
   }}

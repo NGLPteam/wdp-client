@@ -2,8 +2,8 @@ import React from "react";
 import { graphql } from "react-relay";
 import Head from "next/head";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { ContributorHTMLHeadFragment$key } from "@/relay/ContributorHTMLHeadFragment.graphql";
 import { useGlobalStaticContext } from "contexts/GlobalStaticContext";
+import { ContributorHTMLHeadFragment$key } from "@/relay/ContributorHTMLHeadFragment.graphql";
 
 export default function ContributorHTMLHead({ data }: Props) {
   const staticData = useGlobalStaticContext();
@@ -18,8 +18,8 @@ export default function ContributorHTMLHead({ data }: Props) {
         {contributor.__typename === "OrganizationContributor"
           ? `${contributor.legalName} `
           : contributor.__typename === "PersonContributor"
-          ? `${contributor.givenName} ${contributor.familyName} `
-          : ""}
+            ? `${contributor.givenName} ${contributor.familyName} `
+            : ""}
         - {installationName}
       </title>
     </Head>

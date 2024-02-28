@@ -4,7 +4,6 @@ import { useRoutePageSlug } from "@wdp/lib/routes";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
 import CommunityPageLayout from "components/composed/community/CommunityPageLayout";
-import { PageCommunityQuery as Query } from "@/relay/PageCommunityQuery.graphql";
 import {
   getStaticGlobalContextData,
   getStaticEntityData,
@@ -16,6 +15,7 @@ import { useRouteSlug } from "@wdp/lib/routes";
 import { LoadingBlock } from "components/atomic";
 import ErrorPage from "next/error";
 import AppLayout from "components/global/AppLayout";
+import { PageCommunityQuery as Query } from "@/relay/PageCommunityQuery.graphql";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -44,6 +44,7 @@ export default function CommunityPage({ queryRef }: Props) {
   ) : null;
 }
 
+/* eslint-disable react/prop-types */
 const GetCommunityLayout: GetLayout<Props> = (props) => {
   const pageSlug = useRoutePageSlug();
   const slug = useRouteSlug();

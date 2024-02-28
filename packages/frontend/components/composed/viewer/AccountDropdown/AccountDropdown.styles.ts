@@ -38,7 +38,7 @@ export const Name = styled.span`
       ${aHidden}
     }
   `,
-    "min"
+    "min",
   )}
 
   ${/* sc-selector */ AccountButton}:hover &,

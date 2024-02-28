@@ -29,7 +29,7 @@ export const ButtonStyles = styled.button<{
         margin-inline-start: 0;
       }
       `,
-      50
+      50,
     )}
 `;
 

@@ -1,11 +1,11 @@
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./IssueSummary.styles";
 import { PrecisionDate, CoverImage } from "components/atomic";
-import { IssueSummaryFragment$key } from "@/relay/IssueSummaryFragment.graphql";
 import Summary from "components/layout/Summary";
 import { getEntityDisplayName } from "helpers";
+import { IssueSummaryFragment$key } from "@/relay/IssueSummaryFragment.graphql";
+import * as Styled from "./IssueSummary.styles";
 
 export default function IssueSummary({ data, showReadMore }: Props) {
   const issue = useMaybeFragment(fragment, data);

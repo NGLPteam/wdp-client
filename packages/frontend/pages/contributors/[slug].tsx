@@ -10,14 +10,14 @@ import {
 import { query } from "components/composed/contributor/ContributorDetailLayout/ContributorDetailLayout";
 import { query as itemQuery } from "components/composed/contributor/ContributorDetailLayout/ContributorItemDetailLayout";
 import { query as collectionQuery } from "components/composed/contributor/ContributorDetailLayout/ContributorCollectionDetailLayout";
-import { ContributorDetailLayoutQuery } from "@/relay/ContributorDetailLayoutQuery.graphql";
-import { ContributorCollectionDetailLayoutQuery } from "@/relay/ContributorCollectionDetailLayoutQuery.graphql";
-import { ContributorItemDetailLayoutQuery } from "@/relay/ContributorItemDetailLayoutQuery.graphql";
 import {
   getStaticGlobalContextData,
   STATIC_PROPS_REVALIDATE,
 } from "contexts/GlobalStaticContext";
 import { LoadingBlock } from "components/atomic";
+import { ContributorDetailLayoutQuery } from "@/relay/ContributorDetailLayoutQuery.graphql";
+import { ContributorCollectionDetailLayoutQuery } from "@/relay/ContributorCollectionDetailLayoutQuery.graphql";
+import { ContributorItemDetailLayoutQuery } from "@/relay/ContributorItemDetailLayoutQuery.graphql";
 
 export async function getStaticProps() {
   const props = await getStaticGlobalContextData();

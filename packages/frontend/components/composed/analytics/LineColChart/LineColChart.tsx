@@ -28,8 +28,8 @@ export default function LineColChart({
     fontStyle === "style1"
       ? "Ilisarniq"
       : fontStyle === "style2"
-      ? "Switzer"
-      : "Libre Franklin";
+        ? "Switzer"
+        : "Libre Franklin";
 
   const color = colorStyle as "cream" | "blue" | "gray";
 

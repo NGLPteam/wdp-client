@@ -17,7 +17,7 @@ export default function DissertationMetadata({ data }: Props) {
   const dissertation = useMaybeFragment(fragment, data);
 
   const authors = dissertation?.contributions?.edges?.filter(
-    ({ node }) => node.role?.toLowerCase() === "author"
+    ({ node }) => node.role?.toLowerCase() === "author",
   );
 
   return dissertation ? (

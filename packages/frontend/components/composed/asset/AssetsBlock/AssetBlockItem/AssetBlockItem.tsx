@@ -3,10 +3,10 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { formatDate, formatFileSize } from "@wdp/lib/helpers";
 import { useRouteSlug } from "@wdp/lib/routes";
+import { DownloadLink, NamedLink } from "components/atomic";
+import { AssetBlockItemFragment$key } from "@/relay/AssetBlockItemFragment.graphql";
 import AssetThumbnail from "../../AssetThumbnail";
 import * as Styled from "./AssetBlockItem.styles";
-import { AssetBlockItemFragment$key } from "@/relay/AssetBlockItemFragment.graphql";
-import { DownloadLink, NamedLink } from "components/atomic";
 
 export default function AssetBlockItem({ data }: Props) {
   const file = useMaybeFragment(fragment, data);

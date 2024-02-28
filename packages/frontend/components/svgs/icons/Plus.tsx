@@ -1,6 +1,6 @@
 import Props from "./iconType";
 
-export default function Plus({ title, ...props }: Props) {
+export default function Plus({ title: _title, ...props }: Props) {
   return (
     <svg
       width="16"

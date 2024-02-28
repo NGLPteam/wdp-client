@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Page } from "react-pdf";
 import { useInView } from "react-intersection-observer";
-import AssetPDFPage from "../../AssetPDFPage";
 import { LoadingBlock } from "components/atomic";
+import AssetPDFPage from "../../AssetPDFPage";
 
 export default function AssetInlinePDFPage({
   pageNumber,

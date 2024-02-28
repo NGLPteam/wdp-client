@@ -9,10 +9,10 @@ import {
 import { QueryLoaderWrapper, ErrorFallback } from "@wdp/lib/api/components";
 import AppLayout from "components/global/AppLayout";
 import SearchLayout from "components/composed/search/SearchLayout";
+import { LoadingBlock } from "components/atomic";
 import { searchQuery as Query } from "@/relay/searchQuery.graphql";
 import { SearchLayoutQuery as LayoutQuery } from "@/relay/SearchLayoutQuery.graphql";
 import { searchQueryFragment$key } from "@/relay/searchQueryFragment.graphql";
-import { LoadingBlock } from "components/atomic";
 
 function SearchLayoutQuery({ queryRef }: Props) {
   const data = usePreloadedQuery<Query>(query, queryRef);

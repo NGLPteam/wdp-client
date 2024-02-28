@@ -40,7 +40,7 @@ const fragment = graphql`
 
 export function getContributorDisplayName(
   contributor: Partial<AnyContributor> | ContributorNameFragment$data,
-  reverse?: boolean
+  reverse?: boolean,
 ): string {
   if (!contributor) return "";
 

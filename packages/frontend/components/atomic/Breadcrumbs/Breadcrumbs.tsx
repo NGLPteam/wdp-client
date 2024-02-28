@@ -2,12 +2,12 @@ import React, { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { Dropdown, Markdown, NamedLink } from "components/atomic";
+import { getRouteByEntityType } from "helpers";
+import { BreadcrumbsFragment$key } from "@/relay/BreadcrumbsFragment.graphql";
 import { Link } from "../links";
 import * as Styled from "./Breadcrumbs.styles";
 import BreadcrumbLink from "./BreadcrumbLink";
-import { Dropdown, Markdown, NamedLink } from "components/atomic";
-import { BreadcrumbsFragment$key } from "@/relay/BreadcrumbsFragment.graphql";
-import { getRouteByEntityType } from "helpers";
 
 export default function BreadCrumbs({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);

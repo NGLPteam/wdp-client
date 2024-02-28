@@ -2,10 +2,10 @@ import React from "react";
 import { useMaybeFragment, usePageContext } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
+import { LoadingBlock } from "components/atomic";
+import { AssetsBlockFragment$key } from "@/relay/AssetsBlockFragment.graphql";
 import * as Styled from "./AssetsBlock.styles";
 import AssetBlockItem from "./AssetBlockItem";
-import { AssetsBlockFragment$key } from "@/relay/AssetsBlockFragment.graphql";
-import { LoadingBlock } from "components/atomic";
 
 const AssetsBlock = ({ data, paddingBottom = "md" }: Props) => {
   const { t } = useTranslation();

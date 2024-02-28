@@ -1,7 +1,7 @@
 import { SearchPredicateInput } from "types/graphql-schema";
 
 export function getPredicates(
-  filters: Record<string, string>
+  filters: Record<string, string>,
 ): [SearchPredicateInput] | undefined {
   const predicates: [SearchPredicateInput?] = [];
 

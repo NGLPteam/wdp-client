@@ -1,13 +1,13 @@
 import React, { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import * as Styled from "./BreadcrumbsBar.styles";
-import { BreadcrumbsBarFragment$key } from "@/relay/BreadcrumbsBarFragment.graphql";
 import { Breadcrumbs, Button, Dropdown, Link } from "components/atomic";
 import { getOrigin, getRouteByEntityType } from "helpers";
 import { RouteHelper } from "routes";
 import { useGlobalContext } from "contexts";
+import { BreadcrumbsBarFragment$key } from "@/relay/BreadcrumbsBarFragment.graphql";
 import { BreadcrumbsBarGlobalFragment$key } from "@/relay/BreadcrumbsBarGlobalFragment.graphql";
+import * as Styled from "./BreadcrumbsBar.styles";
 
 export default function BreadCrumbsBar({ data }: Props) {
   const breadcrumbData = useMaybeFragment(fragment, data);
@@ -16,7 +16,7 @@ export default function BreadCrumbsBar({ data }: Props) {
 
   const global = useMaybeFragment<BreadcrumbsBarGlobalFragment$key>(
     globalFragment,
-    globalData?.globalConfiguration
+    globalData?.globalConfiguration,
   );
 
   const url = useMemo(() => {

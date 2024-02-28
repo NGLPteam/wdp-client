@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import ContributionBlockItem from "./ContributionBlockItem";
-import BaseContributionsBlock from "./BaseContributionsBlock";
 import {
   ContributionsBlockFragment$key,
   ContributionsBlockFragment$data,
 } from "@/relay/ContributionsBlockFragment.graphql";
+import ContributionBlockItem from "./ContributionBlockItem";
+import BaseContributionsBlock from "./BaseContributionsBlock";
 
 type BaseProps = Omit<
   React.ComponentProps<typeof BaseContributionsBlock>,
@@ -18,14 +18,14 @@ const ContributionsBlock = ({ data, filterRole, ...baseProps }: Props) => {
 
   const showAvatars = useMemo(() => {
     return contributionData?.nodes?.some(
-      (node: Node) => node.contributor?.image?.storage
+      (node: Node) => node.contributor?.image?.storage,
     );
   }, [contributionData]);
 
   const contributions = contributionData?.nodes?.filter(
     (node: Node) =>
       !filterRole ||
-      (node.role && node.role.toLowerCase() === filterRole.toLowerCase())
+      (node.role && node.role.toLowerCase() === filterRole.toLowerCase()),
   );
 
   return (

@@ -9,7 +9,7 @@ export default function SearchSchemaFilter({ data }: Props) {
 
   const schemaData = useFragment<SearchSchemaFilterFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const { t } = useTranslation();

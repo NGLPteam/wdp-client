@@ -1,9 +1,9 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import HeroImageBase from "./HeroImageBase";
 import { HeroImageFragment$key } from "@/relay/HeroImageFragment.graphql";
 import { HeroImageMetadataFragment$key } from "@/relay/HeroImageMetadataFragment.graphql";
+import HeroImageBase from "./HeroImageBase";
 
 export default function HeroImage({ data, metadata }: Props) {
   const imageData = useMaybeFragment(fragment, data);

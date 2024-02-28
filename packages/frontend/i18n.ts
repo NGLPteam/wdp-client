@@ -13,7 +13,7 @@ export const DEFAULT_LNG = "en-US";
 export const SUPPORTED_LOCALES: Record<string, string | undefined> = {};
 
 Object.keys(resources).forEach(
-  (key) => (SUPPORTED_LOCALES[key] = get(resources, `${key}.translation.key`))
+  (key) => (SUPPORTED_LOCALES[key] = get(resources, `${key}.translation.key`)),
 );
 
 i18n

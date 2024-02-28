@@ -1,11 +1,11 @@
 import React from "react";
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./InstanceCommunitySummary.styles";
 import { getSchemaTranslationKey } from "helpers";
 import { NamedLink, Image } from "components/atomic";
 import Markdown from "components/atomic/Markdown";
 import { InstanceCommunitySummaryFragment$key } from "@/relay/InstanceCommunitySummaryFragment.graphql";
+import * as Styled from "./InstanceCommunitySummary.styles";
 
 export default function InstanceCommunitySummary({ data }: Props) {
   const community = useFragment(fragment, data);

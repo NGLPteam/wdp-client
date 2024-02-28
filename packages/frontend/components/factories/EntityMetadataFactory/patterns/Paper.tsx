@@ -29,7 +29,7 @@ export default function PaperMetadata({ data }: Props) {
   const paper = useMaybeFragment(fragment, data);
 
   const authors = paper?.contributions?.edges?.filter(
-    ({ node }) => node.role?.toLowerCase() === "author"
+    ({ node }) => node.role?.toLowerCase() === "author",
   );
 
   return paper ? (

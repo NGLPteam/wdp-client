@@ -1,9 +1,9 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { AssetPropertyFragment$key } from "@/relay/AssetPropertyFragment.graphql";
 import { DownloadLink } from "components/atomic";
 import { MetadataProperty } from "components/layout";
+import { AssetPropertyFragment$key } from "@/relay/AssetPropertyFragment.graphql";
 
 export default function AssetProperty({ data, label, showPlaceholder }: Props) {
   const property = useMaybeFragment(fragment, data);

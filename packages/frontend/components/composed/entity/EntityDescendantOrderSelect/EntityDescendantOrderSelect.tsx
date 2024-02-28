@@ -18,7 +18,7 @@ export default function EntityDescendantOrderSelect() {
         query: { ...router.query, order: e.target.value },
       });
     },
-    [router]
+    [router],
   );
 
   return (

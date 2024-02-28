@@ -3,9 +3,9 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { formatDate } from "@wdp/lib/helpers";
-import * as Styled from "./EntityAnnouncementLayout.styles";
-import { EntityAnnouncementLayoutFragment$key } from "@/relay/EntityAnnouncementLayoutFragment.graphql";
 import { Markdown } from "components/atomic";
+import { EntityAnnouncementLayoutFragment$key } from "@/relay/EntityAnnouncementLayoutFragment.graphql";
+import * as Styled from "./EntityAnnouncementLayout.styles";
 
 export default function EntityAnnouncementLayout({ data }: Props) {
   const announcement = useMaybeFragment(fragment, data);

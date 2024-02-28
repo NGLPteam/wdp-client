@@ -2,10 +2,10 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import EntityNavList from "./EntityNavList";
-import * as Styled from "./EntityNavBar.styles";
 import { Search } from "components/forms";
 import { EntityNavBarFragment$key } from "@/relay/EntityNavBarFragment.graphql";
+import EntityNavList from "./EntityNavList";
+import * as Styled from "./EntityNavBar.styles";
 
 export default function EntityNavBar({ data }: Props) {
   const { t } = useTranslation();

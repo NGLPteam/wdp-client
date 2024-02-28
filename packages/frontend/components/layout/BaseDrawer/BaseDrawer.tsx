@@ -1,7 +1,7 @@
 import React from "react";
-import type { DialogProps } from "reakit/Dialog";
-import * as Styled from "./BaseDrawer.styles";
 import { CloseModalButton } from "components/atomic";
+import * as Styled from "./BaseDrawer.styles";
+import type { DialogProps } from "reakit/Dialog";
 
 export default function Drawer({
   header,

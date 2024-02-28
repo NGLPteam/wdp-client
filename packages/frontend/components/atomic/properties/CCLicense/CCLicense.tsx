@@ -3,8 +3,8 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { IconFactory } from "components/factories";
-import { CCLicenseFragment$key } from "@/relay/CCLicenseFragment.graphql";
 import { Link } from "components/atomic";
+import { CCLicenseFragment$key } from "@/relay/CCLicenseFragment.graphql";
 
 export default function CCLicense({ data, className }: Props) {
   const entity = useMaybeFragment(fragment, data);
@@ -18,12 +18,12 @@ export default function CCLicense({ data, className }: Props) {
             .toLowerCase()
             .replace("cc ", "")}/2.5/`
         : null,
-    [entity]
+    [entity],
   );
 
   const licenseLabel = entity?.ccLicense?.selection
     ? entity?.ccLicense?.options?.find(
-        (option) => option?.value === entity?.ccLicense?.selection
+        (option) => option?.value === entity?.ccLicense?.selection,
       )?.label
     : null;
 

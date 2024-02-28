@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import Link from "..";
 
-type BaseProps = React.ComponentProps<typeof Link>;
+type BaseProps = React.ComponentProps<typeof Link> & { className?: string };
 
 /* Simple download text and icon,
  * style can be changed using the className property */

@@ -31,7 +31,7 @@ export const List = styled.ul`
         grid-template-columns: auto;
         gap: ${pxToRem(30)};
     `,
-    50
+    50,
   )}
 `;
 

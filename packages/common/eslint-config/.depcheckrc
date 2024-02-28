@@ -1,0 +1,6 @@
+ignores: [
+
+  # Included implicitly in eslint config
+  "eslint-config-next"
+
+]

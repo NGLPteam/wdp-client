@@ -1,8 +1,8 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import SquareThumbnailBase from "./SquareThumbnailBase";
 import { SquareThumbnailFragment$key } from "@/relay/SquareThumbnailFragment.graphql";
+import SquareThumbnailBase from "./SquareThumbnailBase";
 
 type BaseProps = React.ComponentProps<typeof SquareThumbnailBase>;
 

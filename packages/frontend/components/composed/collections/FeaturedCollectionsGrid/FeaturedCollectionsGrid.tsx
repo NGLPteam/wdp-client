@@ -2,13 +2,13 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import FeaturedCollectionsGridImage from "./FeaturedCollectionsGridImage";
-import * as Styled from "./FeaturedCollectionsGrid.styles";
 import { NamedLink, Button } from "components/atomic";
 import {
   FeaturedCollectionsGridFragment$data,
   FeaturedCollectionsGridFragment$key,
 } from "@/relay/FeaturedCollectionsGridFragment.graphql";
+import FeaturedCollectionsGridImage from "./FeaturedCollectionsGridImage";
+import * as Styled from "./FeaturedCollectionsGrid.styles";
 
 type LinkProps = React.ComponentProps<typeof NamedLink>;
 
@@ -44,7 +44,7 @@ export default function FeaturedCollectionsGrid({
                   </a>
                 </Styled.NamedLink>
               </Styled.Item>
-            ) : null
+            ) : null,
           )}
         </Styled.List>
         {seeAllRoute && (

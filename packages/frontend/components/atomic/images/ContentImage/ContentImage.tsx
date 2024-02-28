@@ -1,8 +1,8 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import ContentImageBase from "./ContentImageBase";
 import { ContentImageFragment$key } from "@/relay/ContentImageFragment.graphql";
+import ContentImageBase from "./ContentImageBase";
 
 export default function ContentImage({ data }: Props) {
   const imageData = useMaybeFragment(fragment, data);

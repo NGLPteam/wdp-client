@@ -13,10 +13,10 @@
     "relay": "relay-compiler",
     "schema": "graphql-codegen",
     "lint": "concurrently -c \"auto\" \"yarn:lint:*\"",
-    "lint:js": "eslint --cache  -c .eslintrc.js \"**/*.{js,ts,tsx}\"",
+    "lint:js": "eslint \"**/*.{js,ts,tsx}\"",
     "lint:css": "stylelint --config .stylelintrc.js \"**/*.{ts,tsx}\"",
     "fix": "concurrently -c \"auto\" \"yarn:fix:*\"",
-    "fix:js": "eslint --fix --cache -c .eslintrc.js \"**/*.{js,ts,tsx}\"",
+    "fix:js": "eslint --fix \"**/*.{js,ts,tsx}\"",
     "types": "npx tsc --strict -w",
     "depcheck": "depcheck"
   },
@@ -67,7 +67,6 @@
     "@graphql-codegen/schema-ast": "^4.0.2",
     "@graphql-codegen/typescript": "^4.0.5",
     "@graphql-codegen/typescript-resolvers": "^4.0.5",
-    "@rushstack/eslint-patch": "^1.0.9",
     "@types/chunk-text": "^1.0.2",
     "@types/cookie": "^0.6.0",
     "@types/lodash": "^4.14.202",
@@ -81,6 +80,7 @@
     "@types/styled-components": "^5.1.34",
     "concurrently": "^8.2.2",
     "depcheck": "^1.4.7",
+    "eslint": "^8.57.0",
     "typescript": "^5.3.3"
   }
 }

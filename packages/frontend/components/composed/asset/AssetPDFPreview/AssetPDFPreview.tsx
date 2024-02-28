@@ -3,9 +3,9 @@ import { Document, Page, pdfjs } from "react-pdf";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useIsMounted } from "@wdp/lib/hooks";
-import AssetPDFPage from "../AssetPDFPage";
-import { AssetPDFPreviewFragment$key } from "@/relay/AssetPDFPreviewFragment.graphql";
 import { LoadingBlock } from "components/atomic";
+import { AssetPDFPreviewFragment$key } from "@/relay/AssetPDFPreviewFragment.graphql";
+import AssetPDFPage from "../AssetPDFPage";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -22,7 +22,7 @@ export default function AssetPDFPreview({ data }: Props) {
     ({ numPages }: { numPages: number }) => {
       setNumPages(numPages);
     },
-    [setNumPages]
+    [setNumPages],
   );
 
   return isMounted && file ? (

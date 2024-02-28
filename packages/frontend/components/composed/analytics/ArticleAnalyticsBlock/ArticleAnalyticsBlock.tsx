@@ -1,15 +1,15 @@
 import { useState, useEffect, useReducer } from "react";
 import { graphql, useRefetchableFragment } from "react-relay";
 import dynamic from "next/dynamic";
-import ChartControls from "../ChartControls";
-import StatBlocks from "../StatBlocks";
-import { chartSettingsReducer, State, Action } from "./settingsReducer";
-import * as Styled from "./ArticleAnalyticsBlock.styles";
 import { ArticleAnalyticsBlockFragment$key } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
 import {
   ArticleAnalyticsBlockQuery,
   ArticleAnalyticsBlockQuery$variables,
 } from "@/relay/ArticleAnalyticsBlockQuery.graphql";
+import ChartControls from "../ChartControls";
+import StatBlocks from "../StatBlocks";
+import { chartSettingsReducer, State, Action } from "./settingsReducer";
+import * as Styled from "./ArticleAnalyticsBlock.styles";
 
 type Props = {
   data: ArticleAnalyticsBlockFragment$key;
@@ -45,16 +45,14 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
   >(chartSettingsReducer, initalSettings);
 
   useEffect(() => {
-    // Don't refetch until the user interacts with the chart the first time to give the google scripts a chance to load. Could probably also fix this by not conditionally rendering on isLoading, but we'd need to sync up state changes on chart labels with new data. Is this preferable?
-    if (settings.updated) {
-      const { chartType, minDate, updated, dateLabel, ...queryVars } = settings;
-      refetch(queryVars as unknown as ArticleAnalyticsBlockQuery$variables);
-    }
+    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+    const { chartType, minDate, updated, dateLabel, ...queryVars } = settings;
+    refetch((queryVars as unknown) as ArticleAnalyticsBlockQuery$variables);
   }, [refetch, settings]);
 
   const region = settings.usOnly ? "US" : "world";
 
-  return chartData ? (
+  return chartData?.viewsByDate ? (
     <div className="l-container-wide">
       <Styled.Block>
         <ChartControls
@@ -85,12 +83,12 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
 
 const fragment = graphql`
   fragment ArticleAnalyticsBlockFragment on Item
-  @refetchable(queryName: "ArticleAnalyticsBlockQuery")
-  @argumentDefinitions(
-    dateRange: { type: "DateFilterInput", defaultValue: {} }
-    precision: { type: "AnalyticsPrecision", defaultValue: YEAR }
-    usOnly: { type: "Boolean", defaultValue: false }
-  ) {
+    @refetchable(queryName: "ArticleAnalyticsBlockQuery")
+    @argumentDefinitions(
+      dateRange: { type: "DateFilterInput", defaultValue: {} }
+      precision: { type: "AnalyticsPrecision", defaultValue: YEAR }
+      usOnly: { type: "Boolean", defaultValue: false }
+    ) {
     downloadsByDate: assetDownloads(
       dateFilter: $dateRange
       precision: $precision

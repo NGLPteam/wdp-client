@@ -1,8 +1,8 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { FullTextFragment$key } from "@/relay/FullTextFragment.graphql";
 import { Markdown } from "components/atomic";
+import { FullTextFragment$key } from "@/relay/FullTextFragment.graphql";
 
 export default function FullText({ data }: Props) {
   const contentData = useMaybeFragment(fragment, data);

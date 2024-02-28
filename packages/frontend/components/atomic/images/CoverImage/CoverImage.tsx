@@ -4,8 +4,8 @@ import Image from "next/legacy/image";
 import { graphql } from "react-relay";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { CoverPlaceholder } from "@wdp/lib/atomic";
-import * as Styled from "./CoverImage.styles";
 import { CoverImageFragment$key } from "@/relay/CoverImageFragment.graphql";
+import * as Styled from "./CoverImage.styles";
 
 /* We can't use objectFit contain because of the drop shadow */
 export default function CoverImage({

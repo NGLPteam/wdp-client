@@ -2,7 +2,7 @@ import { graphql, readInlineData } from "relay-runtime";
 import { getEntityVolumeNumberFragment$key } from "@/relay/getEntityVolumeNumberFragment.graphql";
 
 export default function getEntityVolumeNumber(
-  data: getEntityVolumeNumberFragment$key
+  data: getEntityVolumeNumberFragment$key,
 ) {
   const entity = readInlineData(fragment, data);
 

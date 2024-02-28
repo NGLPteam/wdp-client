@@ -1,5 +1,5 @@
-import * as Styled from "./Alert.styles";
 import { IconFactory } from "components/factories";
+import * as Styled from "./Alert.styles";
 
 type Props = {
   color?: "red" | "blue" | "green";

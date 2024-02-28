@@ -1,7 +1,7 @@
 import React, { forwardRef, Ref } from "react";
 import { MaybeLinkRef } from "@castiron/common-types";
-import * as Styled from "./Link.styles";
 import { IconFactory } from "components/factories";
+import * as Styled from "./Link.styles";
 
 type IconProps = React.ComponentProps<typeof IconFactory>;
 type LinkProps = React.ComponentProps<typeof Styled.Link>;
@@ -10,7 +10,7 @@ type LinkProps = React.ComponentProps<typeof Styled.Link>;
  * style can be changed using the className property */
 function Link(
   { children, icon, iconLeft, ...props }: Props & LinkProps,
-  ref: MaybeLinkRef | Ref<HTMLAnchorElement>
+  ref: MaybeLinkRef | Ref<HTMLAnchorElement>,
 ) {
   return children ? (
     <Styled.Link ref={ref} {...props}>

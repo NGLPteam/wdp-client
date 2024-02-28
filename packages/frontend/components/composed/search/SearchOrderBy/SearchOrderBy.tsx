@@ -18,7 +18,7 @@ export default function SearchOrderBy() {
         },
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
   };
 

@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
-import type { MaybeButtonRef } from "@castiron/common-types";
 import { IconFactory } from "../../factories";
 import * as Styles from "./Button.styles";
+import type { MaybeButtonRef } from "@castiron/common-types";
 
 type ButtonProps = React.ComponentProps<typeof Styles.ButtonStyles>;
 
@@ -21,7 +21,7 @@ const Button = forwardRef(
       isBlock,
       ...props
     }: (Props | LinkProps) & ButtonProps,
-    ref: MaybeButtonRef
+    ref: MaybeButtonRef,
   ) => {
     return (
       <Styles.ButtonStyles
@@ -48,7 +48,7 @@ const Button = forwardRef(
         )}
       </Styles.ButtonStyles>
     );
-  }
+  },
 );
 
 export default Button;

@@ -1,8 +1,8 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { SelectPropertyFragment$key } from "@/relay/SelectPropertyFragment.graphql";
 import { MetadataProperty } from "components/layout";
+import { SelectPropertyFragment$key } from "@/relay/SelectPropertyFragment.graphql";
 
 export default function SelectProperty({
   data,
@@ -12,7 +12,7 @@ export default function SelectProperty({
   const property = useMaybeFragment(fragment, data);
 
   const selectedOption = property?.options?.find(
-    (o: { label: string; value: string }) => o.value === property.selection
+    (o: { label: string; value: string }) => o.value === property.selection,
   );
 
   const hasLabel = label ?? property?.label;

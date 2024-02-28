@@ -1,8 +1,6 @@
-import { Suspense } from "react";
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
-import { OrderingSlugCollectionQuery as Query } from "@/relay/OrderingSlugCollectionQuery.graphql";
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
 import {
   getStaticGlobalContextData,
@@ -15,6 +13,7 @@ import { useRouteSlug } from "@wdp/lib/routes";
 import { LoadingBlock } from "components/atomic";
 import ErrorPage from "next/error";
 import AppLayout from "components/global/AppLayout";
+import { OrderingSlugCollectionQuery as Query } from "@/relay/OrderingSlugCollectionQuery.graphql";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -45,6 +44,7 @@ export default function OrderingSlugCollection({ queryRef }: Props) {
   ) : null;
 }
 
+/* eslint-disable react/prop-types */
 const GetCollectionLayout: GetLayout<Props> = (props) => {
   const slug = useRouteSlug();
 

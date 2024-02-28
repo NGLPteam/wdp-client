@@ -7,10 +7,7 @@ import {
 } from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
-import { searchCollectionQuery as Query } from "@/relay/searchCollectionQuery.graphql";
 import SearchLayout from "components/composed/search/SearchLayout";
-import { SearchLayoutCollectionQuery } from "@/relay/SearchLayoutCollectionQuery.graphql";
-import { searchCollectionQueryFragment$key } from "@/relay/searchCollectionQueryFragment.graphql";
 import {
   getStaticGlobalContextData,
   getStaticEntityData,
@@ -22,6 +19,9 @@ import { useRouteSlug } from "@wdp/lib/routes";
 import { LoadingBlock } from "components/atomic";
 import ErrorPage from "next/error";
 import AppLayout from "components/global/AppLayout";
+import { searchCollectionQueryFragment$key } from "@/relay/searchCollectionQueryFragment.graphql";
+import { SearchLayoutCollectionQuery } from "@/relay/SearchLayoutCollectionQuery.graphql";
+import { searchCollectionQuery as Query } from "@/relay/searchCollectionQuery.graphql";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -67,6 +67,7 @@ export default function SearchPage({ queryRef }: Props) {
   ) : null;
 }
 
+/* eslint-disable react-hooks/rules-of-hooks */
 const getLayout: GetLayout<Props> = (props) => {
   const slug = useRouteSlug();
 

@@ -3,10 +3,10 @@ import * as React from "react";
 import { graphql } from "react-relay";
 import Link from "next/link";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import * as Styled from "./InstallationName.styles";
-import { InstallationNameFragment$key } from "@/relay/InstallationNameFragment.graphql";
 import { useGlobalContext } from "contexts";
 import { Image } from "components/atomic";
+import { InstallationNameFragment$key } from "@/relay/InstallationNameFragment.graphql";
+import * as Styled from "./InstallationName.styles";
 
 const LOGO_SIZE = 40;
 
@@ -15,7 +15,7 @@ export default function InstallationName({ className = "t-label-mix" }: Props) {
 
   const siteData = useMaybeFragment<InstallationNameFragment$key>(
     fragment,
-    data?.globalConfiguration
+    data?.globalConfiguration,
   );
 
   const linkClasses = "a-link";

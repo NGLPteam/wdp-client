@@ -1,14 +1,14 @@
 import React, { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import {
-  EntityOrderingLayoutFragment$data,
-  EntityOrderingLayoutFragment$key,
-} from "@/relay/EntityOrderingLayoutFragment.graphql";
 import EntitySummaryFactory from "components/factories/EntitySummaryFactory";
 import BrowseListLayout from "components/layout/BrowseListLayout";
 import BrowseTreeLayout from "components/layout/BrowseTreeLayout";
 import { NoContent } from "components/layout";
+import {
+  EntityOrderingLayoutFragment$data,
+  EntityOrderingLayoutFragment$key,
+} from "@/relay/EntityOrderingLayoutFragment.graphql";
 
 export default function EntityOrderingLayout({ data }: Props) {
   const ordering = useMaybeFragment(fragment, data);

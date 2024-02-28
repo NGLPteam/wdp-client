@@ -2,11 +2,11 @@ import { buildEnvironment as environment } from "@wdp/lib/app";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { GetServerSidePropsContext } from "next";
 import { fetchQuery, graphql } from "relay-runtime";
+import { buildSiteMap, getEntitySitemap } from "helpers";
 import {
   sitemapItemsQuery,
   sitemapItemsQuery$data,
 } from "@/relay/sitemapItemsQuery.graphql";
-import { buildSiteMap, getEntitySitemap } from "helpers";
 
 function generateSiteMap(data: sitemapItemsQuery$data) {
   return data.item ? getEntitySitemap(data.item) : "";
