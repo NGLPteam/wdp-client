@@ -1,9 +1,8 @@
-import { useMemo } from "react";
 import { useKeycloak } from "@react-keycloak/ssr";
 import type { KeycloakInstance } from "keycloak-js";
-import { RelayEnvironmentProvider } from "relay-hooks";
+import { RelayEnvironmentProvider } from "react-relay";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
-import environment from "../app/environment";
+import useEnvironment from "../app/initialEnvironment";
 import { useLatest } from "../hooks";
 
 export default function KeycloakRelayProvider({
@@ -15,9 +14,7 @@ export default function KeycloakRelayProvider({
 
   const keycloakRef = useLatest(keycloak);
 
-  const env = useMemo(() => {
-    return environment(keycloakRef, records, isAdmin);
-  }, [keycloakRef, records]);
+  const env = useEnvironment(keycloakRef, records, isAdmin);
 
   return (
     <RelayEnvironmentProvider environment={env}>
