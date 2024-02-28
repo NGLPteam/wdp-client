@@ -1,14 +1,20 @@
 import React from "react";
-import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import ContributorDetailNav from "../ContributorDetailNav";
 import ContributorDetail from "components/composed/contributor/ContributorDetail";
 import ContributorHTMLHead from "components/composed/contributor/ContributorHTMLHead";
-import { ContributorCollectionDetailLayoutFragment$key } from "@/relay/ContributorCollectionDetailLayoutFragment.graphql";
+import { ContributorCollectionDetailLayoutQuery } from "@/relay/ContributorCollectionDetailLayoutQuery.graphql";
 import AppLayout from "components/global/AppLayout";
 
-export default function ContributorCollectionDetailLayout({ data }: Props) {
-  const layoutData = useMaybeFragment(fragment, data);
+export default function ContributorCollectionDetailLayout({
+  queryRef,
+}: {
+  queryRef: PreloadedQuery<ContributorCollectionDetailLayoutQuery>;
+}) {
+  const layoutData = usePreloadedQuery<ContributorCollectionDetailLayoutQuery>(
+    query,
+    queryRef
+  );
 
   return layoutData ? (
     <AppLayout communityData={layoutData?.collection?.community}>
@@ -19,12 +25,11 @@ export default function ContributorCollectionDetailLayout({ data }: Props) {
   ) : null;
 }
 
-interface Props {
-  data?: ContributorCollectionDetailLayoutFragment$key | null;
-}
-
-const fragment = graphql`
-  fragment ContributorCollectionDetailLayoutFragment on Query {
+export const query = graphql`
+  query ContributorCollectionDetailLayoutQuery(
+    $slug: Slug!
+    $collection: Slug!
+  ) {
     contributor(slug: $slug) {
       ...ContributorHTMLHeadFragment
       ...ContributorDetailFragment

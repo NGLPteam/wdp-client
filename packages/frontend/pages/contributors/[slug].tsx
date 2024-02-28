@@ -1,20 +1,23 @@
 import React from "react";
-import { graphql } from "relay-runtime";
-import { QueryWrapper } from "@wdp/lib/api/components";
+import { QueryLoaderWrapper } from "@wdp/lib/api/components";
 import { routeQueryArrayToString, useRouteSlug } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
-import { SlugContributorPageQuery as Query } from "@/relay/SlugContributorPageQuery.graphql";
-import { SlugContributorCollectionPageQuery as CollectionQuery } from "@/relay/SlugContributorCollectionPageQuery.graphql";
-import { SlugContributorItemPageQuery as ItemQuery } from "@/relay/SlugContributorItemPageQuery.graphql";
 import {
   ContributorDetailLayout,
   ContributorCollectionDetailLayout,
   ContributorItemDetailLayout,
 } from "components/composed/contributor/ContributorDetailLayout";
+import { query } from "components/composed/contributor/ContributorDetailLayout/ContributorDetailLayout";
+import { query as itemQuery } from "components/composed/contributor/ContributorDetailLayout/ContributorItemDetailLayout";
+import { query as collectionQuery } from "components/composed/contributor/ContributorDetailLayout/ContributorCollectionDetailLayout";
+import { ContributorDetailLayoutQuery } from "@/relay/ContributorDetailLayoutQuery.graphql";
+import { ContributorCollectionDetailLayoutQuery } from "@/relay/ContributorCollectionDetailLayoutQuery.graphql";
+import { ContributorItemDetailLayoutQuery } from "@/relay/ContributorItemDetailLayoutQuery.graphql";
 import {
   getStaticGlobalContextData,
   STATIC_PROPS_REVALIDATE,
 } from "contexts/GlobalStaticContext";
+import { LoadingBlock } from "components/atomic";
 
 export async function getStaticProps() {
   const props = await getStaticGlobalContextData();
@@ -39,40 +42,34 @@ export default function SlugContributorPage() {
   const collectionSlug = routeQueryArrayToString(router.query.collection);
 
   return slug && itemSlug ? (
-    <QueryWrapper<ItemQuery>
+    <QueryLoaderWrapper<ContributorItemDetailLayoutQuery>
       query={itemQuery}
-      initialVariables={{ slug, item: itemSlug }}
+      variables={{ slug, item: itemSlug }}
+      loadingFallback={<LoadingBlock />}
     >
-      {({ data }) => <ContributorItemDetailLayout data={data} />}
-    </QueryWrapper>
+      {({ queryRef }) =>
+        queryRef && <ContributorItemDetailLayout queryRef={queryRef} />
+      }
+    </QueryLoaderWrapper>
   ) : slug && collectionSlug ? (
-    <QueryWrapper<CollectionQuery>
+    <QueryLoaderWrapper<ContributorCollectionDetailLayoutQuery>
       query={collectionQuery}
-      initialVariables={{ slug, collection: collectionSlug }}
+      variables={{ slug, collection: collectionSlug }}
+      loadingFallback={<LoadingBlock />}
     >
-      {({ data }) => <ContributorCollectionDetailLayout data={data} />}
-    </QueryWrapper>
+      {({ queryRef }) =>
+        queryRef && <ContributorCollectionDetailLayout queryRef={queryRef} />
+      }
+    </QueryLoaderWrapper>
   ) : (
-    <QueryWrapper<Query> query={query} initialVariables={{ slug: slug || "" }}>
-      {({ data }) => <ContributorDetailLayout data={data} />}
-    </QueryWrapper>
+    <QueryLoaderWrapper<ContributorDetailLayoutQuery>
+      query={query}
+      variables={{ slug: slug || "" }}
+      loadingFallback={<LoadingBlock />}
+    >
+      {({ queryRef }) =>
+        queryRef && <ContributorDetailLayout queryRef={queryRef} />
+      }
+    </QueryLoaderWrapper>
   );
 }
-
-const query = graphql`
-  query SlugContributorPageQuery($slug: Slug!) {
-    ...ContributorDetailLayoutFragment
-  }
-`;
-
-const itemQuery = graphql`
-  query SlugContributorItemPageQuery($slug: Slug!, $item: Slug!) {
-    ...ContributorItemDetailLayoutFragment
-  }
-`;
-
-const collectionQuery = graphql`
-  query SlugContributorCollectionPageQuery($slug: Slug!, $collection: Slug!) {
-    ...ContributorCollectionDetailLayoutFragment
-  }
-`;
