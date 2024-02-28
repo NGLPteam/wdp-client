@@ -1,10 +1,9 @@
 import React from "react";
-import { graphql } from "relay-runtime";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
 import ArticleAnalyticsBlock from "components/composed/analytics/ArticleAnalyticsBlock";
 import { metricsSlugItemQuery as Query } from "@/relay/metricsSlugItemQuery.graphql";
-import ItemLayoutQuery from "components/composed/items/ItemLayoutQuery";
 import { LoadingBlock } from "components/atomic";
 import { AnalyticsPrecision } from "types/graphql-schema";
 import {
@@ -12,6 +11,11 @@ import {
   getStaticGlobalContextData,
   STATIC_PROPS_REVALIDATE,
 } from "contexts/GlobalStaticContext";
+import { QueryLoaderWrapper } from "@wdp/lib/api/components";
+import { useRouteSlug } from "@wdp/lib/routes";
+import ErrorPage from "next/error";
+import AppLayout from "components/global/AppLayout";
+import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -30,30 +34,47 @@ export async function getStaticPaths() {
   };
 }
 
-export default function MetricsSlugItemPage({ data }: Props) {
-  return data?.item ? (
-    <ArticleAnalyticsBlock data={data.item} />
-  ) : (
-    <LoadingBlock />
-  );
+export default function MetricsSlugItemPage({ queryRef }: Props) {
+  const { item } = usePreloadedQuery<Query>(query, queryRef);
+
+  return item ? (
+    <AppLayout communityData={item.community} entityData={item}>
+      <EntityLayoutFactory data={item}>
+        <ArticleAnalyticsBlock data={item} />
+      </EntityLayoutFactory>
+    </AppLayout>
+  ) : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
+  const slug = useRouteSlug();
+
+  if (!slug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
+
   return (
-    <ItemLayoutQuery<Query, Props>
+    <QueryLoaderWrapper<Query>
       query={query}
-      {...props}
       variables={{
+        slug,
         dateRange: {},
         precision: "YEAR" as AnalyticsPrecision,
         usOnly: false,
       }}
-    />
+      loadingFallback={<LoadingBlock />}
+    >
+      {({ queryRef }) =>
+        queryRef && (
+          <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        )
+      }
+    </QueryLoaderWrapper>
   );
 };
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
 };
 
 MetricsSlugItemPage.getLayout = getLayout;
@@ -72,7 +93,12 @@ const query = graphql`
           precision: $precision
           usOnly: $usOnly
         )
+      ...AppLayoutEntityFragment
+      ...EntityLayoutFactoryFragment
+
+      community {
+        ...AppLayoutCommunityFragment
+      }
     }
-    ...ItemLayoutQueryFragment @arguments(slug: $slug)
   }
 `;

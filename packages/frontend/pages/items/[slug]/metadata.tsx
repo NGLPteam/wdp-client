@@ -1,15 +1,20 @@
 import React from "react";
-import { graphql } from "relay-runtime";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
 import { metadataSlugItemQuery as Query } from "@/relay/metadataSlugItemQuery.graphql";
 import EntityMetadataFactory from "components/factories/EntityMetadataFactory";
-import ItemLayoutQuery from "components/composed/items/ItemLayoutQuery";
 import {
   getStaticEntityData,
   getStaticGlobalContextData,
   STATIC_PROPS_REVALIDATE,
 } from "contexts/GlobalStaticContext";
+import { QueryLoaderWrapper } from "@wdp/lib/api/components";
+import { useRouteSlug } from "@wdp/lib/routes";
+import { LoadingBlock } from "components/atomic";
+import ErrorPage from "next/error";
+import AppLayout from "components/global/AppLayout";
+import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -28,16 +33,42 @@ export async function getStaticPaths() {
   };
 }
 
-export default function ItemMetadata({ data }: Props) {
-  return <EntityMetadataFactory data={data?.item} />;
+export default function ItemMetadata({ queryRef }: Props) {
+  const { item } = usePreloadedQuery<Query>(query, queryRef);
+
+  return item ? (
+    <AppLayout communityData={item.community} entityData={item}>
+      <EntityLayoutFactory data={item}>
+        <EntityMetadataFactory data={item} />
+      </EntityLayoutFactory>
+    </AppLayout>
+  ) : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
-  return <ItemLayoutQuery<Query, Props> query={query} {...props} />;
+  const slug = useRouteSlug();
+
+  if (!slug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
+
+  return (
+    <QueryLoaderWrapper<Query>
+      query={query}
+      variables={{ slug }}
+      loadingFallback={<LoadingBlock />}
+    >
+      {({ queryRef }) =>
+        queryRef && (
+          <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        )
+      }
+    </QueryLoaderWrapper>
+  );
 };
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
 };
 
 ItemMetadata.getLayout = getLayout;
@@ -46,7 +77,12 @@ const query = graphql`
   query metadataSlugItemQuery($slug: Slug!) {
     item(slug: $slug) {
       ...EntityMetadataFactoryFragment
+      ...AppLayoutEntityFragment
+      ...EntityLayoutFactoryFragment
+
+      community {
+        ...AppLayoutCommunityFragment
+      }
     }
-    ...ItemLayoutQueryFragment @arguments(slug: $slug)
   }
 `;
