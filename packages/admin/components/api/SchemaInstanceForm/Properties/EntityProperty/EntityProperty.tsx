@@ -3,11 +3,11 @@ import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import ScalarProperty from "../ScalarProperty";
 import Select from "components/forms/Select";
 import { getEntityTitle } from "components/factories/EntityTitleFactory";
 
 import type { EntityPropertyFragment$key } from "@/relay/EntityPropertyFragment.graphql";
+import ScalarProperty from "../ScalarProperty";
 
 export default function EntityProperty(props: Props) {
   const field = useFragment<EntityPropertyFragment$key>(fragment, props.field);
@@ -26,11 +26,11 @@ export default function EntityProperty(props: Props) {
   const handleChange = useCallback(
     (
       e: React.ChangeEvent<HTMLSelectElement>,
-      onChange: (val?: string) => void
+      onChange: (val?: string) => void,
     ) => {
       onChange(e.target.value || undefined);
     },
-    []
+    [],
   );
 
   return (
@@ -39,7 +39,7 @@ export default function EntityProperty(props: Props) {
         <Controller
           control={control}
           name={name}
-          render={({ field: { onChange, ref, ...inputProps } }) => (
+          render={({ field: { onChange, ref: _ref, ...inputProps } }) => (
             <Select
               label={label}
               required={required}

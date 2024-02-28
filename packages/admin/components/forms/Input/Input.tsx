@@ -1,8 +1,8 @@
 import React, { Ref, forwardRef } from "react";
-import type { FieldValues } from "react-hook-form";
 import BaseInputWrapper from "../BaseInputWrapper";
-import type InputProps from "../inputType";
 import * as Styled from "./Input.styles";
+import type { FieldValues } from "react-hook-form";
+import type InputProps from "../inputType";
 
 const Input = forwardRef(
   <T extends FieldValues = FieldValues>(
@@ -11,11 +11,10 @@ const Input = forwardRef(
       label,
       hideLabel,
       description,
-      error,
       isWide,
       ...inputProps
     }: Props<T>,
-    ref: Ref<HTMLInputElement>
+    ref: Ref<HTMLInputElement>,
   ) => {
     return (
       <BaseInputWrapper
@@ -29,7 +28,7 @@ const Input = forwardRef(
         <Styled.Input type={type} ref={ref} {...inputProps} />
       </BaseInputWrapper>
     );
-  }
+  },
 );
 
 type FormTypes = Partial<Pick<HTMLFormElement, "onInvalid" | "onInput">>;

@@ -32,7 +32,7 @@ type RenderLinkProps = RenderLinkPropsWithRoute | RenderLinkPropsWithHref;
 function renderNavLink(
   { route, href, label, actions }: RenderLinkProps,
   i: number,
-  wrapper?: typeof React.Component | string | IStyledComponent<"web">
+  wrapper?: typeof React.Component | string | IStyledComponent<"web">,
 ) {
   let linkComponent = null;
   const Wrapper = wrapper || React.Fragment;

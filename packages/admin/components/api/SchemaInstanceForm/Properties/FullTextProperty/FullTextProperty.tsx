@@ -1,14 +1,14 @@
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
 import { Controller, useFormContext } from "react-hook-form";
-import ScalarProperty from "../ScalarProperty";
-import type { FullTextPropertyFragment$key } from "@/relay/FullTextPropertyFragment.graphql";
 import FullTextInput from "components/forms/FullTextInput";
+import type { FullTextPropertyFragment$key } from "@/relay/FullTextPropertyFragment.graphql";
+import ScalarProperty from "../ScalarProperty";
 
 export default function FullTextProperty(props: Props) {
   const field = useFragment<FullTextPropertyFragment$key>(
     fragment,
-    props.field
+    props.field,
   );
 
   const { control } = useFormContext();

@@ -1,9 +1,9 @@
 import { graphql, readInlineData } from "relay-runtime";
-import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
+import { UserNameColumnFragment$key } from "@/relay/UserNameColumnFragment.graphql";
 import { PartialColumnish, Node } from "./types";
 import UserNameColumnCell from "./UserNameColumnCell";
-import { UserNameColumnFragment$key } from "@/relay/UserNameColumnFragment.graphql";
+import type { ColumnDef } from "@tanstack/react-table";
 
 type Props<T extends Node> = PartialColumnish<T>;
 

@@ -1,9 +1,9 @@
 import { graphql } from "relay-runtime";
-import type { GetLayout } from "@wdp/lib/types/page";
-import type { ordersManageSlugItemsQuery as Query } from "@/relay/ordersManageSlugItemsQuery.graphql";
 
 import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
 import EntityOrderingList from "components/composed/ordering/EntityOrderingList";
+import type { ordersManageSlugItemsQuery as Query } from "@/relay/ordersManageSlugItemsQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function ManageOrder({ data }: Props) {
   if (!data || !data.item) return null;

@@ -2,15 +2,15 @@ import React, { forwardRef, Ref, useMemo, useRef } from "react";
 import { graphql } from "relay-runtime";
 import { useFragment, GraphQLTaggedNode } from "react-relay";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
-import Select from "../Select";
-import OrderDefinitionSelectedList from "./OrderDefinitionSelectedList";
-import * as Styled from "./OrderDefinitionSelect.styles";
 import {
   OrderDefinition,
   OrderingSchemaFilterInput,
 } from "types/graphql-schema";
 import { OrderDefinitionSelectQuery as Query } from "@/relay/OrderDefinitionSelectQuery.graphql";
 import { OrderDefinitionSelectFragment$key } from "@/relay/OrderDefinitionSelectFragment.graphql";
+import Select from "../Select";
+import OrderDefinitionSelectedList from "./OrderDefinitionSelectedList";
+import * as Styled from "./OrderDefinitionSelect.styles";
 
 const ORDER_PATHS =
   process.env.NEXT_PUBLIC_ORDER_PATH_OPTIONS?.split(",") || [];
@@ -27,14 +27,14 @@ const ORDER_PATH_OPTIONS = [
 
 function OrderDefinitionSelect(
   { name, data, value = [], onChange }: Props,
-  ref: Ref<HTMLSelectElement>
+  ref: Ref<HTMLSelectElement>,
 ) {
   const selectRef = useRef<HTMLSelectElement | null>(null);
 
   // Get the entity schema ranks
   const entity = useFragment<OrderDefinitionSelectFragment$key>(
     fragment as GraphQLTaggedNode,
-    data
+    data,
   );
 
   // Get the list of possible orders by schema ranks
@@ -73,7 +73,7 @@ function OrderDefinitionSelect(
     if (!value) return options;
 
     return options.filter(
-      (o) => value.findIndex((v) => v.path === o.value) < 0
+      (o) => value.findIndex((v) => v.path === o.value) < 0,
     );
   }, [options, value]);
 

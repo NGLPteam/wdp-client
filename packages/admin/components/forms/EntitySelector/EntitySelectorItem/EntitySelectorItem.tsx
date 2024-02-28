@@ -1,9 +1,9 @@
 import { forwardRef } from "react";
 import { MaybeInputRef } from "@castiron/common-types";
 import { useId } from "react";
-import type { EntityOption } from "../EntitySelectorController";
-import * as Styled from "./EntitySelectorItem.styles";
 import { IconFactory } from "components/factories";
+import * as Styled from "./EntitySelectorItem.styles";
+import type { EntityOption } from "../EntitySelectorController";
 
 interface Props extends React.HTMLProps<HTMLInputElement> {
   entity: EntityOption;
@@ -27,7 +27,7 @@ const EntitySelectorItem = forwardRef(
       isSelectable,
       ...props
     }: Props,
-    ref: MaybeInputRef
+    ref: MaybeInputRef,
   ) => {
     const id = useId();
 
@@ -35,7 +35,7 @@ const EntitySelectorItem = forwardRef(
     const handleSelect = (
       e:
         | React.ChangeEvent<HTMLInputElement>
-        | React.MouseEvent<HTMLLabelElement>
+        | React.MouseEvent<HTMLLabelElement>,
     ) => {
       e.preventDefault();
       if (!isSelectable) return;
@@ -85,7 +85,7 @@ const EntitySelectorItem = forwardRef(
         )}
       </Styled.Wrapper>
     );
-  }
+  },
 );
 
 export default EntitySelectorItem;

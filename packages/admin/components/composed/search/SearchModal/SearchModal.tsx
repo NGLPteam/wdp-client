@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { DialogDisclosure, useDialogState } from "reakit/Dialog";
 import { useRouter } from "next/router";
-import * as Styled from "./SearchModal.styles";
 import { RouteHelper } from "routes";
 import { Modal } from "components/layout";
+import * as Styled from "./SearchModal.styles";
 
 interface Props {
   className?: string;

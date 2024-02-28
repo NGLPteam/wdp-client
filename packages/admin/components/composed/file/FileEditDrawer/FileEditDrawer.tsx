@@ -1,10 +1,10 @@
 import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import type { DialogProps } from "reakit/Dialog";
-import FileEditForm from "../FileEditForm";
 import { useDrawerHelper } from "hooks";
 import { QueryWrapper } from "components/api";
 import Drawer from "components/layout/Drawer";
+import FileEditForm from "../FileEditForm";
+import type { DialogProps } from "reakit/Dialog";
 import type { FileEditDrawerQuery as Query } from "__generated__/FileEditDrawerQuery.graphql";
 
 export default function FileEditDrawer({

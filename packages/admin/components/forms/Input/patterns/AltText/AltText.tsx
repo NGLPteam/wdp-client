@@ -9,8 +9,13 @@ type PartialProps = Partial<Pick<InputProps, "label" | "description">>;
 
 const AltText = forwardRef(
   (
-    { defaultValue, label, description, ...props }: BaseProps & PartialProps,
-    ref: Ref<HTMLInputElement>
+    {
+      defaultValue: _defaultValue,
+      label,
+      description,
+      ...props
+    }: BaseProps & PartialProps,
+    ref: Ref<HTMLInputElement>,
   ) => {
     return (
       <Input
@@ -37,7 +42,7 @@ const AltText = forwardRef(
         {...props}
       />
     );
-  }
+  },
 );
 
 export default AltText;

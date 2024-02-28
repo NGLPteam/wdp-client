@@ -1,13 +1,13 @@
-import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import { graphql } from "relay-runtime";
-import { getContributorDisplayName } from "../ContributorDisplayName";
 import { useDrawerHelper, useDestroyer } from "hooks";
 import { RouteHelper } from "routes";
 import { QueryWrapper } from "components/api";
 import Drawer from "components/layout/Drawer";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
 import ContributorUpdateForm from "components/composed/contributor/ContributorUpdateForm";
+import { getContributorDisplayName } from "../ContributorDisplayName";
+import type { DialogProps } from "reakit/Dialog";
 import type {
   ContributorUpdateDrawerQuery as Query,
   ContributorUpdateDrawerQuery$data as Response,
@@ -55,7 +55,7 @@ export default function ContributorUpdateDrawer({
           data?.contributor?.legalName ||
             (data?.contributor?.givenName
               ? `${data?.contributor?.givenName} ${data?.contributor?.familyName}`
-              : t("glossary.contributor"))
+              : t("glossary.contributor")),
         );
       }
       if (dialog?.hide) dialog.hide();

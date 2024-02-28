@@ -1,9 +1,8 @@
 import { graphql } from "relay-runtime";
-import type { GetLayout } from "@wdp/lib/types/page";
-import type { itemsSlugCollectionsPagesQuery as Query } from "__generated__/itemsSlugCollectionsPagesQuery.graphql";
-
 import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
 import ItemList from "components/composed/item/ItemList";
+import type { GetLayout } from "@wdp/lib/types/page";
+import type { itemsSlugCollectionsPagesQuery as Query } from "__generated__/itemsSlugCollectionsPagesQuery.graphql";
 
 function CollectionChildItems({ data }: Props) {
   return (

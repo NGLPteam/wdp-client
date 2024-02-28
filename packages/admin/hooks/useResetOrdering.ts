@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import { graphql, readInlineData } from "relay-runtime";
 import { useNotify, usePageContext } from "hooks";
 
-import type { useResetOrderingFragment$key } from "@/relay/useResetOrderingFragment.graphql";
 import { ResetOrderingInput } from "types/graphql-schema";
+import type { useResetOrderingFragment$key } from "@/relay/useResetOrderingFragment.graphql";
 import { useResetOrderingMutation } from "@/relay/useResetOrderingMutation.graphql";
 
 export function useResetOrdering() {
@@ -17,12 +17,12 @@ export function useResetOrdering() {
     (
       data: useResetOrderingFragment$key | null | undefined,
       name: string,
-      refetchTags: string[]
+      refetchTags: string[],
     ) => {
       if (!data) return;
       const results = readInlineData<useResetOrderingFragment$key>(
         fragment,
-        data
+        data,
       );
 
       if (results.globalErrors && results.globalErrors.length > 0) {
@@ -32,12 +32,12 @@ export function useResetOrdering() {
         setTriggeredRefetchTags(refetchTags);
       }
     },
-    [notify, setTriggeredRefetchTags, t]
+    [notify, setTriggeredRefetchTags, t],
   );
 
   /* Reset an ordering */
   const [commitResetOrdering] = useMutation<useResetOrderingMutation>(
-    resetOrderingMutation
+    resetOrderingMutation,
   );
 
   const reset = useCallback(
@@ -47,7 +47,7 @@ export function useResetOrdering() {
       });
       return handleResponse(response.resetOrdering, label, refetchTags);
     },
-    [commitResetOrdering, handleResponse]
+    [commitResetOrdering, handleResponse],
   );
 
   return reset;

@@ -1,9 +1,9 @@
 import { graphql } from "relay-runtime";
-import type { GetLayout } from "@wdp/lib/types/page";
-import type { orderManageSlugOrderingsPagesQuery as Query } from "@/relay/orderManageSlugOrderingsPagesQuery.graphql";
 
 import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
 import EntityOrderingList from "components/composed/ordering/EntityOrderingList";
+import type { orderManageSlugOrderingsPagesQuery as Query } from "@/relay/orderManageSlugOrderingsPagesQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function CollectionOrder({ data }: Props) {
   if (!data || !data.collection) return null;

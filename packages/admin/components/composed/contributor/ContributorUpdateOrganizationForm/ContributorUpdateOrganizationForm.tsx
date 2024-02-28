@@ -24,7 +24,7 @@ export default function ContributorUpdateOrganizationForm({
   const { image, links, ...otherValues } =
     useFragment<ContributorUpdateOrganizationFormFieldsFragment$key>(
       fieldsFragment,
-      fieldsData
+      fieldsData,
     );
 
   // We need to transform the links value to a mutable value and remove nulls to satisfy
@@ -75,7 +75,7 @@ export default function ContributorUpdateOrganizationForm({
         />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

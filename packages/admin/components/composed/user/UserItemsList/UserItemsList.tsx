@@ -1,17 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { OperationType } from "relay-runtime";
-import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 import {
   useDestroyer,
   useDrawerHelper,
   useMaybeFragment,
   useRouteSlug,
 } from "hooks";
-import {
-  UserItemsListFragment$data,
-  UserItemsListFragment$key,
-} from "@/relay/UserItemsListFragment.graphql";
 import ModelColumns from "components/composed/model/ModelColumns";
 import ModelListPage from "components/composed/model/ModelListPage";
 import {
@@ -19,11 +14,16 @@ import {
   ButtonControlGroup,
   NamedLink,
 } from "components/atomic";
+import {
+  UserItemsListFragment$data,
+  UserItemsListFragment$key,
+} from "@/relay/UserItemsListFragment.graphql";
+import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 
 const UserItemsList = <T extends OperationType>({ data }: Props) => {
   const communities = useMaybeFragment<UserItemsListFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const { t } = useTranslation();
@@ -80,7 +80,7 @@ const UserItemsList = <T extends OperationType>({ data }: Props) => {
             roleId: role.id,
             userId: user.id,
           },
-          "glossary.access"
+          "glossary.access",
         );
       }
 

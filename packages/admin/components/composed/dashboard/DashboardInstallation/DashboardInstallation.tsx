@@ -1,9 +1,9 @@
 import { formatNumberToString } from "@wdp/lib/helpers";
 import { useTranslation } from "react-i18next";
 import { graphql, useFragment } from "react-relay";
-import * as Styled from "./DashboardInstallation.styles";
 import { ContentHeader } from "components/layout";
 import { DashboardInstallationFragment$key } from "@/relay/DashboardInstallationFragment.graphql";
+import * as Styled from "./DashboardInstallation.styles";
 
 export default function DashboardInstallation({ data }: Props) {
   const queryData = useFragment(fragment, data);
@@ -33,7 +33,7 @@ export default function DashboardInstallation({ data }: Props) {
           <Styled.ItemLabel>{t("glossary.collection_plural")}</Styled.ItemLabel>
           <Styled.ItemValue>
             {formatNumberToString(
-              queryData.viewer?.allCollections?.pageInfo?.totalCount
+              queryData.viewer?.allCollections?.pageInfo?.totalCount,
             )}
           </Styled.ItemValue>
         </Styled.Item>
@@ -41,7 +41,7 @@ export default function DashboardInstallation({ data }: Props) {
           <Styled.ItemLabel>{t("glossary.item_plural")}</Styled.ItemLabel>
           <Styled.ItemValue>
             {formatNumberToString(
-              queryData.viewer?.allItems?.pageInfo?.totalCount
+              queryData.viewer?.allItems?.pageInfo?.totalCount,
             )}
           </Styled.ItemValue>
         </Styled.Item>

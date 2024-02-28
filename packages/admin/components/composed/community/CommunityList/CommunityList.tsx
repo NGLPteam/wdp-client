@@ -2,11 +2,6 @@ import React from "react";
 import { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
-import type { ModelTableActionProps } from "@tanstack/react-table";
-import {
-  CommunityListFragment$key,
-  CommunityListFragment$data,
-} from "@/relay/CommunityListFragment.graphql";
 import { useMaybeFragment, useDrawerHelper, useDestroyer } from "hooks";
 
 import ModelListPage from "components/composed/model/ModelListPage";
@@ -14,6 +9,11 @@ import ModelListPage from "components/composed/model/ModelListPage";
 import PageHeader from "components/layout/PageHeader";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 import ModelColumns from "components/composed/model/ModelColumns";
+import {
+  CommunityListFragment$key,
+  CommunityListFragment$data,
+} from "@/relay/CommunityListFragment.graphql";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -28,7 +28,7 @@ function CommunityList<T extends OperationType>({
 
   const communities = useMaybeFragment<CommunityListFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const columns = [

@@ -1,11 +1,6 @@
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import type { ModelTableActionProps } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import {
-  FileListFragment$data,
-  FileListFragment$key,
-} from "@/relay/FileListFragment.graphql";
 import {
   useDestroyer,
   useDrawerHelper,
@@ -17,6 +12,11 @@ import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
+import {
+  FileListFragment$data,
+  FileListFragment$key,
+} from "@/relay/FileListFragment.graphql";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -63,7 +63,7 @@ function FileList<T extends OperationType>({
       if (!row.original.id) return;
       destroy.file(
         { assetId: row.original.id },
-        row.original.name || "glossary.file"
+        row.original.name || "glossary.file",
       );
     },
   };

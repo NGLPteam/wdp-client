@@ -1,5 +1,5 @@
-import type { FieldValues, Path, UseFormWatch } from "react-hook-form";
 import * as Styled from "./HiddenField.styles";
+import type { FieldValues, Path, UseFormWatch } from "react-hook-form";
 
 function HiddenField<T extends FieldValues = FieldValues>({
   watch,

@@ -3,8 +3,8 @@ import { useId } from "react";
 import Uppy from "@uppy/core";
 import Tus, { TusOptions } from "@uppy/tus";
 
-import useLazyRef from "./useLazyRef";
 import { useViewerContext } from "contexts";
+import useLazyRef from "./useLazyRef";
 
 const CHUNK_SIZE = 5 * 1024 * 1024; // 5 megabytes, the max amount S3 supports for multipart uploading
 
@@ -14,7 +14,7 @@ export default function useUppy(): Uppy.Uppy<"strict"> {
   const headers = useGetHeaders();
 
   const uppy = useLazyRef<UppyInstance>(() =>
-    buildUppyInstance({ headers, id })
+    buildUppyInstance({ headers, id }),
   );
 
   useEffect(
@@ -31,7 +31,7 @@ export default function useUppy(): Uppy.Uppy<"strict"> {
         }
       }
     },
-    [headers, uppy]
+    [headers, uppy],
   );
 
   useEffect(
@@ -41,7 +41,7 @@ export default function useUppy(): Uppy.Uppy<"strict"> {
         uppy.close();
       };
     },
-    [uppy]
+    [uppy],
   );
 
   return uppy;
@@ -90,6 +90,6 @@ function useGetHeaders(): Headers {
 
       return headers;
     },
-    [uploadToken]
+    [uploadToken],
   );
 }

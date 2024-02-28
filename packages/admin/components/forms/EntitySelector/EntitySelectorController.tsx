@@ -1,14 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { graphql } from "relay-runtime";
 import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
-import EntitySelectorItem from "./EntitySelectorItem";
-import * as Styled from "./EntitySelector.styles";
 import { LoadingCircle } from "components/atomic";
 import { EntitySelectorControllerCommunitiesQuery as Query } from "@/relay/EntitySelectorControllerCommunitiesQuery.graphql";
 import {
   EntitySelectorControllerEntityQuery as EntityQuery,
   EntitySelectorControllerEntityQuery$data as EntityResponse,
 } from "@/relay/EntitySelectorControllerEntityQuery.graphql";
+import * as Styled from "./EntitySelector.styles";
+import EntitySelectorItem from "./EntitySelectorItem";
 
 import type {
   Community,
@@ -90,7 +90,7 @@ export default function Controller({
     return !!(
       selectableTypes?.kinds?.includes(schema.kind ?? "") ||
       selectableTypes?.schemas?.includes(
-        `${schema.namespace}:${schema.identifier}` ?? ""
+        `${schema.namespace}:${schema.identifier}` ?? "",
       )
     );
   };
@@ -129,8 +129,8 @@ export default function Controller({
     }
     if (data?.collection) {
       return renderOptions([
-        ...data.collection.collections?.edges,
-        ...data.collection.items?.edges,
+        ...(data.collection.collections?.edges ?? []),
+        ...(data.collection.items?.edges ?? []),
       ]);
     }
     return data?.item?.items?.edges.length
@@ -142,14 +142,14 @@ export default function Controller({
     const current = data?.community
       ? data.community.title
       : data?.collection
-      ? data?.collection.title
-      : data?.item?.title;
+        ? data?.collection.title
+        : data?.item?.title;
     const parent =
       data?.collection && data.collection.parent?.__typename !== "%other"
         ? data.collection.parent?.slug
         : data?.item && data.item.parent?.__typename !== "%other"
-        ? data.item.parent?.slug
-        : "";
+          ? data.item.parent?.slug
+          : "";
     if (!data || (data.community && scopeToCommunity)) return null;
     return (
       <Styled.Back

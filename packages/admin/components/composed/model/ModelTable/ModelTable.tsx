@@ -1,6 +1,6 @@
-import type { HeaderGroup, Row } from "@tanstack/react-table";
 import { Table } from "components/layout";
 import { useQueryStateContext } from "hooks";
+import type { HeaderGroup, Row } from "@tanstack/react-table";
 
 type ModelTableProps<U extends Record<string, unknown>> = {
   title: string;

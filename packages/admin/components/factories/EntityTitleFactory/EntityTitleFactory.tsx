@@ -1,6 +1,6 @@
 import { graphql, useFragment } from "react-relay";
-import getEntityTitle from "./getEntityTitle";
 import { EntityTitleFactoryFragment$key } from "@/relay/EntityTitleFactoryFragment.graphql";
+import getEntityTitle from "./getEntityTitle";
 
 export default function EntityTitleFactory({ data }: Props) {
   const entity = useFragment(fragment, data);

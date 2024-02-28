@@ -1,5 +1,5 @@
-import * as Styled from "./ImageLink.styles";
 import { NamedLink } from "components/atomic";
+import * as Styled from "./ImageLink.styles";
 
 type ImageProps = React.ComponentProps<typeof NamedLink>;
 

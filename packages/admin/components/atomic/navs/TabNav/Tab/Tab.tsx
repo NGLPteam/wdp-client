@@ -12,7 +12,7 @@ const Tab = (
     as = "a",
     ...props
   }: Props & BaseProps,
-  ref?: React.LegacyRef<HTMLAnchorElement>
+  ref?: React.LegacyRef<HTMLAnchorElement>,
 ) => {
   return (
     <Styled.Tab

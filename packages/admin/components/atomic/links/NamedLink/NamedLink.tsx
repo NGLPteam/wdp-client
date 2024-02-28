@@ -16,7 +16,7 @@ const NamedLink = forwardRef(
       passHref,
       ...props
     }: Props,
-    ref
+    ref,
   ) => {
     // Find the route
     const route = RouteHelper.findRouteByName(routeName);
@@ -38,13 +38,14 @@ const NamedLink = forwardRef(
         href={{ pathname: path, query: nextQuery }}
         passHref={passHref}
         {...props}
-        legacyBehavior>
+        legacyBehavior
+      >
         {React.isValidElement(children)
           ? React.cloneElement(children, { ref, ...props })
           : children}
       </Link>
     );
-  }
+  },
 );
 export interface Props extends Omit<LinkProps, "href"> {
   /** The named route */

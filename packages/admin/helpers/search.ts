@@ -10,7 +10,7 @@ import { SearchPredicateInput } from "types/graphql-schema";
  * }
  */
 export function getPredicates(
-  filters: Record<string, string>
+  filters: Record<string, string>,
 ): [SearchPredicateInput] | undefined {
   const predicates: [SearchPredicateInput?] = [];
 
@@ -40,7 +40,7 @@ export function getPredicates(
  * }
  */
 export function getPredicatesTwo(
-  filters: Record<string, string>
+  filters: Record<string, string>,
 ): Record<string, string>[] {
   const predicates: Record<string, string>[] = [];
 

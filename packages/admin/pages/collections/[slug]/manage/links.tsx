@@ -1,9 +1,9 @@
 import { graphql } from "relay-runtime";
-import type { GetLayout } from "@wdp/lib/types/page";
-import type { linksManageCollectionsPagesQuery as Query } from "@/relay/linksManageCollectionsPagesQuery.graphql";
 
 import EntityLinksList from "components/composed/links/EntityLinksList";
 import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
+import type { linksManageCollectionsPagesQuery as Query } from "@/relay/linksManageCollectionsPagesQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function CollectionLinks({ data }: Props) {
   if (!data || !data.collection) return null;

@@ -1,6 +1,5 @@
 import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import type { DialogProps } from "reakit/Dialog";
 
 import { QueryWrapper } from "components/api";
 import Drawer from "components/layout/Drawer";
@@ -10,6 +9,7 @@ import {
   RoleGrantAccessDrawerQuery$data as Response,
   RoleGrantAccessDrawerQuery$data,
 } from "@/relay/RoleGrantAccessDrawerQuery.graphql";
+import type { DialogProps } from "reakit/Dialog";
 
 // Drawer params required: drawerSlug and drawerEntity
 // drawerEntity should be one of three entities: "item" | "collection" | "community"
@@ -28,8 +28,8 @@ export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
       drawerEntity === "community"
         ? data?.community?.title
         : drawerEntity === "collection"
-        ? data?.collection?.title
-        : data?.item?.title;
+          ? data?.collection?.title
+          : data?.item?.title;
 
     return header
       ? t(`${i18nKey}_header`, {
@@ -42,8 +42,8 @@ export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
     return drawerEntity === "community"
       ? data?.community
       : drawerEntity === "collection"
-      ? data?.collection
-      : data?.item;
+        ? data?.collection
+        : data?.item;
   }
 
   function getEntityId(data?: Response | null) {
@@ -65,7 +65,7 @@ export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
           label={t(
             drawerEntity === "community"
               ? "actions.add.member"
-              : "actions.add.access"
+              : "actions.add.access",
           )}
           header={getDrawerHeader(data)}
           dialog={dialog}

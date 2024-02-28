@@ -22,7 +22,9 @@ export const List = styled.ul<ListProps>`
   border-radius: ${pxToRem(4)};
   padding: ${pxToRem(16)} 0;
   color: var(--accent-light);
-  transition: opacity 0.15s ease-out, visibility 0.15s ease-out;
+  transition:
+    opacity 0.15s ease-out,
+    visibility 0.15s ease-out;
   box-shadow: 0px 12px 24px -12px rgba(0, 0, 0, 0.3);
   margin-block-start: ${pxToRem(4)};
   visibility: visible;

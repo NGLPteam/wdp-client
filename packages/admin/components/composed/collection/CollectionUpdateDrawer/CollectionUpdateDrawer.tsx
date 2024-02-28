@@ -1,17 +1,17 @@
-import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import { graphql } from "relay-runtime";
-import CollectionUpdateForm from "../CollectionUpdateForm";
 import { useDestroyer, useDrawerHelper } from "hooks";
 import { QueryWrapper } from "components/api";
 import Drawer from "components/layout/Drawer";
 
+import { RouteHelper } from "routes";
+import DrawerActions from "components/layout/Drawer/DrawerActions";
+import CollectionUpdateForm from "../CollectionUpdateForm";
 import type {
   CollectionUpdateDrawerQuery as Query,
   CollectionUpdateDrawerQuery$data as Response,
 } from "__generated__/CollectionUpdateDrawerQuery.graphql";
-import { RouteHelper } from "routes";
-import DrawerActions from "components/layout/Drawer/DrawerActions";
+import type { DialogProps } from "reakit/Dialog";
 
 export default function CollectionUpdateDrawer({
   dialog,
@@ -48,7 +48,7 @@ export default function CollectionUpdateDrawer({
       if (data.collection) {
         destroy.collection(
           { collectionId: data.collection.id },
-          data?.collection?.title || t("glossary.collection")
+          data?.collection?.title || t("glossary.collection"),
         );
       }
       if (dialog?.hide) dialog.hide();

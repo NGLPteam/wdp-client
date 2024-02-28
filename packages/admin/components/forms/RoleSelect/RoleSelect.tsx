@@ -2,17 +2,17 @@ import React, { forwardRef, Ref, useMemo } from "react";
 import { graphql } from "react-relay";
 import Select from "components/forms/Select";
 
+import { useMaybeFragment } from "hooks";
 import {
   RoleSelectFragment$data,
   RoleSelectFragment$key,
 } from "@/relay/RoleSelectFragment.graphql";
-import { useMaybeFragment } from "hooks";
 type SelectProps = React.ComponentProps<typeof Select>;
 
 const RoleSelect = forwardRef(
   (
     { data, label, disabled, ...inputProps }: Props,
-    ref: Ref<HTMLSelectElement>
+    ref: Ref<HTMLSelectElement>,
   ) => {
     const optionsData = useMaybeFragment(fragment, data);
 
@@ -36,7 +36,7 @@ const RoleSelect = forwardRef(
         {...inputProps}
       />
     );
-  }
+  },
 );
 
 interface Props extends Omit<SelectProps, "options"> {

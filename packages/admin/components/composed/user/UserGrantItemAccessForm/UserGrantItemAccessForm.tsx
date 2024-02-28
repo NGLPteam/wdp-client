@@ -1,11 +1,11 @@
 import { graphql } from "relay-runtime";
 import MutationForm, { Forms } from "components/api/MutationForm";
 
+import { NodeRoleSelect } from "components/forms/RoleSelect";
 import type {
   UserGrantItemAccessFormMutation as Mutation,
   GrantAccessInput as Fields,
 } from "@/relay/UserGrantItemAccessFormMutation.graphql";
-import { NodeRoleSelect } from "components/forms/RoleSelect";
 
 const UserGrantItemAccessForm = ({ onSuccess, onCancel, userId }: Props) => {
   const defaultValues = {

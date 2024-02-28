@@ -15,7 +15,7 @@ const ButtonControlRoute = forwardRef(
         </ButtonControl>
       </NamedLink>
     );
-  }
+  },
 );
 
 type Props = BaseProps & Omit<NamedLinkProps, "children" | "passHref">;

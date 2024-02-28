@@ -1,7 +1,7 @@
 import { useFragment, graphql } from "react-relay";
+import { SchemaCheckboxGroupFragment$key } from "@/relay/SchemaCheckboxGroupFragment.graphql";
 import CheckboxGroup from "../CheckboxGroup";
 import Checkbox from "../Checkbox";
-import { SchemaCheckboxGroupFragment$key } from "@/relay/SchemaCheckboxGroupFragment.graphql";
 
 type CheckboxGroupProps = React.ComponentProps<typeof CheckboxGroup>;
 

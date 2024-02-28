@@ -21,7 +21,7 @@ export default function SignInPage() {
 
       keycloak?.login();
     },
-    [initialized, keycloak, router]
+    [initialized, keycloak, router],
   );
 
   return null;

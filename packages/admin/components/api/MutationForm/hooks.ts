@@ -21,7 +21,7 @@ import type {
  */
 export function useGetErrors<M extends MutationParameters>(
   callback: GetErrors<M>,
-  dependencies: DependencyList
+  dependencies: DependencyList,
 ) {
   /* eslint-disable react-hooks/exhaustive-deps */
   return useCallback<GetErrors<M>>(callback, dependencies);
@@ -36,7 +36,7 @@ export function useGetErrors<M extends MutationParameters>(
  */
 export function useIsSuccess<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues
+  T extends FieldValues = FieldValues,
 >(callback: IsSuccessPredicate<M, T>, dependencies: DependencyList) {
   /* eslint-disable react-hooks/exhaustive-deps */
   return useCallback<IsSuccessPredicate<M, T>>(callback, dependencies);
@@ -51,7 +51,7 @@ export function useIsSuccess<
  */
 export function useOnSuccess<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues
+  T extends FieldValues = FieldValues,
 >(callback: OnSuccessCallback<M, T>, dependencies: DependencyList) {
   /* eslint-disable react-hooks/exhaustive-deps */
   return useCallback<OnSuccessCallback<M, T>>(callback, dependencies);
@@ -66,7 +66,7 @@ export function useOnSuccess<
  */
 export function useOnFailure<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues
+  T extends FieldValues = FieldValues,
 >(callback: OnFailureCallback<M, T>, dependencies: DependencyList) {
   /* eslint-disable react-hooks/exhaustive-deps */
   return useCallback<OnFailureCallback<M, T>>(callback, dependencies);
@@ -81,7 +81,7 @@ export function useOnFailure<
  */
 export function useRenderForm<T extends FieldValues = FieldValues>(
   callback: RenderForm<T>,
-  dependencies: DependencyList
+  dependencies: DependencyList,
 ) {
   /* eslint-disable react-hooks/exhaustive-deps */
   return useCallback<RenderForm<T>>(callback, dependencies);
@@ -96,7 +96,7 @@ export function useRenderForm<T extends FieldValues = FieldValues>(
  */
 export function useToVariables<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues
+  T extends FieldValues = FieldValues,
 >(callback: VariableTransformer<M, T>, dependencies: DependencyList) {
   /* eslint-disable react-hooks/exhaustive-deps */
   return useCallback<VariableTransformer<M, T>>(callback, dependencies);

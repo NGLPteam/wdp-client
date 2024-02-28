@@ -2,20 +2,20 @@ import React, { ComponentProps } from "react";
 import ErrorPage from "next/error";
 import { graphql } from "relay-runtime";
 import { GraphQLTaggedNode } from "react-relay";
+import { QueryWrapper, FragmentWrapper } from "components/api";
+import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
+import { HasFragment } from "types/graphql-helpers";
+import { AuthContextProvider } from "contexts/AuthContext";
+import type { CommunityLayoutQueryFragment$key } from "@/relay/CommunityLayoutQueryFragment.graphql";
+import CommunityLayout from "../CommunityLayout";
 import type {
   QueryLayoutProps,
   QueryPageComponentProps,
 } from "@wdp/lib/types/page";
-import CommunityLayout from "../CommunityLayout";
-import { QueryWrapper, FragmentWrapper } from "components/api";
-import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
-import { HasFragment } from "types/graphql-helpers";
-import type { CommunityLayoutQueryFragment$key } from "@/relay/CommunityLayoutQueryFragment.graphql";
-import { AuthContextProvider } from "contexts/AuthContext";
 
 function CommunityLayoutQuery<
   Query extends CommunityQuery,
-  P extends QueryPageComponentProps<Query>
+  P extends QueryPageComponentProps<Query>,
 >({
   query,
   PageComponent,

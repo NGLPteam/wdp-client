@@ -1,12 +1,12 @@
 import React, { forwardRef } from "react";
-import type { MaybeLinkRef } from "@castiron/common-types";
 import * as Styled from "./NavLink.styles";
+import type { MaybeLinkRef } from "@castiron/common-types";
 
 type BaseProps = React.ComponentProps<typeof Styled.Link>;
 
 function NavLink(
   { children, active, ...props }: Props & BaseProps,
-  ref: MaybeLinkRef
+  ref: MaybeLinkRef,
 ) {
   return (
     <Styled.Link ref={ref} $active={active} {...props}>

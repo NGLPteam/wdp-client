@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
-import ButtonControlGroup from "./ButtonControlGroup";
 import { noFlexGapSupport, respond } from "theme/mixins/base";
 import { pxToRem } from "theme/mixins/functions";
+import ButtonControlGroup from "./ButtonControlGroup";
 
 type BaseProps = React.ComponentProps<typeof ButtonControlGroup>;
 
@@ -23,7 +23,7 @@ export const ButtonWrapper = styled.div<WrapperProps>`
       css`
         display: none;
       `,
-      breakpoint
+      breakpoint,
     )}
 `;
 
@@ -36,6 +36,6 @@ export const DropdownWrapper = styled.div<WrapperProps>`
       css`
         display: block;
       `,
-      breakpoint
+      breakpoint,
     )}
 `;

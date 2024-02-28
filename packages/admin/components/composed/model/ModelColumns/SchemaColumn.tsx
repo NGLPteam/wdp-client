@@ -1,9 +1,9 @@
-import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import { PartialColumnish, SchemaVersionableNode } from "./types";
+import type { ColumnDef } from "@tanstack/react-table";
 
 const SchemaColumn = <NodeType extends Partial<SchemaVersionableNode>>(
-  props: PartialColumnish<NodeType> = {}
+  props: PartialColumnish<NodeType> = {},
 ): ColumnDef<NodeType> => {
   const { t } = useTranslation();
 

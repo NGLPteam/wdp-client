@@ -1,6 +1,5 @@
-import React, { ReactNode } from "react";
-import * as Styled from "./ContentSidebar.styles";
 import { SidebarNav } from "components/atomic";
+import * as Styled from "./ContentSidebar.styles";
 
 type SidebarNavProps = React.ComponentProps<typeof SidebarNav>;
 
@@ -24,7 +23,7 @@ interface Props {
   /** Sidebar links */
   sidebarLinks?: SidebarNavProps["links"];
   /** Page children */
-  children?: ReactNode;
+  children?: React.ReactNode;
 }
 
 export default ContentSidebar;

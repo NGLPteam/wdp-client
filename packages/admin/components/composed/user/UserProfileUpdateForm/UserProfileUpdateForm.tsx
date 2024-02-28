@@ -1,29 +1,28 @@
 import { graphql } from "relay-runtime";
 import { useFragment } from "relay-hooks";
+import MutationForm, {
+  Forms,
+  useRenderForm,
+  useToVariables,
+} from "components/api/MutationForm";
 import { UserProfileUpdateFormFragment$key } from "@/relay/UserProfileUpdateFormFragment.graphql";
 import type {
   UpdateViewerSettingsInput as Input,
   UserProfileUpdateFormMutation as Mutation,
 } from "@/relay/UserProfileUpdateFormMutation.graphql";
 import type { UserProfileInput } from "types/graphql-schema";
-import MutationForm, {
-  Forms,
-  useRenderForm,
-  useToVariables,
-} from "components/api/MutationForm";
 
 type Fields = Omit<Input, "profile"> & UserProfileInput;
 type MutationFormProps = React.ComponentProps<typeof MutationForm>;
 
 const UserProfileUpdateForm = ({ data, onSuccess, onCancel }: Props) => {
-  // eslint-disable-next-line relay/generated-flow-types
   const fieldData = useFragment<UserProfileUpdateFormFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const toVariables = useToVariables<Mutation, Fields>(
-    ({ username, givenName, familyName, email, ...data }) => ({
+    ({ username: _username, givenName, familyName, email, ...data }) => ({
       input: {
         profile: {
           username: fieldData?.username || "",
@@ -34,7 +33,7 @@ const UserProfileUpdateForm = ({ data, onSuccess, onCancel }: Props) => {
         ...data,
       },
     }),
-    []
+    [],
   );
 
   const renderForm = useRenderForm<Fields>(
@@ -66,7 +65,7 @@ const UserProfileUpdateForm = ({ data, onSuccess, onCancel }: Props) => {
         />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   const defaultValues = {

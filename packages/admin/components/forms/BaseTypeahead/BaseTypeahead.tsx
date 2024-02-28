@@ -1,10 +1,10 @@
-import React, { Ref, forwardRef } from "react";
+import { Ref, forwardRef } from "react";
 import { useCombobox } from "downshift";
-import type { UseComboboxStateChange } from "downshift";
-import BaseInputWrapper from "../BaseInputWrapper";
-import type InputProps from "../inputType";
-import * as Styled from "./BaseTypeahead.styles";
 import { IconFactory } from "components/factories";
+import BaseInputWrapper from "../BaseInputWrapper";
+import * as Styled from "./BaseTypeahead.styles";
+import type { UseComboboxStateChange } from "downshift";
+import type InputProps from "../inputType";
 
 /**
  * A typeahead single select.
@@ -16,8 +16,6 @@ const Typeahead = forwardRef(
       label,
       name,
       hideLabel,
-      description,
-      placeholder,
       options = [],
       required,
       onChange,
@@ -28,7 +26,7 @@ const Typeahead = forwardRef(
       isLoading,
       ...inputProps
     }: Props,
-    ref: Ref<HTMLInputElement>
+    ref: Ref<HTMLInputElement>,
   ) => {
     const {
       isOpen,
@@ -98,6 +96,7 @@ const Typeahead = forwardRef(
           <Styled.List {...getMenuProps()} open={isOpen}>
             {isOpen &&
               options?.map((item, index) => (
+                /* eslint-disable-next-line react/jsx-key */
                 <Styled.ListItem
                   {...getItemProps({ key: item.value, index, item })}
                 >
@@ -108,7 +107,7 @@ const Typeahead = forwardRef(
         </Styled.InputWrapper>
       </BaseInputWrapper>
     );
-  }
+  },
 );
 
 interface Option {

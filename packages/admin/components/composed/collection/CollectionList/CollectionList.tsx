@@ -1,6 +1,5 @@
 import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import type { ModelTableActionProps } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import { useLatestPresentValue } from "@wdp/lib/hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
@@ -10,18 +9,19 @@ import {
   useMaybeFragment,
   useSearchQueryVars,
 } from "hooks";
-import {
-  CollectionListFragment$data,
-  CollectionListFragment$key,
-} from "@/relay/CollectionListFragment.graphql";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 import {
+  CollectionListFragment$data,
+  CollectionListFragment$key,
+} from "@/relay/CollectionListFragment.graphql";
+import {
   CollectionListSearchFragment$data,
   CollectionListSearchFragment$key,
 } from "@/relay/CollectionListSearchFragment.graphql";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -37,14 +37,14 @@ function CollectionList<T extends OperationType>({
 
   const collections = useMaybeFragment<CollectionListFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const { current: memoizedData } = useLatestPresentValue(collections);
 
   const searchScope = useMaybeFragment<CollectionListSearchFragment$key>(
     searchFragment,
-    searchData
+    searchData,
   );
 
   const { current: memoizedSearch } = useLatestPresentValue(searchScope);
@@ -81,7 +81,7 @@ function CollectionList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.collection(
         { collectionId: row.original.entity?.id || row.original.id },
-        row.original.title || "glossary.collection"
+        row.original.title || "glossary.collection",
       ),
     handleView: ({ row }: ModelTableActionProps<Node>) =>
       row.original.slug

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import useAuthContext from "./useAuthContext";
 import { useViewerContext } from "contexts";
 import { normalizeArray } from "helpers";
+import useAuthContext from "./useAuthContext";
 
 /**
  * Determine if the user is authorized to perform an action.

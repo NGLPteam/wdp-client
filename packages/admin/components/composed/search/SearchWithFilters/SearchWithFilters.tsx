@@ -1,11 +1,11 @@
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import { graphql } from "react-relay";
-import SearchFilterDrawer from "../SearchFilterDrawer";
-import Search from "../Search/Search";
-import * as Styled from "./SearchWithFilters.styles";
 import { useMaybeFragment } from "hooks";
 import { IconFactory } from "components/factories";
 import { SearchWithFiltersFragment$key } from "@/relay/SearchWithFiltersFragment.graphql";
+import SearchFilterDrawer from "../SearchFilterDrawer";
+import Search from "../Search/Search";
+import * as Styled from "./SearchWithFilters.styles";
 
 type SearchProps = React.ComponentProps<typeof Search>;
 

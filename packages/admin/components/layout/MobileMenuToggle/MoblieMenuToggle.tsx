@@ -1,5 +1,5 @@
-import * as Styled from "./MobileMenuToggle.styles";
 import { IconFactory } from "components/factories";
+import * as Styled from "./MobileMenuToggle.styles";
 
 type IconProps = React.ComponentProps<typeof IconFactory>;
 

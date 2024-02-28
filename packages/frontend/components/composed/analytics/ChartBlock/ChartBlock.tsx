@@ -44,7 +44,7 @@ export default function ChartBlock({
           obj[countryCode] = count;
           return obj;
         },
-        {}
+        {},
       );
 
       return [
@@ -55,7 +55,7 @@ export default function ChartBlock({
         ]),
       ];
     },
-    [mode, region]
+    [mode, region],
   );
 
   const formatLineChartData = useCallback(
@@ -84,7 +84,7 @@ export default function ChartBlock({
         ]),
       ];
     },
-    [mode, precision]
+    [mode, precision],
   );
 
   return data ? (

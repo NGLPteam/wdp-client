@@ -1,12 +1,12 @@
 import { useState, useCallback } from "react";
+import BaseInputLabel from "components/forms/BaseInputLabel";
+import { ButtonControl } from "components/atomic";
 import EntitySelector from "../";
 import EntitySelectorController from "../EntitySelectorController";
 import EntityTypeahead from "../EntityTypeahead";
-import type { EntityOption } from "../EntitySelectorController";
 import useDisclosureState from "./hooks/useDisclosureState";
 import * as Styled from "./EntitySelectorDisclosure.styles";
-import BaseInputLabel from "components/forms/BaseInputLabel";
-import { ButtonControl } from "components/atomic";
+import type { EntityOption } from "../EntitySelectorController";
 
 type EntitySelectorProps = React.ComponentProps<typeof EntitySelector>;
 type ControllerProps = React.ComponentProps<typeof EntitySelectorController>;
@@ -25,7 +25,7 @@ export default function Disclosure(props: Props) {
       setSelected(entity);
       onSelect(entity?.id ?? "");
     },
-    [setSelected, onSelect]
+    [setSelected, onSelect],
   );
 
   const { disclosureProps, contentProps } = useDisclosureState({

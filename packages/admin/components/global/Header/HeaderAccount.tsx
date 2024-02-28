@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import * as Styled from "./Header.styles";
 import SignInOut from "components/auth/SignInOut";
 import {
   DrawerLink,
@@ -12,6 +11,7 @@ import { Authorize } from "components/auth";
 import { RouteHelper } from "routes";
 import { useIsAuthenticated } from "hooks";
 import { useViewerContext } from "contexts";
+import * as Styled from "./Header.styles";
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 type AuthorizeProps = React.ComponentProps<typeof Authorize>;
 
@@ -28,11 +28,6 @@ interface HeaderNavLink extends HeaderNavItem {
 interface HeaderNavItem {
   label: string;
   actions?: AuthorizeProps["actions"];
-}
-
-interface HeaderNavParent extends HeaderNavItem {
-  route?: never;
-  children: HeaderNavLink[];
 }
 
 interface Props {

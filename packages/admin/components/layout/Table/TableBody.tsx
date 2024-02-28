@@ -1,11 +1,11 @@
 import { flexRender } from "@tanstack/react-table";
-import type { Row } from "@tanstack/react-table";
 import times from "lodash/times";
+import { LoadingSkeleton } from "components/atomic";
+import { Checkbox } from "components/forms";
 import * as Styled from "./Table.styles";
 import TableRow from "./TableRow";
 import useTableContext from "./hooks/useTableContext";
-import { LoadingSkeleton } from "components/atomic";
-import { Checkbox } from "components/forms";
+import type { Row } from "@tanstack/react-table";
 
 function TableBody<T extends Record<string, unknown>>({
   loading = false,

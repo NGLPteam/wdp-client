@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
-import BaseButtonControl from "./ButtonControl";
 import { pxToRem } from "theme/mixins/functions";
 import { tLabel } from "theme/mixins/typography";
 import { aGlow } from "theme/mixins/appearance";
+import BaseButtonControl from "./ButtonControl";
 
 type BaseProps = React.ComponentProps<typeof BaseButtonControl>;
 

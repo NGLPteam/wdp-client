@@ -1,7 +1,5 @@
 import { useTranslation } from "react-i18next";
 import { graphql } from "relay-runtime";
-import type { DialogState } from "reakit/Dialog";
-import * as Styled from "./ParentSelector.styles";
 import Modal from "components/layout/Modal";
 import { EntitySelector } from "components/forms";
 import MutationForm, {
@@ -13,6 +11,8 @@ import {
   ReparentEntityInput,
   ParentSelectorModalMutation,
 } from "@/relay/ParentSelectorModalMutation.graphql";
+import * as Styled from "./ParentSelector.styles";
+import type { DialogState } from "reakit/Dialog";
 import type { SchemaVersion } from "types/graphql-schema";
 
 import type { EntityOption } from "components/forms/EntitySelector/EntitySelectorController";
@@ -35,12 +35,12 @@ export default function ParentSelectorModal({
     (data) => ({
       input: { ...data, childId: entityId },
     }),
-    []
+    [],
   );
 
   const parentSchemas = entitySchemaVersion.enforcesParent
     ? entitySchemaVersion.enforcedParentVersions?.map(
-        (schema) => `${schema.namespace}:${schema.identifier}`
+        (schema) => `${schema.namespace}:${schema.identifier}`,
       )
     : [];
   const parentKinds = entityKind === "collection" ? ["COLLECTION"] : [];
@@ -62,7 +62,7 @@ export default function ParentSelectorModal({
         />
       );
     },
-    []
+    [],
   );
 
   return (

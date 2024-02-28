@@ -85,7 +85,7 @@ export default function ContributionCreateForm({
         </Forms.Grid>
       );
     },
-    []
+    [],
   );
 
   /** Return the mutation form */

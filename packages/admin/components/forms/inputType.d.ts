@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import type { FieldValues, Path, DefaultValue } from "react-hook-form";
 
 type FormTypes = Partial<Pick<HTMLFormElement, "onChange" | "onBlur">>;
@@ -8,7 +7,7 @@ interface InputProps<T extends FieldValues = FieldValues> extends FormTypes {
   label: string;
   hideLabel?: boolean;
   disabled?: boolean;
-  description?: string | ReactNode;
+  description?: string | React.ReactNode;
   placeholder?: string;
   required?: boolean;
   error?: {

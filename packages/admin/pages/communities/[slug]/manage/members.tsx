@@ -1,8 +1,8 @@
 import { graphql } from "relay-runtime";
-import type { GetLayout } from "@wdp/lib/types/page";
-import type { membersManageSlugCommunitiesPagesQuery as Query } from "@/relay/membersManageSlugCommunitiesPagesQuery.graphql";
 import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
 import RoleAccessList from "components/composed/role/RoleAccessList";
+import type { membersManageSlugCommunitiesPagesQuery as Query } from "@/relay/membersManageSlugCommunitiesPagesQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function CommunityDetails({ data }: Props) {
   return (

@@ -1,8 +1,8 @@
 import { useState, useEffect, useMemo } from "react";
-import type { ColumnSort, SortingState } from "@tanstack/react-table";
 import { useQueryVariablesContext } from "@wdp/lib/api/hooks";
 import { useRouter } from "next/router";
 import { mapSortBy, reverseMapSortBy } from "../helpers/mapSortBy";
+import type { ColumnSort, SortingState } from "@tanstack/react-table";
 
 export default function useTableSorting() {
   const router = useRouter();
@@ -40,7 +40,7 @@ export default function useTableSorting() {
         undefined,
         {
           shallow: true,
-        }
+        },
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

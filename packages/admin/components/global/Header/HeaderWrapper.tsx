@@ -12,7 +12,7 @@ export default function HeaderWrapper({
   useEffect(() => {
     document.body.style.setProperty(
       "--global-header-height",
-      `${ref?.current?.clientHeight || 0}px`
+      `${ref?.current?.clientHeight || 0}px`,
     );
 
     return function cleanup() {

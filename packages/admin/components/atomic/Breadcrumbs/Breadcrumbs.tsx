@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import styled from "styled-components";
-import CICBreadcrumbs from "./CICBreadcrumbs";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { Dropdown } from "components/atomic";
+import CICBreadcrumbs from "./CICBreadcrumbs";
 type LinkProps = React.ComponentProps<typeof Link>;
 
 interface Crumbs extends LinkProps {
@@ -56,7 +56,7 @@ const BreadcrumbsWrapper = ({
         label={t("nav.breadcrumb_dropdown_label")}
         disclosure={<button>...</button>}
         menuItems={dropdownItems}
-      />
+      />,
     );
     // Add last two items
     data
@@ -120,7 +120,7 @@ const Breadcrumbs = styled(BreadcrumbsWrapper)<Props>`
 
 interface Props {
   className?: string;
-  data: Record<string, any>[];
+  data: Record<string, string>[];
   delimiter?: string;
 }
 

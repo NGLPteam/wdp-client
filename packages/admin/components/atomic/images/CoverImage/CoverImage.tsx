@@ -1,7 +1,7 @@
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import Image from "../Image";
 import { CoverImageFragment$key } from "@/relay/CoverImageFragment.graphql";
+import Image from "../Image";
 
 type ImageProps = React.ComponentProps<typeof Image>;
 

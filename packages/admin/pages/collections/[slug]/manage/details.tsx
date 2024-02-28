@@ -1,10 +1,10 @@
 import { graphql } from "relay-runtime";
-import type { GetLayout } from "@wdp/lib/types/page";
-import type { detailsManageSlugCollectionsPagesQuery as Query } from "@/relay/detailsManageSlugCollectionsPagesQuery.graphql";
 
 import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
 import { LoadingCircle } from "components/atomic";
 import CollectionUpdateForm from "components/composed/collection/CollectionUpdateForm";
+import type { detailsManageSlugCollectionsPagesQuery as Query } from "@/relay/detailsManageSlugCollectionsPagesQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function CollectionDetails({ data }: Props) {
   return data && data.collection ? (

@@ -1,9 +1,9 @@
 import { graphql } from "relay-runtime";
 import { QueryWrapper } from "components/api";
-import type { communitiesQuery as Query } from "__generated__/communitiesQuery.graphql";
 import { useBaseListQueryVars } from "hooks";
 
 import CommunityList from "components/composed/community/CommunityList";
+import type { communitiesQuery as Query } from "__generated__/communitiesQuery.graphql";
 
 export default function CommunityListView() {
   const queryVars = useBaseListQueryVars({

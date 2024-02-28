@@ -18,7 +18,7 @@ type Order = EntityOrder & ContributorOrder & SimpleOrder;
  * @returns ViewerContext state
  */
 export default function useBaseListQueryVars(
-  { defaultOrder }: Props = { defaultOrder: "RECENT" }
+  { defaultOrder }: Props = { defaultOrder: "RECENT" },
 ): {
   page: number;
   order?: Order;

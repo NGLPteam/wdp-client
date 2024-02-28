@@ -1,15 +1,15 @@
 import { useTranslation } from "react-i18next";
-import type { DialogProps } from "reakit/Dialog";
 import { graphql } from "relay-runtime";
 import { useDestroyer, useDrawerHelper } from "hooks";
 import { QueryWrapper } from "components/api";
 import Drawer from "components/layout/Drawer";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
+import ContributionUpdateForm from "components/composed/contribution/ContributionUpdateForm";
 import type {
   CollectionContributionEditDrawerQuery as Query,
   CollectionContributionEditDrawerQuery$data as Response,
 } from "__generated__/CollectionContributionEditDrawerQuery.graphql";
-import ContributionUpdateForm from "components/composed/contribution/ContributionUpdateForm";
+import type { DialogProps } from "reakit/Dialog";
 
 export default function CollectionContributionEditDrawer({
   dialog,
@@ -38,7 +38,7 @@ export default function CollectionContributionEditDrawer({
       if (data.collectionContribution?.id) {
         destroy.contribution(
           { contributionId: data.collectionContribution.id },
-          t("glossary.contribution")
+          t("glossary.contribution"),
         );
       }
       if (dialog?.hide) dialog.hide();

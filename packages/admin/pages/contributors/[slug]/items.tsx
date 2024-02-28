@@ -1,9 +1,9 @@
 import { graphql } from "relay-runtime";
-import type { GetLayout } from "@wdp/lib/types/page";
-import type { itemsSlugContributorsPagesQuery as Query } from "@/relay/itemsSlugContributorsPagesQuery.graphql";
 
 import ContributorLayoutQuery from "components/composed/contributor/ContributorLayoutQuery";
 import ItemContributionList from "components/composed/contribution/ItemContributionList";
+import type { itemsSlugContributorsPagesQuery as Query } from "@/relay/itemsSlugContributorsPagesQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function ContributorItemContributions({ data }: Props) {
   return (

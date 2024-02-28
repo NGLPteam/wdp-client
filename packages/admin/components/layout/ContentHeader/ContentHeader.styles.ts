@@ -1,8 +1,8 @@
 import styled, { css } from "styled-components";
-import ContentHeader from "./ContentHeader";
 import { noFlexGapSupport, respond } from "theme/mixins/base";
 import { pxToRem } from "theme/mixins/functions";
 import { tLineClamp } from "theme/mixins/typography";
+import ContentHeader from "./ContentHeader";
 type Props = React.ComponentProps<typeof ContentHeader>;
 
 const HEADER_WRAP_BREAK = 60;

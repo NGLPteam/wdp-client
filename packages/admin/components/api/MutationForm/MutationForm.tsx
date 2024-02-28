@@ -2,17 +2,19 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import { useMutation } from "relay-hooks";
 import { useForm, FormProvider } from "react-hook-form";
 import { graphql } from "relay-runtime";
-import type {
-  DefaultValues,
-  FieldValues,
-  SubmitHandler,
-} from "react-hook-form";
-import type { GraphQLTaggedNode, MutationParameters } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import has from "lodash/has";
 
-import * as Styled from "./MutationForm.styles";
+import { ContentHeader } from "components/layout";
+import { Button } from "components/atomic";
+import { useNotify, usePageContext } from "hooks";
+import GlobalErrors from "./GlobalErrors";
 
+import useMutationFormState from "./useMutationFormState";
+
+import Watcher from "./Watcher";
+import { extractErrors, hasNoErrors } from "./errors";
+import * as Styled from "./MutationForm.styles";
 import type {
   AcceptsToVariables,
   ErrorMap,
@@ -26,17 +28,12 @@ import type {
   RenderForm,
   VariableTransformer,
 } from "./types";
-
-import { extractErrors, hasNoErrors } from "./errors";
-
-import GlobalErrors from "./GlobalErrors";
-
-import useMutationFormState from "./useMutationFormState";
-
-import Watcher from "./Watcher";
-import { ContentHeader } from "components/layout";
-import { Button } from "components/atomic";
-import { useNotify, usePageContext } from "hooks";
+import type { GraphQLTaggedNode, MutationParameters } from "relay-runtime";
+import type {
+  DefaultValues,
+  FieldValues,
+  SubmitHandler,
+} from "react-hook-form";
 
 /**
  * An attempt at drying up submitting mutations with a collection
@@ -67,7 +64,7 @@ import { useNotify, usePageContext } from "hooks";
 
 export default function MutationForm<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues
+  T extends FieldValues = FieldValues,
 >(props: Props<M, T>) {
   const {
     children,
@@ -98,7 +95,7 @@ export default function MutationForm<
         dispatch({ type: "error", serverError: mutationState.error });
       }
     },
-    [mutationState.error, dispatch]
+    [mutationState.error, dispatch],
   );
 
   const {
@@ -119,7 +116,7 @@ export default function MutationForm<
 
       return { input: data };
     },
-    [toVariables]
+    [toVariables],
   );
 
   const extractErrorsRef = useCallback<GetErrors<M>>(
@@ -136,7 +133,7 @@ export default function MutationForm<
 
       return null;
     },
-    [getErrors, name]
+    [getErrors, name],
   );
 
   const { setError } = form;
@@ -216,7 +213,7 @@ export default function MutationForm<
       setTriggeredRefetchTags,
       successNotification,
       t,
-    ]
+    ],
   );
 
   const { handleSubmit } = form;
@@ -419,7 +416,7 @@ function checkSuccess<M extends MutationParameters, T extends FieldValues>(
   response: M["response"],
   errors: ErrorMap<T>,
   data: T,
-  isSuccess?: IsSuccessPredicate<M, T>
+  isSuccess?: IsSuccessPredicate<M, T>,
 ): boolean {
   if (typeof isSuccess === "function") {
     return isSuccess(response, data) && hasNoErrors(errors);
@@ -436,7 +433,7 @@ function checkSuccess<M extends MutationParameters, T extends FieldValues>(
  * @returns
  */
 function hasErrors<M extends MutationParameters>(
-  payload: M["response"][MutationName<M>]
+  payload: M["response"][MutationName<M>],
 ): payload is PayloadWithErrors<M> {
   if (payload && hasFragments<M>(payload) && payload.__fragments) {
     return Boolean(payload.__fragments.MutationForm_mutationErrors);
@@ -446,7 +443,7 @@ function hasErrors<M extends MutationParameters>(
 }
 
 function hasFragments<M extends MutationParameters>(
-  payload: M["response"][MutationName<M>]
+  payload: M["response"][MutationName<M>],
 ): payload is PayloadWithFragments<M> {
   return has(payload, "__fragments");
 }

@@ -1,16 +1,16 @@
 import { graphql, readInlineData } from "relay-runtime";
-import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import { PartialColumnish, Node } from "./types";
 import { NamedLink, Image } from "components/atomic";
 import { CommunityThumbnailColumnFragment$key } from "@/relay/CommunityThumbnailColumnFragment.graphql";
+import { PartialColumnish, Node } from "./types";
+import type { ColumnDef } from "@tanstack/react-table";
 
 type Props<T extends Node> = PartialColumnish<T>;
 
 type Row = Node & CommunityThumbnailColumnFragment$key;
 
 const CommunityThumbnailColumn = <T extends Node>(
-  props: Props<T> = {}
+  props: Props<T> = {},
 ): ColumnDef<T> => {
   const { t } = useTranslation();
 
@@ -25,7 +25,7 @@ const CommunityThumbnailColumn = <T extends Node>(
       cellType: "thumbnail",
     },
     enableSorting: false,
-    cell: ({ row, getValue }) => {
+    cell: ({ row: _row, getValue }) => {
       const value = getValue() as CommunityThumbnailColumnFragment$key;
       const community = readInlineData(fragment, value);
 

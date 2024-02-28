@@ -6,20 +6,20 @@ import { ContentHeader } from "components/layout";
 import ModelList from "components/composed/model/ModelList";
 import { ViewOptions } from "utils/view-options";
 import ModelColumns from "components/composed/model/ModelColumns";
+import ModelPagination from "components/composed/model/ModelPagination";
+import ModelPageCountActions from "components/composed/model/ModelPageCountActions";
 import { DashboardCollectionsFragment$key } from "@/relay/DashboardCollectionsFragment.graphql";
 import {
   DashboardCollectionsListFragment$data,
   DashboardCollectionsListFragment$key,
 } from "@/relay/DashboardCollectionsListFragment.graphql";
-import ModelPagination from "components/composed/model/ModelPagination";
-import ModelPageCountActions from "components/composed/model/ModelPageCountActions";
 
 export default function DashboardCollections({ data }: Props) {
   const queryData = useFragment(fragment, data);
 
   const collections = useMaybeFragment<DashboardCollectionsListFragment$key>(
     listFragment,
-    queryData.viewer.collections
+    queryData.viewer.collections,
   );
 
   const { t } = useTranslation();

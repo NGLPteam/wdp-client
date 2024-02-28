@@ -5,10 +5,10 @@ import {
   Draggable,
   DragUpdate,
 } from "react-beautiful-dnd";
-import BaseArrayList, { BaseArrayListItem } from "../BaseArrayList";
-import * as Styled from "./OrderDefinitionSelect.styles";
 import { OrderDefinition } from "types/graphql-schema";
 import { IconFactory } from "components/factories";
+import BaseArrayList, { BaseArrayListItem } from "../BaseArrayList";
+import * as Styled from "./OrderDefinitionSelect.styles";
 
 export default function OrderDefinitionSelectedList({
   value,
@@ -50,7 +50,7 @@ export default function OrderDefinitionSelectedList({
       newValue.splice(destination.index, 0, sourceItem);
       onChange(newValue);
     },
-    [onChange, value]
+    [onChange, value],
   );
 
   return (

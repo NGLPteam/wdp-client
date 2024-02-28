@@ -9,7 +9,7 @@ export const MobileNav = styled.nav`
     css`
       display: block;
     `,
-    70
+    70,
   )}
 `;
 

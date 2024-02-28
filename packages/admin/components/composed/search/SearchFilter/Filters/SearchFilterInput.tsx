@@ -2,12 +2,12 @@ import { Fragment } from "react";
 import { graphql, useFragment } from "react-relay";
 import { useFormContext } from "react-hook-form";
 import { getFilterInputLabel, getFilterInputType } from "@wdp/lib/search";
-import * as Styled from "./SearchFilterInput.styles";
 import { Input } from "components/forms";
 import {
   SearchFilterInputFragment$key,
   SearchFilterInputFragment$data,
 } from "@/relay/SearchFilterInputFragment.graphql";
+import * as Styled from "./SearchFilterInput.styles";
 
 type SearchOperators = SearchFilterInputFragment$data["searchOperators"];
 

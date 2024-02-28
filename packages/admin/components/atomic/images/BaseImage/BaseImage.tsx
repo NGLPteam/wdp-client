@@ -8,7 +8,7 @@ function Image(props: Props) {
   // won't be checked correctly.
   const {
     image: { url },
-    layout: layoutIgnored,
+    layout,
     unoptimized,
     ...nextImageProps
   } = props;
@@ -18,10 +18,10 @@ function Image(props: Props) {
     ...nextImageProps,
   };
 
-  if (props.layout === "fill") {
+  if (layout === "fill") {
     return (
       <NextImage
-        layout={props.layout}
+        layout={layout}
         {...commonNextImageProps}
         alt={props.image.alt || ""}
       />
@@ -31,7 +31,7 @@ function Image(props: Props) {
       <NextImage
         unoptimized={unoptimized || process.env.NODE_ENV !== "production"}
         {...commonNextImageProps}
-        layout={props.layout}
+        layout={layout}
         width={props.image.width}
         height={props.image.height}
         alt={props.image.alt || ""}

@@ -1,28 +1,22 @@
-import React, {
-  Ref,
-  forwardRef,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import { Ref, forwardRef, useState, useEffect, useCallback } from "react";
 import {
   DragDropContext,
   Draggable,
   Droppable,
   DragUpdate,
 } from "react-beautiful-dnd";
-import type { DraggingStyle, NotDraggingStyle } from "react-beautiful-dnd";
 import { useCombobox, useMultipleSelection } from "downshift";
 import BaseInputWrapper from "../BaseInputWrapper";
-import type InputProps from "../inputType";
 import BaseArrayList, { BaseArrayListItem } from "../BaseArrayList";
 import HiddenMultiselect from "./HiddenMultiselect";
 import * as Styled from "./Multiselect.styles";
+import type InputProps from "../inputType";
+import type { DraggingStyle, NotDraggingStyle } from "react-beautiful-dnd";
 
 // Redecalare forwardRef
 declare module "react" {
   function forwardRef<T, P>(
-    render: (props: P, ref: React.Ref<T>) => React.ReactElement | null
+    render: (props: P, ref: React.Ref<T>) => React.ReactElement | null,
   ): (props: P & React.RefAttributes<T>) => React.ReactElement | null;
 }
 
@@ -35,8 +29,6 @@ function Multiselect<T extends Record<string, unknown>>(
     label,
     name,
     hideLabel,
-    description,
-    placeholder,
     options,
     required,
     onChange,
@@ -45,7 +37,7 @@ function Multiselect<T extends Record<string, unknown>>(
     dragDropOrder,
     ...inputProps
   }: Props<T>,
-  ref: Ref<HTMLSelectElement>
+  ref: Ref<HTMLSelectElement>,
 ) {
   const [inputValue, setInputValue] = useState("");
 
@@ -71,7 +63,7 @@ function Multiselect<T extends Record<string, unknown>>(
     options.filter(
       (item) =>
         selectedItems.indexOf(item.value) < 0 &&
-        item.label.toLowerCase().startsWith(inputValue.toLowerCase())
+        item.label.toLowerCase().startsWith(inputValue.toLowerCase()),
     );
 
   // Return selected item objects for currently selected items list
@@ -125,7 +117,7 @@ function Multiselect<T extends Record<string, unknown>>(
 
       setSelectedItems(newValue);
     },
-    [selectedItems, setSelectedItems]
+    [selectedItems, setSelectedItems],
   );
 
   const handleDragEnd = useCallback(
@@ -133,7 +125,7 @@ function Multiselect<T extends Record<string, unknown>>(
       if (!destination || !source || destination.index === source.index) return;
       onDragEnd(source.index, destination.index);
     },
-    [onDragEnd]
+    [onDragEnd],
   );
 
   const renderSelectedItem = ({
@@ -198,6 +190,7 @@ function Multiselect<T extends Record<string, unknown>>(
           </Styled.Button>
           <Styled.List {...getMenuProps()} open={isOpen}>
             {getFilteredOptions().map((item, index) => (
+              /* eslint-disable react/jsx-key */
               <Styled.ListItem
                 {...getItemProps({ key: `item${index}`, index, item })}
               >
@@ -243,7 +236,7 @@ function Multiselect<T extends Record<string, unknown>>(
           ) : (
             <BaseArrayList>
               {getSelectedItemObjects().map((selectedItem, i) =>
-                renderSelectedItem({ selectedItem, i })
+                renderSelectedItem({ selectedItem, i }),
               )}
             </BaseArrayList>
           ))}

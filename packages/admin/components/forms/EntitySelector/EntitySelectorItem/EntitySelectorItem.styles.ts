@@ -49,8 +49,8 @@ export const Wrapper = styled.div<
       $checked
         ? `--background-color: var(--brand70);`
         : $isSelectable
-        ? hoverStyles
-        : ``}
+          ? hoverStyles
+          : ``}
   }
 
   ${({ $checked }) => $checked && selectedStyles}

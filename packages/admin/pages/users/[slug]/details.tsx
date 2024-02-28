@@ -1,9 +1,9 @@
 import { graphql } from "relay-runtime";
-import type { GetLayout } from "@wdp/lib/types/page";
-import type { detailsManageSlugUsersPagesQuery as Query } from "@/relay/detailsManageSlugUsersPagesQuery.graphql";
 import UserLayoutQuery from "components/composed/user/UserLayoutQuery";
 import UserUpdateForm from "components/composed/user/UserUpdateForm";
 import { LoadingCircle } from "components/atomic";
+import type { detailsManageSlugUsersPagesQuery as Query } from "@/relay/detailsManageSlugUsersPagesQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function UserDetails({ data }: Props) {
   return data && data.user ? (

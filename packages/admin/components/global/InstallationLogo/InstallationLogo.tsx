@@ -2,10 +2,10 @@ import { useMemo } from "react";
 import { graphql } from "react-relay";
 import Link from "next/link";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import * as Styled from "./InstallationLogo.styles";
 import { useGlobalContext } from "contexts";
 import { Image } from "components/atomic";
 import { InstallationLogoFragment$key } from "@/relay/InstallationLogoFragment.graphql";
+import * as Styled from "./InstallationLogo.styles";
 
 const LOGO_SIZE = 40;
 
@@ -14,7 +14,7 @@ const InstallationLogo = ({ className }: Props) => {
 
   const siteData = useMaybeFragment<InstallationLogoFragment$key>(
     fragment,
-    data?.globalConfiguration
+    data?.globalConfiguration,
   );
 
   const isSvg = siteData?.logo?.original?.originalFilename?.endsWith(".svg");

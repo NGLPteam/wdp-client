@@ -1,8 +1,8 @@
 import { cloneElement, forwardRef } from "react";
 import { useMenuState, MenuButton, MenuSeparator } from "reakit/Menu";
+import * as Styled from "./DropdownMenu.styles";
 import type { MenuHTMLProps } from "reakit/Menu";
 
-import * as Styled from "./DropdownMenu.styles";
 type ButtonProps = Partial<React.ComponentProps<typeof MenuButton>>;
 
 const DropdownMenu = forwardRef<HTMLButtonElement, Props>(
@@ -33,13 +33,13 @@ const DropdownMenu = forwardRef<HTMLButtonElement, Props>(
         </Styled.MenuWrapper>
       </>
     );
-  }
+  },
 );
 
 interface ExtendedProps {
   menuProps: MenuHTMLProps;
-  menuItems: JSX.Element[];
-  disclosure: JSX.Element;
+  menuItems: React.JSX.Element[];
+  disclosure: React.JSX.Element;
   /** Set to true if this dropdown is in the main nav */
   isMainNav?: boolean;
 }

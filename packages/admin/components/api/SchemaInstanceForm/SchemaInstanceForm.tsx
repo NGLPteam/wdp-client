@@ -1,11 +1,10 @@
 import { useFragment } from "relay-hooks";
 import { graphql } from "relay-runtime";
+import SchemaSelector from "components/forms/SchemaSelector";
+import type { SchemaInstanceFormFragment$key } from "@/relay/SchemaInstanceFormFragment.graphql";
 import SchemaFormFields from "../SchemaFormFields";
 import Provider from "./SchemaInstanceProvider";
 import type { OnSuccessCallback } from "./types";
-import SchemaSelector from "components/forms/SchemaSelector";
-
-import type { SchemaInstanceFormFragment$key } from "@/relay/SchemaInstanceFormFragment.graphql";
 
 type ProviderProps = React.ComponentProps<typeof Provider>;
 

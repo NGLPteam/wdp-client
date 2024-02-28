@@ -1,10 +1,10 @@
-import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
 import { formatDate } from "@wdp/lib/helpers";
 import { UpdatableNode, PartialColumnish } from "./types";
+import type { ColumnDef } from "@tanstack/react-table";
 
 const UpdatedAtColumn = <NodeType extends UpdatableNode>(
-  props: PartialColumnish<NodeType> = { enableSorting: false }
+  props: PartialColumnish<NodeType> = { enableSorting: false },
 ): ColumnDef<NodeType> => {
   const { t } = useTranslation();
 

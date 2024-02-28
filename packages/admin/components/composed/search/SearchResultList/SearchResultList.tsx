@@ -1,6 +1,4 @@
-import type { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 import { Trans } from "react-i18next";
 import { useMaybeFragment, useDrawerHelper, useSearchQueryVars } from "hooks";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
@@ -12,6 +10,8 @@ import type {
   SearchResultListFragment$data,
   SearchResultListFragment$key,
 } from "@/relay/SearchResultListFragment.graphql";
+import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
+import type { OperationType } from "relay-runtime";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -24,7 +24,7 @@ function SearchResultList<T extends OperationType>({
 
   const searchScope = useMaybeFragment<SearchResultListFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const drawerHelper = useDrawerHelper();
@@ -71,7 +71,7 @@ function SearchResultList<T extends OperationType>({
         row?.original?.entity?.schemaVersion?.kind === "COLLECTION"
           ? "editCollection"
           : "editItem",
-        { drawerSlug: row.original.entity.slug }
+        { drawerSlug: row.original.entity.slug },
       ),
     handleView: ({ row }: ModelTableActionProps<Node>) =>
       row.original.entity.slug

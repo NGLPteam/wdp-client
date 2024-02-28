@@ -1,10 +1,10 @@
 import * as React from "react";
 import { useId } from "react";
 import { useTranslation } from "react-i18next";
-import type { DialogProps } from "reakit/Dialog";
+import { ButtonControl } from "components/atomic/buttons";
 import usePreventBodyScroll from "./hooks/usePreventBodyScroll";
 import * as Styled from "./Modal.styles";
-import { ButtonControl } from "components/atomic/buttons";
+import type { DialogProps } from "reakit/Dialog";
 
 const Modal = ({
   dialog,
@@ -59,7 +59,7 @@ type RenderChildProps = {
   handleClose: () => void;
 };
 
-type RenderChild = (props: RenderChildProps) => JSX.Element;
+type RenderChild = (props: RenderChildProps) => React.JSX.Element;
 
 export interface Props {
   dialog: DialogProps;

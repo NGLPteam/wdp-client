@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
-import * as Styled from "./SidebarNav.styles";
 import { RouteHelper } from "routes";
 import { NamedLink } from "components/atomic";
 import { Props as NamedLinkProps } from "components/atomic/links/NamedLink/NamedLink";
+import * as Styled from "./SidebarNav.styles";
 
 const SidebarNav = ({ links, className }: Props) => {
   const { t } = useTranslation();

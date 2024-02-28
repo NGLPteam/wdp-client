@@ -1,18 +1,19 @@
 import { useCallback, useMemo } from "react";
-import type { ColumnDef } from "@tanstack/react-table";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import type { OperationType } from "relay-runtime";
+import { PaginatedConnectionish } from "components/composed/model/ModelListPage";
+import { Connectionish } from "types/graphql-helpers";
 import { toEntities } from "../helpers/toEntities";
 import useTableSorting from "./useTableSorting";
 import useRowActions, { Actions } from "./useRowActions";
 import useTableRowSelection from "./useTableRowSelection";
-import { PaginatedConnectionish } from "components/composed/model/ModelListPage";
-import { Connectionish } from "types/graphql-helpers";
+import type { OperationType } from "relay-runtime";
+import type { ColumnDef } from "@tanstack/react-table";
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export interface UseModelListProps<
   T extends OperationType,
   U extends PaginatedConnectionish | Connectionish,
-  V extends Record<string, unknown>
+  V extends Record<string, unknown>,
 > {
   data?: U | null;
   columns: ColumnDef<V>[];
@@ -25,7 +26,7 @@ export interface UseModelListProps<
 function useModelList<
   T extends OperationType,
   U extends PaginatedConnectionish | Connectionish,
-  V extends Record<string, unknown>
+  V extends Record<string, unknown>,
 >({
   data,
   columns,

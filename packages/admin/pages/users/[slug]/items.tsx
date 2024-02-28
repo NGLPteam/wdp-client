@@ -1,8 +1,8 @@
 import { graphql } from "relay-runtime";
-import type { GetLayout } from "@wdp/lib/types/page";
-import type { itemsManageSlugUsersPagesQuery as Query } from "@/relay/itemsManageSlugUsersPagesQuery.graphql";
 import UserLayoutQuery from "components/composed/user/UserLayoutQuery";
 import UserItemsList from "components/composed/user/UserItemsList";
+import type { itemsManageSlugUsersPagesQuery as Query } from "@/relay/itemsManageSlugUsersPagesQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function UserItems({ data }: Props) {
   return <UserItemsList<Query> data={data?.user?.itemAccessGrants} />;

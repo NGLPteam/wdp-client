@@ -1,21 +1,12 @@
 import React, { forwardRef, Ref } from "react";
 import BaseInputWrapper from "../BaseInputWrapper";
-import type InputProps from "../inputType";
 import * as Styled from "./Switch.styles";
+import type InputProps from "../inputType";
 
 const Switch = forwardRef(
   (
-    {
-      label,
-      name,
-      text,
-      description,
-      hideLabel,
-      error,
-      isWide,
-      ...inputProps
-    }: Props,
-    ref: Ref<HTMLInputElement>
+    { label, name, text, hideLabel, isWide, ...inputProps }: Props,
+    ref: Ref<HTMLInputElement>,
   ) => {
     return (
       <BaseInputWrapper
@@ -42,7 +33,7 @@ const Switch = forwardRef(
         )}
       </BaseInputWrapper>
     );
-  }
+  },
 );
 
 interface Props extends InputProps {

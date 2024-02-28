@@ -1,4 +1,3 @@
-import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import { graphql } from "relay-runtime";
 import Drawer from "components/layout/Drawer";
@@ -7,6 +6,7 @@ import { useDrawerHelper, useDestroyer } from "hooks";
 import { QueryWrapper } from "components/api";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
 import ItemUpdateForm from "components/composed/item/ItemUpdateForm";
+import type { DialogProps } from "reakit/Dialog";
 
 import type {
   ItemUpdateDrawerQuery as Query,
@@ -48,7 +48,7 @@ export default function ItemUpdateDrawer({
       if (data.item) {
         destroy.item(
           { itemId: data.item.id },
-          data?.item?.title || t("glossary.item")
+          data?.item?.title || t("glossary.item"),
         );
       }
       if (dialog?.hide) dialog.hide();
