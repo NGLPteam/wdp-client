@@ -1,14 +1,16 @@
 import React, { useEffect, useMemo } from "react";
-import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { useRouter } from "next/router";
 import InstanceCommunities from "components/composed/instance/InstanceCommunities";
 import InstanceHero from "components/composed/instance/InstanceHero";
-import { InstanceContentLayoutFragment$key } from "@/relay/InstanceContentLayoutFragment.graphql";
+import { InstanceContentLayoutQuery } from "@/relay/InstanceContentLayoutQuery.graphql";
 import { RouteHelper } from "routes";
 
-export default function InstanceContentLayout({ data }: Props) {
-  const instance = useMaybeFragment(fragment, data);
+export default function InstanceContentLayout({ queryRef }: Props) {
+  const instance = usePreloadedQuery<InstanceContentLayoutQuery>(
+    query,
+    queryRef
+  );
 
   const total = useMemo(
     () => instance?.communities?.pageInfo?.totalCount || 0,
@@ -44,11 +46,11 @@ export default function InstanceContentLayout({ data }: Props) {
 }
 
 type Props = {
-  data?: InstanceContentLayoutFragment$key | null;
+  queryRef: PreloadedQuery<InstanceContentLayoutQuery>;
 };
 
-const fragment = graphql`
-  fragment InstanceContentLayoutFragment on Query {
+export const query = graphql`
+  query InstanceContentLayoutQuery {
     communities(order: POSITION_ASCENDING) {
       edges {
         node {

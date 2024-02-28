@@ -1,9 +1,6 @@
 import React from "react";
-import { graphql } from "relay-runtime";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
-import { SlugCollectionQuery as Query } from "@/relay/SlugCollectionQuery.graphql";
-import CollectionLayoutQuery from "components/composed/collections/CollectionLayoutQuery/CollectionLayoutQuery";
 import JournalContent from "components/composed/journal/JournalContent";
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
 import {
@@ -11,6 +8,14 @@ import {
   getStaticEntityData,
   STATIC_PROPS_REVALIDATE,
 } from "contexts/GlobalStaticContext";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import AppLayout from "components/global/AppLayout";
+import { SlugCollectionQuery } from "@/relay/SlugCollectionQuery.graphql";
+import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
+import { QueryLoaderWrapper } from "@wdp/lib/api/components";
+import { useRouteSlug } from "@wdp/lib/routes";
+import { LoadingBlock } from "components/atomic";
+import ErrorPage from "next/error";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -29,30 +34,61 @@ export async function getStaticPaths() {
   };
 }
 
-export default function SlugCollection({ data }: Props) {
-  const collection = data?.collection;
+export default function SlugCollection({ queryRef }: Props) {
+  const { collection } = usePreloadedQuery<SlugCollectionQuery>(
+    query,
+    queryRef
+  );
 
-  switch (collection?.schemaDefinition?.identifier) {
-    case "journal":
-      return <JournalContent data={collection} />;
+  const pageComponent = () => {
+    switch (collection?.schemaDefinition?.identifier) {
+      case "journal":
+        return <JournalContent data={collection} />;
 
-    // By default, return the entity's layout and show ordering content
-    default:
-      return <EntityOrderingLayoutFactory data={collection} />;
-  }
+      // By default, return the entity's layout and show ordering content
+      default:
+        return <EntityOrderingLayoutFactory data={collection} />;
+    }
+  };
+
+  return collection ? (
+    <AppLayout communityData={collection.community} entityData={collection}>
+      <EntityLayoutFactory data={collection}>
+        {pageComponent()}
+      </EntityLayoutFactory>
+    </AppLayout>
+  ) : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
-  return <CollectionLayoutQuery<Query, Props> query={query} {...props} />;
+  const slug = useRouteSlug();
+
+  if (!slug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
+
+  return (
+    <QueryLoaderWrapper<SlugCollectionQuery>
+      query={query}
+      variables={{ slug }}
+      loadingFallback={<LoadingBlock />}
+    >
+      {({ queryRef }) =>
+        queryRef && (
+          <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        )
+      }
+    </QueryLoaderWrapper>
+  );
 };
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<SlugCollectionQuery>;
 };
 
 SlugCollection.getLayout = getLayout;
 
-const query = graphql`
+export const query = graphql`
   query SlugCollectionQuery($slug: Slug!) {
     collection(slug: $slug) {
       schemaDefinition {
@@ -61,8 +97,12 @@ const query = graphql`
 
       ...EntityOrderingLayoutFactoryFragment
       ...JournalContentFragment
-    }
+      ...AppLayoutEntityFragment
+      ...EntityLayoutFactoryFragment
 
-    ...CollectionLayoutQueryFragment @arguments(slug: $slug)
+      community {
+        ...AppLayoutCommunityFragment
+      }
+    }
   }
 `;
