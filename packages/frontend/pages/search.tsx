@@ -1,32 +1,50 @@
-import React from "react";
-import { graphql } from "relay-runtime";
-import { useRefetchable } from "relay-hooks";
-import { QueryWrapper } from "@wdp/lib/api/components";
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import {
+  graphql,
+  usePreloadedQuery,
+  PreloadedQuery,
+  useRefetchableFragment,
+} from "react-relay";
+import { QueryLoaderWrapper, ErrorFallback } from "@wdp/lib/api/components";
 import AppLayout from "components/global/AppLayout";
 import SearchLayout from "components/composed/search/SearchLayout";
 import { searchQuery as Query } from "@/relay/searchQuery.graphql";
 import { SearchLayoutQuery as LayoutQuery } from "@/relay/SearchLayoutQuery.graphql";
 import { searchQueryFragment$key } from "@/relay/searchQueryFragment.graphql";
+import { LoadingBlock } from "components/atomic";
 
-function SearchLayoutQuery({ data }: { data: searchQueryFragment$key }) {
-  const {
-    data: searchData,
-    refetch,
-    isLoading,
-  } = useRefetchable<LayoutQuery, searchQueryFragment$key>(fragment, data);
+function SearchLayoutQuery({ queryRef }: Props) {
+  const data = usePreloadedQuery<Query>(query, queryRef);
+  const [searchData, refetch] = useRefetchableFragment<
+    LayoutQuery,
+    searchQueryFragment$key
+  >(fragment, data);
 
   return (
-    <SearchLayout data={searchData} refetch={refetch} isLoading={isLoading} />
+    <ErrorBoundary fallbackRender={ErrorFallback}>
+      <Suspense fallback={<LoadingBlock />}>
+        <SearchLayout data={searchData} refetch={refetch} />
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 
-export default function SearchPage() {
+type Props = {
+  queryRef: PreloadedQuery<Query>;
+};
+
+export default function SearchPage({ queryRef }: Props) {
   return (
-    <QueryWrapper<Query> query={query}>
-      {({ data }) => (
-        <AppLayout>{data && <SearchLayoutQuery data={data} />}</AppLayout>
-      )}
-    </QueryWrapper>
+    <QueryLoaderWrapper<Query> query={query} initialQueryRef={queryRef}>
+      {({ queryRef }) =>
+        queryRef && (
+          <AppLayout>
+            <SearchLayoutQuery queryRef={queryRef} />
+          </AppLayout>
+        )
+      }
+    </QueryLoaderWrapper>
   );
 }
 

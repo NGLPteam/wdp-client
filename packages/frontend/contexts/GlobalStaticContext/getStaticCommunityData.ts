@@ -1,5 +1,5 @@
 import { ParsedUrlQuery } from "querystring";
-import { environment } from "@wdp/lib/app";
+import { buildEnvironment as environment } from "@wdp/lib/app";
 import { fetchQuery, graphql, readInlineData } from "relay-runtime";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { getStaticCommunityDataQuery } from "@/relay/getStaticCommunityDataQuery.graphql";

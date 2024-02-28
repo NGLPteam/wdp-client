@@ -1,6 +1,5 @@
 import React, { createContext } from "react";
-import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { graphql, useFragment } from "react-relay";
 import {
   GlobalContextFragment$data,
   GlobalContextFragment$key,
@@ -11,7 +10,7 @@ const GlobalContext = createContext<
 >(null);
 
 function GlobalContextProvider({ children, data }: Props) {
-  const siteData = useMaybeFragment(fragment, data);
+  const siteData = useFragment(fragment, data);
 
   return (
     <GlobalContext.Provider value={siteData}>{children}</GlobalContext.Provider>

@@ -24,7 +24,7 @@ const NamedLink = forwardRef(
 
     const { allowedActions } = useViewerContext();
 
-    const isAuthorized = route?.actions
+    const isAuthorized = !!route?.actions?.length
       ? route.actions.some((action) => allowedActions.includes(action))
       : true;
 
@@ -45,7 +45,8 @@ const NamedLink = forwardRef(
         href={{ pathname: path, query: nextQuery }}
         passHref={passHref}
         {...props}
-        legacyBehavior>
+        legacyBehavior
+      >
         {React.isValidElement(children)
           ? React.cloneElement(children, { ref, ...props })
           : children}

@@ -1,4 +1,4 @@
-import { environment } from "@wdp/lib/app";
+import { buildEnvironment as environment } from "@wdp/lib/app";
 import { GetServerSidePropsContext } from "next";
 import { fetchQuery, graphql } from "relay-runtime";
 import { sitemapQuery, sitemapQuery$data } from "@/relay/sitemapQuery.graphql";

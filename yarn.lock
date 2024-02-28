@@ -2906,7 +2906,6 @@ __metadata:
     relay-compiler: "npm:^16.2.0"
     relay-compiler-language-typescript: "npm:^15.0.1"
     relay-config: "npm:^12.0.1"
-    relay-hooks: "npm:^9.0.0"
     relay-runtime: "npm:^16.2.0"
     relay-test-utils: "npm:^16.2.0"
     styled-components: "npm:^6.1.8"
