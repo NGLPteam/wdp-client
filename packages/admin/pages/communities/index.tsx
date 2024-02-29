@@ -1,9 +1,9 @@
-import { graphql } from "relay-runtime";
-import { QueryWrapper } from "components/api";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import { useBaseListQueryVars } from "hooks";
-
+import { LoadingPage } from "components/atomic/loading";
 import CommunityList from "components/composed/community/CommunityList";
-import type { communitiesQuery as Query } from "__generated__/communitiesQuery.graphql";
+import { query } from "components/composed/community/CommunityList/CommunityList";
+import type { CommunityListQuery as Query } from "@/relay/CommunityListQuery.graphql";
 
 export default function CommunityListView() {
   const queryVars = useBaseListQueryVars({
@@ -11,22 +11,13 @@ export default function CommunityListView() {
   });
 
   return (
-    <QueryWrapper<Query>
+    <QueryTransitionWrapper<Query>
       query={query}
-      initialVariables={{
-        ...queryVars,
-      }}
-      refetchTags={["communities"]}
+      variables={queryVars}
+      subscribeIds={["Community"]}
+      loadingFallback={<LoadingPage />}
     >
-      {({ data }) => <CommunityList<Query> data={data?.communities} />}
-    </QueryWrapper>
+      {({ queryRef }) => queryRef && <CommunityList queryRef={queryRef} />}
+    </QueryTransitionWrapper>
   );
 }
-
-const query = graphql`
-  query communitiesQuery($order: EntityOrder, $page: Int!) {
-    communities(order: $order, page: $page, perPage: 20) {
-      ...CommunityListFragment
-    }
-  }
-`;
