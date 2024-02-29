@@ -1,4 +1,4 @@
-import { QueryLoaderWrapper, QueryTransitionWrapper } from "@wdp/lib/api/components";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import { ContributorListQuery as Query } from "@/relay/ContributorListQuery.graphql";
 import { useContributorQueryVars } from "hooks";
 import { query } from "components/composed/contributor/ContributorList/ContributorList";
@@ -12,7 +12,8 @@ export default function ContributorListView() {
   return (
     <QueryTransitionWrapper<Query>
       query={query}
-      variables={{ ...contributorSearchVars }}
+      variables={contributorSearchVars}
+      subscribeIds={["Contributor"]}
       loadingFallback={<LoadingPage />}
     >
       {({ queryRef }) => queryRef && <ContributorList queryRef={queryRef} />}

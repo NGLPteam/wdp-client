@@ -1,5 +1,5 @@
 import { useSearchQueryVars } from "hooks";
-import { QueryLoaderWrapper } from "@wdp/lib/api/components";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import ItemList from "components/composed/item/ItemList";
 import { ItemListQuery as Query } from "@/relay/ItemListQuery.graphql";
 import { LoadingPage } from "components/atomic";
@@ -13,12 +13,13 @@ export default function ItemListView() {
     (!!searchQueryVars?.predicates && searchQueryVars.predicates.length > 0);
 
   return (
-    <QueryLoaderWrapper<Query>
+    <QueryTransitionWrapper<Query>
       query={query}
       variables={{ ...searchQueryVars, hasQuery }}
+      subscribeIds={["Item"]}
       loadingFallback={<LoadingPage />}
     >
       {({ queryRef }) => queryRef && <ItemList queryRef={queryRef} />}
-    </QueryLoaderWrapper>
+    </QueryTransitionWrapper>
   );
 }

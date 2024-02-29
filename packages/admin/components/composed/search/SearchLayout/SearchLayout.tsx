@@ -1,10 +1,9 @@
-import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { SearchLayoutFragment$key } from "@/relay/SearchLayoutFragment.graphql";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import { SearchLayoutQuery } from "@/relay/SearchLayoutQuery.graphql";
 import SearchResultList from "../SearchResultList";
 
-export default function SearchLayout({ data }: Props) {
-  const searchData = useMaybeFragment(fragment, data);
+export default function SearchLayout({ queryRef }: Props) {
+  const searchData = usePreloadedQuery<SearchLayoutQuery>(query, queryRef);
 
   return (
     <section className="a-bg-neutral00">
@@ -14,17 +13,16 @@ export default function SearchLayout({ data }: Props) {
 }
 
 interface Props {
-  data?: SearchLayoutFragment$key | null;
+  queryRef: PreloadedQuery<SearchLayoutQuery>;
 }
 
-const fragment = graphql`
-  fragment SearchLayoutFragment on Searchable
-  @argumentDefinitions(
-    query: { type: "String", defaultValue: "" }
-    predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
-    page: { type: "Int", defaultValue: 1 }
-    order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
-    schema: { type: "[String!]", defaultValue: [] }
+export const query = graphql`
+  query SearchLayoutQuery(
+    $query: String
+    $page: Int!
+    $predicates: [SearchPredicateInput!]
+    $order: EntityOrder
+    $schema: [String!]
   ) {
     search(visibility: ALL) {
       ...SearchResultListFragment

@@ -27,7 +27,5 @@ export default function useBaseListQueryVars(
   const page = parseInt(get(router, "query.page", 1) as string);
   const order = (get(router, "query.order") || defaultOrder) as Order;
 
-  console.log(router.query);
-
   return { page, order };
 }

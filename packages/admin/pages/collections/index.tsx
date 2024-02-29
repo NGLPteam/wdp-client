@@ -1,8 +1,9 @@
-import { graphql } from "relay-runtime";
 import CollectionList from "components/composed/collection/CollectionList";
-import { QueryWrapper } from "components/api";
-import { collectionsQuery as Query } from "__generated__/collectionsQuery.graphql";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
+import { CollectionListQuery as Query } from "@/relay/CollectionListQuery.graphql";
 import { useSearchQueryVars } from "hooks";
+import { query } from "components/composed/collection/CollectionList/CollectionList";
+import { LoadingPage } from "components/atomic/loading";
 
 export default function CollectionListView() {
   const searchQueryVars = useSearchQueryVars();
@@ -12,46 +13,13 @@ export default function CollectionListView() {
     (!!searchQueryVars?.predicates && searchQueryVars.predicates.length > 0);
 
   return (
-    <QueryWrapper<Query>
+    <QueryTransitionWrapper<Query>
       query={query}
-      initialVariables={{ ...searchQueryVars, hasQuery }}
-      refetchTags={["collections"]}
+      variables={{ ...searchQueryVars, hasQuery }}
+      subscribeIds={["Collection"]}
+      loadingFallback={<LoadingPage />}
     >
-      {({ data }) => (
-        <CollectionList<Query>
-          data={data?.viewer?.collections}
-          searchData={data?.search}
-        />
-      )}
-    </QueryWrapper>
+      {({ queryRef }) => queryRef && <CollectionList queryRef={queryRef} />}
+    </QueryTransitionWrapper>
   );
 }
-
-const query = graphql`
-  query collectionsQuery(
-    $query: String
-    $page: Int!
-    $predicates: [SearchPredicateInput!]
-    $order: EntityOrder
-    $hasQuery: Boolean!
-    $schema: [String!]
-  ) {
-    viewer {
-      collections(access: READ_ONLY, order: $order, page: $page, perPage: 20)
-        @skip(if: $hasQuery) {
-        ...CollectionListFragment
-      }
-    }
-    search(visibility: ALL) {
-      ...CollectionListSearchFragment
-        @arguments(
-          query: $query
-          page: $page
-          predicates: $predicates
-          order: $order
-          hasQuery: $hasQuery
-          schema: $schema
-        )
-    }
-  }
-`;

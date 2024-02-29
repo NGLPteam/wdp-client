@@ -1,14 +1,13 @@
-import { OperationType } from "relay-runtime";
-import { graphql } from "react-relay";
+import {
+  graphql,
+  usePreloadedQuery,
+  PreloadedQuery,
+  useFragment,
+} from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useLatestPresentValue } from "@wdp/lib/hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
-import {
-  useDestroyer,
-  useDrawerHelper,
-  useMaybeFragment,
-  useSearchQueryVars,
-} from "hooks";
+import { useDestroyer, useDrawerHelper, useSearchQueryVars } from "hooks";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
@@ -22,12 +21,12 @@ import {
   CollectionListSearchFragment$key,
 } from "@/relay/CollectionListSearchFragment.graphql";
 import type { ModelTableActionProps } from "@tanstack/react-table";
+import { CollectionListQuery } from "@/relay/CollectionListQuery.graphql";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function CollectionList<T extends OperationType>({
-  data,
-  searchData,
+function CollectionList({
+  queryRef,
   headerStyle,
   hideHeader,
 }: CollectionListProps) {
@@ -35,16 +34,21 @@ function CollectionList<T extends OperationType>({
   const drawerHelper = useDrawerHelper();
   const { t } = useTranslation();
 
-  const collections = useMaybeFragment<CollectionListFragment$key>(
+  const {
+    viewer: { collections },
+    search,
+  } = usePreloadedQuery<CollectionListQuery>(query, queryRef);
+
+  const collectionsData = useFragment<CollectionListFragment$key>(
     fragment,
-    data,
+    collections
   );
 
-  const { current: memoizedData } = useLatestPresentValue(collections);
+  const { current: memoizedData } = useLatestPresentValue(collectionsData);
 
-  const searchScope = useMaybeFragment<CollectionListSearchFragment$key>(
+  const searchScope = useFragment<CollectionListSearchFragment$key>(
     searchFragment,
-    searchData,
+    search
   );
 
   const { current: memoizedSearch } = useLatestPresentValue(searchScope);
@@ -81,7 +85,7 @@ function CollectionList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.collection(
         { collectionId: row.original.entity?.id || row.original.id },
-        row.original.title || "glossary.collection",
+        row.original.title || "glossary.collection"
       ),
     handleView: ({ row }: ModelTableActionProps<Node>) =>
       row.original.slug
@@ -98,7 +102,7 @@ function CollectionList<T extends OperationType>({
   ) : undefined;
 
   return (
-    <ModelListPage<T, ListFragment, Node>
+    <ModelListPage<ListFragment, Node>
       modelName="collection"
       columns={columns}
       actions={actions}
@@ -120,7 +124,7 @@ function CollectionList<T extends OperationType>({
 
 interface CollectionListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  data?: CollectionListFragment$key | null;
+  queryRef: PreloadedQuery<CollectionListQuery>;
   searchData?: CollectionListSearchFragment$key | null;
 }
 
@@ -135,6 +139,35 @@ type CollectionSearchNode = NonNullable<
 >["nodes"][number];
 
 type Node = CollectionNode & CollectionSearchNode;
+
+export const query = graphql`
+  query CollectionListQuery(
+    $query: String
+    $page: Int!
+    $predicates: [SearchPredicateInput!]
+    $order: EntityOrder
+    $hasQuery: Boolean!
+    $schema: [String!]
+  ) {
+    viewer {
+      collections(access: READ_ONLY, order: $order, page: $page, perPage: 20)
+        @skip(if: $hasQuery) {
+        ...CollectionListFragment
+      }
+    }
+    search(visibility: ALL) {
+      ...CollectionListSearchFragment
+        @arguments(
+          query: $query
+          page: $page
+          predicates: $predicates
+          order: $order
+          hasQuery: $hasQuery
+          schema: $schema
+        )
+    }
+  }
+`;
 
 const fragment = graphql`
   fragment CollectionListFragment on CollectionConnection {
@@ -157,14 +190,14 @@ const fragment = graphql`
 
 const searchFragment = graphql`
   fragment CollectionListSearchFragment on SearchScope
-  @argumentDefinitions(
-    query: { type: "String", defaultValue: "" }
-    page: { type: "Int", defaultValue: 1 }
-    predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
-    order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
-    hasQuery: { type: "Boolean!" }
-    schema: { type: "[String!]", defaultValue: [] }
-  ) {
+    @argumentDefinitions(
+      query: { type: "String", defaultValue: "" }
+      page: { type: "Int", defaultValue: 1 }
+      predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
+      order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
+      hasQuery: { type: "Boolean!" }
+      schema: { type: "[String!]", defaultValue: [] }
+    ) {
     results(
       query: $query
       page: $page

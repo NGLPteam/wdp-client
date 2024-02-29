@@ -1,38 +1,34 @@
-import React from "react";
-import { OperationType } from "relay-runtime";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { graphql } from "react-relay";
-import { useMaybeFragment, useDrawerHelper, useDestroyer } from "hooks";
-
+import { useDrawerHelper, useDestroyer } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 // import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 import ModelColumns from "components/composed/model/ModelColumns";
 import {
-  CommunityListFragment$key,
-  CommunityListFragment$data,
-} from "@/relay/CommunityListFragment.graphql";
+  CommunityListQuery,
+  CommunityListQuery$data,
+} from "@/relay/CommunityListQuery.graphql";
 import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function CommunityList<T extends OperationType>({
-  data,
-  headerStyle,
+function CommunityList({
+  queryRef,
   hideHeader,
+  headerStyle,
 }: CommunityListProps) {
   const { t } = useTranslation();
   const drawerHelper = useDrawerHelper();
   const destroy = useDestroyer();
 
-  const communities = useMaybeFragment<CommunityListFragment$key>(
-    fragment,
-    data,
+  const { communities } = usePreloadedQuery<CommunityListQuery>(
+    query,
+    queryRef
   );
 
   const columns = [
-    // ModelColumns.PositionColumn<Node>(),
     ModelColumns.CommunityNameColumn<Node>(),
     ModelColumns.CreatedAtColumn<Node>(),
   ];
@@ -57,7 +53,7 @@ function CommunityList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, ListFragment, Node>
+    <ModelListPage<CommunityListQuery$data["communities"], Node>
       modelName="community"
       columns={columns}
       actions={actions}
@@ -71,30 +67,30 @@ function CommunityList<T extends OperationType>({
 
 interface CommunityListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  data?: CommunityListFragment$key | null;
+  queryRef: PreloadedQuery<CommunityListQuery>;
 }
 
-type ListFragment = CommunityListFragment$data;
-
-type CommunityNode = CommunityListFragment$data["edges"][number]["node"];
+type CommunityNode = CommunityListQuery$data["communities"]["edges"][number]["node"];
 
 type Node = CommunityNode;
 
-const fragment = graphql`
-  fragment CommunityListFragment on CommunityConnection {
-    edges {
-      node {
-        slug
-        id
-        createdAt
-        updatedAt
-        name
-        allowedActions
-        position
-        ...CommunityNameColumnFragment
+export const query = graphql`
+  query CommunityListQuery($order: EntityOrder, $page: Int!) {
+    communities(order: $order, page: $page, perPage: 20) {
+      edges {
+        node {
+          slug
+          id
+          createdAt
+          updatedAt
+          name
+          allowedActions
+          position
+          ...CommunityNameColumnFragment
+        }
       }
+      ...ModelListPageFragment
     }
-    ...ModelListPageFragment
   }
 `;
 
