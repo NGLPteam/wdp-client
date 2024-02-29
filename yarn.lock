@@ -3212,6 +3212,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@wdp/tsconfig@workspace:packages/tsconfig":
+  version: 0.0.0-use.local
+  resolution: "@wdp/tsconfig@workspace:packages/tsconfig"
+  dependencies:
+    depcheck: "npm:^1.4.7"
+  languageName: unknown
+  linkType: soft
+
 "@whatwg-node/events@npm:^0.0.3":
   version: 0.0.3
   resolution: "@whatwg-node/events@npm:0.0.3"

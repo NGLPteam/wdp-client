@@ -2,12 +2,13 @@
 
 ## Development Environment
 
-NGLP is separated into four workspaces:
+NGLP is separated into workspaces:
 
 - [admin](./packages/admin/README.md) - client admin app
 - [frontend](./packages/frontend/README.md) - client frontend app
 - lib - library of shared components, themes between admin and frontend
 - eslint - shared lint config
+- tsconfig - shared ts config
 
 ```sh
 yarn install
