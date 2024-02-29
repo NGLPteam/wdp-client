@@ -1,5 +1,5 @@
-import type IconProps from "../../types/icon";
 import { Audio32, Image32, Text32, Video32 } from "../../svgs/icons";
+import type IconProps from "../../types/icon";
 
 export default function FileIconFactory({ kind, ...props }: Props) {
   switch (kind) {

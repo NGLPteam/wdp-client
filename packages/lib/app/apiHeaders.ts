@@ -2,7 +2,7 @@ import type { KeycloakRef } from "../types/keycloak";
 
 export function getGQLHeaders(
   keycloakRef?: KeycloakRef,
-  isAdmin?: Boolean
+  isAdmin?: boolean,
 ): Record<string, string> {
   const headers: GraphQLHeaders = {
     accept: "application/json",

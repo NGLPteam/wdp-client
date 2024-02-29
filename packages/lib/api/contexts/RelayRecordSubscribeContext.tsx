@@ -41,7 +41,7 @@ export function RelayRecordSubscribeProvider({
         if (record) record.invalidateRecord();
       });
     },
-    [subscribeIds]
+    [subscribeIds],
   );
 
   return (

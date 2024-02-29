@@ -22,5 +22,5 @@ interface FragmentRenderProps<TKey extends KeyType> {
 }
 
 type FragmentRenderer<TKey extends KeyType> = (
-  props: FragmentRenderProps<TKey>
-) => JSX.Element | null;
+  props: FragmentRenderProps<TKey>,
+) => React.JSX.Element | null;

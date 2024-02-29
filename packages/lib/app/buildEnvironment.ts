@@ -16,7 +16,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 export default function buildEnvironment(
   keycloakRef?: KeycloakRef,
   records?: RecordMap,
-  isAdmin?: Boolean
+  isAdmin?: boolean,
 ) {
   const source = new RecordSource(records);
 
@@ -24,7 +24,7 @@ export default function buildEnvironment(
 
   const fetchOperation = async (
     operation: RequestParameters,
-    variables: Variables
+    variables: Variables,
   ) => {
     const headers = getGQLHeaders(keycloakRef, isAdmin);
 
@@ -41,7 +41,7 @@ export default function buildEnvironment(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const fetchQuery: FetchFunction = async (operation, variables, _, __) => {
     return fetchOperation(operation, variables).then((response) =>
-      response.json()
+      response.json(),
     );
   };
 

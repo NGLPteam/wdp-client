@@ -4,11 +4,8 @@
   "description": "Shared components, contexts, and hooks",
   "main": "index.ts",
   "scripts": {
-    "lint": "concurrently -c \"auto\" \"yarn:lint:*\"",
-    "lint:js": "eslint --cache -c .eslintrc.js \"**/*.{ts,tsx}\"",
-    "lint:css": "stylelint --config .stylelintrc.js \"**/*.{ts,tsx}\"",
-    "fix": "concurrently -c \"auto\" \"yarn:fix:*\"",
-    "fix:js": "eslint --cache -c .eslintrc.js \"**/*.{ts,tsx}\" --fix",
+    "lint": "eslint --cache \"**/*.{ts,tsx}\"",
+    "fix": "eslint --cache --fix \"**/*.{ts,tsx}\"",
     "types": "npx tsc --strict -w",
     "depcheck": "depcheck"
   },
@@ -57,6 +54,7 @@
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
-    "depcheck": "^1.4.7"
+    "depcheck": "^1.4.7",
+    "eslint": "^8.57.0"
   }
 }

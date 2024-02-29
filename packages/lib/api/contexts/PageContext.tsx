@@ -16,7 +16,7 @@ const PageContext = createContext<PageContextProps>(initialState);
 function PageContextProvider({ children }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
   const [triggeredRefetchTags, setTriggeredRefetchTags] = useState<QueryTags>(
-    []
+    [],
   );
 
   return (

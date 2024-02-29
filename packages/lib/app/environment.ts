@@ -15,7 +15,7 @@ interface KeycloakRef {
 export default function buildEnvironment(
   keycloakRef?: KeycloakRef,
   records?: RecordMap,
-  isAdmin?: boolean
+  isAdmin?: boolean,
 ) {
   const source = new RecordSource(records);
 

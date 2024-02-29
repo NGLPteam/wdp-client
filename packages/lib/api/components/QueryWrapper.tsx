@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
-import type { QueryOptions } from "relay-hooks";
-import type { GraphQLTaggedNode, OperationType } from "relay-runtime";
+import React, { useState, useEffect } from "react";
 import ErrorPage from "next/error";
 import intersection from "lodash/intersection";
 import isEqual from "lodash/isEqual";
 import { useAuthenticatedQuery, usePageContext } from "../hooks";
 import { usePrevious } from "../../hooks";
 import { QueryStateContext, QueryVariablesContext } from "../contexts";
+import type { GraphQLTaggedNode, OperationType } from "relay-runtime";
+import type { QueryOptions } from "relay-hooks";
 
 export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
   const { query, initialVariables, options, refetchTags } = props;
@@ -15,13 +15,13 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
 
   useEffect(
     () => initialVariables && setVariables(initialVariables),
-    [initialVariables, setVariables]
+    [initialVariables, setVariables],
   );
 
   const { data, error, isLoading, retry } = useAuthenticatedQuery<T>(
     query,
     variables,
-    options
+    options,
   );
 
   const { setLoading: setPageLoading, triggeredRefetchTags } = usePageContext();
@@ -55,7 +55,13 @@ export default function QueryWrapper<T extends OperationType>(props: Props<T>) {
     if (!refetchTagsChanged && !triggeredRefetchTagsChanged) return;
 
     retry();
-  }, [triggeredRefetchTags, refetchTags, retry]);
+  }, [
+    triggeredRefetchTags,
+    refetchTags,
+    retry,
+    previousRefetchTags,
+    previoustriggeredRefetchTags,
+  ]);
 
   useEffect(() => {
     setPageLoading(isLoading);
@@ -106,13 +112,13 @@ interface OnEmptyProps<T extends OperationType> {
 }
 
 type DataRenderer<T extends OperationType> = (
-  props: DataRenderProps<T>
-) => JSX.Element | null;
-type LoadRenderer = () => JSX.Element;
-type ErrorRenderer = (props: { error: Error }) => JSX.Element;
+  props: DataRenderProps<T>,
+) => React.JSX.Element | null;
+type LoadRenderer = () => React.JSX.Element;
+type ErrorRenderer = (props: { error: Error }) => React.JSX.Element;
 type EmptyRenderer<T extends OperationType> = (
-  props: OnEmptyProps<T>
-) => JSX.Element;
+  props: OnEmptyProps<T>,
+) => React.JSX.Element;
 
 interface Props<T extends OperationType> {
   refetchTags?: string[];
@@ -126,10 +132,10 @@ interface Props<T extends OperationType> {
 }
 
 export function useManagedVariables<T extends OperationType>(
-  initialVariables?: T["variables"]
+  initialVariables?: T["variables"],
 ) {
   const [variables, setVariables] = useState<T["variables"]>(
-    initialVariables ?? {}
+    initialVariables ?? {},
   );
 
   return { variables, setVariables };

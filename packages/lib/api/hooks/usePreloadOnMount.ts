@@ -11,7 +11,7 @@ export default function usePreloadOnMount<T extends OperationType>(
   queryRef: PreloadedQuery<T, Record<string, unknown>> | undefined | null,
   loadQuery: (variables: T["variables"], options?: PreloadQueryOptions) => void,
   variables: T["variables"],
-  options?: PreloadQueryOptions
+  options?: PreloadQueryOptions,
 ) {
   useEffect(() => {
     if (!queryRef && loadQuery) loadQuery(variables, options);

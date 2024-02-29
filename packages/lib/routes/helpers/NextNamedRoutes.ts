@@ -47,7 +47,7 @@ class NextNamedRoutes {
   }: BaseRoute): NextNamedRoutes => {
     if (!name || !path) {
       console.error(
-        `Route requires a name and path. name: ${name}, path: ${path}`
+        `Route requires a name and path. name: ${name}, path: ${path}`,
       );
       return this;
     }
@@ -79,7 +79,7 @@ class NextNamedRoutes {
       const rn = this.findRouteByPath(window.location.pathname);
       if (!rn) {
         console.warn(
-          `No route associated with this pathname: ${window.location.pathname}`
+          `No route associated with this pathname: ${window.location.pathname}`,
         );
         return null;
       }
@@ -159,7 +159,7 @@ class NextNamedRoutes {
    */
   private pathnameForParams(
     name: string,
-    params: { [key: string]: string }
+    params: { [key: string]: string },
   ): string {
     const route = this.findRouteByName(name);
     if (!route) {
@@ -198,7 +198,7 @@ class NextNamedRoutes {
 
   static injectParamsIntoPath(
     nextStylePath: string,
-    params: { [key: string]: string }
+    params: { [key: string]: string },
   ): string {
     const identifiers = NextNamedRoutes.identifiersInPath(nextStylePath);
     const pathname = identifiers.reduce((prev, curr) => {
@@ -207,7 +207,7 @@ class NextNamedRoutes {
 
     // Add any search params to the route
     const searchParams = Object.keys(params).filter(
-      (key) => !identifiers.includes(key)
+      (key) => !identifiers.includes(key),
     );
     let searchParamString = "";
     if (searchParams.length > 0) {
@@ -237,7 +237,7 @@ class NextNamedRoutes {
         identifiers.reduce((prev, curr) => {
           return prev.replace(`[${curr}]`, "(?:([^/]+?))");
         }, nextStylePath) +
-        "$"
+        "$",
     );
   }
 
@@ -250,7 +250,7 @@ class NextNamedRoutes {
       "^" +
         identifiers.reduce((prev, curr) => {
           return prev.replace(`[${curr}]`, "(?:([^/]+?))");
-        }, nextStylePath)
+        }, nextStylePath),
     );
   }
 

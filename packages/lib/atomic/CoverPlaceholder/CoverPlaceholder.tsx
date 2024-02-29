@@ -1,9 +1,9 @@
 import { useId } from "react";
 import { mkState, nextT, mkAlea } from "@spissvinkel/alea";
-import type { AleaState } from "@spissvinkel/alea";
 import chunk from "chunk-text";
-import * as Styled from "./CoverPlaceholder.styles";
 import { pxToRem } from "../../theme/functions";
+import * as Styled from "./CoverPlaceholder.styles";
+import type { AleaState } from "@spissvinkel/alea";
 
 export default function CoverPlaceholder({
   seed,
@@ -17,7 +17,7 @@ export default function CoverPlaceholder({
   const nextBool: (state: AleaState) => boolean = nextT((n) => n < 0.5);
   const mkNext0toMax = (
     state: AleaState,
-    max: number
+    max: number,
   ): ((state: AleaState) => number) => nextT((n) => Math.floor(n * max));
 
   const { random } = mkAlea(seed);
