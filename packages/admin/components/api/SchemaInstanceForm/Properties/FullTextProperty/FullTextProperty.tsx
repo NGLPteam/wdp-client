@@ -1,5 +1,5 @@
 import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import { Controller, useFormContext } from "react-hook-form";
 import FullTextInput from "components/forms/FullTextInput";
 import type { FullTextPropertyFragment$key } from "@/relay/FullTextPropertyFragment.graphql";

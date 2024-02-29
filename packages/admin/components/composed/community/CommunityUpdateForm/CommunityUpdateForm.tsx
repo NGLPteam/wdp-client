@@ -1,5 +1,5 @@
 import { graphql, readInlineData } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import pick from "lodash/pick";
 import MutationForm, {
   useRenderForm,

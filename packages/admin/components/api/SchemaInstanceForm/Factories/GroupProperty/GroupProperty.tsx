@@ -1,5 +1,5 @@
 import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { FieldsetSection, FormGrid } from "components/forms";
 import type { GroupPropertyFragment$key } from "@/relay/GroupPropertyFragment.graphql";

@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import { Controller, useFormContext } from "react-hook-form";
 import isFunction from "lodash/isFunction";
 import { Trans } from "react-i18next";
@@ -21,7 +21,7 @@ export default function AssetProperty(props: Props) {
 
   const handleRefetch = useCallback(
     () => (isFunction(refetch) ? refetch({}) : null),
-    [refetch],
+    [refetch]
   );
 
   const slug = useRouteSlug();

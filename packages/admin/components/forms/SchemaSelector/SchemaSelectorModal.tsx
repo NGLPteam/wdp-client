@@ -1,5 +1,5 @@
 import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import Modal from "components/layout/Modal";
 // These API components must use default imports to work
@@ -37,7 +37,7 @@ const SchemaSelectorModal = ({
     (data) => ({
       input: { ...data, entityId, propertyValues: {} },
     }),
-    [],
+    []
   );
 
   const options =
@@ -57,7 +57,7 @@ const SchemaSelectorModal = ({
         {...register("schemaVersionSlug")}
       />
     ),
-    [options],
+    [options]
   );
 
   return (

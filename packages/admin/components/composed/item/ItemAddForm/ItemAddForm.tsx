@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import { useRouter } from "next/router";
 import MutationForm, {
@@ -21,7 +21,7 @@ import type { ItemAddFormFragment$key } from "@/relay/ItemAddFormFragment.graphq
 export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
   const [prevRedirectState, setPrevRedirect] = useLocalStorage(
     "nglp::open_entity_on_save",
-    true,
+    true
   );
   const [redirectOnSuccess, setRedirectOnSuccess] = useState(prevRedirectState);
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -37,7 +37,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
         query: { slug },
       });
     },
-    [router],
+    [router]
   );
 
   const onSuccessWithRedirect = useOnSuccess<ItemAddFormMutation, Fields>(
@@ -56,7 +56,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
       if (response?.createItem?.item)
         redirect(response.createItem.item.slug, routeName);
     },
-    [onSuccess, redirect],
+    [onSuccess, redirect]
   );
   const onSuccessNoRedirect = ({
     response,
@@ -82,7 +82,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
         parentId: formData.item?.id ?? formData.collection?.id ?? "",
       },
     }),
-    [],
+    []
   );
 
   const defaultValues = {
@@ -131,7 +131,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
         </Forms.Checkbox>
       </Forms.Grid>
     ),
-    [],
+    []
   );
   return (
     <MutationForm<ItemAddFormMutation, Fields>

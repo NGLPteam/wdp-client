@@ -1,5 +1,5 @@
 import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import { useFormContext } from "react-hook-form";
 import Switch from "components/forms/Switch";
 import type { BooleanPropertyFragment$key } from "@/relay/BooleanPropertyFragment.graphql";

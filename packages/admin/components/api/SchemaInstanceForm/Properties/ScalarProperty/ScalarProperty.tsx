@@ -1,5 +1,5 @@
 import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 
 import type { ScalarPropertyFragment$key } from "@/relay/ScalarPropertyFragment.graphql";
 

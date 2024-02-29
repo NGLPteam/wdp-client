@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
 import { useManagedVariables } from "@wdp/lib/api/components/QueryWrapper";
 import BaseTypeahead from "components/forms/BaseTypeahead";
@@ -34,7 +34,7 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
       : "ALL") as EntityDescendantScopeFilter,
   });
 
-  const { data, isLoading } = useAuthenticatedQuery<Query>(query, variables, {
+  const data = useAuthenticatedQuery<Query>(query, variables, {
     skip: !variables.query,
   });
 
@@ -56,8 +56,8 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
       const applyKind = selectableTypes?.kinds?.length
         ? results.filter(({ node }) =>
             selectableTypes?.kinds?.includes(
-              node.entity?.__typename?.toUpperCase() ?? "",
-            ),
+              node.entity?.__typename?.toUpperCase() ?? ""
+            )
           )
         : results;
       options = applyKind.map(({ node }) => {
@@ -80,12 +80,12 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
       setValue(val);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [options, setVariables],
+    [options, setVariables]
   );
 
   const handleSelect = (data: Response) => (optionVal: string | number) => {
     const node = data.search.results.edges.find(
-      ({ node }) => node.entity?.id === optionVal,
+      ({ node }) => node.entity?.id === optionVal
     )?.node;
     const entity = node
       ? ({
@@ -109,7 +109,6 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
       onChange={(val) => handleSelectWithData(val)}
       value={value}
       withBrowse
-      isLoading={isLoading}
     />
   );
 };

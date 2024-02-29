@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<eea15663477a0ca645e99ab572491422>>
+ * @generated SignedSource<<763e69906b4d3a79b1ee9e1296c84ec3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,16 +11,16 @@
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type EntityOrder = "OLDEST" | "POSITION_ASCENDING" | "POSITION_DESCENDING" | "PUBLISHED_ASCENDING" | "PUBLISHED_DESCENDING" | "RECENT" | "SCHEMA_NAME_ASCENDING" | "SCHEMA_NAME_DESCENDING" | "TITLE_ASCENDING" | "TITLE_DESCENDING" | "%future added value";
-export type pagesHomeQuery$variables = {
+export type DashboardLayoutQuery$variables = {
   order?: EntityOrder | null | undefined;
   page?: number | null | undefined;
 };
-export type pagesHomeQuery$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"DashboardLayoutFragment">;
+export type DashboardLayoutQuery$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"DashboardCollectionsFragment" | "DashboardInstallationFragment">;
 };
-export type pagesHomeQuery = {
-  response: pagesHomeQuery$data;
-  variables: pagesHomeQuery$variables;
+export type DashboardLayoutQuery = {
+  response: DashboardLayoutQuery$data;
+  variables: DashboardLayoutQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -87,15 +87,20 @@ return {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "pagesHomeQuery",
+    "name": "DashboardLayoutQuery",
     "selections": [
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "DashboardInstallationFragment"
+      },
       {
         "args": [
           (v2/*: any*/),
           (v3/*: any*/)
         ],
         "kind": "FragmentSpread",
-        "name": "DashboardLayoutFragment"
+        "name": "DashboardCollectionsFragment"
       }
     ],
     "type": "Query",
@@ -108,7 +113,7 @@ return {
       (v0/*: any*/)
     ],
     "kind": "Operation",
-    "name": "pagesHomeQuery",
+    "name": "DashboardLayoutQuery",
     "selections": [
       {
         "alias": null,
@@ -397,16 +402,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e7d2d193bd7864accf24033f8b35be12",
+    "cacheID": "38ec997fce46c9c1a7e3266351e3af50",
     "id": null,
     "metadata": {},
-    "name": "pagesHomeQuery",
+    "name": "DashboardLayoutQuery",
     "operationKind": "query",
-    "text": "query pagesHomeQuery(\n  $page: Int\n  $order: EntityOrder\n) {\n  ...DashboardLayoutFragment_1KnpCu\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  storage\n  medium {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment DashboardCollectionsFragment_1KnpCu on Query {\n  viewer {\n    collections(page: $page, order: $order, perPage: 10) {\n      ...DashboardCollectionsListFragment\n    }\n    id\n  }\n}\n\nfragment DashboardCollectionsListFragment on CollectionConnection {\n  nodes {\n    id\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    ...EntityThumbnailColumnFragment\n  }\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment DashboardInstallationFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  contributors {\n    pageInfo {\n      totalCount\n    }\n  }\n  users {\n    pageInfo {\n      totalCount\n    }\n  }\n  viewer {\n    allCollections: collections(nodeFilter: ROOTS_AND_LEAVES) {\n      pageInfo {\n        totalCount\n      }\n    }\n    allItems: items(nodeFilter: ROOTS_AND_LEAVES) {\n      pageInfo {\n        totalCount\n      }\n    }\n    id\n  }\n}\n\nfragment DashboardLayoutFragment_1KnpCu on Query {\n  ...DashboardInstallationFragment\n  ...DashboardCollectionsFragment_1KnpCu\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query DashboardLayoutQuery(\n  $page: Int\n  $order: EntityOrder\n) {\n  ...DashboardInstallationFragment\n  ...DashboardCollectionsFragment_1KnpCu\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  storage\n  medium {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment DashboardCollectionsFragment_1KnpCu on Query {\n  viewer {\n    collections(page: $page, order: $order, perPage: 10) {\n      ...DashboardCollectionsListFragment\n    }\n    id\n  }\n}\n\nfragment DashboardCollectionsListFragment on CollectionConnection {\n  nodes {\n    id\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    ...EntityThumbnailColumnFragment\n  }\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment DashboardInstallationFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  contributors {\n    pageInfo {\n      totalCount\n    }\n  }\n  users {\n    pageInfo {\n      totalCount\n    }\n  }\n  viewer {\n    allCollections: collections(nodeFilter: ROOTS_AND_LEAVES) {\n      pageInfo {\n        totalCount\n      }\n    }\n    allItems: items(nodeFilter: ROOTS_AND_LEAVES) {\n      pageInfo {\n        totalCount\n      }\n    }\n    id\n  }\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "c5e718265464cac72f11799f02caea5f";
+(node as any).hash = "49e10df54d2c69df42719305d8966ba6";
 
 export default node;

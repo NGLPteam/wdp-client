@@ -1,5 +1,5 @@
 import { graphql, readInlineData } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { getDateOnly } from "@wdp/lib/helpers";
 import pick from "lodash/pick";
@@ -44,8 +44,10 @@ export default function ItemUpdateForm({
   const { itemId = "", ...fieldsData } = item;
 
   // eslint-disable-next-line prettier/prettier
-  const { fieldValues: schemaFieldValues, defaultValues: schemaDefaultValues } =
-    useSchemaContext(fieldsData.context);
+  const {
+    fieldValues: schemaFieldValues,
+    defaultValues: schemaDefaultValues,
+  } = useSchemaContext(fieldsData.context);
 
   const schemaProperties = useSchemaProperties(fieldsData);
 
@@ -71,12 +73,12 @@ export default function ItemUpdateForm({
     function (response) {
       const errors = readInlineData<SchemaErrorsFragment$key>(
         schemaErrorsFragment,
-        response[mutationName] ?? null,
+        response[mutationName] ?? null
       );
 
       return !errors?.schemaErrors || errors.schemaErrors.length === 0;
     },
-    [mutationName],
+    [mutationName]
   );
 
   const onFailure = useOnFailure<ItemUpdateFormMutation, Fields>(function ({
@@ -85,19 +87,20 @@ export default function ItemUpdateForm({
   }) {
     const errors = readInlineData<SchemaErrorsFragment$key>(
       schemaErrorsFragment,
-      response[mutationName] ?? null,
+      response[mutationName] ?? null
     );
 
     if (errors?.schemaErrors) {
       const convertedErrors = convertSchemaErrors<SchemaErrors>(
-        errors.schemaErrors,
+        errors.schemaErrors
       );
 
       for (const { path, error } of convertedErrors) {
         setError(path, error);
       }
     }
-  }, []);
+  },
+  []);
 
   const toVariables = useToVariables<ItemUpdateFormMutation, Fields>((data) => {
     const inputValues = pick(data, [
@@ -176,7 +179,7 @@ export default function ItemUpdateForm({
         <SchemaFormFields data={fieldsData} schemaKind="ITEM" />
       </>
     ),
-    [fieldsData],
+    [fieldsData]
   );
 
   return (

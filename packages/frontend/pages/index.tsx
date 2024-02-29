@@ -3,6 +3,7 @@ import { PreloadedQuery } from "react-relay";
 import { QueryLoaderWrapper } from "@wdp/lib/api/components";
 import InstanceContentLayout from "components/composed/instance/InstanceContentLayout";
 import { query } from "components/composed/instance/InstanceContentLayout/InstanceContentLayout";
+import { LoadingPage } from "components/atomic/loading";
 
 import AppLayout from "components/global/AppLayout";
 import {
@@ -30,6 +31,7 @@ export default function HomePage({ initialQueryRef }: Props) {
       <QueryLoaderWrapper<InstanceContentLayoutQuery>
         query={query}
         initialQueryRef={initialQueryRef}
+        loadingFallback={<LoadingPage />}
       >
         {({ queryRef }) =>
           queryRef && (

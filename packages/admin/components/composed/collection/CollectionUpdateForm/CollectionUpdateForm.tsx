@@ -1,5 +1,5 @@
 import { graphql, readInlineData } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import { getDateOnly } from "@wdp/lib/helpers";
 import pick from "lodash/pick";
 import MutationForm, {
@@ -27,8 +27,7 @@ import type {
 } from "@/relay/CollectionUpdateFormMutation.graphql";
 
 // eslint-disable-next-line camelcase, prettier/prettier
-type SchemaErrors =
-  CollectionUpdateForm_schemaErrorsFragment$data["schemaErrors"];
+type SchemaErrors = CollectionUpdateForm_schemaErrorsFragment$data["schemaErrors"];
 
 export default function CollectionUpdateForm({
   data,
@@ -38,7 +37,7 @@ export default function CollectionUpdateForm({
 }: Props) {
   const collection = useFragment<CollectionUpdateFormFragment$key>(
     fragment,
-    data,
+    data
   );
   const { collectionId = "", ...fieldsData } = collection;
 
@@ -51,14 +50,16 @@ export default function CollectionUpdateForm({
     ...values
   } = useFragment<CollectionUpdateFormFieldsFragment$key>(
     fieldsFragment,
-    fieldsData,
+    fieldsData
   );
 
   const mutationName = "updateCollection";
 
   // eslint-disable-next-line prettier/prettier
-  const { fieldValues: schemaFieldValues, defaultValues: schemaDefaultValues } =
-    useSchemaContext(fieldsData.context);
+  const {
+    fieldValues: schemaFieldValues,
+    defaultValues: schemaDefaultValues,
+  } = useSchemaContext(fieldsData.context);
 
   const schemaProperties = useSchemaProperties(fieldsData);
 
@@ -66,24 +67,24 @@ export default function CollectionUpdateForm({
     function (response) {
       const errors = readInlineData<SchemaErrorsFragment$key>(
         schemaErrorsFragment,
-        response[mutationName] ?? null,
+        response[mutationName] ?? null
       );
 
       return !errors?.schemaErrors || errors.schemaErrors.length === 0;
     },
-    [mutationName],
+    [mutationName]
   );
 
   const onFailure = useOnFailure<CollectionUpdateFormMutation, Fields>(
     function ({ response, setError }) {
       const errors = readInlineData<SchemaErrorsFragment$key>(
         schemaErrorsFragment,
-        response[mutationName] ?? null,
+        response[mutationName] ?? null
       );
 
       if (errors?.schemaErrors) {
         const convertedErrors = convertSchemaErrors<SchemaErrors>(
-          errors.schemaErrors,
+          errors.schemaErrors
         );
 
         for (const { path, error } of convertedErrors) {
@@ -91,7 +92,7 @@ export default function CollectionUpdateForm({
         }
       }
     },
-    [],
+    []
   );
 
   const defaultValues = {
@@ -133,7 +134,7 @@ export default function CollectionUpdateForm({
         },
       };
     },
-    [],
+    []
   );
 
   const renderForm = useRenderForm<Fields>(
@@ -180,7 +181,7 @@ export default function CollectionUpdateForm({
         <SchemaFormFields data={fieldsData} schemaKind="COLLECTION" />
       </>
     ),
-    [fieldsData],
+    [fieldsData]
   );
 
   return (
@@ -251,7 +252,7 @@ const mutation = graphql`
 
 const schemaErrorsFragment = graphql`
   fragment CollectionUpdateForm_schemaErrorsFragment on UpdateCollectionPayload
-  @inline {
+    @inline {
     schemaErrors {
       hint
       message
