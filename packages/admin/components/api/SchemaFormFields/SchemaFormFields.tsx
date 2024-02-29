@@ -1,4 +1,4 @@
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import FormGrid from "components/forms/FormGrid";

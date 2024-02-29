@@ -1,5 +1,5 @@
 import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import { Controller, useFormContext } from "react-hook-form";
 import Multiselect from "components/forms/Multiselect";
 import { useSchemaFormFieldsContext } from "components/api/SchemaFormFields/SchemaFormFieldsContext";

@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import Select from "components/forms/Select";
@@ -26,11 +26,11 @@ export default function EntityProperty(props: Props) {
   const handleChange = useCallback(
     (
       e: React.ChangeEvent<HTMLSelectElement>,
-      onChange: (val?: string) => void,
+      onChange: (val?: string) => void
     ) => {
       onChange(e.target.value || undefined);
     },
-    [],
+    []
   );
 
   return (

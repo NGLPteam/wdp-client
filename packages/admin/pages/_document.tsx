@@ -1,5 +1,4 @@
 import * as React from "react";
-import "regenerator-runtime/runtime";
 import Document, {
   Html,
   Head,
@@ -8,13 +7,12 @@ import Document, {
   DocumentContext,
   DocumentInitialProps,
 } from "next/document";
-import { RelayEnvironmentProvider } from "relay-hooks";
-import { SSRCookies } from "@react-keycloak/ssr";
+import { RelayEnvironmentProvider } from "react-relay";
 import RelayServerSSR from "react-relay-network-modern-ssr/lib/server";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 import { ServerStyleSheet, StyleSheetManager } from "styled-components";
 
-import { parseCookies, initialEnvironment } from "@wdp/lib/app";
+import { initialEnvironment } from "@wdp/lib/app";
 import AppBody from "components/global/AppBody";
 
 const FONTS = [
@@ -26,16 +24,13 @@ const FONTS = [
 
 export default class AppDocument extends Document<Props> {
   static async getInitialProps(
-    ctx: DocumentContext,
+    ctx: DocumentContext
   ): Promise<DocumentInitialProps & Props> {
     const sheet = new ServerStyleSheet();
 
-    const cookies = parseCookies(ctx?.req);
-    const ssrCookies = SSRCookies(cookies);
-
     const originalRenderPage = ctx.renderPage;
     const relayServerSSR = new RelayServerSSR();
-    const env = initialEnvironment(relayServerSSR, ssrCookies, ctx, true);
+    const env = initialEnvironment(undefined, undefined, true);
 
     ctx.renderPage = () =>
       originalRenderPage({
@@ -66,7 +61,7 @@ export default class AppDocument extends Document<Props> {
                 {...props}
                 // @ts-expect-error scaffolding
                 records={records}
-              />,
+              />
             );
           },
         });
@@ -104,7 +99,6 @@ export default class AppDocument extends Document<Props> {
           ))}
         </Head>
         <body>
-          <span style={{ display: "none" }}>build-test-admin-1</span>
           <template id="relay-data">
             {Buffer.from(JSON.stringify(this.props.records)).toString("base64")}
           </template>

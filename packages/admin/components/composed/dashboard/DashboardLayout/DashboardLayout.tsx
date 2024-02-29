@@ -1,11 +1,11 @@
-import { graphql, useFragment } from "react-relay";
-import { DashboardLayoutFragment$key } from "@/relay/DashboardLayoutFragment.graphql";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import { DashboardLayoutQuery } from "@/relay/DashboardLayoutQuery.graphql";
 import DashboardInstallation from "../DashboardInstallation";
 import DashboardCollections from "../DashboardCollections";
 import * as Styled from "./DashboardLayout.styles";
 
-export default function DashboardLayout({ data }: Props) {
-  const queryData = useFragment(fragment, data);
+export default function DashboardLayout({ queryRef }: Props) {
+  const queryData = usePreloadedQuery(query, queryRef);
 
   return (
     <Styled.Wrapper>
@@ -16,15 +16,11 @@ export default function DashboardLayout({ data }: Props) {
 }
 
 interface Props {
-  data: DashboardLayoutFragment$key;
+  queryRef: PreloadedQuery<DashboardLayoutQuery>;
 }
 
-const fragment = graphql`
-  fragment DashboardLayoutFragment on Query
-  @argumentDefinitions(
-    page: { type: "Int", defaultValue: 1 }
-    order: { type: "EntityOrder" }
-  ) {
+export const query = graphql`
+  query DashboardLayoutQuery($page: Int, $order: EntityOrder) {
     ...DashboardInstallationFragment
     ...DashboardCollectionsFragment @arguments(page: $page, order: $order)
   }

@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { graphql } from "relay-runtime";
-import { GraphQLTaggedNode } from "react-relay";
+import { GraphQLTaggedNode, graphql } from "react-relay";
 import { debounce } from "lodash";
 import { Controller } from "react-hook-form";
 import useAuthenticatedQuery from "@wdp/lib/api/hooks/useAuthenticatedQuery";
@@ -27,11 +26,11 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
   required,
 }: Props<T>) => {
   const [variables, setVariables] = useState({ slug, title: "" });
-  const { data, isLoading } = useAuthenticatedQuery<Query>(query, variables);
+  const data = useAuthenticatedQuery<Query>(query, variables);
 
   const optionsData = useMaybeFragment<LinkTargetTypeaheadFragment$key>(
     fragment as GraphQLTaggedNode,
-    data?.collection?.linkTargetCandidates || data?.item?.linkTargetCandidates,
+    data?.collection?.linkTargetCandidates || data?.item?.linkTargetCandidates
   );
 
   const options = useMemo(() => {
@@ -65,7 +64,6 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
             options={options}
             disabled={disabled}
             onInputChange={handleChange}
-            isLoading={isLoading}
             required={required}
             {...field}
           />

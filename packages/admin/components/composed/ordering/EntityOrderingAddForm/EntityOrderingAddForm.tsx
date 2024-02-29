@@ -1,6 +1,6 @@
 import * as React from "react";
 import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import MutationForm, {
   useRenderForm,
   useToVariables,
@@ -25,7 +25,7 @@ export default function EntityOrderingAddForm({
 }: Props) {
   const formData = useFragment<EntityOrderingAddFormFragment$key>(
     fragment,
-    data,
+    data
   );
 
   const entity = formData.item ?? formData.collection;
@@ -63,7 +63,7 @@ export default function EntityOrderingAddForm({
 
       return { input };
     },
-    [],
+    []
   );
 
   const defaultValues = {
@@ -106,7 +106,7 @@ export default function EntityOrderingAddForm({
         </Forms.Grid>
       );
     },
-    [entity],
+    [entity]
   );
 
   return (

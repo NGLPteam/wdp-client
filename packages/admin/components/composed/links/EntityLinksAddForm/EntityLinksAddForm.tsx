@@ -1,4 +1,4 @@
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import MutationForm, {
@@ -23,12 +23,12 @@ export default function EntityLinksAddForm({
 
   const sourceEntity = useFragment<EntityLinksAddFormFragment$key>(
     fragment,
-    data,
+    data
   );
 
   const toVariables = useToVariables<EntityLinksAddFormMutation, Fields>(
     (data) => ({ input: { ...data, sourceId: sourceEntity.id || "" } }),
-    [],
+    []
   );
 
   const renderForm = useRenderForm<Fields>(
@@ -55,7 +55,7 @@ export default function EntityLinksAddForm({
         />
       </Forms.Grid>
     ),
-    [],
+    []
   );
 
   return (

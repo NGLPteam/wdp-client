@@ -1,6 +1,4 @@
-import "focus-visible";
-
-import { Fragment } from "react";
+import { Suspense } from "react";
 import Head from "next/head";
 import { SSRKeycloakProvider, SSRCookies } from "@react-keycloak/ssr";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
@@ -73,7 +71,7 @@ const NGLPApp = ({
   const getLayout = Component.getLayout || defaultLayout;
 
   return (
-    <Fragment>
+    <>
       <Head>
         <title>WDP Admin</title>
         <meta
@@ -87,16 +85,18 @@ const NGLPApp = ({
           <AppContextProvider>
             <AppBody>
               <Toast />
-              {getLayout({
-                PageComponent: Component,
-                pageComponentProps: pageProps,
-              })}
+              <Suspense fallback={<LoadingPage />}>
+                {getLayout({
+                  PageComponent: Component,
+                  pageComponentProps: pageProps,
+                })}
+              </Suspense>
               <DrawerController />
             </AppBody>
           </AppContextProvider>
         </KeycloakRelayProvider>
       </SSRKeycloakProvider>
-    </Fragment>
+    </>
   );
 };
 

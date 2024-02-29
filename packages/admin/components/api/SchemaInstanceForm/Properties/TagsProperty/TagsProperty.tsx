@@ -1,5 +1,5 @@
 import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import { Controller, useFormContext } from "react-hook-form";
 import TagsInput from "components/forms/TagsInput";
 import type { TagsPropertyFragment$key } from "@/relay/TagsPropertyFragment.graphql";

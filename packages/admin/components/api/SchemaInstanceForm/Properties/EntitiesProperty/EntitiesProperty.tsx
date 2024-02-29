@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import Multiselect from "components/forms/Multiselect";

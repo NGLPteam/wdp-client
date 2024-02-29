@@ -1,5 +1,5 @@
 import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment } from "react-relay";
 import MutationForm, {
   Forms,
   useRenderForm,
@@ -18,7 +18,7 @@ type MutationFormProps = React.ComponentProps<typeof MutationForm>;
 const UserProfileUpdateForm = ({ data, onSuccess, onCancel }: Props) => {
   const fieldData = useFragment<UserProfileUpdateFormFragment$key>(
     fragment,
-    data,
+    data
   );
 
   const toVariables = useToVariables<Mutation, Fields>(
@@ -33,7 +33,7 @@ const UserProfileUpdateForm = ({ data, onSuccess, onCancel }: Props) => {
         ...data,
       },
     }),
-    [],
+    []
   );
 
   const renderForm = useRenderForm<Fields>(
@@ -65,7 +65,7 @@ const UserProfileUpdateForm = ({ data, onSuccess, onCancel }: Props) => {
         />
       </Forms.Grid>
     ),
-    [],
+    []
   );
 
   const defaultValues = {
