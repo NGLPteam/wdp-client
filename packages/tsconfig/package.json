@@ -1,0 +1,18 @@
+{
+  "name": "@wdp/tsconfig",
+  "version": "0.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "engines": {
+    "node": "20.x"
+  },
+  "scripts": {
+    "depcheck": "depcheck"
+  },
+  "devDependencies": {
+    "depcheck": "^1.4.7"
+  }
+}
