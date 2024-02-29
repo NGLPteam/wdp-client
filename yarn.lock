@@ -3335,6 +3335,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/types@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@yarnpkg/types@npm:4.0.0"
+  dependencies:
+    tslib: "npm:^2.4.0"
+  checksum: 10c0/41f67a4aa5c414c1e228f51453451fa15e0dd70c5cf2b1ae1ca142a3f018f25e4a37e60372cd0f5970c755e1804a2e31e208bff427add1cf13f899b0b9adc1e0
+  languageName: node
+  linkType: hard
+
 "abbrev@npm:1":
   version: 1.1.1
   resolution: "abbrev@npm:1.1.1"
@@ -12364,6 +12373,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "wdp@workspace:."
   dependencies:
+    "@yarnpkg/types": "npm:^4.0.0"
     concurrently: "npm:^8.2.2"
     install: "npm:^0.13.0"
   languageName: unknown
