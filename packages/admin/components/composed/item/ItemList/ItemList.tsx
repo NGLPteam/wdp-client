@@ -1,11 +1,11 @@
-import { graphql } from "react-relay";
-import { useLatestPresentValue } from "@wdp/lib/hooks";
 import {
-  useMaybeFragment,
-  useDestroyer,
-  useDrawerHelper,
-  useSearchQueryVars,
-} from "hooks";
+  graphql,
+  usePreloadedQuery,
+  PreloadedQuery,
+  useFragment,
+} from "react-relay";
+import { useLatestPresentValue } from "@wdp/lib/hooks";
+import { useDestroyer, useDrawerHelper, useSearchQueryVars } from "hooks";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
@@ -19,23 +19,23 @@ import {
   ItemListSearchFragment$key,
 } from "@/relay/ItemListSearchFragment.graphql";
 import type { ModelTableActionProps } from "@tanstack/react-table";
-import type { OperationType } from "relay-runtime";
+import { ItemListQuery } from "@/relay/ItemListQuery.graphql";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function ItemList<T extends OperationType>({
-  data,
-  searchData,
-  headerStyle,
-  hideHeader,
-}: ItemListProps) {
-  const items = useMaybeFragment<ItemListFragment$key>(fragment, data);
+function ItemList({ queryRef, headerStyle, hideHeader }: ItemListProps) {
+  const {
+    viewer: { items },
+    search,
+  } = usePreloadedQuery<ItemListQuery>(query, queryRef);
 
-  const { current: memoizedData } = useLatestPresentValue(items);
+  const itemsData = useFragment<ItemListFragment$key>(fragment, items);
 
-  const searchScope = useMaybeFragment<ItemListSearchFragment$key>(
+  const { current: memoizedData } = useLatestPresentValue(itemsData);
+
+  const searchScope = useFragment<ItemListSearchFragment$key>(
     searchFragment,
-    searchData,
+    search
   );
 
   const { current: memoizedSearch } = useLatestPresentValue(searchScope);
@@ -76,7 +76,7 @@ function ItemList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.item(
         { itemId: row.original.entity?.id || row.original.id },
-        row.original.entity?.title || row.original.title || "glossary.item",
+        row.original.entity?.title || row.original.title || "glossary.item"
       ),
     handleView: ({ row }: ModelTableActionProps<Node>) =>
       row.original.slug
@@ -85,7 +85,7 @@ function ItemList<T extends OperationType>({
   };
 
   return (
-    <ModelListPage<T, ListFragment, Node>
+    <ModelListPage<ListFragment, Node>
       modelName="item"
       actions={actions}
       columns={columns}
@@ -106,8 +106,7 @@ function ItemList<T extends OperationType>({
 
 interface ItemListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  data?: ItemListFragment$key | null;
-  searchData?: ItemListSearchFragment$key | null;
+  queryRef: PreloadedQuery<ItemListQuery>;
 }
 
 type ListFragment =
@@ -121,6 +120,34 @@ type ItemSearchNode = NonNullable<
 >["nodes"][number];
 
 type Node = ItemNode & ItemSearchNode;
+
+export const query = graphql`
+  query ItemListQuery(
+    $query: String
+    $page: Int!
+    $predicates: [SearchPredicateInput!]
+    $order: EntityOrder
+    $hasQuery: Boolean!
+    $schema: [String!]
+  ) {
+    viewer {
+      items(order: $order, page: $page, perPage: 20) @skip(if: $hasQuery) {
+        ...ItemListFragment
+      }
+    }
+    search(visibility: ALL) {
+      ...ItemListSearchFragment
+        @arguments(
+          query: $query
+          page: $page
+          predicates: $predicates
+          order: $order
+          hasQuery: $hasQuery
+          schema: $schema
+        )
+    }
+  }
+`;
 
 const fragment = graphql`
   fragment ItemListFragment on ItemConnection {
@@ -149,14 +176,14 @@ const fragment = graphql`
 
 const searchFragment = graphql`
   fragment ItemListSearchFragment on SearchScope
-  @argumentDefinitions(
-    query: { type: "String", defaultValue: "" }
-    page: { type: "Int", defaultValue: 1 }
-    predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
-    order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
-    hasQuery: { type: "Boolean!" }
-    schema: { type: "[String!]", defaultValue: [] }
-  ) {
+    @argumentDefinitions(
+      query: { type: "String", defaultValue: "" }
+      page: { type: "Int", defaultValue: 1 }
+      predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
+      order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
+      hasQuery: { type: "Boolean!" }
+      schema: { type: "[String!]", defaultValue: [] }
+    ) {
     results(
       query: $query
       page: $page

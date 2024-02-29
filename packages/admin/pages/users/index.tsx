@@ -1,25 +1,21 @@
-import { graphql } from "relay-runtime";
-import { usersQuery as Query } from "__generated__/usersQuery.graphql";
-import { QueryWrapper } from "components/api";
+import { QueryLoaderWrapper } from "@wdp/lib/api/components";
 import UserList from "components/composed/user/UserList";
 import { useBaseListQueryVars } from "hooks";
+import { query } from "components/composed/user/UserList/UserList";
+import { UserListQuery } from "@/relay/UserListQuery.graphql";
+import { LoadingPage } from "components/atomic";
 
 export default function UserListView() {
   const queryVars = useBaseListQueryVars();
 
   return (
-    <QueryWrapper<Query> query={query} initialVariables={queryVars}>
-      {({ data }) => {
-        return <UserList<Query> data={data?.users} />;
-      }}
-    </QueryWrapper>
+    <QueryLoaderWrapper<UserListQuery>
+      query={query}
+      variables={queryVars}
+      subscribeIds={["User"]}
+      loadingFallback={<LoadingPage />}
+    >
+      {({ queryRef }) => queryRef && <UserList queryRef={queryRef} />}
+    </QueryLoaderWrapper>
   );
 }
-
-const query = graphql`
-  query usersQuery($order: UserOrder, $page: Int!) {
-    users(order: $order, page: $page, perPage: 20) {
-      ...UserListFragment
-    }
-  }
-`;

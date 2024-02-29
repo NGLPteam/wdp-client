@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import { OperationType } from "relay-runtime";
 import { Connectionish } from "types/graphql-helpers";
 import { NoResultsMessage } from "components/atomic";
 import ModelTable from "components/composed/model/ModelTable";
@@ -12,19 +11,17 @@ import type { UseModelListProps } from "components/composed/model/ModelList/hook
 import type { PaginatedConnectionish } from "components/composed/model/ModelListPage";
 
 export interface ModelListProps<
-  T extends OperationType,
   U extends PaginatedConnectionish | Connectionish,
-  V extends Record<string, unknown>,
-> extends UseModelListProps<T, U, V> {
+  V extends Record<string, unknown>
+> extends UseModelListProps<U, V> {
   view: ViewOptions;
   modelName: Lowercase<ModelNames>;
   listId?: string;
 }
 
 function ModelList<
-  T extends OperationType,
   U extends PaginatedConnectionish | Connectionish,
-  V extends Record<string, unknown>,
+  V extends Record<string, unknown>
 >({
   modelName,
   selectable = false,
@@ -34,7 +31,7 @@ function ModelList<
   actions,
   disableSortBy,
   listId,
-}: ModelListProps<T, U, V>) {
+}: ModelListProps<U, V>) {
   const { t } = useTranslation();
   const title = modelName ? t(modelName, { count: 2 }) : "";
 
@@ -42,7 +39,7 @@ function ModelList<
 
   // We can also retrieve `selection` from useModelList if we need it, which we eventually
   // will.
-  const { modelGridOrTableProps } = useModelList<T, U, V>({
+  const { modelGridOrTableProps } = useModelList<U, V>({
     columns,
     actions,
     data,

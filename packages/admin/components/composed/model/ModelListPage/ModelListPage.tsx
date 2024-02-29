@@ -1,7 +1,6 @@
 import { graphql } from "react-relay";
 import startCase from "lodash/startCase";
 import { useTranslation } from "react-i18next";
-import { OperationType } from "relay-runtime";
 import { useId } from "react";
 import { Connectionish } from "types/graphql-helpers";
 import ModelList from "components/composed/model/ModelList";
@@ -24,10 +23,9 @@ type HeaderProps = React.ComponentProps<typeof PageHeader>;
 export type PaginatedConnectionish = Connectionish & ModelListPageFragment$key;
 
 type ModelListPageProps<
-  T extends OperationType,
   U extends PaginatedConnectionish,
-  V extends Record<string, unknown> = Record<string, unknown>,
-> = Omit<ModelListProps<T, U, V>, "view"> &
+  V extends Record<string, unknown> = Record<string, unknown>
+> = Omit<ModelListProps<U, V>, "view"> &
   Pick<ModelListActionsProps, "viewOptions"> &
   Pick<HeaderProps, "headerStyle" | "hideHeader"> & {
     buttons?: React.ReactNode;
@@ -38,9 +36,8 @@ type ModelListPageProps<
   };
 
 function ModelListPage<
-  T extends OperationType,
   U extends PaginatedConnectionish,
-  V extends Record<string, unknown>,
+  V extends Record<string, unknown>
 >({
   modelName,
   buttons,
@@ -53,7 +50,7 @@ function ModelListPage<
   data,
   searchData,
   ...modelListProps
-}: ModelListPageProps<T, U, V>) {
+}: ModelListPageProps<U, V>) {
   const { t } = useTranslation();
 
   const instance = useMaybeFragment<U>(fragment, data);
@@ -61,7 +58,7 @@ function ModelListPage<
   const searchScope = useMaybeFragment(searchFragment, searchData);
 
   const [selectedView, setView] = useViewPreference(
-    `nglp::${modelName}.listView`,
+    `nglp::${modelName}.listView`
   );
 
   const isMobile = useIsMobile();
@@ -99,7 +96,7 @@ function ModelListPage<
       />
       {searchScope && <CurrentSearchFilters data={searchScope} />}
       <ModelPageCountActions data={instance} />
-      <ModelList<T, U, V>
+      <ModelList<U, V>
         {...modelListProps}
         data={data}
         modelName={modelName}

@@ -18,7 +18,7 @@ type Order = EntityOrder & ContributorOrder & SimpleOrder;
  * @returns ViewerContext state
  */
 export default function useBaseListQueryVars(
-  { defaultOrder }: Props = { defaultOrder: "RECENT" },
+  { defaultOrder }: Props = { defaultOrder: "RECENT" }
 ): {
   page: number;
   order?: Order;
@@ -26,6 +26,8 @@ export default function useBaseListQueryVars(
   const router = useRouter();
   const page = parseInt(get(router, "query.page", 1) as string);
   const order = (get(router, "query.order") || defaultOrder) as Order;
+
+  console.log(router.query);
 
   return { page, order };
 }

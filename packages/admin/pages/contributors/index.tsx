@@ -1,7 +1,8 @@
-import { graphql } from "relay-runtime";
-import { QueryWrapper } from "components/api";
-import { contributorsQuery as Query } from "__generated__/contributorsQuery.graphql";
+import { QueryLoaderWrapper } from "@wdp/lib/api/components";
+import { ContributorListQuery as Query } from "@/relay/ContributorListQuery.graphql";
 import { useContributorQueryVars } from "hooks";
+import { query } from "components/composed/contributor/ContributorList/ContributorList";
+import { LoadingPage } from "components/atomic/loading";
 
 import ContributorList from "components/composed/contributor/ContributorList";
 
@@ -9,24 +10,12 @@ export default function ContributorListView() {
   const contributorSearchVars = useContributorQueryVars();
 
   return (
-    <QueryWrapper<Query>
+    <QueryLoaderWrapper<Query>
       query={query}
-      refetchTags={["contributors"]}
-      initialVariables={{ ...contributorSearchVars }}
+      variables={{ ...contributorSearchVars }}
+      loadingFallback={<LoadingPage />}
     >
-      {({ data }) => <ContributorList<Query> data={data?.contributors} />}
-    </QueryWrapper>
+      {({ queryRef }) => queryRef && <ContributorList queryRef={queryRef} />}
+    </QueryLoaderWrapper>
   );
 }
-
-const query = graphql`
-  query contributorsQuery(
-    $order: ContributorOrder
-    $page: Int!
-    $query: String
-  ) {
-    contributors(order: $order, page: $page, perPage: 20, prefix: $query) {
-      ...ContributorListFragment
-    }
-  }
-`;
