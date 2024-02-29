@@ -20,7 +20,7 @@ export const QueryVariablesContextProvider = ({
   initialVariables: Variables;
 }) => {
   const [queryVariables, setQueryVariables] = useState<Variables>(
-    initialVariables ?? {}
+    initialVariables ?? {},
   );
 
   return (

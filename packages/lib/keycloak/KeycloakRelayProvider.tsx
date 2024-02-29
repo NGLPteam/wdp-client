@@ -1,9 +1,9 @@
 import { useKeycloak } from "@react-keycloak/ssr";
-import type { KeycloakInstance } from "keycloak-js";
 import { RelayEnvironmentProvider } from "react-relay";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 import useEnvironment from "../app/initialEnvironment";
 import { useLatest } from "../hooks";
+import type { KeycloakInstance } from "keycloak-js";
 
 export default function KeycloakRelayProvider({
   children,

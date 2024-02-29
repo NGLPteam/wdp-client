@@ -27,5 +27,5 @@ interface PreloadQueryRenderProps<T extends OperationType> {
 }
 
 export type PreloadQueryRenderer<T extends OperationType> = (
-  props: PreloadQueryRenderProps<T>
-) => JSX.Element | null;
+  props: PreloadQueryRenderProps<T>,
+) => React.JSX.Element | null;

@@ -4,7 +4,7 @@ export default function encodeSvg(
   reactElement: React.ReactElement<
     Record<string, unknown>,
     string | React.JSXElementConstructor<Record<string, unknown>>
-  >
+  >,
 ) {
   return (
     "data:image/svg+xml," +

@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import { RecordSource } from "relay-runtime";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
-import buildEnvironment from "./buildEnvironment";
 import { Environment } from "react-relay";
+import buildEnvironment from "./buildEnvironment";
 
 import type { KeycloakRef } from "../types/keycloak";
 
@@ -11,7 +11,7 @@ let relayEnvironment: Environment;
 export default function initEnvironment(
   keycloakRef?: KeycloakRef,
   initialRecords?: RecordMap,
-  isAdmin?: Boolean
+  isAdmin?: boolean,
 ) {
   // Create a network layer from the fetch function
   const environment =
@@ -33,11 +33,11 @@ export default function initEnvironment(
 export function useEnvironment(
   keycloakRef?: KeycloakRef,
   initialRecords?: RecordMap,
-  isAdmin?: Boolean
+  isAdmin?: boolean,
 ) {
   const store = useMemo(
     () => initEnvironment(keycloakRef, initialRecords, isAdmin),
-    [keycloakRef, initialRecords]
+    [keycloakRef, initialRecords, isAdmin],
   );
   return store;
 }

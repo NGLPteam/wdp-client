@@ -9,8 +9,8 @@ import {
 import { usePreloadOnMount } from "../hooks";
 import { QueryOptions } from "../hooks/useAuthenticatedQuery";
 import { RelayRecordSubscribeProvider } from "../contexts";
-import type { OperationType } from "relay-runtime";
 import ErrorFallback from "./ErrorFallback";
+import type { OperationType } from "relay-runtime";
 
 interface Props<T extends OperationType> {
   query: OperationType | GraphQLTaggedNode;
@@ -43,10 +43,10 @@ export default function QueryLoaderWrapper<T extends OperationType>({
     (props?: ReloadQueryProps) => {
       loadQuery(
         { ...variables },
-        { fetchPolicy: "store-and-network", ...props?.options }
+        { fetchPolicy: "store-and-network", ...props?.options },
       );
     },
-    [loadQuery, variables]
+    [loadQuery, variables],
   );
 
   /** Reload the query on variable changes */
@@ -89,5 +89,5 @@ interface PreloadQueryRenderProps<T extends OperationType> {
 }
 
 export type PreloadQueryRenderer<T extends OperationType> = (
-  props: PreloadQueryRenderProps<T>
-) => JSX.Element | null | undefined;
+  props: PreloadQueryRenderProps<T>,
+) => React.JSX.Element | null | undefined;

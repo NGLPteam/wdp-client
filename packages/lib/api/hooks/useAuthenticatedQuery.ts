@@ -19,12 +19,11 @@ export type QueryOptions = {
 };
 
 export default function useAuthenticatedQuery<
-  T extends OperationType = OperationType
+  T extends OperationType = OperationType,
 >(gqlQuery: GraphQLTaggedNode, variables = {}, options?: QueryOptions) {
   const fetchKey = useAuthenticatedFetchKey();
 
   const proxiedOptions: QueryOptions = { fetchKey, ...options };
 
-  // eslint-disable-next-line relay/generated-flow-types
   return useLazyLoadQuery<T>(gqlQuery, variables, proxiedOptions);
 }

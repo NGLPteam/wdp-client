@@ -54,7 +54,7 @@ function LazyLoadQueryWrapperInner<T extends OperationType>({
     if (onCompleted) {
       onCompleted(data, variables);
     }
-  }, [data, variables]);
+  }, [data, variables, onCompleted]);
 
   return <>{isFunction(children) ? children({ data }) : children}</>;
 }

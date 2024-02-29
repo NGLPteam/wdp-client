@@ -2,10 +2,9 @@ import { useTranslation } from "react-i18next";
 
 interface Props {
   error?: Error;
-  resetErrorBoundary?: () => void;
 }
 
-const ErrorFallback = ({ error, resetErrorBoundary }: Props) => {
+const ErrorFallback = ({ error }: Props) => {
   const { t } = useTranslation();
 
   return (
