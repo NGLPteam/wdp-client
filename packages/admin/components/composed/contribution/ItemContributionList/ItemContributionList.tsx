@@ -1,4 +1,3 @@
-import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import {
@@ -21,7 +20,7 @@ import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function ItemContributionList<T extends OperationType>({
+function ItemContributionList({
   data,
   headerStyle,
   nameColumn = "item",
@@ -29,7 +28,7 @@ function ItemContributionList<T extends OperationType>({
 }: ItemContributionListProps) {
   const itemContributions = useMaybeFragment<ItemContributionListFragment$key>(
     fragment,
-    data,
+    data
   );
   const drawerHelper = useDrawerHelper();
   const destroy = useDestroyer();
@@ -58,12 +57,13 @@ function ItemContributionList<T extends OperationType>({
     },
   };
 
-  const contributorNameColumn =
-    ModelColumns.ContributorNameColumn<ItemContributionNode>({
-      accessorFn: (row: ItemContributionNode) => {
-        return row?.contributor;
-      },
-    });
+  const contributorNameColumn = ModelColumns.ContributorNameColumn<
+    ItemContributionNode
+  >({
+    accessorFn: (row: ItemContributionNode) => {
+      return row?.contributor;
+    },
+  });
 
   const columns = [
     nameColumn === "item" ? collectionNameColumn : contributorNameColumn,
@@ -82,7 +82,7 @@ function ItemContributionList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<ItemContributionNode>) =>
       destroy.contribution(
         { contributionId: row.original.id },
-        "glossary.contribution",
+        "glossary.contribution"
       ),
   };
 
@@ -99,7 +99,7 @@ function ItemContributionList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, ItemContributionListFragment$data, ItemContributionNode>
+    <ModelListPage<ItemContributionListFragment$data, ItemContributionNode>
       modelName={onContributor ? "item_contribution" : "item_contributor"}
       columns={columns}
       actions={actions}

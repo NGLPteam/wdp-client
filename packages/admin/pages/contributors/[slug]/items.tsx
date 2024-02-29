@@ -1,26 +1,46 @@
-import { graphql } from "relay-runtime";
-
-import ContributorLayoutQuery from "components/composed/contributor/ContributorLayoutQuery";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import ContributorLayout from "components/composed/contributor/ContributorLayout";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import ItemContributionList from "components/composed/contribution/ItemContributionList";
 import type { itemsSlugContributorsPagesQuery as Query } from "@/relay/itemsSlugContributorsPagesQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
+import { LoadingCircle } from "components/atomic";
+import ErrorPage from "next/error";
+import { useRouteSlug, useBaseListQueryVars } from "hooks";
 
-function ContributorItemContributions({ data }: Props) {
-  return (
-    <ItemContributionList<Query>
-      data={data?.contributor?.itemContributions}
-      headerStyle="secondary"
-    />
-  );
+function ContributorItemContributions({ queryRef, ...layoutProps }: Props) {
+  const { contributor } = usePreloadedQuery<Query>(query, queryRef);
+
+  return contributor ? (
+    <ContributorLayout {...layoutProps} data={contributor}>
+      <ItemContributionList
+        data={contributor?.itemContributions}
+        headerStyle="secondary"
+      />
+    </ContributorLayout>
+  ) : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
+  const queryVars = useBaseListQueryVars();
+  const contributorSlug = useRouteSlug();
+
+  if (!contributorSlug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
+
   return (
-    <ContributorLayoutQuery<Query, Props>
+    <QueryTransitionWrapper<Query>
       query={query}
-      {...props}
-      refetchTags={["contributions"]}
-    />
+      variables={{ ...queryVars, contributorSlug }}
+      loadingFallback={<LoadingCircle />}
+    >
+      {({ queryRef }) =>
+        queryRef && (
+          <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        )
+      }
+    </QueryTransitionWrapper>
   );
 };
 ContributorItemContributions.getLayout = getLayout;
@@ -28,7 +48,7 @@ ContributorItemContributions.getLayout = getLayout;
 export default ContributorItemContributions;
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
 };
 
 const query = graphql`
@@ -39,7 +59,7 @@ const query = graphql`
   ) {
     contributor(slug: $contributorSlug) {
       __typename
-      ...ContributorLayoutQueryFragment
+      ...ContributorLayoutFragment
       ... on OrganizationContributor {
         itemContributions(page: $page, perPage: 20, order: $order) {
           ...ItemContributionListFragment
