@@ -32,7 +32,7 @@
     "@types/cookie": "^0.6.0",
     "@uppy/core": "^1.20.1",
     "@uppy/tus": "^1.9.2",
-    "@wdp/lib": "1.0.0",
+    "@wdp/lib": "workspace:^",
     "chunk-text": "^2.0.1",
     "concurrently": "^8.2.2",
     "cookie": "^0.6.0",
