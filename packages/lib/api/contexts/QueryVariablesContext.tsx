@@ -1,5 +1,5 @@
-import React, { createContext } from "react";
-import type { OperationType } from "relay-runtime";
+import React, { createContext, useState } from "react";
+import type { OperationType, Variables } from "relay-runtime";
 
 interface VariablesContextType {
   queryVariables?: OperationType["variables"];
@@ -11,3 +11,23 @@ interface VariablesContextType {
 const QueryVariablesContext = createContext<VariablesContextType>({});
 
 export default QueryVariablesContext;
+
+export const QueryVariablesContextProvider = ({
+  children,
+  initialVariables,
+}: {
+  children: React.ReactNode;
+  initialVariables: Variables;
+}) => {
+  const [queryVariables, setQueryVariables] = useState<Variables>(
+    initialVariables ?? {}
+  );
+
+  return (
+    <QueryVariablesContext.Provider
+      value={{ queryVariables, setQueryVariables }}
+    >
+      {children}
+    </QueryVariablesContext.Provider>
+  );
+};

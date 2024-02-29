@@ -1,8 +1,9 @@
-import { graphql } from "relay-runtime";
 import { useSearchQueryVars } from "hooks";
-import { QueryWrapper } from "components/api";
+import { QueryLoaderWrapper } from "@wdp/lib/api/components";
 import ItemList from "components/composed/item/ItemList";
-import { itemsQuery as Query } from "__generated__/itemsQuery.graphql";
+import { ItemListQuery as Query } from "@/relay/ItemListQuery.graphql";
+import { LoadingPage } from "components/atomic";
+import { query } from "components/composed/item/ItemList/ItemList";
 
 export default function ItemListView() {
   const searchQueryVars = useSearchQueryVars();
@@ -12,47 +13,12 @@ export default function ItemListView() {
     (!!searchQueryVars?.predicates && searchQueryVars.predicates.length > 0);
 
   return (
-    <QueryWrapper<Query>
+    <QueryLoaderWrapper<Query>
       query={query}
-      initialVariables={{ ...searchQueryVars, hasQuery }}
-      refetchTags={["items"]}
+      variables={{ ...searchQueryVars, hasQuery }}
+      loadingFallback={<LoadingPage />}
     >
-      {({ data }) => {
-        return (
-          <ItemList<Query>
-            data={data?.viewer?.items}
-            searchData={data?.search}
-          />
-        );
-      }}
-    </QueryWrapper>
+      {({ queryRef }) => queryRef && <ItemList queryRef={queryRef} />}
+    </QueryLoaderWrapper>
   );
 }
-
-const query = graphql`
-  query itemsQuery(
-    $query: String
-    $page: Int!
-    $predicates: [SearchPredicateInput!]
-    $order: EntityOrder
-    $hasQuery: Boolean!
-    $schema: [String!]
-  ) {
-    viewer {
-      items(order: $order, page: $page, perPage: 20) @skip(if: $hasQuery) {
-        ...ItemListFragment
-      }
-    }
-    search(visibility: ALL) {
-      ...ItemListSearchFragment
-        @arguments(
-          query: $query
-          page: $page
-          predicates: $predicates
-          order: $order
-          hasQuery: $hasQuery
-          schema: $schema
-        )
-    }
-  }
-`;

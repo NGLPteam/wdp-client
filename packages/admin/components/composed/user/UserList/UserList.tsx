@@ -1,25 +1,19 @@
-import { graphql } from "react-relay";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { useDrawerHelper, useMaybeFragment } from "hooks";
-
+import { useDrawerHelper } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import type {
-  UserListFragment$data,
-  UserListFragment$key,
-} from "@/relay/UserListFragment.graphql";
+  UserListQuery$data,
+  UserListQuery,
+} from "@/relay/UserListQuery.graphql";
 import type { ModelTableActionProps } from "@tanstack/react-table";
-import type { OperationType } from "relay-runtime";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function UserList<T extends OperationType>({
-  data,
-  headerStyle,
-  hideHeader,
-}: UserListProps) {
-  const users = useMaybeFragment<UserListFragment$key>(fragment, data);
+function UserList({ queryRef, headerStyle, hideHeader }: UserListProps) {
+  const { users } = usePreloadedQuery<UserListQuery>(query, queryRef);
 
   const { t } = useTranslation();
   const drawerHelper = useDrawerHelper();
@@ -42,7 +36,7 @@ function UserList<T extends OperationType>({
   };
 
   return (
-    <ModelListPage<T, UserListFragment$data, UserNode>
+    <ModelListPage<UserListQuery$data["users"], UserNode>
       modelName="user"
       columns={columns}
       data={users}
@@ -55,23 +49,25 @@ function UserList<T extends OperationType>({
 
 interface UserListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  data?: UserListFragment$key;
+  queryRef: PreloadedQuery<UserListQuery>;
 }
 
-type UserNode = UserListFragment$data["nodes"][number];
+type UserNode = UserListQuery$data["users"]["nodes"][number];
 
-const fragment = graphql`
-  fragment UserListFragment on UserConnection {
-    nodes {
-      email
-      globalAdmin
-      name
-      slug
-      createdAt
-      updatedAt
-      ...UserNameColumnFragment
+export const query = graphql`
+  query UserListQuery($order: UserOrder, $page: Int!) {
+    users(order: $order, page: $page, perPage: 20) {
+      nodes {
+        email
+        globalAdmin
+        name
+        slug
+        createdAt
+        updatedAt
+        ...UserNameColumnFragment
+      }
+      ...ModelListPageFragment
     }
-    ...ModelListPageFragment
   }
 `;
 

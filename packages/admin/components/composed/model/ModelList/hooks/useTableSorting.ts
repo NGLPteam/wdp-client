@@ -1,8 +1,9 @@
 import { useState, useEffect, useMemo } from "react";
 import { useQueryVariablesContext } from "@wdp/lib/api/hooks";
 import { useRouter } from "next/router";
-import { mapSortBy, reverseMapSortBy } from "../helpers/mapSortBy";
+import { mapSortBy, reverseMapSortBy, Orders } from "../helpers/mapSortBy";
 import type { ColumnSort, SortingState } from "@tanstack/react-table";
+import get from "lodash/get";
 
 export default function useTableSorting() {
   const router = useRouter();
@@ -10,13 +11,12 @@ export default function useTableSorting() {
   const { setQueryVariables, queryVariables } = useQueryVariablesContext();
 
   const initialSortBy = useMemo(() => {
-    const order =
-      queryVariables && queryVariables.order
-        ? reverseMapSortBy(queryVariables.order)
-        : undefined;
+    const order = get(router, "query.order")
+      ? reverseMapSortBy(get(router, "query.order") as Orders)
+      : undefined;
 
     return order ? ([order] as ColumnSort[]) : [];
-  }, [queryVariables]);
+  }, []);
 
   const [sorting, setSorting] = useState<SortingState>(initialSortBy);
 
@@ -40,7 +40,7 @@ export default function useTableSorting() {
         undefined,
         {
           shallow: true,
-        },
+        }
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

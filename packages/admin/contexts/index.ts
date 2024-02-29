@@ -1,7 +1,4 @@
-export {
-  QueryStateContext,
-  QueryVariablesContext,
-} from "@wdp/lib/api/contexts";
+export { QueryStateContext } from "@wdp/lib/api/contexts";
 export {
   default as PageContext,
   PageContextProvider,
@@ -13,3 +10,4 @@ export {
 } from "./ViewerContext";
 export { default as useGlobalContext } from "./useGlobalContext";
 export { default as useViewerContext } from "./useViewerContext";
+export { default as QueryVariablesContextProvider } from "./QueryVariables";

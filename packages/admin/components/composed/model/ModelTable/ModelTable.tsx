@@ -32,7 +32,7 @@ function ModelTable<U extends Record<string, unknown>>({
       selectable={selectable}
       showCheckboxes={someRowsSelected || allRowsSelected}
     >
-      {queryState.completed && (
+      {true && (
         <Table.Header<U>
           {...{
             selectable,
@@ -43,7 +43,7 @@ function ModelTable<U extends Record<string, unknown>>({
           }}
         />
       )}
-      <Table.Body loading={!queryState.completed} rows={rows} />
+      <Table.Body loading={false} rows={rows} />
     </Table>
   );
 }
