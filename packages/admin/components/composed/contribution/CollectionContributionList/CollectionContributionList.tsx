@@ -17,11 +17,10 @@ import type {
 } from "@/relay/CollectionContributionListFragment.graphql";
 import CreateContributionButton from "../CreateContributionButton";
 import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
-import type { OperationType } from "relay-runtime";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function CollectionContributionList<T extends OperationType>({
+function CollectionContributionList({
   data,
   headerStyle,
   nameColumn = "collection",
@@ -35,8 +34,9 @@ function CollectionContributionList<T extends OperationType>({
   const onContributor = nameColumn !== "contributor";
 
   /* eslint-disable max-len */
-  const collectionContributions =
-    useMaybeFragment<CollectionContributionListFragment$key>(fragment, data);
+  const collectionContributions = useMaybeFragment<
+    CollectionContributionListFragment$key
+  >(fragment, data);
   /* eslint-enable max-len */
 
   const collectionNameColumn = {
@@ -62,12 +62,13 @@ function CollectionContributionList<T extends OperationType>({
     },
   };
 
-  const contributorNameColumn =
-    ModelColumns.ContributorNameColumn<CollectionContributionNode>({
-      accessorFn: (row: CollectionContributionNode) => {
-        return row?.contributor;
-      },
-    });
+  const contributorNameColumn = ModelColumns.ContributorNameColumn<
+    CollectionContributionNode
+  >({
+    accessorFn: (row: CollectionContributionNode) => {
+      return row?.contributor;
+    },
+  });
 
   const columns = [
     nameColumn === "collection" ? collectionNameColumn : contributorNameColumn,
@@ -88,7 +89,7 @@ function CollectionContributionList<T extends OperationType>({
     }: ModelTableActionProps<CollectionContributionNode>) =>
       destroy.contribution(
         { contributionId: row.original.id },
-        "glossary.contribution",
+        "glossary.contribution"
       ),
   };
 
@@ -106,7 +107,6 @@ function CollectionContributionList<T extends OperationType>({
 
   return (
     <ModelListPage<
-      T,
       CollectionContributionListFragment$data,
       CollectionContributionNode
     >
@@ -129,8 +129,7 @@ interface CollectionContributionListProps
   nameColumn?: "collection" | "contributor";
 }
 
-type CollectionContributionNode =
-  CollectionContributionListFragment$data["nodes"][number];
+type CollectionContributionNode = CollectionContributionListFragment$data["nodes"][number];
 
 const fragment = graphql`
   fragment CollectionContributionListFragment on CollectionContributionConnection {
