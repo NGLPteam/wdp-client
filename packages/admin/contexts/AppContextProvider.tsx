@@ -2,7 +2,11 @@
 
 import { graphql } from "react-relay";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
-import { PageContextProvider, ViewerContextProvider } from "contexts";
+import {
+  PageContextProvider,
+  ViewerContextProvider,
+  QueryVariablesContextProvider,
+} from "contexts";
 import { AppContextProviderQuery as Query } from "@/relay/AppContextProviderQuery.graphql";
 import { GlobalContextProvider } from "./GlobalContext";
 
@@ -12,7 +16,11 @@ const AppContextProvider = ({ children }: Props) => {
   return (
     <GlobalContextProvider data={data}>
       <ViewerContextProvider data={data}>
-        <PageContextProvider>{children}</PageContextProvider>
+        <PageContextProvider>
+          <QueryVariablesContextProvider>
+            {children}
+          </QueryVariablesContextProvider>
+        </PageContextProvider>
       </ViewerContextProvider>
     </GlobalContextProvider>
   );
