@@ -2,14 +2,12 @@
   "name": "@wdp/admin",
   "version": "0.1.0",
   "private": true,
-  "sideEffects": false,
   "engines": {
     "node": "20.x"
   },
   "scripts": {
-    "dev": "NODE_OPTIONS='--max-old-space-size=4096' next dev -p 3000",
+    "dev": "next dev -p 3000",
     "build": "next build",
-    "start": "next start -p $PORT",
     "relay": "relay-compiler",
     "schema": "graphql-codegen",
     "lint": "eslint --cache \"**/*.{js,ts,tsx}\"",

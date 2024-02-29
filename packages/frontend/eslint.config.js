@@ -1,3 +1,3 @@
-const config = require("@wdp/eslint-config");
+const config = require("@wdp/eslint");
 
 module.exports = config;

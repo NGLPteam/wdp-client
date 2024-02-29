@@ -4,7 +4,7 @@
     "packages/admin",
     "packages/frontend",
     "packages/lib",
-    "packages/common/*"
+    "packages/eslint"
   ],
   "cacheDirectories": [
     "node_modules",
@@ -12,7 +12,7 @@
     "packages/admin/.next/cache",
     "packages/frontend/node_modules",
     "packages/frontend/.next/cache",
-    "packages/common/eslint-config/node_modules",
+    "packages/eslint/node_modules",
     "packages/lib/node_modules"
   ],
   "version": "1.0.0",
@@ -35,7 +35,7 @@
     "lint": "concurrently -c \"auto\" \"yarn:lint:*\"",
     "lint:frontend": "yarn workspace @wdp/frontend run lint",
     "lint:admin": "yarn workspace @wdp/admin run lint",
-    "lint:lib": "yarn workspace @wdp/eslint-config run lint",
+    "lint:lib": "yarn workspace @wdp/lib run lint",
     "fix": "concurrently -c \"auto\" \"yarn:fix:*\"",
     "fix:frontend": "yarn workspace @wdp/frontend run fix",
     "fix:admin": "yarn workspace @wdp/admin run fix",
@@ -63,7 +63,6 @@
   "homepage": "https://github.com/nglpteam/wdp-client#readme",
   "devDependencies": {
     "@yarnpkg/types": "^4.0.0",
-    "concurrently": "^8.2.2",
-    "install": "^0.13.0"
+    "concurrently": "^8.2.2"
   }
 }

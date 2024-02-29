@@ -4,6 +4,6 @@ ignores: [
    # ignore depcheck!
    "depcheck",
 
-   "@wdp/eslint-config"
+   "@wdp/eslint"
 
 ]

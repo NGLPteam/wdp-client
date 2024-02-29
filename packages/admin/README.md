@@ -3,8 +3,8 @@
 ## Development Environment
 
 ```sh
-npm install
-npm run dev # to start dev client
+yarn install
+yarn run dev # to start dev client
 ```
 
 That's it! Now go to http://localhost:3000/
@@ -25,10 +25,9 @@ The components are separated out into these folders:
 - `/auth/` - Shared authentication components
 - `/composed/` - Larger, reusable composed components such as page layouts. Can be tied to api data structures.
 - `/factories/` - Mapped components with shared props, such as icons
+- `/form/` - Form atomics and scaffolding
 - `/layout/` - Small reusable layout components such as grids and cards
 - `/global/` - Composed, app wide components, that are visible on every page
-- `/scaffolding/` - A temp folder for the original scaffolding components
-- `/views/` - Composed components specific to routes. These components can fetch data.
 - `/svgs/` - Svgs, such as icons and logos
 
 Folders are lower case if they contain a collection of components, and camel case if they contain one component or a component with parent/child relationships. Components can be grouped into sub folders, ie `/atomic/buttons/` and `/composed/entities/`, but further nesting should be avoided.
@@ -39,13 +38,10 @@ Folders that contain many components should have an `index.ts` file with default
 components/global/Header
 index.tsx // Exports the component
 Header.tsx // Defines the component
-Header.stories.tsx // Storybook file
 styles.ts // Styled components
 ```
 
 ### Browser support
-
-We fully support the current release of all evergreen browsers (defined in `browserslist` property in `client/package.json`).
 
 - Edge (Chromium latest)
 - Firefox (Windows and OSX)

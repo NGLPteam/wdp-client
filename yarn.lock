@@ -3070,9 +3070,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@wdp/eslint-config@workspace:packages/common/eslint-config":
+"@wdp/eslint@workspace:packages/eslint":
   version: 0.0.0-use.local
-  resolution: "@wdp/eslint-config@workspace:packages/common/eslint-config"
+  resolution: "@wdp/eslint@workspace:packages/eslint"
   dependencies:
     "@eslint/js": "npm:^8.57.0"
     "@graphql-eslint/eslint-plugin": "npm:^3.20.1"
@@ -3083,7 +3083,6 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-config-next: "npm:14.1.0"
     eslint-config-prettier: "npm:^9.1.0"
-    eslint-plugin-cypress: "npm:^2.15.1"
     eslint-plugin-import: "npm:^2.29.1"
     eslint-plugin-jsx-a11y: "npm:^6.8.0"
     eslint-plugin-prettier: "npm:^5.1.3"
@@ -5229,17 +5228,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-cypress@npm:^2.15.1":
-  version: 2.15.1
-  resolution: "eslint-plugin-cypress@npm:2.15.1"
-  dependencies:
-    globals: "npm:^13.20.0"
-  peerDependencies:
-    eslint: ">= 3.2.1"
-  checksum: 10c0/f404adf415ef6b986d3480397a26eb73976a9156bbf786f2d22b8df28bbf0e50d4b3c699caefd230f0de9d6e8850596ab1bcc471b173aede05373d2a5ae3c624
-  languageName: node
-  linkType: hard
-
 "eslint-plugin-import@npm:^2.28.1, eslint-plugin-import@npm:^2.29.1":
   version: 2.29.1
   resolution: "eslint-plugin-import@npm:2.29.1"
@@ -6036,7 +6024,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:^13.19.0, globals@npm:^13.20.0":
+"globals@npm:^13.19.0":
   version: 13.24.0
   resolution: "globals@npm:13.24.0"
   dependencies:
@@ -6736,13 +6724,6 @@ __metadata:
     through: "npm:^2.3.6"
     wrap-ansi: "npm:^6.0.1"
   checksum: 10c0/eb5724de1778265323f3a68c80acfa899378cb43c24cdcb58661386500e5696b6b0b6c700e046b7aa767fe7b4823c6f04e6ddc268173e3f84116112529016296
-  languageName: node
-  linkType: hard
-
-"install@npm:^0.13.0":
-  version: 0.13.0
-  resolution: "install@npm:0.13.0"
-  checksum: 10c0/364d7d1e9404ff7ae3015dee7266b4ffb0e2aae348474b7ffd3e42fcbb78b37e29848e18ca94f93166f6ddb248be0f775fbed87cc92dafb018c289a86d010cf1
   languageName: node
   linkType: hard
 
@@ -11285,7 +11266,6 @@ __metadata:
   dependencies:
     "@yarnpkg/types": "npm:^4.0.0"
     concurrently: "npm:^8.2.2"
-    install: "npm:^0.13.0"
   languageName: unknown
   linkType: soft
 
