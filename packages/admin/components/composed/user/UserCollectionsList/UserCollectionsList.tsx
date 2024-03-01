@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
-import { OperationType } from "relay-runtime";
 import {
   useDestroyer,
   useDrawerHelper,
@@ -20,10 +19,10 @@ import {
 } from "@/relay/UserCollectionsListFragment.graphql";
 import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 
-const UserCollectionsList = <T extends OperationType>({ data }: Props) => {
+const UserCollectionsList = ({ data }: Props) => {
   const communities = useMaybeFragment<UserCollectionsListFragment$key>(
     fragment,
-    data,
+    data
   );
 
   const { t } = useTranslation();
@@ -82,7 +81,7 @@ const UserCollectionsList = <T extends OperationType>({ data }: Props) => {
             roleId: role.id,
             userId: user.id,
           },
-          "glossary.access",
+          "glossary.access"
         );
       }
 
@@ -103,7 +102,7 @@ const UserCollectionsList = <T extends OperationType>({ data }: Props) => {
   );
 
   return communities ? (
-    <ModelListPage<T, UserCollectionsListFragment$data, Node>
+    <ModelListPage<UserCollectionsListFragment$data, Node>
       modelName="role"
       columns={columns}
       data={communities}

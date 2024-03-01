@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7dbccb621ba2d581addbf3f999cb6789>>
+ * @generated SignedSource<<3cc387455437e85f018e142fe6ff5cb6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,7 @@ export type detailsManageSlugUsersPagesQuery$variables = {
 };
 export type detailsManageSlugUsersPagesQuery$data = {
   readonly user: {
-    readonly " $fragmentSpreads": FragmentRefs<"UserLayoutQueryFragment" | "UserUpdateFormFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"UserLayoutFragment" | "UserUpdateFormFragment">;
   } | null | undefined;
 };
 export type detailsManageSlugUsersPagesQuery = {
@@ -61,7 +61,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "UserLayoutQueryFragment"
+            "name": "UserLayoutFragment"
           }
         ],
         "storageKey": null
@@ -193,16 +193,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c76de6c75f44dbc038b36db123d9c3a4",
+    "cacheID": "a22d81b8bd614808c6984664c99edd3a",
     "id": null,
     "metadata": {},
     "name": "detailsManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query detailsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    ...UserUpdateFormFragment\n    ...UserLayoutQueryFragment\n    id\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
+    "text": "query detailsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    ...UserUpdateFormFragment\n    ...UserLayoutFragment\n    id\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "e4ba1bba5cf1d5bc10f33b9595fa2b63";
+(node as any).hash = "23b0891b5c9454ab259afa703bd2d022";
 
 export default node;

@@ -1,9 +1,4 @@
-import {
-  graphql,
-  usePreloadedQuery,
-  PreloadedQuery,
-  useFragment,
-} from "react-relay";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { QueryLoaderWrapper } from "@wdp/lib/api/components";
 import ContributorUpdateForm from "components/composed/contributor/ContributorUpdateForm";
 import { LoadingCircle } from "components/atomic";
