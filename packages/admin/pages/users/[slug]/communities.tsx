@@ -1,24 +1,48 @@
-import { graphql } from "relay-runtime";
-import UserLayoutQuery from "components/composed/user/UserLayoutQuery";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import { QueryLoaderWrapper } from "@wdp/lib/api/components";
 import UserCommunitiesList from "components/composed/user/UserCommunitiesList";
 import type { communitiesManageSlugUsersPagesQuery as Query } from "@/relay/communitiesManageSlugUsersPagesQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
+import { useRouteSlug, useBaseListQueryVars } from "hooks";
+import UserLayout from "components/composed/user/UserLayout";
+import ErrorPage from "next/error";
+import { LoadingCircle } from "components/atomic";
 
-function UserCommunities({ data }: Props) {
-  return (
-    <UserCommunitiesList<Query> data={data?.user?.communityAccessGrants} />
-  );
+function UserCommunities({ queryRef, ...layoutProps }: Props) {
+  const { user } = usePreloadedQuery<Query>(query, queryRef);
+
+  return user ? (
+    <UserLayout {...layoutProps} data={user}>
+      <UserCommunitiesList data={user.communityAccessGrants} />
+    </UserLayout>
+  ) : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
+  const queryVars = useBaseListQueryVars();
+  const userSlug = useRouteSlug();
+
+  if (!userSlug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
+
   return (
-    <UserLayoutQuery<Query, Props>
-      showSidebar
+    <QueryLoaderWrapper<Query>
       query={query}
-      {...props}
-      useRouteHeader={false}
-      refetchTags={["allAccessGrants"]}
-    />
+      variables={{ ...queryVars, userSlug }}
+      loadingFallback={<LoadingCircle />}
+    >
+      {({ queryRef }) =>
+        queryRef && (
+          <PageComponent
+            {...pageComponentProps}
+            queryRef={queryRef}
+            showSidebar
+            useRouteHeader={false}
+          />
+        )
+      }
+    </QueryLoaderWrapper>
   );
 };
 UserCommunities.getLayout = getLayout;
@@ -26,7 +50,9 @@ UserCommunities.getLayout = getLayout;
 export default UserCommunities;
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
+  showSidebar: true;
+  useRouteHeader: false;
 };
 
 const query = graphql`
@@ -36,7 +62,7 @@ const query = graphql`
     $page: Int!
   ) {
     user(slug: $userSlug) {
-      ...UserLayoutQueryFragment
+      ...UserLayoutFragment
       communityAccessGrants(order: $order, page: $page, perPage: 20) {
         ...UserCommunitiesListFragment
       }
