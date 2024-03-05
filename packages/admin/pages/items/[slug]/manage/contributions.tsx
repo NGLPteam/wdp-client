@@ -1,43 +1,78 @@
-import { graphql } from "relay-runtime";
-
-import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import ItemContributionList from "components/composed/contribution/ItemContributionList";
 import type { contributionsManageSlugItemsQuery as Query } from "@/relay/contributionsManageSlugItemsQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
+import ErrorPage from "next/error";
+import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
+import { AuthContextProvider } from "contexts/AuthContext";
+import { LoadingCircle } from "components/atomic";
+import ItemLayout from "components/composed/item/ItemLayout";
 
-function ManageContributions({ data }: Props) {
-  return (
-    <ItemContributionList<Query>
-      nameColumn="contributor"
-      data={data?.item?.contributions}
-      headerStyle="secondary"
-    />
-  );
+function ManageContributions({ queryRef, ...layoutProps }: Props) {
+  const { item } = usePreloadedQuery<Query>(query, queryRef);
+
+  return item ? (
+    <AuthContextProvider data={item}>
+      <ItemLayout data={item} {...layoutProps}>
+        <ItemContributionList
+          nameColumn="contributor"
+          data={item.contributions}
+          headerStyle="secondary"
+        />
+      </ItemLayout>
+    </AuthContextProvider>
+  ) : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
+  const queryVars = useBaseListQueryVars();
+  const searchQueryVars = useSearchQueryVars();
+
+  const itemSlug = useRouteSlug();
+  if (!itemSlug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
+
   return (
-    <ItemLayoutQuery<Query, Props>
-      useRouteHeader={false}
-      showSidebar
+    <QueryTransitionWrapper<Query>
       query={query}
-      refetchTags={["contributions"]}
-      {...props}
-    />
+      variables={{
+        ...queryVars,
+        ...searchQueryVars,
+        itemSlug,
+      }}
+      loadingFallback={<LoadingCircle />}
+    >
+      {({ queryRef }) =>
+        queryRef && (
+          <PageComponent
+            {...pageComponentProps}
+            queryRef={queryRef}
+            showSidebar
+            useRouteHeader={false}
+          />
+        )
+      }
+    </QueryTransitionWrapper>
   );
 };
+
 ManageContributions.getLayout = getLayout;
 
 export default ManageContributions;
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
+  showSidebar: true;
+  useRouteHeader: false;
 };
 
 const query = graphql`
   query contributionsManageSlugItemsQuery($itemSlug: Slug!, $page: Int!) {
     item(slug: $itemSlug) {
-      ...ItemLayoutQueryFragment
+      ...ItemLayoutFragment
+      ...AuthContextFragment
       contributions(page: $page, perPage: 20) {
         ...ItemContributionListFragment
       }
