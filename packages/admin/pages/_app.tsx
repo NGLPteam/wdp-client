@@ -19,6 +19,7 @@ import { updateI18n } from "../i18n";
 import type { Page } from "@wdp/lib/types/page";
 import type { KeycloakInitOptions } from "keycloak-js";
 import type { AppProps, AppContext } from "next/app";
+import { useSearchQueryVars } from "hooks";
 
 const NGLPApp = ({
   Component,
@@ -66,7 +67,10 @@ const NGLPApp = ({
   }: {
     PageComponent: typeof Component;
     pageComponentProps: typeof pageProps;
-  }) => <PageComponent {...pageComponentProps} />;
+  }) => {
+    useSearchQueryVars();
+    return <PageComponent {...pageComponentProps} />;
+  };
 
   const getLayout = Component.getLayout || defaultLayout;
 

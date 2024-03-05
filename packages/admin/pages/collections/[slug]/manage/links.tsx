@@ -1,39 +1,70 @@
-import { graphql } from "relay-runtime";
-
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import EntityLinksList from "components/composed/links/EntityLinksList";
-import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
 import type { linksManageCollectionsPagesQuery as Query } from "@/relay/linksManageCollectionsPagesQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
+import ErrorPage from "next/error";
+import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
+import { AuthContextProvider } from "contexts/AuthContext";
+import { LoadingPage } from "components/atomic";
+import CollectionLayout from "components/composed/collection/CollectionLayout";
 
-function CollectionLinks({ data }: Props) {
-  if (!data || !data.collection) return null;
-  return (
-    <EntityLinksList<Query> data={data.collection} headerStyle="secondary" />
-  );
+function CollectionLinks({ queryRef, ...layoutProps }: Props) {
+  const { collection } = usePreloadedQuery<Query>(query, queryRef);
+
+  return collection ? (
+    <AuthContextProvider data={collection}>
+      <CollectionLayout data={collection} {...layoutProps}>
+        <EntityLinksList data={collection} headerStyle="secondary" />
+      </CollectionLayout>
+    </AuthContextProvider>
+  ) : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
+  const queryVars = useBaseListQueryVars();
+  const searchQueryVars = useSearchQueryVars();
+
+  const collectionSlug = useRouteSlug();
+
+  if (!collectionSlug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
+
   return (
-    <CollectionLayoutQuery<Query, Props>
-      showSidebar
+    <QueryTransitionWrapper<Query>
       query={query}
-      useRouteHeader={false}
-      refetchTags={["links"]}
-      {...props}
-    />
+      variables={{ ...queryVars, ...searchQueryVars, collectionSlug }}
+      loadingFallback={<LoadingPage />}
+    >
+      {({ queryRef }) =>
+        queryRef && (
+          <PageComponent
+            {...pageComponentProps}
+            queryRef={queryRef}
+            showSidebar
+            useRouteHeader={false}
+          />
+        )
+      }
+    </QueryTransitionWrapper>
   );
 };
+
 CollectionLinks.getLayout = getLayout;
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
+  showSidebar: true;
+  useRouteHeader: false;
 };
 
 const query = graphql`
   query linksManageCollectionsPagesQuery($collectionSlug: Slug!, $page: Int!) {
     collection(slug: $collectionSlug) {
-      ...CollectionLayoutQueryFragment
+      ...CollectionLayoutFragment
       ...EntityLinksListFragment
+      ...AuthContextFragment
     }
   }
 `;

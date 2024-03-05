@@ -18,11 +18,10 @@ import type {
   EntityLinksListDataFragment$key,
 } from "@/relay/EntityLinksListDataFragment.graphql";
 import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
-import type { OperationType } from "relay-runtime";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function EntityLinksList<T extends OperationType>({
+function EntityLinksList({
   data,
   headerStyle,
   hideHeader,
@@ -33,11 +32,11 @@ function EntityLinksList<T extends OperationType>({
   /* eslint-disable max-len */
   const sourceEntity = useMaybeFragment<EntityLinksListFragment$key>(
     fragment,
-    data,
+    data
   );
   const linksData = useMaybeFragment<EntityLinksListDataFragment$key>(
     linksFragment,
-    sourceEntity?.links,
+    sourceEntity?.links
   );
   /* eslint-enable max-len */
 
@@ -97,12 +96,12 @@ function EntityLinksList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<EntityLinksNode>) =>
       destroy.link(
         { entityLinkId: row.original.id },
-        row.original.target.title || "glossary.link",
+        row.original.target.title || "glossary.link"
       ),
   };
 
   return (
-    <ModelListPage<T, EntityLinksListDataFragment$data, EntityLinksNode>
+    <ModelListPage<EntityLinksListDataFragment$data, EntityLinksNode>
       modelName={"link"}
       columns={columns}
       actions={actions}
