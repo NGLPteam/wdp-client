@@ -1,5 +1,5 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import { QueryLoaderWrapper } from "@wdp/lib/api/components";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import UserCommunitiesList from "components/composed/user/UserCommunitiesList";
 import type { communitiesManageSlugUsersPagesQuery as Query } from "@/relay/communitiesManageSlugUsersPagesQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
@@ -27,7 +27,7 @@ const getLayout: GetLayout<Props> = (props) => {
   const { PageComponent, pageComponentProps } = props;
 
   return (
-    <QueryLoaderWrapper<Query>
+    <QueryTransitionWrapper<Query>
       query={query}
       variables={{ ...queryVars, userSlug }}
       loadingFallback={<LoadingCircle />}
@@ -42,7 +42,7 @@ const getLayout: GetLayout<Props> = (props) => {
           />
         )
       }
-    </QueryLoaderWrapper>
+    </QueryTransitionWrapper>
   );
 };
 UserCommunities.getLayout = getLayout;
