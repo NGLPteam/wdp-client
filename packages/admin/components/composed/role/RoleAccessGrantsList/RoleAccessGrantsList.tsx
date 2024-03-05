@@ -1,5 +1,4 @@
-import { GraphQLTaggedNode } from "react-relay";
-import { graphql, OperationType } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import {
   useDestroyer,
@@ -22,7 +21,7 @@ import type { ModelTableActionProps } from "@tanstack/react-table";
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 // Lists user access on any type of entity
-function RoleAccessGrantsList<T extends OperationType>({
+function RoleAccessGrantsList({
   data,
   headerStyle,
   hideHeader,
@@ -30,12 +29,12 @@ function RoleAccessGrantsList<T extends OperationType>({
   entityType,
 }: RoleAccessGrantsListProps) {
   const entity = useMaybeFragment<RoleAccessGrantsListFragment$key>(
-    fragment as GraphQLTaggedNode,
-    data,
+    fragment,
+    data
   );
   const roles = useMaybeFragment<RoleAccessGrantsListDataFragment$key>(
-    listDataFragment as GraphQLTaggedNode,
-    entity?.allAccessGrants,
+    listDataFragment,
+    entity?.allAccessGrants
   );
 
   const { t } = useTranslation();
@@ -80,7 +79,7 @@ function RoleAccessGrantsList<T extends OperationType>({
             roleId: role.id,
             userId: user.id,
           },
-          "glossary.access",
+          "glossary.access"
         );
       }
 
@@ -89,7 +88,7 @@ function RoleAccessGrantsList<T extends OperationType>({
   };
 
   return (
-    <ModelListPage<T, RoleAccessGrantsListDataFragment$data, Node>
+    <ModelListPage<RoleAccessGrantsListDataFragment$data, Node>
       modelName="role"
       columns={columns}
       data={roles}

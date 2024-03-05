@@ -1,4 +1,3 @@
-import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
@@ -16,7 +15,7 @@ type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 // Lists user access on any type of entity
 // entityType must be collection, item, or community for proper labelling
-function RoleAccessList<T extends OperationType>({
+function RoleAccessList({
   data,
   headerStyle,
   hideHeader,
@@ -44,7 +43,7 @@ function RoleAccessList<T extends OperationType>({
           {t(
             entityType === "community"
               ? "actions.add.member"
-              : "actions.add.access",
+              : "actions.add.access"
           )}
         </ButtonControlDrawer>
         <Link
@@ -61,7 +60,7 @@ function RoleAccessList<T extends OperationType>({
             {t(
               `actions.${
                 router.query.inherited ? "hide" : "show"
-              }.inherited_roles`,
+              }.inherited_roles`
             )}
           </ButtonControl>
         </Link>
@@ -77,9 +76,9 @@ function RoleAccessList<T extends OperationType>({
         hideHeader={hideHeader}
       />
       {router.query.inherited ? (
-        <RoleAssignedUsersList<T> data={entity} hideHeader={true} />
+        <RoleAssignedUsersList data={entity} hideHeader={true} />
       ) : (
-        <RoleAccessGrantsList<T>
+        <RoleAccessGrantsList
           data={entity}
           entityType={entityType}
           hideHeader={true}
