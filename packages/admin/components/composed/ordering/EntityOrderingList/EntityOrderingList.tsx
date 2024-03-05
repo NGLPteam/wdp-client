@@ -1,6 +1,6 @@
 import { GraphQLTaggedNode } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { OperationType, graphql } from "relay-runtime";
+import { graphql } from "relay-runtime";
 import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
 import { PageHeader } from "components/layout";
 import ModelListPage from "components/composed/model/ModelListPage";
@@ -17,11 +17,7 @@ import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function EntityOrderingList<T extends OperationType>({
-  data,
-  headerStyle,
-  hideHeader,
-}: Props) {
+function EntityOrderingList({ data, headerStyle, hideHeader }: Props) {
   const { t } = useTranslation();
 
   const destroy = useDestroyer();
@@ -33,14 +29,12 @@ function EntityOrderingList<T extends OperationType>({
   /* Get the order data */
   const sourceEntity = useMaybeFragment<EntityOrderingListFragment$key>(
     fragment as GraphQLTaggedNode,
-    data,
+    data
   );
 
-  const collectionOrderings =
-    useMaybeFragment<EntityOrderingListDataFragment$key>(
-      orderingsfragment as GraphQLTaggedNode,
-      sourceEntity?.orderings,
-    );
+  const collectionOrderings = useMaybeFragment<
+    EntityOrderingListDataFragment$key
+  >(orderingsfragment as GraphQLTaggedNode, sourceEntity?.orderings);
 
   /* Set the table columns */
   const columns = [
@@ -70,14 +64,14 @@ function EntityOrderingList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       destroy.ordering(
         { orderingId: row.original.id },
-        row.original.name || "glossary.ordering",
+        row.original.name || "glossary.ordering"
       ),
     hideDelete: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       row.original.inheritedFromSchema,
     handleDisable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       destroy.ordering(
         { orderingId: row.original.id },
-        row.original.name || "glossary.ordering",
+        row.original.name || "glossary.ordering"
       ),
     hideDisable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       !row.original.inheritedFromSchema || row.original.disabled,
@@ -90,7 +84,7 @@ function EntityOrderingList<T extends OperationType>({
       resetOrdering(
         { orderingId: row.original.id },
         row.original.name || "glossary.ordering",
-        ["orderings"],
+        ["orderings"]
       );
     },
     hideEnable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
@@ -115,7 +109,7 @@ function EntityOrderingList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, EntityOrderingListDataFragment$data, EntityOrderingNode>
+    <ModelListPage<EntityOrderingListDataFragment$data, EntityOrderingNode>
       modelName="ordering"
       columns={columns}
       data={collectionOrderings}
@@ -127,8 +121,7 @@ function EntityOrderingList<T extends OperationType>({
   );
 }
 
-type EntityOrderingNode =
-  EntityOrderingListDataFragment$data["edges"][number]["node"];
+type EntityOrderingNode = EntityOrderingListDataFragment$data["edges"][number]["node"];
 
 interface Props extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
   data?: EntityOrderingListFragment$key;

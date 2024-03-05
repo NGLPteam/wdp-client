@@ -11,11 +11,10 @@ import type {
   SearchResultListFragment$key,
 } from "@/relay/SearchResultListFragment.graphql";
 import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
-import type { OperationType } from "relay-runtime";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function SearchResultList<T extends OperationType>({
+function SearchResultList({
   data,
   headerStyle,
   hideHeader,
@@ -24,7 +23,7 @@ function SearchResultList<T extends OperationType>({
 
   const searchScope = useMaybeFragment<SearchResultListFragment$key>(
     fragment,
-    data,
+    data
   );
 
   const drawerHelper = useDrawerHelper();
@@ -71,7 +70,7 @@ function SearchResultList<T extends OperationType>({
         row?.original?.entity?.schemaVersion?.kind === "COLLECTION"
           ? "editCollection"
           : "editItem",
-        { drawerSlug: row.original.entity.slug },
+        { drawerSlug: row.original.entity.slug }
       ),
     handleView: ({ row }: ModelTableActionProps<Node>) =>
       row.original.entity.slug
@@ -84,7 +83,7 @@ function SearchResultList<T extends OperationType>({
   };
 
   return (
-    <ModelListPage<T, SearchResultListFragment$data["results"], Node>
+    <ModelListPage<SearchResultListFragment$data["results"], Node>
       modelName="item"
       header={
         <Trans
@@ -117,13 +116,13 @@ type Node = SearchResultListFragment$data["results"]["nodes"][number];
 
 const fragment = graphql`
   fragment SearchResultListFragment on SearchScope
-  @argumentDefinitions(
-    query: { type: "String", defaultValue: "" }
-    page: { type: "Int", defaultValue: 1 }
-    predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
-    order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
-    schema: { type: "[String!]", defaultValue: [] }
-  ) {
+    @argumentDefinitions(
+      query: { type: "String", defaultValue: "" }
+      page: { type: "Int", defaultValue: 1 }
+      predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
+      order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
+      schema: { type: "[String!]", defaultValue: [] }
+    ) {
     results(
       query: $query
       page: $page

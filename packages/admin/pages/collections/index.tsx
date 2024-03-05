@@ -1,11 +1,12 @@
+import { usePreloadedQuery, graphql, PreloadedQuery } from "react-relay";
 import CollectionList from "components/composed/collection/CollectionList";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
-import { CollectionListQuery as Query } from "@/relay/CollectionListQuery.graphql";
-import { useSearchQueryVars } from "hooks";
-import { query } from "components/composed/collection/CollectionList/CollectionList";
+import { useSearchQueryVars, useBaseListQueryVars } from "hooks";
 import { LoadingPage } from "components/atomic/loading";
+import { collectionsListQuery as Query } from "@/relay/collectionsListQuery.graphql";
 
 export default function CollectionListView() {
+  const queryVars = useBaseListQueryVars();
   const searchQueryVars = useSearchQueryVars();
 
   const hasQuery =
@@ -15,11 +16,51 @@ export default function CollectionListView() {
   return (
     <QueryTransitionWrapper<Query>
       query={query}
-      variables={{ ...searchQueryVars, hasQuery }}
+      variables={{ ...queryVars, ...searchQueryVars, hasQuery }}
       subscribeIds={["Collection"]}
       loadingFallback={<LoadingPage />}
     >
-      {({ queryRef }) => queryRef && <CollectionList queryRef={queryRef} />}
+      {({ queryRef }) => queryRef && <ListQuery queryRef={queryRef} />}
     </QueryTransitionWrapper>
   );
 }
+
+const ListQuery = ({ queryRef }: { queryRef: PreloadedQuery<Query> }) => {
+  const {
+    viewer: { collections },
+    search,
+  } = usePreloadedQuery<Query>(query, queryRef);
+
+  return (
+    collections && <CollectionList collections={collections} search={search} />
+  );
+};
+
+export const query = graphql`
+  query collectionsListQuery(
+    $query: String
+    $page: Int!
+    $predicates: [SearchPredicateInput!]
+    $order: EntityOrder
+    $hasQuery: Boolean!
+    $schema: [String!]
+  ) {
+    viewer {
+      collections(access: READ_ONLY, order: $order, page: $page, perPage: 20)
+        @skip(if: $hasQuery) {
+        ...CollectionListFragment
+      }
+    }
+    search(visibility: ALL) {
+      ...CollectionListSearchFragment
+        @arguments(
+          query: $query
+          page: $page
+          predicates: $predicates
+          order: $order
+          hasQuery: $hasQuery
+          schema: $schema
+        )
+    }
+  }
+`;

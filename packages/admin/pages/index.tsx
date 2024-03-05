@@ -1,6 +1,10 @@
 import { PreloadedQuery } from "react-relay";
 import { QueryLoaderWrapper } from "@wdp/lib/api/components";
-import { useBaseListQueryVars, useIsAuthenticated } from "hooks";
+import {
+  useBaseListQueryVars,
+  useIsAuthenticated,
+  useSearchQueryVars,
+} from "hooks";
 import { DashboardLayout } from "components/composed/dashboard";
 import { LoadingPage } from "components/atomic";
 import { DashboardLayoutQuery } from "__generated__/DashboardLayoutQuery.graphql";
@@ -12,13 +16,14 @@ type Props = {
 
 export default function HomePage({ initialQueryRef }: Props) {
   const queryVars = useBaseListQueryVars();
+  const searchQueryVars = useSearchQueryVars();
   const isAuth = useIsAuthenticated();
 
   return isAuth ? (
     <>
       <QueryLoaderWrapper<DashboardLayoutQuery>
         query={query}
-        variables={queryVars}
+        variables={{ ...queryVars, ...searchQueryVars }}
         initialQueryRef={initialQueryRef}
         loadingFallback={<LoadingPage />}
       >

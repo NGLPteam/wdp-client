@@ -1,9 +1,4 @@
-import {
-  graphql,
-  usePreloadedQuery,
-  PreloadedQuery,
-  useFragment,
-} from "react-relay";
+import { graphql, useFragment } from "react-relay";
 import { useLatestPresentValue } from "@wdp/lib/hooks";
 import { useDestroyer, useDrawerHelper, useSearchQueryVars } from "hooks";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
@@ -19,16 +14,10 @@ import {
   ItemListSearchFragment$key,
 } from "@/relay/ItemListSearchFragment.graphql";
 import type { ModelTableActionProps } from "@tanstack/react-table";
-import { ItemListQuery } from "@/relay/ItemListQuery.graphql";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function ItemList({ queryRef, headerStyle, hideHeader }: ItemListProps) {
-  const {
-    viewer: { items },
-    search,
-  } = usePreloadedQuery<ItemListQuery>(query, queryRef);
-
+function ItemList({ items, search, headerStyle, hideHeader }: ItemListProps) {
   const itemsData = useFragment<ItemListFragment$key>(fragment, items);
 
   const { current: memoizedData } = useLatestPresentValue(itemsData);
@@ -106,7 +95,8 @@ function ItemList({ queryRef, headerStyle, hideHeader }: ItemListProps) {
 
 interface ItemListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  queryRef: PreloadedQuery<ItemListQuery>;
+  items: ItemListFragment$key;
+  search: ItemListSearchFragment$key;
 }
 
 type ListFragment =
@@ -120,34 +110,6 @@ type ItemSearchNode = NonNullable<
 >["nodes"][number];
 
 type Node = ItemNode & ItemSearchNode;
-
-export const query = graphql`
-  query ItemListQuery(
-    $query: String
-    $page: Int!
-    $predicates: [SearchPredicateInput!]
-    $order: EntityOrder
-    $hasQuery: Boolean!
-    $schema: [String!]
-  ) {
-    viewer {
-      items(order: $order, page: $page, perPage: 20) @skip(if: $hasQuery) {
-        ...ItemListFragment
-      }
-    }
-    search(visibility: ALL) {
-      ...ItemListSearchFragment
-        @arguments(
-          query: $query
-          page: $page
-          predicates: $predicates
-          order: $order
-          hasQuery: $hasQuery
-          schema: $schema
-        )
-    }
-  }
-`;
 
 const fragment = graphql`
   fragment ItemListFragment on ItemConnection {

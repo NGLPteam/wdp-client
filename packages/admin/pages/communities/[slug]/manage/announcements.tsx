@@ -4,7 +4,7 @@ import EntityAnnouncementsList from "components/composed/announcements/EntityAnn
 import type { announcementsManageSlugCommunitiesPagesQuery as Query } from "@/relay/announcementsManageSlugCommunitiesPagesQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
 import ErrorPage from "next/error";
-import { useRouteSlug, useBaseListQueryVars } from "hooks";
+import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import { AuthContextProvider } from "contexts/AuthContext";
 import CommunityLayout from "components/composed/community/CommunityLayout";
 import { LoadingPage } from "components/atomic";
@@ -23,6 +23,7 @@ function CommunityAnnouncements({ queryRef, ...layoutProps }: Props) {
 
 const getLayout: GetLayout<Props> = (props) => {
   const queryVars = useBaseListQueryVars();
+  const searchQueryVars = useSearchQueryVars();
 
   const communitySlug = useRouteSlug();
 
@@ -33,7 +34,7 @@ const getLayout: GetLayout<Props> = (props) => {
   return (
     <QueryTransitionWrapper<Query>
       query={query}
-      variables={{ ...queryVars, communitySlug }}
+      variables={{ ...queryVars, ...searchQueryVars, communitySlug }}
       loadingFallback={<LoadingPage />}
     >
       {({ queryRef }) =>

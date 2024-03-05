@@ -1,4 +1,3 @@
-import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import {
@@ -20,11 +19,7 @@ import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function FileList<T extends OperationType>({
-  data,
-  headerStyle,
-  hideHeader,
-}: FileListProps) {
+function FileList({ data, headerStyle, hideHeader }: FileListProps) {
   const files = useMaybeFragment<FileListFragment$key>(fragment, data);
   const slug = useRouteSlug();
   const { t } = useTranslation();
@@ -63,7 +58,7 @@ function FileList<T extends OperationType>({
       if (!row.original.id) return;
       destroy.file(
         { assetId: row.original.id },
-        row.original.name || "glossary.file",
+        row.original.name || "glossary.file"
       );
     },
   };
@@ -84,7 +79,7 @@ function FileList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, FileListFragment$data, FileNode>
+    <ModelListPage<FileListFragment$data, FileNode>
       modelName="file"
       columns={columns}
       data={files}
