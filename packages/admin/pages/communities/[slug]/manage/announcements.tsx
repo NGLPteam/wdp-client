@@ -1,45 +1,72 @@
-import { graphql } from "relay-runtime";
-
-import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import EntityAnnouncementsList from "components/composed/announcements/EntityAnnouncementsList";
 import type { announcementsManageSlugCommunitiesPagesQuery as Query } from "@/relay/announcementsManageSlugCommunitiesPagesQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
+import ErrorPage from "next/error";
+import { useRouteSlug, useBaseListQueryVars } from "hooks";
+import { AuthContextProvider } from "contexts/AuthContext";
+import CommunityLayout from "components/composed/community/CommunityLayout";
+import { LoadingPage } from "components/atomic";
 
-function CommunityAnnouncements({ data }: Props) {
-  return (
-    <EntityAnnouncementsList<Query>
-      data={data?.community}
-      headerStyle="secondary"
-    />
-  );
+function CommunityAnnouncements({ queryRef, ...layoutProps }: Props) {
+  const { community } = usePreloadedQuery<Query>(query, queryRef);
+
+  return community ? (
+    <AuthContextProvider data={community}>
+      <CommunityLayout {...layoutProps} data={community}>
+        <EntityAnnouncementsList data={community} headerStyle="secondary" />
+      </CommunityLayout>
+    </AuthContextProvider>
+  ) : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
+  const queryVars = useBaseListQueryVars();
+
+  const communitySlug = useRouteSlug();
+
+  if (!communitySlug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
+
   return (
-    <CommunityLayoutQuery<Query, Props>
-      showSidebar
+    <QueryTransitionWrapper<Query>
       query={query}
-      useRouteHeader={false}
-      refetchTags={["announcements"]}
-      {...props}
-    />
+      variables={{ ...queryVars, communitySlug }}
+      loadingFallback={<LoadingPage />}
+    >
+      {({ queryRef }) =>
+        queryRef && (
+          <PageComponent
+            {...pageComponentProps}
+            queryRef={queryRef}
+            showSidebar
+            useRouteHeader={false}
+          />
+        )
+      }
+    </QueryTransitionWrapper>
   );
 };
 
 CommunityAnnouncements.getLayout = getLayout;
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
+  showSidebar: true;
+  useRouteHeader: false;
 };
 
 const query = graphql`
   query announcementsManageSlugCommunitiesPagesQuery(
     $communitySlug: Slug!
-    $page: Int!
+    $page: Int
   ) {
     community(slug: $communitySlug) {
       ...EntityAnnouncementsListFragment
-      ...CommunityLayoutQueryFragment
+      ...CommunityLayoutFragment
+      ...AuthContextFragment
     }
   }
 `;

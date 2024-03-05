@@ -11,7 +11,7 @@ export default function useSchemaProperties(data: Props) {
 
   const { properties } = schemaData;
 
-  return properties.map((prop) => prop.fullPath || "");
+  return properties?.map((prop) => prop.fullPath || "") ?? [];
 }
 
 type Props = useSchemaPropertiesFragment$key;

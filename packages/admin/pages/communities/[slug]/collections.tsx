@@ -1,27 +1,61 @@
-import { graphql } from "relay-runtime";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import { collectionsSlugCommunitiesPagesQuery as Query } from "__generated__/collectionsSlugCommunitiesPagesQuery.graphql";
 import CollectionList from "components/composed/collection/CollectionList";
-import CommunityLayoutQuery from "components/composed/community/CommunityLayoutQuery";
 import type { GetLayout } from "@wdp/lib/types/page";
+import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
+import ErrorPage from "next/error";
+import { LoadingCircle } from "components/atomic";
+import CommunityLayout from "components/composed/community/CommunityLayout";
+import { AuthContextProvider } from "contexts/AuthContext";
 
-function CommunityChildCollections({ data }: Props) {
-  return (
-    <CollectionList<Query>
-      data={data?.community?.collections}
-      searchData={data?.community?.search}
-      headerStyle="secondary"
-      hideHeader
-    />
-  );
+function CommunityChildCollections({ queryRef }: Props) {
+  const { community } = usePreloadedQuery<Query>(query, queryRef);
+
+  return community ? (
+    <AuthContextProvider data={community}>
+      <CommunityLayout data={community}>
+        <CollectionList
+          collections={community.collections}
+          search={community.search}
+          headerStyle="secondary"
+          hideHeader
+        />
+      </CommunityLayout>
+    </AuthContextProvider>
+  ) : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
+  const queryVars = useBaseListQueryVars();
+  const searchQueryVars = useSearchQueryVars();
+
+  const communitySlug = useRouteSlug();
+  if (!communitySlug) return <ErrorPage statusCode={404} />;
+
+  const hasQuery =
+    !!searchQueryVars?.query ||
+    (!!searchQueryVars?.predicates && searchQueryVars.predicates.length > 0);
+
+  const { PageComponent, pageComponentProps } = props;
+
   return (
-    <CommunityLayoutQuery<Query, Props>
+    <QueryTransitionWrapper<Query>
       query={query}
-      {...props}
-      refetchTags={["collections"]}
-    />
+      variables={{
+        ...queryVars,
+        ...searchQueryVars,
+        hasQuery,
+        communitySlug,
+      }}
+      loadingFallback={<LoadingCircle />}
+    >
+      {({ queryRef }) =>
+        queryRef && (
+          <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        )
+      }
+    </QueryTransitionWrapper>
   );
 };
 CommunityChildCollections.getLayout = getLayout;
@@ -29,7 +63,7 @@ CommunityChildCollections.getLayout = getLayout;
 export default CommunityChildCollections;
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
 };
 
 const query = graphql`
@@ -43,7 +77,8 @@ const query = graphql`
     $schema: [String!]
   ) {
     community(slug: $communitySlug) {
-      ...CommunityLayoutQueryFragment
+      ...CommunityLayoutFragment
+      ...AuthContextFragment
       collections(order: $order, page: $page, perPage: 20) {
         ...CollectionListFragment
       }

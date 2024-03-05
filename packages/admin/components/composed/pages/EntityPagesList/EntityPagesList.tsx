@@ -1,5 +1,4 @@
-import { graphql } from "relay-runtime";
-import { GraphQLTaggedNode } from "react-relay";
+import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useDestroyer, useDrawerHelper, useMaybeFragment } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
@@ -12,11 +11,10 @@ import type {
   EntityPagesListDataFragment$key,
 } from "@/relay/EntityPagesListDataFragment.graphql";
 import type { ModelTableActionProps } from "@tanstack/react-table";
-import type { OperationType } from "relay-runtime";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function EntityPagesList<T extends OperationType>({
+function EntityPagesList({
   data,
   headerStyle,
   hideHeader,
@@ -27,12 +25,12 @@ function EntityPagesList<T extends OperationType>({
 
   /* eslint-disable max-len */
   const sourceEntity = useMaybeFragment<EntityPagesListFragment$key>(
-    fragment as GraphQLTaggedNode,
-    data,
+    fragment,
+    data
   );
   const pagesData = useMaybeFragment<EntityPagesListDataFragment$key>(
-    linksFragment as GraphQLTaggedNode,
-    sourceEntity?.pages,
+    linksFragment,
+    sourceEntity?.pages
   );
   /* eslint-enable max-len */
 
@@ -58,15 +56,15 @@ function EntityPagesList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.page(
         { pageId: row.original.id },
-        row.original.title || "glossary.page",
+        row.original.title || "glossary.page"
       ),
     handleView: ({ row }: ModelTableActionProps<Node>) => {
       const typeRoute =
         row.original.entity?.__typename === "Collection"
           ? "collections"
           : row.original.entity?.__typename === "items"
-            ? "items"
-            : "communities";
+          ? "items"
+          : "communities";
 
       return row.original.slug
         ? `/${typeRoute}/${row.original.entity?.slug}/page/${row.original.slug}`
@@ -90,7 +88,7 @@ function EntityPagesList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, EntityPagesListDataFragment$data, Node>
+    <ModelListPage<EntityPagesListDataFragment$data, Node>
       modelName={"page"}
       columns={columns}
       data={pagesData}

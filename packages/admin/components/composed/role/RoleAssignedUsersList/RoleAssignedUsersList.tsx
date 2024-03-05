@@ -1,4 +1,3 @@
-import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "hooks";
@@ -17,7 +16,7 @@ import type { CellContext } from "@tanstack/react-table";
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 // Lists user access on any type of entity
-function RoleAssignedUsersList<T extends OperationType>({
+function RoleAssignedUsersList({
   data,
   headerStyle,
   hideHeader,
@@ -25,11 +24,11 @@ function RoleAssignedUsersList<T extends OperationType>({
 }: RoleAssignedUsersListProps) {
   const entity = useMaybeFragment<RoleAssignedUsersListFragment$key>(
     fragment,
-    data,
+    data
   );
   const users = useMaybeFragment<RoleAssignedUsersListDataFragment$key>(
     listDataFragment,
-    entity?.assignedUsers,
+    entity?.assignedUsers
   );
 
   const { t } = useTranslation();
@@ -60,7 +59,7 @@ function RoleAssignedUsersList<T extends OperationType>({
   ];
 
   return (
-    <ModelListPage<T, RoleAssignedUsersListDataFragment$data, Node>
+    <ModelListPage<RoleAssignedUsersListDataFragment$data, Node>
       modelName="role"
       columns={columns}
       data={users}

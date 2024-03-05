@@ -1,6 +1,7 @@
-import { graphql, readInlineData } from "relay-runtime";
-import { useFragment } from "react-relay";
+import { useFragment, graphql } from "react-relay";
+import { readInlineData, GraphQLTaggedNode } from "relay-runtime";
 import pick from "lodash/pick";
+import isEmpty from "lodash/isEmpty";
 import MutationForm, {
   useRenderForm,
   useToVariables,
@@ -23,29 +24,29 @@ import {
   CommunityUpdateFormSchemaErrorsFragment$key,
 } from "@/relay/CommunityUpdateFormSchemaErrorsFragment.graphql";
 
-type SchemaErrors =
-  CommunityUpdateFormSchemaErrorsFragment$data["schemaErrors"];
+type SchemaErrors = CommunityUpdateFormSchemaErrorsFragment$data["schemaErrors"];
 
 export default function CommunityUpdateForm({
   data,
   onSuccess,
   onCancel,
 }: Props) {
-  const { communityId = "", ...fieldsData } =
-    useFragment<CommunityUpdateFormFragment$key>(fragment, data);
+  const { communityId = "", ...fieldsData } = useFragment<
+    CommunityUpdateFormFragment$key
+  >(fragment, data);
 
-  const { heroImage, logo, ...values } =
-    useFragment<CommunityUpdateFormFieldsFragment$key>(
-      fieldsFragment,
-      fieldsData,
-    );
+  const { heroImage, logo, ...values } = useFragment<
+    CommunityUpdateFormFieldsFragment$key
+  >(fieldsFragment, fieldsData);
 
   const schemaProperties = useSchemaProperties(fieldsData);
 
   const mutationName = "updateCommunity";
 
-  const { fieldValues: schemaFieldValues, defaultValues: schemaDefaultValues } =
-    useSchemaContext(fieldsData.context);
+  const {
+    fieldValues: schemaFieldValues,
+    defaultValues: schemaDefaultValues,
+  } = useSchemaContext(fieldsData.context);
 
   const toVariables = useToVariables<CommunityUpdateFormMutation, Fields>(
     (data) => {
@@ -74,7 +75,7 @@ export default function CommunityUpdateForm({
         },
       };
     },
-    [],
+    []
   );
 
   const defaultValues = {
@@ -85,36 +86,38 @@ export default function CommunityUpdateForm({
 
   const isSuccess = useIsSuccess<CommunityUpdateFormMutation, Fields>(
     function (response) {
-      const errors =
-        readInlineData<CommunityUpdateFormSchemaErrorsFragment$key>(
-          schemaErrorsFragment,
-          response[mutationName] ?? null,
-        );
+      const errors = readInlineData<
+        CommunityUpdateFormSchemaErrorsFragment$key
+      >(
+        schemaErrorsFragment as GraphQLTaggedNode,
+        response[mutationName] ?? null
+      );
 
       return !errors?.schemaErrors || errors.schemaErrors.length === 0;
     },
-    [mutationName],
+    [mutationName]
   );
 
   const onFailure = useOnFailure<CommunityUpdateFormMutation, Fields>(
     function ({ response, setError }) {
-      const errors =
-        readInlineData<CommunityUpdateFormSchemaErrorsFragment$key>(
-          schemaErrorsFragment,
-          response[mutationName] ?? null,
-        );
+      const errors = readInlineData<
+        CommunityUpdateFormSchemaErrorsFragment$key
+      >(
+        schemaErrorsFragment as GraphQLTaggedNode,
+        response[mutationName] ?? null
+      );
 
       if (errors?.schemaErrors) {
         const convertedErrors = convertSchemaErrors<SchemaErrors>(
-          errors.schemaErrors,
+          errors.schemaErrors
         );
 
         for (const { path, error } of convertedErrors) {
-          setError(path, error);
+          setError(path as keyof Fields, error);
         }
       }
     },
-    [],
+    []
   );
 
   const renderForm = useRenderForm<Fields>(
@@ -173,7 +176,7 @@ export default function CommunityUpdateForm({
         <SchemaFormFields data={fieldsData} schemaKind="COMMUNITY" />
       </>
     ),
-    [],
+    []
   );
 
   return (
@@ -253,7 +256,7 @@ const fragment = graphql`
 
 const schemaErrorsFragment = graphql`
   fragment CommunityUpdateFormSchemaErrorsFragment on UpdateCommunityPayload
-  @inline {
+    @inline {
     schemaErrors {
       hint
       message

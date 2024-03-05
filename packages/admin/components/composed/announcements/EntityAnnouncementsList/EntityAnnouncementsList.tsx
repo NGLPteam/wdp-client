@@ -12,11 +12,10 @@ import type {
   EntityAnnouncementsListDataFragment$key,
 } from "@/relay/EntityAnnouncementsListDataFragment.graphql";
 import type { ModelTableActionProps } from "@tanstack/react-table";
-import type { OperationType } from "relay-runtime";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function EntityAnnouncementsList<T extends OperationType>({
+function EntityAnnouncementsList({
   data,
   headerStyle,
   hideHeader,
@@ -28,13 +27,11 @@ function EntityAnnouncementsList<T extends OperationType>({
   /* eslint-disable max-len */
   const sourceEntity = useMaybeFragment<EntityAnnouncementsListFragment$key>(
     fragment,
-    data,
+    data
   );
-  const announcementsData =
-    useMaybeFragment<EntityAnnouncementsListDataFragment$key>(
-      linksFragment,
-      sourceEntity?.announcements,
-    );
+  const announcementsData = useMaybeFragment<
+    EntityAnnouncementsListDataFragment$key
+  >(linksFragment, sourceEntity?.announcements);
   /* eslint-enable max-len */
 
   /** Columns */
@@ -62,7 +59,7 @@ function EntityAnnouncementsList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.announcement(
         { announcementId: row.original.id },
-        row.original.header || "glossary.announcement",
+        row.original.header || "glossary.announcement"
       ),
   };
 
@@ -82,7 +79,7 @@ function EntityAnnouncementsList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, EntityAnnouncementsListDataFragment$data, Node>
+    <ModelListPage<EntityAnnouncementsListDataFragment$data, Node>
       modelName={"announcement"}
       columns={columns}
       data={announcementsData}

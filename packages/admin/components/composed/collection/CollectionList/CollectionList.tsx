@@ -1,9 +1,4 @@
-import {
-  graphql,
-  usePreloadedQuery,
-  PreloadedQuery,
-  useFragment,
-} from "react-relay";
+import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useLatestPresentValue } from "@wdp/lib/hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
@@ -21,23 +16,18 @@ import {
   CollectionListSearchFragment$key,
 } from "@/relay/CollectionListSearchFragment.graphql";
 import type { ModelTableActionProps } from "@tanstack/react-table";
-import { CollectionListQuery } from "@/relay/CollectionListQuery.graphql";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 function CollectionList({
-  queryRef,
+  collections,
+  search,
   headerStyle,
   hideHeader,
 }: CollectionListProps) {
   const destroy = useDestroyer();
   const drawerHelper = useDrawerHelper();
   const { t } = useTranslation();
-
-  const {
-    viewer: { collections },
-    search,
-  } = usePreloadedQuery<CollectionListQuery>(query, queryRef);
 
   const collectionsData = useFragment<CollectionListFragment$key>(
     fragment,
@@ -124,8 +114,8 @@ function CollectionList({
 
 interface CollectionListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  queryRef: PreloadedQuery<CollectionListQuery>;
-  searchData?: CollectionListSearchFragment$key | null;
+  collections: CollectionListFragment$key;
+  search?: CollectionListSearchFragment$key;
 }
 
 type ListFragment =
@@ -139,35 +129,6 @@ type CollectionSearchNode = NonNullable<
 >["nodes"][number];
 
 type Node = CollectionNode & CollectionSearchNode;
-
-export const query = graphql`
-  query CollectionListQuery(
-    $query: String
-    $page: Int!
-    $predicates: [SearchPredicateInput!]
-    $order: EntityOrder
-    $hasQuery: Boolean!
-    $schema: [String!]
-  ) {
-    viewer {
-      collections(access: READ_ONLY, order: $order, page: $page, perPage: 20)
-        @skip(if: $hasQuery) {
-        ...CollectionListFragment
-      }
-    }
-    search(visibility: ALL) {
-      ...CollectionListSearchFragment
-        @arguments(
-          query: $query
-          page: $page
-          predicates: $predicates
-          order: $order
-          hasQuery: $hasQuery
-          schema: $schema
-        )
-    }
-  }
-`;
 
 const fragment = graphql`
   fragment CollectionListFragment on CollectionConnection {
