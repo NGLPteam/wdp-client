@@ -1,35 +1,75 @@
-import { graphql } from "relay-runtime";
-
-import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import { QueryLoaderWrapper } from "@wdp/lib/api/components";
 import ItemUpdateForm from "components/composed/item/ItemUpdateForm";
 import { LoadingCircle } from "components/atomic";
 import type { detailsManageSlugItemsQuery as Query } from "@/relay/detailsManageSlugItemsQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
+import ErrorPage from "next/error";
+import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
+import { AuthContextProvider } from "contexts/AuthContext";
+import ItemLayout from "components/composed/item/ItemLayout";
 
-function ManageDetails({ data }: Props) {
-  return data && data.item ? (
-    <ItemUpdateForm data={data?.item} />
-  ) : (
-    <LoadingCircle className="l-page-loading" />
-  );
+function ManageDetails({ queryRef, ...layoutProps }: Props) {
+  const { item } = usePreloadedQuery<Query>(query, queryRef);
+
+  return item ? (
+    <AuthContextProvider data={item}>
+      <ItemLayout data={item} {...layoutProps}>
+        <ItemUpdateForm data={item} />
+      </ItemLayout>
+    </AuthContextProvider>
+  ) : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
-  return <ItemLayoutQuery<Query, Props> showSidebar query={query} {...props} />;
+  const queryVars = useBaseListQueryVars();
+  const searchQueryVars = useSearchQueryVars();
+
+  const itemSlug = useRouteSlug();
+  if (!itemSlug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
+
+  return (
+    <QueryLoaderWrapper<Query>
+      query={query}
+      variables={{
+        ...queryVars,
+        ...searchQueryVars,
+        itemSlug,
+      }}
+      loadingFallback={<LoadingCircle />}
+    >
+      {({ queryRef }) =>
+        queryRef && (
+          <PageComponent
+            {...pageComponentProps}
+            queryRef={queryRef}
+            showSidebar
+            useRouteHeader={false}
+          />
+        )
+      }
+    </QueryLoaderWrapper>
+  );
 };
+
 ManageDetails.getLayout = getLayout;
 
 export default ManageDetails;
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
+  showSidebar: true;
+  useRouteHeader: false;
 };
 
 const query = graphql`
   query detailsManageSlugItemsQuery($itemSlug: Slug!) {
     item(slug: $itemSlug) {
-      ...ItemLayoutQueryFragment
+      ...ItemLayoutFragment
       ...ItemUpdateFormFragment
+      ...AuthContextFragment
     }
   }
 `;

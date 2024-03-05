@@ -1,11 +1,12 @@
-import { useSearchQueryVars } from "hooks";
+import { usePreloadedQuery, graphql, PreloadedQuery } from "react-relay";
+import { useSearchQueryVars, useBaseListQueryVars } from "hooks";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import ItemList from "components/composed/item/ItemList";
-import { ItemListQuery as Query } from "@/relay/ItemListQuery.graphql";
+import { itemsListQuery as Query } from "@/relay/itemsListQuery.graphql";
 import { LoadingPage } from "components/atomic";
-import { query } from "components/composed/item/ItemList/ItemList";
 
 export default function ItemListView() {
+  const queryVars = useBaseListQueryVars();
   const searchQueryVars = useSearchQueryVars();
 
   const hasQuery =
@@ -15,11 +16,48 @@ export default function ItemListView() {
   return (
     <QueryTransitionWrapper<Query>
       query={query}
-      variables={{ ...searchQueryVars, hasQuery }}
+      variables={{ ...queryVars, ...searchQueryVars, hasQuery }}
       subscribeIds={["Item"]}
       loadingFallback={<LoadingPage />}
     >
-      {({ queryRef }) => queryRef && <ItemList queryRef={queryRef} />}
+      {({ queryRef }) => queryRef && <ListQuery queryRef={queryRef} />}
     </QueryTransitionWrapper>
   );
 }
+
+const ListQuery = ({ queryRef }: { queryRef: PreloadedQuery<Query> }) => {
+  const {
+    viewer: { items },
+    search,
+  } = usePreloadedQuery<Query>(query, queryRef);
+
+  return items && <ItemList items={items} search={search} />;
+};
+
+export const query = graphql`
+  query itemsListQuery(
+    $query: String
+    $page: Int!
+    $predicates: [SearchPredicateInput!]
+    $order: EntityOrder
+    $hasQuery: Boolean!
+    $schema: [String!]
+  ) {
+    viewer {
+      items(order: $order, page: $page, perPage: 20) @skip(if: $hasQuery) {
+        ...ItemListFragment
+      }
+    }
+    search(visibility: ALL) {
+      ...ItemListSearchFragment
+        @arguments(
+          query: $query
+          page: $page
+          predicates: $predicates
+          order: $order
+          hasQuery: $hasQuery
+          schema: $schema
+        )
+    }
+  }
+`;
