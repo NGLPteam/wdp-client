@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { graphql } from "react-relay";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
-import { useManagedVariables } from "@wdp/lib/api/components/QueryWrapper";
 import BaseTypeahead from "components/forms/BaseTypeahead";
 import {
   EntityTypeaheadQuery as Query,
@@ -26,7 +25,7 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
 }: Props<T>) => {
   const [value, setValue] = useState(selected?.id ?? "");
 
-  const { variables, setVariables } = useManagedVariables<Query>({
+  const [variables, setVariables] = useState({
     query: "",
     schema: selectableTypes?.schemas || [],
     scope: (selectableTypes?.kinds?.length

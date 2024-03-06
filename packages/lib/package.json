@@ -12,7 +12,6 @@
   "author": "",
   "license": "MIT",
   "peerDependencies": {
-    "@castiron/style-mixins": "*",
     "@graphql-codegen/cli": "*",
     "@graphql-codegen/introspection": "*",
     "@graphql-codegen/schema-ast": "*",
@@ -46,7 +45,6 @@
     "relay-compiler": "*",
     "relay-compiler-language-typescript": "*",
     "relay-config": "*",
-    "relay-hooks": "*",
     "relay-runtime": "*",
     "relay-test-utils": "*",
     "styled-components": "*",
