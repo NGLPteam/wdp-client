@@ -27,8 +27,8 @@ export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
       drawerEntity === "community"
         ? data?.community?.title
         : drawerEntity === "collection"
-        ? data?.collection?.title
-        : data?.item?.title;
+          ? data?.collection?.title
+          : data?.item?.title;
 
     return header
       ? t(`${i18nKey}_header`, {
@@ -41,8 +41,8 @@ export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
     return drawerEntity === "community"
       ? data?.community
       : drawerEntity === "collection"
-      ? data?.collection
-      : data?.item;
+        ? data?.collection
+        : data?.item;
   }
 
   function getEntityId(data?: Response | null) {
@@ -64,7 +64,7 @@ export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
           label={t(
             drawerEntity === "community"
               ? "actions.add.member"
-              : "actions.add.access"
+              : "actions.add.access",
           )}
           header={getDrawerHeader(data)}
           dialog={dialog}

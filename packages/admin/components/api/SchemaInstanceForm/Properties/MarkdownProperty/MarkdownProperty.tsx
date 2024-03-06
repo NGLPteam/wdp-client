@@ -11,7 +11,7 @@ import ScalarProperty from "../ScalarProperty";
 export default function MarkdownProperty(props: Props) {
   const field = useFragment<MarkdownPropertyFragment$key>(
     fragment,
-    props.field
+    props.field,
   );
 
   const { register } = useFormContext();

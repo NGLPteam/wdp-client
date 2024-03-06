@@ -37,7 +37,7 @@ const SchemaSelectorModal = ({
     (data) => ({
       input: { ...data, entityId, propertyValues: {} },
     }),
-    []
+    [],
   );
 
   const options =
@@ -57,7 +57,7 @@ const SchemaSelectorModal = ({
         {...register("schemaVersionSlug")}
       />
     ),
-    [options]
+    [options],
   );
 
   return (

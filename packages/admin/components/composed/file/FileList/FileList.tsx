@@ -58,7 +58,7 @@ function FileList({ data, headerStyle, hideHeader }: FileListProps) {
       if (!row.original.id) return;
       destroy.file(
         { assetId: row.original.id },
-        row.original.name || "glossary.file"
+        row.original.name || "glossary.file",
       );
     },
   };

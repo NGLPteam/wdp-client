@@ -43,7 +43,7 @@ export function useSchemaFormFieldsContext(): SchemaContextState {
 
 const fragment = graphql`
   fragment SchemaFormFieldsContextFragment on SchemaInstance
-    @refetchable(queryName: "SchemaFormFieldsContextRefetchQuery") {
+  @refetchable(queryName: "SchemaFormFieldsContextRefetchQuery") {
     context: schemaInstanceContext {
       ...useSchemaContextFragment
     }

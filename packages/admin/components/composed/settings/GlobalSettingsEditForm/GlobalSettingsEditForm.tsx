@@ -20,12 +20,12 @@ export default function GlobalSettingsEditForm({
 }: Props) {
   const { logo, ...settings } = useFragment<GlobalSettingsEditFormFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const toVariables = useToVariables<GlobalSettingsEditFormMutation, Fields>(
     (data) => ({ input: { ...data } }),
-    []
+    [],
   );
 
   const defaultValues = { ...settings };
@@ -101,7 +101,7 @@ export default function GlobalSettingsEditForm({
         </Forms.Fieldset>
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

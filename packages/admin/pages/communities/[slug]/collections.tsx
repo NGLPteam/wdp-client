@@ -2,12 +2,12 @@ import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import { collectionsSlugCommunitiesPagesQuery as Query } from "__generated__/collectionsSlugCommunitiesPagesQuery.graphql";
 import CollectionList from "components/composed/collection/CollectionList";
-import type { GetLayout } from "@wdp/lib/types/page";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import ErrorPage from "next/error";
 import { LoadingCircle } from "components/atomic";
 import CommunityLayout from "components/composed/community/CommunityLayout";
 import { AuthContextProvider } from "contexts/AuthContext";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function CommunityChildCollections({ queryRef }: Props) {
   const { community } = usePreloadedQuery<Query>(query, queryRef);

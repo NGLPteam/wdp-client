@@ -20,7 +20,7 @@ export default function AssetProperty(props: Props) {
 
   const handleRefetch = useCallback(
     () => (isFunction(refetch) ? refetch({}) : null),
-    [refetch]
+    [refetch],
   );
 
   const slug = useRouteSlug();

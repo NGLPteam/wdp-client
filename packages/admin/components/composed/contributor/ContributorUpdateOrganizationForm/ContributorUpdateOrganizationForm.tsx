@@ -21,9 +21,11 @@ export default function ContributorUpdateOrganizationForm({
 }: Props) {
   const { contributorId = "", ...fieldsData } = useFragment(fragment, data);
 
-  const { image, links, ...otherValues } = useFragment<
-    ContributorUpdateOrganizationFormFieldsFragment$key
-  >(fieldsFragment, fieldsData);
+  const { image, links, ...otherValues } =
+    useFragment<ContributorUpdateOrganizationFormFieldsFragment$key>(
+      fieldsFragment,
+      fieldsData,
+    );
 
   // We need to transform the links value to a mutable value and remove nulls to satisfy
   // our type checker.
@@ -73,7 +75,7 @@ export default function ContributorUpdateOrganizationForm({
         />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

@@ -24,11 +24,11 @@ function RoleAssignedUsersList({
 }: RoleAssignedUsersListProps) {
   const entity = useMaybeFragment<RoleAssignedUsersListFragment$key>(
     fragment,
-    data
+    data,
   );
   const users = useMaybeFragment<RoleAssignedUsersListDataFragment$key>(
     listDataFragment,
-    entity?.assignedUsers
+    entity?.assignedUsers,
   );
 
   const { t } = useTranslation();

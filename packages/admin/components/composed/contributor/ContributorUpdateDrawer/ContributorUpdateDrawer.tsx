@@ -55,7 +55,7 @@ export default function ContributorUpdateDrawer({
           data?.contributor?.legalName ||
             (data?.contributor?.givenName
               ? `${data?.contributor?.givenName} ${data?.contributor?.familyName}`
-              : t("glossary.contributor"))
+              : t("glossary.contributor")),
         );
       }
       if (dialog?.hide) dialog.hide();

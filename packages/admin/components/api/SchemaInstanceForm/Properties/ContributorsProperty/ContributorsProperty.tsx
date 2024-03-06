@@ -10,7 +10,7 @@ export default function ContributorsProperty(props: Props) {
 
   const field = useFragment<ContributorsPropertyFragment$key>(
     fragment,
-    props.field
+    props.field,
   );
 
   const { control } = useFormContext();

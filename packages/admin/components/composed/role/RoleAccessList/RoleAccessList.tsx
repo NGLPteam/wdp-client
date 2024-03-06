@@ -43,7 +43,7 @@ function RoleAccessList({
           {t(
             entityType === "community"
               ? "actions.add.member"
-              : "actions.add.access"
+              : "actions.add.access",
           )}
         </ButtonControlDrawer>
         <Link
@@ -60,7 +60,7 @@ function RoleAccessList({
             {t(
               `actions.${
                 router.query.inherited ? "hide" : "show"
-              }.inherited_roles`
+              }.inherited_roles`,
             )}
           </ButtonControl>
         </Link>

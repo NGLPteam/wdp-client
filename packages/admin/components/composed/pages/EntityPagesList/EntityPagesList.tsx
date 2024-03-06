@@ -26,11 +26,11 @@ function EntityPagesList({
   /* eslint-disable max-len */
   const sourceEntity = useMaybeFragment<EntityPagesListFragment$key>(
     fragment,
-    data
+    data,
   );
   const pagesData = useMaybeFragment<EntityPagesListDataFragment$key>(
     linksFragment,
-    sourceEntity?.pages
+    sourceEntity?.pages,
   );
   /* eslint-enable max-len */
 
@@ -56,15 +56,15 @@ function EntityPagesList({
     handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.page(
         { pageId: row.original.id },
-        row.original.title || "glossary.page"
+        row.original.title || "glossary.page",
       ),
     handleView: ({ row }: ModelTableActionProps<Node>) => {
       const typeRoute =
         row.original.entity?.__typename === "Collection"
           ? "collections"
           : row.original.entity?.__typename === "items"
-          ? "items"
-          : "communities";
+            ? "items"
+            : "communities";
 
       return row.original.slug
         ? `/${typeRoute}/${row.original.entity?.slug}/page/${row.original.slug}`

@@ -2,11 +2,11 @@ import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { QueryLoaderWrapper } from "@wdp/lib/api/components";
 import ContributorUpdateForm from "components/composed/contributor/ContributorUpdateForm";
 import { LoadingCircle } from "components/atomic";
-import type { detailsSlugContributorsPagesQuery as Query } from "__generated__/detailsSlugContributorsPagesQuery.graphql";
-import type { GetLayout } from "@wdp/lib/types/page";
 import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import ContributorLayout from "components/composed/contributor/ContributorLayout";
 import ErrorPage from "next/error";
+import type { GetLayout } from "@wdp/lib/types/page";
+import type { detailsSlugContributorsPagesQuery as Query } from "__generated__/detailsSlugContributorsPagesQuery.graphql";
 
 function ContributorDetails({ queryRef, ...layoutProps }: Props) {
   const { contributor } = usePreloadedQuery<Query>(query, queryRef);

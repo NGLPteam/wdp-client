@@ -55,8 +55,8 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
       const applyKind = selectableTypes?.kinds?.length
         ? results.filter(({ node }) =>
             selectableTypes?.kinds?.includes(
-              node.entity?.__typename?.toUpperCase() ?? ""
-            )
+              node.entity?.__typename?.toUpperCase() ?? "",
+            ),
           )
         : results;
       options = applyKind.map(({ node }) => {
@@ -79,12 +79,12 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
       setValue(val);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [options, setVariables]
+    [options, setVariables],
   );
 
   const handleSelect = (data: Response) => (optionVal: string | number) => {
     const node = data.search.results.edges.find(
-      ({ node }) => node.entity?.id === optionVal
+      ({ node }) => node.entity?.id === optionVal,
     )?.node;
     const entity = node
       ? ({

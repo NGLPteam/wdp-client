@@ -17,12 +17,12 @@ export function useResetOrdering() {
     (
       data: useResetOrderingFragment$key | null | undefined,
       name: string,
-      refetchTags: string[]
+      refetchTags: string[],
     ) => {
       if (!data) return;
       const results = readInlineData<useResetOrderingFragment$key>(
         fragment as GraphQLTaggedNode,
-        data
+        data,
       );
 
       if (results.globalErrors && results.globalErrors.length > 0) {
@@ -32,12 +32,12 @@ export function useResetOrdering() {
         setTriggeredRefetchTags(refetchTags);
       }
     },
-    [notify, setTriggeredRefetchTags, t]
+    [notify, setTriggeredRefetchTags, t],
   );
 
   /* Reset an ordering */
   const [commitResetOrdering] = useMutation<useResetOrderingMutation>(
-    resetOrderingMutation
+    resetOrderingMutation,
   );
 
   const reset = useCallback(
@@ -48,7 +48,7 @@ export function useResetOrdering() {
           handleResponse(response.resetOrdering, label, refetchTags),
       });
     },
-    [commitResetOrdering, handleResponse]
+    [commitResetOrdering, handleResponse],
   );
 
   return reset;

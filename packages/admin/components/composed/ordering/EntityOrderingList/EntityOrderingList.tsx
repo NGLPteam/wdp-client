@@ -29,12 +29,14 @@ function EntityOrderingList({ data, headerStyle, hideHeader }: Props) {
   /* Get the order data */
   const sourceEntity = useMaybeFragment<EntityOrderingListFragment$key>(
     fragment as GraphQLTaggedNode,
-    data
+    data,
   );
 
-  const collectionOrderings = useMaybeFragment<
-    EntityOrderingListDataFragment$key
-  >(orderingsfragment as GraphQLTaggedNode, sourceEntity?.orderings);
+  const collectionOrderings =
+    useMaybeFragment<EntityOrderingListDataFragment$key>(
+      orderingsfragment as GraphQLTaggedNode,
+      sourceEntity?.orderings,
+    );
 
   /* Set the table columns */
   const columns = [
@@ -64,14 +66,14 @@ function EntityOrderingList({ data, headerStyle, hideHeader }: Props) {
     handleDelete: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       destroy.ordering(
         { orderingId: row.original.id },
-        row.original.name || "glossary.ordering"
+        row.original.name || "glossary.ordering",
       ),
     hideDelete: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       row.original.inheritedFromSchema,
     handleDisable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       destroy.ordering(
         { orderingId: row.original.id },
-        row.original.name || "glossary.ordering"
+        row.original.name || "glossary.ordering",
       ),
     hideDisable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       !row.original.inheritedFromSchema || row.original.disabled,
@@ -84,7 +86,7 @@ function EntityOrderingList({ data, headerStyle, hideHeader }: Props) {
       resetOrdering(
         { orderingId: row.original.id },
         row.original.name || "glossary.ordering",
-        ["orderings"]
+        ["orderings"],
       );
     },
     hideEnable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
@@ -121,7 +123,8 @@ function EntityOrderingList({ data, headerStyle, hideHeader }: Props) {
   );
 }
 
-type EntityOrderingNode = EntityOrderingListDataFragment$data["edges"][number]["node"];
+type EntityOrderingNode =
+  EntityOrderingListDataFragment$data["edges"][number]["node"];
 
 interface Props extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
   data?: EntityOrderingListFragment$key;

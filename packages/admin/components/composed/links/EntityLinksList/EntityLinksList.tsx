@@ -32,11 +32,11 @@ function EntityLinksList({
   /* eslint-disable max-len */
   const sourceEntity = useMaybeFragment<EntityLinksListFragment$key>(
     fragment,
-    data
+    data,
   );
   const linksData = useMaybeFragment<EntityLinksListDataFragment$key>(
     linksFragment,
-    sourceEntity?.links
+    sourceEntity?.links,
   );
   /* eslint-enable max-len */
 
@@ -96,7 +96,7 @@ function EntityLinksList({
     handleDelete: ({ row }: ModelTableActionProps<EntityLinksNode>) =>
       destroy.link(
         { entityLinkId: row.original.id },
-        row.original.target.title || "glossary.link"
+        row.original.target.title || "glossary.link",
       ),
   };
 

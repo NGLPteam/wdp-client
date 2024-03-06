@@ -1,10 +1,10 @@
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
-import { ContributorListQuery as Query } from "@/relay/ContributorListQuery.graphql";
 import { useContributorQueryVars } from "hooks";
 import { query } from "components/composed/contributor/ContributorList/ContributorList";
 import { LoadingPage } from "components/atomic/loading";
 
 import ContributorList from "components/composed/contributor/ContributorList";
+import { ContributorListQuery as Query } from "@/relay/ContributorListQuery.graphql";
 
 export default function ContributorListView() {
   const contributorSearchVars = useContributorQueryVars();

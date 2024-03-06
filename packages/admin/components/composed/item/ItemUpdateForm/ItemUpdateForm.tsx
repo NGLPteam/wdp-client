@@ -73,12 +73,12 @@ export default function ItemUpdateForm({
     function (response) {
       const errors = readInlineData<SchemaErrorsFragment$key>(
         schemaErrorsFragment,
-        response[mutationName] ?? null
+        response[mutationName] ?? null,
       );
 
       return !errors?.schemaErrors || errors.schemaErrors.length === 0;
     },
-    [mutationName]
+    [mutationName],
   );
 
   const onFailure = useOnFailure<ItemUpdateFormMutation, Fields>(function ({
@@ -87,20 +87,19 @@ export default function ItemUpdateForm({
   }) {
     const errors = readInlineData<SchemaErrorsFragment$key>(
       schemaErrorsFragment,
-      response[mutationName] ?? null
+      response[mutationName] ?? null,
     );
 
     if (errors?.schemaErrors) {
       const convertedErrors = convertSchemaErrors<SchemaErrors>(
-        errors.schemaErrors
+        errors.schemaErrors,
       );
 
       for (const { path, error } of convertedErrors) {
         setError(path, error);
       }
     }
-  },
-  []);
+  }, []);
 
   const toVariables = useToVariables<ItemUpdateFormMutation, Fields>((data) => {
     const inputValues = pick(data, [
@@ -179,7 +178,7 @@ export default function ItemUpdateForm({
         <SchemaFormFields data={fieldsData} schemaKind="ITEM" />
       </>
     ),
-    [fieldsData]
+    [fieldsData],
   );
 
   return (

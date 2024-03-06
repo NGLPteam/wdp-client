@@ -6,7 +6,7 @@ import ScalarProperty from "../ScalarProperty";
 export default function VariableDateProperty(props: Props) {
   const field = useFragment<VariableDatePropertyFragment$key>(
     fragment,
-    props.field
+    props.field,
   );
 
   return (

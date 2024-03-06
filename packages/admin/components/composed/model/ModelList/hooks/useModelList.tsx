@@ -11,7 +11,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export interface UseModelListProps<
   U extends PaginatedConnectionish | Connectionish,
-  V extends Record<string, unknown>
+  V extends Record<string, unknown>,
 > {
   data?: U | null;
   columns: ColumnDef<V>[];
@@ -23,7 +23,7 @@ export interface UseModelListProps<
 
 function useModelList<
   U extends PaginatedConnectionish | Connectionish,
-  V extends Record<string, unknown>
+  V extends Record<string, unknown>,
 >({
   data,
   columns,

@@ -48,7 +48,7 @@ export default function CollectionUpdateDrawer({
       if (data.collection) {
         destroy.collection(
           { collectionId: data.collection.id },
-          data?.collection?.title || t("glossary.collection")
+          data?.collection?.title || t("glossary.collection"),
         );
       }
       if (dialog?.hide) dialog.hide();

@@ -26,14 +26,14 @@ const ORDER_PATH_OPTIONS = [
 
 function OrderDefinitionSelect(
   { name, data, value = [], onChange }: Props,
-  ref: Ref<HTMLSelectElement>
+  ref: Ref<HTMLSelectElement>,
 ) {
   const selectRef = useRef<HTMLSelectElement | null>(null);
 
   // Get the entity schema ranks
   const entity = useFragment<OrderDefinitionSelectFragment$key>(
     fragment as GraphQLTaggedNode,
-    data
+    data,
   );
 
   // Get the list of possible orders by schema ranks
@@ -72,7 +72,7 @@ function OrderDefinitionSelect(
     if (!value) return options;
 
     return options.filter(
-      (o) => value.findIndex((v) => v.path === o.value) < 0
+      (o) => value.findIndex((v) => v.path === o.value) < 0,
     );
   }, [options, value]);
 

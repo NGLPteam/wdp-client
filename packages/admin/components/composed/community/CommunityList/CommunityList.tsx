@@ -25,7 +25,7 @@ function CommunityList({
 
   const { communities } = usePreloadedQuery<CommunityListQuery>(
     query,
-    queryRef
+    queryRef,
   );
 
   const columns = [
@@ -70,7 +70,8 @@ interface CommunityListProps
   queryRef: PreloadedQuery<CommunityListQuery>;
 }
 
-type CommunityNode = CommunityListQuery$data["communities"]["edges"][number]["node"];
+type CommunityNode =
+  CommunityListQuery$data["communities"]["edges"][number]["node"];
 
 type Node = CommunityNode;
 

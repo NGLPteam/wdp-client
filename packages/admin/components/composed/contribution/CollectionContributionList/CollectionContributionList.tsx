@@ -34,9 +34,8 @@ function CollectionContributionList({
   const onContributor = nameColumn !== "contributor";
 
   /* eslint-disable max-len */
-  const collectionContributions = useMaybeFragment<
-    CollectionContributionListFragment$key
-  >(fragment, data);
+  const collectionContributions =
+    useMaybeFragment<CollectionContributionListFragment$key>(fragment, data);
   /* eslint-enable max-len */
 
   const collectionNameColumn = {
@@ -62,13 +61,12 @@ function CollectionContributionList({
     },
   };
 
-  const contributorNameColumn = ModelColumns.ContributorNameColumn<
-    CollectionContributionNode
-  >({
-    accessorFn: (row: CollectionContributionNode) => {
-      return row?.contributor;
-    },
-  });
+  const contributorNameColumn =
+    ModelColumns.ContributorNameColumn<CollectionContributionNode>({
+      accessorFn: (row: CollectionContributionNode) => {
+        return row?.contributor;
+      },
+    });
 
   const columns = [
     nameColumn === "collection" ? collectionNameColumn : contributorNameColumn,
@@ -89,7 +87,7 @@ function CollectionContributionList({
     }: ModelTableActionProps<CollectionContributionNode>) =>
       destroy.contribution(
         { contributionId: row.original.id },
-        "glossary.contribution"
+        "glossary.contribution",
       ),
   };
 
@@ -129,7 +127,8 @@ interface CollectionContributionListProps
   nameColumn?: "collection" | "contributor";
 }
 
-type CollectionContributionNode = CollectionContributionListFragment$data["nodes"][number];
+type CollectionContributionNode =
+  CollectionContributionListFragment$data["nodes"][number];
 
 const fragment = graphql`
   fragment CollectionContributionListFragment on CollectionContributionConnection {

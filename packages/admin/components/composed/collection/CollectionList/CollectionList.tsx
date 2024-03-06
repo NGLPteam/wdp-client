@@ -31,14 +31,14 @@ function CollectionList({
 
   const collectionsData = useFragment<CollectionListFragment$key>(
     fragment,
-    collections
+    collections,
   );
 
   const { current: memoizedData } = useLatestPresentValue(collectionsData);
 
   const searchScope = useFragment<CollectionListSearchFragment$key>(
     searchFragment,
-    search
+    search,
   );
 
   const { current: memoizedSearch } = useLatestPresentValue(searchScope);
@@ -75,7 +75,7 @@ function CollectionList({
     handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.collection(
         { collectionId: row.original.entity?.id || row.original.id },
-        row.original.title || "glossary.collection"
+        row.original.title || "glossary.collection",
       ),
     handleView: ({ row }: ModelTableActionProps<Node>) =>
       row.original.slug
@@ -151,14 +151,14 @@ const fragment = graphql`
 
 const searchFragment = graphql`
   fragment CollectionListSearchFragment on SearchScope
-    @argumentDefinitions(
-      query: { type: "String", defaultValue: "" }
-      page: { type: "Int", defaultValue: 1 }
-      predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
-      order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
-      hasQuery: { type: "Boolean!" }
-      schema: { type: "[String!]", defaultValue: [] }
-    ) {
+  @argumentDefinitions(
+    query: { type: "String", defaultValue: "" }
+    page: { type: "Int", defaultValue: 1 }
+    predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
+    order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
+    hasQuery: { type: "Boolean!" }
+    schema: { type: "[String!]", defaultValue: [] }
+  ) {
     results(
       query: $query
       page: $page

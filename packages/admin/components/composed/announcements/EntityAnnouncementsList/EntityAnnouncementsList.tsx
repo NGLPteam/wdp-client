@@ -27,11 +27,13 @@ function EntityAnnouncementsList({
   /* eslint-disable max-len */
   const sourceEntity = useMaybeFragment<EntityAnnouncementsListFragment$key>(
     fragment,
-    data
+    data,
   );
-  const announcementsData = useMaybeFragment<
-    EntityAnnouncementsListDataFragment$key
-  >(linksFragment, sourceEntity?.announcements);
+  const announcementsData =
+    useMaybeFragment<EntityAnnouncementsListDataFragment$key>(
+      linksFragment,
+      sourceEntity?.announcements,
+    );
   /* eslint-enable max-len */
 
   /** Columns */
@@ -59,7 +61,7 @@ function EntityAnnouncementsList({
     handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.announcement(
         { announcementId: row.original.id },
-        row.original.header || "glossary.announcement"
+        row.original.header || "glossary.announcement",
       ),
   };
 

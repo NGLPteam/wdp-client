@@ -2,11 +2,11 @@ import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import ContributorLayout from "components/composed/contributor/ContributorLayout";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import CollectionContributionList from "components/composed/contribution/CollectionContributionList";
-import type { collectionsSlugContributorsPagesQuery as Query } from "@/relay/collectionsSlugContributorsPagesQuery.graphql";
-import type { GetLayout } from "@wdp/lib/types/page";
 import { LoadingCircle } from "components/atomic";
 import ErrorPage from "next/error";
 import { useRouteSlug, useBaseListQueryVars } from "hooks";
+import type { collectionsSlugContributorsPagesQuery as Query } from "@/relay/collectionsSlugContributorsPagesQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function ContributorCollectionContributions({
   queryRef,

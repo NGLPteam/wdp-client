@@ -28,7 +28,7 @@ function ItemContributionList({
 }: ItemContributionListProps) {
   const itemContributions = useMaybeFragment<ItemContributionListFragment$key>(
     fragment,
-    data
+    data,
   );
   const drawerHelper = useDrawerHelper();
   const destroy = useDestroyer();
@@ -57,13 +57,12 @@ function ItemContributionList({
     },
   };
 
-  const contributorNameColumn = ModelColumns.ContributorNameColumn<
-    ItemContributionNode
-  >({
-    accessorFn: (row: ItemContributionNode) => {
-      return row?.contributor;
-    },
-  });
+  const contributorNameColumn =
+    ModelColumns.ContributorNameColumn<ItemContributionNode>({
+      accessorFn: (row: ItemContributionNode) => {
+        return row?.contributor;
+      },
+    });
 
   const columns = [
     nameColumn === "item" ? collectionNameColumn : contributorNameColumn,
@@ -82,7 +81,7 @@ function ItemContributionList({
     handleDelete: ({ row }: ModelTableActionProps<ItemContributionNode>) =>
       destroy.contribution(
         { contributionId: row.original.id },
-        "glossary.contribution"
+        "glossary.contribution",
       ),
   };
 

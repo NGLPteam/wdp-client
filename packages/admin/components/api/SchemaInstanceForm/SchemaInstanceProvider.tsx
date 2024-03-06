@@ -168,7 +168,7 @@ function Watcher({ control }: { control: Control }) {
       /* eslint-disable no-console */
       console.dir({ value: formState });
     },
-    [formState]
+    [formState],
   );
 
   return null;

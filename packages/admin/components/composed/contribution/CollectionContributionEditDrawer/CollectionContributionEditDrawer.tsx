@@ -38,7 +38,7 @@ export default function CollectionContributionEditDrawer({
       if (data.collectionContribution?.id) {
         destroy.contribution(
           { contributionId: data.collectionContribution.id },
-          t("glossary.contribution")
+          t("glossary.contribution"),
         );
       }
       if (dialog?.hide) dialog.hide();

@@ -1,13 +1,13 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { QueryLoaderWrapper } from "@wdp/lib/api/components";
 import CommunityUpdateForm from "components/composed/community/CommunityUpdateForm";
-import type { detailsManageSlugCommunitiesPagesQuery as Query } from "@/relay/detailsManageSlugCommunitiesPagesQuery.graphql";
-import type { GetLayout } from "@wdp/lib/types/page";
 import { LoadingPage } from "components/atomic";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import { AuthContextProvider } from "contexts/AuthContext";
 import CommunityLayout from "components/composed/community/CommunityLayout";
 import ErrorPage from "next/error";
+import type { detailsManageSlugCommunitiesPagesQuery as Query } from "@/relay/detailsManageSlugCommunitiesPagesQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function CommunityDetails({ queryRef, ...layoutProps }: Props) {
   const { community } = usePreloadedQuery<Query>(query, queryRef);

@@ -23,7 +23,7 @@ export default function EntityPageAddForm({
 
   const sourceEntity = useFragment<EntityPageAddFormFragment$key>(
     fragment,
-    data
+    data,
   );
 
   // Sets the slug to the title if no slug is provided
@@ -36,7 +36,7 @@ export default function EntityPageAddForm({
         position: typeof position === "string" ? parseInt(position) : position,
       },
     }),
-    []
+    [],
   );
 
   const renderForm = useRenderForm<Fields>(({ form: { register } }) => {

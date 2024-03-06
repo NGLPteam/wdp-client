@@ -57,12 +57,12 @@ export function useDestroyer() {
     (
       data: useDestroyerFragment$key | null | undefined,
       name: string,
-      refetchTags: string[]
+      refetchTags: string[],
     ) => {
       if (!data) return;
       const results = readInlineData<useDestroyerFragment$key>(
         destroyFragment as GraphQLTaggedNode,
-        data
+        data,
       );
       if (results.revoked) {
         notify.success(t("messages.revoke.success", { name }));
@@ -77,13 +77,14 @@ export function useDestroyer() {
         notify.mutationGlobalError(results.globalErrors);
       }
     },
-    [notify, t, setTriggeredRefetchTags]
+    [notify, t, setTriggeredRefetchTags],
   );
 
   /* Destroy a collection */
-  const [commitDestroyCollection] = useMutation<
-    useDestroyerDestroyCollectionMutation
-  >(destroyCollectionMutation);
+  const [commitDestroyCollection] =
+    useMutation<useDestroyerDestroyCollectionMutation>(
+      destroyCollectionMutation,
+    );
 
   const collection = useCallback(
     async (input: DestroyCollectionInput, label: string) => {
@@ -93,13 +94,12 @@ export function useDestroyer() {
           handleResponse(response.destroyCollection, label, ["collections"]),
       });
     },
-    [commitDestroyCollection, handleResponse]
+    [commitDestroyCollection, handleResponse],
   );
 
   /* Destroy a item */
-  const [commitDestroyItem] = useMutation<useDestroyerDestroyItemMutation>(
-    destroyItemMutation
-  );
+  const [commitDestroyItem] =
+    useMutation<useDestroyerDestroyItemMutation>(destroyItemMutation);
 
   const item = useCallback(
     async (input: DestroyItemInput, label: string) => {
@@ -109,13 +109,14 @@ export function useDestroyer() {
           handleResponse(response.destroyItem, label, ["items"]),
       });
     },
-    [commitDestroyItem, handleResponse]
+    [commitDestroyItem, handleResponse],
   );
 
   /* Destroy a contribution */
-  const [commitDestroyContribution] = useMutation<
-    useDestroyerDestroyContributionMutation
-  >(destroyContributionMutation);
+  const [commitDestroyContribution] =
+    useMutation<useDestroyerDestroyContributionMutation>(
+      destroyContributionMutation,
+    );
 
   const contribution = useCallback(
     async (input: DestroyContributionInput, label: string) => {
@@ -127,13 +128,12 @@ export function useDestroyer() {
           ]),
       });
     },
-    [commitDestroyContribution, handleResponse]
+    [commitDestroyContribution, handleResponse],
   );
 
   /* Destroy a community */
-  const [commitDestroyCommunity] = useMutation<
-    useDestroyerDestroyCommunityMutation
-  >(destroyCommunityMutation);
+  const [commitDestroyCommunity] =
+    useMutation<useDestroyerDestroyCommunityMutation>(destroyCommunityMutation);
 
   const community = useCallback(
     async (input: DestroyCommunityInput, label: string) => {
@@ -143,13 +143,14 @@ export function useDestroyer() {
           handleResponse(response.destroyCommunity, label, ["communities"]),
       });
     },
-    [commitDestroyCommunity, handleResponse]
+    [commitDestroyCommunity, handleResponse],
   );
 
   /* Destroy a contributor */
-  const [commitDestroyContributor] = useMutation<
-    useDestroyerDestroyContributorMutation
-  >(destroyContributorMutation);
+  const [commitDestroyContributor] =
+    useMutation<useDestroyerDestroyContributorMutation>(
+      destroyContributorMutation,
+    );
 
   const contributor = useCallback(
     async (input: DestroyContributorInput, label: string) => {
@@ -159,13 +160,12 @@ export function useDestroyer() {
           handleResponse(response.destroyContributor, label, ["contributors"]),
       });
     },
-    [commitDestroyContributor, handleResponse]
+    [commitDestroyContributor, handleResponse],
   );
 
   /* Destroy a file */
-  const [commitDestroyAsset] = useMutation<useDestroyerDestroyAssetMutation>(
-    destroyFileMutation
-  );
+  const [commitDestroyAsset] =
+    useMutation<useDestroyerDestroyAssetMutation>(destroyFileMutation);
 
   const file = useCallback(
     async (input: DestroyAssetInput, label: string) => {
@@ -175,13 +175,12 @@ export function useDestroyer() {
           handleResponse(response.destroyAsset, label, ["assets"]),
       });
     },
-    [commitDestroyAsset, handleResponse]
+    [commitDestroyAsset, handleResponse],
   );
 
   /* Disable or destroy an ordering */
-  const [commitDisableOrDestroyOrdering] = useMutation<
-    useDestroyerDestroyOrderingMutation
-  >(destroyOrderingMutation);
+  const [commitDisableOrDestroyOrdering] =
+    useMutation<useDestroyerDestroyOrderingMutation>(destroyOrderingMutation);
 
   const ordering = useCallback(
     async (input: DestroyOrderingInput, label: string) => {
@@ -191,13 +190,12 @@ export function useDestroyer() {
           handleResponse(response.destroyOrdering, label, ["orderings"]),
       });
     },
-    [commitDisableOrDestroyOrdering, handleResponse]
+    [commitDisableOrDestroyOrdering, handleResponse],
   );
 
   /* Revoke access */
-  const [commitRevokeAccess] = useMutation<useDestroyerRevokeAccessMutation>(
-    revokeAccessMutation
-  );
+  const [commitRevokeAccess] =
+    useMutation<useDestroyerRevokeAccessMutation>(revokeAccessMutation);
 
   const access = useCallback(
     async (input: RevokeAccessInput, label: string) => {
@@ -207,13 +205,14 @@ export function useDestroyer() {
           handleResponse(response.revokeAccess, label, ["allAccessGrants"]),
       });
     },
-    [commitRevokeAccess, handleResponse]
+    [commitRevokeAccess, handleResponse],
   );
 
   /* Destroy a link */
-  const [commitDestroyLink] = useMutation<
-    useDestroyerDestroyEntityLinkMutation
-  >(destroyEntityLinkMutation);
+  const [commitDestroyLink] =
+    useMutation<useDestroyerDestroyEntityLinkMutation>(
+      destroyEntityLinkMutation,
+    );
 
   const link = useCallback(
     async (input: DestroyEntityLinkInput, label: string) => {
@@ -223,13 +222,12 @@ export function useDestroyer() {
           handleResponse(response.destroyEntityLink, label, ["links"]),
       });
     },
-    [commitDestroyLink, handleResponse]
+    [commitDestroyLink, handleResponse],
   );
 
   /* Destroy a page */
-  const [commitDestroyPage] = useMutation<useDestroyerDestroyPageMutation>(
-    destroyPageMutation
-  );
+  const [commitDestroyPage] =
+    useMutation<useDestroyerDestroyPageMutation>(destroyPageMutation);
 
   const page = useCallback(
     async (input: DestroyPageInput, label: string) => {
@@ -239,13 +237,14 @@ export function useDestroyer() {
           handleResponse(response.destroyPage, label, ["pages"]),
       });
     },
-    [commitDestroyPage, handleResponse]
+    [commitDestroyPage, handleResponse],
   );
 
   /* Destroy an announcement */
-  const [commitDestroyAnnouncement] = useMutation<
-    useDestroyerDestroyAnnouncementMutation
-  >(destroyAnnouncementMutation);
+  const [commitDestroyAnnouncement] =
+    useMutation<useDestroyerDestroyAnnouncementMutation>(
+      destroyAnnouncementMutation,
+    );
 
   const announcement = useCallback(
     async (input: DestroyAnnouncementInput, label: string) => {
@@ -257,7 +256,7 @@ export function useDestroyer() {
           ]),
       });
     },
-    [commitDestroyAnnouncement, handleResponse]
+    [commitDestroyAnnouncement, handleResponse],
   );
 
   return {
