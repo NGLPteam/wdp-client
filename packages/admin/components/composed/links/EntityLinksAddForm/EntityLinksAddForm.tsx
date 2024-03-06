@@ -1,5 +1,4 @@
-import { useFragment } from "react-relay";
-import { graphql } from "relay-runtime";
+import { useFragment, graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import MutationForm, {
   useRenderForm,

@@ -1,5 +1,4 @@
-import { GraphQLTaggedNode, useFragment } from "react-relay";
-import { graphql } from "relay-runtime";
+import { graphql, useFragment } from "react-relay";
 import MutationForm, {
   useRenderForm,
   useToVariables,
@@ -21,7 +20,7 @@ export default function ContributionUpdateForm({
   onCancel,
 }: Props) {
   const maybeContribution = useFragment<ContributionUpdateFormFragment$key>(
-    fragment as GraphQLTaggedNode,
+    fragment,
     data,
   );
 
@@ -41,7 +40,7 @@ export default function ContributionUpdateForm({
   /* eslint-disable max-len */
   const defaultValues =
     useMaybeFragment<ContributionUpdateFormFieldsFragment$key>(
-      fieldsFragment as GraphQLTaggedNode,
+      fieldsFragment,
       maybeContribution.__typename !== "%other" ? maybeContribution : null,
     );
   /* eslint-enable max-len */

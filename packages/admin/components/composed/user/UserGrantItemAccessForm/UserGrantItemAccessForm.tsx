@@ -1,4 +1,4 @@
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import MutationForm, { Forms } from "components/api/MutationForm";
 
 import { NodeRoleSelect } from "components/forms/RoleSelect";

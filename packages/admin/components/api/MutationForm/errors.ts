@@ -1,14 +1,16 @@
 /* eslint-disable camelcase */
 import groupBy from "lodash/groupBy";
 import transform from "lodash/transform";
-
-import { readInlineData } from "relay-runtime";
+import {
+  readInlineData,
+  GraphQLTaggedNode as RuntimeTaggedNode,
+} from "relay-runtime";
 import {
   MutationForm_mutationErrors$data,
   MutationForm_mutationErrors$key,
 } from "@/relay/MutationForm_mutationErrors.graphql";
 import type { FieldValues, Path } from "react-hook-form";
-import type { GraphQLTaggedNode } from "relay-runtime";
+import type { GraphQLTaggedNode } from "react-relay";
 
 import type {
   ErrorMap,
@@ -21,7 +23,7 @@ export function extractErrors<T extends FieldValues = FieldValues>(
   errorResponse: HasErrorFragment | null,
 ): ErrorMap<T> {
   const errors = readInlineData<MutationForm_mutationErrors$key>(
-    fragment,
+    fragment as RuntimeTaggedNode,
     errorResponse,
   );
 

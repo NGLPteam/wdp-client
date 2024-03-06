@@ -1,6 +1,5 @@
-import React, { useState, useCallback } from "react";
-import { graphql } from "relay-runtime";
-import { useFragment, GraphQLTaggedNode } from "react-relay";
+import { useState, useCallback } from "react";
+import { useFragment, graphql } from "react-relay";
 import { useRouter } from "next/router";
 import MutationForm, {
   useRenderForm,
@@ -77,10 +76,7 @@ export default function AddCollectionForm({
     setPrevRedirect(false);
   };
 
-  const formData = useFragment<CollectionAddFormFragment$key>(
-    fragment as GraphQLTaggedNode,
-    data,
-  );
+  const formData = useFragment<CollectionAddFormFragment$key>(fragment, data);
 
   const toVariables = useToVariables<CollectionAddFormMutation, Fields>(
     (data) => ({

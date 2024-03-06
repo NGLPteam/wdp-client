@@ -1,5 +1,6 @@
 import React, { forwardRef, Ref, useCallback, useRef } from "react";
 import AssetPropertySelect from "../AssetPropertySelect";
+import { OnChangeInput } from "../AssetPropertySelect/AssetPropertySelect";
 import AssetsPropertySelectedList from "./AssetsPropertySelectedList";
 
 type BaseProps = React.ComponentProps<typeof AssetPropertySelect>;
@@ -13,8 +14,9 @@ const AssetsPropertySelect = forwardRef(
     const selectRef = useRef<HTMLSelectElement | null>(null);
 
     const handleOnChange = useCallback(
-      (e: React.ChangeEvent<HTMLSelectElement>) => {
-        if (!e || !e.target.value) return;
+      (e: OnChangeInput) => {
+        if (!e || !(typeof e === "object" && "target" in e && e.target.value))
+          return;
 
         const selectedValue = e.target.value;
 

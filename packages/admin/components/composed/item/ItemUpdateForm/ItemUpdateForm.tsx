@@ -1,5 +1,5 @@
-import { graphql, readInlineData } from "relay-runtime";
-import { useFragment } from "react-relay";
+import { GraphQLTaggedNode, readInlineData } from "relay-runtime";
+import { useFragment, graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { getDateOnly } from "@wdp/lib/helpers";
 import pick from "lodash/pick";
@@ -72,7 +72,7 @@ export default function ItemUpdateForm({
   const isSuccess = useIsSuccess<ItemUpdateFormMutation, Fields>(
     function (response) {
       const errors = readInlineData<SchemaErrorsFragment$key>(
-        schemaErrorsFragment,
+        schemaErrorsFragment as GraphQLTaggedNode,
         response[mutationName] ?? null,
       );
 
@@ -86,7 +86,7 @@ export default function ItemUpdateForm({
     setError,
   }) {
     const errors = readInlineData<SchemaErrorsFragment$key>(
-      schemaErrorsFragment,
+      schemaErrorsFragment as GraphQLTaggedNode,
       response[mutationName] ?? null,
     );
 
@@ -96,7 +96,7 @@ export default function ItemUpdateForm({
       );
 
       for (const { path, error } of convertedErrors) {
-        setError(path, error);
+        setError(path as keyof Fields, error);
       }
     }
   }, []);

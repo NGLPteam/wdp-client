@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouteSlug } from "@wdp/lib/routes";
 import { useSchemaFormFieldsContext } from "components/api/SchemaFormFields/SchemaFormFieldsContext";
 import AssetPropertySelect from "components/forms/AssetPropertySelect";
+import { OnChangeInput } from "components/forms/AssetPropertySelect/AssetPropertySelect";
 import { RouteHelper } from "routes";
 import type { AssetPropertyFragment$key } from "@/relay/AssetPropertyFragment.graphql";
 import ScalarProperty from "../ScalarProperty";
@@ -54,7 +55,7 @@ export default function AssetProperty(props: Props) {
               label={label}
               required={required}
               options={options}
-              onChange={(value?: string) => onChange(value || null)}
+              onChange={(value?: OnChangeInput) => onChange(value || null)}
               refetchAssets={handleRefetch}
               description={
                 props.description || (

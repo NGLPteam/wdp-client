@@ -3,7 +3,7 @@ import { Chart } from "react-google-charts";
 import {
   ReactGoogleChartProps,
   ChartWrapperOptions,
-} from "react-google-charts/dist/types";
+} from "react-google-charts";
 import { ThemeContext, DefaultTheme } from "styled-components";
 import { customColors } from "theme/base/variables";
 

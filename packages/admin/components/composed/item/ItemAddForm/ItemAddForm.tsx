@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { useFragment } from "react-relay";
-import { graphql } from "relay-runtime";
+import { useFragment, graphql } from "react-relay";
 import { useRouter } from "next/router";
 import MutationForm, {
   useRenderForm,
