@@ -10,7 +10,7 @@ import ScalarProperty from "../ScalarProperty";
 export default function EntitiesProperty(props: Props) {
   const field = useFragment<EntitiesPropertyFragment$key>(
     fragment,
-    props.field
+    props.field,
   );
 
   const { control } = useFormContext();

@@ -2,11 +2,11 @@ import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { QueryLoaderWrapper } from "@wdp/lib/api/components";
 import UserUpdateForm from "components/composed/user/UserUpdateForm";
 import { LoadingCircle } from "components/atomic";
-import type { detailsManageSlugUsersPagesQuery as Query } from "@/relay/detailsManageSlugUsersPagesQuery.graphql";
-import type { GetLayout } from "@wdp/lib/types/page";
 import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import UserLayout from "components/composed/user/UserLayout";
 import ErrorPage from "next/error";
+import type { detailsManageSlugUsersPagesQuery as Query } from "@/relay/detailsManageSlugUsersPagesQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function UserDetails({ queryRef, ...layoutProps }: Props) {
   const { user } = usePreloadedQuery<Query>(query, queryRef);

@@ -2,12 +2,12 @@ import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { QueryLoaderWrapper } from "@wdp/lib/api/components";
 import ItemUpdateForm from "components/composed/item/ItemUpdateForm";
 import { LoadingCircle } from "components/atomic";
-import type { detailsManageSlugItemsQuery as Query } from "@/relay/detailsManageSlugItemsQuery.graphql";
-import type { GetLayout } from "@wdp/lib/types/page";
 import ErrorPage from "next/error";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import { AuthContextProvider } from "contexts/AuthContext";
 import ItemLayout from "components/composed/item/ItemLayout";
+import type { detailsManageSlugItemsQuery as Query } from "@/relay/detailsManageSlugItemsQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function ManageDetails({ queryRef, ...layoutProps }: Props) {
   const { item } = usePreloadedQuery<Query>(query, queryRef);

@@ -22,7 +22,7 @@ import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 const UserCollectionsList = ({ data }: Props) => {
   const communities = useMaybeFragment<UserCollectionsListFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const { t } = useTranslation();
@@ -81,7 +81,7 @@ const UserCollectionsList = ({ data }: Props) => {
             roleId: role.id,
             userId: user.id,
           },
-          "glossary.access"
+          "glossary.access",
         );
       }
 

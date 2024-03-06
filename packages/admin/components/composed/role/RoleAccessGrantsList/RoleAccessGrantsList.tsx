@@ -30,11 +30,11 @@ function RoleAccessGrantsList({
 }: RoleAccessGrantsListProps) {
   const entity = useMaybeFragment<RoleAccessGrantsListFragment$key>(
     fragment,
-    data
+    data,
   );
   const roles = useMaybeFragment<RoleAccessGrantsListDataFragment$key>(
     listDataFragment,
-    entity?.allAccessGrants
+    entity?.allAccessGrants,
   );
 
   const { t } = useTranslation();
@@ -79,7 +79,7 @@ function RoleAccessGrantsList({
             roleId: role.id,
             userId: user.id,
           },
-          "glossary.access"
+          "glossary.access",
         );
       }
 

@@ -32,7 +32,7 @@ export default function EntityOrderingEditForm({
 }: Props) {
   const entity = useFragment<EntityOrderingEditFormFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const { ordering } = entity;
@@ -50,7 +50,7 @@ export default function EntityOrderingEditForm({
           JSON.stringify({
             namespace: s.namespace,
             identifier: s.identifier,
-          })
+          }),
         ),
         ...values,
       };
@@ -114,7 +114,7 @@ export default function EntityOrderingEditForm({
         </Forms.Grid>
       );
     },
-    [entity]
+    [entity],
   );
 
   return (

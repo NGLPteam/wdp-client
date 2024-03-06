@@ -17,7 +17,7 @@ type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
 const UserTypeahead = <T extends FieldValues = FieldValues>(
   { control, name, label, disabled, required }: Props<T>,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  ref: Ref<HTMLInputElement>
+  ref: Ref<HTMLInputElement>,
 ) => {
   const [q, setQ] = useState("a");
 

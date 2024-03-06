@@ -2,10 +2,10 @@ import { GetLayout } from "@wdp/lib/types/page";
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import ItemSlugRedirect from "components/composed/item/ItemSlugRedirect";
-import { SlugItemsPageQuery as Query } from "@/relay/SlugItemsPageQuery.graphql";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import ErrorPage from "next/error";
 import { LoadingCircle } from "components/atomic";
+import { SlugItemsPageQuery as Query } from "@/relay/SlugItemsPageQuery.graphql";
 
 function ItemSlug({ queryRef }: Props) {
   const { item } = usePreloadedQuery<Query>(query, queryRef);

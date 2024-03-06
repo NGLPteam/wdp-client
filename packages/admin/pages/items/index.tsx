@@ -2,8 +2,8 @@ import { usePreloadedQuery, graphql, PreloadedQuery } from "react-relay";
 import { useSearchQueryVars, useBaseListQueryVars } from "hooks";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import ItemList from "components/composed/item/ItemList";
-import { itemsListQuery as Query } from "@/relay/itemsListQuery.graphql";
 import { LoadingPage } from "components/atomic";
+import { itemsListQuery as Query } from "@/relay/itemsListQuery.graphql";
 
 export default function ItemListView() {
   const queryVars = useBaseListQueryVars();

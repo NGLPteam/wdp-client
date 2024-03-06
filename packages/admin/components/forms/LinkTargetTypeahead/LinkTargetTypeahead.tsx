@@ -30,7 +30,7 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
 
   const optionsData = useMaybeFragment<LinkTargetTypeaheadFragment$key>(
     fragment as GraphQLTaggedNode,
-    data?.collection?.linkTargetCandidates || data?.item?.linkTargetCandidates
+    data?.collection?.linkTargetCandidates || data?.item?.linkTargetCandidates,
   );
 
   const options = useMemo(() => {

@@ -48,7 +48,7 @@ export default function ItemUpdateDrawer({
       if (data.item) {
         destroy.item(
           { itemId: data.item.id },
-          data?.item?.title || t("glossary.item")
+          data?.item?.title || t("glossary.item"),
         );
       }
       if (dialog?.hide) dialog.hide();

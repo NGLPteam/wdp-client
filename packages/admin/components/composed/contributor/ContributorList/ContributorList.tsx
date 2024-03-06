@@ -2,13 +2,13 @@ import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { useTranslation } from "react-i18next";
 import ModelListPage from "components/composed/model/ModelListPage";
 import { useDestroyer, useDrawerHelper } from "hooks";
+import ModelColumns from "components/composed/model/ModelColumns";
+import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
+import PageHeader from "components/layout/PageHeader";
 import {
   ContributorListQuery,
   ContributorListQuery$data,
 } from "@/relay/ContributorListQuery.graphql";
-import ModelColumns from "components/composed/model/ModelColumns";
-import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
-import PageHeader from "components/layout/PageHeader";
 import { getContributorDisplayName } from "../ContributorDisplayName";
 import type { ModelTableActionProps } from "@tanstack/react-table";
 
@@ -25,7 +25,7 @@ function ContributorList({
 
   const { contributors } = usePreloadedQuery<ContributorListQuery>(
     query,
-    queryRef
+    queryRef,
   );
 
   const columns = [
@@ -44,7 +44,7 @@ function ContributorList({
       if (row.original.__typename === "%other") return;
       destroy.contributor(
         { contributorId: row.original.id || "" },
-        getContributorDisplayName(row.original) || "glossary.collection"
+        getContributorDisplayName(row.original) || "glossary.collection",
       );
     },
     handleView: ({ row }: ModelTableActionProps<ContributorNode>) =>
@@ -83,7 +83,8 @@ interface ContributorListProps
   queryRef: PreloadedQuery<ContributorListQuery>;
 }
 
-type ContributorNode = ContributorListQuery$data["contributors"]["nodes"][number];
+type ContributorNode =
+  ContributorListQuery$data["contributors"]["nodes"][number];
 
 export const query = graphql`
   query ContributorListQuery(

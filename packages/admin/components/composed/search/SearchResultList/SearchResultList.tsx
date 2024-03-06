@@ -23,7 +23,7 @@ function SearchResultList({
 
   const searchScope = useMaybeFragment<SearchResultListFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const drawerHelper = useDrawerHelper();
@@ -70,7 +70,7 @@ function SearchResultList({
         row?.original?.entity?.schemaVersion?.kind === "COLLECTION"
           ? "editCollection"
           : "editItem",
-        { drawerSlug: row.original.entity.slug }
+        { drawerSlug: row.original.entity.slug },
       ),
     handleView: ({ row }: ModelTableActionProps<Node>) =>
       row.original.entity.slug
@@ -116,13 +116,13 @@ type Node = SearchResultListFragment$data["results"]["nodes"][number];
 
 const fragment = graphql`
   fragment SearchResultListFragment on SearchScope
-    @argumentDefinitions(
-      query: { type: "String", defaultValue: "" }
-      page: { type: "Int", defaultValue: 1 }
-      predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
-      order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
-      schema: { type: "[String!]", defaultValue: [] }
-    ) {
+  @argumentDefinitions(
+    query: { type: "String", defaultValue: "" }
+    page: { type: "Int", defaultValue: 1 }
+    predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
+    order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
+    schema: { type: "[String!]", defaultValue: [] }
+  ) {
     results(
       query: $query
       page: $page

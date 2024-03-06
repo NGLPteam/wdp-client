@@ -1,13 +1,13 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import EntityOrderingList from "components/composed/ordering/EntityOrderingList";
-import type { ordersManageSlugItemsQuery as Query } from "@/relay/ordersManageSlugItemsQuery.graphql";
-import type { GetLayout } from "@wdp/lib/types/page";
 import ErrorPage from "next/error";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import { AuthContextProvider } from "contexts/AuthContext";
 import { LoadingCircle } from "components/atomic";
 import ItemLayout from "components/composed/item/ItemLayout";
+import type { ordersManageSlugItemsQuery as Query } from "@/relay/ordersManageSlugItemsQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function ManageOrder({ queryRef, ...layoutProps }: Props) {
   const { item } = usePreloadedQuery<Query>(query, queryRef);

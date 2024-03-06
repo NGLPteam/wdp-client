@@ -48,7 +48,7 @@ export default function CommunityUpdateDrawer({
       if (data.community) {
         destroy.community(
           { communityId: data.community.id },
-          data?.community?.title || t("glossary.community")
+          data?.community?.title || t("glossary.community"),
         );
       }
       if (dialog?.hide) dialog.hide();

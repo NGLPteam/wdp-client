@@ -39,7 +39,7 @@ const UserUpdateForm = ({ data, onSuccess, onCancel }: Props) => {
         ...data,
       },
     }),
-    []
+    [],
   );
 
   const renderForm = useRenderForm<Fields>(
@@ -70,7 +70,7 @@ const UserUpdateForm = ({ data, onSuccess, onCancel }: Props) => {
         />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   const defaultValues = {

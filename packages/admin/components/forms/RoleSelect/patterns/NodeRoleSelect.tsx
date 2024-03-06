@@ -17,7 +17,7 @@ export default function NodeRoleSelect({ nodeId, name, required }: Props) {
     { id: nodeId || "" },
     // Because an empty string is an invalid id,
     // we only want to run the query if an id is passed to this component.
-    { skip: !nodeId }
+    { skip: !nodeId },
   );
 
   return (

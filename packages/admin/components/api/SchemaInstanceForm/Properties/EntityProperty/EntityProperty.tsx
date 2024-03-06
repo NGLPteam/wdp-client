@@ -25,11 +25,11 @@ export default function EntityProperty(props: Props) {
   const handleChange = useCallback(
     (
       e: React.ChangeEvent<HTMLSelectElement>,
-      onChange: (val?: string) => void
+      onChange: (val?: string) => void,
     ) => {
       onChange(e.target.value || undefined);
     },
-    []
+    [],
   );
 
   return (

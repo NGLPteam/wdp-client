@@ -7,7 +7,7 @@ import ScalarProperty from "../ScalarProperty";
 export default function FullTextProperty(props: Props) {
   const field = useFragment<FullTextPropertyFragment$key>(
     fragment,
-    props.field
+    props.field,
   );
 
   const { control } = useFormContext();

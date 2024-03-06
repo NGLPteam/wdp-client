@@ -12,7 +12,7 @@ import type { PaginatedConnectionish } from "components/composed/model/ModelList
 
 export interface ModelListProps<
   U extends PaginatedConnectionish | Connectionish,
-  V extends Record<string, unknown>
+  V extends Record<string, unknown>,
 > extends UseModelListProps<U, V> {
   view: ViewOptions;
   modelName: Lowercase<ModelNames>;
@@ -21,7 +21,7 @@ export interface ModelListProps<
 
 function ModelList<
   U extends PaginatedConnectionish | Connectionish,
-  V extends Record<string, unknown>
+  V extends Record<string, unknown>,
 >({
   modelName,
   selectable = false,

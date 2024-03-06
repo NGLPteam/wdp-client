@@ -8,9 +8,8 @@ import type { ScalarPropertyFragment$key } from "@/relay/ScalarPropertyFragment.
  * generic interfaces.
  */
 export default function ScalarProperty(props: Props) {
-  const { name, label, required, path, type, isWide } = useFragment<
-    ScalarPropertyFragment$key
-  >(fragment, props.field);
+  const { name, label, required, path, type, isWide } =
+    useFragment<ScalarPropertyFragment$key>(fragment, props.field);
 
   // If we need to, we could override the label here
 

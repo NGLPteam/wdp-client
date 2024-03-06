@@ -21,7 +21,7 @@ const FileCreateModal = ({ dialog, onSuccess }: Props) => {
     (newAssetId: string) => {
       if (onSuccess) onSuccess(newAssetId);
     },
-    [onSuccess]
+    [onSuccess],
   );
 
   return (

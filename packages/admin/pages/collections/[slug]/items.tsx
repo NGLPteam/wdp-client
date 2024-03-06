@@ -2,12 +2,12 @@ import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import CollectionLayout from "components/composed/collection/CollectionLayout";
 import ItemList from "components/composed/item/ItemList";
-import type { GetLayout } from "@wdp/lib/types/page";
-import type { itemsSlugCollectionsPagesQuery as Query } from "__generated__/itemsSlugCollectionsPagesQuery.graphql";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import ErrorPage from "next/error";
 import { LoadingCircle } from "components/atomic";
 import { AuthContextProvider } from "contexts/AuthContext";
+import type { itemsSlugCollectionsPagesQuery as Query } from "__generated__/itemsSlugCollectionsPagesQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
 function CollectionChildItems({ queryRef }: Props) {
   const { collection } = usePreloadedQuery<Query>(query, queryRef);
