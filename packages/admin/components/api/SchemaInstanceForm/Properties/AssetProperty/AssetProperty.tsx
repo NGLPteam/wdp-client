@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
-import { graphql } from "relay-runtime";
-import { useFragment } from "react-relay";
+import { useFragment, graphql } from "react-relay";
 import { Controller, useFormContext } from "react-hook-form";
 import isFunction from "lodash/isFunction";
 import { Trans } from "react-i18next";

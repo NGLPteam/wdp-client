@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
-import { graphql } from "relay-runtime";
-import { useFragment } from "react-relay";
+import { useFragment, graphql } from "react-relay";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import Multiselect from "components/forms/Multiselect";
@@ -11,7 +10,7 @@ import ScalarProperty from "../ScalarProperty";
 export default function EntitiesProperty(props: Props) {
   const field = useFragment<EntitiesPropertyFragment$key>(
     fragment,
-    props.field,
+    props.field
   );
 
   const { control } = useFormContext();

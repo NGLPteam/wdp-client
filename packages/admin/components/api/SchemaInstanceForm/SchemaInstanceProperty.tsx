@@ -1,5 +1,4 @@
-import { useFragment } from "react-relay";
-import { graphql } from "relay-runtime";
+import { useFragment, graphql } from "react-relay";
 
 import type { SchemaInstancePropertyFragment$key } from "@/relay/SchemaInstancePropertyFragment.graphql";
 import * as Factories from "./Factories";

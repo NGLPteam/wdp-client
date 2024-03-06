@@ -1,5 +1,4 @@
-import { graphql } from "relay-runtime";
-import { useFragment } from "react-relay";
+import { useFragment, graphql } from "react-relay";
 import { Controller, useFormContext } from "react-hook-form";
 import Multiselect from "components/forms/Multiselect";
 import { useSchemaFormFieldsContext } from "components/api/SchemaFormFields/SchemaFormFieldsContext";
@@ -11,7 +10,7 @@ export default function ContributorsProperty(props: Props) {
 
   const field = useFragment<ContributorsPropertyFragment$key>(
     fragment,
-    props.field,
+    props.field
   );
 
   const { control } = useFormContext();
