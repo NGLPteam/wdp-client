@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { graphql } from "relay-runtime";
-import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
+import { graphql } from "react-relay";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import { LoadingCircle } from "components/atomic";
 import { EntitySelectorControllerCommunitiesQuery as Query } from "@/relay/EntitySelectorControllerCommunitiesQuery.graphql";
 import {
@@ -90,7 +90,7 @@ export default function Controller({
     return !!(
       selectableTypes?.kinds?.includes(schema.kind ?? "") ||
       selectableTypes?.schemas?.includes(
-        `${schema.namespace}:${schema.identifier}` ?? "",
+        `${schema.namespace}:${schema.identifier}` ?? ""
       )
     );
   };
@@ -142,14 +142,14 @@ export default function Controller({
     const current = data?.community
       ? data.community.title
       : data?.collection
-        ? data?.collection.title
-        : data?.item?.title;
+      ? data?.collection.title
+      : data?.item?.title;
     const parent =
       data?.collection && data.collection.parent?.__typename !== "%other"
         ? data.collection.parent?.slug
         : data?.item && data.item.parent?.__typename !== "%other"
-          ? data.item.parent?.slug
-          : "";
+        ? data.item.parent?.slug
+        : "";
     if (!data || (data.community && scopeToCommunity)) return null;
     return (
       <Styled.Back
@@ -166,7 +166,7 @@ export default function Controller({
   };
 
   return !currentEntity ? (
-    <QueryWrapper<Query> query={communitiesQuery}>
+    <LazyLoadQueryWrapper<Query> query={communitiesQuery} variables={{}}>
       {({ data }) =>
         data?.communities?.edges.length ? (
           <>{renderOptions(data.communities.edges)}</>
@@ -174,9 +174,12 @@ export default function Controller({
           <LoadingCircle />
         )
       }
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   ) : (
-    <QueryWrapper<EntityQuery> query={entityQuery} initialVariables={queryVars}>
+    <LazyLoadQueryWrapper<EntityQuery>
+      query={entityQuery}
+      variables={queryVars}
+    >
       {({ data }) =>
         data ? (
           <>
@@ -187,7 +190,7 @@ export default function Controller({
           <LoadingCircle />
         )
       }
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

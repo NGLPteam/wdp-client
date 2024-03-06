@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import GlobalSettingsEditForm from "components/composed/settings/GlobalSettingsEditForm";
 import Drawer from "components/layout/Drawer";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 
 import { useViewerContext } from "contexts";
 import type { GlobalSettingsEditDrawerQuery as Query } from "__generated__/GlobalSettingsEditDrawerQuery.graphql";
@@ -20,7 +20,7 @@ export default function GlobalSettingsEditDrawer({
   const { globalAdmin } = useViewerContext();
 
   return globalAdmin ? (
-    <QueryWrapper<Query> query={query}>
+    <LazyLoadQueryWrapper<Query> query={query} variables={{}}>
       {({ data }) => {
         return (
           <Drawer
@@ -38,7 +38,7 @@ export default function GlobalSettingsEditDrawer({
           </Drawer>
         );
       }}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   ) : null;
 }
 

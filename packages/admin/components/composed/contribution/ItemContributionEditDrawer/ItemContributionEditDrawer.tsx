@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useDrawerHelper, useDestroyer } from "hooks";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import Drawer from "components/layout/Drawer";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
 import ContributionUpdateForm from "components/composed/contribution/ContributionUpdateForm";
@@ -36,7 +36,7 @@ export default function ItemContributionEditDrawer({
       if (data.itemContribution?.id) {
         destroy.contribution(
           { contributionId: data.itemContribution.id },
-          t("glossary.contribution"),
+          t("glossary.contribution")
         );
       }
       if (dialog?.hide) dialog.hide();
@@ -47,9 +47,9 @@ export default function ItemContributionEditDrawer({
 
   const { drawerSlug } = params;
   return (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{ itemContributionSlug: drawerSlug }}
+      variables={{ itemContributionSlug: drawerSlug }}
     >
       {({ data }) => (
         <Drawer
@@ -67,7 +67,7 @@ export default function ItemContributionEditDrawer({
           )}
         </Drawer>
       )}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 const query = graphql`

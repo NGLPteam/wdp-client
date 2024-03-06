@@ -1,7 +1,7 @@
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useDrawerHelper } from "hooks";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import Drawer from "components/layout/Drawer";
 import FileEditForm from "../FileEditForm";
 import type { DialogProps } from "reakit/Dialog";
@@ -26,7 +26,7 @@ export default function FileEditDrawer({
   const { drawerSlug } = params;
 
   return (
-    <QueryWrapper<Query> query={query} initialVariables={{ slug: drawerSlug }}>
+    <LazyLoadQueryWrapper<Query> query={query} variables={{ slug: drawerSlug }}>
       {({ data }) =>
         data?.asset ? (
           <Drawer
@@ -38,7 +38,7 @@ export default function FileEditDrawer({
           </Drawer>
         ) : null
       }
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

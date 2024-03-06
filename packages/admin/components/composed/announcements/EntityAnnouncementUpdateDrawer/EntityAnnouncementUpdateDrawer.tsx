@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import EntityAnnouncementUpdateForm from "components/composed/announcements/EntityAnnouncementUpdateForm";
 import Drawer from "components/layout/Drawer";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import EntityAnnouncementDrawerActions from "./EntityAnnouncementDrawerActions";
 import type { DialogProps } from "reakit/Dialog";
 
@@ -25,9 +25,9 @@ export default function EntityAnnouncementUpdateDrawer({
   };
 
   return (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{
+      variables={{
         entitySlug: drawerSlug,
         announcementSlug: drawerAnnouncementSlug,
       }}
@@ -58,7 +58,7 @@ export default function EntityAnnouncementUpdateDrawer({
           </Drawer>
         );
       }}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

@@ -1,6 +1,6 @@
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import Drawer from "components/layout/Drawer";
 import { UserGrantItemAccessDrawerQuery as Query } from "@/relay/UserGrantItemAccessDrawerQuery.graphql";
 import UserGrantItemAccessForm from "../UserGrantItemAccessForm";
@@ -14,9 +14,9 @@ export default function UserGrantItemAccessDrawer({ dialog, params }: Props) {
   const { drawerSlug } = params;
 
   return drawerSlug ? (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{
+      variables={{
         slug: drawerSlug,
       }}
     >
@@ -33,7 +33,7 @@ export default function UserGrantItemAccessDrawer({ dialog, params }: Props) {
           />
         </Drawer>
       )}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   ) : null;
 }
 

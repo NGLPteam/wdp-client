@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useDrawerHelper, useDestroyer } from "hooks";
 import { RouteHelper } from "routes";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import Drawer from "components/layout/Drawer";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
 import CommunityUpdateForm from "components/composed/community/CommunityUpdateForm";
@@ -48,7 +48,7 @@ export default function CommunityUpdateDrawer({
       if (data.community) {
         destroy.community(
           { communityId: data.community.id },
-          data?.community?.title || t("glossary.community"),
+          data?.community?.title || t("glossary.community")
         );
       }
       if (dialog?.hide) dialog.hide();
@@ -58,9 +58,9 @@ export default function CommunityUpdateDrawer({
   }
 
   return (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{ communitySlug: drawerSlug }}
+      variables={{ communitySlug: drawerSlug }}
     >
       {({ data }) => (
         <Drawer
@@ -79,7 +79,7 @@ export default function CommunityUpdateDrawer({
           )}
         </Drawer>
       )}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

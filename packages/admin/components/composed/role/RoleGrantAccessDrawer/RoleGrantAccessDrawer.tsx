@@ -1,7 +1,6 @@
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import Drawer from "components/layout/Drawer";
 import RoleGrantAccessForm from "components/composed/role/RoleGrantAccessForm";
 import {
@@ -28,8 +27,8 @@ export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
       drawerEntity === "community"
         ? data?.community?.title
         : drawerEntity === "collection"
-          ? data?.collection?.title
-          : data?.item?.title;
+        ? data?.collection?.title
+        : data?.item?.title;
 
     return header
       ? t(`${i18nKey}_header`, {
@@ -42,8 +41,8 @@ export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
     return drawerEntity === "community"
       ? data?.community
       : drawerEntity === "collection"
-        ? data?.collection
-        : data?.item;
+      ? data?.collection
+      : data?.item;
   }
 
   function getEntityId(data?: Response | null) {
@@ -51,9 +50,9 @@ export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
   }
 
   return drawerSlug && drawerEntity ? (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{
+      variables={{
         slug: drawerSlug,
         onCommunity: drawerEntity === "community",
         onCollection: drawerEntity === "collection",
@@ -65,7 +64,7 @@ export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
           label={t(
             drawerEntity === "community"
               ? "actions.add.member"
-              : "actions.add.access",
+              : "actions.add.access"
           )}
           header={getDrawerHeader(data)}
           dialog={dialog}
@@ -79,7 +78,7 @@ export default function RoleGrantAccessDrawer({ dialog, params }: Props) {
           />
         </Drawer>
       )}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   ) : null;
 }
 

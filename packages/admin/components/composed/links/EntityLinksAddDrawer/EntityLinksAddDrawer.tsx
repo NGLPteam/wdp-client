@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import EntityLinksAddForm from "components/composed/links/EntityLinksAddForm";
 import Drawer from "components/layout/Drawer";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import type { DialogProps } from "reakit/Dialog";
 
 import type { EntityLinksAddDrawerQuery as Query } from "__generated__/EntityLinksAddDrawerQuery.graphql";
@@ -20,9 +20,9 @@ export default function EntityLinksAddDrawer({
   const { drawerSlug } = params;
 
   return (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{ entitySlug: drawerSlug }}
+      variables={{ entitySlug: drawerSlug }}
     >
       {({ data }) => {
         const entity = data ? data.item ?? data.collection : undefined;
@@ -42,7 +42,7 @@ export default function EntityLinksAddDrawer({
           </Drawer>
         );
       }}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

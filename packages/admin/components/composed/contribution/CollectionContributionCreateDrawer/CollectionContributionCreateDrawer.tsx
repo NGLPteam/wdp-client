@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useDrawerHelper } from "hooks";
 import { Drawer } from "components/layout";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import ContributionCreateForm from "../ContributionCreateForm";
 import type { CollectionContributionCreateDrawerQuery as Query } from "__generated__/CollectionContributionCreateDrawerQuery.graphql";
 import type { DialogProps } from "reakit/Dialog";
@@ -26,7 +26,7 @@ export default function CollectionContributionCreateDrawer({
   const { drawerSlug } = params;
 
   return (
-    <QueryWrapper<Query> query={query} initialVariables={{ slug: drawerSlug }}>
+    <LazyLoadQueryWrapper<Query> query={query} variables={{ slug: drawerSlug }}>
       {({ data }) =>
         data?.collection?.id && data?.collection?.title ? (
           <Drawer
@@ -44,7 +44,7 @@ export default function CollectionContributionCreateDrawer({
           </Drawer>
         ) : null
       }
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 
