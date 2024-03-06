@@ -3159,7 +3159,6 @@ __metadata:
     depcheck: "npm:^1.4.7"
     eslint: "npm:^8.57.0"
   peerDependencies:
-    "@castiron/style-mixins": "*"
     "@graphql-codegen/cli": "*"
     "@graphql-codegen/introspection": "*"
     "@graphql-codegen/schema-ast": "*"
@@ -3193,7 +3192,6 @@ __metadata:
     relay-compiler: "*"
     relay-compiler-language-typescript: "*"
     relay-config: "*"
-    relay-hooks: "*"
     relay-runtime: "*"
     relay-test-utils: "*"
     styled-components: "*"
