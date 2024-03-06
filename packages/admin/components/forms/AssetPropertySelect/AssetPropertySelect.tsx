@@ -8,11 +8,15 @@ import BaseInputWrapper from "../BaseInputWrapper";
 import BaseSelect from "../BaseSelect";
 import * as Styled from "./AssetPropertySelect.styles";
 
+export type OnChangeInput =
+  | React.ChangeEvent<HTMLSelectElement>
+  | string[]
+  | string
+  | null;
+
 type BaseProps = React.ComponentProps<typeof Select> & {
   refetchAssets?: () => void;
-  onChange: (
-    e: React.ChangeEvent<HTMLSelectElement> | string | string[] | null,
-  ) => void;
+  onChange: (e: OnChangeInput) => void;
 };
 
 /* eslint-disable react/prop-types */

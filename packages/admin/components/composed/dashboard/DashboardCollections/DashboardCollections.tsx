@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import { graphql, useFragment } from "react-relay";
-import { OperationType } from "relay-runtime";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { ContentHeader } from "components/layout";
 import ModelList from "components/composed/model/ModelList";
@@ -42,7 +41,7 @@ export default function DashboardCollections({ data }: Props) {
         title={t("glossary.collection_plural")}
       />
       <ModelPageCountActions data={collections} />
-      <ModelList<OperationType, DashboardCollectionsListFragment$data, Node>
+      <ModelList<DashboardCollectionsListFragment$data, Node>
         view={ViewOptions.grid}
         columns={columns}
         data={collections}

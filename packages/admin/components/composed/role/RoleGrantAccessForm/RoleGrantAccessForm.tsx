@@ -1,6 +1,5 @@
-import { graphql } from "relay-runtime";
 import MutationForm, { Forms } from "components/api/MutationForm";
-import { GraphQLTaggedNode } from "react-relay";
+import { graphql } from "react-relay";
 import UserTypeahead from "components/forms/UserTypeahead";
 import RoleSelect from "components/forms/RoleSelect";
 import { useMaybeFragment } from "hooks";
@@ -16,7 +15,7 @@ const RoleGrantAccessForm = ({
   onCancel,
   entityId,
 }: Props) => {
-  const roles = useMaybeFragment(rolesFragment as GraphQLTaggedNode, rolesData);
+  const roles = useMaybeFragment(rolesFragment, rolesData);
 
   const defaultValues = {
     entityId,

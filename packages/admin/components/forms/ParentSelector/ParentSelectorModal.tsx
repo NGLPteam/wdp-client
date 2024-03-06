@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import Modal from "components/layout/Modal";
 import { EntitySelector } from "components/forms";
 import MutationForm, {

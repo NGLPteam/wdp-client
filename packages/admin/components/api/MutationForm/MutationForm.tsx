@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useMutation, graphql, GraphQLTaggedNode } from "react-relay";
 
 import { useForm, FormProvider } from "react-hook-form";
@@ -87,16 +87,7 @@ export default function MutationForm<
 
   const [state, dispatch] = useMutationFormState<M, T>({ form, name });
 
-  const [mutate, mutationState] = useMutation<M>(props.mutation);
-
-  useEffect(
-    function () {
-      if (mutationState.error) {
-        dispatch({ type: "error", serverError: mutationState.error });
-      }
-    },
-    [mutationState.error, dispatch],
-  );
+  const [mutate, loading] = useMutation<M>(props.mutation);
 
   const {
     getErrors,
@@ -138,14 +129,13 @@ export default function MutationForm<
 
   const { setError } = form;
 
-  const submitHandler: SubmitHandler<T> = useCallback(
-    async (values, event) => {
-      const variables = castVariables(values);
-
-      dispatch({ type: "submit", variables, values });
-
-      const response = await mutate({ variables });
-
+  const handleResponse = useCallback(
+    (
+      response: M["response"],
+      variables: M["variables"],
+      values: T,
+      event?: React.BaseSyntheticEvent,
+    ) => {
       const errorResponse = extractErrorsRef(response);
 
       const errors = extractErrors<T>(errorFragment, errorResponse);
@@ -198,11 +188,8 @@ export default function MutationForm<
       }
     },
     [
-      castVariables,
-      dispatch,
       extractErrorsRef,
       isSuccess,
-      mutate,
       onFailure,
       onSuccess,
       onSaveAndClose,
@@ -214,6 +201,22 @@ export default function MutationForm<
       successNotification,
       t,
     ],
+  );
+
+  const submitHandler: SubmitHandler<T> = useCallback(
+    (values, event) => {
+      const variables = castVariables(values);
+
+      dispatch({ type: "submit", variables, values });
+
+      mutate({
+        variables,
+        onCompleted: (response) =>
+          handleResponse(response, variables, values, event),
+        onError: (err) => dispatch({ type: "error", serverError: err }),
+      });
+    },
+    [castVariables, dispatch, mutate],
   );
 
   const { handleSubmit } = form;
@@ -229,7 +232,7 @@ export default function MutationForm<
     formState: { isSubmitting, isValidating },
   } = form;
 
-  const submitDisabled = mutationState.loading || isSubmitting || isValidating;
+  const submitDisabled = loading || isSubmitting || isValidating;
 
   return (
     <FormProvider {...form}>

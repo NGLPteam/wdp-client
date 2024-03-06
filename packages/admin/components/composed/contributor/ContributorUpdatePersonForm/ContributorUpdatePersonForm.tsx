@@ -1,5 +1,4 @@
-import { graphql } from "relay-runtime";
-import { useFragment } from "react-relay";
+import { useFragment, graphql } from "react-relay";
 import compact from "lodash/compact";
 import MutationForm, {
   useRenderForm,

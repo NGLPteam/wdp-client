@@ -1,6 +1,5 @@
-import React, { useRef } from "react";
-import { graphql } from "relay-runtime";
-import { useFragment } from "react-relay";
+import { useRef } from "react";
+import { useFragment, graphql } from "react-relay";
 import MutationForm, {
   useRenderForm,
   useToVariables,

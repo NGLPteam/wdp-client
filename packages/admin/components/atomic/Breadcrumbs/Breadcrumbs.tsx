@@ -120,7 +120,7 @@ const Breadcrumbs = styled(BreadcrumbsWrapper)<Props>`
 
 interface Props {
   className?: string;
-  data: Record<string, string>[];
+  data: Crumbs[];
   delimiter?: string;
 }
 

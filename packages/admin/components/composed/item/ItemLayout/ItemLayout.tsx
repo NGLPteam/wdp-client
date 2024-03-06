@@ -77,11 +77,7 @@ export default function ItemLayout({
     <section>
       <PageHeader
         title={memoizedItem?.title}
-        breadcrumbsProps={
-          breadcrumbs
-            ? { data: breadcrumbs, className: "", delimiter: ">" }
-            : undefined
-        }
+        breadcrumbsProps={breadcrumbs ? { data: breadcrumbs } : undefined}
         tabRoutes={tabRoutes}
         sidebarLinks={manageRoutes}
         buttons={buttons}
