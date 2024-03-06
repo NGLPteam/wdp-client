@@ -1,5 +1,4 @@
-import { graphql } from "relay-runtime";
-import { useFragment } from "react-relay";
+import { useFragment, graphql } from "react-relay";
 import VariablePrecisionDateControl from "components/forms/VariablePrecisionDateControl";
 import type { VariableDatePropertyFragment$key } from "@/relay/VariableDatePropertyFragment.graphql";
 import ScalarProperty from "../ScalarProperty";
@@ -7,7 +6,7 @@ import ScalarProperty from "../ScalarProperty";
 export default function VariableDateProperty(props: Props) {
   const field = useFragment<VariableDatePropertyFragment$key>(
     fragment,
-    props.field,
+    props.field
   );
 
   return (

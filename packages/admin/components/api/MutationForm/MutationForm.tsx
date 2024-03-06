@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from "react";
-import { useMutation } from "relay-hooks";
+import { useMutation, graphql, GraphQLTaggedNode } from "react-relay";
+
 import { useForm, FormProvider } from "react-hook-form";
-import { graphql } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import has from "lodash/has";
 
@@ -28,7 +28,7 @@ import type {
   RenderForm,
   VariableTransformer,
 } from "./types";
-import type { GraphQLTaggedNode, MutationParameters } from "relay-runtime";
+import type { MutationParameters } from "relay-runtime";
 import type {
   DefaultValues,
   FieldValues,
@@ -64,7 +64,7 @@ import type {
 
 export default function MutationForm<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues,
+  T extends FieldValues = FieldValues
 >(props: Props<M, T>) {
   const {
     children,
@@ -95,7 +95,7 @@ export default function MutationForm<
         dispatch({ type: "error", serverError: mutationState.error });
       }
     },
-    [mutationState.error, dispatch],
+    [mutationState.error, dispatch]
   );
 
   const {
@@ -116,7 +116,7 @@ export default function MutationForm<
 
       return { input: data };
     },
-    [toVariables],
+    [toVariables]
   );
 
   const extractErrorsRef = useCallback<GetErrors<M>>(
@@ -133,7 +133,7 @@ export default function MutationForm<
 
       return null;
     },
-    [getErrors, name],
+    [getErrors, name]
   );
 
   const { setError } = form;
@@ -213,16 +213,16 @@ export default function MutationForm<
       setTriggeredRefetchTags,
       successNotification,
       t,
-    ],
+    ]
   );
 
   const { handleSubmit } = form;
 
   /* eslint-disable prettier/prettier */
-  const onSubmit = useMemo(
-    () => handleSubmit(submitHandler),
-    [handleSubmit, submitHandler]
-  );
+  const onSubmit = useMemo(() => handleSubmit(submitHandler), [
+    handleSubmit,
+    submitHandler,
+  ]);
   /* eslint-enable prettier/prettier */
 
   const {
@@ -416,7 +416,7 @@ function checkSuccess<M extends MutationParameters, T extends FieldValues>(
   response: M["response"],
   errors: ErrorMap<T>,
   data: T,
-  isSuccess?: IsSuccessPredicate<M, T>,
+  isSuccess?: IsSuccessPredicate<M, T>
 ): boolean {
   if (typeof isSuccess === "function") {
     return isSuccess(response, data) && hasNoErrors(errors);
@@ -433,7 +433,7 @@ function checkSuccess<M extends MutationParameters, T extends FieldValues>(
  * @returns
  */
 function hasErrors<M extends MutationParameters>(
-  payload: M["response"][MutationName<M>],
+  payload: M["response"][MutationName<M>]
 ): payload is PayloadWithErrors<M> {
   if (payload && hasFragments<M>(payload) && payload.__fragments) {
     return Boolean(payload.__fragments.MutationForm_mutationErrors);
@@ -443,7 +443,7 @@ function hasErrors<M extends MutationParameters>(
 }
 
 function hasFragments<M extends MutationParameters>(
-  payload: M["response"][MutationName<M>],
+  payload: M["response"][MutationName<M>]
 ): payload is PayloadWithFragments<M> {
   return has(payload, "__fragments");
 }

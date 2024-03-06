@@ -1,5 +1,4 @@
-import { useFragment } from "react-relay";
-import { graphql } from "relay-runtime";
+import { useFragment, graphql } from "react-relay";
 import SchemaSelector from "components/forms/SchemaSelector";
 import type { SchemaInstanceFormFragment$key } from "@/relay/SchemaInstanceFormFragment.graphql";
 import SchemaFormFields from "../SchemaFormFields";

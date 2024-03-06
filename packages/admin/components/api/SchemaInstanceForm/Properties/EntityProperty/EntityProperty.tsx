@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo } from "react";
-import { graphql } from "relay-runtime";
-import { useFragment } from "react-relay";
+import { useFragment, graphql } from "react-relay";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import Select from "components/forms/Select";

@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { useFragment, useMutation } from "relay-hooks";
-import { graphql } from "relay-runtime";
+import { useFragment, useMutation, graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useForm, useWatch, FormProvider } from "react-hook-form";
 import { useNotify } from "hooks";
@@ -32,8 +31,9 @@ export default function SchemaInstanceProvider({
   const { t } = useTranslation();
 
   // eslint-disable-next-line prettier/prettier
-  const [apply] =
-    useMutation<SchemaInstanceProviderApplyMutation>(applyMutation);
+  const [apply] = useMutation<SchemaInstanceProviderApplyMutation>(
+    applyMutation
+  );
 
   const form = useForm({
     defaultValues: context.fieldValues,
@@ -60,44 +60,47 @@ export default function SchemaInstanceProvider({
         propertyValues: values,
       };
 
-      const response = await apply({ variables: { input } });
+      apply({
+        variables: { input },
+        onCompleted: (response) => {
+          if (response && response.applySchemaProperties) {
+            const { entity, schemaErrors } = response.applySchemaProperties;
 
-      if (response && response.applySchemaProperties) {
-        const { entity, schemaErrors } = response.applySchemaProperties;
+            if (entity) {
+              // First, notify
+              if (successNotification) {
+                notify.success(t(successNotification));
+              }
 
-        if (entity) {
-          // First, notify
-          if (successNotification) {
-            notify.success(t(successNotification));
+              console.dir(entity);
+
+              if (typeof onSuccess === "function") {
+                onSuccess({ values });
+              }
+
+              if (
+                event?.target.dataset.close &&
+                typeof onSaveAndClose === "function"
+              ) {
+                onSaveAndClose();
+              }
+            } else if (schemaErrors.length > 0) {
+              /* eslint-disable no-console */
+              console.error(schemaErrors);
+
+              if (failureNotification) {
+                notify.error(t(failureNotification));
+              }
+
+              const errors = convertSchemaErrors<SchemaErrors>(schemaErrors);
+
+              for (const { path, error } of errors) {
+                setError(path, error);
+              }
+            }
           }
-
-          console.dir(entity);
-
-          if (typeof onSuccess === "function") {
-            onSuccess({ values });
-          }
-
-          if (
-            event?.target.dataset.close &&
-            typeof onSaveAndClose === "function"
-          ) {
-            onSaveAndClose();
-          }
-        } else if (schemaErrors.length > 0) {
-          /* eslint-disable no-console */
-          console.error(schemaErrors);
-
-          if (failureNotification) {
-            notify.error(t(failureNotification));
-          }
-
-          const errors = convertSchemaErrors<SchemaErrors>(schemaErrors);
-
-          for (const { path, error } of errors) {
-            setError(path, error);
-          }
-        }
-      }
+        },
+      });
     });
   }, [
     apply,
@@ -165,7 +168,7 @@ function Watcher({ control }: { control: Control }) {
       /* eslint-disable no-console */
       console.dir({ value: formState });
     },
-    [formState],
+    [formState]
   );
 
   return null;

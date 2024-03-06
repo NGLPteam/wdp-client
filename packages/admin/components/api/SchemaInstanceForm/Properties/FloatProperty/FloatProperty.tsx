@@ -1,5 +1,4 @@
-import { graphql } from "relay-runtime";
-import { useFragment } from "react-relay";
+import { useFragment, graphql } from "react-relay";
 import { useFormContext } from "react-hook-form";
 import Input from "components/forms/Input";
 import type { FloatPropertyFragment$key } from "@/relay/FloatPropertyFragment.graphql";

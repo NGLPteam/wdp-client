@@ -1,5 +1,4 @@
-import { graphql } from "relay-runtime";
-import { useFragment } from "react-relay";
+import { useFragment, graphql } from "react-relay";
 import { useFormContext } from "react-hook-form";
 import Select from "components/forms/Select";
 import type { ContributorPropertyFragment$key } from "@/relay/ContributorPropertyFragment.graphql";
@@ -11,7 +10,7 @@ export default function ContributorProperty(props: Props) {
 
   const field = useFragment<ContributorPropertyFragment$key>(
     fragment,
-    props.field,
+    props.field
   );
 
   const { register } = useFormContext();
