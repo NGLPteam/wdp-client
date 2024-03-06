@@ -1,7 +1,7 @@
-import React, { Ref, useState } from "react";
+import { Ref, useState } from "react";
 import { Controller } from "react-hook-form";
-import { QueryWrapper } from "@wdp/lib/api/components";
-import { graphql } from "relay-runtime";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
+import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import debounce from "lodash/debounce";
 import BaseTypeahead from "components/forms/BaseTypeahead";
@@ -16,7 +16,7 @@ type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
 const CollectionTypeahead = <T extends FieldValues = FieldValues>(
   { control, name, label, disabled, required }: Props<T>,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  ref: Ref<HTMLInputElement>,
+  ref: Ref<HTMLInputElement>
 ) => {
   const [q, setQ] = useState("a");
 
@@ -38,7 +38,7 @@ const CollectionTypeahead = <T extends FieldValues = FieldValues>(
   const debouncedOnChange = debounce((value) => setQ(value), 500);
 
   return (
-    <QueryWrapper<Query> query={query} initialVariables={{ query: q }}>
+    <LazyLoadQueryWrapper<Query> query={query} variables={{ query: q }}>
       {({ data }) => {
         return (
           <Controller<T>
@@ -63,7 +63,7 @@ const CollectionTypeahead = <T extends FieldValues = FieldValues>(
           />
         );
       }}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 };
 

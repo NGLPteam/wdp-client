@@ -1,7 +1,7 @@
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useDrawerHelper } from "hooks";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import Drawer from "components/layout/Drawer";
 import { UserUpdateDrawerQuery as Query } from "@/relay/UserUpdateDrawerQuery.graphql";
 import UserUpdateForm from "../UserUpdateForm";
@@ -18,9 +18,9 @@ export default function UserUpdateDrawer({ dialog, params }: Props) {
   }
 
   return (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{ userSlug: drawerSlug }}
+      variables={{ userSlug: drawerSlug }}
     >
       {({ data }) => (
         <Drawer
@@ -40,7 +40,7 @@ export default function UserUpdateDrawer({ dialog, params }: Props) {
           )}
         </Drawer>
       )}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

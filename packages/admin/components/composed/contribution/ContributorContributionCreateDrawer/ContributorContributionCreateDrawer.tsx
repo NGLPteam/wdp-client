@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useDrawerHelper } from "hooks";
 import { Drawer } from "components/layout";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import ContributionCreateForm from "../ContributionCreateForm";
 import type { DialogProps } from "reakit/Dialog";
 import type { ContributorContributionCreateDrawerQuery as Query } from "__generated__/ContributorContributionCreateDrawerQuery.graphql";
@@ -29,7 +29,7 @@ export default function ContributorContributionCreateDrawer({
   const { drawerSlug, drawerContributionType } = params;
 
   return (
-    <QueryWrapper<Query> query={query} initialVariables={{ slug: drawerSlug }}>
+    <LazyLoadQueryWrapper<Query> query={query} variables={{ slug: drawerSlug }}>
       {({ data }) =>
         data?.contributor?.id ? (
           <Drawer
@@ -50,7 +50,7 @@ export default function ContributorContributionCreateDrawer({
           </Drawer>
         ) : null
       }
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

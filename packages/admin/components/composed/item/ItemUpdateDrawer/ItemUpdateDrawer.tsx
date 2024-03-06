@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import Drawer from "components/layout/Drawer";
 import { RouteHelper } from "routes";
 import { useDrawerHelper, useDestroyer } from "hooks";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
 import ItemUpdateForm from "components/composed/item/ItemUpdateForm";
 import type { DialogProps } from "reakit/Dialog";
@@ -48,7 +48,7 @@ export default function ItemUpdateDrawer({
       if (data.item) {
         destroy.item(
           { itemId: data.item.id },
-          data?.item?.title || t("glossary.item"),
+          data?.item?.title || t("glossary.item")
         );
       }
       if (dialog?.hide) dialog.hide();
@@ -58,9 +58,9 @@ export default function ItemUpdateDrawer({
   }
 
   return (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{ itemSlug: drawerSlug }}
+      variables={{ itemSlug: drawerSlug }}
     >
       {({ data }) => (
         <Drawer
@@ -79,7 +79,7 @@ export default function ItemUpdateDrawer({
           )}
         </Drawer>
       )}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

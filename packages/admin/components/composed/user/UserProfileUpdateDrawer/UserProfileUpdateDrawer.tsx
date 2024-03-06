@@ -1,7 +1,7 @@
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useDrawerHelper, useIsAuthenticated } from "hooks";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import Drawer from "components/layout/Drawer";
 import { UserProfileUpdateDrawerQuery as Query } from "@/relay/UserProfileUpdateDrawerQuery.graphql";
 import UserProfileUpdateForm from "../UserProfileUpdateForm";
@@ -18,7 +18,7 @@ export default function UserProfileUpdateDrawer({ dialog }: Props) {
   }
 
   return (
-    <QueryWrapper<Query> query={query}>
+    <LazyLoadQueryWrapper<Query> query={query} variables={{}}>
       {({ data }) => (
         <Drawer
           header={t("actions.edit.profile_header")}
@@ -34,7 +34,7 @@ export default function UserProfileUpdateDrawer({ dialog }: Props) {
           )}
         </Drawer>
       )}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

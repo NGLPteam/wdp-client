@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import EntityPageUpdateForm from "components/composed/pages/EntityPageUpdateForm";
 import Drawer from "components/layout/Drawer";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import type { DialogProps } from "reakit/Dialog";
 
 import type { EntityPageUpdateDrawerQuery as Query } from "__generated__/EntityPageUpdateDrawerQuery.graphql";
@@ -20,9 +20,9 @@ export default function EntityPageUpdateDrawer({
   const { drawerSlug, drawerPageSlug } = params;
 
   return (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{ entitySlug: drawerSlug, pageSlug: drawerPageSlug }}
+      variables={{ entitySlug: drawerSlug, pageSlug: drawerPageSlug }}
     >
       {({ data }) => {
         const entity = data
@@ -44,7 +44,7 @@ export default function EntityPageUpdateDrawer({
           </Drawer>
         );
       }}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

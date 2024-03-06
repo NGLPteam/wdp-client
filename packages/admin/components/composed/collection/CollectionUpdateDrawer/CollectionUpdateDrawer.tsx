@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useDestroyer, useDrawerHelper } from "hooks";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import Drawer from "components/layout/Drawer";
 
 import { RouteHelper } from "routes";
@@ -48,7 +48,7 @@ export default function CollectionUpdateDrawer({
       if (data.collection) {
         destroy.collection(
           { collectionId: data.collection.id },
-          data?.collection?.title || t("glossary.collection"),
+          data?.collection?.title || t("glossary.collection")
         );
       }
       if (dialog?.hide) dialog.hide();
@@ -58,9 +58,9 @@ export default function CollectionUpdateDrawer({
   }
 
   return (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{ collectionSlug: drawerSlug }}
+      variables={{ collectionSlug: drawerSlug }}
     >
       {({ data }) => (
         <Drawer
@@ -81,7 +81,7 @@ export default function CollectionUpdateDrawer({
           )}
         </Drawer>
       )}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

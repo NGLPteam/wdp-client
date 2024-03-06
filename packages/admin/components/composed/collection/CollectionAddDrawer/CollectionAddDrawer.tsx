@@ -1,9 +1,9 @@
 import * as React from "react";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
 import Drawer from "components/layout/Drawer";
 import CollectionAddForm from "components/composed/collection/CollectionAddForm";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 
 import type { CollectionAddDrawerQuery as Query } from "@/relay/CollectionAddDrawerQuery.graphql";
 import { CollectionAddDrawerRootQuery as RootQuery } from "@/relay/CollectionAddDrawerRootQuery.graphql";
@@ -20,9 +20,9 @@ export default function CollectionAddDrawer({
   const { t } = useTranslation();
 
   return drawerSlug ? (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{ parentSlug: drawerSlug, schemaKind: "COLLECTION" }}
+      variables={{ parentSlug: drawerSlug, schemaKind: "COLLECTION" }}
     >
       {({ data }) => (
         <Drawer
@@ -40,11 +40,11 @@ export default function CollectionAddDrawer({
           )}
         </Drawer>
       )}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   ) : (
-    <QueryWrapper<RootQuery>
+    <LazyLoadQueryWrapper<RootQuery>
       query={rootQuery}
-      initialVariables={{ schemaKind: "COLLECTION" }}
+      variables={{ schemaKind: "COLLECTION" }}
     >
       {({ data }) => (
         <Drawer
@@ -62,7 +62,7 @@ export default function CollectionAddDrawer({
           )}
         </Drawer>
       )}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

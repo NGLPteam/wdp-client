@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import Drawer from "components/layout/Drawer";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import EntityOrderingAddForm from "components/composed/ordering/EntityOrderingAddForm";
 import type { DialogProps } from "reakit/Dialog";
 
@@ -19,9 +19,9 @@ export default function EntityOrderingAddDrawer({
   const { drawerSlug } = params;
 
   return (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{ entitySlug: drawerSlug }}
+      variables={{ entitySlug: drawerSlug }}
     >
       {({ data }) => {
         return (
@@ -40,7 +40,7 @@ export default function EntityOrderingAddDrawer({
           </Drawer>
         );
       }}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 
