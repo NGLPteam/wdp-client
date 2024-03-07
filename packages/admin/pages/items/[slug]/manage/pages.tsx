@@ -39,6 +39,7 @@ const getLayout: GetLayout<Props> = (props) => {
         itemSlug,
       }}
       loadingFallback={<LoadingCircle />}
+      refetchTags={["pages"]}
     >
       {({ queryRef }) =>
         queryRef && (

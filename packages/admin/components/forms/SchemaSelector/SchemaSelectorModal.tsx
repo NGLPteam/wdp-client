@@ -76,6 +76,7 @@ const SchemaSelectorModal = ({
             onSuccess={handleClose}
             onCancel={handleClose}
             defaultValues={defaultValues}
+            refetchTags={["schema"]}
           >
             {renderForm}
           </MutationForm>

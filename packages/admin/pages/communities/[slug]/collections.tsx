@@ -49,6 +49,7 @@ const getLayout: GetLayout<Props> = (props) => {
         communitySlug,
       }}
       loadingFallback={<LoadingCircle />}
+      refetchTags={["collections"]}
     >
       {({ queryRef }) =>
         queryRef && (

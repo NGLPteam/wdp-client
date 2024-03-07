@@ -36,6 +36,7 @@ const getLayout: GetLayout<Props> = (props) => {
       query={query}
       variables={{ ...queryVars, ...searchQueryVars, communitySlug }}
       loadingFallback={<LoadingPage />}
+      refetchTags={["announcements"]}
     >
       {({ queryRef }) =>
         queryRef && (
