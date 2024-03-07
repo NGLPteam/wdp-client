@@ -8,7 +8,7 @@ import {
 } from "react-relay";
 import intersection from "lodash/intersection";
 import isEqual from "lodash/isEqual";
-import { usePreloadOnMount, usePageContext } from "../hooks";
+import { usePageContext } from "../hooks";
 import { QueryOptions } from "../hooks/useAuthenticatedQuery";
 import { RelayRecordSubscribeProvider } from "../contexts";
 import { usePrevious } from "../../hooks";
@@ -41,18 +41,15 @@ export default function QueryLoaderWrapper<T extends OperationType>({
   /** Initialize query loader */
   const [queryRef, loadQuery] = useQueryLoader<T>(query, initialQueryRef);
 
-  /** Preload data */
-  usePreloadOnMount<T>(queryRef, loadQuery, variables ?? {});
-
   /** Reload query callback */
   const refetchQuery = useCallback(
     (props?: ReloadQueryProps) => {
       loadQuery(
         { ...variables },
-        { fetchPolicy: "store-and-network", ...props?.options },
+        { fetchPolicy: "store-and-network", ...props?.options }
       );
     },
-    [loadQuery, variables],
+    [loadQuery, variables]
   );
 
   /** Reload the query on variable changes */
@@ -135,5 +132,5 @@ interface PreloadQueryRenderProps<T extends OperationType> {
 }
 
 export type PreloadQueryRenderer<T extends OperationType> = (
-  props: PreloadQueryRenderProps<T>,
+  props: PreloadQueryRenderProps<T>
 ) => React.JSX.Element | null | undefined;

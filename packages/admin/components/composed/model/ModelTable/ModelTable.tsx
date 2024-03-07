@@ -43,7 +43,10 @@ function ModelTable<U extends Record<string, unknown>>({
           }}
         />
       )}
-      <Table.Body loading={queryState.loading} rows={rows} />
+      <Table.Body
+        loading={queryState.loading || queryState.started}
+        rows={rows}
+      />
     </Table>
   );
 }

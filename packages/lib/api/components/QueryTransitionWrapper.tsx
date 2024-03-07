@@ -8,7 +8,7 @@ import {
 } from "react-relay";
 import intersection from "lodash/intersection";
 import isEqual from "lodash/isEqual";
-import { usePreloadOnMount, usePageContext } from "../hooks";
+import { usePageContext } from "../hooks";
 import { QueryOptions } from "../hooks/useAuthenticatedQuery";
 import { QueryStateContext, RelayRecordSubscribeProvider } from "../contexts";
 import { usePrevious } from "../../hooks";
@@ -16,7 +16,7 @@ import ErrorFallback from "./ErrorFallback";
 import type { OperationType } from "relay-runtime";
 
 interface Props<T extends OperationType> {
-  query: OperationType | GraphQLTaggedNode;
+  query: GraphQLTaggedNode;
   variables?: T["variables"];
   children: PreloadQueryRenderer<T>;
   options?: QueryOptions;
@@ -43,24 +43,33 @@ export default function QueryLoaderWrapper<T extends OperationType>({
 
   const [isPending, startTransition] = useTransition();
 
-  /** Preload data */
-  usePreloadOnMount<T>(queryRef, loadQuery, variables ?? {});
-
   /** Reload query callback */
   const refetchQuery = useCallback(
     (props?: ReloadQueryProps) => {
       loadQuery(
         { ...variables },
-        { fetchPolicy: "store-and-network", ...props?.options },
+        { fetchPolicy: "store-and-network", ...props?.options }
       );
     },
-    [loadQuery, variables],
+    [loadQuery, variables]
   );
+
+  type Module = {
+    default: {
+      operation: {
+        name: string;
+      };
+    };
+  };
+  const {
+    default: { operation },
+  } = (query as unknown) as Module;
+  const match = operation.name === queryRef?.name;
 
   /** Reload the query on variable changes */
   useEffect(() => {
-    startTransition(refetchQuery);
-  }, [variables, refetchQuery]);
+    if (!queryRef || !match) startTransition(refetchQuery);
+  }, [variables, refetchQuery, queryRef, match]);
 
   // The refetch tags mechanism below is copied from the old relay-hooks QueryWrapper.
   const { triggeredRefetchTags } = usePageContext();
@@ -113,9 +122,9 @@ export default function QueryLoaderWrapper<T extends OperationType>({
       <Suspense fallback={loadingFallback}>
         <QueryStateContext.Provider
           value={{
-            started: true,
-            loading: isPending,
-            completed: !isPending,
+            started: !match,
+            loading: isPending && match,
+            completed: !isPending && match,
           }}
         >
           {subscribeIds ? (
@@ -145,5 +154,5 @@ interface PreloadQueryRenderProps<T extends OperationType> {
 }
 
 export type PreloadQueryRenderer<T extends OperationType> = (
-  props: PreloadQueryRenderProps<T>,
+  props: PreloadQueryRenderProps<T>
 ) => React.JSX.Element | null | undefined;

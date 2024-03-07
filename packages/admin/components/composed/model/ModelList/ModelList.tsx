@@ -65,7 +65,7 @@ function ModelList<
 
   return (
     <>
-      {queryState.completed && !hasRows ? (
+      {queryState.completed && !queryState.started && !hasRows ? (
         <NoResultsMessage />
       ) : (
         <ModelListType<V>
