@@ -37,6 +37,7 @@ const getLayout: GetLayout<Props> = (props) => {
       query={query}
       variables={{ ...queryVars, contributorSlug }}
       loadingFallback={<LoadingCircle />}
+      refetchTags={["contributions"]}
     >
       {({ queryRef }) =>
         queryRef && (

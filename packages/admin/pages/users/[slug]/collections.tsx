@@ -31,6 +31,7 @@ const getLayout: GetLayout<Props> = (props) => {
       query={query}
       variables={{ ...queryVars, userSlug }}
       loadingFallback={<LoadingCircle />}
+      refetchTags={["allAccessGrants"]}
     >
       {({ queryRef }) =>
         queryRef && (
