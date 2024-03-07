@@ -6,9 +6,12 @@ import {
   useQueryLoader,
   GraphQLTaggedNode,
 } from "react-relay";
-import { usePreloadOnMount } from "../hooks";
+import intersection from "lodash/intersection";
+import isEqual from "lodash/isEqual";
+import { usePreloadOnMount, usePageContext } from "../hooks";
 import { QueryOptions } from "../hooks/useAuthenticatedQuery";
 import { QueryStateContext, RelayRecordSubscribeProvider } from "../contexts";
+import { usePrevious } from "../../hooks";
 import ErrorFallback from "./ErrorFallback";
 import type { OperationType } from "relay-runtime";
 
@@ -22,6 +25,8 @@ interface Props<T extends OperationType> {
   loadingFallback?: React.ReactNode;
   /** Subscribe to relay records, for invalidating cached records */
   subscribeIds?: string[];
+  /** Maintain the old mechanism for refetching that syncs with MutationForm */
+  refetchTags?: string[];
 }
 
 export default function QueryLoaderWrapper<T extends OperationType>({
@@ -31,6 +36,7 @@ export default function QueryLoaderWrapper<T extends OperationType>({
   query,
   initialQueryRef,
   subscribeIds,
+  refetchTags,
 }: Props<T>) {
   /** Initialize query loader */
   const [queryRef, loadQuery] = useQueryLoader<T>(query, initialQueryRef);
@@ -55,6 +61,46 @@ export default function QueryLoaderWrapper<T extends OperationType>({
   useEffect(() => {
     startTransition(refetchQuery);
   }, [variables, refetchQuery]);
+
+  // The refetch tags mechanism below is copied from the old relay-hooks QueryWrapper.
+  const { triggeredRefetchTags } = usePageContext();
+
+  const previousRefetchTags = usePrevious(refetchTags);
+  const previoustriggeredRefetchTags = usePrevious(triggeredRefetchTags);
+
+  // If a mutation triggers a refetch tag, the query should refetch the data with its
+  // retry function. See the MutationForm component for the other side of this mechanism.
+  useEffect(() => {
+    // If one or more of the refetchTags associated with this query are present in the
+    // triggeredRefetchTags prop on the mutationForm that fired, then we should probably
+    // retry this query.
+    const tagIntersects =
+      intersection(refetchTags, triggeredRefetchTags).length > 0;
+    if (!tagIntersects) return;
+
+    // We're not asking MutationForm consumers to memoize the refetchTags prop, which is
+    // an array, so we need to store a reference to the previous version and do a deep
+    // compare to avoid unnecessarily triggering the refetch.
+    const refetchTagsChanged = !isEqual(previousRefetchTags, refetchTags);
+
+    // In the case of the triggered refetch tags, we need to do a shallow comparison,
+    // because the same tag can be triggered twice in a row, in which case the two arrays
+    // have deep but not shallow equality. In this case, a refetch is necessary.
+    const triggeredRefetchTagsChanged =
+      previoustriggeredRefetchTags !== triggeredRefetchTags;
+
+    // If neither the query nor the mutation tags have changed, we can bail out without
+    // retrying the query.
+    if (!refetchTagsChanged && !triggeredRefetchTagsChanged) return;
+
+    refetchQuery();
+  }, [
+    triggeredRefetchTags,
+    refetchTags,
+    refetchQuery,
+    previousRefetchTags,
+    previoustriggeredRefetchTags,
+  ]);
 
   const renderChildren = () => {
     return children({ queryRef, variables, refetchQuery });
