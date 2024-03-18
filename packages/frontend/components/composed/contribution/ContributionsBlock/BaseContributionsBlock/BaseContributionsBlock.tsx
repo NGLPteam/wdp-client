@@ -21,7 +21,7 @@ const BaseContributionsBlock = ({
         $paddingBottom={paddingBottom}
       >
         <h3 className="t-capitalize">
-          {t(header || "glossary.contributor_plural")}
+          {t(header || "glossary.contributor_other")}
         </h3>
         {loading ? <LoadingBlock /> : <Styled.List>{children}</Styled.List>}
       </Styled.SectionInner>
