@@ -1,4 +1,11 @@
-import { Suspense, useCallback, useEffect, useTransition } from "react";
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useTransition,
+} from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import {
   PreloadedQuery,
@@ -29,6 +36,14 @@ interface Props<T extends OperationType> {
   refetchTags?: string[];
 }
 
+type Module = {
+  default: {
+    operation: {
+      name: string;
+    };
+  };
+};
+
 export default function QueryLoaderWrapper<T extends OperationType>({
   children,
   variables,
@@ -43,33 +58,34 @@ export default function QueryLoaderWrapper<T extends OperationType>({
 
   const [isPending, startTransition] = useTransition();
 
+  const varRef = useRef<string | null>(null);
+
   /** Reload query callback */
   const refetchQuery = useCallback(
     (props?: ReloadQueryProps) => {
       loadQuery(
         { ...variables },
-        { fetchPolicy: "store-and-network", ...props?.options }
+        { fetchPolicy: "store-and-network", ...props?.options },
       );
     },
-    [loadQuery, variables]
+    [loadQuery, variables],
   );
 
-  type Module = {
-    default: {
-      operation: {
-        name: string;
-      };
-    };
-  };
-  const {
-    default: { operation },
-  } = (query as unknown) as Module;
-  const match = operation.name === queryRef?.name;
+  const match = useMemo(() => {
+    const {
+      default: { operation },
+    } = query as unknown as Module;
+
+    return operation.name === queryRef?.name;
+  }, [query, queryRef]);
 
   /** Reload the query on variable changes */
   useEffect(() => {
-    if (!queryRef || !match) startTransition(refetchQuery);
-  }, [variables, refetchQuery, queryRef, match]);
+    if (!match || varRef.current !== JSON.stringify(variables)) {
+      startTransition(refetchQuery);
+      varRef.current = JSON.stringify(variables);
+    }
+  }, [variables, refetchQuery, match]);
 
   // The refetch tags mechanism below is copied from the old relay-hooks QueryWrapper.
   const { triggeredRefetchTags } = usePageContext();
@@ -124,7 +140,6 @@ export default function QueryLoaderWrapper<T extends OperationType>({
           value={{
             started: !match,
             loading: isPending && match,
-            completed: !isPending && match,
           }}
         >
           {subscribeIds ? (
@@ -154,5 +169,5 @@ interface PreloadQueryRenderProps<T extends OperationType> {
 }
 
 export type PreloadQueryRenderer<T extends OperationType> = (
-  props: PreloadQueryRenderProps<T>
+  props: PreloadQueryRenderProps<T>,
 ) => React.JSX.Element | null | undefined;

@@ -46,10 +46,10 @@ export default function QueryLoaderWrapper<T extends OperationType>({
     (props?: ReloadQueryProps) => {
       loadQuery(
         { ...variables },
-        { fetchPolicy: "store-and-network", ...props?.options }
+        { fetchPolicy: "store-and-network", ...props?.options },
       );
     },
-    [loadQuery, variables]
+    [loadQuery, variables],
   );
 
   /** Reload the query on variable changes */
@@ -132,5 +132,5 @@ interface PreloadQueryRenderProps<T extends OperationType> {
 }
 
 export type PreloadQueryRenderer<T extends OperationType> = (
-  props: PreloadQueryRenderProps<T>
+  props: PreloadQueryRenderProps<T>,
 ) => React.JSX.Element | null | undefined;
