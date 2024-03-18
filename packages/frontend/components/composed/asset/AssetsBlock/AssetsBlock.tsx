@@ -18,7 +18,7 @@ const AssetsBlock = ({ data, paddingBottom = "md" }: Props) => {
         className="l-container-wide"
         $paddingBottom={paddingBottom}
       >
-        <h3 className="t-capitalize">{t("glossary.files_plural")}</h3>
+        <h3 className="t-capitalize">{t("glossary.files_other")}</h3>
         {loading ? (
           <LoadingBlock />
         ) : files?.edges && files.edges.length > 0 ? (
