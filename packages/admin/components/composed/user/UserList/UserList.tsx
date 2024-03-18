@@ -1,19 +1,19 @@
-import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useDrawerHelper } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import type {
-  UserListQuery$data,
-  UserListQuery,
-} from "@/relay/UserListQuery.graphql";
+  UserListFragment$data,
+  UserListFragment$key,
+} from "@/relay/UserListFragment.graphql";
 import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function UserList({ queryRef, headerStyle, hideHeader }: UserListProps) {
-  const { users } = usePreloadedQuery<UserListQuery>(query, queryRef);
+function UserList({ data, headerStyle, hideHeader }: UserListProps) {
+  const { users } = useFragment<UserListFragment$key>(fragment, data) ?? {};
 
   const { t } = useTranslation();
   const drawerHelper = useDrawerHelper();
@@ -36,7 +36,7 @@ function UserList({ queryRef, headerStyle, hideHeader }: UserListProps) {
   };
 
   return (
-    <ModelListPage<UserListQuery$data["users"], UserNode>
+    <ModelListPage<UserListFragment$data["users"], UserNode>
       modelName="user"
       columns={columns}
       data={users}
@@ -49,13 +49,13 @@ function UserList({ queryRef, headerStyle, hideHeader }: UserListProps) {
 
 interface UserListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  queryRef: PreloadedQuery<UserListQuery>;
+  data?: UserListFragment$key;
 }
 
-type UserNode = UserListQuery$data["users"]["nodes"][number];
+type UserNode = UserListFragment$data["users"]["nodes"][number];
 
-export const query = graphql`
-  query UserListQuery($order: UserOrder, $page: Int!) {
+const fragment = graphql`
+  fragment UserListFragment on Query {
     users(order: $order, page: $page, perPage: 20) {
       nodes {
         email

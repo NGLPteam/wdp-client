@@ -20,20 +20,22 @@ export default function CollectionListView() {
       subscribeIds={["Collection"]}
       loadingFallback={<LoadingPage />}
     >
-      {({ queryRef }) => queryRef && <ListQuery queryRef={queryRef} />}
+      {({ queryRef }) =>
+        queryRef ? <ListQuery queryRef={queryRef} /> : <CollectionList />
+      }
     </QueryTransitionWrapper>
   );
 }
 
 const ListQuery = ({ queryRef }: { queryRef: PreloadedQuery<Query> }) => {
+  const data = usePreloadedQuery<Query>(query, queryRef);
+
   const {
     viewer: { collections },
     search,
-  } = usePreloadedQuery<Query>(query, queryRef);
+  } = data;
 
-  return (
-    collections && <CollectionList collections={collections} search={search} />
-  );
+  return <CollectionList collections={collections} search={search} />;
 };
 
 export const query = graphql`

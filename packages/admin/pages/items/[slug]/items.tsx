@@ -4,7 +4,7 @@ import ItemLayout from "components/composed/item/ItemLayout";
 import ItemList from "components/composed/item/ItemList";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import ErrorPage from "next/error";
-import { LoadingCircle } from "components/atomic";
+import { LoadingPage } from "components/atomic";
 import { AuthContextProvider } from "contexts/AuthContext";
 import type { itemsSlugItemsPagesQuery as Query } from "__generated__/itemsSlugItemsPagesQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
@@ -48,12 +48,16 @@ const getLayout: GetLayout<Props> = (props) => {
         hasQuery,
         itemSlug,
       }}
-      loadingFallback={<LoadingCircle />}
+      loadingFallback={<LoadingPage />}
       refetchTags={["items"]}
     >
       {({ queryRef }) =>
-        queryRef && (
+        queryRef ? (
           <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        ) : (
+          <ItemLayout>
+            <ItemList headerStyle="secondary" hideHeader />
+          </ItemLayout>
         )
       }
     </QueryTransitionWrapper>

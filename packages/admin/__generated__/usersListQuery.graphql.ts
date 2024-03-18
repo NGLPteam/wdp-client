@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5b335a7abd19ef7aae780ae984acb976>>
+ * @generated SignedSource<<6e88a1d8fda49eb12300966adab6b730>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,27 +11,16 @@
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UserOrder = "ADMINS_FIRST" | "ADMINS_LAST" | "ADMINS_OLDEST" | "ADMINS_RECENT" | "EMAIL_ASCENDING" | "EMAIL_DESCENDING" | "NAME_ASCENDING" | "NAME_DESCENDING" | "OLDEST" | "RECENT" | "%future added value";
-export type UserListQuery$variables = {
+export type usersListQuery$variables = {
   order?: UserOrder | null | undefined;
   page: number;
 };
-export type UserListQuery$data = {
-  readonly users: {
-    readonly nodes: ReadonlyArray<{
-      readonly createdAt: string;
-      readonly email: string | null | undefined;
-      readonly globalAdmin: boolean;
-      readonly name: string | null | undefined;
-      readonly slug: string;
-      readonly updatedAt: string;
-      readonly " $fragmentSpreads": FragmentRefs<"UserNameColumnFragment">;
-    }>;
-    readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
-  };
+export type usersListQuery$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"UserListFragment">;
 };
-export type UserListQuery = {
-  response: UserListQuery$data;
-  variables: UserListQuery$variables;
+export type usersListQuery = {
+  response: usersListQuery$data;
+  variables: usersListQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -46,118 +35,18 @@ var v0 = [
     "kind": "LocalArgument",
     "name": "page"
   }
-],
-v1 = [
-  {
-    "kind": "Variable",
-    "name": "order",
-    "variableName": "order"
-  },
-  {
-    "kind": "Variable",
-    "name": "page",
-    "variableName": "page"
-  },
-  {
-    "kind": "Literal",
-    "name": "perPage",
-    "value": 20
-  }
-],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "email",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "globalAdmin",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "slug",
-  "storageKey": null
-},
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "createdAt",
-  "storageKey": null
-},
-v7 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "updatedAt",
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "UserListQuery",
+    "name": "usersListQuery",
     "selections": [
       {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "UserConnection",
-        "kind": "LinkedField",
-        "name": "users",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "User",
-            "kind": "LinkedField",
-            "name": "nodes",
-            "plural": true,
-            "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/),
-              (v6/*: any*/),
-              (v7/*: any*/),
-              {
-                "kind": "InlineDataFragmentSpread",
-                "name": "UserNameColumnFragment",
-                "selections": [
-                  {
-                    "args": null,
-                    "kind": "FragmentSpread",
-                    "name": "UserNameColumnCellFragment"
-                  }
-                ],
-                "args": null,
-                "argumentDefinitions": []
-              }
-            ],
-            "storageKey": null
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "ModelListPageFragment"
-          }
-        ],
-        "storageKey": null
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "UserListFragment"
       }
     ],
     "type": "Query",
@@ -167,11 +56,27 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "UserListQuery",
+    "name": "usersListQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": [
+          {
+            "kind": "Variable",
+            "name": "order",
+            "variableName": "order"
+          },
+          {
+            "kind": "Variable",
+            "name": "page",
+            "variableName": "page"
+          },
+          {
+            "kind": "Literal",
+            "name": "perPage",
+            "value": 20
+          }
+        ],
         "concreteType": "UserConnection",
         "kind": "LinkedField",
         "name": "users",
@@ -185,12 +90,48 @@ return {
             "name": "nodes",
             "plural": true,
             "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/),
-              (v6/*: any*/),
-              (v7/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "email",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "globalAdmin",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "name",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "slug",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "createdAt",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "updatedAt",
+                "storageKey": null
+              },
               {
                 "alias": null,
                 "args": null,
@@ -342,16 +283,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6b66bb50d85e406b1f6015efea8ca421",
+    "cacheID": "00c10ae551ba8befa03e556455b05b25",
     "id": null,
     "metadata": {},
-    "name": "UserListQuery",
+    "name": "usersListQuery",
     "operationKind": "query",
-    "text": "query UserListQuery(\n  $order: UserOrder\n  $page: Int!\n) {\n  users(order: $order, page: $page, perPage: 20) {\n    nodes {\n      email\n      globalAdmin\n      name\n      slug\n      createdAt\n      updatedAt\n      ...UserNameColumnFragment\n      id\n    }\n    ...ModelListPageFragment\n  }\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    ...AvatarFragment\n  }\n}\n\nfragment UserNameColumnCellFragment on User {\n  name\n  slug\n  ...UserAvatarFragment\n}\n\nfragment UserNameColumnFragment on User {\n  ...UserNameColumnCellFragment\n}\n"
+    "text": "query usersListQuery(\n  $order: UserOrder\n  $page: Int!\n) {\n  ...UserListFragment\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    ...AvatarFragment\n  }\n}\n\nfragment UserListFragment on Query {\n  users(order: $order, page: $page, perPage: 20) {\n    nodes {\n      email\n      globalAdmin\n      name\n      slug\n      createdAt\n      updatedAt\n      ...UserNameColumnFragment\n      id\n    }\n    ...ModelListPageFragment\n  }\n}\n\nfragment UserNameColumnCellFragment on User {\n  name\n  slug\n  ...UserAvatarFragment\n}\n\nfragment UserNameColumnFragment on User {\n  ...UserNameColumnCellFragment\n}\n"
   }
 };
 })();
 
-(node as any).hash = "07546eaa506fc45275470ff012afad4c";
+(node as any).hash = "a3f50c71659206ba520f085fcaae7906";
 
 export default node;

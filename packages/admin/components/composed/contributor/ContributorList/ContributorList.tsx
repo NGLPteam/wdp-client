@@ -1,4 +1,4 @@
-import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import ModelListPage from "components/composed/model/ModelListPage";
 import { useDestroyer, useDrawerHelper } from "hooks";
@@ -6,16 +6,16 @@ import ModelColumns from "components/composed/model/ModelColumns";
 import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
 import PageHeader from "components/layout/PageHeader";
 import {
-  ContributorListQuery,
-  ContributorListQuery$data,
-} from "@/relay/ContributorListQuery.graphql";
+  ContributorListFragment$key,
+  ContributorListFragment$data,
+} from "@/relay/ContributorListFragment.graphql";
 import { getContributorDisplayName } from "../ContributorDisplayName";
 import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 function ContributorList({
-  queryRef,
+  data,
   headerStyle,
   hideHeader,
 }: ContributorListProps) {
@@ -23,10 +23,8 @@ function ContributorList({
   const destroy = useDestroyer();
   const drawerHelper = useDrawerHelper();
 
-  const { contributors } = usePreloadedQuery<ContributorListQuery>(
-    query,
-    queryRef,
-  );
+  const { contributors } =
+    useFragment<ContributorListFragment$key>(fragment, data) ?? {};
 
   const columns = [
     ModelColumns.ContributorNameColumn<ContributorNode>(),
@@ -65,7 +63,10 @@ function ContributorList({
   );
 
   return (
-    <ModelListPage<ContributorListQuery$data["contributors"], ContributorNode>
+    <ModelListPage<
+      ContributorListFragment$data["contributors"],
+      ContributorNode
+    >
       modelName="contributor"
       buttons={buttons}
       columns={columns}
@@ -80,18 +81,14 @@ function ContributorList({
 
 interface ContributorListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  queryRef: PreloadedQuery<ContributorListQuery>;
+  data?: ContributorListFragment$key;
 }
 
 type ContributorNode =
-  ContributorListQuery$data["contributors"]["nodes"][number];
+  ContributorListFragment$data["contributors"]["nodes"][number];
 
-export const query = graphql`
-  query ContributorListQuery(
-    $order: ContributorOrder
-    $page: Int!
-    $query: String
-  ) {
+const fragment = graphql`
+  fragment ContributorListFragment on Query {
     contributors(order: $order, page: $page, perPage: 20, prefix: $query) {
       nodes {
         __typename

@@ -1,5 +1,5 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import { QueryLoaderWrapper } from "@wdp/lib/api/components";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import CommunityUpdateForm from "components/composed/community/CommunityUpdateForm";
 import { LoadingPage } from "components/atomic";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
@@ -32,7 +32,7 @@ const getLayout: GetLayout<Props> = (props) => {
   const { PageComponent, pageComponentProps } = props;
 
   return (
-    <QueryLoaderWrapper<Query>
+    <QueryTransitionWrapper<Query>
       query={query}
       variables={{ ...queryVars, ...searchQueryVars, communitySlug }}
       loadingFallback={<LoadingPage />}
@@ -46,7 +46,7 @@ const getLayout: GetLayout<Props> = (props) => {
           />
         )
       }
-    </QueryLoaderWrapper>
+    </QueryTransitionWrapper>
   );
 };
 CommunityDetails.getLayout = getLayout;

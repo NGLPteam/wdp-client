@@ -114,7 +114,7 @@ function CollectionList({
 
 interface CollectionListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  collections: CollectionListFragment$key;
+  collections?: CollectionListFragment$key;
   search?: CollectionListSearchFragment$key;
 }
 

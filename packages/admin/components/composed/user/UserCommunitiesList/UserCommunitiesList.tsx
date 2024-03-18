@@ -94,7 +94,7 @@ const UserCommunitiesList = ({ data }: Props) => {
     </ButtonControlGroup>
   );
 
-  return communities ? (
+  return (
     <ModelListPage<UserCommunitiesListFragment$data, Node>
       modelName="role"
       columns={columns}
@@ -105,7 +105,7 @@ const UserCommunitiesList = ({ data }: Props) => {
       buttons={buttons}
       actions={actions}
     />
-  ) : null;
+  );
 };
 
 interface Props {

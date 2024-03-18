@@ -3,7 +3,7 @@ import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import CollectionList from "components/composed/collection/CollectionList";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import ErrorPage from "next/error";
-import { LoadingCircle } from "components/atomic";
+import { LoadingPage } from "components/atomic";
 import CollectionLayout from "components/composed/collection/CollectionLayout";
 import { AuthContextProvider } from "contexts/AuthContext";
 import type { collectionsManageSlugCollectionsPagesQuery as Query } from "__generated__/collectionsManageSlugCollectionsPagesQuery.graphql";
@@ -48,12 +48,16 @@ const getLayout: GetLayout<Props> = (props) => {
         hasQuery,
         collectionSlug,
       }}
-      loadingFallback={<LoadingCircle />}
+      loadingFallback={<LoadingPage />}
       refetchTags={["collections"]}
     >
       {({ queryRef }) =>
-        queryRef && (
+        queryRef ? (
           <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        ) : (
+          <CollectionLayout>
+            <CollectionList headerStyle="secondary" hideHeader />
+          </CollectionLayout>
         )
       }
     </QueryTransitionWrapper>

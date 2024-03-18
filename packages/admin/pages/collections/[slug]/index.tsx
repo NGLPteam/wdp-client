@@ -3,14 +3,21 @@ import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import CollectionSlugRedirect from "components/composed/collection/CollectionSlugRedirect";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import ErrorPage from "next/error";
-import { LoadingCircle } from "components/atomic";
+import { LoadingPage } from "components/atomic";
+import CollectionLayout from "components/composed/collection/CollectionLayout";
 import { SlugCollectionsPageQuery as Query } from "@/relay/SlugCollectionsPageQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
 
 function CollectionSlug({ queryRef }: Props) {
   const { collection } = usePreloadedQuery<Query>(query, queryRef);
 
-  return collection && <CollectionSlugRedirect data={collection} />;
+  return (
+    collection && (
+      <CollectionLayout data={collection}>
+        <CollectionSlugRedirect data={collection} />
+      </CollectionLayout>
+    )
+  );
 }
 
 type Props = {
@@ -34,11 +41,15 @@ const getLayout: GetLayout<Props> = (props) => {
         ...searchQueryVars,
         collectionSlug,
       }}
-      loadingFallback={<LoadingCircle />}
+      loadingFallback={<LoadingPage />}
     >
       {({ queryRef }) =>
-        queryRef && (
+        queryRef ? (
           <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        ) : (
+          <CollectionLayout>
+            <CollectionSlugRedirect />
+          </CollectionLayout>
         )
       }
     </QueryTransitionWrapper>
