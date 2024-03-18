@@ -38,7 +38,7 @@ export default function DashboardCollections({ data }: Props) {
     <section>
       <ContentHeader
         headerStyle="secondary"
-        title={t("glossary.collection_plural")}
+        title={t("glossary.collection_other")}
       />
       <ModelPageCountActions data={collections} />
       <ModelList<DashboardCollectionsListFragment$data, Node>

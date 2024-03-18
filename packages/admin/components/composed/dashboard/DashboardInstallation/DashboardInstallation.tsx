@@ -24,13 +24,13 @@ export default function DashboardInstallation({ data }: Props) {
           <Styled.ItemValue>{process.env.NEXT_PUBLIC_VERSION}</Styled.ItemValue>
         </Styled.Item>
         <Styled.Item>
-          <Styled.ItemLabel>{t("glossary.community_plural")}</Styled.ItemLabel>
+          <Styled.ItemLabel>{t("glossary.community_other")}</Styled.ItemLabel>
           <Styled.ItemValue>
             {formatNumberToString(queryData.communities?.pageInfo?.totalCount)}
           </Styled.ItemValue>
         </Styled.Item>
         <Styled.Item>
-          <Styled.ItemLabel>{t("glossary.collection_plural")}</Styled.ItemLabel>
+          <Styled.ItemLabel>{t("glossary.collection_other")}</Styled.ItemLabel>
           <Styled.ItemValue>
             {formatNumberToString(
               queryData.viewer?.allCollections?.pageInfo?.totalCount,
@@ -38,7 +38,7 @@ export default function DashboardInstallation({ data }: Props) {
           </Styled.ItemValue>
         </Styled.Item>
         <Styled.Item>
-          <Styled.ItemLabel>{t("glossary.item_plural")}</Styled.ItemLabel>
+          <Styled.ItemLabel>{t("glossary.item_other")}</Styled.ItemLabel>
           <Styled.ItemValue>
             {formatNumberToString(
               queryData.viewer?.allItems?.pageInfo?.totalCount,
@@ -46,15 +46,13 @@ export default function DashboardInstallation({ data }: Props) {
           </Styled.ItemValue>
         </Styled.Item>
         <Styled.Item>
-          <Styled.ItemLabel>{t("glossary.user_plural")}</Styled.ItemLabel>
+          <Styled.ItemLabel>{t("glossary.user_other")}</Styled.ItemLabel>
           <Styled.ItemValue>
             {formatNumberToString(queryData.users?.pageInfo?.totalCount)}
           </Styled.ItemValue>
         </Styled.Item>
         <Styled.Item>
-          <Styled.ItemLabel>
-            {t("glossary.contributor_plural")}
-          </Styled.ItemLabel>
+          <Styled.ItemLabel>{t("glossary.contributor_other")}</Styled.ItemLabel>
           <Styled.ItemValue>
             {formatNumberToString(queryData.contributors?.pageInfo?.totalCount)}
           </Styled.ItemValue>

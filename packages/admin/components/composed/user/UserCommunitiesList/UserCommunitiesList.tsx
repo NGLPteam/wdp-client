@@ -100,7 +100,7 @@ const UserCommunitiesList = ({ data }: Props) => {
       columns={columns}
       data={communities}
       headerStyle="secondary"
-      header={t("glossary.community_plural")}
+      header={t("glossary.community_other")}
       disableSortBy
       buttons={buttons}
       actions={actions}
