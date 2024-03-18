@@ -1,11 +1,12 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import { QueryLoaderWrapper } from "@wdp/lib/api/components";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import CollectionUpdateForm from "components/composed/collection/CollectionUpdateForm";
 import ErrorPage from "next/error";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import { AuthContextProvider } from "contexts/AuthContext";
 import { LoadingPage } from "components/atomic";
 import CollectionLayout from "components/composed/collection/CollectionLayout";
+import CollectionSlugRedirect from "components/composed/collection/CollectionSlugRedirect";
 import type { detailsManageSlugCollectionsPagesQuery as Query } from "@/relay/detailsManageSlugCollectionsPagesQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
 
@@ -32,23 +33,27 @@ const getLayout: GetLayout<Props> = (props) => {
   const { PageComponent, pageComponentProps } = props;
 
   return (
-    <QueryLoaderWrapper<Query>
+    <QueryTransitionWrapper<Query>
       query={query}
       variables={{ ...queryVars, ...searchQueryVars, collectionSlug }}
       loadingFallback={<LoadingPage />}
       refetchTags={["schema"]}
     >
       {({ queryRef }) =>
-        queryRef && (
+        queryRef ? (
           <PageComponent
             {...pageComponentProps}
             queryRef={queryRef}
             showSidebar
             useRouteHeader={false}
           />
+        ) : (
+          <CollectionLayout showSidebar useRouteHeader={false}>
+            <CollectionSlugRedirect />
+          </CollectionLayout>
         )
       }
-    </QueryLoaderWrapper>
+    </QueryTransitionWrapper>
   );
 };
 

@@ -1,6 +1,6 @@
 import { graphql } from "react-relay";
 import { PageCountActions } from "components/layout";
-import { useMaybeFragment, useQueryStateContext } from "hooks";
+import { useMaybeFragment } from "hooks";
 import { ModelPageCountActionsFragment$key } from "@/relay/ModelPageCountActionsFragment.graphql";
 
 interface ModelPageCountActionsProps<
@@ -12,15 +12,16 @@ interface ModelPageCountActionsProps<
 function ModelPageCountActions<T extends ModelPageCountActionsFragment$key>({
   data,
 }: ModelPageCountActionsProps<T>) {
-  const { loading } = useQueryStateContext();
-
   const enhancedData = useMaybeFragment<ModelPageCountActionsFragment$key>(
     fragment,
     data,
   );
 
   return (
-    <PageCountActions loading={loading} pageInfo={enhancedData?.pageInfo} />
+    <PageCountActions
+      loading={typeof enhancedData?.pageInfo.totalCount !== "number"}
+      pageInfo={enhancedData?.pageInfo}
+    />
   );
 }
 

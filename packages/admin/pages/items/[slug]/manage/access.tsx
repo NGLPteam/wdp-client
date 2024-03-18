@@ -4,7 +4,7 @@ import RoleAccessList from "components/composed/role/RoleAccessList";
 import ErrorPage from "next/error";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import { AuthContextProvider } from "contexts/AuthContext";
-import { LoadingCircle } from "components/atomic";
+import { LoadingPage } from "components/atomic";
 import ItemLayout from "components/composed/item/ItemLayout";
 import type { accessManageSlugItemsPagesQuery as Query } from "@/relay/accessManageSlugItemsPagesQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
@@ -38,7 +38,7 @@ const getLayout: GetLayout<Props> = (props) => {
         ...searchQueryVars,
         itemSlug,
       }}
-      loadingFallback={<LoadingCircle />}
+      loadingFallback={<LoadingPage />}
       refetchTags={["allAccessGrants, assignedUsers"]}
     >
       {({ queryRef }) =>

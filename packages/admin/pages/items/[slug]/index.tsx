@@ -4,13 +4,20 @@ import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import ItemSlugRedirect from "components/composed/item/ItemSlugRedirect";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import ErrorPage from "next/error";
-import { LoadingCircle } from "components/atomic";
+import { LoadingPage } from "components/atomic";
+import ItemLayout from "components/composed/item/ItemLayout";
 import { SlugItemsPageQuery as Query } from "@/relay/SlugItemsPageQuery.graphql";
 
 function ItemSlug({ queryRef }: Props) {
   const { item } = usePreloadedQuery<Query>(query, queryRef);
 
-  return item && <ItemSlugRedirect data={item} />;
+  return (
+    item && (
+      <ItemLayout data={item}>
+        <ItemSlugRedirect data={item} />
+      </ItemLayout>
+    )
+  );
 }
 
 type Props = {
@@ -34,11 +41,15 @@ const getLayout: GetLayout<Props> = (props) => {
         ...searchQueryVars,
         itemSlug,
       }}
-      loadingFallback={<LoadingCircle />}
+      loadingFallback={<LoadingPage />}
     >
       {({ queryRef }) =>
-        queryRef && (
+        queryRef ? (
           <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        ) : (
+          <ItemLayout>
+            <ItemSlugRedirect />
+          </ItemLayout>
         )
       }
     </QueryTransitionWrapper>
