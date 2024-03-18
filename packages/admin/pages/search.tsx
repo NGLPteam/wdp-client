@@ -1,4 +1,4 @@
-import { QueryLoaderWrapper } from "@wdp/lib/api/components";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import { useIsAuthenticated, useSearchQueryVars } from "hooks";
 import SearchLayout from "components/composed/search/SearchLayout";
 import { query } from "components/composed/search/SearchLayout/SearchLayout";
@@ -10,8 +10,8 @@ export default function Search() {
   const searchQuery = useSearchQueryVars();
 
   return isAuth ? (
-    <QueryLoaderWrapper<Query> query={query} variables={searchQuery}>
+    <QueryTransitionWrapper<Query> query={query} variables={searchQuery}>
       {({ queryRef }) => queryRef && <SearchLayout queryRef={queryRef} />}
-    </QueryLoaderWrapper>
+    </QueryTransitionWrapper>
   ) : null;
 }

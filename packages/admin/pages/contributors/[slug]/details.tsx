@@ -1,10 +1,11 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import { QueryLoaderWrapper } from "@wdp/lib/api/components";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import ContributorUpdateForm from "components/composed/contributor/ContributorUpdateForm";
-import { LoadingCircle } from "components/atomic";
-import { useRouteSlug, useBaseListQueryVars } from "hooks";
+import { LoadingPage } from "components/atomic";
+import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import ContributorLayout from "components/composed/contributor/ContributorLayout";
 import ErrorPage from "next/error";
+import { LoadingCircle } from "components/atomic";
 import type { GetLayout } from "@wdp/lib/types/page";
 import type { detailsSlugContributorsPagesQuery as Query } from "__generated__/detailsSlugContributorsPagesQuery.graphql";
 
@@ -21,23 +22,29 @@ function ContributorDetails({ queryRef, ...layoutProps }: Props) {
 const getLayout: GetLayout<Props> = (props) => {
   const queryVars = useBaseListQueryVars();
   const contributorSlug = useRouteSlug();
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+  const _searchVars = useSearchQueryVars();
 
   if (!contributorSlug) return <ErrorPage statusCode={404} />;
 
   const { PageComponent, pageComponentProps } = props;
 
   return (
-    <QueryLoaderWrapper<Query>
+    <QueryTransitionWrapper<Query>
       query={query}
       variables={{ ...queryVars, contributorSlug }}
-      loadingFallback={<LoadingCircle />}
+      loadingFallback={<LoadingPage />}
     >
       {({ queryRef }) =>
-        queryRef && (
+        queryRef ? (
           <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        ) : (
+          <ContributorLayout>
+            <LoadingCircle className="l-page-loading" />
+          </ContributorLayout>
         )
       }
-    </QueryLoaderWrapper>
+    </QueryTransitionWrapper>
   );
 };
 ContributorDetails.getLayout = getLayout;

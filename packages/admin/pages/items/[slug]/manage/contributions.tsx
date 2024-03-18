@@ -4,7 +4,7 @@ import ItemContributionList from "components/composed/contribution/ItemContribut
 import ErrorPage from "next/error";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import { AuthContextProvider } from "contexts/AuthContext";
-import { LoadingCircle } from "components/atomic";
+import { LoadingPage } from "components/atomic";
 import ItemLayout from "components/composed/item/ItemLayout";
 import type { contributionsManageSlugItemsQuery as Query } from "@/relay/contributionsManageSlugItemsQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
@@ -42,7 +42,7 @@ const getLayout: GetLayout<Props> = (props) => {
         ...searchQueryVars,
         itemSlug,
       }}
-      loadingFallback={<LoadingCircle />}
+      loadingFallback={<LoadingPage />}
       refetchTags={["contributions"]}
     >
       {({ queryRef }) =>

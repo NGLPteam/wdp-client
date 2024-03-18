@@ -20,7 +20,9 @@ export default function ItemListView() {
       subscribeIds={["Item"]}
       loadingFallback={<LoadingPage />}
     >
-      {({ queryRef }) => queryRef && <ListQuery queryRef={queryRef} />}
+      {({ queryRef }) =>
+        queryRef ? <ListQuery queryRef={queryRef} /> : <ItemList />
+      }
     </QueryTransitionWrapper>
   );
 }
@@ -31,7 +33,7 @@ const ListQuery = ({ queryRef }: { queryRef: PreloadedQuery<Query> }) => {
     search,
   } = usePreloadedQuery<Query>(query, queryRef);
 
-  return items && <ItemList items={items} search={search} />;
+  return <ItemList items={items} search={search} />;
 };
 
 export const query = graphql`

@@ -1,4 +1,11 @@
-import { Suspense, useCallback, useEffect, useTransition } from "react";
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useTransition,
+} from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import {
   PreloadedQuery,
@@ -8,7 +15,7 @@ import {
 } from "react-relay";
 import intersection from "lodash/intersection";
 import isEqual from "lodash/isEqual";
-import { usePreloadOnMount, usePageContext } from "../hooks";
+import { usePageContext } from "../hooks";
 import { QueryOptions } from "../hooks/useAuthenticatedQuery";
 import { QueryStateContext, RelayRecordSubscribeProvider } from "../contexts";
 import { usePrevious } from "../../hooks";
@@ -16,7 +23,7 @@ import ErrorFallback from "./ErrorFallback";
 import type { OperationType } from "relay-runtime";
 
 interface Props<T extends OperationType> {
-  query: OperationType | GraphQLTaggedNode;
+  query: GraphQLTaggedNode;
   variables?: T["variables"];
   children: PreloadQueryRenderer<T>;
   options?: QueryOptions;
@@ -28,6 +35,14 @@ interface Props<T extends OperationType> {
   /** Maintain the old mechanism for refetching that syncs with MutationForm */
   refetchTags?: string[];
 }
+
+type Module = {
+  default: {
+    operation: {
+      name: string;
+    };
+  };
+};
 
 export default function QueryLoaderWrapper<T extends OperationType>({
   children,
@@ -43,24 +58,36 @@ export default function QueryLoaderWrapper<T extends OperationType>({
 
   const [isPending, startTransition] = useTransition();
 
-  /** Preload data */
-  usePreloadOnMount<T>(queryRef, loadQuery, variables ?? {});
+  const varRef = useRef<string | null>(null);
 
   /** Reload query callback */
   const refetchQuery = useCallback(
     (props?: ReloadQueryProps) => {
       loadQuery(
         { ...variables },
-        { fetchPolicy: "store-and-network", ...props?.options },
+        { fetchPolicy: "store-and-network", ...props?.options }
       );
     },
-    [loadQuery, variables],
+    [loadQuery, variables]
   );
+
+  const match = useMemo(() => {
+    const {
+      default: { operation },
+    } = (query as unknown) as Module;
+
+    return operation.name === queryRef?.name;
+  }, [query, queryRef]);
 
   /** Reload the query on variable changes */
   useEffect(() => {
-    startTransition(refetchQuery);
-  }, [variables, refetchQuery]);
+    if (!match || varRef.current !== JSON.stringify(variables)) {
+      if (!isPending) {
+        startTransition(refetchQuery);
+        varRef.current = JSON.stringify(variables);
+      }
+    }
+  }, [variables, refetchQuery, match]);
 
   // The refetch tags mechanism below is copied from the old relay-hooks QueryWrapper.
   const { triggeredRefetchTags } = usePageContext();
@@ -111,11 +138,11 @@ export default function QueryLoaderWrapper<T extends OperationType>({
       fallbackRender={({ error }) => <ErrorFallback error={error} />}
     >
       <Suspense fallback={loadingFallback}>
+        {/* Don't update query state when queryRef is stale. */}
         <QueryStateContext.Provider
           value={{
-            started: true,
-            loading: isPending,
-            completed: !isPending,
+            loading: isPending && match,
+            completed: !isPending && match,
           }}
         >
           {subscribeIds ? (
@@ -145,5 +172,5 @@ interface PreloadQueryRenderProps<T extends OperationType> {
 }
 
 export type PreloadQueryRenderer<T extends OperationType> = (
-  props: PreloadQueryRenderProps<T>,
+  props: PreloadQueryRenderProps<T>
 ) => React.JSX.Element | null | undefined;

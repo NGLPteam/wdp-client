@@ -1,26 +1,28 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import UserCommunitiesList from "components/composed/user/UserCommunitiesList";
-import { useRouteSlug, useBaseListQueryVars } from "hooks";
+import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import UserLayout from "components/composed/user/UserLayout";
 import ErrorPage from "next/error";
-import { LoadingCircle } from "components/atomic";
+import { LoadingPage } from "components/atomic";
 import type { communitiesManageSlugUsersPagesQuery as Query } from "@/relay/communitiesManageSlugUsersPagesQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
 
 function UserCommunities({ queryRef, ...layoutProps }: Props) {
   const { user } = usePreloadedQuery<Query>(query, queryRef);
 
-  return user ? (
+  return (
     <UserLayout {...layoutProps} data={user}>
-      <UserCommunitiesList data={user.communityAccessGrants} />
+      <UserCommunitiesList data={user?.communityAccessGrants} />
     </UserLayout>
-  ) : null;
+  );
 }
 
 const getLayout: GetLayout<Props> = (props) => {
   const queryVars = useBaseListQueryVars();
   const userSlug = useRouteSlug();
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+  const _searchVars = useSearchQueryVars();
 
   if (!userSlug) return <ErrorPage statusCode={404} />;
 
@@ -30,7 +32,7 @@ const getLayout: GetLayout<Props> = (props) => {
     <QueryTransitionWrapper<Query>
       query={query}
       variables={{ ...queryVars, userSlug }}
-      loadingFallback={<LoadingCircle />}
+      loadingFallback={<LoadingPage />}
       refetchTags={["allAccessGrants"]}
     >
       {({ queryRef }) =>

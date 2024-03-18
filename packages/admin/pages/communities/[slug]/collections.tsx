@@ -4,7 +4,7 @@ import { collectionsSlugCommunitiesPagesQuery as Query } from "__generated__/col
 import CollectionList from "components/composed/collection/CollectionList";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import ErrorPage from "next/error";
-import { LoadingCircle } from "components/atomic";
+import { LoadingPage } from "components/atomic";
 import CommunityLayout from "components/composed/community/CommunityLayout";
 import { AuthContextProvider } from "contexts/AuthContext";
 import type { GetLayout } from "@wdp/lib/types/page";
@@ -12,18 +12,18 @@ import type { GetLayout } from "@wdp/lib/types/page";
 function CommunityChildCollections({ queryRef }: Props) {
   const { community } = usePreloadedQuery<Query>(query, queryRef);
 
-  return community ? (
+  return (
     <AuthContextProvider data={community}>
       <CommunityLayout data={community}>
         <CollectionList
-          collections={community.collections}
-          search={community.search}
+          collections={community?.collections}
+          search={community?.search}
           headerStyle="secondary"
           hideHeader
         />
       </CommunityLayout>
     </AuthContextProvider>
-  ) : null;
+  );
 }
 
 const getLayout: GetLayout<Props> = (props) => {
@@ -48,12 +48,16 @@ const getLayout: GetLayout<Props> = (props) => {
         hasQuery,
         communitySlug,
       }}
-      loadingFallback={<LoadingCircle />}
+      loadingFallback={<LoadingPage />}
       refetchTags={["collections"]}
     >
       {({ queryRef }) =>
-        queryRef && (
+        queryRef ? (
           <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        ) : (
+          <CommunityLayout>
+            <CollectionList headerStyle="secondary" hideHeader />
+          </CommunityLayout>
         )
       }
     </QueryTransitionWrapper>

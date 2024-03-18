@@ -1,4 +1,4 @@
-import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useDrawerHelper, useDestroyer } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
@@ -7,26 +7,20 @@ import PageHeader from "components/layout/PageHeader";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 import ModelColumns from "components/composed/model/ModelColumns";
 import {
-  CommunityListQuery,
-  CommunityListQuery$data,
-} from "@/relay/CommunityListQuery.graphql";
+  CommunityListFragment$key,
+  CommunityListFragment$data,
+} from "@/relay/CommunityListFragment.graphql";
 import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function CommunityList({
-  queryRef,
-  hideHeader,
-  headerStyle,
-}: CommunityListProps) {
+function CommunityList({ data, hideHeader, headerStyle }: CommunityListProps) {
   const { t } = useTranslation();
   const drawerHelper = useDrawerHelper();
   const destroy = useDestroyer();
 
-  const { communities } = usePreloadedQuery<CommunityListQuery>(
-    query,
-    queryRef,
-  );
+  const { communities } =
+    useFragment<CommunityListFragment$key>(fragment, data) ?? {};
 
   const columns = [
     ModelColumns.CommunityNameColumn<Node>(),
@@ -53,7 +47,7 @@ function CommunityList({
   );
 
   return (
-    <ModelListPage<CommunityListQuery$data["communities"], Node>
+    <ModelListPage<CommunityListFragment$data["communities"], Node>
       modelName="community"
       columns={columns}
       actions={actions}
@@ -67,16 +61,16 @@ function CommunityList({
 
 interface CommunityListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  queryRef: PreloadedQuery<CommunityListQuery>;
+  data?: CommunityListFragment$key;
 }
 
 type CommunityNode =
-  CommunityListQuery$data["communities"]["edges"][number]["node"];
+  CommunityListFragment$data["communities"]["edges"][number]["node"];
 
 type Node = CommunityNode;
 
-export const query = graphql`
-  query CommunityListQuery($order: EntityOrder, $page: Int!) {
+const fragment = graphql`
+  fragment CommunityListFragment on Query {
     communities(order: $order, page: $page, perPage: 20) {
       edges {
         node {

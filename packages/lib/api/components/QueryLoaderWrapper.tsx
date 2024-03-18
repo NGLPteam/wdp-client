@@ -8,7 +8,7 @@ import {
 } from "react-relay";
 import intersection from "lodash/intersection";
 import isEqual from "lodash/isEqual";
-import { usePreloadOnMount, usePageContext } from "../hooks";
+import { usePageContext } from "../hooks";
 import { QueryOptions } from "../hooks/useAuthenticatedQuery";
 import { RelayRecordSubscribeProvider } from "../contexts";
 import { usePrevious } from "../../hooks";
@@ -40,9 +40,6 @@ export default function QueryLoaderWrapper<T extends OperationType>({
 }: Props<T>) {
   /** Initialize query loader */
   const [queryRef, loadQuery] = useQueryLoader<T>(query, initialQueryRef);
-
-  /** Preload data */
-  usePreloadOnMount<T>(queryRef, loadQuery, variables ?? {});
 
   /** Reload query callback */
   const refetchQuery = useCallback(
