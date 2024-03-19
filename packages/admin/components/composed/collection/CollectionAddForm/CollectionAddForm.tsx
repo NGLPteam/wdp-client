@@ -47,15 +47,16 @@ export default function AddCollectionForm({
   const onSuccessWithRedirect = useOnSuccess<CollectionAddFormMutation, Fields>(
     ({
       response,
-      variables,
-      values,
     }: {
       response: CollectionAddFormMutation["response"];
       variables: CollectionAddFormMutation["variables"];
       values: Fields;
     }) => {
       if (onSuccess) {
-        onSuccess({ response, variables, values });
+        /* Redirect aborts if dialog.hide is called here. */
+        /* Leaving this in as a note in case we need more nuanced logic for onSuccess. */
+        /* Right now this component is only rendered in one place. */
+        // onSuccess({ response, variables, values });
         const routeName = "collection.manage.details";
         if (response?.createCollection?.collection)
           redirect(response.createCollection.collection.slug, routeName);
