@@ -1,18 +1,17 @@
 import { useCallback, useMemo } from "react";
-import type { ColumnDef } from "@tanstack/react-table";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
-import type { OperationType } from "relay-runtime";
+import { PaginatedConnectionish } from "components/composed/model/ModelListPage";
+import { Connectionish } from "types/graphql-helpers";
 import { toEntities } from "../helpers/toEntities";
 import useTableSorting from "./useTableSorting";
 import useRowActions, { Actions } from "./useRowActions";
 import useTableRowSelection from "./useTableRowSelection";
-import { PaginatedConnectionish } from "components/composed/model/ModelListPage";
-import { Connectionish } from "types/graphql-helpers";
+import type { ColumnDef } from "@tanstack/react-table";
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export interface UseModelListProps<
-  T extends OperationType,
   U extends PaginatedConnectionish | Connectionish,
-  V extends Record<string, unknown>
+  V extends Record<string, unknown>,
 > {
   data?: U | null;
   columns: ColumnDef<V>[];
@@ -23,21 +22,20 @@ export interface UseModelListProps<
 }
 
 function useModelList<
-  T extends OperationType,
   U extends PaginatedConnectionish | Connectionish,
-  V extends Record<string, unknown>
+  V extends Record<string, unknown>,
 >({
   data,
   columns,
   actions = {},
   selectable = false,
   disableSortBy,
-}: UseModelListProps<T, U, V>) {
+}: UseModelListProps<U, V>) {
   // Extract entities from the connectionish data
   const entities = useMemo(() => toEntities<U, V>(data), [data]);
 
   // Set the row's id to either the slug or item id
-  const getRowId = useCallback((orignalRow) => {
+  const getRowId = useCallback((orignalRow: V) => {
     return orignalRow?.slug || orignalRow?.id;
   }, []);
 

@@ -1,103 +1,33 @@
+/**
+ * @generated SignedSource<<590eb40df1a967297526a8effa81aa66>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
-export type communitiesManageSlugUsersPagesQueryVariables = {
-    userSlug: string;
-    order?: SimpleOrder | null | undefined;
-    page: number;
+export type communitiesManageSlugUsersPagesQuery$variables = {
+  order?: SimpleOrder | null | undefined;
+  page: number;
+  userSlug: string;
 };
-export type communitiesManageSlugUsersPagesQueryResponse = {
-    readonly user: {
-        readonly communityAccessGrants: {
-            readonly " $fragmentRefs": FragmentRefs<"UserCommunitiesListFragment">;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"UserLayoutQueryFragment">;
-    } | null;
+export type communitiesManageSlugUsersPagesQuery$data = {
+  readonly user: {
+    readonly communityAccessGrants: {
+      readonly " $fragmentSpreads": FragmentRefs<"UserCommunitiesListFragment">;
+    };
+    readonly " $fragmentSpreads": FragmentRefs<"UserLayoutFragment">;
+  } | null | undefined;
 };
 export type communitiesManageSlugUsersPagesQuery = {
-    readonly response: communitiesManageSlugUsersPagesQueryResponse;
-    readonly variables: communitiesManageSlugUsersPagesQueryVariables;
+  response: communitiesManageSlugUsersPagesQuery$data;
+  variables: communitiesManageSlugUsersPagesQuery$variables;
 };
-
-
-
-/*
-query communitiesManageSlugUsersPagesQuery(
-  $userSlug: Slug!
-  $order: SimpleOrder
-  $page: Int!
-) {
-  user(slug: $userSlug) {
-    ...UserLayoutQueryFragment
-    communityAccessGrants(order: $order, page: $page, perPage: 20) {
-      ...UserCommunitiesListFragment
-    }
-    id
-  }
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment UserCommunitiesListFragment on UserCommunityAccessGrantConnection {
-  edges {
-    node {
-      id
-      community {
-        id
-        title
-        slug
-      }
-      role {
-        id
-        name
-      }
-      user {
-        id
-        slug
-      }
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment UserLayoutFragment on User {
-  name
-  email
-}
-
-fragment UserLayoutQueryFragment on User {
-  ...UserLayoutFragment
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -180,6 +110,11 @@ return {
         "plural": false,
         "selections": [
           {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "UserLayoutFragment"
+          },
+          {
             "alias": null,
             "args": (v4/*: any*/),
             "concreteType": "UserCommunityAccessGrantConnection",
@@ -194,11 +129,6 @@ return {
               }
             ],
             "storageKey": null
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "UserLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -380,14 +310,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f9a7ea8b1e722a175205b2d518657f7b",
+    "cacheID": "6ca49056c24aba6a243b43bfca3339c0",
     "id": null,
     "metadata": {},
     "name": "communitiesManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query communitiesManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n  $order: SimpleOrder\n  $page: Int!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutQueryFragment\n    communityAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserCommunitiesListFragment\n    }\n    id\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserCommunitiesListFragment on UserCommunityAccessGrantConnection {\n  edges {\n    node {\n      id\n      community {\n        id\n        title\n        slug\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n"
+    "text": "query communitiesManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n  $order: SimpleOrder\n  $page: Int!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutFragment\n    communityAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserCommunitiesListFragment\n    }\n    id\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserCommunitiesListFragment on UserCommunityAccessGrantConnection {\n  edges {\n    node {\n      id\n      community {\n        id\n        title\n        slug\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n"
   }
 };
 })();
-(node as any).hash = 'ad5db48ff8a61a60df4db746c30a7e3b';
+
+(node as any).hash = "e9e115417d53720cd64bd9e4bd5ac812";
+
 export default node;

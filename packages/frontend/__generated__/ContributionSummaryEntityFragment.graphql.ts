@@ -1,34 +1,36 @@
+/**
+ * @generated SignedSource<<1900bc7f641d40ac664525c3e8ca5133>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type ContributionSummaryEntityFragment = {
-    readonly __typename: string;
-    readonly title: string;
-    readonly subtitle: string | null;
-    readonly thumbnail: {
-        readonly storage: AttachmentStorage | null;
-        readonly " $fragmentRefs": FragmentRefs<"SquareThumbnailFragment">;
-    };
-    readonly published?: {
-        readonly value: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
-    } | undefined;
-    readonly slug?: string | undefined;
-    readonly summary?: string | null | undefined;
-    readonly " $refType": "ContributionSummaryEntityFragment";
+import { FragmentRefs } from "relay-runtime";
+export type ContributionSummaryEntityFragment$data = {
+  readonly __typename: string;
+  readonly published?: {
+    readonly value: string | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"PrecisionDateFragment">;
+  };
+  readonly slug?: string;
+  readonly subtitle: string | null | undefined;
+  readonly summary?: string | null | undefined;
+  readonly thumbnail: {
+    readonly storage: AttachmentStorage | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"SquareThumbnailFragment">;
+  };
+  readonly title: string;
+  readonly " $fragmentType": "ContributionSummaryEntityFragment";
 };
-export type ContributionSummaryEntityFragment$data = ContributionSummaryEntityFragment;
 export type ContributionSummaryEntityFragment$key = {
-    readonly " $data"?: ContributionSummaryEntityFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContributionSummaryEntityFragment">;
+  readonly " $data"?: ContributionSummaryEntityFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributionSummaryEntityFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -151,5 +153,7 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = '509f25a095edaf61212e4275ece71da0';
+
+(node as any).hash = "509f25a095edaf61212e4275ece71da0";
+
 export default node;

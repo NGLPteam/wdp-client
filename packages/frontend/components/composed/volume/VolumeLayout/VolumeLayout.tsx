@@ -1,10 +1,10 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import VolumeHero from "../VolumeHero";
 import { BreadcrumbsBar } from "components/layout";
-import { VolumeLayoutFragment$key } from "@/relay/VolumeLayoutFragment.graphql";
 import EntityNavBar from "components/composed/entity/EntityNavBar";
+import { VolumeLayoutFragment$key } from "@/relay/VolumeLayoutFragment.graphql";
+import VolumeHero from "../VolumeHero";
 
 export default function VolumeLayout({ data, children }: Props) {
   const volume = useMaybeFragment(fragment, data);

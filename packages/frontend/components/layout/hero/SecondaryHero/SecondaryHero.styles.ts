@@ -27,7 +27,7 @@ export const Thumbnail = styled.div`
     margin-block-end: ${pxToRem(42)};
     flex: 1 1 100%;
   `,
-    50
+    50,
   )};
 `;
 
@@ -40,7 +40,7 @@ export const RightSide = styled.div`
     padding-block-start: var(--padding-rg);
     border-top: 1px solid var(--border-color);
   `,
-    100
+    100,
   )}
 
   > * + * {

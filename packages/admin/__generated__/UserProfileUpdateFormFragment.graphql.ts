@@ -1,27 +1,29 @@
+/**
+ * @generated SignedSource<<0493c60d9f1f9b843036ba48f2cc2ab0>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type UserProfileUpdateFormFragment = {
-    readonly givenName: string | null;
-    readonly familyName: string | null;
-    readonly email: string | null;
-    readonly username: string | null;
-    readonly avatar: {
-        readonly " $fragmentRefs": FragmentRefs<"FileUploadFragment">;
-    };
-    readonly " $refType": "UserProfileUpdateFormFragment";
+export type UserProfileUpdateFormFragment$data = {
+  readonly avatar: {
+    readonly " $fragmentSpreads": FragmentRefs<"FileUploadFragment">;
+  };
+  readonly email: string | null | undefined;
+  readonly familyName: string | null | undefined;
+  readonly givenName: string | null | undefined;
+  readonly username: string | null | undefined;
+  readonly " $fragmentType": "UserProfileUpdateFormFragment";
 };
-export type UserProfileUpdateFormFragment$data = UserProfileUpdateFormFragment;
 export type UserProfileUpdateFormFragment$key = {
-    readonly " $data"?: UserProfileUpdateFormFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"UserProfileUpdateFormFragment">;
+  readonly " $data"?: UserProfileUpdateFormFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"UserProfileUpdateFormFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -77,5 +79,7 @@ const node: ReaderFragment = {
   "type": "User",
   "abstractKey": null
 };
-(node as any).hash = '1bebca9c6f3efc1eed1deeb3f84e6192';
+
+(node as any).hash = "1bebca9c6f3efc1eed1deeb3f84e6192";
+
 export default node;

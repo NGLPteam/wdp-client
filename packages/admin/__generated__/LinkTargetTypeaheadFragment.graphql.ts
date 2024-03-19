@@ -1,28 +1,30 @@
+/**
+ * @generated SignedSource<<5b0c5273b308872049b4428d9cd49d24>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type LinkTargetTypeaheadFragment = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly targetId: string;
-            readonly target: {
-                readonly " $fragmentRefs": FragmentRefs<"getEntityTitleFragment">;
-            };
-        };
-    }>;
-    readonly " $refType": "LinkTargetTypeaheadFragment";
+export type LinkTargetTypeaheadFragment$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly target: {
+        readonly " $fragmentSpreads": FragmentRefs<"getEntityTitleFragment">;
+      };
+      readonly targetId: string;
+    };
+  }>;
+  readonly " $fragmentType": "LinkTargetTypeaheadFragment";
 };
-export type LinkTargetTypeaheadFragment$data = LinkTargetTypeaheadFragment;
 export type LinkTargetTypeaheadFragment$key = {
-    readonly " $data"?: LinkTargetTypeaheadFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"LinkTargetTypeaheadFragment">;
+  readonly " $data"?: LinkTargetTypeaheadFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"LinkTargetTypeaheadFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -150,7 +152,9 @@ return {
                       "type": "Entity",
                       "abstractKey": "__isEntity"
                     }
-                  ]
+                  ],
+                  "args": null,
+                  "argumentDefinitions": []
                 }
               ],
               "storageKey": null
@@ -166,5 +170,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'e7a62872262d6481ce014b48e8d7e717';
+
+(node as any).hash = "e7a62872262d6481ce014b48e8d7e717";
+
 export default node;

@@ -1,19 +1,22 @@
 import React, { forwardRef, Ref, useCallback, useRef } from "react";
 import AssetPropertySelect from "../AssetPropertySelect";
+import { OnChangeInput } from "../AssetPropertySelect/AssetPropertySelect";
 import AssetsPropertySelectedList from "./AssetsPropertySelectedList";
 
 type BaseProps = React.ComponentProps<typeof AssetPropertySelect>;
 
+/* eslint-disable react/prop-types */
 const AssetsPropertySelect = forwardRef(
   (
     { label, required, options, isWide, onChange, value = [], ...props }: Props,
-    ref: Ref<HTMLSelectElement>
+    ref: Ref<HTMLSelectElement>,
   ) => {
     const selectRef = useRef<HTMLSelectElement | null>(null);
 
     const handleOnChange = useCallback(
-      (e) => {
-        if (!e || !e.target.value) return;
+      (e: OnChangeInput) => {
+        if (!e || !(typeof e === "object" && "target" in e && e.target.value))
+          return;
 
         const selectedValue = e.target.value;
 
@@ -25,7 +28,7 @@ const AssetsPropertySelect = forwardRef(
 
         if (selectRef.current) selectRef.current.value = "";
       },
-      [onChange, selectRef, value]
+      [onChange, selectRef, value],
     );
 
     const handleRemove = useCallback(
@@ -34,7 +37,7 @@ const AssetsPropertySelect = forwardRef(
         newValue.splice(index, 1);
         onChange(newValue);
       },
-      [onChange, value]
+      [onChange, value],
     );
 
     const handleDragEnd = useCallback(
@@ -45,7 +48,7 @@ const AssetsPropertySelect = forwardRef(
         newValue.splice(destinationIndex, 0, sourceItem);
         onChange(newValue);
       },
-      [onChange, value]
+      [onChange, value],
     );
 
     return (
@@ -70,7 +73,7 @@ const AssetsPropertySelect = forwardRef(
         />
       </div>
     );
-  }
+  },
 );
 
 export type Option = {

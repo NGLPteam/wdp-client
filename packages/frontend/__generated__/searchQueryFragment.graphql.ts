@@ -1,21 +1,23 @@
+/**
+ * @generated SignedSource<<41820d5f10fa8e7bd9b842a219480516>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-import SearchLayoutQuery from "./SearchLayoutQuery.graphql";
+import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type searchQueryFragment = {
-    readonly " $fragmentRefs": FragmentRefs<"SearchLayoutFragment">;
-    readonly " $refType": "searchQueryFragment";
+export type searchQueryFragment$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"SearchLayoutFragment">;
+  readonly " $fragmentType": "searchQueryFragment";
 };
-export type searchQueryFragment$data = searchQueryFragment;
 export type searchQueryFragment$key = {
-    readonly " $data"?: searchQueryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"searchQueryFragment">;
+  readonly " $data"?: searchQueryFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"searchQueryFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -50,7 +52,7 @@ const node: ReaderFragment = {
     "refetch": {
       "connection": null,
       "fragmentPathInResult": [],
-      "operation": SearchLayoutQuery
+      "operation": require('./SearchLayoutQuery.graphql')
     }
   },
   "name": "searchQueryFragment",
@@ -90,5 +92,7 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = 'a18edb185b5edea9a078e2afa881847b';
+
+(node as any).hash = "a18edb185b5edea9a078e2afa881847b";
+
 export default node;

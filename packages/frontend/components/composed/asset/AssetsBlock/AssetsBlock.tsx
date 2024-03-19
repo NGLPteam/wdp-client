@@ -2,10 +2,10 @@ import React from "react";
 import { useMaybeFragment, usePageContext } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
+import { LoadingBlock } from "components/atomic";
+import { AssetsBlockFragment$key } from "@/relay/AssetsBlockFragment.graphql";
 import * as Styled from "./AssetsBlock.styles";
 import AssetBlockItem from "./AssetBlockItem";
-import { AssetsBlockFragment$key } from "@/relay/AssetsBlockFragment.graphql";
-import { LoadingBlock } from "components/atomic";
 
 const AssetsBlock = ({ data, paddingBottom = "md" }: Props) => {
   const { t } = useTranslation();
@@ -18,7 +18,7 @@ const AssetsBlock = ({ data, paddingBottom = "md" }: Props) => {
         className="l-container-wide"
         $paddingBottom={paddingBottom}
       >
-        <h3 className="t-capitalize">{t("glossary.files_plural")}</h3>
+        <h3 className="t-capitalize">{t("glossary.files_other")}</h3>
         {loading ? (
           <LoadingBlock />
         ) : files?.edges && files.edges.length > 0 ? (

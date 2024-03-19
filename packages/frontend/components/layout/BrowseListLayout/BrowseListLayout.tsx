@@ -1,10 +1,10 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import NoContent from "../NoContent";
-import * as Styled from "./BrowseListLayout.styles";
 import { PageCount, Pagination } from "components/atomic";
 import { BrowseListLayoutFragment$key } from "@/relay/BrowseListLayoutFragment.graphql";
+import NoContent from "../NoContent";
+import * as Styled from "./BrowseListLayout.styles";
 
 export default function BrowseListLayout({
   data,

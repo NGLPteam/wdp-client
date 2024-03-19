@@ -1,9 +1,9 @@
 import React, { forwardRef, Ref, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import MobileMenuToggle from "../MobileMenuToggle";
-import * as Styled from "./MobileMenu.styles";
 import { ProviderBar } from "components/global";
 import Search from "components/composed/search/Search";
+import MobileMenuToggle from "../MobileMenuToggle";
+import * as Styled from "./MobileMenu.styles";
 
 const MobileMenu = forwardRef(
   (
@@ -15,7 +15,7 @@ const MobileMenu = forwardRef(
       showGlobalSearch = false,
       showProviderBar = false,
     }: Props,
-    ref: Ref<HTMLInputElement>
+    ref: Ref<HTMLInputElement>,
   ) => {
     const { t } = useTranslation();
     const lastActive = useRef(false);
@@ -50,7 +50,7 @@ const MobileMenu = forwardRef(
         {showProviderBar && <ProviderBar />}
       </Styled.Wrapper>
     );
-  }
+  },
 );
 
 interface Props {

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import type { CoreHeaderGroup } from "@tanstack/react-table";
 import { flexRender } from "@tanstack/react-table";
+import { Checkbox } from "components/forms";
 import TableHeaderRow from "./TableHeaderRow";
 import * as Styled from "./Table.styles";
 import TableSortIcon from "./TableSortIcon";
 import useTableContext from "./hooks/useTableContext";
-import { Checkbox } from "components/forms";
+import type { CoreHeaderGroup } from "@tanstack/react-table";
 
 function TableHeader<T extends Record<string, unknown>>({
   headerGroups = [],
@@ -57,7 +57,7 @@ function TableHeader<T extends Record<string, unknown>>({
                   <Styled.HeaderCellInner>
                     {flexRender(
                       header.column.columnDef.header,
-                      header.getContext()
+                      header.getContext(),
                     )}
                     {header.column.getCanSort() && (
                       <TableSortIcon

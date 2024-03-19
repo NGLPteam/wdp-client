@@ -1,16 +1,16 @@
-import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
-import { getContributorDisplayName } from "../ContributorDisplayName";
 import { useDrawerHelper, useDestroyer } from "hooks";
 import { RouteHelper } from "routes";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import Drawer from "components/layout/Drawer";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
 import ContributorUpdateForm from "components/composed/contributor/ContributorUpdateForm";
+import { getContributorDisplayName } from "../ContributorDisplayName";
+import type { DialogProps } from "reakit/Dialog";
 import type {
   ContributorUpdateDrawerQuery as Query,
-  ContributorUpdateDrawerQueryResponse as Response,
+  ContributorUpdateDrawerQuery$data as Response,
 } from "__generated__/ContributorUpdateDrawerQuery.graphql";
 
 export default function ContributorUpdateDrawer({
@@ -55,7 +55,7 @@ export default function ContributorUpdateDrawer({
           data?.contributor?.legalName ||
             (data?.contributor?.givenName
               ? `${data?.contributor?.givenName} ${data?.contributor?.familyName}`
-              : t("glossary.contributor"))
+              : t("glossary.contributor")),
         );
       }
       if (dialog?.hide) dialog.hide();
@@ -65,9 +65,9 @@ export default function ContributorUpdateDrawer({
   }
 
   return (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{ contributorSlug: drawerSlug }}
+      variables={{ contributorSlug: drawerSlug }}
     >
       {({ data }) => {
         return (
@@ -93,7 +93,7 @@ export default function ContributorUpdateDrawer({
           </Drawer>
         );
       }}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

@@ -1,17 +1,12 @@
 import { useReducer } from "react";
-import type { Dispatch, Reducer } from "react";
-import type {
-  FieldValues,
-  UseFormReturn,
-  UnpackNestedValue,
-} from "react-hook-form";
-import type { MutationParameters } from "relay-runtime";
-
 import { ErrorMap, MutationName } from "./types";
+import type { Dispatch, Reducer } from "react";
+import type { FieldValues, UseFormReturn } from "react-hook-form";
+import type { MutationParameters } from "relay-runtime";
 
 export default function useMutationFormState<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues
+  T extends FieldValues = FieldValues,
 >({
   form,
   name,
@@ -28,7 +23,7 @@ export default function useMutationFormState<
 
 function reducer<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues
+  T extends FieldValues = FieldValues,
 >(state: State<M, T>, action: Action<M, T>): State<M, T> {
   switch (action.type) {
     case "submit":
@@ -79,7 +74,7 @@ function reducer<
 
 interface UseFormGlobalsOptions<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues
+  T extends FieldValues = FieldValues,
 > {
   /**
    * The return value from a `useForm` call. We want to be able to work with this in the state
@@ -94,14 +89,14 @@ interface UseFormGlobalsOptions<
 
 type UseMutationFormStateReturn<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues
+  T extends FieldValues = FieldValues,
 > = [State<M, T>, Dispatch<Action<M, T>>];
 
 type Action<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues
+  T extends FieldValues = FieldValues,
 > =
-  | { type: "submit"; variables: M["variables"]; values: UnpackNestedValue<T> }
+  | { type: "submit"; variables: M["variables"]; values: T }
   | { type: "clear" }
   | { type: "success"; response: M["response"] }
   | { type: "failure"; errors: ErrorMap<T> }
@@ -111,7 +106,7 @@ type FormStatus = "pending" | "success" | "failure";
 
 interface State<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues
+  T extends FieldValues = FieldValues,
 > {
   /**
    * The return value from a `useForm` call.
@@ -151,7 +146,7 @@ interface State<
   /**
    * A copy of the last-submitted form values
    */
-  values?: UnpackNestedValue<T>;
+  values?: T;
 
   /**
    * A copy of the last-submitted mutation variables
@@ -161,7 +156,7 @@ interface State<
 
 function initializer<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues
+  T extends FieldValues = FieldValues,
 >({ form, name }: InitializerArgs<M, T>): State<M, T> {
   return {
     form,
@@ -173,7 +168,7 @@ function initializer<
 
 interface InitializerArgs<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues
+  T extends FieldValues = FieldValues,
 > {
   form: UseFormReturn<T>;
 

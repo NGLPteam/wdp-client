@@ -1,22 +1,23 @@
-import React, { Ref, useState } from "react";
+import { Ref, useState } from "react";
 import { Controller } from "react-hook-form";
-import { QueryWrapper } from "@wdp/lib/api/components";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import { graphql } from "react-relay";
-import type { FieldValues, Control, Path } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import debounce from "lodash/debounce";
 import BaseTypeahead from "components/forms/BaseTypeahead";
 import {
   CollectionTypeaheadQuery as Query,
-  CollectionTypeaheadQueryResponse as Response,
+  CollectionTypeaheadQuery$data as Response,
 } from "__generated__/CollectionTypeaheadQuery.graphql";
+import { FormFieldSkeleton } from "components/atomic/loading";
+import type { FieldValues, Control, Path } from "react-hook-form";
 
 type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
 
 const CollectionTypeahead = <T extends FieldValues = FieldValues>(
   { control, name, label, disabled, required }: Props<T>,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  ref: Ref<HTMLInputElement>
+  ref: Ref<HTMLInputElement>,
 ) => {
   const [q, setQ] = useState("a");
 
@@ -38,7 +39,11 @@ const CollectionTypeahead = <T extends FieldValues = FieldValues>(
   const debouncedOnChange = debounce((value) => setQ(value), 500);
 
   return (
-    <QueryWrapper<Query> query={query} initialVariables={{ query: q }}>
+    <LazyLoadQueryWrapper<Query>
+      query={query}
+      variables={{ query: q }}
+      fallback={<FormFieldSkeleton />}
+    >
       {({ data }) => {
         return (
           <Controller<T>
@@ -63,11 +68,12 @@ const CollectionTypeahead = <T extends FieldValues = FieldValues>(
           />
         );
       }}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 };
 
-interface Props<T> extends Omit<TypeaheadProps, "options" | "name"> {
+interface Props<T extends FieldValues = FieldValues>
+  extends Omit<TypeaheadProps, "options" | "name"> {
   control: Control<T>;
   name: Path<T>;
 }

@@ -2,12 +2,12 @@ import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import RelatedJournal from "./RelatedJournal";
-import * as Styled from "./RelatedJournals.styles";
 import {
   RelatedJournalsFragment$data,
   RelatedJournalsFragment$key,
 } from "@/relay/RelatedJournalsFragment.graphql";
+import RelatedJournal from "./RelatedJournal";
+import * as Styled from "./RelatedJournals.styles";
 
 export default function RelatedJournals({ data }: Props) {
   const entities = useMaybeFragment(fragment, data);
@@ -29,7 +29,7 @@ export default function RelatedJournals({ data }: Props) {
               <li key={node.slug}>
                 <RelatedJournal data={node} />
               </li>
-            ) : null
+            ) : null,
           )}
         </Styled.List>
         <Styled.ButtonWrapper>

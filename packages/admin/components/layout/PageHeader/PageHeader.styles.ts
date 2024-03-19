@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
-import PageHeader from "./PageHeader";
 import { pxToRem } from "theme/mixins/functions";
 import { respond } from "theme/mixins/base";
+import PageHeader from "./PageHeader";
 
 type Props = React.ComponentProps<typeof PageHeader>;
 

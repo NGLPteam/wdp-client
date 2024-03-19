@@ -1,12 +1,12 @@
 import * as React from "react";
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import InstanceCommunitySummary from "../InstanceCommunitySummary/InstanceCommunitySummary";
-import * as Styled from "./InstanceCommunities.styles";
 import {
   InstanceCommunitiesFragment$data,
   InstanceCommunitiesFragment$key,
 } from "@/relay/InstanceCommunitiesFragment.graphql";
+import InstanceCommunitySummary from "../InstanceCommunitySummary/InstanceCommunitySummary";
+import * as Styled from "./InstanceCommunities.styles";
 
 export default function InstanceCommunities({ data }: Props) {
   const communities = useFragment(fragment, data);

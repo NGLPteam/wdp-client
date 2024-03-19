@@ -7,9 +7,9 @@ import {
   getDay,
   dateLeadingZero,
 } from "@wdp/lib/helpers/dates";
-import * as Styled from "./VariableDatePicker.styles";
 import Input from "components/forms/Input";
 import Fieldset from "components/forms/Fieldset";
+import * as Styled from "./VariableDatePicker.styles";
 import type { DatePrecision } from "types/graphql-schema";
 import type InputProps from "components/forms/inputType";
 
@@ -18,7 +18,7 @@ const VariableDatePicker = forwardRef(
     { label, defaultValue, value, onChange, required }: Props,
     // The ref is passed in from Control, but isn't needed for this input
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ref: Ref<HTMLInputElement>
+    ref: Ref<HTMLInputElement>,
   ) => {
     const { t } = useTranslation();
     const yearRef = useRef<HTMLInputElement>(null);
@@ -134,7 +134,7 @@ const VariableDatePicker = forwardRef(
         </Styled.Wrapper>
       </Fieldset>
     );
-  }
+  },
 );
 
 type Value = {

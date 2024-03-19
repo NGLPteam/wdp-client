@@ -1,6 +1,6 @@
 import React from "react";
-import * as Styled from "./Summary.styles";
 import { NamedLink, Link, ReadMoreLink, Markdown } from "components/atomic";
+import * as Styled from "./Summary.styles";
 
 type LinkProps = React.ComponentProps<typeof NamedLink>;
 

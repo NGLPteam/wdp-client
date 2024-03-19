@@ -1,70 +1,27 @@
+/**
+ * @generated SignedSource<<db33d06cfe00c7bb63a1b627b3a9e598>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type getStaticCommunityDataQueryVariables = {
-    slug: string;
+export type getStaticCommunityDataQuery$variables = {
+  slug: string;
 };
-export type getStaticCommunityDataQueryResponse = {
-    readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"getStaticCommunityDataFragment">;
-    } | null;
+export type getStaticCommunityDataQuery$data = {
+  readonly community: {
+    readonly " $fragmentSpreads": FragmentRefs<"getStaticCommunityDataFragment">;
+  } | null | undefined;
 };
 export type getStaticCommunityDataQuery = {
-    readonly response: getStaticCommunityDataQueryResponse;
-    readonly variables: getStaticCommunityDataQueryVariables;
+  response: getStaticCommunityDataQuery$data;
+  variables: getStaticCommunityDataQuery$variables;
 };
-
-
-
-/*
-query getStaticCommunityDataQuery(
-  $slug: Slug!
-) {
-  community(slug: $slug) {
-    ...getStaticCommunityDataFragment
-    id
-  }
-}
-
-fragment getStaticCommunityDataFragment on AnyEntity {
-  __isAnyEntity: __typename
-  ... on Entity {
-    __isEntity: __typename
-    title
-    summary
-    thumbnail {
-      storage
-      medium {
-        webp {
-          url
-          width
-          height
-        }
-      }
-    }
-    thumbnailMetadata {
-      alt
-    }
-    heroImage {
-      storage
-      medium {
-        webp {
-          url
-          width
-          height
-        }
-      }
-    }
-    heroImageMetadata {
-      alt
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -230,7 +187,9 @@ return {
             "name": "getStaticCommunityDataFragment",
             "selections": [
               (v4/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -253,14 +212,14 @@ return {
         "name": "community",
         "plural": false,
         "selections": [
+          (v4/*: any*/),
           {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
             "name": "id",
             "storageKey": null
-          },
-          (v4/*: any*/)
+          }
         ],
         "storageKey": null
       }
@@ -276,5 +235,7 @@ return {
   }
 };
 })();
-(node as any).hash = '2d1814090cd9cf4a278c976e82a00839';
+
+(node as any).hash = "2d1814090cd9cf4a278c976e82a00839";
+
 export default node;

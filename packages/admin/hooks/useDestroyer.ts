@@ -1,8 +1,12 @@
 import { useCallback } from "react";
-import { useMutation } from "relay-hooks";
 import { useTranslation } from "react-i18next";
-import { graphql, readInlineData } from "react-relay";
+import { GraphQLTaggedNode, readInlineData } from "relay-runtime";
+import { useMutation, graphql } from "react-relay";
 import { useNotify, usePageContext } from "hooks";
+import {
+  DestroyAnnouncementInput,
+  RevokeAccessInput,
+} from "types/graphql-schema";
 import type {
   DestroyCommunityInput,
   useDestroyerDestroyCommunityMutation,
@@ -36,10 +40,6 @@ import type {
   useDestroyerDestroyPageMutation,
 } from "@/relay/useDestroyerDestroyPageMutation.graphql";
 import type { useDestroyerFragment$key } from "@/relay/useDestroyerFragment.graphql";
-import {
-  DestroyAnnouncementInput,
-  RevokeAccessInput,
-} from "types/graphql-schema";
 import { useDestroyerRevokeAccessMutation } from "@/relay/useDestroyerRevokeAccessMutation.graphql";
 import {
   DestroyAssetInput,
@@ -55,14 +55,14 @@ export function useDestroyer() {
 
   const handleResponse = useCallback(
     (
-      data: useDestroyerFragment$key | null,
+      data: useDestroyerFragment$key | null | undefined,
       name: string,
-      refetchTags: string[]
+      refetchTags: string[],
     ) => {
       if (!data) return;
       const results = readInlineData<useDestroyerFragment$key>(
-        destroyFragment,
-        data
+        destroyFragment as GraphQLTaggedNode,
+        data,
       );
       if (results.revoked) {
         notify.success(t("messages.revoke.success", { name }));
@@ -77,21 +77,24 @@ export function useDestroyer() {
         notify.mutationGlobalError(results.globalErrors);
       }
     },
-    [notify, t, setTriggeredRefetchTags]
+    [notify, t, setTriggeredRefetchTags],
   );
 
   /* Destroy a collection */
   const [commitDestroyCollection] =
     useMutation<useDestroyerDestroyCollectionMutation>(
-      destroyCollectionMutation
+      destroyCollectionMutation,
     );
 
   const collection = useCallback(
     async (input: DestroyCollectionInput, label: string) => {
-      const response = await commitDestroyCollection({ variables: { input } });
-      return handleResponse(response.destroyCollection, label, ["collections"]);
+      commitDestroyCollection({
+        variables: { input },
+        onCompleted: (response) =>
+          handleResponse(response.destroyCollection, label, ["collections"]),
+      });
     },
-    [commitDestroyCollection, handleResponse]
+    [commitDestroyCollection, handleResponse],
   );
 
   /* Destroy a item */
@@ -100,28 +103,32 @@ export function useDestroyer() {
 
   const item = useCallback(
     async (input: DestroyItemInput, label: string) => {
-      const response = await commitDestroyItem({ variables: { input } });
-      return handleResponse(response.destroyItem, label, ["items"]);
+      commitDestroyItem({
+        variables: { input },
+        onCompleted: (response) =>
+          handleResponse(response.destroyItem, label, ["items"]),
+      });
     },
-    [commitDestroyItem, handleResponse]
+    [commitDestroyItem, handleResponse],
   );
 
   /* Destroy a contribution */
   const [commitDestroyContribution] =
     useMutation<useDestroyerDestroyContributionMutation>(
-      destroyContributionMutation
+      destroyContributionMutation,
     );
 
   const contribution = useCallback(
     async (input: DestroyContributionInput, label: string) => {
-      const response = await commitDestroyContribution({
+      commitDestroyContribution({
         variables: { input },
+        onCompleted: (response) =>
+          handleResponse(response.destroyContribution, label, [
+            "contributions",
+          ]),
       });
-      return handleResponse(response.destroyContribution, label, [
-        "contributions",
-      ]);
     },
-    [commitDestroyContribution, handleResponse]
+    [commitDestroyContribution, handleResponse],
   );
 
   /* Destroy a community */
@@ -130,26 +137,30 @@ export function useDestroyer() {
 
   const community = useCallback(
     async (input: DestroyCommunityInput, label: string) => {
-      const response = await commitDestroyCommunity({ variables: { input } });
-      return handleResponse(response.destroyCommunity, label, ["communities"]);
+      commitDestroyCommunity({
+        variables: { input },
+        onCompleted: (response) =>
+          handleResponse(response.destroyCommunity, label, ["communities"]),
+      });
     },
-    [commitDestroyCommunity, handleResponse]
+    [commitDestroyCommunity, handleResponse],
   );
 
   /* Destroy a contributor */
   const [commitDestroyContributor] =
     useMutation<useDestroyerDestroyContributorMutation>(
-      destroyContributorMutation
+      destroyContributorMutation,
     );
 
   const contributor = useCallback(
     async (input: DestroyContributorInput, label: string) => {
-      const response = await commitDestroyContributor({ variables: { input } });
-      return handleResponse(response.destroyContributor, label, [
-        "contributors",
-      ]);
+      commitDestroyContributor({
+        variables: { input },
+        onCompleted: (response) =>
+          handleResponse(response.destroyContributor, label, ["contributors"]),
+      });
     },
-    [commitDestroyContributor, handleResponse]
+    [commitDestroyContributor, handleResponse],
   );
 
   /* Destroy a file */
@@ -158,12 +169,13 @@ export function useDestroyer() {
 
   const file = useCallback(
     async (input: DestroyAssetInput, label: string) => {
-      const response = await commitDestroyAsset({
+      commitDestroyAsset({
         variables: { input },
+        onCompleted: (response) =>
+          handleResponse(response.destroyAsset, label, ["assets"]),
       });
-      return handleResponse(response.destroyAsset, label, ["assets"]);
     },
-    [commitDestroyAsset, handleResponse]
+    [commitDestroyAsset, handleResponse],
   );
 
   /* Disable or destroy an ordering */
@@ -172,12 +184,13 @@ export function useDestroyer() {
 
   const ordering = useCallback(
     async (input: DestroyOrderingInput, label: string) => {
-      const response = await commitDisableOrDestroyOrdering({
+      commitDisableOrDestroyOrdering({
         variables: { input },
+        onCompleted: (response) =>
+          handleResponse(response.destroyOrdering, label, ["orderings"]),
       });
-      return handleResponse(response.destroyOrdering, label, ["orderings"]);
     },
-    [commitDisableOrDestroyOrdering, handleResponse]
+    [commitDisableOrDestroyOrdering, handleResponse],
   );
 
   /* Revoke access */
@@ -186,24 +199,30 @@ export function useDestroyer() {
 
   const access = useCallback(
     async (input: RevokeAccessInput, label: string) => {
-      const response = await commitRevokeAccess({ variables: { input } });
-      return handleResponse(response.revokeAccess, label, ["allAccessGrants"]);
+      commitRevokeAccess({
+        variables: { input },
+        onCompleted: (response) =>
+          handleResponse(response.revokeAccess, label, ["allAccessGrants"]),
+      });
     },
-    [commitRevokeAccess, handleResponse]
+    [commitRevokeAccess, handleResponse],
   );
 
   /* Destroy a link */
   const [commitDestroyLink] =
     useMutation<useDestroyerDestroyEntityLinkMutation>(
-      destroyEntityLinkMutation
+      destroyEntityLinkMutation,
     );
 
   const link = useCallback(
     async (input: DestroyEntityLinkInput, label: string) => {
-      const response = await commitDestroyLink({ variables: { input } });
-      return handleResponse(response.destroyEntityLink, label, ["links"]);
+      commitDestroyLink({
+        variables: { input },
+        onCompleted: (response) =>
+          handleResponse(response.destroyEntityLink, label, ["links"]),
+      });
     },
-    [commitDestroyLink, handleResponse]
+    [commitDestroyLink, handleResponse],
   );
 
   /* Destroy a page */
@@ -212,28 +231,32 @@ export function useDestroyer() {
 
   const page = useCallback(
     async (input: DestroyPageInput, label: string) => {
-      const response = await commitDestroyPage({ variables: { input } });
-      return handleResponse(response.destroyPage, label, ["pages"]);
+      commitDestroyPage({
+        variables: { input },
+        onCompleted: (response) =>
+          handleResponse(response.destroyPage, label, ["pages"]),
+      });
     },
-    [commitDestroyPage, handleResponse]
+    [commitDestroyPage, handleResponse],
   );
 
   /* Destroy an announcement */
   const [commitDestroyAnnouncement] =
     useMutation<useDestroyerDestroyAnnouncementMutation>(
-      destroyAnnouncementMutation
+      destroyAnnouncementMutation,
     );
 
   const announcement = useCallback(
     async (input: DestroyAnnouncementInput, label: string) => {
-      const response = await commitDestroyAnnouncement({
+      commitDestroyAnnouncement({
         variables: { input },
+        onCompleted: (response) =>
+          handleResponse(response.destroyAnnouncement, label, [
+            "announcements",
+          ]),
       });
-      return handleResponse(response.destroyAnnouncement, label, [
-        "announcements",
-      ]);
     },
-    [commitDestroyAnnouncement, handleResponse]
+    [commitDestroyAnnouncement, handleResponse],
   );
 
   return {

@@ -1,20 +1,20 @@
 import React, { useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { useUID } from "react-uid";
+import { useId } from "react";
 import { useFocusTrap } from "@castiron/hooks/";
 import capitalize from "lodash/capitalize";
-import * as Styled from "./MobileSubNav.styles";
 import { RouteHelper } from "routes";
 import { NamedLink, TabLink } from "components/atomic";
 import { IconFactory } from "components/factories";
 import MobileMenu, { MobileMenuList } from "components/layout/MobileMenu";
 import { useToggle } from "hooks";
+import * as Styled from "./MobileSubNav.styles";
 
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 
 const MobileSubNav = ({ tabRoutes, sidebarLinks }: Props) => {
   const { t } = useTranslation();
-  const menuId = useUID();
+  const menuId = useId();
   const [isOpen, toggleActive, setActive] = useToggle();
   const mobileNavRef = useRef(null);
 

@@ -2,15 +2,12 @@ import React, { forwardRef, Ref, useMemo } from "react";
 import { graphql } from "react-relay";
 import Select from "components/forms/Select";
 
-import { SchemaSelectFragment$key } from "@/relay/SchemaSelectFragment.graphql";
 import { useMaybeFragment } from "hooks";
+import { SchemaSelectFragment$key } from "@/relay/SchemaSelectFragment.graphql";
 type SelectProps = React.ComponentProps<typeof Select>;
 
 const SchemaSelect = forwardRef(
-  (
-    { data, label, disabled, ...inputProps }: Props,
-    ref: Ref<HTMLSelectElement>
-  ) => {
+  ({ data, ...inputProps }: Props, ref: Ref<HTMLSelectElement>) => {
     const optionsData = useMaybeFragment(fragment, data);
 
     const options = useMemo(() => {
@@ -23,12 +20,12 @@ const SchemaSelect = forwardRef(
     return (
       <Select
         options={options || []}
-        label="forms.schema.label"
         ref={ref}
         {...inputProps}
+        label="forms.schema.label"
       />
     );
-  }
+  },
 );
 
 interface Props extends Omit<SelectProps, "options"> {

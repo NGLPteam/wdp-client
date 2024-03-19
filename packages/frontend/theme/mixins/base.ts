@@ -10,7 +10,7 @@ export function respond(
   content: CssContent,
   size: string | number,
   operator = "max",
-  aspect = "width"
+  aspect = "width",
 ) {
   // If the size isn't found in breakpoints, use the size value
   const pxSize = get(breakpoints, size, size);
@@ -21,7 +21,7 @@ export function fluidScale(
   max: string | number,
   min: string | number,
   maxVw: string | number = 140,
-  minVw: string | number = 30
+  minVw: string | number = 30,
 ) {
   const defaultMaxVw = get(breakpoints, maxVw, "1400px");
   const defaultMinVw = get(breakpoints, minVw, "375px");

@@ -1,22 +1,24 @@
+/**
+ * @generated SignedSource<<8732b4f53f361a57b3ea8f9b672a2714>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type JournalHeroCompactFragment = {
-    readonly title: string;
-    readonly subtitle: string | null;
-    readonly " $refType": "JournalHeroCompactFragment";
+export type JournalHeroCompactFragment$data = {
+  readonly subtitle: string | null | undefined;
+  readonly title: string;
+  readonly " $fragmentType": "JournalHeroCompactFragment";
 };
-export type JournalHeroCompactFragment$data = JournalHeroCompactFragment;
 export type JournalHeroCompactFragment$key = {
-    readonly " $data"?: JournalHeroCompactFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"JournalHeroCompactFragment">;
+  readonly " $data"?: JournalHeroCompactFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"JournalHeroCompactFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -42,5 +44,7 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '8f92ce0f1126e6e8f0c98cefffcdf8e5';
+
+(node as any).hash = "8f92ce0f1126e6e8f0c98cefffcdf8e5";
+
 export default node;

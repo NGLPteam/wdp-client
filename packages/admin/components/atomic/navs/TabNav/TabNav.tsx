@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { useRouteSlug } from "@wdp/lib/routes";
-import * as Styled from "./TabNav.styles";
 import { RouteHelper } from "routes";
 import { Dropdown, NamedLink, Tab, TabLink, NavLink } from "components/atomic";
+import * as Styled from "./TabNav.styles";
 
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 

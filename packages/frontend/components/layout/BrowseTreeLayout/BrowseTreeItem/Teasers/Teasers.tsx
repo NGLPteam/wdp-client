@@ -15,7 +15,7 @@ export default function Teasers({ data }: Props) {
     if (!entry?.schemaRanks || !entry?.schemaRanks.length) return null;
     const rank = entry.schemaRanks.filter(
       ({ namespace, identifier }) =>
-        namespace === "nglp" && identifier === entity
+        namespace === "nglp" && identifier === entity,
     );
     return rank.length ? rank[0].count : null;
   };

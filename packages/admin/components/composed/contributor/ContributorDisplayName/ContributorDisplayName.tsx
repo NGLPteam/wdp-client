@@ -3,21 +3,21 @@ import React, { useMemo } from "react";
 function ContributorDisplayName({ contributor, lastNameFirst }: Props) {
   const displayName = useMemo(
     () => getContributorDisplayName(contributor, lastNameFirst),
-    [contributor, lastNameFirst]
+    [contributor, lastNameFirst],
   );
   return <span>{displayName}</span>;
 }
 
 export function getContributorDisplayName(
   contributor: AnyContributor,
-  lastNameFirst?: boolean
+  lastNameFirst?: boolean,
 ): string {
   if (!contributor) return "";
   if (
     contributor.__typename !== "OrganizationContributor" &&
     contributor.__typename !== "PersonContributor"
   )
-    return otherContributorName(contributor);
+    return otherContributorName();
   if (contributor.__typename === "OrganizationContributor")
     return organizationContributorName(contributor);
   if (contributor.__typename === "PersonContributor")
@@ -28,7 +28,7 @@ export function getContributorDisplayName(
 
 function personContributorName(
   contributor: PersonContributor,
-  lastNameFirst?: boolean
+  lastNameFirst?: boolean,
 ): string {
   return lastNameFirst
     ? `${contributor.familyName}, ${contributor.givenName}`
@@ -36,12 +36,12 @@ function personContributorName(
 }
 
 function organizationContributorName(
-  contributor: OrganizationContributor
+  contributor: OrganizationContributor,
 ): string {
   return `${contributor.legalName}`;
 }
 
-function otherContributorName(contributorIgnored: OtherContributor): string {
+function otherContributorName(): string {
   return "";
 }
 

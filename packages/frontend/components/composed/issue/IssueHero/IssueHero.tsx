@@ -2,8 +2,6 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./IssueHero.styles";
-import { IssueHeroFragment$key } from "@/relay/IssueHeroFragment.graphql";
 import {
   DotList,
   PrecisionDate,
@@ -17,6 +15,8 @@ import JournalHeroCompact from "components/composed/journal/JournalHeroCompact";
 import JournalHeroMetadata from "components/composed/journal/JournalHeroMetadata";
 import { SecondaryHero } from "components/layout/hero";
 import { getEntityDisplayName } from "helpers";
+import { IssueHeroFragment$key } from "@/relay/IssueHeroFragment.graphql";
+import * as Styled from "./IssueHero.styles";
 
 export default function IssueHero({ data }: Props) {
   const issue = useMaybeFragment(fragment, data);

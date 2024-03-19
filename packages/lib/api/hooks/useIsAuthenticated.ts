@@ -11,7 +11,7 @@ export function useVisibleToAuthenticated(): boolean {
     function () {
       setVisible(isAuthenticated === true);
     },
-    [isAuthenticated]
+    [isAuthenticated],
   );
 
   return visible;
@@ -26,7 +26,7 @@ export function useVisibleToUnauthenticated(): boolean {
     function () {
       setVisible(isAuthenticated === false);
     },
-    [isAuthenticated]
+    [isAuthenticated],
   );
 
   return visible;

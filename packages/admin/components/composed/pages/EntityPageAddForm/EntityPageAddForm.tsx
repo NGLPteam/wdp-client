@@ -1,17 +1,17 @@
-import React, { useRef } from "react";
-import { graphql, useFragment } from "react-relay";
+import { useRef } from "react";
+import { useFragment, graphql } from "react-relay";
 import MutationForm, {
   useRenderForm,
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
 
+import { convertToSlug } from "helpers";
 import type {
   EntityPageAddFormMutation,
   CreatePageInput,
 } from "@/relay/EntityPageAddFormMutation.graphql";
 import type { EntityPageAddFormFragment$key } from "@/relay/EntityPageAddFormFragment.graphql";
-import { convertToSlug } from "helpers";
 
 export default function EntityPageAddForm({
   data,
@@ -22,7 +22,7 @@ export default function EntityPageAddForm({
 
   const sourceEntity = useFragment<EntityPageAddFormFragment$key>(
     fragment,
-    data
+    data,
   );
 
   // Sets the slug to the title if no slug is provided
@@ -35,7 +35,7 @@ export default function EntityPageAddForm({
         position: typeof position === "string" ? parseInt(position) : position,
       },
     }),
-    []
+    [],
   );
 
   const renderForm = useRenderForm<Fields>(({ form: { register } }) => {

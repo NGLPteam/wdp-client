@@ -1,87 +1,47 @@
+/**
+ * @generated SignedSource<<4f072a4df77a98531846034c19280ec7>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RoleEditAccessDrawerQueryVariables = {
-    slug: string;
-    userSlug: string;
-    onCommunity: boolean;
-    onCollection: boolean;
-    onItem: boolean;
+export type RoleEditAccessDrawerQuery$variables = {
+  onCollection: boolean;
+  onCommunity: boolean;
+  onItem: boolean;
+  slug: string;
+  userSlug: string;
 };
-export type RoleEditAccessDrawerQueryResponse = {
-    readonly community?: {
-        readonly id: string;
-        readonly title: string;
-        readonly " $fragmentRefs": FragmentRefs<"RoleEditAccessFormFragment">;
-    } | null | undefined;
-    readonly collection?: {
-        readonly id: string;
-        readonly title: string;
-        readonly " $fragmentRefs": FragmentRefs<"RoleEditAccessFormFragment">;
-    } | null | undefined;
-    readonly item?: {
-        readonly id: string;
-        readonly title: string;
-        readonly " $fragmentRefs": FragmentRefs<"RoleEditAccessFormFragment">;
-    } | null | undefined;
-    readonly user: {
-        readonly id: string;
-        readonly name: string | null;
-    } | null;
+export type RoleEditAccessDrawerQuery$data = {
+  readonly collection?: {
+    readonly id: string;
+    readonly title: string;
+    readonly " $fragmentSpreads": FragmentRefs<"RoleEditAccessFormFragment">;
+  } | null | undefined;
+  readonly community?: {
+    readonly id: string;
+    readonly title: string;
+    readonly " $fragmentSpreads": FragmentRefs<"RoleEditAccessFormFragment">;
+  } | null | undefined;
+  readonly item?: {
+    readonly id: string;
+    readonly title: string;
+    readonly " $fragmentSpreads": FragmentRefs<"RoleEditAccessFormFragment">;
+  } | null | undefined;
+  readonly user: {
+    readonly id: string;
+    readonly name: string | null | undefined;
+  } | null | undefined;
 };
 export type RoleEditAccessDrawerQuery = {
-    readonly response: RoleEditAccessDrawerQueryResponse;
-    readonly variables: RoleEditAccessDrawerQueryVariables;
+  response: RoleEditAccessDrawerQuery$data;
+  variables: RoleEditAccessDrawerQuery$variables;
 };
-
-
-
-/*
-query RoleEditAccessDrawerQuery(
-  $slug: Slug!
-  $userSlug: Slug!
-  $onCommunity: Boolean!
-  $onCollection: Boolean!
-  $onItem: Boolean!
-) {
-  community(slug: $slug) @include(if: $onCommunity) {
-    id
-    title
-    ...RoleEditAccessFormFragment
-  }
-  collection(slug: $slug) @include(if: $onCollection) {
-    id
-    title
-    ...RoleEditAccessFormFragment
-  }
-  item(slug: $slug) @include(if: $onItem) {
-    id
-    title
-    ...RoleEditAccessFormFragment
-  }
-  user(slug: $userSlug) {
-    id
-    name
-  }
-}
-
-fragment RoleEditAccessFormFragment on Entity {
-  __isEntity: __typename
-  ...RoleSelectFragment
-}
-
-fragment RoleSelectFragment on Entity {
-  __isEntity: __typename
-  assignableRoles {
-    id
-    name
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -109,15 +69,38 @@ v4 = {
   "kind": "LocalArgument",
   "name": "userSlug"
 },
-v5 = {
+v5 = [
+  {
+    "kind": "Variable",
+    "name": "slug",
+    "variableName": "slug"
+  }
+],
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v6 = [
-  (v5/*: any*/),
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v8 = [
+  (v6/*: any*/),
+  (v7/*: any*/),
+  {
+    "args": null,
+    "kind": "FragmentSpread",
+    "name": "RoleEditAccessFormFragment"
+  }
+],
+v9 = [
+  (v6/*: any*/),
   {
     "alias": null,
     "args": null,
@@ -126,7 +109,7 @@ v6 = [
     "storageKey": null
   }
 ],
-v7 = {
+v10 = {
   "alias": null,
   "args": [
     {
@@ -139,35 +122,12 @@ v7 = {
   "kind": "LinkedField",
   "name": "user",
   "plural": false,
-  "selections": (v6/*: any*/),
+  "selections": (v9/*: any*/),
   "storageKey": null
 },
-v8 = [
-  {
-    "kind": "Variable",
-    "name": "slug",
-    "variableName": "slug"
-  }
-],
-v9 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-},
-v10 = [
-  (v5/*: any*/),
-  (v9/*: any*/),
-  {
-    "args": null,
-    "kind": "FragmentSpread",
-    "name": "RoleEditAccessFormFragment"
-  }
-],
 v11 = [
-  (v5/*: any*/),
-  (v9/*: any*/),
+  (v6/*: any*/),
+  (v7/*: any*/),
   {
     "kind": "InlineFragment",
     "selections": [
@@ -178,7 +138,7 @@ v11 = [
         "kind": "LinkedField",
         "name": "assignableRoles",
         "plural": true,
-        "selections": (v6/*: any*/),
+        "selections": (v9/*: any*/),
         "storageKey": null
       }
     ],
@@ -199,7 +159,6 @@ return {
     "metadata": null,
     "name": "RoleEditAccessDrawerQuery",
     "selections": [
-      (v7/*: any*/),
       {
         "condition": "onCommunity",
         "kind": "Condition",
@@ -207,12 +166,12 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": (v8/*: any*/),
+            "args": (v5/*: any*/),
             "concreteType": "Community",
             "kind": "LinkedField",
             "name": "community",
             "plural": false,
-            "selections": (v10/*: any*/),
+            "selections": (v8/*: any*/),
             "storageKey": null
           }
         ]
@@ -224,12 +183,12 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": (v8/*: any*/),
+            "args": (v5/*: any*/),
             "concreteType": "Collection",
             "kind": "LinkedField",
             "name": "collection",
             "plural": false,
-            "selections": (v10/*: any*/),
+            "selections": (v8/*: any*/),
             "storageKey": null
           }
         ]
@@ -241,16 +200,17 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": (v8/*: any*/),
+            "args": (v5/*: any*/),
             "concreteType": "Item",
             "kind": "LinkedField",
             "name": "item",
             "plural": false,
-            "selections": (v10/*: any*/),
+            "selections": (v8/*: any*/),
             "storageKey": null
           }
         ]
-      }
+      },
+      (v10/*: any*/)
     ],
     "type": "Query",
     "abstractKey": null
@@ -267,7 +227,6 @@ return {
     "kind": "Operation",
     "name": "RoleEditAccessDrawerQuery",
     "selections": [
-      (v7/*: any*/),
       {
         "condition": "onCommunity",
         "kind": "Condition",
@@ -275,7 +234,7 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": (v8/*: any*/),
+            "args": (v5/*: any*/),
             "concreteType": "Community",
             "kind": "LinkedField",
             "name": "community",
@@ -292,7 +251,7 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": (v8/*: any*/),
+            "args": (v5/*: any*/),
             "concreteType": "Collection",
             "kind": "LinkedField",
             "name": "collection",
@@ -309,7 +268,7 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": (v8/*: any*/),
+            "args": (v5/*: any*/),
             "concreteType": "Item",
             "kind": "LinkedField",
             "name": "item",
@@ -318,7 +277,8 @@ return {
             "storageKey": null
           }
         ]
-      }
+      },
+      (v10/*: any*/)
     ]
   },
   "params": {
@@ -331,5 +291,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'a10d821a96b78929dedffbbadb896df2';
+
+(node as any).hash = "a10d821a96b78929dedffbbadb896df2";
+
 export default node;

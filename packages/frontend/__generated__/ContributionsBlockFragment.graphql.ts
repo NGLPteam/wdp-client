@@ -1,31 +1,33 @@
+/**
+ * @generated SignedSource<<97b9dd0029fec84c58e55f7a32846dcf>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type ContributionsBlockFragment = {
-    readonly nodes?: ReadonlyArray<{
-        readonly slug: string;
-        readonly role: string | null;
-        readonly contributor: {
-            readonly image?: {
-                readonly storage: AttachmentStorage | null;
-            } | undefined;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"ContributionBlockItemFragment">;
-    }> | undefined;
-    readonly " $refType": "ContributionsBlockFragment";
+import { FragmentRefs } from "relay-runtime";
+export type ContributionsBlockFragment$data = {
+  readonly nodes?: ReadonlyArray<{
+    readonly contributor: {
+      readonly image?: {
+        readonly storage: AttachmentStorage | null | undefined;
+      };
+    };
+    readonly role: string | null | undefined;
+    readonly slug: string;
+    readonly " $fragmentSpreads": FragmentRefs<"ContributionBlockItemFragment">;
+  }>;
+  readonly " $fragmentType": "ContributionsBlockFragment";
 };
-export type ContributionsBlockFragment$data = ContributionsBlockFragment;
 export type ContributionsBlockFragment$key = {
-    readonly " $data"?: ContributionsBlockFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContributionsBlockFragment">;
+  readonly " $data"?: ContributionsBlockFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributionsBlockFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -137,5 +139,7 @@ return {
   "abstractKey": "__isPaginated"
 };
 })();
-(node as any).hash = 'e3267af377d0d3b1185634c96ae5dcdc';
+
+(node as any).hash = "e3267af377d0d3b1185634c96ae5dcdc";
+
 export default node;

@@ -1,7 +1,9 @@
 import * as React from "react";
 import Markdown from "../BaseMarkdown";
 
-type MarkdownProps = React.ComponentProps<typeof Markdown>;
+type MarkdownProps = React.ComponentProps<typeof Markdown> & {
+  className?: string;
+};
 
 export default function PageMarkdown({
   children,

@@ -1,61 +1,38 @@
+/**
+ * @generated SignedSource<<b947b6251202168e97eb9a153f7ef2bb>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 export type OrderingPathGrouping = "ENTITY" | "LINK" | "PROPS" | "SCHEMA" | "%future added value";
 export type SchemaPropertyType = "ASSET" | "ASSETS" | "BOOLEAN" | "CONTRIBUTOR" | "CONTRIBUTORS" | "DATE" | "EMAIL" | "ENTITIES" | "ENTITY" | "FLOAT" | "FULL_TEXT" | "GROUP" | "INTEGER" | "MARKDOWN" | "MULTISELECT" | "SELECT" | "STRING" | "TAGS" | "TIMESTAMP" | "UNKNOWN" | "URL" | "VARIABLE_DATE" | "%future added value";
 export type OrderingSchemaFilterInput = {
-    namespace: string;
-    identifier: string;
-    version?: unknown | null | undefined;
+  identifier: string;
+  namespace: string;
+  version?: any | null | undefined;
 };
-export type OrderDefinitionSelectQueryVariables = {
-    schemas?: Array<OrderingSchemaFilterInput> | null | undefined;
+export type OrderDefinitionSelectQuery$variables = {
+  schemas?: ReadonlyArray<OrderingSchemaFilterInput> | null | undefined;
 };
-export type OrderDefinitionSelectQueryResponse = {
-    readonly orderingPaths: ReadonlyArray<{
-        readonly path?: string | undefined;
-        readonly labelPrefix?: string | null | undefined;
-        readonly label?: string | undefined;
-        readonly description?: string | null | undefined;
-        readonly grouping?: OrderingPathGrouping | undefined;
-        readonly type?: SchemaPropertyType | undefined;
-    }>;
+export type OrderDefinitionSelectQuery$data = {
+  readonly orderingPaths: ReadonlyArray<{
+    readonly description?: string | null | undefined;
+    readonly grouping?: OrderingPathGrouping;
+    readonly label?: string;
+    readonly labelPrefix?: string | null | undefined;
+    readonly path?: string;
+    readonly type?: SchemaPropertyType;
+  }>;
 };
 export type OrderDefinitionSelectQuery = {
-    readonly response: OrderDefinitionSelectQueryResponse;
-    readonly variables: OrderDefinitionSelectQueryVariables;
+  response: OrderDefinitionSelectQuery$data;
+  variables: OrderDefinitionSelectQuery$variables;
 };
-
-
-
-/*
-query OrderDefinitionSelectQuery(
-  $schemas: [OrderingSchemaFilterInput!]
-) {
-  orderingPaths(schemas: $schemas) {
-    __typename
-    ... on StaticOrderingPath {
-      path
-      labelPrefix
-      label
-      description
-      grouping
-      type
-    }
-    ... on SchemaOrderingPath {
-      path
-      labelPrefix
-      label
-      description
-      grouping
-      type
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -190,5 +167,7 @@ return {
   }
 };
 })();
-(node as any).hash = '4c09db9ef869d97d004c8259a189e40e';
+
+(node as any).hash = "4c09db9ef869d97d004c8259a189e40e";
+
 export default node;

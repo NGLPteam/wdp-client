@@ -257,7 +257,7 @@ function useWaitForUpload<T extends FieldValues>(
 
 interface WaitForUploadReturn<T extends FieldValues> {
   uploadRef: ActiveUploadRef;
-  uploaded: Validate<PathValue<T, Path<T>>>;
+  uploaded: Validate<PathValue<T, Path<T>>, T>;
 }
 
 function useActiveUploadRef(): ActiveUploadRef {
@@ -268,7 +268,7 @@ function useValidateUpload<T extends FieldValues>(
   name: Path<T>,
   uploadRef: ActiveUploadRef,
   options: ValidationOptions
-): Validate<PathValue<T, Path<T>>> {
+): Validate<PathValue<T, Path<T>>, T> {
   return useCallback(
     async function (value) {
       try {

@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import Grid from "./Grid";
 import { aBgLight } from "theme/mixins/appearance";
 import { CssContent, fluidScale, respond } from "theme/mixins/base";
 import { pxToRem } from "theme/mixins/functions";
+import Grid from "./Grid";
 
 type Props = React.ComponentProps<typeof Grid>;
 
@@ -35,7 +35,7 @@ export const Wrapper = styled.div<Partial<Props>>`
     `
       --checkbox-opacity: 1;
       --actions-opacity: 1;
-    `
+    `,
   )}
 `;
 
@@ -56,7 +56,7 @@ export const Inner = styled.div`
     `
       margin-inline-start: auto;
       margin-inline-end: auto;
-    `
+    `,
   )}
 `;
 
@@ -93,7 +93,7 @@ export const Item = styled.div`
           "checkbox image children actions" 1fr
           / auto auto 1fr auto;
       }
-    `
+    `,
   )}
 
   &:hover,
@@ -105,7 +105,7 @@ export const Item = styled.div`
     ${mobile(
       `
         background-color: transparent;
-      `
+      `,
     )}
   }
 `;
@@ -144,7 +144,7 @@ export const Thumbnail = styled.div`
       display: block;
       padding-block-end: 0;
       height: 60px;
-    `
+    `,
   )}
 `;
 

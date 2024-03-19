@@ -1,35 +1,37 @@
+/**
+ * @generated SignedSource<<1b96bcfe61176402dd2192310a1cc80e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type IssueOrderingLayoutFragment = {
-    readonly name: string | null;
-    readonly header: string | null;
-    readonly children: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly entry: {
-                    readonly slug?: string | undefined;
-                    readonly " $fragmentRefs": FragmentRefs<"EntitySummaryFactoryFragment">;
-                };
-            };
-        }>;
-        readonly pageInfo: {
-            readonly " $fragmentRefs": FragmentRefs<"PaginationFragment">;
+export type IssueOrderingLayoutFragment$data = {
+  readonly children: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly entry: {
+          readonly slug?: string;
+          readonly " $fragmentSpreads": FragmentRefs<"EntitySummaryFactoryFragment">;
         };
+      };
+    }>;
+    readonly pageInfo: {
+      readonly " $fragmentSpreads": FragmentRefs<"PaginationFragment">;
     };
-    readonly " $refType": "IssueOrderingLayoutFragment";
+  };
+  readonly header: string | null | undefined;
+  readonly name: string | null | undefined;
+  readonly " $fragmentType": "IssueOrderingLayoutFragment";
 };
-export type IssueOrderingLayoutFragment$data = IssueOrderingLayoutFragment;
 export type IssueOrderingLayoutFragment$key = {
-    readonly " $data"?: IssueOrderingLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"IssueOrderingLayoutFragment">;
+  readonly " $data"?: IssueOrderingLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"IssueOrderingLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -156,5 +158,7 @@ const node: ReaderFragment = {
   "type": "Ordering",
   "abstractKey": null
 };
-(node as any).hash = '0ed0f439a92e224104105ddbcb4f68dc';
+
+(node as any).hash = "0ed0f439a92e224104105ddbcb4f68dc";
+
 export default node;

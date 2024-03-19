@@ -1,5 +1,5 @@
-import * as Styled from "./BaseInputError.styles";
 import { IconFactory } from "components/factories";
+import * as Styled from "./BaseInputError.styles";
 
 const BaseInputError = ({ message }: Props) => {
   return (

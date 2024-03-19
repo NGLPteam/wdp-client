@@ -1,18 +1,18 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import ContributionAuthorBlock from "components/composed/contribution/ContributionAuthorBlock";
+import ContributionsBlock from "components/composed/contribution/ContributionsBlock";
 import {
   ArticleContributorFragment$data,
   ArticleContributorFragment$key,
 } from "@/relay/ArticleContributorFragment.graphql";
-import ContributionAuthorBlock from "components/composed/contribution/ContributionAuthorBlock";
-import ContributionsBlock from "components/composed/contribution/ContributionsBlock";
 
 export default function ArticleContributor({ data }: Props) {
   const contributionData = useMaybeFragment(fragment, data);
 
   const contributions = contributionData?.nodes.filter(
-    (node: Node) => node.role && node.role.toLowerCase() === "author"
+    (node: Node) => node.role && node.role.toLowerCase() === "author",
   );
 
   return contributions && contributions.length === 1 ? (

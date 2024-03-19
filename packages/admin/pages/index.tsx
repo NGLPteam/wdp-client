@@ -1,24 +1,34 @@
-import { graphql } from "react-relay";
-import { QueryWrapper } from "components/api";
-import { useBaseListQueryVars, useIsAuthenticated } from "hooks";
+import { PreloadedQuery } from "react-relay";
+import { QueryLoaderWrapper } from "@wdp/lib/api/components";
+import {
+  useBaseListQueryVars,
+  useIsAuthenticated,
+  useSearchQueryVars,
+} from "hooks";
 import { DashboardLayout } from "components/composed/dashboard";
-import { pagesHomeQuery as Query } from "__generated__/pagesHomeQuery.graphql";
 import { LoadingPage } from "components/atomic";
+import { DashboardLayoutQuery } from "__generated__/DashboardLayoutQuery.graphql";
+import { query } from "components/composed/dashboard/DashboardLayout/DashboardLayout";
 
-export default function Home() {
+type Props = {
+  initialQueryRef?: PreloadedQuery<DashboardLayoutQuery>;
+};
+
+export default function HomePage({ initialQueryRef }: Props) {
   const queryVars = useBaseListQueryVars();
-
+  const searchQueryVars = useSearchQueryVars();
   const isAuth = useIsAuthenticated();
 
   return isAuth ? (
-    <QueryWrapper<Query> query={query} initialVariables={queryVars}>
-      {({ data }) => (data ? <DashboardLayout data={data} /> : <LoadingPage />)}
-    </QueryWrapper>
+    <>
+      <QueryLoaderWrapper<DashboardLayoutQuery>
+        query={query}
+        variables={{ ...queryVars, ...searchQueryVars }}
+        initialQueryRef={initialQueryRef}
+        loadingFallback={<LoadingPage />}
+      >
+        {({ queryRef }) => queryRef && <DashboardLayout queryRef={queryRef} />}
+      </QueryLoaderWrapper>
+    </>
   ) : null;
 }
-
-const query = graphql`
-  query pagesHomeQuery($page: Int, $order: EntityOrder) {
-    ...DashboardLayoutFragment @arguments(page: $page, order: $order)
-  }
-`;

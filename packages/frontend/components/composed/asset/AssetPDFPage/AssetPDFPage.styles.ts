@@ -11,6 +11,11 @@ export const Page = styled.div`
     width: 100% !important;
     height: auto !important;
   }
+
+  .textLayer,
+  .annotationLayer {
+    display: none;
+  }
 `;
 
 export const PageNumber = styled.div`

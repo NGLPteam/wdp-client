@@ -1,36 +1,38 @@
+/**
+ * @generated SignedSource<<f360d2e416990091a7bb52b609445576>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
-export type CommunityNavListFragment = {
-    readonly slug: string;
-    readonly schemaRanks: ReadonlyArray<{
+import { FragmentRefs } from "relay-runtime";
+export type CommunityNavListFragment$data = {
+  readonly pages: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
         readonly slug: string;
-        readonly name: string;
-        readonly count: number;
-        readonly kind: SchemaKind;
+        readonly title: string;
+      };
     }>;
-    readonly pages: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly slug: string;
-                readonly title: string;
-            };
-        }>;
-    };
-    readonly " $refType": "CommunityNavListFragment";
+  };
+  readonly schemaRanks: ReadonlyArray<{
+    readonly count: number;
+    readonly kind: SchemaKind;
+    readonly name: string;
+    readonly slug: string;
+  }>;
+  readonly slug: string;
+  readonly " $fragmentType": "CommunityNavListFragment";
 };
-export type CommunityNavListFragment$data = CommunityNavListFragment;
 export type CommunityNavListFragment$key = {
-    readonly " $data"?: CommunityNavListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityNavListFragment">;
+  readonly " $data"?: CommunityNavListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityNavListFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -126,5 +128,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'f5ace40f03730a87ca4ccf1ebcfea1e8';
+
+(node as any).hash = "f5ace40f03730a87ca4ccf1ebcfea1e8";
+
 export default node;

@@ -1,10 +1,10 @@
 import * as React from "react";
-import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import EntityPageAddForm from "components/composed/pages/EntityPageAddForm";
 import Drawer from "components/layout/Drawer";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
+import type { DialogProps } from "reakit/Dialog";
 
 import type { EntityPageAddDrawerQuery as Query } from "__generated__/EntityPageAddDrawerQuery.graphql";
 
@@ -20,9 +20,9 @@ export default function EntityPageAddDrawer({
   const { drawerSlug } = params;
 
   return (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{ entitySlug: drawerSlug }}
+      variables={{ entitySlug: drawerSlug }}
     >
       {({ data }) => {
         const entity = data
@@ -44,7 +44,7 @@ export default function EntityPageAddDrawer({
           </Drawer>
         );
       }}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

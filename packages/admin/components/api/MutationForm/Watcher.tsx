@@ -17,7 +17,7 @@ export default function Watcher<T extends FieldValues = FieldValues>({
       /* eslint-disable no-console */
       console.dir({ values });
     },
-    [values]
+    [values],
   );
 
   return null;

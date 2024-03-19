@@ -1,14 +1,16 @@
+import { Suspense } from "react";
 import { graphql, useFragment } from "react-relay";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import OrderDefinitionSelectDropdown from "./OrderDefinitionSelect";
+import { FormFieldSkeleton } from "components/atomic/loading";
 import { OrderDefinitionSelectControlFragment$key } from "@/relay/OrderDefinitionSelectControlFragment.graphql";
+import OrderDefinitionSelectDropdown from "./OrderDefinitionSelect";
 
 export default function OrderDefinitionSelectControl({ name, data }: Props) {
   // Get the entity schema ranks
   const entity = useFragment<OrderDefinitionSelectControlFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const { control } = useFormContext();
@@ -24,11 +26,13 @@ export default function OrderDefinitionSelectControl({ name, data }: Props) {
           val && val?.length > 7
             ? (t("forms.validation.order_by_max") as string)
             : !val || val.length === 0
-            ? (t("forms.validation.order_by_min") as string)
-            : true,
+              ? (t("forms.validation.order_by_min") as string)
+              : true,
       }}
       render={({ field: { ...props } }) => (
-        <OrderDefinitionSelectDropdown data={entity} {...props} />
+        <Suspense fallback={<FormFieldSkeleton />}>
+          <OrderDefinitionSelectDropdown data={entity} {...props} />
+        </Suspense>
       )}
     />
   );

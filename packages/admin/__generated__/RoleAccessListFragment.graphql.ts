@@ -1,21 +1,23 @@
+/**
+ * @generated SignedSource<<748079702187feb8a7c4291fde2d72ea>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RoleAccessListFragment = {
-    readonly " $fragmentRefs": FragmentRefs<"RoleAccessGrantsListFragment" | "RoleAssignedUsersListFragment">;
-    readonly " $refType": "RoleAccessListFragment";
+export type RoleAccessListFragment$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"RoleAccessGrantsListFragment" | "RoleAssignedUsersListFragment">;
+  readonly " $fragmentType": "RoleAccessListFragment";
 };
-export type RoleAccessListFragment$data = RoleAccessListFragment;
 export type RoleAccessListFragment$key = {
-    readonly " $data"?: RoleAccessListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"RoleAccessListFragment">;
+  readonly " $data"?: RoleAccessListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"RoleAccessListFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -37,5 +39,7 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '222c3ee0b7e4d01121342b555bf00571';
+
+(node as any).hash = "222c3ee0b7e4d01121342b555bf00571";
+
 export default node;

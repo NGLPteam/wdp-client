@@ -1,9 +1,9 @@
 import React, { useState, useRef, useCallback } from "react";
-import { useUID } from "react-uid";
+import { useId } from "react";
 import { useFocusTrap } from "@castiron/hooks/";
 import isFunction from "lodash/isFunction";
-import * as Styled from "./Dropdown.styles";
 import useIsOutOfViewport from "hooks/useIsOutOfViewport";
+import * as Styled from "./Dropdown.styles";
 
 /**
  * A dropdown for navigation submenus.
@@ -16,7 +16,7 @@ const Dropdown = ({
   label,
   alignRight = false,
 }: Props) => {
-  const uid = useUID();
+  const uid = useId();
   const wrapperRef = useRef(null);
   const [active, setActive] = useState(false);
   const [elRef, out] = useIsOutOfViewport<HTMLUListElement>();
@@ -53,11 +53,13 @@ const Dropdown = ({
   };
 
   function renderDisclosure(
-    disclosure: JSX.Element | ((props: BaseDisclosureProps) => void),
-    disclosureProps: BaseDisclosureProps
+    disclosure:
+      | React.ReactElement
+      | ((props: BaseDisclosureProps) => React.ReactNode),
+    disclosureProps: BaseDisclosureProps,
   ) {
     if (isFunction(disclosure)) return disclosure(disclosureProps);
-    return React.cloneElement(disclosure, disclosureProps);
+    return disclosure ? React.cloneElement(disclosure, disclosureProps) : null;
   }
 
   return (
@@ -72,9 +74,11 @@ const Dropdown = ({
 
 interface Props {
   className?: string;
-  disclosure: JSX.Element | ((props: BaseDisclosureProps) => void);
+  disclosure:
+    | React.ReactElement
+    | ((props: BaseDisclosureProps) => React.ReactNode);
   label: string;
-  menuItems: (JSX.Element | null)[];
+  menuItems: (React.JSX.Element | null)[];
   alignRight?: boolean;
 }
 export interface BaseDisclosureProps {

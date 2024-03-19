@@ -3,7 +3,7 @@ import * as Styled from "./BaseArrayList.styles";
 
 const BaseArrayList = (
   { children, column, isDraggingOver, ...props }: Props,
-  ref: Ref<HTMLUListElement>
+  ref: Ref<HTMLUListElement>,
 ) => {
   return (
     <Styled.List

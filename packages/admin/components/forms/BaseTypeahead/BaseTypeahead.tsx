@@ -1,10 +1,10 @@
-import React, { Ref, forwardRef } from "react";
+import { Ref, forwardRef } from "react";
 import { useCombobox } from "downshift";
-import type { UseComboboxStateChange } from "downshift";
-import BaseInputWrapper from "../BaseInputWrapper";
-import type InputProps from "../inputType";
-import * as Styled from "./BaseTypeahead.styles";
 import { IconFactory } from "components/factories";
+import BaseInputWrapper from "../BaseInputWrapper";
+import * as Styled from "./BaseTypeahead.styles";
+import type { UseComboboxStateChange } from "downshift";
+import type InputProps from "../inputType";
 
 /**
  * A typeahead single select.
@@ -16,19 +16,17 @@ const Typeahead = forwardRef(
       label,
       name,
       hideLabel,
-      description,
-      placeholder,
       options = [],
       required,
       onChange,
       onInputChange,
       value,
       isWide,
-      withBrowse,
+      withBrowse = false,
       isLoading,
       ...inputProps
     }: Props,
-    ref: Ref<HTMLInputElement>
+    ref: Ref<HTMLInputElement>,
   ) => {
     const {
       isOpen,
@@ -36,7 +34,6 @@ const Typeahead = forwardRef(
       getLabelProps,
       getMenuProps,
       getInputProps,
-      getComboboxProps,
       getItemProps,
     } = useCombobox({
       items: options,
@@ -69,7 +66,7 @@ const Typeahead = forwardRef(
         required={required}
         isWide={isWide}
       >
-        <Styled.InputWrapper {...getComboboxProps()}>
+        <Styled.InputWrapper>
           {/* Hidden input field for react-hook-form or other form control */}
           <input
             ref={ref}
@@ -99,8 +96,8 @@ const Typeahead = forwardRef(
           <Styled.List {...getMenuProps()} open={isOpen}>
             {isOpen &&
               options?.map((item, index) => (
+                /* eslint-disable-next-line react/jsx-key */
                 <Styled.ListItem
-                  key={index}
                   {...getItemProps({ key: item.value, index, item })}
                 >
                   {item.node ? item.node : item.label}
@@ -110,7 +107,7 @@ const Typeahead = forwardRef(
         </Styled.InputWrapper>
       </BaseInputWrapper>
     );
-  }
+  },
 );
 
 interface Option {

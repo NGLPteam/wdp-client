@@ -1,65 +1,40 @@
+/**
+ * @generated SignedSource<<a310c5a57d098ed0513a2ca2ce3b75ac>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 export type EntityDescendantScopeFilter = "ALL" | "ANY_ENTITY" | "ANY_LINK" | "COLLECTION" | "COLLECTION_OR_LINK" | "ITEM" | "ITEM_OR_LINK" | "LINKED_COLLECTION" | "LINKED_ITEM" | "%future added value";
-export type EntityTypeaheadQueryVariables = {
-    query: string;
-    schema?: Array<string> | null | undefined;
-    scope: EntityDescendantScopeFilter;
+export type EntityTypeaheadQuery$variables = {
+  query: string;
+  schema?: ReadonlyArray<string> | null | undefined;
+  scope: EntityDescendantScopeFilter;
 };
-export type EntityTypeaheadQueryResponse = {
-    readonly search: {
-        readonly results: {
-            readonly edges: ReadonlyArray<{
-                readonly node: {
-                    readonly title: string;
-                    readonly slug: string;
-                    readonly entity: {
-                        readonly id?: string | undefined;
-                        readonly __typename?: string | undefined;
-                    };
-                };
-            }>;
+export type EntityTypeaheadQuery$data = {
+  readonly search: {
+    readonly results: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly entity: {
+            readonly __typename?: string;
+            readonly id?: string;
+          };
+          readonly slug: string;
+          readonly title: string;
         };
+      }>;
     };
+  };
 };
 export type EntityTypeaheadQuery = {
-    readonly response: EntityTypeaheadQueryResponse;
-    readonly variables: EntityTypeaheadQueryVariables;
+  response: EntityTypeaheadQuery$data;
+  variables: EntityTypeaheadQuery$variables;
 };
-
-
-
-/*
-query EntityTypeaheadQuery(
-  $query: String!
-  $schema: [String!]
-  $scope: EntityDescendantScopeFilter!
-) {
-  search(visibility: ALL) {
-    results(prefix: $query, page: 1, perPage: 25, order: TITLE_ASCENDING, schema: $schema, scope: $scope) {
-      edges {
-        node {
-          title
-          slug
-          entity {
-            __typename
-            ... on Node {
-              __isNode: __typename
-              id
-              __typename
-            }
-          }
-          id
-        }
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -308,5 +283,7 @@ return {
   }
 };
 })();
-(node as any).hash = '6a096d547d9377462f096586b1879645';
+
+(node as any).hash = "5918aa5be458d3f0fc34caa7136e2f0d";
+
 export default node;

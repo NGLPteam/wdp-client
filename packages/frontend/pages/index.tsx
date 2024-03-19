@@ -1,15 +1,16 @@
 import React from "react";
-import { graphql } from "react-relay";
-import { QueryWrapper } from "@wdp/lib/api/components";
-import { useRouteSlug } from "@wdp/lib/routes";
+import { PreloadedQuery } from "react-relay";
+import { QueryLoaderWrapper } from "@wdp/lib/api/components";
 import InstanceContentLayout from "components/composed/instance/InstanceContentLayout";
-import { pagesQuery as Query } from "@/relay/pagesQuery.graphql";
+import { query } from "components/composed/instance/InstanceContentLayout/InstanceContentLayout";
+import { LoadingPage } from "components/atomic/loading";
 
 import AppLayout from "components/global/AppLayout";
 import {
   getStaticGlobalContextData,
   STATIC_PROPS_REVALIDATE,
 } from "contexts/GlobalStaticContext";
+import { InstanceContentLayoutQuery } from "@/relay/InstanceContentLayoutQuery.graphql";
 
 export async function getStaticProps() {
   const props = await getStaticGlobalContextData();
@@ -20,24 +21,26 @@ export async function getStaticProps() {
   };
 }
 
-export default function HomePage() {
-  const slug = useRouteSlug();
+type Props = {
+  initialQueryRef?: PreloadedQuery<InstanceContentLayoutQuery>;
+};
 
+export default function HomePage({ initialQueryRef }: Props) {
   return (
     <>
-      <QueryWrapper<Query> query={query} initialVariables={{ slug }}>
-        {({ data }) => (
-          <AppLayout>
-            <InstanceContentLayout data={data} />
-          </AppLayout>
-        )}
-      </QueryWrapper>
+      <QueryLoaderWrapper<InstanceContentLayoutQuery>
+        query={query}
+        initialQueryRef={initialQueryRef}
+        loadingFallback={<LoadingPage />}
+      >
+        {({ queryRef }) =>
+          queryRef && (
+            <AppLayout>
+              <InstanceContentLayout queryRef={queryRef} />
+            </AppLayout>
+          )
+        }
+      </QueryLoaderWrapper>
     </>
   );
 }
-
-const query = graphql`
-  query pagesQuery {
-    ...InstanceContentLayoutFragment
-  }
-`;

@@ -1,17 +1,16 @@
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import type { DialogProps } from "reakit/Dialog";
-
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import Drawer from "components/layout/Drawer";
 import RoleEditAccessForm from "components/composed/role/RoleEditAccessForm";
-import {
-  RoleEditAccessDrawerQuery as Query,
-  RoleEditAccessDrawerQueryResponse as Response,
-  RoleEditAccessDrawerQueryResponse,
-} from "@/relay/RoleEditAccessDrawerQuery.graphql";
 import { useDestroyer } from "hooks";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
+import {
+  RoleEditAccessDrawerQuery as Query,
+  RoleEditAccessDrawerQuery$data as Response,
+  RoleEditAccessDrawerQuery$data,
+} from "@/relay/RoleEditAccessDrawerQuery.graphql";
+import type { DialogProps } from "reakit/Dialog";
 
 // Drawer params required: drawerSlug and drawerEntity
 // drawerEntity should be one of three entities: "item" | "collection" | "community"
@@ -31,8 +30,8 @@ export default function RoleEditAccessDrawer({ dialog, params }: Props) {
       drawerEntity === "community"
         ? data?.community?.title
         : drawerEntity === "collection"
-        ? data?.collection?.title
-        : data?.item?.title;
+          ? data?.collection?.title
+          : data?.item?.title;
 
     return header
       ? t(`${i18nKey}_title`, {
@@ -46,8 +45,8 @@ export default function RoleEditAccessDrawer({ dialog, params }: Props) {
     return drawerEntity === "community"
       ? data?.community
       : drawerEntity === "collection"
-      ? data?.collection
-      : data?.item;
+        ? data?.collection
+        : data?.item;
   }
 
   function getEntityId(data?: Response | null) {
@@ -70,7 +69,7 @@ export default function RoleEditAccessDrawer({ dialog, params }: Props) {
     const handleDelete = () => {
       destroy.access(
         { entityId, roleId: drawerRoleId, userId },
-        data?.user?.name || t("glossary.user")
+        data?.user?.name || t("glossary.user"),
       );
       if (dialog?.hide) dialog.hide();
     };
@@ -79,9 +78,9 @@ export default function RoleEditAccessDrawer({ dialog, params }: Props) {
   }
 
   return drawerSlug && drawerUserSlug && drawerEntity && drawerRoleId ? (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{
+      variables={{
         slug: drawerSlug,
         userSlug: drawerUserSlug,
         onCommunity: drawerEntity === "community",
@@ -94,7 +93,7 @@ export default function RoleEditAccessDrawer({ dialog, params }: Props) {
           label={t(
             drawerEntity === "community"
               ? "actions.edit.member"
-              : "actions.edit.access"
+              : "actions.edit.access",
           )}
           header={getDrawerHeader(data)}
           dialog={dialog}
@@ -111,7 +110,7 @@ export default function RoleEditAccessDrawer({ dialog, params }: Props) {
           />
         </Drawer>
       )}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   ) : null;
 }
 
@@ -121,9 +120,9 @@ interface Props {
 }
 
 type EntityData =
-  | RoleEditAccessDrawerQueryResponse["community"]
-  | RoleEditAccessDrawerQueryResponse["collection"]
-  | RoleEditAccessDrawerQueryResponse["item"];
+  | RoleEditAccessDrawerQuery$data["community"]
+  | RoleEditAccessDrawerQuery$data["collection"]
+  | RoleEditAccessDrawerQuery$data["item"];
 
 // This fun little query gets the right id and title depending on the entity type.
 const query = graphql`

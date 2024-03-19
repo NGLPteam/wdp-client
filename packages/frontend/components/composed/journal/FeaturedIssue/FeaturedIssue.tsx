@@ -2,7 +2,6 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import * as Styled from "./FeaturedIssue.styles";
 import {
   CoverImage,
   PrecisionDate,
@@ -11,11 +10,12 @@ import {
   Button,
 } from "components/atomic";
 import ArticleSummary from "components/composed/article/ArticleSummary";
+import { getEntityDisplayName } from "helpers";
 import {
   FeaturedIssueFragment$data,
   FeaturedIssueFragment$key,
 } from "@/relay/FeaturedIssueFragment.graphql";
-import { getEntityDisplayName } from "helpers";
+import * as Styled from "./FeaturedIssue.styles";
 
 export default function FeaturedIssue({ data, header }: Props) {
   const { t } = useTranslation();

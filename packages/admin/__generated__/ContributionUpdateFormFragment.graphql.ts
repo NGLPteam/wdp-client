@@ -1,68 +1,70 @@
+/**
+ * @generated SignedSource<<f80051ad45844442490774eee760781d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ContributionUpdateFormFragment = {
-    readonly __typename: "CollectionContribution";
-    readonly contributionId: string;
-    readonly contributor: {
-        readonly __typename: "OrganizationContributor";
-        readonly slug: string;
-        readonly legalName: string | null;
-    } | {
-        readonly __typename: "PersonContributor";
-        readonly slug: string;
-        readonly givenName: string | null;
-        readonly familyName: string | null;
-    } | {
-        /*This will never be '%other', but we need some
-        value in case none of the concrete values match.*/
-        readonly __typename: "%other";
-    };
-    readonly collection: {
-        readonly title: string;
-    };
-    readonly " $fragmentRefs": FragmentRefs<"ContributionUpdateFormFieldsFragment">;
-    readonly " $refType": "ContributionUpdateFormFragment";
-} | {
-    readonly __typename: "ItemContribution";
-    readonly contributionId: string;
-    readonly contributor: {
-        readonly __typename: "OrganizationContributor";
-        readonly slug: string;
-        readonly legalName: string | null;
-    } | {
-        readonly __typename: "PersonContributor";
-        readonly slug: string;
-        readonly givenName: string | null;
-        readonly familyName: string | null;
-    } | {
-        /*This will never be '%other', but we need some
-        value in case none of the concrete values match.*/
-        readonly __typename: "%other";
-    };
-    readonly item: {
-        readonly title: string;
-    };
-    readonly title: string | null;
-    readonly " $fragmentRefs": FragmentRefs<"ContributionUpdateFormFieldsFragment">;
-    readonly " $refType": "ContributionUpdateFormFragment";
-} | {
-    /*This will never be '%other', but we need some
-    value in case none of the concrete values match.*/
+export type ContributionUpdateFormFragment$data = {
+  readonly __typename: "CollectionContribution";
+  readonly collection: {
+    readonly title: string;
+  };
+  readonly contributionId: string;
+  readonly contributor: {
+    readonly __typename: "OrganizationContributor";
+    readonly legalName: string | null | undefined;
+    readonly slug: string;
+  } | {
+    readonly __typename: "PersonContributor";
+    readonly familyName: string | null | undefined;
+    readonly givenName: string | null | undefined;
+    readonly slug: string;
+  } | {
+    // This will never be '%other', but we need some
+    // value in case none of the concrete values match.
     readonly __typename: "%other";
-    readonly " $refType": "ContributionUpdateFormFragment";
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"ContributionUpdateFormFieldsFragment">;
+  readonly " $fragmentType": "ContributionUpdateFormFragment";
+} | {
+  readonly __typename: "ItemContribution";
+  readonly contributionId: string;
+  readonly contributor: {
+    readonly __typename: "OrganizationContributor";
+    readonly legalName: string | null | undefined;
+    readonly slug: string;
+  } | {
+    readonly __typename: "PersonContributor";
+    readonly familyName: string | null | undefined;
+    readonly givenName: string | null | undefined;
+    readonly slug: string;
+  } | {
+    // This will never be '%other', but we need some
+    // value in case none of the concrete values match.
+    readonly __typename: "%other";
+  };
+  readonly item: {
+    readonly title: string;
+  };
+  readonly title: string | null | undefined;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributionUpdateFormFieldsFragment">;
+  readonly " $fragmentType": "ContributionUpdateFormFragment";
+} | {
+  // This will never be '%other', but we need some
+  // value in case none of the concrete values match.
+  readonly __typename: "%other";
+  readonly " $fragmentType": "ContributionUpdateFormFragment";
 };
-export type ContributionUpdateFormFragment$data = ContributionUpdateFormFragment;
 export type ContributionUpdateFormFragment$key = {
-    readonly " $data"?: ContributionUpdateFormFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContributionUpdateFormFragment">;
+  readonly " $data"?: ContributionUpdateFormFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributionUpdateFormFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -203,5 +205,7 @@ return {
   "abstractKey": "__isAnyContribution"
 };
 })();
-(node as any).hash = 'ff60dd1a3f3568501b6aff3c25d7de8b';
+
+(node as any).hash = "ff60dd1a3f3568501b6aff3c25d7de8b";
+
 export default node;

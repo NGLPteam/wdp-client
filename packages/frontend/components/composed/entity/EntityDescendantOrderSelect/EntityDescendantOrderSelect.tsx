@@ -12,13 +12,13 @@ export default function EntityDescendantOrderSelect() {
   const { order } = useDescendantListQueryVars();
 
   const handleChange = useCallback(
-    (e) => {
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
       router.push({
         pathname: router.pathname,
         query: { ...router.query, order: e.target.value },
       });
     },
-    [router]
+    [router],
   );
 
   return (

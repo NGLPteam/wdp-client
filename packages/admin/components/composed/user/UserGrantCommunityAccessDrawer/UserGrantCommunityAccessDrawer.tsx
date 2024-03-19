@@ -1,10 +1,10 @@
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import type { DialogProps } from "reakit/Dialog";
-import UserGrantCommunityAccessForm from "../UserGrantCommunityAccessForm";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import Drawer from "components/layout/Drawer";
 import { UserGrantCommunityAccessDrawerQuery as Query } from "@/relay/UserGrantCommunityAccessDrawerQuery.graphql";
+import UserGrantCommunityAccessForm from "../UserGrantCommunityAccessForm";
+import type { DialogProps } from "reakit/Dialog";
 
 // Drawer params required: drawerSlug and drawerEntity
 // drawerEntity should be one of three entities: "item" | "collection" | "community"
@@ -17,9 +17,9 @@ export default function UserGrantCommunityAccessDrawer({
   const { drawerSlug } = params;
 
   return drawerSlug ? (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{
+      variables={{
         slug: drawerSlug,
       }}
     >
@@ -37,7 +37,7 @@ export default function UserGrantCommunityAccessDrawer({
           />
         </Drawer>
       )}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   ) : null;
 }
 

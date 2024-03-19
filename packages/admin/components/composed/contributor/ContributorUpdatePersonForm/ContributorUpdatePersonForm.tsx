@@ -1,4 +1,4 @@
-import { graphql, useFragment } from "react-relay";
+import { useFragment, graphql } from "react-relay";
 import compact from "lodash/compact";
 import MutationForm, {
   useRenderForm,
@@ -24,7 +24,7 @@ export default function ContributorUpdatePersonForm({
   const { image, links, ...otherValues } =
     useFragment<ContributorUpdatePersonFormFieldsFragment$key>(
       fieldsFragment,
-      fieldsData
+      fieldsData,
     );
 
   // We need to transform the links value to a mutable value and remove nulls to satisfy
@@ -83,7 +83,7 @@ export default function ContributorUpdatePersonForm({
         />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

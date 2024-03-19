@@ -1,19 +1,59 @@
 import { GetLayout } from "@wdp/lib/types/page";
-import { graphql } from "react-relay";
-import { SlugItemsPageQuery as Query } from "@/relay/SlugItemsPageQuery.graphql";
-import ItemLayoutQuery from "components/composed/item/ItemLayoutQuery";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import ItemSlugRedirect from "components/composed/item/ItemSlugRedirect";
+import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
+import ErrorPage from "next/error";
+import { LoadingPage } from "components/atomic";
+import ItemLayout from "components/composed/item/ItemLayout";
+import { SlugItemsPageQuery as Query } from "@/relay/SlugItemsPageQuery.graphql";
 
-function ItemSlug({ data }: QueryProps) {
-  return <ItemSlugRedirect data={data?.item} />;
+function ItemSlug({ queryRef }: Props) {
+  const { item } = usePreloadedQuery<Query>(query, queryRef);
+
+  return (
+    item && (
+      <ItemLayout data={item}>
+        <ItemSlugRedirect data={item} />
+      </ItemLayout>
+    )
+  );
 }
 
-type QueryProps = {
-  data: Query["response"];
+type Props = {
+  queryRef: PreloadedQuery<Query>;
 };
 
-const getLayout: GetLayout<QueryProps> = (props) => {
-  return <ItemLayoutQuery<Query, QueryProps> query={query} {...props} />;
+const getLayout: GetLayout<Props> = (props) => {
+  const queryVars = useBaseListQueryVars();
+  const searchQueryVars = useSearchQueryVars();
+
+  const itemSlug = useRouteSlug();
+  if (!itemSlug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
+
+  return (
+    <QueryTransitionWrapper<Query>
+      query={query}
+      variables={{
+        ...queryVars,
+        ...searchQueryVars,
+        itemSlug,
+      }}
+      loadingFallback={<LoadingPage />}
+    >
+      {({ queryRef }) =>
+        queryRef ? (
+          <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        ) : (
+          <ItemLayout>
+            <ItemSlugRedirect />
+          </ItemLayout>
+        )
+      }
+    </QueryTransitionWrapper>
+  );
 };
 
 ItemSlug.getLayout = getLayout;
@@ -23,7 +63,7 @@ export default ItemSlug;
 const query = graphql`
   query SlugItemsPageQuery($itemSlug: Slug!) {
     item(slug: $itemSlug) {
-      ...ItemLayoutQueryFragment
+      ...ItemLayoutFragment
       ...ItemSlugRedirectFragment
     }
   }

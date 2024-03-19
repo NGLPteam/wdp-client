@@ -1,8 +1,7 @@
-import { graphql, readInlineData } from "react-relay";
+import { graphql, readInlineData } from "relay-runtime";
+import { GraphQLTaggedNode } from "react-relay";
 import { DialogDisclosure, useDialogState } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./SchemaSelector.styles";
-import SchemaSelectorModal from "./SchemaSelectorModal";
 import { useGlobalContext } from "contexts";
 import { useMaybeFragment } from "hooks";
 import Select from "components/forms/Select";
@@ -13,11 +12,13 @@ import {
   SchemaSelectorSchemasFragment$key,
   SchemaSelectorSchemasFragment$data,
 } from "@/relay/SchemaSelectorSchemasFragment.graphql";
+import SchemaSelectorModal from "./SchemaSelectorModal";
+import * as Styled from "./SchemaSelector.styles";
 
 type SelectProps = React.ComponentProps<typeof Select>;
 
 const SchemaSelector = ({ schemaData, schemaKind }: Props) => {
-  const data = useMaybeFragment(fragment, schemaData);
+  const data = useMaybeFragment(fragment as GraphQLTaggedNode, schemaData);
 
   const dialog = useDialogState({ visible: false, animated: true });
 
@@ -27,12 +28,12 @@ const SchemaSelector = ({ schemaData, schemaKind }: Props) => {
 
   const schemas = readInlineData<SchemaSelectorSchemasFragment$key>(
     schemasFragment,
-    globalData
+    globalData ?? null,
   );
 
   const optionCount =
     schemas?.schemaVersions?.nodes?.filter(
-      (schema: SchemaNode) => schema.kind === schemaKind
+      (schema: SchemaNode) => schema.kind === schemaKind,
     ).length || 0;
 
   return schemas &&

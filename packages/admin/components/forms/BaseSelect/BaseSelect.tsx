@@ -1,6 +1,6 @@
 import React, { forwardRef, Ref } from "react";
-import type InputProps from "../inputType";
 import * as Styled from "./BaseSelect.styles";
+import type InputProps from "../inputType";
 
 /**
  * A styled select without the form input wrapper.
@@ -9,7 +9,7 @@ import * as Styled from "./BaseSelect.styles";
 const BaseSelect = forwardRef(
   (
     { id, placeholder, options, ...inputProps }: Props,
-    ref: Ref<HTMLSelectElement>
+    ref: Ref<HTMLSelectElement>,
   ) => {
     return (
       <Styled.SelectWrapper>
@@ -28,7 +28,7 @@ const BaseSelect = forwardRef(
         />
       </Styled.SelectWrapper>
     );
-  }
+  },
 );
 
 export interface Option {
@@ -40,6 +40,7 @@ interface Props extends Omit<InputProps, "label"> {
   options: readonly Option[];
   multiple?: boolean;
   id?: string;
+  onChange?: (valOrEvent: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 export default BaseSelect;

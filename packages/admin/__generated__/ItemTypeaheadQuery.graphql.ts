@@ -1,56 +1,35 @@
+/**
+ * @generated SignedSource<<66a9fb4ba42e2f603b7a13dcd791b201>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
-export type ItemTypeaheadQueryVariables = {
-    query: string;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type ItemTypeaheadQuery$variables = {
+  query: string;
 };
-export type ItemTypeaheadQueryResponse = {
-    readonly search: {
-        readonly results: {
-            readonly edges: ReadonlyArray<{
-                readonly node: {
-                    readonly title: string;
-                    readonly entity: {
-                        readonly id?: string | undefined;
-                    };
-                };
-            }>;
+export type ItemTypeaheadQuery$data = {
+  readonly search: {
+    readonly results: {
+      readonly edges: ReadonlyArray<{
+        readonly node: {
+          readonly entity: {
+            readonly id?: string;
+          };
+          readonly title: string;
         };
+      }>;
     };
+  };
 };
 export type ItemTypeaheadQuery = {
-    readonly response: ItemTypeaheadQueryResponse;
-    readonly variables: ItemTypeaheadQueryVariables;
+  response: ItemTypeaheadQuery$data;
+  variables: ItemTypeaheadQuery$variables;
 };
-
-
-
-/*
-query ItemTypeaheadQuery(
-  $query: String!
-) {
-  search(visibility: ALL) {
-    results(prefix: $query, page: 1, perPage: 50, order: TITLE_ASCENDING, scope: ITEM) {
-      edges {
-        node {
-          title
-          entity {
-            __typename
-            ... on Node {
-              __isNode: __typename
-              id
-            }
-          }
-          id
-        }
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -267,5 +246,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'e90c428fb9046e82dfb86e263638b5d9';
+
+(node as any).hash = "9f04340c49538e52faf116457aacd94c";
+
 export default node;

@@ -1,66 +1,32 @@
+/**
+ * @generated SignedSource<<5fbc72024ea662bd52d433bd56ff1772>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type DestroyCollectionInput = {
-    collectionId: string;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null | undefined;
+  collectionId: string;
 };
-export type useDestroyerDestroyCollectionMutationVariables = {
-    input: DestroyCollectionInput;
+export type useDestroyerDestroyCollectionMutation$variables = {
+  input: DestroyCollectionInput;
 };
-export type useDestroyerDestroyCollectionMutationResponse = {
-    readonly destroyCollection: {
-        readonly destroyedId: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"useDestroyerFragment">;
-    } | null;
+export type useDestroyerDestroyCollectionMutation$data = {
+  readonly destroyCollection: {
+    readonly destroyedId: string | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"useDestroyerFragment">;
+  } | null | undefined;
 };
 export type useDestroyerDestroyCollectionMutation = {
-    readonly response: useDestroyerDestroyCollectionMutationResponse;
-    readonly variables: useDestroyerDestroyCollectionMutationVariables;
+  response: useDestroyerDestroyCollectionMutation$data;
+  variables: useDestroyerDestroyCollectionMutation$variables;
 };
-
-
-
-/*
-mutation useDestroyerDestroyCollectionMutation(
-  $input: DestroyCollectionInput!
-) {
-  destroyCollection(input: $input) {
-    destroyedId
-    ...useDestroyerFragment
-  }
-}
-
-fragment useDestroyerFragment on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  ... on DestroyMutationPayload {
-    __isDestroyMutationPayload: __typename
-    destroyed
-    globalErrors {
-      message
-      type
-    }
-  }
-  ... on RevokeAccessPayload {
-    revoked
-    globalErrors {
-      message
-      type
-    }
-  }
-  ... on DestroyOrderingPayload {
-    disabled
-    globalErrors {
-      message
-      type
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -182,7 +148,9 @@ return {
             "name": "useDestroyerFragment",
             "selections": [
               (v4/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -231,5 +199,7 @@ return {
   }
 };
 })();
-(node as any).hash = '36239aff362b45325ca9184eb6b38b91';
+
+(node as any).hash = "36239aff362b45325ca9184eb6b38b91";
+
 export default node;

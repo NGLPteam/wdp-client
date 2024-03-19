@@ -1,26 +1,28 @@
+/**
+ * @generated SignedSource<<7314a982e24b6630988eb4e9feed73fa>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SchemaSelectorDataFragment = {
-    readonly entityId?: string | undefined;
-    readonly schemaVersion?: {
-        readonly name: string;
-        readonly number: string;
-        readonly slug: string;
-    } | undefined;
-    readonly " $refType": "SchemaSelectorDataFragment";
+export type SchemaSelectorDataFragment$data = {
+  readonly entityId?: string;
+  readonly schemaVersion?: {
+    readonly name: string;
+    readonly number: string;
+    readonly slug: string;
+  };
+  readonly " $fragmentType": "SchemaSelectorDataFragment";
 };
-export type SchemaSelectorDataFragment$data = SchemaSelectorDataFragment;
 export type SchemaSelectorDataFragment$key = {
-    readonly " $data"?: SchemaSelectorDataFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SchemaSelectorDataFragment">;
+  readonly " $data"?: SchemaSelectorDataFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SchemaSelectorDataFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -93,5 +95,7 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = 'c4d652a3c808a931cc9b23bb8639e547';
+
+(node as any).hash = "c4d652a3c808a931cc9b23bb8639e547";
+
 export default node;

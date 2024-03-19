@@ -3,14 +3,14 @@ import InputProps from "../inputType";
 
 function HiddenMultiselect<T extends Record<string, unknown>>(
   { options, value, defaultValue, ...inputProps }: Props<T>,
-  ref: Ref<HTMLSelectElement>
+  ref: Ref<HTMLSelectElement>,
 ) {
   const stringifiedValue = value?.map((value: Value<T>) =>
-    typeof value === "string" ? value : JSON.stringify(value)
+    typeof value === "string" ? value : JSON.stringify(value),
   );
 
   const stringifiedDefault = defaultValue?.map((value: Value<T>) =>
-    typeof value === "string" ? value : JSON.stringify(value)
+    typeof value === "string" ? value : JSON.stringify(value),
   );
 
   return (

@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
-import * as Styled from "./ButtonControl.styles";
 import { IconFactory } from "components/factories";
 import { Authorize } from "components/auth";
+import * as Styled from "./ButtonControl.styles";
 type IconFactoryProps = React.ComponentProps<typeof IconFactory>;
 type AuthorizeProps = React.ComponentProps<typeof Authorize>;
 
@@ -40,7 +40,7 @@ const ButtonControl = forwardRef(
     ) : (
       content
     );
-  }
+  },
 );
 
 interface Props extends Omit<AuthorizeProps, "children"> {

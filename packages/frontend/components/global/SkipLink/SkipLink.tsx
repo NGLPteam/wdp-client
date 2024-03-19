@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
-import * as Styled from "./SkipLink.styles";
 import { Alert } from "components/atomic";
+import * as Styled from "./SkipLink.styles";
 
 interface Props {
   toId: string;

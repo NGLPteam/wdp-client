@@ -1,12 +1,5 @@
 import { graphql } from "react-relay";
-import type { OperationType } from "relay-runtime";
-import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import CreateContributionButton from "../CreateContributionButton";
-import type {
-  CollectionContributionListFragment,
-  CollectionContributionListFragment$key,
-} from "@/relay/CollectionContributionListFragment.graphql";
 import {
   useMaybeFragment,
   useDestroyer,
@@ -18,10 +11,16 @@ import { ButtonControlGroup, NamedLink } from "components/atomic";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
+import type {
+  CollectionContributionListFragment$data,
+  CollectionContributionListFragment$key,
+} from "@/relay/CollectionContributionListFragment.graphql";
+import CreateContributionButton from "../CreateContributionButton";
+import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function CollectionContributionList<T extends OperationType>({
+function CollectionContributionList({
   data,
   headerStyle,
   nameColumn = "collection",
@@ -88,7 +87,7 @@ function CollectionContributionList<T extends OperationType>({
     }: ModelTableActionProps<CollectionContributionNode>) =>
       destroy.contribution(
         { contributionId: row.original.id },
-        "glossary.contribution"
+        "glossary.contribution",
       ),
   };
 
@@ -106,8 +105,7 @@ function CollectionContributionList<T extends OperationType>({
 
   return (
     <ModelListPage<
-      T,
-      CollectionContributionListFragment,
+      CollectionContributionListFragment$data,
       CollectionContributionNode
     >
       modelName={
@@ -130,7 +128,7 @@ interface CollectionContributionListProps
 }
 
 type CollectionContributionNode =
-  CollectionContributionListFragment["nodes"][number];
+  CollectionContributionListFragment$data["nodes"][number];
 
 const fragment = graphql`
   fragment CollectionContributionListFragment on CollectionContributionConnection {

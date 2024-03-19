@@ -1,12 +1,12 @@
 import React, { Suspense } from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import FeaturedIssue from "../FeaturedIssue";
-import * as Styled from "./JournalContent.styles";
 import { FullText, Markdown } from "components/atomic";
 import RecentIssues from "components/composed/issue/RecentIssues";
-import { JournalContentFragment$key } from "@/relay/JournalContentFragment.graphql";
 import EntityAnnouncements from "components/composed/entity/EntityAnnouncements";
+import { JournalContentFragment$key } from "@/relay/JournalContentFragment.graphql";
+import FeaturedIssue from "../FeaturedIssue";
+import * as Styled from "./JournalContent.styles";
 
 export default function JournalContent({ data }: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

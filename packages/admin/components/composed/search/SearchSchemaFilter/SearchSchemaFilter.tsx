@@ -2,13 +2,13 @@ import { useState } from "react";
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useController, useFormContext } from "react-hook-form";
-import * as Styled from "./SearchSchemaFilter.styles";
 import { Checkbox, CheckboxGroup } from "components/forms";
 import { ButtonControl } from "components/atomic";
 import {
   SearchSchemaFilterFragment$key,
   SearchSchemaFilterFragment$data,
 } from "@/relay/SearchSchemaFilterFragment.graphql";
+import * as Styled from "./SearchSchemaFilter.styles";
 // import { SearchSchemaFilterSchemaRanksFragment$key } from "@/relay/SearchSchemaFilterSchemaRanksFragment.graphql";
 
 type SearchSchemas = SearchSchemaFilterFragment$data["schemas"];
@@ -18,7 +18,7 @@ export default function SearchSchemaFilter({ data }: Props) {
 
   const schemaData = useFragment<SearchSchemaFilterFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const { t } = useTranslation();

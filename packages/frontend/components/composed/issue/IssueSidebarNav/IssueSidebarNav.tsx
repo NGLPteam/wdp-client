@@ -1,11 +1,11 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import EntityOrderSelect from "components/composed/entity/EntityOrderSelect";
+import { BackToTopBlock } from "components/layout";
+import { IssueSidebarNavFragment$key } from "@/relay/IssueSidebarNavFragment.graphql";
 import IssueSidebarNavList from "./IssueSidebarNavList";
 import * as Styled from "./IssueSidebarNav.styles";
-import EntityOrderSelect from "components/composed/entity/EntityOrderSelect";
-import { IssueSidebarNavFragment$key } from "@/relay/IssueSidebarNavFragment.graphql";
-import { BackToTopBlock } from "components/layout";
 
 export default function IssueSidebarNav({ data, children }: Props) {
   const content = useMaybeFragment(fragment, data);

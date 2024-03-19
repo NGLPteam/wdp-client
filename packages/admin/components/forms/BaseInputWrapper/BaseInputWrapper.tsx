@@ -1,13 +1,13 @@
 import React from "react";
-import type { FieldValues } from "react-hook-form";
-import { useUID } from "react-uid";
+import { useId } from "react";
 import isFunction from "lodash/isFunction";
 import { useTranslation } from "react-i18next";
 
-import type InputProps from "../inputType";
-import * as Styled from "./BaseInputWrapper.styles";
 import Errors from "components/forms/Errors";
 import BaseInputLabel from "components/forms/BaseInputLabel";
+import * as Styled from "./BaseInputWrapper.styles";
+import type InputProps from "../inputType";
+import type { FieldValues } from "react-hook-form";
 
 const BaseInputWrapper = <T extends FieldValues = FieldValues>({
   children,
@@ -22,7 +22,7 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
   role,
 }: Props<T>) => {
   const { t } = useTranslation();
-  const uid = useUID();
+  const uid = useId();
   // Setting the width this way creates a small extra class that's applied for wide wrappers
   // This prevents the Styled.Wrapper CSS from getting duplicated for a single width change
   const css = isWide && {
@@ -62,7 +62,7 @@ interface Props<T extends FieldValues = FieldValues>
     InputProps<T>,
     "name" | "description" | "label" | "hideLabel" | "required"
   > {
-  children: JSX.Element | (({ uid }: { uid: string }) => React.ReactNode);
+  children: React.JSX.Element | (({ uid }: { uid: string }) => React.ReactNode);
   isWide?: boolean;
   labelProps?: typeof HTMLLabelElement;
   role?: string;

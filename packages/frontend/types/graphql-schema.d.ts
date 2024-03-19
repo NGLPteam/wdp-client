@@ -1,39 +1,42 @@
 import type { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
+export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  /** An ISO 8601-encoded date */
-  ISO8601Date: string;
-  /** An ISO 8601-encoded datetime */
-  ISO8601DateTime: string;
-  /** Represents untyped JSON */
-  JSON: any;
-  /** A slug that can identify a record in context */
-  Slug: string;
-  /** An upload ID is used to refer to an upload within the tus infrastructure outside of the GraphQL API */
-  UploadID: string;
-  /** A semantic version requirement */
-  VersionRequirement: string;
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
+  ISO8601Date: { input: string; output: string; }
+  ISO8601DateTime: { input: string; output: string; }
+  JSON: { input: any; output: any; }
+  Slug: { input: string; output: string; }
+  UploadID: { input: string; output: string; }
+  VersionRequirement: { input: string; output: string; }
 };
 
 /** A scoped access control list for a specific point in the hierarchy */
 export type AccessControlList = ExposesPermissions & {
   __typename?: 'AccessControlList';
   /** A list of allowed actions for the given user on this entity (and its descendants). */
-  allowedActions: Array<Scalars['String']>;
-  /** Permissions that will be applied on the attached entity's subcollections. */
+  allowedActions: Array<Scalars['String']['output']>;
+  /**
+   * Permissions that will be applied on the attached entity's subcollections.
+   *
+   */
   collections: EntityPermissionGrid;
-  /** Permissions that will be applied on the attached entity's subitems. */
+  /**
+   * Permissions that will be applied on the attached entity's subitems.
+   *
+   */
   items: EntityPermissionGrid;
   /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
@@ -42,6 +45,7 @@ export type AccessControlList = ExposesPermissions & {
    *
    * Its children will inherit other permissions based
    * on `collections` and `items` respectively.
+   *
    */
   self: EntityPermissionGrid;
 };
@@ -50,6 +54,7 @@ export type AccessControlList = ExposesPermissions & {
  * An access grant is a combination of an Entity, a Role, and a Subject. It determines permissions for
  * said subject at the specific point in the hierarchy, and any child entities will inherit that role
  * as its accessControlList defines.
+ *
  */
 export type AccessGrant = {
   /** The polymorphic entity to which access has been granted */
@@ -64,10 +69,10 @@ export type AccessGrant = {
 export type AccessGrantEntityFilter =
   /** All entity types */
   | 'ALL'
-  /** Communities only */
-  | 'COMMUNITY'
   /** Collections only */
   | 'COLLECTION'
+  /** Communities only */
+  | 'COMMUNITY'
   /** Items only */
   | 'ITEM'
   | '%future added value';
@@ -75,6 +80,7 @@ export type AccessGrantEntityFilter =
 /**
  * An access grant subject is a person or group to which access for a specific entity
  * (and all its children) has been granted.
+ *
  */
 export type AccessGrantSubject = {
   /** A polymorphic connection for access grants from a subject */
@@ -85,6 +91,7 @@ export type AccessGrantSubject = {
    *
    * When actually assigning roles for an entity, you should use `Entity.assignableRoles`,
    * because it will ensure that the user sufficient permissions at that level.
+   *
    */
   assignableRoles: Array<Role>;
   /** The primary role associated with this subject. */
@@ -95,27 +102,28 @@ export type AccessGrantSubject = {
 /**
  * An access grant subject is a person or group to which access for a specific entity
  * (and all its children) has been granted.
+ *
  */
 export type AccessGrantSubjectAllAccessGrantsArgs = {
-  entity?: Maybe<AccessGrantEntityFilter>;
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  entity?: InputMaybe<AccessGrantEntityFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** Filters a set of access grants by what type of subject they've granted access to */
 export type AccessGrantSubjectFilter =
   /** All subject types */
   | 'ALL'
-  /** An individual user */
-  | 'USER'
   /** A group of users. Not currently exposed */
   | 'GROUP'
+  /** An individual user */
+  | 'USER'
   | '%future added value';
 
 /** An accessible entity can be granted access directly */
@@ -127,35 +135,37 @@ export type Accessible = {
 
 /** An accessible entity can be granted access directly */
 export type AccessibleAllAccessGrantsArgs = {
-  subject?: Maybe<AccessGrantSubjectFilter>;
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  subject?: InputMaybe<AccessGrantSubjectFilter>;
 };
 
 /** Autogenerated input type of AlterSchemaVersion */
 export type AlterSchemaVersionInput = {
+  /** A unique identifier for the client performing the mutation. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
   /** The entity that owns the attachment */
-  entityId: Scalars['ID'];
-  /** The slug for the new schema to apply */
-  schemaVersionSlug: Scalars['String'];
+  entityId: Scalars['ID']['input'];
   /**
    * An arbitrary set of property values. Owing to the dynamic nature, they do not have a specific GraphQL input type
    * associated with them. Validation will be performed within the application and returned as errors if not valid.
+   *
    */
-  propertyValues: Scalars['JSON'];
+  propertyValues: Scalars['JSON']['input'];
+  /** The slug for the new schema to apply */
+  schemaVersionSlug: Scalars['String']['input'];
   /**
    * This argument dictates how the mutation should handle received property values.
    * If set to `SKIP`, it will alter the schema version without setting any new properties.
+   *
    */
-  strategy?: Maybe<PropertyApplicationStrategy>;
-  /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  strategy?: InputMaybe<PropertyApplicationStrategy>;
 };
 
 /** Autogenerated return type of AlterSchemaVersion */
@@ -163,7 +173,7 @@ export type AlterSchemaVersionPayload = StandardMutationPayload & {
   __typename?: 'AlterSchemaVersionPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   collection?: Maybe<Collection>;
   community?: Maybe<Community>;
   entity?: Maybe<AnyEntity>;
@@ -171,7 +181,7 @@ export type AlterSchemaVersionPayload = StandardMutationPayload & {
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   item?: Maybe<Item>;
   schemaErrors: Array<SchemaValueError>;
 };
@@ -186,97 +196,141 @@ export type Analytics = {
 
 
 export type AnalyticsAssetDownloadsArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  entityIds?: Maybe<Array<Scalars['ID']>>;
-  precision?: Maybe<AnalyticsPrecision>;
-  subjectIds?: Maybe<Array<Scalars['ID']>>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  entityIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  precision?: InputMaybe<AnalyticsPrecision>;
+  subjectIds?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
 
 export type AnalyticsAssetDownloadsByRegionArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  entityIds?: Maybe<Array<Scalars['ID']>>;
-  subjectIds?: Maybe<Array<Scalars['ID']>>;
-  usOnly?: Maybe<Scalars['Boolean']>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  entityIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  subjectIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  usOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 export type AnalyticsEntityViewsArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  entityIds?: Maybe<Array<Scalars['ID']>>;
-  precision?: Maybe<AnalyticsPrecision>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  entityIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  precision?: InputMaybe<AnalyticsPrecision>;
 };
 
 
 export type AnalyticsEntityViewsByRegionArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  entityIds?: Maybe<Array<Scalars['ID']>>;
-  usOnly?: Maybe<Scalars['Boolean']>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  entityIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  usOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /**
  * A simple, date/time-keyed representation of a specific event's
  * occurrences on a specific day (or time interval).
+ *
  */
 export type AnalyticsEventCountResult = {
   __typename?: 'AnalyticsEventCountResult';
-  /** The count of events for the given date / time. */
-  count: Scalars['Int'];
-  date: Scalars['ISO8601Date'];
+  /**
+   * The count of events for the given date / time.
+   *
+   */
+  count: Scalars['Int']['output'];
+  date: Scalars['ISO8601Date']['output'];
   /**
    * The time interval associated with this value. It will only
    * be populated when looking at `HOUR` precision.
+   *
    */
-  time?: Maybe<Scalars['ISO8601DateTime']>;
+  time?: Maybe<Scalars['ISO8601DateTime']['output']>;
 };
 
-/** The summary of date-keyed event counts. */
+/**
+ * The summary of date-keyed event counts.
+ *
+ */
 export type AnalyticsEventCountSummary = {
   __typename?: 'AnalyticsEventCountSummary';
   /** The newest date in the set of results (if present). */
-  maxDate?: Maybe<Scalars['ISO8601Date']>;
+  maxDate?: Maybe<Scalars['ISO8601Date']['output']>;
   /** The oldest date in the set of results (if present). */
-  minDate?: Maybe<Scalars['ISO8601Date']>;
+  minDate?: Maybe<Scalars['ISO8601Date']['output']>;
   /** The level of precision requested */
   precision: AnalyticsPrecision;
-  /** Individual results. They are sorted in ascending date / time order. */
+  /**
+   * Individual results. They are sorted in ascending date / time order.
+   *
+   */
   results: Array<AnalyticsEventCountResult>;
-  /** The filtered total of events in the date period. */
-  total: Scalars['Int'];
-  /** The unfiltered total of events across the entire system (excluding date filters, but including all other filters). */
-  unfilteredTotal: Scalars['Int'];
+  /**
+   * The filtered total of events in the date period.
+   *
+   */
+  total: Scalars['Int']['output'];
+  /**
+   * The unfiltered total of events across the entire system (excluding date filters, but including all other filters).
+   *
+   */
+  unfilteredTotal: Scalars['Int']['output'];
 };
 
-/** The level of precision for analytics queries. */
+/**
+ * The level of precision for analytics queries.
+ *
+ */
 export type AnalyticsPrecision =
-  | 'HOUR'
   | 'DAY'
-  | 'WEEK'
+  | 'HOUR'
   | 'MONTH'
   | 'QUARTER'
+  | 'WEEK'
   | 'YEAR'
   | '%future added value';
 
-/** A count for specific events based on the visitor's detected country and region (if available). */
+/**
+ * A count for specific events based on the visitor's detected country and region (if available).
+ *
+ */
 export type AnalyticsRegionCountResult = {
   __typename?: 'AnalyticsRegionCountResult';
-  /** The count of events for the given country / region. */
-  count: Scalars['Int'];
-  /** The two-letter country code, if available. Unknown / null values will be `"$unknown$"`. */
-  countryCode: Scalars['String'];
-  /** The shortened region code, if available. Unknown / null values will be `"$unknown$"`. */
-  regionCode: Scalars['String'];
+  /**
+   * The count of events for the given country / region.
+   *
+   */
+  count: Scalars['Int']['output'];
+  /**
+   * The two-letter country code, if available. Unknown / null values will be `"$unknown$"`.
+   *
+   */
+  countryCode: Scalars['String']['output'];
+  /**
+   * The shortened region code, if available. Unknown / null values will be `"$unknown$"`.
+   *
+   */
+  regionCode: Scalars['String']['output'];
 };
 
-/** The summary of country/region-keyed event counts. */
+/**
+ * The summary of country/region-keyed event counts.
+ *
+ */
 export type AnalyticsRegionCountSummary = {
   __typename?: 'AnalyticsRegionCountSummary';
-  /** Individual results. They are not in any deterministic order since they are based on countries / regions. */
+  /**
+   * Individual results. They are not in any deterministic order since they are based on countries / regions.
+   *
+   */
   results: Array<AnalyticsRegionCountResult>;
-  /** The filtered total of events in the date period. */
-  total: Scalars['Int'];
-  /** The unfiltered total of events across the entire system (excluding date filters, but including all other filters). */
-  unfilteredTotal: Scalars['Int'];
+  /**
+   * The filtered total of events in the date period.
+   *
+   */
+  total: Scalars['Int']['output'];
+  /**
+   * The unfiltered total of events across the entire system (excluding date filters, but including all other filters).
+   *
+   */
+  unfilteredTotal: Scalars['Int']['output'];
 };
 
 /**
@@ -284,6 +338,7 @@ export type AnalyticsRegionCountSummary = {
  *
  * While this is implemented, it is not likely that the first version of the search
  * UI will utilize it. It is intended for advanced searching.
+ *
  */
 export type AndOperatorInput = {
   left: SearchPredicateInput;
@@ -293,23 +348,24 @@ export type AndOperatorInput = {
 /**
  * An announcement tied to an entity. These are configured through the backend and can be used
  * to provide time-sensensitive information and news about a specific entity in the system.
+ *
  */
 export type Announcement = Node & Sluggable & {
   __typename?: 'Announcement';
   /** A body for the announcement */
-  body: Scalars['String'];
-  createdAt: Scalars['ISO8601DateTime'];
+  body: Scalars['String']['output'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
   /** The entity that owns the announcement */
   entity: AnyEntity;
   /** A header value for the announcement */
-  header: Scalars['String'];
-  id: Scalars['ID'];
+  header: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
   /** The date of the announcement. */
-  publishedOn: Scalars['ISO8601Date'];
-  slug: Scalars['Slug'];
+  publishedOn: Scalars['ISO8601Date']['output'];
+  slug: Scalars['Slug']['output'];
   /** A teaser for the announcement */
-  teaser: Scalars['String'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  teaser: Scalars['String']['output'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 /** The connection type for Announcement. */
@@ -327,20 +383,23 @@ export type AnnouncementConnection = Paginated & {
 export type AnnouncementEdge = {
   __typename?: 'AnnouncementEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: Announcement;
 };
 
 /** Order a list of announcements by publication date. */
 export type AnnouncementOrder =
-  /** Order announcements by most recently published */
-  | 'RECENT'
   /** Order announcements by least recently published */
   | 'OLDEST'
+  /** Order announcements by most recently published */
+  | 'RECENT'
   | '%future added value';
 
-/** Encompasses *all* possible access grant types */
+/**
+ * Encompasses *all* possible access grant types
+ *
+ */
 export type AnyAccessGrant = UserCollectionAccessGrant | UserCommunityAccessGrant | UserGroupCollectionAccessGrant | UserGroupCommunityAccessGrant | UserGroupItemAccessGrant | UserItemAccessGrant | { __typename?: "%other" };
 
 /** The connection type for AnyAccessGrant. */
@@ -358,7 +417,7 @@ export type AnyAccessGrantConnection = Paginated & {
 export type AnyAccessGrantEdge = {
   __typename?: 'AnyAccessGrantEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: AnyAccessGrant;
 };
@@ -380,7 +439,7 @@ export type AnyAssetConnection = Paginated & {
 export type AnyAssetEdge = {
   __typename?: 'AnyAssetEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: AnyAsset;
 };
@@ -408,7 +467,7 @@ export type AnyCollectionAccessGrantConnection = Paginated & {
 export type AnyCollectionAccessGrantEdge = {
   __typename?: 'AnyCollectionAccessGrantEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: AnyCollectionAccessGrant;
 };
@@ -430,7 +489,7 @@ export type AnyCommunityAccessGrantConnection = Paginated & {
 export type AnyCommunityAccessGrantEdge = {
   __typename?: 'AnyCommunityAccessGrantEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: AnyCommunityAccessGrant;
 };
@@ -455,7 +514,7 @@ export type AnyContributorConnection = Paginated & {
 export type AnyContributorEdge = {
   __typename?: 'AnyContributorEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: AnyContributor;
 };
@@ -469,7 +528,10 @@ export type AnyLinkTarget = Collection | Item | { __typename?: "%other" };
 /** The various types an OrderingEntry can refer to */
 export type AnyOrderingEntry = Collection | Community | EntityLink | Item | { __typename?: "%other" };
 
-/** All types in this union implement OrderingPath. */
+/**
+ * All types in this union implement OrderingPath.
+ *
+ */
 export type AnyOrderingPath = SchemaOrderingPath | StaticOrderingPath | { __typename?: "%other" };
 
 /**
@@ -482,6 +544,7 @@ export type AnyOrderingPath = SchemaOrderingPath | StaticOrderingPath | { __type
  *
  * Any object contained within this union is guaranteed to implement `ScalarProperty`
  * as well as `SchemaProperty`.
+ *
  */
 export type AnyScalarProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | EntitiesProperty | EntityProperty | FloatProperty | FullTextProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | UrlProperty | UnknownProperty | VariableDateProperty | { __typename?: "%other" };
 
@@ -490,6 +553,7 @@ export type AnyScalarProperty = AssetProperty | AssetsProperty | BooleanProperty
  * well as any `GroupProperty` that the instance might have. To query only scalar properties, see `AnyScalarProperty`.
  *
  * All properties contained in this union are guaranteed to implement `SchemaProperty`.
+ *
  */
 export type AnySchemaProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | DateProperty | EmailProperty | EntitiesProperty | EntityProperty | FloatProperty | FullTextProperty | GroupProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | UrlProperty | UnknownProperty | VariableDateProperty | { __typename?: "%other" };
 
@@ -497,10 +561,14 @@ export type AnySchemaProperty = AssetProperty | AssetsProperty | BooleanProperty
  * `AnySearchableProperty` represents a property that can be searched on.
  *
  * Any property underneath this can be assured to implement `SearchableProperty`.
+ *
  */
 export type AnySearchableProperty = BooleanProperty | DateProperty | FloatProperty | FullTextProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TimestampProperty | VariableDateProperty | { __typename?: "%other" };
 
-/** Encompasses any access grant for a specific user. */
+/**
+ * Encompasses any access grant for a specific user.
+ *
+ */
 export type AnyUserAccessGrant = UserCollectionAccessGrant | UserCommunityAccessGrant | UserItemAccessGrant | { __typename?: "%other" };
 
 /** The connection type for AnyUserAccessGrant. */
@@ -518,12 +586,15 @@ export type AnyUserAccessGrantConnection = Paginated & {
 export type AnyUserAccessGrantEdge = {
   __typename?: 'AnyUserAccessGrantEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: AnyUserAccessGrant;
 };
 
-/** Encompasses any access grant for a group of users. Not currently exposed. */
+/**
+ * Encompasses any access grant for a group of users. Not currently exposed.
+ *
+ */
 export type AnyUserGroupAccessGrant = UserGroupCollectionAccessGrant | UserGroupCommunityAccessGrant | UserGroupItemAccessGrant | { __typename?: "%other" };
 
 /** The connection type for AnyUserGroupAccessGrant. */
@@ -541,22 +612,23 @@ export type AnyUserGroupAccessGrantConnection = Paginated & {
 export type AnyUserGroupAccessGrantEdge = {
   __typename?: 'AnyUserGroupAccessGrantEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: AnyUserGroupAccessGrant;
 };
 
 /** Autogenerated input type of ApplySchemaProperties */
 export type ApplySchemaPropertiesInput = {
+  /** A unique identifier for the client performing the mutation. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
   /** The entity that owns the attachment */
-  entityId: Scalars['ID'];
+  entityId: Scalars['ID']['input'];
   /**
    * An arbitrary set of property values. Owing to the dynamic nature, they do not have a specific GraphQL input type
    * associated with them. Validation will be performed within the application and returned as errors if not valid.
+   *
    */
-  propertyValues: Scalars['JSON'];
-  /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  propertyValues: Scalars['JSON']['input'];
 };
 
 /** Autogenerated return type of ApplySchemaProperties */
@@ -564,7 +636,7 @@ export type ApplySchemaPropertiesPayload = StandardMutationPayload & {
   __typename?: 'ApplySchemaPropertiesPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   collection?: Maybe<Collection>;
   community?: Maybe<Community>;
   entity?: Maybe<AnyEntity>;
@@ -572,218 +644,218 @@ export type ApplySchemaPropertiesPayload = StandardMutationPayload & {
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   item?: Maybe<Item>;
   schemaErrors: Array<SchemaValueError>;
 };
 
 /** A generic asset type, implemented by all the more specific kinds */
 export type Asset = {
-  altText?: Maybe<Scalars['String']>;
+  altText?: Maybe<Scalars['String']['output']>;
   assetDownloads: AnalyticsEventCountSummary;
   assetDownloadsByRegion: AnalyticsRegionCountSummary;
   attachable: AnyAttachable;
-  caption?: Maybe<Scalars['String']>;
-  contentType: Scalars['String'];
-  downloadUrl?: Maybe<Scalars['String']>;
-  fileSize: Scalars['Int'];
+  caption?: Maybe<Scalars['String']['output']>;
+  contentType: Scalars['String']['output'];
+  downloadUrl?: Maybe<Scalars['String']['output']>;
+  fileSize: Scalars['Int']['output'];
   /** ID of the object. */
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   kind: AssetKind;
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   preview: ImageAttachment;
   /** Configurable metadata for the preview attachment */
   previewMetadata?: Maybe<ImageMetadata>;
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['output'];
 };
 
 
 /** A generic asset type, implemented by all the more specific kinds */
 export type AssetAssetDownloadsArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  precision?: Maybe<AnalyticsPrecision>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  precision?: InputMaybe<AnalyticsPrecision>;
 };
 
 
 /** A generic asset type, implemented by all the more specific kinds */
 export type AssetAssetDownloadsByRegionArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  usOnly?: Maybe<Scalars['Boolean']>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  usOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type AssetAudio = Asset & Node & Sluggable & {
   __typename?: 'AssetAudio';
-  altText?: Maybe<Scalars['String']>;
+  altText?: Maybe<Scalars['String']['output']>;
   assetDownloads: AnalyticsEventCountSummary;
   assetDownloadsByRegion: AnalyticsRegionCountSummary;
   attachable: AnyAttachable;
-  caption?: Maybe<Scalars['String']>;
-  contentType: Scalars['String'];
-  createdAt: Scalars['ISO8601DateTime'];
-  downloadUrl?: Maybe<Scalars['String']>;
-  fileSize: Scalars['Int'];
+  caption?: Maybe<Scalars['String']['output']>;
+  contentType: Scalars['String']['output'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  downloadUrl?: Maybe<Scalars['String']['output']>;
+  fileSize: Scalars['Int']['output'];
   /** ID of the object. */
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   kind: AssetKind;
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   preview: ImageAttachment;
   /** Configurable metadata for the preview attachment */
   previewMetadata?: Maybe<ImageMetadata>;
-  slug: Scalars['Slug'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  slug: Scalars['Slug']['output'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 
 export type AssetAudioAssetDownloadsArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  precision?: Maybe<AnalyticsPrecision>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  precision?: InputMaybe<AnalyticsPrecision>;
 };
 
 
 export type AssetAudioAssetDownloadsByRegionArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  usOnly?: Maybe<Scalars['Boolean']>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  usOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type AssetDocument = Asset & Node & Sluggable & {
   __typename?: 'AssetDocument';
-  altText?: Maybe<Scalars['String']>;
+  altText?: Maybe<Scalars['String']['output']>;
   assetDownloads: AnalyticsEventCountSummary;
   assetDownloadsByRegion: AnalyticsRegionCountSummary;
   attachable: AnyAttachable;
-  caption?: Maybe<Scalars['String']>;
-  contentType: Scalars['String'];
-  createdAt: Scalars['ISO8601DateTime'];
-  downloadUrl?: Maybe<Scalars['String']>;
-  fileSize: Scalars['Int'];
+  caption?: Maybe<Scalars['String']['output']>;
+  contentType: Scalars['String']['output'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  downloadUrl?: Maybe<Scalars['String']['output']>;
+  fileSize: Scalars['Int']['output'];
   /** ID of the object. */
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   kind: AssetKind;
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   preview: ImageAttachment;
   /** Configurable metadata for the preview attachment */
   previewMetadata?: Maybe<ImageMetadata>;
-  slug: Scalars['Slug'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  slug: Scalars['Slug']['output'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 
 export type AssetDocumentAssetDownloadsArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  precision?: Maybe<AnalyticsPrecision>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  precision?: InputMaybe<AnalyticsPrecision>;
 };
 
 
 export type AssetDocumentAssetDownloadsByRegionArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  usOnly?: Maybe<Scalars['Boolean']>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  usOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type AssetImage = Asset & Node & Sluggable & {
   __typename?: 'AssetImage';
-  altText?: Maybe<Scalars['String']>;
+  altText?: Maybe<Scalars['String']['output']>;
   assetDownloads: AnalyticsEventCountSummary;
   assetDownloadsByRegion: AnalyticsRegionCountSummary;
   attachable: AnyAttachable;
-  caption?: Maybe<Scalars['String']>;
-  contentType: Scalars['String'];
-  createdAt: Scalars['ISO8601DateTime'];
-  downloadUrl?: Maybe<Scalars['String']>;
-  fileSize: Scalars['Int'];
+  caption?: Maybe<Scalars['String']['output']>;
+  contentType: Scalars['String']['output'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  downloadUrl?: Maybe<Scalars['String']['output']>;
+  fileSize: Scalars['Int']['output'];
   /** ID of the object. */
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   kind: AssetKind;
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   preview: ImageAttachment;
   /** Configurable metadata for the preview attachment */
   previewMetadata?: Maybe<ImageMetadata>;
-  slug: Scalars['Slug'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  slug: Scalars['Slug']['output'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 
 export type AssetImageAssetDownloadsArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  precision?: Maybe<AnalyticsPrecision>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  precision?: InputMaybe<AnalyticsPrecision>;
 };
 
 
 export type AssetImageAssetDownloadsByRegionArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  usOnly?: Maybe<Scalars['Boolean']>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  usOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** The supported kinds of assets in the system */
 export type AssetKind =
-  | 'image'
-  | 'video'
   | 'audio'
-  | 'pdf'
   | 'document'
+  | 'image'
+  | 'pdf'
   | 'unknown'
+  | 'video'
   | '%future added value';
 
 /** The type(s) of assets to retrieve */
 export type AssetKindFilter =
   | 'ALL'
+  | 'AUDIO'
+  | 'DOCUMENT'
+  | 'IMAGE'
   /** An image, video, or audio file */
   | 'MEDIA'
-  | 'AUDIO'
-  | 'IMAGE'
-  | 'VIDEO'
   | 'PDF'
-  | 'DOCUMENT'
   | 'UNKNOWN'
+  | 'VIDEO'
   | '%future added value';
 
 export type AssetPdf = Asset & Node & Sluggable & {
   __typename?: 'AssetPDF';
-  altText?: Maybe<Scalars['String']>;
+  altText?: Maybe<Scalars['String']['output']>;
   assetDownloads: AnalyticsEventCountSummary;
   assetDownloadsByRegion: AnalyticsRegionCountSummary;
   attachable: AnyAttachable;
-  caption?: Maybe<Scalars['String']>;
-  contentType: Scalars['String'];
-  createdAt: Scalars['ISO8601DateTime'];
-  downloadUrl?: Maybe<Scalars['String']>;
-  fileSize: Scalars['Int'];
+  caption?: Maybe<Scalars['String']['output']>;
+  contentType: Scalars['String']['output'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  downloadUrl?: Maybe<Scalars['String']['output']>;
+  fileSize: Scalars['Int']['output'];
   /** ID of the object. */
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   kind: AssetKind;
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   preview: ImageAttachment;
   /** Configurable metadata for the preview attachment */
   previewMetadata?: Maybe<ImageMetadata>;
-  slug: Scalars['Slug'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  slug: Scalars['Slug']['output'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 
 export type AssetPdfAssetDownloadsArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  precision?: Maybe<AnalyticsPrecision>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  precision?: InputMaybe<AnalyticsPrecision>;
 };
 
 
 export type AssetPdfAssetDownloadsByRegionArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  usOnly?: Maybe<Scalars['Boolean']>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  usOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** A grid of permissions for creating, retrieving, updating, and deleting an `Asset` */
-export type AssetPermissionGrid = ExposesPermissions & PermissionGrid & CrudPermissionGrid & {
+export type AssetPermissionGrid = CrudPermissionGrid & ExposesPermissions & PermissionGrid & {
   __typename?: 'AssetPermissionGrid';
   /** A list of allowed actions for the given user on this entity (and its descendants). */
-  allowedActions: Array<Scalars['String']>;
-  create: Scalars['Boolean'];
-  delete: Scalars['Boolean'];
+  allowedActions: Array<Scalars['String']['output']>;
+  create: Scalars['Boolean']['output'];
+  delete: Scalars['Boolean']['output'];
   /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
-  read: Scalars['Boolean'];
-  update: Scalars['Boolean'];
+  read: Scalars['Boolean']['output'];
+  update: Scalars['Boolean']['output'];
 };
 
-export type AssetProperty = SchemaProperty & ScalarProperty & {
+export type AssetProperty = ScalarProperty & SchemaProperty & {
   __typename?: 'AssetProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -791,45 +863,60 @@ export type AssetProperty = SchemaProperty & ScalarProperty & {
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
+  array: Scalars['Boolean']['output'];
   asset?: Maybe<AnyAsset>;
   /**
    * A human-readable description for the property. It should describe the purpose of the
    * property as well as some details about the types of values it looks for.
    *
    * It can be rendered as help text, hints, etc.
+   *
    */
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
-  label: Scalars['String'];
+  /**
+   * A human-readable label for the schema property.
+   *
+   */
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -837,8 +924,9 @@ export type AssetProperty = SchemaProperty & ScalarProperty & {
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -847,6 +935,7 @@ export type AssetProperty = SchemaProperty & ScalarProperty & {
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
@@ -855,79 +944,79 @@ export type AssetProperty = SchemaProperty & ScalarProperty & {
 export type AssetSelectOption = {
   __typename?: 'AssetSelectOption';
   kind: AssetKind;
-  label: Scalars['String'];
-  value: Scalars['String'];
+  label: Scalars['String']['output'];
+  value: Scalars['String']['output'];
 };
 
 export type AssetUnknown = Asset & Node & Sluggable & {
   __typename?: 'AssetUnknown';
-  altText?: Maybe<Scalars['String']>;
+  altText?: Maybe<Scalars['String']['output']>;
   assetDownloads: AnalyticsEventCountSummary;
   assetDownloadsByRegion: AnalyticsRegionCountSummary;
   attachable: AnyAttachable;
-  caption?: Maybe<Scalars['String']>;
-  contentType: Scalars['String'];
-  createdAt: Scalars['ISO8601DateTime'];
-  downloadUrl?: Maybe<Scalars['String']>;
-  fileSize: Scalars['Int'];
+  caption?: Maybe<Scalars['String']['output']>;
+  contentType: Scalars['String']['output'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  downloadUrl?: Maybe<Scalars['String']['output']>;
+  fileSize: Scalars['Int']['output'];
   /** ID of the object. */
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   kind: AssetKind;
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   preview: ImageAttachment;
   /** Configurable metadata for the preview attachment */
   previewMetadata?: Maybe<ImageMetadata>;
-  slug: Scalars['Slug'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  slug: Scalars['Slug']['output'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 
 export type AssetUnknownAssetDownloadsArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  precision?: Maybe<AnalyticsPrecision>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  precision?: InputMaybe<AnalyticsPrecision>;
 };
 
 
 export type AssetUnknownAssetDownloadsByRegionArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  usOnly?: Maybe<Scalars['Boolean']>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  usOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type AssetVideo = Asset & Node & Sluggable & {
   __typename?: 'AssetVideo';
-  altText?: Maybe<Scalars['String']>;
+  altText?: Maybe<Scalars['String']['output']>;
   assetDownloads: AnalyticsEventCountSummary;
   assetDownloadsByRegion: AnalyticsRegionCountSummary;
   attachable: AnyAttachable;
-  caption?: Maybe<Scalars['String']>;
-  contentType: Scalars['String'];
-  createdAt: Scalars['ISO8601DateTime'];
-  downloadUrl?: Maybe<Scalars['String']>;
-  fileSize: Scalars['Int'];
+  caption?: Maybe<Scalars['String']['output']>;
+  contentType: Scalars['String']['output'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  downloadUrl?: Maybe<Scalars['String']['output']>;
+  fileSize: Scalars['Int']['output'];
   /** ID of the object. */
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   kind: AssetKind;
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   preview: ImageAttachment;
   /** Configurable metadata for the preview attachment */
   previewMetadata?: Maybe<ImageMetadata>;
-  slug: Scalars['Slug'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  slug: Scalars['Slug']['output'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 
 export type AssetVideoAssetDownloadsArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  precision?: Maybe<AnalyticsPrecision>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  precision?: InputMaybe<AnalyticsPrecision>;
 };
 
 
 export type AssetVideoAssetDownloadsByRegionArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  usOnly?: Maybe<Scalars['Boolean']>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  usOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type AssetsProperty = SchemaProperty & ScalarProperty & {
+export type AssetsProperty = ScalarProperty & SchemaProperty & {
   __typename?: 'AssetsProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -935,45 +1024,60 @@ export type AssetsProperty = SchemaProperty & ScalarProperty & {
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
+  array: Scalars['Boolean']['output'];
   assets: Array<AnyAsset>;
   /**
    * A human-readable description for the property. It should describe the purpose of the
    * property as well as some details about the types of values it looks for.
    *
    * It can be rendered as help text, hints, etc.
+   *
    */
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
-  label: Scalars['String'];
+  /**
+   * A human-readable label for the schema property.
+   *
+   */
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -981,8 +1085,9 @@ export type AssetsProperty = SchemaProperty & ScalarProperty & {
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -991,6 +1096,7 @@ export type AssetsProperty = SchemaProperty & ScalarProperty & {
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
@@ -1004,34 +1110,38 @@ export type Attachable = {
 
 /** A model that has attached assets */
 export type AttachableAssetsArgs = {
-  order?: Maybe<SimpleOrder>;
-  kind?: Maybe<AssetKindFilter>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  kind?: InputMaybe<AssetKindFilter>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** This describes where a given file attachment is stored (if at all) */
 export type AttachmentStorage =
-  /** STORE refers to permanent storage. An asset here has been fully processed and is ready for access */
-  | 'STORE'
   /**
    * CACHE refers to temporary storage. When a file is first uploaded to the system, it lives in cache and needs to be processed.
    * A user could potentially fetch something from an API while a file is still being processed in the background, and if so, none
    * of its derivatives will be present yet.
+   *
    */
   | 'CACHE'
   /** Not yet used */
   | 'DERIVATIVES'
-  /** Remote URL storage. Only used internally at present, but may sometimes appear during certain harvesting events. */
+  /**
+   * Remote URL storage. Only used internally at present, but may sometimes appear during certain harvesting events.
+   *
+   */
   | 'REMOTE'
+  /** STORE refers to permanent storage. An asset here has been fully processed and is ready for access */
+  | 'STORE'
   | '%future added value';
 
-export type BooleanProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
+export type BooleanProperty = ScalarProperty & SchemaProperty & SearchableProperty & {
   __typename?: 'BooleanProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -1039,39 +1149,50 @@ export type BooleanProperty = SchemaProperty & ScalarProperty & SearchableProper
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
-  checked?: Maybe<Scalars['Boolean']>;
-  checkedByDefault?: Maybe<Scalars['Boolean']>;
-  description?: Maybe<Scalars['String']>;
+  array: Scalars['Boolean']['output'];
+  checked?: Maybe<Scalars['Boolean']['output']>;
+  checkedByDefault?: Maybe<Scalars['Boolean']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  label: Scalars['String'];
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -1079,10 +1200,11 @@ export type BooleanProperty = SchemaProperty & ScalarProperty & SearchableProper
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   searchOperators: Array<SearchOperator>;
-  searchPath: Scalars['String'];
+  searchPath: Scalars['String']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -1091,6 +1213,7 @@ export type BooleanProperty = SchemaProperty & ScalarProperty & SearchableProper
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
@@ -1098,13 +1221,13 @@ export type BooleanProperty = SchemaProperty & ScalarProperty & SearchableProper
 /** A grid of permissions for creating, retrieving, updating, and deleting a model */
 export type CrudPermissionGrid = {
   /** A list of allowed actions for the given user on this entity (and its descendants). */
-  allowedActions: Array<Scalars['String']>;
-  create: Scalars['Boolean'];
-  delete: Scalars['Boolean'];
+  allowedActions: Array<Scalars['String']['output']>;
+  create: Scalars['Boolean']['output'];
+  delete: Scalars['Boolean']['output'];
   /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
-  read: Scalars['Boolean'];
-  update: Scalars['Boolean'];
+  read: Scalars['Boolean']['output'];
+  update: Scalars['Boolean']['output'];
 };
 
 /**
@@ -1112,6 +1235,7 @@ export type CrudPermissionGrid = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntity = {
   /** Derived access control list */
@@ -1119,16 +1243,18 @@ export type ChildEntity = {
   /** A polymorphic connection for access grants from an entity */
   allAccessGrants: AnyAccessGrantConnection;
   /** A list of allowed actions for the given user on this entity (and its descendants). */
-  allowedActions: Array<Scalars['String']>;
+  allowedActions: Array<Scalars['String']['output']>;
   /**
    * Directly fetch a defined named ancestor by its name. It can be null,
    * either because an invalid name was provided, the schema hierarchy is
    * incomplete, or the association itself is optional.
+   *
    */
   ancestorByName?: Maybe<AnyEntity>;
   /**
    * Look up an ancestor for this entity that implements a specific type. It ascends from this entity,
    * so it will first check the parent, then the grandparent, and so on.
+   *
    */
   ancestorOfType?: Maybe<AnyEntity>;
   /** Look up an announcement for this entity by slug */
@@ -1146,35 +1272,59 @@ export type ChildEntity = {
   /** The community this entity belongs to */
   community: Community;
   /** The date this entity was added to the WDP */
-  createdAt: Scalars['ISO8601DateTime'];
-  /** Whether the entity is _currently_ hidden, based on the server's time zone. */
-  currentlyHidden: Scalars['Boolean'];
-  /** Whether the entity is _currently_ visible, based on the server's time zone. */
-  currentlyVisible: Scalars['Boolean'];
-  /** Search and retrieve *all* descendants of this `Entity`, regardless of type. */
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Whether the entity is _currently_ hidden, based on the server's time zone.
+   *
+   */
+  currentlyHidden: Scalars['Boolean']['output'];
+  /**
+   * Whether the entity is _currently_ visible, based on the server's time zone.
+   *
+   */
+  currentlyVisible: Scalars['Boolean']['output'];
+  /**
+   * Search and retrieve *all* descendants of this `Entity`, regardless of type.
+   *
+   */
   descendants: EntityDescendantConnection;
-  /** The Digital Object Identifier for this entity. See https://doi.org */
-  doi?: Maybe<Scalars['String']>;
+  /**
+   * The Digital Object Identifier for this entity. See https://doi.org
+   *
+   */
+  doi?: Maybe<Scalars['String']['output']>;
   /** A hero image for the entity, suitable for displaying in page headers */
   heroImage: ImageAttachment;
   /** Configurable metadata for the hero_image attachment */
   heroImageMetadata?: Maybe<ImageMetadata>;
-  /** Whether the entity's visibility is set to `HIDDEN` */
-  hidden: Scalars['Boolean'];
-  /** Specify a time to check to see if the entity will be hidden. */
-  hiddenAsOf: Scalars['Boolean'];
+  /**
+   * Whether the entity's visibility is set to `HIDDEN`
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
+  /**
+   * Specify a time to check to see if the entity will be hidden.
+   *
+   */
+  hiddenAsOf: Scalars['Boolean']['output'];
   /** If present, this is the timestamp the entity was hidden at */
-  hiddenAt?: Maybe<Scalars['ISO8601DateTime']>;
+  hiddenAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   /** The depth of the hierarchical entity, taking into account any parent types */
-  hierarchicalDepth: Scalars['Int'];
+  hierarchicalDepth: Scalars['Int']['output'];
   /** A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers. */
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['output'];
   inCommunityOrdering?: Maybe<OrderingEntry>;
-  /** The initial ordering to display for this entity. */
+  /**
+   * The initial ordering to display for this entity.
+   *
+   */
   initialOrdering?: Maybe<Ordering>;
-  /** The International Standard Serial Number for this entity. See https://issn.org */
-  issn?: Maybe<Scalars['String']>;
-  leaf: Scalars['Boolean'];
+  /**
+   * The International Standard Serial Number for this entity. See https://issn.org
+   *
+   */
+  issn?: Maybe<Scalars['String']['output']>;
+  leaf: Scalars['Boolean']['output'];
   /** Available link targets for this entity */
   linkTargetCandidates: LinkTargetCandidateConnection;
   links: EntityLinkConnection;
@@ -1184,13 +1334,17 @@ export type ChildEntity = {
    *
    * **Note**: Like breadcrumbs, this association is intentionally not paginated for ease of use,
    * because in practice a schema should not have many associations.
+   *
    */
   namedAncestors: Array<NamedAncestor>;
   /** Look up an ordering for this entity by identifier */
   ordering?: Maybe<Ordering>;
   /** Look up an ordering that is set up to handle a specific schema. */
   orderingForSchema?: Maybe<Ordering>;
-  /** Retrieve a connection of orderings for the parent object. */
+  /**
+   * Retrieve a connection of orderings for the parent object.
+   *
+   */
   orderings: OrderingConnection;
   /** Look up a page for this entity by slug */
   page?: Maybe<Page>;
@@ -1199,32 +1353,38 @@ export type ChildEntity = {
   permissions: Array<PermissionGrant>;
   /** The date this entity was published */
   published: VariablePrecisionDate;
-  root: Scalars['Boolean'];
+  root: Scalars['Boolean']['output'];
   schemaDefinition: SchemaDefinition;
   schemaRanks: Array<HierarchicalSchemaRank>;
   schemaVersion: SchemaVersion;
   /** A human-readable subtitle for the entity */
-  subtitle?: Maybe<Scalars['String']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
   /** A description of the contents of the entity */
-  summary?: Maybe<Scalars['String']>;
+  summary?: Maybe<Scalars['String']['output']>;
   /** A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc. */
   thumbnail: ImageAttachment;
   /** Configurable metadata for the thumbnail attachment */
   thumbnailMetadata?: Maybe<ImageMetadata>;
   /** A human-readable title for the entity */
-  title: Scalars['String'];
+  title: Scalars['String']['output'];
   /** The date this entity was last updated within the WDP */
-  updatedAt: Scalars['ISO8601DateTime'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
   /** If an entity is available in the frontend */
   visibility: EntityVisibility;
-  /** Whether the entity's visibility is set to `VISIBLE`. */
-  visible: Scalars['Boolean'];
+  /**
+   * Whether the entity's visibility is set to `VISIBLE`.
+   *
+   */
+  visible: Scalars['Boolean']['output'];
   /** If present, this is the timestamp an entity is visible after */
-  visibleAfterAt?: Maybe<Scalars['ISO8601DateTime']>;
-  /** Specify a time to check to see if the entity will be visible. */
-  visibleAsOf: Scalars['Boolean'];
+  visibleAfterAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
+  /**
+   * Specify a time to check to see if the entity will be visible.
+   *
+   */
+  visibleAsOf: Scalars['Boolean']['output'];
   /** If present, this is the timestamp an entity is visible until */
-  visibleUntilAt?: Maybe<Scalars['ISO8601DateTime']>;
+  visibleUntilAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
 };
 
 
@@ -1233,17 +1393,18 @@ export type ChildEntity = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntityAllAccessGrantsArgs = {
-  subject?: Maybe<AccessGrantSubjectFilter>;
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  subject?: InputMaybe<AccessGrantSubjectFilter>;
 };
 
 
@@ -1252,9 +1413,10 @@ export type ChildEntityAllAccessGrantsArgs = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntityAncestorByNameArgs = {
-  name: Scalars['String'];
+  name: Scalars['String']['input'];
 };
 
 
@@ -1263,9 +1425,10 @@ export type ChildEntityAncestorByNameArgs = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntityAncestorOfTypeArgs = {
-  schema: Scalars['String'];
+  schema: Scalars['String']['input'];
 };
 
 
@@ -1274,9 +1437,10 @@ export type ChildEntityAncestorOfTypeArgs = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntityAnnouncementArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
@@ -1285,16 +1449,17 @@ export type ChildEntityAnnouncementArgs = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntityAnnouncementsArgs = {
-  order?: Maybe<AnnouncementOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<AnnouncementOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -1303,16 +1468,17 @@ export type ChildEntityAnnouncementsArgs = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntityAssignedUsersArgs = {
-  order?: Maybe<ContextualPermissionOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<ContextualPermissionOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -1321,19 +1487,20 @@ export type ChildEntityAssignedUsersArgs = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntityDescendantsArgs = {
-  scope?: Maybe<EntityDescendantScopeFilter>;
-  schema?: Maybe<Array<Scalars['String']>>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  maxDepth?: InputMaybe<Scalars['Int']['input']>;
   order?: EntityDescendantOrder;
-  maxDepth?: Maybe<Scalars['Int']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
+  scope?: InputMaybe<EntityDescendantScopeFilter>;
 };
 
 
@@ -1342,9 +1509,10 @@ export type ChildEntityDescendantsArgs = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntityHiddenAsOfArgs = {
-  time?: Maybe<Scalars['ISO8601DateTime']>;
+  time?: InputMaybe<Scalars['ISO8601DateTime']['input']>;
 };
 
 
@@ -1353,9 +1521,10 @@ export type ChildEntityHiddenAsOfArgs = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntityInCommunityOrderingArgs = {
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['input'];
 };
 
 
@@ -1364,17 +1533,18 @@ export type ChildEntityInCommunityOrderingArgs = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntityLinkTargetCandidatesArgs = {
-  kind?: Maybe<LinkTargetCandidateFilter>;
-  title?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  kind?: InputMaybe<LinkTargetCandidateFilter>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -1383,16 +1553,17 @@ export type ChildEntityLinkTargetCandidatesArgs = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntityLinksArgs = {
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -1401,9 +1572,10 @@ export type ChildEntityLinksArgs = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntityOrderingArgs = {
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['input'];
 };
 
 
@@ -1412,9 +1584,10 @@ export type ChildEntityOrderingArgs = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntityOrderingForSchemaArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
@@ -1423,18 +1596,19 @@ export type ChildEntityOrderingForSchemaArgs = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntityOrderingsArgs = {
-  order?: Maybe<OrderingOrder>;
-  availability?: Maybe<OrderingAvailabilityFilter>;
-  visibility?: Maybe<OrderingVisibilityFilter>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  availability?: InputMaybe<OrderingAvailabilityFilter>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<OrderingOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  visibility?: InputMaybe<OrderingVisibilityFilter>;
 };
 
 
@@ -1443,9 +1617,10 @@ export type ChildEntityOrderingsArgs = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntityPageArgs = {
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
 };
 
 
@@ -1454,15 +1629,16 @@ export type ChildEntityPageArgs = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntityPagesArgs = {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -1471,16 +1647,17 @@ export type ChildEntityPagesArgs = {
  * in a tree structure.
  *
  * In practice, this means a `Collection` or an `Item`, not a `Community`.
+ *
  */
 export type ChildEntityVisibleAsOfArgs = {
-  time?: Maybe<Scalars['ISO8601DateTime']>;
+  time?: InputMaybe<Scalars['ISO8601DateTime']['input']>;
 };
 
 /** Autogenerated input type of ClearInitialOrdering */
 export type ClearInitialOrderingInput = {
-  entityId: Scalars['ID'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  entityId: Scalars['ID']['input'];
 };
 
 /** Autogenerated return type of ClearInitialOrdering */
@@ -1488,17 +1665,17 @@ export type ClearInitialOrderingPayload = StandardMutationPayload & {
   __typename?: 'ClearInitialOrderingPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   entity?: Maybe<AnyEntity>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** A collection of items */
-export type Collection = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasEntityAnalytics & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable & {
+export type Collection = Accessible & Attachable & ChildEntity & Contributable & Entity & HasDoi & HasEntityAnalytics & HasEntityBreadcrumbs & HasIssn & HasSchemaProperties & Node & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable & {
   __typename?: 'Collection';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -1506,16 +1683,18 @@ export type Collection = Accessible & HasEntityBreadcrumbs & Entity & References
   /** A polymorphic connection for access grants from an entity */
   allAccessGrants: AnyAccessGrantConnection;
   /** A list of allowed actions for the given user on this entity (and its descendants). */
-  allowedActions: Array<Scalars['String']>;
+  allowedActions: Array<Scalars['String']['output']>;
   /**
    * Directly fetch a defined named ancestor by its name. It can be null,
    * either because an invalid name was provided, the schema hierarchy is
    * incomplete, or the association itself is optional.
+   *
    */
   ancestorByName?: Maybe<AnyEntity>;
   /**
    * Look up an ancestor for this entity that implements a specific type. It ascends from this entity,
    * so it will first check the parent, then the grandparent, and so on.
+   *
    */
   ancestorOfType?: Maybe<AnyEntity>;
   /** Look up an announcement for this entity by slug */
@@ -1532,7 +1711,10 @@ export type Collection = Accessible & HasEntityBreadcrumbs & Entity & References
   assignableRoles: Array<Role>;
   /** Retrieve a list of user & role assignments for this entity */
   assignedUsers: ContextualPermissionConnection;
-  /** Expose all available entities for this schema property. */
+  /**
+   * Expose all available entities for this schema property.
+   *
+   */
   availableEntitiesFor: Array<EntitySelectOption>;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
@@ -1545,15 +1727,27 @@ export type Collection = Accessible & HasEntityBreadcrumbs & Entity & References
   /** Contributors to this element */
   contributors: AnyContributorConnection;
   /** The date this entity was added to the WDP */
-  createdAt: Scalars['ISO8601DateTime'];
-  /** Whether the entity is _currently_ hidden, based on the server's time zone. */
-  currentlyHidden: Scalars['Boolean'];
-  /** Whether the entity is _currently_ visible, based on the server's time zone. */
-  currentlyVisible: Scalars['Boolean'];
-  /** Search and retrieve *all* descendants of this `Entity`, regardless of type. */
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Whether the entity is _currently_ hidden, based on the server's time zone.
+   *
+   */
+  currentlyHidden: Scalars['Boolean']['output'];
+  /**
+   * Whether the entity is _currently_ visible, based on the server's time zone.
+   *
+   */
+  currentlyVisible: Scalars['Boolean']['output'];
+  /**
+   * Search and retrieve *all* descendants of this `Entity`, regardless of type.
+   *
+   */
   descendants: EntityDescendantConnection;
-  /** The Digital Object Identifier for this entity. See https://doi.org */
-  doi?: Maybe<Scalars['String']>;
+  /**
+   * The Digital Object Identifier for this entity. See https://doi.org
+   *
+   */
+  doi?: Maybe<Scalars['String']['output']>;
   entityViews: AnalyticsEventCountSummary;
   entityViewsByRegion: AnalyticsRegionCountSummary;
   /** Retrieve the first matching collection beneath this collection. */
@@ -1561,31 +1755,43 @@ export type Collection = Accessible & HasEntityBreadcrumbs & Entity & References
   /** Retrieve the first matching item beneath this item. */
   firstItem?: Maybe<Item>;
   /** Whether this collection has any child collections */
-  hasCollections: Scalars['Boolean'];
+  hasCollections: Scalars['Boolean']['output'];
   /** Whether this collection has any child items */
-  hasItems: Scalars['Boolean'];
+  hasItems: Scalars['Boolean']['output'];
   /** A hero image for the entity, suitable for displaying in page headers */
   heroImage: ImageAttachment;
   /** Configurable metadata for the hero_image attachment */
   heroImageMetadata?: Maybe<ImageMetadata>;
-  /** Whether the entity's visibility is set to `HIDDEN` */
-  hidden: Scalars['Boolean'];
-  /** Specify a time to check to see if the entity will be hidden. */
-  hiddenAsOf: Scalars['Boolean'];
+  /**
+   * Whether the entity's visibility is set to `HIDDEN`
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
+  /**
+   * Specify a time to check to see if the entity will be hidden.
+   *
+   */
+  hiddenAsOf: Scalars['Boolean']['output'];
   /** If present, this is the timestamp the entity was hidden at */
-  hiddenAt?: Maybe<Scalars['ISO8601DateTime']>;
+  hiddenAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   /** The depth of the hierarchical entity, taking into account any parent types */
-  hierarchicalDepth: Scalars['Int'];
-  id: Scalars['ID'];
+  hierarchicalDepth: Scalars['Int']['output'];
+  id: Scalars['ID']['output'];
   /** A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers. */
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['output'];
   inCommunityOrdering?: Maybe<OrderingEntry>;
-  /** The initial ordering to display for this entity. */
+  /**
+   * The initial ordering to display for this entity.
+   *
+   */
   initialOrdering?: Maybe<Ordering>;
-  /** The International Standard Serial Number for this entity. See https://issn.org */
-  issn?: Maybe<Scalars['String']>;
+  /**
+   * The International Standard Serial Number for this entity. See https://issn.org
+   *
+   */
+  issn?: Maybe<Scalars['String']['output']>;
   items: ItemConnection;
-  leaf: Scalars['Boolean'];
+  leaf: Scalars['Boolean']['output'];
   /** Available link targets for this entity */
   linkTargetCandidates: LinkTargetCandidateConnection;
   links: EntityLinkConnection;
@@ -1595,13 +1801,17 @@ export type Collection = Accessible & HasEntityBreadcrumbs & Entity & References
    *
    * **Note**: Like breadcrumbs, this association is intentionally not paginated for ease of use,
    * because in practice a schema should not have many associations.
+   *
    */
   namedAncestors: Array<NamedAncestor>;
   /** Look up an ordering for this entity by identifier */
   ordering?: Maybe<Ordering>;
   /** Look up an ordering that is set up to handle a specific schema. */
   orderingForSchema?: Maybe<Ordering>;
-  /** Retrieve a connection of orderings for the parent object. */
+  /**
+   * Retrieve a connection of orderings for the parent object.
+   *
+   */
   orderings: OrderingConnection;
   /** Look up a page for this entity by slug */
   page?: Maybe<Page>;
@@ -1613,408 +1823,417 @@ export type Collection = Accessible & HasEntityBreadcrumbs & Entity & References
   published: VariablePrecisionDate;
   /** Retrieve linked collections of the same schema type */
   relatedCollections: CollectionConnection;
-  root: Scalars['Boolean'];
+  root: Scalars['Boolean']['output'];
   schemaDefinition: SchemaDefinition;
   /** The context for our schema instance. Includes form values and necessary referents. */
   schemaInstanceContext: SchemaInstanceContext;
   /** A list of schema properties associated with this instance or version. */
   schemaProperties: Array<AnySchemaProperty>;
-  /** Read a single schema property by its full path. */
+  /**
+   * Read a single schema property by its full path.
+   *
+   */
   schemaProperty?: Maybe<AnySchemaProperty>;
   schemaRanks: Array<HierarchicalSchemaRank>;
   schemaVersion: SchemaVersion;
   /** Search from this level of the API using it as the origin */
   search: SearchScope;
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['output'];
   /** A human-readable subtitle for the entity */
-  subtitle?: Maybe<Scalars['String']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
   /** A description of the contents of the entity */
-  summary?: Maybe<Scalars['String']>;
+  summary?: Maybe<Scalars['String']['output']>;
   /** A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc. */
   thumbnail: ImageAttachment;
   /** Configurable metadata for the thumbnail attachment */
   thumbnailMetadata?: Maybe<ImageMetadata>;
   /** A human-readable title for the entity */
-  title: Scalars['String'];
+  title: Scalars['String']['output'];
   /** The date this entity was last updated within the WDP */
-  updatedAt: Scalars['ISO8601DateTime'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
   /** Access grants for specific users */
   userAccessGrants: UserCollectionAccessGrantConnection;
   /** Not presently used */
   userGroupAccessGrants: UserGroupCollectionAccessGrantConnection;
   /** If an entity is available in the frontend */
   visibility: EntityVisibility;
-  /** Whether the entity's visibility is set to `VISIBLE`. */
-  visible: Scalars['Boolean'];
+  /**
+   * Whether the entity's visibility is set to `VISIBLE`.
+   *
+   */
+  visible: Scalars['Boolean']['output'];
   /** If present, this is the timestamp an entity is visible after */
-  visibleAfterAt?: Maybe<Scalars['ISO8601DateTime']>;
-  /** Specify a time to check to see if the entity will be visible. */
-  visibleAsOf: Scalars['Boolean'];
+  visibleAfterAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
+  /**
+   * Specify a time to check to see if the entity will be visible.
+   *
+   */
+  visibleAsOf: Scalars['Boolean']['output'];
   /** If present, this is the timestamp an entity is visible until */
-  visibleUntilAt?: Maybe<Scalars['ISO8601DateTime']>;
+  visibleUntilAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
 };
 
 
 /** A collection of items */
 export type CollectionAccessGrantsArgs = {
-  subject?: Maybe<AccessGrantSubjectFilter>;
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  subject?: InputMaybe<AccessGrantSubjectFilter>;
 };
 
 
 /** A collection of items */
 export type CollectionAllAccessGrantsArgs = {
-  subject?: Maybe<AccessGrantSubjectFilter>;
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  subject?: InputMaybe<AccessGrantSubjectFilter>;
 };
 
 
 /** A collection of items */
 export type CollectionAncestorByNameArgs = {
-  name: Scalars['String'];
+  name: Scalars['String']['input'];
 };
 
 
 /** A collection of items */
 export type CollectionAncestorOfTypeArgs = {
-  schema: Scalars['String'];
+  schema: Scalars['String']['input'];
 };
 
 
 /** A collection of items */
 export type CollectionAnnouncementArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
 /** A collection of items */
 export type CollectionAnnouncementsArgs = {
-  order?: Maybe<AnnouncementOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<AnnouncementOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A collection of items */
 export type CollectionAssetDownloadsArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  precision?: Maybe<AnalyticsPrecision>;
-  subjectIds?: Maybe<Array<Scalars['ID']>>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  precision?: InputMaybe<AnalyticsPrecision>;
+  subjectIds?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
 
 /** A collection of items */
 export type CollectionAssetDownloadsByRegionArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  subjectIds?: Maybe<Array<Scalars['ID']>>;
-  usOnly?: Maybe<Scalars['Boolean']>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  subjectIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  usOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** A collection of items */
 export type CollectionAssetsArgs = {
-  order?: Maybe<SimpleOrder>;
-  kind?: Maybe<AssetKindFilter>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  kind?: InputMaybe<AssetKindFilter>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A collection of items */
 export type CollectionAssignedUsersArgs = {
-  order?: Maybe<ContextualPermissionOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<ContextualPermissionOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A collection of items */
 export type CollectionAvailableEntitiesForArgs = {
-  fullPath: Scalars['String'];
+  fullPath: Scalars['String']['input'];
 };
 
 
 /** A collection of items */
 export type CollectionChildrenArgs = {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A collection of items */
 export type CollectionCollectionsArgs = {
-  order?: Maybe<EntityOrder>;
-  schema?: Maybe<Array<Scalars['String']>>;
-  nodeFilter?: Maybe<SubtreeNodeFilter>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  nodeFilter?: InputMaybe<SubtreeNodeFilter>;
+  order?: InputMaybe<EntityOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
 /** A collection of items */
 export type CollectionContributionsArgs = {
-  order?: Maybe<ContributionOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<ContributionOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A collection of items */
 export type CollectionContributorsArgs = {
-  order?: Maybe<ContributorOrder>;
-  kind?: Maybe<ContributorFilterKind>;
-  prefix?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  kind?: InputMaybe<ContributorFilterKind>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<ContributorOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  prefix?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 /** A collection of items */
 export type CollectionDescendantsArgs = {
-  scope?: Maybe<EntityDescendantScopeFilter>;
-  schema?: Maybe<Array<Scalars['String']>>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  maxDepth?: InputMaybe<Scalars['Int']['input']>;
   order?: EntityDescendantOrder;
-  maxDepth?: Maybe<Scalars['Int']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
+  scope?: InputMaybe<EntityDescendantScopeFilter>;
 };
 
 
 /** A collection of items */
 export type CollectionEntityViewsArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  precision?: Maybe<AnalyticsPrecision>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  precision?: InputMaybe<AnalyticsPrecision>;
 };
 
 
 /** A collection of items */
 export type CollectionEntityViewsByRegionArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  usOnly?: Maybe<Scalars['Boolean']>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  usOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** A collection of items */
 export type CollectionFirstCollectionArgs = {
-  order?: Maybe<EntityOrder>;
-  schema?: Maybe<Array<Scalars['String']>>;
-  nodeFilter?: Maybe<SubtreeNodeFilter>;
+  nodeFilter?: InputMaybe<SubtreeNodeFilter>;
+  order?: InputMaybe<EntityOrder>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
 /** A collection of items */
 export type CollectionFirstItemArgs = {
-  order?: Maybe<EntityOrder>;
-  schema?: Maybe<Array<Scalars['String']>>;
-  nodeFilter?: Maybe<SubtreeNodeFilter>;
+  nodeFilter?: InputMaybe<SubtreeNodeFilter>;
+  order?: InputMaybe<EntityOrder>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
 /** A collection of items */
 export type CollectionHiddenAsOfArgs = {
-  time?: Maybe<Scalars['ISO8601DateTime']>;
+  time?: InputMaybe<Scalars['ISO8601DateTime']['input']>;
 };
 
 
 /** A collection of items */
 export type CollectionInCommunityOrderingArgs = {
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['input'];
 };
 
 
 /** A collection of items */
 export type CollectionItemsArgs = {
-  order?: Maybe<EntityOrder>;
-  schema?: Maybe<Array<Scalars['String']>>;
-  nodeFilter?: Maybe<TreeNodeFilter>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  nodeFilter?: InputMaybe<TreeNodeFilter>;
+  order?: InputMaybe<EntityOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
 /** A collection of items */
 export type CollectionLinkTargetCandidatesArgs = {
-  kind?: Maybe<LinkTargetCandidateFilter>;
-  title?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  kind?: InputMaybe<LinkTargetCandidateFilter>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 /** A collection of items */
 export type CollectionLinksArgs = {
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A collection of items */
 export type CollectionOrderingArgs = {
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['input'];
 };
 
 
 /** A collection of items */
 export type CollectionOrderingForSchemaArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
 /** A collection of items */
 export type CollectionOrderingsArgs = {
-  order?: Maybe<OrderingOrder>;
-  availability?: Maybe<OrderingAvailabilityFilter>;
-  visibility?: Maybe<OrderingVisibilityFilter>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  availability?: InputMaybe<OrderingAvailabilityFilter>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<OrderingOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  visibility?: InputMaybe<OrderingVisibilityFilter>;
 };
 
 
 /** A collection of items */
 export type CollectionPageArgs = {
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
 };
 
 
 /** A collection of items */
 export type CollectionPagesArgs = {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A collection of items */
 export type CollectionRelatedCollectionsArgs = {
-  order?: Maybe<EntityOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<EntityOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A collection of items */
 export type CollectionSchemaPropertyArgs = {
-  fullPath: Scalars['String'];
+  fullPath: Scalars['String']['input'];
 };
 
 
 /** A collection of items */
 export type CollectionSearchArgs = {
-  maxDepth?: Maybe<Scalars['Int']>;
-  visibility?: Maybe<EntityVisibilityFilter>;
+  maxDepth?: InputMaybe<Scalars['Int']['input']>;
+  visibility?: InputMaybe<EntityVisibilityFilter>;
 };
 
 
 /** A collection of items */
 export type CollectionUserAccessGrantsArgs = {
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A collection of items */
 export type CollectionUserGroupAccessGrantsArgs = {
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A collection of items */
 export type CollectionVisibleAsOfArgs = {
-  time?: Maybe<Scalars['ISO8601DateTime']>;
+  time?: InputMaybe<Scalars['ISO8601DateTime']['input']>;
 };
 
 /** The connection type for Collection. */
@@ -2032,23 +2251,23 @@ export type CollectionConnection = Paginated & {
 export type CollectionContribution = Contribution & Node & Sluggable & {
   __typename?: 'CollectionContribution';
   /** A potentially-overridden value from person contributors */
-  affiliation?: Maybe<Scalars['String']>;
+  affiliation?: Maybe<Scalars['String']['output']>;
   collection: Collection;
   contributor: AnyContributor;
   contributorKind: ContributorKind;
-  createdAt: Scalars['ISO8601DateTime'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
   /** A potentially-overridden display name value for all contributor types */
-  displayName: Scalars['String'];
-  id: Scalars['ID'];
+  displayName: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
   /** A potentially-overridden value from organization contributors */
-  location?: Maybe<Scalars['String']>;
+  location?: Maybe<Scalars['String']['output']>;
   metadata: ContributionMetadata;
   /** An arbitrary text value describing the role the contributor had */
-  role?: Maybe<Scalars['String']>;
-  slug: Scalars['Slug'];
+  role?: Maybe<Scalars['String']['output']>;
+  slug: Scalars['Slug']['output'];
   /** A potentially-overridden value from person contributors */
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['ISO8601DateTime'];
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 /** The connection type for CollectionContribution. */
@@ -2066,7 +2285,7 @@ export type CollectionContributionConnection = Paginated & {
 export type CollectionContributionEdge = {
   __typename?: 'CollectionContributionEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: CollectionContribution;
 };
@@ -2075,7 +2294,7 @@ export type CollectionContributionEdge = {
 export type CollectionEdge = {
   __typename?: 'CollectionEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: Collection;
 };
@@ -2083,7 +2302,7 @@ export type CollectionEdge = {
 export type CollectionParent = Collection | Community | { __typename?: "%other" };
 
 /** A community of users */
-export type Community = Accessible & Entity & HasEntityAnalytics & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable & {
+export type Community = Accessible & Attachable & Entity & HasEntityAnalytics & HasSchemaProperties & Node & SchemaInstance & Searchable & Sluggable & {
   __typename?: 'Community';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -2091,7 +2310,7 @@ export type Community = Accessible & Entity & HasEntityAnalytics & HasSchemaProp
   /** A polymorphic connection for access grants from an entity */
   allAccessGrants: AnyAccessGrantConnection;
   /** A list of allowed actions for the given user on this entity (and its descendants). */
-  allowedActions: Array<Scalars['String']>;
+  allowedActions: Array<Scalars['String']['output']>;
   /** Look up an announcement for this entity by slug */
   announcement?: Maybe<Announcement>;
   /** Announcements for a specific entity */
@@ -2106,13 +2325,19 @@ export type Community = Accessible & Entity & HasEntityAnalytics & HasSchemaProp
   assignableRoles: Array<Role>;
   /** Retrieve a list of user & role assignments for this entity */
   assignedUsers: ContextualPermissionConnection;
-  /** Expose all available entities for this schema property. */
+  /**
+   * Expose all available entities for this schema property.
+   *
+   */
   availableEntitiesFor: Array<EntitySelectOption>;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
   collections: CollectionConnection;
-  createdAt: Scalars['ISO8601DateTime'];
-  /** Search and retrieve *all* descendants of this `Entity`, regardless of type. */
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Search and retrieve *all* descendants of this `Entity`, regardless of type.
+   *
+   */
   descendants: EntityDescendantConnection;
   entityViews: AnalyticsEventCountSummary;
   entityViewsByRegion: AnalyticsRegionCountSummary;
@@ -2127,9 +2352,12 @@ export type Community = Accessible & Entity & HasEntityAnalytics & HasSchemaProp
   /** Configurable metadata for the hero_image attachment */
   heroImageMetadata?: Maybe<ImageMetadata>;
   /** The depth of the hierarchical entity, taking into account any parent types */
-  hierarchicalDepth: Scalars['Int'];
-  id: Scalars['ID'];
-  /** The initial ordering to display for this entity. */
+  hierarchicalDepth: Scalars['Int']['output'];
+  id: Scalars['ID']['output'];
+  /**
+   * The initial ordering to display for this entity.
+   *
+   */
   initialOrdering?: Maybe<Ordering>;
   /** Available link targets for this entity */
   linkTargetCandidates: LinkTargetCandidateConnection;
@@ -2138,45 +2366,51 @@ export type Community = Accessible & Entity & HasEntityAnalytics & HasSchemaProp
   logo: ImageAttachment;
   /** Configurable metadata for the logo attachment */
   logoMetadata?: Maybe<ImageMetadata>;
-  metadata?: Maybe<Scalars['JSON']>;
+  metadata?: Maybe<Scalars['JSON']['output']>;
   /** @deprecated Use Community.title */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   /** Look up an ordering for this entity by identifier */
   ordering?: Maybe<Ordering>;
   /** Look up an ordering that is set up to handle a specific schema. */
   orderingForSchema?: Maybe<Ordering>;
-  /** Retrieve a connection of orderings for the parent object. */
+  /**
+   * Retrieve a connection of orderings for the parent object.
+   *
+   */
   orderings: OrderingConnection;
   /** Look up a page for this entity by slug */
   page?: Maybe<Page>;
   pages: PageConnection;
   /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
-  position?: Maybe<Scalars['Int']>;
+  position?: Maybe<Scalars['Int']['output']>;
   schemaDefinition: SchemaDefinition;
   /** The context for our schema instance. Includes form values and necessary referents. */
   schemaInstanceContext: SchemaInstanceContext;
   /** A list of schema properties associated with this instance or version. */
   schemaProperties: Array<AnySchemaProperty>;
-  /** Read a single schema property by its full path. */
+  /**
+   * Read a single schema property by its full path.
+   *
+   */
   schemaProperty?: Maybe<AnySchemaProperty>;
   schemaRanks: Array<HierarchicalSchemaRank>;
   schemaVersion: SchemaVersion;
   /** Search from this level of the API using it as the origin */
   search: SearchScope;
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['output'];
   /** A human-readable subtitle for the entity */
-  subtitle?: Maybe<Scalars['String']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
   /** A description of the contents of the entity */
-  summary?: Maybe<Scalars['String']>;
-  tagline?: Maybe<Scalars['String']>;
+  summary?: Maybe<Scalars['String']['output']>;
+  tagline?: Maybe<Scalars['String']['output']>;
   /** A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc. */
   thumbnail: ImageAttachment;
   /** Configurable metadata for the thumbnail attachment */
   thumbnailMetadata?: Maybe<ImageMetadata>;
   /** A human-readable title for the entity */
-  title: Scalars['String'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
   /** Access grants for specific users */
   userAccessGrants: UserCommunityAccessGrantConnection;
   /** Not presently used */
@@ -2186,269 +2420,269 @@ export type Community = Accessible & Entity & HasEntityAnalytics & HasSchemaProp
 
 /** A community of users */
 export type CommunityAccessGrantsArgs = {
-  subject?: Maybe<AccessGrantSubjectFilter>;
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  subject?: InputMaybe<AccessGrantSubjectFilter>;
 };
 
 
 /** A community of users */
 export type CommunityAllAccessGrantsArgs = {
-  subject?: Maybe<AccessGrantSubjectFilter>;
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  subject?: InputMaybe<AccessGrantSubjectFilter>;
 };
 
 
 /** A community of users */
 export type CommunityAnnouncementArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
 /** A community of users */
 export type CommunityAnnouncementsArgs = {
-  order?: Maybe<AnnouncementOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<AnnouncementOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A community of users */
 export type CommunityAssetDownloadsArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  precision?: Maybe<AnalyticsPrecision>;
-  subjectIds?: Maybe<Array<Scalars['ID']>>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  precision?: InputMaybe<AnalyticsPrecision>;
+  subjectIds?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
 
 /** A community of users */
 export type CommunityAssetDownloadsByRegionArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  subjectIds?: Maybe<Array<Scalars['ID']>>;
-  usOnly?: Maybe<Scalars['Boolean']>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  subjectIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  usOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** A community of users */
 export type CommunityAssetsArgs = {
-  order?: Maybe<SimpleOrder>;
-  kind?: Maybe<AssetKindFilter>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  kind?: InputMaybe<AssetKindFilter>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A community of users */
 export type CommunityAssignedUsersArgs = {
-  order?: Maybe<ContextualPermissionOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<ContextualPermissionOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A community of users */
 export type CommunityAvailableEntitiesForArgs = {
-  fullPath: Scalars['String'];
+  fullPath: Scalars['String']['input'];
 };
 
 
 /** A community of users */
 export type CommunityCollectionsArgs = {
-  order?: Maybe<EntityOrder>;
-  schema?: Maybe<Array<Scalars['String']>>;
-  nodeFilter?: Maybe<TreeNodeFilter>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  nodeFilter?: InputMaybe<TreeNodeFilter>;
+  order?: InputMaybe<EntityOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
 /** A community of users */
 export type CommunityDescendantsArgs = {
-  scope?: Maybe<EntityDescendantScopeFilter>;
-  schema?: Maybe<Array<Scalars['String']>>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  maxDepth?: InputMaybe<Scalars['Int']['input']>;
   order?: EntityDescendantOrder;
-  maxDepth?: Maybe<Scalars['Int']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
+  scope?: InputMaybe<EntityDescendantScopeFilter>;
 };
 
 
 /** A community of users */
 export type CommunityEntityViewsArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  precision?: Maybe<AnalyticsPrecision>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  precision?: InputMaybe<AnalyticsPrecision>;
 };
 
 
 /** A community of users */
 export type CommunityEntityViewsByRegionArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  usOnly?: Maybe<Scalars['Boolean']>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  usOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** A community of users */
 export type CommunityFirstCollectionArgs = {
-  order?: Maybe<EntityOrder>;
-  schema?: Maybe<Array<Scalars['String']>>;
-  nodeFilter?: Maybe<SubtreeNodeFilter>;
+  nodeFilter?: InputMaybe<SubtreeNodeFilter>;
+  order?: InputMaybe<EntityOrder>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
 /** A community of users */
 export type CommunityFirstItemArgs = {
-  order?: Maybe<EntityOrder>;
-  schema?: Maybe<Array<Scalars['String']>>;
-  nodeFilter?: Maybe<SubtreeNodeFilter>;
+  nodeFilter?: InputMaybe<SubtreeNodeFilter>;
+  order?: InputMaybe<EntityOrder>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
 /** A community of users */
 export type CommunityLinkTargetCandidatesArgs = {
-  kind?: Maybe<LinkTargetCandidateFilter>;
-  title?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  kind?: InputMaybe<LinkTargetCandidateFilter>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 /** A community of users */
 export type CommunityLinksArgs = {
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A community of users */
 export type CommunityOrderingArgs = {
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['input'];
 };
 
 
 /** A community of users */
 export type CommunityOrderingForSchemaArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
 /** A community of users */
 export type CommunityOrderingsArgs = {
-  order?: Maybe<OrderingOrder>;
-  availability?: Maybe<OrderingAvailabilityFilter>;
-  visibility?: Maybe<OrderingVisibilityFilter>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  availability?: InputMaybe<OrderingAvailabilityFilter>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<OrderingOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  visibility?: InputMaybe<OrderingVisibilityFilter>;
 };
 
 
 /** A community of users */
 export type CommunityPageArgs = {
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
 };
 
 
 /** A community of users */
 export type CommunityPagesArgs = {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A community of users */
 export type CommunitySchemaPropertyArgs = {
-  fullPath: Scalars['String'];
+  fullPath: Scalars['String']['input'];
 };
 
 
 /** A community of users */
 export type CommunitySearchArgs = {
-  maxDepth?: Maybe<Scalars['Int']>;
-  visibility?: Maybe<EntityVisibilityFilter>;
+  maxDepth?: InputMaybe<Scalars['Int']['input']>;
+  visibility?: InputMaybe<EntityVisibilityFilter>;
 };
 
 
 /** A community of users */
 export type CommunityUserAccessGrantsArgs = {
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A community of users */
 export type CommunityUserGroupAccessGrantsArgs = {
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** The connection type for Community. */
@@ -2466,7 +2700,7 @@ export type CommunityConnection = Paginated & {
 export type CommunityEdge = {
   __typename?: 'CommunityEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: Community;
 };
@@ -2479,15 +2713,15 @@ export type ContextualPermission = ExposesPermissions & Node & Sluggable & {
   /** The access grants that correspond to this contextual permission */
   accessGrants: Array<AnyUserAccessGrant>;
   /** A list of allowed actions for the given user on this entity (and its descendants). */
-  allowedActions: Array<Scalars['String']>;
-  createdAt: Scalars['ISO8601DateTime'];
-  id: Scalars['ID'];
+  allowedActions: Array<Scalars['String']['output']>;
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  id: Scalars['ID']['output'];
   /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
   /** The roles that correspond to this contextual permission */
   roles: Array<Role>;
-  slug: Scalars['Slug'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  slug: Scalars['Slug']['output'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
   user: User;
 };
 
@@ -2506,17 +2740,17 @@ export type ContextualPermissionConnection = Paginated & {
 export type ContextualPermissionEdge = {
   __typename?: 'ContextualPermissionEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: ContextualPermission;
 };
 
 /** A collection of options used to dictate how to order contextual permissions */
 export type ContextualPermissionOrder =
-  /** Order by the most recently granted permissions */
-  | 'RECENT'
   /** Order by the oldest granted permissions */
   | 'OLDEST'
+  /** Order by the most recently granted permissions */
+  | 'RECENT'
   /** Order by the user's name from A-Z */
   | 'USER_NAME_ASC'
   /** Order by the user's name from Z-A */
@@ -2532,66 +2766,66 @@ export type Contributable = {
 
 /** Something that can be contributed to */
 export type ContributableContributorsArgs = {
-  order?: Maybe<ContributorOrder>;
-  kind?: Maybe<ContributorFilterKind>;
-  prefix?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  kind?: InputMaybe<ContributorFilterKind>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<ContributorOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  prefix?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** A contribution from a certain contributor */
 export type Contribution = {
   /** A potentially-overridden value from person contributors */
-  affiliation?: Maybe<Scalars['String']>;
+  affiliation?: Maybe<Scalars['String']['output']>;
   contributor: AnyContributor;
   contributorKind: ContributorKind;
   /** A potentially-overridden display name value for all contributor types */
-  displayName: Scalars['String'];
+  displayName: Scalars['String']['output'];
   /** A potentially-overridden value from organization contributors */
-  location?: Maybe<Scalars['String']>;
+  location?: Maybe<Scalars['String']['output']>;
   metadata: ContributionMetadata;
   /** An arbitrary text value describing the role the contributor had */
-  role?: Maybe<Scalars['String']>;
+  role?: Maybe<Scalars['String']['output']>;
   /** A potentially-overridden value from person contributors */
-  title?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 /** Metadata for a contribution */
 export type ContributionMetadata = {
   __typename?: 'ContributionMetadata';
   /** A value that can override a contribution's contributor's affiliation */
-  affiliation?: Maybe<Scalars['String']>;
+  affiliation?: Maybe<Scalars['String']['output']>;
   /** A value that can oerride a contribution's contributor's displayed name */
-  displayName?: Maybe<Scalars['String']>;
+  displayName?: Maybe<Scalars['String']['output']>;
   /** An arbitrary field describing how the contributor contributed */
-  role?: Maybe<Scalars['String']>;
+  role?: Maybe<Scalars['String']['output']>;
   /** A value that can override a contribution's contributor's title */
-  title?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 /** An input type that builds contribution metadata */
 export type ContributionMetadataInput = {
-  /** A value that can override a contribution's contributor's title */
-  title?: Maybe<Scalars['String']>;
   /** A value that can override a contribution's contributor's affiliation */
-  affiliation?: Maybe<Scalars['String']>;
+  affiliation?: InputMaybe<Scalars['String']['input']>;
   /** A value that can override a contribution's contributor's displayed name */
-  displayName?: Maybe<Scalars['String']>;
+  displayName?: InputMaybe<Scalars['String']['input']>;
   /** A value that can override a contribution's contributor's location */
-  location?: Maybe<Scalars['String']>;
+  location?: InputMaybe<Scalars['String']['input']>;
+  /** A value that can override a contribution's contributor's title */
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Sort contributions by various properties and directions */
 export type ContributionOrder =
-  /** Sort contributors by newest created date */
-  | 'RECENT'
   /** Sort contributors by oldest created date */
   | 'OLDEST'
+  /** Sort contributors by newest created date */
+  | 'RECENT'
   /** Sort contributors by their target's title A-Z */
   | 'TARGET_TITLE_ASCENDING'
   /** Sort contributors by their target's title Z-A */
@@ -2600,56 +2834,59 @@ export type ContributionOrder =
 
 /** A contributor who has made a contribution */
 export type Contributor = {
-  bio?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']['output']>;
   /** The total number of collection contributions from this contributor */
-  collectionContributionCount: Scalars['Int'];
+  collectionContributionCount: Scalars['Int']['output'];
   collectionContributions: CollectionContributionConnection;
   /** The total number of contributions (item + collection) from this contributor */
-  contributionCount: Scalars['Int'];
-  email?: Maybe<Scalars['String']>;
-  identifier: Scalars['String'];
+  contributionCount: Scalars['Int']['output'];
+  email?: Maybe<Scalars['String']['output']>;
+  identifier: Scalars['String']['output'];
   /** An optional image associated with the contributor. */
   image: ImageAttachment;
   /** Configurable metadata for the image attachment */
   imageMetadata?: Maybe<ImageMetadata>;
   /** The total number of item contributions from this contributor */
-  itemContributionCount: Scalars['Int'];
+  itemContributionCount: Scalars['Int']['output'];
   itemContributions: ItemContributionConnection;
   kind: ContributorKind;
   links: Array<ContributorLink>;
   /** A display name, independent of the type of contributor */
-  name: Scalars['String'];
-  /** An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor. */
-  orcid?: Maybe<Scalars['String']>;
-  prefix?: Maybe<Scalars['String']>;
-  suffix?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
+  name: Scalars['String']['output'];
+  /**
+   * An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor.
+   *
+   */
+  orcid?: Maybe<Scalars['String']['output']>;
+  prefix?: Maybe<Scalars['String']['output']>;
+  suffix?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 
 /** A contributor who has made a contribution */
 export type ContributorCollectionContributionsArgs = {
-  order?: Maybe<ContributionOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<ContributionOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A contributor who has made a contribution */
 export type ContributorItemContributionsArgs = {
-  order?: Maybe<ContributionOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<ContributionOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type ContributorFilterKind =
@@ -2666,14 +2903,14 @@ export type ContributorKind =
 /** A link for a contributor */
 export type ContributorLink = {
   __typename?: 'ContributorLink';
-  title: Scalars['String'];
-  url: Scalars['String'];
+  title: Scalars['String']['output'];
+  url: Scalars['String']['output'];
 };
 
 /** A mapping to build a contributor link */
 export type ContributorLinkInput = {
-  title: Scalars['String'];
-  url: Scalars['String'];
+  title: Scalars['String']['input'];
+  url: Scalars['String']['input'];
 };
 
 export type ContributorLookupField =
@@ -2684,25 +2921,25 @@ export type ContributorLookupField =
 
 /** Sort contributors by various properties and directions */
 export type ContributorOrder =
-  /** Sort contributors by newest created date */
-  | 'RECENT'
-  /** Sort contributors by oldest created date */
-  | 'OLDEST'
-  /** Sort contributors by most contributions, then fall back to name A-Z */
-  | 'MOST_CONTRIBUTIONS'
-  /** Sort contributors by least contributions, then fall back to name A-Z */
-  | 'LEAST_CONTRIBUTIONS'
-  /** Sort contributors by name A-Z. For people, this currently uses western naming order (family name, given name). */
-  | 'NAME_ASCENDING'
-  /** Sort contributors by name Z-A. For people, this currently uses western naming order (family name, given name). */
-  | 'NAME_DESCENDING'
   /** Sort contributors by affiliation A-Z, then fall back to name A-Z */
   | 'AFFILIATION_ASCENDING'
   /** Sort contributors by affiliation Z-A, then fall back to name A-Z */
   | 'AFFILIATION_DESCENDING'
+  /** Sort contributors by least contributions, then fall back to name A-Z */
+  | 'LEAST_CONTRIBUTIONS'
+  /** Sort contributors by most contributions, then fall back to name A-Z */
+  | 'MOST_CONTRIBUTIONS'
+  /** Sort contributors by name A-Z. For people, this currently uses western naming order (family name, given name). */
+  | 'NAME_ASCENDING'
+  /** Sort contributors by name Z-A. For people, this currently uses western naming order (family name, given name). */
+  | 'NAME_DESCENDING'
+  /** Sort contributors by oldest created date */
+  | 'OLDEST'
+  /** Sort contributors by newest created date */
+  | 'RECENT'
   | '%future added value';
 
-export type ContributorProperty = SchemaProperty & ScalarProperty & {
+export type ContributorProperty = ScalarProperty & SchemaProperty & {
   __typename?: 'ContributorProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -2710,45 +2947,60 @@ export type ContributorProperty = SchemaProperty & ScalarProperty & {
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
+  array: Scalars['Boolean']['output'];
   contributor?: Maybe<AnyContributor>;
   /**
    * A human-readable description for the property. It should describe the purpose of the
    * property as well as some details about the types of values it looks for.
    *
    * It can be rendered as help text, hints, etc.
+   *
    */
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
-  label: Scalars['String'];
+  /**
+   * A human-readable label for the schema property.
+   *
+   */
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -2756,8 +3008,9 @@ export type ContributorProperty = SchemaProperty & ScalarProperty & {
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -2766,6 +3019,7 @@ export type ContributorProperty = SchemaProperty & ScalarProperty & {
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
@@ -2774,11 +3028,11 @@ export type ContributorProperty = SchemaProperty & ScalarProperty & {
 export type ContributorSelectOption = {
   __typename?: 'ContributorSelectOption';
   kind: ContributorKind;
-  label: Scalars['String'];
-  value: Scalars['String'];
+  label: Scalars['String']['output'];
+  value: Scalars['String']['output'];
 };
 
-export type ContributorsProperty = SchemaProperty & ScalarProperty & {
+export type ContributorsProperty = ScalarProperty & SchemaProperty & {
   __typename?: 'ContributorsProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -2786,45 +3040,60 @@ export type ContributorsProperty = SchemaProperty & ScalarProperty & {
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
+  array: Scalars['Boolean']['output'];
   contributors: Array<AnyContributor>;
   /**
    * A human-readable description for the property. It should describe the purpose of the
    * property as well as some details about the types of values it looks for.
    *
    * It can be rendered as help text, hints, etc.
+   *
    */
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
-  label: Scalars['String'];
+  /**
+   * A human-readable label for the schema property.
+   *
+   */
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -2832,8 +3101,9 @@ export type ContributorsProperty = SchemaProperty & ScalarProperty & {
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -2842,24 +3112,25 @@ export type ContributorsProperty = SchemaProperty & ScalarProperty & {
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
 
 /** Autogenerated input type of CreateAnnouncement */
 export type CreateAnnouncementInput = {
-  /** The ID for an entity to create the announcement under. */
-  entityId: Scalars['ID'];
-  /** The date of the announcement. */
-  publishedOn: Scalars['ISO8601Date'];
-  /** A header value for the announcement */
-  header: Scalars['String'];
-  /** A teaser for the announcement */
-  teaser: Scalars['String'];
   /** A body for the announcement */
-  body: Scalars['String'];
+  body: Scalars['String']['input'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The ID for an entity to create the announcement under. */
+  entityId: Scalars['ID']['input'];
+  /** A header value for the announcement */
+  header: Scalars['String']['input'];
+  /** The date of the announcement. */
+  publishedOn: Scalars['ISO8601Date']['input'];
+  /** A teaser for the announcement */
+  teaser: Scalars['String']['input'];
 };
 
 /** Autogenerated return type of CreateAnnouncement */
@@ -2868,30 +3139,33 @@ export type CreateAnnouncementPayload = StandardMutationPayload & {
   announcement?: Maybe<Announcement>;
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of CreateAsset */
 export type CreateAssetInput = {
-  /** The entity that owns the attachment */
-  entityId: Scalars['ID'];
-  /** A reference to an upload in Tus. */
-  attachment: UploadedFileInput;
-  /** A human readable name for the asset */
-  name: Scalars['String'];
-  /** The position the asset occupies amongst siblings */
-  position?: Maybe<Scalars['Int']>;
   /** Alt text to display for the asset (if applicable) */
-  altText?: Maybe<Scalars['String']>;
+  altText?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A reference to an upload in Tus.
+   *
+   */
+  attachment: UploadedFileInput;
   /** A caption to display below the asset (if applicable) */
-  caption?: Maybe<Scalars['String']>;
+  caption?: InputMaybe<Scalars['String']['input']>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The entity that owns the attachment */
+  entityId: Scalars['ID']['input'];
+  /** A human readable name for the asset */
+  name: Scalars['String']['input'];
+  /** The position the asset occupies amongst siblings */
+  position?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** Autogenerated return type of CreateAsset */
@@ -2900,47 +3174,62 @@ export type CreateAssetPayload = StandardMutationPayload & {
   asset?: Maybe<AnyAsset>;
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of CreateCollection */
 export type CreateCollectionInput = {
-  /** The parent of the new collection. This can be the encoded ID of a community or another collection. */
-  parentId: Scalars['ID'];
-  schemaVersionSlug?: Maybe<Scalars['String']>;
-  /** Human-readable title for the entity */
-  title: Scalars['String'];
-  /** Human-readable subtitle for the entity */
-  subtitle?: Maybe<Scalars['String']>;
-  /** A brief description of the entity's contents. */
-  summary?: Maybe<Scalars['String']>;
-  /** A reference to an uploaded image in Tus. */
-  heroImage?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  heroImageMetadata?: Maybe<ImageMetadataInput>;
-  /** A reference to an uploaded image in Tus. */
-  thumbnail?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  thumbnailMetadata?: Maybe<ImageMetadataInput>;
+  /** A unique identifier for the client performing the mutation. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** Digital Object Identifier (see: https://doi.org) */
+  doi?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  heroImage?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  heroImageMetadata?: InputMaybe<ImageMetadataInput>;
+  /** International Standard Serial Number (see: https://issn.org) */
+  issn?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * The parent of the new collection. This can be the encoded ID of a community or another collection.
+   *
+   */
+  parentId: Scalars['ID']['input'];
   /** The date this entity was published */
-  published?: Maybe<VariablePrecisionDateInput>;
+  published?: InputMaybe<VariablePrecisionDateInput>;
+  schemaVersionSlug?: InputMaybe<Scalars['String']['input']>;
+  /** Human-readable subtitle for the entity */
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  /** A brief description of the entity's contents. */
+  summary?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  thumbnail?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  thumbnailMetadata?: InputMaybe<ImageMetadataInput>;
+  /** Human-readable title for the entity */
+  title: Scalars['String']['input'];
   /** What level of visibility the entity has */
   visibility: EntityVisibility;
   /** If present, this is the timestamp an entity is visible after */
-  visibleAfterAt?: Maybe<Scalars['ISO8601DateTime']>;
+  visibleAfterAt?: InputMaybe<Scalars['ISO8601DateTime']['input']>;
   /** If present, this is the timestamp an entity is visible until */
-  visibleUntilAt?: Maybe<Scalars['ISO8601DateTime']>;
-  /** Digital Object Identifier (see: https://doi.org) */
-  doi?: Maybe<Scalars['String']>;
-  /** International Standard Serial Number (see: https://issn.org) */
-  issn?: Maybe<Scalars['String']>;
-  /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  visibleUntilAt?: InputMaybe<Scalars['ISO8601DateTime']['input']>;
 };
 
 /** Autogenerated return type of CreateCollection */
@@ -2948,42 +3237,60 @@ export type CreateCollectionPayload = StandardMutationPayload & {
   __typename?: 'CreateCollectionPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   collection?: Maybe<Collection>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of CreateCommunity */
 export type CreateCommunityInput = {
-  /** Human-readable title for the entity */
-  title: Scalars['String'];
-  /** The position the community occupies in the list */
-  position?: Maybe<Scalars['Int']>;
-  schemaVersionSlug?: Maybe<Scalars['String']>;
-  /** Human-readable subtitle for the entity */
-  subtitle?: Maybe<Scalars['String']>;
-  /** A brief description of the entity's contents. */
-  summary?: Maybe<Scalars['String']>;
-  /** A reference to an uploaded image in Tus. */
-  heroImage?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  heroImageMetadata?: Maybe<ImageMetadataInput>;
-  /** A reference to an uploaded image in Tus. */
-  thumbnail?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  thumbnailMetadata?: Maybe<ImageMetadataInput>;
-  heroImageLayout: HeroImageLayout;
-  tagline?: Maybe<Scalars['String']>;
-  /** A reference to an uploaded image in Tus. */
-  logo?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  logoMetadata?: Maybe<ImageMetadataInput>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  heroImage?: InputMaybe<UploadedFileInput>;
+  heroImageLayout: HeroImageLayout;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  heroImageMetadata?: InputMaybe<ImageMetadataInput>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  logo?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  logoMetadata?: InputMaybe<ImageMetadataInput>;
+  /** The position the community occupies in the list */
+  position?: InputMaybe<Scalars['Int']['input']>;
+  schemaVersionSlug?: InputMaybe<Scalars['String']['input']>;
+  /** Human-readable subtitle for the entity */
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  /** A brief description of the entity's contents. */
+  summary?: InputMaybe<Scalars['String']['input']>;
+  tagline?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  thumbnail?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  thumbnailMetadata?: InputMaybe<ImageMetadataInput>;
+  /** Human-readable title for the entity */
+  title: Scalars['String']['input'];
 };
 
 /** Autogenerated return type of CreateCommunity */
@@ -2991,49 +3298,64 @@ export type CreateCommunityPayload = StandardMutationPayload & {
   __typename?: 'CreateCommunityPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** A representation of a successfully created community */
   community?: Maybe<Community>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of CreateItem */
 export type CreateItemInput = {
-  /** The parent of the item. This can be the encoded ID of a collection or another item. */
-  parentId: Scalars['ID'];
-  schemaVersionSlug?: Maybe<Scalars['String']>;
-  /** Human-readable title for the entity */
-  title: Scalars['String'];
-  /** Human-readable subtitle for the entity */
-  subtitle?: Maybe<Scalars['String']>;
-  /** A brief description of the entity's contents. */
-  summary?: Maybe<Scalars['String']>;
-  /** A reference to an uploaded image in Tus. */
-  heroImage?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  heroImageMetadata?: Maybe<ImageMetadataInput>;
-  /** A reference to an uploaded image in Tus. */
-  thumbnail?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  thumbnailMetadata?: Maybe<ImageMetadataInput>;
+  /** A unique identifier for the client performing the mutation. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** Digital Object Identifier (see: https://doi.org) */
+  doi?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  heroImage?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  heroImageMetadata?: InputMaybe<ImageMetadataInput>;
+  /** International Standard Serial Number (see: https://issn.org) */
+  issn?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * The parent of the item. This can be the encoded ID of a collection or another item.
+   *
+   */
+  parentId: Scalars['ID']['input'];
   /** The date this entity was published */
-  published?: Maybe<VariablePrecisionDateInput>;
+  published?: InputMaybe<VariablePrecisionDateInput>;
+  schemaVersionSlug?: InputMaybe<Scalars['String']['input']>;
+  /** Human-readable subtitle for the entity */
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  /** A brief description of the entity's contents. */
+  summary?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  thumbnail?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  thumbnailMetadata?: InputMaybe<ImageMetadataInput>;
+  /** Human-readable title for the entity */
+  title: Scalars['String']['input'];
   /** What level of visibility the entity has */
   visibility: EntityVisibility;
   /** If present, this is the timestamp an entity is visible after */
-  visibleAfterAt?: Maybe<Scalars['ISO8601DateTime']>;
+  visibleAfterAt?: InputMaybe<Scalars['ISO8601DateTime']['input']>;
   /** If present, this is the timestamp an entity is visible until */
-  visibleUntilAt?: Maybe<Scalars['ISO8601DateTime']>;
-  /** Digital Object Identifier (see: https://doi.org) */
-  doi?: Maybe<Scalars['String']>;
-  /** International Standard Serial Number (see: https://issn.org) */
-  issn?: Maybe<Scalars['String']>;
-  /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  visibleUntilAt?: InputMaybe<Scalars['ISO8601DateTime']['input']>;
 };
 
 /** Autogenerated return type of CreateItem */
@@ -3041,34 +3363,37 @@ export type CreateItemPayload = StandardMutationPayload & {
   __typename?: 'CreateItemPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   /** A representation of a successfully created item */
   item?: Maybe<Item>;
 };
 
 /** Autogenerated input type of CreateOrdering */
 export type CreateOrderingInput = {
-  /** The entity to create the ordering for. */
-  entityId: Scalars['ID'];
-  /** A unique (within the context of the entity) identifier. Cannot be changed */
-  identifier: Scalars['String'];
-  /** A human readable label for the ordering */
-  name?: Maybe<Scalars['String']>;
-  /** Optional markdown content to display before the ordering's children */
-  header?: Maybe<Scalars['String']>;
-  /** Optional markdown content to display after the ordering's children */
-  footer?: Maybe<Scalars['String']>;
-  filter?: Maybe<OrderingFilterDefinitionInput>;
-  select?: Maybe<OrderingSelectDefinitionInput>;
-  order: Array<OrderDefinitionInput>;
-  render?: Maybe<OrderingRenderDefinitionInput>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * The entity to create the ordering for.
+   *
+   */
+  entityId: Scalars['ID']['input'];
+  filter?: InputMaybe<OrderingFilterDefinitionInput>;
+  /** Optional markdown content to display after the ordering's children */
+  footer?: InputMaybe<Scalars['String']['input']>;
+  /** Optional markdown content to display before the ordering's children */
+  header?: InputMaybe<Scalars['String']['input']>;
+  /** A unique (within the context of the entity) identifier. Cannot be changed */
+  identifier: Scalars['String']['input'];
+  /** A human readable label for the ordering */
+  name?: InputMaybe<Scalars['String']['input']>;
+  order: Array<OrderDefinitionInput>;
+  render?: InputMaybe<OrderingRenderDefinitionInput>;
+  select?: InputMaybe<OrderingSelectDefinitionInput>;
 };
 
 /** Autogenerated return type of CreateOrdering */
@@ -3076,37 +3401,46 @@ export type CreateOrderingPayload = StandardMutationPayload & {
   __typename?: 'CreateOrderingPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   /** The created ordering */
   ordering?: Maybe<Ordering>;
 };
 
 /** Autogenerated input type of CreateOrganizationContributor */
 export type CreateOrganizationContributorInput = {
-  /** An email associated with the contributor */
-  email?: Maybe<Scalars['String']>;
-  /** A url associated with the contributor */
-  url?: Maybe<Scalars['String']>;
   /** A summary of the contributor */
-  bio?: Maybe<Scalars['String']>;
-  links?: Maybe<Array<ContributorLinkInput>>;
-  /** An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor. */
-  orcid?: Maybe<Scalars['String']>;
-  /** A reference to an uploaded image in Tus. */
-  image?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  imageMetadata?: Maybe<ImageMetadataInput>;
-  /** The legal name of the organization */
-  legalName?: Maybe<Scalars['String']>;
-  /** Where the organization is located (if applicable) */
-  location?: Maybe<Scalars['String']>;
+  bio?: InputMaybe<Scalars['String']['input']>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** An email associated with the contributor */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  image?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  imageMetadata?: InputMaybe<ImageMetadataInput>;
+  /** The legal name of the organization */
+  legalName?: InputMaybe<Scalars['String']['input']>;
+  links?: InputMaybe<Array<ContributorLinkInput>>;
+  /** Where the organization is located (if applicable) */
+  location?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor.
+   *
+   */
+  orcid?: InputMaybe<Scalars['String']['input']>;
+  /** A url associated with the contributor */
+  url?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Autogenerated return type of CreateOrganizationContributor */
@@ -3114,29 +3448,35 @@ export type CreateOrganizationContributorPayload = StandardMutationPayload & {
   __typename?: 'CreateOrganizationContributorPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** The created organization */
   contributor?: Maybe<OrganizationContributor>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of CreatePage */
 export type CreatePageInput = {
-  entityId: Scalars['ID'];
-  title: Scalars['String'];
-  slug: Scalars['String'];
-  position?: Maybe<Scalars['Int']>;
-  body: Scalars['String'];
-  /** A reference to an uploaded image in Tus. */
-  heroImage?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  heroImageMetadata?: Maybe<ImageMetadataInput>;
+  body: Scalars['String']['input'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  entityId: Scalars['ID']['input'];
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  heroImage?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  heroImageMetadata?: InputMaybe<ImageMetadataInput>;
+  position?: InputMaybe<Scalars['Int']['input']>;
+  slug: Scalars['String']['input'];
+  title: Scalars['String']['input'];
 };
 
 /** Autogenerated return type of CreatePage */
@@ -3144,36 +3484,45 @@ export type CreatePagePayload = StandardMutationPayload & {
   __typename?: 'CreatePagePayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   page?: Maybe<Page>;
 };
 
 /** Autogenerated input type of CreatePersonContributor */
 export type CreatePersonContributorInput = {
-  /** An email associated with the contributor */
-  email?: Maybe<Scalars['String']>;
-  /** A url associated with the contributor */
-  url?: Maybe<Scalars['String']>;
+  affiliation?: InputMaybe<Scalars['String']['input']>;
   /** A summary of the contributor */
-  bio?: Maybe<Scalars['String']>;
-  links?: Maybe<Array<ContributorLinkInput>>;
-  /** An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor. */
-  orcid?: Maybe<Scalars['String']>;
-  /** A reference to an uploaded image in Tus. */
-  image?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  imageMetadata?: Maybe<ImageMetadataInput>;
-  givenName?: Maybe<Scalars['String']>;
-  familyName?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  affiliation?: Maybe<Scalars['String']>;
+  bio?: InputMaybe<Scalars['String']['input']>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** An email associated with the contributor */
+  email?: InputMaybe<Scalars['String']['input']>;
+  familyName?: InputMaybe<Scalars['String']['input']>;
+  givenName?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  image?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  imageMetadata?: InputMaybe<ImageMetadataInput>;
+  links?: InputMaybe<Array<ContributorLinkInput>>;
+  /**
+   * An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor.
+   *
+   */
+  orcid?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  /** A url associated with the contributor */
+  url?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Autogenerated return type of CreatePersonContributor */
@@ -3181,22 +3530,22 @@ export type CreatePersonContributorPayload = StandardMutationPayload & {
   __typename?: 'CreatePersonContributorPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** The created person */
   contributor?: Maybe<PersonContributor>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of CreateRole */
 export type CreateRoleInput = {
-  name: Scalars['String'];
-  accessControlList: Scalars['JSON'];
+  accessControlList: Scalars['JSON']['input'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
 };
 
 /** Autogenerated return type of CreateRole */
@@ -3204,65 +3553,80 @@ export type CreateRolePayload = StandardMutationPayload & {
   __typename?: 'CreateRolePayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   role?: Maybe<Role>;
 };
 
-/** Require that `path = value` while enforcing that value is a date. */
+/**
+ * Require that `path = value` while enforcing that value is a date.
+ *
+ */
 export type DateEqualsOperatorInput = {
-  path: Scalars['String'];
-  value: Scalars['ISO8601Date'];
+  path: Scalars['String']['input'];
+  value: Scalars['ISO8601Date']['input'];
 };
 
-/** A date-filter for various analytics and other resolvers. */
+/**
+ * A date-filter for various analytics and other resolvers.
+ *
+ */
 export type DateFilterInput = {
-  /**
-   * The start date. Make sure it is <= `end_date` if provided.
-   *
-   * For actual filtering, this will get turned into midnight in the provided `time_zone`.
-   */
-  startDate?: Maybe<Scalars['ISO8601Date']>;
   /**
    * The end date. Make sure it is >= `start_date` if provided.
    *
    * For actual filtering, this will get turned into 23:59:59 in the provided `time_zone`.
+   *
    */
-  endDate?: Maybe<Scalars['ISO8601Date']>;
+  endDate?: InputMaybe<Scalars['ISO8601Date']['input']>;
+  /**
+   * The start date. Make sure it is <= `end_date` if provided.
+   *
+   * For actual filtering, this will get turned into midnight in the provided `time_zone`.
+   *
+   */
+  startDate?: InputMaybe<Scalars['ISO8601Date']['input']>;
   /**
    * The time zone to use for calculating the range.
    *
    * If not provided, it will use the server's configured default,
    * which is at present UTC, but may be configurable later on.
+   *
    */
-  timeZone?: Maybe<Scalars['String']>;
+  timeZone?: InputMaybe<Scalars['String']['input']>;
 };
 
-/** Require that `path ≥ value` while enforcing that value is a date. */
+/**
+ * Require that `path ≥ value` while enforcing that value is a date.
+ *
+ */
 export type DateGteOperatorInput = {
-  path: Scalars['String'];
-  value: Scalars['ISO8601Date'];
+  path: Scalars['String']['input'];
+  value: Scalars['ISO8601Date']['input'];
 };
 
-/** Require that `path ≤ value` while enforcing that value is a date. */
+/**
+ * Require that `path ≤ value` while enforcing that value is a date.
+ *
+ */
 export type DateLteOperatorInput = {
-  path: Scalars['String'];
-  value: Scalars['ISO8601Date'];
+  path: Scalars['String']['input'];
+  value: Scalars['ISO8601Date']['input'];
 };
 
 /** This describes the level of precision a VariablePrecisionDate has, in increasing order of specificity. */
 export type DatePrecision =
+  | 'DAY'
+  | 'MONTH'
   | 'NONE'
   | 'YEAR'
-  | 'MONTH'
-  | 'DAY'
   | '%future added value';
 
-export type DateProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
+export type DateProperty = ScalarProperty & SchemaProperty & SearchableProperty & {
   __typename?: 'DateProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -3270,39 +3634,50 @@ export type DateProperty = SchemaProperty & ScalarProperty & SearchableProperty 
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
-  date?: Maybe<Scalars['ISO8601Date']>;
-  default?: Maybe<Scalars['ISO8601Date']>;
-  description?: Maybe<Scalars['String']>;
+  array: Scalars['Boolean']['output'];
+  date?: Maybe<Scalars['ISO8601Date']['output']>;
+  default?: Maybe<Scalars['ISO8601Date']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  label: Scalars['String'];
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -3310,10 +3685,11 @@ export type DateProperty = SchemaProperty & ScalarProperty & SearchableProperty 
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   searchOperators: Array<SearchOperator>;
-  searchPath: Scalars['String'];
+  searchPath: Scalars['String']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -3322,6 +3698,7 @@ export type DateProperty = SchemaProperty & ScalarProperty & SearchableProperty 
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
@@ -3329,276 +3706,277 @@ export type DateProperty = SchemaProperty & ScalarProperty & SearchableProperty 
 /**
  * The most basic shared properties for a single schema, whether a definition,
  * a version, or an aggregate based on the former types.
+ *
  */
 export type DescribesSchema = {
   /** A unique (per-namespace) value that names the schema within the system. */
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['output'];
   /** The kind of entity this schema applies to */
   kind: SchemaKind;
   /** A human-readable name for the schema */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   /** A unique namespace the schema lives in */
-  namespace: Scalars['String'];
+  namespace: Scalars['String']['output'];
 };
 
 /** Autogenerated input type of DestroyAnnouncement */
 export type DestroyAnnouncementInput = {
-  announcementId: Scalars['ID'];
+  announcementId: Scalars['ID']['input'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Autogenerated return type of DestroyAnnouncement */
-export type DestroyAnnouncementPayload = StandardMutationPayload & DestroyMutationPayload & {
+export type DestroyAnnouncementPayload = DestroyMutationPayload & StandardMutationPayload & {
   __typename?: 'DestroyAnnouncementPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
-  destroyed?: Maybe<Scalars['Boolean']>;
+  destroyed?: Maybe<Scalars['Boolean']['output']>;
   /** The ID of the deleted model */
-  destroyedId?: Maybe<Scalars['ID']>;
+  destroyedId?: Maybe<Scalars['ID']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of DestroyAsset */
 export type DestroyAssetInput = {
   /** The ID for the asset to destroy */
-  assetId: Scalars['ID'];
+  assetId: Scalars['ID']['input'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Autogenerated return type of DestroyAsset */
-export type DestroyAssetPayload = StandardMutationPayload & DestroyMutationPayload & {
+export type DestroyAssetPayload = DestroyMutationPayload & StandardMutationPayload & {
   __typename?: 'DestroyAssetPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
-  destroyed?: Maybe<Scalars['Boolean']>;
+  destroyed?: Maybe<Scalars['Boolean']['output']>;
   /** The ID of the deleted model */
-  destroyedId?: Maybe<Scalars['ID']>;
+  destroyedId?: Maybe<Scalars['ID']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of DestroyCollection */
 export type DestroyCollectionInput = {
-  /** The ID for the collection to destroy */
-  collectionId: Scalars['ID'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The ID for the collection to destroy */
+  collectionId: Scalars['ID']['input'];
 };
 
 /** Autogenerated return type of DestroyCollection */
-export type DestroyCollectionPayload = StandardMutationPayload & DestroyMutationPayload & {
+export type DestroyCollectionPayload = DestroyMutationPayload & StandardMutationPayload & {
   __typename?: 'DestroyCollectionPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
-  destroyed?: Maybe<Scalars['Boolean']>;
+  destroyed?: Maybe<Scalars['Boolean']['output']>;
   /** The ID of the deleted model */
-  destroyedId?: Maybe<Scalars['ID']>;
+  destroyedId?: Maybe<Scalars['ID']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of DestroyCommunity */
 export type DestroyCommunityInput = {
-  /** The ID for the community to destroy */
-  communityId: Scalars['ID'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The ID for the community to destroy */
+  communityId: Scalars['ID']['input'];
 };
 
 /** Autogenerated return type of DestroyCommunity */
-export type DestroyCommunityPayload = StandardMutationPayload & DestroyMutationPayload & {
+export type DestroyCommunityPayload = DestroyMutationPayload & StandardMutationPayload & {
   __typename?: 'DestroyCommunityPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
-  destroyed?: Maybe<Scalars['Boolean']>;
+  destroyed?: Maybe<Scalars['Boolean']['output']>;
   /** The ID of the deleted model */
-  destroyedId?: Maybe<Scalars['ID']>;
+  destroyedId?: Maybe<Scalars['ID']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of DestroyContribution */
 export type DestroyContributionInput = {
-  contributionId: Scalars['ID'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  contributionId: Scalars['ID']['input'];
 };
 
 /** Autogenerated return type of DestroyContribution */
-export type DestroyContributionPayload = StandardMutationPayload & DestroyMutationPayload & {
+export type DestroyContributionPayload = DestroyMutationPayload & StandardMutationPayload & {
   __typename?: 'DestroyContributionPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
-  destroyed?: Maybe<Scalars['Boolean']>;
+  destroyed?: Maybe<Scalars['Boolean']['output']>;
   /** The ID of the deleted model */
-  destroyedId?: Maybe<Scalars['ID']>;
+  destroyedId?: Maybe<Scalars['ID']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of DestroyContributor */
 export type DestroyContributorInput = {
-  contributorId: Scalars['ID'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  contributorId: Scalars['ID']['input'];
 };
 
 /** Autogenerated return type of DestroyContributor */
-export type DestroyContributorPayload = StandardMutationPayload & DestroyMutationPayload & {
+export type DestroyContributorPayload = DestroyMutationPayload & StandardMutationPayload & {
   __typename?: 'DestroyContributorPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
-  destroyed?: Maybe<Scalars['Boolean']>;
+  destroyed?: Maybe<Scalars['Boolean']['output']>;
   /** The ID of the deleted model */
-  destroyedId?: Maybe<Scalars['ID']>;
+  destroyedId?: Maybe<Scalars['ID']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of DestroyEntityLink */
 export type DestroyEntityLinkInput = {
-  /** The ID for the EntityLink to destroy */
-  entityLinkId: Scalars['ID'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The ID for the EntityLink to destroy */
+  entityLinkId: Scalars['ID']['input'];
 };
 
 /** Autogenerated return type of DestroyEntityLink */
-export type DestroyEntityLinkPayload = StandardMutationPayload & DestroyMutationPayload & {
+export type DestroyEntityLinkPayload = DestroyMutationPayload & StandardMutationPayload & {
   __typename?: 'DestroyEntityLinkPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
-  destroyed?: Maybe<Scalars['Boolean']>;
+  destroyed?: Maybe<Scalars['Boolean']['output']>;
   /** The ID of the deleted model */
-  destroyedId?: Maybe<Scalars['ID']>;
+  destroyedId?: Maybe<Scalars['ID']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of DestroyItem */
 export type DestroyItemInput = {
-  /** The ID for the item to destroy */
-  itemId: Scalars['ID'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The ID for the item to destroy */
+  itemId: Scalars['ID']['input'];
 };
 
 /** Autogenerated return type of DestroyItem */
-export type DestroyItemPayload = StandardMutationPayload & DestroyMutationPayload & {
+export type DestroyItemPayload = DestroyMutationPayload & StandardMutationPayload & {
   __typename?: 'DestroyItemPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
-  destroyed?: Maybe<Scalars['Boolean']>;
+  destroyed?: Maybe<Scalars['Boolean']['output']>;
   /** The ID of the deleted model */
-  destroyedId?: Maybe<Scalars['ID']>;
+  destroyedId?: Maybe<Scalars['ID']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** This mutation destroys a model */
 export type DestroyMutationPayload = {
   attributeErrors: Array<MutationAttributeError>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
-  destroyed?: Maybe<Scalars['Boolean']>;
+  destroyed?: Maybe<Scalars['Boolean']['output']>;
   /** The ID of the deleted model */
-  destroyedId?: Maybe<Scalars['ID']>;
+  destroyedId?: Maybe<Scalars['ID']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of DestroyOrdering */
 export type DestroyOrderingInput = {
-  orderingId: Scalars['ID'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  orderingId: Scalars['ID']['input'];
 };
 
 /** Autogenerated return type of DestroyOrdering */
-export type DestroyOrderingPayload = StandardMutationPayload & DestroyMutationPayload & {
+export type DestroyOrderingPayload = DestroyMutationPayload & StandardMutationPayload & {
   __typename?: 'DestroyOrderingPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
-  destroyed?: Maybe<Scalars['Boolean']>;
+  destroyed?: Maybe<Scalars['Boolean']['output']>;
   /** The ID of the deleted model */
-  destroyedId?: Maybe<Scalars['ID']>;
-  disabled?: Maybe<Scalars['Boolean']>;
+  destroyedId?: Maybe<Scalars['ID']['output']>;
+  disabled?: Maybe<Scalars['Boolean']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of DestroyPage */
 export type DestroyPageInput = {
-  pageId: Scalars['ID'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  pageId: Scalars['ID']['input'];
 };
 
 /** Autogenerated return type of DestroyPage */
-export type DestroyPagePayload = StandardMutationPayload & DestroyMutationPayload & {
+export type DestroyPagePayload = DestroyMutationPayload & StandardMutationPayload & {
   __typename?: 'DestroyPagePayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** Whether or not the model was successfully destroyed. If false, check globalErrors */
-  destroyed?: Maybe<Scalars['Boolean']>;
+  destroyed?: Maybe<Scalars['Boolean']['output']>;
   /** The ID of the deleted model */
-  destroyedId?: Maybe<Scalars['ID']>;
+  destroyedId?: Maybe<Scalars['ID']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 export type Direction =
@@ -3606,69 +3984,88 @@ export type Direction =
   | 'DESCENDING'
   | '%future added value';
 
-/** User-specific access permissions for non-hierarchical records. */
+/**
+ * User-specific access permissions for non-hierarchical records.
+ *
+ */
 export type EffectiveAccess = ExposesPermissions & {
   __typename?: 'EffectiveAccess';
   /** A list of allowed actions for the given user on this entity (and its descendants). */
-  allowedActions: Array<Scalars['String']>;
+  allowedActions: Array<Scalars['String']['output']>;
   /**
    * The values that may appear in `allowed_actions`. This is for introspection
    * and type-checking: the presence of a string here does _not_ mean the user
    * has the effective capability.
+   *
    */
-  availableActions: Array<Scalars['String']>;
+  availableActions: Array<Scalars['String']['output']>;
   /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
 };
 
-export type EmailProperty = SchemaProperty & ScalarProperty & {
+export type EmailProperty = ScalarProperty & SchemaProperty & {
   __typename?: 'EmailProperty';
-  address?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']['output']>;
   /**
    * Provided for introspection. This describes whether or not the property's value
    * comes in an array rather than representing a discrete piece of information.
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
-  defaultAddress?: Maybe<Scalars['String']>;
+  array: Scalars['Boolean']['output'];
+  defaultAddress?: Maybe<Scalars['String']['output']>;
   /**
    * A human-readable description for the property. It should describe the purpose of the
    * property as well as some details about the types of values it looks for.
    *
    * It can be rendered as help text, hints, etc.
+   *
    */
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
-  label: Scalars['String'];
+  /**
+   * A human-readable label for the schema property.
+   *
+   */
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -3676,8 +4073,9 @@ export type EmailProperty = SchemaProperty & ScalarProperty & {
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -3686,12 +4084,16 @@ export type EmailProperty = SchemaProperty & ScalarProperty & {
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
 
-/** A property that references a deterministically-ordered list of entities. */
-export type EntitiesProperty = SchemaProperty & ScalarProperty & HasAvailableEntities & {
+/**
+ * A property that references a deterministically-ordered list of entities.
+ *
+ */
+export type EntitiesProperty = HasAvailableEntities & ScalarProperty & SchemaProperty & {
   __typename?: 'EntitiesProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -3699,52 +4101,71 @@ export type EntitiesProperty = SchemaProperty & ScalarProperty & HasAvailableEnt
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
-  /** Expose all available entities for this schema property. */
+  array: Scalars['Boolean']['output'];
+  /**
+   * Expose all available entities for this schema property.
+   *
+   */
   availableEntities: Array<EntitySelectOption>;
   /**
    * A human-readable description for the property. It should describe the purpose of the
    * property as well as some details about the types of values it looks for.
    *
    * It can be rendered as help text, hints, etc.
+   *
    */
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * A deterministically-ordered list of entities.
    *
    * Given the same input, this array will always be returned in the same order.
+   *
    */
   entities: Array<AnyEntity>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
-  label: Scalars['String'];
+  /**
+   * A human-readable label for the schema property.
+   *
+   */
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -3752,8 +4173,9 @@ export type EntitiesProperty = SchemaProperty & ScalarProperty & HasAvailableEnt
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -3762,6 +4184,7 @@ export type EntitiesProperty = SchemaProperty & ScalarProperty & HasAvailableEnt
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
@@ -3773,7 +4196,7 @@ export type Entity = {
   /** A polymorphic connection for access grants from an entity */
   allAccessGrants: AnyAccessGrantConnection;
   /** A list of allowed actions for the given user on this entity (and its descendants). */
-  allowedActions: Array<Scalars['String']>;
+  allowedActions: Array<Scalars['String']['output']>;
   /** Look up an announcement for this entity by slug */
   announcement?: Maybe<Announcement>;
   /** Announcements for a specific entity */
@@ -3786,15 +4209,21 @@ export type Entity = {
   assignedUsers: ContextualPermissionConnection;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
-  /** Search and retrieve *all* descendants of this `Entity`, regardless of type. */
+  /**
+   * Search and retrieve *all* descendants of this `Entity`, regardless of type.
+   *
+   */
   descendants: EntityDescendantConnection;
   /** A hero image for the entity, suitable for displaying in page headers */
   heroImage: ImageAttachment;
   /** Configurable metadata for the hero_image attachment */
   heroImageMetadata?: Maybe<ImageMetadata>;
   /** The depth of the hierarchical entity, taking into account any parent types */
-  hierarchicalDepth: Scalars['Int'];
-  /** The initial ordering to display for this entity. */
+  hierarchicalDepth: Scalars['Int']['output'];
+  /**
+   * The initial ordering to display for this entity.
+   *
+   */
   initialOrdering?: Maybe<Ordering>;
   /** Available link targets for this entity */
   linkTargetCandidates: LinkTargetCandidateConnection;
@@ -3803,7 +4232,10 @@ export type Entity = {
   ordering?: Maybe<Ordering>;
   /** Look up an ordering that is set up to handle a specific schema. */
   orderingForSchema?: Maybe<Ordering>;
-  /** Retrieve a connection of orderings for the parent object. */
+  /**
+   * Retrieve a connection of orderings for the parent object.
+   *
+   */
   orderings: OrderingConnection;
   /** Look up a page for this entity by slug */
   page?: Maybe<Page>;
@@ -3818,166 +4250,166 @@ export type Entity = {
   /** Search from this level of the API using it as the origin */
   search: SearchScope;
   /** A human-readable subtitle for the entity */
-  subtitle?: Maybe<Scalars['String']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
   /** A description of the contents of the entity */
-  summary?: Maybe<Scalars['String']>;
+  summary?: Maybe<Scalars['String']['output']>;
   /** A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc. */
   thumbnail: ImageAttachment;
   /** Configurable metadata for the thumbnail attachment */
   thumbnailMetadata?: Maybe<ImageMetadata>;
   /** A human-readable title for the entity */
-  title: Scalars['String'];
+  title: Scalars['String']['output'];
 };
 
 
 /** An entity that exists in the hierarchy. */
 export type EntityAllAccessGrantsArgs = {
-  subject?: Maybe<AccessGrantSubjectFilter>;
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  subject?: InputMaybe<AccessGrantSubjectFilter>;
 };
 
 
 /** An entity that exists in the hierarchy. */
 export type EntityAnnouncementArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
 /** An entity that exists in the hierarchy. */
 export type EntityAnnouncementsArgs = {
-  order?: Maybe<AnnouncementOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<AnnouncementOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** An entity that exists in the hierarchy. */
 export type EntityAssignedUsersArgs = {
-  order?: Maybe<ContextualPermissionOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<ContextualPermissionOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** An entity that exists in the hierarchy. */
 export type EntityDescendantsArgs = {
-  scope?: Maybe<EntityDescendantScopeFilter>;
-  schema?: Maybe<Array<Scalars['String']>>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  maxDepth?: InputMaybe<Scalars['Int']['input']>;
   order?: EntityDescendantOrder;
-  maxDepth?: Maybe<Scalars['Int']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
+  scope?: InputMaybe<EntityDescendantScopeFilter>;
 };
 
 
 /** An entity that exists in the hierarchy. */
 export type EntityLinkTargetCandidatesArgs = {
-  kind?: Maybe<LinkTargetCandidateFilter>;
-  title?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  kind?: InputMaybe<LinkTargetCandidateFilter>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 /** An entity that exists in the hierarchy. */
 export type EntityLinksArgs = {
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** An entity that exists in the hierarchy. */
 export type EntityOrderingArgs = {
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['input'];
 };
 
 
 /** An entity that exists in the hierarchy. */
 export type EntityOrderingForSchemaArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
 /** An entity that exists in the hierarchy. */
 export type EntityOrderingsArgs = {
-  order?: Maybe<OrderingOrder>;
-  availability?: Maybe<OrderingAvailabilityFilter>;
-  visibility?: Maybe<OrderingVisibilityFilter>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  availability?: InputMaybe<OrderingAvailabilityFilter>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<OrderingOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  visibility?: InputMaybe<OrderingVisibilityFilter>;
 };
 
 
 /** An entity that exists in the hierarchy. */
 export type EntityPageArgs = {
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
 };
 
 
 /** An entity that exists in the hierarchy. */
 export type EntityPagesArgs = {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** An entity that exists in the hierarchy. */
 export type EntitySearchArgs = {
-  maxDepth?: Maybe<Scalars['Int']>;
-  visibility?: Maybe<EntityVisibilityFilter>;
+  maxDepth?: InputMaybe<Scalars['Int']['input']>;
+  visibility?: InputMaybe<EntityVisibilityFilter>;
 };
 
 export type EntityBreadcrumb = Node & {
   __typename?: 'EntityBreadcrumb';
   crumb: AnyEntity;
-  depth: Scalars['Int'];
-  id: Scalars['ID'];
+  depth: Scalars['Int']['output'];
+  id: Scalars['ID']['output'];
   kind: EntityKind;
-  label: Scalars['String'];
-  slug: Scalars['String'];
+  label: Scalars['String']['output'];
+  slug: Scalars['String']['output'];
 };
 
 /** A descendant of an `Entity`. */
@@ -3986,7 +4418,7 @@ export type EntityDescendant = {
   /** The actual descendant entity */
   descendant: AnyEntity;
   /** The relative depth of this entity from its ancestor */
-  relativeDepth: Scalars['Int'];
+  relativeDepth: Scalars['Int']['output'];
   /** The scope of this entity relative to its ancestor */
   scope: EntityScope;
 };
@@ -4006,7 +4438,7 @@ export type EntityDescendantConnection = Paginated & {
 export type EntityDescendantEdge = {
   __typename?: 'EntityDescendantEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: EntityDescendant;
 };
@@ -4026,43 +4458,71 @@ export type EntityDescendantOrder =
 /**
  * This enum is used to filter the type(s) of descendants to include
  * in a set of results.
+ *
  */
 export type EntityDescendantScopeFilter =
-  /** This will include anything regardless of type. */
+  /**
+   * This will include anything regardless of type.
+   *
+   */
   | 'ALL'
-  /** This will include all `Collection`s and `Item`s that are direct descendants and not linked. */
+  /**
+   * This will include all `Collection`s and `Item`s that are direct descendants and not linked.
+   *
+   */
   | 'ANY_ENTITY'
-  /** This will include any _linked_ `Collection`s or `Item`s. */
+  /**
+   * This will include any _linked_ `Collection`s or `Item`s.
+   *
+   */
   | 'ANY_LINK'
-  /** This will include only directly descending `Collection`s, no links. */
+  /**
+   * This will include only directly descending `Collection`s, no links.
+   *
+   */
   | 'COLLECTION'
-  /** This will include any descendant `Collection`s, whether or not it is a link. */
+  /**
+   * This will include any descendant `Collection`s, whether or not it is a link.
+   *
+   */
   | 'COLLECTION_OR_LINK'
-  /** This will include only directly descending `Item`s, no links. */
+  /**
+   * This will include only directly descending `Item`s, no links.
+   *
+   */
   | 'ITEM'
-  /** This will include any descendant `Item`s, whether or not it is a link. */
+  /**
+   * This will include any descendant `Item`s, whether or not it is a link.
+   *
+   */
   | 'ITEM_OR_LINK'
-  /** This will only descendant `Collection`s that are linked. */
+  /**
+   * This will only descendant `Collection`s that are linked.
+   *
+   */
   | 'LINKED_COLLECTION'
-  /** This will only descendant `Item`s that are linked. */
+  /**
+   * This will only descendant `Item`s that are linked.
+   *
+   */
   | 'LINKED_ITEM'
   | '%future added value';
 
 /** An enumeration of the different kinds of hierarchical entities */
 export type EntityKind =
-  | 'COMMUNITY'
   | 'COLLECTION'
+  | 'COMMUNITY'
   | 'ITEM'
   | '%future added value';
 
 /** A link between different entities */
 export type EntityLink = Node & Sluggable & {
   __typename?: 'EntityLink';
-  createdAt: Scalars['ISO8601DateTime'];
-  id: Scalars['ID'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  id: Scalars['ID']['output'];
   operator: EntityLinkOperator;
   scope: EntityLinkScope;
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['output'];
   source: AnyEntity;
   sourceCollection?: Maybe<Collection>;
   sourceCommunity?: Maybe<Community>;
@@ -4071,7 +4531,7 @@ export type EntityLink = Node & Sluggable & {
   targetCollection?: Maybe<Collection>;
   targetCommunity?: Maybe<Community>;
   targetItem?: Maybe<Item>;
-  updatedAt: Scalars['ISO8601DateTime'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 /** The connection type for EntityLink. */
@@ -4089,7 +4549,7 @@ export type EntityLinkConnection = Paginated & {
 export type EntityLinkEdge = {
   __typename?: 'EntityLinkEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: EntityLink;
 };
@@ -4102,30 +4562,28 @@ export type EntityLinkOperator =
 
 /** A link scope succinctly describes the source and target types */
 export type EntityLinkScope =
-  /** A link to a community from another community */
-  | 'COMMUNITY_LINKED_COMMUNITY'
-  /** A link to a collection not directly owned by a community */
-  | 'COMMUNITY_LINKED_COLLECTION'
-  /** A link to an item from a community */
-  | 'COMMUNITY_LINKED_ITEM'
-  /** A link to a community from a collection */
-  | 'COLLECTION_LINKED_COMMUNITY'
   /** A link to a collection from another collection */
   | 'COLLECTION_LINKED_COLLECTION'
+  /** A link to a community from a collection */
+  | 'COLLECTION_LINKED_COMMUNITY'
   /** A link to an item from a community */
   | 'COLLECTION_LINKED_ITEM'
-  /** A link to a community from an item */
-  | 'ITEM_LINKED_COMMUNITY'
+  /** A link to a collection not directly owned by a community */
+  | 'COMMUNITY_LINKED_COLLECTION'
+  /** A link to a community from another community */
+  | 'COMMUNITY_LINKED_COMMUNITY'
+  /** A link to an item from a community */
+  | 'COMMUNITY_LINKED_ITEM'
   /** A link to a collection from an item */
   | 'ITEM_LINKED_COLLECTION'
+  /** A link to a community from an item */
+  | 'ITEM_LINKED_COMMUNITY'
   /** A link to an item from another item */
   | 'ITEM_LINKED_ITEM'
   | '%future added value';
 
 /** Sort entities by a specific property and order */
 export type EntityOrder =
-  /** Sort entities by newest created date */
-  | 'RECENT'
   /** Sort entities by oldest created date */
   | 'OLDEST'
   /** Sort communities by position 0-9; other entities by RECENT */
@@ -4136,38 +4594,43 @@ export type EntityOrder =
   | 'PUBLISHED_ASCENDING'
   /** Sort entities by newest published date (or RECENT for communities) */
   | 'PUBLISHED_DESCENDING'
-  /** Sort entities by title A-Z */
-  | 'TITLE_ASCENDING'
-  /** Sort entities by title Z-A */
-  | 'TITLE_DESCENDING'
+  /** Sort entities by newest created date */
+  | 'RECENT'
   /** Sort entities by the name of their schema A-Z */
   | 'SCHEMA_NAME_ASCENDING'
   /** Sort entities by the name of their schema Z-A */
   | 'SCHEMA_NAME_DESCENDING'
+  /** Sort entities by title A-Z */
+  | 'TITLE_ASCENDING'
+  /** Sort entities by title Z-A */
+  | 'TITLE_DESCENDING'
   | '%future added value';
 
 export type EntityPermissionFilter =
-  | 'READ_ONLY'
   | 'CRUD'
+  | 'READ_ONLY'
   | '%future added value';
 
 /** A grid of permissions for various hierarchical entity scopes. */
-export type EntityPermissionGrid = ExposesPermissions & PermissionGrid & CrudPermissionGrid & {
+export type EntityPermissionGrid = CrudPermissionGrid & ExposesPermissions & PermissionGrid & {
   __typename?: 'EntityPermissionGrid';
   /** A list of allowed actions for the given user on this entity (and its descendants). */
-  allowedActions: Array<Scalars['String']>;
+  allowedActions: Array<Scalars['String']['output']>;
   assets: AssetPermissionGrid;
-  create: Scalars['Boolean'];
-  delete: Scalars['Boolean'];
-  manageAccess: Scalars['Boolean'];
+  create: Scalars['Boolean']['output'];
+  delete: Scalars['Boolean']['output'];
+  manageAccess: Scalars['Boolean']['output'];
   /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
-  read: Scalars['Boolean'];
-  update: Scalars['Boolean'];
+  read: Scalars['Boolean']['output'];
+  update: Scalars['Boolean']['output'];
 };
 
-/** A property that references another entity within the system. */
-export type EntityProperty = SchemaProperty & ScalarProperty & HasAvailableEntities & {
+/**
+ * A property that references another entity within the system.
+ *
+ */
+export type EntityProperty = HasAvailableEntities & ScalarProperty & SchemaProperty & {
   __typename?: 'EntityProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -4175,48 +4638,69 @@ export type EntityProperty = SchemaProperty & ScalarProperty & HasAvailableEntit
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
-  /** Expose all available entities for this schema property. */
+  array: Scalars['Boolean']['output'];
+  /**
+   * Expose all available entities for this schema property.
+   *
+   */
   availableEntities: Array<EntitySelectOption>;
   /**
    * A human-readable description for the property. It should describe the purpose of the
    * property as well as some details about the types of values it looks for.
    *
    * It can be rendered as help text, hints, etc.
+   *
    */
-  description?: Maybe<Scalars['String']>;
-  /** A single reference to another entity within the system. */
+  description?: Maybe<Scalars['String']['output']>;
+  /**
+   * A single reference to another entity within the system.
+   *
+   */
   entity?: Maybe<AnyEntity>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
-  label: Scalars['String'];
+  /**
+   * A human-readable label for the schema property.
+   *
+   */
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -4224,8 +4708,9 @@ export type EntityProperty = SchemaProperty & ScalarProperty & HasAvailableEntit
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -4234,6 +4719,7 @@ export type EntityProperty = SchemaProperty & ScalarProperty & HasAvailableEntit
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
@@ -4242,31 +4728,68 @@ export type EntityProperty = SchemaProperty & ScalarProperty & HasAvailableEntit
  * This type is used for authorization and filtering, and can
  * distinguish an entity that has been linked to another from
  * one that exists directly in a hierarchy.
+ *
  */
 export type EntityScope =
-  /** A `Community` that is an actual descendant at this point in the hierarchy. */
-  | 'COMMUNITY'
-  /** A `Collection` that is an actual descendant at this point in the hierarchy. */
+  /**
+   * A `Collection` that is an actual descendant at this point in the hierarchy.
+   *
+   */
   | 'COLLECTION'
-  /** An `Item` that is an actual descendant at this point in the hierarchy. */
-  | 'ITEM'
-  /** A `Community` that was linked from another `Community`. */
-  | 'COMMUNITY_LINKED_COMMUNITY'
-  /** A `Collection` that was linked from a `Community`. */
-  | 'COMMUNITY_LINKED_COLLECTION'
-  /** An `Item` that was linked from a `Community`. */
-  | 'COMMUNITY_LINKED_ITEM'
-  /** A `Community` that was linked from a `Collection`. */
-  | 'COLLECTION_LINKED_COMMUNITY'
-  /** A `Collection` that was linked from another `Collection`. */
+  /**
+   * A `Collection` that was linked from another `Collection`.
+   *
+   */
   | 'COLLECTION_LINKED_COLLECTION'
-  /** An `Item` that was linked from a `Collection`. */
+  /**
+   * A `Community` that was linked from a `Collection`.
+   *
+   */
+  | 'COLLECTION_LINKED_COMMUNITY'
+  /**
+   * An `Item` that was linked from a `Collection`.
+   *
+   */
   | 'COLLECTION_LINKED_ITEM'
-  /** A `Community` that was linked from an `Item`. */
-  | 'ITEM_LINKED_COMMUNITY'
-  /** A `Collection` that was linked from an `Item`. */
+  /**
+   * A `Community` that is an actual descendant at this point in the hierarchy.
+   *
+   */
+  | 'COMMUNITY'
+  /**
+   * A `Collection` that was linked from a `Community`.
+   *
+   */
+  | 'COMMUNITY_LINKED_COLLECTION'
+  /**
+   * A `Community` that was linked from another `Community`.
+   *
+   */
+  | 'COMMUNITY_LINKED_COMMUNITY'
+  /**
+   * An `Item` that was linked from a `Community`.
+   *
+   */
+  | 'COMMUNITY_LINKED_ITEM'
+  /**
+   * An `Item` that is an actual descendant at this point in the hierarchy.
+   *
+   */
+  | 'ITEM'
+  /**
+   * A `Collection` that was linked from an `Item`.
+   *
+   */
   | 'ITEM_LINKED_COLLECTION'
-  /** An `Item` that was linked from another `Item`. */
+  /**
+   * A `Community` that was linked from an `Item`.
+   *
+   */
+  | 'ITEM_LINKED_COMMUNITY'
+  /**
+   * An `Item` that was linked from another `Item`.
+   *
+   */
   | 'ITEM_LINKED_ITEM'
   | '%future added value';
 
@@ -4277,52 +4800,59 @@ export type EntitySelectOption = HasEntityBreadcrumbs & {
   breadcrumbs: Array<EntityBreadcrumb>;
   entity: AnyEntity;
   kind: EntityKind;
-  label: Scalars['String'];
+  label: Scalars['String']['output'];
   schemaVersion: SchemaVersion;
-  slug: Scalars['Slug'];
-  value: Scalars['ID'];
+  slug: Scalars['Slug']['output'];
+  value: Scalars['ID']['output'];
 };
 
 /** The level of visibility an entity can have */
 export type EntityVisibility =
-  | 'VISIBLE'
   | 'HIDDEN'
   | 'LIMITED'
+  | 'VISIBLE'
   | '%future added value';
 
 /**
  * Filter entities by their visibility.
  *
  * `VISIBLE` is the default in most cases. Any other option requires special privileges.
+ *
  */
 export type EntityVisibilityFilter =
   /** Do not filter entities by their visibility at all. */
   | 'ALL'
-  /** Fetch only *currently visible* entities. */
-  | 'VISIBLE'
   /** Fetch only *currently hidden* entities. */
   | 'HIDDEN'
+  /** Fetch only *currently visible* entities. */
+  | 'VISIBLE'
   | '%future added value';
 
-/** Require that `path = value`. */
+/**
+ * Require that `path = value`.
+ *
+ */
 export type EqualsOperatorInput = {
-  path: Scalars['String'];
-  value: Scalars['JSON'];
+  path: Scalars['String']['input'];
+  value: Scalars['JSON']['input'];
 };
 
 export type ExposesEffectiveAccess = {
-  /** User-specific access permissions for this object. */
+  /**
+   * User-specific access permissions for this object.
+   *
+   */
   effectiveAccess: EffectiveAccess;
 };
 
 export type ExposesPermissions = {
   /** A list of allowed actions for the given user on this entity (and its descendants). */
-  allowedActions: Array<Scalars['String']>;
+  allowedActions: Array<Scalars['String']['output']>;
   /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
 };
 
-export type FloatProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
+export type FloatProperty = ScalarProperty & SchemaProperty & SearchableProperty & {
   __typename?: 'FloatProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -4330,39 +4860,50 @@ export type FloatProperty = SchemaProperty & ScalarProperty & SearchableProperty
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
-  defaultFloat?: Maybe<Scalars['Float']>;
-  description?: Maybe<Scalars['String']>;
-  floatValue?: Maybe<Scalars['Float']>;
+  array: Scalars['Boolean']['output'];
+  defaultFloat?: Maybe<Scalars['Float']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  floatValue?: Maybe<Scalars['Float']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  label: Scalars['String'];
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -4370,10 +4911,11 @@ export type FloatProperty = SchemaProperty & ScalarProperty & SearchableProperty
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   searchOperators: Array<SearchOperator>;
-  searchPath: Scalars['String'];
+  searchPath: Scalars['String']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -4382,6 +4924,7 @@ export type FloatProperty = SchemaProperty & ScalarProperty & SearchableProperty
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
@@ -4390,11 +4933,11 @@ export type FloatProperty = SchemaProperty & ScalarProperty & SearchableProperty
 export type FullText = {
   __typename?: 'FullText';
   /** The full-text searchable value itself */
-  content?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['String']['output']>;
   /** The content type for the text, if any */
   kind?: Maybe<FullTextKind>;
   /** The ISO-639 language code of this content, if any */
-  lang?: Maybe<Scalars['String']>;
+  lang?: Maybe<Scalars['String']['output']>;
 };
 
 /** It is necessary for the system to know what kind the content is in order to properly index it */
@@ -4404,7 +4947,7 @@ export type FullTextKind =
   | 'TEXT'
   | '%future added value';
 
-export type FullTextProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
+export type FullTextProperty = ScalarProperty & SchemaProperty & SearchableProperty & {
   __typename?: 'FullTextProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -4412,38 +4955,49 @@ export type FullTextProperty = SchemaProperty & ScalarProperty & SearchablePrope
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
-  description?: Maybe<Scalars['String']>;
+  array: Scalars['Boolean']['output'];
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
+  fullPath: Scalars['String']['output'];
   fullText?: Maybe<FullText>;
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  label: Scalars['String'];
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -4451,10 +5005,11 @@ export type FullTextProperty = SchemaProperty & ScalarProperty & SearchablePrope
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   searchOperators: Array<SearchOperator>;
-  searchPath: Scalars['String'];
+  searchPath: Scalars['String']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -4463,6 +5018,7 @@ export type FullTextProperty = SchemaProperty & ScalarProperty & SearchablePrope
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
@@ -4471,7 +5027,7 @@ export type FullTextProperty = SchemaProperty & ScalarProperty & SearchablePrope
 export type GlobalAccessControlList = ExposesPermissions & {
   __typename?: 'GlobalAccessControlList';
   /** A list of allowed actions for the given user on this entity (and its descendants). */
-  allowedActions: Array<Scalars['String']>;
+  allowedActions: Array<Scalars['String']['output']>;
   /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
 };
@@ -4479,7 +5035,7 @@ export type GlobalAccessControlList = ExposesPermissions & {
 /** The global configuration for this installation of WDP. */
 export type GlobalConfiguration = Node & {
   __typename?: 'GlobalConfiguration';
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   /** Settings specific to this institution. */
   institution: InstitutionSettings;
   /** The logo attachment. It may not always be present. */
@@ -4494,11 +5050,11 @@ export type GlobalConfiguration = Node & {
 
 /** Autogenerated input type of GrantAccess */
 export type GrantAccessInput = {
-  entityId: Scalars['ID'];
-  roleId: Scalars['ID'];
-  userId: Scalars['ID'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  entityId: Scalars['ID']['input'];
+  roleId: Scalars['ID']['input'];
+  userId: Scalars['ID']['input'];
 };
 
 /** Autogenerated return type of GrantAccess */
@@ -4506,15 +5062,15 @@ export type GrantAccessPayload = StandardMutationPayload & {
   __typename?: 'GrantAccessPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   entity?: Maybe<AnyEntity>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Whether or not access was granted */
-  granted?: Maybe<Scalars['Boolean']>;
+  granted?: Maybe<Scalars['Boolean']['output']>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 export type GroupProperty = SchemaProperty & {
@@ -4525,36 +5081,44 @@ export type GroupProperty = SchemaProperty & {
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
+  array: Scalars['Boolean']['output'];
   /**
    * A human-readable description for the property. It should describe the purpose of the
    * property as well as some details about the types of values it looks for.
    *
    * It can be rendered as help text, hints, etc.
+   *
    */
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  legend?: Maybe<Scalars['String']>;
+  legend?: Maybe<Scalars['String']['output']>;
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   properties: Array<AnyScalarProperty>;
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -4563,6 +5127,7 @@ export type GroupProperty = SchemaProperty & {
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
@@ -4572,19 +5137,26 @@ export type HasAttachmentStorage = {
   /**
    * This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
    * Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+   *
    */
   storage?: Maybe<AttachmentStorage>;
 };
 
 export type HasAvailableEntities = {
-  /** Expose all available entities for this schema property. */
+  /**
+   * Expose all available entities for this schema property.
+   *
+   */
   availableEntities: Array<EntitySelectOption>;
 };
 
 /** An entity that has a DOI */
 export type HasDoi = {
-  /** The Digital Object Identifier for this entity. See https://doi.org */
-  doi?: Maybe<Scalars['String']>;
+  /**
+   * The Digital Object Identifier for this entity. See https://doi.org
+   *
+   */
+  doi?: Maybe<Scalars['String']['output']>;
 };
 
 /** Entity models implement their own analytics views that come pre-filtered */
@@ -4598,31 +5170,31 @@ export type HasEntityAnalytics = {
 
 /** Entity models implement their own analytics views that come pre-filtered */
 export type HasEntityAnalyticsAssetDownloadsArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  precision?: Maybe<AnalyticsPrecision>;
-  subjectIds?: Maybe<Array<Scalars['ID']>>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  precision?: InputMaybe<AnalyticsPrecision>;
+  subjectIds?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
 
 /** Entity models implement their own analytics views that come pre-filtered */
 export type HasEntityAnalyticsAssetDownloadsByRegionArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  subjectIds?: Maybe<Array<Scalars['ID']>>;
-  usOnly?: Maybe<Scalars['Boolean']>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  subjectIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  usOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** Entity models implement their own analytics views that come pre-filtered */
 export type HasEntityAnalyticsEntityViewsArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  precision?: Maybe<AnalyticsPrecision>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  precision?: InputMaybe<AnalyticsPrecision>;
 };
 
 
 /** Entity models implement their own analytics views that come pre-filtered */
 export type HasEntityAnalyticsEntityViewsByRegionArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  usOnly?: Maybe<Scalars['Boolean']>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  usOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type HasEntityBreadcrumbs = {
@@ -4632,8 +5204,11 @@ export type HasEntityBreadcrumbs = {
 
 /** An entity that has an ISSN */
 export type HasIssn = {
-  /** The International Standard Serial Number for this entity. See https://issn.org */
-  issn?: Maybe<Scalars['String']>;
+  /**
+   * The International Standard Serial Number for this entity. See https://issn.org
+   *
+   */
+  issn?: Maybe<Scalars['String']['output']>;
 };
 
 export type HasSchemaProperties = {
@@ -4650,28 +5225,29 @@ export type HeroImageLayout =
 /**
  * A ranking of a schema from a certain point in the hierarchy. This can be used to generate
  * navigation or calculate statistics about what various entities contain.
+ *
  */
-export type HierarchicalSchemaRank = Node & DescribesSchema & {
+export type HierarchicalSchemaRank = DescribesSchema & Node & {
   __typename?: 'HierarchicalSchemaRank';
   /** The number of entities that implement this schema from this point in the hierarchy. */
-  count: Scalars['Int'];
+  count: Scalars['Int']['output'];
   /** A count of distinct versions of this specific schema type from this point of the hierarchy. */
-  distinctVersionCount: Scalars['Int'];
-  id: Scalars['ID'];
+  distinctVersionCount: Scalars['Int']['output'];
+  id: Scalars['ID']['output'];
   /** A unique (per-namespace) value that names the schema within the system. */
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['output'];
   /** The kind of entity this schema applies to */
   kind: SchemaKind;
   /** A human-readable name for the schema */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   /** A unique namespace the schema lives in */
-  namespace: Scalars['String'];
+  namespace: Scalars['String']['output'];
   /** The rank of this schema at this point in the hierarchy, based on the statistical mode of its depth relative to the parent. */
-  rank: Scalars['Int'];
+  rank: Scalars['Int']['output'];
   /** A reference to the discrete schema definition */
   schemaDefinition: SchemaDefinition;
   /** A fully-qualified unique value that can be used to refer to this schema within the system */
-  slug: Scalars['String'];
+  slug: Scalars['String']['output'];
   /** A reference to the schema versions from this ranking */
   versionRanks: Array<HierarchicalSchemaVersionRank>;
 };
@@ -4679,76 +5255,79 @@ export type HierarchicalSchemaRank = Node & DescribesSchema & {
 /**
  * A ranking of a schema version from a certain point in the hierarchy. This can be used to generate
  * navigation or calculate statistics about what versions of a schema various entities contain.
+ *
  */
-export type HierarchicalSchemaVersionRank = Node & DescribesSchema & {
+export type HierarchicalSchemaVersionRank = DescribesSchema & Node & {
   __typename?: 'HierarchicalSchemaVersionRank';
   /** The number of entities that implement this schema from this point in the hierarchy. */
-  count: Scalars['Int'];
-  id: Scalars['ID'];
+  count: Scalars['Int']['output'];
+  id: Scalars['ID']['output'];
   /** A unique (per-namespace) value that names the schema within the system. */
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['output'];
   /** The kind of entity this schema applies to */
   kind: SchemaKind;
   /** A human-readable name for the schema */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   /** A unique namespace the schema lives in */
-  namespace: Scalars['String'];
+  namespace: Scalars['String']['output'];
   /** The rank of this schema at this point in the hierarchy, based on the statistical mode of its depth relative to the parent. */
-  rank: Scalars['Int'];
+  rank: Scalars['Int']['output'];
   /** A reference to the discrete schema definition */
   schemaDefinition: SchemaDefinition;
   /** A reference to the discrete schema version */
   schemaVersion: SchemaVersion;
   /** A fully-qualified unique value that can be used to refer to this schema within the system */
-  slug: Scalars['String'];
+  slug: Scalars['String']['output'];
   /** A semantic version associated with the schema */
-  versionNumber: Scalars['String'];
+  versionNumber: Scalars['String']['output'];
 };
-
-
 
 /**
  * An interface for various component types of an image attachment
  * that allow it to be identified in name and purpose.
+ *
  */
 export type Image = {
   /** Alt text for accessible images */
-  alt?: Maybe<Scalars['String']>;
+  alt?: Maybe<Scalars['String']['output']>;
   /** The MIME type of the image, if present */
-  contentType?: Maybe<Scalars['String']>;
+  contentType?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use width and height directly. */
-  dimensions?: Maybe<Array<Scalars['Int']>>;
+  dimensions?: Maybe<Array<Scalars['Int']['output']>>;
   /** The height of the image, if present */
-  height?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']['output']>;
   /**
    * The original filename, if one was detected during attachment.
    *
    * Filename detection is not always consistent across browsers, so this
    * may not always be present, even with a valid attachment.
+   *
    */
-  originalFilename?: Maybe<Scalars['String']>;
+  originalFilename?: Maybe<Scalars['String']['output']>;
   /**
    * The intended purpose of this image attachment. This is intended to
    * help fragments that operate solely on image subcomponents to have
    * some context for what they are without extra work.
+   *
    */
   purpose: ImagePurpose;
   /**
    * This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
    * Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+   *
    */
   storage?: Maybe<AttachmentStorage>;
   /** The URL for the image, if present. */
-  url?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']['output']>;
   /** The width of the image, if present */
-  width?: Maybe<Scalars['Int']>;
+  width?: Maybe<Scalars['Int']['output']>;
 };
 
 /** An attached image with standardized derivatives. */
 export type ImageAttachment = HasAttachmentStorage & ImageIdentification & {
   __typename?: 'ImageAttachment';
   /** Alt text for accessible images */
-  alt?: Maybe<Scalars['String']>;
+  alt?: Maybe<Scalars['String']['output']>;
   /** A hero-sized mapping for derivative formats */
   hero: ImageSize;
   /** A large-sized mapping for derivative formats */
@@ -4764,12 +5343,14 @@ export type ImageAttachment = HasAttachmentStorage & ImageIdentification & {
    *
    * Filename detection is not always consistent across browsers, so this
    * may not always be present, even with a valid attachment.
+   *
    */
-  originalFilename?: Maybe<Scalars['String']>;
+  originalFilename?: Maybe<Scalars['String']['output']>;
   /**
    * The intended purpose of this image attachment. This is intended to
    * help fragments that operate solely on image subcomponents to have
    * some context for what they are without extra work.
+   *
    */
   purpose: ImagePurpose;
   /** A small-sized mapping for derivative formats */
@@ -4777,6 +5358,7 @@ export type ImageAttachment = HasAttachmentStorage & ImageIdentification & {
   /**
    * This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
    * Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+   *
    */
   storage?: Maybe<AttachmentStorage>;
   /** A thumb-sized mapping for derivative formats */
@@ -4784,33 +5366,35 @@ export type ImageAttachment = HasAttachmentStorage & ImageIdentification & {
 };
 
 /** A derivative of the image with a specific size and format. */
-export type ImageDerivative = ImageIdentification & Image & {
+export type ImageDerivative = Image & ImageIdentification & {
   __typename?: 'ImageDerivative';
   /** Alt text for accessible images */
-  alt?: Maybe<Scalars['String']>;
+  alt?: Maybe<Scalars['String']['output']>;
   /** The MIME type of the image, if present */
-  contentType?: Maybe<Scalars['String']>;
+  contentType?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use width and height directly. */
-  dimensions?: Maybe<Array<Scalars['Int']>>;
+  dimensions?: Maybe<Array<Scalars['Int']['output']>>;
   /** The format of this derivative */
   format: ImageDerivativeFormat;
   /** The height of the image, if present */
-  height?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']['output']>;
   /** The maximum height this size can occupy */
-  maxHeight?: Maybe<Scalars['Int']>;
+  maxHeight?: Maybe<Scalars['Int']['output']>;
   /** The maximum width this size can occupy */
-  maxWidth?: Maybe<Scalars['Int']>;
+  maxWidth?: Maybe<Scalars['Int']['output']>;
   /**
    * The original filename, if one was detected during attachment.
    *
    * Filename detection is not always consistent across browsers, so this
    * may not always be present, even with a valid attachment.
+   *
    */
-  originalFilename?: Maybe<Scalars['String']>;
+  originalFilename?: Maybe<Scalars['String']['output']>;
   /**
    * The intended purpose of this image attachment. This is intended to
    * help fragments that operate solely on image subcomponents to have
    * some context for what they are without extra work.
+   *
    */
   purpose: ImagePurpose;
   /** The size of this derivative */
@@ -4818,36 +5402,43 @@ export type ImageDerivative = ImageIdentification & Image & {
   /**
    * This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
    * Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+   *
    */
   storage?: Maybe<AttachmentStorage>;
   /** The URL for the image, if present. */
-  url?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']['output']>;
   /** The width of the image, if present */
-  width?: Maybe<Scalars['Int']>;
+  width?: Maybe<Scalars['Int']['output']>;
 };
 
 /** The format of a specific image derivative. */
 export type ImageDerivativeFormat =
-  /** A more efficiently compressed image supported by most browsers worldwide. */
-  | 'WEBP'
-  /** A Portable Network Graphics-formatted file, for legacy support on most all browsers. */
+  /**
+   * A Portable Network Graphics-formatted file, for legacy support on most all browsers.
+   *
+   */
   | 'PNG'
+  /**
+   * A more efficiently compressed image supported by most browsers worldwide.
+   *
+   */
+  | 'WEBP'
   | '%future added value';
 
 /** The size of a specific image derivative. */
 export type ImageDerivativeSize =
-  /** A thumb-sized image, constrained to 100px wide by 100px high. */
-  | 'THUMB'
-  /** A small-sized image, constrained to 250px wide by 250px high. */
-  | 'SMALL'
-  /** A medium-sized image, constrained to 500px wide by 500px high. */
-  | 'MEDIUM'
-  /** A large-sized image, constrained to 750px wide by 750px high. */
-  | 'LARGE'
   /** A hero-sized image, constrained to 2880px wide with no height limit. */
   | 'HERO'
+  /** A large-sized image, constrained to 750px wide by 750px high. */
+  | 'LARGE'
+  /** A medium-sized image, constrained to 500px wide by 500px high. */
+  | 'MEDIUM'
   /** A logo intended to be used when the site title is hidden, constrained to 80px high with no width limit. */
   | 'SANS_TEXT'
+  /** A small-sized image, constrained to 250px wide by 250px high. */
+  | 'SMALL'
+  /** A thumb-sized image, constrained to 100px wide by 100px high. */
+  | 'THUMB'
   /** A logo intended to be used when the site title is visible, constrained to 80px wide by 80px high. */
   | 'WITH_TEXT'
   | '%future added value';
@@ -4855,6 +5446,7 @@ export type ImageDerivativeSize =
 /**
  * An interface for various component types of an image attachment
  * that allow it to be identified in name and purpose.
+ *
  */
 export type ImageIdentification = {
   /**
@@ -4862,12 +5454,14 @@ export type ImageIdentification = {
    *
    * Filename detection is not always consistent across browsers, so this
    * may not always be present, even with a valid attachment.
+   *
    */
-  originalFilename?: Maybe<Scalars['String']>;
+  originalFilename?: Maybe<Scalars['String']['output']>;
   /**
    * The intended purpose of this image attachment. This is intended to
    * help fragments that operate solely on image subcomponents to have
    * some context for what they are without extra work.
+   *
    */
   purpose: ImagePurpose;
 };
@@ -4876,13 +5470,13 @@ export type ImageIdentification = {
 export type ImageMetadata = {
   __typename?: 'ImageMetadata';
   /** Alt text for accessible images */
-  alt?: Maybe<Scalars['String']>;
+  alt?: Maybe<Scalars['String']['output']>;
 };
 
 /** Shared metadata for updating image attachments */
 export type ImageMetadataInput = {
   /** Alt text for accessible images */
-  alt?: Maybe<Scalars['String']>;
+  alt?: InputMaybe<Scalars['String']['input']>;
 };
 
 /**
@@ -4891,56 +5485,61 @@ export type ImageMetadataInput = {
  *
  * As this is the raw image, it is not optimized for display in the frontend and is best
  * used only as a fallback.
+ *
  */
-export type ImageOriginal = HasAttachmentStorage & ImageIdentification & Image & {
+export type ImageOriginal = HasAttachmentStorage & Image & ImageIdentification & {
   __typename?: 'ImageOriginal';
   /** Alt text for accessible images */
-  alt?: Maybe<Scalars['String']>;
+  alt?: Maybe<Scalars['String']['output']>;
   /** The MIME type of the image, if present */
-  contentType?: Maybe<Scalars['String']>;
+  contentType?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use width and height directly. */
-  dimensions?: Maybe<Array<Scalars['Int']>>;
+  dimensions?: Maybe<Array<Scalars['Int']['output']>>;
   /** The height of the image, if present */
-  height?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']['output']>;
   /**
    * The original filename, if one was detected during attachment.
    *
    * Filename detection is not always consistent across browsers, so this
    * may not always be present, even with a valid attachment.
+   *
    */
-  originalFilename?: Maybe<Scalars['String']>;
+  originalFilename?: Maybe<Scalars['String']['output']>;
   /**
    * The intended purpose of this image attachment. This is intended to
    * help fragments that operate solely on image subcomponents to have
    * some context for what they are without extra work.
+   *
    */
   purpose: ImagePurpose;
   /**
    * This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
    * Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+   *
    */
   storage?: Maybe<AttachmentStorage>;
   /** The URL for the image, if present. */
-  url?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']['output']>;
   /** The width of the image, if present */
-  width?: Maybe<Scalars['Int']>;
+  width?: Maybe<Scalars['Int']['output']>;
 };
 
 /**
  * Image attachments on entities fulfill different purposes. This can
  * be used to distinguish them at the `ImageAttachment` level.
+ *
  */
 export type ImagePurpose =
   /** A hero image. */
   | 'HERO_IMAGE'
   /** A logo (on a Community). */
   | 'LOGO'
+  /** A fallback for otherwise-unspecified images. */
+  | 'OTHER'
   /** The logo for the site. */
   | 'SITE_LOGO'
   /** A thumbnail that appears next to the entity in lists, grids, etc. */
   | 'THUMBNAIL'
-  /** A fallback for otherwise-unspecified images. */
-  | 'OTHER'
   | '%future added value';
 
 /**
@@ -4949,59 +5548,63 @@ export type ImagePurpose =
  *
  * It is further broken down into the various formats
  * the WDP generates, presently WEBP and PNG.
+ *
  */
 export type ImageSize = ImageIdentification & {
   __typename?: 'ImageSize';
   /** Alt text for accessible images */
-  alt?: Maybe<Scalars['String']>;
+  alt?: Maybe<Scalars['String']['output']>;
   /** The (maximum) height for this size. */
-  height?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']['output']>;
   /**
    * The original filename, if one was detected during attachment.
    *
    * Filename detection is not always consistent across browsers, so this
    * may not always be present, even with a valid attachment.
+   *
    */
-  originalFilename?: Maybe<Scalars['String']>;
+  originalFilename?: Maybe<Scalars['String']['output']>;
   /** A png-formatted image derivative for this particular size. */
   png: ImageDerivative;
   /**
    * The intended purpose of this image attachment. This is intended to
    * help fragments that operate solely on image subcomponents to have
    * some context for what they are without extra work.
+   *
    */
   purpose: ImagePurpose;
   size: ImageDerivativeSize;
   /** A webp-formatted image derivative for this particular size. */
   webp: ImageDerivative;
   /** The (maximum) width for this size. */
-  width?: Maybe<Scalars['Int']>;
+  width?: Maybe<Scalars['Int']['output']>;
 };
 
 /**
  * Require that the `path` must include or be one of the strings provided in `value`.
  *
  * The actual value of `path` may be an array (multiselect) or string (select).
+ *
  */
 export type InAnyOperatorInput = {
-  path: Scalars['String'];
-  value: Array<Scalars['String']>;
+  path: Scalars['String']['input'];
+  value: Array<Scalars['String']['input']>;
 };
 
 /** Configuration settings for the specific institution featured on this installation. */
 export type InstitutionSettings = {
   __typename?: 'InstitutionSettings';
   /** The name of the institution. */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
 };
 
 /** An object for updating the site's configuration */
 export type InstitutionSettingsInput = {
   /** The name of the institution. */
-  name?: Maybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type IntegerProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
+export type IntegerProperty = ScalarProperty & SchemaProperty & SearchableProperty & {
   __typename?: 'IntegerProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -5009,39 +5612,50 @@ export type IntegerProperty = SchemaProperty & ScalarProperty & SearchableProper
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
-  defaultInteger?: Maybe<Scalars['Int']>;
-  description?: Maybe<Scalars['String']>;
+  array: Scalars['Boolean']['output'];
+  defaultInteger?: Maybe<Scalars['Int']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
-  integerValue?: Maybe<Scalars['Int']>;
+  integerValue?: Maybe<Scalars['Int']['output']>;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  label: Scalars['String'];
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -5049,10 +5663,11 @@ export type IntegerProperty = SchemaProperty & ScalarProperty & SearchableProper
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   searchOperators: Array<SearchOperator>;
-  searchPath: Scalars['String'];
+  searchPath: Scalars['String']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -5061,12 +5676,13 @@ export type IntegerProperty = SchemaProperty & ScalarProperty & SearchableProper
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
 
 /** An item that belongs to a collection */
-export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobalEntityDates & ChildEntity & HasEntityAnalytics & HasDoi & HasIssn & Contributable & HasSchemaProperties & Attachable & SchemaInstance & Searchable & Node & Sluggable & {
+export type Item = Accessible & Attachable & ChildEntity & Contributable & Entity & HasDoi & HasEntityAnalytics & HasEntityBreadcrumbs & HasIssn & HasSchemaProperties & Node & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable & {
   __typename?: 'Item';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -5074,16 +5690,18 @@ export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobal
   /** A polymorphic connection for access grants from an entity */
   allAccessGrants: AnyAccessGrantConnection;
   /** A list of allowed actions for the given user on this entity (and its descendants). */
-  allowedActions: Array<Scalars['String']>;
+  allowedActions: Array<Scalars['String']['output']>;
   /**
    * Directly fetch a defined named ancestor by its name. It can be null,
    * either because an invalid name was provided, the schema hierarchy is
    * incomplete, or the association itself is optional.
+   *
    */
   ancestorByName?: Maybe<AnyEntity>;
   /**
    * Look up an ancestor for this entity that implements a specific type. It ascends from this entity,
    * so it will first check the parent, then the grandparent, and so on.
+   *
    */
   ancestorOfType?: Maybe<AnyEntity>;
   /** Look up an announcement for this entity by slug */
@@ -5100,7 +5718,10 @@ export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobal
   assignableRoles: Array<Role>;
   /** Retrieve a list of user & role assignments for this entity */
   assignedUsers: ContextualPermissionConnection;
-  /** Expose all available entities for this schema property. */
+  /**
+   * Expose all available entities for this schema property.
+   *
+   */
   availableEntitiesFor: Array<EntitySelectOption>;
   /** Previous entries in the hierarchy */
   breadcrumbs: Array<EntityBreadcrumb>;
@@ -5112,44 +5733,68 @@ export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobal
   /** Contributors to this element */
   contributors: AnyContributorConnection;
   /** The date this entity was added to the WDP */
-  createdAt: Scalars['ISO8601DateTime'];
-  /** Whether the entity is _currently_ hidden, based on the server's time zone. */
-  currentlyHidden: Scalars['Boolean'];
-  /** Whether the entity is _currently_ visible, based on the server's time zone. */
-  currentlyVisible: Scalars['Boolean'];
-  /** Search and retrieve *all* descendants of this `Entity`, regardless of type. */
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Whether the entity is _currently_ hidden, based on the server's time zone.
+   *
+   */
+  currentlyHidden: Scalars['Boolean']['output'];
+  /**
+   * Whether the entity is _currently_ visible, based on the server's time zone.
+   *
+   */
+  currentlyVisible: Scalars['Boolean']['output'];
+  /**
+   * Search and retrieve *all* descendants of this `Entity`, regardless of type.
+   *
+   */
   descendants: EntityDescendantConnection;
-  /** The Digital Object Identifier for this entity. See https://doi.org */
-  doi?: Maybe<Scalars['String']>;
+  /**
+   * The Digital Object Identifier for this entity. See https://doi.org
+   *
+   */
+  doi?: Maybe<Scalars['String']['output']>;
   entityViews: AnalyticsEventCountSummary;
   entityViewsByRegion: AnalyticsRegionCountSummary;
   /** Retrieve the first matching item beneath this item. */
   firstItem?: Maybe<Item>;
   /** Whether this item has any child items */
-  hasItems: Scalars['Boolean'];
+  hasItems: Scalars['Boolean']['output'];
   /** A hero image for the entity, suitable for displaying in page headers */
   heroImage: ImageAttachment;
   /** Configurable metadata for the hero_image attachment */
   heroImageMetadata?: Maybe<ImageMetadata>;
-  /** Whether the entity's visibility is set to `HIDDEN` */
-  hidden: Scalars['Boolean'];
-  /** Specify a time to check to see if the entity will be hidden. */
-  hiddenAsOf: Scalars['Boolean'];
+  /**
+   * Whether the entity's visibility is set to `HIDDEN`
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
+  /**
+   * Specify a time to check to see if the entity will be hidden.
+   *
+   */
+  hiddenAsOf: Scalars['Boolean']['output'];
   /** If present, this is the timestamp the entity was hidden at */
-  hiddenAt?: Maybe<Scalars['ISO8601DateTime']>;
+  hiddenAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   /** The depth of the hierarchical entity, taking into account any parent types */
-  hierarchicalDepth: Scalars['Int'];
-  id: Scalars['ID'];
+  hierarchicalDepth: Scalars['Int']['output'];
+  id: Scalars['ID']['output'];
   /** A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers. */
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['output'];
   inCommunityOrdering?: Maybe<OrderingEntry>;
-  /** The initial ordering to display for this entity. */
+  /**
+   * The initial ordering to display for this entity.
+   *
+   */
   initialOrdering?: Maybe<Ordering>;
-  /** The International Standard Serial Number for this entity. See https://issn.org */
-  issn?: Maybe<Scalars['String']>;
+  /**
+   * The International Standard Serial Number for this entity. See https://issn.org
+   *
+   */
+  issn?: Maybe<Scalars['String']['output']>;
   /** Retrieve the items beneath this item */
   items: ItemConnection;
-  leaf: Scalars['Boolean'];
+  leaf: Scalars['Boolean']['output'];
   /** Available link targets for this entity */
   linkTargetCandidates: LinkTargetCandidateConnection;
   links: EntityLinkConnection;
@@ -5159,13 +5804,17 @@ export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobal
    *
    * **Note**: Like breadcrumbs, this association is intentionally not paginated for ease of use,
    * because in practice a schema should not have many associations.
+   *
    */
   namedAncestors: Array<NamedAncestor>;
   /** Look up an ordering for this entity by identifier */
   ordering?: Maybe<Ordering>;
   /** Look up an ordering that is set up to handle a specific schema. */
   orderingForSchema?: Maybe<Ordering>;
-  /** Retrieve a connection of orderings for the parent object. */
+  /**
+   * Retrieve a connection of orderings for the parent object.
+   *
+   */
   orderings: OrderingConnection;
   /** Look up a page for this entity by slug */
   page?: Maybe<Page>;
@@ -5177,385 +5826,394 @@ export type Item = Accessible & HasEntityBreadcrumbs & Entity & ReferencesGlobal
   published: VariablePrecisionDate;
   /** Retrieve linked items of the same schema type */
   relatedItems: ItemConnection;
-  root: Scalars['Boolean'];
+  root: Scalars['Boolean']['output'];
   schemaDefinition: SchemaDefinition;
   /** The context for our schema instance. Includes form values and necessary referents. */
   schemaInstanceContext: SchemaInstanceContext;
   /** A list of schema properties associated with this instance or version. */
   schemaProperties: Array<AnySchemaProperty>;
-  /** Read a single schema property by its full path. */
+  /**
+   * Read a single schema property by its full path.
+   *
+   */
   schemaProperty?: Maybe<AnySchemaProperty>;
   schemaRanks: Array<HierarchicalSchemaRank>;
   schemaVersion: SchemaVersion;
   /** Search from this level of the API using it as the origin */
   search: SearchScope;
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['output'];
   /** A human-readable subtitle for the entity */
-  subtitle?: Maybe<Scalars['String']>;
+  subtitle?: Maybe<Scalars['String']['output']>;
   /** A description of the contents of the entity */
-  summary?: Maybe<Scalars['String']>;
+  summary?: Maybe<Scalars['String']['output']>;
   /** A representative thumbnail for the entity, suitable for displaying in lists, tables, grids, etc. */
   thumbnail: ImageAttachment;
   /** Configurable metadata for the thumbnail attachment */
   thumbnailMetadata?: Maybe<ImageMetadata>;
   /** A human-readable title for the entity */
-  title: Scalars['String'];
+  title: Scalars['String']['output'];
   /** The date this entity was last updated within the WDP */
-  updatedAt: Scalars['ISO8601DateTime'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
   /** Access grants for specific users */
   userAccessGrants: UserCollectionAccessGrantConnection;
   /** Not presently used */
   userGroupAccessGrants: UserGroupCollectionAccessGrantConnection;
   /** If an entity is available in the frontend */
   visibility: EntityVisibility;
-  /** Whether the entity's visibility is set to `VISIBLE`. */
-  visible: Scalars['Boolean'];
+  /**
+   * Whether the entity's visibility is set to `VISIBLE`.
+   *
+   */
+  visible: Scalars['Boolean']['output'];
   /** If present, this is the timestamp an entity is visible after */
-  visibleAfterAt?: Maybe<Scalars['ISO8601DateTime']>;
-  /** Specify a time to check to see if the entity will be visible. */
-  visibleAsOf: Scalars['Boolean'];
+  visibleAfterAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
+  /**
+   * Specify a time to check to see if the entity will be visible.
+   *
+   */
+  visibleAsOf: Scalars['Boolean']['output'];
   /** If present, this is the timestamp an entity is visible until */
-  visibleUntilAt?: Maybe<Scalars['ISO8601DateTime']>;
+  visibleUntilAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemAccessGrantsArgs = {
-  subject?: Maybe<AccessGrantSubjectFilter>;
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  subject?: InputMaybe<AccessGrantSubjectFilter>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemAllAccessGrantsArgs = {
-  subject?: Maybe<AccessGrantSubjectFilter>;
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  subject?: InputMaybe<AccessGrantSubjectFilter>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemAncestorByNameArgs = {
-  name: Scalars['String'];
+  name: Scalars['String']['input'];
 };
 
 
 /** An item that belongs to a collection */
 export type ItemAncestorOfTypeArgs = {
-  schema: Scalars['String'];
+  schema: Scalars['String']['input'];
 };
 
 
 /** An item that belongs to a collection */
 export type ItemAnnouncementArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
 /** An item that belongs to a collection */
 export type ItemAnnouncementsArgs = {
-  order?: Maybe<AnnouncementOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<AnnouncementOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemAssetDownloadsArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  precision?: Maybe<AnalyticsPrecision>;
-  subjectIds?: Maybe<Array<Scalars['ID']>>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  precision?: InputMaybe<AnalyticsPrecision>;
+  subjectIds?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemAssetDownloadsByRegionArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  subjectIds?: Maybe<Array<Scalars['ID']>>;
-  usOnly?: Maybe<Scalars['Boolean']>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  subjectIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  usOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemAssetsArgs = {
-  order?: Maybe<SimpleOrder>;
-  kind?: Maybe<AssetKindFilter>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  kind?: InputMaybe<AssetKindFilter>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemAssignedUsersArgs = {
-  order?: Maybe<ContextualPermissionOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<ContextualPermissionOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemAvailableEntitiesForArgs = {
-  fullPath: Scalars['String'];
+  fullPath: Scalars['String']['input'];
 };
 
 
 /** An item that belongs to a collection */
 export type ItemChildrenArgs = {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemContributionsArgs = {
-  order?: Maybe<ContributionOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<ContributionOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemContributorsArgs = {
-  order?: Maybe<ContributorOrder>;
-  kind?: Maybe<ContributorFilterKind>;
-  prefix?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  kind?: InputMaybe<ContributorFilterKind>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<ContributorOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  prefix?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemDescendantsArgs = {
-  scope?: Maybe<EntityDescendantScopeFilter>;
-  schema?: Maybe<Array<Scalars['String']>>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  maxDepth?: InputMaybe<Scalars['Int']['input']>;
   order?: EntityDescendantOrder;
-  maxDepth?: Maybe<Scalars['Int']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
+  scope?: InputMaybe<EntityDescendantScopeFilter>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemEntityViewsArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  precision?: Maybe<AnalyticsPrecision>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  precision?: InputMaybe<AnalyticsPrecision>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemEntityViewsByRegionArgs = {
-  dateFilter?: Maybe<DateFilterInput>;
-  usOnly?: Maybe<Scalars['Boolean']>;
+  dateFilter?: InputMaybe<DateFilterInput>;
+  usOnly?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemFirstItemArgs = {
-  order?: Maybe<EntityOrder>;
-  schema?: Maybe<Array<Scalars['String']>>;
-  nodeFilter?: Maybe<SubtreeNodeFilter>;
+  nodeFilter?: InputMaybe<SubtreeNodeFilter>;
+  order?: InputMaybe<EntityOrder>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemHiddenAsOfArgs = {
-  time?: Maybe<Scalars['ISO8601DateTime']>;
+  time?: InputMaybe<Scalars['ISO8601DateTime']['input']>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemInCommunityOrderingArgs = {
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['input'];
 };
 
 
 /** An item that belongs to a collection */
 export type ItemItemsArgs = {
-  order?: Maybe<EntityOrder>;
-  schema?: Maybe<Array<Scalars['String']>>;
-  nodeFilter?: Maybe<SubtreeNodeFilter>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  nodeFilter?: InputMaybe<SubtreeNodeFilter>;
+  order?: InputMaybe<EntityOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemLinkTargetCandidatesArgs = {
-  kind?: Maybe<LinkTargetCandidateFilter>;
-  title?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  kind?: InputMaybe<LinkTargetCandidateFilter>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemLinksArgs = {
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemOrderingArgs = {
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['input'];
 };
 
 
 /** An item that belongs to a collection */
 export type ItemOrderingForSchemaArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
 /** An item that belongs to a collection */
 export type ItemOrderingsArgs = {
-  order?: Maybe<OrderingOrder>;
-  availability?: Maybe<OrderingAvailabilityFilter>;
-  visibility?: Maybe<OrderingVisibilityFilter>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  availability?: InputMaybe<OrderingAvailabilityFilter>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<OrderingOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  visibility?: InputMaybe<OrderingVisibilityFilter>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemPageArgs = {
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
 };
 
 
 /** An item that belongs to a collection */
 export type ItemPagesArgs = {
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemRelatedItemsArgs = {
-  order?: Maybe<EntityOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<EntityOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemSchemaPropertyArgs = {
-  fullPath: Scalars['String'];
+  fullPath: Scalars['String']['input'];
 };
 
 
 /** An item that belongs to a collection */
 export type ItemSearchArgs = {
-  maxDepth?: Maybe<Scalars['Int']>;
-  visibility?: Maybe<EntityVisibilityFilter>;
+  maxDepth?: InputMaybe<Scalars['Int']['input']>;
+  visibility?: InputMaybe<EntityVisibilityFilter>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemUserAccessGrantsArgs = {
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemUserGroupAccessGrantsArgs = {
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** An item that belongs to a collection */
 export type ItemVisibleAsOfArgs = {
-  time?: Maybe<Scalars['ISO8601DateTime']>;
+  time?: InputMaybe<Scalars['ISO8601DateTime']['input']>;
 };
 
 /** The connection type for Item. */
@@ -5573,23 +6231,23 @@ export type ItemConnection = Paginated & {
 export type ItemContribution = Contribution & Node & Sluggable & {
   __typename?: 'ItemContribution';
   /** A potentially-overridden value from person contributors */
-  affiliation?: Maybe<Scalars['String']>;
+  affiliation?: Maybe<Scalars['String']['output']>;
   contributor: AnyContributor;
   contributorKind: ContributorKind;
-  createdAt: Scalars['ISO8601DateTime'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
   /** A potentially-overridden display name value for all contributor types */
-  displayName: Scalars['String'];
-  id: Scalars['ID'];
+  displayName: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
   item: Item;
   /** A potentially-overridden value from organization contributors */
-  location?: Maybe<Scalars['String']>;
+  location?: Maybe<Scalars['String']['output']>;
   metadata: ContributionMetadata;
   /** An arbitrary text value describing the role the contributor had */
-  role?: Maybe<Scalars['String']>;
-  slug: Scalars['Slug'];
+  role?: Maybe<Scalars['String']['output']>;
+  slug: Scalars['Slug']['output'];
   /** A potentially-overridden value from person contributors */
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['ISO8601DateTime'];
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 /** The connection type for ItemContribution. */
@@ -5607,7 +6265,7 @@ export type ItemContributionConnection = Paginated & {
 export type ItemContributionEdge = {
   __typename?: 'ItemContributionEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: ItemContribution;
 };
@@ -5616,24 +6274,23 @@ export type ItemContributionEdge = {
 export type ItemEdge = {
   __typename?: 'ItemEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: Item;
 };
 
 export type ItemParent = Collection | Item | { __typename?: "%other" };
 
-
 /** Autogenerated input type of LinkEntity */
 export type LinkEntityInput = {
-  /** The ID for the source entity */
-  sourceId: Scalars['ID'];
-  /** The ID for the target entity */
-  targetId: Scalars['ID'];
+  /** A unique identifier for the client performing the mutation. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
   /** The 'type' of link */
   operator: EntityLinkOperator;
-  /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  /** The ID for the source entity */
+  sourceId: Scalars['ID']['input'];
+  /** The ID for the target entity */
+  targetId: Scalars['ID']['input'];
 };
 
 /** Autogenerated return type of LinkEntity */
@@ -5641,12 +6298,12 @@ export type LinkEntityPayload = StandardMutationPayload & {
   __typename?: 'LinkEntityPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   /** The created or updated link, if applicable */
   link?: Maybe<EntityLink>;
 };
@@ -5654,18 +6311,18 @@ export type LinkEntityPayload = StandardMutationPayload & {
 /** A candidate for a link target, scoped to a parent source */
 export type LinkTargetCandidate = Node & {
   __typename?: 'LinkTargetCandidate';
-  createdAt: Scalars['ISO8601DateTime'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
   /** How deeply nested the candidate entity is */
-  depth: Scalars['Int'];
-  id: Scalars['ID'];
+  depth: Scalars['Int']['output'];
+  id: Scalars['ID']['output'];
   kind: LinkTargetCandidateKind;
   /** The actual target */
   target: AnyLinkTarget;
   /** The targetID to provide to linkEntity */
-  targetId: Scalars['ID'];
+  targetId: Scalars['ID']['output'];
   /** The target entity's title */
-  title: Scalars['String'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 /** The connection type for LinkTargetCandidate. */
@@ -5683,7 +6340,7 @@ export type LinkTargetCandidateConnection = Paginated & {
 export type LinkTargetCandidateEdge = {
   __typename?: 'LinkTargetCandidateEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: LinkTargetCandidate;
 };
@@ -5704,7 +6361,7 @@ export type LinkTargetCandidateKind =
   | 'ITEM'
   | '%future added value';
 
-export type MarkdownProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
+export type MarkdownProperty = ScalarProperty & SchemaProperty & SearchableProperty & {
   __typename?: 'MarkdownProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -5712,39 +6369,50 @@ export type MarkdownProperty = SchemaProperty & ScalarProperty & SearchablePrope
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
-  content?: Maybe<Scalars['String']>;
-  default?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
+  array: Scalars['Boolean']['output'];
+  content?: Maybe<Scalars['String']['output']>;
+  default?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  label: Scalars['String'];
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -5752,10 +6420,11 @@ export type MarkdownProperty = SchemaProperty & ScalarProperty & SearchablePrope
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   searchOperators: Array<SearchOperator>;
-  searchPath: Scalars['String'];
+  searchPath: Scalars['String']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -5764,6 +6433,7 @@ export type MarkdownProperty = SchemaProperty & ScalarProperty & SearchablePrope
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
@@ -5774,13 +6444,14 @@ export type MarkdownProperty = SchemaProperty & ScalarProperty & SearchablePrope
  * As with top-level query searches, basic quoting and similar features are supported. See
  * [websearch_to_tsquery](https://www.postgresql.org/docs/13/textsearch-controls.html) for
  * more information.
+ *
  */
 export type MatchesOperatorInput = {
-  path: Scalars['String'];
-  value: Scalars['String'];
+  path: Scalars['String']['input'];
+  value: Scalars['String']['input'];
 };
 
-export type MultiselectProperty = SchemaProperty & ScalarProperty & OptionableProperty & SearchableProperty & {
+export type MultiselectProperty = OptionableProperty & ScalarProperty & SchemaProperty & SearchableProperty & {
   __typename?: 'MultiselectProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -5788,39 +6459,50 @@ export type MultiselectProperty = SchemaProperty & ScalarProperty & OptionablePr
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
-  defaultSelections?: Maybe<Array<Scalars['String']>>;
-  description?: Maybe<Scalars['String']>;
+  array: Scalars['Boolean']['output'];
+  defaultSelections?: Maybe<Array<Scalars['String']['output']>>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  label: Scalars['String'];
+  label: Scalars['String']['output'];
   options: Array<SelectOption>;
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -5828,11 +6510,12 @@ export type MultiselectProperty = SchemaProperty & ScalarProperty & OptionablePr
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   searchOperators: Array<SearchOperator>;
-  searchPath: Scalars['String'];
-  selections?: Maybe<Array<Scalars['String']>>;
+  searchPath: Scalars['String']['output'];
+  selections?: Maybe<Array<Scalars['String']['output']>>;
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -5841,11 +6524,15 @@ export type MultiselectProperty = SchemaProperty & ScalarProperty & OptionablePr
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type Mutation = {
   __typename?: 'Mutation';
   /** Change a schema version for an entity. */
@@ -5856,11 +6543,18 @@ export type Mutation = {
    *
    * This mutation is safe to call if none have been set previously,
    * it will just be a no-op in that case.
+   *
    */
   clearInitialOrdering?: Maybe<ClearInitialOrderingPayload>;
-  /** Create an announcement on an entity. */
+  /**
+   * Create an announcement on an entity.
+   *
+   */
   createAnnouncement?: Maybe<CreateAnnouncementPayload>;
-  /** Associate an uploaded asset (already present in the Tus cache store) with an entity. */
+  /**
+   * Associate an uploaded asset (already present in the Tus cache store) with an entity.
+   *
+   */
   createAsset?: Maybe<CreateAssetPayload>;
   createCollection?: Maybe<CreateCollectionPayload>;
   /** Create a community */
@@ -5871,34 +6565,68 @@ export type Mutation = {
   createOrdering?: Maybe<CreateOrderingPayload>;
   /** Create an organization contributor */
   createOrganizationContributor?: Maybe<CreateOrganizationContributorPayload>;
-  /** Create a page on an entity. */
+  /**
+   * Create a page on an entity.
+   *
+   */
   createPage?: Maybe<CreatePagePayload>;
   /** Create a contributor */
   createPersonContributor?: Maybe<CreatePersonContributorPayload>;
   /**
    * Create a global role, with a set of permissions, that can be used to grant access to various parts of the hierarchy
    * in a granular fashion.
+   *
    */
   createRole?: Maybe<CreateRolePayload>;
-  /** Destroy a announcement by ID. */
+  /**
+   * Destroy a announcement by ID.
+   *
+   */
   destroyAnnouncement?: Maybe<DestroyAnnouncementPayload>;
-  /** Destroy an asset by ID. */
+  /**
+   * Destroy an asset by ID.
+   *
+   */
   destroyAsset?: Maybe<DestroyAssetPayload>;
-  /** Destroy a collection by ID. */
+  /**
+   * Destroy a collection by ID.
+   *
+   */
   destroyCollection?: Maybe<DestroyCollectionPayload>;
-  /** Destroy a community by ID. */
+  /**
+   * Destroy a community by ID.
+   *
+   */
   destroyCommunity?: Maybe<DestroyCommunityPayload>;
-  /** Destroy a Contribution by ID. */
+  /**
+   * Destroy a Contribution by ID.
+   *
+   */
   destroyContribution?: Maybe<DestroyContributionPayload>;
-  /** Destroy a contributor by ID. */
+  /**
+   * Destroy a contributor by ID.
+   *
+   */
   destroyContributor?: Maybe<DestroyContributorPayload>;
-  /** Destroy an EntityLink by ID. */
+  /**
+   * Destroy an EntityLink by ID.
+   *
+   */
   destroyEntityLink?: Maybe<DestroyEntityLinkPayload>;
-  /** Destroy an item by ID. */
+  /**
+   * Destroy an item by ID.
+   *
+   */
   destroyItem?: Maybe<DestroyItemPayload>;
-  /** Destroy (or disable a schema-inherited) ordering. */
+  /**
+   * Destroy (or disable a schema-inherited) ordering.
+   *
+   */
   destroyOrdering?: Maybe<DestroyOrderingPayload>;
-  /** Destroy a page by ID. */
+  /**
+   * Destroy a page by ID.
+   *
+   */
   destroyPage?: Maybe<DestroyPagePayload>;
   /** Grant access to a specific hierarchical entity */
   grantAccess?: Maybe<GrantAccessPayload>;
@@ -5908,12 +6636,14 @@ export type Mutation = {
    * A polymorphic mutation to reassign an entity to another point in the hierarchy.
    *
    * It performs validations to make sure that the parent entity can accept the child.
+   *
    */
   reparentEntity?: Maybe<ReparentEntityPayload>;
   /**
    * Reset an ordering to "factory" settings. For schema-inherited orderings,
    * this will reload its definition from the schema definition. For custom
    * orderings, this will load minimal defaults.
+   *
    */
   resetOrdering?: Maybe<ResetOrderingPayload>;
   /** Revoke access from a specific hierarchical entity */
@@ -5921,26 +6651,40 @@ export type Mutation = {
   /**
    * Specify the initial ordering for a specific entity, rather than falling back
    * to the default derivation.
+   *
    */
   selectInitialOrdering?: Maybe<SelectInitialOrderingPayload>;
-  /** Update an announcement by its ID. */
+  /**
+   * Update an announcement by its ID.
+   *
+   */
   updateAnnouncement?: Maybe<UpdateAnnouncementPayload>;
-  /** Update an asset by ID. */
+  /**
+   * Update an asset by ID.
+   *
+   */
   updateAsset?: Maybe<UpdateAssetPayload>;
   /**
    * Update an asset's attachment by ID.
    *
    * This mutation is for updating **only** an asset's attachment,
    * as opposed to the rest of its attributes (handled in `updateAsset`).
+   *
    */
   updateAssetAttachment?: Maybe<UpdateAssetAttachmentPayload>;
   /** Update a collection */
   updateCollection?: Maybe<UpdateCollectionPayload>;
   /** Update a community */
   updateCommunity?: Maybe<UpdateCommunityPayload>;
-  /** Update a Contribution by ID. */
+  /**
+   * Update a Contribution by ID.
+   *
+   */
   updateContribution?: Maybe<UpdateContributionPayload>;
-  /** Update the global configuration for this site. */
+  /**
+   * Update the global configuration for this site.
+   *
+   */
   updateGlobalConfiguration?: Maybe<UpdateGlobalConfigurationPayload>;
   /** Update an item */
   updateItem?: Maybe<UpdateItemPayload>;
@@ -5948,289 +6692,437 @@ export type Mutation = {
   updateOrdering?: Maybe<UpdateOrderingPayload>;
   /** Update an organization contributor */
   updateOrganizationContributor?: Maybe<UpdateOrganizationContributorPayload>;
-  /** Update a page. */
+  /**
+   * Update a page.
+   *
+   */
   updatePage?: Maybe<UpdatePagePayload>;
   /** Update a person contributor */
   updatePersonContributor?: Maybe<UpdatePersonContributorPayload>;
-  /** Update the name or permissions for a given role. */
+  /**
+   * Update the name or permissions for a given role.
+   *
+   */
   updateRole?: Maybe<UpdateRolePayload>;
-  /** Update a user. */
+  /**
+   * Update a user.
+   *
+   */
   updateUser?: Maybe<UpdateUserPayload>;
-  /** Update the current viewer (i.e. you). */
+  /**
+   * Update the current viewer (i.e. you).
+   *
+   */
   updateViewerSettings?: Maybe<UpdateViewerSettingsPayload>;
   /**
    * Upsert a Contribution by contributable & contributor ID. It will override any
    * existing contributions for the same contributor on the same entity.
+   *
    */
   upsertContribution?: Maybe<UpsertContributionPayload>;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationAlterSchemaVersionArgs = {
   input: AlterSchemaVersionInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationApplySchemaPropertiesArgs = {
   input: ApplySchemaPropertiesInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationClearInitialOrderingArgs = {
   input: ClearInitialOrderingInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationCreateAnnouncementArgs = {
   input: CreateAnnouncementInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationCreateAssetArgs = {
   input: CreateAssetInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationCreateCollectionArgs = {
   input: CreateCollectionInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationCreateCommunityArgs = {
   input: CreateCommunityInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationCreateItemArgs = {
   input: CreateItemInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationCreateOrderingArgs = {
   input: CreateOrderingInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationCreateOrganizationContributorArgs = {
   input: CreateOrganizationContributorInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationCreatePageArgs = {
   input: CreatePageInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationCreatePersonContributorArgs = {
   input: CreatePersonContributorInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationCreateRoleArgs = {
   input: CreateRoleInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationDestroyAnnouncementArgs = {
   input: DestroyAnnouncementInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationDestroyAssetArgs = {
   input: DestroyAssetInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationDestroyCollectionArgs = {
   input: DestroyCollectionInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationDestroyCommunityArgs = {
   input: DestroyCommunityInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationDestroyContributionArgs = {
   input: DestroyContributionInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationDestroyContributorArgs = {
   input: DestroyContributorInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationDestroyEntityLinkArgs = {
   input: DestroyEntityLinkInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationDestroyItemArgs = {
   input: DestroyItemInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationDestroyOrderingArgs = {
   input: DestroyOrderingInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationDestroyPageArgs = {
   input: DestroyPageInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationGrantAccessArgs = {
   input: GrantAccessInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationLinkEntityArgs = {
   input: LinkEntityInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationReparentEntityArgs = {
   input: ReparentEntityInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationResetOrderingArgs = {
   input: ResetOrderingInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationRevokeAccessArgs = {
   input: RevokeAccessInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationSelectInitialOrderingArgs = {
   input: SelectInitialOrderingInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationUpdateAnnouncementArgs = {
   input: UpdateAnnouncementInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationUpdateAssetArgs = {
   input: UpdateAssetInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationUpdateAssetAttachmentArgs = {
   input: UpdateAssetAttachmentInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationUpdateCollectionArgs = {
   input: UpdateCollectionInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationUpdateCommunityArgs = {
   input: UpdateCommunityInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationUpdateContributionArgs = {
   input: UpdateContributionInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationUpdateGlobalConfigurationArgs = {
   input: UpdateGlobalConfigurationInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationUpdateItemArgs = {
   input: UpdateItemInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationUpdateOrderingArgs = {
   input: UpdateOrderingInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationUpdateOrganizationContributorArgs = {
   input: UpdateOrganizationContributorInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationUpdatePageArgs = {
   input: UpdatePageInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationUpdatePersonContributorArgs = {
   input: UpdatePersonContributorInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationUpdateRoleArgs = {
   input: UpdateRoleInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationUpdateUserArgs = {
   input: UpdateUserInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationUpdateViewerSettingsArgs = {
   input: UpdateViewerSettingsInput;
 };
 
 
-/** The entry point for making changes to the data within the WDP API. */
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
 export type MutationUpsertContributionArgs = {
   input: UpsertContributionInput;
 };
@@ -6239,24 +7131,24 @@ export type MutationUpsertContributionArgs = {
 export type MutationAttributeError = {
   __typename?: 'MutationAttributeError';
   /** The accumulated messages for this combination of path and type */
-  messages: Array<Scalars['String']>;
+  messages: Array<Scalars['String']['output']>;
   /** The attribute that should have the error */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /** A grouping type for the attribute */
-  type: Scalars['String'];
+  type: Scalars['String']['output'];
 };
 
 export type MutationErrorScope =
-  | 'GLOBAL'
   | 'ATTRIBUTE'
+  | 'GLOBAL'
   | '%future added value';
 
 /** An error that encapsulates the entire mutation input and is not tied to a specific input field. */
 export type MutationGlobalError = {
   __typename?: 'MutationGlobalError';
   /** The actual message */
-  message: Scalars['String'];
-  type: Scalars['String'];
+  message: Scalars['String']['output'];
+  type: Scalars['String']['output'];
 };
 
 /**
@@ -6264,34 +7156,36 @@ export type MutationGlobalError = {
  * authoritatively to significant relatives in an entity's ancestor. This object
  * represents the connection between an originating entity and its ancestors,
  * should any be defined for the schema.
+ *
  */
 export type NamedAncestor = {
   __typename?: 'NamedAncestor';
   /** The actual ancestor */
   ancestor: AnyEntity;
   /** The depth of the ancestor in the hierarchy */
-  ancestorDepth: Scalars['Int'];
+  ancestorDepth: Scalars['Int']['output'];
   /** The name of the ancestor. Guaranteed to be unique for this specific entity. */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   /** The relative depth of the originating entity */
-  originDepth: Scalars['Int'];
+  originDepth: Scalars['Int']['output'];
   /**
    * The relative depth from the source entity to its ancestor. In other words, `(origin_depth - ancestor_depth)`.
    * Used for sorting ancestors deterministically.
+   *
    */
-  relativeDepth: Scalars['Int'];
+  relativeDepth: Scalars['Int']['output'];
 };
 
 /** An object with an ID. */
 export type Node = {
   /** ID of the object. */
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
 };
 
 /** The priority for NULL values when sorting */
 export type NullOrderPriority =
-  | 'LAST'
   | 'FIRST'
+  | 'LAST'
   | '%future added value';
 
 /**
@@ -6299,10 +7193,11 @@ export type NullOrderPriority =
  *
  * Note: this will also work for integer paths. Coercion is handled
  * transparently by the API.
+ *
  */
 export type NumericGteOperatorInput = {
-  path: Scalars['String'];
-  value: Scalars['Float'];
+  path: Scalars['String']['input'];
+  value: Scalars['Float']['input'];
 };
 
 /**
@@ -6310,10 +7205,11 @@ export type NumericGteOperatorInput = {
  *
  * Note: this will also work for integer paths. Coercion is handled
  * transparently by the API.
+ *
  */
 export type NumericLteOperatorInput = {
-  path: Scalars['String'];
-  value: Scalars['Float'];
+  path: Scalars['String']['input'];
+  value: Scalars['Float']['input'];
 };
 
 export type OptionableProperty = {
@@ -6325,6 +7221,7 @@ export type OptionableProperty = {
  *
  * While this is implemented, it is not likely that the first version of the search
  * UI will utilize it. It is intended for advanced searching.
+ *
  */
 export type OrOperatorInput = {
   left: SearchPredicateInput;
@@ -6336,14 +7233,14 @@ export type OrderDefinition = {
   __typename?: 'OrderDefinition';
   direction: Direction;
   nulls: NullOrderPriority;
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
 };
 
 /** Ordering for a specific column */
 export type OrderDefinitionInput = {
-  path: Scalars['String'];
-  direction?: Maybe<Direction>;
-  nulls?: Maybe<NullOrderPriority>;
+  direction?: InputMaybe<Direction>;
+  nulls?: InputMaybe<NullOrderPriority>;
+  path: Scalars['String']['input'];
 };
 
 /** An ordering that belongs to an entity and arranges its children in a pre-configured way */
@@ -6351,79 +7248,88 @@ export type Ordering = Node & Sluggable & {
   __typename?: 'Ordering';
   children: OrderingEntryConnection;
   /** A constant ordering should be treated as not being able to invert itself. */
-  constant: Scalars['Boolean'];
+  constant: Scalars['Boolean']['output'];
   /** The number of entries currently visible within the ordering */
-  count: Scalars['Int'];
-  createdAt: Scalars['ISO8601DateTime'];
+  count: Scalars['Int']['output'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
   /** Whether the ordering has been disabled—orderings inherited from schemas will be disabled if deleted. */
-  disabled: Scalars['Boolean'];
+  disabled: Scalars['Boolean']['output'];
   /** The time the ordering was disabled, if applicable */
-  disabledAt?: Maybe<Scalars['ISO8601Date']>;
+  disabledAt?: Maybe<Scalars['ISO8601Date']['output']>;
   /** The entity that owns the ordering */
   entity: AnyEntity;
   filter: OrderingFilterDefinition;
   /** Optional markdown content to render after the children */
-  footer?: Maybe<Scalars['String']>;
+  footer?: Maybe<Scalars['String']['output']>;
   /** Optional markdown content to render before the children */
-  header?: Maybe<Scalars['String']>;
+  header?: Maybe<Scalars['String']['output']>;
   /**
    * A hidden ordering represents an ordering that should not be shown in the frontend,
    * when iterating over an entity's available orderings. It does not affect access, as
    * hidden orderings may still serve a functional purpose for their schema.
+   *
    */
-  hidden: Scalars['Boolean'];
-  id: Scalars['ID'];
+  hidden: Scalars['Boolean']['output'];
+  id: Scalars['ID']['output'];
   /** A unique identifier for the ordering within the context of its parent entity. */
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['output'];
   /** Whether the ordering was inherited from its entity's schema definition */
-  inheritedFromSchema: Scalars['Boolean'];
+  inheritedFromSchema: Scalars['Boolean']['output'];
   /** Whether this ordering serves as the initial ordering for its parent entity */
-  initial: Scalars['Boolean'];
+  initial: Scalars['Boolean']['output'];
   /** An optional, human-readable name for the ordering */
-  name?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']['output']>;
   order: Array<OrderDefinition>;
   /**
    * For orderings that are `inheritedFromSchema`, this tracks whether or not the
    * entity has been modified from the schema's definition. It is always false
    * for custom, user-created orderings.
+   *
    */
-  pristine: Scalars['Boolean'];
-  /** Configuration for how to render an ordering and its entries. */
+  pristine: Scalars['Boolean']['output'];
+  /**
+   * Configuration for how to render an ordering and its entries.
+   *
+   */
   render: OrderingRenderDefinition;
   select: OrderingSelectDefinition;
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['output'];
   /**
    * A tree ordering has some special handling to return entities
    * in deterministic order based on their hierarchical position
    * and relation to other entities in the same ordering.
    *
    * This is effectively a shortcut for `Ordering.render.mode === "TREE"`.
+   *
    */
-  tree: Scalars['Boolean'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  tree: Scalars['Boolean']['output'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 
 /** An ordering that belongs to an entity and arranges its children in a pre-configured way */
 export type OrderingChildrenArgs = {
-  order?: Maybe<OrderingEntrySortMode>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<OrderingEntrySortMode>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
-/** An ordering's availability refers to it being enabled or disabled. */
+/**
+ * An ordering's availability refers to it being enabled or disabled.
+ *
+ */
 export type OrderingAvailabilityFilter =
   /** Do not filter orderings by whether they are enabled or disabled. */
   | 'ALL'
-  /** Fetch only *enabled* orderings. */
-  | 'ENABLED'
   /** Fetch only *disabled* orderings. */
   | 'DISABLED'
+  /** Fetch only *enabled* orderings. */
+  | 'ENABLED'
   | '%future added value';
 
 /** The connection type for Ordering. */
@@ -6438,16 +7344,16 @@ export type OrderingConnection = Paginated & {
 };
 
 export type OrderingDirectSelection =
-  | 'NONE'
   | 'CHILDREN'
   | 'DESCENDANTS'
+  | 'NONE'
   | '%future added value';
 
 /** An edge in a connection. */
 export type OrderingEdge = {
   __typename?: 'OrderingEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: Ordering;
 };
@@ -6458,42 +7364,56 @@ export type OrderingEntry = Node & Sluggable & {
   /**
    * When the associated `Ordering` is a `TREE`, and the current entry is a leaf, this array can be used
    * to get the associated ancestors within the entry that
+   *
    */
   ancestors: Array<OrderingEntry>;
-  createdAt: Scalars['ISO8601DateTime'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * The actual element being ordered. At present, this will only be a `Community`, `Collection`, or `Item`,
    * but future implementations of orderings may include other content, such as presentation elements.
+   *
    */
   entry: AnyOrderingEntry;
   /**
    * The delegated `slug` from the associated `entry`.
    *
    * This can be null because future entries may not implement it.
+   *
    */
-  entrySlug?: Maybe<Scalars['Slug']>;
+  entrySlug?: Maybe<Scalars['Slug']['output']>;
   /**
    * The delegated `title` from the associated `entry`.
    *
    * This can be null because future entries may not implement it.
+   *
    */
-  entryTitle?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  /** The next entry in the current ordering, if one exists. This will be null if this entry is the last. */
+  entryTitle?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  /**
+   * The next entry in the current ordering, if one exists. This will be null if this entry is the last.
+   *
+   */
   nextSibling?: Maybe<OrderingEntry>;
   /** The parent ordering */
   ordering: Ordering;
-  /** The previous entry in the current ordering, if one exists. This will be null if this entry is the first. */
+  /**
+   * The previous entry in the current ordering, if one exists. This will be null if this entry is the first.
+   *
+   */
   prevSibling?: Maybe<OrderingEntry>;
-  /** A calculation of the depth of an entry in the hierarchy, relative to the ordering's owning entity. */
-  relativeDepth: Scalars['Int'];
-  slug: Scalars['Slug'];
+  /**
+   * A calculation of the depth of an entry in the hierarchy, relative to the ordering's owning entity.
+   *
+   */
+  relativeDepth: Scalars['Int']['output'];
+  slug: Scalars['Slug']['output'];
   /**
    * When an ordering's render mode is set to TREE, its entries will have this set.
    * It is a normalized depth based on what other entities were accepted into the ordering.
+   *
    */
-  treeDepth?: Maybe<Scalars['Int']>;
-  updatedAt: Scalars['ISO8601DateTime'];
+  treeDepth?: Maybe<Scalars['Int']['output']>;
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 /** The connection type for OrderingEntry. */
@@ -6511,7 +7431,7 @@ export type OrderingEntryConnection = Paginated & {
 export type OrderingEntryEdge = {
   __typename?: 'OrderingEntryEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: OrderingEntry;
 };
@@ -6527,12 +7447,14 @@ export type OrderingEntrySortMode =
 /**
  * A collection of settings for filtering what appears what entities
  * may populate an ordering. At present, this only supports schemas.
+ *
  */
 export type OrderingFilterDefinition = {
   __typename?: 'OrderingFilterDefinition';
   /**
    * If set, any child or descendant that matches one of these schemas will
    * be availabel to be included in the ordering.
+   *
    */
   schemas: Array<OrderingSchemaFilter>;
 };
@@ -6540,75 +7462,103 @@ export type OrderingFilterDefinition = {
 /**
  * A collection of settings for filtering what appears what entities
  * may populate an ordering. At present, this only supports schemas.
+ *
  */
 export type OrderingFilterDefinitionInput = {
   /**
    * If set, any child or descendant that matches one of these schemas will
    * be availabel to be included in the ordering.
+   *
    */
-  schemas?: Maybe<Array<OrderingSchemaFilterInput>>;
+  schemas?: InputMaybe<Array<OrderingSchemaFilterInput>>;
 };
 
 /** An enum used to order `Ordering`s. It uses `DETERMINISTIC` by default to ensure a consistent rendering experience. */
 export type OrderingOrder =
   /** Sort orderings by their static position of the ordering, falling back to the name if unset. */
   | 'DETERMINISTIC'
-  /** Sort orderings by newest created date */
-  | 'RECENT'
   /** Sort orderings by oldest created date */
   | 'OLDEST'
+  /** Sort orderings by newest created date */
+  | 'RECENT'
   | '%future added value';
 
-/** This represents a valid path that can be used for orderings. */
+/**
+ * This represents a valid path that can be used for orderings.
+ *
+ */
 export type OrderingPath = {
   /** A helpful description of the path */
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /** A logical grouping for ordering paths */
   grouping: OrderingPathGrouping;
   /** A human-readable label for the path */
-  label: Scalars['String'];
-  /** Some paths may have a prefix. For instance, schema properties will have the name of the schema. */
-  labelPrefix?: Maybe<Scalars['String']>;
+  label: Scalars['String']['output'];
+  /**
+   * Some paths may have a prefix. For instance, schema properties will have the name of the schema.
+   *
+   */
+  labelPrefix?: Maybe<Scalars['String']['output']>;
   /** The exact path that should be provided to mutation inputs. */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /** The schema property type */
   type: SchemaPropertyType;
 };
 
 /** A logical grouping for ordering paths. */
 export type OrderingPathGrouping =
-  /** Static properties that are directly on an entity. */
+  /**
+   * Static properties that are directly on an entity.
+   *
+   */
   | 'ENTITY'
-  /** Static properties that are derived from a link. */
+  /**
+   * Static properties that are derived from a link.
+   *
+   */
   | 'LINK'
   /**
    * Paths under this type come from a schema. Not every entity is guaranteed
    * to have one, and in orderings with mixed entities, missing props will be
    * treated as null.
+   *
    */
   | 'PROPS'
-  /** Static properties that are derived from a schema. */
+  /**
+   * Static properties that are derived from a schema.
+   *
+   */
   | 'SCHEMA'
   | '%future added value';
 
-/** Configuration for controlling how an ordering renders itself and its entries. */
+/**
+ * Configuration for controlling how an ordering renders itself and its entries.
+ *
+ */
 export type OrderingRenderDefinition = {
   __typename?: 'OrderingRenderDefinition';
   /** How to render entries within */
   mode: OrderingRenderMode;
 };
 
-/** Describe how an ordering should render its entries. */
+/**
+ * Describe how an ordering should render its entries.
+ *
+ */
 export type OrderingRenderDefinitionInput = {
-  mode?: Maybe<OrderingRenderMode>;
+  mode?: InputMaybe<OrderingRenderMode>;
 };
 
-/** How entries in an ordering should be rendered. */
+/**
+ * How entries in an ordering should be rendered.
+ *
+ */
 export type OrderingRenderMode =
   /**
    * The default for most orderings. Every ordering is considered to be on
    * the same level of the hierarchy, and positions are calculated based
    * solely on the paths.
+   *
    */
   | 'FLAT'
   /**
@@ -6616,6 +7566,7 @@ export type OrderingRenderMode =
    * entries will be calculated first as though they were flat, then analyzed in order to
    * adjust the positioning to account for the entry's ancestors and position relative to
    * other entries in the ordering.
+   *
    */
   | 'TREE'
   | '%future added value';
@@ -6623,139 +7574,170 @@ export type OrderingRenderMode =
 /** This defines a specific schema that an ordering can filter its entries by */
 export type OrderingSchemaFilter = {
   __typename?: 'OrderingSchemaFilter';
-  /** The identifier within the namespace for the schema. */
-  identifier: Scalars['String'];
-  /** The namespace the schema occupies. */
-  namespace: Scalars['String'];
-  /** An optional version requirement for the associated schema. */
-  version?: Maybe<Scalars['VersionRequirement']>;
+  /**
+   * The identifier within the namespace for the schema.
+   *
+   */
+  identifier: Scalars['String']['output'];
+  /**
+   * The namespace the schema occupies.
+   *
+   */
+  namespace: Scalars['String']['output'];
+  /**
+   * An optional version requirement for the associated schema.
+   *
+   */
+  version?: Maybe<Scalars['VersionRequirement']['output']>;
 };
 
 /** This defines a specific schema that an ordering can filter its entries by */
 export type OrderingSchemaFilterInput = {
-  /** The namespace the schema occupies. */
-  namespace: Scalars['String'];
-  /** The identifier within the namespace for the schema. */
-  identifier: Scalars['String'];
+  /**
+   * The identifier within the namespace for the schema.
+   *
+   */
+  identifier: Scalars['String']['input'];
+  /**
+   * The namespace the schema occupies.
+   *
+   */
+  namespace: Scalars['String']['input'];
   /**
    * An optional version requirement for this ordering. It supports
    * Ruby's version declaration syntax, so you can provide a value
    * like `">= 1.2"` to match against semantically-versioned schemas.
+   *
    */
-  version?: Maybe<Scalars['VersionRequirement']>;
+  version?: InputMaybe<Scalars['VersionRequirement']['input']>;
 };
 
-/** Defines how an ordering should select its entries. */
+/**
+ * Defines how an ordering should select its entries.
+ *
+ */
 export type OrderingSelectDefinition = {
   __typename?: 'OrderingSelectDefinition';
   direct: OrderingDirectSelection;
   links: OrderingSelectLinkDefinition;
 };
 
-/** Define how an ordering should select its entries */
+/**
+ * Define how an ordering should select its entries
+ *
+ */
 export type OrderingSelectDefinitionInput = {
-  direct?: Maybe<OrderingDirectSelection>;
-  links?: Maybe<OrderingSelectLinkDefinitionInput>;
+  direct?: InputMaybe<OrderingDirectSelection>;
+  links?: InputMaybe<OrderingSelectLinkDefinitionInput>;
 };
 
-/** Describes how an ordering should select its links. */
+/**
+ * Describes how an ordering should select its links.
+ *
+ */
 export type OrderingSelectLinkDefinition = {
   __typename?: 'OrderingSelectLinkDefinition';
-  contains: Scalars['Boolean'];
-  references: Scalars['Boolean'];
+  contains: Scalars['Boolean']['output'];
+  references: Scalars['Boolean']['output'];
 };
 
-/** Describe how an ordering should select its links. */
+/**
+ * Describe how an ordering should select its links.
+ *
+ */
 export type OrderingSelectLinkDefinitionInput = {
-  contains?: Maybe<Scalars['Boolean']>;
-  references?: Maybe<Scalars['Boolean']>;
+  contains?: InputMaybe<Scalars['Boolean']['input']>;
+  references?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type OrderingVisibilityFilter =
   /** Do not filter orderings by their visibility. */
   | 'ALL'
-  /** Fetch only *visible* orderings. This has no bearing on the ordering's *availability*. */
-  | 'VISIBLE'
   /** Fetch only *hidden* orderings. */
   | 'HIDDEN'
+  /** Fetch only *visible* orderings. This has no bearing on the ordering's *availability*. */
+  | 'VISIBLE'
   | '%future added value';
 
 /** An organization that has made contributions */
 export type OrganizationContributor = Contributor & Node & Sluggable & {
   __typename?: 'OrganizationContributor';
-  bio?: Maybe<Scalars['String']>;
+  bio?: Maybe<Scalars['String']['output']>;
   /** The total number of collection contributions from this contributor */
-  collectionContributionCount: Scalars['Int'];
+  collectionContributionCount: Scalars['Int']['output'];
   collectionContributions: CollectionContributionConnection;
   /** The total number of contributions (item + collection) from this contributor */
-  contributionCount: Scalars['Int'];
-  createdAt: Scalars['ISO8601DateTime'];
-  email?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  identifier: Scalars['String'];
+  contributionCount: Scalars['Int']['output'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  email?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  identifier: Scalars['String']['output'];
   /** An optional image associated with the contributor. */
   image: ImageAttachment;
   /** Configurable metadata for the image attachment */
   imageMetadata?: Maybe<ImageMetadata>;
   /** The total number of item contributions from this contributor */
-  itemContributionCount: Scalars['Int'];
+  itemContributionCount: Scalars['Int']['output'];
   itemContributions: ItemContributionConnection;
   kind: ContributorKind;
-  legalName?: Maybe<Scalars['String']>;
+  legalName?: Maybe<Scalars['String']['output']>;
   links: Array<ContributorLink>;
-  location?: Maybe<Scalars['String']>;
+  location?: Maybe<Scalars['String']['output']>;
   /** A display name, independent of the type of contributor */
-  name: Scalars['String'];
-  /** An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor. */
-  orcid?: Maybe<Scalars['String']>;
-  prefix?: Maybe<Scalars['String']>;
-  slug: Scalars['Slug'];
-  suffix?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['ISO8601DateTime'];
-  url?: Maybe<Scalars['String']>;
+  name: Scalars['String']['output'];
+  /**
+   * An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor.
+   *
+   */
+  orcid?: Maybe<Scalars['String']['output']>;
+  prefix?: Maybe<Scalars['String']['output']>;
+  slug: Scalars['Slug']['output'];
+  suffix?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['ISO8601DateTime']['output'];
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 
 /** An organization that has made contributions */
 export type OrganizationContributorCollectionContributionsArgs = {
-  order?: Maybe<ContributionOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<ContributionOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** An organization that has made contributions */
 export type OrganizationContributorItemContributionsArgs = {
-  order?: Maybe<ContributionOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<ContributionOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** A page of arbitrary content for an entity */
 export type Page = Node & {
   __typename?: 'Page';
-  body: Scalars['String'];
-  createdAt: Scalars['ISO8601DateTime'];
+  body: Scalars['String']['output'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
   entity: AnyEntity;
   /** The hero image for a page */
   heroImage: ImageAttachment;
   /** Configurable metadata for the hero_image attachment */
   heroImageMetadata?: Maybe<ImageMetadata>;
-  id: Scalars['ID'];
-  position?: Maybe<Scalars['Int']>;
-  slug: Scalars['String'];
-  title: Scalars['String'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  id: Scalars['ID']['output'];
+  position?: Maybe<Scalars['Int']['output']>;
+  slug: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 /** The connection type for Page. */
@@ -6771,15 +7753,15 @@ export type PageConnection = Paginated & {
 
 /** Determines the direction that page-number based pagination should flow */
 export type PageDirection =
-  | 'FORWARDS'
   | 'BACKWARDS'
+  | 'FORWARDS'
   | '%future added value';
 
 /** An edge in a connection. */
 export type PageEdge = {
   __typename?: 'PageEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: Page;
 };
@@ -6788,23 +7770,23 @@ export type PageEdge = {
 export type PageInfo = {
   __typename?: 'PageInfo';
   /** When paginating forwards, the cursor to continue. */
-  endCursor?: Maybe<Scalars['String']>;
+  endCursor?: Maybe<Scalars['String']['output']>;
   /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars['Boolean'];
+  hasNextPage: Scalars['Boolean']['output'];
   /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean']['output'];
   /** The page (if page-based pagination is supported and one was provided, does not introspect a value with cursor-based pagination) */
-  page?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars['Int']['output']>;
   /** The total number of pages available to the connection (if page-based pagination supported and a page was provided) */
-  pageCount?: Maybe<Scalars['Int']>;
+  pageCount?: Maybe<Scalars['Int']['output']>;
   /** The number of edges/nodes per page (if page-based pagination supported and a page was provided) */
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: Maybe<Scalars['Int']['output']>;
   /** When paginating backwards, the cursor to continue. */
-  startCursor?: Maybe<Scalars['String']>;
+  startCursor?: Maybe<Scalars['String']['output']>;
   /** The total number of nodes available to this connection, constrained by applied filters (if any) */
-  totalCount: Scalars['Int'];
+  totalCount: Scalars['Int']['output'];
   /** The total number of nodes available to this connection, independent of any filters */
-  totalUnfilteredCount: Scalars['Int'];
+  totalUnfilteredCount: Scalars['Int']['output'];
 };
 
 /** Connections can be paginated by cursor or number. */
@@ -6817,19 +7799,19 @@ export type Paginated = {
 export type PermissionGrant = {
   __typename?: 'PermissionGrant';
   /** Whether this permission has been granted in the current context. */
-  allowed: Scalars['Boolean'];
+  allowed: Scalars['Boolean']['output'];
   /** The unqualified, single name for this permission. */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   /** The fully-qualified path for this permission (composed of scope + name). */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /** The scope (or namespace) for this permission. */
-  scope?: Maybe<Scalars['String']>;
+  scope?: Maybe<Scalars['String']['output']>;
 };
 
 /** A mapping of permissions specific to a certain scope */
 export type PermissionGrid = {
   /** A list of allowed actions for the given user on this entity (and its descendants). */
-  allowedActions: Array<Scalars['String']>;
+  allowedActions: Array<Scalars['String']['output']>;
   /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
 };
@@ -6837,64 +7819,67 @@ export type PermissionGrid = {
 /** A person that has made contributions */
 export type PersonContributor = Contributor & Node & Sluggable & {
   __typename?: 'PersonContributor';
-  affiliation?: Maybe<Scalars['String']>;
-  bio?: Maybe<Scalars['String']>;
+  affiliation?: Maybe<Scalars['String']['output']>;
+  bio?: Maybe<Scalars['String']['output']>;
   /** The total number of collection contributions from this contributor */
-  collectionContributionCount: Scalars['Int'];
+  collectionContributionCount: Scalars['Int']['output'];
   collectionContributions: CollectionContributionConnection;
   /** The total number of contributions (item + collection) from this contributor */
-  contributionCount: Scalars['Int'];
-  createdAt: Scalars['ISO8601DateTime'];
-  email?: Maybe<Scalars['String']>;
-  familyName?: Maybe<Scalars['String']>;
-  givenName?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  identifier: Scalars['String'];
+  contributionCount: Scalars['Int']['output'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  email?: Maybe<Scalars['String']['output']>;
+  familyName?: Maybe<Scalars['String']['output']>;
+  givenName?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  identifier: Scalars['String']['output'];
   /** An optional image associated with the contributor. */
   image: ImageAttachment;
   /** Configurable metadata for the image attachment */
   imageMetadata?: Maybe<ImageMetadata>;
   /** The total number of item contributions from this contributor */
-  itemContributionCount: Scalars['Int'];
+  itemContributionCount: Scalars['Int']['output'];
   itemContributions: ItemContributionConnection;
   kind: ContributorKind;
   links: Array<ContributorLink>;
   /** A display name, independent of the type of contributor */
-  name: Scalars['String'];
-  /** An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor. */
-  orcid?: Maybe<Scalars['String']>;
-  prefix?: Maybe<Scalars['String']>;
-  slug: Scalars['Slug'];
-  suffix?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  updatedAt: Scalars['ISO8601DateTime'];
-  url?: Maybe<Scalars['String']>;
+  name: Scalars['String']['output'];
+  /**
+   * An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor.
+   *
+   */
+  orcid?: Maybe<Scalars['String']['output']>;
+  prefix?: Maybe<Scalars['String']['output']>;
+  slug: Scalars['Slug']['output'];
+  suffix?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['ISO8601DateTime']['output'];
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 
 /** A person that has made contributions */
 export type PersonContributorCollectionContributionsArgs = {
-  order?: Maybe<ContributionOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<ContributionOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A person that has made contributions */
 export type PersonContributorItemContributionsArgs = {
-  order?: Maybe<ContributionOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<ContributionOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** When altering a schema version for an entity, there are various strategies that can be used to determine how to handle the provided properties. */
@@ -6905,7 +7890,10 @@ export type PropertyApplicationStrategy =
   | 'SKIP'
   | '%future added value';
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type Query = Searchable & {
   __typename?: 'Query';
   /** Retrieve all access grants */
@@ -6926,7 +7914,10 @@ export type Query = Searchable & {
   communityByTitle?: Maybe<Community>;
   /** Look up a contributor by slug */
   contributor?: Maybe<AnyContributor>;
-  /** Look up a contributor `by` a certain `value`. */
+  /**
+   * Look up a contributor `by` a certain `value`.
+   *
+   */
   contributorLookup?: Maybe<AnyContributor>;
   /** A list of all contributors in the system */
   contributors: AnyContributorConnection;
@@ -6967,210 +7958,283 @@ export type Query = Searchable & {
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryAccessGrantsArgs = {
-  entity?: Maybe<AccessGrantEntityFilter>;
-  subject?: Maybe<AccessGrantSubjectFilter>;
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  entity?: InputMaybe<AccessGrantEntityFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  subject?: InputMaybe<AccessGrantSubjectFilter>;
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryAssetArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryCollectionArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryCollectionContributionArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryCommunitiesArgs = {
-  order?: Maybe<EntityOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<EntityOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryCommunityArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryCommunityByTitleArgs = {
-  title: Scalars['String'];
+  title: Scalars['String']['input'];
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryContributorArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryContributorLookupArgs = {
   by: ContributorLookupField;
-  value: Scalars['String'];
   order?: SimpleOrder;
+  value: Scalars['String']['input'];
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryContributorsArgs = {
-  order?: Maybe<ContributorOrder>;
-  kind?: Maybe<ContributorFilterKind>;
-  prefix?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  kind?: InputMaybe<ContributorFilterKind>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<ContributorOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  prefix?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryItemArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryItemContributionArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryNodeArgs = {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryNodesArgs = {
-  ids: Array<Scalars['ID']>;
+  ids: Array<Scalars['ID']['input']>;
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryOrderingPathsArgs = {
-  schemas?: Maybe<Array<OrderingSchemaFilterInput>>;
+  schemas?: InputMaybe<Array<OrderingSchemaFilterInput>>;
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryRolesArgs = {
-  order?: Maybe<RoleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<RoleOrder>;
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QuerySchemaDefinitionArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QuerySchemaDefinitionsArgs = {
-  order?: Maybe<SimpleOrder>;
-  namespace?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  namespace?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QuerySchemaVersionArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QuerySchemaVersionOptionsArgs = {
-  kind?: Maybe<SchemaKind>;
-  namespace?: Maybe<Scalars['String']>;
+  kind?: InputMaybe<SchemaKind>;
+  namespace?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QuerySchemaVersionsArgs = {
-  namespace?: Maybe<Scalars['String']>;
-  order?: Maybe<SchemaVersionOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  namespace?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<SchemaVersionOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QuerySearchArgs = {
-  maxDepth?: Maybe<Scalars['Int']>;
-  visibility?: Maybe<EntityVisibilityFilter>;
+  maxDepth?: InputMaybe<Scalars['Int']['input']>;
+  visibility?: InputMaybe<EntityVisibilityFilter>;
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryUserArgs = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['input'];
 };
 
 
-/** The entry point for retrieving data from within the WDP API. */
+/**
+ * The entry point for retrieving data from within the WDP API.
+ *
+ */
 export type QueryUsersArgs = {
-  order?: Maybe<UserOrder>;
-  prefix?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<UserOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  prefix?: InputMaybe<Scalars['String']['input']>;
 };
 
 /**
  * An interface for retrieving certain shared, common variable-precision dates
  * that are associated with events in the publication, collection, and release
  * of an entity.
+ *
  */
 export type ReferencesGlobalEntityDates = {
   /** The date this entity was published */
@@ -7179,16 +8243,20 @@ export type ReferencesGlobalEntityDates = {
 
 /** Autogenerated input type of ReparentEntity */
 export type ReparentEntityInput = {
-  /** The collection in need of a new parent */
-  childId: Scalars['ID'];
+  /**
+   * The collection in need of a new parent
+   *
+   */
+  childId: Scalars['ID']['input'];
+  /** A unique identifier for the client performing the mutation. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
   /**
    * The ID for the new parent entity. For children of the collection type, this
    * must be a community or another collection. For children of the item type,
    * this must be a collection or another item.
+   *
    */
-  parentId: Scalars['ID'];
-  /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  parentId: Scalars['ID']['input'];
 };
 
 /** Autogenerated return type of ReparentEntity */
@@ -7198,19 +8266,19 @@ export type ReparentEntityPayload = StandardMutationPayload & {
   /** If the child was successfully reparented, this field will be populated */
   child?: Maybe<AnyChildEntity>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of ResetOrdering */
 export type ResetOrderingInput = {
-  orderingId: Scalars['ID'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  orderingId: Scalars['ID']['input'];
 };
 
 /** Autogenerated return type of ResetOrdering */
@@ -7218,22 +8286,22 @@ export type ResetOrderingPayload = StandardMutationPayload & {
   __typename?: 'ResetOrderingPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   ordering?: Maybe<Ordering>;
 };
 
 /** Autogenerated input type of RevokeAccess */
 export type RevokeAccessInput = {
-  entityId: Scalars['ID'];
-  roleId: Scalars['ID'];
-  userId: Scalars['ID'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  entityId: Scalars['ID']['input'];
+  roleId: Scalars['ID']['input'];
+  userId: Scalars['ID']['input'];
 };
 
 /** Autogenerated return type of RevokeAccess */
@@ -7241,15 +8309,15 @@ export type RevokeAccessPayload = StandardMutationPayload & {
   __typename?: 'RevokeAccessPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   entity?: Maybe<AnyEntity>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   /** Whether or not access was revoked */
-  revoked?: Maybe<Scalars['Boolean']>;
+  revoked?: Maybe<Scalars['Boolean']['output']>;
 };
 
 /** A named role in the WDP API */
@@ -7258,35 +8326,50 @@ export type Role = ExposesEffectiveAccess & Node & Sluggable & {
   /** The access control list for this specific role */
   accessControlList: AccessControlList;
   /** A list of action names that have been granted to this role */
-  allowedActions: Array<Scalars['String']>;
-  createdAt: Scalars['ISO8601DateTime'];
+  allowedActions: Array<Scalars['String']['output']>;
+  createdAt: Scalars['ISO8601DateTime']['output'];
   /** Only relevant for `custom` roles, this affects sorting. */
-  customPriority?: Maybe<Scalars['Int']>;
-  /** User-specific access permissions for this object. */
+  customPriority?: Maybe<Scalars['Int']['output']>;
+  /**
+   * User-specific access permissions for this object.
+   *
+   */
   effectiveAccess: EffectiveAccess;
-  /** The global access control list that this assigned role implies, based on its sort order. */
+  /**
+   * The global access control list that this assigned role implies, based on its sort order.
+   *
+   */
   globalAccessControlList: GlobalAccessControlList;
-  /** A list of global action names that this role implies, based on its sort order. */
-  globalAllowedActions: Array<Scalars['String']>;
-  id: Scalars['ID'];
+  /**
+   * A list of global action names that this role implies, based on its sort order.
+   *
+   */
+  globalAllowedActions: Array<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
   /**
    * For `system` roles, this will be populated with the unique identifier
    * that marks this as a system role.
+   *
    */
   identifier?: Maybe<RoleSystemIdentifier>;
-  /** The specific kind of role this is, based on how it entered the WDP-API. */
+  /**
+   * The specific kind of role this is, based on how it entered the WDP-API.
+   *
+   */
   kind: RoleKind;
   /** The human readable name of the role within the system */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   /**
    * Surfaced from the accessControlList for convenience, these are returned as
    * an array that allows a user to check for the state of all possible roles
    * without having to specify them explicitly in the GraphQL request
+   *
    */
   permissions: Array<PermissionGrant>;
   /**
    * Used internally to sort roles and ensure certain role types are above
    * and below others, irrespective of priority.
+   *
    */
   primacy: RolePrimacy;
   /**
@@ -7295,10 +8378,11 @@ export type Role = ExposesEffectiveAccess & Node & Sluggable & {
    * * For `custom` roles, it is based on `custom_priority`.
    * * For `system` roles, it is based on hard-coded values within the system
    *   and cannot be modified.
+   *
    */
-  priority: Scalars['Int'];
-  slug: Scalars['Slug'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  priority: Scalars['Int']['output'];
+  slug: Scalars['Slug']['output'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 /** The connection type for Role. */
@@ -7316,16 +8400,25 @@ export type RoleConnection = Paginated & {
 export type RoleEdge = {
   __typename?: 'RoleEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: Role;
 };
 
-/** A categorization of a `Role` based on how it gets into the WDP-API. */
+/**
+ * A categorization of a `Role` based on how it gets into the WDP-API.
+ *
+ */
 export type RoleKind =
-  /** Custom roles are created and managed through the `createRole`, `updateRole`, and `destroyRole` mutations. */
+  /**
+   * Custom roles are created and managed through the `createRole`, `updateRole`, and `destroyRole` mutations.
+   *
+   */
   | 'CUSTOM'
-  /** System roles are shipped by default with WDP-API and cannot be modified. */
+  /**
+   * System roles are shipped by default with WDP-API and cannot be modified.
+   *
+   */
   | 'SYSTEM'
   | '%future added value';
 
@@ -7333,48 +8426,65 @@ export type RoleKind =
 export type RoleOrder =
   /** Sort roles by default priority within the system */
   | 'DEFAULT'
-  /** Sort roles by newest created date */
-  | 'RECENT'
-  /** Sort roles by oldest created date */
-  | 'OLDEST'
   /** Sort roles by their name A-Z */
   | 'NAME_ASCENDING'
   /** Sort roles by their name Z-A */
   | 'NAME_DESCENDING'
+  /** Sort roles by oldest created date */
+  | 'OLDEST'
+  /** Sort roles by newest created date */
+  | 'RECENT'
   | '%future added value';
 
-/** The level of importance any given role has when it comes to determing what a user's "primary" role is. */
+/**
+ * The level of importance any given role has when it comes to determing what a user's "primary" role is.
+ *
+ */
 export type RolePrimacy =
-  /** Values with this primacy level take priority over all others. They cannot be directly assigned through the API. */
-  | 'HIGH'
   /** Values with this primacy level are the default. Any custom roles will be in this scope. */
   | 'DEFAULT'
+  /** Values with this primacy level take priority over all others. They cannot be directly assigned through the API. */
+  | 'HIGH'
   /** Values with this primacy level are always sorted after every other role. */
   | 'LOW'
   | '%future added value';
 
-/** This will identify _which_ `system` role this is, if applicable. See `RoleKind` for more information. */
+/**
+ * This will identify _which_ `system` role this is, if applicable. See `RoleKind` for more information.
+ *
+ */
 export type RoleSystemIdentifier =
-  /** A global administrator. This role cannot be directly assigned. */
+  /**
+   * A global administrator. This role cannot be directly assigned.
+   *
+   */
   | 'ADMIN'
+  /**
+   * An editor has basic update permissions for a specific point in the hierarchy.
+   *
+   */
+  | 'EDITOR'
   /**
    * A manager can be assigned to handle most `Community` and other entity management concerns.
    *
    * They can also appoint other roles (except for other managers) to any entity they manage.
+   *
    */
   | 'MANAGER'
-  /** An editor has basic update permissions for a specific point in the hierarchy. */
-  | 'EDITOR'
   /**
    * A reader is anyone who has been given explicit read-access to an entity.
    * This role is primarily used by the administration UI.
    *
    * **Note**: Anonymous users can still view public entities in the frontend.
+   *
    */
   | 'READER'
   | '%future added value';
 
-/** A property on a `SchemaInstance`. */
+/**
+ * A property on a `SchemaInstance`.
+ *
+ */
 export type ScalarProperty = {
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -7382,44 +8492,59 @@ export type ScalarProperty = {
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
+  array: Scalars['Boolean']['output'];
   /**
    * A human-readable description for the property. It should describe the purpose of the
    * property as well as some details about the types of values it looks for.
    *
    * It can be rendered as help text, hints, etc.
+   *
    */
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
-  label: Scalars['String'];
+  /**
+   * A human-readable label for the schema property.
+   *
+   */
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -7427,8 +8552,9 @@ export type ScalarProperty = {
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -7437,19 +8563,23 @@ export type ScalarProperty = {
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
 
-/** Configuration for controlling how instances handle specific optional core properties. */
+/**
+ * Configuration for controlling how instances handle specific optional core properties.
+ *
+ */
 export type SchemaCoreDefinition = {
   __typename?: 'SchemaCoreDefinition';
   /** Whether to expose or hide an entity's DOI */
-  doi: Scalars['Boolean'];
+  doi: Scalars['Boolean']['output'];
   /** Whether to expose or hide an entity's ISSN */
-  issn: Scalars['Boolean'];
+  issn: Scalars['Boolean']['output'];
   /** Whether to expose or hide an entity's subtitle */
-  subtitle: Scalars['Boolean'];
+  subtitle: Scalars['Boolean']['output'];
 };
 
 /**
@@ -7457,21 +8587,22 @@ export type SchemaCoreDefinition = {
  * only the shared kind, namespace, and identifier. The name is also most likely
  * shared, although it can change between schema versions, and the value on the
  * definition will default to whatever the most recent version uses.
+ *
  */
 export type SchemaDefinition = DescribesSchema & Node & Sluggable & {
   __typename?: 'SchemaDefinition';
-  createdAt: Scalars['ISO8601DateTime'];
-  id: Scalars['ID'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  id: Scalars['ID']['output'];
   /** A unique (per-namespace) value that names the schema within the system. */
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['output'];
   /** The kind of entity this schema applies to */
   kind: SchemaKind;
   /** A human-readable name for the schema */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   /** A unique namespace the schema lives in */
-  namespace: Scalars['String'];
-  slug: Scalars['Slug'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  namespace: Scalars['String']['output'];
+  slug: Scalars['Slug']['output'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 /** The connection type for SchemaDefinition. */
@@ -7489,7 +8620,7 @@ export type SchemaDefinitionConnection = Paginated & {
 export type SchemaDefinitionEdge = {
   __typename?: 'SchemaDefinitionEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: SchemaDefinition;
 };
@@ -7498,15 +8629,22 @@ export type SchemaDefinitionEdge = {
  * Being an instance that implements a schema version with strongly-typed properties.
  * Overlaps with Entity, but intended for focused access to just the properties
  * and the necessary context.
+ *
  */
 export type SchemaInstance = {
-  /** Expose all available entities for this schema property. */
+  /**
+   * Expose all available entities for this schema property.
+   *
+   */
   availableEntitiesFor: Array<EntitySelectOption>;
   /** The context for our schema instance. Includes form values and necessary referents. */
   schemaInstanceContext: SchemaInstanceContext;
   /** A list of schema properties associated with this instance or version. */
   schemaProperties: Array<AnySchemaProperty>;
-  /** Read a single schema property by its full path. */
+  /**
+   * Read a single schema property by its full path.
+   *
+   */
   schemaProperty?: Maybe<AnySchemaProperty>;
 };
 
@@ -7515,9 +8653,10 @@ export type SchemaInstance = {
  * Being an instance that implements a schema version with strongly-typed properties.
  * Overlaps with Entity, but intended for focused access to just the properties
  * and the necessary context.
+ *
  */
 export type SchemaInstanceAvailableEntitiesForArgs = {
-  fullPath: Scalars['String'];
+  fullPath: Scalars['String']['input'];
 };
 
 
@@ -7525,9 +8664,10 @@ export type SchemaInstanceAvailableEntitiesForArgs = {
  * Being an instance that implements a schema version with strongly-typed properties.
  * Overlaps with Entity, but intended for focused access to just the properties
  * and the necessary context.
+ *
  */
 export type SchemaInstanceSchemaPropertyArgs = {
-  fullPath: Scalars['String'];
+  fullPath: Scalars['String']['input'];
 };
 
 /** A context that describes the current state of the form */
@@ -7536,13 +8676,13 @@ export type SchemaInstanceContext = {
   assets: Array<AssetSelectOption>;
   contributors: Array<ContributorSelectOption>;
   /** Not yet populated. May be used in the future. */
-  defaultValues: Scalars['JSON'];
+  defaultValues: Scalars['JSON']['output'];
   /** The entity ID for this schema instance. */
-  entityId: Scalars['ID'];
+  entityId: Scalars['ID']['output'];
   /** The values for the schema form on this instance */
-  fieldValues: Scalars['JSON'];
+  fieldValues: Scalars['JSON']['output'];
   /** The slug for the current schema version */
-  schemaVersionSlug: Scalars['String'];
+  schemaVersionSlug: Scalars['String']['output'];
   /** Information about the validity of the schema instance */
   validity?: Maybe<SchemaInstanceValidation>;
 };
@@ -7550,39 +8690,46 @@ export type SchemaInstanceContext = {
 export type SchemaInstanceValidation = {
   __typename?: 'SchemaInstanceValidation';
   errors: Array<SchemaValueError>;
-  valid: Scalars['Boolean'];
-  validatedAt: Scalars['ISO8601DateTime'];
+  valid: Scalars['Boolean']['output'];
+  validatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 /** The kind of entity a schema applies to */
 export type SchemaKind =
-  | 'COMMUNITY'
   | 'COLLECTION'
+  | 'COMMUNITY'
   | 'ITEM'
   | '%future added value';
 
 /**
  * This ordering path represents a schema property and is variably
  * available based on whether matched entities' schemas implement it.
+ *
  */
 export type SchemaOrderingPath = OrderingPath & {
   __typename?: 'SchemaOrderingPath';
   /** A helpful description of the path */
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /** A logical grouping for ordering paths */
   grouping: OrderingPathGrouping;
   /** A human-readable label for the path */
-  label: Scalars['String'];
-  /** Some paths may have a prefix. For instance, schema properties will have the name of the schema. */
-  labelPrefix?: Maybe<Scalars['String']>;
+  label: Scalars['String']['output'];
+  /**
+   * Some paths may have a prefix. For instance, schema properties will have the name of the schema.
+   *
+   */
+  labelPrefix?: Maybe<Scalars['String']['output']>;
   /** The exact path that should be provided to mutation inputs. */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   schemaVersion: SchemaVersion;
   /** The schema property type */
   type: SchemaPropertyType;
 };
 
-/** A property on a `SchemaInstance`. */
+/**
+ * A property on a `SchemaInstance`.
+ *
+ */
 export type SchemaProperty = {
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -7590,33 +8737,41 @@ export type SchemaProperty = {
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
+  array: Scalars['Boolean']['output'];
   /**
    * A human-readable description for the property. It should describe the purpose of the
    * property as well as some details about the types of values it looks for.
    *
    * It can be rendered as help text, hints, etc.
+   *
    */
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -7625,33 +8780,41 @@ export type SchemaProperty = {
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
 
 /** Schema properties can serve various functions. This helps communicate the purpose of them, for building UIs, and general introspection. */
 export type SchemaPropertyFunction =
-  /** This property acts as data inherently representative of the entity. Full text of an article, titling, and other such purposes. */
+  /**
+   * This property acts as data inherently representative of the entity. Full text of an article, titling, and other such purposes.
+   *
+   */
   | 'CONTENT'
   /**
    * This property is intended to offer further information about the content, but not necessarily the content itself.
    * Most metadata should be things that are filterable or searchable to help users find and learn more about related
    * content.
+   *
    */
   | 'METADATA'
   /**
    * This property is used for presenting information *about* the content, or how it should be formatted, but is less reflective
    * of the content itself. An option for changing a specific render style, an additional image to display, etc.
+   *
    */
   | 'PRESENTATION'
   /**
    * This property is only used when ordering this entity by ancestors. It should not generally be visible in the frontend, but
    * remain editable by admins to adjust ordering.
+   *
    */
   | 'SORTING'
   /**
    * This property's purpose remains unspecified and is likely the mark of a schema still in development. It should not generally
    * be in a finished schema, as it is important to help communicate the intent of a property for those building a UI.
+   *
    */
   | 'UNSPECIFIED'
   | '%future added value';
@@ -7659,27 +8822,31 @@ export type SchemaPropertyFunction =
 /**
  * The _kind_ of a data type for a schema property. Mostly informational
  * in the API, this value represents the underlying structure of the data type.
+ *
  */
 export type SchemaPropertyKind =
-  /** A composite of other properties. See `GroupProperty` */
-  | 'GROUP'
-  /**
-   * A reference (or references) to other models in the system.
-   *
-   * See `AssetProperty`, `ContributorsProperty` for examples
-   */
-  | 'REFERENCE'
   /**
    * A complex data type that is composed of multiple subproperties
    * or requires other processing. Their values cannot be easily
    * mapped to GraphQL / JavaScript primitives.
    *
    * See `VariableDateProperty`, `FullTextProperty` for examples.
+   *
    */
   | 'COMPLEX'
+  /** A composite of other properties. See `GroupProperty` */
+  | 'GROUP'
+  /**
+   * A reference (or references) to other models in the system.
+   *
+   * See `AssetProperty`, `ContributorsProperty` for examples
+   *
+   */
+  | 'REFERENCE'
   /**
    * The most common type of property, and what most values are likely to be. Strings,
    * integers, floats, booleans, and so on.
+   *
    */
   | 'SIMPLE'
   | '%future added value';
@@ -7732,7 +8899,10 @@ export type SchemaPropertyType =
   | 'VARIABLE_DATE'
   | '%future added value';
 
-/** Configuration for controlling how instances of a schema render outside of orderings. */
+/**
+ * Configuration for controlling how instances of a schema render outside of orderings.
+ *
+ */
 export type SchemaRenderDefinition = {
   __typename?: 'SchemaRenderDefinition';
   /** How to render a list */
@@ -7745,6 +8915,7 @@ export type SchemaRenderDefinition = {
  *
  * This value is currently only intended to be used by the frontend. It enforces no special
  * handling within the API itself, unlike an `OrderingRenderModeType`.
+ *
  */
 export type SchemaRenderListMode =
   | 'GRID'
@@ -7759,54 +8930,65 @@ export type SchemaValueError = {
    * An error with the entire set of values
    * @deprecated Not presently used: see globalErrors
    */
-  base: Scalars['Boolean'];
+  base: Scalars['Boolean']['output'];
   /** Whether this is a hint */
-  hint: Scalars['Boolean'];
+  hint: Scalars['Boolean']['output'];
   /** A human-readable description of the error */
-  message: Scalars['String'];
+  message: Scalars['String']['output'];
   /** Additional metadata attached to the error */
-  metadata?: Maybe<Scalars['JSON']>;
+  metadata?: Maybe<Scalars['JSON']['output']>;
   /** Which input value this error came from */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
 };
 
-/** A specific version of a `SchemaDefinition`. */
-export type SchemaVersion = DescribesSchema & Searchable & HasSchemaProperties & Node & Sluggable & {
+/**
+ * A specific version of a `SchemaDefinition`.
+ *
+ */
+export type SchemaVersion = DescribesSchema & HasSchemaProperties & Node & Searchable & Sluggable & {
   __typename?: 'SchemaVersion';
   /** Configuration for controlling how instances of a schema handle certain optional core properties. */
   core: SchemaCoreDefinition;
-  createdAt: Scalars['ISO8601DateTime'];
-  /** Declarations / slugs for `enforcedChildVersions`. */
-  enforcedChildDeclarations: Array<Scalars['Slug']>;
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Declarations / slugs for `enforcedChildVersions`.
+   *
+   */
+  enforcedChildDeclarations: Array<Scalars['Slug']['output']>;
   /**
    * The versions that this schema accepts as a child.
    *
    * If there are no schemas, then this schema does not enforce its children.
+   *
    */
   enforcedChildVersions: Array<SchemaVersion>;
-  /** Declarations / slugs for `enforcedParentVersions`. */
-  enforcedParentDeclarations: Array<Scalars['Slug']>;
+  /**
+   * Declarations / slugs for `enforcedParentVersions`.
+   *
+   */
+  enforcedParentDeclarations: Array<Scalars['Slug']['output']>;
   /**
    * The versions that are allowed to parent this schema.
    *
    * If there are no schemas, then this schema does not enforce its parentage.
+   *
    */
   enforcedParentVersions: Array<SchemaVersion>;
   /** A boolean for the logic on `enforcedChildVersions`. */
-  enforcesChildren: Scalars['Boolean'];
+  enforcesChildren: Scalars['Boolean']['output'];
   /** A boolean for the logic on `enforcedParentVersions`. */
-  enforcesParent: Scalars['Boolean'];
-  id: Scalars['ID'];
+  enforcesParent: Scalars['Boolean']['output'];
+  id: Scalars['ID']['output'];
   /** A unique (per-namespace) value that names the schema within the system. */
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['output'];
   /** The kind of entity this schema applies to */
   kind: SchemaKind;
   /** A human-readable name for the schema */
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   /** A unique namespace the schema lives in */
-  namespace: Scalars['String'];
+  namespace: Scalars['String']['output'];
   /** A semantic version for the schema */
-  number: Scalars['String'];
+  number: Scalars['String']['output'];
   /** Configuration for rendering schema instances outside of orderings */
   render: SchemaRenderDefinition;
   /** The shared schema definition for all versions of this namespace and identifier */
@@ -7817,15 +8999,18 @@ export type SchemaVersion = DescribesSchema & Searchable & HasSchemaProperties &
   search: SearchScope;
   /** A subset of properties that can be searched for this schema. */
   searchableProperties: Array<AnySearchableProperty>;
-  slug: Scalars['Slug'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  slug: Scalars['Slug']['output'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 
-/** A specific version of a `SchemaDefinition`. */
+/**
+ * A specific version of a `SchemaDefinition`.
+ *
+ */
 export type SchemaVersionSearchArgs = {
-  maxDepth?: Maybe<Scalars['Int']>;
-  visibility?: Maybe<EntityVisibilityFilter>;
+  maxDepth?: InputMaybe<Scalars['Int']['input']>;
+  visibility?: InputMaybe<EntityVisibilityFilter>;
 };
 
 /** The connection type for SchemaVersion. */
@@ -7843,23 +9028,23 @@ export type SchemaVersionConnection = Paginated & {
 export type SchemaVersionEdge = {
   __typename?: 'SchemaVersionEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: SchemaVersion;
 };
 
 export type SchemaVersionOption = {
   __typename?: 'SchemaVersionOption';
-  identifier: Scalars['String'];
+  identifier: Scalars['String']['output'];
   kind: SchemaKind;
   /** The label to display in a select box */
-  label: Scalars['String'];
-  name: Scalars['String'];
-  namespace: Scalars['String'];
+  label: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  namespace: Scalars['String']['output'];
   schemaDefinition: SchemaDefinition;
   schemaVersion: SchemaVersion;
   /** The value to use in a select box */
-  value: Scalars['String'];
+  value: Scalars['String']['output'];
 };
 
 /** Order schema versions by various factors */
@@ -7870,31 +9055,37 @@ export type SchemaVersionOrder =
   | 'OLDEST'
   | '%future added value';
 
-/** These operators serve as keys for `SearchPredicateInput`. */
+/**
+ * These operators serve as keys for `SearchPredicateInput`.
+ *
+ */
 export type SearchOperator =
   /** See `AndOperatorInput` */
   | 'and'
-  /** See `OrOperatorInput` */
-  | 'or'
-  /** See `EqualsOperatorInput` */
-  | 'equals'
-  /** See `MatchesOperatorInput` */
-  | 'matches'
-  /** See `InAnyOperatorInput` */
-  | 'inAny'
   /** See `DateEqualsOperatorInput` */
   | 'dateEquals'
   /** See `DateGTEOperatorInput` */
   | 'dateGTE'
   /** See `DateLTEOperatorInput` */
   | 'dateLTE'
+  /** See `EqualsOperatorInput` */
+  | 'equals'
+  /** See `InAnyOperatorInput` */
+  | 'inAny'
+  /** See `MatchesOperatorInput` */
+  | 'matches'
   /** See `NumericGTEOperatorInput` */
   | 'numericGTE'
   /** See `NumericLTEOperatorInput` */
   | 'numericLTE'
+  /** See `OrOperatorInput` */
+  | 'or'
   | '%future added value';
 
-/** The type of origin for this search scope. */
+/**
+ * The type of origin for this search scope.
+ *
+ */
 export type SearchOriginType =
   | 'ENTITY'
   | 'GLOBAL'
@@ -7906,39 +9097,43 @@ export type SearchOriginType =
  *
  * Each key corresponds to a `SearchOperator`, and multiple keys combined
  * in the same predicate will be implicitly `AND`ed together.
+ *
  */
 export type SearchPredicateInput = {
   /** See `AndOperatorInput` */
-  and?: Maybe<AndOperatorInput>;
-  /** See `OrOperatorInput` */
-  or?: Maybe<OrOperatorInput>;
+  and?: InputMaybe<AndOperatorInput>;
   /** See `DateEqualsOperatorInput` */
-  dateEquals?: Maybe<DateEqualsOperatorInput>;
+  dateEquals?: InputMaybe<DateEqualsOperatorInput>;
   /** See `DateGTEOperatorInput` */
-  dateGTE?: Maybe<DateGteOperatorInput>;
+  dateGTE?: InputMaybe<DateGteOperatorInput>;
   /** See `DateLTEOperatorInput` */
-  dateLTE?: Maybe<DateLteOperatorInput>;
+  dateLTE?: InputMaybe<DateLteOperatorInput>;
   /** See `EqualsOperatorInput` */
-  equals?: Maybe<EqualsOperatorInput>;
-  /** See `MatchesOperatorInput` */
-  matches?: Maybe<MatchesOperatorInput>;
+  equals?: InputMaybe<EqualsOperatorInput>;
   /** See `InAnyOperatorInput` */
-  inAny?: Maybe<InAnyOperatorInput>;
+  inAny?: InputMaybe<InAnyOperatorInput>;
+  /** See `MatchesOperatorInput` */
+  matches?: InputMaybe<MatchesOperatorInput>;
   /** See `NumericGTEOperatorInput` */
-  numericGTE?: Maybe<NumericGteOperatorInput>;
+  numericGTE?: InputMaybe<NumericGteOperatorInput>;
   /** See `NumericLTEOperatorInput` */
-  numericLTE?: Maybe<NumericLteOperatorInput>;
+  numericLTE?: InputMaybe<NumericLteOperatorInput>;
+  /** See `OrOperatorInput` */
+  or?: InputMaybe<OrOperatorInput>;
 };
 
-/** An entity that's the result of a search. */
+/**
+ * An entity that's the result of a search.
+ *
+ */
 export type SearchResult = {
   __typename?: 'SearchResult';
   entity: AnyEntity;
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   kind: EntityKind;
   schemaVersion: SchemaVersion;
-  slug: Scalars['Slug'];
-  title: Scalars['String'];
+  slug: Scalars['Slug']['output'];
+  title: Scalars['String']['output'];
 };
 
 /** The connection type for SearchResult. */
@@ -7956,20 +9151,24 @@ export type SearchResultConnection = Paginated & {
 export type SearchResultEdge = {
   __typename?: 'SearchResultEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: SearchResult;
 };
 
 export type SearchScope = {
   __typename?: 'SearchScope';
-  /** The available schema versions underneath this search scope. */
+  /**
+   * The available schema versions underneath this search scope.
+   *
+   */
   availableSchemaVersions: Array<SchemaVersion>;
   coreProperties: Array<SearchableCoreProperty>;
   originType: SearchOriginType;
   /**
    * The results of a search. Either `query` or `predicates` should be provided,
    * otherwise it will return as if everything matches.
+   *
    */
   results: SearchResultConnection;
   visibility: EntityVisibilityFilter;
@@ -7977,19 +9176,19 @@ export type SearchScope = {
 
 
 export type SearchScopeResultsArgs = {
-  scope?: Maybe<EntityDescendantScopeFilter>;
-  schema?: Maybe<Array<Scalars['String']>>;
-  order?: Maybe<EntityOrder>;
-  predicates?: Maybe<Array<SearchPredicateInput>>;
-  prefix?: Maybe<Scalars['String']>;
-  query?: Maybe<Scalars['String']>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<EntityOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  predicates?: InputMaybe<Array<SearchPredicateInput>>;
+  prefix?: InputMaybe<Scalars['String']['input']>;
+  query?: InputMaybe<Scalars['String']['input']>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
+  scope?: InputMaybe<EntityDescendantScopeFilter>;
 };
 
 export type Searchable = {
@@ -7999,31 +9198,31 @@ export type Searchable = {
 
 
 export type SearchableSearchArgs = {
-  maxDepth?: Maybe<Scalars['Int']>;
-  visibility?: Maybe<EntityVisibilityFilter>;
+  maxDepth?: InputMaybe<Scalars['Int']['input']>;
+  visibility?: InputMaybe<EntityVisibilityFilter>;
 };
 
 export type SearchableCoreProperty = SearchableProperty & {
   __typename?: 'SearchableCoreProperty';
-  description?: Maybe<Scalars['String']>;
-  label: Scalars['String'];
+  description?: Maybe<Scalars['String']['output']>;
+  label: Scalars['String']['output'];
   searchOperators: Array<SearchOperator>;
-  searchPath: Scalars['String'];
+  searchPath: Scalars['String']['output'];
 };
 
 export type SearchableProperty = {
-  description?: Maybe<Scalars['String']>;
-  label: Scalars['String'];
+  description?: Maybe<Scalars['String']['output']>;
+  label: Scalars['String']['output'];
   searchOperators: Array<SearchOperator>;
-  searchPath: Scalars['String'];
+  searchPath: Scalars['String']['output'];
 };
 
 /** Autogenerated input type of SelectInitialOrdering */
 export type SelectInitialOrderingInput = {
-  entityId: Scalars['ID'];
-  orderingId: Scalars['ID'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  entityId: Scalars['ID']['input'];
+  orderingId: Scalars['ID']['input'];
 };
 
 /** Autogenerated return type of SelectInitialOrdering */
@@ -8031,23 +9230,23 @@ export type SelectInitialOrderingPayload = StandardMutationPayload & {
   __typename?: 'SelectInitialOrderingPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   entity?: Maybe<AnyEntity>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   ordering?: Maybe<Ordering>;
 };
 
 export type SelectOption = {
   __typename?: 'SelectOption';
-  label: Scalars['String'];
-  value: Scalars['String'];
+  label: Scalars['String']['output'];
+  value: Scalars['String']['output'];
 };
 
-export type SelectProperty = SchemaProperty & ScalarProperty & OptionableProperty & SearchableProperty & {
+export type SelectProperty = OptionableProperty & ScalarProperty & SchemaProperty & SearchableProperty & {
   __typename?: 'SelectProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -8055,39 +9254,50 @@ export type SelectProperty = SchemaProperty & ScalarProperty & OptionablePropert
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
-  defaultSelection?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
+  array: Scalars['Boolean']['output'];
+  defaultSelection?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  label: Scalars['String'];
+  label: Scalars['String']['output'];
   options: Array<SelectOption>;
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -8095,11 +9305,12 @@ export type SelectProperty = SchemaProperty & ScalarProperty & OptionablePropert
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   searchOperators: Array<SearchOperator>;
-  searchPath: Scalars['String'];
-  selection?: Maybe<Scalars['String']>;
+  searchPath: Scalars['String']['output'];
+  selection?: Maybe<Scalars['String']['output']>;
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -8108,40 +9319,41 @@ export type SelectProperty = SchemaProperty & ScalarProperty & OptionablePropert
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
 
 /** A generic enum for sorting models that don't have anything more specific implemented */
 export type SimpleOrder =
-  /** Sort models by newest created date */
-  | 'RECENT'
   /** Sort models by oldest created date */
   | 'OLDEST'
+  /** Sort models by newest created date */
+  | 'RECENT'
   | '%future added value';
 
 /** A value for updating the site's configuration */
 export type SiteFooter = {
   __typename?: 'SiteFooter';
   /** A copyright statement that lives in the site's footer. */
-  copyrightStatement: Scalars['String'];
+  copyrightStatement: Scalars['String']['output'];
   /** A description that lives in the site's footer. */
-  description: Scalars['String'];
+  description: Scalars['String']['output'];
 };
 
 /** A value for updating the site's configuration */
 export type SiteFooterInput = {
-  /** A description that lives in the site's footer. */
-  description?: Maybe<Scalars['String']>;
   /** A copyright statement that lives in the site's footer. */
-  copyrightStatement?: Maybe<Scalars['String']>;
+  copyrightStatement?: InputMaybe<Scalars['String']['input']>;
+  /** A description that lives in the site's footer. */
+  description?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** An interface for accessing derivatives of the site logo (if present). */
 export type SiteLogoAttachment = HasAttachmentStorage & ImageIdentification & {
   __typename?: 'SiteLogoAttachment';
   /** Alt text for accessible images */
-  alt?: Maybe<Scalars['String']>;
+  alt?: Maybe<Scalars['String']['output']>;
   /** Configurable metadata for the image. */
   metadata?: Maybe<ImageMetadata>;
   /** The original source for the image */
@@ -8151,12 +9363,14 @@ export type SiteLogoAttachment = HasAttachmentStorage & ImageIdentification & {
    *
    * Filename detection is not always consistent across browsers, so this
    * may not always be present, even with a valid attachment.
+   *
    */
-  originalFilename?: Maybe<Scalars['String']>;
+  originalFilename?: Maybe<Scalars['String']['output']>;
   /**
    * The intended purpose of this image attachment. This is intended to
    * help fragments that operate solely on image subcomponents to have
    * some context for what they are without extra work.
+   *
    */
   purpose: ImagePurpose;
   /** A logo intended to be used when the site title is hidden, constrained to 80px high with no width limit. */
@@ -8164,6 +9378,7 @@ export type SiteLogoAttachment = HasAttachmentStorage & ImageIdentification & {
   /**
    * This field describes how an attachment is stored in the system. If it is nil, there is no associated attachment for this field.
    * Otherwise, see the documentation for AttachmentStorage to see what the individual fields mean.
+   *
    */
   storage?: Maybe<AttachmentStorage>;
   /** A logo intended to be used when the site title is visible, constrained to 80px wide by 80px high. */
@@ -8172,12 +9387,12 @@ export type SiteLogoAttachment = HasAttachmentStorage & ImageIdentification & {
 
 /** An option that determines how the site logo should be rendered */
 export type SiteLogoMode =
+  /** The site logo is unavailable. */
+  | 'NONE'
   /** The site logo should be displayed with the site title _hidden_. */
   | 'SANS_TEXT'
   /** The site logo should be displayed with the site title _visible_. */
   | 'WITH_TEXT'
-  /** The site logo is unavailable. */
-  | 'NONE'
   | '%future added value';
 
 /** Configuration settings for information about this installation. */
@@ -8186,33 +9401,32 @@ export type SiteSettings = {
   /** Settings related to the site's footer */
   footer: SiteFooter;
   /** The text that appears on the root page of the frontend. Supports basic markdown. */
-  installationHomePageCopy: Scalars['String'];
+  installationHomePageCopy: Scalars['String']['output'];
   /** The name of the installation. */
-  installationName: Scalars['String'];
+  installationName: Scalars['String']['output'];
   /** How the logo should be rendered */
   logoMode: SiteLogoMode;
   /** The name of the provider supporting and maintaining this installation. */
-  providerName: Scalars['String'];
+  providerName: Scalars['String']['output'];
 };
 
 /** A value for updating the site's configuration */
 export type SiteSettingsInput = {
-  /** The name of the installation. */
-  installationName?: Maybe<Scalars['String']>;
-  /** The text that appears on the root page of the frontend. Supports basic markdown. */
-  installationHomePageCopy?: Maybe<Scalars['String']>;
-  /** How the logo should be rendered */
-  logoMode?: Maybe<SiteLogoMode>;
-  /** The name of the provider supporting and maintaining this installation. */
-  providerName?: Maybe<Scalars['String']>;
   /** Settings for the site's footer */
-  footer?: Maybe<SiteFooterInput>;
+  footer?: InputMaybe<SiteFooterInput>;
+  /** The text that appears on the root page of the frontend. Supports basic markdown. */
+  installationHomePageCopy?: InputMaybe<Scalars['String']['input']>;
+  /** The name of the installation. */
+  installationName?: InputMaybe<Scalars['String']['input']>;
+  /** How the logo should be rendered */
+  logoMode?: InputMaybe<SiteLogoMode>;
+  /** The name of the provider supporting and maintaining this installation. */
+  providerName?: InputMaybe<Scalars['String']['input']>;
 };
-
 
 /** Objects have a serialized slug for looking them up in the system and generating links without UUIDs */
 export type Sluggable = {
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['output'];
 };
 
 /** Most mutations implement this interface in their payload in order to offer a standardize response value */
@@ -8222,30 +9436,34 @@ export type StandardMutationPayload = {
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /**
  * This property is static and is always available on an
  * entity, irrespective of its schema.
+ *
  */
 export type StaticOrderingPath = OrderingPath & {
   __typename?: 'StaticOrderingPath';
   /** A helpful description of the path */
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /** A logical grouping for ordering paths */
   grouping: OrderingPathGrouping;
   /** A human-readable label for the path */
-  label: Scalars['String'];
-  /** Some paths may have a prefix. For instance, schema properties will have the name of the schema. */
-  labelPrefix?: Maybe<Scalars['String']>;
+  label: Scalars['String']['output'];
+  /**
+   * Some paths may have a prefix. For instance, schema properties will have the name of the schema.
+   *
+   */
+  labelPrefix?: Maybe<Scalars['String']['output']>;
   /** The exact path that should be provided to mutation inputs. */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /** The schema property type */
   type: SchemaPropertyType;
 };
 
-export type StringProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
+export type StringProperty = ScalarProperty & SchemaProperty & SearchableProperty & {
   __typename?: 'StringProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -8253,39 +9471,50 @@ export type StringProperty = SchemaProperty & ScalarProperty & SearchablePropert
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
-  content?: Maybe<Scalars['String']>;
-  default?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
+  array: Scalars['Boolean']['output'];
+  content?: Maybe<Scalars['String']['output']>;
+  default?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  label: Scalars['String'];
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -8293,10 +9522,11 @@ export type StringProperty = SchemaProperty & ScalarProperty & SearchablePropert
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   searchOperators: Array<SearchOperator>;
-  searchPath: Scalars['String'];
+  searchPath: Scalars['String']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -8305,6 +9535,7 @@ export type StringProperty = SchemaProperty & ScalarProperty & SearchablePropert
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
@@ -8317,21 +9548,30 @@ export type SubtreeNodeFilter =
   | 'DESCENDANTS'
   | '%future added value';
 
-/** A helper field that can look up various information about the WDP-API Ecosystem. */
+/**
+ * A helper field that can look up various information about the WDP-API Ecosystem.
+ *
+ */
 export type SystemInfo = {
   __typename?: 'SystemInfo';
-  /** Check to see if an entity of a given `descendant` type exists with a given `ancestor` type. */
-  entityHierarchyExists: Scalars['Boolean'];
+  /**
+   * Check to see if an entity of a given `descendant` type exists with a given `ancestor` type.
+   *
+   */
+  entityHierarchyExists: Scalars['Boolean']['output'];
 };
 
 
-/** A helper field that can look up various information about the WDP-API Ecosystem. */
+/**
+ * A helper field that can look up various information about the WDP-API Ecosystem.
+ *
+ */
 export type SystemInfoEntityHierarchyExistsArgs = {
-  ancestor: Scalars['Slug'];
-  descendant: Scalars['Slug'];
+  ancestor: Scalars['Slug']['input'];
+  descendant: Scalars['Slug']['input'];
 };
 
-export type TagsProperty = SchemaProperty & ScalarProperty & {
+export type TagsProperty = ScalarProperty & SchemaProperty & {
   __typename?: 'TagsProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -8339,44 +9579,59 @@ export type TagsProperty = SchemaProperty & ScalarProperty & {
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
+  array: Scalars['Boolean']['output'];
   /**
    * A human-readable description for the property. It should describe the purpose of the
    * property as well as some details about the types of values it looks for.
    *
    * It can be rendered as help text, hints, etc.
+   *
    */
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
-  label: Scalars['String'];
+  /**
+   * A human-readable label for the schema property.
+   *
+   */
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -8384,9 +9639,10 @@ export type TagsProperty = SchemaProperty & ScalarProperty & {
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
-  tags: Array<Scalars['String']>;
+  required: Scalars['Boolean']['output'];
+  tags: Array<Scalars['String']['output']>;
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -8395,6 +9651,7 @@ export type TagsProperty = SchemaProperty & ScalarProperty & {
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
@@ -8402,17 +9659,17 @@ export type TagsProperty = SchemaProperty & ScalarProperty & {
 /** Configuration settings for the theme of the WDP frontend. */
 export type ThemeSettings = {
   __typename?: 'ThemeSettings';
-  color: Scalars['String'];
-  font: Scalars['String'];
+  color: Scalars['String']['output'];
+  font: Scalars['String']['output'];
 };
 
 /** A value for updating the theme */
 export type ThemeSettingsInput = {
-  color: Scalars['String'];
-  font: Scalars['String'];
+  color: Scalars['String']['input'];
+  font: Scalars['String']['input'];
 };
 
-export type TimestampProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
+export type TimestampProperty = ScalarProperty & SchemaProperty & SearchableProperty & {
   __typename?: 'TimestampProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -8420,38 +9677,49 @@ export type TimestampProperty = SchemaProperty & ScalarProperty & SearchableProp
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
-  default?: Maybe<Scalars['ISO8601DateTime']>;
-  description?: Maybe<Scalars['String']>;
+  array: Scalars['Boolean']['output'];
+  default?: Maybe<Scalars['ISO8601DateTime']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  label: Scalars['String'];
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -8459,11 +9727,12 @@ export type TimestampProperty = SchemaProperty & ScalarProperty & SearchableProp
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   searchOperators: Array<SearchOperator>;
-  searchPath: Scalars['String'];
-  timestamp?: Maybe<Scalars['ISO8601DateTime']>;
+  searchPath: Scalars['String']['output'];
+  timestamp?: Maybe<Scalars['ISO8601DateTime']['output']>;
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -8472,22 +9741,23 @@ export type TimestampProperty = SchemaProperty & ScalarProperty & SearchableProp
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
 
 /** When retrieving a paginated connection of tree-like entities, this enum is used to delineate which class of nodes to retrieve. Usually, you only want roots, but two other possibilities are exposed. */
 export type TreeNodeFilter =
-  /** Fetch only nodes that are "roots": nodes that do not have a parent of the same type */
-  | 'ROOTS_ONLY'
-  /** Fetch all nodes that match other filters passed to the resolver */
-  | 'ROOTS_AND_LEAVES'
   /** Fetch only nodes that are "leaves"; nodes that have a parent of the same type */
   | 'LEAVES_ONLY'
+  /** Fetch all nodes that match other filters passed to the resolver */
+  | 'ROOTS_AND_LEAVES'
+  /** Fetch only nodes that are "roots": nodes that do not have a parent of the same type */
+  | 'ROOTS_ONLY'
   | '%future added value';
 
 /** A schematic reference to a URL, with href, label, and optional title */
-export type UrlProperty = SchemaProperty & ScalarProperty & {
+export type UrlProperty = ScalarProperty & SchemaProperty & {
   __typename?: 'URLProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -8495,44 +9765,59 @@ export type UrlProperty = SchemaProperty & ScalarProperty & {
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
+  array: Scalars['Boolean']['output'];
   /**
    * A human-readable description for the property. It should describe the purpose of the
    * property as well as some details about the types of values it looks for.
    *
    * It can be rendered as help text, hints, etc.
+   *
    */
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
-  label: Scalars['String'];
+  /**
+   * A human-readable label for the schema property.
+   *
+   */
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -8540,8 +9825,9 @@ export type UrlProperty = SchemaProperty & ScalarProperty & {
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -8550,6 +9836,7 @@ export type UrlProperty = SchemaProperty & ScalarProperty & {
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
   url?: Maybe<UrlReference>;
@@ -8559,14 +9846,14 @@ export type UrlProperty = SchemaProperty & ScalarProperty & {
 export type UrlReference = {
   __typename?: 'URLReference';
   /** The actual URL */
-  href?: Maybe<Scalars['String']>;
+  href?: Maybe<Scalars['String']['output']>;
   /** A label to display within the text content of the anchor tag */
-  label?: Maybe<Scalars['String']>;
+  label?: Maybe<Scalars['String']['output']>;
   /** A title to display when mousing over the URL */
-  title?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']['output']>;
 };
 
-export type UnknownProperty = SchemaProperty & ScalarProperty & {
+export type UnknownProperty = ScalarProperty & SchemaProperty & {
   __typename?: 'UnknownProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -8574,45 +9861,60 @@ export type UnknownProperty = SchemaProperty & ScalarProperty & {
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
-  default?: Maybe<Scalars['JSON']>;
+  array: Scalars['Boolean']['output'];
+  default?: Maybe<Scalars['JSON']['output']>;
   /**
    * A human-readable description for the property. It should describe the purpose of the
    * property as well as some details about the types of values it looks for.
    *
    * It can be rendered as help text, hints, etc.
+   *
    */
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  /** A human-readable label for the schema property. */
-  label: Scalars['String'];
+  /**
+   * A human-readable label for the schema property.
+   *
+   */
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -8620,8 +9922,9 @@ export type UnknownProperty = SchemaProperty & ScalarProperty & {
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -8630,25 +9933,26 @@ export type UnknownProperty = SchemaProperty & ScalarProperty & {
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
-  unknownValue?: Maybe<Scalars['JSON']>;
+  unknownValue?: Maybe<Scalars['JSON']['output']>;
 };
 
 /** Autogenerated input type of UpdateAnnouncement */
 export type UpdateAnnouncementInput = {
   /** The ID for the announcement to update. */
-  announcementId: Scalars['ID'];
-  /** The date of the announcement. */
-  publishedOn: Scalars['ISO8601Date'];
-  /** A header value for the announcement */
-  header: Scalars['String'];
-  /** A teaser for the announcement */
-  teaser: Scalars['String'];
+  announcementId: Scalars['ID']['input'];
   /** A body for the announcement */
-  body: Scalars['String'];
+  body: Scalars['String']['input'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** A header value for the announcement */
+  header: Scalars['String']['input'];
+  /** The date of the announcement. */
+  publishedOn: Scalars['ISO8601Date']['input'];
+  /** A teaser for the announcement */
+  teaser: Scalars['String']['input'];
 };
 
 /** Autogenerated return type of UpdateAnnouncement */
@@ -8657,22 +9961,25 @@ export type UpdateAnnouncementPayload = StandardMutationPayload & {
   announcement?: Maybe<Announcement>;
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of UpdateAssetAttachment */
 export type UpdateAssetAttachmentInput = {
   /** The ID for the asset to update */
-  assetId: Scalars['ID'];
-  /** A reference to an upload in Tus. */
+  assetId: Scalars['ID']['input'];
+  /**
+   * A reference to an upload in Tus.
+   *
+   */
   attachment: UploadedFileInput;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Autogenerated return type of UpdateAssetAttachment */
@@ -8681,34 +9988,35 @@ export type UpdateAssetAttachmentPayload = StandardMutationPayload & {
   asset?: Maybe<AnyAsset>;
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of UpdateAsset */
 export type UpdateAssetInput = {
+  /** Alt text to display for the asset (if applicable) */
+  altText?: InputMaybe<Scalars['String']['input']>;
   /** The ID for the asset to update */
-  assetId: Scalars['ID'];
+  assetId: Scalars['ID']['input'];
   /**
    * An optional reference to an upload in Tus. It will replace the current file if provided.
    * Note: Unlike other attachments in the API, there is no way to clear an attachment from
    * an existing asset. If you wish to do that, simply call destroyAsset.
+   *
    */
-  attachment?: Maybe<UploadedFileInput>;
-  /** A human readable name for the asset */
-  name: Scalars['String'];
-  /** The position the asset occupies amongst siblings */
-  position?: Maybe<Scalars['Int']>;
-  /** Alt text to display for the asset (if applicable) */
-  altText?: Maybe<Scalars['String']>;
+  attachment?: InputMaybe<UploadedFileInput>;
   /** A caption to display below the asset (if applicable) */
-  caption?: Maybe<Scalars['String']>;
+  caption?: InputMaybe<Scalars['String']['input']>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** A human readable name for the asset */
+  name: Scalars['String']['input'];
+  /** The position the asset occupies amongst siblings */
+  position?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** Autogenerated return type of UpdateAsset */
@@ -8717,54 +10025,73 @@ export type UpdateAssetPayload = StandardMutationPayload & {
   asset?: Maybe<AnyAsset>;
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of UpdateCollection */
 export type UpdateCollectionInput = {
-  collectionId: Scalars['ID'];
-  /** Human-readable title for the entity */
-  title: Scalars['String'];
-  /** Human-readable subtitle for the entity */
-  subtitle?: Maybe<Scalars['String']>;
-  /** A brief description of the entity's contents. */
-  summary?: Maybe<Scalars['String']>;
-  /** A reference to an uploaded image in Tus. */
-  heroImage?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  heroImageMetadata?: Maybe<ImageMetadataInput>;
-  /** A reference to an uploaded image in Tus. */
-  thumbnail?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  thumbnailMetadata?: Maybe<ImageMetadataInput>;
+  /**
+   * If set to true, this will clear the attachment hero_image on this model.
+   *
+   */
+  clearHeroImage?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * If set to true, this will clear the attachment thumbnail on this model.
+   *
+   */
+  clearThumbnail?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A unique identifier for the client performing the mutation. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  collectionId: Scalars['ID']['input'];
+  /** Digital Object Identifier (see: https://doi.org) */
+  doi?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  heroImage?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  heroImageMetadata?: InputMaybe<ImageMetadataInput>;
+  /** International Standard Serial Number (see: https://issn.org) */
+  issn?: InputMaybe<Scalars['String']['input']>;
   /** The date this entity was published */
-  published?: Maybe<VariablePrecisionDateInput>;
-  /** What level of visibility the entity has */
-  visibility: EntityVisibility;
-  /** If present, this is the timestamp an entity is visible after */
-  visibleAfterAt?: Maybe<Scalars['ISO8601DateTime']>;
-  /** If present, this is the timestamp an entity is visible until */
-  visibleUntilAt?: Maybe<Scalars['ISO8601DateTime']>;
-  /** If set to true, this will clear the attachment hero_image on this model. */
-  clearHeroImage?: Maybe<Scalars['Boolean']>;
-  /** If set to true, this will clear the attachment thumbnail on this model. */
-  clearThumbnail?: Maybe<Scalars['Boolean']>;
+  published?: InputMaybe<VariablePrecisionDateInput>;
   /**
    * An arbitrary set of property values. Owing to the dynamic nature, they do not have a specific GraphQL input type
    * associated with them. Validation will be performed within the application and returned as errors if not valid.
+   *
    */
-  schemaProperties?: Maybe<Scalars['JSON']>;
-  /** Digital Object Identifier (see: https://doi.org) */
-  doi?: Maybe<Scalars['String']>;
-  /** International Standard Serial Number (see: https://issn.org) */
-  issn?: Maybe<Scalars['String']>;
-  /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  schemaProperties?: InputMaybe<Scalars['JSON']['input']>;
+  /** Human-readable subtitle for the entity */
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  /** A brief description of the entity's contents. */
+  summary?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  thumbnail?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  thumbnailMetadata?: InputMaybe<ImageMetadataInput>;
+  /** Human-readable title for the entity */
+  title: Scalars['String']['input'];
+  /** What level of visibility the entity has */
+  visibility: EntityVisibility;
+  /** If present, this is the timestamp an entity is visible after */
+  visibleAfterAt?: InputMaybe<Scalars['ISO8601DateTime']['input']>;
+  /** If present, this is the timestamp an entity is visible until */
+  visibleUntilAt?: InputMaybe<Scalars['ISO8601DateTime']['input']>;
 };
 
 /** Autogenerated return type of UpdateCollection */
@@ -8772,55 +10099,83 @@ export type UpdateCollectionPayload = StandardMutationPayload & {
   __typename?: 'UpdateCollectionPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** A new representation of the collection, on a successful update */
   collection?: Maybe<Collection>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   schemaErrors: Array<SchemaValueError>;
 };
 
 /** Autogenerated input type of UpdateCommunity */
 export type UpdateCommunityInput = {
-  communityId: Scalars['ID'];
+  /**
+   * If set to true, this will clear the attachment hero_image on this model.
+   *
+   */
+  clearHeroImage?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * If set to true, this will clear the attachment logo on this model.
+   *
+   */
+  clearLogo?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * If set to true, this will clear the attachment thumbnail on this model.
+   *
+   */
+  clearThumbnail?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A unique identifier for the client performing the mutation. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  communityId: Scalars['ID']['input'];
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  heroImage?: InputMaybe<UploadedFileInput>;
+  heroImageLayout: HeroImageLayout;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  heroImageMetadata?: InputMaybe<ImageMetadataInput>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  logo?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  logoMetadata?: InputMaybe<ImageMetadataInput>;
   /** The position the community occupies in the list */
-  position?: Maybe<Scalars['Int']>;
-  /** Human-readable title for the entity */
-  title: Scalars['String'];
-  /** Human-readable subtitle for the entity */
-  subtitle?: Maybe<Scalars['String']>;
-  /** A brief description of the entity's contents. */
-  summary?: Maybe<Scalars['String']>;
-  /** A reference to an uploaded image in Tus. */
-  heroImage?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  heroImageMetadata?: Maybe<ImageMetadataInput>;
-  /** A reference to an uploaded image in Tus. */
-  thumbnail?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  thumbnailMetadata?: Maybe<ImageMetadataInput>;
-  /** If set to true, this will clear the attachment hero_image on this model. */
-  clearHeroImage?: Maybe<Scalars['Boolean']>;
-  /** If set to true, this will clear the attachment thumbnail on this model. */
-  clearThumbnail?: Maybe<Scalars['Boolean']>;
+  position?: InputMaybe<Scalars['Int']['input']>;
   /**
    * An arbitrary set of property values. Owing to the dynamic nature, they do not have a specific GraphQL input type
    * associated with them. Validation will be performed within the application and returned as errors if not valid.
+   *
    */
-  schemaProperties?: Maybe<Scalars['JSON']>;
-  heroImageLayout: HeroImageLayout;
-  tagline?: Maybe<Scalars['String']>;
-  /** A reference to an uploaded image in Tus. */
-  logo?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  logoMetadata?: Maybe<ImageMetadataInput>;
-  /** If set to true, this will clear the attachment logo on this model. */
-  clearLogo?: Maybe<Scalars['Boolean']>;
-  /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  schemaProperties?: InputMaybe<Scalars['JSON']['input']>;
+  /** Human-readable subtitle for the entity */
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  /** A brief description of the entity's contents. */
+  summary?: InputMaybe<Scalars['String']['input']>;
+  tagline?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  thumbnail?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  thumbnailMetadata?: InputMaybe<ImageMetadataInput>;
+  /** Human-readable title for the entity */
+  title: Scalars['String']['input'];
 };
 
 /** Autogenerated return type of UpdateCommunity */
@@ -8828,25 +10183,25 @@ export type UpdateCommunityPayload = StandardMutationPayload & {
   __typename?: 'UpdateCommunityPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** A new representation of the community, on a succesful update */
   community?: Maybe<Community>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   schemaErrors: Array<SchemaValueError>;
 };
 
 /** Autogenerated input type of UpdateContribution */
 export type UpdateContributionInput = {
-  contributionId: Scalars['ID'];
-  /** An arbitrary text value that describes the kind of contribution */
-  role?: Maybe<Scalars['String']>;
-  metadata?: Maybe<ContributionMetadataInput>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  contributionId: Scalars['ID']['input'];
+  metadata?: InputMaybe<ContributionMetadataInput>;
+  /** An arbitrary text value that describes the kind of contribution */
+  role?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Autogenerated return type of UpdateContribution */
@@ -8854,31 +10209,40 @@ export type UpdateContributionPayload = StandardMutationPayload & {
   __typename?: 'UpdateContributionPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   contribution?: Maybe<AnyContribution>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of UpdateGlobalConfiguration */
 export type UpdateGlobalConfigurationInput = {
-  /** Possible new settings for the institution */
-  institution?: Maybe<InstitutionSettingsInput>;
-  /** A reference to an uploaded image in Tus. */
-  logo?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  logoMetadata?: Maybe<ImageMetadataInput>;
-  /** If set to true, this will clear the attachment logo on this model. */
-  clearLogo?: Maybe<Scalars['Boolean']>;
-  /** Possible new settings for the site */
-  site?: Maybe<SiteSettingsInput>;
-  /** Possible new settings for the theme */
-  theme?: Maybe<ThemeSettingsInput>;
+  /**
+   * If set to true, this will clear the attachment logo on this model.
+   *
+   */
+  clearLogo?: InputMaybe<Scalars['Boolean']['input']>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** Possible new settings for the institution */
+  institution?: InputMaybe<InstitutionSettingsInput>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  logo?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  logoMetadata?: InputMaybe<ImageMetadataInput>;
+  /** Possible new settings for the site */
+  site?: InputMaybe<SiteSettingsInput>;
+  /** Possible new settings for the theme */
+  theme?: InputMaybe<ThemeSettingsInput>;
 };
 
 /** Autogenerated return type of UpdateGlobalConfiguration */
@@ -8886,57 +10250,76 @@ export type UpdateGlobalConfigurationPayload = StandardMutationPayload & {
   __typename?: 'UpdateGlobalConfigurationPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   /** Though a global configuration always exists, this will be null if it fails to apply for some reason. */
   globalConfiguration?: Maybe<GlobalConfiguration>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of UpdateItem */
 export type UpdateItemInput = {
+  /**
+   * If set to true, this will clear the attachment hero_image on this model.
+   *
+   */
+  clearHeroImage?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * If set to true, this will clear the attachment thumbnail on this model.
+   *
+   */
+  clearThumbnail?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A unique identifier for the client performing the mutation. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** Digital Object Identifier (see: https://doi.org) */
+  doi?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  heroImage?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  heroImageMetadata?: InputMaybe<ImageMetadataInput>;
+  /** International Standard Serial Number (see: https://issn.org) */
+  issn?: InputMaybe<Scalars['String']['input']>;
   /** The item to update */
-  itemId: Scalars['ID'];
-  /** Human-readable title for the entity */
-  title: Scalars['String'];
-  /** Human-readable subtitle for the entity */
-  subtitle?: Maybe<Scalars['String']>;
-  /** A brief description of the entity's contents. */
-  summary?: Maybe<Scalars['String']>;
-  /** A reference to an uploaded image in Tus. */
-  heroImage?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  heroImageMetadata?: Maybe<ImageMetadataInput>;
-  /** A reference to an uploaded image in Tus. */
-  thumbnail?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  thumbnailMetadata?: Maybe<ImageMetadataInput>;
+  itemId: Scalars['ID']['input'];
   /** The date this entity was published */
-  published?: Maybe<VariablePrecisionDateInput>;
-  /** What level of visibility the entity has */
-  visibility: EntityVisibility;
-  /** If present, this is the timestamp an entity is visible after */
-  visibleAfterAt?: Maybe<Scalars['ISO8601DateTime']>;
-  /** If present, this is the timestamp an entity is visible until */
-  visibleUntilAt?: Maybe<Scalars['ISO8601DateTime']>;
-  /** If set to true, this will clear the attachment hero_image on this model. */
-  clearHeroImage?: Maybe<Scalars['Boolean']>;
-  /** If set to true, this will clear the attachment thumbnail on this model. */
-  clearThumbnail?: Maybe<Scalars['Boolean']>;
+  published?: InputMaybe<VariablePrecisionDateInput>;
   /**
    * An arbitrary set of property values. Owing to the dynamic nature, they do not have a specific GraphQL input type
    * associated with them. Validation will be performed within the application and returned as errors if not valid.
+   *
    */
-  schemaProperties?: Maybe<Scalars['JSON']>;
-  /** Digital Object Identifier (see: https://doi.org) */
-  doi?: Maybe<Scalars['String']>;
-  /** International Standard Serial Number (see: https://issn.org) */
-  issn?: Maybe<Scalars['String']>;
-  /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  schemaProperties?: InputMaybe<Scalars['JSON']['input']>;
+  /** Human-readable subtitle for the entity */
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  /** A brief description of the entity's contents. */
+  summary?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  thumbnail?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  thumbnailMetadata?: InputMaybe<ImageMetadataInput>;
+  /** Human-readable title for the entity */
+  title: Scalars['String']['input'];
+  /** What level of visibility the entity has */
+  visibility: EntityVisibility;
+  /** If present, this is the timestamp an entity is visible after */
+  visibleAfterAt?: InputMaybe<Scalars['ISO8601DateTime']['input']>;
+  /** If present, this is the timestamp an entity is visible until */
+  visibleUntilAt?: InputMaybe<Scalars['ISO8601DateTime']['input']>;
 };
 
 /** Autogenerated return type of UpdateItem */
@@ -8944,12 +10327,12 @@ export type UpdateItemPayload = StandardMutationPayload & {
   __typename?: 'UpdateItemPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   /** A new representation of the item, on a succesful update */
   item?: Maybe<Item>;
   schemaErrors: Array<SchemaValueError>;
@@ -8957,20 +10340,23 @@ export type UpdateItemPayload = StandardMutationPayload & {
 
 /** Autogenerated input type of UpdateOrdering */
 export type UpdateOrderingInput = {
-  /** The ID for the ordering to update */
-  orderingId: Scalars['ID'];
-  /** A human readable label for the ordering */
-  name?: Maybe<Scalars['String']>;
-  /** Optional markdown content to display before the ordering's children */
-  header?: Maybe<Scalars['String']>;
-  /** Optional markdown content to display after the ordering's children */
-  footer?: Maybe<Scalars['String']>;
-  filter?: Maybe<OrderingFilterDefinitionInput>;
-  select?: Maybe<OrderingSelectDefinitionInput>;
-  order: Array<OrderDefinitionInput>;
-  render?: Maybe<OrderingRenderDefinitionInput>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<OrderingFilterDefinitionInput>;
+  /** Optional markdown content to display after the ordering's children */
+  footer?: InputMaybe<Scalars['String']['input']>;
+  /** Optional markdown content to display before the ordering's children */
+  header?: InputMaybe<Scalars['String']['input']>;
+  /** A human readable label for the ordering */
+  name?: InputMaybe<Scalars['String']['input']>;
+  order: Array<OrderDefinitionInput>;
+  /**
+   * The ID for the ordering to update
+   *
+   */
+  orderingId: Scalars['ID']['input'];
+  render?: InputMaybe<OrderingRenderDefinitionInput>;
+  select?: InputMaybe<OrderingSelectDefinitionInput>;
 };
 
 /** Autogenerated return type of UpdateOrdering */
@@ -8978,40 +10364,52 @@ export type UpdateOrderingPayload = StandardMutationPayload & {
   __typename?: 'UpdateOrderingPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   /** The updated ordering */
   ordering?: Maybe<Ordering>;
 };
 
 /** Autogenerated input type of UpdateOrganizationContributor */
 export type UpdateOrganizationContributorInput = {
-  /** An email associated with the contributor */
-  email?: Maybe<Scalars['String']>;
-  /** A url associated with the contributor */
-  url?: Maybe<Scalars['String']>;
   /** A summary of the contributor */
-  bio?: Maybe<Scalars['String']>;
-  links?: Maybe<Array<ContributorLinkInput>>;
-  /** An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor. */
-  orcid?: Maybe<Scalars['String']>;
-  /** A reference to an uploaded image in Tus. */
-  image?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  imageMetadata?: Maybe<ImageMetadataInput>;
-  /** The legal name of the organization */
-  legalName?: Maybe<Scalars['String']>;
-  /** Where the organization is located (if applicable) */
-  location?: Maybe<Scalars['String']>;
-  contributorId: Scalars['ID'];
-  /** If set to true, this will clear the attachment image on this model. */
-  clearImage?: Maybe<Scalars['Boolean']>;
+  bio?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * If set to true, this will clear the attachment image on this model.
+   *
+   */
+  clearImage?: InputMaybe<Scalars['Boolean']['input']>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  contributorId: Scalars['ID']['input'];
+  /** An email associated with the contributor */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  image?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  imageMetadata?: InputMaybe<ImageMetadataInput>;
+  /** The legal name of the organization */
+  legalName?: InputMaybe<Scalars['String']['input']>;
+  links?: InputMaybe<Array<ContributorLinkInput>>;
+  /** Where the organization is located (if applicable) */
+  location?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor.
+   *
+   */
+  orcid?: InputMaybe<Scalars['String']['input']>;
+  /** A url associated with the contributor */
+  url?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Autogenerated return type of UpdateOrganizationContributor */
@@ -9019,31 +10417,40 @@ export type UpdateOrganizationContributorPayload = StandardMutationPayload & {
   __typename?: 'UpdateOrganizationContributorPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** The updated organization */
   contributor?: Maybe<OrganizationContributor>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of UpdatePage */
 export type UpdatePageInput = {
-  pageId: Scalars['ID'];
-  title: Scalars['String'];
-  slug: Scalars['String'];
-  position?: Maybe<Scalars['Int']>;
-  body: Scalars['String'];
-  /** A reference to an uploaded image in Tus. */
-  heroImage?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  heroImageMetadata?: Maybe<ImageMetadataInput>;
-  /** If set to true, this will clear the attachment hero_image on this model. */
-  clearHeroImage?: Maybe<Scalars['Boolean']>;
+  body: Scalars['String']['input'];
+  /**
+   * If set to true, this will clear the attachment hero_image on this model.
+   *
+   */
+  clearHeroImage?: InputMaybe<Scalars['Boolean']['input']>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  heroImage?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  heroImageMetadata?: InputMaybe<ImageMetadataInput>;
+  pageId: Scalars['ID']['input'];
+  position?: InputMaybe<Scalars['Int']['input']>;
+  slug: Scalars['String']['input'];
+  title: Scalars['String']['input'];
 };
 
 /** Autogenerated return type of UpdatePage */
@@ -9051,39 +10458,51 @@ export type UpdatePagePayload = StandardMutationPayload & {
   __typename?: 'UpdatePagePayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   page?: Maybe<Page>;
 };
 
 /** Autogenerated input type of UpdatePersonContributor */
 export type UpdatePersonContributorInput = {
-  /** An email associated with the contributor */
-  email?: Maybe<Scalars['String']>;
-  /** A url associated with the contributor */
-  url?: Maybe<Scalars['String']>;
+  affiliation?: InputMaybe<Scalars['String']['input']>;
   /** A summary of the contributor */
-  bio?: Maybe<Scalars['String']>;
-  links?: Maybe<Array<ContributorLinkInput>>;
-  /** An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor. */
-  orcid?: Maybe<Scalars['String']>;
-  /** A reference to an uploaded image in Tus. */
-  image?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  imageMetadata?: Maybe<ImageMetadataInput>;
-  givenName?: Maybe<Scalars['String']>;
-  familyName?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  affiliation?: Maybe<Scalars['String']>;
-  contributorId: Scalars['ID'];
-  /** If set to true, this will clear the attachment image on this model. */
-  clearImage?: Maybe<Scalars['Boolean']>;
+  bio?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * If set to true, this will clear the attachment image on this model.
+   *
+   */
+  clearImage?: InputMaybe<Scalars['Boolean']['input']>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  contributorId: Scalars['ID']['input'];
+  /** An email associated with the contributor */
+  email?: InputMaybe<Scalars['String']['input']>;
+  familyName?: InputMaybe<Scalars['String']['input']>;
+  givenName?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  image?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  imageMetadata?: InputMaybe<ImageMetadataInput>;
+  links?: InputMaybe<Array<ContributorLinkInput>>;
+  /**
+   * An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor.
+   *
+   */
+  orcid?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  /** A url associated with the contributor */
+  url?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Autogenerated return type of UpdatePersonContributor */
@@ -9091,23 +10510,23 @@ export type UpdatePersonContributorPayload = StandardMutationPayload & {
   __typename?: 'UpdatePersonContributorPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** The created person */
   contributor?: Maybe<PersonContributor>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** Autogenerated input type of UpdateRole */
 export type UpdateRoleInput = {
-  roleId: Scalars['ID'];
-  name: Scalars['String'];
-  accessControlList: Scalars['JSON'];
+  accessControlList: Scalars['JSON']['input'];
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  roleId: Scalars['ID']['input'];
 };
 
 /** Autogenerated return type of UpdateRole */
@@ -9115,28 +10534,40 @@ export type UpdateRolePayload = StandardMutationPayload & {
   __typename?: 'UpdateRolePayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   role?: Maybe<Role>;
 };
 
 /** Autogenerated input type of UpdateUser */
 export type UpdateUserInput = {
-  userId: Scalars['ID'];
-  /** A reference to an uploaded image in Tus. */
-  avatar?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  avatarMetadata?: Maybe<ImageMetadataInput>;
-  /** If set to true, this will clear the attachment avatar on this model. */
-  clearAvatar?: Maybe<Scalars['Boolean']>;
-  /** Attributes for the user that correspond to attributes in Keycloak. */
-  profile: UserProfileInput;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  avatar?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  avatarMetadata?: InputMaybe<ImageMetadataInput>;
+  /**
+   * If set to true, this will clear the attachment avatar on this model.
+   *
+   */
+  clearAvatar?: InputMaybe<Scalars['Boolean']['input']>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Attributes for the user that correspond to attributes in Keycloak.
+   *
+   */
+  profile: UserProfileInput;
+  userId: Scalars['ID']['input'];
 };
 
 /** Autogenerated return type of UpdateUser */
@@ -9144,27 +10575,39 @@ export type UpdateUserPayload = StandardMutationPayload & {
   __typename?: 'UpdateUserPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   user?: Maybe<User>;
 };
 
 /** Autogenerated input type of UpdateViewerSettings */
 export type UpdateViewerSettingsInput = {
-  /** A reference to an uploaded image in Tus. */
-  avatar?: Maybe<UploadedFileInput>;
-  /** Metadata for an image attachment. */
-  avatarMetadata?: Maybe<ImageMetadataInput>;
-  /** If set to true, this will clear the attachment avatar on this model. */
-  clearAvatar?: Maybe<Scalars['Boolean']>;
-  /** Attributes for the user that correspond to attributes in Keycloak. */
-  profile: UserProfileInput;
+  /**
+   * A reference to an uploaded image in Tus.
+   *
+   */
+  avatar?: InputMaybe<UploadedFileInput>;
+  /**
+   * Metadata for an image attachment.
+   *
+   */
+  avatarMetadata?: InputMaybe<ImageMetadataInput>;
+  /**
+   * If set to true, this will clear the attachment avatar on this model.
+   *
+   */
+  clearAvatar?: InputMaybe<Scalars['Boolean']['input']>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * Attributes for the user that correspond to attributes in Keycloak.
+   *
+   */
+  profile: UserProfileInput;
 };
 
 /** Autogenerated return type of UpdateViewerSettings */
@@ -9172,53 +10615,56 @@ export type UpdateViewerSettingsPayload = StandardMutationPayload & {
   __typename?: 'UpdateViewerSettingsPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
   user?: Maybe<User>;
 };
 
-
 /** The name of a storage that can contain user uploads. There's only one option at present. */
 export type UploadStorage =
-  /** Temporary storage. Cleaned on a regular basis if uploads are not attached anywhere. */
+  /**
+   * Temporary storage. Cleaned on a regular basis if uploads are not attached anywhere.
+   *
+   */
   | 'CACHE'
   | '%future added value';
 
 /** A definition for a file upload */
 export type UploadedFileInput = {
-  id: Scalars['UploadID'];
-  /** The storage that contains the input. */
-  storage?: Maybe<UploadStorage>;
+  id: Scalars['UploadID']['input'];
   /** Metadata to associate with the upload */
-  metadata?: Maybe<UploadedFileMetadataInput>;
+  metadata?: InputMaybe<UploadedFileMetadataInput>;
+  /** The storage that contains the input. */
+  storage?: InputMaybe<UploadStorage>;
 };
 
 /** File metadata to attach to the upload. */
 export type UploadedFileMetadataInput = {
   /** Alt text for the upload (not always applicable) */
-  alt?: Maybe<Scalars['String']>;
+  alt?: InputMaybe<Scalars['String']['input']>;
   /** The original filename, since Tus mangles them. */
-  filename?: Maybe<Scalars['String']>;
+  filename?: InputMaybe<Scalars['String']['input']>;
   /**
    * The original content type. WDP will detect a real content type, so this can't be spoofed, but it can be helpful with generating
    * an initial asset with the correct kind.
+   *
    */
-  mimeType?: Maybe<Scalars['String']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Autogenerated input type of UpsertContribution */
 export type UpsertContributionInput = {
-  contributableId: Scalars['ID'];
-  contributorId: Scalars['ID'];
-  /** An arbitrary text value that describes the kind of contribution */
-  role?: Maybe<Scalars['String']>;
-  metadata?: Maybe<ContributionMetadataInput>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  contributableId: Scalars['ID']['input'];
+  contributorId: Scalars['ID']['input'];
+  metadata?: InputMaybe<ContributionMetadataInput>;
+  /** An arbitrary text value that describes the kind of contribution */
+  role?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Autogenerated return type of UpsertContribution */
@@ -9226,13 +10672,13 @@ export type UpsertContributionPayload = StandardMutationPayload & {
   __typename?: 'UpsertContributionPayload';
   attributeErrors: Array<MutationAttributeError>;
   /** A unique identifier for the client performing the mutation. */
-  clientMutationId?: Maybe<Scalars['String']>;
+  clientMutationId?: Maybe<Scalars['String']['output']>;
   contribution?: Maybe<AnyContribution>;
   /** @deprecated Use attributeErrors or globalErrors */
   errors: Array<UserError>;
   globalErrors: Array<MutationGlobalError>;
   /** Not presently used */
-  haltCode?: Maybe<Scalars['String']>;
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /** A known or anonymous user in the system. Registration and management is primarily handled through the WDP Keycloak instance. */
@@ -9243,15 +10689,16 @@ export type User = AccessGrantSubject & ExposesPermissions & Node & Sluggable & 
   /** A polymorphic connection for access grants from a subject */
   allAccessGrants: AnyAccessGrantConnection;
   /** A list of allowed actions for the given user on this entity (and its descendants). */
-  allowedActions: Array<Scalars['String']>;
+  allowedActions: Array<Scalars['String']['output']>;
   /** Is this an anonymous / unauthenticated user? */
-  anonymous: Scalars['Boolean'];
+  anonymous: Scalars['Boolean']['output'];
   /**
    * The roles this user has access to assign based on their `primaryRole`,
    * outside of any hierarchical context.
    *
    * When actually assigning roles for an entity, you should use `Entity.assignableRoles`,
    * because it will ensure that the user sufficient permissions at that level.
+   *
    */
   assignableRoles: Array<Role>;
   /** A user's avatar */
@@ -9266,151 +10713,151 @@ export type User = AccessGrantSubject & ExposesPermissions & Node & Sluggable & 
   communities: CommunityConnection;
   /** All access grants for this user on a community */
   communityAccessGrants: UserCommunityAccessGrantConnection;
-  createdAt: Scalars['ISO8601DateTime'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
   /** A user's email. Depending on the upstream provider, this may not be set. */
-  email?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']['output']>;
   /** Has this user's email been verified to work through Keycloak? */
-  emailVerified: Scalars['Boolean'];
+  emailVerified: Scalars['Boolean']['output'];
   /** The user's family (last) name. Depending on the upstream provider, this may not be set. */
-  familyName?: Maybe<Scalars['String']>;
+  familyName?: Maybe<Scalars['String']['output']>;
   /** The user's given (first) name. Depending on the upstream provider, this may not be set. */
-  givenName?: Maybe<Scalars['String']>;
+  givenName?: Maybe<Scalars['String']['output']>;
   /** Does this user have access to administer the entire instance? */
-  globalAdmin: Scalars['Boolean'];
-  id: Scalars['ID'];
+  globalAdmin: Scalars['Boolean']['output'];
+  id: Scalars['ID']['output'];
   /** All access grants for this user on an item */
   itemAccessGrants: UserItemAccessGrantConnection;
   /** Query the items this user has access to */
   items: ItemConnection;
   /** The user's full provided name. Depending on the upstream provider, this may not be set. */
-  name?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']['output']>;
   /** An array of hashes that can be requested to load in a context */
   permissions: Array<PermissionGrant>;
   /** The primary role associated with this subject. */
   primaryRole?: Maybe<Role>;
-  slug: Scalars['Slug'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  slug: Scalars['Slug']['output'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
   /** Can this user upload anything at all? */
-  uploadAccess: Scalars['Boolean'];
+  uploadAccess: Scalars['Boolean']['output'];
   /** If a user has any upload access, this token will allow them to do so. */
-  uploadToken?: Maybe<Scalars['String']>;
+  uploadToken?: Maybe<Scalars['String']['output']>;
   /** A unique username for the user. Depending on the upstream provider, this may not be set. */
-  username?: Maybe<Scalars['String']>;
+  username?: Maybe<Scalars['String']['output']>;
 };
 
 
 /** A known or anonymous user in the system. Registration and management is primarily handled through the WDP Keycloak instance. */
 export type UserAccessGrantsArgs = {
-  entity?: Maybe<AccessGrantEntityFilter>;
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  entity?: InputMaybe<AccessGrantEntityFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A known or anonymous user in the system. Registration and management is primarily handled through the WDP Keycloak instance. */
 export type UserAllAccessGrantsArgs = {
-  entity?: Maybe<AccessGrantEntityFilter>;
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  entity?: InputMaybe<AccessGrantEntityFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A known or anonymous user in the system. Registration and management is primarily handled through the WDP Keycloak instance. */
 export type UserCollectionAccessGrantsArgs = {
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A known or anonymous user in the system. Registration and management is primarily handled through the WDP Keycloak instance. */
 export type UserCollectionsArgs = {
-  access?: Maybe<EntityPermissionFilter>;
-  order?: Maybe<EntityOrder>;
-  schema?: Maybe<Array<Scalars['String']>>;
-  nodeFilter?: Maybe<TreeNodeFilter>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  access?: InputMaybe<EntityPermissionFilter>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  nodeFilter?: InputMaybe<TreeNodeFilter>;
+  order?: InputMaybe<EntityOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
 /** A known or anonymous user in the system. Registration and management is primarily handled through the WDP Keycloak instance. */
 export type UserCommunitiesArgs = {
-  access?: Maybe<EntityPermissionFilter>;
-  order?: Maybe<EntityOrder>;
-  schema?: Maybe<Array<Scalars['String']>>;
-  nodeFilter?: Maybe<TreeNodeFilter>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  access?: InputMaybe<EntityPermissionFilter>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  nodeFilter?: InputMaybe<TreeNodeFilter>;
+  order?: InputMaybe<EntityOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
 /** A known or anonymous user in the system. Registration and management is primarily handled through the WDP Keycloak instance. */
 export type UserCommunityAccessGrantsArgs = {
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A known or anonymous user in the system. Registration and management is primarily handled through the WDP Keycloak instance. */
 export type UserItemAccessGrantsArgs = {
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 /** A known or anonymous user in the system. Registration and management is primarily handled through the WDP Keycloak instance. */
 export type UserItemsArgs = {
-  access?: Maybe<EntityPermissionFilter>;
-  order?: Maybe<EntityOrder>;
-  schema?: Maybe<Array<Scalars['String']>>;
-  nodeFilter?: Maybe<TreeNodeFilter>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  access?: InputMaybe<EntityPermissionFilter>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  nodeFilter?: InputMaybe<TreeNodeFilter>;
+  order?: InputMaybe<EntityOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+  schema?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 /** An access grant for a user */
@@ -9425,21 +10872,24 @@ export type UserAccessGrant = {
   user: User;
 };
 
-/** An access grant for a user to a collection. */
-export type UserCollectionAccessGrant = AccessGrant & UserAccessGrant & Node & Sluggable & {
+/**
+ * An access grant for a user to a collection.
+ *
+ */
+export type UserCollectionAccessGrant = AccessGrant & Node & Sluggable & UserAccessGrant & {
   __typename?: 'UserCollectionAccessGrant';
   /** The collection to which a user has been granted access */
   collection: Collection;
-  createdAt: Scalars['ISO8601DateTime'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
   /** The polymorphic entity to which access has been granted */
   entity: AnyEntity;
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   /** The role the subject has been assigned */
   role: Role;
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['output'];
   /** The polymorphic subject that has been granted access */
   subject: AccessGrantSubject;
-  updatedAt: Scalars['ISO8601DateTime'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
   /** The user which has been granted access */
   user: User;
 };
@@ -9459,26 +10909,29 @@ export type UserCollectionAccessGrantConnection = Paginated & {
 export type UserCollectionAccessGrantEdge = {
   __typename?: 'UserCollectionAccessGrantEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: UserCollectionAccessGrant;
 };
 
-/** An access grant for a user to a community. */
-export type UserCommunityAccessGrant = AccessGrant & UserAccessGrant & Node & Sluggable & {
+/**
+ * An access grant for a user to a community.
+ *
+ */
+export type UserCommunityAccessGrant = AccessGrant & Node & Sluggable & UserAccessGrant & {
   __typename?: 'UserCommunityAccessGrant';
   /** The community to which a user has been granted access */
   community: Community;
-  createdAt: Scalars['ISO8601DateTime'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
   /** The polymorphic entity to which access has been granted */
   entity: AnyEntity;
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   /** The role the subject has been assigned */
   role: Role;
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['output'];
   /** The polymorphic subject that has been granted access */
   subject: AccessGrantSubject;
-  updatedAt: Scalars['ISO8601DateTime'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
   /** The user which has been granted access */
   user: User;
 };
@@ -9498,7 +10951,7 @@ export type UserCommunityAccessGrantConnection = Paginated & {
 export type UserCommunityAccessGrantEdge = {
   __typename?: 'UserCommunityAccessGrantEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: UserCommunityAccessGrant;
 };
@@ -9518,7 +10971,7 @@ export type UserConnection = Paginated & {
 export type UserEdge = {
   __typename?: 'UserEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: User;
 };
@@ -9527,17 +10980,20 @@ export type UserEdge = {
 export type UserError = {
   __typename?: 'UserError';
   /** The attribute path to this error, if applicable */
-  attributePath?: Maybe<Scalars['String']>;
-  code?: Maybe<Scalars['String']>;
+  attributePath?: Maybe<Scalars['String']['output']>;
+  code?: Maybe<Scalars['String']['output']>;
   /** A description of the error */
-  message: Scalars['String'];
+  message: Scalars['String']['output'];
   /** Which input value this error came from */
-  path?: Maybe<Array<Scalars['String']>>;
+  path?: Maybe<Array<Scalars['String']['output']>>;
   /** Whether this error applies to a single attribute, or globally to the entire form */
   scope: MutationErrorScope;
 };
 
-/** Not presently exposed through the API. */
+/**
+ * Not presently exposed through the API.
+ *
+ */
 export type UserGroup = AccessGrantSubject & Node & Sluggable & {
   __typename?: 'UserGroup';
   /** All access grants for this group */
@@ -9550,103 +11006,122 @@ export type UserGroup = AccessGrantSubject & Node & Sluggable & {
    *
    * When actually assigning roles for an entity, you should use `Entity.assignableRoles`,
    * because it will ensure that the user sufficient permissions at that level.
+   *
    */
   assignableRoles: Array<Role>;
   /** All access grants for this group on a collection */
   collectionAccessGrants: UserGroupCollectionAccessGrantConnection;
   /** All access grants for this group on a community */
   communityAccessGrants: UserGroupCommunityAccessGrantConnection;
-  createdAt: Scalars['ISO8601DateTime'];
-  description: Scalars['String'];
-  id: Scalars['ID'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  description: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
   /** All access grants for this group on an item */
   itemAccessGrants: UserGroupItemAccessGrantConnection;
-  name: Scalars['String'];
+  name: Scalars['String']['output'];
   /** The primary role associated with this subject. */
   primaryRole?: Maybe<Role>;
-  slug: Scalars['Slug'];
-  updatedAt: Scalars['ISO8601DateTime'];
+  slug: Scalars['Slug']['output'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
   users: UserConnection;
 };
 
 
-/** Not presently exposed through the API. */
+/**
+ * Not presently exposed through the API.
+ *
+ */
 export type UserGroupAccessGrantsArgs = {
-  entity?: Maybe<AccessGrantEntityFilter>;
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  entity?: InputMaybe<AccessGrantEntityFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
-/** Not presently exposed through the API. */
+/**
+ * Not presently exposed through the API.
+ *
+ */
 export type UserGroupAllAccessGrantsArgs = {
-  entity?: Maybe<AccessGrantEntityFilter>;
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  entity?: InputMaybe<AccessGrantEntityFilter>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
-/** Not presently exposed through the API. */
+/**
+ * Not presently exposed through the API.
+ *
+ */
 export type UserGroupCollectionAccessGrantsArgs = {
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
-/** Not presently exposed through the API. */
+/**
+ * Not presently exposed through the API.
+ *
+ */
 export type UserGroupCommunityAccessGrantsArgs = {
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
-/** Not presently exposed through the API. */
+/**
+ * Not presently exposed through the API.
+ *
+ */
 export type UserGroupItemAccessGrantsArgs = {
-  order?: Maybe<SimpleOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<SimpleOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
-/** Not presently exposed through the API. */
+/**
+ * Not presently exposed through the API.
+ *
+ */
 export type UserGroupUsersArgs = {
-  order?: Maybe<UserOrder>;
-  after?: Maybe<Scalars['String']>;
-  before?: Maybe<Scalars['String']>;
-  first?: Maybe<Scalars['Int']>;
-  last?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  order?: InputMaybe<UserOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: PageDirection;
-  perPage?: Maybe<Scalars['Int']>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** An access grant for a user group */
@@ -9661,21 +11136,24 @@ export type UserGroupAccessGrant = {
   userGroup: UserGroup;
 };
 
-/** An access grant for a group to a collection. */
-export type UserGroupCollectionAccessGrant = AccessGrant & UserGroupAccessGrant & Node & Sluggable & {
+/**
+ * An access grant for a group to a collection.
+ *
+ */
+export type UserGroupCollectionAccessGrant = AccessGrant & Node & Sluggable & UserGroupAccessGrant & {
   __typename?: 'UserGroupCollectionAccessGrant';
   /** The collection to which a group has been granted access */
   collection: Collection;
-  createdAt: Scalars['ISO8601DateTime'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
   /** The polymorphic entity to which access has been granted */
   entity: AnyEntity;
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   /** The role the subject has been assigned */
   role: Role;
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['output'];
   /** The polymorphic subject that has been granted access */
   subject: AccessGrantSubject;
-  updatedAt: Scalars['ISO8601DateTime'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
   /** The group which has been granted access */
   userGroup: UserGroup;
 };
@@ -9695,26 +11173,29 @@ export type UserGroupCollectionAccessGrantConnection = Paginated & {
 export type UserGroupCollectionAccessGrantEdge = {
   __typename?: 'UserGroupCollectionAccessGrantEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: UserGroupCollectionAccessGrant;
 };
 
-/** An access grant for a group to a community. */
-export type UserGroupCommunityAccessGrant = AccessGrant & UserGroupAccessGrant & Node & Sluggable & {
+/**
+ * An access grant for a group to a community.
+ *
+ */
+export type UserGroupCommunityAccessGrant = AccessGrant & Node & Sluggable & UserGroupAccessGrant & {
   __typename?: 'UserGroupCommunityAccessGrant';
   /** The community to which a group has been granted access */
   community: Community;
-  createdAt: Scalars['ISO8601DateTime'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
   /** The polymorphic entity to which access has been granted */
   entity: AnyEntity;
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   /** The role the subject has been assigned */
   role: Role;
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['output'];
   /** The polymorphic subject that has been granted access */
   subject: AccessGrantSubject;
-  updatedAt: Scalars['ISO8601DateTime'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
   /** The group which has been granted access */
   userGroup: UserGroup;
 };
@@ -9734,26 +11215,29 @@ export type UserGroupCommunityAccessGrantConnection = Paginated & {
 export type UserGroupCommunityAccessGrantEdge = {
   __typename?: 'UserGroupCommunityAccessGrantEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: UserGroupCommunityAccessGrant;
 };
 
-/** An access grant for a group to a item. */
-export type UserGroupItemAccessGrant = AccessGrant & UserGroupAccessGrant & Node & Sluggable & {
+/**
+ * An access grant for a group to a item.
+ *
+ */
+export type UserGroupItemAccessGrant = AccessGrant & Node & Sluggable & UserGroupAccessGrant & {
   __typename?: 'UserGroupItemAccessGrant';
-  createdAt: Scalars['ISO8601DateTime'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
   /** The polymorphic entity to which access has been granted */
   entity: AnyEntity;
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   /** The item to which a group has been granted access */
   item: Item;
   /** The role the subject has been assigned */
   role: Role;
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['output'];
   /** The polymorphic subject that has been granted access */
   subject: AccessGrantSubject;
-  updatedAt: Scalars['ISO8601DateTime'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
   /** The group which has been granted access */
   userGroup: UserGroup;
 };
@@ -9773,26 +11257,29 @@ export type UserGroupItemAccessGrantConnection = Paginated & {
 export type UserGroupItemAccessGrantEdge = {
   __typename?: 'UserGroupItemAccessGrantEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: UserGroupItemAccessGrant;
 };
 
-/** An access grant for a user to a collection. */
-export type UserItemAccessGrant = AccessGrant & UserAccessGrant & Node & Sluggable & {
+/**
+ * An access grant for a user to a collection.
+ *
+ */
+export type UserItemAccessGrant = AccessGrant & Node & Sluggable & UserAccessGrant & {
   __typename?: 'UserItemAccessGrant';
-  createdAt: Scalars['ISO8601DateTime'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
   /** The polymorphic entity to which access has been granted */
   entity: AnyEntity;
-  id: Scalars['ID'];
+  id: Scalars['ID']['output'];
   /** The item to which a user has been granted access */
   item: Item;
   /** The role the subject has been assigned */
   role: Role;
-  slug: Scalars['Slug'];
+  slug: Scalars['Slug']['output'];
   /** The polymorphic subject that has been granted access */
   subject: AccessGrantSubject;
-  updatedAt: Scalars['ISO8601DateTime'];
+  updatedAt: Scalars['ISO8601DateTime']['output'];
   /** The user which has been granted access */
   user: User;
 };
@@ -9812,44 +11299,47 @@ export type UserItemAccessGrantConnection = Paginated & {
 export type UserItemAccessGrantEdge = {
   __typename?: 'UserItemAccessGrantEdge';
   /** A cursor for use in pagination. */
-  cursor: Scalars['String'];
+  cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: UserItemAccessGrant;
 };
 
 /** Sort users by a specific property and order */
 export type UserOrder =
-  /** Sort users by newest created date */
-  | 'RECENT'
-  /** Sort users by oldest created date */
-  | 'OLDEST'
   /** Sort users with admins pushed to the top, followed by name A-Z */
   | 'ADMINS_FIRST'
   /** Sort users with admins pushed to the bottom, followed by name Z-A */
   | 'ADMINS_LAST'
-  /** Sort users with admins pushed to the top, followed by recent */
-  | 'ADMINS_RECENT'
   /** Sort users with admins pushed to the bottom, followed by `OLDEST` */
   | 'ADMINS_OLDEST'
-  /** Sort users by their name A-Z */
-  | 'NAME_ASCENDING'
-  /** Sort users by their name Z-A */
-  | 'NAME_DESCENDING'
+  /** Sort users with admins pushed to the top, followed by recent */
+  | 'ADMINS_RECENT'
   /** Sort users by their email A-Z */
   | 'EMAIL_ASCENDING'
   /** Sort users by their email Z-A */
   | 'EMAIL_DESCENDING'
+  /** Sort users by their name A-Z */
+  | 'NAME_ASCENDING'
+  /** Sort users by their name Z-A */
+  | 'NAME_DESCENDING'
+  /** Sort users by oldest created date */
+  | 'OLDEST'
+  /** Sort users by newest created date */
+  | 'RECENT'
   | '%future added value';
 
-/** A mapping of attributes for a user to update in the authentication provider. */
+/**
+ * A mapping of attributes for a user to update in the authentication provider.
+ *
+ */
 export type UserProfileInput = {
-  givenName: Scalars['String'];
-  familyName: Scalars['String'];
-  email: Scalars['String'];
-  username: Scalars['String'];
+  email: Scalars['String']['input'];
+  familyName: Scalars['String']['input'];
+  givenName: Scalars['String']['input'];
+  username: Scalars['String']['input'];
 };
 
-export type VariableDateProperty = SchemaProperty & ScalarProperty & SearchableProperty & {
+export type VariableDateProperty = ScalarProperty & SchemaProperty & SearchableProperty & {
   __typename?: 'VariableDateProperty';
   /**
    * Provided for introspection. This describes whether or not the property's value
@@ -9857,38 +11347,49 @@ export type VariableDateProperty = SchemaProperty & ScalarProperty & SearchableP
    *
    * See `AssetsProperty`, `ContributorsProperty`, `MultiselectProperty`, and `TagsProperty`
    * for examples.
+   *
    */
-  array: Scalars['Boolean'];
+  array: Scalars['Boolean']['output'];
   dateWithPrecision?: Maybe<VariablePrecisionDate>;
-  description?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']['output']>;
   /**
    * The full path that represents the property on the schema instance. It is guaranteed
    * to be unique for the instance, and can be used to grab a property directly, as well as
    * facilitating schema validation and errors within the admin application's forms.
+   *
    */
-  fullPath: Scalars['String'];
-  /** The purpose or intent of this property relative to its entity, parents, and others. */
+  fullPath: Scalars['String']['output'];
+  /**
+   * The purpose or intent of this property relative to its entity, parents, and others.
+   *
+   */
   function: SchemaPropertyFunction;
   /**
    * Whether to render a field as "wide" (two columns) in the form.
    * This is intended to help structure forms logically, as well as
    * provide ample space for certain types of data input, particularly
    * full-text, markdown, and other such complex fields.
+   *
    */
-  isWide: Scalars['Boolean'];
-  /** Provided for introspection. This describes the underlying structure of the data type. */
+  isWide: Scalars['Boolean']['output'];
+  /**
+   * Provided for introspection. This describes the underlying structure of the data type.
+   *
+   */
   kind: SchemaPropertyKind;
-  label: Scalars['String'];
+  label: Scalars['String']['output'];
   /**
    * Provided for introspection. Whether this property can be used to order entities.
    * For certain data types, there's no sensible way to order properties.
+   *
    */
-  orderable: Scalars['Boolean'];
+  orderable: Scalars['Boolean']['output'];
   /**
    * The "short" path for the property. For properties nested within a group, this can
    * be considered the name of the property without the group's prefix.
+   *
    */
-  path: Scalars['String'];
+  path: Scalars['String']['output'];
   /**
    * Whether or not this property is required in order for the schema instance
    * to be considered valid.
@@ -9896,10 +11397,11 @@ export type VariableDateProperty = SchemaProperty & ScalarProperty & SearchableP
    * Note: invalid data provided to a schema property will still invalidate
    * the instance as a whole—the required trait only determines whether a value
    * **must** be set.
+   *
    */
-  required: Scalars['Boolean'];
+  required: Scalars['Boolean']['output'];
   searchOperators: Array<SearchOperator>;
-  searchPath: Scalars['String'];
+  searchPath: Scalars['String']['output'];
   /**
    * Provided for introspection. This represents the actual data type this property
    * uses.
@@ -9908,6 +11410,7 @@ export type VariableDateProperty = SchemaProperty & ScalarProperty & SearchableP
    * `AnyScalarProperty` unions (in that order)`, rather than relying on this value,
    * since the actual implementations of these properties differ in the GraphQL types
    * associated with their values.
+   *
    */
   type: SchemaPropertyType;
 };
@@ -9915,23 +11418,26 @@ export type VariableDateProperty = SchemaProperty & ScalarProperty & SearchableP
 /**
  * A wrapper around a date that allows us to describe a level of precision to apply to it,
  * which can be used in the frontend to affect its display.
+ *
  */
 export type VariablePrecisionDate = {
   __typename?: 'VariablePrecisionDate';
   /** The level of precision: the frontend can make decisions about how to format the associated value based on this */
   precision: DatePrecision;
   /** The actual date, encoded in ISO8601 format (if available) */
-  value?: Maybe<Scalars['ISO8601Date']>;
+  value?: Maybe<Scalars['ISO8601Date']['output']>;
 };
 
-/** A corresponding input type for VariablePrecisionDate. */
+/**
+ * A corresponding input type for VariablePrecisionDate.
+ *
+ */
 export type VariablePrecisionDateInput = {
-  /** The actual date, encoded in ISO8601 format (if available) */
-  value?: Maybe<Scalars['ISO8601Date']>;
   /** The level of precision: the frontend can make decisions about how to format the associated value based on this */
   precision: DatePrecision;
+  /** The actual date, encoded in ISO8601 format (if available) */
+  value?: InputMaybe<Scalars['ISO8601Date']['input']>;
 };
-
 
 
 
@@ -9941,21 +11447,7 @@ export type ResolverTypeWrapper<T> = Promise<T> | T;
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
 };
-
-export type LegacyStitchingResolver<TResult, TParent, TContext, TArgs> = {
-  fragment: string;
-  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
-};
-
-export type NewStitchingResolver<TResult, TParent, TContext, TArgs> = {
-  selectionSet: string;
-  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
-};
-export type StitchingResolver<TResult, TParent, TContext, TArgs> = LegacyStitchingResolver<TResult, TParent, TContext, TArgs> | NewStitchingResolver<TResult, TParent, TContext, TArgs>;
-export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
-  | ResolverFn<TResult, TParent, TContext, TArgs>
-  | ResolverWithResolve<TResult, TParent, TContext, TArgs>
-  | StitchingResolver<TResult, TParent, TContext, TArgs>;
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> = ResolverFn<TResult, TParent, TContext, TArgs> | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
@@ -9969,7 +11461,7 @@ export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
   args: TArgs,
   context: TContext,
   info: GraphQLResolveInfo
-) => AsyncIterator<TResult> | Promise<AsyncIterator<TResult>>;
+) => AsyncIterable<TResult> | Promise<AsyncIterable<TResult>>;
 
 export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
@@ -10014,21 +11506,83 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
+/** Mapping of union types */
+export type ResolversUnionTypes<RefType extends Record<string, unknown>> = {
+  AnyAccessGrant: ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
+  AnyAsset: ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } );
+  AnyAttachable: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+  AnyChildEntity: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+  AnyCollectionAccessGrant: ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
+  AnyCommunityAccessGrant: ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
+  AnyContribution: ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } );
+  AnyContributor: ( OrganizationContributor ) | ( PersonContributor );
+  AnyEntity: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+  AnyLinkTarget: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+  AnyOrderingEntry: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<EntityLink, 'source' | 'target'> & { source: RefType['AnyEntity'], target: RefType['AnyEntity'] } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+  AnyOrderingPath: ( SchemaOrderingPath ) | ( StaticOrderingPath );
+  AnyScalarProperty: ( Omit<AssetProperty, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( Omit<AssetsProperty, 'assets'> & { assets: Array<RefType['AnyAsset']> } ) | ( BooleanProperty ) | ( Omit<ContributorProperty, 'contributor'> & { contributor?: Maybe<RefType['AnyContributor']> } ) | ( Omit<ContributorsProperty, 'contributors'> & { contributors: Array<RefType['AnyContributor']> } ) | ( DateProperty ) | ( EmailProperty ) | ( Omit<EntitiesProperty, 'entities'> & { entities: Array<RefType['AnyEntity']> } ) | ( Omit<EntityProperty, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( FloatProperty ) | ( FullTextProperty ) | ( IntegerProperty ) | ( MarkdownProperty ) | ( MultiselectProperty ) | ( SelectProperty ) | ( StringProperty ) | ( TagsProperty ) | ( TimestampProperty ) | ( UrlProperty ) | ( UnknownProperty ) | ( VariableDateProperty );
+  AnySchemaProperty: ( Omit<AssetProperty, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( Omit<AssetsProperty, 'assets'> & { assets: Array<RefType['AnyAsset']> } ) | ( BooleanProperty ) | ( Omit<ContributorProperty, 'contributor'> & { contributor?: Maybe<RefType['AnyContributor']> } ) | ( Omit<ContributorsProperty, 'contributors'> & { contributors: Array<RefType['AnyContributor']> } ) | ( DateProperty ) | ( EmailProperty ) | ( Omit<EntitiesProperty, 'entities'> & { entities: Array<RefType['AnyEntity']> } ) | ( Omit<EntityProperty, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( FloatProperty ) | ( FullTextProperty ) | ( Omit<GroupProperty, 'properties'> & { properties: Array<RefType['AnyScalarProperty']> } ) | ( IntegerProperty ) | ( MarkdownProperty ) | ( MultiselectProperty ) | ( SelectProperty ) | ( StringProperty ) | ( TagsProperty ) | ( TimestampProperty ) | ( UrlProperty ) | ( UnknownProperty ) | ( VariableDateProperty );
+  AnySearchableProperty: ( BooleanProperty ) | ( DateProperty ) | ( FloatProperty ) | ( FullTextProperty ) | ( IntegerProperty ) | ( MarkdownProperty ) | ( MultiselectProperty ) | ( SelectProperty ) | ( StringProperty ) | ( TimestampProperty ) | ( VariableDateProperty );
+  AnyUserAccessGrant: ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
+  AnyUserGroupAccessGrant: ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
+  CollectionParent: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+  ItemParent: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+};
+
+/** Mapping of interface types */
+export type ResolversInterfaceTypes<RefType extends Record<string, unknown>> = {
+  AccessGrant: ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
+  AccessGrantSubject: ( User ) | ( UserGroup );
+  Accessible: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+  Asset: ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } );
+  Attachable: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+  CRUDPermissionGrid: ( AssetPermissionGrid ) | ( EntityPermissionGrid );
+  ChildEntity: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+  Contributable: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+  Contribution: ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } );
+  Contributor: ( OrganizationContributor ) | ( PersonContributor );
+  DescribesSchema: ( HierarchicalSchemaRank ) | ( HierarchicalSchemaVersionRank ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } );
+  DestroyMutationPayload: ( DestroyAnnouncementPayload ) | ( DestroyAssetPayload ) | ( DestroyCollectionPayload ) | ( DestroyCommunityPayload ) | ( DestroyContributionPayload ) | ( DestroyContributorPayload ) | ( DestroyEntityLinkPayload ) | ( DestroyItemPayload ) | ( DestroyOrderingPayload ) | ( DestroyPagePayload );
+  Entity: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+  ExposesEffectiveAccess: ( Role );
+  ExposesPermissions: ( AccessControlList ) | ( AssetPermissionGrid ) | ( Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<RefType['AnyUserAccessGrant']> } ) | ( EffectiveAccess ) | ( EntityPermissionGrid ) | ( GlobalAccessControlList ) | ( User );
+  HasAttachmentStorage: ( ImageAttachment ) | ( ImageOriginal ) | ( SiteLogoAttachment );
+  HasAvailableEntities: ( Omit<EntitiesProperty, 'entities'> & { entities: Array<RefType['AnyEntity']> } ) | ( Omit<EntityProperty, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } );
+  HasDOI: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+  HasEntityAnalytics: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+  HasEntityBreadcrumbs: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<EntitySelectOption, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+  HasISSN: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+  HasSchemaProperties: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } );
+  Image: ( ImageDerivative ) | ( ImageOriginal );
+  ImageIdentification: ( ImageAttachment ) | ( ImageDerivative ) | ( ImageOriginal ) | ( ImageSize ) | ( SiteLogoAttachment );
+  Node: ( Omit<Announcement, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<RefType['AnyUserAccessGrant']> } ) | ( Omit<EntityBreadcrumb, 'crumb'> & { crumb: RefType['AnyEntity'] } ) | ( Omit<EntityLink, 'source' | 'target'> & { source: RefType['AnyEntity'], target: RefType['AnyEntity'] } ) | ( GlobalConfiguration ) | ( HierarchicalSchemaRank ) | ( HierarchicalSchemaVersionRank ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<LinkTargetCandidate, 'target'> & { target: RefType['AnyLinkTarget'] } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingEntry, 'entry'> & { entry: RefType['AnyOrderingEntry'] } ) | ( OrganizationContributor ) | ( Omit<Page, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PersonContributor ) | ( Role ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } ) | ( User ) | ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( UserGroup ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
+  OptionableProperty: ( MultiselectProperty ) | ( SelectProperty );
+  OrderingPath: ( SchemaOrderingPath ) | ( StaticOrderingPath );
+  Paginated: ( AnnouncementConnection ) | ( Omit<AnyAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyAccessGrant']> } ) | ( Omit<AnyAssetConnection, 'nodes'> & { nodes: Array<RefType['AnyAsset']> } ) | ( Omit<AnyCollectionAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyCollectionAccessGrant']> } ) | ( Omit<AnyCommunityAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyCommunityAccessGrant']> } ) | ( Omit<AnyContributorConnection, 'nodes'> & { nodes: Array<RefType['AnyContributor']> } ) | ( Omit<AnyUserAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyUserAccessGrant']> } ) | ( Omit<AnyUserGroupAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyUserGroupAccessGrant']> } ) | ( CollectionConnection ) | ( CollectionContributionConnection ) | ( CommunityConnection ) | ( ContextualPermissionConnection ) | ( EntityDescendantConnection ) | ( EntityLinkConnection ) | ( ItemConnection ) | ( ItemContributionConnection ) | ( LinkTargetCandidateConnection ) | ( OrderingConnection ) | ( OrderingEntryConnection ) | ( PageConnection ) | ( RoleConnection ) | ( SchemaDefinitionConnection ) | ( SchemaVersionConnection ) | ( SearchResultConnection ) | ( UserCollectionAccessGrantConnection ) | ( UserCommunityAccessGrantConnection ) | ( UserConnection ) | ( UserGroupCollectionAccessGrantConnection ) | ( UserGroupCommunityAccessGrantConnection ) | ( UserGroupItemAccessGrantConnection ) | ( UserItemAccessGrantConnection );
+  PermissionGrid: ( AssetPermissionGrid ) | ( EntityPermissionGrid );
+  ReferencesGlobalEntityDates: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+  ScalarProperty: ( Omit<AssetProperty, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( Omit<AssetsProperty, 'assets'> & { assets: Array<RefType['AnyAsset']> } ) | ( BooleanProperty ) | ( Omit<ContributorProperty, 'contributor'> & { contributor?: Maybe<RefType['AnyContributor']> } ) | ( Omit<ContributorsProperty, 'contributors'> & { contributors: Array<RefType['AnyContributor']> } ) | ( DateProperty ) | ( EmailProperty ) | ( Omit<EntitiesProperty, 'entities'> & { entities: Array<RefType['AnyEntity']> } ) | ( Omit<EntityProperty, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( FloatProperty ) | ( FullTextProperty ) | ( IntegerProperty ) | ( MarkdownProperty ) | ( MultiselectProperty ) | ( SelectProperty ) | ( StringProperty ) | ( TagsProperty ) | ( TimestampProperty ) | ( UrlProperty ) | ( UnknownProperty ) | ( VariableDateProperty );
+  SchemaInstance: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
+  SchemaProperty: ( Omit<AssetProperty, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( Omit<AssetsProperty, 'assets'> & { assets: Array<RefType['AnyAsset']> } ) | ( BooleanProperty ) | ( Omit<ContributorProperty, 'contributor'> & { contributor?: Maybe<RefType['AnyContributor']> } ) | ( Omit<ContributorsProperty, 'contributors'> & { contributors: Array<RefType['AnyContributor']> } ) | ( DateProperty ) | ( EmailProperty ) | ( Omit<EntitiesProperty, 'entities'> & { entities: Array<RefType['AnyEntity']> } ) | ( Omit<EntityProperty, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( FloatProperty ) | ( FullTextProperty ) | ( Omit<GroupProperty, 'properties'> & { properties: Array<RefType['AnyScalarProperty']> } ) | ( IntegerProperty ) | ( MarkdownProperty ) | ( MultiselectProperty ) | ( SelectProperty ) | ( StringProperty ) | ( TagsProperty ) | ( TimestampProperty ) | ( UrlProperty ) | ( UnknownProperty ) | ( VariableDateProperty );
+  Searchable: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Query, 'asset' | 'contributor' | 'contributorLookup' | 'orderingPaths'> & { asset?: Maybe<RefType['AnyAsset']>, contributor?: Maybe<RefType['AnyContributor']>, contributorLookup?: Maybe<RefType['AnyContributor']>, orderingPaths: Array<RefType['AnyOrderingPath']> } ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } );
+  SearchableProperty: ( BooleanProperty ) | ( DateProperty ) | ( FloatProperty ) | ( FullTextProperty ) | ( IntegerProperty ) | ( MarkdownProperty ) | ( MultiselectProperty ) | ( SearchableCoreProperty ) | ( SelectProperty ) | ( StringProperty ) | ( TimestampProperty ) | ( VariableDateProperty );
+  Sluggable: ( Omit<Announcement, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<RefType['AnyUserAccessGrant']> } ) | ( Omit<EntityLink, 'source' | 'target'> & { source: RefType['AnyEntity'], target: RefType['AnyEntity'] } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingEntry, 'entry'> & { entry: RefType['AnyOrderingEntry'] } ) | ( OrganizationContributor ) | ( PersonContributor ) | ( Role ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } ) | ( User ) | ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( UserGroup ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
+  StandardMutationPayload: ( Omit<AlterSchemaVersionPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ApplySchemaPropertiesPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ClearInitialOrderingPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( CreateAnnouncementPayload ) | ( Omit<CreateAssetPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( CreateCollectionPayload ) | ( CreateCommunityPayload ) | ( CreateItemPayload ) | ( CreateOrderingPayload ) | ( CreateOrganizationContributorPayload ) | ( CreatePagePayload ) | ( CreatePersonContributorPayload ) | ( CreateRolePayload ) | ( DestroyAnnouncementPayload ) | ( DestroyAssetPayload ) | ( DestroyCollectionPayload ) | ( DestroyCommunityPayload ) | ( DestroyContributionPayload ) | ( DestroyContributorPayload ) | ( DestroyEntityLinkPayload ) | ( DestroyItemPayload ) | ( DestroyOrderingPayload ) | ( DestroyPagePayload ) | ( Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( LinkEntityPayload ) | ( Omit<ReparentEntityPayload, 'child'> & { child?: Maybe<RefType['AnyChildEntity']> } ) | ( ResetOrderingPayload ) | ( Omit<RevokeAccessPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<SelectInitialOrderingPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( UpdateAnnouncementPayload ) | ( Omit<UpdateAssetAttachmentPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( Omit<UpdateAssetPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( UpdateCollectionPayload ) | ( UpdateCommunityPayload ) | ( Omit<UpdateContributionPayload, 'contribution'> & { contribution?: Maybe<RefType['AnyContribution']> } ) | ( UpdateGlobalConfigurationPayload ) | ( UpdateItemPayload ) | ( UpdateOrderingPayload ) | ( UpdateOrganizationContributorPayload ) | ( UpdatePagePayload ) | ( UpdatePersonContributorPayload ) | ( UpdateRolePayload ) | ( UpdateUserPayload ) | ( UpdateViewerSettingsPayload ) | ( Omit<UpsertContributionPayload, 'contribution'> & { contribution?: Maybe<RefType['AnyContribution']> } );
+  UserAccessGrant: ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
+  UserGroupAccessGrant: ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
+};
+
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   AccessControlList: ResolverTypeWrapper<AccessControlList>;
-  String: ResolverTypeWrapper<Scalars['String']>;
-  AccessGrant: ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserGroupCollectionAccessGrant'] | ResolversTypes['UserGroupCommunityAccessGrant'] | ResolversTypes['UserGroupItemAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
+  AccessGrant: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['AccessGrant']>;
   AccessGrantEntityFilter: AccessGrantEntityFilter;
-  AccessGrantSubject: ResolversTypes['User'] | ResolversTypes['UserGroup'];
-  Int: ResolverTypeWrapper<Scalars['Int']>;
+  AccessGrantSubject: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['AccessGrantSubject']>;
   AccessGrantSubjectFilter: AccessGrantSubjectFilter;
-  Accessible: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
+  Accessible: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['Accessible']>;
   AlterSchemaVersionInput: AlterSchemaVersionInput;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
   AlterSchemaVersionPayload: ResolverTypeWrapper<Omit<AlterSchemaVersionPayload, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
   Analytics: ResolverTypeWrapper<Analytics>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   AnalyticsEventCountResult: ResolverTypeWrapper<AnalyticsEventCountResult>;
   AnalyticsEventCountSummary: ResolverTypeWrapper<AnalyticsEventCountSummary>;
   AnalyticsPrecision: AnalyticsPrecision;
@@ -10039,40 +11593,40 @@ export type ResolversTypes = {
   AnnouncementConnection: ResolverTypeWrapper<AnnouncementConnection>;
   AnnouncementEdge: ResolverTypeWrapper<AnnouncementEdge>;
   AnnouncementOrder: AnnouncementOrder;
-  AnyAccessGrant: ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserGroupCollectionAccessGrant'] | ResolversTypes['UserGroupCommunityAccessGrant'] | ResolversTypes['UserGroupItemAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
+  AnyAccessGrant: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AnyAccessGrant']>;
   AnyAccessGrantConnection: ResolverTypeWrapper<Omit<AnyAccessGrantConnection, 'nodes'> & { nodes: Array<ResolversTypes['AnyAccessGrant']> }>;
   AnyAccessGrantEdge: ResolverTypeWrapper<Omit<AnyAccessGrantEdge, 'node'> & { node: ResolversTypes['AnyAccessGrant'] }>;
-  AnyAsset: ResolversTypes['AssetAudio'] | ResolversTypes['AssetDocument'] | ResolversTypes['AssetImage'] | ResolversTypes['AssetPDF'] | ResolversTypes['AssetUnknown'] | ResolversTypes['AssetVideo'];
+  AnyAsset: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AnyAsset']>;
   AnyAssetConnection: ResolverTypeWrapper<Omit<AnyAssetConnection, 'nodes'> & { nodes: Array<ResolversTypes['AnyAsset']> }>;
   AnyAssetEdge: ResolverTypeWrapper<Omit<AnyAssetEdge, 'node'> & { node: ResolversTypes['AnyAsset'] }>;
-  AnyAttachable: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
-  AnyChildEntity: ResolversTypes['Collection'] | ResolversTypes['Item'];
-  AnyCollectionAccessGrant: ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserGroupCollectionAccessGrant'];
+  AnyAttachable: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AnyAttachable']>;
+  AnyChildEntity: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AnyChildEntity']>;
+  AnyCollectionAccessGrant: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AnyCollectionAccessGrant']>;
   AnyCollectionAccessGrantConnection: ResolverTypeWrapper<Omit<AnyCollectionAccessGrantConnection, 'nodes'> & { nodes: Array<ResolversTypes['AnyCollectionAccessGrant']> }>;
   AnyCollectionAccessGrantEdge: ResolverTypeWrapper<Omit<AnyCollectionAccessGrantEdge, 'node'> & { node: ResolversTypes['AnyCollectionAccessGrant'] }>;
-  AnyCommunityAccessGrant: ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserGroupCommunityAccessGrant'];
+  AnyCommunityAccessGrant: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AnyCommunityAccessGrant']>;
   AnyCommunityAccessGrantConnection: ResolverTypeWrapper<Omit<AnyCommunityAccessGrantConnection, 'nodes'> & { nodes: Array<ResolversTypes['AnyCommunityAccessGrant']> }>;
   AnyCommunityAccessGrantEdge: ResolverTypeWrapper<Omit<AnyCommunityAccessGrantEdge, 'node'> & { node: ResolversTypes['AnyCommunityAccessGrant'] }>;
-  AnyContribution: ResolversTypes['CollectionContribution'] | ResolversTypes['ItemContribution'];
-  AnyContributor: ResolversTypes['OrganizationContributor'] | ResolversTypes['PersonContributor'];
+  AnyContribution: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AnyContribution']>;
+  AnyContributor: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AnyContributor']>;
   AnyContributorConnection: ResolverTypeWrapper<Omit<AnyContributorConnection, 'nodes'> & { nodes: Array<ResolversTypes['AnyContributor']> }>;
   AnyContributorEdge: ResolverTypeWrapper<Omit<AnyContributorEdge, 'node'> & { node: ResolversTypes['AnyContributor'] }>;
-  AnyEntity: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
-  AnyLinkTarget: ResolversTypes['Collection'] | ResolversTypes['Item'];
-  AnyOrderingEntry: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['EntityLink'] | ResolversTypes['Item'];
-  AnyOrderingPath: ResolversTypes['SchemaOrderingPath'] | ResolversTypes['StaticOrderingPath'];
-  AnyScalarProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['EntitiesProperty'] | ResolversTypes['EntityProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
-  AnySchemaProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['EntitiesProperty'] | ResolversTypes['EntityProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['GroupProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
-  AnySearchableProperty: ResolversTypes['BooleanProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['VariableDateProperty'];
-  AnyUserAccessGrant: ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
+  AnyEntity: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AnyEntity']>;
+  AnyLinkTarget: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AnyLinkTarget']>;
+  AnyOrderingEntry: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AnyOrderingEntry']>;
+  AnyOrderingPath: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AnyOrderingPath']>;
+  AnyScalarProperty: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AnyScalarProperty']>;
+  AnySchemaProperty: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AnySchemaProperty']>;
+  AnySearchableProperty: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AnySearchableProperty']>;
+  AnyUserAccessGrant: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AnyUserAccessGrant']>;
   AnyUserAccessGrantConnection: ResolverTypeWrapper<Omit<AnyUserAccessGrantConnection, 'nodes'> & { nodes: Array<ResolversTypes['AnyUserAccessGrant']> }>;
   AnyUserAccessGrantEdge: ResolverTypeWrapper<Omit<AnyUserAccessGrantEdge, 'node'> & { node: ResolversTypes['AnyUserAccessGrant'] }>;
-  AnyUserGroupAccessGrant: ResolversTypes['UserGroupCollectionAccessGrant'] | ResolversTypes['UserGroupCommunityAccessGrant'] | ResolversTypes['UserGroupItemAccessGrant'];
+  AnyUserGroupAccessGrant: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['AnyUserGroupAccessGrant']>;
   AnyUserGroupAccessGrantConnection: ResolverTypeWrapper<Omit<AnyUserGroupAccessGrantConnection, 'nodes'> & { nodes: Array<ResolversTypes['AnyUserGroupAccessGrant']> }>;
   AnyUserGroupAccessGrantEdge: ResolverTypeWrapper<Omit<AnyUserGroupAccessGrantEdge, 'node'> & { node: ResolversTypes['AnyUserGroupAccessGrant'] }>;
   ApplySchemaPropertiesInput: ApplySchemaPropertiesInput;
   ApplySchemaPropertiesPayload: ResolverTypeWrapper<Omit<ApplySchemaPropertiesPayload, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
-  Asset: ResolversTypes['AssetAudio'] | ResolversTypes['AssetDocument'] | ResolversTypes['AssetImage'] | ResolversTypes['AssetPDF'] | ResolversTypes['AssetUnknown'] | ResolversTypes['AssetVideo'];
+  Asset: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['Asset']>;
   AssetAudio: ResolverTypeWrapper<Omit<AssetAudio, 'attachable'> & { attachable: ResolversTypes['AnyAttachable'] }>;
   AssetDocument: ResolverTypeWrapper<Omit<AssetDocument, 'attachable'> & { attachable: ResolversTypes['AnyAttachable'] }>;
   AssetImage: ResolverTypeWrapper<Omit<AssetImage, 'attachable'> & { attachable: ResolversTypes['AnyAttachable'] }>;
@@ -10085,11 +11639,12 @@ export type ResolversTypes = {
   AssetUnknown: ResolverTypeWrapper<Omit<AssetUnknown, 'attachable'> & { attachable: ResolversTypes['AnyAttachable'] }>;
   AssetVideo: ResolverTypeWrapper<Omit<AssetVideo, 'attachable'> & { attachable: ResolversTypes['AnyAttachable'] }>;
   AssetsProperty: ResolverTypeWrapper<Omit<AssetsProperty, 'assets'> & { assets: Array<ResolversTypes['AnyAsset']> }>;
-  Attachable: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
+  Attachable: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['Attachable']>;
   AttachmentStorage: AttachmentStorage;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   BooleanProperty: ResolverTypeWrapper<BooleanProperty>;
-  CRUDPermissionGrid: ResolversTypes['AssetPermissionGrid'] | ResolversTypes['EntityPermissionGrid'];
-  ChildEntity: ResolversTypes['Collection'] | ResolversTypes['Item'];
+  CRUDPermissionGrid: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['CRUDPermissionGrid']>;
+  ChildEntity: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['ChildEntity']>;
   ClearInitialOrderingInput: ClearInitialOrderingInput;
   ClearInitialOrderingPayload: ResolverTypeWrapper<Omit<ClearInitialOrderingPayload, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
   Collection: ResolverTypeWrapper<Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<ResolversTypes['AnyEntity']>, ancestorOfType?: Maybe<ResolversTypes['AnyEntity']>, parent?: Maybe<ResolversTypes['CollectionParent']>, schemaProperties: Array<ResolversTypes['AnySchemaProperty']>, schemaProperty?: Maybe<ResolversTypes['AnySchemaProperty']> }>;
@@ -10098,7 +11653,7 @@ export type ResolversTypes = {
   CollectionContributionConnection: ResolverTypeWrapper<CollectionContributionConnection>;
   CollectionContributionEdge: ResolverTypeWrapper<CollectionContributionEdge>;
   CollectionEdge: ResolverTypeWrapper<CollectionEdge>;
-  CollectionParent: ResolversTypes['Collection'] | ResolversTypes['Community'];
+  CollectionParent: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['CollectionParent']>;
   Community: ResolverTypeWrapper<Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<ResolversTypes['AnySchemaProperty']>, schemaProperty?: Maybe<ResolversTypes['AnySchemaProperty']> }>;
   CommunityConnection: ResolverTypeWrapper<CommunityConnection>;
   CommunityEdge: ResolverTypeWrapper<CommunityEdge>;
@@ -10106,12 +11661,12 @@ export type ResolversTypes = {
   ContextualPermissionConnection: ResolverTypeWrapper<ContextualPermissionConnection>;
   ContextualPermissionEdge: ResolverTypeWrapper<ContextualPermissionEdge>;
   ContextualPermissionOrder: ContextualPermissionOrder;
-  Contributable: ResolversTypes['Collection'] | ResolversTypes['Item'];
-  Contribution: ResolversTypes['CollectionContribution'] | ResolversTypes['ItemContribution'];
+  Contributable: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['Contributable']>;
+  Contribution: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['Contribution']>;
   ContributionMetadata: ResolverTypeWrapper<ContributionMetadata>;
   ContributionMetadataInput: ContributionMetadataInput;
   ContributionOrder: ContributionOrder;
-  Contributor: ResolversTypes['OrganizationContributor'] | ResolversTypes['PersonContributor'];
+  Contributor: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['Contributor']>;
   ContributorFilterKind: ContributorFilterKind;
   ContributorKind: ContributorKind;
   ContributorLink: ResolverTypeWrapper<ContributorLink>;
@@ -10147,7 +11702,7 @@ export type ResolversTypes = {
   DateLTEOperatorInput: DateLteOperatorInput;
   DatePrecision: DatePrecision;
   DateProperty: ResolverTypeWrapper<DateProperty>;
-  DescribesSchema: ResolversTypes['HierarchicalSchemaRank'] | ResolversTypes['HierarchicalSchemaVersionRank'] | ResolversTypes['SchemaDefinition'] | ResolversTypes['SchemaVersion'];
+  DescribesSchema: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['DescribesSchema']>;
   DestroyAnnouncementInput: DestroyAnnouncementInput;
   DestroyAnnouncementPayload: ResolverTypeWrapper<DestroyAnnouncementPayload>;
   DestroyAssetInput: DestroyAssetInput;
@@ -10164,7 +11719,7 @@ export type ResolversTypes = {
   DestroyEntityLinkPayload: ResolverTypeWrapper<DestroyEntityLinkPayload>;
   DestroyItemInput: DestroyItemInput;
   DestroyItemPayload: ResolverTypeWrapper<DestroyItemPayload>;
-  DestroyMutationPayload: ResolversTypes['DestroyAnnouncementPayload'] | ResolversTypes['DestroyAssetPayload'] | ResolversTypes['DestroyCollectionPayload'] | ResolversTypes['DestroyCommunityPayload'] | ResolversTypes['DestroyContributionPayload'] | ResolversTypes['DestroyContributorPayload'] | ResolversTypes['DestroyEntityLinkPayload'] | ResolversTypes['DestroyItemPayload'] | ResolversTypes['DestroyOrderingPayload'] | ResolversTypes['DestroyPagePayload'];
+  DestroyMutationPayload: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['DestroyMutationPayload']>;
   DestroyOrderingInput: DestroyOrderingInput;
   DestroyOrderingPayload: ResolverTypeWrapper<DestroyOrderingPayload>;
   DestroyPageInput: DestroyPageInput;
@@ -10173,7 +11728,7 @@ export type ResolversTypes = {
   EffectiveAccess: ResolverTypeWrapper<EffectiveAccess>;
   EmailProperty: ResolverTypeWrapper<EmailProperty>;
   EntitiesProperty: ResolverTypeWrapper<Omit<EntitiesProperty, 'entities'> & { entities: Array<ResolversTypes['AnyEntity']> }>;
-  Entity: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
+  Entity: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['Entity']>;
   EntityBreadcrumb: ResolverTypeWrapper<Omit<EntityBreadcrumb, 'crumb'> & { crumb: ResolversTypes['AnyEntity'] }>;
   EntityDescendant: ResolverTypeWrapper<Omit<EntityDescendant, 'descendant'> & { descendant: ResolversTypes['AnyEntity'] }>;
   EntityDescendantConnection: ResolverTypeWrapper<EntityDescendantConnection>;
@@ -10195,10 +11750,10 @@ export type ResolversTypes = {
   EntityVisibility: EntityVisibility;
   EntityVisibilityFilter: EntityVisibilityFilter;
   EqualsOperatorInput: EqualsOperatorInput;
-  ExposesEffectiveAccess: ResolversTypes['Role'];
-  ExposesPermissions: ResolversTypes['AccessControlList'] | ResolversTypes['AssetPermissionGrid'] | ResolversTypes['ContextualPermission'] | ResolversTypes['EffectiveAccess'] | ResolversTypes['EntityPermissionGrid'] | ResolversTypes['GlobalAccessControlList'] | ResolversTypes['User'];
+  ExposesEffectiveAccess: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['ExposesEffectiveAccess']>;
+  ExposesPermissions: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['ExposesPermissions']>;
+  Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   FloatProperty: ResolverTypeWrapper<FloatProperty>;
-  Float: ResolverTypeWrapper<Scalars['Float']>;
   FullText: ResolverTypeWrapper<FullText>;
   FullTextKind: FullTextKind;
   FullTextProperty: ResolverTypeWrapper<FullTextProperty>;
@@ -10207,24 +11762,25 @@ export type ResolversTypes = {
   GrantAccessInput: GrantAccessInput;
   GrantAccessPayload: ResolverTypeWrapper<Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
   GroupProperty: ResolverTypeWrapper<Omit<GroupProperty, 'properties'> & { properties: Array<ResolversTypes['AnyScalarProperty']> }>;
-  HasAttachmentStorage: ResolversTypes['ImageAttachment'] | ResolversTypes['ImageOriginal'] | ResolversTypes['SiteLogoAttachment'];
-  HasAvailableEntities: ResolversTypes['EntitiesProperty'] | ResolversTypes['EntityProperty'];
-  HasDOI: ResolversTypes['Collection'] | ResolversTypes['Item'];
-  HasEntityAnalytics: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
-  HasEntityBreadcrumbs: ResolversTypes['Collection'] | ResolversTypes['EntitySelectOption'] | ResolversTypes['Item'];
-  HasISSN: ResolversTypes['Collection'] | ResolversTypes['Item'];
-  HasSchemaProperties: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'] | ResolversTypes['SchemaVersion'];
+  HasAttachmentStorage: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasAttachmentStorage']>;
+  HasAvailableEntities: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasAvailableEntities']>;
+  HasDOI: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasDOI']>;
+  HasEntityAnalytics: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasEntityAnalytics']>;
+  HasEntityBreadcrumbs: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasEntityBreadcrumbs']>;
+  HasISSN: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasISSN']>;
+  HasSchemaProperties: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasSchemaProperties']>;
   HeroImageLayout: HeroImageLayout;
   HierarchicalSchemaRank: ResolverTypeWrapper<HierarchicalSchemaRank>;
   HierarchicalSchemaVersionRank: ResolverTypeWrapper<HierarchicalSchemaVersionRank>;
-  ISO8601Date: ResolverTypeWrapper<Scalars['ISO8601Date']>;
-  ISO8601DateTime: ResolverTypeWrapper<Scalars['ISO8601DateTime']>;
-  Image: ResolversTypes['ImageDerivative'] | ResolversTypes['ImageOriginal'];
+  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  ISO8601Date: ResolverTypeWrapper<Scalars['ISO8601Date']['output']>;
+  ISO8601DateTime: ResolverTypeWrapper<Scalars['ISO8601DateTime']['output']>;
+  Image: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['Image']>;
   ImageAttachment: ResolverTypeWrapper<ImageAttachment>;
   ImageDerivative: ResolverTypeWrapper<ImageDerivative>;
   ImageDerivativeFormat: ImageDerivativeFormat;
   ImageDerivativeSize: ImageDerivativeSize;
-  ImageIdentification: ResolversTypes['ImageAttachment'] | ResolversTypes['ImageDerivative'] | ResolversTypes['ImageOriginal'] | ResolversTypes['ImageSize'] | ResolversTypes['SiteLogoAttachment'];
+  ImageIdentification: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['ImageIdentification']>;
   ImageMetadata: ResolverTypeWrapper<ImageMetadata>;
   ImageMetadataInput: ImageMetadataInput;
   ImageOriginal: ResolverTypeWrapper<ImageOriginal>;
@@ -10233,6 +11789,7 @@ export type ResolversTypes = {
   InAnyOperatorInput: InAnyOperatorInput;
   InstitutionSettings: ResolverTypeWrapper<InstitutionSettings>;
   InstitutionSettingsInput: InstitutionSettingsInput;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   IntegerProperty: ResolverTypeWrapper<IntegerProperty>;
   Item: ResolverTypeWrapper<Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<ResolversTypes['AnyEntity']>, ancestorOfType?: Maybe<ResolversTypes['AnyEntity']>, parent?: Maybe<ResolversTypes['ItemParent']>, schemaProperties: Array<ResolversTypes['AnySchemaProperty']>, schemaProperty?: Maybe<ResolversTypes['AnySchemaProperty']> }>;
   ItemConnection: ResolverTypeWrapper<ItemConnection>;
@@ -10240,8 +11797,8 @@ export type ResolversTypes = {
   ItemContributionConnection: ResolverTypeWrapper<ItemContributionConnection>;
   ItemContributionEdge: ResolverTypeWrapper<ItemContributionEdge>;
   ItemEdge: ResolverTypeWrapper<ItemEdge>;
-  ItemParent: ResolversTypes['Collection'] | ResolversTypes['Item'];
-  JSON: ResolverTypeWrapper<Scalars['JSON']>;
+  ItemParent: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['ItemParent']>;
+  JSON: ResolverTypeWrapper<Scalars['JSON']['output']>;
   LinkEntityInput: LinkEntityInput;
   LinkEntityPayload: ResolverTypeWrapper<LinkEntityPayload>;
   LinkTargetCandidate: ResolverTypeWrapper<Omit<LinkTargetCandidate, 'target'> & { target: ResolversTypes['AnyLinkTarget'] }>;
@@ -10257,11 +11814,11 @@ export type ResolversTypes = {
   MutationErrorScope: MutationErrorScope;
   MutationGlobalError: ResolverTypeWrapper<MutationGlobalError>;
   NamedAncestor: ResolverTypeWrapper<Omit<NamedAncestor, 'ancestor'> & { ancestor: ResolversTypes['AnyEntity'] }>;
-  Node: ResolversTypes['Announcement'] | ResolversTypes['AssetAudio'] | ResolversTypes['AssetDocument'] | ResolversTypes['AssetImage'] | ResolversTypes['AssetPDF'] | ResolversTypes['AssetUnknown'] | ResolversTypes['AssetVideo'] | ResolversTypes['Collection'] | ResolversTypes['CollectionContribution'] | ResolversTypes['Community'] | ResolversTypes['ContextualPermission'] | ResolversTypes['EntityBreadcrumb'] | ResolversTypes['EntityLink'] | ResolversTypes['GlobalConfiguration'] | ResolversTypes['HierarchicalSchemaRank'] | ResolversTypes['HierarchicalSchemaVersionRank'] | ResolversTypes['Item'] | ResolversTypes['ItemContribution'] | ResolversTypes['LinkTargetCandidate'] | ResolversTypes['Ordering'] | ResolversTypes['OrderingEntry'] | ResolversTypes['OrganizationContributor'] | ResolversTypes['Page'] | ResolversTypes['PersonContributor'] | ResolversTypes['Role'] | ResolversTypes['SchemaDefinition'] | ResolversTypes['SchemaVersion'] | ResolversTypes['User'] | ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserGroup'] | ResolversTypes['UserGroupCollectionAccessGrant'] | ResolversTypes['UserGroupCommunityAccessGrant'] | ResolversTypes['UserGroupItemAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
+  Node: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['Node']>;
   NullOrderPriority: NullOrderPriority;
   NumericGTEOperatorInput: NumericGteOperatorInput;
   NumericLTEOperatorInput: NumericLteOperatorInput;
-  OptionableProperty: ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'];
+  OptionableProperty: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['OptionableProperty']>;
   OrOperatorInput: OrOperatorInput;
   OrderDefinition: ResolverTypeWrapper<OrderDefinition>;
   OrderDefinitionInput: OrderDefinitionInput;
@@ -10277,7 +11834,7 @@ export type ResolversTypes = {
   OrderingFilterDefinition: ResolverTypeWrapper<OrderingFilterDefinition>;
   OrderingFilterDefinitionInput: OrderingFilterDefinitionInput;
   OrderingOrder: OrderingOrder;
-  OrderingPath: ResolversTypes['SchemaOrderingPath'] | ResolversTypes['StaticOrderingPath'];
+  OrderingPath: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['OrderingPath']>;
   OrderingPathGrouping: OrderingPathGrouping;
   OrderingRenderDefinition: ResolverTypeWrapper<OrderingRenderDefinition>;
   OrderingRenderDefinitionInput: OrderingRenderDefinitionInput;
@@ -10295,13 +11852,13 @@ export type ResolversTypes = {
   PageDirection: PageDirection;
   PageEdge: ResolverTypeWrapper<PageEdge>;
   PageInfo: ResolverTypeWrapper<PageInfo>;
-  Paginated: ResolversTypes['AnnouncementConnection'] | ResolversTypes['AnyAccessGrantConnection'] | ResolversTypes['AnyAssetConnection'] | ResolversTypes['AnyCollectionAccessGrantConnection'] | ResolversTypes['AnyCommunityAccessGrantConnection'] | ResolversTypes['AnyContributorConnection'] | ResolversTypes['AnyUserAccessGrantConnection'] | ResolversTypes['AnyUserGroupAccessGrantConnection'] | ResolversTypes['CollectionConnection'] | ResolversTypes['CollectionContributionConnection'] | ResolversTypes['CommunityConnection'] | ResolversTypes['ContextualPermissionConnection'] | ResolversTypes['EntityDescendantConnection'] | ResolversTypes['EntityLinkConnection'] | ResolversTypes['ItemConnection'] | ResolversTypes['ItemContributionConnection'] | ResolversTypes['LinkTargetCandidateConnection'] | ResolversTypes['OrderingConnection'] | ResolversTypes['OrderingEntryConnection'] | ResolversTypes['PageConnection'] | ResolversTypes['RoleConnection'] | ResolversTypes['SchemaDefinitionConnection'] | ResolversTypes['SchemaVersionConnection'] | ResolversTypes['SearchResultConnection'] | ResolversTypes['UserCollectionAccessGrantConnection'] | ResolversTypes['UserCommunityAccessGrantConnection'] | ResolversTypes['UserConnection'] | ResolversTypes['UserGroupCollectionAccessGrantConnection'] | ResolversTypes['UserGroupCommunityAccessGrantConnection'] | ResolversTypes['UserGroupItemAccessGrantConnection'] | ResolversTypes['UserItemAccessGrantConnection'];
+  Paginated: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['Paginated']>;
   PermissionGrant: ResolverTypeWrapper<PermissionGrant>;
-  PermissionGrid: ResolversTypes['AssetPermissionGrid'] | ResolversTypes['EntityPermissionGrid'];
+  PermissionGrid: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['PermissionGrid']>;
   PersonContributor: ResolverTypeWrapper<PersonContributor>;
   PropertyApplicationStrategy: PropertyApplicationStrategy;
   Query: ResolverTypeWrapper<{}>;
-  ReferencesGlobalEntityDates: ResolversTypes['Collection'] | ResolversTypes['Item'];
+  ReferencesGlobalEntityDates: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['ReferencesGlobalEntityDates']>;
   ReparentEntityInput: ReparentEntityInput;
   ReparentEntityPayload: ResolverTypeWrapper<Omit<ReparentEntityPayload, 'child'> & { child?: Maybe<ResolversTypes['AnyChildEntity']> }>;
   ResetOrderingInput: ResetOrderingInput;
@@ -10315,17 +11872,17 @@ export type ResolversTypes = {
   RoleOrder: RoleOrder;
   RolePrimacy: RolePrimacy;
   RoleSystemIdentifier: RoleSystemIdentifier;
-  ScalarProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['EntitiesProperty'] | ResolversTypes['EntityProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
+  ScalarProperty: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['ScalarProperty']>;
   SchemaCoreDefinition: ResolverTypeWrapper<SchemaCoreDefinition>;
   SchemaDefinition: ResolverTypeWrapper<SchemaDefinition>;
   SchemaDefinitionConnection: ResolverTypeWrapper<SchemaDefinitionConnection>;
   SchemaDefinitionEdge: ResolverTypeWrapper<SchemaDefinitionEdge>;
-  SchemaInstance: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'];
+  SchemaInstance: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['SchemaInstance']>;
   SchemaInstanceContext: ResolverTypeWrapper<SchemaInstanceContext>;
   SchemaInstanceValidation: ResolverTypeWrapper<SchemaInstanceValidation>;
   SchemaKind: SchemaKind;
   SchemaOrderingPath: ResolverTypeWrapper<SchemaOrderingPath>;
-  SchemaProperty: ResolversTypes['AssetProperty'] | ResolversTypes['AssetsProperty'] | ResolversTypes['BooleanProperty'] | ResolversTypes['ContributorProperty'] | ResolversTypes['ContributorsProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['EmailProperty'] | ResolversTypes['EntitiesProperty'] | ResolversTypes['EntityProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['GroupProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TagsProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['URLProperty'] | ResolversTypes['UnknownProperty'] | ResolversTypes['VariableDateProperty'];
+  SchemaProperty: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['SchemaProperty']>;
   SchemaPropertyFunction: SchemaPropertyFunction;
   SchemaPropertyKind: SchemaPropertyKind;
   SchemaPropertyType: SchemaPropertyType;
@@ -10344,9 +11901,9 @@ export type ResolversTypes = {
   SearchResultConnection: ResolverTypeWrapper<SearchResultConnection>;
   SearchResultEdge: ResolverTypeWrapper<SearchResultEdge>;
   SearchScope: ResolverTypeWrapper<SearchScope>;
-  Searchable: ResolversTypes['Collection'] | ResolversTypes['Community'] | ResolversTypes['Item'] | ResolversTypes['Query'] | ResolversTypes['SchemaVersion'];
+  Searchable: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['Searchable']>;
   SearchableCoreProperty: ResolverTypeWrapper<SearchableCoreProperty>;
-  SearchableProperty: ResolversTypes['BooleanProperty'] | ResolversTypes['DateProperty'] | ResolversTypes['FloatProperty'] | ResolversTypes['FullTextProperty'] | ResolversTypes['IntegerProperty'] | ResolversTypes['MarkdownProperty'] | ResolversTypes['MultiselectProperty'] | ResolversTypes['SearchableCoreProperty'] | ResolversTypes['SelectProperty'] | ResolversTypes['StringProperty'] | ResolversTypes['TimestampProperty'] | ResolversTypes['VariableDateProperty'];
+  SearchableProperty: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['SearchableProperty']>;
   SelectInitialOrderingInput: SelectInitialOrderingInput;
   SelectInitialOrderingPayload: ResolverTypeWrapper<Omit<SelectInitialOrderingPayload, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
   SelectOption: ResolverTypeWrapper<SelectOption>;
@@ -10358,10 +11915,11 @@ export type ResolversTypes = {
   SiteLogoMode: SiteLogoMode;
   SiteSettings: ResolverTypeWrapper<SiteSettings>;
   SiteSettingsInput: SiteSettingsInput;
-  Slug: ResolverTypeWrapper<Scalars['Slug']>;
-  Sluggable: ResolversTypes['Announcement'] | ResolversTypes['AssetAudio'] | ResolversTypes['AssetDocument'] | ResolversTypes['AssetImage'] | ResolversTypes['AssetPDF'] | ResolversTypes['AssetUnknown'] | ResolversTypes['AssetVideo'] | ResolversTypes['Collection'] | ResolversTypes['CollectionContribution'] | ResolversTypes['Community'] | ResolversTypes['ContextualPermission'] | ResolversTypes['EntityLink'] | ResolversTypes['Item'] | ResolversTypes['ItemContribution'] | ResolversTypes['Ordering'] | ResolversTypes['OrderingEntry'] | ResolversTypes['OrganizationContributor'] | ResolversTypes['PersonContributor'] | ResolversTypes['Role'] | ResolversTypes['SchemaDefinition'] | ResolversTypes['SchemaVersion'] | ResolversTypes['User'] | ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserGroup'] | ResolversTypes['UserGroupCollectionAccessGrant'] | ResolversTypes['UserGroupCommunityAccessGrant'] | ResolversTypes['UserGroupItemAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
-  StandardMutationPayload: ResolversTypes['AlterSchemaVersionPayload'] | ResolversTypes['ApplySchemaPropertiesPayload'] | ResolversTypes['ClearInitialOrderingPayload'] | ResolversTypes['CreateAnnouncementPayload'] | ResolversTypes['CreateAssetPayload'] | ResolversTypes['CreateCollectionPayload'] | ResolversTypes['CreateCommunityPayload'] | ResolversTypes['CreateItemPayload'] | ResolversTypes['CreateOrderingPayload'] | ResolversTypes['CreateOrganizationContributorPayload'] | ResolversTypes['CreatePagePayload'] | ResolversTypes['CreatePersonContributorPayload'] | ResolversTypes['CreateRolePayload'] | ResolversTypes['DestroyAnnouncementPayload'] | ResolversTypes['DestroyAssetPayload'] | ResolversTypes['DestroyCollectionPayload'] | ResolversTypes['DestroyCommunityPayload'] | ResolversTypes['DestroyContributionPayload'] | ResolversTypes['DestroyContributorPayload'] | ResolversTypes['DestroyEntityLinkPayload'] | ResolversTypes['DestroyItemPayload'] | ResolversTypes['DestroyOrderingPayload'] | ResolversTypes['DestroyPagePayload'] | ResolversTypes['GrantAccessPayload'] | ResolversTypes['LinkEntityPayload'] | ResolversTypes['ReparentEntityPayload'] | ResolversTypes['ResetOrderingPayload'] | ResolversTypes['RevokeAccessPayload'] | ResolversTypes['SelectInitialOrderingPayload'] | ResolversTypes['UpdateAnnouncementPayload'] | ResolversTypes['UpdateAssetAttachmentPayload'] | ResolversTypes['UpdateAssetPayload'] | ResolversTypes['UpdateCollectionPayload'] | ResolversTypes['UpdateCommunityPayload'] | ResolversTypes['UpdateContributionPayload'] | ResolversTypes['UpdateGlobalConfigurationPayload'] | ResolversTypes['UpdateItemPayload'] | ResolversTypes['UpdateOrderingPayload'] | ResolversTypes['UpdateOrganizationContributorPayload'] | ResolversTypes['UpdatePagePayload'] | ResolversTypes['UpdatePersonContributorPayload'] | ResolversTypes['UpdateRolePayload'] | ResolversTypes['UpdateUserPayload'] | ResolversTypes['UpdateViewerSettingsPayload'] | ResolversTypes['UpsertContributionPayload'];
+  Slug: ResolverTypeWrapper<Scalars['Slug']['output']>;
+  Sluggable: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['Sluggable']>;
+  StandardMutationPayload: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['StandardMutationPayload']>;
   StaticOrderingPath: ResolverTypeWrapper<StaticOrderingPath>;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
   StringProperty: ResolverTypeWrapper<StringProperty>;
   SubtreeNodeFilter: SubtreeNodeFilter;
   SystemInfo: ResolverTypeWrapper<SystemInfo>;
@@ -10403,14 +11961,14 @@ export type ResolversTypes = {
   UpdateUserPayload: ResolverTypeWrapper<UpdateUserPayload>;
   UpdateViewerSettingsInput: UpdateViewerSettingsInput;
   UpdateViewerSettingsPayload: ResolverTypeWrapper<UpdateViewerSettingsPayload>;
-  UploadID: ResolverTypeWrapper<Scalars['UploadID']>;
+  UploadID: ResolverTypeWrapper<Scalars['UploadID']['output']>;
   UploadStorage: UploadStorage;
   UploadedFileInput: UploadedFileInput;
   UploadedFileMetadataInput: UploadedFileMetadataInput;
   UpsertContributionInput: UpsertContributionInput;
   UpsertContributionPayload: ResolverTypeWrapper<Omit<UpsertContributionPayload, 'contribution'> & { contribution?: Maybe<ResolversTypes['AnyContribution']> }>;
   User: ResolverTypeWrapper<User>;
-  UserAccessGrant: ResolversTypes['UserCollectionAccessGrant'] | ResolversTypes['UserCommunityAccessGrant'] | ResolversTypes['UserItemAccessGrant'];
+  UserAccessGrant: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['UserAccessGrant']>;
   UserCollectionAccessGrant: ResolverTypeWrapper<Omit<UserCollectionAccessGrant, 'entity'> & { entity: ResolversTypes['AnyEntity'] }>;
   UserCollectionAccessGrantConnection: ResolverTypeWrapper<UserCollectionAccessGrantConnection>;
   UserCollectionAccessGrantEdge: ResolverTypeWrapper<UserCollectionAccessGrantEdge>;
@@ -10421,7 +11979,7 @@ export type ResolversTypes = {
   UserEdge: ResolverTypeWrapper<UserEdge>;
   UserError: ResolverTypeWrapper<UserError>;
   UserGroup: ResolverTypeWrapper<UserGroup>;
-  UserGroupAccessGrant: ResolversTypes['UserGroupCollectionAccessGrant'] | ResolversTypes['UserGroupCommunityAccessGrant'] | ResolversTypes['UserGroupItemAccessGrant'];
+  UserGroupAccessGrant: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['UserGroupAccessGrant']>;
   UserGroupCollectionAccessGrant: ResolverTypeWrapper<Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: ResolversTypes['AnyEntity'] }>;
   UserGroupCollectionAccessGrantConnection: ResolverTypeWrapper<UserGroupCollectionAccessGrantConnection>;
   UserGroupCollectionAccessGrantEdge: ResolverTypeWrapper<UserGroupCollectionAccessGrantEdge>;
@@ -10439,22 +11997,18 @@ export type ResolversTypes = {
   VariableDateProperty: ResolverTypeWrapper<VariableDateProperty>;
   VariablePrecisionDate: ResolverTypeWrapper<VariablePrecisionDate>;
   VariablePrecisionDateInput: VariablePrecisionDateInput;
-  VersionRequirement: ResolverTypeWrapper<Scalars['VersionRequirement']>;
+  VersionRequirement: ResolverTypeWrapper<Scalars['VersionRequirement']['output']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   AccessControlList: AccessControlList;
-  String: Scalars['String'];
-  AccessGrant: ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserGroupCollectionAccessGrant'] | ResolversParentTypes['UserGroupCommunityAccessGrant'] | ResolversParentTypes['UserGroupItemAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
-  AccessGrantSubject: ResolversParentTypes['User'] | ResolversParentTypes['UserGroup'];
-  Int: Scalars['Int'];
-  Accessible: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
+  AccessGrant: ResolversInterfaceTypes<ResolversParentTypes>['AccessGrant'];
+  AccessGrantSubject: ResolversInterfaceTypes<ResolversParentTypes>['AccessGrantSubject'];
+  Accessible: ResolversInterfaceTypes<ResolversParentTypes>['Accessible'];
   AlterSchemaVersionInput: AlterSchemaVersionInput;
-  ID: Scalars['ID'];
   AlterSchemaVersionPayload: Omit<AlterSchemaVersionPayload, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
   Analytics: Analytics;
-  Boolean: Scalars['Boolean'];
   AnalyticsEventCountResult: AnalyticsEventCountResult;
   AnalyticsEventCountSummary: AnalyticsEventCountSummary;
   AnalyticsRegionCountResult: AnalyticsRegionCountResult;
@@ -10463,40 +12017,40 @@ export type ResolversParentTypes = {
   Announcement: Omit<Announcement, 'entity'> & { entity: ResolversParentTypes['AnyEntity'] };
   AnnouncementConnection: AnnouncementConnection;
   AnnouncementEdge: AnnouncementEdge;
-  AnyAccessGrant: ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserGroupCollectionAccessGrant'] | ResolversParentTypes['UserGroupCommunityAccessGrant'] | ResolversParentTypes['UserGroupItemAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
+  AnyAccessGrant: ResolversUnionTypes<ResolversParentTypes>['AnyAccessGrant'];
   AnyAccessGrantConnection: Omit<AnyAccessGrantConnection, 'nodes'> & { nodes: Array<ResolversParentTypes['AnyAccessGrant']> };
   AnyAccessGrantEdge: Omit<AnyAccessGrantEdge, 'node'> & { node: ResolversParentTypes['AnyAccessGrant'] };
-  AnyAsset: ResolversParentTypes['AssetAudio'] | ResolversParentTypes['AssetDocument'] | ResolversParentTypes['AssetImage'] | ResolversParentTypes['AssetPDF'] | ResolversParentTypes['AssetUnknown'] | ResolversParentTypes['AssetVideo'];
+  AnyAsset: ResolversUnionTypes<ResolversParentTypes>['AnyAsset'];
   AnyAssetConnection: Omit<AnyAssetConnection, 'nodes'> & { nodes: Array<ResolversParentTypes['AnyAsset']> };
   AnyAssetEdge: Omit<AnyAssetEdge, 'node'> & { node: ResolversParentTypes['AnyAsset'] };
-  AnyAttachable: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
-  AnyChildEntity: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
-  AnyCollectionAccessGrant: ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserGroupCollectionAccessGrant'];
+  AnyAttachable: ResolversUnionTypes<ResolversParentTypes>['AnyAttachable'];
+  AnyChildEntity: ResolversUnionTypes<ResolversParentTypes>['AnyChildEntity'];
+  AnyCollectionAccessGrant: ResolversUnionTypes<ResolversParentTypes>['AnyCollectionAccessGrant'];
   AnyCollectionAccessGrantConnection: Omit<AnyCollectionAccessGrantConnection, 'nodes'> & { nodes: Array<ResolversParentTypes['AnyCollectionAccessGrant']> };
   AnyCollectionAccessGrantEdge: Omit<AnyCollectionAccessGrantEdge, 'node'> & { node: ResolversParentTypes['AnyCollectionAccessGrant'] };
-  AnyCommunityAccessGrant: ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserGroupCommunityAccessGrant'];
+  AnyCommunityAccessGrant: ResolversUnionTypes<ResolversParentTypes>['AnyCommunityAccessGrant'];
   AnyCommunityAccessGrantConnection: Omit<AnyCommunityAccessGrantConnection, 'nodes'> & { nodes: Array<ResolversParentTypes['AnyCommunityAccessGrant']> };
   AnyCommunityAccessGrantEdge: Omit<AnyCommunityAccessGrantEdge, 'node'> & { node: ResolversParentTypes['AnyCommunityAccessGrant'] };
-  AnyContribution: ResolversParentTypes['CollectionContribution'] | ResolversParentTypes['ItemContribution'];
-  AnyContributor: ResolversParentTypes['OrganizationContributor'] | ResolversParentTypes['PersonContributor'];
+  AnyContribution: ResolversUnionTypes<ResolversParentTypes>['AnyContribution'];
+  AnyContributor: ResolversUnionTypes<ResolversParentTypes>['AnyContributor'];
   AnyContributorConnection: Omit<AnyContributorConnection, 'nodes'> & { nodes: Array<ResolversParentTypes['AnyContributor']> };
   AnyContributorEdge: Omit<AnyContributorEdge, 'node'> & { node: ResolversParentTypes['AnyContributor'] };
-  AnyEntity: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
-  AnyLinkTarget: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
-  AnyOrderingEntry: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['EntityLink'] | ResolversParentTypes['Item'];
-  AnyOrderingPath: ResolversParentTypes['SchemaOrderingPath'] | ResolversParentTypes['StaticOrderingPath'];
-  AnyScalarProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['EntitiesProperty'] | ResolversParentTypes['EntityProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
-  AnySchemaProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['EntitiesProperty'] | ResolversParentTypes['EntityProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['GroupProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
-  AnySearchableProperty: ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['VariableDateProperty'];
-  AnyUserAccessGrant: ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
+  AnyEntity: ResolversUnionTypes<ResolversParentTypes>['AnyEntity'];
+  AnyLinkTarget: ResolversUnionTypes<ResolversParentTypes>['AnyLinkTarget'];
+  AnyOrderingEntry: ResolversUnionTypes<ResolversParentTypes>['AnyOrderingEntry'];
+  AnyOrderingPath: ResolversUnionTypes<ResolversParentTypes>['AnyOrderingPath'];
+  AnyScalarProperty: ResolversUnionTypes<ResolversParentTypes>['AnyScalarProperty'];
+  AnySchemaProperty: ResolversUnionTypes<ResolversParentTypes>['AnySchemaProperty'];
+  AnySearchableProperty: ResolversUnionTypes<ResolversParentTypes>['AnySearchableProperty'];
+  AnyUserAccessGrant: ResolversUnionTypes<ResolversParentTypes>['AnyUserAccessGrant'];
   AnyUserAccessGrantConnection: Omit<AnyUserAccessGrantConnection, 'nodes'> & { nodes: Array<ResolversParentTypes['AnyUserAccessGrant']> };
   AnyUserAccessGrantEdge: Omit<AnyUserAccessGrantEdge, 'node'> & { node: ResolversParentTypes['AnyUserAccessGrant'] };
-  AnyUserGroupAccessGrant: ResolversParentTypes['UserGroupCollectionAccessGrant'] | ResolversParentTypes['UserGroupCommunityAccessGrant'] | ResolversParentTypes['UserGroupItemAccessGrant'];
+  AnyUserGroupAccessGrant: ResolversUnionTypes<ResolversParentTypes>['AnyUserGroupAccessGrant'];
   AnyUserGroupAccessGrantConnection: Omit<AnyUserGroupAccessGrantConnection, 'nodes'> & { nodes: Array<ResolversParentTypes['AnyUserGroupAccessGrant']> };
   AnyUserGroupAccessGrantEdge: Omit<AnyUserGroupAccessGrantEdge, 'node'> & { node: ResolversParentTypes['AnyUserGroupAccessGrant'] };
   ApplySchemaPropertiesInput: ApplySchemaPropertiesInput;
   ApplySchemaPropertiesPayload: Omit<ApplySchemaPropertiesPayload, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
-  Asset: ResolversParentTypes['AssetAudio'] | ResolversParentTypes['AssetDocument'] | ResolversParentTypes['AssetImage'] | ResolversParentTypes['AssetPDF'] | ResolversParentTypes['AssetUnknown'] | ResolversParentTypes['AssetVideo'];
+  Asset: ResolversInterfaceTypes<ResolversParentTypes>['Asset'];
   AssetAudio: Omit<AssetAudio, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
   AssetDocument: Omit<AssetDocument, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
   AssetImage: Omit<AssetImage, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
@@ -10507,10 +12061,11 @@ export type ResolversParentTypes = {
   AssetUnknown: Omit<AssetUnknown, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
   AssetVideo: Omit<AssetVideo, 'attachable'> & { attachable: ResolversParentTypes['AnyAttachable'] };
   AssetsProperty: Omit<AssetsProperty, 'assets'> & { assets: Array<ResolversParentTypes['AnyAsset']> };
-  Attachable: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
+  Attachable: ResolversInterfaceTypes<ResolversParentTypes>['Attachable'];
+  Boolean: Scalars['Boolean']['output'];
   BooleanProperty: BooleanProperty;
-  CRUDPermissionGrid: ResolversParentTypes['AssetPermissionGrid'] | ResolversParentTypes['EntityPermissionGrid'];
-  ChildEntity: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
+  CRUDPermissionGrid: ResolversInterfaceTypes<ResolversParentTypes>['CRUDPermissionGrid'];
+  ChildEntity: ResolversInterfaceTypes<ResolversParentTypes>['ChildEntity'];
   ClearInitialOrderingInput: ClearInitialOrderingInput;
   ClearInitialOrderingPayload: Omit<ClearInitialOrderingPayload, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
   Collection: Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<ResolversParentTypes['AnyEntity']>, ancestorOfType?: Maybe<ResolversParentTypes['AnyEntity']>, parent?: Maybe<ResolversParentTypes['CollectionParent']>, schemaProperties: Array<ResolversParentTypes['AnySchemaProperty']>, schemaProperty?: Maybe<ResolversParentTypes['AnySchemaProperty']> };
@@ -10519,18 +12074,18 @@ export type ResolversParentTypes = {
   CollectionContributionConnection: CollectionContributionConnection;
   CollectionContributionEdge: CollectionContributionEdge;
   CollectionEdge: CollectionEdge;
-  CollectionParent: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'];
+  CollectionParent: ResolversUnionTypes<ResolversParentTypes>['CollectionParent'];
   Community: Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<ResolversParentTypes['AnySchemaProperty']>, schemaProperty?: Maybe<ResolversParentTypes['AnySchemaProperty']> };
   CommunityConnection: CommunityConnection;
   CommunityEdge: CommunityEdge;
   ContextualPermission: Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<ResolversParentTypes['AnyUserAccessGrant']> };
   ContextualPermissionConnection: ContextualPermissionConnection;
   ContextualPermissionEdge: ContextualPermissionEdge;
-  Contributable: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
-  Contribution: ResolversParentTypes['CollectionContribution'] | ResolversParentTypes['ItemContribution'];
+  Contributable: ResolversInterfaceTypes<ResolversParentTypes>['Contributable'];
+  Contribution: ResolversInterfaceTypes<ResolversParentTypes>['Contribution'];
   ContributionMetadata: ContributionMetadata;
   ContributionMetadataInput: ContributionMetadataInput;
-  Contributor: ResolversParentTypes['OrganizationContributor'] | ResolversParentTypes['PersonContributor'];
+  Contributor: ResolversInterfaceTypes<ResolversParentTypes>['Contributor'];
   ContributorLink: ContributorLink;
   ContributorLinkInput: ContributorLinkInput;
   ContributorProperty: Omit<ContributorProperty, 'contributor'> & { contributor?: Maybe<ResolversParentTypes['AnyContributor']> };
@@ -10561,7 +12116,7 @@ export type ResolversParentTypes = {
   DateGTEOperatorInput: DateGteOperatorInput;
   DateLTEOperatorInput: DateLteOperatorInput;
   DateProperty: DateProperty;
-  DescribesSchema: ResolversParentTypes['HierarchicalSchemaRank'] | ResolversParentTypes['HierarchicalSchemaVersionRank'] | ResolversParentTypes['SchemaDefinition'] | ResolversParentTypes['SchemaVersion'];
+  DescribesSchema: ResolversInterfaceTypes<ResolversParentTypes>['DescribesSchema'];
   DestroyAnnouncementInput: DestroyAnnouncementInput;
   DestroyAnnouncementPayload: DestroyAnnouncementPayload;
   DestroyAssetInput: DestroyAssetInput;
@@ -10578,7 +12133,7 @@ export type ResolversParentTypes = {
   DestroyEntityLinkPayload: DestroyEntityLinkPayload;
   DestroyItemInput: DestroyItemInput;
   DestroyItemPayload: DestroyItemPayload;
-  DestroyMutationPayload: ResolversParentTypes['DestroyAnnouncementPayload'] | ResolversParentTypes['DestroyAssetPayload'] | ResolversParentTypes['DestroyCollectionPayload'] | ResolversParentTypes['DestroyCommunityPayload'] | ResolversParentTypes['DestroyContributionPayload'] | ResolversParentTypes['DestroyContributorPayload'] | ResolversParentTypes['DestroyEntityLinkPayload'] | ResolversParentTypes['DestroyItemPayload'] | ResolversParentTypes['DestroyOrderingPayload'] | ResolversParentTypes['DestroyPagePayload'];
+  DestroyMutationPayload: ResolversInterfaceTypes<ResolversParentTypes>['DestroyMutationPayload'];
   DestroyOrderingInput: DestroyOrderingInput;
   DestroyOrderingPayload: DestroyOrderingPayload;
   DestroyPageInput: DestroyPageInput;
@@ -10586,7 +12141,7 @@ export type ResolversParentTypes = {
   EffectiveAccess: EffectiveAccess;
   EmailProperty: EmailProperty;
   EntitiesProperty: Omit<EntitiesProperty, 'entities'> & { entities: Array<ResolversParentTypes['AnyEntity']> };
-  Entity: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
+  Entity: ResolversInterfaceTypes<ResolversParentTypes>['Entity'];
   EntityBreadcrumb: Omit<EntityBreadcrumb, 'crumb'> & { crumb: ResolversParentTypes['AnyEntity'] };
   EntityDescendant: Omit<EntityDescendant, 'descendant'> & { descendant: ResolversParentTypes['AnyEntity'] };
   EntityDescendantConnection: EntityDescendantConnection;
@@ -10598,10 +12153,10 @@ export type ResolversParentTypes = {
   EntityProperty: Omit<EntityProperty, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
   EntitySelectOption: Omit<EntitySelectOption, 'entity'> & { entity: ResolversParentTypes['AnyEntity'] };
   EqualsOperatorInput: EqualsOperatorInput;
-  ExposesEffectiveAccess: ResolversParentTypes['Role'];
-  ExposesPermissions: ResolversParentTypes['AccessControlList'] | ResolversParentTypes['AssetPermissionGrid'] | ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['EffectiveAccess'] | ResolversParentTypes['EntityPermissionGrid'] | ResolversParentTypes['GlobalAccessControlList'] | ResolversParentTypes['User'];
+  ExposesEffectiveAccess: ResolversInterfaceTypes<ResolversParentTypes>['ExposesEffectiveAccess'];
+  ExposesPermissions: ResolversInterfaceTypes<ResolversParentTypes>['ExposesPermissions'];
+  Float: Scalars['Float']['output'];
   FloatProperty: FloatProperty;
-  Float: Scalars['Float'];
   FullText: FullText;
   FullTextProperty: FullTextProperty;
   GlobalAccessControlList: GlobalAccessControlList;
@@ -10609,21 +12164,22 @@ export type ResolversParentTypes = {
   GrantAccessInput: GrantAccessInput;
   GrantAccessPayload: Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
   GroupProperty: Omit<GroupProperty, 'properties'> & { properties: Array<ResolversParentTypes['AnyScalarProperty']> };
-  HasAttachmentStorage: ResolversParentTypes['ImageAttachment'] | ResolversParentTypes['ImageOriginal'] | ResolversParentTypes['SiteLogoAttachment'];
-  HasAvailableEntities: ResolversParentTypes['EntitiesProperty'] | ResolversParentTypes['EntityProperty'];
-  HasDOI: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
-  HasEntityAnalytics: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
-  HasEntityBreadcrumbs: ResolversParentTypes['Collection'] | ResolversParentTypes['EntitySelectOption'] | ResolversParentTypes['Item'];
-  HasISSN: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
-  HasSchemaProperties: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'] | ResolversParentTypes['SchemaVersion'];
+  HasAttachmentStorage: ResolversInterfaceTypes<ResolversParentTypes>['HasAttachmentStorage'];
+  HasAvailableEntities: ResolversInterfaceTypes<ResolversParentTypes>['HasAvailableEntities'];
+  HasDOI: ResolversInterfaceTypes<ResolversParentTypes>['HasDOI'];
+  HasEntityAnalytics: ResolversInterfaceTypes<ResolversParentTypes>['HasEntityAnalytics'];
+  HasEntityBreadcrumbs: ResolversInterfaceTypes<ResolversParentTypes>['HasEntityBreadcrumbs'];
+  HasISSN: ResolversInterfaceTypes<ResolversParentTypes>['HasISSN'];
+  HasSchemaProperties: ResolversInterfaceTypes<ResolversParentTypes>['HasSchemaProperties'];
   HierarchicalSchemaRank: HierarchicalSchemaRank;
   HierarchicalSchemaVersionRank: HierarchicalSchemaVersionRank;
-  ISO8601Date: Scalars['ISO8601Date'];
-  ISO8601DateTime: Scalars['ISO8601DateTime'];
-  Image: ResolversParentTypes['ImageDerivative'] | ResolversParentTypes['ImageOriginal'];
+  ID: Scalars['ID']['output'];
+  ISO8601Date: Scalars['ISO8601Date']['output'];
+  ISO8601DateTime: Scalars['ISO8601DateTime']['output'];
+  Image: ResolversInterfaceTypes<ResolversParentTypes>['Image'];
   ImageAttachment: ImageAttachment;
   ImageDerivative: ImageDerivative;
-  ImageIdentification: ResolversParentTypes['ImageAttachment'] | ResolversParentTypes['ImageDerivative'] | ResolversParentTypes['ImageOriginal'] | ResolversParentTypes['ImageSize'] | ResolversParentTypes['SiteLogoAttachment'];
+  ImageIdentification: ResolversInterfaceTypes<ResolversParentTypes>['ImageIdentification'];
   ImageMetadata: ImageMetadata;
   ImageMetadataInput: ImageMetadataInput;
   ImageOriginal: ImageOriginal;
@@ -10631,6 +12187,7 @@ export type ResolversParentTypes = {
   InAnyOperatorInput: InAnyOperatorInput;
   InstitutionSettings: InstitutionSettings;
   InstitutionSettingsInput: InstitutionSettingsInput;
+  Int: Scalars['Int']['output'];
   IntegerProperty: IntegerProperty;
   Item: Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<ResolversParentTypes['AnyEntity']>, ancestorOfType?: Maybe<ResolversParentTypes['AnyEntity']>, parent?: Maybe<ResolversParentTypes['ItemParent']>, schemaProperties: Array<ResolversParentTypes['AnySchemaProperty']>, schemaProperty?: Maybe<ResolversParentTypes['AnySchemaProperty']> };
   ItemConnection: ItemConnection;
@@ -10638,8 +12195,8 @@ export type ResolversParentTypes = {
   ItemContributionConnection: ItemContributionConnection;
   ItemContributionEdge: ItemContributionEdge;
   ItemEdge: ItemEdge;
-  ItemParent: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
-  JSON: Scalars['JSON'];
+  ItemParent: ResolversUnionTypes<ResolversParentTypes>['ItemParent'];
+  JSON: Scalars['JSON']['output'];
   LinkEntityInput: LinkEntityInput;
   LinkEntityPayload: LinkEntityPayload;
   LinkTargetCandidate: Omit<LinkTargetCandidate, 'target'> & { target: ResolversParentTypes['AnyLinkTarget'] };
@@ -10652,10 +12209,10 @@ export type ResolversParentTypes = {
   MutationAttributeError: MutationAttributeError;
   MutationGlobalError: MutationGlobalError;
   NamedAncestor: Omit<NamedAncestor, 'ancestor'> & { ancestor: ResolversParentTypes['AnyEntity'] };
-  Node: ResolversParentTypes['Announcement'] | ResolversParentTypes['AssetAudio'] | ResolversParentTypes['AssetDocument'] | ResolversParentTypes['AssetImage'] | ResolversParentTypes['AssetPDF'] | ResolversParentTypes['AssetUnknown'] | ResolversParentTypes['AssetVideo'] | ResolversParentTypes['Collection'] | ResolversParentTypes['CollectionContribution'] | ResolversParentTypes['Community'] | ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['EntityBreadcrumb'] | ResolversParentTypes['EntityLink'] | ResolversParentTypes['GlobalConfiguration'] | ResolversParentTypes['HierarchicalSchemaRank'] | ResolversParentTypes['HierarchicalSchemaVersionRank'] | ResolversParentTypes['Item'] | ResolversParentTypes['ItemContribution'] | ResolversParentTypes['LinkTargetCandidate'] | ResolversParentTypes['Ordering'] | ResolversParentTypes['OrderingEntry'] | ResolversParentTypes['OrganizationContributor'] | ResolversParentTypes['Page'] | ResolversParentTypes['PersonContributor'] | ResolversParentTypes['Role'] | ResolversParentTypes['SchemaDefinition'] | ResolversParentTypes['SchemaVersion'] | ResolversParentTypes['User'] | ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserGroup'] | ResolversParentTypes['UserGroupCollectionAccessGrant'] | ResolversParentTypes['UserGroupCommunityAccessGrant'] | ResolversParentTypes['UserGroupItemAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
+  Node: ResolversInterfaceTypes<ResolversParentTypes>['Node'];
   NumericGTEOperatorInput: NumericGteOperatorInput;
   NumericLTEOperatorInput: NumericLteOperatorInput;
-  OptionableProperty: ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'];
+  OptionableProperty: ResolversInterfaceTypes<ResolversParentTypes>['OptionableProperty'];
   OrOperatorInput: OrOperatorInput;
   OrderDefinition: OrderDefinition;
   OrderDefinitionInput: OrderDefinitionInput;
@@ -10667,7 +12224,7 @@ export type ResolversParentTypes = {
   OrderingEntryEdge: OrderingEntryEdge;
   OrderingFilterDefinition: OrderingFilterDefinition;
   OrderingFilterDefinitionInput: OrderingFilterDefinitionInput;
-  OrderingPath: ResolversParentTypes['SchemaOrderingPath'] | ResolversParentTypes['StaticOrderingPath'];
+  OrderingPath: ResolversInterfaceTypes<ResolversParentTypes>['OrderingPath'];
   OrderingRenderDefinition: OrderingRenderDefinition;
   OrderingRenderDefinitionInput: OrderingRenderDefinitionInput;
   OrderingSchemaFilter: OrderingSchemaFilter;
@@ -10681,12 +12238,12 @@ export type ResolversParentTypes = {
   PageConnection: PageConnection;
   PageEdge: PageEdge;
   PageInfo: PageInfo;
-  Paginated: ResolversParentTypes['AnnouncementConnection'] | ResolversParentTypes['AnyAccessGrantConnection'] | ResolversParentTypes['AnyAssetConnection'] | ResolversParentTypes['AnyCollectionAccessGrantConnection'] | ResolversParentTypes['AnyCommunityAccessGrantConnection'] | ResolversParentTypes['AnyContributorConnection'] | ResolversParentTypes['AnyUserAccessGrantConnection'] | ResolversParentTypes['AnyUserGroupAccessGrantConnection'] | ResolversParentTypes['CollectionConnection'] | ResolversParentTypes['CollectionContributionConnection'] | ResolversParentTypes['CommunityConnection'] | ResolversParentTypes['ContextualPermissionConnection'] | ResolversParentTypes['EntityDescendantConnection'] | ResolversParentTypes['EntityLinkConnection'] | ResolversParentTypes['ItemConnection'] | ResolversParentTypes['ItemContributionConnection'] | ResolversParentTypes['LinkTargetCandidateConnection'] | ResolversParentTypes['OrderingConnection'] | ResolversParentTypes['OrderingEntryConnection'] | ResolversParentTypes['PageConnection'] | ResolversParentTypes['RoleConnection'] | ResolversParentTypes['SchemaDefinitionConnection'] | ResolversParentTypes['SchemaVersionConnection'] | ResolversParentTypes['SearchResultConnection'] | ResolversParentTypes['UserCollectionAccessGrantConnection'] | ResolversParentTypes['UserCommunityAccessGrantConnection'] | ResolversParentTypes['UserConnection'] | ResolversParentTypes['UserGroupCollectionAccessGrantConnection'] | ResolversParentTypes['UserGroupCommunityAccessGrantConnection'] | ResolversParentTypes['UserGroupItemAccessGrantConnection'] | ResolversParentTypes['UserItemAccessGrantConnection'];
+  Paginated: ResolversInterfaceTypes<ResolversParentTypes>['Paginated'];
   PermissionGrant: PermissionGrant;
-  PermissionGrid: ResolversParentTypes['AssetPermissionGrid'] | ResolversParentTypes['EntityPermissionGrid'];
+  PermissionGrid: ResolversInterfaceTypes<ResolversParentTypes>['PermissionGrid'];
   PersonContributor: PersonContributor;
   Query: {};
-  ReferencesGlobalEntityDates: ResolversParentTypes['Collection'] | ResolversParentTypes['Item'];
+  ReferencesGlobalEntityDates: ResolversInterfaceTypes<ResolversParentTypes>['ReferencesGlobalEntityDates'];
   ReparentEntityInput: ReparentEntityInput;
   ReparentEntityPayload: Omit<ReparentEntityPayload, 'child'> & { child?: Maybe<ResolversParentTypes['AnyChildEntity']> };
   ResetOrderingInput: ResetOrderingInput;
@@ -10696,16 +12253,16 @@ export type ResolversParentTypes = {
   Role: Role;
   RoleConnection: RoleConnection;
   RoleEdge: RoleEdge;
-  ScalarProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['EntitiesProperty'] | ResolversParentTypes['EntityProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
+  ScalarProperty: ResolversInterfaceTypes<ResolversParentTypes>['ScalarProperty'];
   SchemaCoreDefinition: SchemaCoreDefinition;
   SchemaDefinition: SchemaDefinition;
   SchemaDefinitionConnection: SchemaDefinitionConnection;
   SchemaDefinitionEdge: SchemaDefinitionEdge;
-  SchemaInstance: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'];
+  SchemaInstance: ResolversInterfaceTypes<ResolversParentTypes>['SchemaInstance'];
   SchemaInstanceContext: SchemaInstanceContext;
   SchemaInstanceValidation: SchemaInstanceValidation;
   SchemaOrderingPath: SchemaOrderingPath;
-  SchemaProperty: ResolversParentTypes['AssetProperty'] | ResolversParentTypes['AssetsProperty'] | ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['ContributorProperty'] | ResolversParentTypes['ContributorsProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['EmailProperty'] | ResolversParentTypes['EntitiesProperty'] | ResolversParentTypes['EntityProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['GroupProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TagsProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['URLProperty'] | ResolversParentTypes['UnknownProperty'] | ResolversParentTypes['VariableDateProperty'];
+  SchemaProperty: ResolversInterfaceTypes<ResolversParentTypes>['SchemaProperty'];
   SchemaRenderDefinition: SchemaRenderDefinition;
   SchemaValueError: SchemaValueError;
   SchemaVersion: Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<ResolversParentTypes['AnySchemaProperty']>, searchableProperties: Array<ResolversParentTypes['AnySearchableProperty']> };
@@ -10717,9 +12274,9 @@ export type ResolversParentTypes = {
   SearchResultConnection: SearchResultConnection;
   SearchResultEdge: SearchResultEdge;
   SearchScope: SearchScope;
-  Searchable: ResolversParentTypes['Collection'] | ResolversParentTypes['Community'] | ResolversParentTypes['Item'] | ResolversParentTypes['Query'] | ResolversParentTypes['SchemaVersion'];
+  Searchable: ResolversInterfaceTypes<ResolversParentTypes>['Searchable'];
   SearchableCoreProperty: SearchableCoreProperty;
-  SearchableProperty: ResolversParentTypes['BooleanProperty'] | ResolversParentTypes['DateProperty'] | ResolversParentTypes['FloatProperty'] | ResolversParentTypes['FullTextProperty'] | ResolversParentTypes['IntegerProperty'] | ResolversParentTypes['MarkdownProperty'] | ResolversParentTypes['MultiselectProperty'] | ResolversParentTypes['SearchableCoreProperty'] | ResolversParentTypes['SelectProperty'] | ResolversParentTypes['StringProperty'] | ResolversParentTypes['TimestampProperty'] | ResolversParentTypes['VariableDateProperty'];
+  SearchableProperty: ResolversInterfaceTypes<ResolversParentTypes>['SearchableProperty'];
   SelectInitialOrderingInput: SelectInitialOrderingInput;
   SelectInitialOrderingPayload: Omit<SelectInitialOrderingPayload, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
   SelectOption: SelectOption;
@@ -10729,10 +12286,11 @@ export type ResolversParentTypes = {
   SiteLogoAttachment: SiteLogoAttachment;
   SiteSettings: SiteSettings;
   SiteSettingsInput: SiteSettingsInput;
-  Slug: Scalars['Slug'];
-  Sluggable: ResolversParentTypes['Announcement'] | ResolversParentTypes['AssetAudio'] | ResolversParentTypes['AssetDocument'] | ResolversParentTypes['AssetImage'] | ResolversParentTypes['AssetPDF'] | ResolversParentTypes['AssetUnknown'] | ResolversParentTypes['AssetVideo'] | ResolversParentTypes['Collection'] | ResolversParentTypes['CollectionContribution'] | ResolversParentTypes['Community'] | ResolversParentTypes['ContextualPermission'] | ResolversParentTypes['EntityLink'] | ResolversParentTypes['Item'] | ResolversParentTypes['ItemContribution'] | ResolversParentTypes['Ordering'] | ResolversParentTypes['OrderingEntry'] | ResolversParentTypes['OrganizationContributor'] | ResolversParentTypes['PersonContributor'] | ResolversParentTypes['Role'] | ResolversParentTypes['SchemaDefinition'] | ResolversParentTypes['SchemaVersion'] | ResolversParentTypes['User'] | ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserGroup'] | ResolversParentTypes['UserGroupCollectionAccessGrant'] | ResolversParentTypes['UserGroupCommunityAccessGrant'] | ResolversParentTypes['UserGroupItemAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
-  StandardMutationPayload: ResolversParentTypes['AlterSchemaVersionPayload'] | ResolversParentTypes['ApplySchemaPropertiesPayload'] | ResolversParentTypes['ClearInitialOrderingPayload'] | ResolversParentTypes['CreateAnnouncementPayload'] | ResolversParentTypes['CreateAssetPayload'] | ResolversParentTypes['CreateCollectionPayload'] | ResolversParentTypes['CreateCommunityPayload'] | ResolversParentTypes['CreateItemPayload'] | ResolversParentTypes['CreateOrderingPayload'] | ResolversParentTypes['CreateOrganizationContributorPayload'] | ResolversParentTypes['CreatePagePayload'] | ResolversParentTypes['CreatePersonContributorPayload'] | ResolversParentTypes['CreateRolePayload'] | ResolversParentTypes['DestroyAnnouncementPayload'] | ResolversParentTypes['DestroyAssetPayload'] | ResolversParentTypes['DestroyCollectionPayload'] | ResolversParentTypes['DestroyCommunityPayload'] | ResolversParentTypes['DestroyContributionPayload'] | ResolversParentTypes['DestroyContributorPayload'] | ResolversParentTypes['DestroyEntityLinkPayload'] | ResolversParentTypes['DestroyItemPayload'] | ResolversParentTypes['DestroyOrderingPayload'] | ResolversParentTypes['DestroyPagePayload'] | ResolversParentTypes['GrantAccessPayload'] | ResolversParentTypes['LinkEntityPayload'] | ResolversParentTypes['ReparentEntityPayload'] | ResolversParentTypes['ResetOrderingPayload'] | ResolversParentTypes['RevokeAccessPayload'] | ResolversParentTypes['SelectInitialOrderingPayload'] | ResolversParentTypes['UpdateAnnouncementPayload'] | ResolversParentTypes['UpdateAssetAttachmentPayload'] | ResolversParentTypes['UpdateAssetPayload'] | ResolversParentTypes['UpdateCollectionPayload'] | ResolversParentTypes['UpdateCommunityPayload'] | ResolversParentTypes['UpdateContributionPayload'] | ResolversParentTypes['UpdateGlobalConfigurationPayload'] | ResolversParentTypes['UpdateItemPayload'] | ResolversParentTypes['UpdateOrderingPayload'] | ResolversParentTypes['UpdateOrganizationContributorPayload'] | ResolversParentTypes['UpdatePagePayload'] | ResolversParentTypes['UpdatePersonContributorPayload'] | ResolversParentTypes['UpdateRolePayload'] | ResolversParentTypes['UpdateUserPayload'] | ResolversParentTypes['UpdateViewerSettingsPayload'] | ResolversParentTypes['UpsertContributionPayload'];
+  Slug: Scalars['Slug']['output'];
+  Sluggable: ResolversInterfaceTypes<ResolversParentTypes>['Sluggable'];
+  StandardMutationPayload: ResolversInterfaceTypes<ResolversParentTypes>['StandardMutationPayload'];
   StaticOrderingPath: StaticOrderingPath;
+  String: Scalars['String']['output'];
   StringProperty: StringProperty;
   SystemInfo: SystemInfo;
   TagsProperty: TagsProperty;
@@ -10772,13 +12330,13 @@ export type ResolversParentTypes = {
   UpdateUserPayload: UpdateUserPayload;
   UpdateViewerSettingsInput: UpdateViewerSettingsInput;
   UpdateViewerSettingsPayload: UpdateViewerSettingsPayload;
-  UploadID: Scalars['UploadID'];
+  UploadID: Scalars['UploadID']['output'];
   UploadedFileInput: UploadedFileInput;
   UploadedFileMetadataInput: UploadedFileMetadataInput;
   UpsertContributionInput: UpsertContributionInput;
   UpsertContributionPayload: Omit<UpsertContributionPayload, 'contribution'> & { contribution?: Maybe<ResolversParentTypes['AnyContribution']> };
   User: User;
-  UserAccessGrant: ResolversParentTypes['UserCollectionAccessGrant'] | ResolversParentTypes['UserCommunityAccessGrant'] | ResolversParentTypes['UserItemAccessGrant'];
+  UserAccessGrant: ResolversInterfaceTypes<ResolversParentTypes>['UserAccessGrant'];
   UserCollectionAccessGrant: Omit<UserCollectionAccessGrant, 'entity'> & { entity: ResolversParentTypes['AnyEntity'] };
   UserCollectionAccessGrantConnection: UserCollectionAccessGrantConnection;
   UserCollectionAccessGrantEdge: UserCollectionAccessGrantEdge;
@@ -10789,7 +12347,7 @@ export type ResolversParentTypes = {
   UserEdge: UserEdge;
   UserError: UserError;
   UserGroup: UserGroup;
-  UserGroupAccessGrant: ResolversParentTypes['UserGroupCollectionAccessGrant'] | ResolversParentTypes['UserGroupCommunityAccessGrant'] | ResolversParentTypes['UserGroupItemAccessGrant'];
+  UserGroupAccessGrant: ResolversInterfaceTypes<ResolversParentTypes>['UserGroupAccessGrant'];
   UserGroupCollectionAccessGrant: Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: ResolversParentTypes['AnyEntity'] };
   UserGroupCollectionAccessGrantConnection: UserGroupCollectionAccessGrantConnection;
   UserGroupCollectionAccessGrantEdge: UserGroupCollectionAccessGrantEdge;
@@ -10806,7 +12364,7 @@ export type ResolversParentTypes = {
   VariableDateProperty: VariableDateProperty;
   VariablePrecisionDate: VariablePrecisionDate;
   VariablePrecisionDateInput: VariablePrecisionDateInput;
-  VersionRequirement: Scalars['VersionRequirement'];
+  VersionRequirement: Scalars['VersionRequirement']['output'];
 };
 
 export type AccessControlListResolvers<ContextType = any, ParentType extends ResolversParentTypes['AccessControlList'] = ResolversParentTypes['AccessControlList']> = {
@@ -10834,7 +12392,7 @@ export type AccessGrantSubjectResolvers<ContextType = any, ParentType extends Re
 
 export type AccessibleResolvers<ContextType = any, ParentType extends ResolversParentTypes['Accessible'] = ResolversParentTypes['Accessible']> = {
   __resolveType: TypeResolveFn<'Collection' | 'Community' | 'Item', ParentType, ContextType>;
-  allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<AccessibleAllAccessGrantsArgs, 'subject' | 'order' | 'pageDirection'>>;
+  allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<AccessibleAllAccessGrantsArgs, 'order' | 'pageDirection' | 'subject'>>;
 };
 
 export type AlterSchemaVersionPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['AlterSchemaVersionPayload'] = ResolversParentTypes['AlterSchemaVersionPayload']> = {
@@ -11278,7 +12836,7 @@ export type AssetsPropertyResolvers<ContextType = any, ParentType extends Resolv
 
 export type AttachableResolvers<ContextType = any, ParentType extends ResolversParentTypes['Attachable'] = ResolversParentTypes['Attachable']> = {
   __resolveType: TypeResolveFn<'Collection' | 'Community' | 'Item', ParentType, ContextType>;
-  assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<AttachableAssetsArgs, 'order' | 'kind' | 'pageDirection'>>;
+  assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<AttachableAssetsArgs, 'kind' | 'order' | 'pageDirection'>>;
 };
 
 export type BooleanPropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['BooleanProperty'] = ResolversParentTypes['BooleanProperty']> = {
@@ -11313,7 +12871,7 @@ export type CrudPermissionGridResolvers<ContextType = any, ParentType extends Re
 export type ChildEntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['ChildEntity'] = ResolversParentTypes['ChildEntity']> = {
   __resolveType: TypeResolveFn<'Collection' | 'Item', ParentType, ContextType>;
   accessControlList?: Resolver<Maybe<ResolversTypes['AccessControlList']>, ParentType, ContextType>;
-  allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<ChildEntityAllAccessGrantsArgs, 'subject' | 'order' | 'pageDirection'>>;
+  allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<ChildEntityAllAccessGrantsArgs, 'order' | 'pageDirection' | 'subject'>>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   ancestorByName?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<ChildEntityAncestorByNameArgs, 'name'>>;
   ancestorOfType?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<ChildEntityAncestorOfTypeArgs, 'schema'>>;
@@ -11327,12 +12885,12 @@ export type ChildEntityResolvers<ContextType = any, ParentType extends Resolvers
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   currentlyHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   currentlyVisible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<ChildEntityDescendantsArgs, 'scope' | 'order' | 'pageDirection'>>;
+  descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<ChildEntityDescendantsArgs, 'order' | 'pageDirection' | 'scope'>>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  hiddenAsOf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<ChildEntityHiddenAsOfArgs, never>>;
+  hiddenAsOf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, Partial<ChildEntityHiddenAsOfArgs>>;
   hiddenAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -11340,12 +12898,12 @@ export type ChildEntityResolvers<ContextType = any, ParentType extends Resolvers
   initialOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
   issn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<ChildEntityLinkTargetCandidatesArgs, 'kind' | 'title' | 'pageDirection'>>;
+  linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<ChildEntityLinkTargetCandidatesArgs, 'kind' | 'pageDirection' | 'title'>>;
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<ChildEntityLinksArgs, 'order' | 'pageDirection'>>;
   namedAncestors?: Resolver<Array<ResolversTypes['NamedAncestor']>, ParentType, ContextType>;
   ordering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<ChildEntityOrderingArgs, 'identifier'>>;
   orderingForSchema?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<ChildEntityOrderingForSchemaArgs, 'slug'>>;
-  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<ChildEntityOrderingsArgs, 'order' | 'availability' | 'visibility' | 'pageDirection'>>;
+  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<ChildEntityOrderingsArgs, 'availability' | 'order' | 'pageDirection' | 'visibility'>>;
   page?: Resolver<Maybe<ResolversTypes['Page']>, ParentType, ContextType, RequireFields<ChildEntityPageArgs, 'slug'>>;
   pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<ChildEntityPagesArgs, 'pageDirection'>>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
@@ -11363,7 +12921,7 @@ export type ChildEntityResolvers<ContextType = any, ParentType extends Resolvers
   visibility?: Resolver<ResolversTypes['EntityVisibility'], ParentType, ContextType>;
   visible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   visibleAfterAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
-  visibleAsOf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<ChildEntityVisibleAsOfArgs, never>>;
+  visibleAsOf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, Partial<ChildEntityVisibleAsOfArgs>>;
   visibleUntilAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
 };
 
@@ -11379,8 +12937,8 @@ export type ClearInitialOrderingPayloadResolvers<ContextType = any, ParentType e
 
 export type CollectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Collection'] = ResolversParentTypes['Collection']> = {
   accessControlList?: Resolver<Maybe<ResolversTypes['AccessControlList']>, ParentType, ContextType>;
-  accessGrants?: Resolver<ResolversTypes['AnyCollectionAccessGrantConnection'], ParentType, ContextType, RequireFields<CollectionAccessGrantsArgs, 'subject' | 'order' | 'pageDirection'>>;
-  allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<CollectionAllAccessGrantsArgs, 'subject' | 'order' | 'pageDirection'>>;
+  accessGrants?: Resolver<ResolversTypes['AnyCollectionAccessGrantConnection'], ParentType, ContextType, RequireFields<CollectionAccessGrantsArgs, 'order' | 'pageDirection' | 'subject'>>;
+  allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<CollectionAllAccessGrantsArgs, 'order' | 'pageDirection' | 'subject'>>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   ancestorByName?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<CollectionAncestorByNameArgs, 'name'>>;
   ancestorOfType?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<CollectionAncestorOfTypeArgs, 'schema'>>;
@@ -11389,31 +12947,31 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   applicableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assetDownloads?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<CollectionAssetDownloadsArgs, 'dateFilter' | 'precision' | 'subjectIds'>>;
   assetDownloadsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<CollectionAssetDownloadsByRegionArgs, 'dateFilter' | 'subjectIds' | 'usOnly'>>;
-  assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<CollectionAssetsArgs, 'order' | 'kind' | 'pageDirection'>>;
+  assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<CollectionAssetsArgs, 'kind' | 'order' | 'pageDirection'>>;
   assignableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<CollectionAssignedUsersArgs, 'order' | 'pageDirection'>>;
   availableEntitiesFor?: Resolver<Array<ResolversTypes['EntitySelectOption']>, ParentType, ContextType, RequireFields<CollectionAvailableEntitiesForArgs, 'fullPath'>>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
-  children?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionChildrenArgs, never>>;
-  collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionCollectionsArgs, 'order' | 'nodeFilter' | 'pageDirection'>>;
+  children?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, Partial<CollectionChildrenArgs>>;
+  collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionCollectionsArgs, 'nodeFilter' | 'order' | 'pageDirection'>>;
   community?: Resolver<ResolversTypes['Community'], ParentType, ContextType>;
   contributions?: Resolver<ResolversTypes['CollectionContributionConnection'], ParentType, ContextType, RequireFields<CollectionContributionsArgs, 'order' | 'pageDirection'>>;
-  contributors?: Resolver<ResolversTypes['AnyContributorConnection'], ParentType, ContextType, RequireFields<CollectionContributorsArgs, 'order' | 'kind' | 'pageDirection'>>;
+  contributors?: Resolver<ResolversTypes['AnyContributorConnection'], ParentType, ContextType, RequireFields<CollectionContributorsArgs, 'kind' | 'order' | 'pageDirection'>>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   currentlyHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   currentlyVisible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<CollectionDescendantsArgs, 'scope' | 'order' | 'pageDirection'>>;
+  descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<CollectionDescendantsArgs, 'order' | 'pageDirection' | 'scope'>>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   entityViews?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<CollectionEntityViewsArgs, 'dateFilter' | 'precision'>>;
   entityViewsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<CollectionEntityViewsByRegionArgs, 'dateFilter' | 'usOnly'>>;
-  firstCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<CollectionFirstCollectionArgs, 'order' | 'nodeFilter'>>;
-  firstItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<CollectionFirstItemArgs, 'order' | 'nodeFilter'>>;
+  firstCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<CollectionFirstCollectionArgs, 'nodeFilter' | 'order'>>;
+  firstItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<CollectionFirstItemArgs, 'nodeFilter' | 'order'>>;
   hasCollections?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   hasItems?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  hiddenAsOf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<CollectionHiddenAsOfArgs, never>>;
+  hiddenAsOf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, Partial<CollectionHiddenAsOfArgs>>;
   hiddenAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -11421,14 +12979,14 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   inCommunityOrdering?: Resolver<Maybe<ResolversTypes['OrderingEntry']>, ParentType, ContextType, RequireFields<CollectionInCommunityOrderingArgs, 'identifier'>>;
   initialOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
   issn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<CollectionItemsArgs, 'order' | 'nodeFilter' | 'pageDirection'>>;
+  items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<CollectionItemsArgs, 'nodeFilter' | 'order' | 'pageDirection'>>;
   leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<CollectionLinkTargetCandidatesArgs, 'kind' | 'title' | 'pageDirection'>>;
+  linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<CollectionLinkTargetCandidatesArgs, 'kind' | 'pageDirection' | 'title'>>;
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<CollectionLinksArgs, 'order' | 'pageDirection'>>;
   namedAncestors?: Resolver<Array<ResolversTypes['NamedAncestor']>, ParentType, ContextType>;
   ordering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<CollectionOrderingArgs, 'identifier'>>;
   orderingForSchema?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<CollectionOrderingForSchemaArgs, 'slug'>>;
-  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<CollectionOrderingsArgs, 'order' | 'availability' | 'visibility' | 'pageDirection'>>;
+  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<CollectionOrderingsArgs, 'availability' | 'order' | 'pageDirection' | 'visibility'>>;
   page?: Resolver<Maybe<ResolversTypes['Page']>, ParentType, ContextType, RequireFields<CollectionPageArgs, 'slug'>>;
   pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<CollectionPagesArgs, 'pageDirection'>>;
   parent?: Resolver<Maybe<ResolversTypes['CollectionParent']>, ParentType, ContextType>;
@@ -11455,7 +13013,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   visibility?: Resolver<ResolversTypes['EntityVisibility'], ParentType, ContextType>;
   visible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   visibleAfterAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
-  visibleAsOf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<CollectionVisibleAsOfArgs, never>>;
+  visibleAsOf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, Partial<CollectionVisibleAsOfArgs>>;
   visibleUntilAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -11509,33 +13067,33 @@ export type CollectionParentResolvers<ContextType = any, ParentType extends Reso
 
 export type CommunityResolvers<ContextType = any, ParentType extends ResolversParentTypes['Community'] = ResolversParentTypes['Community']> = {
   accessControlList?: Resolver<Maybe<ResolversTypes['AccessControlList']>, ParentType, ContextType>;
-  accessGrants?: Resolver<ResolversTypes['AnyCommunityAccessGrantConnection'], ParentType, ContextType, RequireFields<CommunityAccessGrantsArgs, 'subject' | 'order' | 'pageDirection'>>;
-  allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<CommunityAllAccessGrantsArgs, 'subject' | 'order' | 'pageDirection'>>;
+  accessGrants?: Resolver<ResolversTypes['AnyCommunityAccessGrantConnection'], ParentType, ContextType, RequireFields<CommunityAccessGrantsArgs, 'order' | 'pageDirection' | 'subject'>>;
+  allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<CommunityAllAccessGrantsArgs, 'order' | 'pageDirection' | 'subject'>>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   announcement?: Resolver<Maybe<ResolversTypes['Announcement']>, ParentType, ContextType, RequireFields<CommunityAnnouncementArgs, 'slug'>>;
   announcements?: Resolver<ResolversTypes['AnnouncementConnection'], ParentType, ContextType, RequireFields<CommunityAnnouncementsArgs, 'order' | 'pageDirection'>>;
   applicableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assetDownloads?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<CommunityAssetDownloadsArgs, 'dateFilter' | 'precision' | 'subjectIds'>>;
   assetDownloadsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<CommunityAssetDownloadsByRegionArgs, 'dateFilter' | 'subjectIds' | 'usOnly'>>;
-  assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<CommunityAssetsArgs, 'order' | 'kind' | 'pageDirection'>>;
+  assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<CommunityAssetsArgs, 'kind' | 'order' | 'pageDirection'>>;
   assignableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<CommunityAssignedUsersArgs, 'order' | 'pageDirection'>>;
   availableEntitiesFor?: Resolver<Array<ResolversTypes['EntitySelectOption']>, ParentType, ContextType, RequireFields<CommunityAvailableEntitiesForArgs, 'fullPath'>>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
-  collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CommunityCollectionsArgs, 'order' | 'nodeFilter' | 'pageDirection'>>;
+  collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CommunityCollectionsArgs, 'nodeFilter' | 'order' | 'pageDirection'>>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
-  descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<CommunityDescendantsArgs, 'scope' | 'order' | 'pageDirection'>>;
+  descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<CommunityDescendantsArgs, 'order' | 'pageDirection' | 'scope'>>;
   entityViews?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<CommunityEntityViewsArgs, 'dateFilter' | 'precision'>>;
   entityViewsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<CommunityEntityViewsByRegionArgs, 'dateFilter' | 'usOnly'>>;
-  firstCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<CommunityFirstCollectionArgs, 'order' | 'nodeFilter'>>;
-  firstItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<CommunityFirstItemArgs, 'order' | 'nodeFilter'>>;
+  firstCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<CommunityFirstCollectionArgs, 'nodeFilter' | 'order'>>;
+  firstItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<CommunityFirstItemArgs, 'nodeFilter' | 'order'>>;
   heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   heroImageLayout?: Resolver<ResolversTypes['HeroImageLayout'], ParentType, ContextType>;
   heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   initialOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
-  linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<CommunityLinkTargetCandidatesArgs, 'kind' | 'title' | 'pageDirection'>>;
+  linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<CommunityLinkTargetCandidatesArgs, 'kind' | 'pageDirection' | 'title'>>;
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<CommunityLinksArgs, 'order' | 'pageDirection'>>;
   logo?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   logoMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
@@ -11543,7 +13101,7 @@ export type CommunityResolvers<ContextType = any, ParentType extends ResolversPa
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   ordering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<CommunityOrderingArgs, 'identifier'>>;
   orderingForSchema?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<CommunityOrderingForSchemaArgs, 'slug'>>;
-  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<CommunityOrderingsArgs, 'order' | 'availability' | 'visibility' | 'pageDirection'>>;
+  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<CommunityOrderingsArgs, 'availability' | 'order' | 'pageDirection' | 'visibility'>>;
   page?: Resolver<Maybe<ResolversTypes['Page']>, ParentType, ContextType, RequireFields<CommunityPageArgs, 'slug'>>;
   pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<CommunityPagesArgs, 'pageDirection'>>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
@@ -11610,7 +13168,7 @@ export type ContextualPermissionEdgeResolvers<ContextType = any, ParentType exte
 
 export type ContributableResolvers<ContextType = any, ParentType extends ResolversParentTypes['Contributable'] = ResolversParentTypes['Contributable']> = {
   __resolveType: TypeResolveFn<'Collection' | 'Item', ParentType, ContextType>;
-  contributors?: Resolver<ResolversTypes['AnyContributorConnection'], ParentType, ContextType, RequireFields<ContributableContributorsArgs, 'order' | 'kind' | 'pageDirection'>>;
+  contributors?: Resolver<ResolversTypes['AnyContributorConnection'], ParentType, ContextType, RequireFields<ContributableContributorsArgs, 'kind' | 'order' | 'pageDirection'>>;
 };
 
 export type ContributionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Contribution'] = ResolversParentTypes['Contribution']> = {
@@ -11991,7 +13549,7 @@ export type EntitiesPropertyResolvers<ContextType = any, ParentType extends Reso
 export type EntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['Entity'] = ResolversParentTypes['Entity']> = {
   __resolveType: TypeResolveFn<'Collection' | 'Community' | 'Item', ParentType, ContextType>;
   accessControlList?: Resolver<Maybe<ResolversTypes['AccessControlList']>, ParentType, ContextType>;
-  allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<EntityAllAccessGrantsArgs, 'subject' | 'order' | 'pageDirection'>>;
+  allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<EntityAllAccessGrantsArgs, 'order' | 'pageDirection' | 'subject'>>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   announcement?: Resolver<Maybe<ResolversTypes['Announcement']>, ParentType, ContextType, RequireFields<EntityAnnouncementArgs, 'slug'>>;
   announcements?: Resolver<ResolversTypes['AnnouncementConnection'], ParentType, ContextType, RequireFields<EntityAnnouncementsArgs, 'order' | 'pageDirection'>>;
@@ -11999,16 +13557,16 @@ export type EntityResolvers<ContextType = any, ParentType extends ResolversParen
   assignableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<EntityAssignedUsersArgs, 'order' | 'pageDirection'>>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
-  descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<EntityDescendantsArgs, 'scope' | 'order' | 'pageDirection'>>;
+  descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<EntityDescendantsArgs, 'order' | 'pageDirection' | 'scope'>>;
   heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   initialOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
-  linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<EntityLinkTargetCandidatesArgs, 'kind' | 'title' | 'pageDirection'>>;
+  linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<EntityLinkTargetCandidatesArgs, 'kind' | 'pageDirection' | 'title'>>;
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<EntityLinksArgs, 'order' | 'pageDirection'>>;
   ordering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<EntityOrderingArgs, 'identifier'>>;
   orderingForSchema?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<EntityOrderingForSchemaArgs, 'slug'>>;
-  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<EntityOrderingsArgs, 'order' | 'availability' | 'visibility' | 'pageDirection'>>;
+  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<EntityOrderingsArgs, 'availability' | 'order' | 'pageDirection' | 'visibility'>>;
   page?: Resolver<Maybe<ResolversTypes['Page']>, ParentType, ContextType, RequireFields<EntityPageArgs, 'slug'>>;
   pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<EntityPagesArgs, 'pageDirection'>>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
@@ -12404,8 +13962,8 @@ export type IntegerPropertyResolvers<ContextType = any, ParentType extends Resol
 
 export type ItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['Item'] = ResolversParentTypes['Item']> = {
   accessControlList?: Resolver<Maybe<ResolversTypes['AccessControlList']>, ParentType, ContextType>;
-  accessGrants?: Resolver<ResolversTypes['AnyCollectionAccessGrantConnection'], ParentType, ContextType, RequireFields<ItemAccessGrantsArgs, 'subject' | 'order' | 'pageDirection'>>;
-  allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<ItemAllAccessGrantsArgs, 'subject' | 'order' | 'pageDirection'>>;
+  accessGrants?: Resolver<ResolversTypes['AnyCollectionAccessGrantConnection'], ParentType, ContextType, RequireFields<ItemAccessGrantsArgs, 'order' | 'pageDirection' | 'subject'>>;
+  allAccessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<ItemAllAccessGrantsArgs, 'order' | 'pageDirection' | 'subject'>>;
   allowedActions?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   ancestorByName?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<ItemAncestorByNameArgs, 'name'>>;
   ancestorOfType?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType, RequireFields<ItemAncestorOfTypeArgs, 'schema'>>;
@@ -12414,29 +13972,29 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   applicableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assetDownloads?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<ItemAssetDownloadsArgs, 'dateFilter' | 'precision' | 'subjectIds'>>;
   assetDownloadsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<ItemAssetDownloadsByRegionArgs, 'dateFilter' | 'subjectIds' | 'usOnly'>>;
-  assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<ItemAssetsArgs, 'order' | 'kind' | 'pageDirection'>>;
+  assets?: Resolver<ResolversTypes['AnyAssetConnection'], ParentType, ContextType, RequireFields<ItemAssetsArgs, 'kind' | 'order' | 'pageDirection'>>;
   assignableRoles?: Resolver<Array<ResolversTypes['Role']>, ParentType, ContextType>;
   assignedUsers?: Resolver<ResolversTypes['ContextualPermissionConnection'], ParentType, ContextType, RequireFields<ItemAssignedUsersArgs, 'order' | 'pageDirection'>>;
   availableEntitiesFor?: Resolver<Array<ResolversTypes['EntitySelectOption']>, ParentType, ContextType, RequireFields<ItemAvailableEntitiesForArgs, 'fullPath'>>;
   breadcrumbs?: Resolver<Array<ResolversTypes['EntityBreadcrumb']>, ParentType, ContextType>;
-  children?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemChildrenArgs, never>>;
+  children?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, Partial<ItemChildrenArgs>>;
   collection?: Resolver<ResolversTypes['Collection'], ParentType, ContextType>;
   community?: Resolver<ResolversTypes['Community'], ParentType, ContextType>;
   contributions?: Resolver<ResolversTypes['ItemContributionConnection'], ParentType, ContextType, RequireFields<ItemContributionsArgs, 'order' | 'pageDirection'>>;
-  contributors?: Resolver<ResolversTypes['AnyContributorConnection'], ParentType, ContextType, RequireFields<ItemContributorsArgs, 'order' | 'kind' | 'pageDirection'>>;
+  contributors?: Resolver<ResolversTypes['AnyContributorConnection'], ParentType, ContextType, RequireFields<ItemContributorsArgs, 'kind' | 'order' | 'pageDirection'>>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   currentlyHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   currentlyVisible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<ItemDescendantsArgs, 'scope' | 'order' | 'pageDirection'>>;
+  descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<ItemDescendantsArgs, 'order' | 'pageDirection' | 'scope'>>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   entityViews?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<ItemEntityViewsArgs, 'dateFilter' | 'precision'>>;
   entityViewsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<ItemEntityViewsByRegionArgs, 'dateFilter' | 'usOnly'>>;
-  firstItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<ItemFirstItemArgs, 'order' | 'nodeFilter'>>;
+  firstItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<ItemFirstItemArgs, 'nodeFilter' | 'order'>>;
   hasItems?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  hiddenAsOf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<ItemHiddenAsOfArgs, never>>;
+  hiddenAsOf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, Partial<ItemHiddenAsOfArgs>>;
   hiddenAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -12444,14 +14002,14 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   inCommunityOrdering?: Resolver<Maybe<ResolversTypes['OrderingEntry']>, ParentType, ContextType, RequireFields<ItemInCommunityOrderingArgs, 'identifier'>>;
   initialOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
   issn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemItemsArgs, 'order' | 'nodeFilter' | 'pageDirection'>>;
+  items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemItemsArgs, 'nodeFilter' | 'order' | 'pageDirection'>>;
   leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<ItemLinkTargetCandidatesArgs, 'kind' | 'title' | 'pageDirection'>>;
+  linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<ItemLinkTargetCandidatesArgs, 'kind' | 'pageDirection' | 'title'>>;
   links?: Resolver<ResolversTypes['EntityLinkConnection'], ParentType, ContextType, RequireFields<ItemLinksArgs, 'order' | 'pageDirection'>>;
   namedAncestors?: Resolver<Array<ResolversTypes['NamedAncestor']>, ParentType, ContextType>;
   ordering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<ItemOrderingArgs, 'identifier'>>;
   orderingForSchema?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType, RequireFields<ItemOrderingForSchemaArgs, 'slug'>>;
-  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<ItemOrderingsArgs, 'order' | 'availability' | 'visibility' | 'pageDirection'>>;
+  orderings?: Resolver<ResolversTypes['OrderingConnection'], ParentType, ContextType, RequireFields<ItemOrderingsArgs, 'availability' | 'order' | 'pageDirection' | 'visibility'>>;
   page?: Resolver<Maybe<ResolversTypes['Page']>, ParentType, ContextType, RequireFields<ItemPageArgs, 'slug'>>;
   pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<ItemPagesArgs, 'pageDirection'>>;
   parent?: Resolver<Maybe<ResolversTypes['ItemParent']>, ParentType, ContextType>;
@@ -12478,7 +14036,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   visibility?: Resolver<ResolversTypes['EntityVisibility'], ParentType, ContextType>;
   visible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   visibleAfterAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
-  visibleAsOf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<ItemVisibleAsOfArgs, never>>;
+  visibleAsOf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, Partial<ItemVisibleAsOfArgs>>;
   visibleUntilAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -12920,7 +14478,7 @@ export type PersonContributorResolvers<ContextType = any, ParentType extends Res
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  accessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<QueryAccessGrantsArgs, 'entity' | 'subject' | 'order' | 'pageDirection'>>;
+  accessGrants?: Resolver<ResolversTypes['AnyAccessGrantConnection'], ParentType, ContextType, RequireFields<QueryAccessGrantsArgs, 'entity' | 'order' | 'pageDirection' | 'subject'>>;
   analytics?: Resolver<ResolversTypes['Analytics'], ParentType, ContextType>;
   asset?: Resolver<Maybe<ResolversTypes['AnyAsset']>, ParentType, ContextType, RequireFields<QueryAssetArgs, 'slug'>>;
   collection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<QueryCollectionArgs, 'slug'>>;
@@ -12929,14 +14487,14 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   community?: Resolver<Maybe<ResolversTypes['Community']>, ParentType, ContextType, RequireFields<QueryCommunityArgs, 'slug'>>;
   communityByTitle?: Resolver<Maybe<ResolversTypes['Community']>, ParentType, ContextType, RequireFields<QueryCommunityByTitleArgs, 'title'>>;
   contributor?: Resolver<Maybe<ResolversTypes['AnyContributor']>, ParentType, ContextType, RequireFields<QueryContributorArgs, 'slug'>>;
-  contributorLookup?: Resolver<Maybe<ResolversTypes['AnyContributor']>, ParentType, ContextType, RequireFields<QueryContributorLookupArgs, 'by' | 'value' | 'order'>>;
-  contributors?: Resolver<ResolversTypes['AnyContributorConnection'], ParentType, ContextType, RequireFields<QueryContributorsArgs, 'order' | 'kind' | 'pageDirection'>>;
+  contributorLookup?: Resolver<Maybe<ResolversTypes['AnyContributor']>, ParentType, ContextType, RequireFields<QueryContributorLookupArgs, 'by' | 'order' | 'value'>>;
+  contributors?: Resolver<ResolversTypes['AnyContributorConnection'], ParentType, ContextType, RequireFields<QueryContributorsArgs, 'kind' | 'order' | 'pageDirection'>>;
   globalConfiguration?: Resolver<ResolversTypes['GlobalConfiguration'], ParentType, ContextType>;
   item?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<QueryItemArgs, 'slug'>>;
   itemContribution?: Resolver<Maybe<ResolversTypes['ItemContribution']>, ParentType, ContextType, RequireFields<QueryItemContributionArgs, 'slug'>>;
   node?: Resolver<Maybe<ResolversTypes['Node']>, ParentType, ContextType, RequireFields<QueryNodeArgs, 'id'>>;
   nodes?: Resolver<Array<Maybe<ResolversTypes['Node']>>, ParentType, ContextType, RequireFields<QueryNodesArgs, 'ids'>>;
-  orderingPaths?: Resolver<Array<ResolversTypes['AnyOrderingPath']>, ParentType, ContextType, RequireFields<QueryOrderingPathsArgs, never>>;
+  orderingPaths?: Resolver<Array<ResolversTypes['AnyOrderingPath']>, ParentType, ContextType, Partial<QueryOrderingPathsArgs>>;
   roles?: Resolver<ResolversTypes['RoleConnection'], ParentType, ContextType, RequireFields<QueryRolesArgs, 'order'>>;
   schemaDefinition?: Resolver<Maybe<ResolversTypes['SchemaDefinition']>, ParentType, ContextType, RequireFields<QuerySchemaDefinitionArgs, 'slug'>>;
   schemaDefinitions?: Resolver<ResolversTypes['SchemaDefinitionConnection'], ParentType, ContextType, RequireFields<QuerySchemaDefinitionsArgs, 'order' | 'pageDirection'>>;
@@ -13205,7 +14763,7 @@ export type SearchScopeResolvers<ContextType = any, ParentType extends Resolvers
   availableSchemaVersions?: Resolver<Array<ResolversTypes['SchemaVersion']>, ParentType, ContextType>;
   coreProperties?: Resolver<Array<ResolversTypes['SearchableCoreProperty']>, ParentType, ContextType>;
   originType?: Resolver<ResolversTypes['SearchOriginType'], ParentType, ContextType>;
-  results?: Resolver<ResolversTypes['SearchResultConnection'], ParentType, ContextType, RequireFields<SearchScopeResultsArgs, 'scope' | 'order' | 'predicates' | 'pageDirection'>>;
+  results?: Resolver<ResolversTypes['SearchResultConnection'], ParentType, ContextType, RequireFields<SearchScopeResultsArgs, 'order' | 'pageDirection' | 'predicates' | 'scope'>>;
   visibility?: Resolver<ResolversTypes['EntityVisibilityFilter'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -13603,8 +15161,8 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   avatar?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   avatarMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   collectionAccessGrants?: Resolver<ResolversTypes['UserCollectionAccessGrantConnection'], ParentType, ContextType, RequireFields<UserCollectionAccessGrantsArgs, 'order' | 'pageDirection'>>;
-  collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<UserCollectionsArgs, 'access' | 'order' | 'nodeFilter' | 'pageDirection'>>;
-  communities?: Resolver<ResolversTypes['CommunityConnection'], ParentType, ContextType, RequireFields<UserCommunitiesArgs, 'access' | 'order' | 'nodeFilter' | 'pageDirection'>>;
+  collections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<UserCollectionsArgs, 'access' | 'nodeFilter' | 'order' | 'pageDirection'>>;
+  communities?: Resolver<ResolversTypes['CommunityConnection'], ParentType, ContextType, RequireFields<UserCommunitiesArgs, 'access' | 'nodeFilter' | 'order' | 'pageDirection'>>;
   communityAccessGrants?: Resolver<ResolversTypes['UserCommunityAccessGrantConnection'], ParentType, ContextType, RequireFields<UserCommunityAccessGrantsArgs, 'order' | 'pageDirection'>>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -13614,7 +15172,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   globalAdmin?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   itemAccessGrants?: Resolver<ResolversTypes['UserItemAccessGrantConnection'], ParentType, ContextType, RequireFields<UserItemAccessGrantsArgs, 'order' | 'pageDirection'>>;
-  items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<UserItemsArgs, 'access' | 'order' | 'nodeFilter' | 'pageDirection'>>;
+  items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<UserItemsArgs, 'access' | 'nodeFilter' | 'order' | 'pageDirection'>>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
   primaryRole?: Resolver<Maybe<ResolversTypes['Role']>, ParentType, ContextType>;
@@ -14153,9 +15711,3 @@ export type Resolvers<ContextType = any> = {
   VersionRequirement?: GraphQLScalarType;
 };
 
-
-/**
- * @deprecated
- * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
- */
-export type IResolvers<ContextType = any> = Resolvers<ContextType>;

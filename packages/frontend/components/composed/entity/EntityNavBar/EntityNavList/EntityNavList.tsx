@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useRoutePageSlug, useRouteSlug } from "@wdp/lib/routes";
-import * as Styled from "./EntityNavList.styles";
 import {
   Dropdown,
   NamedLink,
@@ -11,11 +10,12 @@ import {
   Button,
   Link,
 } from "components/atomic";
+import { getRouteByEntityType } from "helpers";
 import {
   EntityNavListFragment$data,
   EntityNavListFragment$key,
 } from "@/relay/EntityNavListFragment.graphql";
-import { getRouteByEntityType } from "helpers";
+import * as Styled from "./EntityNavList.styles";
 
 export default function EntityNavList({ data }: Props) {
   const { t } = useTranslation();

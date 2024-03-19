@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./CloseModalButton.styles";
 import { IconFactory } from "components/factories";
+import * as Styled from "./CloseModalButton.styles";
 
 export default function MobileMenuToggle({
   ...props

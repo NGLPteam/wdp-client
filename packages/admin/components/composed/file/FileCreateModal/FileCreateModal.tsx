@@ -1,13 +1,13 @@
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import type { DialogState } from "reakit/Dialog";
 import { graphql } from "react-relay";
 import get from "lodash/get";
-import { QueryWrapper } from "@wdp/lib/api/components";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToString";
 import { useRouter } from "next/router";
 import Modal from "components/layout/Modal";
 import FileCreateForm from "components/composed/file/FileCreateForm";
+import type { DialogState } from "reakit/Dialog";
 import type { FileCreateModalQuery as Query } from "__generated__/FileCreateModalQuery.graphql";
 
 const FileCreateModal = ({ dialog, onSuccess }: Props) => {
@@ -18,10 +18,10 @@ const FileCreateModal = ({ dialog, onSuccess }: Props) => {
   const drawerSlug = routeQueryArrayToString(drawerSlugQ);
 
   const handleSuccess = useCallback(
-    (newAssetId) => {
+    (newAssetId: string) => {
       if (onSuccess) onSuccess(newAssetId);
     },
-    [onSuccess]
+    [onSuccess],
   );
 
   return (
@@ -31,21 +31,21 @@ const FileCreateModal = ({ dialog, onSuccess }: Props) => {
       hideOnClickOutside={false}
     >
       {({ handleClose }) => (
-        <QueryWrapper<Query>
+        <LazyLoadQueryWrapper<Query>
           query={query}
-          initialVariables={{ slug: slug || drawerSlug || "" }}
+          variables={{ slug: slug || drawerSlug || "" }}
         >
           {({ data }) => (
             <FileCreateForm
               entityId={data?.item?.id || data?.collection?.id || ""}
               onSuccess={(data) => {
                 const assetId = get(data, "response.createAsset.asset.id");
-                handleSuccess(assetId);
+                handleSuccess(assetId ?? "");
                 handleClose();
               }}
             />
           )}
-        </QueryWrapper>
+        </LazyLoadQueryWrapper>
       )}
     </Modal>
   );

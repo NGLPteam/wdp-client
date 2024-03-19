@@ -1,25 +1,24 @@
 import { useTranslation } from "react-i18next";
 import { graphql, useFragment } from "react-relay";
-import { OperationType } from "relay-runtime";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { ContentHeader } from "components/layout";
 import ModelList from "components/composed/model/ModelList";
 import { ViewOptions } from "utils/view-options";
 import ModelColumns from "components/composed/model/ModelColumns";
-import { DashboardCollectionsFragment$key } from "@/relay/DashboardCollectionsFragment.graphql";
-import {
-  DashboardCollectionsListFragment,
-  DashboardCollectionsListFragment$key,
-} from "@/relay/DashboardCollectionsListFragment.graphql";
 import ModelPagination from "components/composed/model/ModelPagination";
 import ModelPageCountActions from "components/composed/model/ModelPageCountActions";
+import { DashboardCollectionsFragment$key } from "@/relay/DashboardCollectionsFragment.graphql";
+import {
+  DashboardCollectionsListFragment$data,
+  DashboardCollectionsListFragment$key,
+} from "@/relay/DashboardCollectionsListFragment.graphql";
 
 export default function DashboardCollections({ data }: Props) {
   const queryData = useFragment(fragment, data);
 
   const collections = useMaybeFragment<DashboardCollectionsListFragment$key>(
     listFragment,
-    queryData.viewer.collections
+    queryData.viewer.collections,
   );
 
   const { t } = useTranslation();
@@ -39,10 +38,10 @@ export default function DashboardCollections({ data }: Props) {
     <section>
       <ContentHeader
         headerStyle="secondary"
-        title={t("glossary.collection_plural")}
+        title={t("glossary.collection_other")}
       />
       <ModelPageCountActions data={collections} />
-      <ModelList<OperationType, DashboardCollectionsListFragment, Node>
+      <ModelList<DashboardCollectionsListFragment$data, Node>
         view={ViewOptions.grid}
         columns={columns}
         data={collections}
@@ -71,7 +70,7 @@ const fragment = graphql`
   }
 `;
 
-type Node = DashboardCollectionsListFragment["nodes"][number];
+type Node = DashboardCollectionsListFragment$data["nodes"][number];
 
 const listFragment = graphql`
   fragment DashboardCollectionsListFragment on CollectionConnection {

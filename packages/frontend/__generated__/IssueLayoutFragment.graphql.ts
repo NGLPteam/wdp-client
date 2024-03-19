@@ -1,30 +1,32 @@
+/**
+ * @generated SignedSource<<9afe963140870360a948fa859926ee6f>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type IssueLayoutFragment = {
-    readonly contributions: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"ContributionsBlockFragment">;
+export type IssueLayoutFragment$data = {
+  readonly contributions: {
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly relatedCollections: {
-        readonly " $fragmentRefs": FragmentRefs<"RelatedIssuesFragment">;
-    };
-    readonly " $fragmentRefs": FragmentRefs<"BreadcrumbsBarFragment" | "IssueHeroFragment">;
-    readonly " $refType": "IssueLayoutFragment";
+    readonly " $fragmentSpreads": FragmentRefs<"ContributionsBlockFragment">;
+  };
+  readonly relatedCollections: {
+    readonly " $fragmentSpreads": FragmentRefs<"RelatedIssuesFragment">;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbsBarFragment" | "IssueHeroFragment">;
+  readonly " $fragmentType": "IssueLayoutFragment";
 };
-export type IssueLayoutFragment$data = IssueLayoutFragment;
 export type IssueLayoutFragment$key = {
-    readonly " $data"?: IssueLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"IssueLayoutFragment">;
+  readonly " $data"?: IssueLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"IssueLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -33,6 +35,16 @@ const node: ReaderFragment = {
   "name": "IssueLayoutFragment",
   "selections": [
     {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "BreadcrumbsBarFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "IssueHeroFragment"
+    },
+    {
       "alias": null,
       "args": null,
       "concreteType": "CollectionContributionConnection",
@@ -40,6 +52,11 @@ const node: ReaderFragment = {
       "name": "contributions",
       "plural": false,
       "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "ContributionsBlockFragment"
+        },
         {
           "alias": null,
           "args": null,
@@ -57,11 +74,6 @@ const node: ReaderFragment = {
             }
           ],
           "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "ContributionsBlockFragment"
         }
       ],
       "storageKey": null
@@ -92,20 +104,12 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": "relatedCollections(page:1,perPage:4)"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "BreadcrumbsBarFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "IssueHeroFragment"
     }
   ],
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '0c6d21c11508920579931ec021fe2c34';
+
+(node as any).hash = "0c6d21c11508920579931ec021fe2c34";
+
 export default node;

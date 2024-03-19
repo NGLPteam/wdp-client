@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<96137c8c23f709e926441592a10c0011>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type DatePropertyFragment = {
-    readonly fullPath: string;
-    readonly label: string;
-    readonly date: string | null;
-    readonly " $refType": "DatePropertyFragment";
+export type DatePropertyFragment$data = {
+  readonly date: string | null | undefined;
+  readonly fullPath: string;
+  readonly label: string;
+  readonly " $fragmentType": "DatePropertyFragment";
 };
-export type DatePropertyFragment$data = DatePropertyFragment;
 export type DatePropertyFragment$key = {
-    readonly " $data"?: DatePropertyFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"DatePropertyFragment">;
+  readonly " $data"?: DatePropertyFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"DatePropertyFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -50,5 +52,7 @@ const node: ReaderFragment = {
   "type": "DateProperty",
   "abstractKey": null
 };
-(node as any).hash = '8078d205b103e104f02b4f0879c501d2';
+
+(node as any).hash = "8078d205b103e104f02b4f0879c501d2";
+
 export default node;

@@ -3,9 +3,9 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { formatDate } from "@wdp/lib/helpers";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./FeaturedJournal.styles";
 import { NamedLink, CoverImage } from "components/atomic";
 import { FeaturedJournalFragment$key } from "@/relay/FeaturedJournalFragment.graphql";
+import * as Styled from "./FeaturedJournal.styles";
 
 export default function FeaturedJournal({ data, coverHeight }: Props) {
   const journal = useMaybeFragment(fragment, data);

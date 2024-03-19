@@ -22,7 +22,7 @@ const init = {
  * */
 export default function useBoundingBox<T extends HTMLElement>(): [
   RefObject<T>,
-  BoundingRect
+  BoundingRect,
 ] {
   const elRef = useRef<T>(null);
   const [bounding, setBounding] = useState<BoundingRect>(init);

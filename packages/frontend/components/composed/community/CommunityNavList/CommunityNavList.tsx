@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useRoutePageSlug } from "@wdp/lib/routes";
-import * as Styled from "./CommunityNavList.styles";
 import {
   Dropdown,
   NamedLink,
@@ -11,8 +10,9 @@ import {
   NavMenuLink,
   Link,
 } from "components/atomic";
-import { CommunityNavListFragment$key } from "@/relay/CommunityNavListFragment.graphql";
 import { getSchemaTranslationKey } from "helpers";
+import { CommunityNavListFragment$key } from "@/relay/CommunityNavListFragment.graphql";
+import * as Styled from "./CommunityNavList.styles";
 
 export default function CommunityNavList({ condensed, mobile, data }: Props) {
   const { t } = useTranslation();

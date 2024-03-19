@@ -1,4 +1,4 @@
-import { graphql, readInlineData } from "react-relay";
+import { graphql, readInlineData } from "relay-runtime";
 import { getEntityTitleFragment$key } from "@/relay/getEntityTitleFragment.graphql";
 
 export default function getEntityTitle(data: Props) {

@@ -1,37 +1,72 @@
-import { graphql } from "react-relay";
-import type { GetLayout } from "@wdp/lib/types/page";
-import type { filesManageSlugCollectionQuery as Query } from "@/relay/filesManageSlugCollectionQuery.graphql";
-
-import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import FileList from "components/composed/file/FileList";
+import ErrorPage from "next/error";
+import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
+import { AuthContextProvider } from "contexts/AuthContext";
+import { LoadingPage } from "components/atomic";
+import CollectionLayout from "components/composed/collection/CollectionLayout";
+import type { filesManageSlugCollectionQuery as Query } from "@/relay/filesManageSlugCollectionQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
-function ManageFiles({ data }: Props) {
-  return <FileList data={data?.collection?.assets} headerStyle="secondary" />;
+function ManageFiles({ queryRef, ...layoutProps }: Props) {
+  const { collection } = usePreloadedQuery<Query>(query, queryRef);
+
+  return collection ? (
+    <AuthContextProvider data={collection}>
+      <CollectionLayout data={collection} {...layoutProps}>
+        <FileList data={collection.assets} headerStyle="secondary" />
+      </CollectionLayout>
+    </AuthContextProvider>
+  ) : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
+  const queryVars = useBaseListQueryVars();
+  const searchQueryVars = useSearchQueryVars();
+
+  const collectionSlug = useRouteSlug();
+
+  if (!collectionSlug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
+
   return (
-    <CollectionLayoutQuery<Query, Props>
-      showSidebar
+    <QueryTransitionWrapper<Query>
       query={query}
-      useRouteHeader={false}
+      variables={{ ...queryVars, ...searchQueryVars, collectionSlug }}
+      loadingFallback={<LoadingPage />}
       refetchTags={["assets"]}
-      {...props}
-    />
+    >
+      {({ queryRef }) =>
+        queryRef && (
+          <PageComponent
+            {...pageComponentProps}
+            queryRef={queryRef}
+            showSidebar
+            useRouteHeader={false}
+          />
+        )
+      }
+    </QueryTransitionWrapper>
   );
 };
+
 ManageFiles.getLayout = getLayout;
 
 export default ManageFiles;
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
+  showSidebar: true;
+  useRouteHeader: false;
 };
 
 const query = graphql`
   query filesManageSlugCollectionQuery($collectionSlug: Slug!, $page: Int!) {
     collection(slug: $collectionSlug) {
-      ...CollectionLayoutQueryFragment
+      ...CollectionLayoutFragment
+      ...AuthContextFragment
       assets(page: $page, perPage: 20) {
         ...FileListFragment
       }

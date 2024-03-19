@@ -2,8 +2,8 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import { PrecisionDateFragment$key } from "@/relay/PrecisionDateFragment.graphql";
 import { getPrecisionDateDisplay } from "helpers";
+import { PrecisionDateFragment$key } from "@/relay/PrecisionDateFragment.graphql";
 
 export default function PrecisionDate({ data, label }: Props) {
   const date = useMaybeFragment(fragment, data);
@@ -12,7 +12,7 @@ export default function PrecisionDate({ data, label }: Props) {
   return date && date.value ? (
     <>{`${label ? t(label) : ""} ${getPrecisionDateDisplay(
       date.precision,
-      date.value
+      date.value,
     )}`}</>
   ) : null;
 }

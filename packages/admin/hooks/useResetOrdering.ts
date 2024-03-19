@@ -1,11 +1,11 @@
 import { useCallback } from "react";
-import { useMutation } from "relay-hooks";
+import { useMutation, graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { graphql, readInlineData } from "react-relay";
+import { GraphQLTaggedNode, readInlineData } from "relay-runtime";
 import { useNotify, usePageContext } from "hooks";
 
-import type { useResetOrderingFragment$key } from "@/relay/useResetOrderingFragment.graphql";
 import { ResetOrderingInput } from "types/graphql-schema";
+import type { useResetOrderingFragment$key } from "@/relay/useResetOrderingFragment.graphql";
 import { useResetOrderingMutation } from "@/relay/useResetOrderingMutation.graphql";
 
 export function useResetOrdering() {
@@ -15,14 +15,14 @@ export function useResetOrdering() {
 
   const handleResponse = useCallback(
     (
-      data: useResetOrderingFragment$key | null,
+      data: useResetOrderingFragment$key | null | undefined,
       name: string,
-      refetchTags: string[]
+      refetchTags: string[],
     ) => {
       if (!data) return;
       const results = readInlineData<useResetOrderingFragment$key>(
-        fragment,
-        data
+        fragment as GraphQLTaggedNode,
+        data,
       );
 
       if (results.globalErrors && results.globalErrors.length > 0) {
@@ -32,22 +32,23 @@ export function useResetOrdering() {
         setTriggeredRefetchTags(refetchTags);
       }
     },
-    [notify, setTriggeredRefetchTags, t]
+    [notify, setTriggeredRefetchTags, t],
   );
 
   /* Reset an ordering */
   const [commitResetOrdering] = useMutation<useResetOrderingMutation>(
-    resetOrderingMutation
+    resetOrderingMutation,
   );
 
   const reset = useCallback(
     async (input: ResetOrderingInput, label: string, refetchTags: string[]) => {
-      const response = await commitResetOrdering({
+      commitResetOrdering({
         variables: { input },
+        onCompleted: (response) =>
+          handleResponse(response.resetOrdering, label, refetchTags),
       });
-      return handleResponse(response.resetOrdering, label, refetchTags);
     },
-    [commitResetOrdering, handleResponse]
+    [commitResetOrdering, handleResponse],
   );
 
   return reset;

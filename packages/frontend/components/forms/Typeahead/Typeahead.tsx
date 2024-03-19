@@ -1,29 +1,27 @@
 import React, { forwardRef, InputHTMLAttributes } from "react";
 import { MaybeInputRef } from "@castiron/common-types";
 import { useCombobox } from "downshift";
+import { IconFactory } from "components/factories";
 import Label from "../Label";
 import * as Styled from "./Typeahead.styles";
-import { IconFactory } from "components/factories";
 
 // Redecalare forwardRef
 declare module "react" {
   function forwardRef<T, P>(
-    render: (props: P, ref: React.Ref<T>) => React.ReactElement | null
+    render: (props: P, ref: React.Ref<T>) => React.ReactElement | null,
   ): (props: P & React.RefAttributes<T>) => React.ReactElement | null;
 }
 
 function Typeahead<T extends Record<string, unknown>>(
   {
-    id,
     label,
     placeholder,
     options,
     onInputChange,
     onChange,
-    value,
     ...inputProps
   }: Props<T> & InputHTMLAttributes<HTMLInputElement>,
-  ref: MaybeInputRef
+  ref: MaybeInputRef,
 ) {
   const {
     isOpen,
@@ -31,7 +29,6 @@ function Typeahead<T extends Record<string, unknown>>(
     getLabelProps,
     getMenuProps,
     getInputProps,
-    getComboboxProps,
     getItemProps,
   } = useCombobox({
     items: options,
@@ -46,13 +43,9 @@ function Typeahead<T extends Record<string, unknown>>(
   });
 
   return (
-    <Styled.Wrapper {...getComboboxProps()}>
+    <Styled.Wrapper>
       {label && (
-        <Label
-          htmlFor={id}
-          className="t-label-sm a-color-light"
-          {...getLabelProps()}
-        >
+        <Label className="t-label-sm a-color-light" {...getLabelProps()}>
           {label}
         </Label>
       )}
@@ -60,11 +53,7 @@ function Typeahead<T extends Record<string, unknown>>(
       <input ref={ref} type="hidden" {...inputProps} />
       {/* Visible input field for typeahead functionality */}
       <Styled.InputWrapper>
-        <Styled.Typeahead
-          id={id}
-          placeholder={placeholder}
-          {...getInputProps()}
-        />
+        <Styled.Typeahead placeholder={placeholder} {...getInputProps()} />
         <Styled.IconButton
           type="button"
           aria-label="Toggle menu"
@@ -75,9 +64,8 @@ function Typeahead<T extends Record<string, unknown>>(
         <Styled.List {...getMenuProps()} open={isOpen} role="group">
           {isOpen &&
             options?.map((item, i) => (
+              /* eslint-disable react/jsx-key */
               <Styled.Item
-                key={`item${i}`}
-                role="option"
                 {...getItemProps({ key: `item${i}`, index: i, item })}
               >
                 {item.node ? item.node : item.label}

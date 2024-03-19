@@ -1,27 +1,29 @@
+/**
+ * @generated SignedSource<<ce159f8deb3387420707c21a80573ba3>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type AvatarFragment = {
-    readonly storage: AttachmentStorage | null;
-    readonly small: {
-        readonly webp: {
-            readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
-        };
+import { FragmentRefs } from "relay-runtime";
+export type AvatarFragment$data = {
+  readonly small: {
+    readonly webp: {
+      readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
     };
-    readonly " $refType": "AvatarFragment";
+  };
+  readonly storage: AttachmentStorage | null | undefined;
+  readonly " $fragmentType": "AvatarFragment";
 };
-export type AvatarFragment$data = AvatarFragment;
 export type AvatarFragment$key = {
-    readonly " $data"?: AvatarFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AvatarFragment">;
+  readonly " $data"?: AvatarFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"AvatarFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -67,5 +69,7 @@ const node: ReaderFragment = {
   "type": "ImageAttachment",
   "abstractKey": null
 };
-(node as any).hash = '6be8caa5ac409394435a9dffe1878d1d';
+
+(node as any).hash = "6be8caa5ac409394435a9dffe1878d1d";
+
 export default node;

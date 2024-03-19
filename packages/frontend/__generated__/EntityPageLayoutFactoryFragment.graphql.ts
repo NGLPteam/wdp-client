@@ -1,27 +1,29 @@
+/**
+ * @generated SignedSource<<7ba1c1169b7fd9aaaea917d367536acd>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityPageLayoutFactoryFragment = {
-    readonly schemaDefinition?: {
-        readonly identifier: string;
-    } | undefined;
-    readonly page?: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityPageLayoutFragment" | "IssuePageLayoutFragment">;
-    } | null | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"IssueSidebarNavFragment" | "EntityLayoutFactoryFragment">;
-    readonly " $refType": "EntityPageLayoutFactoryFragment";
+export type EntityPageLayoutFactoryFragment$data = {
+  readonly page?: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityPageLayoutFragment" | "IssuePageLayoutFragment">;
+  } | null | undefined;
+  readonly schemaDefinition?: {
+    readonly identifier: string;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"EntityLayoutFactoryFragment" | "IssueSidebarNavFragment">;
+  readonly " $fragmentType": "EntityPageLayoutFactoryFragment";
 };
-export type EntityPageLayoutFactoryFragment$data = EntityPageLayoutFactoryFragment;
 export type EntityPageLayoutFactoryFragment$key = {
-    readonly " $data"?: EntityPageLayoutFactoryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityPageLayoutFactoryFragment">;
+  readonly " $data"?: EntityPageLayoutFactoryFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityPageLayoutFactoryFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -42,22 +44,22 @@ var v0 = {
   ],
   "storageKey": null
 },
-v1 = [
+v1 = {
+  "args": null,
+  "kind": "FragmentSpread",
+  "name": "EntityLayoutFactoryFragment"
+},
+v2 = [
   {
     "kind": "Variable",
     "name": "slug",
     "variableName": "pageSlug"
   }
 ],
-v2 = {
-  "args": null,
-  "kind": "FragmentSpread",
-  "name": "EntityPageLayoutFragment"
-},
 v3 = {
   "args": null,
   "kind": "FragmentSpread",
-  "name": "EntityLayoutFactoryFragment"
+  "name": "EntityPageLayoutFragment"
 };
 return {
   "argumentDefinitions": [
@@ -75,14 +77,20 @@ return {
       "selections": [
         (v0/*: any*/),
         {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "IssueSidebarNavFragment"
+        },
+        (v1/*: any*/),
+        {
           "alias": null,
-          "args": (v1/*: any*/),
+          "args": (v2/*: any*/),
           "concreteType": "Page",
           "kind": "LinkedField",
           "name": "page",
           "plural": false,
           "selections": [
-            (v2/*: any*/),
+            (v3/*: any*/),
             {
               "args": null,
               "kind": "FragmentSpread",
@@ -90,13 +98,7 @@ return {
             }
           ],
           "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "IssueSidebarNavFragment"
-        },
-        (v3/*: any*/)
+        }
       ],
       "type": "Collection",
       "abstractKey": null
@@ -105,19 +107,19 @@ return {
       "kind": "InlineFragment",
       "selections": [
         (v0/*: any*/),
+        (v1/*: any*/),
         {
           "alias": null,
-          "args": (v1/*: any*/),
+          "args": (v2/*: any*/),
           "concreteType": "Page",
           "kind": "LinkedField",
           "name": "page",
           "plural": false,
           "selections": [
-            (v2/*: any*/)
+            (v3/*: any*/)
           ],
           "storageKey": null
-        },
-        (v3/*: any*/)
+        }
       ],
       "type": "Item",
       "abstractKey": null
@@ -127,5 +129,7 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '79b29f7ff97d9433c487a7b9d6f09746';
+
+(node as any).hash = "79b29f7ff97d9433c487a7b9d6f09746";
+
 export default node;

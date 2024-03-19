@@ -1,139 +1,33 @@
+/**
+ * @generated SignedSource<<d5b13e40d689989ea9349ae1e2006970>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
-export type itemsManageSlugUsersPagesQueryVariables = {
-    userSlug: string;
-    order?: SimpleOrder | null | undefined;
-    page: number;
+export type itemsManageSlugUsersPagesQuery$variables = {
+  order?: SimpleOrder | null | undefined;
+  page: number;
+  userSlug: string;
 };
-export type itemsManageSlugUsersPagesQueryResponse = {
-    readonly user: {
-        readonly itemAccessGrants: {
-            readonly " $fragmentRefs": FragmentRefs<"UserItemsListFragment">;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"UserLayoutQueryFragment">;
-    } | null;
+export type itemsManageSlugUsersPagesQuery$data = {
+  readonly user: {
+    readonly itemAccessGrants: {
+      readonly " $fragmentSpreads": FragmentRefs<"UserItemsListFragment">;
+    };
+    readonly " $fragmentSpreads": FragmentRefs<"UserLayoutFragment">;
+  } | null | undefined;
 };
 export type itemsManageSlugUsersPagesQuery = {
-    readonly response: itemsManageSlugUsersPagesQueryResponse;
-    readonly variables: itemsManageSlugUsersPagesQueryVariables;
+  response: itemsManageSlugUsersPagesQuery$data;
+  variables: itemsManageSlugUsersPagesQuery$variables;
 };
-
-
-
-/*
-query itemsManageSlugUsersPagesQuery(
-  $userSlug: Slug!
-  $order: SimpleOrder
-  $page: Int!
-) {
-  user(slug: $userSlug) {
-    ...UserLayoutQueryFragment
-    itemAccessGrants(order: $order, page: $page, perPage: 20) {
-      ...UserItemsListFragment
-    }
-    id
-  }
-}
-
-fragment CoverImageFragment on ImageAttachment {
-  storage
-  medium {
-    webp {
-      ...ImageFragment
-    }
-  }
-}
-
-fragment EntityThumbnailColumnFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  thumbnail {
-    storage
-    ...CoverImageFragment
-  }
-  ... on Node {
-    __isNode: __typename
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment UserItemsListFragment on UserItemAccessGrantConnection {
-  edges {
-    node {
-      id
-      item {
-        id
-        title
-        slug
-        ...EntityThumbnailColumnFragment
-      }
-      role {
-        id
-        name
-      }
-      user {
-        id
-        slug
-      }
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment UserLayoutFragment on User {
-  name
-  email
-}
-
-fragment UserLayoutQueryFragment on User {
-  ...UserLayoutFragment
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -216,6 +110,11 @@ return {
         "plural": false,
         "selections": [
           {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "UserLayoutFragment"
+          },
+          {
             "alias": null,
             "args": (v4/*: any*/),
             "concreteType": "UserItemAccessGrantConnection",
@@ -230,11 +129,6 @@ return {
               }
             ],
             "storageKey": null
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "UserLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -513,14 +407,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "175d3d779794e4cdfb668e838b0d5896",
+    "cacheID": "10527df580982ddec221ccec39b251e7",
     "id": null,
     "metadata": {},
     "name": "itemsManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query itemsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n  $order: SimpleOrder\n  $page: Int!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutQueryFragment\n    itemAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserItemsListFragment\n    }\n    id\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  storage\n  medium {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserItemsListFragment on UserItemAccessGrantConnection {\n  edges {\n    node {\n      id\n      item {\n        id\n        title\n        slug\n        ...EntityThumbnailColumnFragment\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n"
+    "text": "query itemsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n  $order: SimpleOrder\n  $page: Int!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutFragment\n    itemAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserItemsListFragment\n    }\n    id\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  storage\n  medium {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserItemsListFragment on UserItemAccessGrantConnection {\n  edges {\n    node {\n      id\n      item {\n        id\n        title\n        slug\n        ...EntityThumbnailColumnFragment\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n"
   }
 };
 })();
-(node as any).hash = '99cde25aa9a6eae56f151cedd8db7344';
+
+(node as any).hash = "0c097192c5faaa0d245631abf568dfd2";
+
 export default node;

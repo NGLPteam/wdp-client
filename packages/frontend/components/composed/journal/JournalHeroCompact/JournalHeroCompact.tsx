@@ -1,9 +1,9 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { JournalHeroCompactFragment$key } from "@/relay/JournalHeroCompactFragment.graphql";
 import { CompactHero } from "components/layout/hero";
 import { Markdown } from "components/atomic";
+import { JournalHeroCompactFragment$key } from "@/relay/JournalHeroCompactFragment.graphql";
 
 export default function JournalHeroCompact({ data }: Props) {
   const journal = useMaybeFragment(fragment, data);

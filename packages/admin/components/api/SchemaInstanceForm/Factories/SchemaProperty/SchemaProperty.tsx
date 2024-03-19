@@ -1,8 +1,7 @@
-import { useFragment } from "relay-hooks";
-import { graphql } from "relay-runtime";
+import { useFragment, graphql } from "react-relay";
 
-import * as Properties from "../../Properties";
 import type { SchemaPropertyFragment$key } from "@/relay/SchemaPropertyFragment.graphql";
+import * as Properties from "../../Properties";
 
 /**
  * A factory that dispatches on `__typename` and renders

@@ -2,16 +2,16 @@ import React, { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import EntityDescendantOrderSelect from "../EntityDescendantOrderSelect";
 import EntitySummaryFactory from "components/factories/EntitySummaryFactory";
-import {
-  EntityDescendantsLayoutFragment$data,
-  EntityDescendantsLayoutFragment$key,
-} from "@/relay/EntityDescendantsLayoutFragment.graphql";
 import { useDescendantListQueryVars } from "hooks";
 import { getSchemaTranslationKey } from "helpers";
 import BrowseListLayout from "components/layout/BrowseListLayout";
 import { LoadingBlock } from "components/atomic";
+import {
+  EntityDescendantsLayoutFragment$data,
+  EntityDescendantsLayoutFragment$key,
+} from "@/relay/EntityDescendantsLayoutFragment.graphql";
+import EntityDescendantOrderSelect from "../EntityDescendantOrderSelect";
 
 export default function EntityDescendantsLayout({ data }: Props) {
   const decendants = useMaybeFragment(fragment, data);

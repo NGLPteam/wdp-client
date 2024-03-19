@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import * as Styled from "./Search.styles";
 import { RouteHelper } from "routes";
+import * as Styled from "./Search.styles";
 
 function Search({
   className,

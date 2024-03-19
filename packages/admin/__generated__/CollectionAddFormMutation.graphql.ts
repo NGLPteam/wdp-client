@@ -1,96 +1,69 @@
+/**
+ * @generated SignedSource<<756e445a28ac1096c72c78f720c8dfcf>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type DatePrecision = "DAY" | "MONTH" | "NONE" | "YEAR" | "%future added value";
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
 export type UploadStorage = "CACHE" | "%future added value";
 export type CreateCollectionInput = {
-    parentId: string;
-    schemaVersionSlug?: string | null | undefined;
-    title: string;
-    subtitle?: string | null | undefined;
-    summary?: string | null | undefined;
-    heroImage?: UploadedFileInput | null | undefined;
-    heroImageMetadata?: ImageMetadataInput | null | undefined;
-    thumbnail?: UploadedFileInput | null | undefined;
-    thumbnailMetadata?: ImageMetadataInput | null | undefined;
-    published?: VariablePrecisionDateInput | null | undefined;
-    visibility: EntityVisibility;
-    visibleAfterAt?: string | null | undefined;
-    visibleUntilAt?: string | null | undefined;
-    doi?: string | null | undefined;
-    issn?: string | null | undefined;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null | undefined;
+  doi?: string | null | undefined;
+  heroImage?: UploadedFileInput | null | undefined;
+  heroImageMetadata?: ImageMetadataInput | null | undefined;
+  issn?: string | null | undefined;
+  parentId: string;
+  published?: VariablePrecisionDateInput | null | undefined;
+  schemaVersionSlug?: string | null | undefined;
+  subtitle?: string | null | undefined;
+  summary?: string | null | undefined;
+  thumbnail?: UploadedFileInput | null | undefined;
+  thumbnailMetadata?: ImageMetadataInput | null | undefined;
+  title: string;
+  visibility: EntityVisibility;
+  visibleAfterAt?: string | null | undefined;
+  visibleUntilAt?: string | null | undefined;
 };
 export type UploadedFileInput = {
-    id: unknown;
-    storage?: UploadStorage | null | undefined;
-    metadata?: UploadedFileMetadataInput | null | undefined;
+  id: any;
+  metadata?: UploadedFileMetadataInput | null | undefined;
+  storage?: UploadStorage | null | undefined;
 };
 export type UploadedFileMetadataInput = {
-    alt?: string | null | undefined;
-    filename?: string | null | undefined;
-    mimeType?: string | null | undefined;
+  alt?: string | null | undefined;
+  filename?: string | null | undefined;
+  mimeType?: string | null | undefined;
 };
 export type ImageMetadataInput = {
-    alt?: string | null | undefined;
+  alt?: string | null | undefined;
 };
 export type VariablePrecisionDateInput = {
-    value?: string | null | undefined;
-    precision: DatePrecision;
+  precision: DatePrecision;
+  value?: string | null | undefined;
 };
-export type CollectionAddFormMutationVariables = {
-    input: CreateCollectionInput;
+export type CollectionAddFormMutation$variables = {
+  input: CreateCollectionInput;
 };
-export type CollectionAddFormMutationResponse = {
-    readonly createCollection: {
-        readonly collection: {
-            readonly title: string;
-            readonly slug: string;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
-    } | null;
+export type CollectionAddFormMutation$data = {
+  readonly createCollection: {
+    readonly collection: {
+      readonly slug: string;
+      readonly title: string;
+    } | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null | undefined;
 };
 export type CollectionAddFormMutation = {
-    readonly response: CollectionAddFormMutationResponse;
-    readonly variables: CollectionAddFormMutationVariables;
+  response: CollectionAddFormMutation$data;
+  variables: CollectionAddFormMutation$variables;
 };
-
-
-
-/*
-mutation CollectionAddFormMutation(
-  $input: CreateCollectionInput!
-) {
-  createCollection(input: $input) {
-    collection {
-      title
-      slug
-      id
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -222,7 +195,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v5/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -281,5 +256,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'bdc8266711c0627d2d5680f46281571d';
+
+(node as any).hash = "bdc8266711c0627d2d5680f46281571d";
+
 export default node;

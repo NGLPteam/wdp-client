@@ -1,7 +1,5 @@
 import { graphql } from "react-relay";
-import type { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 import { capitalize } from "lodash";
 import { useMaybeFragment, useDestroyer } from "hooks";
 
@@ -16,13 +14,14 @@ import {
 
 import type { EntityLinksListFragment$key } from "@/relay/EntityLinksListFragment.graphql";
 import type {
-  EntityLinksListDataFragment,
+  EntityLinksListDataFragment$data,
   EntityLinksListDataFragment$key,
 } from "@/relay/EntityLinksListDataFragment.graphql";
+import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function EntityLinksList<T extends OperationType>({
+function EntityLinksList({
   data,
   headerStyle,
   hideHeader,
@@ -33,11 +32,11 @@ function EntityLinksList<T extends OperationType>({
   /* eslint-disable max-len */
   const sourceEntity = useMaybeFragment<EntityLinksListFragment$key>(
     fragment,
-    data
+    data,
   );
   const linksData = useMaybeFragment<EntityLinksListDataFragment$key>(
     linksFragment,
-    sourceEntity?.links
+    sourceEntity?.links,
   );
   /* eslint-enable max-len */
 
@@ -97,12 +96,12 @@ function EntityLinksList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<EntityLinksNode>) =>
       destroy.link(
         { entityLinkId: row.original.id },
-        row.original.target.title || "glossary.link"
+        row.original.target.title || "glossary.link",
       ),
   };
 
   return (
-    <ModelListPage<T, EntityLinksListDataFragment, EntityLinksNode>
+    <ModelListPage<EntityLinksListDataFragment$data, EntityLinksNode>
       modelName={"link"}
       columns={columns}
       actions={actions}
@@ -119,7 +118,7 @@ interface EntityLinksListProps
   data?: EntityLinksListFragment$key;
 }
 
-type EntityLinksNode = EntityLinksListDataFragment["nodes"][number];
+type EntityLinksNode = EntityLinksListDataFragment$data["nodes"][number];
 
 const linksFragment = graphql`
   fragment EntityLinksListDataFragment on EntityLinkConnection {

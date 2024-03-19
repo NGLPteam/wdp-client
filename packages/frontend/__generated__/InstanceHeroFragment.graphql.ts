@@ -1,27 +1,29 @@
+/**
+ * @generated SignedSource<<9a28e52438ee25e61f655e3c4518a9be>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type InstanceHeroFragment = {
-    readonly globalConfiguration: {
-        readonly site: {
-            readonly providerName: string;
-            readonly installationName: string;
-            readonly installationHomePageCopy: string;
-        };
+export type InstanceHeroFragment$data = {
+  readonly globalConfiguration: {
+    readonly site: {
+      readonly installationHomePageCopy: string;
+      readonly installationName: string;
+      readonly providerName: string;
     };
-    readonly " $refType": "InstanceHeroFragment";
+  };
+  readonly " $fragmentType": "InstanceHeroFragment";
 };
-export type InstanceHeroFragment$data = InstanceHeroFragment;
 export type InstanceHeroFragment$key = {
-    readonly " $data"?: InstanceHeroFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"InstanceHeroFragment">;
+  readonly " $data"?: InstanceHeroFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"InstanceHeroFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -76,5 +78,7 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '85652069d01b688e09bfa35ecee2db71';
+
+(node as any).hash = "85652069d01b688e09bfa35ecee2db71";
+
 export default node;

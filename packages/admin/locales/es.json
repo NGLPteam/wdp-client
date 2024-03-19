@@ -13,11 +13,11 @@
     },
     "glossary": {
       "community": "comunidad",
-      "community_plural": "comunidades",
+      "community_other": "comunidades",
       "collection": "colección",
-      "collection_plural": "colecciones",
+      "collection_other": "colecciones",
       "item": "artículo",
-      "item_plural": "elementos"
+      "item_other": "elementos"
     }
   }
 }

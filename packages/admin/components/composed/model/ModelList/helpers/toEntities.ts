@@ -21,7 +21,7 @@ function connectionHasNodes(connection: any): connection is HasNodes {
 
 export function toEntities<
   ConnectionType extends Connectionish,
-  NodeType extends Record<string, unknown>
+  NodeType extends Record<string, unknown>,
 >(connection: ConnectionType | undefined | null): readonly NodeType[] {
   if (!connection) return [];
   // Remove null nodes. Nodes can become null when they are removed with a @deleteRecord
@@ -29,7 +29,7 @@ export function toEntities<
   if (connectionHasEdges(connection)) {
     return reject<NodeType>(
       connection.edges.map(({ node }) => node),
-      isNil
+      isNil,
     );
   } else if (connectionHasNodes(connection)) {
     return reject<NodeType>(connection.nodes, isNil);

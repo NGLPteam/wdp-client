@@ -1,17 +1,18 @@
-import { graphql, useFragment } from "react-relay";
+import { Suspense } from "react";
+import { useFragment, graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import MutationForm, {
   useRenderForm,
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
-
+import { FormFieldSkeleton } from "components/atomic/loading";
+import LinkTargetTypeahead from "components/forms/LinkTargetTypeahead";
 import type {
   EntityLinksAddFormMutation,
   LinkEntityInput,
 } from "@/relay/EntityLinksAddFormMutation.graphql";
 import type { EntityLinksAddFormFragment$key } from "@/relay/EntityLinksAddFormFragment.graphql";
-import LinkTargetTypeahead from "components/forms/LinkTargetTypeahead";
 
 export default function EntityLinksAddForm({
   data,
@@ -22,24 +23,26 @@ export default function EntityLinksAddForm({
 
   const sourceEntity = useFragment<EntityLinksAddFormFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const toVariables = useToVariables<EntityLinksAddFormMutation, Fields>(
     (data) => ({ input: { ...data, sourceId: sourceEntity.id || "" } }),
-    []
+    [],
   );
 
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
       <Forms.Grid>
-        <LinkTargetTypeahead<Fields>
-          control={control}
-          name="targetId"
-          label="forms.fields.link_target"
-          slug={sourceEntity?.slug || ""}
-          required
-        />
+        <Suspense fallback={<FormFieldSkeleton />}>
+          <LinkTargetTypeahead<Fields>
+            control={control}
+            name="targetId"
+            label="forms.fields.link_target"
+            slug={sourceEntity?.slug || ""}
+            required
+          />
+        </Suspense>
         <Forms.Select
           label="forms.fields.link_type"
           options={[
@@ -54,7 +57,7 @@ export default function EntityLinksAddForm({
         />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

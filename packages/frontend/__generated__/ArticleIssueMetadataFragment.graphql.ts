@@ -1,32 +1,34 @@
+/**
+ * @generated SignedSource<<aee68f985270225491a230e40ada9859>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArticleIssueMetadataFragment = {
-    readonly issueTitleMeta: {
-        readonly content?: string | null | undefined;
-    } | null;
-    readonly issueNumber: {
-        readonly content?: string | null | undefined;
-    } | null;
-    readonly firstPage: {
-        readonly integerValue?: number | null | undefined;
-    } | null;
-    readonly lastPage: {
-        readonly integerValue?: number | null | undefined;
-    } | null;
-    readonly " $refType": "ArticleIssueMetadataFragment";
+export type ArticleIssueMetadataFragment$data = {
+  readonly firstPage: {
+    readonly integerValue?: number | null | undefined;
+  } | null | undefined;
+  readonly issueNumber: {
+    readonly content?: string | null | undefined;
+  } | null | undefined;
+  readonly issueTitleMeta: {
+    readonly content?: string | null | undefined;
+  } | null | undefined;
+  readonly lastPage: {
+    readonly integerValue?: number | null | undefined;
+  } | null | undefined;
+  readonly " $fragmentType": "ArticleIssueMetadataFragment";
 };
-export type ArticleIssueMetadataFragment$data = ArticleIssueMetadataFragment;
 export type ArticleIssueMetadataFragment$key = {
-    readonly " $data"?: ArticleIssueMetadataFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleIssueMetadataFragment">;
+  readonly " $data"?: ArticleIssueMetadataFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleIssueMetadataFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -136,5 +138,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'f2b94729e4e9044a586c6f7f495a302d';
+
+(node as any).hash = "f2b94729e4e9044a586c6f7f495a302d";
+
 export default node;

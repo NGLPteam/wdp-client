@@ -1,8 +1,8 @@
-import { graphql } from "react-relay";
-import { QueryWrapper } from "components/api";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import { useIsAuthenticated, useSearchQueryVars } from "hooks";
-import { searchQuery as Query } from "__generated__/searchQuery.graphql";
 import SearchLayout from "components/composed/search/SearchLayout";
+import { query } from "components/composed/search/SearchLayout/SearchLayout";
+import { SearchLayoutQuery as Query } from "@/relay/SearchLayoutQuery.graphql";
 
 export default function Search() {
   const isAuth = useIsAuthenticated();
@@ -10,27 +10,8 @@ export default function Search() {
   const searchQuery = useSearchQueryVars();
 
   return isAuth ? (
-    <QueryWrapper<Query> query={query} initialVariables={searchQuery}>
-      {({ data }) => <SearchLayout data={data} />}
-    </QueryWrapper>
+    <QueryTransitionWrapper<Query> query={query} variables={searchQuery}>
+      {({ queryRef }) => queryRef && <SearchLayout queryRef={queryRef} />}
+    </QueryTransitionWrapper>
   ) : null;
 }
-
-const query = graphql`
-  query searchQuery(
-    $query: String
-    $page: Int!
-    $predicates: [SearchPredicateInput!]
-    $order: EntityOrder
-    $schema: [String!]
-  ) {
-    ...SearchLayoutFragment
-      @arguments(
-        query: $query
-        page: $page
-        predicates: $predicates
-        order: $order
-        schema: $schema
-      )
-  }
-`;

@@ -1,13 +1,12 @@
 import React, { useCallback, useMemo } from "react";
-import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment, graphql } from "react-relay";
 import { Controller, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import ScalarProperty from "../ScalarProperty";
 import Select from "components/forms/Select";
 import { getEntityTitle } from "components/factories/EntityTitleFactory";
 
 import type { EntityPropertyFragment$key } from "@/relay/EntityPropertyFragment.graphql";
+import ScalarProperty from "../ScalarProperty";
 
 export default function EntityProperty(props: Props) {
   const field = useFragment<EntityPropertyFragment$key>(fragment, props.field);
@@ -23,9 +22,15 @@ export default function EntityProperty(props: Props) {
     }));
   }, [field]);
 
-  const handleChange = useCallback((e, onChange) => {
-    onChange(e.target.value || undefined);
-  }, []);
+  const handleChange = useCallback(
+    (
+      e: React.ChangeEvent<HTMLSelectElement>,
+      onChange: (val?: string) => void,
+    ) => {
+      onChange(e.target.value || undefined);
+    },
+    [],
+  );
 
   return (
     <ScalarProperty field={field}>
@@ -33,13 +38,15 @@ export default function EntityProperty(props: Props) {
         <Controller
           control={control}
           name={name}
-          render={({ field: { onChange, ref, ...inputProps } }) => (
+          render={({ field: { onChange, ref: _ref, ...inputProps } }) => (
             <Select
               label={label}
               required={required}
               options={options}
               isWide={isWide}
-              onChange={(value: string) => handleChange(value, onChange)}
+              onChange={(value: React.ChangeEvent<HTMLSelectElement>) =>
+                handleChange(value, onChange)
+              }
               placeholder={
                 required ? undefined : t("forms.fields.select_placeholder")
               }

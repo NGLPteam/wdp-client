@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<086005bea421ffd0dc942e07f1e1dbc1>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type InstallationNameFragment = {
-    readonly site: {
-        readonly installationName: string;
-    };
-    readonly " $refType": "InstallationNameFragment";
+export type InstallationNameFragment$data = {
+  readonly site: {
+    readonly installationName: string;
+  };
+  readonly " $fragmentType": "InstallationNameFragment";
 };
-export type InstallationNameFragment$data = InstallationNameFragment;
 export type InstallationNameFragment$key = {
-    readonly " $data"?: InstallationNameFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"InstallationNameFragment">;
+  readonly " $data"?: InstallationNameFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"InstallationNameFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -47,5 +49,7 @@ const node: ReaderFragment = {
   "type": "GlobalConfiguration",
   "abstractKey": null
 };
-(node as any).hash = '755795acfce23d9612eaa8ae4c24502a';
+
+(node as any).hash = "755795acfce23d9612eaa8ae4c24502a";
+
 export default node;

@@ -1,28 +1,30 @@
+/**
+ * @generated SignedSource<<900470fe942356d1f10d84ba759ddce8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityOrderingAddFormFragment = {
-    readonly collection: {
-        readonly id: string;
-        readonly " $fragmentRefs": FragmentRefs<"OrderDefinitionSelectControlFragment" | "SchemaCheckboxGroupFragment">;
-    } | null;
-    readonly item: {
-        readonly id: string;
-        readonly " $fragmentRefs": FragmentRefs<"OrderDefinitionSelectControlFragment" | "SchemaCheckboxGroupFragment">;
-    } | null;
-    readonly " $refType": "EntityOrderingAddFormFragment";
+export type EntityOrderingAddFormFragment$data = {
+  readonly collection: {
+    readonly id: string;
+    readonly " $fragmentSpreads": FragmentRefs<"OrderDefinitionSelectControlFragment" | "SchemaCheckboxGroupFragment">;
+  } | null | undefined;
+  readonly item: {
+    readonly id: string;
+    readonly " $fragmentSpreads": FragmentRefs<"OrderDefinitionSelectControlFragment" | "SchemaCheckboxGroupFragment">;
+  } | null | undefined;
+  readonly " $fragmentType": "EntityOrderingAddFormFragment";
 };
-export type EntityOrderingAddFormFragment$data = EntityOrderingAddFormFragment;
 export type EntityOrderingAddFormFragment$key = {
-    readonly " $data"?: EntityOrderingAddFormFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityOrderingAddFormFragment">;
+  readonly " $data"?: EntityOrderingAddFormFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingAddFormFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -87,5 +89,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '71f210e63d5fe44f542e3eb0ff622852';
+
+(node as any).hash = "71f210e63d5fe44f542e3eb0ff622852";
+
 export default node;

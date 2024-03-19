@@ -1,18 +1,20 @@
-import React, { useCallback, useEffect, useMemo } from "react";
-import { useMutation } from "relay-hooks";
+import React, { useCallback, useMemo } from "react";
+import { useMutation, graphql, GraphQLTaggedNode } from "react-relay";
+
 import { useForm, FormProvider } from "react-hook-form";
-import { graphql } from "react-relay";
-import type {
-  DefaultValues,
-  FieldValues,
-  SubmitHandler,
-  UnpackNestedValue,
-} from "react-hook-form";
-import type { GraphQLTaggedNode, MutationParameters } from "relay-runtime";
 import { useTranslation } from "react-i18next";
+import has from "lodash/has";
 
+import { ContentHeader } from "components/layout";
+import { Button } from "components/atomic";
+import { useNotify, usePageContext } from "hooks";
+import GlobalErrors from "./GlobalErrors";
+
+import useMutationFormState from "./useMutationFormState";
+
+import Watcher from "./Watcher";
+import { extractErrors, hasNoErrors } from "./errors";
 import * as Styled from "./MutationForm.styles";
-
 import type {
   AcceptsToVariables,
   ErrorMap,
@@ -26,17 +28,12 @@ import type {
   RenderForm,
   VariableTransformer,
 } from "./types";
-
-import { extractErrors, hasNoErrors } from "./errors";
-
-import GlobalErrors from "./GlobalErrors";
-
-import useMutationFormState from "./useMutationFormState";
-
-import Watcher from "./Watcher";
-import { ContentHeader } from "components/layout";
-import { Button } from "components/atomic";
-import { useNotify, usePageContext } from "hooks";
+import type { MutationParameters } from "relay-runtime";
+import type {
+  DefaultValues,
+  FieldValues,
+  SubmitHandler,
+} from "react-hook-form";
 
 /**
  * An attempt at drying up submitting mutations with a collection
@@ -67,7 +64,7 @@ import { useNotify, usePageContext } from "hooks";
 
 export default function MutationForm<
   M extends MutationParameters,
-  T extends FieldValues = FieldValues
+  T extends FieldValues = FieldValues,
 >(props: Props<M, T>) {
   const {
     children,
@@ -90,16 +87,7 @@ export default function MutationForm<
 
   const [state, dispatch] = useMutationFormState<M, T>({ form, name });
 
-  const [mutate, mutationState] = useMutation<M>(props.mutation);
-
-  useEffect(
-    function () {
-      if (mutationState.error) {
-        dispatch({ type: "error", serverError: mutationState.error });
-      }
-    },
-    [mutationState.error, dispatch]
-  );
+  const [mutate, loading] = useMutation<M>(props.mutation);
 
   const {
     getErrors,
@@ -119,7 +107,7 @@ export default function MutationForm<
 
       return { input: data };
     },
-    [toVariables]
+    [toVariables],
   );
 
   const extractErrorsRef = useCallback<GetErrors<M>>(
@@ -136,19 +124,18 @@ export default function MutationForm<
 
       return null;
     },
-    [getErrors, name]
+    [getErrors, name],
   );
 
   const { setError } = form;
 
-  const submitHandler: SubmitHandler<T> = useCallback(
-    async (values, event) => {
-      const variables = castVariables(values);
-
-      dispatch({ type: "submit", variables, values });
-
-      const response = await mutate({ variables });
-
+  const handleResponse = useCallback(
+    (
+      response: M["response"],
+      variables: M["variables"],
+      values: T,
+      event?: React.BaseSyntheticEvent,
+    ) => {
       const errorResponse = extractErrorsRef(response);
 
       const errors = extractErrors<T>(errorFragment, errorResponse);
@@ -201,11 +188,8 @@ export default function MutationForm<
       }
     },
     [
-      castVariables,
-      dispatch,
       extractErrorsRef,
       isSuccess,
-      mutate,
       onFailure,
       onSuccess,
       onSaveAndClose,
@@ -216,23 +200,39 @@ export default function MutationForm<
       setTriggeredRefetchTags,
       successNotification,
       t,
-    ]
+    ],
+  );
+
+  const submitHandler: SubmitHandler<T> = useCallback(
+    (values, event) => {
+      const variables = castVariables(values);
+
+      dispatch({ type: "submit", variables, values });
+
+      mutate({
+        variables,
+        onCompleted: (response) =>
+          handleResponse(response, variables, values, event),
+        onError: (err) => dispatch({ type: "error", serverError: err }),
+      });
+    },
+    [castVariables, dispatch, mutate],
   );
 
   const { handleSubmit } = form;
 
   /* eslint-disable prettier/prettier */
-  const onSubmit = useMemo(
-    () => handleSubmit(submitHandler),
-    [handleSubmit, submitHandler]
-  );
+  const onSubmit = useMemo(() => handleSubmit(submitHandler), [
+    handleSubmit,
+    submitHandler,
+  ]);
   /* eslint-enable prettier/prettier */
 
   const {
     formState: { isSubmitting, isValidating },
   } = form;
 
-  const submitDisabled = mutationState.loading || isSubmitting || isValidating;
+  const submitDisabled = loading || isSubmitting || isValidating;
 
   return (
     <FormProvider {...form}>
@@ -418,8 +418,8 @@ type Props<M extends MutationParameters, T extends FieldValues> = BaseProps<
 function checkSuccess<M extends MutationParameters, T extends FieldValues>(
   response: M["response"],
   errors: ErrorMap<T>,
-  data: UnpackNestedValue<T>,
-  isSuccess?: IsSuccessPredicate<M, T>
+  data: T,
+  isSuccess?: IsSuccessPredicate<M, T>,
 ): boolean {
   if (typeof isSuccess === "function") {
     return isSuccess(response, data) && hasNoErrors(errors);
@@ -436,7 +436,7 @@ function checkSuccess<M extends MutationParameters, T extends FieldValues>(
  * @returns
  */
 function hasErrors<M extends MutationParameters>(
-  payload: M["response"][MutationName<M>]
+  payload: M["response"][MutationName<M>],
 ): payload is PayloadWithErrors<M> {
   if (payload && hasFragments<M>(payload) && payload.__fragments) {
     return Boolean(payload.__fragments.MutationForm_mutationErrors);
@@ -446,9 +446,9 @@ function hasErrors<M extends MutationParameters>(
 }
 
 function hasFragments<M extends MutationParameters>(
-  payload: M["response"][MutationName<M>]
+  payload: M["response"][MutationName<M>],
 ): payload is PayloadWithFragments<M> {
-  return "__fragments" in payload;
+  return has(payload, "__fragments");
 }
 
 const errorFragment = graphql`

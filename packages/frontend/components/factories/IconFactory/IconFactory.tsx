@@ -47,7 +47,8 @@ function IconFactory({ icon, ...props }: Props) {
   return <Icon {...props} />;
 }
 
-interface Props extends Omit<React.HTMLProps<SVGSVGElement>, "size"> {
+interface Props
+  extends Omit<React.HTMLProps<SVGSVGElement>, "size" | "children"> {
   icon: IconKeys;
   crossOrigin?: "" | "anonymous" | "use-credentials" | undefined;
 }

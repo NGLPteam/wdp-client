@@ -18,7 +18,7 @@ const Slug = forwardRef(
         {...props}
       />
     );
-  }
+  },
 );
 
 export default Slug;

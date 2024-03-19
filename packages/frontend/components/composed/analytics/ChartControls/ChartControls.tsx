@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
+import { Dropdown } from "components/atomic";
 import Switch from "./Switch";
 import DateRangeDisclosure from "./DateRangeDisclosure";
 import * as Styled from "./ChartControls.styles";
-import { Dropdown } from "components/atomic";
 
 type Props = {
   setMode: (val: string) => void;

@@ -1,33 +1,35 @@
+/**
+ * @generated SignedSource<<c1e41f0e6a12f846167a01e8cbd3f8db>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ContributorLayoutFragment = {
-    readonly __typename: "OrganizationContributor";
-    readonly slug: string;
-    readonly legalName: string | null;
-    readonly " $refType": "ContributorLayoutFragment";
+export type ContributorLayoutFragment$data = {
+  readonly __typename: "OrganizationContributor";
+  readonly legalName: string | null | undefined;
+  readonly slug: string;
+  readonly " $fragmentType": "ContributorLayoutFragment";
 } | {
-    readonly __typename: "PersonContributor";
-    readonly givenName: string | null;
-    readonly familyName: string | null;
-    readonly " $refType": "ContributorLayoutFragment";
+  readonly __typename: "PersonContributor";
+  readonly familyName: string | null | undefined;
+  readonly givenName: string | null | undefined;
+  readonly " $fragmentType": "ContributorLayoutFragment";
 } | {
-    /*This will never be '%other', but we need some
-    value in case none of the concrete values match.*/
-    readonly __typename: "%other";
-    readonly " $refType": "ContributorLayoutFragment";
+  // This will never be '%other', but we need some
+  // value in case none of the concrete values match.
+  readonly __typename: "%other";
+  readonly " $fragmentType": "ContributorLayoutFragment";
 };
-export type ContributorLayoutFragment$data = ContributorLayoutFragment;
 export type ContributorLayoutFragment$key = {
-    readonly " $data"?: ContributorLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ContributorLayoutFragment">;
+  readonly " $data"?: ContributorLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributorLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -88,5 +90,7 @@ const node: ReaderFragment = {
   "type": "AnyContributor",
   "abstractKey": "__isAnyContributor"
 };
-(node as any).hash = 'b76a4ba0e2cf7b59772be71339028909';
+
+(node as any).hash = "b76a4ba0e2cf7b59772be71339028909";
+
 export default node;

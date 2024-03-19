@@ -1,23 +1,22 @@
-import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import type { CellContext } from "@tanstack/react-table";
 import { useMaybeFragment } from "hooks";
-import { RoleAssignedUsersListFragment$key } from "@/relay/RoleAssignedUsersListFragment.graphql";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
+import UserNameColumnCell from "components/composed/model/ModelColumns/UserNameColumnCell";
 import {
-  RoleAssignedUsersListDataFragment,
+  RoleAssignedUsersListDataFragment$data,
   RoleAssignedUsersListDataFragment$key,
 } from "@/relay/RoleAssignedUsersListDataFragment.graphql";
-import UserNameColumnCell from "components/composed/model/ModelColumns/UserNameColumnCell";
+import { RoleAssignedUsersListFragment$key } from "@/relay/RoleAssignedUsersListFragment.graphql";
+import type { CellContext } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 // Lists user access on any type of entity
-function RoleAssignedUsersList<T extends OperationType>({
+function RoleAssignedUsersList({
   data,
   headerStyle,
   hideHeader,
@@ -25,11 +24,11 @@ function RoleAssignedUsersList<T extends OperationType>({
 }: RoleAssignedUsersListProps) {
   const entity = useMaybeFragment<RoleAssignedUsersListFragment$key>(
     fragment,
-    data
+    data,
   );
   const users = useMaybeFragment<RoleAssignedUsersListDataFragment$key>(
     listDataFragment,
-    entity?.assignedUsers
+    entity?.assignedUsers,
   );
 
   const { t } = useTranslation();
@@ -60,7 +59,7 @@ function RoleAssignedUsersList<T extends OperationType>({
   ];
 
   return (
-    <ModelListPage<T, RoleAssignedUsersListDataFragment, Node>
+    <ModelListPage<RoleAssignedUsersListDataFragment$data, Node>
       modelName="role"
       columns={columns}
       data={users}
@@ -77,7 +76,7 @@ interface RoleAssignedUsersListProps
   header?: string;
 }
 
-type Node = RoleAssignedUsersListDataFragment["edges"][number]["node"];
+type Node = RoleAssignedUsersListDataFragment$data["edges"][number]["node"];
 
 const fragment = graphql`
   fragment RoleAssignedUsersListFragment on Entity {

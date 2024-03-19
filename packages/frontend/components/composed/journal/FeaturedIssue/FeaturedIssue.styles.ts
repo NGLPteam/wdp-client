@@ -23,7 +23,7 @@ export const Inner = styled.div`
       "image"
       "text";
   `,
-    70
+    70,
   )}
 `;
 

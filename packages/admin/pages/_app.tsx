@@ -1,26 +1,25 @@
-import "focus-visible";
-
-import { Fragment } from "react";
+import { Suspense } from "react";
 import Head from "next/head";
 import { SSRKeycloakProvider, SSRCookies } from "@react-keycloak/ssr";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
-import type { AppProps, AppContext } from "next/app";
-import type { KeycloakInitOptions } from "keycloak-js";
 import { appWithTranslation } from "next-i18next";
 import { useRouter } from "next/router";
-import type { Page } from "@wdp/lib/types/page";
 import { KeycloakRelayProvider, keycloakConfig } from "@wdp/lib/keycloak";
 import {
   parseCookies,
   useRemoveServerInjectedCSS,
   useDeserializeRecords,
 } from "@wdp/lib/app";
-import { updateI18n } from "../i18n";
 import { AppContextProvider } from "contexts";
 import GlobalStyles from "theme";
 import { AppBody, DrawerController } from "components/global";
 import { RouteHelper } from "routes";
 import { Toast, LoadingPage } from "components/atomic";
+import { useSearchQueryVars } from "hooks";
+import { updateI18n } from "../i18n";
+import type { Page } from "@wdp/lib/types/page";
+import type { KeycloakInitOptions } from "keycloak-js";
+import type { AppProps, AppContext } from "next/app";
 
 const NGLPApp = ({
   Component,
@@ -68,12 +67,15 @@ const NGLPApp = ({
   }: {
     PageComponent: typeof Component;
     pageComponentProps: typeof pageProps;
-  }) => <PageComponent {...pageComponentProps} />;
+  }) => {
+    useSearchQueryVars();
+    return <PageComponent {...pageComponentProps} />;
+  };
 
   const getLayout = Component.getLayout || defaultLayout;
 
   return (
-    <Fragment>
+    <>
       <Head>
         <title>WDP Admin</title>
         <meta
@@ -87,16 +89,18 @@ const NGLPApp = ({
           <AppContextProvider>
             <AppBody>
               <Toast />
-              {getLayout({
-                PageComponent: Component,
-                pageComponentProps: pageProps,
-              })}
+              <Suspense fallback={<LoadingPage />}>
+                {getLayout({
+                  PageComponent: Component,
+                  pageComponentProps: pageProps,
+                })}
+              </Suspense>
               <DrawerController />
             </AppBody>
           </AppContextProvider>
         </KeycloakRelayProvider>
       </SSRKeycloakProvider>
-    </Fragment>
+    </>
   );
 };
 

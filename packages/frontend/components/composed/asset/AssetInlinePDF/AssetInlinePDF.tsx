@@ -1,14 +1,14 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Document, pdfjs } from "react-pdf";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { Trans } from "react-i18next";
-import * as Styled from "./AssetInlinePDF.styles";
-import AssetInlinePDFNav from "./AssetInlinePDFNav";
-import AssetInlinePDFPage from "./AssetInlinePDFPage";
 import { NoContent } from "components/layout";
 import { BackToTopButton, LoadingBlock } from "components/atomic";
 import { AssetInlinePDFFragment$key } from "@/relay/AssetInlinePDFFragment.graphql";
+import * as Styled from "./AssetInlinePDF.styles";
+import AssetInlinePDFNav from "./AssetInlinePDFNav";
+import AssetInlinePDFPage from "./AssetInlinePDFPage";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -16,16 +16,6 @@ export default function AssetInlinePDF({ data }: Props) {
   const pdf = useMaybeFragment(fragment, data);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
-
-  const file = useMemo(
-    () => ({
-      url: pdf?.downloadUrl,
-      httpHeaders: {
-        "Access-Control-Allow-Origin": "*",
-      },
-    }),
-    [pdf]
-  );
 
   const [state, setState] = useState<{
     numPages: number;
@@ -52,9 +42,9 @@ export default function AssetInlinePDF({ data }: Props) {
 
   const fileMb = pdf?.fileSize ? pdf.fileSize / 1024 ** 2 : 0;
 
-  return !file ? (
-    <NoContent message={"common.no_content"} />
-  ) : fileMb > 100 ? (
+  if (!pdf?.downloadUrl) return <NoContent message={"common.no_content"} />;
+
+  return fileMb > 100 ? (
     <NoContent
       message={
         <Trans
@@ -72,7 +62,7 @@ export default function AssetInlinePDF({ data }: Props) {
   ) : (
     <Styled.Wrapper ref={wrapperRef}>
       <Document
-        file={file}
+        file={pdf.downloadUrl}
         onLoadSuccess={onDocumentLoadSuccess}
         loading={<LoadingBlock />}
       >

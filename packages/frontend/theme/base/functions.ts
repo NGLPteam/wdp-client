@@ -23,6 +23,6 @@ export function setColorVars(colors: CSSVariableObj) {
 // Returns the palette object filtered by key name
 export function getColorsByKey(keyStartsWith: string, palette: CSSVariableObj) {
   return Object.fromEntries(
-    Object.entries(palette).filter(([key]) => key.startsWith(keyStartsWith))
+    Object.entries(palette).filter(([key]) => key.startsWith(keyStartsWith)),
   );
 }

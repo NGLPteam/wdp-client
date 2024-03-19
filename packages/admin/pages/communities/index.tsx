@@ -1,9 +1,9 @@
-import { graphql } from "react-relay";
-import { QueryWrapper } from "components/api";
-import type { communitiesQuery as Query } from "__generated__/communitiesQuery.graphql";
+import { usePreloadedQuery, graphql, PreloadedQuery } from "react-relay";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import { useBaseListQueryVars } from "hooks";
-
+import { LoadingPage } from "components/atomic/loading";
 import CommunityList from "components/composed/community/CommunityList";
+import type { communitiesListQuery as Query } from "@/relay/communitiesListQuery.graphql";
 
 export default function CommunityListView() {
   const queryVars = useBaseListQueryVars({
@@ -11,22 +11,27 @@ export default function CommunityListView() {
   });
 
   return (
-    <QueryWrapper<Query>
+    <QueryTransitionWrapper<Query>
       query={query}
-      initialVariables={{
-        ...queryVars,
-      }}
-      refetchTags={["communities"]}
+      variables={queryVars}
+      subscribeIds={["Community"]}
+      loadingFallback={<LoadingPage />}
     >
-      {({ data }) => <CommunityList<Query> data={data?.communities} />}
-    </QueryWrapper>
+      {({ queryRef }) =>
+        queryRef ? <ListQuery queryRef={queryRef} /> : <CommunityList />
+      }
+    </QueryTransitionWrapper>
   );
 }
 
+const ListQuery = ({ queryRef }: { queryRef: PreloadedQuery<Query> }) => {
+  const data = usePreloadedQuery<Query>(query, queryRef);
+
+  return data && <CommunityList data={data} />;
+};
+
 const query = graphql`
-  query communitiesQuery($order: EntityOrder, $page: Int!) {
-    communities(order: $order, page: $page, perPage: 20) {
-      ...CommunityListFragment
-    }
+  query communitiesListQuery($order: EntityOrder, $page: Int!) {
+    ...CommunityListFragment
   }
 `;

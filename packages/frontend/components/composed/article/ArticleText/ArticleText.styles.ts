@@ -23,7 +23,7 @@ export const BodyInner = styled.div`
     grid-template-areas:
       "toc"
       "text";`,
-    100
+    100,
   )}
 `;
 

@@ -1,64 +1,31 @@
+/**
+ * @generated SignedSource<<3a62a382683a2c79c814a9d7a59eddfc>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ResetOrderingInput = {
-    orderingId: string;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null | undefined;
+  orderingId: string;
 };
-export type useResetOrderingMutationVariables = {
-    input: ResetOrderingInput;
+export type useResetOrderingMutation$variables = {
+  input: ResetOrderingInput;
 };
-export type useResetOrderingMutationResponse = {
-    readonly resetOrdering: {
-        readonly " $fragmentRefs": FragmentRefs<"useResetOrderingFragment">;
-    } | null;
+export type useResetOrderingMutation$data = {
+  readonly resetOrdering: {
+    readonly " $fragmentSpreads": FragmentRefs<"useResetOrderingFragment">;
+  } | null | undefined;
 };
 export type useResetOrderingMutation = {
-    readonly response: useResetOrderingMutationResponse;
-    readonly variables: useResetOrderingMutationVariables;
+  response: useResetOrderingMutation$data;
+  variables: useResetOrderingMutation$variables;
 };
-
-
-
-/*
-mutation useResetOrderingMutation(
-  $input: ResetOrderingInput!
-) {
-  resetOrdering(input: $input) {
-    ...useResetOrderingFragment
-  }
-}
-
-fragment useResetOrderingFragment on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  ... on DestroyMutationPayload {
-    __isDestroyMutationPayload: __typename
-    destroyed
-    globalErrors {
-      message
-      type
-    }
-  }
-  ... on RevokeAccessPayload {
-    revoked
-    globalErrors {
-      message
-      type
-    }
-  }
-  ... on DestroyOrderingPayload {
-    disabled
-    globalErrors {
-      message
-      type
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -172,7 +139,9 @@ return {
           {
             "kind": "InlineDataFragmentSpread",
             "name": "useResetOrderingFragment",
-            "selections": (v3/*: any*/)
+            "selections": (v3/*: any*/),
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -209,5 +178,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'ec17ab68a686995b015db5eb1b079001';
+
+(node as any).hash = "ec17ab68a686995b015db5eb1b079001";
+
 export default node;

@@ -4,12 +4,12 @@ import { graphql } from "react-relay";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import Modal from "../BaseModal";
-import * as Styled from "./SearchModal.styles";
 import { RouteHelper } from "routes";
 import { Select } from "components/forms";
-import { SearchModalFragment$key } from "@/relay/SearchModalFragment.graphql";
 import SearchBar from "components/composed/search/SearchBar";
+import { SearchModalFragment$key } from "@/relay/SearchModalFragment.graphql";
+import Modal from "../BaseModal";
+import * as Styled from "./SearchModal.styles";
 
 type ModalProps = React.ComponentProps<typeof Modal>;
 

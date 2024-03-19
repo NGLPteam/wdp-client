@@ -1,9 +1,8 @@
-import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment, graphql } from "react-relay";
 import { useFormContext } from "react-hook-form";
-import ScalarProperty from "../ScalarProperty";
 import Input from "components/forms/Input";
 import type { StringPropertyFragment$key } from "@/relay/StringPropertyFragment.graphql";
+import ScalarProperty from "../ScalarProperty";
 
 export default function StringProperty(props: Props) {
   const field = useFragment<StringPropertyFragment$key>(fragment, props.field);

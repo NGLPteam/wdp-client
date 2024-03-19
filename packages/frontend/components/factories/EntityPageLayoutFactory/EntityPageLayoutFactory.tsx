@@ -1,11 +1,11 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment, usePageContext } from "@wdp/lib/api/hooks";
-import { EntityPageLayoutFactoryFragment$key } from "@/relay/EntityPageLayoutFactoryFragment.graphql";
 import EntityPageLayout from "components/composed/entity/EntityPageLayout";
 import IssuePageLayout from "components/composed/issue/IssuePageLayout";
 import IssueSidebarNav from "components/composed/issue/IssueSidebarNav";
 import { LoadingBlock } from "components/atomic";
+import { EntityPageLayoutFactoryFragment$key } from "@/relay/EntityPageLayoutFactoryFragment.graphql";
 
 export default function EntityPageLayoutFactory({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);

@@ -1,9 +1,14 @@
 import React, { useCallback } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import BaseArrayList, { BaseArrayListItem } from "../BaseArrayList";
-import * as Styled from "./OrderDefinitionSelect.styles";
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DragUpdate,
+} from "react-beautiful-dnd";
 import { OrderDefinition } from "types/graphql-schema";
 import { IconFactory } from "components/factories";
+import BaseArrayList, { BaseArrayListItem } from "../BaseArrayList";
+import * as Styled from "./OrderDefinitionSelect.styles";
 
 export default function OrderDefinitionSelectedList({
   value,
@@ -36,7 +41,7 @@ export default function OrderDefinitionSelectedList({
   }
 
   const handleDragEnd = useCallback(
-    ({ destination, source }) => {
+    ({ destination, source }: DragUpdate) => {
       if (!destination || !source || destination.index === source.index) return;
 
       const newValue = [...value];
@@ -45,7 +50,7 @@ export default function OrderDefinitionSelectedList({
       newValue.splice(destination.index, 0, sourceItem);
       onChange(newValue);
     },
-    [onChange, value]
+    [onChange, value],
   );
 
   return (

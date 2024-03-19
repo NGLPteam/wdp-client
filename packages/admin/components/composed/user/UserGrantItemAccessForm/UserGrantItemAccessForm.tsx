@@ -1,11 +1,12 @@
+import { Suspense } from "react";
 import { graphql } from "react-relay";
 import MutationForm, { Forms } from "components/api/MutationForm";
-
+import { FormFieldSkeleton } from "components/atomic/loading";
+import { NodeRoleSelect } from "components/forms/RoleSelect";
 import type {
   UserGrantItemAccessFormMutation as Mutation,
   GrantAccessInput as Fields,
 } from "@/relay/UserGrantItemAccessFormMutation.graphql";
-import { NodeRoleSelect } from "components/forms/RoleSelect";
 
 const UserGrantItemAccessForm = ({ onSuccess, onCancel, userId }: Props) => {
   const defaultValues = {
@@ -28,12 +29,16 @@ const UserGrantItemAccessForm = ({ onSuccess, onCancel, userId }: Props) => {
         return (
           <Forms.Grid>
             <input type="hidden" {...register("userId")} />
-            <Forms.ItemTypeahead
-              label="forms.fields.item"
-              name="entityId"
-              control={control}
-            />
-            <NodeRoleSelect nodeId={entityId} name="roleId" required />
+            <Suspense fallback={<FormFieldSkeleton />}>
+              <Forms.ItemTypeahead
+                label="forms.fields.item"
+                name="entityId"
+                control={control}
+              />
+            </Suspense>
+            <Suspense fallback={<FormFieldSkeleton />}>
+              <NodeRoleSelect nodeId={entityId} name="roleId" required />
+            </Suspense>
           </Forms.Grid>
         );
       }}

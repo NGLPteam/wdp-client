@@ -1,18 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
-import { OperationType } from "relay-runtime";
-import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 import {
   useDestroyer,
   useDrawerHelper,
   useMaybeFragment,
   useRouteSlug,
 } from "hooks";
-import {
-  UserCommunitiesListFragment,
-  UserCommunitiesListFragment$data,
-  UserCommunitiesListFragment$key,
-} from "@/relay/UserCommunitiesListFragment.graphql";
 import ModelColumns from "components/composed/model/ModelColumns";
 import ModelListPage from "components/composed/model/ModelListPage";
 import {
@@ -20,11 +13,16 @@ import {
   ButtonControlGroup,
   NamedLink,
 } from "components/atomic";
+import {
+  UserCommunitiesListFragment$data,
+  UserCommunitiesListFragment$key,
+} from "@/relay/UserCommunitiesListFragment.graphql";
+import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 
-const UserCommunitiesList = <T extends OperationType>({ data }: Props) => {
+const UserCommunitiesList = ({ data }: Props) => {
   const communities = useMaybeFragment<UserCommunitiesListFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const { t } = useTranslation();
@@ -76,7 +74,7 @@ const UserCommunitiesList = <T extends OperationType>({ data }: Props) => {
             roleId: role.id,
             userId: user.id,
           },
-          "glossary.access"
+          "glossary.access",
         );
       }
 
@@ -96,18 +94,18 @@ const UserCommunitiesList = <T extends OperationType>({ data }: Props) => {
     </ButtonControlGroup>
   );
 
-  return communities ? (
-    <ModelListPage<T, UserCommunitiesListFragment, Node>
+  return (
+    <ModelListPage<UserCommunitiesListFragment$data, Node>
       modelName="role"
       columns={columns}
       data={communities}
       headerStyle="secondary"
-      header={t("glossary.community_plural")}
+      header={t("glossary.community_other")}
       disableSortBy
       buttons={buttons}
       actions={actions}
     />
-  ) : null;
+  );
 };
 
 interface Props {

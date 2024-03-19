@@ -1,35 +1,37 @@
+/**
+ * @generated SignedSource<<4b5defe7a4c83b010d12f15708945410>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CommunityLandingLayoutFragment = {
-    readonly featuredJournals: {
-        readonly " $fragmentRefs": FragmentRefs<"FeaturedJournalsFragment">;
-    } | null;
-    readonly featuredSeries: {
-        readonly " $fragmentRefs": FragmentRefs<"FeaturedCollectionsGridFragment">;
-    } | null;
-    readonly featuredIssue: {
-        readonly entity?: {
-            readonly " $fragmentRefs": FragmentRefs<"FeaturedIssueFragment">;
-        } | null | undefined;
-    } | null;
-    readonly featuredUnits: {
-        readonly " $fragmentRefs": FragmentRefs<"FeaturedUnitsFragment">;
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityHeroFragment">;
-    readonly " $refType": "CommunityLandingLayoutFragment";
+export type CommunityLandingLayoutFragment$data = {
+  readonly featuredIssue: {
+    readonly entity?: {
+      readonly " $fragmentSpreads": FragmentRefs<"FeaturedIssueFragment">;
+    } | null | undefined;
+  } | null | undefined;
+  readonly featuredJournals: {
+    readonly " $fragmentSpreads": FragmentRefs<"FeaturedJournalsFragment">;
+  } | null | undefined;
+  readonly featuredSeries: {
+    readonly " $fragmentSpreads": FragmentRefs<"FeaturedCollectionsGridFragment">;
+  } | null | undefined;
+  readonly featuredUnits: {
+    readonly " $fragmentSpreads": FragmentRefs<"FeaturedUnitsFragment">;
+  } | null | undefined;
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityHeroFragment">;
+  readonly " $fragmentType": "CommunityLandingLayoutFragment";
 };
-export type CommunityLandingLayoutFragment$data = CommunityLandingLayoutFragment;
 export type CommunityLandingLayoutFragment$key = {
-    readonly " $data"?: CommunityLandingLayoutFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityLandingLayoutFragment">;
+  readonly " $data"?: CommunityLandingLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityLandingLayoutFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -37,6 +39,11 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "CommunityLandingLayoutFragment",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "CommunityHeroFragment"
+    },
     {
       "alias": "featuredJournals",
       "args": [
@@ -142,15 +149,12 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": "schemaProperty(fullPath:\"featured.units\")"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "CommunityHeroFragment"
     }
   ],
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = 'eb40bd5390c1e966851eb35f6874af81';
+
+(node as any).hash = "eb40bd5390c1e966851eb35f6874af81";
+
 export default node;

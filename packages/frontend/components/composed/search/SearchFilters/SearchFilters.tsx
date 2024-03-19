@@ -7,16 +7,16 @@ import { filterSearchableProperties } from "@wdp/lib/search";
 import flatMap from "lodash/flatMap";
 import uniqBy from "lodash/uniqBy";
 import { normalizeRouteQueryArray } from "@wdp/lib/routes";
-import SearchFilter from "../SearchFilter";
-import SearchOrderBy from "../SearchOrderBy";
-import SearchSchemaFilter from "../SearchSchemaFilter";
-import * as Styled from "./SearchFilters.styles";
 import { Fieldset, BaseForm } from "components/forms";
 import { Button } from "components/atomic";
 import {
   SearchFiltersFragment$data,
   SearchFiltersFragment$key,
 } from "@/relay/SearchFiltersFragment.graphql";
+import SearchFilter from "../SearchFilter";
+import SearchOrderBy from "../SearchOrderBy";
+import SearchSchemaFilter from "../SearchSchemaFilter";
+import * as Styled from "./SearchFilters.styles";
 
 export default function SearchFilters({
   data,
@@ -51,7 +51,7 @@ export default function SearchFilters({
         },
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
 
     if (onSubmitCallback) onSubmitCallback();
@@ -68,7 +68,7 @@ export default function SearchFilters({
         query,
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
 
     if (onSubmitCallback) onSubmitCallback();
@@ -77,8 +77,8 @@ export default function SearchFilters({
   const schemaProps = useMemo(() => {
     if (!searchData) return [];
 
-    const flat = flatMap(searchData.schemas, (props) => {
-      return props.searchableProperties;
+    const flat = flatMap(searchData.schemas, (args) => {
+      return args.searchableProperties;
     });
 
     return filterSearchableProperties<FilterNode>(uniqBy(flat, "searchPath"));
@@ -86,7 +86,7 @@ export default function SearchFilters({
 
   const coreProps = useMemo(
     () => filterSearchableProperties<FilterNode>(searchData.coreProperties),
-    [searchData]
+    [searchData],
   );
 
   return (

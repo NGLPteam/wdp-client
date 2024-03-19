@@ -1,29 +1,31 @@
+/**
+ * @generated SignedSource<<6358f3599142d8dc4ed40211c5b1b2fc>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type FileUploadFragment = {
-    readonly originalFilename: string | null;
-    readonly storage: AttachmentStorage | null;
-    readonly thumb: {
-        readonly png: {
-            readonly alt: string | null;
-            readonly url: string | null;
-        };
+import { FragmentRefs } from "relay-runtime";
+export type FileUploadFragment$data = {
+  readonly originalFilename: string | null | undefined;
+  readonly storage: AttachmentStorage | null | undefined;
+  readonly thumb: {
+    readonly png: {
+      readonly alt: string | null | undefined;
+      readonly url: string | null | undefined;
     };
-    readonly " $refType": "FileUploadFragment";
+  };
+  readonly " $fragmentType": "FileUploadFragment";
 };
-export type FileUploadFragment$data = FileUploadFragment;
 export type FileUploadFragment$key = {
-    readonly " $data"?: FileUploadFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FileUploadFragment">;
+  readonly " $data"?: FileUploadFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FileUploadFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -85,5 +87,7 @@ const node: ReaderFragment = {
   "type": "ImageAttachment",
   "abstractKey": null
 };
-(node as any).hash = '3e0d7b93a2960b80c8b39f048514c181';
+
+(node as any).hash = "3e0d7b93a2960b80c8b39f048514c181";
+
 export default node;

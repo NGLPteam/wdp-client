@@ -1,5 +1,4 @@
 import { graphql } from "react-relay";
-
 import MutationForm, {
   useRenderForm,
   Forms,
@@ -23,7 +22,7 @@ export default function CommunityCreateForm({ onSuccess }: Props) {
         },
       };
     },
-    []
+    [],
   );
 
   const renderForm = useRenderForm<Fields>(
@@ -67,7 +66,7 @@ export default function CommunityCreateForm({ onSuccess }: Props) {
         />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

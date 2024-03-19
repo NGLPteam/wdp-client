@@ -1,9 +1,9 @@
 import styled from "styled-components";
 // eslint-disable-next-line import/no-named-default
-import { default as BaseImage } from "next/image";
+import { default as BaseImage } from "next/legacy/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { aBgNeutral00, aFocus, fluidScale, respond } from "theme/mixins";
-import { NamedLink as BaseNamedLink } from "components/atomic";
+import { NamedLink as BaseNamedLink } from "components/atomic/links";
 import { transition } from "theme/base/variables";
 
 export const Section = styled.section`
@@ -31,7 +31,7 @@ export const List = styled.ul`
         grid-template-columns: auto;
         gap: ${pxToRem(30)};
     `,
-    50
+    50,
   )}
 `;
 

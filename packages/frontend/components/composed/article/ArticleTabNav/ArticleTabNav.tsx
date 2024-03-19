@@ -4,14 +4,14 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./ArticleTabNav.styles";
+import { NamedLink } from "components/atomic";
+import { RouteHelper } from "routes";
+import SkipLink from "components/global/SkipLink";
 import {
   ArticleTabNavFragment$data,
   ArticleTabNavFragment$key,
 } from "@/relay/ArticleTabNavFragment.graphql";
-import { NamedLink } from "components/atomic";
-import { RouteHelper } from "routes";
-import SkipLink from "components/global/SkipLink";
+import * as Styled from "./ArticleTabNav.styles";
 
 type Node = ArticleTabNavFragment$data["pages"]["edges"][number];
 
@@ -74,7 +74,7 @@ export default function ArticleTabNav({ data, contentId }: Props) {
           "item",
           nav.schemaVersion?.identifier === "journal_article"
             ? "nav.article"
-            : "nav.full_text"
+            : "nav.full_text",
         )}
         {getLink("item.metadata", "nav.metadata")}
         {nav.assets?.pageInfo.totalCount > 0 &&
@@ -84,7 +84,7 @@ export default function ArticleTabNav({ data, contentId }: Props) {
         {getLink("item.metrics", "nav.metrics")}
         {nav.pages && nav.pages.edges.length > 0
           ? nav.pages.edges.map(({ node }: Node) =>
-              getLink("item.page", node.title, node.slug)
+              getLink("item.page", node.title, node.slug),
             )
           : null}
       </Styled.List>

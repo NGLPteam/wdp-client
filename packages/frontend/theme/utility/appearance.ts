@@ -2,6 +2,8 @@
 // --------------------
 import { aHidden } from "@wdp/lib/theme/mixins";
 import { css } from "styled-components";
+import { encodedIconClose } from "components/svgs/icons/Close";
+import { baseColors } from "theme/base/variables";
 import {
   aBgNeutral00,
   aBgCustom10,
@@ -11,8 +13,6 @@ import {
   aButton,
   aLink,
 } from "../mixins/appearance";
-import { encodedIconClose } from "components/svgs/icons/Close";
-import { baseColors } from "theme/base/variables";
 
 export default css`
   .a-hidden {

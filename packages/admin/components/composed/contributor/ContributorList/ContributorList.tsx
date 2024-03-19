@@ -1,22 +1,20 @@
-import { OperationType } from "relay-runtime";
-import { graphql } from "react-relay";
-import type { ModelTableActionProps } from "@tanstack/react-table";
+import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { getContributorDisplayName } from "../ContributorDisplayName";
 import ModelListPage from "components/composed/model/ModelListPage";
-import {
-  ContributorListFragment,
-  ContributorListFragment$key,
-} from "@/relay/ContributorListFragment.graphql";
-import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
-
+import { useDestroyer, useDrawerHelper } from "hooks";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
 import PageHeader from "components/layout/PageHeader";
+import {
+  ContributorListFragment$key,
+  ContributorListFragment$data,
+} from "@/relay/ContributorListFragment.graphql";
+import { getContributorDisplayName } from "../ContributorDisplayName";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function ContributorList<T extends OperationType>({
+function ContributorList({
   data,
   headerStyle,
   hideHeader,
@@ -25,7 +23,8 @@ function ContributorList<T extends OperationType>({
   const destroy = useDestroyer();
   const drawerHelper = useDrawerHelper();
 
-  const contributors = useMaybeFragment(fragment, data);
+  const { contributors } =
+    useFragment<ContributorListFragment$key>(fragment, data) ?? {};
 
   const columns = [
     ModelColumns.ContributorNameColumn<ContributorNode>(),
@@ -43,7 +42,7 @@ function ContributorList<T extends OperationType>({
       if (row.original.__typename === "%other") return;
       destroy.contributor(
         { contributorId: row.original.id || "" },
-        getContributorDisplayName(row.original) || "glossary.collection"
+        getContributorDisplayName(row.original) || "glossary.collection",
       );
     },
     handleView: ({ row }: ModelTableActionProps<ContributorNode>) =>
@@ -64,7 +63,10 @@ function ContributorList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, ContributorListFragment, ContributorNode>
+    <ModelListPage<
+      ContributorListFragment$data["contributors"],
+      ContributorNode
+    >
       modelName="contributor"
       buttons={buttons}
       columns={columns}
@@ -82,31 +84,34 @@ interface ContributorListProps
   data?: ContributorListFragment$key;
 }
 
-type ContributorNode = ContributorListFragment["nodes"][number];
+type ContributorNode =
+  ContributorListFragment$data["contributors"]["nodes"][number];
 
 const fragment = graphql`
-  fragment ContributorListFragment on AnyContributorConnection {
-    nodes {
-      __typename
-      ... on OrganizationContributor {
-        id
-        slug
-        legalName
-        createdAt
+  fragment ContributorListFragment on Query {
+    contributors(order: $order, page: $page, perPage: 20, prefix: $query) {
+      nodes {
+        __typename
+        ... on OrganizationContributor {
+          id
+          slug
+          legalName
+          createdAt
+          ...ContributorNameColumnFragment
+        }
+        ... on PersonContributor {
+          id
+          slug
+          givenName
+          familyName
+          createdAt
+        }
         ...ContributorNameColumnFragment
+        ...ContributorAffiliationColumnFragment
+        ...ContributorContributionsColumnFragment
       }
-      ... on PersonContributor {
-        id
-        slug
-        givenName
-        familyName
-        createdAt
-      }
-      ...ContributorNameColumnFragment
-      ...ContributorAffiliationColumnFragment
-      ...ContributorContributionsColumnFragment
+      ...ModelListPageFragment
     }
-    ...ModelListPageFragment
   }
 `;
 

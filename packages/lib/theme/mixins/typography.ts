@@ -2,7 +2,7 @@ export function embedFont(
   name: string,
   filename: string,
   style = "normal",
-  weight = 400
+  weight = 400,
 ) {
   return `
     @font-face {

@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { graphql, useFragment } from "react-relay";
+import { useFragment, graphql } from "react-relay";
 import { useRouter } from "next/router";
 import MutationForm, {
   useRenderForm,
@@ -10,17 +10,17 @@ import MutationForm, {
 import { RouteHelper } from "routes";
 import { useLocalStorage } from "hooks";
 
+import { sanitizeDateField } from "helpers";
 import type {
   ItemAddFormMutation,
   CreateItemInput,
 } from "@/relay/ItemAddFormMutation.graphql";
 import type { ItemAddFormFragment$key } from "@/relay/ItemAddFormFragment.graphql";
-import { sanitizeDateField } from "helpers";
 
 export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
   const [prevRedirectState, setPrevRedirect] = useLocalStorage(
     "nglp::open_entity_on_save",
-    true
+    true,
   );
   const [redirectOnSuccess, setRedirectOnSuccess] = useState(prevRedirectState);
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -31,31 +31,32 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
     (slug: string, routeName: string) => {
       const newRoute = RouteHelper.findRouteByName(routeName);
 
-      router.replace({
+      router.push({
         pathname: newRoute?.path,
         query: { slug },
       });
     },
-    [router]
+    [router],
   );
 
   const onSuccessWithRedirect = useOnSuccess<ItemAddFormMutation, Fields>(
     ({
       response,
-      values,
-      variables,
     }: {
       response: ItemAddFormMutation["response"];
       values: Fields;
       variables: ItemAddFormMutation["variables"];
     }) => {
-      if (onSuccess) onSuccess({ response, variables, values });
+      /* Redirect aborts if dialog.hide is called here. */
+      /* Leaving this in as a note in case we need more nuanced logic for onSuccess. */
+      /* Right now this component is only rendered in one place. */
+      // if (onSuccess) onSuccess({ response, variables, values });
       setPrevRedirect(true);
       const routeName = "item.manage.details";
       if (response?.createItem?.item)
         redirect(response.createItem.item.slug, routeName);
     },
-    [onSuccess, redirect]
+    [onSuccess, redirect],
   );
   const onSuccessNoRedirect = ({
     response,
@@ -81,7 +82,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
         parentId: formData.item?.id ?? formData.collection?.id ?? "",
       },
     }),
-    []
+    [],
   );
 
   const defaultValues = {
@@ -130,7 +131,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
         </Forms.Checkbox>
       </Forms.Grid>
     ),
-    []
+    [],
   );
   return (
     <MutationForm<ItemAddFormMutation, Fields>

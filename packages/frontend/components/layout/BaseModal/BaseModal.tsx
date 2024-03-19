@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
-import type { DialogProps } from "reakit/Dialog";
 import { useIsMounted } from "@wdp/lib/hooks";
 import * as Styled from "./BaseModal.styles";
+import type { DialogProps } from "reakit/Dialog";
 
 const Modal = ({
   dialog,
@@ -42,7 +42,7 @@ type RenderChildProps = {
   handleClose: () => void;
 };
 
-type RenderChild = (props: RenderChildProps) => JSX.Element;
+type RenderChild = (props: RenderChildProps) => React.JSX.Element;
 
 interface Props {
   dialog: DialogProps;

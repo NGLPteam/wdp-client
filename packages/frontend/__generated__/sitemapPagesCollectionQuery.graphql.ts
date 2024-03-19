@@ -1,49 +1,33 @@
+/**
+ * @generated SignedSource<<de9895cb5497de73073b8ce520a8904f>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
-export type sitemapPagesCollectionQueryVariables = {
-    slug: string;
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type sitemapPagesCollectionQuery$variables = {
+  slug: string;
 };
-export type sitemapPagesCollectionQueryResponse = {
-    readonly collection: {
+export type sitemapPagesCollectionQuery$data = {
+  readonly collection: {
+    readonly pages: {
+      readonly nodes: ReadonlyArray<{
         readonly slug: string;
         readonly updatedAt: string;
-        readonly pages: {
-            readonly nodes: ReadonlyArray<{
-                readonly slug: string;
-                readonly updatedAt: string;
-            }>;
-        };
-    } | null;
+      }>;
+    };
+    readonly slug: string;
+    readonly updatedAt: string;
+  } | null | undefined;
 };
 export type sitemapPagesCollectionQuery = {
-    readonly response: sitemapPagesCollectionQueryResponse;
-    readonly variables: sitemapPagesCollectionQueryVariables;
+  response: sitemapPagesCollectionQuery$data;
+  variables: sitemapPagesCollectionQuery$variables;
 };
-
-
-
-/*
-query sitemapPagesCollectionQuery(
-  $slug: Slug!
-) {
-  collection(slug: $slug) {
-    slug
-    updatedAt
-    pages {
-      nodes {
-        slug
-        updatedAt
-        id
-      }
-    }
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -186,5 +170,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'c4c26f57f9e2a5f77b947a3fcf85c4cc';
+
+(node as any).hash = "c4c26f57f9e2a5f77b947a3fcf85c4cc";
+
 export default node;

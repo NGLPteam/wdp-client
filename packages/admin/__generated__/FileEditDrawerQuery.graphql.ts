@@ -1,66 +1,27 @@
+/**
+ * @generated SignedSource<<ceccf0bf93eb1be0fd172fd94f282a68>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FileEditDrawerQueryVariables = {
-    slug: string;
+export type FileEditDrawerQuery$variables = {
+  slug: string;
 };
-export type FileEditDrawerQueryResponse = {
-    readonly asset: {
-        readonly " $fragmentRefs": FragmentRefs<"FileEditFormFragment">;
-    } | null;
+export type FileEditDrawerQuery$data = {
+  readonly asset: {
+    readonly " $fragmentSpreads": FragmentRefs<"FileEditFormFragment">;
+  } | null | undefined;
 };
 export type FileEditDrawerQuery = {
-    readonly response: FileEditDrawerQueryResponse;
-    readonly variables: FileEditDrawerQueryVariables;
+  response: FileEditDrawerQuery$data;
+  variables: FileEditDrawerQuery$variables;
 };
-
-
-
-/*
-query FileEditDrawerQuery(
-  $slug: Slug!
-) {
-  asset(slug: $slug) {
-    __typename
-    ...FileEditFormFragment
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-  }
-}
-
-fragment FileEditFormFragment on Asset {
-  __isAsset: __typename
-  id
-  altText
-  name
-  caption
-  kind
-  fileSize
-  preview {
-    ...FileUploadFragment
-  }
-  previewMetadata {
-    alt
-  }
-}
-
-fragment FileUploadFragment on ImageAttachment {
-  originalFilename
-  storage
-  thumb {
-    png {
-      alt
-      url
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -272,5 +233,7 @@ return {
   }
 };
 })();
-(node as any).hash = '7247ca3e63b0995b864651fe6ae78f46';
+
+(node as any).hash = "7247ca3e63b0995b864651fe6ae78f46";
+
 export default node;

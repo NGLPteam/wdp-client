@@ -1,36 +1,38 @@
+/**
+ * @generated SignedSource<<7e9726b69ab35bb36c9c7aaaa7f0580f>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RoleAssignedUsersListDataFragment = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly id: string;
-            readonly roles: ReadonlyArray<{
-                readonly name: string;
-            }>;
-            readonly user: {
-                readonly id: string;
-                readonly name: string | null;
-                readonly email: string | null;
-                readonly slug: string;
-                readonly " $fragmentRefs": FragmentRefs<"UserNameColumnCellFragment">;
-            };
-        };
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "RoleAssignedUsersListDataFragment";
+export type RoleAssignedUsersListDataFragment$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly id: string;
+      readonly roles: ReadonlyArray<{
+        readonly name: string;
+      }>;
+      readonly user: {
+        readonly email: string | null | undefined;
+        readonly id: string;
+        readonly name: string | null | undefined;
+        readonly slug: string;
+        readonly " $fragmentSpreads": FragmentRefs<"UserNameColumnCellFragment">;
+      };
+    };
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "RoleAssignedUsersListDataFragment";
 };
-export type RoleAssignedUsersListDataFragment$data = RoleAssignedUsersListDataFragment;
 export type RoleAssignedUsersListDataFragment$key = {
-    readonly " $data"?: RoleAssignedUsersListDataFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"RoleAssignedUsersListDataFragment">;
+  readonly " $data"?: RoleAssignedUsersListDataFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"RoleAssignedUsersListDataFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -130,5 +132,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '609af6240c66886ad65b65a6f33a0aca';
+
+(node as any).hash = "609af6240c66886ad65b65a6f33a0aca";
+
 export default node;

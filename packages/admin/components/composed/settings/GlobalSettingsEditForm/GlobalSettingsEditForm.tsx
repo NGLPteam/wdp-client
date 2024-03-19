@@ -1,4 +1,4 @@
-import { graphql, useFragment } from "react-relay";
+import { useFragment, graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import MutationForm, {
   useRenderForm,
@@ -19,12 +19,12 @@ export default function GlobalSettingsEditForm({
 }: Props) {
   const { logo, ...settings } = useFragment<GlobalSettingsEditFormFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const toVariables = useToVariables<GlobalSettingsEditFormMutation, Fields>(
     (data) => ({ input: { ...data } }),
-    []
+    [],
   );
 
   const defaultValues = { ...settings };
@@ -100,7 +100,7 @@ export default function GlobalSettingsEditForm({
         </Forms.Fieldset>
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

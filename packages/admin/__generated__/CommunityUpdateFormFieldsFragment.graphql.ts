@@ -1,36 +1,38 @@
+/**
+ * @generated SignedSource<<83e7c0dd736766bbb9e469c80d855ed5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type HeroImageLayout = "ONE_COLUMN" | "TWO_COLUMN" | "%future added value";
-export type CommunityUpdateFormFieldsFragment = {
-    readonly title: string;
-    readonly name: string;
-    readonly tagline: string | null;
-    readonly summary: string | null;
-    readonly heroImageLayout: HeroImageLayout;
-    readonly position: number | null;
-    readonly heroImage: {
-        readonly " $fragmentRefs": FragmentRefs<"FileUploadFragment">;
-    };
-    readonly logo: {
-        readonly " $fragmentRefs": FragmentRefs<"FileUploadFragment">;
-    };
-    readonly heroImageMetadata: {
-        readonly alt: string | null;
-    } | null;
-    readonly " $refType": "CommunityUpdateFormFieldsFragment";
+import { FragmentRefs } from "relay-runtime";
+export type CommunityUpdateFormFieldsFragment$data = {
+  readonly heroImage: {
+    readonly " $fragmentSpreads": FragmentRefs<"FileUploadFragment">;
+  };
+  readonly heroImageLayout: HeroImageLayout;
+  readonly heroImageMetadata: {
+    readonly alt: string | null | undefined;
+  } | null | undefined;
+  readonly logo: {
+    readonly " $fragmentSpreads": FragmentRefs<"FileUploadFragment">;
+  };
+  readonly name: string;
+  readonly position: number | null | undefined;
+  readonly summary: string | null | undefined;
+  readonly tagline: string | null | undefined;
+  readonly title: string;
+  readonly " $fragmentType": "CommunityUpdateFormFieldsFragment";
 };
-export type CommunityUpdateFormFieldsFragment$data = CommunityUpdateFormFieldsFragment;
 export type CommunityUpdateFormFieldsFragment$key = {
-    readonly " $data"?: CommunityUpdateFormFieldsFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityUpdateFormFieldsFragment">;
+  readonly " $data"?: CommunityUpdateFormFieldsFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityUpdateFormFieldsFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -131,5 +133,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '5c137e7afca7f4161d8b956b85b6cd49';
+
+(node as any).hash = "5c137e7afca7f4161d8b956b85b6cd49";
+
 export default node;

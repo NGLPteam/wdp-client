@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<3a247919490d8263f3c0478f7c48082c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AssetInlinePDFFragment = {
-    readonly downloadUrl?: string | null | undefined;
-    readonly fileSize?: number | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AssetDownloadButtonFragment">;
-    readonly " $refType": "AssetInlinePDFFragment";
+export type AssetInlinePDFFragment$data = {
+  readonly downloadUrl?: string | null | undefined;
+  readonly fileSize?: number;
+  readonly " $fragmentSpreads": FragmentRefs<"AssetDownloadButtonFragment">;
+  readonly " $fragmentType": "AssetInlinePDFFragment";
 };
-export type AssetInlinePDFFragment$data = AssetInlinePDFFragment;
 export type AssetInlinePDFFragment$key = {
-    readonly " $data"?: AssetInlinePDFFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AssetInlinePDFFragment">;
+  readonly " $data"?: AssetInlinePDFFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"AssetInlinePDFFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -55,5 +57,7 @@ const node: ReaderFragment = {
   "type": "Asset",
   "abstractKey": "__isAsset"
 };
-(node as any).hash = '79262486c2651a3b8733ba3a0564fabe';
+
+(node as any).hash = "79262486c2651a3b8733ba3a0564fabe";
+
 export default node;

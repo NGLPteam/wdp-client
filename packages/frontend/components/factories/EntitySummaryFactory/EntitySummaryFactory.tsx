@@ -4,10 +4,10 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import IssueSummary from "components/composed/issue/IssueSummary";
 import ArticleSummary from "components/composed/article/ArticleSummary";
 import EntitySummary from "components/composed/entity/EntitySummary";
-import { EntitySummaryFactoryFragment$key } from "@/relay/EntitySummaryFactoryFragment.graphql";
 import VolumeSummary from "components/composed/volume/VolumeSummary";
 import JournalSummary from "components/composed/journal/JournalSummary";
 import DissertationSummary from "components/composed/dissertation/DissertationSummary";
+import { EntitySummaryFactoryFragment$key } from "@/relay/EntitySummaryFactoryFragment.graphql";
 
 export default function EntitySummaryFactory({ data, ...props }: Props) {
   const entity = useMaybeFragment(fragment, data);

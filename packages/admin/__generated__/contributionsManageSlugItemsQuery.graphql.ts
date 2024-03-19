@@ -1,173 +1,31 @@
+/**
+ * @generated SignedSource<<db94be7bff0fa43cd7976bf54113427e>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type contributionsManageSlugItemsQueryVariables = {
-    itemSlug: string;
-    page: number;
+export type contributionsManageSlugItemsQuery$variables = {
+  itemSlug: string;
+  page: number;
 };
-export type contributionsManageSlugItemsQueryResponse = {
-    readonly item: {
-        readonly contributions: {
-            readonly " $fragmentRefs": FragmentRefs<"ItemContributionListFragment">;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"ItemLayoutQueryFragment">;
-    } | null;
+export type contributionsManageSlugItemsQuery$data = {
+  readonly item: {
+    readonly contributions: {
+      readonly " $fragmentSpreads": FragmentRefs<"ItemContributionListFragment">;
+    };
+    readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "ItemLayoutFragment">;
+  } | null | undefined;
 };
 export type contributionsManageSlugItemsQuery = {
-    readonly response: contributionsManageSlugItemsQueryResponse;
-    readonly variables: contributionsManageSlugItemsQueryVariables;
+  response: contributionsManageSlugItemsQuery$data;
+  variables: contributionsManageSlugItemsQuery$variables;
 };
-
-
-
-/*
-query contributionsManageSlugItemsQuery(
-  $itemSlug: Slug!
-  $page: Int!
-) {
-  item(slug: $itemSlug) {
-    ...ItemLayoutQueryFragment
-    contributions(page: $page, perPage: 20) {
-      ...ItemContributionListFragment
-    }
-    id
-  }
-}
-
-fragment AuthContextFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-
-fragment AvatarFragment on ImageAttachment {
-  storage
-  small {
-    webp {
-      ...ImageFragment
-    }
-  }
-}
-
-fragment ContributorNameColumnFragment on Contributor {
-  __isContributor: __typename
-  __typename
-  image {
-    ...AvatarFragment
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-  ... on OrganizationContributor {
-    legalName
-  }
-  ... on PersonContributor {
-    givenName
-    familyName
-  }
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment ItemContributionListFragment on ItemContributionConnection {
-  nodes {
-    id
-    slug
-    createdAt
-    updatedAt
-    role
-    contributor {
-      __typename
-      ... on Sluggable {
-        __isSluggable: __typename
-        slug
-      }
-      ...ContributorNameColumnFragment
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-    item {
-      slug
-      title
-      id
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment ItemLayoutFragment on Item {
-  title
-  slug
-  id
-  ...useBreadcrumbsFragment
-  ...useChildRouteLinksFragment
-}
-
-fragment ItemLayoutQueryFragment on Item {
-  ...ItemLayoutFragment
-  ...AuthContextFragment
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment useBreadcrumbsFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  breadcrumbs {
-    depth
-    label
-    kind
-    slug
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-}
-
-fragment useChildRouteLinksFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -245,6 +103,16 @@ return {
         "plural": false,
         "selections": [
           {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "ItemLayoutFragment"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "AuthContextFragment"
+          },
+          {
             "alias": null,
             "args": (v2/*: any*/),
             "concreteType": "ItemContributionConnection",
@@ -259,11 +127,6 @@ return {
               }
             ],
             "storageKey": null
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "ItemLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -612,14 +475,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9649a84920f1284da1794a9c77952069",
+    "cacheID": "28343de6ddf231aed7f56072c7567fd2",
     "id": null,
     "metadata": {},
     "name": "contributionsManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query contributionsManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    contributions(page: $page, perPage: 20) {\n      ...ItemContributionListFragment\n    }\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment ContributorNameColumnFragment on Contributor {\n  __isContributor: __typename\n  __typename\n  image {\n    ...AvatarFragment\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on OrganizationContributor {\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ItemContributionListFragment on ItemContributionConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    role\n    contributor {\n      __typename\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ...ContributorNameColumnFragment\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    item {\n      slug\n      title\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n"
+    "text": "query contributionsManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    ...AuthContextFragment\n    contributions(page: $page, perPage: 20) {\n      ...ItemContributionListFragment\n    }\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment ContributorNameColumnFragment on Contributor {\n  __isContributor: __typename\n  __typename\n  image {\n    ...AvatarFragment\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on OrganizationContributor {\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ItemContributionListFragment on ItemContributionConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    role\n    contributor {\n      __typename\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ...ContributorNameColumnFragment\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    item {\n      slug\n      title\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n"
   }
 };
 })();
-(node as any).hash = 'fdec28de17e3593297aa688f5bf2dcf6';
+
+(node as any).hash = "10eb7ae335e202cee60a2081124561ea";
+
 export default node;

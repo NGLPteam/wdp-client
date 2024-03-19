@@ -1,43 +1,45 @@
+/**
+ * @generated SignedSource<<71120be375739c33b1ee722be273a80d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ItemListSearchFragment = {
-    readonly results?: {
-        readonly nodes: ReadonlyArray<{
-            readonly slug: string;
-            readonly entity: {
-                readonly id?: string | undefined;
-                readonly slug?: string | undefined;
-                readonly title?: string | undefined;
-                readonly schemaVersion?: {
-                    readonly name: string;
-                    readonly number: string;
-                } | undefined;
-                readonly allowedActions?: ReadonlyArray<string> | undefined;
-                readonly items?: {
-                    readonly pageInfo: {
-                        readonly totalCount: number;
-                    };
-                } | undefined;
-                readonly " $fragmentRefs": FragmentRefs<"ContributorsColumnFragment" | "EntityThumbnailColumnFragment" | "PublishedDateColumnFragment">;
-            };
-        }>;
-        readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    } | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageSearchFragment">;
-    readonly " $refType": "ItemListSearchFragment";
+export type ItemListSearchFragment$data = {
+  readonly results?: {
+    readonly nodes: ReadonlyArray<{
+      readonly entity: {
+        readonly allowedActions?: ReadonlyArray<string>;
+        readonly id?: string;
+        readonly items?: {
+          readonly pageInfo: {
+            readonly totalCount: number;
+          };
+        };
+        readonly schemaVersion?: {
+          readonly name: string;
+          readonly number: string;
+        };
+        readonly slug?: string;
+        readonly title?: string;
+        readonly " $fragmentSpreads": FragmentRefs<"ContributorsColumnFragment" | "EntityThumbnailColumnFragment" | "PublishedDateColumnFragment">;
+      };
+      readonly slug: string;
+    }>;
+    readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageSearchFragment">;
+  readonly " $fragmentType": "ItemListSearchFragment";
 };
-export type ItemListSearchFragment$data = ItemListSearchFragment;
 export type ItemListSearchFragment$key = {
-    readonly " $data"?: ItemListSearchFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ItemListSearchFragment">;
+  readonly " $data"?: ItemListSearchFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ItemListSearchFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -355,7 +357,9 @@ return {
                               "type": "AnyEntity",
                               "abstractKey": "__isAnyEntity"
                             }
-                          ]
+                          ],
+                          "args": null,
+                          "argumentDefinitions": []
                         },
                         {
                           "kind": "InlineDataFragmentSpread",
@@ -388,7 +392,9 @@ return {
                             },
                             (v1/*: any*/),
                             (v2/*: any*/)
-                          ]
+                          ],
+                          "args": null,
+                          "argumentDefinitions": []
                         },
                         {
                           "kind": "InlineDataFragmentSpread",
@@ -417,7 +423,9 @@ return {
                               "type": "ReferencesGlobalEntityDates",
                               "abstractKey": "__isReferencesGlobalEntityDates"
                             }
-                          ]
+                          ],
+                          "args": null,
+                          "argumentDefinitions": []
                         }
                       ],
                       "type": "Entity",
@@ -468,5 +476,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'cf6d78c19ce1cfb530d2e1db23c0ccd2';
+
+(node as any).hash = "9270be785c3b3cdf31b373f294ba899c";
+
 export default node;

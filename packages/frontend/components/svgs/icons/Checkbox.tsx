@@ -1,7 +1,7 @@
 import React from "react";
 import Props from "./iconType";
 
-const Checkbox = ({ title, fill, ...props }: CheckboxProps) => {
+const Checkbox = ({ title: _title, fill: _fill, ...props }: CheckboxProps) => {
   return (
     <svg
       viewBox="0 0 16 16"

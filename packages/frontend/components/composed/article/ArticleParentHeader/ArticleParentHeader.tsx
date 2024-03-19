@@ -1,10 +1,10 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { ArticleParentHeaderFragment$key } from "@/relay/ArticleParentHeaderFragment.graphql";
 import { CompactHero } from "components/layout/hero";
 import { Markdown } from "components/atomic";
 import { getEntityDisplayName } from "helpers";
+import { ArticleParentHeaderFragment$key } from "@/relay/ArticleParentHeaderFragment.graphql";
 
 export default function ArticleParentHeader({ data }: Props) {
   const article = useMaybeFragment(fragment, data);

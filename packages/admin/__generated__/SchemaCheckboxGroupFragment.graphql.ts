@@ -1,25 +1,27 @@
+/**
+ * @generated SignedSource<<273caf4fe1e61223df21a7e2b37723d8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SchemaCheckboxGroupFragment = {
-    readonly schemaRanks: ReadonlyArray<{
-        readonly name: string;
-        readonly namespace: string;
-        readonly identifier: string;
-    }>;
-    readonly " $refType": "SchemaCheckboxGroupFragment";
+export type SchemaCheckboxGroupFragment$data = {
+  readonly schemaRanks: ReadonlyArray<{
+    readonly identifier: string;
+    readonly name: string;
+    readonly namespace: string;
+  }>;
+  readonly " $fragmentType": "SchemaCheckboxGroupFragment";
 };
-export type SchemaCheckboxGroupFragment$data = SchemaCheckboxGroupFragment;
 export type SchemaCheckboxGroupFragment$key = {
-    readonly " $data"?: SchemaCheckboxGroupFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SchemaCheckboxGroupFragment">;
+  readonly " $data"?: SchemaCheckboxGroupFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SchemaCheckboxGroupFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -63,5 +65,7 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '05485b1a214e0d1f8d41643035900594';
+
+(node as any).hash = "05485b1a214e0d1f8d41643035900594";
+
 export default node;

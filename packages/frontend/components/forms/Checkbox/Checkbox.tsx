@@ -4,7 +4,7 @@ import * as Styled from "./Checkbox.styles";
 
 function Checkbox(
   { label, defaultChecked, ...props }: Props,
-  ref: Ref<HTMLInputElement>
+  ref: Ref<HTMLInputElement>,
 ) {
   const { t } = useTranslation();
 
@@ -24,7 +24,7 @@ function Checkbox(
 }
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-  children?: JSX.Element | string;
+  children?: React.JSX.Element | string;
   label: string;
 }
 

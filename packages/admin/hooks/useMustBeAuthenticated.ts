@@ -14,6 +14,6 @@ export default function useMustBeAuthenticated() {
         router.push("/sign_in");
       }
     },
-    [initialized, keycloak, router]
+    [initialized, keycloak, router],
   );
 }

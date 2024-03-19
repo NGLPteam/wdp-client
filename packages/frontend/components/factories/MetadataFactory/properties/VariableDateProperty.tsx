@@ -2,8 +2,8 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { PrecisionDate } from "components/atomic";
-import { VariableDatePropertyFragment$key } from "@/relay/VariableDatePropertyFragment.graphql";
 import { MetadataProperty } from "components/layout";
+import { VariableDatePropertyFragment$key } from "@/relay/VariableDatePropertyFragment.graphql";
 
 export default function VariableDateProperty({
   data,

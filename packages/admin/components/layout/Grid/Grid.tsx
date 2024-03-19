@@ -1,8 +1,8 @@
 import times from "lodash/times";
 import { useBoundingBox } from "@wdp/lib/hooks";
+import { LoadingSkeleton } from "components/atomic";
 import * as Styled from "./Grid.styles";
 import GridItem from "./GridItem";
-import { LoadingSkeleton } from "components/atomic";
 
 const Grid = ({ loading, children, showCheckboxes, id }: Props) => {
   // Until we can have container queries,
@@ -30,7 +30,7 @@ const Grid = ({ loading, children, showCheckboxes, id }: Props) => {
 };
 
 interface Props {
-  children: JSX.Element;
+  children: React.JSX.Element;
   showCheckboxes?: boolean;
   id?: string;
   loading?: boolean;

@@ -4,16 +4,16 @@ import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useLatestPresentValue } from "@wdp/lib/hooks";
 import { Button, Dropdown, Link, NamedLink } from "components/atomic";
+import { useGlobalContext } from "contexts";
 import { CommunityPickerFragment$key } from "@/relay/CommunityPickerFragment.graphql";
 import { CommunityPickerActiveFragment$key } from "@/relay/CommunityPickerActiveFragment.graphql";
-import { useGlobalContext } from "contexts";
 
 export default function CommunityPicker({ active }: Props) {
   const siteData = useGlobalContext();
 
   const communityData = useMaybeFragment<CommunityPickerFragment$key>(
     fragment,
-    siteData
+    siteData,
   );
 
   const activeCommunity = useMaybeFragment(activefragment, active);

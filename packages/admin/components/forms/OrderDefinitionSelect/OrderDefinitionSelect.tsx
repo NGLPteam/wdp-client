@@ -1,15 +1,21 @@
-import React, { forwardRef, Ref, useMemo, useRef } from "react";
-import { graphql, useFragment } from "react-relay";
+import React, {
+  forwardRef,
+  Ref,
+  useMemo,
+  useRef,
+  useDeferredValue,
+} from "react";
+import { useFragment, GraphQLTaggedNode, graphql } from "react-relay";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
-import Select from "../Select";
-import OrderDefinitionSelectedList from "./OrderDefinitionSelectedList";
-import * as Styled from "./OrderDefinitionSelect.styles";
 import {
   OrderDefinition,
   OrderingSchemaFilterInput,
 } from "types/graphql-schema";
 import { OrderDefinitionSelectQuery as Query } from "@/relay/OrderDefinitionSelectQuery.graphql";
 import { OrderDefinitionSelectFragment$key } from "@/relay/OrderDefinitionSelectFragment.graphql";
+import Select from "../Select";
+import OrderDefinitionSelectedList from "./OrderDefinitionSelectedList";
+import * as Styled from "./OrderDefinitionSelect.styles";
 
 const ORDER_PATHS =
   process.env.NEXT_PUBLIC_ORDER_PATH_OPTIONS?.split(",") || [];
@@ -26,22 +32,26 @@ const ORDER_PATH_OPTIONS = [
 
 function OrderDefinitionSelect(
   { name, data, value = [], onChange }: Props,
-  ref: Ref<HTMLSelectElement>
+  ref: Ref<HTMLSelectElement>,
 ) {
   const selectRef = useRef<HTMLSelectElement | null>(null);
 
   // Get the entity schema ranks
-  const entity = useFragment<OrderDefinitionSelectFragment$key>(fragment, data);
+  const entity = useFragment<OrderDefinitionSelectFragment$key>(
+    fragment as GraphQLTaggedNode,
+    data,
+  );
 
   // Get the list of possible orders by schema ranks
-  const { data: orderingData } = useAuthenticatedQuery<Query>(query, {
+  const orderingData = useAuthenticatedQuery<Query>(query, {
     schemas: entity.schemaRanks as OrderingSchemaFilterInput[],
   });
+  const deferred = useDeferredValue(orderingData);
 
   // Get the options from orderingPaths, and format as OrderDefinitionInput
   const options = useMemo(() => {
-    return orderingData
-      ? orderingData.orderingPaths
+    return deferred
+      ? deferred.orderingPaths
           // Filter out repeating paths
           .filter((o, i, self) => {
             return (
@@ -62,14 +72,14 @@ function OrderDefinitionSelect(
           }))
           .sort((a, b) => (a.label < b.label ? -1 : 1))
       : [];
-  }, [orderingData]);
+  }, [deferred]);
 
   // Filter the options by duplicates and the current selected values
   const filteredOptions = useMemo(() => {
     if (!value) return options;
 
     return options.filter(
-      (o) => value.findIndex((v) => v.path === o.value) < 0
+      (o) => value.findIndex((v) => v.path === o.value) < 0,
     );
   }, [options, value]);
 

@@ -1,8 +1,8 @@
 // Base Typography
 // --------------------
 import { css } from "styled-components";
-import { tHeading } from "../mixins/typography";
 import { aLink } from "theme/mixins";
+import { tHeading } from "../mixins/typography";
 
 export default css`
   body {

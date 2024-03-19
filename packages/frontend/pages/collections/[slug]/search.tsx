@@ -1,18 +1,27 @@
-import React from "react";
-import { graphql } from "react-relay";
-import { useRefetchable } from "relay-hooks/lib/useRefetchable";
+import { Suspense } from "react";
+import {
+  graphql,
+  usePreloadedQuery,
+  PreloadedQuery,
+  useRefetchableFragment,
+} from "react-relay";
 import { GetLayout } from "@wdp/lib/types/page";
 import { GetStaticPropsContext } from "next";
-import { searchCollectionQuery as Query } from "@/relay/searchCollectionQuery.graphql";
 import SearchLayout from "components/composed/search/SearchLayout";
-import { SearchLayoutEntityQuery } from "@/relay/SearchLayoutEntityQuery.graphql";
-import { searchCollectionQueryFragment$key } from "@/relay/searchCollectionQueryFragment.graphql";
-import CollectionLayoutQuery from "components/composed/collections/CollectionLayoutQuery";
 import {
   getStaticGlobalContextData,
   getStaticEntityData,
   STATIC_PROPS_REVALIDATE,
 } from "contexts/GlobalStaticContext";
+import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
+import { QueryLoaderWrapper } from "@wdp/lib/api/components";
+import { useRouteSlug } from "@wdp/lib/routes";
+import { LoadingBlock } from "components/atomic";
+import ErrorPage from "next/error";
+import AppLayout from "components/global/AppLayout";
+import { searchCollectionQueryFragment$key } from "@/relay/searchCollectionQueryFragment.graphql";
+import { SearchLayoutCollectionQuery } from "@/relay/SearchLayoutCollectionQuery.graphql";
+import { searchCollectionQuery as Query } from "@/relay/searchCollectionQuery.graphql";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -36,30 +45,53 @@ function SearchLayoutQuery({
 }: {
   data: searchCollectionQueryFragment$key;
 }) {
-  const {
-    data: searchData,
-    refetch,
-    isLoading,
-  } = useRefetchable<
-    SearchLayoutEntityQuery,
+  const [searchData, refetch] = useRefetchableFragment<
+    SearchLayoutCollectionQuery,
     searchCollectionQueryFragment$key
   >(fragment, data);
 
-  return (
-    <SearchLayout refetch={refetch} data={searchData} isLoading={isLoading} />
-  );
+  return <SearchLayout refetch={refetch} data={searchData} />;
 }
 
-export default function SearchPage({ data }: Props) {
-  return data?.collection ? <SearchLayoutQuery data={data.collection} /> : null;
+export default function SearchPage({ queryRef }: Props) {
+  const { collection } = usePreloadedQuery<Query>(query, queryRef);
+
+  return collection ? (
+    <AppLayout communityData={collection.community} entityData={collection}>
+      <EntityLayoutFactory data={collection}>
+        <Suspense fallback={<LoadingBlock />}>
+          <SearchLayoutQuery data={collection} />
+        </Suspense>
+      </EntityLayoutFactory>
+    </AppLayout>
+  ) : null;
 }
 
+/* eslint-disable react-hooks/rules-of-hooks */
 const getLayout: GetLayout<Props> = (props) => {
-  return <CollectionLayoutQuery<Query, Props> query={query} {...props} />;
+  const slug = useRouteSlug();
+
+  if (!slug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
+
+  return (
+    <QueryLoaderWrapper<Query>
+      query={query}
+      variables={{ slug }}
+      loadingFallback={<LoadingBlock />}
+    >
+      {({ queryRef }) =>
+        queryRef && (
+          <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        )
+      }
+    </QueryLoaderWrapper>
+  );
 };
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
 };
 
 SearchPage.getLayout = getLayout;
@@ -68,8 +100,12 @@ const query = graphql`
   query searchCollectionQuery($slug: Slug!) {
     collection(slug: $slug) {
       ...searchCollectionQueryFragment
+      ...AppLayoutEntityFragment
+      ...EntityLayoutFactoryFragment
+      community {
+        ...AppLayoutCommunityFragment
+      }
     }
-    ...CollectionLayoutQueryFragment @arguments(slug: $slug)
   }
 `;
 

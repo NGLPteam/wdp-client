@@ -1,8 +1,8 @@
 import React from "react";
 import { usePageContext } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./BaseContributionsBlock.styles";
 import { LoadingBlock } from "components/atomic";
+import * as Styled from "./BaseContributionsBlock.styles";
 
 const BaseContributionsBlock = ({
   children,
@@ -21,7 +21,7 @@ const BaseContributionsBlock = ({
         $paddingBottom={paddingBottom}
       >
         <h3 className="t-capitalize">
-          {t(header || "glossary.contributor_plural")}
+          {t(header || "glossary.contributor_other")}
         </h3>
         {loading ? <LoadingBlock /> : <Styled.List>{children}</Styled.List>}
       </Styled.SectionInner>

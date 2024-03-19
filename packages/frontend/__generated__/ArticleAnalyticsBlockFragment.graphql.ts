@@ -1,55 +1,57 @@
+/**
+ * @generated SignedSource<<6082bfb450657327067cb3e79861f86c>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-import ArticleAnalyticsBlockQuery from "./ArticleAnalyticsBlockQuery.graphql";
+import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ArticleAnalyticsBlockFragment = {
-    readonly downloadsByDate: {
-        readonly total: number;
-        readonly unfilteredTotal: number;
-        readonly minDate: string | null;
-        readonly results: ReadonlyArray<{
-            readonly count: number;
-            readonly date: string;
-        }>;
-    };
-    readonly assetDownloadsByRegion: {
-        readonly total: number;
-        readonly results: ReadonlyArray<{
-            readonly countryCode: string;
-            readonly regionCode: string;
-            readonly count: number;
-        }>;
-    };
-    readonly viewsByDate: {
-        readonly total: number;
-        readonly unfilteredTotal: number;
-        readonly minDate: string | null;
-        readonly results: ReadonlyArray<{
-            readonly count: number;
-            readonly date: string;
-        }>;
-    };
-    readonly entityViewsByRegion: {
-        readonly total: number;
-        readonly results: ReadonlyArray<{
-            readonly countryCode: string;
-            readonly regionCode: string;
-            readonly count: number;
-        }>;
-    };
-    readonly id: string;
-    readonly " $refType": "ArticleAnalyticsBlockFragment";
+export type ArticleAnalyticsBlockFragment$data = {
+  readonly assetDownloadsByRegion: {
+    readonly results: ReadonlyArray<{
+      readonly count: number;
+      readonly countryCode: string;
+      readonly regionCode: string;
+    }>;
+    readonly total: number;
+  };
+  readonly downloadsByDate: {
+    readonly minDate: string | null | undefined;
+    readonly results: ReadonlyArray<{
+      readonly count: number;
+      readonly date: string;
+    }>;
+    readonly total: number;
+    readonly unfilteredTotal: number;
+  };
+  readonly entityViewsByRegion: {
+    readonly results: ReadonlyArray<{
+      readonly count: number;
+      readonly countryCode: string;
+      readonly regionCode: string;
+    }>;
+    readonly total: number;
+  };
+  readonly id: string;
+  readonly viewsByDate: {
+    readonly minDate: string | null | undefined;
+    readonly results: ReadonlyArray<{
+      readonly count: number;
+      readonly date: string;
+    }>;
+    readonly total: number;
+    readonly unfilteredTotal: number;
+  };
+  readonly " $fragmentType": "ArticleAnalyticsBlockFragment";
 };
-export type ArticleAnalyticsBlockFragment$data = ArticleAnalyticsBlockFragment;
 export type ArticleAnalyticsBlockFragment$key = {
-    readonly " $data"?: ArticleAnalyticsBlockFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ArticleAnalyticsBlockFragment">;
+  readonly " $data"?: ArticleAnalyticsBlockFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleAnalyticsBlockFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -177,8 +179,11 @@ return {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": ArticleAnalyticsBlockQuery,
-      "identifierField": "id"
+      "operation": require('./ArticleAnalyticsBlockQuery.graphql'),
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "ArticleAnalyticsBlockFragment",
@@ -235,5 +240,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'f614c7af4512d87593e7fd2e8f064b41';
+
+(node as any).hash = "f614c7af4512d87593e7fd2e8f064b41";
+
 export default node;

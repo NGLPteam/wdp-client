@@ -27,7 +27,7 @@ export type HasAnyNodes = HasEdgesWithNode | HasNodes;
 export type Connectionish = HasAnyNodes;
 
 export type ExtractsConnection<T extends OperationType, ConnectionType> = (
-  data: T["response"]
+  data: T["response"],
 ) => ConnectionType | null;
 
 /**
@@ -35,11 +35,11 @@ export type ExtractsConnection<T extends OperationType, ConnectionType> = (
  */
 export type ExtractConnectionType<
   ResponseType,
-  ConnectionName extends keyof ResponseType
+  ConnectionName extends keyof ResponseType,
 > = ResponseType[ConnectionName] extends Connectionish
   ? ResponseType[ConnectionName]
   : never;
 
 export type HasFragment<FragmentName> = {
-  " $fragmentRefs": FragmentRefs<FragmentName>;
+  " $fragmentSpreads": FragmentRefs<FragmentName>;
 };

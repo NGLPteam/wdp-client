@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import BaseImage from "next/image";
+import BaseImage from "next/legacy/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { fluidScale, respond } from "theme/mixins";
 import { containerWidths } from "theme/base/variables";
@@ -24,14 +24,14 @@ export const Hero = styled.header`
         height: auto;
       }
     `,
-    80
+    80,
   )}
 
   ${respond(
     css`
       grid-template-columns: auto;
     `,
-    60
+    60,
   )}
 `;
 
@@ -60,7 +60,7 @@ export const HeroInner = styled.div`
       css`
         grid-column: 1 / -1;
       `,
-      60
+      60,
     )}
   }
 `;
@@ -85,7 +85,7 @@ export const ImageWrapper = styled.div`
         grid-row: 2;
         height: 300px;
       `,
-      60
+      60,
     )}
   }
 `;

@@ -1,8 +1,8 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import SquareThumbnailBase from "./SquareThumbnailBase";
 import { SquareThumbnailFragment$key } from "@/relay/SquareThumbnailFragment.graphql";
+import SquareThumbnailBase from "./SquareThumbnailBase";
 
 type BaseProps = React.ComponentProps<typeof SquareThumbnailBase>;
 
@@ -13,7 +13,7 @@ export default function SquareThumbnail({
   ...props
 }: Props & ImageProps) {
   const imageData = useMaybeFragment(fragment, data);
-  const image = imageData?.image?.webp;
+  const image = imageData?.thumb?.webp;
 
   return image ? (
     <SquareThumbnailBase {...props} alt={image.alt} url={image.url} />
@@ -26,7 +26,7 @@ interface Props {
 
 const fragment = graphql`
   fragment SquareThumbnailFragment on ImageAttachment {
-    image: medium {
+    thumb: medium {
       webp {
         alt
         url

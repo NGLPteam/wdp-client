@@ -79,7 +79,8 @@ export const FiltersButton = styled.button`
   background-color: var(--brand20);
   border-top-right-radius: var(--border-radius-xlg);
   border-bottom-right-radius: var(--border-radius-xlg);
-  transition: background-color var(--base-duration) var(--base-timing),
+  transition:
+    background-color var(--base-duration) var(--base-timing),
     color var(--base-duration) var(--base-timing);
 
   &:hover,

@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useDeferredValue } from "react";
 import { graphql } from "react-relay";
-import type { FieldValues, Path } from "react-hook-form";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
-import { useManagedVariables } from "@wdp/lib/api/components/QueryWrapper";
-import EntitySelectorController from "../EntitySelectorController";
-import type { EntityOption } from "../EntitySelectorController";
 import BaseTypeahead from "components/forms/BaseTypeahead";
 import {
   EntityTypeaheadQuery as Query,
-  EntityTypeaheadQueryResponse as Response,
+  EntityTypeaheadQuery$data as Response,
 } from "__generated__/EntityTypeaheadQuery.graphql";
+import debounce from "lodash/debounce";
+import EntitySelectorController from "../EntitySelectorController";
+import type { EntityOption } from "../EntitySelectorController";
+import type { FieldValues, Path } from "react-hook-form";
 import type { EntityDescendantScopeFilter } from "types/graphql-schema";
 import type { TypeaheadOption } from "components/forms/BaseTypeahead";
 
@@ -26,7 +26,7 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
 }: Props<T>) => {
   const [value, setValue] = useState(selected?.id ?? "");
 
-  const { variables, setVariables } = useManagedVariables<Query>({
+  const [variables, setVariables] = useState({
     query: "",
     schema: selectableTypes?.schemas || [],
     scope: (selectableTypes?.kinds?.length
@@ -34,9 +34,10 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
       : "ALL") as EntityDescendantScopeFilter,
   });
 
-  const { data, isLoading } = useAuthenticatedQuery<Query>(query, variables, {
+  const data = useAuthenticatedQuery<Query>(query, variables, {
     skip: !variables.query,
   });
+  const deferred = useDeferredValue(data);
 
   useEffect(() => {
     // TODO: This is where the value is getting set as an ID from the selector
@@ -51,13 +52,13 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
     // selected value's label and id.
     let options: TypeaheadOption[] = [];
 
-    if (data && data.search?.results?.edges?.length) {
-      const results = data.search.results.edges;
+    if (deferred && deferred.search?.results?.edges?.length) {
+      const results = deferred.search.results.edges;
       const applyKind = selectableTypes?.kinds?.length
         ? results.filter(({ node }) =>
             selectableTypes?.kinds?.includes(
-              node.entity?.__typename?.toUpperCase() ?? ""
-            )
+              node.entity?.__typename?.toUpperCase() ?? "",
+            ),
           )
         : results;
       options = applyKind.map(({ node }) => {
@@ -71,21 +72,22 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
     return value === selected?.id
       ? [{ label: selected.title ?? "", value: selected.id ?? "" }]
       : options;
-  }, [data, selectableTypes?.kinds, selected, value]);
+  }, [deferred, selectableTypes?.kinds, selected, value]);
 
-  const onInputChange = useCallback(
-    (val: string) => {
-      if (options?.find((option) => option?.label === val)) return;
-      setVariables({ ...variables, query: val });
-      setValue(val);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [options, setVariables]
+  const onInputChange = (val: string) => {
+    if (options?.find((option) => option?.label === val)) return;
+    debouncedSetVariables(val);
+    setValue(val);
+  };
+
+  const debouncedSetVariables = debounce(
+    (val: string) => setVariables({ ...variables, query: val }),
+    300,
   );
 
   const handleSelect = (data: Response) => (optionVal: string | number) => {
     const node = data.search.results.edges.find(
-      ({ node }) => node.entity?.id === optionVal
+      ({ node }) => node.entity?.id === optionVal,
     )?.node;
     const entity = node
       ? ({
@@ -97,7 +99,7 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
     return onSelect(entity);
   };
 
-  const handleSelectWithData = data ? handleSelect(data) : () => null;
+  const handleSelectWithData = deferred ? handleSelect(deferred) : () => null;
 
   return (
     <BaseTypeahead
@@ -109,7 +111,6 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
       onChange={(val) => handleSelectWithData(val)}
       value={value}
       withBrowse
-      isLoading={isLoading}
     />
   );
 };

@@ -8,7 +8,7 @@ type LocalStorageSetter<T> = (value: SetStateAction<T>) => void;
 
 export default function useLocalStorage<T>(
   key: string,
-  initialValue: T
+  initialValue: T,
 ): [T, LocalStorageSetter<T>] {
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {

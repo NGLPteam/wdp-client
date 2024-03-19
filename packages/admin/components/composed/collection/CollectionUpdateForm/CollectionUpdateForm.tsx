@@ -1,4 +1,5 @@
-import { graphql, useFragment, readInlineData } from "react-relay";
+import { GraphQLTaggedNode, readInlineData } from "relay-runtime";
+import { useFragment, graphql } from "react-relay";
 import { getDateOnly } from "@wdp/lib/helpers";
 import pick from "lodash/pick";
 import MutationForm, {
@@ -8,25 +9,25 @@ import MutationForm, {
   useIsSuccess,
   useOnFailure,
 } from "components/api/MutationForm";
+import SchemaFormFields from "components/api/SchemaFormFields";
+import { useSchemaContext, useSchemaProperties } from "components/api/hooks";
+import { sanitizeDateField } from "helpers";
+import { convertSchemaErrors } from "components/api/SchemaInstanceForm/convertSchemaErrors";
+import { ParentSelector } from "components/forms";
+import {
+  CollectionUpdateForm_schemaErrorsFragment$data,
+  // eslint-disable-next-line max-len
+  CollectionUpdateForm_schemaErrorsFragment$key as SchemaErrorsFragment$key,
+} from "@/relay/CollectionUpdateForm_schemaErrorsFragment.graphql";
+import type { CollectionUpdateFormFieldsFragment$key } from "@/relay/CollectionUpdateFormFieldsFragment.graphql";
+import type { CollectionUpdateFormFragment$key } from "@/relay/CollectionUpdateFormFragment.graphql";
 import type {
   UpdateCollectionInput,
   CollectionUpdateFormMutation,
 } from "@/relay/CollectionUpdateFormMutation.graphql";
-import type { CollectionUpdateFormFragment$key } from "@/relay/CollectionUpdateFormFragment.graphql";
-import type { CollectionUpdateFormFieldsFragment$key } from "@/relay/CollectionUpdateFormFieldsFragment.graphql";
-import SchemaFormFields from "components/api/SchemaFormFields";
-import { useSchemaContext, useSchemaProperties } from "components/api/hooks";
-import { sanitizeDateField } from "helpers";
-import {
-  CollectionUpdateForm_schemaErrorsFragment,
-  // eslint-disable-next-line max-len
-  CollectionUpdateForm_schemaErrorsFragment$key as SchemaErrorsFragment$key,
-} from "@/relay/CollectionUpdateForm_schemaErrorsFragment.graphql";
-import { convertSchemaErrors } from "components/api/SchemaInstanceForm/convertSchemaErrors";
-import { ParentSelector } from "components/forms";
 
 // eslint-disable-next-line camelcase, prettier/prettier
-type SchemaErrors = CollectionUpdateForm_schemaErrorsFragment["schemaErrors"];
+type SchemaErrors = CollectionUpdateForm_schemaErrorsFragment$data["schemaErrors"];
 
 export default function CollectionUpdateForm({
   data,
@@ -36,7 +37,7 @@ export default function CollectionUpdateForm({
 }: Props) {
   const collection = useFragment<CollectionUpdateFormFragment$key>(
     fragment,
-    data
+    data,
   );
   const { collectionId = "", ...fieldsData } = collection;
 
@@ -49,47 +50,49 @@ export default function CollectionUpdateForm({
     ...values
   } = useFragment<CollectionUpdateFormFieldsFragment$key>(
     fieldsFragment,
-    fieldsData
+    fieldsData,
   );
 
   const mutationName = "updateCollection";
 
   // eslint-disable-next-line prettier/prettier
-  const { fieldValues: schemaFieldValues, defaultValues: schemaDefaultValues } =
-    useSchemaContext(fieldsData.context);
+  const {
+    fieldValues: schemaFieldValues,
+    defaultValues: schemaDefaultValues,
+  } = useSchemaContext(fieldsData.context);
 
   const schemaProperties = useSchemaProperties(fieldsData);
 
   const isSuccess = useIsSuccess<CollectionUpdateFormMutation, Fields>(
     function (response) {
       const errors = readInlineData<SchemaErrorsFragment$key>(
-        schemaErrorsFragment,
-        response[mutationName]
+        schemaErrorsFragment as GraphQLTaggedNode,
+        response[mutationName] ?? null,
       );
 
       return !errors?.schemaErrors || errors.schemaErrors.length === 0;
     },
-    [mutationName]
+    [mutationName],
   );
 
   const onFailure = useOnFailure<CollectionUpdateFormMutation, Fields>(
     function ({ response, setError }) {
       const errors = readInlineData<SchemaErrorsFragment$key>(
-        schemaErrorsFragment,
-        response[mutationName]
+        schemaErrorsFragment as GraphQLTaggedNode,
+        response[mutationName] ?? null,
       );
 
       if (errors?.schemaErrors) {
         const convertedErrors = convertSchemaErrors<SchemaErrors>(
-          errors.schemaErrors
+          errors.schemaErrors,
         );
 
         for (const { path, error } of convertedErrors) {
-          setError(path, error);
+          setError(path as keyof Fields, error);
         }
       }
     },
-    []
+    [],
   );
 
   const defaultValues = {
@@ -131,7 +134,7 @@ export default function CollectionUpdateForm({
         },
       };
     },
-    []
+    [],
   );
 
   const renderForm = useRenderForm<Fields>(
@@ -178,7 +181,7 @@ export default function CollectionUpdateForm({
         <SchemaFormFields data={fieldsData} schemaKind="COLLECTION" />
       </>
     ),
-    [fieldsData]
+    [fieldsData],
   );
 
   return (

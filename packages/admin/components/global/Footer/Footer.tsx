@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import Link from "next/link";
-import * as Styled from "./Footer.styles";
 import appData from "fixtures/app.data";
 import { InstallationLogo } from "components/global";
 import { renderNavLink } from "helpers";
@@ -10,6 +9,7 @@ import { Authorize } from "components/auth";
 import { DrawerLink } from "components/atomic";
 import { useGlobalContext, useViewerContext } from "contexts";
 import { FooterFragment$key } from "@/relay/FooterFragment.graphql";
+import * as Styled from "./Footer.styles";
 
 function Footer() {
   const { footerData } = appData;
@@ -20,7 +20,7 @@ function Footer() {
 
   const siteData = useMaybeFragment<FooterFragment$key>(
     fragment,
-    data?.globalConfiguration
+    data?.globalConfiguration,
   );
 
   const description = siteData?.site.footer.description;
@@ -43,8 +43,8 @@ function Footer() {
           }`}
         >
           <InstallationLogo />
-          <Link href="/" passHref>
-            <a className="a-link">{t("app.powered_by")}</a>
+          <Link href="/" passHref className="a-link">
+            {t("app.powered_by")}
           </Link>
         </div>
         {footerData.navigation.map((nav, i) => (
@@ -54,7 +54,7 @@ function Footer() {
               <Styled.List>
                 {nav.children &&
                   nav.children.map((child, i) =>
-                    renderNavLink(child, i, Styled.ListItem)
+                    renderNavLink(child, i, Styled.ListItem),
                   )}
                 {globalAdmin && renderGlobalSettings()}
               </Styled.List>

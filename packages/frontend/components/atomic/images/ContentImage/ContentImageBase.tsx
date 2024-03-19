@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import * as Styled from "./ContentImage.styles";
 
 type ImageProps = React.ComponentProps<typeof Image>;
@@ -27,7 +27,7 @@ export default function ContentImageBase({
 
 interface BaseProps extends Pick<ImageProps, "placeholder" | "blurDataURL"> {
   alt?: string | null;
-  url: string | null;
-  width: number | null;
-  height: number | null;
+  url?: string | null;
+  width?: number | null;
+  height?: number | null;
 }

@@ -1,59 +1,28 @@
+/**
+ * @generated SignedSource<<16f8ed7c9f9f5b8af6d678c917ebe775>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type UserUpdateDrawerQueryVariables = {
-    userSlug: string;
+export type UserUpdateDrawerQuery$variables = {
+  userSlug: string;
 };
-export type UserUpdateDrawerQueryResponse = {
-    readonly user: {
-        readonly name: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"UserUpdateFormFragment">;
-    } | null;
+export type UserUpdateDrawerQuery$data = {
+  readonly user: {
+    readonly name: string | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"UserUpdateFormFragment">;
+  } | null | undefined;
 };
 export type UserUpdateDrawerQuery = {
-    readonly response: UserUpdateDrawerQueryResponse;
-    readonly variables: UserUpdateDrawerQueryVariables;
+  response: UserUpdateDrawerQuery$data;
+  variables: UserUpdateDrawerQuery$variables;
 };
-
-
-
-/*
-query UserUpdateDrawerQuery(
-  $userSlug: Slug!
-) {
-  user(slug: $userSlug) {
-    name
-    ...UserUpdateFormFragment
-    id
-  }
-}
-
-fragment FileUploadFragment on ImageAttachment {
-  originalFilename
-  storage
-  thumb {
-    png {
-      alt
-      url
-    }
-  }
-}
-
-fragment UserUpdateFormFragment on User {
-  id
-  givenName
-  familyName
-  email
-  username
-  avatar {
-    ...FileUploadFragment
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -231,5 +200,7 @@ return {
   }
 };
 })();
-(node as any).hash = '00f52570524b1f973dddc9640f107977';
+
+(node as any).hash = "00f52570524b1f973dddc9640f107977";
+
 export default node;

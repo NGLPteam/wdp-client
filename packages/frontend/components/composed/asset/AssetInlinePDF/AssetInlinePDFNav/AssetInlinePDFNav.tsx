@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Page } from "react-pdf";
+import SkipLink from "components/global/SkipLink";
 import AssetPDFPage from "../../AssetPDFPage";
 import * as Styled from "./AssetInlinePDFNav.styles";
-import SkipLink from "components/global/SkipLink";
 
 export default function AssetInlinePDFNav({
   numPages,

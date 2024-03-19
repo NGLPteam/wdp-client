@@ -1,25 +1,27 @@
+/**
+ * @generated SignedSource<<2f656073a1ae72bea22c718b0ca248ef>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SelectPropertyFragment = {
-    readonly options: ReadonlyArray<{
-        readonly label: string;
-        readonly value: string;
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ScalarPropertyFragment">;
-    readonly " $refType": "SelectPropertyFragment";
+export type SelectPropertyFragment$data = {
+  readonly options: ReadonlyArray<{
+    readonly label: string;
+    readonly value: string;
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ScalarPropertyFragment">;
+  readonly " $fragmentType": "SelectPropertyFragment";
 };
-export type SelectPropertyFragment$data = SelectPropertyFragment;
 export type SelectPropertyFragment$key = {
-    readonly " $data"?: SelectPropertyFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SelectPropertyFragment">;
+  readonly " $data"?: SelectPropertyFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SelectPropertyFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -61,5 +63,7 @@ const node: ReaderFragment = {
   "type": "SelectProperty",
   "abstractKey": null
 };
-(node as any).hash = '6c70e17a99e35067fa148260030537eb';
+
+(node as any).hash = "6c70e17a99e35067fa148260030537eb";
+
 export default node;

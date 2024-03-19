@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useChildRouteLinksFragment$key } from "@/relay/useChildRouteLinksFragment.graphql";
 import { RouteHelper } from "../routes";
 import useLatestPresentValue from "./useLatestPresentValue";
 import type { Props as NamedLinkProps } from "components/atomic/links/NamedLink/NamedLink";
-import { useChildRouteLinksFragment$key } from "@/relay/useChildRouteLinksFragment.graphql";
 
 interface Link extends NamedLinkProps {
   label?: string;
@@ -14,7 +14,7 @@ export function useChildRouteLinks(
   parentRoute: string,
   query: { [key: string]: string | number | string[] | undefined },
   /** Optional allowed actions data. Will be compared to actions on the route. */
-  data?: useChildRouteLinksFragment$key | null
+  data?: useChildRouteLinksFragment$key | null,
 ): Link[] {
   const mainRoute = RouteHelper.findRouteByName(parentRoute);
 
@@ -34,7 +34,7 @@ export function useChildRouteLinks(
 
       // Filter routes by checking if all actions are included in allowedActions
       return route.actions.every((action) =>
-        memoizedEntity?.current?.allowedActions?.includes(action)
+        memoizedEntity?.current?.allowedActions?.includes(action),
       );
     });
 

@@ -1,8 +1,8 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { JournalHeroMetadataFragment$key } from "@/relay/JournalHeroMetadataFragment.graphql";
 import { CCLicense, OpenAccess, PeerReviewed, ISSN } from "components/atomic";
+import { JournalHeroMetadataFragment$key } from "@/relay/JournalHeroMetadataFragment.graphql";
 
 export default function JournalHeroMetadata({ data }: Props) {
   const journal = useMaybeFragment(fragment, data);

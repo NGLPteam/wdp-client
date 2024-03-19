@@ -1,41 +1,30 @@
-import type { OperationType } from "relay-runtime";
-import { graphql } from "react-relay";
-import type { ModelTableActionProps } from "@tanstack/react-table";
+import { graphql, useFragment } from "react-relay";
 import { useLatestPresentValue } from "@wdp/lib/hooks";
-import {
-  useMaybeFragment,
-  useDestroyer,
-  useDrawerHelper,
-  useSearchQueryVars,
-} from "hooks";
+import { useDestroyer, useDrawerHelper, useSearchQueryVars } from "hooks";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import type {
-  ItemListFragment,
+  ItemListFragment$data,
   ItemListFragment$key,
 } from "@/relay/ItemListFragment.graphql";
 import {
-  ItemListSearchFragment,
+  ItemListSearchFragment$data,
   ItemListSearchFragment$key,
 } from "@/relay/ItemListSearchFragment.graphql";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function ItemList<T extends OperationType>({
-  data,
-  searchData,
-  headerStyle,
-  hideHeader,
-}: ItemListProps) {
-  const items = useMaybeFragment<ItemListFragment$key>(fragment, data);
+function ItemList({ items, search, headerStyle, hideHeader }: ItemListProps) {
+  const itemsData = useFragment<ItemListFragment$key>(fragment, items);
 
-  const { current: memoizedData } = useLatestPresentValue(items);
+  const { current: memoizedData } = useLatestPresentValue(itemsData);
 
-  const searchScope = useMaybeFragment<ItemListSearchFragment$key>(
+  const searchScope = useFragment<ItemListSearchFragment$key>(
     searchFragment,
-    searchData
+    search,
   );
 
   const { current: memoizedSearch } = useLatestPresentValue(searchScope);
@@ -76,7 +65,7 @@ function ItemList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.item(
         { itemId: row.original.entity?.id || row.original.id },
-        row.original.entity?.title || row.original.title || "glossary.item"
+        row.original.entity?.title || row.original.title || "glossary.item",
       ),
     handleView: ({ row }: ModelTableActionProps<Node>) =>
       row.original.slug
@@ -85,7 +74,7 @@ function ItemList<T extends OperationType>({
   };
 
   return (
-    <ModelListPage<T, ListFragment, Node>
+    <ModelListPage<ListFragment, Node>
       modelName="item"
       actions={actions}
       columns={columns}
@@ -106,18 +95,18 @@ function ItemList<T extends OperationType>({
 
 interface ItemListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  data?: ItemListFragment$key | null;
-  searchData?: ItemListSearchFragment$key | null;
+  items?: ItemListFragment$key;
+  search?: ItemListSearchFragment$key;
 }
 
 type ListFragment =
-  | ItemListFragment
-  | NonNullable<ItemListSearchFragment["results"]>;
+  | ItemListFragment$data
+  | NonNullable<ItemListSearchFragment$data["results"]>;
 
-type ItemNode = ItemListFragment["nodes"][number];
+type ItemNode = ItemListFragment$data["nodes"][number];
 
 type ItemSearchNode = NonNullable<
-  ItemListSearchFragment["results"]
+  ItemListSearchFragment$data["results"]
 >["nodes"][number];
 
 type Node = ItemNode & ItemSearchNode;

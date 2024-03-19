@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<915676ad91fc3acdaeb92c489b523a40>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityAnnouncementDrawerActionsFragment = {
-    readonly announcement: {
-        readonly id: string;
-    } | null;
-    readonly " $refType": "EntityAnnouncementDrawerActionsFragment";
+export type EntityAnnouncementDrawerActionsFragment$data = {
+  readonly announcement: {
+    readonly id: string;
+  } | null | undefined;
+  readonly " $fragmentType": "EntityAnnouncementDrawerActionsFragment";
 };
-export type EntityAnnouncementDrawerActionsFragment$data = EntityAnnouncementDrawerActionsFragment;
 export type EntityAnnouncementDrawerActionsFragment$key = {
-    readonly " $data"?: EntityAnnouncementDrawerActionsFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementDrawerActionsFragment">;
+  readonly " $data"?: EntityAnnouncementDrawerActionsFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityAnnouncementDrawerActionsFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -58,5 +60,7 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '59e67f02f194e5b3b1b91f1c3af97ba2';
+
+(node as any).hash = "59e67f02f194e5b3b1b91f1c3af97ba2";
+
 export default node;

@@ -1,4 +1,4 @@
-import { environment } from "@wdp/lib/app";
+import { buildEnvironment as environment } from "@wdp/lib/app";
 import { fetchQuery, graphql } from "relay-runtime";
 import { getStaticPathsCommunitiesQuery } from "@/relay/getStaticPathsCommunitiesQuery.graphql";
 import { getStaticPathsCommunityPagesQuery } from "@/relay/getStaticPathsCommunityPagesQuery.graphql";
@@ -13,7 +13,7 @@ export async function getStaticCommunityPaths() {
   const data = await fetchQuery<getStaticPathsCommunitiesQuery>(
     env,
     query,
-    {}
+    {},
   ).toPromise();
 
   if (data) {
@@ -47,7 +47,7 @@ export async function getStaticCommunityPagePaths() {
   const data = await fetchQuery<getStaticPathsCommunityPagesQuery>(
     env,
     pageQuery,
-    {}
+    {},
   ).toPromise();
 
   if (data) {
@@ -58,7 +58,7 @@ export async function getStaticCommunityPagePaths() {
           params: { slug: node.slug, page: pageNode.slug },
         })),
       ],
-      []
+      [],
     );
 
     return paths;

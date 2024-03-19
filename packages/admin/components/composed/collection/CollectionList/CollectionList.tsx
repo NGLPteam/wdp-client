@@ -1,33 +1,27 @@
-import { OperationType } from "relay-runtime";
-import { graphql } from "react-relay";
-import type { ModelTableActionProps } from "@tanstack/react-table";
+import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useLatestPresentValue } from "@wdp/lib/hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
-import {
-  useDestroyer,
-  useDrawerHelper,
-  useMaybeFragment,
-  useSearchQueryVars,
-} from "hooks";
-import {
-  CollectionListFragment,
-  CollectionListFragment$key,
-} from "@/relay/CollectionListFragment.graphql";
+import { useDestroyer, useDrawerHelper, useSearchQueryVars } from "hooks";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 import {
-  CollectionListSearchFragment,
+  CollectionListFragment$data,
+  CollectionListFragment$key,
+} from "@/relay/CollectionListFragment.graphql";
+import {
+  CollectionListSearchFragment$data,
   CollectionListSearchFragment$key,
 } from "@/relay/CollectionListSearchFragment.graphql";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function CollectionList<T extends OperationType>({
-  data,
-  searchData,
+function CollectionList({
+  collections,
+  search,
   headerStyle,
   hideHeader,
 }: CollectionListProps) {
@@ -35,16 +29,16 @@ function CollectionList<T extends OperationType>({
   const drawerHelper = useDrawerHelper();
   const { t } = useTranslation();
 
-  const collections = useMaybeFragment<CollectionListFragment$key>(
+  const collectionsData = useFragment<CollectionListFragment$key>(
     fragment,
-    data
+    collections,
   );
 
-  const { current: memoizedData } = useLatestPresentValue(collections);
+  const { current: memoizedData } = useLatestPresentValue(collectionsData);
 
-  const searchScope = useMaybeFragment<CollectionListSearchFragment$key>(
+  const searchScope = useFragment<CollectionListSearchFragment$key>(
     searchFragment,
-    searchData
+    search,
   );
 
   const { current: memoizedSearch } = useLatestPresentValue(searchScope);
@@ -81,7 +75,7 @@ function CollectionList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.collection(
         { collectionId: row.original.entity?.id || row.original.id },
-        row.original.title || "glossary.collection"
+        row.original.title || "glossary.collection",
       ),
     handleView: ({ row }: ModelTableActionProps<Node>) =>
       row.original.slug
@@ -98,7 +92,7 @@ function CollectionList<T extends OperationType>({
   ) : undefined;
 
   return (
-    <ModelListPage<T, ListFragment, Node>
+    <ModelListPage<ListFragment, Node>
       modelName="collection"
       columns={columns}
       actions={actions}
@@ -120,18 +114,18 @@ function CollectionList<T extends OperationType>({
 
 interface CollectionListProps
   extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
-  data?: CollectionListFragment$key | null;
-  searchData?: CollectionListSearchFragment$key | null;
+  collections?: CollectionListFragment$key;
+  search?: CollectionListSearchFragment$key;
 }
 
 type ListFragment =
-  | CollectionListFragment
-  | NonNullable<CollectionListSearchFragment["results"]>;
+  | CollectionListFragment$data
+  | NonNullable<CollectionListSearchFragment$data["results"]>;
 
-type CollectionNode = CollectionListFragment["nodes"][number];
+type CollectionNode = CollectionListFragment$data["nodes"][number];
 
 type CollectionSearchNode = NonNullable<
-  CollectionListSearchFragment["results"]
+  CollectionListSearchFragment$data["results"]
 >["nodes"][number];
 
 type Node = CollectionNode & CollectionSearchNode;

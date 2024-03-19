@@ -10,7 +10,7 @@ export default function useLockBodyScroll(): void {
   useLayoutEffect((): (() => void) => {
     // Get original body overflow
     const originalStyle: string = window.getComputedStyle(
-      document.body
+      document.body,
     ).overflow;
     // Prevent scrolling on mount
     document.body.style.overflow = "hidden";

@@ -1,6 +1,4 @@
-import React, { ReactNode } from "react";
 import isNil from "lodash/isNil";
-import * as Styled from "./PageHeader.styles";
 import {
   Breadcrumbs,
   NamedLink,
@@ -9,6 +7,7 @@ import {
   MobileSubNav,
 } from "components/atomic";
 import { ContentHeader } from "components/layout";
+import * as Styled from "./PageHeader.styles";
 
 type BreadcrumbProps = React.ComponentProps<typeof Breadcrumbs>;
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
@@ -58,7 +57,7 @@ interface Link extends NamedLinkProps {
 
 interface Props extends Pick<ContentHeaderProps, "headerStyle"> {
   /** Page title */
-  title?: ReactNode;
+  title?: React.ReactNode;
   /** Breadcrumb props to be passed down to Breadcrumbs component */
   breadcrumbsProps?: BreadcrumbProps;
   /** Child tabs (TabNav) */

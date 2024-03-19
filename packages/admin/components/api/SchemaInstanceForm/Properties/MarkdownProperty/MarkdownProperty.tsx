@@ -1,9 +1,8 @@
-import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment, graphql } from "react-relay";
 import { useFormContext } from "react-hook-form";
-import ScalarProperty from "../ScalarProperty";
 import Textarea from "components/forms/Textarea";
 import type { MarkdownPropertyFragment$key } from "@/relay/MarkdownPropertyFragment.graphql";
+import ScalarProperty from "../ScalarProperty";
 
 /**
  * @todo This should be an actual markdown editor. I don't believe that we've
@@ -12,7 +11,7 @@ import type { MarkdownPropertyFragment$key } from "@/relay/MarkdownPropertyFragm
 export default function MarkdownProperty(props: Props) {
   const field = useFragment<MarkdownPropertyFragment$key>(
     fragment,
-    props.field
+    props.field,
   );
 
   const { register } = useFormContext();

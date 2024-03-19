@@ -1,8 +1,8 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { BooleanPropertyFragment$key } from "@/relay/BooleanPropertyFragment.graphql";
 import { MetadataProperty } from "components/layout";
+import { BooleanPropertyFragment$key } from "@/relay/BooleanPropertyFragment.graphql";
 
 export default function BooleanProperty({ data, label }: Props) {
   const property = useMaybeFragment(fragment, data);

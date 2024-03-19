@@ -1,4 +1,4 @@
-import { graphql, useFragment } from "react-relay";
+import { useFragment, graphql } from "react-relay";
 import MutationForm, {
   useRenderForm,
   useToVariables,
@@ -18,7 +18,7 @@ export default function EntityPageUpdateForm({
 }: Props) {
   const { page } = useFragment<EntityPageUpdateFormFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const toVariables = useToVariables<EntityPageUpdateFormMutation, Fields>(
@@ -29,7 +29,7 @@ export default function EntityPageUpdateForm({
         pageId: page?.id || "",
       },
     }),
-    []
+    [],
   );
 
   const defaultValues = {
@@ -58,7 +58,7 @@ export default function EntityPageUpdateForm({
         />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

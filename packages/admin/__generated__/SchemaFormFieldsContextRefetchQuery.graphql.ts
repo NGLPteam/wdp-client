@@ -1,64 +1,27 @@
+/**
+ * @generated SignedSource<<fd17f3ce6abb444aec1b618d4cb36f83>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SchemaFormFieldsContextRefetchQueryVariables = {
-    id: string;
+export type SchemaFormFieldsContextRefetchQuery$variables = {
+  id: string;
 };
-export type SchemaFormFieldsContextRefetchQueryResponse = {
-    readonly node: {
-        readonly " $fragmentRefs": FragmentRefs<"SchemaFormFieldsContextFragment">;
-    } | null;
+export type SchemaFormFieldsContextRefetchQuery$data = {
+  readonly node: {
+    readonly " $fragmentSpreads": FragmentRefs<"SchemaFormFieldsContextFragment">;
+  } | null | undefined;
 };
 export type SchemaFormFieldsContextRefetchQuery = {
-    readonly response: SchemaFormFieldsContextRefetchQueryResponse;
-    readonly variables: SchemaFormFieldsContextRefetchQueryVariables;
+  response: SchemaFormFieldsContextRefetchQuery$data;
+  variables: SchemaFormFieldsContextRefetchQuery$variables;
 };
-
-
-
-/*
-query SchemaFormFieldsContextRefetchQuery(
-  $id: ID!
-) {
-  node(id: $id) {
-    __typename
-    ...SchemaFormFieldsContextFragment
-    id
-  }
-}
-
-fragment SchemaFormFieldsContextFragment on SchemaInstance {
-  __isSchemaInstance: __typename
-  context: schemaInstanceContext {
-    ...useSchemaContextFragment
-  }
-  ... on Node {
-    __isNode: __typename
-    id
-  }
-}
-
-fragment useSchemaContextFragment on SchemaInstanceContext {
-  assets {
-    kind
-    label
-    value
-  }
-  contributors {
-    kind
-    label
-    value
-  }
-  defaultValues
-  entityId
-  fieldValues
-  schemaVersionSlug
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -238,5 +201,7 @@ return {
   }
 };
 })();
-(node as any).hash = '75dc0b6c8d2f888306f0edc89b661b52';
+
+(node as any).hash = "75dc0b6c8d2f888306f0edc89b661b52";
+
 export default node;

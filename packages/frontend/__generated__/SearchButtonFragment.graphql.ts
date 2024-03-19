@@ -1,21 +1,23 @@
+/**
+ * @generated SignedSource<<96c5b0f733effac8c81d7ddadb478633>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SearchButtonFragment = {
-    readonly " $fragmentRefs": FragmentRefs<"SearchModalFragment">;
-    readonly " $refType": "SearchButtonFragment";
+export type SearchButtonFragment$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"SearchModalFragment">;
+  readonly " $fragmentType": "SearchButtonFragment";
 };
-export type SearchButtonFragment$data = SearchButtonFragment;
 export type SearchButtonFragment$key = {
-    readonly " $data"?: SearchButtonFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SearchButtonFragment">;
+  readonly " $data"?: SearchButtonFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchButtonFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -32,5 +34,7 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = '0473a1fc75abe666d8b71bfff42ed689';
+
+(node as any).hash = "0473a1fc75abe666d8b71bfff42ed689";
+
 export default node;

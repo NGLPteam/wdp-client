@@ -1,12 +1,12 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
+import { BreadcrumbsBar } from "components/layout";
+import { ArticleLayoutFragment$key } from "@/relay/ArticleLayoutFragment.graphql";
 import ArticleHero from "../ArticleHero";
 import ArticleParentHeader from "../ArticleParentHeader";
 import ArticleTabNav from "../ArticleTabNav";
 import RelatedArticles from "../RelatedArticles";
-import { BreadcrumbsBar } from "components/layout";
-import { ArticleLayoutFragment$key } from "@/relay/ArticleLayoutFragment.graphql";
 
 export default function ArticleLayout({ data, children }: Props) {
   const article = useMaybeFragment(fragment, data);

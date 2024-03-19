@@ -8,7 +8,7 @@ type Props = Omit<RadioGroupProps, "label" | "description" | "options">;
 
 function OrderingDirectSelectionInput(
   { ...props }: Props,
-  ref: Ref<HTMLInputElement>
+  ref: Ref<HTMLInputElement>,
 ) {
   // const defaultValue = "CHILDREN" as OrderingDirectSelection;
 

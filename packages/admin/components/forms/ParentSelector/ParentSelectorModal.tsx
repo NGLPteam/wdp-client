@@ -1,7 +1,6 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
-import type { DialogState } from "reakit/Dialog";
-import * as Styled from "./ParentSelector.styles";
 import Modal from "components/layout/Modal";
 import { EntitySelector } from "components/forms";
 import MutationForm, {
@@ -13,6 +12,8 @@ import {
   ReparentEntityInput,
   ParentSelectorModalMutation,
 } from "@/relay/ParentSelectorModalMutation.graphql";
+import * as Styled from "./ParentSelector.styles";
+import type { DialogState } from "reakit/Dialog";
 import type { SchemaVersion } from "types/graphql-schema";
 
 import type { EntityOption } from "components/forms/EntitySelector/EntitySelectorController";
@@ -35,24 +36,29 @@ export default function ParentSelectorModal({
     (data) => ({
       input: { ...data, childId: entityId },
     }),
-    []
+    [],
   );
 
-  const parentSchemas = entitySchemaVersion.enforcesParent
+  const parentSchemas = entitySchemaVersion?.enforcesParent
     ? entitySchemaVersion.enforcedParentVersions?.map(
-        (schema) => `${schema.namespace}:${schema.identifier}`
+        (schema) => `${schema.namespace}:${schema.identifier}`,
       )
     : [];
   const parentKinds = entityKind === "collection" ? ["COLLECTION"] : [];
 
+  const [selected, setSelected] = useState<EntityOption | undefined>(undefined);
+
   const renderForm = useRenderForm<Fields>(
     ({ form: { setValue, register } }) => {
-      const onSelect = (entity: EntityOption | undefined) =>
+      const onSelect = (entity: EntityOption | undefined) => {
         setValue("parentId", entity?.id ?? parentId);
+        setSelected(entity);
+      };
       return (
         <EntitySelector
           {...register("parentId", { required: true })}
           onSelect={onSelect}
+          selected={selected}
           label={t("forms.parent.label")}
           startSlug={parentSlug}
           resetValue={parentId}
@@ -62,7 +68,7 @@ export default function ParentSelectorModal({
         />
       );
     },
-    []
+    [selected],
   );
 
   return (
@@ -84,6 +90,7 @@ export default function ParentSelectorModal({
             onCancel={handleClose}
             defaultValues={defaultValues}
             hideGlobalErrorHeader
+            refetchTags={["parent"]}
           >
             {renderForm}
           </MutationForm>

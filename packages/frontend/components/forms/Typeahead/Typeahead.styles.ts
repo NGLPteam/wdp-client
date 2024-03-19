@@ -47,7 +47,7 @@ export const IconButton = styled.button`
   padding-inline-end: var(--padding-rg);
 `;
 
-export const List = styled.ul`
+export const List = styled.ul<{ open: boolean }>`
   position: absolute;
   background: var(--color-base-neutral00);
   border: 1px solid var(--border-color);

@@ -1,49 +1,51 @@
+/**
+ * @generated SignedSource<<62d5e850fbb23b6b33fa34c3dede297d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type Direction = "ASCENDING" | "DESCENDING" | "%future added value";
 export type OrderingDirectSelection = "CHILDREN" | "DESCENDANTS" | "NONE" | "%future added value";
 export type OrderingRenderMode = "FLAT" | "TREE" | "%future added value";
-export type EntityOrderingEditFormFragment = {
-    readonly ordering: {
-        readonly id: string;
-        readonly name: string | null;
-        readonly render: {
-            readonly mode: OrderingRenderMode;
-        };
-        readonly order: ReadonlyArray<{
-            readonly path: string;
-            readonly direction: Direction;
-        }>;
-        readonly select: {
-            readonly direct: OrderingDirectSelection;
-            readonly links: {
-                readonly contains: boolean;
-                readonly references: boolean;
-            };
-        };
-        readonly filter: {
-            readonly schemas: ReadonlyArray<{
-                readonly namespace: string;
-                readonly identifier: string;
-                readonly version: unknown | null;
-            }>;
-        };
-    } | null;
-    readonly " $fragmentRefs": FragmentRefs<"OrderDefinitionSelectControlFragment" | "SchemaCheckboxGroupFragment">;
-    readonly " $refType": "EntityOrderingEditFormFragment";
+import { FragmentRefs } from "relay-runtime";
+export type EntityOrderingEditFormFragment$data = {
+  readonly ordering: {
+    readonly filter: {
+      readonly schemas: ReadonlyArray<{
+        readonly identifier: string;
+        readonly namespace: string;
+        readonly version: any | null | undefined;
+      }>;
+    };
+    readonly id: string;
+    readonly name: string | null | undefined;
+    readonly order: ReadonlyArray<{
+      readonly direction: Direction;
+      readonly path: string;
+    }>;
+    readonly render: {
+      readonly mode: OrderingRenderMode;
+    };
+    readonly select: {
+      readonly direct: OrderingDirectSelection;
+      readonly links: {
+        readonly contains: boolean;
+        readonly references: boolean;
+      };
+    };
+  } | null | undefined;
+  readonly " $fragmentSpreads": FragmentRefs<"OrderDefinitionSelectControlFragment" | "SchemaCheckboxGroupFragment">;
+  readonly " $fragmentType": "EntityOrderingEditFormFragment";
 };
-export type EntityOrderingEditFormFragment$data = EntityOrderingEditFormFragment;
 export type EntityOrderingEditFormFragment$key = {
-    readonly " $data"?: EntityOrderingEditFormFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityOrderingEditFormFragment">;
+  readonly " $data"?: EntityOrderingEditFormFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingEditFormFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -56,6 +58,16 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "EntityOrderingEditFormFragment",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "OrderDefinitionSelectControlFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "SchemaCheckboxGroupFragment"
+    },
     {
       "alias": null,
       "args": [
@@ -215,20 +227,12 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "OrderDefinitionSelectControlFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "SchemaCheckboxGroupFragment"
     }
   ],
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = 'c319ce60a9b56f1967b4db795531be7b';
+
+(node as any).hash = "c319ce60a9b56f1967b4db795531be7b";
+
 export default node;

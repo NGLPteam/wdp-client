@@ -6,8 +6,8 @@ import Select from "../Select";
 type Props = Omit<React.ComponentProps<typeof Select>, "options" | "label">;
 
 function OrderRenderSelect(
-  { placeholder, ...props }: Props,
-  ref: Ref<HTMLSelectElement>
+  { placeholder: _placeholder, ...props }: Props,
+  ref: Ref<HTMLSelectElement>,
 ) {
   const { t } = useTranslation();
 

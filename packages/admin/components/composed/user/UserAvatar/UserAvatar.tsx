@@ -1,7 +1,7 @@
 import { graphql } from "react-relay";
 import Avatar from "components/atomic/images/Avatar";
-import { UserAvatarFragment$key } from "@/relay/UserAvatarFragment.graphql";
 import { useMaybeFragment } from "hooks";
+import { UserAvatarFragment$key } from "@/relay/UserAvatarFragment.graphql";
 
 const UserAvatar = ({ data, size = 30 }: Props) => {
   const user = useMaybeFragment(fragment, data);

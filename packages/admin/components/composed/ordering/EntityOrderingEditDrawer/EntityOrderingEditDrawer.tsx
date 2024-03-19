@@ -1,11 +1,11 @@
 import * as React from "react";
-import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
-import EntityOrderingEditForm from "../EntityOrderingEditForm";
 import Drawer from "components/layout/Drawer";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import { EntityOrderingEditDrawerQuery as Query } from "@/relay/EntityOrderingEditDrawerQuery.graphql";
+import EntityOrderingEditForm from "../EntityOrderingEditForm";
+import type { DialogProps } from "reakit/Dialog";
 
 export default function EntityOrderingEditDrawer({
   dialog,
@@ -18,9 +18,9 @@ export default function EntityOrderingEditDrawer({
   const { drawerSlug, drawerIdentifier } = params;
 
   return (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{ slug: drawerSlug, identifier: drawerIdentifier }}
+      variables={{ slug: drawerSlug, identifier: drawerIdentifier }}
     >
       {({ data }) => {
         return (
@@ -45,7 +45,7 @@ export default function EntityOrderingEditDrawer({
           </Drawer>
         );
       }}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

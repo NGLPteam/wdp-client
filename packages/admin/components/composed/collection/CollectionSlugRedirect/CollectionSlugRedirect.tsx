@@ -12,7 +12,7 @@ function CollectionSlugRedirect({ data }: Props) {
 
   const collection = useMaybeFragment<CollectionSlugRedirectFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const redirect = useCallback(
@@ -24,7 +24,7 @@ function CollectionSlugRedirect({ data }: Props) {
         query: { slug },
       });
     },
-    [router]
+    [router],
   );
 
   useEffect(() => {

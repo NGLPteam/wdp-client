@@ -1,10 +1,5 @@
 import React, { useMemo } from "react";
 import i18next from "i18next";
-import type {
-  ColumnDef,
-  ModelTableActionProps,
-  Row,
-} from "@tanstack/react-table";
 import {
   ButtonControlGroup,
   ButtonControl,
@@ -13,6 +8,11 @@ import {
 } from "components/atomic/buttons";
 import IconFactory from "components/factories/IconFactory";
 import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
+import type {
+  ColumnDef,
+  ModelTableActionProps,
+  Row,
+} from "@tanstack/react-table";
 type IconFactoryProps = React.ComponentProps<typeof IconFactory>;
 
 type ActionConfig<D extends Record<string, unknown>> = {
@@ -100,7 +100,7 @@ const availableActions: ActionDefinitions = {
 function getButtonControlChildren<D extends Record<string, unknown>>(
   row: Row<D>,
   action: ActionKeys,
-  actionConfig?: ActionConfig<D>
+  actionConfig?: ActionConfig<D>,
 ) {
   const actionDefinition = availableActions[action];
 
@@ -163,7 +163,7 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
 
 function renderActions<D extends Record<string, unknown>>(
   row: Row<D>,
-  configuration: ActionConfigurations<D>
+  configuration: ActionConfigurations<D>,
 ) {
   const keys = Object.keys(configuration) as Array<ActionKeys>;
 
@@ -207,7 +207,7 @@ export interface Actions<T extends Record<string, unknown>> {
 
 function useRowActions<D extends Record<string, unknown>>(
   columns: ColumnDef<D>[],
-  actions: Actions<D>
+  actions: Actions<D>,
 ) {
   // Setup actions
   const rowActions = useMemo(
@@ -244,7 +244,7 @@ function useRowActions<D extends Record<string, unknown>>(
         },
       }),
     }),
-    [actions]
+    [actions],
   );
 
   const actionColumn = {

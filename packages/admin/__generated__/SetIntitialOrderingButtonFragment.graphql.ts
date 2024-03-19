@@ -1,32 +1,45 @@
+/**
+ * @generated SignedSource<<5efaf8026886e20ec4a85d074f8261c8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SetIntitialOrderingButtonFragment = {
-    readonly orderings?: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
-    } | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SetIntitialOrderingModalFragment">;
-    readonly " $refType": "SetIntitialOrderingButtonFragment";
+export type SetIntitialOrderingButtonFragment$data = {
+  readonly orderings?: {
+    readonly pageInfo: {
+      readonly totalCount: number;
+    };
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"SetIntitialOrderingModalFragment">;
+  readonly " $fragmentType": "SetIntitialOrderingButtonFragment";
 };
-export type SetIntitialOrderingButtonFragment$data = SetIntitialOrderingButtonFragment;
 export type SetIntitialOrderingButtonFragment$key = {
-    readonly " $data"?: SetIntitialOrderingButtonFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SetIntitialOrderingButtonFragment">;
+  readonly " $data"?: SetIntitialOrderingButtonFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SetIntitialOrderingButtonFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
   {
-    "alias": null,
     "args": null,
+    "kind": "FragmentSpread",
+    "name": "SetIntitialOrderingModalFragment"
+  },
+  {
+    "alias": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "page",
+        "variableName": "page"
+      }
+    ],
     "concreteType": "OrderingConnection",
     "kind": "LinkedField",
     "name": "orderings",
@@ -52,15 +65,15 @@ var v0 = [
       }
     ],
     "storageKey": null
-  },
-  {
-    "args": null,
-    "kind": "FragmentSpread",
-    "name": "SetIntitialOrderingModalFragment"
   }
 ];
 return {
-  "argumentDefinitions": [],
+  "argumentDefinitions": [
+    {
+      "kind": "RootArgument",
+      "name": "page"
+    }
+  ],
   "kind": "Fragment",
   "metadata": null,
   "name": "SetIntitialOrderingButtonFragment",
@@ -82,5 +95,7 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = 'b08fa88d150d61b67cd297d9120335de';
+
+(node as any).hash = "3307f88f965053b0d8a392e63dc303b0";
+
 export default node;

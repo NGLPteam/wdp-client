@@ -1,21 +1,23 @@
+/**
+ * @generated SignedSource<<bfadb045923883822018085cac5c4300>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type DownloadCountFragment = {
-    readonly total: number;
-    readonly " $refType": "DownloadCountFragment";
+export type DownloadCountFragment$data = {
+  readonly total: number;
+  readonly " $fragmentType": "DownloadCountFragment";
 };
-export type DownloadCountFragment$data = DownloadCountFragment;
 export type DownloadCountFragment$key = {
-    readonly " $data"?: DownloadCountFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"DownloadCountFragment">;
+  readonly " $data"?: DownloadCountFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"DownloadCountFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -34,5 +36,7 @@ const node: ReaderFragment = {
   "type": "AnalyticsEventCountSummary",
   "abstractKey": null
 };
-(node as any).hash = '574ec2c9b8909f9a21d9ad00c7bc5573';
+
+(node as any).hash = "574ec2c9b8909f9a21d9ad00c7bc5573";
+
 export default node;

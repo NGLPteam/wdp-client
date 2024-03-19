@@ -1,8 +1,8 @@
 import { UrlObject } from "url";
 import Link from "next/link";
-import * as Styled from "./MessageBlock.styles";
 import { Button } from "components/atomic";
 import IconFactory from "components/factories/IconFactory";
+import * as Styled from "./MessageBlock.styles";
 declare type Url = string | UrlObject;
 
 const MessageBlock = ({ type = "error", name, message, link }: Props) => {
@@ -16,7 +16,7 @@ const MessageBlock = ({ type = "error", name, message, link }: Props) => {
         )}
         {link && (
           <Styled.ButtonWrapper>
-            <Link href={link.href} passHref>
+            <Link href={link.href} passHref legacyBehavior>
               <Button as="a">{link.label}</Button>
             </Link>
           </Styled.ButtonWrapper>
@@ -30,7 +30,7 @@ interface Props {
   /** Error name */
   name: string;
   /** Optional message, can be string or element */
-  message?: string | JSX.Element;
+  message?: string | React.JSX.Element;
   /** Optional button link. Props map to next/link props. */
   link?: {
     label: string;

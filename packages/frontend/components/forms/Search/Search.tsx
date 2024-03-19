@@ -3,9 +3,9 @@ import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { useRouteSlug } from "@wdp/lib/routes";
+import { RouteHelper } from "routes";
 import { IconFactory } from "../../factories";
 import * as Styled from "./Search.styles";
-import { RouteHelper } from "routes";
 
 export default function Search({
   route = "search",
@@ -33,7 +33,7 @@ export default function Search({
         },
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
   };
 

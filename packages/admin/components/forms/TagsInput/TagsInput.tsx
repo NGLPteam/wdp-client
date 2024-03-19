@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import { useFormContext } from "react-hook-form";
 import BaseInputWrapper from "../BaseInputWrapper";
 
-import type InputProps from "../inputType";
 import BaseArrayList, { BaseArrayListItem } from "../BaseArrayList";
 import TagsInputAdd from "./TagsInputAdd";
+import type InputProps from "../inputType";
 
 /**
  * Add and remove tags
@@ -24,7 +24,7 @@ const TagsInput = forwardRef(
       isWide,
       ...inputProps
     }: Props,
-    ref: Ref<HTMLInputElement>
+    ref: Ref<HTMLInputElement>,
   ) => {
     const { t } = useTranslation();
 
@@ -112,7 +112,7 @@ const TagsInput = forwardRef(
         </>
       </BaseInputWrapper>
     );
-  }
+  },
 );
 
 type Tags = string[] | undefined;

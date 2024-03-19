@@ -1,10 +1,10 @@
 import * as React from "react";
-import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import EntityAnnouncementAddForm from "components/composed/announcements/EntityAnnouncementAddForm";
 import Drawer from "components/layout/Drawer";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
+import type { DialogProps } from "reakit/Dialog";
 
 import type { EntityAnnouncementAddDrawerQuery as Query } from "__generated__/EntityAnnouncementAddDrawerQuery.graphql";
 
@@ -20,9 +20,9 @@ export default function EntityAnnouncementAddDrawer({
   const { drawerSlug } = params;
 
   return (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{ entitySlug: drawerSlug }}
+      variables={{ entitySlug: drawerSlug }}
     >
       {({ data }) => {
         const entity = data
@@ -44,7 +44,7 @@ export default function EntityAnnouncementAddDrawer({
           </Drawer>
         );
       }}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

@@ -1,122 +1,84 @@
+/**
+ * @generated SignedSource<<7145ad3403865f5a46df9fec9d02ba59>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SiteLogoMode = "NONE" | "SANS_TEXT" | "WITH_TEXT" | "%future added value";
 export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateGlobalConfigurationInput = {
-    institution?: InstitutionSettingsInput | null | undefined;
-    logo?: UploadedFileInput | null | undefined;
-    logoMetadata?: ImageMetadataInput | null | undefined;
-    clearLogo?: boolean | null | undefined;
-    site?: SiteSettingsInput | null | undefined;
-    theme?: ThemeSettingsInput | null | undefined;
-    clientMutationId?: string | null | undefined;
+  clearLogo?: boolean | null | undefined;
+  clientMutationId?: string | null | undefined;
+  institution?: InstitutionSettingsInput | null | undefined;
+  logo?: UploadedFileInput | null | undefined;
+  logoMetadata?: ImageMetadataInput | null | undefined;
+  site?: SiteSettingsInput | null | undefined;
+  theme?: ThemeSettingsInput | null | undefined;
 };
 export type InstitutionSettingsInput = {
-    name?: string | null | undefined;
+  name?: string | null | undefined;
 };
 export type UploadedFileInput = {
-    id: unknown;
-    storage?: UploadStorage | null | undefined;
-    metadata?: UploadedFileMetadataInput | null | undefined;
+  id: any;
+  metadata?: UploadedFileMetadataInput | null | undefined;
+  storage?: UploadStorage | null | undefined;
 };
 export type UploadedFileMetadataInput = {
-    alt?: string | null | undefined;
-    filename?: string | null | undefined;
-    mimeType?: string | null | undefined;
+  alt?: string | null | undefined;
+  filename?: string | null | undefined;
+  mimeType?: string | null | undefined;
 };
 export type ImageMetadataInput = {
-    alt?: string | null | undefined;
+  alt?: string | null | undefined;
 };
 export type SiteSettingsInput = {
-    installationName?: string | null | undefined;
-    installationHomePageCopy?: string | null | undefined;
-    logoMode?: SiteLogoMode | null | undefined;
-    providerName?: string | null | undefined;
-    footer?: SiteFooterInput | null | undefined;
+  footer?: SiteFooterInput | null | undefined;
+  installationHomePageCopy?: string | null | undefined;
+  installationName?: string | null | undefined;
+  logoMode?: SiteLogoMode | null | undefined;
+  providerName?: string | null | undefined;
 };
 export type SiteFooterInput = {
-    description?: string | null | undefined;
-    copyrightStatement?: string | null | undefined;
+  copyrightStatement?: string | null | undefined;
+  description?: string | null | undefined;
 };
 export type ThemeSettingsInput = {
-    color: string;
-    font: string;
+  color: string;
+  font: string;
 };
-export type GlobalSettingsEditFormMutationVariables = {
-    input: UpdateGlobalConfigurationInput;
+export type GlobalSettingsEditFormMutation$variables = {
+  input: UpdateGlobalConfigurationInput;
 };
-export type GlobalSettingsEditFormMutationResponse = {
-    readonly updateGlobalConfiguration: {
-        readonly globalConfiguration: {
-            readonly site: {
-                readonly providerName: string;
-                readonly installationName: string;
-                readonly installationHomePageCopy: string;
-                readonly footer: {
-                    readonly description: string;
-                    readonly copyrightStatement: string;
-                };
-            };
-            readonly theme: {
-                readonly color: string;
-                readonly font: string;
-            };
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
-    } | null;
+export type GlobalSettingsEditFormMutation$data = {
+  readonly updateGlobalConfiguration: {
+    readonly globalConfiguration: {
+      readonly site: {
+        readonly footer: {
+          readonly copyrightStatement: string;
+          readonly description: string;
+        };
+        readonly installationHomePageCopy: string;
+        readonly installationName: string;
+        readonly providerName: string;
+      };
+      readonly theme: {
+        readonly color: string;
+        readonly font: string;
+      };
+    } | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null | undefined;
 };
 export type GlobalSettingsEditFormMutation = {
-    readonly response: GlobalSettingsEditFormMutationResponse;
-    readonly variables: GlobalSettingsEditFormMutationVariables;
+  response: GlobalSettingsEditFormMutation$data;
+  variables: GlobalSettingsEditFormMutation$variables;
 };
-
-
-
-/*
-mutation GlobalSettingsEditFormMutation(
-  $input: UpdateGlobalConfigurationInput!
-) {
-  updateGlobalConfiguration(input: $input) {
-    globalConfiguration {
-      site {
-        providerName
-        installationName
-        installationHomePageCopy
-        footer {
-          description
-          copyrightStatement
-        }
-      }
-      theme {
-        color
-        font
-      }
-      id
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -316,7 +278,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v5/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -375,5 +339,7 @@ return {
   }
 };
 })();
-(node as any).hash = '5599b27e6c3442e3491e03a32ad44f1e';
+
+(node as any).hash = "5599b27e6c3442e3491e03a32ad44f1e";
+
 export default node;

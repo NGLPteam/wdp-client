@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import * as Styled from "./AnnouncementModal.styles";
 import Modal from "components/layout/BaseModal";
 import { IconFactory } from "components/factories";
+import * as Styled from "./AnnouncementModal.styles";
 
 type ModalProps = React.ComponentProps<typeof Modal>;
 

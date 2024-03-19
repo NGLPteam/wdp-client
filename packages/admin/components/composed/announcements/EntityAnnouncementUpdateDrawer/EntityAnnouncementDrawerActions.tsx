@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
-import { EntityAnnouncementDrawerActionsFragment$key } from "@/relay/EntityAnnouncementDrawerActionsFragment.graphql";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
 import { useDestroyer, useMaybeFragment } from "hooks";
+import { EntityAnnouncementDrawerActionsFragment$key } from "@/relay/EntityAnnouncementDrawerActionsFragment.graphql";
 
 interface Props {
   data?: EntityAnnouncementDrawerActionsFragment$key | null;
@@ -25,7 +25,7 @@ export default function EntityAnnouncementDrawerActions({
 
     destroy.announcement(
       { announcementId: entity.announcement.id },
-      t("glossary.announcement")
+      t("glossary.announcement"),
     );
     if (onDelete) onDelete();
   };

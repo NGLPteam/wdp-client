@@ -1,7 +1,7 @@
 import React, { createContext, useMemo } from "react";
 import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { ViewerContextFragment$key } from "@/relay/ViewerContextFragment.graphql";
+import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
+import { ViewerContextQuery } from "@/relay/ViewerContextQuery.graphql";
 
 const initialState: ViewerContextProps = {
   allowedActions: [],
@@ -12,11 +12,8 @@ const initialState: ViewerContextProps = {
 
 const ViewerContext = createContext<ViewerContextProps>(initialState);
 
-function ViewerContextProvider({ children, data }: Props) {
-  const viewerData = useMaybeFragment<ViewerContextFragment$key>(
-    fragment,
-    data
-  );
+function ViewerContextProvider({ children }: Props) {
+  const viewerData = useAuthenticatedQuery<ViewerContextQuery>(query);
 
   const viewer = useMemo(() => {
     if (viewerData?.viewer) {
@@ -44,15 +41,14 @@ interface ViewerContextProps {
 
 interface Props {
   children: React.ReactNode;
-  data?: ViewerContextFragment$key | null;
 }
 
 export default ViewerContext;
 
 export { ViewerContextProvider };
 
-const fragment = graphql`
-  fragment ViewerContextFragment on Query {
+const query = graphql`
+  query ViewerContextQuery {
     viewer {
       name
       allowedActions

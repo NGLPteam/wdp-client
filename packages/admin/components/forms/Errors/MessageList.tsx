@@ -1,6 +1,5 @@
-import type { MultipleFieldErrors, ValidateResult } from "react-hook-form";
-
 import Message from "./Message";
+import type { MultipleFieldErrors, ValidateResult } from "react-hook-form";
 
 export default function MessageList({ inlineMessage, messages }: Props) {
   if (!messages) {
@@ -14,7 +13,7 @@ export default function MessageList({ inlineMessage, messages }: Props) {
   return (
     <>
       {Object.entries(messages).map(([type, result]) =>
-        renderMessage(type, result)
+        renderMessage(type, result),
       )}
     </>
   );

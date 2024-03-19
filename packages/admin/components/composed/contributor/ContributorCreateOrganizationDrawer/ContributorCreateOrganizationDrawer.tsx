@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import type { DialogProps } from "reakit/Dialog";
-import ContributorCreateOrganizationForm from "../ContributorCreateOrganizationForm";
 import Drawer from "components/layout/Drawer";
+import ContributorCreateOrganizationForm from "../ContributorCreateOrganizationForm";
+import type { DialogProps } from "reakit/Dialog";
 
 export default function ContributorCreateOrganizationDrawer({
   dialog,

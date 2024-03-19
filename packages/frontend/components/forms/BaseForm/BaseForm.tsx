@@ -3,7 +3,6 @@ import { useForm, FormProvider } from "react-hook-form";
 import type {
   DefaultValues,
   FieldValues,
-  UnpackNestedValue,
   UseFormReturn,
 } from "react-hook-form";
 
@@ -25,17 +24,17 @@ export default function BaseForm<T extends FieldValues = FieldValues>({
   const { handleSubmit } = form;
 
   const submitHandler = useCallback(
-    (data) => {
+    (data: T) => {
       if (typeof onSubmitCallback === "function") {
         onSubmitCallback(data);
       }
     },
-    [onSubmitCallback]
+    [onSubmitCallback],
   );
 
   const onSubmit = useMemo(
     () => handleSubmit(submitHandler),
-    [handleSubmit, submitHandler]
+    [handleSubmit, submitHandler],
   );
 
   return (
@@ -60,8 +59,6 @@ interface Props<T extends FieldValues = FieldValues> {
 
 type RenderProps<T extends FieldValues> = (props: {
   form: UseFormReturn<T>;
-}) => JSX.Element;
+}) => React.JSX.Element;
 
-type OnSubmitCallback<T extends FieldValues = FieldValues> = (
-  data: UnpackNestedValue<T>
-) => void;
+type OnSubmitCallback<T extends FieldValues = FieldValues> = (data: T) => void;

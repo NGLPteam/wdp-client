@@ -1,25 +1,27 @@
+/**
+ * @generated SignedSource<<a962294b3c98b324c906b57b16cf2dcc>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AssetsBlockFragment = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly " $fragmentRefs": FragmentRefs<"AssetBlockItemFragment">;
-        };
-    }>;
-    readonly " $refType": "AssetsBlockFragment";
+export type AssetsBlockFragment$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly " $fragmentSpreads": FragmentRefs<"AssetBlockItemFragment">;
+    };
+  }>;
+  readonly " $fragmentType": "AssetsBlockFragment";
 };
-export type AssetsBlockFragment$data = AssetsBlockFragment;
 export type AssetsBlockFragment$key = {
-    readonly " $data"?: AssetsBlockFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AssetsBlockFragment">;
+  readonly " $data"?: AssetsBlockFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"AssetsBlockFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -58,5 +60,7 @@ const node: ReaderFragment = {
   "type": "AnyAssetConnection",
   "abstractKey": null
 };
-(node as any).hash = '207dd06b9edb73a6f266bb6b82dc2529';
+
+(node as any).hash = "207dd06b9edb73a6f266bb6b82dc2529";
+
 export default node;

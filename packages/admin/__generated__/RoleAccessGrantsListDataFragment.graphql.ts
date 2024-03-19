@@ -1,41 +1,43 @@
+/**
+ * @generated SignedSource<<4cd8c3471e8f9149fc3f43adf8eed869>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RoleAccessGrantsListDataFragment = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly id?: string | undefined;
-            readonly slug?: string | undefined;
-            readonly role?: {
-                readonly id: string;
-                readonly name: string;
-            } | undefined;
-            readonly user?: {
-                readonly id: string;
-                readonly slug: string;
-                readonly name: string | null;
-                readonly email: string | null;
-                readonly " $fragmentRefs": FragmentRefs<"UserNameColumnFragment">;
-            } | undefined;
-            readonly entity?: {
-                readonly id: string;
-            } | undefined;
-        };
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "RoleAccessGrantsListDataFragment";
+export type RoleAccessGrantsListDataFragment$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly entity?: {
+        readonly id: string;
+      };
+      readonly id?: string;
+      readonly role?: {
+        readonly id: string;
+        readonly name: string;
+      };
+      readonly slug?: string;
+      readonly user?: {
+        readonly email: string | null | undefined;
+        readonly id: string;
+        readonly name: string | null | undefined;
+        readonly slug: string;
+        readonly " $fragmentSpreads": FragmentRefs<"UserNameColumnFragment">;
+      };
+    };
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "RoleAccessGrantsListDataFragment";
 };
-export type RoleAccessGrantsListDataFragment$data = RoleAccessGrantsListDataFragment;
 export type RoleAccessGrantsListDataFragment$key = {
-    readonly " $data"?: RoleAccessGrantsListDataFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"RoleAccessGrantsListDataFragment">;
+  readonly " $data"?: RoleAccessGrantsListDataFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"RoleAccessGrantsListDataFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -99,7 +101,9 @@ v4 = {
           "kind": "FragmentSpread",
           "name": "UserNameColumnCellFragment"
         }
-      ]
+      ],
+      "args": null,
+      "argumentDefinitions": ([]/*: any*/)
     }
   ],
   "storageKey": null
@@ -208,5 +212,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '7eeb220ce1171cacc9d25d1f0b0591c0';
+
+(node as any).hash = "7eeb220ce1171cacc9d25d1f0b0591c0";
+
 export default node;

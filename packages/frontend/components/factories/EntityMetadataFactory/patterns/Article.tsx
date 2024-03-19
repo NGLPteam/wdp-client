@@ -1,15 +1,15 @@
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import ArticleIssueMetadata from "./parts/ArticleIssueMetadata";
 import EntityMetadataBlock from "components/composed/entity/EntityMetadataBlock/";
 import { MetadataProperty } from "components/layout";
 import MetadataFactory from "components/factories/MetadataFactory";
 import { ExternalLink, PrecisionDate } from "components/atomic";
 import ContributorName from "components/composed/contributor/ContributorName";
 
-import { ArticleMetadataFragment$key } from "@/relay/ArticleMetadataFragment.graphql";
 import { normalizeDoiUrl } from "helpers";
+import { ArticleMetadataFragment$key } from "@/relay/ArticleMetadataFragment.graphql";
+import ArticleIssueMetadata from "./parts/ArticleIssueMetadata";
 
 interface Props {
   data?: ArticleMetadataFragment$key | null;
@@ -20,7 +20,7 @@ export default function ArticleMetadata({ data }: Props) {
   const article = useMaybeFragment(fragment, data);
 
   const authors = article?.contributions?.edges?.filter(
-    ({ node }) => node.role?.toLowerCase() === "author"
+    ({ node }) => node.role?.toLowerCase() === "author",
   );
 
   const doi = article?.doi ? normalizeDoiUrl(article.doi) : null;

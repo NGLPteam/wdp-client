@@ -1,34 +1,70 @@
-import { graphql } from "react-relay";
-import type { GetLayout } from "@wdp/lib/types/page";
-import type { detailsManageSlugUsersPagesQuery as Query } from "@/relay/detailsManageSlugUsersPagesQuery.graphql";
-import UserLayoutQuery from "components/composed/user/UserLayoutQuery";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import UserUpdateForm from "components/composed/user/UserUpdateForm";
+import { LoadingPage } from "components/atomic";
+import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
+import UserLayout from "components/composed/user/UserLayout";
+import ErrorPage from "next/error";
 import { LoadingCircle } from "components/atomic";
+import type { detailsManageSlugUsersPagesQuery as Query } from "@/relay/detailsManageSlugUsersPagesQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
-function UserDetails({ data }: Props) {
-  return data && data.user ? (
-    <UserUpdateForm data={data.user} />
-  ) : (
-    <LoadingCircle className="l-page-loading" />
-  );
+function UserDetails({ queryRef, ...layoutProps }: Props) {
+  const { user } = usePreloadedQuery<Query>(query, queryRef);
+
+  return user ? (
+    <UserLayout {...layoutProps} data={user}>
+      <UserUpdateForm data={user} />
+    </UserLayout>
+  ) : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
-  return <UserLayoutQuery<Query, Props> showSidebar query={query} {...props} />;
+  const queryVars = useBaseListQueryVars();
+  const userSlug = useRouteSlug();
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+  const _searchVars = useSearchQueryVars();
+
+  if (!userSlug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
+
+  return (
+    <QueryTransitionWrapper<Query>
+      query={query}
+      variables={{ ...queryVars, userSlug }}
+      loadingFallback={<LoadingPage />}
+    >
+      {({ queryRef }) =>
+        queryRef ? (
+          <PageComponent
+            {...pageComponentProps}
+            queryRef={queryRef}
+            showSidebar
+          />
+        ) : (
+          <UserLayout showSidebar>
+            <LoadingCircle className="l-page-loading" />
+          </UserLayout>
+        )
+      }
+    </QueryTransitionWrapper>
+  );
 };
 UserDetails.getLayout = getLayout;
 
 export default UserDetails;
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
+  showSidebar: true;
 };
 
 const query = graphql`
   query detailsManageSlugUsersPagesQuery($userSlug: Slug!) {
     user(slug: $userSlug) {
       ...UserUpdateFormFragment
-      ...UserLayoutQueryFragment
+      ...UserLayoutFragment
     }
   }
 `;

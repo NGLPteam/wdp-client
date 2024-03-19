@@ -1,31 +1,33 @@
+/**
+ * @generated SignedSource<<74b8da55d5a28e10a1ff1d9dbeb28c6d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type CommunityNameFragment = {
-    readonly title: string;
-    readonly slug: string;
-    readonly logo: {
-        readonly storage: AttachmentStorage | null;
-        readonly original: {
-            readonly width: number | null;
-            readonly height: number | null;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"CommunityLogoFragment">;
+import { FragmentRefs } from "relay-runtime";
+export type CommunityNameFragment$data = {
+  readonly logo: {
+    readonly original: {
+      readonly height: number | null | undefined;
+      readonly width: number | null | undefined;
     };
-    readonly " $refType": "CommunityNameFragment";
+    readonly storage: AttachmentStorage | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"CommunityLogoFragment">;
+  };
+  readonly slug: string;
+  readonly title: string;
+  readonly " $fragmentType": "CommunityNameFragment";
 };
-export type CommunityNameFragment$data = CommunityNameFragment;
 export type CommunityNameFragment$key = {
-    readonly " $data"?: CommunityNameFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CommunityNameFragment">;
+  readonly " $data"?: CommunityNameFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityNameFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -99,5 +101,7 @@ const node: ReaderFragment = {
   "type": "Community",
   "abstractKey": null
 };
-(node as any).hash = '0ee2f108689e78513890a8f835de0179';
+
+(node as any).hash = "0ee2f108689e78513890a8f835de0179";
+
 export default node;

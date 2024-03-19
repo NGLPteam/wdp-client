@@ -8,7 +8,7 @@ import { useRef, EffectCallback, DependencyList, useEffect } from "react";
 /* eslint-disable react-hooks/exhaustive-deps */
 export default function useNoInitialEffect(
   effect: EffectCallback,
-  dependencies?: DependencyList
+  dependencies?: DependencyList,
 ) {
   // Preserving the true by default as initial render cycle
   const initialRender = useRef(true);

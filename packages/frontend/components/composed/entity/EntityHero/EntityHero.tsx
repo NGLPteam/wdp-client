@@ -9,8 +9,8 @@ import {
   Markdown,
   Alert,
 } from "components/atomic";
-import { EntityHeroFragment$key } from "@/relay/EntityHeroFragment.graphql";
 import { PrimaryHero } from "components/layout/hero";
+import { EntityHeroFragment$key } from "@/relay/EntityHeroFragment.graphql";
 
 export default function EntityHero({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);

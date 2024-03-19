@@ -2,9 +2,9 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import * as Styled from "./RelatedArticles.styles";
 import { PrecisionDate, NamedLink, Link } from "components/atomic";
 import { RelatedArticlesFragment$key } from "@/relay/RelatedArticlesFragment.graphql";
+import * as Styled from "./RelatedArticles.styles";
 
 export default function RelatedArticles({ data }: Props) {
   const { t } = useTranslation();

@@ -1,27 +1,29 @@
+/**
+ * @generated SignedSource<<5afd20b58b908d9472f14116c862b522>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityContentLayoutFactoryFragment = {
-    readonly schemaDefinition?: {
-        readonly identifier: string;
-    } | undefined;
-    readonly contributions?: {
-        readonly " $fragmentRefs": FragmentRefs<"ArticleContributorFragment">;
-    } | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityOrderingLayoutFactoryFragment" | "JournalContentFragment" | "EntityLayoutFactoryFragment" | "ArticleTextFragment" | "HowToCiteFragment">;
-    readonly " $refType": "EntityContentLayoutFactoryFragment";
+export type EntityContentLayoutFactoryFragment$data = {
+  readonly contributions?: {
+    readonly " $fragmentSpreads": FragmentRefs<"ArticleContributorFragment">;
+  };
+  readonly schemaDefinition?: {
+    readonly identifier: string;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"ArticleTextFragment" | "EntityLayoutFactoryFragment" | "EntityOrderingLayoutFactoryFragment" | "HowToCiteFragment" | "JournalContentFragment">;
+  readonly " $fragmentType": "EntityContentLayoutFactoryFragment";
 };
-export type EntityContentLayoutFactoryFragment$data = EntityContentLayoutFactoryFragment;
 export type EntityContentLayoutFactoryFragment$key = {
-    readonly " $data"?: EntityContentLayoutFactoryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityContentLayoutFactoryFragment">;
+  readonly " $data"?: EntityContentLayoutFactoryFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityContentLayoutFactoryFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -48,13 +50,7 @@ v1 = {
   "name": "EntityOrderingLayoutFactoryFragment"
 };
 return {
-  "argumentDefinitions": [
-    {
-      "defaultValue": 1,
-      "kind": "LocalArgument",
-      "name": "page"
-    }
-  ],
+  "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "EntityContentLayoutFactoryFragment",
@@ -78,22 +74,6 @@ return {
       "selections": [
         (v0/*: any*/),
         {
-          "alias": null,
-          "args": null,
-          "concreteType": "ItemContributionConnection",
-          "kind": "LinkedField",
-          "name": "contributions",
-          "plural": false,
-          "selections": [
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "ArticleContributorFragment"
-            }
-          ],
-          "storageKey": null
-        },
-        {
           "args": null,
           "kind": "FragmentSpread",
           "name": "EntityLayoutFactoryFragment"
@@ -108,6 +88,22 @@ return {
           "args": null,
           "kind": "FragmentSpread",
           "name": "HowToCiteFragment"
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ItemContributionConnection",
+          "kind": "LinkedField",
+          "name": "contributions",
+          "plural": false,
+          "selections": [
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "ArticleContributorFragment"
+            }
+          ],
+          "storageKey": null
         }
       ],
       "type": "Item",
@@ -118,5 +114,7 @@ return {
   "abstractKey": "__isAnyEntity"
 };
 })();
-(node as any).hash = '836d90276fe855557a429a7c0f30eb8a';
+
+(node as any).hash = "b2342ca8e004f15465350a8daaa1fcf9";
+
 export default node;

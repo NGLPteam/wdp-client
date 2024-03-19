@@ -3,15 +3,15 @@ import { useRouter } from "next/router";
 import { graphql, useFragment } from "react-relay";
 import { useForm } from "react-hook-form";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
+import BaseDrawer from "components/layout/BaseDrawer";
+import { Button } from "components/atomic";
+import useSearchQueryVars from "hooks/useSearchQueryVars";
+import { NoContent } from "components/layout";
+import { SearchLayoutFragment$key } from "@/relay/SearchLayoutFragment.graphql";
 import SearchBar from "../SearchBar";
 import SearchResults from "../SearchResults";
 import SearchFilters from "../SearchFilters";
 import * as Styled from "./SearchLayout.styles";
-import BaseDrawer from "components/layout/BaseDrawer";
-import { Button } from "components/atomic";
-import { SearchLayoutFragment$key } from "@/relay/SearchLayoutFragment.graphql";
-import useSearchQueryVars from "hooks/useSearchQueryVars";
-import { NoContent } from "components/layout";
 
 export default function SearchLayout({ data, refetch, isLoading }: Props) {
   const router = useRouter();
@@ -28,7 +28,7 @@ export default function SearchLayout({ data, refetch, isLoading }: Props) {
 
   const handleRefetch = useCallback(
     (vars = {}) => refetch({ ...vars }),
-    [refetch]
+    [refetch],
   );
 
   const queryVars = useSearchQueryVars();
@@ -51,7 +51,7 @@ export default function SearchLayout({ data, refetch, isLoading }: Props) {
         },
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     );
   };
 

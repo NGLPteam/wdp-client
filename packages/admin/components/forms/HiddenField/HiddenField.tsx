@@ -1,5 +1,5 @@
-import type { FieldValues, Path, UseFormWatch } from "react-hook-form";
 import * as Styled from "./HiddenField.styles";
+import type { FieldValues, Path, UseFormWatch } from "react-hook-form";
 
 function HiddenField<T extends FieldValues = FieldValues>({
   watch,
@@ -17,7 +17,7 @@ function HiddenField<T extends FieldValues = FieldValues>({
   );
 }
 
-interface Props<T> {
+interface Props<T extends FieldValues = FieldValues> {
   watch: UseFormWatch<T>;
   showOn?: string | boolean | number | null;
   field: Path<T>;

@@ -24,7 +24,7 @@ export default function EntityAnnouncementUpdateForm({
     Fields
   >(
     (data) => ({ input: { ...data, announcementId: announcement?.id || "" } }),
-    []
+    [],
   );
 
   const defaultValues = {
@@ -59,7 +59,7 @@ export default function EntityAnnouncementUpdateForm({
         />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

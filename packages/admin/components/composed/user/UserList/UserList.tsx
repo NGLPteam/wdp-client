@@ -1,25 +1,19 @@
-import type { OperationType } from "relay-runtime";
-import { graphql } from "react-relay";
-import type { ModelTableActionProps } from "@tanstack/react-table";
+import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { useDrawerHelper, useMaybeFragment } from "hooks";
-import type {
-  UserListFragment,
-  UserListFragment$key,
-} from "@/relay/UserListFragment.graphql";
-
+import { useDrawerHelper } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
+import type {
+  UserListFragment$data,
+  UserListFragment$key,
+} from "@/relay/UserListFragment.graphql";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function UserList<T extends OperationType>({
-  data,
-  headerStyle,
-  hideHeader,
-}: UserListProps) {
-  const users = useMaybeFragment<UserListFragment$key>(fragment, data);
+function UserList({ data, headerStyle, hideHeader }: UserListProps) {
+  const { users } = useFragment<UserListFragment$key>(fragment, data) ?? {};
 
   const { t } = useTranslation();
   const drawerHelper = useDrawerHelper();
@@ -42,7 +36,7 @@ function UserList<T extends OperationType>({
   };
 
   return (
-    <ModelListPage<T, UserListFragment, UserNode>
+    <ModelListPage<UserListFragment$data["users"], UserNode>
       modelName="user"
       columns={columns}
       data={users}
@@ -58,20 +52,22 @@ interface UserListProps
   data?: UserListFragment$key;
 }
 
-type UserNode = UserListFragment["nodes"][number];
+type UserNode = UserListFragment$data["users"]["nodes"][number];
 
 const fragment = graphql`
-  fragment UserListFragment on UserConnection {
-    nodes {
-      email
-      globalAdmin
-      name
-      slug
-      createdAt
-      updatedAt
-      ...UserNameColumnFragment
+  fragment UserListFragment on Query {
+    users(order: $order, page: $page, perPage: 20) {
+      nodes {
+        email
+        globalAdmin
+        name
+        slug
+        createdAt
+        updatedAt
+        ...UserNameColumnFragment
+      }
+      ...ModelListPageFragment
     }
-    ...ModelListPageFragment
   }
 `;
 

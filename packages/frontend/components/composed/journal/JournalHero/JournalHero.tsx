@@ -2,10 +2,10 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import JournalHeroMetadata from "../JournalHeroMetadata";
 import { HeroImage, DOI, NamedLink, Markdown, Alert } from "components/atomic";
 import { PrimaryHero } from "components/layout/hero";
 import { JournalHeroFragment$key } from "@/relay/JournalHeroFragment.graphql";
+import JournalHeroMetadata from "../JournalHeroMetadata";
 
 export default function JournalHero({ data }: Props) {
   const journal = useMaybeFragment(fragment, data);

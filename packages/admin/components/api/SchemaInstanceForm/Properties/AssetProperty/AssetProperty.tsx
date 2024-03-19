@@ -1,16 +1,16 @@
 import React, { useCallback } from "react";
-import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment, graphql } from "react-relay";
 import { Controller, useFormContext } from "react-hook-form";
 import isFunction from "lodash/isFunction";
 import { Trans } from "react-i18next";
 import Link from "next/link";
 import { useRouteSlug } from "@wdp/lib/routes";
-import ScalarProperty from "../ScalarProperty";
 import { useSchemaFormFieldsContext } from "components/api/SchemaFormFields/SchemaFormFieldsContext";
 import AssetPropertySelect from "components/forms/AssetPropertySelect";
-import type { AssetPropertyFragment$key } from "@/relay/AssetPropertyFragment.graphql";
+import { OnChangeInput } from "components/forms/AssetPropertySelect/AssetPropertySelect";
 import { RouteHelper } from "routes";
+import type { AssetPropertyFragment$key } from "@/relay/AssetPropertyFragment.graphql";
+import ScalarProperty from "../ScalarProperty";
 
 export default function AssetProperty(props: Props) {
   const { assets: options, refetch } = useSchemaFormFieldsContext();
@@ -21,7 +21,7 @@ export default function AssetProperty(props: Props) {
 
   const handleRefetch = useCallback(
     () => (isFunction(refetch) ? refetch({}) : null),
-    [refetch]
+    [refetch],
   );
 
   const slug = useRouteSlug();
@@ -35,8 +35,11 @@ export default function AssetProperty(props: Props) {
         : null;
 
     return (
-      <Link href={{ pathname: filesRoute?.path, query: { slug } }}>
-        <a className="a-link">{children}</a>
+      <Link
+        href={{ pathname: filesRoute?.path, query: { slug } }}
+        className="a-link"
+      >
+        {children}
       </Link>
     );
   };
@@ -52,7 +55,7 @@ export default function AssetProperty(props: Props) {
               label={label}
               required={required}
               options={options}
-              onChange={(value?: string) => onChange(value || null)}
+              onChange={(value?: OnChangeInput) => onChange(value || null)}
               refetchAssets={handleRefetch}
               description={
                 props.description || (

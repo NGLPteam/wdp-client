@@ -3,12 +3,12 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
 import { useWindowSize } from "@wdp/lib/hooks";
-import ContributorName from "../ContributorName";
+import { Link, NamedLink } from "components/atomic";
 import {
   ContributorsListFragment$data,
   ContributorsListFragment$key,
 } from "@/relay/ContributorsListFragment.graphql";
-import { Link, NamedLink } from "components/atomic";
+import ContributorName from "../ContributorName";
 
 type Node = ContributorsListFragment$data["nodes"][number];
 
@@ -36,7 +36,7 @@ export default function ContributorsList({
     return filterRole
       ? contributionData?.nodes?.filter(
           ({ role }: Node) =>
-            role && role.toLowerCase() === filterRole.toLocaleLowerCase()
+            role && role.toLowerCase() === filterRole.toLocaleLowerCase(),
         )
       : contributionData?.nodes || [];
   }, [contributionData, filterRole]);

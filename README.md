@@ -2,12 +2,13 @@
 
 ## Development Environment
 
-NGLP is separated into four workspaces:
+NGLP is separated into workspaces:
 
 - [admin](./packages/admin/README.md) - client admin app
-- common - common configuration, linting
 - [frontend](./packages/frontend/README.md) - client frontend app
 - lib - library of shared components, themes between admin and frontend
+- eslint - shared lint config
+- tsconfig - shared ts config
 
 ```sh
 yarn install
@@ -20,15 +21,3 @@ That's it!
 
 - Admin: http://localhost:3000
 - Frontend: http://localhost:3001
-
-### Storybook
-
-```sh
-yarn storybook # to start all storybooks
-yarn storybook:frontend # to start frontend
-yarn storybook:admin # to start admin
-```
-
-- Admin storybook: http://localhost:6006
-- Frontend storybook: http://localhost:6007
-

@@ -1,77 +1,42 @@
+/**
+ * @generated SignedSource<<ec57eebf1f7422e20efeb2934093d1b6>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RoleGrantAccessDrawerQueryVariables = {
-    slug: string;
-    onCommunity: boolean;
-    onCollection: boolean;
-    onItem: boolean;
+export type RoleGrantAccessDrawerQuery$variables = {
+  onCollection: boolean;
+  onCommunity: boolean;
+  onItem: boolean;
+  slug: string;
 };
-export type RoleGrantAccessDrawerQueryResponse = {
-    readonly community?: {
-        readonly id: string;
-        readonly title: string;
-        readonly " $fragmentRefs": FragmentRefs<"RoleGrantAccessFormRolesFragment">;
-    } | null | undefined;
-    readonly collection?: {
-        readonly id: string;
-        readonly title: string;
-        readonly " $fragmentRefs": FragmentRefs<"RoleGrantAccessFormRolesFragment">;
-    } | null | undefined;
-    readonly item?: {
-        readonly id: string;
-        readonly title: string;
-        readonly " $fragmentRefs": FragmentRefs<"RoleGrantAccessFormRolesFragment">;
-    } | null | undefined;
+export type RoleGrantAccessDrawerQuery$data = {
+  readonly collection?: {
+    readonly id: string;
+    readonly title: string;
+    readonly " $fragmentSpreads": FragmentRefs<"RoleGrantAccessFormRolesFragment">;
+  } | null | undefined;
+  readonly community?: {
+    readonly id: string;
+    readonly title: string;
+    readonly " $fragmentSpreads": FragmentRefs<"RoleGrantAccessFormRolesFragment">;
+  } | null | undefined;
+  readonly item?: {
+    readonly id: string;
+    readonly title: string;
+    readonly " $fragmentSpreads": FragmentRefs<"RoleGrantAccessFormRolesFragment">;
+  } | null | undefined;
 };
 export type RoleGrantAccessDrawerQuery = {
-    readonly response: RoleGrantAccessDrawerQueryResponse;
-    readonly variables: RoleGrantAccessDrawerQueryVariables;
+  response: RoleGrantAccessDrawerQuery$data;
+  variables: RoleGrantAccessDrawerQuery$variables;
 };
-
-
-
-/*
-query RoleGrantAccessDrawerQuery(
-  $slug: Slug!
-  $onCommunity: Boolean!
-  $onCollection: Boolean!
-  $onItem: Boolean!
-) {
-  community(slug: $slug) @include(if: $onCommunity) {
-    id
-    title
-    ...RoleGrantAccessFormRolesFragment
-  }
-  collection(slug: $slug) @include(if: $onCollection) {
-    id
-    title
-    ...RoleGrantAccessFormRolesFragment
-  }
-  item(slug: $slug) @include(if: $onItem) {
-    id
-    title
-    ...RoleGrantAccessFormRolesFragment
-  }
-}
-
-fragment RoleGrantAccessFormRolesFragment on Entity {
-  __isEntity: __typename
-  ...RoleSelectFragment
-}
-
-fragment RoleSelectFragment on Entity {
-  __isEntity: __typename
-  assignableRoles {
-    id
-    name
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -295,5 +260,7 @@ return {
   }
 };
 })();
-(node as any).hash = '3e30d586254cb02f19f0c838ae31f6c6';
+
+(node as any).hash = "3e30d586254cb02f19f0c838ae31f6c6";
+
 export default node;

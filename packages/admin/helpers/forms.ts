@@ -10,7 +10,7 @@ import type { BooleanPath, SetBooleanValue } from "types/form-fields";
  */
 export function isBooleanField<T extends FieldValues>(
   setValue: UseFormSetValue<T>,
-  path?: BooleanPath<T>
+  path?: BooleanPath<T>,
 ): setValue is SetBooleanValue<T> {
   return Boolean(path);
 }
@@ -28,7 +28,7 @@ export function maybeSetBooleanField<T extends FieldValues>(
   setValue: UseFormSetValue<T>,
   path: BooleanPath<T> | undefined,
   value: boolean,
-  options?: Parameters<UseFormSetValue<T>>[2]
+  options?: Parameters<UseFormSetValue<T>>[2],
 ): void {
   if (path && isBooleanField<T>(setValue, path)) {
     setValue(path, value, options);
@@ -43,7 +43,7 @@ export function maybeSetBooleanField<T extends FieldValues>(
  * @returns string | undefined
  */
 export function sanitizeDateField(
-  value: string | null | undefined
+  value: string | null | undefined,
 ): string | undefined {
   return value && value.length > 0 ? value : undefined;
 }

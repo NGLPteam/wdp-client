@@ -1,31 +1,33 @@
+/**
+ * @generated SignedSource<<ab790f2e52f394a81f117f82ff478706>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SetIntitialOrderingModalFragment = {
-    readonly id?: string | undefined;
-    readonly title?: string | undefined;
-    readonly orderings?: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly id: string;
-                readonly name: string | null;
-                readonly initial: boolean;
-            };
-        }>;
-    } | undefined;
-    readonly " $refType": "SetIntitialOrderingModalFragment";
+export type SetIntitialOrderingModalFragment$data = {
+  readonly id?: string;
+  readonly orderings?: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly id: string;
+        readonly initial: boolean;
+        readonly name: string | null | undefined;
+      };
+    }>;
+  };
+  readonly title?: string;
+  readonly " $fragmentType": "SetIntitialOrderingModalFragment";
 };
-export type SetIntitialOrderingModalFragment$data = SetIntitialOrderingModalFragment;
 export type SetIntitialOrderingModalFragment$key = {
-    readonly " $data"?: SetIntitialOrderingModalFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SetIntitialOrderingModalFragment">;
+  readonly " $data"?: SetIntitialOrderingModalFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SetIntitialOrderingModalFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -46,7 +48,13 @@ v1 = [
   },
   {
     "alias": null,
-    "args": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "page",
+        "variableName": "page"
+      }
+    ],
     "concreteType": "OrderingConnection",
     "kind": "LinkedField",
     "name": "orderings",
@@ -94,7 +102,12 @@ v1 = [
   }
 ];
 return {
-  "argumentDefinitions": [],
+  "argumentDefinitions": [
+    {
+      "kind": "RootArgument",
+      "name": "page"
+    }
+  ],
   "kind": "Fragment",
   "metadata": null,
   "name": "SetIntitialOrderingModalFragment",
@@ -116,5 +129,7 @@ return {
   "abstractKey": "__isEntity"
 };
 })();
-(node as any).hash = '9b979479a2d458edf7bb1f782b2a1d24';
+
+(node as any).hash = "e845c23b06f4922d0040b1af1691a660";
+
 export default node;

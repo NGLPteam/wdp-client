@@ -1,27 +1,23 @@
-import { graphql } from "react-relay";
+import { GraphQLTaggedNode } from "react-relay";
 import { useTranslation } from "react-i18next";
-import type { OperationType } from "relay-runtime";
-import type { ModelTableActionProps } from "@tanstack/react-table";
-import SetIntitialOrderingButton from "../SetIntitialOrderingButton";
+import { graphql } from "relay-runtime";
 import { useMaybeFragment, useDestroyer, useDrawerHelper } from "hooks";
-import { EntityOrderingListFragment$key } from "@/relay/EntityOrderingListFragment.graphql";
-import {
-  EntityOrderingListDataFragment,
-  EntityOrderingListDataFragment$key,
-} from "@/relay/EntityOrderingListDataFragment.graphql";
 import { PageHeader } from "components/layout";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 import useResetOrdering from "hooks/useResetOrdering";
+import {
+  EntityOrderingListDataFragment$data,
+  EntityOrderingListDataFragment$key,
+} from "@/relay/EntityOrderingListDataFragment.graphql";
+import { EntityOrderingListFragment$key } from "@/relay/EntityOrderingListFragment.graphql";
+import SetIntitialOrderingButton from "../SetIntitialOrderingButton";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function EntityOrderingList<T extends OperationType>({
-  data,
-  headerStyle,
-  hideHeader,
-}: Props) {
+function EntityOrderingList({ data, headerStyle, hideHeader }: Props) {
   const { t } = useTranslation();
 
   const destroy = useDestroyer();
@@ -32,14 +28,14 @@ function EntityOrderingList<T extends OperationType>({
 
   /* Get the order data */
   const sourceEntity = useMaybeFragment<EntityOrderingListFragment$key>(
-    fragment,
-    data
+    fragment as GraphQLTaggedNode,
+    data,
   );
 
   const collectionOrderings =
     useMaybeFragment<EntityOrderingListDataFragment$key>(
-      orderingsfragment,
-      sourceEntity?.orderings
+      orderingsfragment as GraphQLTaggedNode,
+      sourceEntity?.orderings,
     );
 
   /* Set the table columns */
@@ -70,14 +66,14 @@ function EntityOrderingList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       destroy.ordering(
         { orderingId: row.original.id },
-        row.original.name || "glossary.ordering"
+        row.original.name || "glossary.ordering",
       ),
     hideDelete: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       row.original.inheritedFromSchema,
     handleDisable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       destroy.ordering(
         { orderingId: row.original.id },
-        row.original.name || "glossary.ordering"
+        row.original.name || "glossary.ordering",
       ),
     hideDisable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       !row.original.inheritedFromSchema || row.original.disabled,
@@ -90,7 +86,7 @@ function EntityOrderingList<T extends OperationType>({
       resetOrdering(
         { orderingId: row.original.id },
         row.original.name || "glossary.ordering",
-        ["orderings"]
+        ["orderings"],
       );
     },
     hideEnable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
@@ -115,7 +111,7 @@ function EntityOrderingList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, EntityOrderingListDataFragment, EntityOrderingNode>
+    <ModelListPage<EntityOrderingListDataFragment$data, EntityOrderingNode>
       modelName="ordering"
       columns={columns}
       data={collectionOrderings}
@@ -128,7 +124,7 @@ function EntityOrderingList<T extends OperationType>({
 }
 
 type EntityOrderingNode =
-  EntityOrderingListDataFragment["edges"][number]["node"];
+  EntityOrderingListDataFragment$data["edges"][number]["node"];
 
 interface Props extends Pick<HeaderProps, "headerStyle" | "hideHeader"> {
   data?: EntityOrderingListFragment$key;

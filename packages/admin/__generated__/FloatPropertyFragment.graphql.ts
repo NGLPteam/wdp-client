@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<361552c548efdcbc209a90cb210bede2>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type FloatPropertyFragment = {
-    readonly floatValue: number | null;
-    readonly defaultFloat: number | null;
-    readonly " $fragmentRefs": FragmentRefs<"ScalarPropertyFragment">;
-    readonly " $refType": "FloatPropertyFragment";
+export type FloatPropertyFragment$data = {
+  readonly defaultFloat: number | null | undefined;
+  readonly floatValue: number | null | undefined;
+  readonly " $fragmentSpreads": FragmentRefs<"ScalarPropertyFragment">;
+  readonly " $fragmentType": "FloatPropertyFragment";
 };
-export type FloatPropertyFragment$data = FloatPropertyFragment;
 export type FloatPropertyFragment$key = {
-    readonly " $data"?: FloatPropertyFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"FloatPropertyFragment">;
+  readonly " $data"?: FloatPropertyFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"FloatPropertyFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -25,6 +27,11 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "FloatPropertyFragment",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ScalarPropertyFragment"
+    },
     {
       "alias": null,
       "args": null,
@@ -38,15 +45,12 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "defaultFloat",
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ScalarPropertyFragment"
     }
   ],
   "type": "FloatProperty",
   "abstractKey": null
 };
-(node as any).hash = '67e4459ee339294263f524d2e5f2d25d';
+
+(node as any).hash = "67e4459ee339294263f524d2e5f2d25d";
+
 export default node;

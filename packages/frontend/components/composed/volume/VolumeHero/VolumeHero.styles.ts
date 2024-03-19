@@ -26,7 +26,7 @@ export const Cover = styled.div`
     `
     margin-block-end: ${pxToRem(42)};
   `,
-    50
+    50,
   )};
 `;
 
@@ -39,7 +39,7 @@ export const MetadataBlock = styled.div`
     padding-block-start: var(--padding-rg);
     border-top: 1px solid var(--border-color);
   `,
-    100
+    100,
   )}
 
   > * + * {

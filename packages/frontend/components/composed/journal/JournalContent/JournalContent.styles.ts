@@ -15,7 +15,7 @@ export const SectionInner = styled.div`
     grid-template-columns: 1fr;
     grid-template-rows: auto;
   `,
-    MOBILE_BREAK
+    MOBILE_BREAK,
   )}
 
   ${respond(
@@ -23,7 +23,7 @@ export const SectionInner = styled.div`
     grid-row-gap: var(--container-padding-md);
     grid-column-gap: var(--container-padding-sm);
   `,
-    TABLET_BREAK
+    TABLET_BREAK,
   )}
 `;
 
@@ -35,7 +35,7 @@ export const InfoBlock = styled.div`
     grid-column: 1;
     grid-row: 1;
   `,
-    MOBILE_BREAK
+    MOBILE_BREAK,
   )}
 `;
 
@@ -46,7 +46,7 @@ export const AnnouncementsBlock = styled.div`
     `
     grid-column: 8 / span 5;
   `,
-    TABLET_BREAK
+    TABLET_BREAK,
   )}
 
   ${respond(
@@ -54,6 +54,6 @@ export const AnnouncementsBlock = styled.div`
     grid-column: 1;
     grid-row: 2;
   `,
-    MOBILE_BREAK
+    MOBILE_BREAK,
   )}
 `;

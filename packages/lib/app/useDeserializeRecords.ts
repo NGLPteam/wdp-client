@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
 
 export default function useDeserializeRecords(
-  r: RecordMap | null | undefined
+  r: RecordMap | null | undefined,
 ): RecordMap {
   return useMemo<RecordMap>(() => {
     if (r) return r;
@@ -12,7 +12,7 @@ export default function useDeserializeRecords(
 
       if (recordsData) {
         const records: RecordMap = JSON.parse(
-          Buffer.from(recordsData, "base64").toString()
+          Buffer.from(recordsData, "base64").toString(),
         );
 
         return records;

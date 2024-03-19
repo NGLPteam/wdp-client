@@ -21,7 +21,8 @@ export const Link = styled.a<LinkProps>`
   box-shadow: inset 0 -1px 0 var(--neutral40);
   padding-block-end: 6px;
   color: var(--color-light);
-  transition: box-shadow var(--base-duration) var(--base-timing),
+  transition:
+    box-shadow var(--base-duration) var(--base-timing),
     var(--color-transition);
   text-transform: capitalize;
   ${tHeading(3)}

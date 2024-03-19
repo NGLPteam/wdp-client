@@ -1,13 +1,13 @@
 import React, { forwardRef, Ref } from "react";
 import { Portal } from "reakit/Portal";
 import { useIsMounted } from "@wdp/lib/hooks";
-import * as Styled from "./BaseArrayList.styles";
 import { IconFactory } from "components/factories";
+import * as Styled from "./BaseArrayList.styles";
 
 const BaseArrayListItem = forwardRef(
   (
     { children, onRemove, isDragging, draggableStyles, ...props }: Props,
-    ref: Ref<HTMLLIElement>
+    ref: Ref<HTMLLIElement>,
   ) => {
     const handleRemove = (e: React.MouseEvent) => {
       e.stopPropagation();
@@ -36,7 +36,7 @@ const BaseArrayListItem = forwardRef(
     }
 
     return Item;
-  }
+  },
 );
 
 interface Props {

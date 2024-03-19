@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 
 // Parameter is the boolean, with default "false" value
 const useToggle = (
-  initialState = false
+  initialState = false,
 ): [boolean, () => void, (newValue: boolean) => void] => {
   // Initialize the state
   const [state, setState] = useState<boolean>(initialState);

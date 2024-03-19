@@ -1,12 +1,13 @@
-import React from "react";
+import { Suspense } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import EntityOrderingLayoutFactory from "../EntityOrderingLayoutFactory";
 import JournalContent from "components/composed/journal/JournalContent";
 import ArticleText from "components/composed/article/ArticleText";
 import ArticleContributor from "components/composed/article/ArticleContributor";
 import HowToCite from "components/composed/article/HowToCite";
+import { LoadingBlock } from "components/atomic";
 import { EntityContentLayoutFactoryFragment$key } from "@/relay/EntityContentLayoutFactoryFragment.graphql";
+import EntityOrderingLayoutFactory from "../EntityOrderingLayoutFactory";
 
 export default function EntityContentLayoutFactory({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);
@@ -29,7 +30,11 @@ export default function EntityContentLayoutFactory({ data }: Props) {
 
     // By default, return the entity's layout and show ordering content
     default:
-      return <EntityOrderingLayoutFactory data={entity} />;
+      return (
+        <Suspense fallback={<LoadingBlock />}>
+          <EntityOrderingLayoutFactory data={entity} />
+        </Suspense>
+      );
   }
 }
 
@@ -38,8 +43,7 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment EntityContentLayoutFactoryFragment on AnyEntity
-  @argumentDefinitions(page: { type: "Int", defaultValue: 1 }) {
+  fragment EntityContentLayoutFactoryFragment on AnyEntity {
     ... on Collection {
       schemaDefinition {
         identifier

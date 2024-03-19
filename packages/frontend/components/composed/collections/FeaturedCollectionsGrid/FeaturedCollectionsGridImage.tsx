@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import * as Styled from "./FeaturedCollectionsGrid.styles";
 import { FeaturedCollectionsGridImageFragment$key } from "@/relay/FeaturedCollectionsGridImageFragment.graphql";
+import * as Styled from "./FeaturedCollectionsGrid.styles";
 
 export default function FeaturedCollectionsGridImage({ data }: Props) {
   const imageData = useMaybeFragment(fragment, data);
@@ -10,7 +10,7 @@ export default function FeaturedCollectionsGridImage({ data }: Props) {
   const image = useMemo(
     () =>
       imageData?.heroImage?.storage ? imageData.heroImage.image.webp : null,
-    [imageData]
+    [imageData],
   );
 
   return image && image.url ? (

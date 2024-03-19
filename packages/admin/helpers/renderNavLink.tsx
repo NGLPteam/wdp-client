@@ -4,6 +4,7 @@ import i18next from "i18next";
 import { NamedLink } from "components/atomic";
 import { Authorize } from "components/auth";
 import { RouteHelper } from "routes";
+import { IStyledComponent } from "styled-components";
 
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 type LinkProps = React.ComponentProps<typeof Link>;
@@ -28,11 +29,11 @@ interface RenderLinkPropsWithHref extends RenderLinkPropsBase {
 
 type RenderLinkProps = RenderLinkPropsWithRoute | RenderLinkPropsWithHref;
 
-const renderNavLink = (
+function renderNavLink(
   { route, href, label, actions }: RenderLinkProps,
   i: number,
-  wrapper?: typeof React.Component | string
-) => {
+  wrapper?: typeof React.Component | string | IStyledComponent<"web">,
+) {
   let linkComponent = null;
   const Wrapper = wrapper || React.Fragment;
 
@@ -56,8 +57,8 @@ const renderNavLink = (
   if (href) {
     linkComponent = (
       <Wrapper key={i}>
-        <Link href={href} passHref>
-          <a className="t-capitalize a-link">{i18next.t(label)}</a>
+        <Link href={href} passHref className="t-capitalize a-link">
+          {i18next.t(label)}
         </Link>
       </Wrapper>
     );
@@ -72,6 +73,6 @@ const renderNavLink = (
   }
 
   return linkComponent;
-};
+}
 
 export default renderNavLink;

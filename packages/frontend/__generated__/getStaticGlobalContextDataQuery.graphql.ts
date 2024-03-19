@@ -1,66 +1,42 @@
+/**
+ * @generated SignedSource<<f5a50bee8b0ac00a5fd4db1c04db8a79>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 export type SiteLogoMode = "NONE" | "SANS_TEXT" | "WITH_TEXT" | "%future added value";
-export type getStaticGlobalContextDataQueryVariables = {};
-export type getStaticGlobalContextDataQueryResponse = {
-    readonly globalConfiguration: {
-        readonly site: {
-            readonly providerName: string;
-            readonly installationName: string;
-            readonly installationHomePageCopy: string;
-            readonly logoMode: SiteLogoMode;
-            readonly footer: {
-                readonly description: string;
-                readonly copyrightStatement: string;
-            };
-        };
+export type getStaticGlobalContextDataQuery$variables = Record<PropertyKey, never>;
+export type getStaticGlobalContextDataQuery$data = {
+  readonly allCommunities: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly slug: string;
+        readonly title: string;
+      };
+    }>;
+  };
+  readonly globalConfiguration: {
+    readonly site: {
+      readonly footer: {
+        readonly copyrightStatement: string;
+        readonly description: string;
+      };
+      readonly installationHomePageCopy: string;
+      readonly installationName: string;
+      readonly logoMode: SiteLogoMode;
+      readonly providerName: string;
     };
-    readonly allCommunities: {
-        readonly edges: ReadonlyArray<{
-            readonly node: {
-                readonly slug: string;
-                readonly title: string;
-            };
-        }>;
-    };
+  };
 };
 export type getStaticGlobalContextDataQuery = {
-    readonly response: getStaticGlobalContextDataQueryResponse;
-    readonly variables: getStaticGlobalContextDataQueryVariables;
+  response: getStaticGlobalContextDataQuery$data;
+  variables: getStaticGlobalContextDataQuery$variables;
 };
-
-
-
-/*
-query getStaticGlobalContextDataQuery {
-  globalConfiguration {
-    site {
-      providerName
-      installationName
-      installationHomePageCopy
-      logoMode
-      footer {
-        description
-        copyrightStatement
-      }
-    }
-    id
-  }
-  allCommunities: communities(order: POSITION_ASCENDING) {
-    edges {
-      node {
-        slug
-        title
-        id
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -280,5 +256,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'a9f196731606ca053649d05588e33723';
+
+(node as any).hash = "a9f196731606ca053649d05588e33723";
+
 export default node;

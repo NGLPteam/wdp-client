@@ -1,149 +1,31 @@
+/**
+ * @generated SignedSource<<5296ec9cf701a5905d54bed014268b04>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type filesManageSlugItemsQueryVariables = {
-    itemSlug: string;
-    page: number;
+export type filesManageSlugItemsQuery$variables = {
+  itemSlug: string;
+  page: number;
 };
-export type filesManageSlugItemsQueryResponse = {
-    readonly item: {
-        readonly assets: {
-            readonly " $fragmentRefs": FragmentRefs<"FileListFragment">;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"ItemLayoutQueryFragment">;
-    } | null;
+export type filesManageSlugItemsQuery$data = {
+  readonly item: {
+    readonly assets: {
+      readonly " $fragmentSpreads": FragmentRefs<"FileListFragment">;
+    };
+    readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "ItemLayoutFragment">;
+  } | null | undefined;
 };
 export type filesManageSlugItemsQuery = {
-    readonly response: filesManageSlugItemsQueryResponse;
-    readonly variables: filesManageSlugItemsQueryVariables;
+  response: filesManageSlugItemsQuery$data;
+  variables: filesManageSlugItemsQuery$variables;
 };
-
-
-
-/*
-query filesManageSlugItemsQuery(
-  $itemSlug: Slug!
-  $page: Int!
-) {
-  item(slug: $itemSlug) {
-    ...ItemLayoutQueryFragment
-    assets(page: $page, perPage: 20) {
-      ...FileListFragment
-    }
-    id
-  }
-}
-
-fragment AssetThumbnailColumnFragment on Asset {
-  __isAsset: __typename
-  thumbnail: preview {
-    storage
-    image: medium {
-      png {
-        ...ImageFragment
-      }
-    }
-  }
-}
-
-fragment AuthContextFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-
-fragment FileListFragment on AnyAssetConnection {
-  nodes {
-    __typename
-    ... on Asset {
-      __isAsset: __typename
-      id
-      slug
-      kind
-      name
-      downloadUrl
-      ...AssetThumbnailColumnFragment
-    }
-    ... on Node {
-      __isNode: __typename
-      id
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment ItemLayoutFragment on Item {
-  title
-  slug
-  id
-  ...useBreadcrumbsFragment
-  ...useChildRouteLinksFragment
-}
-
-fragment ItemLayoutQueryFragment on Item {
-  ...ItemLayoutFragment
-  ...AuthContextFragment
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment useBreadcrumbsFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  breadcrumbs {
-    depth
-    label
-    kind
-    slug
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-}
-
-fragment useChildRouteLinksFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -221,6 +103,16 @@ return {
         "plural": false,
         "selections": [
           {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "ItemLayoutFragment"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "AuthContextFragment"
+          },
+          {
             "alias": null,
             "args": (v2/*: any*/),
             "concreteType": "AnyAssetConnection",
@@ -235,11 +127,6 @@ return {
               }
             ],
             "storageKey": null
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "ItemLayoutQueryFragment"
           }
         ],
         "storageKey": null
@@ -514,14 +401,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e3226d16aab0055a3975225f8d44ed9b",
+    "cacheID": "4c82f0b42b870c3be2e58e82084ac0b9",
     "id": null,
     "metadata": {},
     "name": "filesManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query filesManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    assets(page: $page, perPage: 20) {\n      ...FileListFragment\n    }\n    id\n  }\n}\n\nfragment AssetThumbnailColumnFragment on Asset {\n  __isAsset: __typename\n  thumbnail: preview {\n    storage\n    image: medium {\n      png {\n        ...ImageFragment\n      }\n    }\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment FileListFragment on AnyAssetConnection {\n  nodes {\n    __typename\n    ... on Asset {\n      __isAsset: __typename\n      id\n      slug\n      kind\n      name\n      downloadUrl\n      ...AssetThumbnailColumnFragment\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n"
+    "text": "query filesManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    ...AuthContextFragment\n    assets(page: $page, perPage: 20) {\n      ...FileListFragment\n    }\n    id\n  }\n}\n\nfragment AssetThumbnailColumnFragment on Asset {\n  __isAsset: __typename\n  thumbnail: preview {\n    storage\n    image: medium {\n      png {\n        ...ImageFragment\n      }\n    }\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment FileListFragment on AnyAssetConnection {\n  nodes {\n    __typename\n    ... on Asset {\n      __isAsset: __typename\n      id\n      slug\n      kind\n      name\n      downloadUrl\n      ...AssetThumbnailColumnFragment\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n"
   }
 };
 })();
-(node as any).hash = '884182a94fa26b29061c6edd8f0f1d29';
+
+(node as any).hash = "b9bb48df3cd0fbe9f49473ad753d4759";
+
 export default node;

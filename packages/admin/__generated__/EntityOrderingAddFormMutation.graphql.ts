@@ -1,96 +1,70 @@
+/**
+ * @generated SignedSource<<eb8f582e86b83a16eeff7b0afa7856b3>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type Direction = "ASCENDING" | "DESCENDING" | "%future added value";
 export type NullOrderPriority = "FIRST" | "LAST" | "%future added value";
 export type OrderingDirectSelection = "CHILDREN" | "DESCENDANTS" | "NONE" | "%future added value";
 export type OrderingRenderMode = "FLAT" | "TREE" | "%future added value";
 export type CreateOrderingInput = {
-    entityId: string;
-    identifier: string;
-    name?: string | null | undefined;
-    header?: string | null | undefined;
-    footer?: string | null | undefined;
-    filter?: OrderingFilterDefinitionInput | null | undefined;
-    select?: OrderingSelectDefinitionInput | null | undefined;
-    order: Array<OrderDefinitionInput>;
-    render?: OrderingRenderDefinitionInput | null | undefined;
-    clientMutationId?: string | null | undefined;
+  clientMutationId?: string | null | undefined;
+  entityId: string;
+  filter?: OrderingFilterDefinitionInput | null | undefined;
+  footer?: string | null | undefined;
+  header?: string | null | undefined;
+  identifier: string;
+  name?: string | null | undefined;
+  order: ReadonlyArray<OrderDefinitionInput>;
+  render?: OrderingRenderDefinitionInput | null | undefined;
+  select?: OrderingSelectDefinitionInput | null | undefined;
 };
 export type OrderingFilterDefinitionInput = {
-    schemas?: Array<OrderingSchemaFilterInput> | null | undefined;
+  schemas?: ReadonlyArray<OrderingSchemaFilterInput> | null | undefined;
 };
 export type OrderingSchemaFilterInput = {
-    namespace: string;
-    identifier: string;
-    version?: unknown | null | undefined;
-};
-export type OrderingSelectDefinitionInput = {
-    direct?: OrderingDirectSelection | null | undefined;
-    links?: OrderingSelectLinkDefinitionInput | null | undefined;
-};
-export type OrderingSelectLinkDefinitionInput = {
-    contains?: boolean | null | undefined;
-    references?: boolean | null | undefined;
+  identifier: string;
+  namespace: string;
+  version?: any | null | undefined;
 };
 export type OrderDefinitionInput = {
-    path: string;
-    direction?: Direction | null | undefined;
-    nulls?: NullOrderPriority | null | undefined;
+  direction?: Direction | null | undefined;
+  nulls?: NullOrderPriority | null | undefined;
+  path: string;
 };
 export type OrderingRenderDefinitionInput = {
-    mode?: OrderingRenderMode | null | undefined;
+  mode?: OrderingRenderMode | null | undefined;
 };
-export type EntityOrderingAddFormMutationVariables = {
-    input: CreateOrderingInput;
+export type OrderingSelectDefinitionInput = {
+  direct?: OrderingDirectSelection | null | undefined;
+  links?: OrderingSelectLinkDefinitionInput | null | undefined;
 };
-export type EntityOrderingAddFormMutationResponse = {
-    readonly createOrdering: {
-        readonly ordering: {
-            readonly name: string | null;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
-    } | null;
+export type OrderingSelectLinkDefinitionInput = {
+  contains?: boolean | null | undefined;
+  references?: boolean | null | undefined;
+};
+export type EntityOrderingAddFormMutation$variables = {
+  input: CreateOrderingInput;
+};
+export type EntityOrderingAddFormMutation$data = {
+  readonly createOrdering: {
+    readonly ordering: {
+      readonly name: string | null | undefined;
+    } | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null | undefined;
 };
 export type EntityOrderingAddFormMutation = {
-    readonly response: EntityOrderingAddFormMutationResponse;
-    readonly variables: EntityOrderingAddFormMutationVariables;
+  response: EntityOrderingAddFormMutation$data;
+  variables: EntityOrderingAddFormMutation$variables;
 };
-
-
-
-/*
-mutation EntityOrderingAddFormMutation(
-  $input: CreateOrderingInput!
-) {
-  createOrdering(input: $input) {
-    ordering {
-      name
-      id
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -214,7 +188,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v4/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -272,5 +248,7 @@ return {
   }
 };
 })();
-(node as any).hash = '1e20006cf40fa58f5ba66b0eb3b3ee43';
+
+(node as any).hash = "1e20006cf40fa58f5ba66b0eb3b3ee43";
+
 export default node;

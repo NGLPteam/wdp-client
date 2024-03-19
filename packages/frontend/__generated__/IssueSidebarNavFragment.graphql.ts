@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<3fa9c39ad17aa4b8047029649240a928>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type IssueSidebarNavFragment = {
-    readonly orderings: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityOrderSelectFragment">;
-    };
-    readonly " $fragmentRefs": FragmentRefs<"IssueSidebarNavListFragment">;
-    readonly " $refType": "IssueSidebarNavFragment";
+export type IssueSidebarNavFragment$data = {
+  readonly orderings: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityOrderSelectFragment">;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"IssueSidebarNavListFragment">;
+  readonly " $fragmentType": "IssueSidebarNavFragment";
 };
-export type IssueSidebarNavFragment$data = IssueSidebarNavFragment;
 export type IssueSidebarNavFragment$key = {
-    readonly " $data"?: IssueSidebarNavFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"IssueSidebarNavFragment">;
+  readonly " $data"?: IssueSidebarNavFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"IssueSidebarNavFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -57,5 +59,7 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '02e2cab701a9ecbb4e3cfffdcf0ebfa1';
+
+(node as any).hash = "02e2cab701a9ecbb4e3cfffdcf0ebfa1";
+
 export default node;

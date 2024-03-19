@@ -8,7 +8,7 @@ export interface GetLayoutProps<P = Record<string, unknown>> {
 }
 
 export type GetLayout<P = Record<string, unknown>> = (
-  props: GetLayoutProps<P>
+  props: GetLayoutProps<P>,
 ) => ReactNode;
 
 // Next.js Component type (NextComponentType<NextPageContext, any, P>;)

@@ -1,4 +1,4 @@
-import { graphql, useFragment } from "react-relay";
+import { useFragment, graphql } from "react-relay";
 import MutationForm, {
   useRenderForm,
   useToVariables,
@@ -18,7 +18,7 @@ export default function EntityAnnouncementAddForm({
 }: Props) {
   const sourceEntity = useFragment<EntityAnnouncementAddFormFragment$key>(
     fragment,
-    data
+    data,
   );
 
   // Sets the slug to the title if no slug is provided
@@ -31,7 +31,7 @@ export default function EntityAnnouncementAddForm({
         },
       };
     },
-    []
+    [],
   );
 
   const renderForm = useRenderForm<Fields>(({ form: { register } }) => {

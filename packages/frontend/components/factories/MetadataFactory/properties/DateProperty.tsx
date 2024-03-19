@@ -1,8 +1,8 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { DatePropertyFragment$key } from "@/relay/DatePropertyFragment.graphql";
 import { MetadataProperty } from "components/layout";
+import { DatePropertyFragment$key } from "@/relay/DatePropertyFragment.graphql";
 
 export default function DateProperty({ data, label, showPlaceholder }: Props) {
   const property = useMaybeFragment(fragment, data);

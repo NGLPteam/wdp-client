@@ -2,7 +2,6 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./ArticleHero.styles";
 import {
   PrecisionDate,
   PeerReviewed,
@@ -18,8 +17,9 @@ import {
 } from "components/atomic";
 import ContributorsList from "components/composed/contributor/ContributorsList";
 import AssetDownloadButton from "components/composed/asset/AssetDownloadButton";
-import { ArticleHeroFragment$key } from "@/relay/ArticleHeroFragment.graphql";
 import { PrimaryHero } from "components/layout/hero";
+import { ArticleHeroFragment$key } from "@/relay/ArticleHeroFragment.graphql";
+import * as Styled from "./ArticleHero.styles";
 
 export default function ArticleHero({ data }: Props) {
   const article = useMaybeFragment(fragment, data);

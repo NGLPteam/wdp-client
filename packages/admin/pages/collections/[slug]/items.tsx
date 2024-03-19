@@ -1,36 +1,75 @@
-import { graphql } from "react-relay";
-import type { GetLayout } from "@wdp/lib/types/page";
-import type { itemsSlugCollectionsPagesQuery as Query } from "__generated__/itemsSlugCollectionsPagesQuery.graphql";
-
-import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
+import CollectionLayout from "components/composed/collection/CollectionLayout";
 import ItemList from "components/composed/item/ItemList";
+import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
+import ErrorPage from "next/error";
+import { LoadingPage } from "components/atomic";
+import { AuthContextProvider } from "contexts/AuthContext";
+import type { itemsSlugCollectionsPagesQuery as Query } from "__generated__/itemsSlugCollectionsPagesQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
-function CollectionChildItems({ data }: Props) {
-  return (
-    <ItemList<Query>
-      searchData={data?.collection?.search}
-      data={data?.collection?.items}
-      headerStyle="secondary"
-      hideHeader
-    />
-  );
+function CollectionChildItems({ queryRef }: Props) {
+  const { collection } = usePreloadedQuery<Query>(query, queryRef);
+
+  return collection ? (
+    <AuthContextProvider data={collection}>
+      <CollectionLayout data={collection}>
+        <ItemList
+          search={collection.search}
+          items={collection.items}
+          headerStyle="secondary"
+          hideHeader
+        />
+      </CollectionLayout>
+    </AuthContextProvider>
+  ) : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
+  const queryVars = useBaseListQueryVars();
+  const searchQueryVars = useSearchQueryVars();
+
+  const collectionSlug = useRouteSlug();
+  if (!collectionSlug) return <ErrorPage statusCode={404} />;
+
+  const hasQuery =
+    !!searchQueryVars?.query ||
+    (!!searchQueryVars?.predicates && searchQueryVars.predicates.length > 0);
+
+  const { PageComponent, pageComponentProps } = props;
+
   return (
-    <CollectionLayoutQuery<Query, Props>
+    <QueryTransitionWrapper<Query>
       query={query}
+      variables={{
+        ...queryVars,
+        ...searchQueryVars,
+        hasQuery,
+        collectionSlug,
+      }}
+      loadingFallback={<LoadingPage />}
       refetchTags={["items"]}
-      {...props}
-    />
+    >
+      {({ queryRef }) =>
+        queryRef ? (
+          <PageComponent {...pageComponentProps} queryRef={queryRef} />
+        ) : (
+          <CollectionLayout>
+            <ItemList headerStyle="secondary" hideHeader />
+          </CollectionLayout>
+        )
+      }
+    </QueryTransitionWrapper>
   );
 };
+
 CollectionChildItems.getLayout = getLayout;
 
 export default CollectionChildItems;
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
 };
 
 const query = graphql`
@@ -44,7 +83,8 @@ const query = graphql`
     $schema: [String!]
   ) {
     collection(slug: $collectionSlug) {
-      ...CollectionLayoutQueryFragment
+      ...CollectionLayoutFragment
+      ...AuthContextFragment
       items(order: $order, page: $page, perPage: 20) {
         ...ItemListFragment
       }

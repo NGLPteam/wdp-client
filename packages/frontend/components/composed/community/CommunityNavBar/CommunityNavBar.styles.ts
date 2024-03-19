@@ -13,7 +13,7 @@ export const Nav = styled.nav`
   ${globalNavRespond(
     `
     display: none;
-    `
+    `,
   )}
 
   @media print {

@@ -4,10 +4,10 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import EntityLayout from "components/composed/entity/EntityLayout";
 import JournalLayout from "components/composed/journal/JournalLayout";
 import IssueLayout from "components/composed/issue/IssueLayout";
-import { EntityLayoutFactoryFragment$key } from "@/relay/EntityLayoutFactoryFragment.graphql";
 import ArticleLayout from "components/composed/article/ArticleLayout";
 import VolumeLayout from "components/composed/volume/VolumeLayout";
 import SeriesLayout from "components/composed/series/SeriesLayout";
+import { EntityLayoutFactoryFragment$key } from "@/relay/EntityLayoutFactoryFragment.graphql";
 
 export default function EntityLayoutFactory({ data, children }: Props) {
   const entity = useMaybeFragment(fragment, data);

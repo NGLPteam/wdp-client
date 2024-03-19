@@ -1,244 +1,28 @@
+/**
+ * @generated SignedSource<<9145be43aa2230e123bb308345898275>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type accessManageSlugItemsPagesQueryVariables = {
-    itemSlug: string;
-    page: number;
+export type accessManageSlugItemsPagesQuery$variables = {
+  itemSlug: string;
+  page: number;
 };
-export type accessManageSlugItemsPagesQueryResponse = {
-    readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"ItemLayoutQueryFragment" | "RoleAccessListFragment">;
-    } | null;
+export type accessManageSlugItemsPagesQuery$data = {
+  readonly item: {
+    readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "ItemLayoutFragment" | "RoleAccessListFragment">;
+  } | null | undefined;
 };
 export type accessManageSlugItemsPagesQuery = {
-    readonly response: accessManageSlugItemsPagesQueryResponse;
-    readonly variables: accessManageSlugItemsPagesQueryVariables;
+  response: accessManageSlugItemsPagesQuery$data;
+  variables: accessManageSlugItemsPagesQuery$variables;
 };
-
-
-
-/*
-query accessManageSlugItemsPagesQuery(
-  $itemSlug: Slug!
-  $page: Int!
-) {
-  item(slug: $itemSlug) {
-    ...ItemLayoutQueryFragment
-    ...RoleAccessListFragment
-    id
-  }
-}
-
-fragment AuthContextFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-
-fragment AvatarFragment on ImageAttachment {
-  storage
-  small {
-    webp {
-      ...ImageFragment
-    }
-  }
-}
-
-fragment ImageFragment on Image {
-  __isImage: __typename
-  alt
-  url
-  width
-  height
-}
-
-fragment ItemLayoutFragment on Item {
-  title
-  slug
-  id
-  ...useBreadcrumbsFragment
-  ...useChildRouteLinksFragment
-}
-
-fragment ItemLayoutQueryFragment on Item {
-  ...ItemLayoutFragment
-  ...AuthContextFragment
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment RoleAccessGrantsListDataFragment on AnyAccessGrantConnection {
-  edges {
-    node {
-      __typename
-      ... on UserCollectionAccessGrant {
-        id
-        slug
-        role {
-          id
-          name
-        }
-        user {
-          id
-          slug
-          name
-          email
-          ...UserNameColumnFragment
-        }
-        entity: collection {
-          id
-        }
-      }
-      ... on UserItemAccessGrant {
-        id
-        slug
-        role {
-          id
-          name
-        }
-        user {
-          id
-          slug
-          name
-          email
-          ...UserNameColumnFragment
-        }
-        entity: item {
-          id
-        }
-      }
-      ... on UserCommunityAccessGrant {
-        id
-        slug
-        role {
-          id
-          name
-        }
-        user {
-          id
-          slug
-          name
-          email
-          ...UserNameColumnFragment
-        }
-        entity: community {
-          id
-        }
-      }
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment RoleAccessGrantsListFragment on Entity {
-  __isEntity: __typename
-  allAccessGrants(page: $page, perPage: 20) {
-    ...RoleAccessGrantsListDataFragment
-  }
-}
-
-fragment RoleAccessListFragment on Entity {
-  __isEntity: __typename
-  ...RoleAccessGrantsListFragment
-  ...RoleAssignedUsersListFragment
-}
-
-fragment RoleAssignedUsersListDataFragment on ContextualPermissionConnection {
-  edges {
-    node {
-      id
-      roles {
-        name
-        id
-      }
-      user {
-        id
-        name
-        email
-        slug
-        ...UserNameColumnCellFragment
-      }
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment RoleAssignedUsersListFragment on Entity {
-  __isEntity: __typename
-  assignedUsers(page: $page, perPage: 20) {
-    ...RoleAssignedUsersListDataFragment
-  }
-}
-
-fragment UserAvatarFragment on User {
-  avatar {
-    ...AvatarFragment
-  }
-}
-
-fragment UserNameColumnCellFragment on User {
-  name
-  slug
-  ...UserAvatarFragment
-}
-
-fragment UserNameColumnFragment on User {
-  ...UserNameColumnCellFragment
-}
-
-fragment useBreadcrumbsFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  breadcrumbs {
-    depth
-    label
-    kind
-    slug
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-}
-
-fragment useChildRouteLinksFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -492,7 +276,12 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "ItemLayoutQueryFragment"
+            "name": "ItemLayoutFragment"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "AuthContextFragment"
           },
           {
             "args": null,
@@ -756,14 +545,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ed1486315d2b347a83a04a88e61f6c4b",
+    "cacheID": "ea106eabdfd710bcf46bb9927e4bdbec",
     "id": null,
     "metadata": {},
     "name": "accessManageSlugItemsPagesQuery",
     "operationKind": "query",
-    "text": "query accessManageSlugItemsPagesQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    ...RoleAccessListFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment RoleAccessGrantsListDataFragment on AnyAccessGrantConnection {\n  edges {\n    node {\n      __typename\n      ... on UserCollectionAccessGrant {\n        id\n        slug\n        role {\n          id\n          name\n        }\n        user {\n          id\n          slug\n          name\n          email\n          ...UserNameColumnFragment\n        }\n        entity: collection {\n          id\n        }\n      }\n      ... on UserItemAccessGrant {\n        id\n        slug\n        role {\n          id\n          name\n        }\n        user {\n          id\n          slug\n          name\n          email\n          ...UserNameColumnFragment\n        }\n        entity: item {\n          id\n        }\n      }\n      ... on UserCommunityAccessGrant {\n        id\n        slug\n        role {\n          id\n          name\n        }\n        user {\n          id\n          slug\n          name\n          email\n          ...UserNameColumnFragment\n        }\n        entity: community {\n          id\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment RoleAccessGrantsListFragment on Entity {\n  __isEntity: __typename\n  allAccessGrants(page: $page, perPage: 20) {\n    ...RoleAccessGrantsListDataFragment\n  }\n}\n\nfragment RoleAccessListFragment on Entity {\n  __isEntity: __typename\n  ...RoleAccessGrantsListFragment\n  ...RoleAssignedUsersListFragment\n}\n\nfragment RoleAssignedUsersListDataFragment on ContextualPermissionConnection {\n  edges {\n    node {\n      id\n      roles {\n        name\n        id\n      }\n      user {\n        id\n        name\n        email\n        slug\n        ...UserNameColumnCellFragment\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment RoleAssignedUsersListFragment on Entity {\n  __isEntity: __typename\n  assignedUsers(page: $page, perPage: 20) {\n    ...RoleAssignedUsersListDataFragment\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    ...AvatarFragment\n  }\n}\n\nfragment UserNameColumnCellFragment on User {\n  name\n  slug\n  ...UserAvatarFragment\n}\n\nfragment UserNameColumnFragment on User {\n  ...UserNameColumnCellFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n"
+    "text": "query accessManageSlugItemsPagesQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    ...AuthContextFragment\n    ...RoleAccessListFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment RoleAccessGrantsListDataFragment on AnyAccessGrantConnection {\n  edges {\n    node {\n      __typename\n      ... on UserCollectionAccessGrant {\n        id\n        slug\n        role {\n          id\n          name\n        }\n        user {\n          id\n          slug\n          name\n          email\n          ...UserNameColumnFragment\n        }\n        entity: collection {\n          id\n        }\n      }\n      ... on UserItemAccessGrant {\n        id\n        slug\n        role {\n          id\n          name\n        }\n        user {\n          id\n          slug\n          name\n          email\n          ...UserNameColumnFragment\n        }\n        entity: item {\n          id\n        }\n      }\n      ... on UserCommunityAccessGrant {\n        id\n        slug\n        role {\n          id\n          name\n        }\n        user {\n          id\n          slug\n          name\n          email\n          ...UserNameColumnFragment\n        }\n        entity: community {\n          id\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment RoleAccessGrantsListFragment on Entity {\n  __isEntity: __typename\n  allAccessGrants(page: $page, perPage: 20) {\n    ...RoleAccessGrantsListDataFragment\n  }\n}\n\nfragment RoleAccessListFragment on Entity {\n  __isEntity: __typename\n  ...RoleAccessGrantsListFragment\n  ...RoleAssignedUsersListFragment\n}\n\nfragment RoleAssignedUsersListDataFragment on ContextualPermissionConnection {\n  edges {\n    node {\n      id\n      roles {\n        name\n        id\n      }\n      user {\n        id\n        name\n        email\n        slug\n        ...UserNameColumnCellFragment\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment RoleAssignedUsersListFragment on Entity {\n  __isEntity: __typename\n  assignedUsers(page: $page, perPage: 20) {\n    ...RoleAssignedUsersListDataFragment\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    ...AvatarFragment\n  }\n}\n\nfragment UserNameColumnCellFragment on User {\n  name\n  slug\n  ...UserAvatarFragment\n}\n\nfragment UserNameColumnFragment on User {\n  ...UserNameColumnCellFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n"
   }
 };
 })();
-(node as any).hash = 'e6102084920aff8a770946a2d4fb0147';
+
+(node as any).hash = "b9bed4f27391a7da2e462514baa99f41";
+
 export default node;

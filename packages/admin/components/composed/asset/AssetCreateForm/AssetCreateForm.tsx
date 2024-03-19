@@ -1,7 +1,4 @@
 import { graphql } from "react-relay";
-
-import type { CreateAssetInput } from "types/graphql-schema";
-
 import MutationForm, {
   useOnSuccess,
   useRenderForm,
@@ -13,6 +10,7 @@ import type {
   AssetCreateFormMutation,
   AssetKind,
 } from "@/relay/AssetCreateFormMutation.graphql";
+import type { CreateAssetInput } from "types/graphql-schema";
 
 export default function AssetCreateForm({ entityId, onCreate }: Props) {
   const onSuccess = useOnSuccess<AssetCreateFormMutation, FormValues>(
@@ -34,7 +32,7 @@ export default function AssetCreateForm({ entityId, onCreate }: Props) {
         }
       }
     },
-    [onCreate]
+    [onCreate],
   );
 
   const renderForm = useRenderForm<FormValues>(
@@ -50,12 +48,12 @@ export default function AssetCreateForm({ entityId, onCreate }: Props) {
         <Forms.Textarea label="Alt Text" {...register("altText")} />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   const toVariables = useToVariables<AssetCreateFormMutation, FormValues>(
     (data) => ({ input: { ...data, entityId } }),
-    [entityId]
+    [entityId],
   );
 
   return (
@@ -112,7 +110,7 @@ interface CreatedAsset {
  * @returns a mapping for use with `onCreate`
  */
 function toCreatedAsset(
-  response: AssetCreateFormMutation["response"]
+  response: AssetCreateFormMutation["response"],
 ): CreatedAsset | null {
   const asset = response?.createAsset?.asset;
 

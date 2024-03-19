@@ -1,5 +1,4 @@
-import { graphql } from "relay-runtime";
-import { useFragment } from "relay-hooks";
+import { useFragment, graphql } from "react-relay";
 
 import type { ScalarPropertyFragment$key } from "@/relay/ScalarPropertyFragment.graphql";
 
@@ -40,7 +39,7 @@ interface RenderScalarProps {
   isWide?: boolean;
 }
 
-type RenderScalarProperty = (props: RenderScalarProps) => JSX.Element;
+type RenderScalarProperty = (props: RenderScalarProps) => React.JSX.Element;
 
 const fragment = graphql`
   fragment ScalarPropertyFragment on ScalarProperty {

@@ -1,9 +1,9 @@
 import { graphql, useFragment } from "react-relay";
-import * as Styled from "./BrowseTreeItem.styles";
-import Teasers from "./Teasers";
-import { BrowseTreeItemFragment$key } from "@/relay/BrowseTreeItemFragment.graphql";
 import { Markdown, NamedLink } from "components/atomic";
 import { getRouteByEntityType } from "helpers";
+import { BrowseTreeItemFragment$key } from "@/relay/BrowseTreeItemFragment.graphql";
+import * as Styled from "./BrowseTreeItem.styles";
+import Teasers from "./Teasers";
 
 export default function BrowseTreeItem({ data }: Props) {
   const row = useFragment(fragment, data);

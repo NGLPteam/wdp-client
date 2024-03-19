@@ -3,7 +3,7 @@ import { DatePrecision } from "types/graphql-schema";
 
 export function getPrecisionDateDisplay(
   precision: DatePrecision,
-  value: string
+  value: string,
 ) {
   switch (precision) {
     case "YEAR":
@@ -22,7 +22,7 @@ export function getPrecisionDateDisplay(
  */
 export function getPrecisionCitationDateDisplay(
   precision?: DatePrecision,
-  value?: string | null
+  value?: string | null,
 ) {
   if (!value) return null;
 

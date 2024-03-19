@@ -2,6 +2,10 @@ import type { FieldValues } from "react-hook-form";
 import type {
   AssetSelectOption,
   ContributorSelectOption,
+  RefetchFnDynamic,
+  SchemaFormFieldsContextRefetchQuery,
+  SchemaFormFieldsContextFragment$key,
+  Options,
 } from "types/graphql-schema";
 
 export interface SchemaContextState<T extends FieldValues = FieldValues> {

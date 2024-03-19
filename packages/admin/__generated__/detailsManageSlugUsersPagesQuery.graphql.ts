@@ -1,67 +1,27 @@
+/**
+ * @generated SignedSource<<3cc387455437e85f018e142fe6ff5cb6>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type detailsManageSlugUsersPagesQueryVariables = {
-    userSlug: string;
+export type detailsManageSlugUsersPagesQuery$variables = {
+  userSlug: string;
 };
-export type detailsManageSlugUsersPagesQueryResponse = {
-    readonly user: {
-        readonly " $fragmentRefs": FragmentRefs<"UserUpdateFormFragment" | "UserLayoutQueryFragment">;
-    } | null;
+export type detailsManageSlugUsersPagesQuery$data = {
+  readonly user: {
+    readonly " $fragmentSpreads": FragmentRefs<"UserLayoutFragment" | "UserUpdateFormFragment">;
+  } | null | undefined;
 };
 export type detailsManageSlugUsersPagesQuery = {
-    readonly response: detailsManageSlugUsersPagesQueryResponse;
-    readonly variables: detailsManageSlugUsersPagesQueryVariables;
+  response: detailsManageSlugUsersPagesQuery$data;
+  variables: detailsManageSlugUsersPagesQuery$variables;
 };
-
-
-
-/*
-query detailsManageSlugUsersPagesQuery(
-  $userSlug: Slug!
-) {
-  user(slug: $userSlug) {
-    ...UserUpdateFormFragment
-    ...UserLayoutQueryFragment
-    id
-  }
-}
-
-fragment FileUploadFragment on ImageAttachment {
-  originalFilename
-  storage
-  thumb {
-    png {
-      alt
-      url
-    }
-  }
-}
-
-fragment UserLayoutFragment on User {
-  name
-  email
-}
-
-fragment UserLayoutQueryFragment on User {
-  ...UserLayoutFragment
-}
-
-fragment UserUpdateFormFragment on User {
-  id
-  givenName
-  familyName
-  email
-  username
-  avatar {
-    ...FileUploadFragment
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -101,7 +61,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "UserLayoutQueryFragment"
+            "name": "UserLayoutFragment"
           }
         ],
         "storageKey": null
@@ -233,14 +193,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c76de6c75f44dbc038b36db123d9c3a4",
+    "cacheID": "a22d81b8bd614808c6984664c99edd3a",
     "id": null,
     "metadata": {},
     "name": "detailsManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query detailsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    ...UserUpdateFormFragment\n    ...UserLayoutQueryFragment\n    id\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserLayoutQueryFragment on User {\n  ...UserLayoutFragment\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
+    "text": "query detailsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    ...UserUpdateFormFragment\n    ...UserLayoutFragment\n    id\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
   }
 };
 })();
-(node as any).hash = 'e4ba1bba5cf1d5bc10f33b9595fa2b63';
+
+(node as any).hash = "23b0891b5c9454ab259afa703bd2d022";
+
 export default node;

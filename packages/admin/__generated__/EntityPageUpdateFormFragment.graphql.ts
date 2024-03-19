@@ -1,30 +1,32 @@
+/**
+ * @generated SignedSource<<4b42ca449b6569f9de35f73b16b9e49a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityPageUpdateFormFragment = {
-    readonly page?: {
-        readonly id: string;
-        readonly title: string;
-        readonly slug: string;
-        readonly body: string;
-        readonly position: number | null;
-        readonly heroImage: {
-            readonly " $fragmentRefs": FragmentRefs<"FileUploadFragment">;
-        };
-    } | null | undefined;
-    readonly " $refType": "EntityPageUpdateFormFragment";
+export type EntityPageUpdateFormFragment$data = {
+  readonly page?: {
+    readonly body: string;
+    readonly heroImage: {
+      readonly " $fragmentSpreads": FragmentRefs<"FileUploadFragment">;
+    };
+    readonly id: string;
+    readonly position: number | null | undefined;
+    readonly slug: string;
+    readonly title: string;
+  } | null | undefined;
+  readonly " $fragmentType": "EntityPageUpdateFormFragment";
 };
-export type EntityPageUpdateFormFragment$data = EntityPageUpdateFormFragment;
 export type EntityPageUpdateFormFragment$key = {
-    readonly " $data"?: EntityPageUpdateFormFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityPageUpdateFormFragment">;
+  readonly " $data"?: EntityPageUpdateFormFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityPageUpdateFormFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -116,5 +118,7 @@ const node: ReaderFragment = {
   "type": "AnyEntity",
   "abstractKey": "__isAnyEntity"
 };
-(node as any).hash = '82f678137bd046988abc897b96202089';
+
+(node as any).hash = "82f678137bd046988abc897b96202089";
+
 export default node;

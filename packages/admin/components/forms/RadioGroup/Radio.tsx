@@ -1,10 +1,10 @@
 import React, { forwardRef, Ref } from "react";
-import type { FieldValues } from "react-hook-form";
 import * as Styled from "./RadioGroup.styles";
+import type { FieldValues } from "react-hook-form";
 
 function Radio(
-  { name, value, label, order, id, ...props }: Props,
-  ref: Ref<HTMLInputElement>
+  { name, value, label, order: _order, id, ...props }: Props,
+  ref: Ref<HTMLInputElement>,
 ) {
   return (
     <Styled.Label htmlFor={id}>

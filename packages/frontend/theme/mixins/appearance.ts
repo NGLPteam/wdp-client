@@ -172,10 +172,12 @@ function getBoxShadow(fontStyle?: string): string {
 // Setting the box shadow with theme caused font render issues
 export const aLinkHoverFocus = css`
   color: var(--color-base);
-  text-shadow: 0.04em 0.04em var(--background-color),
+  text-shadow:
+    0.04em 0.04em var(--background-color),
     -0.04em 0.04em var(--background-color),
     -0.04em -0.04em var(--background-color),
-    0.04em -0.04em var(--background-color), -0.04em 0 var(--background-color),
+    0.04em -0.04em var(--background-color),
+    -0.04em 0 var(--background-color),
     0.04em 0 var(--background-color);
   box-shadow: ${({ theme }) => getBoxShadow(theme.fontStyle)};
 `;

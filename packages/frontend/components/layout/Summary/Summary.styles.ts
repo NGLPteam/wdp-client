@@ -35,7 +35,7 @@ export const Wrapper = styled.div<{
           "text" auto
           / auto;
       `,
-      50
+      50,
     )}
 
   & + & {
@@ -51,7 +51,7 @@ export const Thumbnail = styled.div`
     css`
       max-width: 160px;
     `,
-    50
+    50,
   )}
 `;
 

@@ -1,17 +1,15 @@
 import { useState, useEffect, useReducer } from "react";
-import { graphql } from "react-relay";
-import { useRefetchable } from "relay-hooks";
+import { graphql, useRefetchableFragment } from "react-relay";
 import dynamic from "next/dynamic";
+import { ArticleAnalyticsBlockFragment$key } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
+import {
+  ArticleAnalyticsBlockQuery,
+  ArticleAnalyticsBlockQuery$variables,
+} from "@/relay/ArticleAnalyticsBlockQuery.graphql";
 import ChartControls from "../ChartControls";
 import StatBlocks from "../StatBlocks";
 import { chartSettingsReducer, State, Action } from "./settingsReducer";
 import * as Styled from "./ArticleAnalyticsBlock.styles";
-import { ArticleAnalyticsBlockFragment$key } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
-import {
-  ArticleAnalyticsBlockQuery,
-  ArticleAnalyticsBlockQueryVariables,
-} from "@/relay/ArticleAnalyticsBlockQuery.graphql";
-import { LoadingBlock } from "components/atomic";
 
 type Props = {
   data: ArticleAnalyticsBlockFragment$key;
@@ -20,11 +18,7 @@ type Props = {
 const ChartBlock = dynamic(() => import("../ChartBlock"), { ssr: false });
 
 export default function ArticleAnalyticsBlock({ data }: Props) {
-  const {
-    data: chartData,
-    isLoading,
-    refetch,
-  } = useRefetchable<
+  const [chartData, refetch] = useRefetchableFragment<
     ArticleAnalyticsBlockQuery,
     ArticleAnalyticsBlockFragment$key
   >(fragment, data);
@@ -42,7 +36,7 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
     dateRange: {},
     dateLabel: "all",
     usOnly: false,
-    minDate,
+    minDate: minDate ?? null,
     updated: false,
   };
 
@@ -51,16 +45,14 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
   >(chartSettingsReducer, initalSettings);
 
   useEffect(() => {
-    // Don't refetch until the user interacts with the chart the first time to give the google scripts a chance to load. Could probably also fix this by not conditionally rendering on isLoading, but we'd need to sync up state changes on chart labels with new data. Is this preferable?
-    if (settings.updated) {
-      const { chartType, minDate, updated, dateLabel, ...queryVars } = settings;
-      refetch(queryVars as unknown as ArticleAnalyticsBlockQueryVariables);
-    }
+    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+    const { chartType, minDate, updated, dateLabel, ...queryVars } = settings;
+    refetch(queryVars as unknown as ArticleAnalyticsBlockQuery$variables);
   }, [refetch, settings]);
 
   const region = settings.usOnly ? "US" : "world";
 
-  return (
+  return chartData?.viewsByDate ? (
     <div className="l-container-wide">
       <Styled.Block>
         <ChartControls
@@ -71,19 +63,13 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
           dispatchSettingsUpdate={dispatchSettingsUpdate}
           dateLabel={settings.dateLabel}
         />
-        {isLoading ? (
-          <Styled.LoaderWrapper>
-            <LoadingBlock />
-          </Styled.LoaderWrapper>
-        ) : (
-          <ChartBlock
-            data={chartData}
-            chartType={settings.chartType}
-            region={region}
-            mode={mode}
-            precision={settings.precision}
-          />
-        )}
+        <ChartBlock
+          data={chartData}
+          chartType={settings.chartType}
+          region={region}
+          mode={mode}
+          precision={settings.precision}
+        />
         <StatBlocks
           data={chartData}
           region={region}
@@ -92,7 +78,7 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
         />
       </Styled.Block>
     </div>
-  );
+  ) : null;
 }
 
 const fragment = graphql`

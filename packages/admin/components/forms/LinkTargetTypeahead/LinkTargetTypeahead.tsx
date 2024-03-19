@@ -1,18 +1,18 @@
-import React, { useMemo, useState } from "react";
-import { graphql } from "react-relay";
+import React, { useMemo, useState, useDeferredValue } from "react";
+import { GraphQLTaggedNode, graphql } from "react-relay";
 import { debounce } from "lodash";
-import type { FieldValues, Control, Path } from "react-hook-form";
 import { Controller } from "react-hook-form";
 import useAuthenticatedQuery from "@wdp/lib/api/hooks/useAuthenticatedQuery";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "hooks";
+import BaseTypeahead from "components/forms/BaseTypeahead";
+import { getEntityTitle } from "components/factories/EntityTitleFactory";
 import { LinkTargetTypeaheadQuery as Query } from "@/relay/LinkTargetTypeaheadQuery.graphql";
 import {
   LinkTargetTypeaheadFragment$data,
   LinkTargetTypeaheadFragment$key,
 } from "@/relay/LinkTargetTypeaheadFragment.graphql";
-import BaseTypeahead from "components/forms/BaseTypeahead";
-import { getEntityTitle } from "components/factories/EntityTitleFactory";
+import type { FieldValues, Control, Path } from "react-hook-form";
 
 type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
 type Edge = LinkTargetTypeaheadFragment$data["edges"][number];
@@ -26,11 +26,13 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
   required,
 }: Props<T>) => {
   const [variables, setVariables] = useState({ slug, title: "" });
-  const { data, isLoading } = useAuthenticatedQuery<Query>(query, variables);
+  const data = useAuthenticatedQuery<Query>(query, variables);
+  const deferred = useDeferredValue(data);
 
   const optionsData = useMaybeFragment<LinkTargetTypeaheadFragment$key>(
-    fragment,
-    data?.collection?.linkTargetCandidates || data?.item?.linkTargetCandidates
+    fragment as GraphQLTaggedNode,
+    deferred?.collection?.linkTargetCandidates ||
+      deferred?.item?.linkTargetCandidates,
   );
 
   const options = useMemo(() => {
@@ -64,7 +66,6 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
             options={options}
             disabled={disabled}
             onInputChange={handleChange}
-            isLoading={isLoading}
             required={required}
             {...field}
           />
@@ -74,7 +75,8 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
   );
 };
 
-interface Props<T> extends Omit<TypeaheadProps, "options" | "name"> {
+interface Props<T extends FieldValues = FieldValues>
+  extends Omit<TypeaheadProps, "options" | "name"> {
   data?: LinkTargetTypeaheadFragment$key | null;
   control: Control<T>;
   name: Path<T>;

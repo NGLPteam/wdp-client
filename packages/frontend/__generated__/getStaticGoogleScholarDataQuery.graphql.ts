@@ -1,162 +1,27 @@
+/**
+ * @generated SignedSource<<5ddfd0f6e1d00730abbbb3bd2c1183d8>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type getStaticGoogleScholarDataQueryVariables = {
-    slug: string;
+export type getStaticGoogleScholarDataQuery$variables = {
+  slug: string;
 };
-export type getStaticGoogleScholarDataQueryResponse = {
-    readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"getStaticGoogleScholarDataFragment">;
-    } | null;
+export type getStaticGoogleScholarDataQuery$data = {
+  readonly item: {
+    readonly " $fragmentSpreads": FragmentRefs<"getStaticGoogleScholarDataFragment">;
+  } | null | undefined;
 };
 export type getStaticGoogleScholarDataQuery = {
-    readonly response: getStaticGoogleScholarDataQueryResponse;
-    readonly variables: getStaticGoogleScholarDataQueryVariables;
+  response: getStaticGoogleScholarDataQuery$data;
+  variables: getStaticGoogleScholarDataQuery$variables;
 };
-
-
-
-/*
-query getStaticGoogleScholarDataQuery(
-  $slug: Slug!
-) {
-  item(slug: $slug) {
-    ...getStaticGoogleScholarDataFragment
-    id
-  }
-}
-
-fragment getStaticGoogleScholarDataFragment on AnyEntity {
-  __isAnyEntity: __typename
-  ... on Item {
-    issn
-    title
-    schemaDefinition {
-      identifier
-      id
-    }
-    published {
-      precision
-      value
-    }
-    pdf: schemaProperty(fullPath: "pdf_version") {
-      __typename
-      ... on AssetProperty {
-        asset {
-          __typename
-          ... on AssetPDF {
-            downloadUrl
-          }
-          ... on Node {
-            __isNode: __typename
-            id
-          }
-        }
-      }
-    }
-    community {
-      title
-      id
-    }
-    contributions {
-      nodes {
-        role
-        contributor {
-          __typename
-          ... on PersonContributor {
-            __typename
-            familyName
-            givenName
-          }
-          ... on OrganizationContributor {
-            __typename
-            legalName
-          }
-          ... on Node {
-            __isNode: __typename
-            id
-          }
-        }
-        id
-      }
-    }
-    issueNumber: schemaProperty(fullPath: "issue.number") {
-      __typename
-      ... on StringProperty {
-        value: content
-      }
-    }
-    volumeNumber: schemaProperty(fullPath: "volume.id") {
-      __typename
-      ... on StringProperty {
-        value: content
-      }
-    }
-    startPage: schemaProperty(fullPath: "issue.fpage") {
-      __typename
-      ... on IntegerProperty {
-        value: integerValue
-      }
-    }
-    endPage: schemaProperty(fullPath: "issue.lpage") {
-      __typename
-      ... on IntegerProperty {
-        value: integerValue
-      }
-    }
-    institution: schemaProperty(fullPath: "degree.grantor") {
-      __typename
-      ... on StringProperty {
-        value: content
-      }
-    }
-    journal: ancestorOfType(schema: "nglp:journal") {
-      __typename
-      ... on Collection {
-        title
-      }
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-    volume: ancestorOfType(schema: "nglp:journal_volume") {
-      __typename
-      ... on Collection {
-        number: schemaProperty(fullPath: "number") {
-          __typename
-          ... on StringProperty {
-            value: content
-          }
-        }
-      }
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-    issue: ancestorOfType(schema: "nglp:journal_issue") {
-      __typename
-      ... on Collection {
-        number: schemaProperty(fullPath: "number") {
-          __typename
-          ... on StringProperty {
-            value: content
-          }
-        }
-      }
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -667,7 +532,9 @@ return {
                 "type": "AnyEntity",
                 "abstractKey": "__isAnyEntity"
               }
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -920,5 +787,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'eb812ce50715907e7ea5bb602b70b463';
+
+(node as any).hash = "eb812ce50715907e7ea5bb602b70b463";
+
 export default node;

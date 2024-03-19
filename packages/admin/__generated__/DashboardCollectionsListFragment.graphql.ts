@@ -1,31 +1,33 @@
+/**
+ * @generated SignedSource<<192c40c1b3a91c3e5e0ab0ca97b034a5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type DashboardCollectionsListFragment = {
-    readonly nodes: ReadonlyArray<{
-        readonly id: string;
-        readonly title: string;
-        readonly slug: string;
-        readonly schemaVersion: {
-            readonly name: string;
-            readonly number: string;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"EntityThumbnailColumnFragment">;
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelPageCountActionsFragment" | "ModelPaginationFragment">;
-    readonly " $refType": "DashboardCollectionsListFragment";
+export type DashboardCollectionsListFragment$data = {
+  readonly nodes: ReadonlyArray<{
+    readonly id: string;
+    readonly schemaVersion: {
+      readonly name: string;
+      readonly number: string;
+    };
+    readonly slug: string;
+    readonly title: string;
+    readonly " $fragmentSpreads": FragmentRefs<"EntityThumbnailColumnFragment">;
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelPageCountActionsFragment" | "ModelPaginationFragment">;
+  readonly " $fragmentType": "DashboardCollectionsListFragment";
 };
-export type DashboardCollectionsListFragment$data = DashboardCollectionsListFragment;
 export type DashboardCollectionsListFragment$key = {
-    readonly " $data"?: DashboardCollectionsListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"DashboardCollectionsListFragment">;
+  readonly " $data"?: DashboardCollectionsListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"DashboardCollectionsListFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -149,7 +151,9 @@ return {
               "type": "Entity",
               "abstractKey": "__isEntity"
             }
-          ]
+          ],
+          "args": null,
+          "argumentDefinitions": []
         }
       ],
       "storageKey": null
@@ -169,5 +173,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '3ae7ad822317ef51c8e1ca4a023e3220';
+
+(node as any).hash = "3ae7ad822317ef51c8e1ca4a023e3220";
+
 export default node;

@@ -1,67 +1,40 @@
+/**
+ * @generated SignedSource<<fa11a0dc9e904aa7187c4fafdd428f21>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UpdateAnnouncementInput = {
-    announcementId: string;
-    publishedOn: string;
-    header: string;
-    teaser: string;
-    body: string;
-    clientMutationId?: string | null | undefined;
+  announcementId: string;
+  body: string;
+  clientMutationId?: string | null | undefined;
+  header: string;
+  publishedOn: string;
+  teaser: string;
 };
-export type EntityAnnouncementUpdateFormMutationVariables = {
-    input: UpdateAnnouncementInput;
+export type EntityAnnouncementUpdateFormMutation$variables = {
+  input: UpdateAnnouncementInput;
 };
-export type EntityAnnouncementUpdateFormMutationResponse = {
-    readonly updateAnnouncement: {
-        readonly announcement: {
-            readonly id: string;
-            readonly header: string;
-            readonly slug: string;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
-    } | null;
+export type EntityAnnouncementUpdateFormMutation$data = {
+  readonly updateAnnouncement: {
+    readonly announcement: {
+      readonly header: string;
+      readonly id: string;
+      readonly slug: string;
+    } | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null | undefined;
 };
 export type EntityAnnouncementUpdateFormMutation = {
-    readonly response: EntityAnnouncementUpdateFormMutationResponse;
-    readonly variables: EntityAnnouncementUpdateFormMutationVariables;
+  response: EntityAnnouncementUpdateFormMutation$data;
+  variables: EntityAnnouncementUpdateFormMutation$variables;
 };
-
-
-
-/*
-mutation EntityAnnouncementUpdateFormMutation(
-  $input: UpdateAnnouncementInput!
-) {
-  updateAnnouncement(input: $input) {
-    announcement {
-      id
-      header
-      slug
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -199,7 +172,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v4/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -239,5 +214,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'bff127c2bf54f856585ac815b18014e8';
+
+(node as any).hash = "bff127c2bf54f856585ac815b18014e8";
+
 export default node;

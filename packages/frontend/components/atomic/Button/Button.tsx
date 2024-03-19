@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
-import type { MaybeButtonRef } from "@castiron/common-types";
 import { IconFactory } from "../../factories";
 import * as Styles from "./Button.styles";
+import type { MaybeButtonRef } from "@castiron/common-types";
 
 type ButtonProps = React.ComponentProps<typeof Styles.ButtonStyles>;
 
@@ -20,14 +20,14 @@ const Button = forwardRef(
       hideLabelOnMobile,
       isBlock,
       ...props
-    }: Props & ButtonProps,
-    ref: MaybeButtonRef
+    }: (Props | LinkProps) & ButtonProps,
+    ref: MaybeButtonRef,
   ) => {
     return (
       <Styles.ButtonStyles
         ref={ref}
         className={className}
-        $hideLabelOnMobile={hideLabelOnMobile && icon}
+        $hideLabelOnMobile={(hideLabelOnMobile && !!icon) || undefined}
         $isBlock={isBlock}
         $size={size}
         $style={secondary ? "secondary" : "primary"}
@@ -37,7 +37,9 @@ const Button = forwardRef(
           <IconFactory icon={icon} role={children ? "presentation" : "img"} />
         )}
         {children && (
-          <Styles.ButtonLabel $hideOnMobile={hideLabelOnMobile && icon}>
+          <Styles.ButtonLabel
+            $hideOnMobile={(hideLabelOnMobile && !!icon) || undefined}
+          >
             {children}
           </Styles.ButtonLabel>
         )}
@@ -46,7 +48,7 @@ const Button = forwardRef(
         )}
       </Styles.ButtonStyles>
     );
-  }
+  },
 );
 
 export default Button;
@@ -62,4 +64,12 @@ interface Props {
   isBlock?: true;
   /** Use secondary style */
   secondary?: true;
+  icon?: React.ComponentProps<typeof IconFactory>["icon"];
 }
+
+type LinkProps = Props & {
+  as: "a";
+  href: string;
+  target?: string;
+  download?: boolean;
+};

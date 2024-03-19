@@ -1,8 +1,7 @@
 import { ErrorMessage } from "@hookform/error-message";
-import type { Path } from "react-hook-form";
-
-import MessageList from "./MessageList";
 import useFormErrors from "hooks/useFormErrors";
+import MessageList from "./MessageList";
+import type { Path } from "react-hook-form";
 
 export default function Errors({ name }: Props) {
   const errors = useFormErrors();

@@ -1,7 +1,7 @@
 import React, { Ref, forwardRef } from "react";
 import BaseInputWrapper from "../BaseInputWrapper";
-import type InputProps from "../inputType";
 import * as Styled from "./Textarea.styles";
+import type InputProps from "../inputType";
 
 const Textarea = forwardRef(
   (
@@ -11,11 +11,10 @@ const Textarea = forwardRef(
       hideLabel,
       description,
       placeholder,
-      error,
       isWide,
       ...textareaProps
     }: InputProps,
-    ref: Ref<HTMLTextAreaElement>
+    ref: Ref<HTMLTextAreaElement>,
   ) => {
     return (
       <BaseInputWrapper
@@ -34,7 +33,7 @@ const Textarea = forwardRef(
         />
       </BaseInputWrapper>
     );
-  }
+  },
 );
 
 export default Textarea;

@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import styled from "styled-components";
-import CICBreadcrumbs from "@castiron/components-breadcrumbs";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { Dropdown } from "components/atomic";
+import CICBreadcrumbs from "./CICBreadcrumbs";
 type LinkProps = React.ComponentProps<typeof Link>;
 
 interface Crumbs extends LinkProps {
@@ -16,9 +16,9 @@ const BreadcrumbsWrapper = ({
   delimiter = " / ",
   ...args
 }: {
-  className: string;
+  className?: string;
   data: Crumbs[];
-  delimiter: string;
+  delimiter?: string;
 }) => {
   const classes = {
     ol: `${className}__ol`,
@@ -33,10 +33,8 @@ const BreadcrumbsWrapper = ({
     if (!data) return [];
 
     const getLink = ({ label, href, ...props }: Crumbs, i: number) => (
-      <Link key={i} href={href} {...props}>
-        <a className={`${className}__link`}>
-          <span className="t-copy-sm t-truncate">{label}</span>
-        </a>
+      <Link key={i} href={href} {...props} className={`${className}__link`}>
+        <span className="t-copy-sm t-truncate">{label}</span>
       </Link>
     );
 
@@ -58,7 +56,7 @@ const BreadcrumbsWrapper = ({
         label={t("nav.breadcrumb_dropdown_label")}
         disclosure={<button>...</button>}
         menuItems={dropdownItems}
-      />
+      />,
     );
     // Add last two items
     data
@@ -69,9 +67,12 @@ const BreadcrumbsWrapper = ({
   }, [data, className, t]);
 
   return items ? (
-    <CICBreadcrumbs classes={classes} delimiter={delimiter} {...args}>
-      {items}
-    </CICBreadcrumbs>
+    <CICBreadcrumbs
+      classes={classes}
+      delimiter={delimiter}
+      breadcrumbs={items}
+      {...args}
+    />
   ) : null;
 };
 
@@ -118,9 +119,9 @@ const Breadcrumbs = styled(BreadcrumbsWrapper)<Props>`
 `;
 
 interface Props {
-  className: string;
-  data: Record<string, string>[];
-  delimiter: string;
+  className?: string;
+  data: Crumbs[];
+  delimiter?: string;
 }
 
 export default Breadcrumbs;

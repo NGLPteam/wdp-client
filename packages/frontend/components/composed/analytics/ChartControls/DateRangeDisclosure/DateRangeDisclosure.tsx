@@ -1,8 +1,8 @@
 import { forwardRef } from "react";
 import { useTranslation } from "react-i18next";
-import type { MaybeButtonRef } from "@castiron/common-types";
-import * as Styled from "./DateRangeDisclosure.styles";
 import { IconFactory } from "components/factories";
+import * as Styled from "./DateRangeDisclosure.styles";
+import type { MaybeButtonRef } from "@castiron/common-types";
 
 type Props = {
   active: string;
@@ -10,7 +10,7 @@ type Props = {
 
 const DateRangeDisclosure = (
   { active, ...props }: Props,
-  ref: MaybeButtonRef
+  ref: MaybeButtonRef,
 ) => {
   const { t } = useTranslation();
 

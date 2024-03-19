@@ -1,21 +1,20 @@
 import { graphql } from "react-relay";
-import type { OperationType } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import type { ModelTableActionProps } from "@tanstack/react-table";
 import { useDestroyer, useDrawerHelper, useMaybeFragment } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
+import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
 import type { EntityPagesListFragment$key } from "@/relay/EntityPagesListFragment.graphql";
 import type {
-  EntityPagesListDataFragment,
+  EntityPagesListDataFragment$data,
   EntityPagesListDataFragment$key,
 } from "@/relay/EntityPagesListDataFragment.graphql";
-import { ButtonControlDrawer, ButtonControlGroup } from "components/atomic";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function EntityPagesList<T extends OperationType>({
+function EntityPagesList({
   data,
   headerStyle,
   hideHeader,
@@ -27,11 +26,11 @@ function EntityPagesList<T extends OperationType>({
   /* eslint-disable max-len */
   const sourceEntity = useMaybeFragment<EntityPagesListFragment$key>(
     fragment,
-    data
+    data,
   );
   const pagesData = useMaybeFragment<EntityPagesListDataFragment$key>(
     linksFragment,
-    sourceEntity?.pages
+    sourceEntity?.pages,
   );
   /* eslint-enable max-len */
 
@@ -57,15 +56,15 @@ function EntityPagesList<T extends OperationType>({
     handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.page(
         { pageId: row.original.id },
-        row.original.title || "glossary.page"
+        row.original.title || "glossary.page",
       ),
     handleView: ({ row }: ModelTableActionProps<Node>) => {
       const typeRoute =
         row.original.entity?.__typename === "Collection"
           ? "collections"
           : row.original.entity?.__typename === "items"
-          ? "items"
-          : "communities";
+            ? "items"
+            : "communities";
 
       return row.original.slug
         ? `/${typeRoute}/${row.original.entity?.slug}/page/${row.original.slug}`
@@ -89,7 +88,7 @@ function EntityPagesList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, EntityPagesListDataFragment, Node>
+    <ModelListPage<EntityPagesListDataFragment$data, Node>
       modelName={"page"}
       columns={columns}
       data={pagesData}
@@ -106,7 +105,7 @@ interface EntityPagesListProps
   data?: EntityPagesListFragment$key | null;
 }
 
-type Node = EntityPagesListDataFragment["edges"][number]["node"];
+type Node = EntityPagesListDataFragment$data["edges"][number]["node"];
 
 const linksFragment = graphql`
   fragment EntityPagesListDataFragment on PageConnection {

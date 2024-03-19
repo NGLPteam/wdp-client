@@ -10,7 +10,7 @@ export default function UnauthorizedMessage() {
 
   const siteData = useMaybeFragment<UnauthorizedMessageFragment$key>(
     fragment,
-    data?.globalConfiguration
+    data?.globalConfiguration,
   );
 
   const name = useMemo(() => {

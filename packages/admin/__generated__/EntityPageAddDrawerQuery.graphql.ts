@@ -1,62 +1,33 @@
+/**
+ * @generated SignedSource<<3bd320f09e86a51514463dcaf7e7fa06>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityPageAddDrawerQueryVariables = {
-    entitySlug: string;
+export type EntityPageAddDrawerQuery$variables = {
+  entitySlug: string;
 };
-export type EntityPageAddDrawerQueryResponse = {
-    readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityPageAddFormFragment">;
-    } | null;
-    readonly collection: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityPageAddFormFragment">;
-    } | null;
-    readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityPageAddFormFragment">;
-    } | null;
+export type EntityPageAddDrawerQuery$data = {
+  readonly collection: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityPageAddFormFragment">;
+  } | null | undefined;
+  readonly community: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityPageAddFormFragment">;
+  } | null | undefined;
+  readonly item: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityPageAddFormFragment">;
+  } | null | undefined;
 };
 export type EntityPageAddDrawerQuery = {
-    readonly response: EntityPageAddDrawerQueryResponse;
-    readonly variables: EntityPageAddDrawerQueryVariables;
+  response: EntityPageAddDrawerQuery$data;
+  variables: EntityPageAddDrawerQuery$variables;
 };
-
-
-
-/*
-query EntityPageAddDrawerQuery(
-  $entitySlug: Slug!
-) {
-  item(slug: $entitySlug) {
-    ...EntityPageAddFormFragment
-    id
-  }
-  collection(slug: $entitySlug) {
-    ...EntityPageAddFormFragment
-    id
-  }
-  community(slug: $entitySlug) {
-    ...EntityPageAddFormFragment
-    id
-  }
-}
-
-fragment EntityPageAddFormFragment on AnyEntity {
-  __isAnyEntity: __typename
-  ... on Community {
-    id
-  }
-  ... on Collection {
-    id
-  }
-  ... on Item {
-    id
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -182,5 +153,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'b66ee82605922a611d5b3fe5162b7cfb';
+
+(node as any).hash = "b66ee82605922a611d5b3fe5162b7cfb";
+
 export default node;

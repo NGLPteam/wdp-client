@@ -1,26 +1,28 @@
+/**
+ * @generated SignedSource<<241f8719212181e432c101d95ae3e09f>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type VariableDatePropertyFragment = {
-    readonly fullPath: string;
-    readonly label: string;
-    readonly dateWithPrecision: {
-        readonly value: string | null;
-        readonly " $fragmentRefs": FragmentRefs<"PrecisionDateFragment">;
-    } | null;
-    readonly " $refType": "VariableDatePropertyFragment";
+export type VariableDatePropertyFragment$data = {
+  readonly dateWithPrecision: {
+    readonly value: string | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"PrecisionDateFragment">;
+  } | null | undefined;
+  readonly fullPath: string;
+  readonly label: string;
+  readonly " $fragmentType": "VariableDatePropertyFragment";
 };
-export type VariableDatePropertyFragment$data = VariableDatePropertyFragment;
 export type VariableDatePropertyFragment$key = {
-    readonly " $data"?: VariableDatePropertyFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"VariableDatePropertyFragment">;
+  readonly " $data"?: VariableDatePropertyFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"VariableDatePropertyFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -69,5 +71,7 @@ const node: ReaderFragment = {
   "type": "VariableDateProperty",
   "abstractKey": null
 };
-(node as any).hash = '1cab2508178f3263dbaa25d1e91fe55a';
+
+(node as any).hash = "1cab2508178f3263dbaa25d1e91fe55a";
+
 export default node;

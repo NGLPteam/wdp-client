@@ -1,11 +1,11 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { AppBody } from "..";
 import { RouteHelper } from "routes";
-import { AppLayoutCommunityFragment$key } from "@/relay/AppLayoutCommunityFragment.graphql";
 import CommunityNavBar from "components/composed/community/CommunityNavBar";
+import { AppLayoutCommunityFragment$key } from "@/relay/AppLayoutCommunityFragment.graphql";
 import { AppLayoutEntityFragment$key } from "@/relay/AppLayoutEntityFragment.graphql";
+import { AppBody } from "..";
 
 export default function AppLayout({
   communityData,

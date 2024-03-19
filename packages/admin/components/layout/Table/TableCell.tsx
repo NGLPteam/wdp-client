@@ -1,3 +1,4 @@
+import { PropsWithChildren } from "react";
 import * as Styled from "./Table.styles";
 
 function TableCell({
@@ -20,8 +21,7 @@ function TableCell({
   );
 }
 
-interface CellContext {
-  children?: React.ReactNode | React.ReactNode[] | Element | Element[];
+interface CellContext extends PropsWithChildren {
   role: "gridcell" | "rowheader";
   align?: "left" | "right" | "center";
   truncate?: boolean;

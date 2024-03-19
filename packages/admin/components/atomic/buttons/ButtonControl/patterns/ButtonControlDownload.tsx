@@ -20,7 +20,7 @@ const ButtonControlDownload = forwardRef(
         {children}
       </ButtonControl>
     );
-  }
+  },
 );
 
 interface Props extends Omit<BaseProps, "icon" | "iconRotate"> {

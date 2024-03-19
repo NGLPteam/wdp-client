@@ -3,8 +3,8 @@ import { Chart } from "react-google-charts";
 import {
   ReactGoogleChartProps,
   ChartWrapperOptions,
-} from "react-google-charts/dist/types";
-import { ThemeContext } from "styled-components";
+} from "react-google-charts";
+import { ThemeContext, DefaultTheme } from "styled-components";
 import { customColors } from "theme/base/variables";
 
 type Props = Partial<ReactGoogleChartProps> &
@@ -20,9 +20,7 @@ export default function LineColChart({
   chartType = "ColumnChart",
 }: Props) {
   const { colorStyle, fontStyle } =
-    useContext<{ fontStyle: string; colorStyle: "blue" | "cream" | "gray" }>(
-      ThemeContext
-    ) ?? {};
+    useContext<DefaultTheme | undefined>(ThemeContext) ?? {};
 
   const handleZero = data?.length === 1 ? [...data, [0, 0]] : data;
 
@@ -30,24 +28,26 @@ export default function LineColChart({
     fontStyle === "style1"
       ? "Ilisarniq"
       : fontStyle === "style2"
-      ? "Switzer"
-      : "Libre Franklin";
+        ? "Switzer"
+        : "Libre Franklin";
+
+  const color = colorStyle as "cream" | "blue" | "gray";
 
   const chartOptions = {
     curveType,
     legend,
-    backgroundColor: customColors[`${colorStyle}10`],
-    colors: [customColors[`${colorStyle}70`]],
+    backgroundColor: customColors[`${color}10`],
+    colors: [customColors[`${color}70`]],
     explorer: null,
     tooltip: {
       textStyle: {
-        color: customColors[`${colorStyle}70`],
+        color: customColors[`${color}70`],
         fontName,
       },
     },
     hAxis: {
       textStyle: {
-        color: customColors[`${colorStyle}70`],
+        color: customColors[`${color}70`],
         fontName,
         bold: true,
       },
@@ -59,7 +59,7 @@ export default function LineColChart({
     },
     vAxis: {
       textStyle: {
-        color: customColors[`${colorStyle}70`],
+        color: customColors[`${color}70`],
         fontName,
         bold: true,
       },

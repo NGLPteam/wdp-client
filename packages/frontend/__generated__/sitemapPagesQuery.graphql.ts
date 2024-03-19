@@ -1,34 +1,26 @@
+/**
+ * @generated SignedSource<<750e8638fa84c0b472b8d07aeae2e95b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
-export type sitemapPagesQueryVariables = {};
-export type sitemapPagesQueryResponse = {
-    readonly communities: {
-        readonly nodes: ReadonlyArray<{
-            readonly slug: string;
-        }>;
-    };
+import { ConcreteRequest, Query } from 'relay-runtime';
+export type sitemapPagesQuery$variables = Record<PropertyKey, never>;
+export type sitemapPagesQuery$data = {
+  readonly communities: {
+    readonly nodes: ReadonlyArray<{
+      readonly slug: string;
+    }>;
+  };
 };
 export type sitemapPagesQuery = {
-    readonly response: sitemapPagesQueryResponse;
-    readonly variables: sitemapPagesQueryVariables;
+  response: sitemapPagesQuery$data;
+  variables: sitemapPagesQuery$variables;
 };
-
-
-
-/*
-query sitemapPagesQuery {
-  communities {
-    nodes {
-      slug
-      id
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -120,5 +112,7 @@ return {
   }
 };
 })();
-(node as any).hash = '21b0cf498e56f5dd78aa4a56dbfc683e';
+
+(node as any).hash = "21b0cf498e56f5dd78aa4a56dbfc683e";
+
 export default node;

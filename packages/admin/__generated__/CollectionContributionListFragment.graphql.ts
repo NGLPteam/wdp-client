@@ -1,40 +1,42 @@
+/**
+ * @generated SignedSource<<8f70a3484f480fd0cae1ea3f69bb12d9>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CollectionContributionListFragment = {
-    readonly nodes: ReadonlyArray<{
-        readonly id: string;
-        readonly slug: string;
-        readonly createdAt: string;
-        readonly updatedAt: string;
-        readonly role: string | null;
-        readonly contributor: {
-            readonly __typename: string;
-            readonly slug?: string | undefined;
-            readonly legalName?: string | null | undefined;
-            readonly givenName?: string | null | undefined;
-            readonly familyName?: string | null | undefined;
-            readonly " $fragmentRefs": FragmentRefs<"ContributorNameColumnFragment">;
-        };
-        readonly collection: {
-            readonly title: string;
-            readonly slug: string;
-        };
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "CollectionContributionListFragment";
+export type CollectionContributionListFragment$data = {
+  readonly nodes: ReadonlyArray<{
+    readonly collection: {
+      readonly slug: string;
+      readonly title: string;
+    };
+    readonly contributor: {
+      readonly __typename: string;
+      readonly familyName?: string | null | undefined;
+      readonly givenName?: string | null | undefined;
+      readonly legalName?: string | null | undefined;
+      readonly slug?: string;
+      readonly " $fragmentSpreads": FragmentRefs<"ContributorNameColumnFragment">;
+    };
+    readonly createdAt: string;
+    readonly id: string;
+    readonly role: string | null | undefined;
+    readonly slug: string;
+    readonly updatedAt: string;
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "CollectionContributionListFragment";
 };
-export type CollectionContributionListFragment$data = CollectionContributionListFragment;
 export type CollectionContributionListFragment$key = {
-    readonly " $data"?: CollectionContributionListFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"CollectionContributionListFragment">;
+  readonly " $data"?: CollectionContributionListFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CollectionContributionListFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -196,7 +198,9 @@ return {
                   "type": "Contributor",
                   "abstractKey": "__isContributor"
                 }
-              ]
+              ],
+              "args": null,
+              "argumentDefinitions": []
             }
           ],
           "storageKey": null
@@ -233,5 +237,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = '4fb21f2b3da5a0b99866d14428a97159';
+
+(node as any).hash = "4fb21f2b3da5a0b99866d14428a97159";
+
 export default node;

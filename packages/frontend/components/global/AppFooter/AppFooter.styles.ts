@@ -28,7 +28,7 @@ export const FooterInner = styled.div`
     "about about about about about about . nav nav nav nav nav"
     "copyright copyright copyright copyright copyright copyright copyright copyright copyright copyright copyright copyright";
     `,
-    120
+    120,
   )}
 
   ${respond(
@@ -42,7 +42,7 @@ export const FooterInner = styled.div`
       "copyright";
     row-gap: ${pxToRem(60)};
   `,
-    70
+    70,
   )}
 
   @media print {

@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import { graphql, useFragment } from "react-relay";
+import { useMemo } from "react";
+import { useFragment, graphql } from "react-relay";
 import { MutationForm } from "components/api";
 import {
   Forms,
@@ -31,7 +31,7 @@ export default function EntityOrderingEditForm({
 }: Props) {
   const entity = useFragment<EntityOrderingEditFormFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const { ordering } = entity;
@@ -39,7 +39,8 @@ export default function EntityOrderingEditForm({
   // Convert readonly props to expected input
   const defaultValues = useMemo<Partial<Fields> | undefined>(() => {
     if (ordering) {
-      const { id, order, filter, ...values } = ordering;
+      /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+      const { id: _id, order, filter, ...values } = ordering;
 
       return {
         order: order as OrderDefinitionInput[],
@@ -48,7 +49,7 @@ export default function EntityOrderingEditForm({
           JSON.stringify({
             namespace: s.namespace,
             identifier: s.identifier,
-          })
+          }),
         ),
         ...values,
       };
@@ -112,7 +113,7 @@ export default function EntityOrderingEditForm({
         </Forms.Grid>
       );
     },
-    [entity]
+    [entity],
   );
 
   return (

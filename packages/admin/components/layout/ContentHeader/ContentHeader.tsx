@@ -1,7 +1,6 @@
-import React, { ReactNode } from "react";
 import startCase from "lodash/startCase";
-import * as Styled from "./ContentHeader.styles";
 import { LoadingSkeleton } from "components/atomic";
+import * as Styled from "./ContentHeader.styles";
 
 /**
  * Wrapper for content title and right side content
@@ -33,7 +32,7 @@ interface Props {
   /** Header style, default "primary" (h1) */
   headerStyle?: "primary" | "secondary";
   /** Optional right side content node. Can be a single button, multiple buttons, dropdown, etc. */
-  rightSide?: ReactNode;
+  rightSide?: React.ReactNode;
 }
 
 export default ContentHeader;

@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from "react";
-import { graphql, useFragment } from "react-relay";
+import { useState, useCallback } from "react";
+import { useFragment, graphql } from "react-relay";
 import { useRouter } from "next/router";
 import MutationForm, {
   useRenderForm,
@@ -25,7 +25,7 @@ export default function AddCollectionForm({
 }: Props) {
   const [prevRedirectState, setPrevRedirect] = useLocalStorage(
     "nglp::open_entity_on_save",
-    true
+    true,
   );
   const [redirectOnSuccess, setRedirectOnSuccess] = useState(prevRedirectState);
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -41,27 +41,28 @@ export default function AddCollectionForm({
         query: { slug },
       });
     },
-    [router]
+    [router],
   );
 
   const onSuccessWithRedirect = useOnSuccess<CollectionAddFormMutation, Fields>(
     ({
       response,
-      variables,
-      values,
     }: {
       response: CollectionAddFormMutation["response"];
       variables: CollectionAddFormMutation["variables"];
       values: Fields;
     }) => {
       if (onSuccess) {
-        onSuccess({ response, variables, values });
+        /* Redirect aborts if dialog.hide is called here. */
+        /* Leaving this in as a note in case we need more nuanced logic for onSuccess. */
+        /* Right now this component is only rendered in one place. */
+        // onSuccess({ response, variables, values });
         const routeName = "collection.manage.details";
         if (response?.createCollection?.collection)
           redirect(response.createCollection.collection.slug, routeName);
       }
     },
-    [onSuccess, redirect]
+    [onSuccess, redirect],
   );
   const onSuccessNoRedirect = ({
     response,
@@ -87,7 +88,7 @@ export default function AddCollectionForm({
         parentId: parentId || data.parentId || "",
       },
     }),
-    []
+    [],
   );
 
   const defaultValues = {
@@ -144,7 +145,7 @@ export default function AddCollectionForm({
         </Forms.Checkbox>
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

@@ -4,7 +4,7 @@ import Button from "..";
 type Props = React.ComponentProps<typeof Button>;
 
 export default function BackToTopButton(
-  props: Omit<Props, "icon" | "hideLabelOnMobile">
+  props: Omit<Props, "icon" | "hideLabelOnMobile">,
 ) {
   const { t } = useTranslation();
 

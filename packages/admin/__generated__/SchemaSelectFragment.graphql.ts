@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<39bc955b7a8eeead758bed63cc56c469>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SchemaSelectFragment = {
-    readonly schemaVersionOptions: ReadonlyArray<{
-        readonly label: string;
-        readonly value: string;
-    }>;
-    readonly " $refType": "SchemaSelectFragment";
+export type SchemaSelectFragment$data = {
+  readonly schemaVersionOptions: ReadonlyArray<{
+    readonly label: string;
+    readonly value: string;
+  }>;
+  readonly " $fragmentType": "SchemaSelectFragment";
 };
-export type SchemaSelectFragment$data = SchemaSelectFragment;
 export type SchemaSelectFragment$key = {
-    readonly " $data"?: SchemaSelectFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"SchemaSelectFragment">;
+  readonly " $data"?: SchemaSelectFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SchemaSelectFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [
@@ -66,5 +68,7 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = 'f82da6bde36b4909bd5787dcbfb19439';
+
+(node as any).hash = "f82da6bde36b4909bd5787dcbfb19439";
+
 export default node;

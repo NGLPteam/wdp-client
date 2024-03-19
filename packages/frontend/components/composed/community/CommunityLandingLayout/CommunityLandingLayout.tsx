@@ -1,12 +1,12 @@
 import React, { Suspense } from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import CommunityHero from "../CommunityHero";
-import { CommunityLandingLayoutFragment$key } from "@/relay/CommunityLandingLayoutFragment.graphql";
 import FeaturedJournals from "components/composed/journal/FeaturedJournals";
 import FeaturedCollectionsGrid from "components/composed/collections/FeaturedCollectionsGrid";
 import FeaturedIssue from "components/composed/journal/FeaturedIssue";
 import FeaturedUnits from "components/composed/unit/FeaturedUnits";
+import { CommunityLandingLayoutFragment$key } from "@/relay/CommunityLandingLayoutFragment.graphql";
+import CommunityHero from "../CommunityHero";
 
 export default function CommunityLayout({ data }: Props) {
   const community = useMaybeFragment(fragment, data);

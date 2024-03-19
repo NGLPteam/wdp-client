@@ -1,13 +1,12 @@
 import { graphql, useFragment } from "react-relay";
-// import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { Trans, useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
-import SearchResultFactory from "../SearchResultFactory";
-import * as Styled from "./SearchResults.styles";
-import { SearchResultsFragment$key } from "@/relay/SearchResultsFragment.graphql";
 import { NoContent } from "components/layout";
 import { LoadingBlock, Pagination } from "components/atomic";
+import { SearchResultsFragment$key } from "@/relay/SearchResultsFragment.graphql";
+import SearchResultFactory from "../SearchResultFactory";
+import * as Styled from "./SearchResults.styles";
 
 export default function SearchResults({ data, isLoading }: Props) {
   const results = useFragment<SearchResultsFragment$key>(fragment, data);

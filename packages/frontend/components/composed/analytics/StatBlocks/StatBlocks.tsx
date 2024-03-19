@@ -1,7 +1,7 @@
+import { ArticleAnalyticsBlockFragment$data } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
 import StatBlock from "./StatBlock";
 import STATES from "./states.json";
 import * as Styled from "./StatBlocks.styles";
-import { ArticleAnalyticsBlockFragment$data } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
 
 type Props = {
   data: ArticleAnalyticsBlockFragment$data;
@@ -18,15 +18,19 @@ export default function StatBlocks({
 }: Props) {
   const total =
     mode === "views"
-      ? data.viewsByDate.unfilteredTotal
-      : data.downloadsByDate.unfilteredTotal;
+      ? data.viewsByDate?.unfilteredTotal
+      : data.downloadsByDate?.unfilteredTotal;
   const filteredTotal =
-    mode === "views" ? data.viewsByDate.total : data.downloadsByDate.total;
+    mode === "views" ? data.viewsByDate?.total : data.downloadsByDate?.total;
 
   const regionsData =
     mode === "views"
-      ? [...data.entityViewsByRegion.results]
-      : [...data.assetDownloadsByRegion.results];
+      ? data.entityViewsByRegion
+        ? [...data.entityViewsByRegion.results]
+        : []
+      : data.assetDownloadsByRegion
+        ? [...data.assetDownloadsByRegion.results]
+        : [];
 
   const aggregatedByCountry = regionsData.reduce(
     (obj: { [key: string]: number }, region) => {
@@ -38,13 +42,13 @@ export default function StatBlocks({
       obj[countryCode] = count;
       return obj;
     },
-    {}
+    {},
   );
   const topRegion = regionsData.sort((a, b) => a.count - b.count)[
     regionsData.length - 1
   ];
   const topAggregateRegion = Object.keys(aggregatedByCountry).sort(
-    (a, b) => aggregatedByCountry[a] - aggregatedByCountry[b]
+    (a, b) => aggregatedByCountry[a] - aggregatedByCountry[b],
   )[Object.keys(aggregatedByCountry).length - 1];
 
   const regionNames = new Intl.DisplayNames(["en"], { type: "region" });

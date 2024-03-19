@@ -5,7 +5,11 @@ import {
   EntityOrder,
 } from "types/graphql-schema";
 
-type Orders = EntityOrder | ContributorOrder | ContributionOrder | UserOrder;
+export type Orders =
+  | EntityOrder
+  | ContributorOrder
+  | ContributionOrder
+  | UserOrder;
 
 type OrderableProperties =
   | "createdAt"
@@ -121,5 +125,4 @@ export const reverseMapSortBy: ReverseMapSortBy = (order) => {
     default:
       return null;
   }
-  return null;
 };

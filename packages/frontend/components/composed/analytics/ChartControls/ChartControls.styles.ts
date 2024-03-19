@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 
   ${respond(
     `display: grid; grid-template-columns: repeat(2, auto); row-gap: 12px; column-gap: 24px;`,
-    100
+    100,
   )}
 
   ${respond(`display: flex; flex-direction: column; gap: 12px;`, 60)}

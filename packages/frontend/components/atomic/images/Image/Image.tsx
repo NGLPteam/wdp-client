@@ -1,6 +1,6 @@
 import * as React from "react";
 import { graphql } from "react-relay";
-import NextImage from "next/image";
+import NextImage from "next/legacy/image";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { ImageFragment$key } from "@/relay/ImageFragment.graphql";
 import { ImageMetadataFragment$key } from "@/relay/ImageMetadataFragment.graphql";

@@ -1,28 +1,27 @@
-import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import type { ModelTableActionProps } from "@tanstack/react-table";
 import {
   useDestroyer,
   useDrawerHelper,
   useMaybeFragment,
   useRouteSlug,
 } from "hooks";
-import { RoleAccessGrantsListFragment$key } from "@/relay/RoleAccessGrantsListFragment.graphql";
 
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
+import { Role } from "types/graphql-schema";
 import {
-  RoleAccessGrantsListDataFragment,
+  RoleAccessGrantsListDataFragment$data,
   RoleAccessGrantsListDataFragment$key,
 } from "@/relay/RoleAccessGrantsListDataFragment.graphql";
-import { Role } from "types/graphql-schema";
+import { RoleAccessGrantsListFragment$key } from "@/relay/RoleAccessGrantsListFragment.graphql";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 // Lists user access on any type of entity
-function RoleAccessGrantsList<T extends OperationType>({
+function RoleAccessGrantsList({
   data,
   headerStyle,
   hideHeader,
@@ -31,11 +30,11 @@ function RoleAccessGrantsList<T extends OperationType>({
 }: RoleAccessGrantsListProps) {
   const entity = useMaybeFragment<RoleAccessGrantsListFragment$key>(
     fragment,
-    data
+    data,
   );
   const roles = useMaybeFragment<RoleAccessGrantsListDataFragment$key>(
     listDataFragment,
-    entity?.allAccessGrants
+    entity?.allAccessGrants,
   );
 
   const { t } = useTranslation();
@@ -80,7 +79,7 @@ function RoleAccessGrantsList<T extends OperationType>({
             roleId: role.id,
             userId: user.id,
           },
-          "glossary.access"
+          "glossary.access",
         );
       }
 
@@ -89,7 +88,7 @@ function RoleAccessGrantsList<T extends OperationType>({
   };
 
   return (
-    <ModelListPage<T, RoleAccessGrantsListDataFragment, Node>
+    <ModelListPage<RoleAccessGrantsListDataFragment$data, Node>
       modelName="role"
       columns={columns}
       data={roles}
@@ -108,7 +107,7 @@ interface RoleAccessGrantsListProps
   entityType?: "collection" | "community" | "item";
 }
 
-type Node = RoleAccessGrantsListDataFragment["edges"][number]["node"];
+type Node = RoleAccessGrantsListDataFragment$data["edges"][number]["node"];
 
 const fragment = graphql`
   fragment RoleAccessGrantsListFragment on Entity {

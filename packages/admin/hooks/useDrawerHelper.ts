@@ -82,9 +82,9 @@ export function useDrawerHelper() {
       pickBy(
         query,
         (value, key) =>
-          key && typeof key === "string" && key.startsWith("drawer")
+          key && typeof key === "string" && key.startsWith("drawer"),
       ),
-    [query]
+    [query],
   );
 
   const href = useCallback(
@@ -95,7 +95,7 @@ export function useDrawerHelper() {
         query: combinedQuery,
       };
     },
-    [pathname, query]
+    [pathname, query],
   );
 
   const open = useCallback(
@@ -103,7 +103,7 @@ export function useDrawerHelper() {
       const url = href(drawer, drawerParams);
       push(url);
     },
-    [push, href]
+    [push, href],
   );
 
   const close = useCallback(() => {

@@ -16,11 +16,14 @@ export const LinkWrapper = styled.a`
   ${aFocusReset}
 
   &:hover {
-    box-shadow: ${boxShadow.popUp}, 0px 0px 0px 1px var(--border-color-focus);
+    box-shadow:
+      ${boxShadow.popUp},
+      0px 0px 0px 1px var(--border-color-focus);
   }
 
   &[data-focus-visible-added] {
-    box-shadow: 0px 0px 0px 1px var(--border-color-focus),
+    box-shadow:
+      0px 0px 0px 1px var(--border-color-focus),
       ${boxShadow.focusGlow};
   }
 

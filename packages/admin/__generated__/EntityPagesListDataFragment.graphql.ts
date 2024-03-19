@@ -1,33 +1,35 @@
+/**
+ * @generated SignedSource<<932706c187be1525af1ef2312b82262f>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityPagesListDataFragment = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly id: string;
-            readonly title: string;
-            readonly slug: string;
-            readonly entity: {
-                readonly __typename: string;
-                readonly slug?: string | undefined;
-            };
-            readonly " $fragmentRefs": FragmentRefs<"PageHeroColumnFragment">;
-        };
-    }>;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
-    readonly " $refType": "EntityPagesListDataFragment";
+export type EntityPagesListDataFragment$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly entity: {
+        readonly __typename: string;
+        readonly slug?: string;
+      };
+      readonly id: string;
+      readonly slug: string;
+      readonly title: string;
+      readonly " $fragmentSpreads": FragmentRefs<"PageHeroColumnFragment">;
+    };
+  }>;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
+  readonly " $fragmentType": "EntityPagesListDataFragment";
 };
-export type EntityPagesListDataFragment$data = EntityPagesListDataFragment;
 export type EntityPagesListDataFragment$key = {
-    readonly " $data"?: EntityPagesListDataFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"EntityPagesListDataFragment">;
+  readonly " $data"?: EntityPagesListDataFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"EntityPagesListDataFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -149,7 +151,9 @@ return {
                   ],
                   "storageKey": null
                 }
-              ]
+              ],
+              "args": null,
+              "argumentDefinitions": []
             }
           ],
           "storageKey": null
@@ -167,5 +171,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'c974d3ba35d88aa394debb3da2e66f94';
+
+(node as any).hash = "c974d3ba35d88aa394debb3da2e66f94";
+
 export default node;

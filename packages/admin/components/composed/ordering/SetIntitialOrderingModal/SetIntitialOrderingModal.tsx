@@ -1,14 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useFragment } from "react-relay";
-import { graphql } from "relay-runtime";
+import { useFragment, graphql } from "react-relay";
 import isEmpty from "lodash/isEmpty";
-import * as Styled from "./SetIntitialOrderingModal.styles";
-import { SetIntitialOrderingModalFragment$key } from "@/relay/SetIntitialOrderingModalFragment.graphql";
-import {
-  SelectInitialOrderingInput,
-  SetIntitialOrderingModalMutation,
-} from "@/relay/SetIntitialOrderingModalMutation.graphql";
 import { MutationForm } from "components/api";
 import {
   Forms,
@@ -16,6 +9,12 @@ import {
   useToVariables,
 } from "components/api/MutationForm";
 import { Modal } from "components/layout";
+import {
+  SelectInitialOrderingInput,
+  SetIntitialOrderingModalMutation,
+} from "@/relay/SetIntitialOrderingModalMutation.graphql";
+import { SetIntitialOrderingModalFragment$key } from "@/relay/SetIntitialOrderingModalFragment.graphql";
+import * as Styled from "./SetIntitialOrderingModal.styles";
 
 type ModalProps = React.ComponentProps<typeof Modal>;
 
@@ -29,12 +28,12 @@ export default function SetIntitialOrderingModal({ data, dialog }: Props) {
 
   const entity = useFragment<SetIntitialOrderingModalFragment$key>(
     fragment,
-    data
+    data,
   );
 
   const toVariables = useToVariables<SetIntitialOrderingModalMutation, Fields>(
     (data) => ({ input: { ...data, entityId: entity.id || "" } }),
-    []
+    [],
   );
 
   const options = useMemo(
@@ -45,12 +44,12 @@ export default function SetIntitialOrderingModal({ data, dialog }: Props) {
           label: node.name || "",
           value: node.id,
         })) || [],
-    [entity]
+    [entity],
   );
 
   const defaultValues = useMemo(() => {
     const initialOrdering = entity?.orderings?.edges.find(
-      ({ node }) => node?.initial
+      ({ node }) => node?.initial,
     );
     return { orderingId: initialOrdering?.node.id };
   }, [entity]);
@@ -71,7 +70,7 @@ export default function SetIntitialOrderingModal({ data, dialog }: Props) {
         />
       </>
     ),
-    [options, t]
+    [options, t],
   );
 
   return (
@@ -102,7 +101,7 @@ const fragment = graphql`
     ... on Item {
       id
       title
-      orderings {
+      orderings(page: $page) {
         edges {
           node {
             id
@@ -115,7 +114,7 @@ const fragment = graphql`
     ... on Collection {
       id
       title
-      orderings {
+      orderings(page: $page) {
         edges {
           node {
             id

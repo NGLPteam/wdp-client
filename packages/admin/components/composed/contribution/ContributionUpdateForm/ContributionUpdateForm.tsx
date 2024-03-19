@@ -21,7 +21,7 @@ export default function ContributionUpdateForm({
 }: Props) {
   const maybeContribution = useFragment<ContributionUpdateFormFragment$key>(
     fragment,
-    data
+    data,
   );
 
   let title = "";
@@ -41,7 +41,7 @@ export default function ContributionUpdateForm({
   const defaultValues =
     useMaybeFragment<ContributionUpdateFormFieldsFragment$key>(
       fieldsFragment,
-      maybeContribution.__typename !== "%other" ? maybeContribution : null
+      maybeContribution.__typename !== "%other" ? maybeContribution : null,
     );
   /* eslint-enable max-len */
 
@@ -53,7 +53,7 @@ export default function ContributionUpdateForm({
           : "";
       return { input: { ...data, contributionId } };
     },
-    []
+    [],
   );
 
   const renderForm = useRenderForm<Fields>(
@@ -66,7 +66,7 @@ export default function ContributionUpdateForm({
           defaultValue={getContributorDisplayName(
             maybeContribution.__typename !== "%other"
               ? maybeContribution.contributor
-              : null
+              : null,
           )}
         />
         <Forms.Input
@@ -78,7 +78,7 @@ export default function ContributionUpdateForm({
         <Forms.Input label="forms.fields.role" {...register("role")} />
       </Forms.Grid>
     ),
-    []
+    [],
   );
 
   return (

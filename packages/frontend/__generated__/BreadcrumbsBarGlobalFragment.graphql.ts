@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<826ad1d516b5386157fc6aba19dd5a3d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type BreadcrumbsBarGlobalFragment = {
-    readonly site: {
-        readonly installationName: string;
-    };
-    readonly " $refType": "BreadcrumbsBarGlobalFragment";
+export type BreadcrumbsBarGlobalFragment$data = {
+  readonly site: {
+    readonly installationName: string;
+  };
+  readonly " $fragmentType": "BreadcrumbsBarGlobalFragment";
 };
-export type BreadcrumbsBarGlobalFragment$data = BreadcrumbsBarGlobalFragment;
 export type BreadcrumbsBarGlobalFragment$key = {
-    readonly " $data"?: BreadcrumbsBarGlobalFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"BreadcrumbsBarGlobalFragment">;
+  readonly " $data"?: BreadcrumbsBarGlobalFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbsBarGlobalFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -47,5 +49,7 @@ const node: ReaderFragment = {
   "type": "GlobalConfiguration",
   "abstractKey": null
 };
-(node as any).hash = 'a2d03e8e87d67e47c00c6e2ec2198707';
+
+(node as any).hash = "a2d03e8e87d67e47c00c6e2ec2198707";
+
 export default node;

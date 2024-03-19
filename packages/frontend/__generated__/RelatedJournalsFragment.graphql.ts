@@ -1,26 +1,28 @@
+/**
+ * @generated SignedSource<<3e97c28097f26cd2718ba57622a740a9>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RelatedJournalsFragment = {
-    readonly edges: ReadonlyArray<{
-        readonly node: {
-            readonly slug: string;
-            readonly " $fragmentRefs": FragmentRefs<"RelatedJournalFragment">;
-        };
-    }>;
-    readonly " $refType": "RelatedJournalsFragment";
+export type RelatedJournalsFragment$data = {
+  readonly edges: ReadonlyArray<{
+    readonly node: {
+      readonly slug: string;
+      readonly " $fragmentSpreads": FragmentRefs<"RelatedJournalFragment">;
+    };
+  }>;
+  readonly " $fragmentType": "RelatedJournalsFragment";
 };
-export type RelatedJournalsFragment$data = RelatedJournalsFragment;
 export type RelatedJournalsFragment$key = {
-    readonly " $data"?: RelatedJournalsFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"RelatedJournalsFragment">;
+  readonly " $data"?: RelatedJournalsFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"RelatedJournalsFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -66,5 +68,7 @@ const node: ReaderFragment = {
   "type": "CollectionConnection",
   "abstractKey": null
 };
-(node as any).hash = '4a2c79145a70e411a53a940951629436';
+
+(node as any).hash = "4a2c79145a70e411a53a940951629436";
+
 export default node;

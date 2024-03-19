@@ -1,7 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSignInOut } from "@wdp/lib/api/hooks/useIsAuthenticated";
-import * as Styled from "./AccountDropdown.styles";
 import { useViewerContext } from "contexts";
 import {
   Avatar,
@@ -10,6 +9,7 @@ import {
   NamedLink,
   NavMenuLink,
 } from "components/atomic";
+import * as Styled from "./AccountDropdown.styles";
 
 export default function AccountDropdown({ condensed, mobile }: Props) {
   const { avatarUrl, name } = useViewerContext();

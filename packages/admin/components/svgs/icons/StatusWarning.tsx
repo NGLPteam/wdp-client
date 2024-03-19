@@ -1,6 +1,6 @@
 import Props from "./iconType";
 
-function IconStatusWarning({ title, ...props }: Props) {
+function IconStatusWarning({ title: _title, ...props }: Props) {
   return (
     <svg
       viewBox="0 0 24 24"

@@ -11,7 +11,7 @@ function Input(
     hideLabel,
     ...props
   }: Props & Omit<InputHTMLAttributes<HTMLInputElement>, "size">,
-  ref: MaybeInputRef
+  ref: MaybeInputRef,
 ) {
   return (
     <div>

@@ -4,14 +4,14 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { convertToSlug } from "@wdp/lib/helpers";
 import dynamic from "next/dynamic";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./ArticleText.styles";
 import { ContentImage, FullText } from "components/atomic";
 import { BackToTopBlock } from "components/layout";
 import { ArticleTextFragment$key } from "@/relay/ArticleTextFragment.graphql";
+import * as Styled from "./ArticleText.styles";
 
 const AssetInlinePDF = dynamic(
   () => import("components/composed/asset/AssetInlinePDF"),
-  { ssr: false }
+  { ssr: false },
 );
 
 type TOCItem = {

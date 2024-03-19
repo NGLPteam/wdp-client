@@ -1,4 +1,4 @@
-import { environment } from "@wdp/lib/app";
+import { buildEnvironment as environment } from "@wdp/lib/app";
 import { fetchQuery, graphql } from "relay-runtime";
 import { getStaticGlobalContextDataQuery } from "@/relay/getStaticGlobalContextDataQuery.graphql";
 
@@ -7,7 +7,7 @@ export default async function getStaticGlobalContextData() {
   const globalStaticData = await fetchQuery<getStaticGlobalContextDataQuery>(
     env,
     query,
-    {}
+    {},
   ).toPromise();
 
   return globalStaticData;

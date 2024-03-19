@@ -1,11 +1,11 @@
 import * as React from "react";
 import { graphql } from "react-relay";
-import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
-import QueryWrapper from "@wdp/lib/api/components/QueryWrapper";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import Drawer from "components/layout/Drawer";
 import ItemAddForm from "components/composed/item/ItemAddForm";
 import type { ItemAddDrawerQuery as Query } from "@/relay/ItemAddDrawerQuery.graphql";
+import type { DialogProps } from "reakit/Dialog";
 
 export default function ItemAddDrawer({
   dialog,
@@ -18,9 +18,9 @@ export default function ItemAddDrawer({
   const { drawerSlug } = params;
 
   return (
-    <QueryWrapper<Query>
+    <LazyLoadQueryWrapper<Query>
       query={query}
-      initialVariables={{ entitySlug: drawerSlug, schemaKind: "ITEM" }}
+      variables={{ entitySlug: drawerSlug, schemaKind: "ITEM" }}
     >
       {({ data }) => (
         <Drawer
@@ -37,7 +37,7 @@ export default function ItemAddDrawer({
           )}
         </Drawer>
       )}
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

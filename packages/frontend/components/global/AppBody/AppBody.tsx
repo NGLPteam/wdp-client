@@ -1,12 +1,12 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { AppBodyCommunityFragment$key } from "@/relay/AppBodyCommunityFragment.graphql";
+import { AppBodyEntityFragment$key } from "@/relay/AppBodyEntityFragment.graphql";
 import AppHeader from "../AppHeader";
 import AppFooter from "../AppFooter";
 import AppProgressBar from "../AppProgressBar";
 import * as Styled from "./AppBody.styles";
-import { AppBodyCommunityFragment$key } from "@/relay/AppBodyCommunityFragment.graphql";
-import { AppBodyEntityFragment$key } from "@/relay/AppBodyEntityFragment.graphql";
 
 function AppBody({ children, communityData, entityData }: Props) {
   const community = useMaybeFragment(fragment, communityData);

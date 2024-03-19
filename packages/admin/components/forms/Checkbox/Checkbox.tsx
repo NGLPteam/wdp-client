@@ -1,10 +1,7 @@
 import React, { forwardRef, Ref } from "react";
 import * as Styled from "./Checkbox.styles";
 
-function Checkbox(
-  { children, indeterminate, ...props }: Props,
-  ref: Ref<HTMLInputElement>
-) {
+function Checkbox({ children, ...props }: Props, ref: Ref<HTMLInputElement>) {
   // const defaultRef = useRef<HTMLInputElement>(null);
   // const resolvedRef = ref || defaultRef;
 
@@ -25,7 +22,7 @@ function Checkbox(
 }
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-  children?: JSX.Element | string;
+  children?: React.JSX.Element | string;
   indeterminate?: boolean;
 }
 

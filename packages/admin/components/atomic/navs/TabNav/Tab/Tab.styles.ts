@@ -7,7 +7,11 @@ const activeState = css`
   border-color: var(--accent-color);
 `;
 
-export const Tab = styled.a<{ $bottomBorder?: boolean; $active?: boolean }>`
+export const Tab = styled.a<{
+  $bottomBorder?: boolean;
+  $active?: boolean;
+  as?: string;
+}>`
   /* Setting default values lets tabs work with any background */
   --tab-color: inherit;
   --tab-hover-color: var(--color-light);

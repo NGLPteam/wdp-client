@@ -5,7 +5,7 @@ interface Props {
   statusCode?: number;
 }
 
-const Error: Page<Props> = ({ statusCode }) => {
+const Error: Page<Props> = ({ statusCode }: Props) => {
   const message = (
     <p>
       {statusCode

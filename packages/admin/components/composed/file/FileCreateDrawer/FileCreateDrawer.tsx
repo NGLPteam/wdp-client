@@ -1,11 +1,11 @@
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import type { DialogProps } from "reakit/Dialog";
-import FileCreateForm from "../FileCreateForm";
 import { useDrawerHelper } from "hooks";
-import type { FileCreateDrawerQuery as Query } from "__generated__/FileCreateDrawerQuery.graphql";
-import { QueryWrapper } from "components/api";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import Drawer from "components/layout/Drawer";
+import FileCreateForm from "../FileCreateForm";
+import type { FileCreateDrawerQuery as Query } from "__generated__/FileCreateDrawerQuery.graphql";
+import type { DialogProps } from "reakit/Dialog";
 
 export default function FileCreateDrawer({
   dialog,
@@ -26,7 +26,7 @@ export default function FileCreateDrawer({
   const { drawerSlug } = params;
 
   return (
-    <QueryWrapper<Query> query={query} initialVariables={{ slug: drawerSlug }}>
+    <LazyLoadQueryWrapper<Query> query={query} variables={{ slug: drawerSlug }}>
       {({ data }) =>
         data?.item?.id || data?.collection?.id ? (
           <Drawer
@@ -41,7 +41,7 @@ export default function FileCreateDrawer({
           </Drawer>
         ) : null
       }
-    </QueryWrapper>
+    </LazyLoadQueryWrapper>
   );
 }
 

@@ -1,31 +1,33 @@
+/**
+ * @generated SignedSource<<d83557f1fbfb7167ce0cb7f96a2b272b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SiteLogoMode = "NONE" | "SANS_TEXT" | "WITH_TEXT" | "%future added value";
-export type AppHeaderFragment = {
-    readonly communities: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
+import { FragmentRefs } from "relay-runtime";
+export type AppHeaderFragment$data = {
+  readonly communities: {
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly globalConfiguration: {
-        readonly site: {
-            readonly logoMode: SiteLogoMode;
-        };
+  };
+  readonly globalConfiguration: {
+    readonly site: {
+      readonly logoMode: SiteLogoMode;
     };
-    readonly " $refType": "AppHeaderFragment";
+  };
+  readonly " $fragmentType": "AppHeaderFragment";
 };
-export type AppHeaderFragment$data = AppHeaderFragment;
 export type AppHeaderFragment$key = {
-    readonly " $data"?: AppHeaderFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AppHeaderFragment">;
+  readonly " $data"?: AppHeaderFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"AppHeaderFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -95,5 +97,7 @@ const node: ReaderFragment = {
   "type": "Query",
   "abstractKey": null
 };
-(node as any).hash = '30faf2d5d1f1f43f2cd2ef1846bdfa2c';
+
+(node as any).hash = "30faf2d5d1f1f43f2cd2ef1846bdfa2c";
+
 export default node;

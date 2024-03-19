@@ -1,10 +1,10 @@
 import { graphql } from "react-relay";
-import type { DialogProps } from "reakit/Dialog";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import SearchFilterForm from "../SearchFilterForm";
 import { Drawer } from "components/layout";
 import { SearchFilterDrawerFragment$key } from "@/relay/SearchFilterDrawerFragment.graphql";
+import SearchFilterForm from "../SearchFilterForm";
+import type { DialogProps } from "reakit/Dialog";
 
 interface Props {
   dialog: DialogProps;

@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
-import * as Styled from "./Header.styles";
 import { Dropdown, NamedLink, NavLink, DrawerLink } from "components/atomic";
 import { Authorize } from "components/auth";
 import { RouteHelper } from "routes";
 import { useViewerContext } from "contexts";
+import * as Styled from "./Header.styles";
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 type AuthorizeProps = React.ComponentProps<typeof Authorize>;
 
@@ -34,7 +34,7 @@ function HeaderNavLinks({ navigation }: Props) {
   const maybeAuthorize = (
     node: AuthorizeProps["children"],
     item: HeaderNavLink | HeaderNavParent,
-    index: number
+    index: number,
   ) => {
     if (!item.actions) return node;
     return (
@@ -93,8 +93,8 @@ function HeaderNavLinks({ navigation }: Props) {
             {item.route && renderLink(item)}
           </Styled.Item>,
           item,
-          i
-        )
+          i,
+        ),
       )}
     </>
   );

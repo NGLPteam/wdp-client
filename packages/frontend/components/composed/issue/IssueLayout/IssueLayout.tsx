@@ -1,11 +1,11 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import IssueHero from "../IssueHero";
 import ContributionsBlock from "components/composed/contribution/ContributionsBlock";
 import { BreadcrumbsBar } from "components/layout";
 import RelatedIssues from "components/composed/issue/RelatedIssues";
 import { IssueLayoutFragment$key } from "@/relay/IssueLayoutFragment.graphql";
+import IssueHero from "../IssueHero";
 
 export default function IssueLayout({ data, children }: Props) {
   const issue = useMaybeFragment(fragment, data);

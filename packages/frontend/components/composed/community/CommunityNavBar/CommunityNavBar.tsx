@@ -1,12 +1,12 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import CommunityName from "../CommunityName";
-import CommunityNavList from "../CommunityNavList";
-import * as Styled from "./CommunityNavBar.styles";
 import { SearchButton } from "components/atomic";
 import { CommunityNavBarFragment$key } from "@/relay/CommunityNavBarFragment.graphql";
 import { CommunityNavBarEntityFragment$key } from "@/relay/CommunityNavBarEntityFragment.graphql";
+import CommunityName from "../CommunityName";
+import CommunityNavList from "../CommunityNavList";
+import * as Styled from "./CommunityNavBar.styles";
 
 export default function CommunityNavBar({ data, entityData }: Props) {
   const community = useMaybeFragment(fragment, data);

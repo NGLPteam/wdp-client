@@ -1,30 +1,32 @@
+/**
+ * @generated SignedSource<<1cabd36890194f9b4486e391ef107df4>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AssetKind = "audio" | "document" | "image" | "pdf" | "unknown" | "video" | "%future added value";
-export type AssetBlockItemFragment = {
-    readonly caption: string | null;
-    readonly contentType: string;
-    readonly downloadUrl: string | null;
-    readonly fileSize: number;
-    readonly kind: AssetKind;
-    readonly name: string;
-    readonly slug: string;
-    readonly updatedAt?: string | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AssetThumbnailFragment">;
-    readonly " $refType": "AssetBlockItemFragment";
+import { FragmentRefs } from "relay-runtime";
+export type AssetBlockItemFragment$data = {
+  readonly caption: string | null | undefined;
+  readonly contentType: string;
+  readonly downloadUrl: string | null | undefined;
+  readonly fileSize: number;
+  readonly kind: AssetKind;
+  readonly name: string;
+  readonly slug: string;
+  readonly updatedAt?: string;
+  readonly " $fragmentSpreads": FragmentRefs<"AssetThumbnailFragment">;
+  readonly " $fragmentType": "AssetBlockItemFragment";
 };
-export type AssetBlockItemFragment$data = AssetBlockItemFragment;
 export type AssetBlockItemFragment$key = {
-    readonly " $data"?: AssetBlockItemFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"AssetBlockItemFragment">;
+  readonly " $data"?: AssetBlockItemFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"AssetBlockItemFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -131,5 +133,7 @@ return {
   "abstractKey": "__isAsset"
 };
 })();
-(node as any).hash = '9237ed01f1d967d942552b5936f0e66f';
+
+(node as any).hash = "9237ed01f1d967d942552b5936f0e66f";
+
 export default node;

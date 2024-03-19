@@ -1,21 +1,23 @@
+/**
+ * @generated SignedSource<<8f2c71cedcbf75a8bbf8d049edfd226b>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ModelListPageFragment = {
-    readonly " $fragmentRefs": FragmentRefs<"ModelPageCountActionsFragment" | "ModelPaginationFragment">;
-    readonly " $refType": "ModelListPageFragment";
+export type ModelListPageFragment$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"ModelPageCountActionsFragment" | "ModelPaginationFragment">;
+  readonly " $fragmentType": "ModelListPageFragment";
 };
-export type ModelListPageFragment$data = ModelListPageFragment;
 export type ModelListPageFragment$key = {
-    readonly " $data"?: ModelListPageFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"ModelListPageFragment">;
+  readonly " $data"?: ModelListPageFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -37,5 +39,7 @@ const node: ReaderFragment = {
   "type": "Paginated",
   "abstractKey": "__isPaginated"
 };
-(node as any).hash = 'c70fd573a1bca336f61cdd2ffac055bc';
+
+(node as any).hash = "c70fd573a1bca336f61cdd2ffac055bc";
+
 export default node;

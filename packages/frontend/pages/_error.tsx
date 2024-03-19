@@ -1,14 +1,14 @@
 import { Page } from "@wdp/lib/types/page";
 import Head from "next/head";
 import { useTranslation } from "react-i18next";
-import Error404 from "./404";
 import AppLayout from "components/global/AppLayout";
+import Error404 from "./404";
 
 interface Props {
   statusCode?: number;
 }
 
-const Error: Page<Props> = ({ statusCode }) => {
+const Error: Page<Props> = ({ statusCode }: Props) => {
   const { t } = useTranslation();
 
   const message = (

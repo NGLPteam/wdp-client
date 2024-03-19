@@ -1,85 +1,51 @@
+/**
+ * @generated SignedSource<<70ee3687435c33060c40ec3f67074c2d>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type UploadStorage = "CACHE" | "%future added value";
 export type CreateAssetInput = {
-    entityId: string;
-    attachment: UploadedFileInput;
-    name: string;
-    position?: number | null | undefined;
-    altText?: string | null | undefined;
-    caption?: string | null | undefined;
-    clientMutationId?: string | null | undefined;
+  altText?: string | null | undefined;
+  attachment: UploadedFileInput;
+  caption?: string | null | undefined;
+  clientMutationId?: string | null | undefined;
+  entityId: string;
+  name: string;
+  position?: number | null | undefined;
 };
 export type UploadedFileInput = {
-    id: unknown;
-    storage?: UploadStorage | null | undefined;
-    metadata?: UploadedFileMetadataInput | null | undefined;
+  id: any;
+  metadata?: UploadedFileMetadataInput | null | undefined;
+  storage?: UploadStorage | null | undefined;
 };
 export type UploadedFileMetadataInput = {
-    alt?: string | null | undefined;
-    filename?: string | null | undefined;
-    mimeType?: string | null | undefined;
+  alt?: string | null | undefined;
+  filename?: string | null | undefined;
+  mimeType?: string | null | undefined;
 };
-export type FileCreateFormMutationVariables = {
-    input: CreateAssetInput;
+export type FileCreateFormMutation$variables = {
+  input: CreateAssetInput;
 };
-export type FileCreateFormMutationResponse = {
-    readonly createAsset: {
-        readonly asset: {
-            readonly id?: string | undefined;
-            readonly name?: string | undefined;
-        } | null;
-        readonly " $fragmentRefs": FragmentRefs<"MutationForm_mutationErrors">;
-    } | null;
+export type FileCreateFormMutation$data = {
+  readonly createAsset: {
+    readonly asset: {
+      readonly id?: string;
+      readonly name?: string;
+    } | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
+  } | null | undefined;
 };
 export type FileCreateFormMutation = {
-    readonly response: FileCreateFormMutationResponse;
-    readonly variables: FileCreateFormMutationVariables;
+  response: FileCreateFormMutation$data;
+  variables: FileCreateFormMutation$variables;
 };
-
-
-
-/*
-mutation FileCreateFormMutation(
-  $input: CreateAssetInput!
-) {
-  createAsset(input: $input) {
-    asset {
-      __typename
-      ... on Asset {
-        __isAsset: __typename
-        id
-        name
-      }
-      ... on Node {
-        __isNode: __typename
-        id
-      }
-    }
-    ...MutationForm_mutationErrors
-  }
-}
-
-fragment MutationForm_mutationErrors on StandardMutationPayload {
-  __isStandardMutationPayload: __typename
-  attributeErrors {
-    path
-    type
-    messages
-  }
-  globalErrors {
-    message
-  }
-  errors {
-    message
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -218,7 +184,9 @@ return {
             "name": "MutationForm_mutationErrors",
             "selections": [
               (v5/*: any*/)
-            ]
+            ],
+            "args": null,
+            "argumentDefinitions": []
           }
         ],
         "storageKey": null
@@ -284,5 +252,7 @@ return {
   }
 };
 })();
-(node as any).hash = '5949fb5aa171483dac7d1cc80e5f1877';
+
+(node as any).hash = "5949fb5aa171483dac7d1cc80e5f1877";
+
 export default node;

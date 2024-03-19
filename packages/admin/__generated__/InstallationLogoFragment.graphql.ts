@@ -1,42 +1,44 @@
+/**
+ * @generated SignedSource<<60df35574077268c97f459089f345e57>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type ImageDerivativeSize = "HERO" | "LARGE" | "MEDIUM" | "SANS_TEXT" | "SMALL" | "THUMB" | "WITH_TEXT" | "%future added value";
 export type SiteLogoMode = "NONE" | "SANS_TEXT" | "WITH_TEXT" | "%future added value";
-export type InstallationLogoFragment = {
-    readonly site: {
-        readonly installationName: string;
-        readonly logoMode: SiteLogoMode;
+import { FragmentRefs } from "relay-runtime";
+export type InstallationLogoFragment$data = {
+  readonly logo: {
+    readonly original: {
+      readonly originalFilename: string | null | undefined;
+      readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
     };
-    readonly logo: {
-        readonly storage: AttachmentStorage | null;
-        readonly original: {
-            readonly originalFilename: string | null;
-            readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
-        };
-        readonly sansText: {
-            readonly size: ImageDerivativeSize;
-            readonly webp: {
-                readonly width: number | null;
-                readonly height: number | null;
-                readonly " $fragmentRefs": FragmentRefs<"ImageFragment">;
-            };
-        };
+    readonly sansText: {
+      readonly size: ImageDerivativeSize;
+      readonly webp: {
+        readonly height: number | null | undefined;
+        readonly width: number | null | undefined;
+        readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
+      };
     };
-    readonly " $refType": "InstallationLogoFragment";
+    readonly storage: AttachmentStorage | null | undefined;
+  };
+  readonly site: {
+    readonly installationName: string;
+    readonly logoMode: SiteLogoMode;
+  };
+  readonly " $fragmentType": "InstallationLogoFragment";
 };
-export type InstallationLogoFragment$data = InstallationLogoFragment;
 export type InstallationLogoFragment$key = {
-    readonly " $data"?: InstallationLogoFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"InstallationLogoFragment">;
+  readonly " $data"?: InstallationLogoFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"InstallationLogoFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = {
@@ -161,5 +163,7 @@ return {
   "abstractKey": null
 };
 })();
-(node as any).hash = 'cef254b3b342f0e6b157990bd0b88ab9';
+
+(node as any).hash = "cef254b3b342f0e6b157990bd0b88ab9";
+
 export default node;

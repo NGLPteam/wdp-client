@@ -1,11 +1,5 @@
-import { OperationType } from "relay-runtime";
 import { graphql } from "react-relay";
-import type { ModelTableActionProps } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import {
-  FileListFragment,
-  FileListFragment$key,
-} from "@/relay/FileListFragment.graphql";
 import {
   useDestroyer,
   useDrawerHelper,
@@ -17,14 +11,15 @@ import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
+import {
+  FileListFragment$data,
+  FileListFragment$key,
+} from "@/relay/FileListFragment.graphql";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
-function FileList<T extends OperationType>({
-  data,
-  headerStyle,
-  hideHeader,
-}: FileListProps) {
+function FileList({ data, headerStyle, hideHeader }: FileListProps) {
   const files = useMaybeFragment<FileListFragment$key>(fragment, data);
   const slug = useRouteSlug();
   const { t } = useTranslation();
@@ -63,7 +58,7 @@ function FileList<T extends OperationType>({
       if (!row.original.id) return;
       destroy.file(
         { assetId: row.original.id },
-        row.original.name || "glossary.file"
+        row.original.name || "glossary.file",
       );
     },
   };
@@ -84,7 +79,7 @@ function FileList<T extends OperationType>({
   );
 
   return (
-    <ModelListPage<T, FileListFragment, FileNode>
+    <ModelListPage<FileListFragment$data, FileNode>
       modelName="file"
       columns={columns}
       data={files}
@@ -101,7 +96,7 @@ interface FileListProps
   data?: FileListFragment$key;
 }
 
-type FileNode = FileListFragment["nodes"][number];
+type FileNode = FileListFragment$data["nodes"][number];
 
 const fragment = graphql`
   fragment FileListFragment on AnyAssetConnection {

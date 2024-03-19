@@ -1,85 +1,27 @@
+/**
+ * @generated SignedSource<<f9393fe70e7e0087a508773b0c99b2a5>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SlugItemsPageQueryVariables = {
-    itemSlug: string;
+export type SlugItemsPageQuery$variables = {
+  itemSlug: string;
 };
-export type SlugItemsPageQueryResponse = {
-    readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"ItemLayoutQueryFragment" | "ItemSlugRedirectFragment">;
-    } | null;
+export type SlugItemsPageQuery$data = {
+  readonly item: {
+    readonly " $fragmentSpreads": FragmentRefs<"ItemLayoutFragment" | "ItemSlugRedirectFragment">;
+  } | null | undefined;
 };
 export type SlugItemsPageQuery = {
-    readonly response: SlugItemsPageQueryResponse;
-    readonly variables: SlugItemsPageQueryVariables;
+  response: SlugItemsPageQuery$data;
+  variables: SlugItemsPageQuery$variables;
 };
-
-
-
-/*
-query SlugItemsPageQuery(
-  $itemSlug: Slug!
-) {
-  item(slug: $itemSlug) {
-    ...ItemLayoutQueryFragment
-    ...ItemSlugRedirectFragment
-    id
-  }
-}
-
-fragment AuthContextFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-
-fragment ItemLayoutFragment on Item {
-  title
-  slug
-  id
-  ...useBreadcrumbsFragment
-  ...useChildRouteLinksFragment
-}
-
-fragment ItemLayoutQueryFragment on Item {
-  ...ItemLayoutFragment
-  ...AuthContextFragment
-}
-
-fragment ItemSlugRedirectFragment on Item {
-  slug
-  items {
-    pageInfo {
-      totalCount
-    }
-  }
-}
-
-fragment useBreadcrumbsFragment on Entity {
-  __isEntity: __typename
-  __typename
-  title
-  breadcrumbs {
-    depth
-    label
-    kind
-    slug
-    id
-  }
-  ... on Sluggable {
-    __isSluggable: __typename
-    slug
-  }
-}
-
-fragment useChildRouteLinksFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -128,7 +70,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "ItemLayoutQueryFragment"
+            "name": "ItemLayoutFragment"
           },
           {
             "args": null,
@@ -259,14 +201,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "09a2305c7d26536afb95e30e387979a3",
+    "cacheID": "19356c9f6e192430ff2f6b0df30c553a",
     "id": null,
     "metadata": {},
     "name": "SlugItemsPageQuery",
     "operationKind": "query",
-    "text": "query SlugItemsPageQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutQueryFragment\n    ...ItemSlugRedirectFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ItemLayoutQueryFragment on Item {\n  ...ItemLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment ItemSlugRedirectFragment on Item {\n  slug\n  items {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n"
+    "text": "query SlugItemsPageQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    ...ItemSlugRedirectFragment\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ItemSlugRedirectFragment on Item {\n  slug\n  items {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n"
   }
 };
 })();
-(node as any).hash = '9870ce8f0171538245e5bf3849fc07d3';
+
+(node as any).hash = "8e47a2284c96bb10de83ce38dd4ac3bc";
+
 export default node;

@@ -1,8 +1,8 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { ContributorAvatarFragment$key } from "@/relay/ContributorAvatarFragment.graphql";
 import { Avatar } from "components/atomic";
+import { ContributorAvatarFragment$key } from "@/relay/ContributorAvatarFragment.graphql";
 
 const ContributorAvatar = ({ data }: Props) => {
   const imageData = useMaybeFragment(fragment, data);

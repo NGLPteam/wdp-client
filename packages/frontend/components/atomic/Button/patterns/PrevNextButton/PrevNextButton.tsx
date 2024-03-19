@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
-import type { MaybeButtonRef } from "@castiron/common-types";
 import Button from "../..";
 import * as Styled from "./PrevNextButton.styles";
+import type { MaybeButtonRef } from "@castiron/common-types";
 
 const PrevNextButton = forwardRef(
   ({ label, ...props }: Props, ref: MaybeButtonRef) => {
@@ -10,7 +10,7 @@ const PrevNextButton = forwardRef(
         {label}
       </Styled.FixedWidthButton>
     );
-  }
+  },
 );
 
 type BaseProps = React.ComponentProps<typeof Button>;

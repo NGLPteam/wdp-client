@@ -1,95 +1,34 @@
+/**
+ * @generated SignedSource<<37d6b38e330c1e36fa701ef2817e4765>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type EntityAnnouncementUpdateDrawerQueryVariables = {
-    entitySlug: string;
-    announcementSlug: string;
+export type EntityAnnouncementUpdateDrawerQuery$variables = {
+  announcementSlug: string;
+  entitySlug: string;
 };
-export type EntityAnnouncementUpdateDrawerQueryResponse = {
-    readonly item: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementDrawerActionsFragment" | "EntityAnnouncementUpdateFormFragment">;
-    } | null;
-    readonly collection: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementDrawerActionsFragment" | "EntityAnnouncementUpdateFormFragment">;
-    } | null;
-    readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementDrawerActionsFragment" | "EntityAnnouncementUpdateFormFragment">;
-    } | null;
+export type EntityAnnouncementUpdateDrawerQuery$data = {
+  readonly collection: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityAnnouncementDrawerActionsFragment" | "EntityAnnouncementUpdateFormFragment">;
+  } | null | undefined;
+  readonly community: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityAnnouncementDrawerActionsFragment" | "EntityAnnouncementUpdateFormFragment">;
+  } | null | undefined;
+  readonly item: {
+    readonly " $fragmentSpreads": FragmentRefs<"EntityAnnouncementDrawerActionsFragment" | "EntityAnnouncementUpdateFormFragment">;
+  } | null | undefined;
 };
 export type EntityAnnouncementUpdateDrawerQuery = {
-    readonly response: EntityAnnouncementUpdateDrawerQueryResponse;
-    readonly variables: EntityAnnouncementUpdateDrawerQueryVariables;
+  response: EntityAnnouncementUpdateDrawerQuery$data;
+  variables: EntityAnnouncementUpdateDrawerQuery$variables;
 };
-
-
-
-/*
-query EntityAnnouncementUpdateDrawerQuery(
-  $entitySlug: Slug!
-  $announcementSlug: Slug!
-) {
-  item(slug: $entitySlug) {
-    ...EntityAnnouncementDrawerActionsFragment
-    ...EntityAnnouncementUpdateFormFragment
-    id
-  }
-  collection(slug: $entitySlug) {
-    ...EntityAnnouncementDrawerActionsFragment
-    ...EntityAnnouncementUpdateFormFragment
-    id
-  }
-  community(slug: $entitySlug) {
-    ...EntityAnnouncementDrawerActionsFragment
-    ...EntityAnnouncementUpdateFormFragment
-    id
-  }
-}
-
-fragment EntityAnnouncementDrawerActionsFragment on Entity {
-  __isEntity: __typename
-  announcement(slug: $announcementSlug) {
-    id
-  }
-}
-
-fragment EntityAnnouncementUpdateFormFragment on AnyEntity {
-  __isAnyEntity: __typename
-  ... on Community {
-    announcement(slug: $announcementSlug) {
-      id
-      slug
-      header
-      publishedOn
-      teaser
-      body
-    }
-  }
-  ... on Collection {
-    announcement(slug: $announcementSlug) {
-      id
-      slug
-      header
-      publishedOn
-      teaser
-      body
-    }
-  }
-  ... on Item {
-    announcement(slug: $announcementSlug) {
-      id
-      slug
-      header
-      publishedOn
-      teaser
-      body
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = {
@@ -121,30 +60,30 @@ v3 = [
     "name": "EntityAnnouncementUpdateFormFragment"
   }
 ],
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v5 = [
+v4 = [
   {
     "kind": "Variable",
     "name": "slug",
     "variableName": "announcementSlug"
   }
 ],
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
 v6 = [
   {
     "alias": null,
-    "args": (v5/*: any*/),
+    "args": (v4/*: any*/),
     "concreteType": "Announcement",
     "kind": "LinkedField",
     "name": "announcement",
     "plural": false,
     "selections": [
-      (v4/*: any*/),
+      (v5/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -185,19 +124,18 @@ v6 = [
   }
 ],
 v7 = [
-  (v4/*: any*/),
   {
     "kind": "InlineFragment",
     "selections": [
       {
         "alias": null,
-        "args": (v5/*: any*/),
+        "args": (v4/*: any*/),
         "concreteType": "Announcement",
         "kind": "LinkedField",
         "name": "announcement",
         "plural": false,
         "selections": [
-          (v4/*: any*/)
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
@@ -229,7 +167,8 @@ v7 = [
     ],
     "type": "AnyEntity",
     "abstractKey": "__isAnyEntity"
-  }
+  },
+  (v5/*: any*/)
 ];
 return {
   "fragment": {
@@ -326,5 +265,7 @@ return {
   }
 };
 })();
-(node as any).hash = '2e8774c3f55294d57146f0bf0cc0a703';
+
+(node as any).hash = "2e8774c3f55294d57146f0bf0cc0a703";
+
 export default node;

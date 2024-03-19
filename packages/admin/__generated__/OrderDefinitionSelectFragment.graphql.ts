@@ -1,24 +1,26 @@
+/**
+ * @generated SignedSource<<815c4d081be5a0efd5dbfefb04243a91>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type OrderDefinitionSelectFragment = {
-    readonly schemaRanks: ReadonlyArray<{
-        readonly namespace: string;
-        readonly identifier: string;
-    }>;
-    readonly " $refType": "OrderDefinitionSelectFragment";
+export type OrderDefinitionSelectFragment$data = {
+  readonly schemaRanks: ReadonlyArray<{
+    readonly identifier: string;
+    readonly namespace: string;
+  }>;
+  readonly " $fragmentType": "OrderDefinitionSelectFragment";
 };
-export type OrderDefinitionSelectFragment$data = OrderDefinitionSelectFragment;
 export type OrderDefinitionSelectFragment$key = {
-    readonly " $data"?: OrderDefinitionSelectFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"OrderDefinitionSelectFragment">;
+  readonly " $data"?: OrderDefinitionSelectFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"OrderDefinitionSelectFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -55,5 +57,7 @@ const node: ReaderFragment = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-(node as any).hash = 'ec88ca087f01a755fa082665d71573a8';
+
+(node as any).hash = "ec88ca087f01a755fa082665d71573a8";
+
 export default node;

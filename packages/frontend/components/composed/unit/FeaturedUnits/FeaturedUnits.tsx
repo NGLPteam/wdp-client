@@ -1,13 +1,13 @@
 import React from "react";
-import { graphql } from "relay-runtime";
+import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./FeaturedUnits.styles";
 import { Link, NamedLink } from "components/atomic";
 import {
   FeaturedUnitsFragment$data,
   FeaturedUnitsFragment$key,
 } from "@/relay/FeaturedUnitsFragment.graphql";
+import * as Styled from "./FeaturedUnits.styles";
 
 export default function FeaturedUnitsList({ data }: Props) {
   const collections = useMaybeFragment(fragment, data);
@@ -38,7 +38,7 @@ export default function FeaturedUnitsList({ data }: Props) {
                     <Link>{node.title}</Link>
                   </NamedLink>
                 </Styled.UnitsListItem>
-              ) : null
+              ) : null,
             )}
           </Styled.UnitsList>
         </Styled.TextColumn>

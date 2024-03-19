@@ -2,12 +2,12 @@ import { formatDate } from "@wdp/lib/helpers";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import type { DatePrecision } from "types/graphql-schema";
 import { PrecisionDateFragment$key } from "@/relay/PrecisionDateFragment.graphql";
+import type { DatePrecision } from "types/graphql-schema";
 
 export function getPrecisionDateDisplay(
   precision: DatePrecision,
-  value: string
+  value: string,
 ) {
   switch (precision) {
     case "YEAR":

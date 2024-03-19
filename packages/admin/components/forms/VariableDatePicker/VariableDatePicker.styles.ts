@@ -11,6 +11,6 @@ export const Wrapper = styled.div`
     grid-template-columns: auto;
     grid-template-rows: repeat(3, auto);
     `,
-    50
+    50,
   )}
 `;

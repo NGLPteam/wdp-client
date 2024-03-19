@@ -1,23 +1,25 @@
+/**
+ * @generated SignedSource<<84fdfe35d0ce358ecef7c43e7420c6c4>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type BooleanPropertyFragment = {
-    readonly checked: boolean | null;
-    readonly checkedByDefault: boolean | null;
-    readonly " $fragmentRefs": FragmentRefs<"ScalarPropertyFragment">;
-    readonly " $refType": "BooleanPropertyFragment";
+export type BooleanPropertyFragment$data = {
+  readonly checked: boolean | null | undefined;
+  readonly checkedByDefault: boolean | null | undefined;
+  readonly " $fragmentSpreads": FragmentRefs<"ScalarPropertyFragment">;
+  readonly " $fragmentType": "BooleanPropertyFragment";
 };
-export type BooleanPropertyFragment$data = BooleanPropertyFragment;
 export type BooleanPropertyFragment$key = {
-    readonly " $data"?: BooleanPropertyFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"BooleanPropertyFragment">;
+  readonly " $data"?: BooleanPropertyFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"BooleanPropertyFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -25,6 +27,11 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "BooleanPropertyFragment",
   "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ScalarPropertyFragment"
+    },
     {
       "alias": null,
       "args": null,
@@ -38,15 +45,12 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "checkedByDefault",
       "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ScalarPropertyFragment"
     }
   ],
   "type": "BooleanProperty",
   "abstractKey": null
 };
-(node as any).hash = '34f292394556d1f07d4a91bc14a1cda0';
+
+(node as any).hash = "34f292394556d1f07d4a91bc14a1cda0";
+
 export default node;

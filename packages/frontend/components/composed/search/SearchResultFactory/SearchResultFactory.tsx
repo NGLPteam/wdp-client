@@ -1,7 +1,7 @@
 import React from "react";
 import { graphql, useFragment } from "react-relay";
-import SearchEntityResult from "./SearchEntityResult";
 import { SearchResultFactoryFragment$key } from "@/relay/SearchResultFactoryFragment.graphql";
+import SearchEntityResult from "./SearchEntityResult";
 
 export default function SearchResultFactory({ data }: Props) {
   const item = useFragment<SearchResultFactoryFragment$key>(fragment, data);

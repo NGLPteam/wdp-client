@@ -18,7 +18,7 @@ export const SectionInner = styled.div`
       "right"
       "left";
   `,
-    70
+    70,
   )}
 `;
 

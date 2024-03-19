@@ -1,35 +1,67 @@
-import { graphql } from "react-relay";
-import type { GetLayout } from "@wdp/lib/types/page";
-import type { contributionsManageSlugCollectionsPagesQuery as Query } from "@/relay/contributionsManageSlugCollectionsPagesQuery.graphql";
-
+import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
+import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import CollectionContributionList from "components/composed/contribution/CollectionContributionList";
-import CollectionLayoutQuery from "components/composed/collection/CollectionLayoutQuery";
+import ErrorPage from "next/error";
+import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
+import { AuthContextProvider } from "contexts/AuthContext";
+import { LoadingPage } from "components/atomic";
+import CollectionLayout from "components/composed/collection/CollectionLayout";
+import type { contributionsManageSlugCollectionsPagesQuery as Query } from "@/relay/contributionsManageSlugCollectionsPagesQuery.graphql";
+import type { GetLayout } from "@wdp/lib/types/page";
 
-function CollectionContributions({ data }: Props) {
-  return (
-    <CollectionContributionList<Query>
-      nameColumn="contributor"
-      data={data?.collection?.contributions}
-      headerStyle="secondary"
-    />
-  );
+function CollectionContributions({ queryRef, ...layoutProps }: Props) {
+  const { collection } = usePreloadedQuery<Query>(query, queryRef);
+
+  return collection ? (
+    <AuthContextProvider data={collection}>
+      <CollectionLayout data={collection} {...layoutProps}>
+        <CollectionContributionList
+          nameColumn="contributor"
+          data={collection.contributions}
+          headerStyle="secondary"
+        />
+      </CollectionLayout>
+    </AuthContextProvider>
+  ) : null;
 }
 
 type Props = {
-  data: Query["response"];
+  queryRef: PreloadedQuery<Query>;
+  showSidebar: true;
+  useRouteHeader: false;
 };
 
 const getLayout: GetLayout<Props> = (props) => {
+  const queryVars = useBaseListQueryVars();
+  const searchQueryVars = useSearchQueryVars();
+
+  const collectionSlug = useRouteSlug();
+
+  if (!collectionSlug) return <ErrorPage statusCode={404} />;
+
+  const { PageComponent, pageComponentProps } = props;
+
   return (
-    <CollectionLayoutQuery<Query, Props>
-      showSidebar
-      useRouteHeader={false}
+    <QueryTransitionWrapper<Query>
       query={query}
+      variables={{ ...queryVars, ...searchQueryVars, collectionSlug }}
+      loadingFallback={<LoadingPage />}
       refetchTags={["contributions"]}
-      {...props}
-    />
+    >
+      {({ queryRef }) =>
+        queryRef && (
+          <PageComponent
+            {...pageComponentProps}
+            queryRef={queryRef}
+            showSidebar
+            useRouteHeader={false}
+          />
+        )
+      }
+    </QueryTransitionWrapper>
   );
 };
+
 CollectionContributions.getLayout = getLayout;
 
 const query = graphql`
@@ -38,7 +70,8 @@ const query = graphql`
     $page: Int!
   ) {
     collection(slug: $collectionSlug) {
-      ...CollectionLayoutQueryFragment
+      ...CollectionLayoutFragment
+      ...AuthContextFragment
       contributions(page: $page, perPage: 20) {
         ...CollectionContributionListFragment
       }

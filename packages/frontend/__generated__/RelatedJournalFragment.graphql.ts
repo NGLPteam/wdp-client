@@ -1,36 +1,38 @@
+/**
+ * @generated SignedSource<<ae450e62e7c30ca0bf1312dd1af833bc>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
-import { FragmentRefs } from "relay-runtime";
+import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
-export type RelatedJournalFragment = {
-    readonly id: string;
-    readonly title: string;
-    readonly subtitle: string | null;
-    readonly slug: string;
-    readonly updatedAt: string;
-    readonly thumbnail: {
-        readonly storage: AttachmentStorage | null;
-        readonly " $fragmentRefs": FragmentRefs<"CoverImageFragment">;
+import { FragmentRefs } from "relay-runtime";
+export type RelatedJournalFragment$data = {
+  readonly __typename: "Collection";
+  readonly id: string;
+  readonly issues: {
+    readonly pageInfo: {
+      readonly totalCount: number;
     };
-    readonly issues: {
-        readonly pageInfo: {
-            readonly totalCount: number;
-        };
-    };
-    readonly __typename: "Collection";
-    readonly " $refType": "RelatedJournalFragment";
+  };
+  readonly slug: string;
+  readonly subtitle: string | null | undefined;
+  readonly thumbnail: {
+    readonly storage: AttachmentStorage | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
+  };
+  readonly title: string;
+  readonly updatedAt: string;
+  readonly " $fragmentType": "RelatedJournalFragment";
 };
-export type RelatedJournalFragment$data = RelatedJournalFragment;
 export type RelatedJournalFragment$key = {
-    readonly " $data"?: RelatedJournalFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"RelatedJournalFragment">;
+  readonly " $data"?: RelatedJournalFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"RelatedJournalFragment">;
 };
-
-
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
@@ -149,5 +151,7 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
-(node as any).hash = '241f50df2b29697d48a155f9d0a1bfb3';
+
+(node as any).hash = "241f50df2b29697d48a155f9d0a1bfb3";
+
 export default node;

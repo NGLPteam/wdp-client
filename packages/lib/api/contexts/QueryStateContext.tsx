@@ -1,15 +1,13 @@
 import React from "react";
 
-interface QueryStateContext {
-  started: boolean;
-  loading: boolean;
+interface QueryStateContextType {
   completed: boolean;
+  loading: boolean;
 }
 
-const QueryStateContext = React.createContext<QueryStateContext>({
-  started: false,
-  loading: false,
+const QueryStateContext = React.createContext<QueryStateContextType>({
   completed: false,
+  loading: false,
 });
 
 export default QueryStateContext;

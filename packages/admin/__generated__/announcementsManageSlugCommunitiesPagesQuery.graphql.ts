@@ -1,121 +1,28 @@
+/**
+ * @generated SignedSource<<df8ac0b313547fde234cc097bee85741>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
-
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type announcementsManageSlugCommunitiesPagesQueryVariables = {
-    communitySlug: string;
-    page: number;
+export type announcementsManageSlugCommunitiesPagesQuery$variables = {
+  communitySlug: string;
+  page?: number | null | undefined;
 };
-export type announcementsManageSlugCommunitiesPagesQueryResponse = {
-    readonly community: {
-        readonly " $fragmentRefs": FragmentRefs<"EntityAnnouncementsListFragment" | "CommunityLayoutQueryFragment">;
-    } | null;
+export type announcementsManageSlugCommunitiesPagesQuery$data = {
+  readonly community: {
+    readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "CommunityLayoutFragment" | "EntityAnnouncementsListFragment">;
+  } | null | undefined;
 };
 export type announcementsManageSlugCommunitiesPagesQuery = {
-    readonly response: announcementsManageSlugCommunitiesPagesQueryResponse;
-    readonly variables: announcementsManageSlugCommunitiesPagesQueryVariables;
+  response: announcementsManageSlugCommunitiesPagesQuery$data;
+  variables: announcementsManageSlugCommunitiesPagesQuery$variables;
 };
-
-
-
-/*
-query announcementsManageSlugCommunitiesPagesQuery(
-  $communitySlug: Slug!
-  $page: Int!
-) {
-  community(slug: $communitySlug) {
-    ...EntityAnnouncementsListFragment
-    ...CommunityLayoutQueryFragment
-    id
-  }
-}
-
-fragment AuthContextFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-
-fragment CommunityLayoutFragment on Community {
-  id
-  name
-  slug
-  allowedActions
-  ...useChildRouteLinksFragment
-}
-
-fragment CommunityLayoutQueryFragment on Community {
-  ...CommunityLayoutFragment
-  ...AuthContextFragment
-}
-
-fragment EntityAnnouncementsListDataFragment on AnnouncementConnection {
-  edges {
-    node {
-      id
-      slug
-      header
-      publishedOn
-    }
-  }
-  ...ModelListPageFragment
-}
-
-fragment EntityAnnouncementsListFragment on AnyEntity {
-  __isAnyEntity: __typename
-  ... on Community {
-    slug
-    announcements(page: $page, perPage: 20) {
-      ...EntityAnnouncementsListDataFragment
-    }
-  }
-  ... on Collection {
-    slug
-    announcements(page: $page, perPage: 20) {
-      ...EntityAnnouncementsListDataFragment
-    }
-  }
-  ... on Item {
-    slug
-    announcements(page: $page, perPage: 20) {
-      ...EntityAnnouncementsListDataFragment
-    }
-  }
-}
-
-fragment ModelListPageFragment on Paginated {
-  __isPaginated: __typename
-  ...ModelPageCountActionsFragment
-  ...ModelPaginationFragment
-}
-
-fragment ModelPageCountActionsFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-    perPage
-    hasNextPage
-    hasPreviousPage
-    totalCount
-  }
-}
-
-fragment ModelPaginationFragment on Paginated {
-  __isPaginated: __typename
-  pageInfo {
-    page
-    pageCount
-  }
-}
-
-fragment useChildRouteLinksFragment on Entity {
-  __isEntity: __typename
-  allowedActions
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -296,7 +203,12 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "CommunityLayoutQueryFragment"
+            "name": "CommunityLayoutFragment"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "AuthContextFragment"
           }
         ],
         "storageKey": null
@@ -370,14 +282,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6347af02847ba841a82d090861f08521",
+    "cacheID": "b6f18246f614f493c754e391fc55dd8d",
     "id": null,
     "metadata": {},
     "name": "announcementsManageSlugCommunitiesPagesQuery",
     "operationKind": "query",
-    "text": "query announcementsManageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n  $page: Int!\n) {\n  community(slug: $communitySlug) {\n    ...EntityAnnouncementsListFragment\n    ...CommunityLayoutQueryFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CommunityLayoutFragment on Community {\n  id\n  name\n  slug\n  allowedActions\n  ...useChildRouteLinksFragment\n}\n\nfragment CommunityLayoutQueryFragment on Community {\n  ...CommunityLayoutFragment\n  ...AuthContextFragment\n}\n\nfragment EntityAnnouncementsListDataFragment on AnnouncementConnection {\n  edges {\n    node {\n      id\n      slug\n      header\n      publishedOn\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityAnnouncementsListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n"
+    "text": "query announcementsManageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n  $page: Int\n) {\n  community(slug: $communitySlug) {\n    ...EntityAnnouncementsListFragment\n    ...CommunityLayoutFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CommunityLayoutFragment on Community {\n  id\n  name\n  slug\n  allowedActions\n  ...useChildRouteLinksFragment\n}\n\nfragment EntityAnnouncementsListDataFragment on AnnouncementConnection {\n  edges {\n    node {\n      id\n      slug\n      header\n      publishedOn\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityAnnouncementsListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n"
   }
 };
 })();
-(node as any).hash = 'b0e0325611efaed340d34d404134ad31';
+
+(node as any).hash = "1bf0bd1e66be3562240909fe50321b03";
+
 export default node;

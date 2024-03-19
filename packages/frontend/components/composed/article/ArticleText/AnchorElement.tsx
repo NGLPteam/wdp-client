@@ -9,6 +9,6 @@ export default function AnchorElement({ as, anchor, ...props }: Props) {
 }
 
 interface Props {
-  as: keyof JSX.IntrinsicElements | React.ElementType;
+  as: keyof React.JSX.IntrinsicElements | React.ElementType;
   anchor: string;
 }

@@ -1,8 +1,8 @@
 import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { EmailPropertyFragment$key } from "@/relay/EmailPropertyFragment.graphql";
 import { MetadataProperty } from "components/layout";
+import { EmailPropertyFragment$key } from "@/relay/EmailPropertyFragment.graphql";
 
 export default function EmailProperty({ data, label, showPlaceholder }: Props) {
   const property = useMaybeFragment(fragment, data);

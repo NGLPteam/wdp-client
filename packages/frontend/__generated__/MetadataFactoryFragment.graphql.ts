@@ -1,67 +1,69 @@
+/**
+ * @generated SignedSource<<c0c2513e48126acd579b0a43d205fbcc>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ReaderFragment } from "relay-runtime";
-
+import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type MetadataFactoryFragment = {
-    readonly __typename: "AssetProperty";
-    readonly " $fragmentRefs": FragmentRefs<"AssetPropertyFragment">;
-    readonly " $refType": "MetadataFactoryFragment";
+export type MetadataFactoryFragment$data = {
+  readonly __typename: "AssetProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"AssetPropertyFragment">;
+  readonly " $fragmentType": "MetadataFactoryFragment";
 } | {
-    readonly __typename: "BooleanProperty";
-    readonly " $fragmentRefs": FragmentRefs<"BooleanPropertyFragment">;
-    readonly " $refType": "MetadataFactoryFragment";
+  readonly __typename: "BooleanProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"BooleanPropertyFragment">;
+  readonly " $fragmentType": "MetadataFactoryFragment";
 } | {
-    readonly __typename: "DateProperty";
-    readonly " $fragmentRefs": FragmentRefs<"DatePropertyFragment">;
-    readonly " $refType": "MetadataFactoryFragment";
+  readonly __typename: "DateProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"DatePropertyFragment">;
+  readonly " $fragmentType": "MetadataFactoryFragment";
 } | {
-    readonly __typename: "EmailProperty";
-    readonly " $fragmentRefs": FragmentRefs<"EmailPropertyFragment">;
-    readonly " $refType": "MetadataFactoryFragment";
+  readonly __typename: "EmailProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"EmailPropertyFragment">;
+  readonly " $fragmentType": "MetadataFactoryFragment";
 } | {
-    readonly __typename: "FloatProperty";
-    readonly " $fragmentRefs": FragmentRefs<"NumberPropertyFragment">;
-    readonly " $refType": "MetadataFactoryFragment";
+  readonly __typename: "FloatProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"NumberPropertyFragment">;
+  readonly " $fragmentType": "MetadataFactoryFragment";
 } | {
-    readonly __typename: "IntegerProperty";
-    readonly " $fragmentRefs": FragmentRefs<"NumberPropertyFragment">;
-    readonly " $refType": "MetadataFactoryFragment";
+  readonly __typename: "IntegerProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"NumberPropertyFragment">;
+  readonly " $fragmentType": "MetadataFactoryFragment";
 } | {
-    readonly __typename: "SelectProperty";
-    readonly " $fragmentRefs": FragmentRefs<"SelectPropertyFragment">;
-    readonly " $refType": "MetadataFactoryFragment";
+  readonly __typename: "SelectProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"SelectPropertyFragment">;
+  readonly " $fragmentType": "MetadataFactoryFragment";
 } | {
-    readonly __typename: "StringProperty";
-    readonly " $fragmentRefs": FragmentRefs<"StringPropertyFragment">;
-    readonly " $refType": "MetadataFactoryFragment";
+  readonly __typename: "StringProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"StringPropertyFragment">;
+  readonly " $fragmentType": "MetadataFactoryFragment";
 } | {
-    readonly __typename: "TagsProperty";
-    readonly " $fragmentRefs": FragmentRefs<"TagsPropertyFragment">;
-    readonly " $refType": "MetadataFactoryFragment";
+  readonly __typename: "TagsProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"TagsPropertyFragment">;
+  readonly " $fragmentType": "MetadataFactoryFragment";
 } | {
-    readonly __typename: "URLProperty";
-    readonly " $fragmentRefs": FragmentRefs<"URLPropertyFragment">;
-    readonly " $refType": "MetadataFactoryFragment";
+  readonly __typename: "URLProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"URLPropertyFragment">;
+  readonly " $fragmentType": "MetadataFactoryFragment";
 } | {
-    readonly __typename: "VariableDateProperty";
-    readonly " $fragmentRefs": FragmentRefs<"VariableDatePropertyFragment">;
-    readonly " $refType": "MetadataFactoryFragment";
+  readonly __typename: "VariableDateProperty";
+  readonly " $fragmentSpreads": FragmentRefs<"VariableDatePropertyFragment">;
+  readonly " $fragmentType": "MetadataFactoryFragment";
 } | {
-    /*This will never be '%other', but we need some
-    value in case none of the concrete values match.*/
-    readonly __typename: "%other";
-    readonly " $refType": "MetadataFactoryFragment";
+  // This will never be '%other', but we need some
+  // value in case none of the concrete values match.
+  readonly __typename: "%other";
+  readonly " $fragmentType": "MetadataFactoryFragment";
 };
-export type MetadataFactoryFragment$data = MetadataFactoryFragment;
 export type MetadataFactoryFragment$key = {
-    readonly " $data"?: MetadataFactoryFragment$data | undefined;
-    readonly " $fragmentRefs": FragmentRefs<"MetadataFactoryFragment">;
+  readonly " $data"?: MetadataFactoryFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
 };
-
-
 
 const node: ReaderFragment = (function(){
 var v0 = [
@@ -209,5 +211,7 @@ return {
   "abstractKey": "__isAnyScalarProperty"
 };
 })();
-(node as any).hash = 'b095761ebbcb6ff121051e6b3ed3d014';
+
+(node as any).hash = "b095761ebbcb6ff121051e6b3ed3d014";
+
 export default node;

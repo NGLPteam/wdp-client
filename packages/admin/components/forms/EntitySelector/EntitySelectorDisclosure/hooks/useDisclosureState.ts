@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-import { useUID } from "react-uid";
+import { useId } from "react";
 
 interface Params {
   initialVisible?: boolean;
@@ -13,14 +13,14 @@ export default function useDisclosureState({
   const [visible, setVisible] = useState(initialVisible);
   const toggleVisible = () => setVisible(!visible);
 
-  const id = useUID();
+  const id = useId();
 
   // Must initiate with null for use with @castiron Maybe types.
   const disclosureRef = useRef<HTMLButtonElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   function handleBlur(
-    event: React.FocusEvent<HTMLButtonElement | HTMLDivElement>
+    event: React.FocusEvent<HTMLButtonElement | HTMLDivElement>,
   ) {
     if (!contentRef.current || !disclosureRef.current) return;
     if (
@@ -62,7 +62,7 @@ export default function useDisclosureState({
       disclosureProps,
       contentProps,
     }),
-    [visible, id] // eslint-disable-line react-hooks/exhaustive-deps
+    [visible, id], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   useEffect(() => {

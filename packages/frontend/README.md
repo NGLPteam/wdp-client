@@ -1,34 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NGLP Frontend
 
-## Getting Started
+## Development Environment
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
+```sh
+yarn install
+yarn run dev # to start dev client
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+That's it! Now go to http://localhost:3001/
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### Client architecture
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- `/pages` — a single component that dynamically generates static pages for all routes.
+- `/components` — all React components for generating portions of static pages. These are further organized by type (see below).
+- `/theme` — global styles, mixins, and font files. Component styles are defined in the same directory as their components using `styled-components`, and are compiled into a single stylesheet on the server.
+- `/types` — reusuable types for recurring data structures like pages, images, locales, etc.
+- `/public` — static assets like favicons that are passed directly to the output directory without hashing.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Component architecture
 
-## Learn More
+The components are separated out into these folders:
 
-To learn more about Next.js, take a look at the following resources:
+- `/atomic/` - Small, reusable components such as links, buttons, and inputs. Should not be tied to any particular routes, models, or other api data.
+- `/composed/` - Larger, reusable composed components such as page layouts. Can be tied to api data structures.
+- `/factories/` - Mapped components with shared props, such as icons
+- `/form/` - Form atomics and scaffolding
+- `/layout/` - Small reusable layout components such as grids and cards
+- `/global/` - Composed, app wide components, that are visible on every page
+- `/svgs/` - Svgs, such as icons and logos
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Folders are lower case if they contain a collection of components, and camel case if they contain one component or a component with parent/child relationships. Components can be grouped into sub folders, ie `/atomic/buttons/` and `/composed/entities/`, but further nesting should be avoided.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Folders that contain many components should have an `index.ts` file with default exports. Single components should be in a camel cased folder, with an index, stories, and styles file (if applicable). For example:
 
-## Deploy on Vercel
+```
+components/global/Header
+index.tsx // Exports the component
+Header.tsx // Defines the component
+styles.ts // Styled components
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Browser support
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Edge (Chromium latest)
+- Firefox (Windows and OSX)
+- Chrome (Windows and OSX)
+- Safari
+- Latest release of Safari on iOS and Chrome on Android
