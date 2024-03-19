@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import Modal from "components/layout/Modal";
@@ -45,14 +46,19 @@ export default function ParentSelectorModal({
     : [];
   const parentKinds = entityKind === "collection" ? ["COLLECTION"] : [];
 
+  const [selected, setSelected] = useState<EntityOption | undefined>(undefined);
+
   const renderForm = useRenderForm<Fields>(
     ({ form: { setValue, register } }) => {
-      const onSelect = (entity: EntityOption | undefined) =>
+      const onSelect = (entity: EntityOption | undefined) => {
         setValue("parentId", entity?.id ?? parentId);
+        setSelected(entity);
+      };
       return (
         <EntitySelector
           {...register("parentId", { required: true })}
           onSelect={onSelect}
+          selected={selected}
           label={t("forms.parent.label")}
           startSlug={parentSlug}
           resetValue={parentId}
@@ -62,7 +68,7 @@ export default function ParentSelectorModal({
         />
       );
     },
-    [],
+    [selected],
   );
 
   return (
@@ -84,6 +90,7 @@ export default function ParentSelectorModal({
             onCancel={handleClose}
             defaultValues={defaultValues}
             hideGlobalErrorHeader
+            refetchTags={["parent"]}
           >
             {renderForm}
           </MutationForm>

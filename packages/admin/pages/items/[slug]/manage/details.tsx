@@ -40,7 +40,7 @@ const getLayout: GetLayout<Props> = (props) => {
         itemSlug,
       }}
       loadingFallback={<LoadingPage />}
-      refetchTags={["schema"]}
+      refetchTags={["schema", "parent"]}
     >
       {({ queryRef }) =>
         queryRef ? (
