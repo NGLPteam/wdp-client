@@ -31,7 +31,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
     (slug: string, routeName: string) => {
       const newRoute = RouteHelper.findRouteByName(routeName);
 
-      router.replace({
+      router.push({
         pathname: newRoute?.path,
         query: { slug },
       });
@@ -42,14 +42,15 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
   const onSuccessWithRedirect = useOnSuccess<ItemAddFormMutation, Fields>(
     ({
       response,
-      values,
-      variables,
     }: {
       response: ItemAddFormMutation["response"];
       values: Fields;
       variables: ItemAddFormMutation["variables"];
     }) => {
-      if (onSuccess) onSuccess({ response, variables, values });
+      /* Redirect aborts if dialog.hide is called here. */
+      /* Leaving this in as a note in case we need more nuanced logic for onSuccess. */
+      /* Right now this component is only rendered in one place. */
+      // if (onSuccess) onSuccess({ response, variables, values });
       setPrevRedirect(true);
       const routeName = "item.manage.details";
       if (response?.createItem?.item)

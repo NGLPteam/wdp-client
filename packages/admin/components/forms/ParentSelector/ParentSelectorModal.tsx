@@ -39,7 +39,7 @@ export default function ParentSelectorModal({
     [],
   );
 
-  const parentSchemas = entitySchemaVersion.enforcesParent
+  const parentSchemas = entitySchemaVersion?.enforcesParent
     ? entitySchemaVersion.enforcedParentVersions?.map(
         (schema) => `${schema.namespace}:${schema.identifier}`,
       )
