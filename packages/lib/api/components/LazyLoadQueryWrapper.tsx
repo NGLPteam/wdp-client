@@ -1,5 +1,5 @@
 import isFunction from "lodash/isFunction";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useDeferredValue } from "react";
 import { GraphQLTaggedNode, useLazyLoadQuery } from "react-relay";
 import { OperationType } from "relay-runtime";
 
@@ -49,12 +49,13 @@ function LazyLoadQueryWrapperInner<T extends OperationType>({
   const data = useLazyLoadQuery<T>(query, variables, {
     fetchPolicy: "store-or-network",
   });
+  const deferred = useDeferredValue(data);
 
   useEffect(() => {
     if (onCompleted) {
-      onCompleted(data, variables);
+      onCompleted(deferred, variables);
     }
-  }, [data, variables, onCompleted]);
+  }, [deferred, variables, onCompleted]);
 
-  return <>{isFunction(children) ? children({ data }) : children}</>;
+  return <>{isFunction(children) ? children({ data: deferred }) : children}</>;
 }

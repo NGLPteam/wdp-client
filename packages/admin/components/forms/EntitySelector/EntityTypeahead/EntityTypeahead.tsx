@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useDeferredValue } from "react";
 import { graphql } from "react-relay";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
 import BaseTypeahead from "components/forms/BaseTypeahead";
@@ -6,6 +6,7 @@ import {
   EntityTypeaheadQuery as Query,
   EntityTypeaheadQuery$data as Response,
 } from "__generated__/EntityTypeaheadQuery.graphql";
+import debounce from "lodash/debounce";
 import EntitySelectorController from "../EntitySelectorController";
 import type { EntityOption } from "../EntitySelectorController";
 import type { FieldValues, Path } from "react-hook-form";
@@ -36,6 +37,7 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
   const data = useAuthenticatedQuery<Query>(query, variables, {
     skip: !variables.query,
   });
+  const deferred = useDeferredValue(data);
 
   useEffect(() => {
     // TODO: This is where the value is getting set as an ID from the selector
@@ -50,8 +52,8 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
     // selected value's label and id.
     let options: TypeaheadOption[] = [];
 
-    if (data && data.search?.results?.edges?.length) {
-      const results = data.search.results.edges;
+    if (deferred && deferred.search?.results?.edges?.length) {
+      const results = deferred.search.results.edges;
       const applyKind = selectableTypes?.kinds?.length
         ? results.filter(({ node }) =>
             selectableTypes?.kinds?.includes(
@@ -70,16 +72,17 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
     return value === selected?.id
       ? [{ label: selected.title ?? "", value: selected.id ?? "" }]
       : options;
-  }, [data, selectableTypes?.kinds, selected, value]);
+  }, [deferred, selectableTypes?.kinds, selected, value]);
 
-  const onInputChange = useCallback(
-    (val: string) => {
-      if (options?.find((option) => option?.label === val)) return;
-      setVariables({ ...variables, query: val });
-      setValue(val);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [options, setVariables],
+  const onInputChange = (val: string) => {
+    if (options?.find((option) => option?.label === val)) return;
+    debouncedSetVariables(val);
+    setValue(val);
+  };
+
+  const debouncedSetVariables = debounce(
+    (val: string) => setVariables({ ...variables, query: val }),
+    300,
   );
 
   const handleSelect = (data: Response) => (optionVal: string | number) => {
@@ -96,7 +99,7 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
     return onSelect(entity);
   };
 
-  const handleSelectWithData = data ? handleSelect(data) : () => null;
+  const handleSelectWithData = deferred ? handleSelect(deferred) : () => null;
 
   return (
     <BaseTypeahead

@@ -1,6 +1,7 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, Suspense } from "react";
 import BaseInputLabel from "components/forms/BaseInputLabel";
 import { ButtonControl } from "components/atomic";
+import { FormFieldSkeleton } from "components/atomic/loading";
 import EntitySelector from "../";
 import EntitySelectorController from "../EntitySelectorController";
 import EntityTypeahead from "../EntityTypeahead";
@@ -39,15 +40,17 @@ export default function Disclosure(props: Props) {
       <Styled.FieldWrapper>
         <BaseInputLabel as="span">{label}</BaseInputLabel>
         <Styled.Field>
-          <EntityTypeahead
-            name={name}
-            selected={selected}
-            onSelect={internalOnSelect}
-            selectableTypes={selectableTypes}
-          />
-          <ButtonControl {...disclosureProps} type="button">
-            Browse
-          </ButtonControl>
+          <Suspense fallback={<FormFieldSkeleton />}>
+            <EntityTypeahead
+              name={name}
+              selected={selected}
+              onSelect={internalOnSelect}
+              selectableTypes={selectableTypes}
+            />
+            <ButtonControl {...disclosureProps} type="button">
+              Browse
+            </ButtonControl>
+          </Suspense>
         </Styled.Field>
         <Styled.SelectorWrapper
           $visible={contentProps.visible}

@@ -10,6 +10,7 @@ import {
   UserTypeaheadQuery as Query,
   UserTypeaheadQuery$data as Response,
 } from "__generated__/UserTypeaheadQuery.graphql";
+import { FormFieldSkeleton } from "components/atomic/loading";
 import type { FieldValues, Control, Path } from "react-hook-form";
 
 type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
@@ -45,7 +46,11 @@ const UserTypeahead = <T extends FieldValues = FieldValues>(
   const debouncedOnChange = debounce((value) => setQ(value), 500);
 
   return (
-    <LazyLoadQueryWrapper<Query> query={query} variables={{ query: q }}>
+    <LazyLoadQueryWrapper<Query>
+      query={query}
+      variables={{ query: q }}
+      fallback={<FormFieldSkeleton />}
+    >
       {({ data }) => {
         return (
           <Controller<T>
