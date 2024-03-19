@@ -1,8 +1,10 @@
+import { Suspense } from "react";
 import { graphql } from "react-relay";
 import MutationForm, { Forms } from "components/api/MutationForm";
 import { GraphQLTaggedNode } from "react-relay";
 import { useMaybeFragment } from "hooks";
 import { NodeRoleSelect } from "components/forms/RoleSelect";
+import { FormFieldSkeleton } from "components/atomic/loading";
 import type {
   UserGrantCommunityAccessFormMutation as Mutation,
   GrantAccessInput as Fields,
@@ -42,7 +44,9 @@ const UserGrantCommunityAccessForm = ({
               data={formData}
               {...register("entityId")}
             />
-            <NodeRoleSelect nodeId={entityId} name="roleId" required />
+            <Suspense fallback={<FormFieldSkeleton />}>
+              <NodeRoleSelect nodeId={entityId} name="roleId" required />
+            </Suspense>
           </Forms.Grid>
         );
       }}

@@ -166,7 +166,11 @@ export default function Controller({
   };
 
   return !currentEntity ? (
-    <LazyLoadQueryWrapper<Query> query={communitiesQuery} variables={{}}>
+    <LazyLoadQueryWrapper<Query>
+      query={communitiesQuery}
+      variables={{}}
+      fallback={<LoadingCircle />}
+    >
       {({ data }) =>
         data?.communities?.edges.length ? (
           <>{renderOptions(data.communities.edges)}</>
@@ -179,6 +183,7 @@ export default function Controller({
     <LazyLoadQueryWrapper<EntityQuery>
       query={entityQuery}
       variables={queryVars}
+      fallback={<LoadingCircle />}
     >
       {({ data }) =>
         data ? (

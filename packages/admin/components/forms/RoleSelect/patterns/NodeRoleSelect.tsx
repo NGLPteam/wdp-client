@@ -1,3 +1,4 @@
+import { useDeferredValue } from "react";
 import { graphql } from "react-relay";
 import { useFormContext } from "react-hook-form";
 import useAuthenticatedQuery from "@wdp/lib/api/hooks/useAuthenticatedQuery";
@@ -19,11 +20,12 @@ export default function NodeRoleSelect({ nodeId, name, required }: Props) {
     // we only want to run the query if an id is passed to this component.
     { skip: !nodeId },
   );
+  const deferred = useDeferredValue(data);
 
   return (
     <Forms.RoleSelect
       label="forms.fields.role"
-      data={data?.node}
+      data={deferred?.node}
       required={required}
       {...register(name)}
     />

@@ -1,8 +1,10 @@
+import { Suspense } from "react";
 import MutationForm, { Forms } from "components/api/MutationForm";
 import { graphql } from "react-relay";
 import UserTypeahead from "components/forms/UserTypeahead";
 import RoleSelect from "components/forms/RoleSelect";
 import { useMaybeFragment } from "hooks";
+import { FormFieldSkeleton } from "components/atomic/loading";
 import type {
   RoleGrantAccessFormMutation as Mutation,
   GrantAccessInput as Fields,
@@ -34,16 +36,20 @@ const RoleGrantAccessForm = ({
       {({ form: { register, control } }) => (
         <Forms.Grid>
           <input type="hidden" {...register("entityId")} />
-          <UserTypeahead
-            label="forms.fields.user"
-            name="userId"
-            control={control}
-          />
-          <RoleSelect
-            label="forms.fields.role"
-            data={roles}
-            {...register("roleId")}
-          />
+          <Suspense fallback={<FormFieldSkeleton />}>
+            <UserTypeahead
+              label="forms.fields.user"
+              name="userId"
+              control={control}
+            />
+          </Suspense>
+          <Suspense fallback={<FormFieldSkeleton />}>
+            <RoleSelect
+              label="forms.fields.role"
+              data={roles}
+              {...register("roleId")}
+            />
+          </Suspense>
         </Forms.Grid>
       )}
     </MutationForm>

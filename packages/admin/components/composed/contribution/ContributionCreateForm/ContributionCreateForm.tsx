@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import MutationForm, {
@@ -5,6 +6,7 @@ import MutationForm, {
   Forms,
 } from "components/api/MutationForm";
 import EntitySelectorDisclosure from "components/forms/EntitySelector/EntitySelectorDisclosure";
+import { FormFieldSkeleton } from "components/atomic/loading";
 import type {
   UpsertContributionInput,
   ContributionCreateFormMutation,
@@ -42,12 +44,14 @@ export default function ContributionCreateForm({
               />
             </>
           ) : (
-            <Forms.ContributorTypeahead<Fields>
-              control={control}
-              name="contributorId"
-              label="forms.fields.contributor"
-              required
-            />
+            <Suspense fallback={<FormFieldSkeleton />}>
+              <Forms.ContributorTypeahead<Fields>
+                control={control}
+                name="contributorId"
+                label="forms.fields.contributor"
+                required
+              />
+            </Suspense>
           )}
           {contributableId ? (
             <>

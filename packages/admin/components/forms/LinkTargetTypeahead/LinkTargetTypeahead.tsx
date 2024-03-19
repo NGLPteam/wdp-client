@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useDeferredValue } from "react";
 import { GraphQLTaggedNode, graphql } from "react-relay";
 import { debounce } from "lodash";
 import { Controller } from "react-hook-form";
@@ -27,10 +27,12 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
 }: Props<T>) => {
   const [variables, setVariables] = useState({ slug, title: "" });
   const data = useAuthenticatedQuery<Query>(query, variables);
+  const deferred = useDeferredValue(data);
 
   const optionsData = useMaybeFragment<LinkTargetTypeaheadFragment$key>(
     fragment as GraphQLTaggedNode,
-    data?.collection?.linkTargetCandidates || data?.item?.linkTargetCandidates,
+    deferred?.collection?.linkTargetCandidates ||
+      deferred?.item?.linkTargetCandidates,
   );
 
   const options = useMemo(() => {

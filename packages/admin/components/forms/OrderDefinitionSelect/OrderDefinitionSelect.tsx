@@ -1,4 +1,10 @@
-import React, { forwardRef, Ref, useMemo, useRef } from "react";
+import React, {
+  forwardRef,
+  Ref,
+  useMemo,
+  useRef,
+  useDeferredValue,
+} from "react";
 import { useFragment, GraphQLTaggedNode, graphql } from "react-relay";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
 import {
@@ -40,11 +46,12 @@ function OrderDefinitionSelect(
   const orderingData = useAuthenticatedQuery<Query>(query, {
     schemas: entity.schemaRanks as OrderingSchemaFilterInput[],
   });
+  const deferred = useDeferredValue(orderingData);
 
   // Get the options from orderingPaths, and format as OrderDefinitionInput
   const options = useMemo(() => {
-    return orderingData
-      ? orderingData.orderingPaths
+    return deferred
+      ? deferred.orderingPaths
           // Filter out repeating paths
           .filter((o, i, self) => {
             return (
@@ -65,7 +72,7 @@ function OrderDefinitionSelect(
           }))
           .sort((a, b) => (a.label < b.label ? -1 : 1))
       : [];
-  }, [orderingData]);
+  }, [deferred]);
 
   // Filter the options by duplicates and the current selected values
   const filteredOptions = useMemo(() => {
