@@ -3059,7 +3059,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@wdp/eslint@workspace:packages/eslint":
+"@wdp/eslint@workspace:^, @wdp/eslint@workspace:packages/eslint":
   version: 0.0.0-use.local
   resolution: "@wdp/eslint@workspace:packages/eslint"
   dependencies:
@@ -3199,7 +3199,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@wdp/tsconfig@workspace:packages/tsconfig":
+"@wdp/middleware@workspace:packages/middleware":
+  version: 0.0.0-use.local
+  resolution: "@wdp/middleware@workspace:packages/middleware"
+  dependencies:
+    "@wdp/eslint": "workspace:^"
+    "@wdp/tsconfig": "workspace:^"
+    depcheck: "npm:^1.4.7"
+    eslint: "npm:^8.57.0"
+    typescript: "npm:^5.3.3"
+  peerDependencies:
+    next: 14.1.0
+  languageName: unknown
+  linkType: soft
+
+"@wdp/tsconfig@workspace:^, @wdp/tsconfig@workspace:packages/tsconfig":
   version: 0.0.0-use.local
   resolution: "@wdp/tsconfig@workspace:packages/tsconfig"
   dependencies:

@@ -5,7 +5,8 @@
     "packages/frontend",
     "packages/lib",
     "packages/eslint",
-    "packages/tsconfig"
+    "packages/tsconfig",
+    "packages/middleware"
   ],
   "cacheDirectories": [
     "node_modules",
@@ -15,7 +16,8 @@
     "packages/frontend/.next/cache",
     "packages/eslint/node_modules",
     "packages/lib/node_modules",
-    "packages/tsconfig/node_modules"
+    "packages/tsconfig/node_modules",
+    "packages/middleware/node_modules"
   ],
   "version": "1.0.0",
   "description": "NGLP Web Delivery Platform client application",
