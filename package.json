@@ -23,7 +23,7 @@
   "engines": {
     "node": "20.x"
   },
-  "packageManager": "yarn@4.1.0",
+  "packageManager": "yarn@4.1.1",
   "scripts": {
     "dev": "concurrently -c \"auto\" \"yarn:dev:*\"",
     "dev:frontend": "yarn workspace @wdp/frontend run dev",
