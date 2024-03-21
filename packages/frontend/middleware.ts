@@ -1,3 +1,8 @@
-import middleware from "@wdp/lib/app/middleware";
+import { chain } from "@wdp/middleware";
+import https from "@wdp/middleware/src/https";
 
-export default middleware;
+export const config = {
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+};
+
+export default chain([https]);
