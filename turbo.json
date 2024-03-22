@@ -1,0 +1,36 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDotEnv": [".env"],
+  "globalDependencies": ["**/.env.*local"],
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "test": {},
+    "lint": {},
+    "types": {},
+    "relay": {
+      "inputs": [
+        "pages/**/*.{ts,tsx}",
+        "components/**/*.{ts,tsx}",
+        "hooks/**/*.{ts,tsx}"
+      ],
+      "outputs": ["__generated__/**"]
+    },
+    "watch": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
+      "cache": false,
+      "persistent": true
+    },
+    "depcheck": {},
+    "dev": {
+      "dependsOn": ["relay"],
+      "cache": false,
+      "persistent": true
+    }
+  }
+}
