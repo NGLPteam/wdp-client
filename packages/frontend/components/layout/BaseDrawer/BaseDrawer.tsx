@@ -1,5 +1,7 @@
-import React from "react";
+"use client";
+
 import { CloseModalButton } from "components/atomic";
+import useIsMounted from "@/hooks/useIsMounted";
 import * as Styled from "./BaseDrawer.styles";
 import type { DialogProps } from "reakit/Dialog";
 
@@ -10,7 +12,9 @@ export default function Drawer({
   label,
   dialog,
 }: Props) {
-  return (
+  const isMounted = useIsMounted();
+
+  return isMounted ? (
     <Styled.Wrapper className="a-bg-custom20" aria-label={label} {...dialog}>
       <Styled.Header>
         <div>{header}</div>
@@ -26,7 +30,7 @@ export default function Drawer({
         <Styled.Footer className="a-bg-custom10">{footer}</Styled.Footer>
       )}
     </Styled.Wrapper>
-  );
+  ) : null;
 }
 
 interface Props {

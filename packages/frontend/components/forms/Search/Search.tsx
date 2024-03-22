@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { useRouteSlug } from "@wdp/lib/routes";
@@ -24,17 +24,14 @@ export default function Search({
   const onSubmit = (data: Record<string, string>) => {
     if (!routeObj) return null;
 
-    router.push(
-      {
-        pathname: routeObj.path,
-        query: {
-          ...(slug && { slug }),
-          q: data.q,
-        },
-      },
-      undefined,
-      { shallow: true },
-    );
+    const params = new URLSearchParams({
+      ...(slug && { slug }),
+      q: data.q,
+    });
+
+    const url = `/${routeObj.path}/${params.toString()}`;
+
+    router.push(url);
   };
 
   const routeObj = RouteHelper.findRouteByName(route);

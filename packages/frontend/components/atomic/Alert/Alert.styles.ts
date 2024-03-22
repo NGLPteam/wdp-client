@@ -4,7 +4,9 @@ import Alert from "./Alert";
 
 type AlertProps = React.ComponentProps<typeof Alert>;
 
-export const Wrapper = styled.div<Pick<AlertProps, "color" | "badge">>`
+export const Wrapper = styled.div<
+  Pick<AlertProps, "color"> & { $badge?: boolean }
+>`
   ${({ color }) =>
     `
     --alert-bg-color: var(--color-base-${color}Tint);
@@ -13,8 +15,10 @@ export const Wrapper = styled.div<Pick<AlertProps, "color" | "badge">>`
 
   color: var(--alert-text-color);
   background-color: var(--alert-bg-color);
-  padding-block: ${({ badge }) => (badge ? `var(--padding-xs)` : pxToRem(12))};
-  padding-inline: ${({ badge }) => (badge ? pxToRem(14) : `var(--padding-rg)`)};
+  padding-block: ${({ $badge }) =>
+    $badge ? `var(--padding-xs)` : pxToRem(12)};
+  padding-inline: ${({ $badge }) =>
+    $badge ? pxToRem(14) : `var(--padding-rg)`};
   display: flex;
   align-items: center;
   justify-content: center;

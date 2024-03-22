@@ -1,8 +1,7 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { useRouteSlug } from "@wdp/lib/routes";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { RouteHelper } from "routes";
 import { IconFactory } from "components/factories";
 import * as Styled from "./SearchHero.styles";
@@ -13,6 +12,7 @@ export default function SearchHero() {
   const slug = useRouteSlug();
 
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const { register, handleSubmit } = useForm({
     shouldUseNativeValidation: true,
@@ -22,17 +22,14 @@ export default function SearchHero() {
   const communityRoute = RouteHelper.findRouteByName("community.search");
 
   const onSubmit = async (data: { q?: string }) => {
-    router.push(
-      {
-        pathname: slug ? communityRoute?.path : searchRoute?.path,
-        query: {
-          ...router.query,
-          q: data.q,
-        },
-      },
-      undefined,
-      { shallow: true },
-    );
+    const params = new URLSearchParams(searchParams);
+    if (data.q) params.set("q", data.q);
+
+    const path = slug
+      ? communityRoute?.path.replace("[slug]", slug)
+      : searchRoute?.path;
+
+    router.push(`${path}?${params.toString()}`);
   };
 
   return (

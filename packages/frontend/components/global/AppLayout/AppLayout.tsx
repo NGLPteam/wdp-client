@@ -1,8 +1,10 @@
-import React from "react";
+"use client";
+
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { RouteHelper } from "routes";
 import CommunityNavBar from "components/composed/community/CommunityNavBar";
+import { updateI18n } from "i18n";
 import { AppLayoutCommunityFragment$key } from "@/relay/AppLayoutCommunityFragment.graphql";
 import { AppLayoutEntityFragment$key } from "@/relay/AppLayoutEntityFragment.graphql";
 import { AppBody } from "..";
@@ -12,6 +14,8 @@ export default function AppLayout({
   entityData,
   children,
 }: Props) {
+  updateI18n("en");
+
   const community = useMaybeFragment(fragment, communityData);
 
   const entity = useMaybeFragment(entityFragment, entityData);

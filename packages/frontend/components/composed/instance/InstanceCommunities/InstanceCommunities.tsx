@@ -1,4 +1,5 @@
-import * as React from "react";
+"use client";
+
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import {

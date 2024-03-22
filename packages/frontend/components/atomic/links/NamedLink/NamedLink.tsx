@@ -9,14 +9,7 @@ type LinkProps = React.ComponentProps<typeof Link>;
  */
 const NamedLink = forwardRef(
   (
-    {
-      route: routeName,
-      routeParams,
-      query,
-      children,
-      passHref,
-      ...props
-    }: Props,
+    { route: routeName, routeParams, children, passHref, ...props }: Props,
     ref,
   ) => {
     // Find the route
@@ -34,19 +27,19 @@ const NamedLink = forwardRef(
       return null;
     }
 
-    // next/link takes both route params and search params and rolls them into 'query'
-    const nextQuery = { ...routeParams, ...query };
-
     // If the route redirects to another route, link to the redirect path.
     const path = route.redirect ? route.redirect : route.path;
 
+    // App router Link no longer accepts dynamic pathnames
+    const href = path.replaceAll("[", "").replaceAll("]", "");
+
+    if (routeParams)
+      Object.keys(routeParams).forEach((key) => {
+        href.replace(key, routeParams[key].toString());
+      });
+
     return isAuthorized ? (
-      <Link
-        href={{ pathname: path, query: nextQuery }}
-        passHref={passHref}
-        {...props}
-        legacyBehavior
-      >
+      <Link href={href} passHref={passHref} {...props} legacyBehavior>
         {React.isValidElement(children)
           ? React.cloneElement(children, { ref, ...props })
           : children}
