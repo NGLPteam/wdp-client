@@ -6,7 +6,8 @@
     "packages/lib",
     "packages/eslint",
     "packages/tsconfig",
-    "packages/middleware"
+    "packages/middleware",
+    "packages/auth"
   ],
   "cacheDirectories": [
     "node_modules",
@@ -17,7 +18,8 @@
     "packages/eslint/node_modules",
     "packages/lib/node_modules",
     "packages/tsconfig/node_modules",
-    "packages/middleware/node_modules"
+    "packages/middleware/node_modules",
+    "packages/auth/node_modules"
   ],
   "version": "1.0.0",
   "description": "NGLP Web Delivery Platform client application",
