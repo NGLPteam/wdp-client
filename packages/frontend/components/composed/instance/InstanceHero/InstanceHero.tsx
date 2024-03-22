@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { graphql, useFragment } from "react-relay";
 import SearchHero from "components/composed/search/SearchHero";

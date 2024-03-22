@@ -1,3 +1,5 @@
+"use client";
+
 import React, { createContext } from "react";
 import { getStaticGlobalContextDataQuery$data } from "@/relay/getStaticGlobalContextDataQuery.graphql";
 import { getStaticEntityDataFragment$data } from "@/relay/getStaticEntityDataFragment.graphql";

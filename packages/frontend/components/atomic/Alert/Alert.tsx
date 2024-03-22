@@ -10,7 +10,7 @@ type Props = {
 
 export default function Alert({ color = "red", message, icon, badge }: Props) {
   return (
-    <Styled.Wrapper color={color} badge={badge}>
+    <Styled.Wrapper color={color} $badge={badge}>
       {icon && <IconFactory icon="alertTriangle24" role="presentation" />}
       <span className="t-copy">{message}</span>
     </Styled.Wrapper>
