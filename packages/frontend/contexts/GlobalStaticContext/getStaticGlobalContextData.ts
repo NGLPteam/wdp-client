@@ -1,4 +1,4 @@
-import { buildEnvironment as environment } from "@wdp/lib/app";
+import { default as environment } from "@wdp/lib/app/buildEnvironment";
 import { fetchQuery, graphql } from "relay-runtime";
 import { getStaticGlobalContextDataQuery } from "@/relay/getStaticGlobalContextDataQuery.graphql";
 

@@ -1,12 +1,12 @@
+"use client";
+
 /** This context is for wrapping all app wide contexts */
-import { useMemo, Suspense } from "react";
+import { useMemo } from "react";
 import { Provider as ReakitSSRProvider } from "reakit";
 import { PageContextProvider } from "@wdp/lib/api/contexts/PageContext";
 import { ThemeProvider } from "styled-components";
 import { graphql } from "react-relay";
 import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
-import GlobalStyles from "theme";
-import { LoadingPage } from "components/atomic";
 import { AppContextProviderQuery as Query } from "@/relay/AppContextProviderQuery.graphql";
 import { ViewerContextProvider } from "./ViewerContext";
 import { GlobalContextProvider } from "./GlobalContext";
@@ -29,13 +29,10 @@ const AppContextProvider = ({ children }: Props) => {
           colorStyle: theme?.color,
         }}
       >
-        <GlobalStyles />
         <ReakitSSRProvider>
           <GlobalContextProvider data={data}>
             <ViewerContextProvider>
-              <PageContextProvider>
-                <Suspense fallback={<LoadingPage />}>{children}</Suspense>
-              </PageContextProvider>
+              <PageContextProvider>{children}</PageContextProvider>
             </ViewerContextProvider>
           </GlobalContextProvider>
         </ReakitSSRProvider>

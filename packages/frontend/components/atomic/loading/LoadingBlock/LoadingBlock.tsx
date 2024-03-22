@@ -17,7 +17,7 @@ export default function LoadingBlock({ className, label, style }: Props) {
       role="progressbar"
       aria-valuetext={label || t("common.loading")}
     >
-      <LoadingSpinner label={label} />
+      <LoadingSpinner />
     </Styled.Wrapper>
   );
 }
