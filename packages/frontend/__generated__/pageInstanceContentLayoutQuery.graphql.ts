@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<592d1bde99a22a5ac88ec143856eadc7>>
+ * @generated SignedSource<<7ef2ae221f48aa04d58b6130a3d1dcb1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,8 +10,8 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type InstanceContentLayoutQuery$variables = Record<PropertyKey, never>;
-export type InstanceContentLayoutQuery$data = {
+export type pageInstanceContentLayoutQuery$variables = Record<PropertyKey, never>;
+export type pageInstanceContentLayoutQuery$data = {
   readonly communities: {
     readonly edges: ReadonlyArray<{
       readonly node: {
@@ -25,9 +25,9 @@ export type InstanceContentLayoutQuery$data = {
   };
   readonly " $fragmentSpreads": FragmentRefs<"InstanceHeroFragment">;
 };
-export type InstanceContentLayoutQuery = {
-  response: InstanceContentLayoutQuery$data;
-  variables: InstanceContentLayoutQuery$variables;
+export type pageInstanceContentLayoutQuery = {
+  response: pageInstanceContentLayoutQuery$data;
+  variables: pageInstanceContentLayoutQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -119,7 +119,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "InstanceContentLayoutQuery",
+    "name": "pageInstanceContentLayoutQuery",
     "selections": [
       {
         "alias": null,
@@ -174,7 +174,7 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "InstanceContentLayoutQuery",
+    "name": "pageInstanceContentLayoutQuery",
     "selections": [
       {
         "alias": null,
@@ -362,16 +362,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ef19ff8eeab5306f8a7271dfd404c9ae",
+    "cacheID": "000280c83c4cc13ad47217b294c88607",
     "id": null,
     "metadata": {},
-    "name": "InstanceContentLayoutQuery",
+    "name": "pageInstanceContentLayoutQuery",
     "operationKind": "query",
-    "text": "query InstanceContentLayoutQuery {\n  communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        id\n      }\n    }\n    pageInfo {\n      totalCount\n    }\n    ...InstanceCommunitiesFragment\n  }\n  ...InstanceHeroFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstanceCommunitiesFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      ...InstanceCommunitySummaryFragment\n      id\n    }\n  }\n}\n\nfragment InstanceCommunitySummaryFragment on Community {\n  slug\n  title\n  tagline\n  summary\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  heroImage {\n    storage\n    large {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n  logo {\n    storage\n    original {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment InstanceHeroFragment on Query {\n  globalConfiguration {\n    site {\n      providerName\n      installationName\n      installationHomePageCopy\n    }\n    id\n  }\n}\n"
+    "text": "query pageInstanceContentLayoutQuery {\n  communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        id\n      }\n    }\n    pageInfo {\n      totalCount\n    }\n    ...InstanceCommunitiesFragment\n  }\n  ...InstanceHeroFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstanceCommunitiesFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      ...InstanceCommunitySummaryFragment\n      id\n    }\n  }\n}\n\nfragment InstanceCommunitySummaryFragment on Community {\n  slug\n  title\n  tagline\n  summary\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  heroImage {\n    storage\n    large {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n  logo {\n    storage\n    original {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment InstanceHeroFragment on Query {\n  globalConfiguration {\n    site {\n      providerName\n      installationName\n      installationHomePageCopy\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "982e03574cd809149ae09cac5c58f6a3";
+(node as any).hash = "8c58cabc7d0a122e015acdb337ed1fff";
 
 export default node;
