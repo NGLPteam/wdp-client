@@ -1,4 +1,6 @@
-import React, { useMemo } from "react";
+"use client";
+
+import { useMemo } from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
