@@ -4,7 +4,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import isFunction from "lodash/isFunction";
 import { Trans } from "react-i18next";
 import Link from "next/link";
-import { useRouteSlug } from "@wdp/lib/routes";
+import { useRouteSlug } from "hooks";
 import { useSchemaFormFieldsContext } from "components/api/SchemaFormFields/SchemaFormFieldsContext";
 import AssetPropertySelect from "components/forms/AssetPropertySelect";
 import { OnChangeInput } from "components/forms/AssetPropertySelect/AssetPropertySelect";

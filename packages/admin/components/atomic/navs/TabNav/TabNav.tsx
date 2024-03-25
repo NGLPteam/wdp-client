@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useRouteSlug } from "@wdp/lib/routes";
+import { useRouteSlug } from "hooks";
 import { RouteHelper } from "routes";
 import { Dropdown, NamedLink, Tab, TabLink, NavLink } from "components/atomic";
 import * as Styled from "./TabNav.styles";
