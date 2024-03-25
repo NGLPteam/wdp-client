@@ -5,7 +5,7 @@ export {
   useIsAuthenticated,
 } from "@wdp/lib/api/hooks";
 export { useSignInOut } from "@wdp/lib/api/hooks/useIsAuthenticated";
-export { useRouteSlug } from "@wdp/lib/routes/hooks/useRouteSlug";
+export { default as useRouteSlug } from "./useRouteSlug";
 export { default as useBreadcrumbs } from "./useBreadcrumbs";
 export { default as useBaseListQueryVars } from "./useBaseListQueryVars";
 export { default as useHasRole } from "./useHasRole";
