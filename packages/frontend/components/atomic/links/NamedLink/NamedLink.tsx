@@ -31,13 +31,13 @@ const NamedLink = forwardRef(
     const path = route.redirect ? route.redirect : route.path;
 
     // App router Link no longer accepts dynamic pathnames
-    const href = path.replaceAll("[", "").replaceAll("]", "");
+    let href = path.replaceAll("[", "").replaceAll("]", "");
 
-    if (routeParams)
+    if (routeParams) {
       Object.keys(routeParams).forEach((key) => {
-        href.replace(key, routeParams[key].toString());
+        href = href.replace(key, routeParams[key].toString());
       });
-
+    }
     return isAuthorized ? (
       <Link href={href} passHref={passHref} {...props} legacyBehavior>
         {React.isValidElement(children)

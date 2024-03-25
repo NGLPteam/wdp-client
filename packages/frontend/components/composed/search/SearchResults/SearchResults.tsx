@@ -1,6 +1,6 @@
 import { graphql, useFragment } from "react-relay";
 import { Trans, useTranslation } from "react-i18next";
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { NoContent } from "components/layout";
 import { LoadingBlock, Pagination } from "components/atomic";
@@ -13,8 +13,8 @@ export default function SearchResults({ data, isLoading }: Props) {
 
   const { t } = useTranslation();
 
-  const { query: queryVars } = useRouter();
-  const q = routeQueryArrayToString(queryVars.q);
+  const queryVars = useSearchParams();
+  const q = routeQueryArrayToString(queryVars.get("q"));
 
   return isLoading ? (
     <LoadingBlock />
@@ -52,7 +52,7 @@ export default function SearchResults({ data, isLoading }: Props) {
 }
 
 interface Props {
-  data: SearchResultsFragment$key;
+  data?: SearchResultsFragment$key;
   isLoading?: boolean;
 }
 

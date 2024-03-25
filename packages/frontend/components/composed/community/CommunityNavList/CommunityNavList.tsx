@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
@@ -61,13 +60,12 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
     />
   );
 
-  return (
-    <ListComponent condensed={condensed}>
+  return community ? (
+    <ListComponent $condensed={condensed}>
       {schemaLinks.length > 0 && (
         <li className="t-capitalize">{exploreMenu}</li>
       )}
-      {community &&
-        community.slug &&
+      {community.slug &&
         community.pages.edges &&
         community.pages.edges.map(({ node }) => (
           <li key={node.slug}>
@@ -85,7 +83,7 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
           </li>
         ))}
     </ListComponent>
-  );
+  ) : null;
 }
 
 interface Props {

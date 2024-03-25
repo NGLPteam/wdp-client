@@ -1,4 +1,3 @@
-import React from "react";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { useTranslation } from "react-i18next";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";

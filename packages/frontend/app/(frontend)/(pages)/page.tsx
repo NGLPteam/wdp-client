@@ -1,5 +1,5 @@
 import { graphql } from "relay-runtime";
-import { redirect } from "next/navigation";
+import { redirect, notFound } from "next/navigation";
 import { RouteHelper } from "routes/RouteHelper";
 import InstanceCommunities from "components/composed/instance/InstanceCommunities";
 import InstanceHero from "components/composed/instance/InstanceHero";
@@ -20,14 +20,16 @@ export default async function HomePage() {
     redirect(href);
   }
 
-  return instance ? (
+  if (!instance) return notFound();
+
+  return (
     <UpdateClientEnvironment records={records}>
       <AppLayout>
         <InstanceHero data={instance} />
         <InstanceCommunities data={instance.communities} />
       </AppLayout>
     </UpdateClientEnvironment>
-  ) : null;
+  );
 }
 
 const query = graphql`

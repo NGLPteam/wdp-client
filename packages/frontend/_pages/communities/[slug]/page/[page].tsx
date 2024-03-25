@@ -15,7 +15,7 @@ import { useRouteSlug } from "@wdp/lib/routes";
 import { LoadingBlock } from "components/atomic";
 import ErrorPage from "next/error";
 import AppLayout from "components/global/AppLayout";
-import { PageCommunityQuery as Query } from "@/relay/PageCommunityQuery.graphql";
+import { PageCommunityQuery as Query } from "@/relay/PageCommunityOldQuery.graphql";
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const props = await getStaticGlobalContextData();
@@ -75,7 +75,7 @@ type Props = {
 CommunityPage.getLayout = GetCommunityLayout;
 
 const query = graphql`
-  query PageCommunityQuery($slug: Slug!, $pageSlug: String!) {
+  query PageCommunityOldQuery($slug: Slug!, $pageSlug: String!) {
     community(slug: $slug) {
       page(slug: $pageSlug) {
         ...CommunityPageLayoutFragment

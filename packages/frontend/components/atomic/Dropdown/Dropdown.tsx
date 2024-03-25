@@ -1,4 +1,3 @@
-import React from "react";
 import BaseDropdown from "../BaseDropdown";
 import * as Styled from "./Dropdown.styles";
 
