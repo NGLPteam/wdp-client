@@ -9,6 +9,7 @@ module.exports = {
     "**/__generated__/**",
     "**/.next/**",
     "**/__schema__/**",
+    "**/_pages/**",
   ],
   extensions: ["ts", "tsx"],
   language: "typescript",

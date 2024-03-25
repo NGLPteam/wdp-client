@@ -1,5 +1,5 @@
-import React from "react";
 import { graphql } from "react-relay";
+import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
@@ -10,7 +10,6 @@ import CommunityPicker from "components/composed/instance/CommunityPicker";
 import AccountDropdown from "components/composed/viewer/AccountDropdown";
 import CommunityNavList from "components/composed/community/CommunityNavList";
 import Search from "components/forms/Search";
-import { RouteHelper } from "routes";
 import CommunityName from "components/composed/community/CommunityName";
 import BaseDrawer from "components/layout/BaseDrawer";
 import { useGlobalContext } from "contexts";
@@ -29,7 +28,9 @@ function AppHeader({ communityData, entityData }: Props) {
 
   const entity = useMaybeFragment(entityFragment, entityData);
 
-  const isCommunityRoot = RouteHelper.isRouteNameFuzzyActive("community");
+  const pathRegEx = /^\/communities\/[A-Za-z0-9]{32}$/;
+
+  const isCommunityRoot = pathRegEx.test(usePathname());
 
   const { t } = useTranslation();
 
@@ -75,7 +76,7 @@ function AppHeader({ communityData, entityData }: Props) {
           label={t("nav.menu")}
         >
           <Styled.MobileList>
-            {community && <CommunityNavList data={community} mobile />}
+            <CommunityNavList data={community} mobile />
             <Search id="headerSearch" mobile />
             <AccountDropdown mobile />
           </Styled.MobileList>

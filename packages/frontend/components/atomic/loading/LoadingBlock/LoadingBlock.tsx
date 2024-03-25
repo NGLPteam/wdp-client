@@ -1,29 +1,12 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+"use client";
+
 import LoadingSpinner from "../LoadingSpinner";
 import * as Styled from "./LoadingBlock.styles";
 
-export default function LoadingBlock({ className, label, style }: Props) {
-  const { t } = useTranslation();
-
+export default function LoadingBlock({ className }: { className?: string }) {
   return (
-    <Styled.Wrapper
-      className={className}
-      style={style}
-      aria-live="polite"
-      aria-busy="true"
-      aria-valuemin={0}
-      aria-valuemax={100}
-      role="progressbar"
-      aria-valuetext={label || t("common.loading")}
-    >
+    <Styled.Wrapper className={className}>
       <LoadingSpinner />
     </Styled.Wrapper>
   );
-}
-
-interface Props {
-  className?: string;
-  label?: string;
-  style?: React.CSSProperties;
 }

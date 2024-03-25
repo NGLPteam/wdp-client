@@ -3,7 +3,6 @@ import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { useRouteSlug } from "@wdp/lib/routes";
-import { RouteHelper } from "routes";
 import { IconFactory } from "../../factories";
 import * as Styled from "./Search.styles";
 
@@ -22,25 +21,17 @@ export default function Search({
   const slug = useRouteSlug();
 
   const onSubmit = (data: Record<string, string>) => {
-    if (!routeObj) return null;
+    if (!route) return null;
 
     const params = new URLSearchParams({
       ...(slug && { slug }),
       q: data.q,
     });
 
-    const url = `/${routeObj.path}/${params.toString()}`;
+    const url = `/${route}?${params.toString()}`;
 
     router.push(url);
   };
-
-  const routeObj = RouteHelper.findRouteByName(route);
-
-  if (!routeObj) {
-    console.warn(`No route found with the name ${route}`);
-
-    return null;
-  }
 
   return (
     <Styled.SearchForm

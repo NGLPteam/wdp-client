@@ -1,4 +1,6 @@
-import React, { Suspense } from "react";
+"use client";
+
+import { Suspense } from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import FeaturedJournals from "components/composed/journal/FeaturedJournals";

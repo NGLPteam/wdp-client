@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "next/router";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { Fieldset, Select } from "components/forms";
 
@@ -7,19 +7,16 @@ export default function SearchOrderBy() {
   const { t } = useTranslation();
 
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    router.push(
-      {
-        pathname: router.pathname,
-        query: {
-          ...router.query,
-          order: e.target.value,
-        },
-      },
-      undefined,
-      { shallow: true },
-    );
+    const params = new URLSearchParams(searchParams);
+    params.set("order", e.target.value);
+
+    const url = `${pathname}?${params.toString()}`;
+
+    router.push(url);
   };
 
   return (
@@ -31,7 +28,7 @@ export default function SearchOrderBy() {
         block
         hideLabel
         onChange={onChange}
-        defaultValue={router.query.order || "PUBLISHED_ASCENDING"}
+        defaultValue={searchParams.get("order") || "PUBLISHED_ASCENDING"}
       >
         <option disabled>{t("list.order_by_label")}</option>
         <option value="PUBLISHED_ASCENDING">Publish Date, Ascending</option>

@@ -1,10 +1,8 @@
-import * as React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { RouteHelper } from "routes";
 import { Select } from "components/forms";
 import SearchBar from "components/composed/search/SearchBar";
 import { SearchModalFragment$key } from "@/relay/SearchModalFragment.graphql";
@@ -13,16 +11,16 @@ import * as Styled from "./SearchModal.styles";
 
 type ModalProps = React.ComponentProps<typeof Modal>;
 
-function getSearchRouteByType(type: string) {
-  switch (type) {
+function getSearchRouteByType(entity?: { type: string; slug: string }) {
+  switch (entity?.type) {
     case "Community":
-      return "community.search";
+      return `/communities/${entity.slug}/search`;
 
     case "Collection":
-      return "collection.search";
+      return `/collections/${entity.slug}/search`;
 
     default:
-      return "search";
+      return "/search";
   }
 }
 
@@ -37,18 +35,15 @@ export default function SearchModal({ dialog, data }: Props) {
 
   const onSubmit = (data: Record<string, string>) => {
     const entity = data.entity ? JSON.parse(data.entity) : null;
-    const routeName = getSearchRouteByType(entity?.type);
-    const route = RouteHelper.findRouteByName(routeName);
+    const pathname = getSearchRouteByType(entity);
 
-    if (!route) {
+    if (!pathname) {
       console.warn("No search route found.");
       return null;
     }
+    const params = new URLSearchParams({ q: data.q });
 
-    router.push({
-      pathname: route.path,
-      query: { ...(entity?.slug && { slug: entity.slug }), q: data.q },
-    });
+    router.push(`${pathname}?${params.toString()}`);
 
     if (dialog && dialog.hide) {
       dialog.hide();

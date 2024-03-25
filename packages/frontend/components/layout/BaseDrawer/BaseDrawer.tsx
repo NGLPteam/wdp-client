@@ -1,7 +1,7 @@
 "use client";
 
 import { CloseModalButton } from "components/atomic";
-import useIsMounted from "@/hooks/useIsMounted";
+import { useIsMounted } from "@wdp/lib/hooks";
 import * as Styled from "./BaseDrawer.styles";
 import type { DialogProps } from "reakit/Dialog";
 

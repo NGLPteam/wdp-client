@@ -1,9 +1,8 @@
-import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 import routeQueryArrayToString from "../helpers/routeQueryArrayToString";
 
 export function useRoutePageSlug(): string | undefined | null {
-  const router = useRouter();
-  const { page } = router.query;
+  const { page } = useParams();
   return routeQueryArrayToString(page);
 }
 
