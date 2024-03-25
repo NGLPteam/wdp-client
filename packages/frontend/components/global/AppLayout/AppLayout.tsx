@@ -1,8 +1,8 @@
 "use client";
 
 import { graphql } from "react-relay";
+import { usePathname } from "next/navigation";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { RouteHelper } from "routes";
 import CommunityNavBar from "components/composed/community/CommunityNavBar";
 import { updateI18n } from "i18n";
 import { AppLayoutCommunityFragment$key } from "@/relay/AppLayoutCommunityFragment.graphql";
@@ -20,7 +20,9 @@ export default function AppLayout({
 
   const entity = useMaybeFragment(entityFragment, entityData);
 
-  const isCommunityRoot = RouteHelper.isRouteNameFuzzyActive("community");
+  const pathRegEx = /^\/communities\/[A-Za-z0-9]{32}$/;
+
+  const isCommunityRoot = pathRegEx.test(usePathname());
 
   return (
     <AppBody communityData={community} entityData={entity}>

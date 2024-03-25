@@ -1,4 +1,4 @@
-import React from "react";
+import { forwardRef } from "react";
 import { useIsMounted } from "@wdp/lib/hooks";
 import { usePopoverState, PopoverDisclosure } from "reakit/Popover";
 import * as Styled from "./BaseDropdown.styles";
@@ -13,7 +13,7 @@ type ButtonProps = Partial<
  * It is unstyled and can be extended to create more restrictive dropdowns.
  * Using the reakit Popover gives us base a11y props and auto dropdown placement.
  */
-const BaseDropdown = React.forwardRef<HTMLButtonElement, Props>(
+const BaseDropdown = forwardRef<HTMLButtonElement, Props>(
   (
     {
       disclosure,

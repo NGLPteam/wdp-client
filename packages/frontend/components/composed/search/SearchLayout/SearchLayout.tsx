@@ -1,24 +1,43 @@
-import React, { useCallback, useEffect } from "react";
-import { useRouter } from "next/router";
-import { graphql, useFragment } from "react-relay";
+"use client";
+
+import { useEffect, useTransition } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { graphql, useRefetchableFragment } from "react-relay";
 import { useForm } from "react-hook-form";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import BaseDrawer from "components/layout/BaseDrawer";
 import { Button } from "components/atomic";
-import useSearchQueryVars from "hooks/useSearchQueryVars";
 import { NoContent } from "components/layout";
+import normalizeRouteQueryArray from "@wdp/lib/routes/helpers/normalizeRouteQueryArray";
+import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToString";
+import { getPredicates } from "helpers/search";
+import { EntityOrder } from "types/graphql-schema";
 import { SearchLayoutFragment$key } from "@/relay/SearchLayoutFragment.graphql";
+import { SearchLayoutEntityFragment$key } from "@/relay/SearchLayoutEntityFragment.graphql";
+import { SearchLayoutQuery } from "@/relay/SearchLayoutQuery.graphql";
 import SearchBar from "../SearchBar";
 import SearchResults from "../SearchResults";
 import SearchFilters from "../SearchFilters";
 import * as Styled from "./SearchLayout.styles";
 
-export default function SearchLayout({ data, refetch, isLoading }: Props) {
+export default function SearchLayout({ data, scoped }: Props) {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const searchData = useFragment(fragment, data);
+  const [searchGlobalData, refetchGlobal] = useRefetchableFragment<
+    SearchLayoutQuery,
+    SearchLayoutFragment$key
+  >(fragment, scoped ? null : data);
 
-  const search = searchData?.search;
+  const [searchEntityData, refetchEntity] = useRefetchableFragment<
+    SearchLayoutQuery,
+    SearchLayoutEntityFragment$key
+  >(entityFragment, scoped ? data : null);
+
+  const search = scoped ? searchEntityData?.search : searchGlobalData?.search;
+
+  const [isPending, startTransition] = useTransition();
 
   const dialog = useDialogState({ animated: true });
 
@@ -26,33 +45,48 @@ export default function SearchLayout({ data, refetch, isLoading }: Props) {
     shouldUseNativeValidation: true,
   });
 
-  const handleRefetch = useCallback(
-    (vars = {}) => refetch({ ...vars }),
-    [refetch],
-  );
-
-  const queryVars = useSearchQueryVars();
-
   const noSearchQuery =
-    queryVars.query === "" &&
-    (!queryVars.predicates || queryVars.predicates.length === 0);
+    (!searchParams.get("q") || searchParams.get("q") === "") &&
+    !searchParams.get("filters");
 
   useEffect(() => {
-    handleRefetch(queryVars);
-  }, [queryVars, handleRefetch]);
+    const filters = searchParams.get("filters")
+      ? routeQueryArrayToString(searchParams.get("filters"))
+      : null;
+    const page = routeQueryArrayToString(searchParams.get("page"));
+    const q = routeQueryArrayToString(searchParams.get("q"));
+    const order = routeQueryArrayToString(
+      searchParams.get("order"),
+    ) as EntityOrder;
+    const schema = normalizeRouteQueryArray(searchParams.get("schema"));
+
+    const predicates = filters ? getPredicates(JSON.parse(filters)) : [];
+
+    const queryVars = {
+      query: q || "",
+      predicates: predicates || [],
+      page: parseInt(page) || 1,
+      order: order || ("PUBLISHED_ASCENDING" as EntityOrder),
+      schema,
+    };
+
+    const refetch = scoped ? refetchEntity : refetchGlobal;
+
+    startTransition(() => {
+      refetch(queryVars);
+      return;
+    });
+  }, [searchParams]);
 
   const onQuerySubmit = async (data: { q?: string }) => {
-    router.push(
-      {
-        pathname: router.pathname,
-        query: {
-          ...router.query,
-          q: data.q,
-        },
-      },
-      undefined,
-      { shallow: true },
-    );
+    const params = new URLSearchParams(searchParams);
+    if (data.q) {
+      params.set("q", data.q);
+    } else {
+      params.delete("q");
+    }
+    const url = `${pathname}?${params.toString()}`;
+    router.push(url);
   };
 
   return (
@@ -62,7 +96,7 @@ export default function SearchLayout({ data, refetch, isLoading }: Props) {
           <form onSubmit={handleSubmit(onQuerySubmit)}>
             <SearchBar
               id="searchPageInput"
-              defaultValue={router.query.q}
+              defaultValue={searchParams.get("q") ?? undefined}
               {...register("q")}
             />
           </form>
@@ -85,7 +119,7 @@ export default function SearchLayout({ data, refetch, isLoading }: Props) {
           {noSearchQuery ? (
             <NoContent message="search.start_search" />
           ) : (
-            <SearchResults data={search?.results} isLoading={isLoading} />
+            <SearchResults data={search?.results} isLoading={isPending} />
           )}
         </Styled.Results>
       </Styled.Inner>
@@ -102,14 +136,47 @@ export default function SearchLayout({ data, refetch, isLoading }: Props) {
   );
 }
 
-interface Props {
+type Props = EntityProps | GlobalProps;
+
+interface EntityProps {
+  data: SearchLayoutEntityFragment$key;
+  scoped: true;
+}
+
+interface GlobalProps {
   data: SearchLayoutFragment$key;
-  refetch: (vars: Record<string, string>) => void;
-  isLoading?: boolean;
+  scoped?: false;
 }
 
 const fragment = graphql`
-  fragment SearchLayoutFragment on Searchable
+  fragment SearchLayoutFragment on Query
+  @refetchable(queryName: "SearchLayoutQuery")
+  @argumentDefinitions(
+    query: { type: "String", defaultValue: "" }
+    predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
+    page: { type: "Int", defaultValue: 1 }
+    order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
+    schema: { type: "[String!]", defaultValue: [] }
+  ) {
+    search {
+      results(
+        query: $query
+        page: $page
+        perPage: 20
+        predicates: $predicates
+        order: $order
+        schema: $schema
+      ) {
+        ...SearchResultsFragment
+      }
+      ...SearchFiltersFragment
+    }
+  }
+`;
+
+const entityFragment = graphql`
+  fragment SearchLayoutEntityFragment on Entity
+  @refetchable(queryName: "SearchLayoutEntityQuery")
   @argumentDefinitions(
     query: { type: "String", defaultValue: "" }
     predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }

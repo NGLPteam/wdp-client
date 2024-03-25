@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<83b589018631e2140757c309f850c099>>
+ * @generated SignedSource<<577ab862d171f4f7fa4dc1a815c94602>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,18 +10,19 @@
 
 import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SearchLayoutFragment$data = {
+export type SearchLayoutEntityFragment$data = {
+  readonly id?: string;
   readonly search: {
     readonly results: {
       readonly " $fragmentSpreads": FragmentRefs<"SearchResultsFragment">;
     };
     readonly " $fragmentSpreads": FragmentRefs<"SearchFiltersFragment">;
   };
-  readonly " $fragmentType": "SearchLayoutFragment";
+  readonly " $fragmentType": "SearchLayoutEntityFragment";
 };
-export type SearchLayoutFragment$key = {
-  readonly " $data"?: SearchLayoutFragment$data;
-  readonly " $fragmentSpreads": FragmentRefs<"SearchLayoutFragment">;
+export type SearchLayoutEntityFragment$key = {
+  readonly " $data"?: SearchLayoutEntityFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"SearchLayoutEntityFragment">;
 };
 
 const node: ReaderFragment = {
@@ -56,11 +57,17 @@ const node: ReaderFragment = {
   "metadata": {
     "refetch": {
       "connection": null,
-      "fragmentPathInResult": [],
-      "operation": require('./SearchLayoutQuery.graphql')
+      "fragmentPathInResult": [
+        "node"
+      ],
+      "operation": require('./SearchLayoutEntityQuery.graphql'),
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
-  "name": "SearchLayoutFragment",
+  "name": "SearchLayoutEntityFragment",
   "selections": [
     {
       "alias": null,
@@ -124,12 +131,26 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "id",
+          "storageKey": null
+        }
+      ],
+      "type": "Node",
+      "abstractKey": "__isNode"
     }
   ],
-  "type": "Query",
-  "abstractKey": null
+  "type": "Entity",
+  "abstractKey": "__isEntity"
 };
 
-(node as any).hash = "dc941a3abeaf5905ff94e64ebc2b1319";
+(node as any).hash = "4b3146773e5b3cd2af1e6bc0b7af1e82";
 
 export default node;

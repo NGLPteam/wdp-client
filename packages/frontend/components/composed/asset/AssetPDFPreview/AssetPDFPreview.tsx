@@ -22,14 +22,14 @@ export default function AssetPDFPreview({ data }: Props) {
     ({ numPages }: { numPages: number }) => {
       setNumPages(numPages);
     },
-    [setNumPages],
+    [setNumPages]
   );
 
   return isMounted && file ? (
     <Document
       file={file}
       onLoadSuccess={onLoadSuccess}
-      loading={<LoadingBlock label="common.loading_pdf" />}
+      loading={<LoadingBlock />}
       onLoadError={(err) => console.info(err.message)}
     >
       {numPages && (
