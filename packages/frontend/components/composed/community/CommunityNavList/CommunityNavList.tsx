@@ -73,8 +73,7 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
         community.pages.edges.map(({ node }) => (
           <li key={node.slug}>
             <NamedLink
-              route="community.page"
-              routeParams={{ slug: community.slug, page: node.slug }}
+              href={`/communities/${community.slug}/page/${node.slug}`}
               passHref
             >
               <NavMenuLink

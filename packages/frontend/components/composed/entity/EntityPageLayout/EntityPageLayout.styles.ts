@@ -8,3 +8,8 @@ export const Wrapper = styled.section`
 export const Inner = styled.div`
   max-width: 768px;
 `;
+
+export const LoadingWrapper = styled.div`
+  min-height: 40vh;
+  padding-block-start: 20%;
+`;
