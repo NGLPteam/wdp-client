@@ -1,6 +1,5 @@
 import { graphql } from "relay-runtime";
 import { redirect, notFound } from "next/navigation";
-import { RouteHelper } from "routes/RouteHelper";
 import InstanceCommunities from "components/composed/instance/InstanceCommunities";
 import InstanceHero from "components/composed/instance/InstanceHero";
 import AppLayout from "@/components/global/AppLayout";
@@ -13,10 +12,9 @@ export default async function HomePage() {
 
   const total = instance?.communities?.pageInfo?.totalCount ?? 0;
   const firstSlug = instance?.communities?.edges[0]?.node?.slug ?? null;
-  const redirectRoute = RouteHelper.findRouteByName("community");
 
-  if (total === 1 && firstSlug && redirectRoute) {
-    const href = redirectRoute?.path.replace("[slug]", firstSlug);
+  if (total === 1 && firstSlug) {
+    const href = `/communities/${firstSlug}`;
     redirect(href);
   }
 

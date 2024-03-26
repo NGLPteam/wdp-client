@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { CompactHero } from "components/layout/hero";

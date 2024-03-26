@@ -1,53 +1,70 @@
-import React, { forwardRef } from "react";
+import { forwardRef, cloneElement, isValidElement } from "react";
+import { Route } from "next";
 import Link from "next/link";
 import { RouteHelper } from "routes";
 import { useViewerContext } from "contexts";
 type LinkProps = React.ComponentProps<typeof Link>;
 
-/**
- * This component takes a route name and passes the route's full href value.
- */
-const NamedLink = forwardRef(
-  (
-    { route: routeName, routeParams, children, passHref, ...props }: Props,
-    ref,
-  ) => {
-    // Find the route
-    const route = RouteHelper.findRouteByName(routeName);
+const NamedLink = forwardRef(({ children, passHref, ...props }: Props, ref) => {
+  let href: Route = "href" in props ? props.href : "";
+  let isAuthorized = true;
 
-    const { allowedActions } = useViewerContext();
+  const { allowedActions } = useViewerContext();
 
-    const isAuthorized = route?.actions?.length
-      ? route.actions.some((action) => allowedActions.includes(action))
-      : true;
+  // If pages router props received, format the href string.
+  if ("route" in props) {
+    const { route, routeParams } = props;
+    const routeObj = RouteHelper.findRouteByName(route);
 
     // If the route doesn't exist, warn dev in the console
-    if (!route) {
-      console.warn(`Route ${routeName} not found`, RouteHelper.routes);
-      return null;
+    if (!routeObj) {
+      console.warn(`Route ${route} not found`, RouteHelper.routes);
+    } else {
+      isAuthorized = routeObj?.actions?.length
+        ? routeObj.actions.some((action) => allowedActions.includes(action))
+        : true;
+
+      // If the route redirects to another route, link to the redirect path.
+      const path = routeObj.redirect ? routeObj.redirect : routeObj.path;
+
+      href = path.replaceAll("[", "").replaceAll("]", "");
+
+      if (routeParams) {
+        Object.keys(routeParams).forEach((key) => {
+          href = routeParams[key]
+            ? href?.replace(key, routeParams[key].toString())
+            : href;
+        });
+      }
     }
+  }
 
-    // If the route redirects to another route, link to the redirect path.
-    const path = route.redirect ? route.redirect : route.path;
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  let linkProps;
+  if ("route" in props) {
+    const { route, routeParams, query, ...rest } = props;
+    linkProps = rest;
+  } else {
+    const { href, ...rest } = props;
+    linkProps = rest;
+  }
+  /* eslint-enable @typescript-eslint/no-unused-vars */
 
-    // App router Link no longer accepts dynamic pathnames
-    let href = path.replaceAll("[", "").replaceAll("]", "");
+  return isAuthorized && href ? (
+    <Link href={href} passHref={passHref} {...linkProps} legacyBehavior>
+      {isValidElement(children)
+        ? cloneElement(children, { ref, ...linkProps })
+        : children}
+    </Link>
+  ) : null;
+});
 
-    if (routeParams) {
-      Object.keys(routeParams).forEach((key) => {
-        href = href.replace(key, routeParams[key].toString());
-      });
-    }
-    return isAuthorized ? (
-      <Link href={href} passHref={passHref} {...props} legacyBehavior>
-        {React.isValidElement(children)
-          ? React.cloneElement(children, { ref, ...props })
-          : children}
-      </Link>
-    ) : null;
-  },
-);
-export interface Props extends Omit<LinkProps, "href"> {
+interface AppRouterLinkProps extends Omit<LinkProps, "href"> {
+  href: string;
+  passHref?: boolean;
+}
+
+export interface PagesRouterLinkProps extends Omit<LinkProps, "href"> {
   /** The named route */
   route: string;
   /** Route parameters */
@@ -57,5 +74,7 @@ export interface Props extends Omit<LinkProps, "href"> {
   /** Pass href to child component */
   passHref?: boolean;
 }
+
+type Props = AppRouterLinkProps | PagesRouterLinkProps;
 
 export default NamedLink;

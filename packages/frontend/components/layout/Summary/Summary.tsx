@@ -1,8 +1,8 @@
-import React from "react";
 import { NamedLink, Link, ReadMoreLink, Markdown } from "components/atomic";
+import { PagesRouterLinkProps } from "components/atomic/links/NamedLink/NamedLink";
 import * as Styled from "./Summary.styles";
 
-type LinkProps = React.ComponentProps<typeof NamedLink>;
+type LinkProps = PagesRouterLinkProps;
 
 export default function Summary({
   title,

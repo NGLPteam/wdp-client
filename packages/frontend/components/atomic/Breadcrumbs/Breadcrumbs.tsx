@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
@@ -28,11 +28,7 @@ export default function BreadCrumbs({ data }: Props) {
     const currentRoute = getRouteByEntityType(entity.__typename);
 
     return currentRoute && entity.slug ? (
-      <NamedLink
-        route={currentRoute}
-        routeParams={{ slug: entity.slug }}
-        passHref
-      >
+      <NamedLink href={`/${currentRoute}/${entity.slug}`} passHref>
         <Styled.ItemText>
           <Link aria-current="page">
             <Markdown.Title>{entity.title}</Markdown.Title>

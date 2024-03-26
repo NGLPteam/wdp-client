@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9350b54f99ba89daa27341d365249157>>
+ * @generated SignedSource<<b598c08ff3d8485bc62b5d06f2005b68>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { InlineFragment, ReaderInlineDataFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type EntityDescendantsLayoutFragment$data = {
   readonly edges: ReadonlyArray<{
@@ -29,98 +29,11 @@ export type EntityDescendantsLayoutFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"EntityDescendantsLayoutFragment">;
 };
 
-const node: ReaderFragment = {
-  "argumentDefinitions": [],
-  "kind": "Fragment",
-  "metadata": null,
-  "name": "EntityDescendantsLayoutFragment",
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "EntityDescendantEdge",
-      "kind": "LinkedField",
-      "name": "edges",
-      "plural": true,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "EntityDescendant",
-          "kind": "LinkedField",
-          "name": "node",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": null,
-              "kind": "LinkedField",
-              "name": "descendant",
-              "plural": false,
-              "selections": [
-                {
-                  "kind": "InlineFragment",
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "kind": "ScalarField",
-                      "name": "slug",
-                      "storageKey": null
-                    }
-                  ],
-                  "type": "Sluggable",
-                  "abstractKey": "__isSluggable"
-                },
-                {
-                  "kind": "InlineFragment",
-                  "selections": [
-                    {
-                      "args": [
-                        {
-                          "kind": "Literal",
-                          "name": "showJournal",
-                          "value": true
-                        }
-                      ],
-                      "kind": "FragmentSpread",
-                      "name": "EntitySummaryFactoryFragment"
-                    }
-                  ],
-                  "type": "Entity",
-                  "abstractKey": "__isEntity"
-                }
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "PageInfo",
-      "kind": "LinkedField",
-      "name": "pageInfo",
-      "plural": false,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "BrowseListLayoutFragment"
-        }
-      ],
-      "storageKey": null
-    }
-  ],
-  "type": "EntityDescendantConnection",
-  "abstractKey": null
+const node: ReaderInlineDataFragment = {
+  "kind": "InlineDataFragment",
+  "name": "EntityDescendantsLayoutFragment"
 };
 
-(node as any).hash = "9e20e8bcb1bff1792122878645d537fa";
+(node as any).hash = "ab5b02a810c11e532c97fba695dfa32c";
 
 export default node;

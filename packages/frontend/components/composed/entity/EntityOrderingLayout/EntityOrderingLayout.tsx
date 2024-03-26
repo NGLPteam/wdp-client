@@ -1,4 +1,6 @@
-import React, { useMemo } from "react";
+"use client";
+
+import { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import EntitySummaryFactory from "components/factories/EntitySummaryFactory";

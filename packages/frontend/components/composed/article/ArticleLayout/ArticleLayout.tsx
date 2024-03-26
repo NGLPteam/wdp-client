@@ -1,7 +1,5 @@
-import React from "react";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { graphql } from "react-relay";
-import { BreadcrumbsBar } from "components/layout";
+import { graphql, readInlineData } from "relay-runtime";
+import BreadcrumbsBar from "components/layout/BreadcrumbsBar";
 import { ArticleLayoutFragment$key } from "@/relay/ArticleLayoutFragment.graphql";
 import ArticleHero from "../ArticleHero";
 import ArticleParentHeader from "../ArticleParentHeader";
@@ -9,7 +7,7 @@ import ArticleTabNav from "../ArticleTabNav";
 import RelatedArticles from "../RelatedArticles";
 
 export default function ArticleLayout({ data, children }: Props) {
-  const article = useMaybeFragment(fragment, data);
+  const article = readInlineData(fragment, data);
 
   return (
     <>
@@ -26,13 +24,13 @@ export default function ArticleLayout({ data, children }: Props) {
 
 interface Props {
   /* Item data */
-  data?: ArticleLayoutFragment$key | null;
+  data: ArticleLayoutFragment$key | null;
   /* Child page content */
   children?: React.ReactNode;
 }
 
 const fragment = graphql`
-  fragment ArticleLayoutFragment on Item {
+  fragment ArticleLayoutFragment on Item @inline {
     ...BreadcrumbsBarFragment
     ...ArticleParentHeaderFragment
     ...ArticleHeroFragment

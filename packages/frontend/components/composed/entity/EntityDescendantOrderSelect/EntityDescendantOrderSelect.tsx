@@ -1,24 +1,27 @@
-import React, { useCallback } from "react";
-import { useRouter } from "next/router";
+"use client";
+
+import { useCallback } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { Select } from "components/forms";
-import { useDescendantListQueryVars } from "hooks";
 
 export default function EntityDescendantOrderSelect() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   const { t } = useTranslation();
 
-  const { order } = useDescendantListQueryVars();
-
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
-      router.push({
-        pathname: router.pathname,
-        query: { ...router.query, order: e.target.value },
-      });
+      const params = new URLSearchParams(searchParams);
+      params.set("order", e.target.value);
+
+      const url = `${pathname}?${params.toString()}`;
+
+      router.push(url);
     },
-    [router],
+    [router, searchParams, pathname],
   );
 
   return (
@@ -26,7 +29,11 @@ export default function EntityDescendantOrderSelect() {
       <label className="a-hidden" htmlFor="order">
         {t("list.order_by_label")}
       </label>
-      <Select id="order" onChange={handleChange} defaultValue={order}>
+      <Select
+        id="order"
+        onChange={handleChange}
+        defaultValue={searchParams.get("order") ?? undefined}
+      >
         <option disabled>{t("list.order_by_label")}</option>
         <option value="PUBLISHED_ASCENDING">Publish Date, Ascending</option>
         <option value="PUBLISHED_DESCENDING">Publish Date, Descending</option>

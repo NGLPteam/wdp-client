@@ -1,6 +1,4 @@
-import React from "react";
-import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { graphql, readInlineData } from "relay-runtime";
 import EntityLayout from "components/composed/entity/EntityLayout";
 import JournalLayout from "components/composed/journal/JournalLayout";
 import IssueLayout from "components/composed/issue/IssueLayout";
@@ -10,7 +8,7 @@ import SeriesLayout from "components/composed/series/SeriesLayout";
 import { EntityLayoutFactoryFragment$key } from "@/relay/EntityLayoutFactoryFragment.graphql";
 
 export default function EntityLayoutFactory({ data, children }: Props) {
-  const entity = useMaybeFragment(fragment, data);
+  const entity = readInlineData(fragment, data);
 
   if (!entity) return null;
 
@@ -39,12 +37,12 @@ export default function EntityLayoutFactory({ data, children }: Props) {
 }
 
 interface Props {
-  data?: EntityLayoutFactoryFragment$key | null;
+  data: EntityLayoutFactoryFragment$key | null;
   children?: React.ReactNode;
 }
 
 const fragment = graphql`
-  fragment EntityLayoutFactoryFragment on AnyEntity {
+  fragment EntityLayoutFactoryFragment on AnyEntity @inline {
     ... on Collection {
       schemaDefinition {
         identifier

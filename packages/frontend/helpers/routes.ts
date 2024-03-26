@@ -1,9 +1,9 @@
 import { EntityKind } from "types/graphql-schema";
 
 const KIND_MAP = {
-  COMMUNITY: "community",
-  COLLECTION: "collection",
-  ITEM: "item",
+  COMMUNITY: "communities",
+  COLLECTION: "collections",
+  ITEM: "items",
   "%future added value": null,
 };
 
@@ -12,9 +12,9 @@ export function getRouteByEntityKind(kind?: EntityKind) {
 }
 
 const TYPE_MAP: Record<string, string> = {
-  Community: "community",
-  Collection: "collection",
-  Item: "item",
+  Community: "communities",
+  Collection: "collections",
+  Item: "items",
 };
 
 export function getRouteByEntityType(typename?: string) {

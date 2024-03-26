@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<626c814448a9944c3ee7a7c723465009>>
+ * @generated SignedSource<<8a47130f6e4cd7aab71b6da06642b528>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { InlineFragment, ReaderInlineDataFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type EntitySummaryFactoryFragment$data = {
   readonly schemaDefinition: {
@@ -22,80 +22,11 @@ export type EntitySummaryFactoryFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"EntitySummaryFactoryFragment">;
 };
 
-const node: ReaderFragment = (function(){
-var v0 = [
-  {
-    "kind": "Variable",
-    "name": "showJournal",
-    "variableName": "showJournal"
-  }
-];
-return {
-  "argumentDefinitions": [
-    {
-      "defaultValue": false,
-      "kind": "LocalArgument",
-      "name": "showJournal"
-    }
-  ],
-  "kind": "Fragment",
-  "metadata": null,
-  "name": "EntitySummaryFactoryFragment",
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "SchemaDefinition",
-      "kind": "LinkedField",
-      "name": "schemaDefinition",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "identifier",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "EntitySummaryFragment"
-    },
-    {
-      "args": (v0/*: any*/),
-      "kind": "FragmentSpread",
-      "name": "ArticleSummaryFragment"
-    },
-    {
-      "args": (v0/*: any*/),
-      "kind": "FragmentSpread",
-      "name": "IssueSummaryFragment"
-    },
-    {
-      "args": (v0/*: any*/),
-      "kind": "FragmentSpread",
-      "name": "VolumeSummaryFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "JournalSummaryFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "DissertationSummaryFragment"
-    }
-  ],
-  "type": "Entity",
-  "abstractKey": "__isEntity"
+const node: ReaderInlineDataFragment = {
+  "kind": "InlineDataFragment",
+  "name": "EntitySummaryFactoryFragment"
 };
-})();
 
-(node as any).hash = "549244f4816e199b78da77b27290e428";
+(node as any).hash = "d26c5b530748832321d0b85a1b1037a8";
 
 export default node;

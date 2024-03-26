@@ -1,13 +1,11 @@
-import React from "react";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { graphql } from "react-relay";
-import { BreadcrumbsBar } from "components/layout";
+import { graphql, readInlineData } from "relay-runtime";
+import BreadcrumbsBar from "components/layout/BreadcrumbsBar";
 import EntityNavBar from "components/composed/entity/EntityNavBar";
 import { SeriesLayoutFragment$key } from "@/relay/SeriesLayoutFragment.graphql";
 import SeriesHero from "../SeriesHero";
 
 export default function SeriesLayout({ data, children }: Props) {
-  const volume = useMaybeFragment(fragment, data);
+  const volume = readInlineData(fragment, data);
 
   return (
     <>
@@ -20,12 +18,12 @@ export default function SeriesLayout({ data, children }: Props) {
 }
 
 interface Props {
-  data?: SeriesLayoutFragment$key | null;
+  data: SeriesLayoutFragment$key | null;
   children?: React.ReactNode;
 }
 
 const fragment = graphql`
-  fragment SeriesLayoutFragment on Collection {
+  fragment SeriesLayoutFragment on Collection @inline {
     ...BreadcrumbsBarFragment
     ...SeriesHeroFragment
     ...EntityNavBarFragment
