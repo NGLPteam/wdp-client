@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7ba1c1169b7fd9aaaea917d367536acd>>
+ * @generated SignedSource<<af5d88b70a91b09ef0329bd5e43d03bf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -47,16 +47,257 @@ var v0 = {
 v1 = {
   "args": null,
   "kind": "FragmentSpread",
-  "name": "EntityLayoutFactoryFragment"
+  "name": "BreadcrumbsBarFragment"
 },
-v2 = [
+v2 = {
+  "args": null,
+  "kind": "FragmentSpread",
+  "name": "EntityNavBarFragment"
+},
+v3 = {
+  "kind": "InlineDataFragmentSpread",
+  "name": "EntityLayoutFragment",
+  "selections": [
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            (v1/*: any*/),
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "EntityHeroFragment"
+            },
+            (v2/*: any*/)
+          ],
+          "type": "Entity",
+          "abstractKey": "__isEntity"
+        }
+      ],
+      "type": "AnyEntity",
+      "abstractKey": "__isAnyEntity"
+    }
+  ],
+  "args": null,
+  "argumentDefinitions": ([]/*: any*/)
+},
+v4 = {
+  "kind": "Literal",
+  "name": "perPage",
+  "value": 4
+},
+v5 = {
+  "kind": "InlineDataFragmentSpread",
+  "name": "EntityLayoutFactoryFragment",
+  "selections": [
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            (v0/*: any*/),
+            (v3/*: any*/),
+            {
+              "kind": "InlineDataFragmentSpread",
+              "name": "JournalLayoutFragment",
+              "selections": [
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "JournalHeroFragment"
+                },
+                (v2/*: any*/),
+                (v1/*: any*/),
+                {
+                  "alias": "related",
+                  "args": [
+                    {
+                      "kind": "Literal",
+                      "name": "order",
+                      "value": "RECENT"
+                    },
+                    (v4/*: any*/)
+                  ],
+                  "concreteType": "CollectionConnection",
+                  "kind": "LinkedField",
+                  "name": "relatedCollections",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "args": null,
+                      "kind": "FragmentSpread",
+                      "name": "RelatedJournalsFragment"
+                    }
+                  ],
+                  "storageKey": "relatedCollections(order:\"RECENT\",perPage:4)"
+                }
+              ],
+              "args": null,
+              "argumentDefinitions": ([]/*: any*/)
+            },
+            {
+              "kind": "InlineDataFragmentSpread",
+              "name": "IssueLayoutFragment",
+              "selections": [
+                (v1/*: any*/),
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "IssueHeroFragment"
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "CollectionContributionConnection",
+                  "kind": "LinkedField",
+                  "name": "contributions",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "args": null,
+                      "kind": "FragmentSpread",
+                      "name": "ContributionsBlockFragment"
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "concreteType": "PageInfo",
+                      "kind": "LinkedField",
+                      "name": "pageInfo",
+                      "plural": false,
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "totalCount",
+                          "storageKey": null
+                        }
+                      ],
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": [
+                    {
+                      "kind": "Literal",
+                      "name": "page",
+                      "value": 1
+                    },
+                    (v4/*: any*/)
+                  ],
+                  "concreteType": "CollectionConnection",
+                  "kind": "LinkedField",
+                  "name": "relatedCollections",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "args": null,
+                      "kind": "FragmentSpread",
+                      "name": "RelatedIssuesFragment"
+                    }
+                  ],
+                  "storageKey": "relatedCollections(page:1,perPage:4)"
+                }
+              ],
+              "args": null,
+              "argumentDefinitions": ([]/*: any*/)
+            },
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "VolumeLayoutFragment"
+            },
+            {
+              "kind": "InlineDataFragmentSpread",
+              "name": "SeriesLayoutFragment",
+              "selections": [
+                (v1/*: any*/),
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "SeriesHeroFragment"
+                },
+                (v2/*: any*/)
+              ],
+              "args": null,
+              "argumentDefinitions": ([]/*: any*/)
+            }
+          ],
+          "type": "Collection",
+          "abstractKey": null
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            (v0/*: any*/),
+            (v3/*: any*/),
+            {
+              "kind": "InlineDataFragmentSpread",
+              "name": "ArticleLayoutFragment",
+              "selections": [
+                (v1/*: any*/),
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "ArticleParentHeaderFragment"
+                },
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "ArticleHeroFragment"
+                },
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "ArticleTabNavFragment"
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "ItemConnection",
+                  "kind": "LinkedField",
+                  "name": "relatedItems",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "args": null,
+                      "kind": "FragmentSpread",
+                      "name": "RelatedArticlesFragment"
+                    }
+                  ],
+                  "storageKey": null
+                }
+              ],
+              "args": null,
+              "argumentDefinitions": ([]/*: any*/)
+            }
+          ],
+          "type": "Item",
+          "abstractKey": null
+        }
+      ],
+      "type": "AnyEntity",
+      "abstractKey": "__isAnyEntity"
+    }
+  ],
+  "args": null,
+  "argumentDefinitions": ([]/*: any*/)
+},
+v6 = [
   {
     "kind": "Variable",
     "name": "slug",
     "variableName": "pageSlug"
   }
 ],
-v3 = {
+v7 = {
   "args": null,
   "kind": "FragmentSpread",
   "name": "EntityPageLayoutFragment"
@@ -81,16 +322,16 @@ return {
           "kind": "FragmentSpread",
           "name": "IssueSidebarNavFragment"
         },
-        (v1/*: any*/),
+        (v5/*: any*/),
         {
           "alias": null,
-          "args": (v2/*: any*/),
+          "args": (v6/*: any*/),
           "concreteType": "Page",
           "kind": "LinkedField",
           "name": "page",
           "plural": false,
           "selections": [
-            (v3/*: any*/),
+            (v7/*: any*/),
             {
               "args": null,
               "kind": "FragmentSpread",
@@ -107,16 +348,16 @@ return {
       "kind": "InlineFragment",
       "selections": [
         (v0/*: any*/),
-        (v1/*: any*/),
+        (v5/*: any*/),
         {
           "alias": null,
-          "args": (v2/*: any*/),
+          "args": (v6/*: any*/),
           "concreteType": "Page",
           "kind": "LinkedField",
           "name": "page",
           "plural": false,
           "selections": [
-            (v3/*: any*/)
+            (v7/*: any*/)
           ],
           "storageKey": null
         }

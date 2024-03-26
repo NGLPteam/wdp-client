@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ad36637016eca550e19b16aa4173b582>>
+ * @generated SignedSource<<5991e74165ccde72ad8dea5e9c1216ff>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { InlineFragment, ReaderInlineDataFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type EntityLayoutFactoryFragment$data = {
   readonly schemaDefinition?: {
@@ -22,85 +22,11 @@ export type EntityLayoutFactoryFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"EntityLayoutFactoryFragment">;
 };
 
-const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "SchemaDefinition",
-  "kind": "LinkedField",
-  "name": "schemaDefinition",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "identifier",
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-},
-v1 = {
-  "args": null,
-  "kind": "FragmentSpread",
-  "name": "EntityLayoutFragment"
+const node: ReaderInlineDataFragment = {
+  "kind": "InlineDataFragment",
+  "name": "EntityLayoutFactoryFragment"
 };
-return {
-  "argumentDefinitions": [],
-  "kind": "Fragment",
-  "metadata": null,
-  "name": "EntityLayoutFactoryFragment",
-  "selections": [
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        (v0/*: any*/),
-        (v1/*: any*/),
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "JournalLayoutFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "IssueLayoutFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "VolumeLayoutFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "SeriesLayoutFragment"
-        }
-      ],
-      "type": "Collection",
-      "abstractKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        (v0/*: any*/),
-        (v1/*: any*/),
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "ArticleLayoutFragment"
-        }
-      ],
-      "type": "Item",
-      "abstractKey": null
-    }
-  ],
-  "type": "AnyEntity",
-  "abstractKey": "__isAnyEntity"
-};
-})();
 
-(node as any).hash = "b657cc10d01854b564febf35e4433771";
+(node as any).hash = "fd003403c7377fb7ccf5df4882af8bc9";
 
 export default node;

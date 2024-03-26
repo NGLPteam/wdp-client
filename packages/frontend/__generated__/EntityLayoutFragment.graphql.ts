@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<daeb8fa510730e27c09062810683c112>>
+ * @generated SignedSource<<059f41bafe27b6a70bf44183d553b9b7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { InlineFragment, ReaderInlineDataFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type EntityLayoutFragment$data = {
   readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbsBarFragment" | "EntityHeroFragment" | "EntityNavBarFragment">;
@@ -19,39 +19,11 @@ export type EntityLayoutFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"EntityLayoutFragment">;
 };
 
-const node: ReaderFragment = {
-  "argumentDefinitions": [],
-  "kind": "Fragment",
-  "metadata": null,
-  "name": "EntityLayoutFragment",
-  "selections": [
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "BreadcrumbsBarFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "EntityHeroFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "EntityNavBarFragment"
-        }
-      ],
-      "type": "Entity",
-      "abstractKey": "__isEntity"
-    }
-  ],
-  "type": "AnyEntity",
-  "abstractKey": "__isAnyEntity"
+const node: ReaderInlineDataFragment = {
+  "kind": "InlineDataFragment",
+  "name": "EntityLayoutFragment"
 };
 
-(node as any).hash = "e51b807675235641156d9a8ede418c1d";
+(node as any).hash = "d792b645f55734014cabc021c72db2e6";
 
 export default node;

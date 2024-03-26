@@ -1,6 +1,5 @@
 import { Suspense } from "react";
-import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { graphql, readInlineData } from "relay-runtime";
 import JournalContent from "components/composed/journal/JournalContent";
 import ArticleText from "components/composed/article/ArticleText";
 import ArticleContributor from "components/composed/article/ArticleContributor";
@@ -9,8 +8,8 @@ import { LoadingBlock } from "components/atomic";
 import { EntityContentLayoutFactoryFragment$key } from "@/relay/EntityContentLayoutFactoryFragment.graphql";
 import EntityOrderingLayoutFactory from "../EntityOrderingLayoutFactory";
 
-export default function EntityContentLayoutFactory({ data }: Props) {
-  const entity = useMaybeFragment(fragment, data);
+export default function EntityContentLayoutFactory({ data, params }: Props) {
+  const entity = readInlineData(fragment, data);
 
   switch (entity?.schemaDefinition?.identifier) {
     case "journal":
@@ -21,29 +20,32 @@ export default function EntityContentLayoutFactory({ data }: Props) {
     case "dissertation":
     case "paper":
       return (
-        <>
+        <Suspense fallback={<LoadingBlock />}>
           <ArticleText data={entity} />
           <ArticleContributor data={entity?.contributions} />
           <HowToCite data={entity} />
-        </>
+        </Suspense>
       );
 
     // By default, return the entity's layout and show ordering content
     default:
       return (
         <Suspense fallback={<LoadingBlock />}>
-          <EntityOrderingLayoutFactory data={entity} />
+          {entity && (
+            <EntityOrderingLayoutFactory data={entity} params={params} />
+          )}
         </Suspense>
       );
   }
 }
 
 interface Props {
-  data?: EntityContentLayoutFactoryFragment$key | null;
+  data: EntityContentLayoutFactoryFragment$key | null;
+  params: React.ComponentProps<typeof EntityOrderingLayoutFactory>["params"];
 }
 
 const fragment = graphql`
-  fragment EntityContentLayoutFactoryFragment on AnyEntity {
+  fragment EntityContentLayoutFactoryFragment on AnyEntity @inline {
     ... on Collection {
       schemaDefinition {
         identifier

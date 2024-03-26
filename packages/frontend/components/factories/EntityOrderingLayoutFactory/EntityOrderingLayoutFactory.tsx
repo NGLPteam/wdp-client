@@ -1,23 +1,27 @@
-import { useEffect } from "react";
-import { graphql, useFragment } from "react-relay";
-import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
-import { routeQueryArrayToString } from "@wdp/lib/routes";
-import { useRouter } from "next/router";
+import { graphql, readInlineData } from "relay-runtime";
+import { redirect } from "next/navigation";
+import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToString";
 import EntityOrderingLayout from "components/composed/entity/EntityOrderingLayout";
 import IssueSidebarNav from "components/composed/issue/IssueSidebarNav";
 import IssueOrderingLayout from "components/composed/issue/IssueOrderingLayout";
-import { RouteHelper } from "routes";
+import fetchQuery from "@/lib/relay/fetchQuery";
 import { EntityOrderingLayoutFactoryQuery as Query } from "@/relay/EntityOrderingLayoutFactoryQuery.graphql";
 import { EntityOrderingLayoutFactoryFragment$key } from "@/relay/EntityOrderingLayoutFactoryFragment.graphql";
+import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
+import { BasePageParams } from "@/types/page";
 
 /**
  * Fetches the ordering data and gets the right layout based on the schema identifier.
  * If no ordering identifier is provided, uses the first ordering on the entity.
  */
-export default function EntityOrderingLayoutFactory({ data, ordering }: Props) {
-  const entity = useFragment(fragment, data);
+export default async function EntityOrderingLayoutFactory({
+  data,
+  ordering,
+  params,
+}: Props) {
+  const entity = readInlineData(fragment, data);
 
-  const { push: routerPush, ...router } = useRouter();
+  const { ordering: orderingParam, slug, page: pageParam } = params;
 
   const initOrdering = !entity?.initialOrdering?.disabled
     ? entity?.initialOrdering?.identifier
@@ -25,57 +29,56 @@ export default function EntityOrderingLayoutFactory({ data, ordering }: Props) {
 
   const identifier =
     ordering ||
-    routeQueryArrayToString(router.query.ordering) ||
+    decodeURIComponent(routeQueryArrayToString(orderingParam)) ||
     initOrdering ||
     "";
 
-  const slug = routeQueryArrayToString(router.query.slug);
+  const page = parseInt(routeQueryArrayToString(pageParam)) || 1;
 
-  const page = parseInt(routeQueryArrayToString(router.query.page)) || 1;
-
-  const orderingData = useAuthenticatedQuery<Query>(query, {
+  const { data: orderingData, records } = await fetchQuery<Query>(query, {
     identifier,
     page,
     slug,
   });
 
-  // If an ordering is disabled, redirect to the parent entity
-  useEffect(() => {
-    const isDisabled =
-      !!orderingData?.collection?.ordering?.disabled ||
-      !!orderingData?.community?.ordering?.disabled;
+  const isDisabled =
+    !!orderingData?.collection?.ordering?.disabled ||
+    !!orderingData?.community?.ordering?.disabled;
 
-    const route = RouteHelper.findRouteByName(
-      orderingData?.collection ? "collection" : "community",
-    );
+  const pathname = orderingData?.collection ? "/collections" : "/communities";
+  const url = `${pathname}/${slug}`;
 
-    if (isDisabled) {
-      routerPush({ pathname: route?.path || "/", query: { slug } }, undefined, {
-        shallow: true,
-      });
-    }
-  }, [orderingData, slug, routerPush]);
+  if (isDisabled) redirect(url);
 
-  return entity?.schemaDefinition?.identifier === "journal_issue" ? (
-    <IssueSidebarNav data={entity}>
-      <IssueOrderingLayout data={orderingData?.collection?.ordering} />
-    </IssueSidebarNav>
-  ) : (
-    <EntityOrderingLayout
-      data={
-        orderingData?.community?.ordering || orderingData?.collection?.ordering
-      }
-    />
+  return (
+    <UpdateClientEnvironment records={records}>
+      {entity?.schemaDefinition?.identifier === "journal_issue" ? (
+        <IssueSidebarNav data={entity}>
+          <IssueOrderingLayout data={orderingData?.collection?.ordering} />
+        </IssueSidebarNav>
+      ) : (
+        <EntityOrderingLayout
+          data={
+            orderingData?.community?.ordering ||
+            orderingData?.collection?.ordering
+          }
+        />
+      )}
+    </UpdateClientEnvironment>
   );
 }
 
 interface Props {
-  data?: EntityOrderingLayoutFactoryFragment$key | null;
+  data: EntityOrderingLayoutFactoryFragment$key | null;
   ordering?: string;
+  params: Omit<BasePageParams["params"], "lang"> & {
+    ordering?: string | string[];
+    page?: string | string[];
+  };
 }
 
 const fragment = graphql`
-  fragment EntityOrderingLayoutFactoryFragment on Entity {
+  fragment EntityOrderingLayoutFactoryFragment on Entity @inline {
     schemaDefinition {
       identifier
     }

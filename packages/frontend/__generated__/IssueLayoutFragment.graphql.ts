@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9afe963140870360a948fa859926ee6f>>
+ * @generated SignedSource<<1edfe5d6c9d1de27eaef7af0a5d2682d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { InlineFragment, ReaderInlineDataFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type IssueLayoutFragment$data = {
   readonly contributions: {
@@ -28,88 +28,11 @@ export type IssueLayoutFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"IssueLayoutFragment">;
 };
 
-const node: ReaderFragment = {
-  "argumentDefinitions": [],
-  "kind": "Fragment",
-  "metadata": null,
-  "name": "IssueLayoutFragment",
-  "selections": [
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "BreadcrumbsBarFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "IssueHeroFragment"
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "CollectionContributionConnection",
-      "kind": "LinkedField",
-      "name": "contributions",
-      "plural": false,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "ContributionsBlockFragment"
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "PageInfo",
-          "kind": "LinkedField",
-          "name": "pageInfo",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "totalCount",
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "page",
-          "value": 1
-        },
-        {
-          "kind": "Literal",
-          "name": "perPage",
-          "value": 4
-        }
-      ],
-      "concreteType": "CollectionConnection",
-      "kind": "LinkedField",
-      "name": "relatedCollections",
-      "plural": false,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "RelatedIssuesFragment"
-        }
-      ],
-      "storageKey": "relatedCollections(page:1,perPage:4)"
-    }
-  ],
-  "type": "Collection",
-  "abstractKey": null
+const node: ReaderInlineDataFragment = {
+  "kind": "InlineDataFragment",
+  "name": "IssueLayoutFragment"
 };
 
-(node as any).hash = "0c6d21c11508920579931ec021fe2c34";
+(node as any).hash = "eb78bf236c41518135603b201ea06553";
 
 export default node;

@@ -1,10 +1,10 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { useRouter } from "next/router";
+import { useParams, useSearchParams } from "next/navigation";
 import { Button, Dropdown, Link, NamedLink } from "components/atomic";
-import { RouteHelper, routeQueryArrayToString } from "routes";
+import { routeQueryArrayToString } from "routes";
 import { EntityOrderSelectFragment$key } from "@/relay/EntityOrderSelectFragment.graphql";
 
 export default function EntityOrderSelect({ data }: Props) {
@@ -15,15 +15,23 @@ export default function EntityOrderSelect({ data }: Props) {
 
   const { t } = useTranslation();
 
-  const orderRoute = RouteHelper.findRouteByName("collection.browse");
-
-  const router = useRouter();
+  const { ordering, slug } = useParams();
+  const searchParams = useSearchParams();
 
   const selectedOrder = useMemo(() => {
-    const orderQuery = routeQueryArrayToString(router.query.ordering);
+    const orderQuery = routeQueryArrayToString(ordering);
 
     return orderings?.edges?.find(({ node }) => node.identifier === orderQuery);
-  }, [router.query, orderings]);
+  }, [ordering, orderings]);
+
+  const getHref = (ordering: string): string => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", "1");
+
+    return `/collections/${slug}/browse/${encodeURIComponent(
+      ordering,
+    )}?${params.toString()}`;
+  };
 
   return orderings && orderings.edges.length > 0 ? (
     <div>
@@ -44,13 +52,7 @@ export default function EntityOrderSelect({ data }: Props) {
           menuItems={orderings.edges.map(({ node }) => (
             <NamedLink
               key={node.identifier}
-              route={orderRoute?.name || ""}
-              routeParams={{
-                ...router.query,
-                ordering: node.identifier,
-                page: 1,
-              }}
-              scroll={false}
+              href={getHref(node.identifier)}
               passHref
             >
               <Link active={selectedOrder?.node.identifier === node.identifier}>
@@ -63,13 +65,7 @@ export default function EntityOrderSelect({ data }: Props) {
       ) : (
         <NamedLink
           key={orderings.edges[0].node.identifier}
-          route={orderRoute?.name || ""}
-          routeParams={{
-            ...router.query,
-            ordering: orderings.edges[0].node.identifier,
-            page: 1,
-          }}
-          scroll={false}
+          href={getHref(orderings.edges[0].node.identifier)}
           passHref
         >
           <Button size="sm" type="button" secondary as="a" isBlock>

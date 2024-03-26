@@ -1,13 +1,11 @@
-import React from "react";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { graphql } from "react-relay";
-import { BreadcrumbsBar } from "components/layout";
+import { graphql, readInlineData } from "relay-runtime";
+import BreadcrumbsBar from "components/layout/BreadcrumbsBar";
 import EntityNavBar from "components/composed/entity/EntityNavBar";
 import { VolumeLayoutFragment$key } from "@/relay/VolumeLayoutFragment.graphql";
 import VolumeHero from "../VolumeHero";
 
 export default function VolumeLayout({ data, children }: Props) {
-  const volume = useMaybeFragment(fragment, data);
+  const volume = readInlineData(fragment, data);
 
   return (
     <>
@@ -20,7 +18,7 @@ export default function VolumeLayout({ data, children }: Props) {
 }
 
 interface Props {
-  data?: VolumeLayoutFragment$key | null;
+  data: VolumeLayoutFragment$key | null;
   children?: React.ReactNode;
 }
 

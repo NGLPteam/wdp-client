@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { CoverImage, DotList, PrecisionDate } from "components/atomic";

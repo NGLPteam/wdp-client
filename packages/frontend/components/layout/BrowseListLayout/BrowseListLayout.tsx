@@ -1,5 +1,7 @@
-import React from "react";
+"use client";
+
 import { graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { PageCount, Pagination } from "components/atomic";
 import { BrowseListLayoutFragment$key } from "@/relay/BrowseListLayoutFragment.graphql";
@@ -8,11 +10,19 @@ import * as Styled from "./BrowseListLayout.styles";
 
 export default function BrowseListLayout({
   data,
-  header,
+  header: headerProp,
   orderComponent,
   items,
 }: Props) {
   const pageInfo = useMaybeFragment(fragment, data);
+
+  const { t } = useTranslation();
+
+  const header =
+    headerProp &&
+    (Array.isArray(headerProp)
+      ? t(headerProp[0], headerProp[1])
+      : t(headerProp));
 
   return pageInfo ? (
     <section className="a-bg-neutral00">
@@ -41,8 +51,11 @@ export default function BrowseListLayout({
   ) : null;
 }
 
+type key = string;
+type args = Record<string, string | number>;
+
 interface Props {
-  header?: string | null;
+  header?: string | [key, args] | null;
   data?: BrowseListLayoutFragment$key | null;
   orderComponent?: React.ReactNode;
   items?: React.ReactNode[];

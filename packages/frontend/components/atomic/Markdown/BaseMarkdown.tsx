@@ -1,13 +1,20 @@
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import { useIsMounted } from "@wdp/lib/hooks";
 
 export default function BaseMarkdown({ children, ...props }: Props) {
   const rehypePlugins = [rehypeRaw];
 
+  const isMounted = useIsMounted();
+
   return children ? (
-    <ReactMarkdown rehypePlugins={rehypePlugins} {...props}>
-      {children}
-    </ReactMarkdown>
+    isMounted ? (
+      <ReactMarkdown rehypePlugins={rehypePlugins} {...props}>
+        {children}
+      </ReactMarkdown>
+    ) : (
+      children
+    )
   ) : null;
 }
 

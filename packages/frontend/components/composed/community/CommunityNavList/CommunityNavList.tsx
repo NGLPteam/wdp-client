@@ -42,7 +42,10 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
                 ? "community.collections.schema"
                 : "community.items.schema"
             }
-            routeParams={{ slug: community.slug, schema: schema.slug }}
+            routeParams={{
+              slug: community.slug,
+              schema: encodeURIComponent(schema.slug),
+            }}
             passHref
           >
             <Link>{t(getSchemaTranslationKey(schema.slug), { count: 2 })}</Link>
