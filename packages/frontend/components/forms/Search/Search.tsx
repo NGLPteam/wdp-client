@@ -1,13 +1,11 @@
-import React from "react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
-import { useRouteSlug } from "@wdp/lib/routes";
 import { IconFactory } from "../../factories";
 import * as Styled from "./Search.styles";
 
 export default function Search({
-  route = "search",
+  pathname = "/search",
   placeholder,
   mobile,
   id,
@@ -18,17 +16,14 @@ export default function Search({
 
   const { handleSubmit, register } = useForm();
 
-  const slug = useRouteSlug();
-
   const onSubmit = (data: Record<string, string>) => {
-    if (!route) return null;
+    if (!pathname) return null;
 
     const params = new URLSearchParams({
-      ...(slug && { slug }),
       q: data.q,
     });
 
-    const url = `/${route}?${params.toString()}`;
+    const url = `${pathname}?${params.toString()}`;
 
     router.push(url);
   };
@@ -58,7 +53,7 @@ export default function Search({
 }
 
 interface Props {
-  route?: string;
+  pathname?: string;
   placeholder?: string;
   mobile?: boolean;
   id: string;

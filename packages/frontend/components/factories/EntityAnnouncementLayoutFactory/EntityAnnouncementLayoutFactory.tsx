@@ -1,11 +1,9 @@
-import React from "react";
-import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { graphql, readInlineData } from "relay-runtime";
 import EntityAnnouncementLayout from "components/composed/entity/EntityAnnouncementLayout";
 import { EntityAnnouncementLayoutFactoryFragment$key } from "@/relay/EntityAnnouncementLayoutFactoryFragment.graphql";
 
 export default function EntityAnnouncementLayoutFactory({ data }: Props) {
-  const entity = useMaybeFragment(fragment, data);
+  const entity = readInlineData(fragment, data);
 
   if (!entity) return null;
 
@@ -13,11 +11,11 @@ export default function EntityAnnouncementLayoutFactory({ data }: Props) {
 }
 
 interface Props {
-  data?: EntityAnnouncementLayoutFactoryFragment$key | null;
+  data: EntityAnnouncementLayoutFactoryFragment$key | null;
 }
 
 const fragment = graphql`
-  fragment EntityAnnouncementLayoutFactoryFragment on AnyEntity {
+  fragment EntityAnnouncementLayoutFactoryFragment on AnyEntity @inline {
     ... on Collection {
       announcement(slug: $announcementSlug) {
         ...EntityAnnouncementLayoutFragment

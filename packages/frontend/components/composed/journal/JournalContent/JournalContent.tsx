@@ -1,7 +1,9 @@
-import React, { Suspense } from "react";
+"use client";
+
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import useIsMounted from "@wdp/lib/hooks/useIsMounted";
 import { graphql } from "react-relay";
-import { FullText, Markdown } from "components/atomic";
+import { FullText, Markdown, LoadingBlock } from "components/atomic";
 import RecentIssues from "components/composed/issue/RecentIssues";
 import EntityAnnouncements from "components/composed/entity/EntityAnnouncements";
 import { JournalContentFragment$key } from "@/relay/JournalContentFragment.graphql";
@@ -9,8 +11,9 @@ import FeaturedIssue from "../FeaturedIssue";
 import * as Styled from "./JournalContent.styles";
 
 export default function JournalContent({ data }: Props) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const journal = useMaybeFragment(fragment, data);
+
+  const isMounted = useIsMounted();
 
   if (!journal) return null;
 
@@ -31,9 +34,13 @@ export default function JournalContent({ data }: Props) {
             ) : (
               journal.about?.content && (
                 <Styled.InfoBlock>
-                  <Markdown.Base className="t-rte">
-                    {journal.about.content}
-                  </Markdown.Base>
+                  {isMounted ? (
+                    <Markdown.Base className="t-rte" skipMountCheck>
+                      {journal.about.content}
+                    </Markdown.Base>
+                  ) : (
+                    <LoadingBlock className="t-rte" />
+                  )}
                 </Styled.InfoBlock>
               )
             )}
@@ -45,12 +52,10 @@ export default function JournalContent({ data }: Props) {
           </Styled.SectionInner>
         </section>
       )}
-      <Suspense fallback={<></>}>
-        <FeaturedIssue
-          data={journal.currentIssue}
-          header="layouts.current_issue"
-        />
-      </Suspense>
+      <FeaturedIssue
+        data={journal.currentIssue}
+        header="layouts.current_issue"
+      />
       <RecentIssues data={journal.issues} />
     </>
   );

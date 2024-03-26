@@ -40,9 +40,7 @@ export default function EntityNavList({ data }: Props) {
       ? orderings.map(({ identifier, name }: Node) => (
           <NamedLink
             key={identifier}
-            route={`${typeRoute}.browse`}
-            routeParams={{ slug, ordering: identifier }}
-            scroll={false}
+            href={`/${typeRoute}/${slug}/browse/${identifier}`}
             passHref
           >
             <Button size="sm" secondary>
@@ -53,9 +51,7 @@ export default function EntityNavList({ data }: Props) {
       : orderings.map(({ identifier, name, count }: Node) => (
           <NamedLink
             key={identifier}
-            route={`${typeRoute}.browse`}
-            routeParams={{ slug, ordering: identifier }}
-            scroll={false}
+            href={`/${typeRoute}/${slug}/browse/${identifier}`}
             passHref
           >
             <Link>
@@ -84,9 +80,7 @@ export default function EntityNavList({ data }: Props) {
         entity.pages.edges.map(({ node }) => (
           <li key={node.slug}>
             <NamedLink
-              route={`${typeRoute}.page`}
-              routeParams={{ slug, page: node.slug }}
-              scroll={false}
+              href={`/${typeRoute}/${slug}/page/${node.slug}`}
               passHref
             >
               <NavMenuLink
