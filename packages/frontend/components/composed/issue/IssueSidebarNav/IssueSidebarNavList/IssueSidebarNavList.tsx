@@ -1,4 +1,3 @@
-import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { useRouteSlug } from "@wdp/lib/routes";
@@ -16,9 +15,7 @@ export default function IssueSidebarNavList({ data }: Props) {
         node.slug ? (
           <Styled.ListItem key={node.slug}>
             <NamedLink
-              route="collection.page"
-              routeParams={{ slug, page: node.slug }}
-              scroll={false}
+              href={`/collections/${slug}/page/${node.slug}}`}
               passHref
             >
               <a className="t-label-sm t-copy-light">{node.title}</a>

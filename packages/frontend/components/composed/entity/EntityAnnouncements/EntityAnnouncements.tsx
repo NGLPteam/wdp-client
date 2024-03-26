@@ -26,11 +26,7 @@ export default function EntityAnnouncements({ data }: Props) {
           <Styled.AnnouncementItem key={announcement.slug}>
             <h5 className="t-copy-medium">
               <NamedLink
-                route="collection.announcement"
-                routeParams={{
-                  slug,
-                  announcement: announcement.slug,
-                }}
+                href={`/collections/${slug}/announcements/${announcement.slug}`}
                 passHref
               >
                 <Link>{announcement.header}</Link>
@@ -40,11 +36,7 @@ export default function EntityAnnouncements({ data }: Props) {
               <p>{announcement.teaser}</p>
             </Styled.AnnouncementBody>
             <NamedLink
-              route="collection.announcement"
-              routeParams={{
-                slug,
-                announcement: announcement.slug,
-              }}
+              href={`/collections/${slug}/announcements/${announcement.slug}`}
               passHref
             >
               <ReadMoreLink className="t-label-mix" />

@@ -1,3 +1,5 @@
+"use client";
+
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import useIsMounted from "@wdp/lib/hooks/useIsMounted";
 import { graphql } from "react-relay";

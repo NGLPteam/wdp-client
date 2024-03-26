@@ -2,8 +2,6 @@ import { Suspense } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
-import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
-import AppLayout from "components/global/AppLayout";
 import LoadingBlock from "components/atomic/loading/LoadingBlock";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
@@ -28,13 +26,9 @@ export default async function CollectionBrowsePage({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <AppLayout communityData={collection.community} entityData={collection}>
-        <EntityLayoutFactory data={collection}>
-          <Suspense fallback={<LoadingBlock />}>
-            <EntityOrderingLayoutFactory data={collection} params={params} />
-          </Suspense>
-        </EntityLayoutFactory>
-      </AppLayout>
+      <Suspense fallback={<LoadingBlock />}>
+        <EntityOrderingLayoutFactory data={collection} params={params} />
+      </Suspense>
     </UpdateClientEnvironment>
   );
 }
@@ -43,11 +37,6 @@ const query = graphql`
   query pageBrowseCollectionQuery($slug: Slug!) {
     collection(slug: $slug) {
       ...EntityOrderingLayoutFactoryFragment
-      ...AppLayoutEntityFragment
-      ...EntityLayoutFactoryFragment
-      community {
-        ...AppLayoutCommunityFragment
-      }
     }
   }
 `;
