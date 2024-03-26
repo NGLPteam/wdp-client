@@ -8,23 +8,22 @@ import Teasers from "./Teasers";
 export default function BrowseTreeItem({ data }: Props) {
   const row = useFragment(fragment, data);
 
+  const route = getRouteByEntityType(row.entry?.__typename) ?? "collections";
+  const href = row.entry?.slug ? `/${route}/${row.entry?.slug}` : `/${route}`;
+
   return row ? (
     <Styled.Row
       role="row"
       aria-level={row.treeDepth || undefined}
       $level={row.treeDepth || undefined}
     >
-      <NamedLink
-        route={getRouteByEntityType(row.entry?.__typename) || "collection"}
-        routeParams={{ slug: row.entry?.slug || "" }}
-        passHref
-      >
-        <a
+      <NamedLink href={href}>
+        <span
           className="a-link t-h4"
           data-schema={row.entry?.schemaVersion?.identifier}
         >
           <Markdown.Title>{row.entry?.title}</Markdown.Title>
-        </a>
+        </span>
       </NamedLink>
       {row.entry?.schemaVersion?.kind === "COLLECTION" && (
         <Teasers data={row.entry} />

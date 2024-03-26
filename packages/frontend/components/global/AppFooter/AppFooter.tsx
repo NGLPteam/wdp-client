@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useParams } from "next/navigation";
 import { RouteHelper } from "routes";
 import { useGlobalContext } from "contexts";
 import InstallationName from "components/composed/instance/InstallationName";
@@ -28,8 +29,13 @@ function AppFooter({ communityData }: Props) {
 
   const community = useMaybeFragment(communityFragment, communityData);
 
+  const { slug } = useParams();
+
   const searchProps = community
-    ? { route: "community.search", placeholder: `Search ${community.title}` }
+    ? {
+        pathname: `/community/${slug}/search`,
+        placeholder: `Search ${community.title}`,
+      }
     : null;
 
   const communityCount = app?.communities?.pageInfo?.totalCount || 0;

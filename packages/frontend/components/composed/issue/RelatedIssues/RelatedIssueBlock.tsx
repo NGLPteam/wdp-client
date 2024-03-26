@@ -11,6 +11,8 @@ export default function RelatedIssueBlock({ data }: Props) {
   const issue = useMaybeFragment(fragment, data);
   const { t } = useTranslation();
 
+  const route = getRouteByEntityType(issue?.__typename);
+
   return issue && issue.slug ? (
     <>
       <Styled.ItemCover>
@@ -33,8 +35,7 @@ export default function RelatedIssueBlock({ data }: Props) {
       <Styled.ItemText>
         <h4>
           <NamedLink
-            route={getRouteByEntityType(issue.__typename) || "home"}
-            routeParams={{ slug: issue.slug }}
+            href={route ? `/${route}/${issue.slug}` : "/home"}
             passHref
           >
             <Link>{issue.title}</Link>

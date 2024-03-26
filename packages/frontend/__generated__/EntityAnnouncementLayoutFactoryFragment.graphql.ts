@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b041a37d755ab86b2c109324ac96c522>>
+ * @generated SignedSource<<09137d1692607f48bc3dc604ece38219>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { InlineFragment, ReaderInlineDataFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type EntityAnnouncementLayoutFactoryFragment$data = {
   readonly announcement?: {
@@ -21,51 +21,11 @@ export type EntityAnnouncementLayoutFactoryFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"EntityAnnouncementLayoutFactoryFragment">;
 };
 
-const node: ReaderFragment = {
-  "argumentDefinitions": [
-    {
-      "kind": "RootArgument",
-      "name": "announcementSlug"
-    }
-  ],
-  "kind": "Fragment",
-  "metadata": null,
-  "name": "EntityAnnouncementLayoutFactoryFragment",
-  "selections": [
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": null,
-          "args": [
-            {
-              "kind": "Variable",
-              "name": "slug",
-              "variableName": "announcementSlug"
-            }
-          ],
-          "concreteType": "Announcement",
-          "kind": "LinkedField",
-          "name": "announcement",
-          "plural": false,
-          "selections": [
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "EntityAnnouncementLayoutFragment"
-            }
-          ],
-          "storageKey": null
-        }
-      ],
-      "type": "Collection",
-      "abstractKey": null
-    }
-  ],
-  "type": "AnyEntity",
-  "abstractKey": "__isAnyEntity"
+const node: ReaderInlineDataFragment = {
+  "kind": "InlineDataFragment",
+  "name": "EntityAnnouncementLayoutFactoryFragment"
 };
 
-(node as any).hash = "e7ed12925b1fb692f451fe09f6a95571";
+(node as any).hash = "f9184978fd11fafe86be6e5327716607";
 
 export default node;

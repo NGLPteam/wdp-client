@@ -13,13 +13,11 @@ export default function RelatedJournal({ data }: Props) {
 
   const { t } = useTranslation();
 
+  const route = getRouteByEntityType(journal?.__typename);
+
   return journal ? (
-    <NamedLink
-      route={getRouteByEntityType(journal.__typename) || "home"}
-      routeParams={{ slug: journal.slug }}
-      passHref
-    >
-      <Styled.Item as="a">
+    <NamedLink href={route ? `/${route}/${journal.slug}` : "/home"} passHref>
+      <Styled.Item>
         <Styled.ItemCover>
           <CoverImage
             title={journal.title}
