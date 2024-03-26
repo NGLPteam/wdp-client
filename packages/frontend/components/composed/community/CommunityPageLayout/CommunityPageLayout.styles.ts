@@ -12,3 +12,8 @@ export const Content = styled.div`
     ${tHeading(3)}
   }
 `;
+
+export const LoadingWrapper = styled.div`
+  min-height: 40vh;
+  padding-block-start: 20%;
+`;
