@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<492626db2bcaedef0b2e2f54d76655e7>>
+ * @generated SignedSource<<d0138c72a37c7128db900b9a7e987700>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { InlineFragment, ReaderInlineDataFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ArticleLayoutFragment$data = {
   readonly relatedItems: {
@@ -22,53 +22,11 @@ export type ArticleLayoutFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"ArticleLayoutFragment">;
 };
 
-const node: ReaderFragment = {
-  "argumentDefinitions": [],
-  "kind": "Fragment",
-  "metadata": null,
-  "name": "ArticleLayoutFragment",
-  "selections": [
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "BreadcrumbsBarFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ArticleParentHeaderFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ArticleHeroFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ArticleTabNavFragment"
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ItemConnection",
-      "kind": "LinkedField",
-      "name": "relatedItems",
-      "plural": false,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "RelatedArticlesFragment"
-        }
-      ],
-      "storageKey": null
-    }
-  ],
-  "type": "Item",
-  "abstractKey": null
+const node: ReaderInlineDataFragment = {
+  "kind": "InlineDataFragment",
+  "name": "ArticleLayoutFragment"
 };
 
-(node as any).hash = "79ccdf1baaa754542e9043908dc2004b";
+(node as any).hash = "423e0536d59598cf221404298ab2c088";
 
 export default node;

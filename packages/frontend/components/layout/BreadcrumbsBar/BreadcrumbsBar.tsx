@@ -1,9 +1,10 @@
-import React, { useMemo } from "react";
+"use client";
+
+import { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { Breadcrumbs, Button, Dropdown, Link } from "components/atomic";
 import { getOrigin, getRouteByEntityType } from "helpers";
-import { RouteHelper } from "routes";
 import { useGlobalContext } from "contexts";
 import { BreadcrumbsBarFragment$key } from "@/relay/BreadcrumbsBarFragment.graphql";
 import { BreadcrumbsBarGlobalFragment$key } from "@/relay/BreadcrumbsBarGlobalFragment.graphql";
@@ -26,18 +27,16 @@ export default function BreadCrumbsBar({ data }: Props) {
 
     const origin = getOrigin();
 
-    const routeName = getRouteByEntityType(type);
+    const route = getRouteByEntityType(type);
 
-    if (!routeName || !origin || !slug) return null;
+    if (!route || !origin || !slug) return null;
 
-    const route = RouteHelper.findRouteByName(routeName);
-
-    return `${origin}${route?.path.replace("[slug]", slug)}`;
+    return `${origin}/${route}/${slug}`;
   }, [breadcrumbData]);
 
   const installation = global?.site?.installationName || "WDP";
 
-  return url && breadcrumbData ? (
+  return breadcrumbData ? (
     <Styled.Nav className="a-bg-custom10">
       <Styled.NavInner className="l-container-wide">
         <Breadcrumbs data={breadcrumbData} />
@@ -54,7 +53,7 @@ export default function BreadCrumbsBar({ data }: Props) {
               className=""
               href={`mailto:?subject=${breadcrumbData.title} - ${installation}&body=View ${breadcrumbData.title} published on ${installation}.%0d%0a%0d%0a${url}`}
             >
-              <Link icon="email" iconLeft>
+              <Link as="span" icon="email" iconLeft>
                 Email
               </Link>
             </a>,
@@ -63,7 +62,7 @@ export default function BreadCrumbsBar({ data }: Props) {
               className=""
               href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}
             >
-              <Link icon="facebook" iconLeft>
+              <Link as="span" icon="facebook" iconLeft>
                 Facebook
               </Link>
             </a>,
@@ -72,7 +71,7 @@ export default function BreadCrumbsBar({ data }: Props) {
               className=""
               href={`https://twitter.com/share?text=&url=${url}`}
             >
-              <Link icon="twitter" iconLeft>
+              <Link as="span" icon="twitter" iconLeft>
                 Twitter
               </Link>
             </a>,

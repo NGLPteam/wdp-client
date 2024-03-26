@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1b96bcfe61176402dd2192310a1cc80e>>
+ * @generated SignedSource<<d2a100c4bd50a07bce7c203e664819a6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -33,7 +33,15 @@ export type IssueOrderingLayoutFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"IssueOrderingLayoutFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  {
+    "kind": "Variable",
+    "name": "showJournal",
+    "variableName": "showJournal"
+  }
+];
+return {
   "argumentDefinitions": [
     {
       "defaultValue": 1,
@@ -122,9 +130,73 @@ const node: ReaderFragment = {
                       "abstractKey": "__isSluggable"
                     },
                     {
+                      "kind": "InlineDataFragmentSpread",
+                      "name": "EntitySummaryFactoryFragment",
+                      "selections": [
+                        {
+                          "kind": "InlineFragment",
+                          "selections": [
+                            {
+                              "alias": null,
+                              "args": null,
+                              "concreteType": "SchemaDefinition",
+                              "kind": "LinkedField",
+                              "name": "schemaDefinition",
+                              "plural": false,
+                              "selections": [
+                                {
+                                  "alias": null,
+                                  "args": null,
+                                  "kind": "ScalarField",
+                                  "name": "identifier",
+                                  "storageKey": null
+                                }
+                              ],
+                              "storageKey": null
+                            },
+                            {
+                              "args": null,
+                              "kind": "FragmentSpread",
+                              "name": "EntitySummaryFragment"
+                            },
+                            {
+                              "args": (v0/*: any*/),
+                              "kind": "FragmentSpread",
+                              "name": "ArticleSummaryFragment"
+                            },
+                            {
+                              "args": (v0/*: any*/),
+                              "kind": "FragmentSpread",
+                              "name": "IssueSummaryFragment"
+                            },
+                            {
+                              "args": (v0/*: any*/),
+                              "kind": "FragmentSpread",
+                              "name": "VolumeSummaryFragment"
+                            },
+                            {
+                              "args": null,
+                              "kind": "FragmentSpread",
+                              "name": "JournalSummaryFragment"
+                            },
+                            {
+                              "args": null,
+                              "kind": "FragmentSpread",
+                              "name": "DissertationSummaryFragment"
+                            }
+                          ],
+                          "type": "Entity",
+                          "abstractKey": "__isEntity"
+                        }
+                      ],
                       "args": null,
-                      "kind": "FragmentSpread",
-                      "name": "EntitySummaryFactoryFragment"
+                      "argumentDefinitions": [
+                        {
+                          "defaultValue": false,
+                          "kind": "LocalArgument",
+                          "name": "showJournal"
+                        }
+                      ]
                     }
                   ],
                   "storageKey": null
@@ -158,6 +230,7 @@ const node: ReaderFragment = {
   "type": "Ordering",
   "abstractKey": null
 };
+})();
 
 (node as any).hash = "0ed0f439a92e224104105ddbcb4f68dc";
 

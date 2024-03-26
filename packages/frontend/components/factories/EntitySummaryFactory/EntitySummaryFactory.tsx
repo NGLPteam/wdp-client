@@ -1,6 +1,4 @@
-import React, { Suspense } from "react";
-import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { graphql, readInlineData } from "relay-runtime";
 import IssueSummary from "components/composed/issue/IssueSummary";
 import ArticleSummary from "components/composed/article/ArticleSummary";
 import EntitySummary from "components/composed/entity/EntitySummary";
@@ -10,7 +8,7 @@ import DissertationSummary from "components/composed/dissertation/DissertationSu
 import { EntitySummaryFactoryFragment$key } from "@/relay/EntitySummaryFactoryFragment.graphql";
 
 export default function EntitySummaryFactory({ data, ...props }: Props) {
-  const entity = useMaybeFragment(fragment, data);
+  const entity = readInlineData(fragment, data);
 
   if (!entity) return null;
 
@@ -23,11 +21,7 @@ export default function EntitySummaryFactory({ data, ...props }: Props) {
       return <DissertationSummary data={entity} {...props} />;
 
     case "journal_issue":
-      return (
-        <Suspense fallback={<></>}>
-          <IssueSummary data={entity} {...props} />
-        </Suspense>
-      );
+      return <IssueSummary data={entity} {...props} />;
 
     case "journal_volume":
       return <VolumeSummary data={entity} {...props} />;
@@ -43,11 +37,12 @@ export default function EntitySummaryFactory({ data, ...props }: Props) {
 }
 
 interface Props {
-  data?: EntitySummaryFactoryFragment$key | null;
+  data: EntitySummaryFactoryFragment$key | null;
 }
 
 const fragment = graphql`
   fragment EntitySummaryFactoryFragment on Entity
+  @inline
   @argumentDefinitions(showJournal: { type: "Boolean", defaultValue: false }) {
     schemaDefinition {
       identifier

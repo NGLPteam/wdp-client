@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useWindowSize } from "@wdp/lib/hooks";
 import { BackToTopButton } from "components/atomic";
 import * as Styled from "./BackToTopBlock.styles";

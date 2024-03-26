@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useTransition } from "react";
+import { useTransition } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { graphql, useRefetchableFragment } from "react-relay";
 import { useForm } from "react-hook-form";
@@ -47,18 +47,17 @@ export default function SearchLayout({ data, scoped }: Props) {
 
   const noSearchQuery =
     (!searchParams.get("q") || searchParams.get("q") === "") &&
-    !searchParams.get("filters");
+    !searchParams.get("filters") &&
+    !searchParams.get("schema");
 
-  useEffect(() => {
-    const filters = searchParams.get("filters")
-      ? routeQueryArrayToString(searchParams.get("filters"))
+  const doRefetch = (params: URLSearchParams) => {
+    const filters = params.get("filters")
+      ? routeQueryArrayToString(params.get("filters"))
       : null;
-    const page = routeQueryArrayToString(searchParams.get("page"));
-    const q = routeQueryArrayToString(searchParams.get("q"));
-    const order = routeQueryArrayToString(
-      searchParams.get("order"),
-    ) as EntityOrder;
-    const schema = normalizeRouteQueryArray(searchParams.get("schema"));
+    const page = routeQueryArrayToString(params.get("page"));
+    const q = routeQueryArrayToString(params.get("q"));
+    const order = routeQueryArrayToString(params.get("order")) as EntityOrder;
+    const schema = normalizeRouteQueryArray(params.get("schema"));
 
     const predicates = filters ? getPredicates(JSON.parse(filters)) : [];
 
@@ -76,9 +75,9 @@ export default function SearchLayout({ data, scoped }: Props) {
       refetch(queryVars);
       return;
     });
-  }, [searchParams]);
+  };
 
-  const onQuerySubmit = async (data: { q?: string }) => {
+  const onQuerySubmit = (data: { q?: string }) => {
     const params = new URLSearchParams(searchParams);
     if (data.q) {
       params.set("q", data.q);
@@ -87,6 +86,7 @@ export default function SearchLayout({ data, scoped }: Props) {
     }
     const url = `${pathname}?${params.toString()}`;
     router.push(url);
+    doRefetch(params);
   };
 
   return (

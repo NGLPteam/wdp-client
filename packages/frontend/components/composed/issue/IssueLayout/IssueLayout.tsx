@@ -1,14 +1,12 @@
-import React from "react";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { graphql } from "react-relay";
+import { graphql, readInlineData } from "relay-runtime";
 import ContributionsBlock from "components/composed/contribution/ContributionsBlock";
-import { BreadcrumbsBar } from "components/layout";
+import BreadcrumbsBar from "components/layout/BreadcrumbsBar";
 import RelatedIssues from "components/composed/issue/RelatedIssues";
 import { IssueLayoutFragment$key } from "@/relay/IssueLayoutFragment.graphql";
 import IssueHero from "../IssueHero";
 
 export default function IssueLayout({ data, children }: Props) {
-  const issue = useMaybeFragment(fragment, data);
+  const issue = readInlineData(fragment, data);
 
   return (
     <>
@@ -24,12 +22,12 @@ export default function IssueLayout({ data, children }: Props) {
 }
 
 interface Props {
-  data?: IssueLayoutFragment$key | null;
+  data: IssueLayoutFragment$key | null;
   children?: React.ReactNode;
 }
 
 const fragment = graphql`
-  fragment IssueLayoutFragment on Collection {
+  fragment IssueLayoutFragment on Collection @inline {
     ...BreadcrumbsBarFragment
     ...IssueHeroFragment
     contributions {

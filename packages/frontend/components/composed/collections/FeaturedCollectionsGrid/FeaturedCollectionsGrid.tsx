@@ -1,8 +1,8 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { NamedLink, Button } from "components/atomic";
+import { PagesRouterLinkProps } from "components/atomic/links/NamedLink/NamedLink";
 import {
   FeaturedCollectionsGridFragment$data,
   FeaturedCollectionsGridFragment$key,
@@ -10,7 +10,7 @@ import {
 import FeaturedCollectionsGridImage from "./FeaturedCollectionsGridImage";
 import * as Styled from "./FeaturedCollectionsGrid.styles";
 
-type LinkProps = React.ComponentProps<typeof NamedLink>;
+type LinkProps = PagesRouterLinkProps;
 
 export default function FeaturedCollectionsGrid({
   data,

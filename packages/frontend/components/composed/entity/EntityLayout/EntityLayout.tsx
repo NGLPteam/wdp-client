@@ -1,13 +1,11 @@
-import React from "react";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { graphql } from "react-relay";
-import { BreadcrumbsBar } from "components/layout";
+import { readInlineData, graphql } from "relay-runtime";
+import BreadcrumbsBar from "components/layout/BreadcrumbsBar";
 import EntityNavBar from "components/composed/entity/EntityNavBar";
 import { EntityLayoutFragment$key } from "@/relay/EntityLayoutFragment.graphql";
 import EntityHero from "../EntityHero";
 
 export default function EntityLayout({ data, children }: Props) {
-  const entity = useMaybeFragment(fragment, data);
+  const entity = readInlineData(fragment, data);
 
   return (
     <>
@@ -20,12 +18,12 @@ export default function EntityLayout({ data, children }: Props) {
 }
 
 interface Props {
-  data?: EntityLayoutFragment$key | null;
+  data: EntityLayoutFragment$key | null;
   children?: React.ReactNode;
 }
 
 const fragment = graphql`
-  fragment EntityLayoutFragment on AnyEntity {
+  fragment EntityLayoutFragment on AnyEntity @inline {
     ... on Entity {
       ...BreadcrumbsBarFragment
       ...EntityHeroFragment

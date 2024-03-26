@@ -1,31 +1,21 @@
-import React, { useMemo } from "react";
-import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useTranslation } from "react-i18next";
+import { graphql, readInlineData } from "relay-runtime";
 import EntitySummaryFactory from "components/factories/EntitySummaryFactory";
-import { useDescendantListQueryVars } from "hooks";
-import { getSchemaTranslationKey } from "helpers";
+import { getSchemaTranslationKey } from "helpers/translations";
 import BrowseListLayout from "components/layout/BrowseListLayout";
-import { LoadingBlock } from "components/atomic";
+import LoadingBlock from "components/atomic/loading/LoadingBlock";
 import {
   EntityDescendantsLayoutFragment$data,
   EntityDescendantsLayoutFragment$key,
 } from "@/relay/EntityDescendantsLayoutFragment.graphql";
 import EntityDescendantOrderSelect from "../EntityDescendantOrderSelect";
 
-export default function EntityDescendantsLayout({ data }: Props) {
-  const decendants = useMaybeFragment(fragment, data);
-
-  const { schema } = useDescendantListQueryVars();
-
-  const pageInfo = useMemo(() => decendants?.pageInfo, [decendants]);
-
-  const { t } = useTranslation();
+export default function EntityDescendantsLayout({ data, schema }: Props) {
+  const decendants = readInlineData(fragment, data);
 
   return decendants ? (
     <BrowseListLayout
-      data={pageInfo}
-      header={t(getSchemaTranslationKey(schema), { count: 2 })}
+      data={decendants.pageInfo}
+      header={[getSchemaTranslationKey(schema), { count: 2 }]}
       orderComponent={<EntityDescendantOrderSelect />}
       items={decendants.edges.map(({ node: { descendant } }: Node) => (
         <EntitySummaryFactory key={descendant.slug} data={descendant} />
@@ -37,13 +27,15 @@ export default function EntityDescendantsLayout({ data }: Props) {
 }
 
 interface Props {
-  data?: EntityDescendantsLayoutFragment$key | null;
+  data: EntityDescendantsLayoutFragment$key | null;
+  schema: string;
 }
 
 type Node = EntityDescendantsLayoutFragment$data["edges"][number];
 
 const fragment = graphql`
-  fragment EntityDescendantsLayoutFragment on EntityDescendantConnection {
+  fragment EntityDescendantsLayoutFragment on EntityDescendantConnection
+  @inline {
     edges {
       node {
         descendant {
