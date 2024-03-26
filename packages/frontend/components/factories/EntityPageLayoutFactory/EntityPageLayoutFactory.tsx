@@ -1,17 +1,11 @@
-import React from "react";
-import { graphql } from "react-relay";
-import { useMaybeFragment, usePageContext } from "@wdp/lib/api/hooks";
+import { graphql, readInlineData } from "relay-runtime";
 import EntityPageLayout from "components/composed/entity/EntityPageLayout";
 import IssuePageLayout from "components/composed/issue/IssuePageLayout";
 import IssueSidebarNav from "components/composed/issue/IssueSidebarNav";
-import { LoadingBlock } from "components/atomic";
 import { EntityPageLayoutFactoryFragment$key } from "@/relay/EntityPageLayoutFactoryFragment.graphql";
 
 export default function EntityPageLayoutFactory({ data }: Props) {
-  const entity = useMaybeFragment(fragment, data);
-  const { loading } = usePageContext();
-
-  if (loading) return <LoadingBlock />;
+  const entity = readInlineData(fragment, data);
 
   if (!entity) return null;
 
@@ -29,11 +23,11 @@ export default function EntityPageLayoutFactory({ data }: Props) {
 }
 
 interface Props {
-  data?: EntityPageLayoutFactoryFragment$key | null;
+  data: EntityPageLayoutFactoryFragment$key | null;
 }
 
 const fragment = graphql`
-  fragment EntityPageLayoutFactoryFragment on AnyEntity {
+  fragment EntityPageLayoutFactoryFragment on AnyEntity @inline {
     ... on Collection {
       schemaDefinition {
         identifier
