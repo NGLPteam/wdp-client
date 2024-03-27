@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<602fede289be57048fcce651778d7f1f>>
+ * @generated SignedSource<<3dbd654d2ec17c921494da9aedbdee20>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -1414,9 +1414,19 @@ return {
                         "argumentDefinitions": []
                       },
                       {
+                        "kind": "InlineDataFragmentSpread",
+                        "name": "VolumeLayoutFragment",
+                        "selections": [
+                          (v4/*: any*/),
+                          {
+                            "args": null,
+                            "kind": "FragmentSpread",
+                            "name": "VolumeHeroFragment"
+                          },
+                          (v5/*: any*/)
+                        ],
                         "args": null,
-                        "kind": "FragmentSpread",
-                        "name": "VolumeLayoutFragment"
+                        "argumentDefinitions": []
                       },
                       {
                         "kind": "InlineDataFragmentSpread",

@@ -23,7 +23,7 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment VolumeLayoutFragment on Collection {
+  fragment VolumeLayoutFragment on Collection @inline {
     ...BreadcrumbsBarFragment
     ...VolumeHeroFragment
     ...EntityNavBarFragment

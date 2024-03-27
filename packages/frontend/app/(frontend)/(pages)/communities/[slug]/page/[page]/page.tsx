@@ -1,7 +1,6 @@
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import CommunityPageLayout from "components/composed/community/CommunityPageLayout";
-import AppLayout from "components/global/AppLayout";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageCommunityPageQuery as Query } from "@/relay/pageCommunityPageQuery.graphql";
@@ -21,9 +20,7 @@ export default async function CommunityPage({ params }: BasePageParams) {
 
   return (
     <UpdateClientEnvironment records={records}>
-      <AppLayout communityData={community} entityData={community}>
-        <CommunityPageLayout data={community?.page} />
-      </AppLayout>
+      <CommunityPageLayout data={community?.page} />
     </UpdateClientEnvironment>
   );
 }
@@ -34,8 +31,6 @@ const query = graphql`
       page(slug: $pageSlug) {
         ...CommunityPageLayoutFragment
       }
-      ...AppLayoutCommunityFragment
-      ...AppLayoutEntityFragment
     }
   }
 `;
