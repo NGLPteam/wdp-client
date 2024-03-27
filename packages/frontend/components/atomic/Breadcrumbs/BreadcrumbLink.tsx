@@ -13,8 +13,8 @@ export default function BreadcrumbLink({ data }: Props) {
   if (!crumb?.slug || !route) return null;
 
   return (
-    <NamedLink href={`/${route}/${crumb.slug}`} passHref>
-      <Link>{crumb.label}</Link>
+    <NamedLink href={`/${route}/${crumb.slug}`}>
+      <Link as="span">{crumb.label}</Link>
     </NamedLink>
   );
 }

@@ -50,7 +50,8 @@ export default css`
     ${tHeading(6)}
   }
 
-  a:not([class]) {
+  a:not([class]),
+  a.default-link-styles {
     ${aLink}
   }
 `;

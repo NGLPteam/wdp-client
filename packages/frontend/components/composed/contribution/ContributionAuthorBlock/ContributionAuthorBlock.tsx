@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import capitalize from "lodash/capitalize";
@@ -13,47 +14,41 @@ export default function ContributionAuthorBlock({ data }: Props) {
 
   const contributor = contribution?.contributor;
 
+  if (!contribution || !contributor) return null;
+
   const showAvatar = contributor?.image?.storage ?? null;
 
   const itemSlug = contribution?.item?.slug;
 
   const collectionSlug = contribution?.collection?.slug;
 
-  return contribution && contributor && contributor.slug ? (
+  const params = new URLSearchParams({
+    ...(itemSlug && { item: itemSlug }),
+    ...(collectionSlug && {
+      collection: collectionSlug,
+    }),
+  });
+  const entityHref = contribution.contributor.slug
+    ? `/contributors/${contribution.contributor.slug}?${params.toString()}`
+    : "#";
+  const href = contribution.contributor.slug
+    ? `/contributors/${contribution.contributor.slug}`
+    : "#";
+
+  return (
     <section className="a-bg-custom10">
       <Styled.Inner className="l-container-wide">
         {showAvatar && (
-          <NamedLink
-            route="contributor"
-            routeParams={{
-              slug: contributor.slug,
-              // ...(contribution?.slug && {
-              //   item: contribution?.slug,
-              // }),
-            }}
-            passHref
-          >
-            {/* Users are used to images being links, but for a11y we want to only have one tabbable link per contributor  */}
-            <Styled.AvatarWrapper as="a" aria-hidden="true" tabIndex={-1}>
+          /* Users are used to images being links, but for a11y we want to only have one tabbable link per contributor  */
+          <NamedLink href={href} aria-hidden="true" tabIndex={-1}>
+            <Styled.AvatarWrapper as="span">
               <ContributorAvatar data={contributor.image} />
             </Styled.AvatarWrapper>
           </NamedLink>
         )}
         <Styled.Info>
-          <NamedLink
-            route="contributor"
-            routeParams={{
-              slug: contributor.slug,
-              ...(itemSlug && {
-                item: itemSlug,
-              }),
-              ...(collectionSlug && {
-                collection: collectionSlug,
-              }),
-            }}
-            passHref
-          >
-            <Link>
+          <NamedLink href={entityHref} className="default-link-styles">
+            <Link as="span">
               <ContributorName data={contributor} />
             </Link>
           </NamedLink>
@@ -82,7 +77,7 @@ export default function ContributionAuthorBlock({ data }: Props) {
         </Styled.Info>
       </Styled.Inner>
     </section>
-  ) : null;
+  );
 }
 
 type Props = {

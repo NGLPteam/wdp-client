@@ -15,7 +15,7 @@ export default async function ContributorPage({
   searchParams,
 }: BasePageParams & { searchParams: Record<string, string> }) {
   const { slug } = params;
-  const { itemSlug, collectionSlug } = searchParams ?? {};
+  const { item: itemSlug, collection: collectionSlug } = searchParams ?? {};
 
   const query = itemSlug
     ? itemQuery

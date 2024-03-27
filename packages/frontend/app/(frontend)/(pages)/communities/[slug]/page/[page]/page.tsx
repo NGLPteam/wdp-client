@@ -6,7 +6,7 @@ import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageCommunityPageQuery as Query } from "@/relay/pageCommunityPageQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
-export default async function CommunityPage({ params }: BasePageParams) {
+export default async function CommunityPagePage({ params }: BasePageParams) {
   const { slug, page: pageSlug } = params;
 
   const { data, records } = await fetchQuery<Query>(query, {

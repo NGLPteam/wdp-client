@@ -1,6 +1,6 @@
 import Head from "next/head";
-import { getPrecisionCitationDateDisplay } from "helpers";
-import { getContributorDisplayName } from "components/composed/contributor/ContributorName/ContributorName";
+import { getPrecisionCitationDateDisplay } from "helpers/dates";
+import { getContributorDisplayName } from "components/composed/contributor/ContributorName/helpers";
 import { getStaticGoogleScholarDataFragment$data } from "@/relay/getStaticGoogleScholarDataFragment.graphql";
 
 export default function GoogleScholarHtmlHead({

@@ -1,14 +1,10 @@
-import { default as environment } from "@wdp/lib/app/buildEnvironment";
-import { fetchQuery, graphql } from "relay-runtime";
+import { graphql } from "relay-runtime";
+import fetchQuery from "@/lib/relay/fetchQuery";
 import { getStaticGlobalContextDataQuery } from "@/relay/getStaticGlobalContextDataQuery.graphql";
 
 export default async function getStaticGlobalContextData() {
-  const env = environment();
-  const globalStaticData = await fetchQuery<getStaticGlobalContextDataQuery>(
-    env,
-    query,
-    {},
-  ).toPromise();
+  const { data: globalStaticData } =
+    await fetchQuery<getStaticGlobalContextDataQuery>(query, {});
 
   return globalStaticData;
 }

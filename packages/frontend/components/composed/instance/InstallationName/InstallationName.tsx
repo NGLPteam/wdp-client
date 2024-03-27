@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import * as React from "react";
 import { graphql } from "react-relay";
 import Link from "next/link";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
@@ -30,7 +29,7 @@ export default function InstallationName({ className = "t-label-mix" }: Props) {
   }, [siteData]);
 
   return siteData?.site?.installationName ? (
-    <Link href="/" passHref legacyBehavior>
+    <Link href="/">
       <Styled.Link className={className}>
         {siteData?.logo?.storage && (
           <Image

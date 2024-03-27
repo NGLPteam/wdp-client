@@ -4,7 +4,7 @@ import JournalContent from "components/composed/journal/JournalContent";
 import ArticleText from "components/composed/article/ArticleText";
 import ArticleContributor from "components/composed/article/ArticleContributor";
 import HowToCite from "components/composed/article/HowToCite";
-import { LoadingBlock } from "components/atomic";
+import LoadingBlock from "components/atomic/loading/LoadingBlock";
 import { EntityContentLayoutFactoryFragment$key } from "@/relay/EntityContentLayoutFactoryFragment.graphql";
 import EntityOrderingLayoutFactory from "../EntityOrderingLayoutFactory";
 
@@ -22,7 +22,9 @@ export default function EntityContentLayoutFactory({ data, params }: Props) {
       return (
         <Suspense fallback={<LoadingBlock />}>
           <ArticleText data={entity} />
-          <ArticleContributor data={entity?.contributions} />
+          {entity?.contributions && (
+            <ArticleContributor data={entity.contributions} />
+          )}
           <HowToCite data={entity} />
         </Suspense>
       );

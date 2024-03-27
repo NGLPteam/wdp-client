@@ -3,17 +3,20 @@ import { useTranslation } from "react-i18next";
 import Button from "..";
 import type { MaybeButtonRef } from "@castiron/common-types";
 
-type BaseProps = React.ComponentProps<typeof Button>;
+type Props = React.ComponentProps<typeof Button> & {
+  as: "a" | "div" | "button";
+};
 
-/* Simple download text and icon,
- * style can be changed using the className property */
-function BackButton({ children, ...props }: BaseProps, ref: MaybeButtonRef) {
+function BackButton(
+  { children, as = "a", ...props }: Props,
+  ref: MaybeButtonRef,
+) {
   const { t } = useTranslation();
 
   return (
     <Button
       ref={ref}
-      as="a"
+      as={as}
       size="sm"
       secondary
       {...props}

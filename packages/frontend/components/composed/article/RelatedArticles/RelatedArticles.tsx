@@ -18,12 +18,8 @@ export default function RelatedArticles({ data }: Props) {
           {articles.edges.map((edge, i) => (
             <Styled.ListItem key={i}>
               <h4>
-                <NamedLink
-                  route={"item"}
-                  routeParams={{ slug: edge.node.slug }}
-                  passHref
-                >
-                  <Link>{edge.node.title}</Link>
+                <NamedLink href={`/items/${edge.node.slug}`}>
+                  <Link as="span">{edge.node.title}</Link>
                 </NamedLink>
               </h4>
               <Styled.ItemMetadata className="t-copy-lighter">

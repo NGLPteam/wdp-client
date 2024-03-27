@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
 
-export const Link = styled.a`
+export const Link = styled.span`
   display: flex;
   align-items: center;
   max-height: 40px;
