@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import { format, parseISO } from "date-fns";
+import { useIsMounted } from "@wdp/lib/hooks";
 import { ArticleAnalyticsBlockFragment$data } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
 import GeoChart from "../GeoChart";
 import LineColChart from "../LineColChart";
@@ -87,7 +88,9 @@ export default function ChartBlock({
     [mode, precision],
   );
 
-  return data ? (
+  const isMounted = useIsMounted();
+
+  return isMounted && data ? (
     <Styled.ChartWrapper $type={chartType}>
       {chartType === "map" ? (
         <GeoChart data={formatMapData(data)} region={region} />

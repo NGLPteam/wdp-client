@@ -1,6 +1,4 @@
-import React from "react";
-import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { graphql, readInlineData } from "relay-runtime";
 import ContributionAuthorBlock from "components/composed/contribution/ContributionAuthorBlock";
 import ContributionsBlock from "components/composed/contribution/ContributionsBlock";
 import {
@@ -9,7 +7,7 @@ import {
 } from "@/relay/ArticleContributorFragment.graphql";
 
 export default function ArticleContributor({ data }: Props) {
-  const contributionData = useMaybeFragment(fragment, data);
+  const contributionData = readInlineData(fragment, data);
 
   const contributions = contributionData?.nodes.filter(
     (node: Node) => node.role && node.role.toLowerCase() === "author",
@@ -27,13 +25,13 @@ export default function ArticleContributor({ data }: Props) {
 }
 
 type Props = {
-  data?: ArticleContributorFragment$key | null;
+  data: ArticleContributorFragment$key | null;
 };
 
 type Node = ArticleContributorFragment$data["nodes"][number];
 
 const fragment = graphql`
-  fragment ArticleContributorFragment on ItemContributionConnection {
+  fragment ArticleContributorFragment on ItemContributionConnection @inline {
     nodes {
       role
       ...ContributionAuthorBlockFragment

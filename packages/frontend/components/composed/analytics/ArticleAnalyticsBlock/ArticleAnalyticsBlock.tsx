@@ -1,6 +1,15 @@
-import { useState, useEffect, useReducer } from "react";
+"use client";
+
+import {
+  useState,
+  useReducer,
+  useTransition,
+  useEffect,
+  useCallback,
+} from "react";
 import { graphql, useRefetchableFragment } from "react-relay";
 import dynamic from "next/dynamic";
+import LoadingBlock from "components/atomic/loading/LoadingBlock";
 import { ArticleAnalyticsBlockFragment$key } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
 import {
   ArticleAnalyticsBlockQuery,
@@ -8,8 +17,10 @@ import {
 } from "@/relay/ArticleAnalyticsBlockQuery.graphql";
 import ChartControls from "../ChartControls";
 import StatBlocks from "../StatBlocks";
-import { chartSettingsReducer, State, Action } from "./settingsReducer";
+import { State, Action, chartSettingsReducer } from "./settingsReducer";
 import * as Styled from "./ArticleAnalyticsBlock.styles";
+
+import type { AnalyticsPrecision } from "types/graphql-schema";
 
 type Props = {
   data: ArticleAnalyticsBlockFragment$key;
@@ -32,23 +43,32 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
 
   const initalSettings = {
     chartType: "map",
-    precision: "YEAR",
-    dateRange: {},
+    precision: "YEAR" as AnalyticsPrecision,
     dateLabel: "all",
     usOnly: false,
     minDate: minDate ?? null,
     updated: false,
   };
 
+  const [isPending, startTransition] = useTransition();
+
+  const doRefetch = useCallback(
+    (queryVars: Omit<ArticleAnalyticsBlockQuery$variables, "id">) => {
+      startTransition(() => {
+        refetch(queryVars);
+        return;
+      });
+    },
+    [startTransition, refetch],
+  );
+
   const [settings, dispatchSettingsUpdate] = useReducer<
     (state: State, action: Action) => State
   >(chartSettingsReducer, initalSettings);
 
   useEffect(() => {
-    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    const { chartType, minDate, updated, dateLabel, ...queryVars } = settings;
-    refetch(queryVars as unknown as ArticleAnalyticsBlockQuery$variables);
-  }, [refetch, settings]);
+    doRefetch(settings);
+  }, [doRefetch, settings]);
 
   const region = settings.usOnly ? "US" : "world";
 
@@ -63,13 +83,19 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
           dispatchSettingsUpdate={dispatchSettingsUpdate}
           dateLabel={settings.dateLabel}
         />
-        <ChartBlock
-          data={chartData}
-          chartType={settings.chartType}
-          region={region}
-          mode={mode}
-          precision={settings.precision}
-        />
+        {isPending ? (
+          <Styled.LoaderWrapper>
+            <LoadingBlock />
+          </Styled.LoaderWrapper>
+        ) : (
+          <ChartBlock
+            data={chartData}
+            chartType={settings.chartType}
+            region={region}
+            mode={mode}
+            precision={settings.precision}
+          />
+        )}
         <StatBlocks
           data={chartData}
           region={region}

@@ -1,11 +1,10 @@
-import { forwardRef, cloneElement, isValidElement } from "react";
 import { Route } from "next";
 import Link from "next/link";
 import { RouteHelper } from "routes";
 import { useViewerContext } from "contexts";
 type LinkProps = React.ComponentProps<typeof Link>;
 
-const NamedLink = forwardRef(({ children, passHref, ...props }: Props, ref) => {
+const NamedLink = ({ children, ...props }: Props) => {
   let href: Route = "href" in props ? props.href : "";
   let isAuthorized = true;
 
@@ -51,13 +50,15 @@ const NamedLink = forwardRef(({ children, passHref, ...props }: Props, ref) => {
   /* eslint-enable @typescript-eslint/no-unused-vars */
 
   return isAuthorized && href ? (
-    <Link href={href} passHref={passHref} {...linkProps} legacyBehavior>
-      {isValidElement(children)
-        ? cloneElement(children, { ref, ...linkProps })
-        : children}
+    <Link
+      href={href}
+      {...linkProps}
+      className={props.className ? props.className : "no-default-link-styles"}
+    >
+      {children}
     </Link>
   ) : null;
-});
+};
 
 interface AppRouterLinkProps extends Omit<LinkProps, "href"> {
   href: string;
@@ -71,8 +72,6 @@ export interface PagesRouterLinkProps extends Omit<LinkProps, "href"> {
   routeParams?: Record<string, string | number>;
   /** Query parameters */
   query?: { [key: string]: string | string[] | number | undefined };
-  /** Pass href to child component */
-  passHref?: boolean;
 }
 
 type Props = AppRouterLinkProps | PagesRouterLinkProps;

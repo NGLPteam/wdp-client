@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+"use client";
+
+import { useState } from "react";
 import { graphql } from "react-relay";
 import Image from "next/legacy/image";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { formatDate, formatFileSize } from "@wdp/lib/helpers";
-import { useRouteSlug } from "@wdp/lib/routes";
+import { useParams } from "next/navigation";
 import {
   BackButton,
   ContentImage,
@@ -18,7 +20,7 @@ import * as Styled from "./AssetDetailBlock.styles";
 export default function AssetDetailBlock({ data }: Props) {
   const [loaded, setLoaded] = useState<boolean>(false);
   const asset = useMaybeFragment(fragment, data);
-  const slug = useRouteSlug();
+  const { slug } = useParams();
 
   // Since we don't have a preview thumbnail for original images,
   // we render a loading spinner instead.
@@ -43,13 +45,8 @@ export default function AssetDetailBlock({ data }: Props) {
   return asset ? (
     <Styled.Section className="l-container-wide">
       {slug && (
-        <NamedLink
-          route="item.files"
-          routeParams={{ slug }}
-          scroll={false}
-          passHref
-        >
-          <BackButton>Back to Files</BackButton>
+        <NamedLink href={`/items/${slug}/files`}>
+          <BackButton as="div">Back to Files</BackButton>
         </NamedLink>
       )}
       <Styled.ContentBlock>

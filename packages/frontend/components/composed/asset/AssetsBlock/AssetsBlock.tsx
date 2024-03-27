@@ -1,8 +1,8 @@
-import React from "react";
-import { useMaybeFragment, usePageContext } from "@wdp/lib/api/hooks";
+"use client";
+
+import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { LoadingBlock } from "components/atomic";
 import { AssetsBlockFragment$key } from "@/relay/AssetsBlockFragment.graphql";
 import * as Styled from "./AssetsBlock.styles";
 import AssetBlockItem from "./AssetBlockItem";
@@ -10,7 +10,6 @@ import AssetBlockItem from "./AssetBlockItem";
 const AssetsBlock = ({ data, paddingBottom = "md" }: Props) => {
   const { t } = useTranslation();
   const files = useMaybeFragment(fragment, data);
-  const { loading } = usePageContext();
 
   return (
     <section className={`a-bg-neutral00`}>
@@ -19,9 +18,7 @@ const AssetsBlock = ({ data, paddingBottom = "md" }: Props) => {
         $paddingBottom={paddingBottom}
       >
         <h3 className="t-capitalize">{t("glossary.files_other")}</h3>
-        {loading ? (
-          <LoadingBlock />
-        ) : files?.edges && files.edges.length > 0 ? (
+        {files?.edges && files.edges.length > 0 ? (
           <Styled.List>
             {files.edges.map(({ node }, i) => (
               <Styled.ListItem key={i}>

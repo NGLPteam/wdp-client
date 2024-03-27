@@ -2,8 +2,8 @@
 
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { routeQueryArrayToString } from "@wdp/lib/routes";
-import { useRouter } from "next/router";
+import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToString";
+import { useParams } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { NamedLink } from "components/atomic";
 import { RouteHelper } from "routes";
@@ -21,13 +21,7 @@ export default function ArticleTabNav({ data, contentId }: Props) {
 
   const { t } = useTranslation();
 
-  const {
-    query: { slug: slugQuery, page: pageQuery },
-  } = useRouter();
-
-  const slug = routeQueryArrayToString(slugQuery);
-
-  const page = routeQueryArrayToString(pageQuery);
+  const { slug, page } = useParams();
 
   const checkIfActive = (routeName: string, pageSlug?: string) => {
     const checkPage = !pageSlug || pageSlug === page;
@@ -48,9 +42,12 @@ export default function ArticleTabNav({ data, contentId }: Props) {
       <Styled.Item key={route === "item.page" ? pageSlug : route}>
         <NamedLink
           route={route}
-          routeParams={pageSlug ? { slug, page: pageSlug } : { slug }}
+          routeParams={
+            pageSlug
+              ? { slug: routeQueryArrayToString(slug), page: pageSlug }
+              : { slug: routeQueryArrayToString(slug) }
+          }
           scroll={false}
-          passHref
         >
           <Styled.TabLink aria-current={isCurrent ? "page" : undefined}>
             {t(label)}

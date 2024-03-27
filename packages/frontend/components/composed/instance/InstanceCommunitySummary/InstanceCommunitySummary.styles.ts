@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { boxShadow, transition } from "theme/base/variables";
 import { aFocusReset, tLineClamp } from "theme/mixins";
 
-export const LinkWrapper = styled.a`
+export const LinkWrapper = styled.span`
   display: flex;
   flex-direction: column;
   height: 100%;

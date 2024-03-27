@@ -18,7 +18,7 @@ export const Item = styled.li`
   }
 `;
 
-export const TabLink = styled.a`
+export const TabLink = styled.span`
   display: inline-block;
   padding-block-end: var(--padding-sm);
   border-bottom: 2px solid transparent;
@@ -41,5 +41,6 @@ export const TabLink = styled.a`
   &:hover {
     color: var(--color-lighter);
     border-bottom-color: var(--color-lighter);
+    cursor: pointer;
   }
 `;

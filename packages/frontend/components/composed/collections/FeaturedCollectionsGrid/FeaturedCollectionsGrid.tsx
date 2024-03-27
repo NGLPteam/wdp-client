@@ -33,11 +33,7 @@ export default function FeaturedCollectionsGrid({
           {collections.entities.map((node: Node) =>
             node.slug ? (
               <Styled.Item key={node.slug}>
-                <Styled.NamedLink
-                  route="collection"
-                  routeParams={{ slug: node.slug }}
-                  passHref
-                >
+                <Styled.NamedLink href={`/collections/${node.slug}`}>
                   <a>
                     <FeaturedCollectionsGridImage data={node} />
                     <span className="t-h3">{node.title}</span>
@@ -49,12 +45,8 @@ export default function FeaturedCollectionsGrid({
         </Styled.List>
         {seeAllRoute && (
           <Styled.ButtonWrapper>
-            <NamedLink
-              route={seeAllRoute}
-              routeParams={seeAllRouteParams}
-              passHref
-            >
-              <Button as="a">
+            <NamedLink route={seeAllRoute} routeParams={seeAllRouteParams}>
+              <Button as="span">
                 {t(seeAllText || "layouts.see_all_collections")}
               </Button>
             </NamedLink>

@@ -21,12 +21,10 @@ export default function AssetBlockItem({ data }: Props) {
         <h4>
           {slug && file.slug ? (
             <NamedLink
-              route="item.file"
-              routeParams={{ slug, file: file.slug }}
+              href={`/items/${slug}/files/${file.slug}`}
               scroll={false}
-              passHref
             >
-              <a href="#">{file.name}</a>
+              <span>{file.name}</span>
             </NamedLink>
           ) : (
             file.name

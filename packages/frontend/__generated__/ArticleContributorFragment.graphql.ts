@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<000d27db0faedbacd5a087375adcb99d>>
+ * @generated SignedSource<<d76689b406fee2af45a9d8cc59f7d175>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { InlineFragment, ReaderInlineDataFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ArticleContributorFragment$data = {
   readonly nodes: ReadonlyArray<{
@@ -23,45 +23,11 @@ export type ArticleContributorFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"ArticleContributorFragment">;
 };
 
-const node: ReaderFragment = {
-  "argumentDefinitions": [],
-  "kind": "Fragment",
-  "metadata": null,
-  "name": "ArticleContributorFragment",
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ItemContribution",
-      "kind": "LinkedField",
-      "name": "nodes",
-      "plural": true,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "role",
-          "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "ContributionAuthorBlockFragment"
-        }
-      ],
-      "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ContributionsBlockFragment"
-    }
-  ],
-  "type": "ItemContributionConnection",
-  "abstractKey": null
+const node: ReaderInlineDataFragment = {
+  "kind": "InlineDataFragment",
+  "name": "ArticleContributorFragment"
 };
 
-(node as any).hash = "0b09ac7781af6e6279da104e540f44c5";
+(node as any).hash = "6251e5b7c7bd238b39af00b84963a3e1";
 
 export default node;

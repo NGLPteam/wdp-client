@@ -1,7 +1,4 @@
-import React from "react";
-import { usePageContext } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import { LoadingBlock } from "components/atomic";
 import * as Styled from "./BaseContributionsBlock.styles";
 
 const BaseContributionsBlock = ({
@@ -12,8 +9,6 @@ const BaseContributionsBlock = ({
 }: Props) => {
   const { t } = useTranslation();
 
-  const { loading } = usePageContext();
-
   return (
     <section className={`a-bg-${background}`} id="contributors">
       <Styled.SectionInner
@@ -23,7 +18,7 @@ const BaseContributionsBlock = ({
         <h3 className="t-capitalize">
           {t(header || "glossary.contributor_other")}
         </h3>
-        {loading ? <LoadingBlock /> : <Styled.List>{children}</Styled.List>}
+        <Styled.List>{children}</Styled.List>
       </Styled.SectionInner>
     </section>
   );

@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo, Fragment } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
@@ -43,33 +43,37 @@ export default function ContributorsList({
 
   return contributions && contributions.length > 0 ? (
     <span className={className}>
-      {contributions.slice(0, limit).map(({ contributor }: Node, i: number) => (
-        <React.Fragment key={i}>
-          {contributor.slug ? (
-            <>
-              <NamedLink
-                route="contributor"
-                routeParams={{
-                  slug: contributor.slug,
-                  ...(itemSlug && { item: itemSlug }),
-                  ...(collectionSlug && { collection: collectionSlug }),
-                }}
-                passHref
-              >
-                <Link>
-                  <ContributorName data={contributor} />
-                </Link>
-              </NamedLink>
-              {i < contributions.length - 1 && ", "}
-            </>
-          ) : (
-            <>
-              <ContributorName data={contributor} />
-              {i < contributions.length - 1 && ", "}
-            </>
-          )}
-        </React.Fragment>
-      ))}
+      {contributions.slice(0, limit).map(({ contributor }: Node, i: number) => {
+        const params = new URLSearchParams({
+          ...(itemSlug && { item: itemSlug }),
+          ...(collectionSlug && {
+            collection: collectionSlug,
+          }),
+        });
+        const href = contributor.slug
+          ? `/contributors/${contributor.slug}?${params.toString()}`
+          : "#";
+
+        return (
+          <Fragment key={i}>
+            {contributor.slug ? (
+              <>
+                <NamedLink href={href} className="default-link-styles">
+                  <Link as="span">
+                    <ContributorName data={contributor} />
+                  </Link>
+                </NamedLink>
+                {i < contributions.length - 1 && ", "}
+              </>
+            ) : (
+              <>
+                <ContributorName data={contributor} />
+                {i < contributions.length - 1 && ", "}
+              </>
+            )}
+          </Fragment>
+        );
+      })}
       {contributions.length > limit && (
         <>{t("list.and_x_more", { count: contributions.length - limit })}</>
       )}

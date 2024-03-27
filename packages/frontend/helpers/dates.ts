@@ -1,4 +1,4 @@
-import { formatDate } from "@wdp/lib/helpers";
+import { formatDate } from "@wdp/lib/helpers/dates";
 import { DatePrecision } from "types/graphql-schema";
 
 export function getPrecisionDateDisplay(

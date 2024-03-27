@@ -100,4 +100,8 @@ export default css`
   .t-truncate {
     ${tTruncate}
   }
+
+  .t-align-center {
+    text-align: center;
+  }
 `;

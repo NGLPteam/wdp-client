@@ -43,7 +43,7 @@ export default function BreadCrumbsBar({ data }: Props) {
         <Dropdown
           label="Share"
           disclosure={
-            <Button size="sm" icon="share" secondary>
+            <Button as="div" size="sm" icon="share" secondary>
               Share
             </Button>
           }

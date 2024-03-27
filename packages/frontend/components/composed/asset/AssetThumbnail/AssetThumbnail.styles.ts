@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { transition } from "theme/base/variables";
 import { aFocusBase, aFocusReset } from "theme/mixins";
 
-export const ImageLink = styled.a`
+export const ImageLink = styled.span`
   display: inline-block;
   flex: none;
   height: auto;
