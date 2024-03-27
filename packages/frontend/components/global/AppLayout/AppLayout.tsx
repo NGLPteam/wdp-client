@@ -20,13 +20,13 @@ export default function AppLayout({
 
   const entity = useMaybeFragment(entityFragment, entityData);
 
-  const pathRegEx = /^\/communities\/[A-Za-z0-9]{32}$/;
+  const pathRegEx = /^\/communities\/[A-Za-z0-9]{30,32}$/;
 
   const isCommunityRoot = pathRegEx.test(usePathname());
 
   return (
     <AppBody communityData={community} entityData={entity}>
-      {isCommunityRoot && (
+      {!isCommunityRoot && (
         <CommunityNavBar data={community} entityData={entity} />
       )}
       {children}

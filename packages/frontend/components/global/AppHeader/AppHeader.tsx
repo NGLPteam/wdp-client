@@ -28,7 +28,7 @@ function AppHeader({ communityData, entityData }: Props) {
 
   const entity = useMaybeFragment(entityFragment, entityData);
 
-  const pathRegEx = /^\/communities\/[A-Za-z0-9]{32}$/;
+  const pathRegEx = /^\/communities\/[A-Za-z0-9]{30,32}$/;
 
   const isCommunityRoot = pathRegEx.test(usePathname());
 
@@ -57,7 +57,7 @@ function AppHeader({ communityData, entityData }: Props) {
             )}
           </Styled.LeftSide>
           <Styled.RightSide>
-            {community && !isCommunityRoot && (
+            {community && isCommunityRoot && (
               <>
                 <CommunityNavList data={community} condensed />
                 <SearchButton size="sm" data={entity} />
