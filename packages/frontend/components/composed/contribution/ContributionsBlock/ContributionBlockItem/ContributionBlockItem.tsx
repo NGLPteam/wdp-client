@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import capitalize from "lodash/capitalize";
@@ -11,43 +10,33 @@ import * as Styled from "./ContributionBlockItem.styles";
 const ContributionBlockItem = ({ data, showAvatar }: Props) => {
   const contribution = useMaybeFragment(fragment, data);
 
-  return contribution && contribution.contributor.slug ? (
+  if (!contribution) return null;
+
+  const params = new URLSearchParams({
+    ...(contribution.item?.slug && { item: contribution.item.slug }),
+    ...(contribution.collection?.slug && {
+      collection: contribution.collection.slug,
+    }),
+  });
+  const href = contribution.contributor.slug
+    ? `/contributors/${contribution.contributor.slug}?${params.toString()}`
+    : "#";
+
+  return (
     <Styled.ListItem>
       <Styled.ItemContent>
         {showAvatar && (
-          <NamedLink
-            route="contributor"
-            routeParams={{
-              slug: contribution.contributor.slug,
-              ...(contribution.item?.slug && { item: contribution.item.slug }),
-              ...(contribution.collection?.slug && {
-                collection: contribution.collection.slug,
-              }),
-            }}
-            passHref
-          >
+          <NamedLink href={href}>
             <Styled.ItemAvatar>
               <ContributorAvatar data={contribution.contributor.image} />
             </Styled.ItemAvatar>
           </NamedLink>
         )}
         <div>
-          <NamedLink
-            route="contributor"
-            routeParams={{
-              slug: contribution.contributor.slug,
-              ...(contribution.item?.slug && { item: contribution.item.slug }),
-              ...(contribution.collection?.slug && {
-                collection: contribution.collection.slug,
-              }),
-            }}
-            passHref
-          >
-            <a>
-              <strong>
-                <ContributorName data={contribution.contributor} />
-              </strong>
-            </a>
+          <NamedLink href={href} className="default-link-styles">
+            <strong>
+              <ContributorName data={contribution.contributor} />
+            </strong>
           </NamedLink>
           <Styled.ItemMetadata className="t-copy-lighter t-copy-sm">
             {contribution.role && <p>{capitalize(contribution.role)}</p>}
@@ -67,7 +56,7 @@ const ContributionBlockItem = ({ data, showAvatar }: Props) => {
         </div>
       </Styled.ItemContent>
     </Styled.ListItem>
-  ) : null;
+  );
 };
 
 interface Props {

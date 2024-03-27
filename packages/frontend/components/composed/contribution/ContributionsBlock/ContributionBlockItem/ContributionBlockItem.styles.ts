@@ -19,7 +19,7 @@ export const ItemContent = styled.div`
   }
 `;
 
-export const ItemAvatar = styled.a`
+export const ItemAvatar = styled.span`
   flex: none;
 `;
 

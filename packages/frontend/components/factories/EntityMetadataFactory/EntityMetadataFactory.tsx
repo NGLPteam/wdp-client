@@ -1,8 +1,4 @@
-import React from "react";
-import { graphql } from "react-relay";
-import { useMaybeFragment, usePageContext } from "@wdp/lib/api/hooks";
-import { LoadingBlock } from "components/atomic";
-import EntityMetadataBlock from "components/composed/entity/EntityMetadataBlock";
+import { graphql, readInlineData } from "relay-runtime";
 import { EntityMetadataFactoryFragment$key } from "@/relay/EntityMetadataFactoryFragment.graphql";
 import {
   ArticleMetadata,
@@ -11,18 +7,9 @@ import {
 } from "./patterns";
 
 export default function EntityMetadataFactory({ data }: Props) {
-  const entity = useMaybeFragment(fragment, data);
-  const { loading } = usePageContext();
+  const entity = readInlineData(fragment, data);
 
-  // We aren't currently using this factory for collection metadata, and I don't think there's a need for it in design. But, since I left Collection in the fragment for now, this is here as a catch. -LD
   if (entity?.schemaDefinition?.kind === "COLLECTION") return null;
-
-  if (loading)
-    return (
-      <EntityMetadataBlock>
-        <LoadingBlock />
-      </EntityMetadataBlock>
-    );
 
   switch (entity?.schemaDefinition?.identifier) {
     case "journal_article":
@@ -36,11 +23,11 @@ export default function EntityMetadataFactory({ data }: Props) {
 }
 
 interface Props {
-  data?: EntityMetadataFactoryFragment$key | null;
+  data: EntityMetadataFactoryFragment$key | null;
 }
 
 const fragment = graphql`
-  fragment EntityMetadataFactoryFragment on AnyEntity {
+  fragment EntityMetadataFactoryFragment on AnyEntity @inline {
     ... on Collection {
       schemaDefinition {
         kind

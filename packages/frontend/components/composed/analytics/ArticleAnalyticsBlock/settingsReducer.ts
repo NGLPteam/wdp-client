@@ -8,8 +8,8 @@ import { AnalyticsPrecision } from "types/graphql-schema";
 
 export type State = {
   chartType: string;
-  precision: string;
-  dateRange: Record<string, unknown>;
+  precision: AnalyticsPrecision;
+  dateRange?: { startDate: string };
   dateLabel: string;
   usOnly: boolean;
   minDate: string | null;
@@ -21,7 +21,7 @@ export type Action = {
   value: string;
 };
 
-const getDateVars = (minDate: string | null, value: string) => {
+export const getDateVars = (minDate: string | null, value: string) => {
   const now = Date.now();
 
   const hasMultipleYears = minDate
@@ -48,15 +48,10 @@ const getDateVars = (minDate: string | null, value: string) => {
       precision = hasMultipleYears ? "YEAR" : "MONTH";
   }
 
-  return startDate
-    ? {
-        dateRange: { startDate: formatISO(startDate) },
-        precision: precision as AnalyticsPrecision,
-      }
-    : {
-        dateRange: {},
-        precision: precision as AnalyticsPrecision,
-      };
+  return {
+    ...(startDate && { dateRange: { startDate: formatISO(startDate) } }),
+    precision: precision as AnalyticsPrecision,
+  };
 };
 
 export const chartSettingsReducer = (state: State, action: Action) => {

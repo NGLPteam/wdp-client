@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7fb61fc44349537f11f8c874a1bdb16b>>
+ * @generated SignedSource<<9f31bffe5005d4f327a2bab561a6e1e2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { InlineFragment, ReaderInlineDataFragment } from 'relay-runtime';
 export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type EntityMetadataFactoryFragment$data = {
@@ -24,75 +24,11 @@ export type EntityMetadataFactoryFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"EntityMetadataFactoryFragment">;
 };
 
-const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "SchemaDefinition",
-  "kind": "LinkedField",
-  "name": "schemaDefinition",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "kind",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "identifier",
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
+const node: ReaderInlineDataFragment = {
+  "kind": "InlineDataFragment",
+  "name": "EntityMetadataFactoryFragment"
 };
-return {
-  "argumentDefinitions": [],
-  "kind": "Fragment",
-  "metadata": null,
-  "name": "EntityMetadataFactoryFragment",
-  "selections": [
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        (v0/*: any*/)
-      ],
-      "type": "Collection",
-      "abstractKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        (v0/*: any*/),
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "ArticleMetadataFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "DissertationMetadataFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "PaperMetadataFragment"
-        }
-      ],
-      "type": "Item",
-      "abstractKey": null
-    }
-  ],
-  "type": "AnyEntity",
-  "abstractKey": "__isAnyEntity"
-};
-})();
 
-(node as any).hash = "0f81756ab49083980bbb4db2ff67ba35";
+(node as any).hash = "0cf6d496e3782e8804f465be5f7fe2e5";
 
 export default node;

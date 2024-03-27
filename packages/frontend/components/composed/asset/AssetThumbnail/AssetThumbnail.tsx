@@ -1,4 +1,3 @@
-import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { useRouteSlug } from "@wdp/lib/routes";
@@ -22,11 +21,7 @@ export default function AssetThumbnail({ data }: Props) {
   }
 
   return asset?.slug && slug ? (
-    <NamedLink
-      route="item.file"
-      routeParams={{ slug, file: asset.slug }}
-      passHref
-    >
+    <NamedLink href={`/items/${slug}/files/${asset.slug}`}>
       <Styled.ImageLink>{renderThumbnail()}</Styled.ImageLink>
     </NamedLink>
   ) : (

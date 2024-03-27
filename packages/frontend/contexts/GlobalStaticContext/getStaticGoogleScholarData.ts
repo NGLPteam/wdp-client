@@ -1,24 +1,16 @@
-import { buildEnvironment as environment } from "@wdp/lib/app";
-import { fetchQuery, graphql, readInlineData } from "relay-runtime";
-import { routeQueryArrayToString } from "@wdp/lib/routes";
-import { GetStaticPropsContext } from "next";
+import { graphql, readInlineData } from "relay-runtime";
+import fetchQuery from "@/lib/relay/fetchQuery";
 import { getStaticGoogleScholarDataQuery } from "@/relay/getStaticGoogleScholarDataQuery.graphql";
 import { getStaticGoogleScholarDataFragment$key } from "@/relay/getStaticGoogleScholarDataFragment.graphql";
 
 export default async function getStaticGoogleScholarData(
-  context: GetStaticPropsContext,
+  slug: string | undefined,
 ) {
-  const { params: urlQuery } = context;
-
-  const slug = routeQueryArrayToString(urlQuery?.slug);
-
   if (!slug) return;
 
-  const env = environment();
-
-  const data = await fetchQuery<getStaticGoogleScholarDataQuery>(env, query, {
+  const { data } = await fetchQuery<getStaticGoogleScholarDataQuery>(query, {
     slug,
-  }).toPromise();
+  });
 
   if (data) {
     return readInlineData<getStaticGoogleScholarDataFragment$key>(

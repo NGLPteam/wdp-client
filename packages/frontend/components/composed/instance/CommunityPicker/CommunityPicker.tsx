@@ -28,30 +28,27 @@ export default function CommunityPicker({ active }: Props) {
 
   return menuItems.length === 1 ? (
     <NamedLink
-      route="community"
-      routeParams={{ slug: menuItems[0].node.slug || "" }}
-      passHref
+      href={
+        menuItems[0].node.slug
+          ? `/commmunities/${menuItems[0].node.slug}`
+          : "/communities"
+      }
     >
-      <Button as="a" secondary size="sm">
+      <Button as="span" secondary size="sm">
         {menuItems[0].node.title}
       </Button>
     </NamedLink>
   ) : (
     <Dropdown
       disclosure={
-        <Button secondary icon="chevronDown" size="sm">
+        <Button as="div" secondary icon="chevronDown" size="sm">
           {memoizedCommunity?.title || t("nav.community_picker")}
         </Button>
       }
       menuItems={menuItems.map(({ node }) => {
         return (
-          <NamedLink
-            key={node.slug}
-            route="community"
-            routeParams={{ slug: node.slug }}
-            passHref
-          >
-            <Link>{node.title}</Link>
+          <NamedLink key={node.slug} href={`/communities/${node.slug}`}>
+            <Link as="span">{node.title}</Link>
           </NamedLink>
         );
       })}

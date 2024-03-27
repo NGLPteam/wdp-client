@@ -36,8 +36,5 @@ export const ItemText = styled.span`
 
   ${respond(`max-width: 60vw;`, TABLET_BREAK)}
 
-  a {
-    max-width: 100%;
-    ${tTruncate}
-  }
+  ${tTruncate}
 `;

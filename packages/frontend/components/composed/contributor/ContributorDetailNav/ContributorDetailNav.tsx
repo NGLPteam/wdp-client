@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
@@ -11,21 +10,18 @@ import * as Styled from "./ContributorDetailNav.styles";
 export default function ContributorDetailNav({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);
   const { t } = useTranslation();
-  const route = useMemo(
-    () =>
-      entity?.__typename === "Item"
-        ? "item"
-        : entity?.__typename === "Collection"
-          ? "collection"
-          : null,
-    [entity],
-  );
+  const route =
+    entity?.__typename === "Item"
+      ? "items"
+      : entity?.__typename === "Collection"
+        ? "collections"
+        : null;
 
   return entity && entity.slug && route ? (
     <nav className="a-bg-custom10">
       <Styled.NavInner className="l-container-wide">
-        <NamedLink route={route} routeParams={{ slug: entity.slug }} passHref>
-          <BackButton>
+        <NamedLink href={`/${route}/${entity.slug}`} className="">
+          <BackButton as="div">
             {t("common.back_to_name", { name: entity.title })}
           </BackButton>
         </NamedLink>

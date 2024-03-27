@@ -12,11 +12,7 @@ export default function InstanceCommunitySummary({ data }: Props) {
   const { t } = useTranslation();
 
   return community && community.slug ? (
-    <NamedLink
-      route="community"
-      routeParams={{ slug: community.slug }}
-      passHref
-    >
+    <NamedLink href={`/communities/${community.slug}`}>
       <Styled.LinkWrapper className="a-bg-neutral00">
         {community.logo?.storage ? (
           <Styled.ImageWrapper $withPadding>

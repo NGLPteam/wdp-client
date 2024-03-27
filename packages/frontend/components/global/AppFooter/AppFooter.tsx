@@ -50,8 +50,8 @@ function AppFooter({ communityData }: Props) {
 
     return (
       <Styled.NavListItem key={route} className="t-copy-sm t-copy-light">
-        <NamedLink route={route} passHref>
-          <LinkStyle>{startCase(t(routeLabel))}</LinkStyle>
+        <NamedLink route={route}>
+          <LinkStyle as="span">{startCase(t(routeLabel))}</LinkStyle>
         </NamedLink>
       </Styled.NavListItem>
     );
