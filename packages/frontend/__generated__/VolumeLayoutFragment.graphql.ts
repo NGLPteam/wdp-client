@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<74570b15d4b9f035dfbe3e812e22f9fb>>
+ * @generated SignedSource<<b3d1b1927117edc7720cbecd77079976>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { InlineFragment, ReaderInlineDataFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type VolumeLayoutFragment$data = {
   readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbsBarFragment" | "EntityNavBarFragment" | "VolumeHeroFragment">;
@@ -19,32 +19,11 @@ export type VolumeLayoutFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"VolumeLayoutFragment">;
 };
 
-const node: ReaderFragment = {
-  "argumentDefinitions": [],
-  "kind": "Fragment",
-  "metadata": null,
-  "name": "VolumeLayoutFragment",
-  "selections": [
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "BreadcrumbsBarFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "VolumeHeroFragment"
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "EntityNavBarFragment"
-    }
-  ],
-  "type": "Collection",
-  "abstractKey": null
+const node: ReaderInlineDataFragment = {
+  "kind": "InlineDataFragment",
+  "name": "VolumeLayoutFragment"
 };
 
-(node as any).hash = "ed5b4852c224de2e70ac8dad9a08cc77";
+(node as any).hash = "b5c98c7ab7fb493d6551e7968da8c6c9";
 
 export default node;

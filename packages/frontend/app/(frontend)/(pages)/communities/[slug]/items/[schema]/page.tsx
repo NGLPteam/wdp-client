@@ -3,7 +3,6 @@ import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import EntityDescendantsLayout from "components/composed/entity/EntityDescendantsLayout";
 import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
-import AppLayout from "components/global/AppLayout";
 import LoadingBlock from "components/atomic/loading/LoadingBlock";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
@@ -39,22 +38,17 @@ export default async function CommunityItemsPage({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <AppLayout communityData={community} entityData={community}>
-        {community.orderingForSchema ? (
-          <Suspense fallback={<LoadingBlock />}>
-            <EntityOrderingLayoutFactory
-              data={community}
-              ordering={community.orderingForSchema.identifier}
-              params={{ slug }}
-            />
-          </Suspense>
-        ) : (
-          <EntityDescendantsLayout
-            data={community.descendants}
-            schema={schema}
+      {community.orderingForSchema ? (
+        <Suspense fallback={<LoadingBlock />}>
+          <EntityOrderingLayoutFactory
+            data={community}
+            ordering={community.orderingForSchema.identifier}
+            params={{ slug }}
           />
-        )}
-      </AppLayout>
+        </Suspense>
+      ) : (
+        <EntityDescendantsLayout data={community.descendants} schema={schema} />
+      )}
     </UpdateClientEnvironment>
   );
 }
@@ -77,8 +71,6 @@ const query = graphql`
       descendants(scope: ITEM, order: $order, schema: [$schema], page: $page) {
         ...EntityDescendantsLayoutFragment
       }
-      ...AppLayoutCommunityFragment
-      ...AppLayoutEntityFragment
       ...EntityOrderingLayoutFactoryFragment
     }
   }

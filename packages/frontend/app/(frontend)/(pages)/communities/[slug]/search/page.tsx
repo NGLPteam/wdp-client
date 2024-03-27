@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import AppLayout from "components/global/AppLayout";
 import SearchLayout from "components/composed/search/SearchLayout";
 import LoadingBlock from "components/atomic/loading/LoadingBlock";
 import normalizeRouteQueryArray from "@wdp/lib/routes/helpers/normalizeRouteQueryArray";
@@ -33,11 +32,9 @@ export default async function CommunitySearchPage({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <AppLayout communityData={community} entityData={community}>
-        <Suspense fallback={<LoadingBlock />}>
-          <SearchLayout data={community} scoped />
-        </Suspense>
-      </AppLayout>
+      <Suspense fallback={<LoadingBlock />}>
+        <SearchLayout data={community} scoped />
+      </Suspense>
     </UpdateClientEnvironment>
   );
 }
@@ -60,9 +57,6 @@ const query = graphql`
           order: $order
           schema: $schema
         )
-      ...AppLayoutCommunityFragment
-      ...AppLayoutEntityFragment
-      ...CommunityLandingLayoutFragment
     }
   }
 `;
