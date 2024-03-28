@@ -2,7 +2,8 @@ import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import ContributorDetail from "components/composed/contributor/ContributorDetail";
 import ContributorDetailNav from "components/composed/contributor/ContributorDetailNav";
-import AppLayout from "components/global/AppLayout";
+import CommunityPickerPortal from "components/composed/instance/CommunityPicker/Portal";
+import CommunityNavListPortal from "components/composed/community/CommunityNavList/Portal";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { BasePageParams } from "@/types/page";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
@@ -33,6 +34,7 @@ export default async function ContributorPage({
 
   const item = "item" in data && data?.item;
   const collection = "collection" in data && data?.collection;
+
   const community = item
     ? item.community
     : collection
@@ -41,11 +43,11 @@ export default async function ContributorPage({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <AppLayout communityData={community}>
-        {item && <ContributorDetailNav data={item} />}
-        {collection && <ContributorDetailNav data={collection} />}
-        <ContributorDetail data={contributor} />
-      </AppLayout>
+      <CommunityPickerPortal data={community} />
+      <CommunityNavListPortal data={community} />
+      {item && <ContributorDetailNav data={item} />}
+      {collection && <ContributorDetailNav data={collection} />}
+      <ContributorDetail data={contributor} />
     </UpdateClientEnvironment>
   );
 }
@@ -70,7 +72,8 @@ const itemQuery = graphql`
       ...ContributorDetailNavFragment
 
       community {
-        ...AppLayoutCommunityFragment
+        ...PortalCommunityPickerFragment
+        ...PortalCommunityNavListFragment
       }
     }
   }
@@ -87,7 +90,8 @@ const collectionQuery = graphql`
       ...ContributorDetailNavFragment
 
       community {
-        ...AppLayoutCommunityFragment
+        ...PortalCommunityPickerFragment
+        ...PortalCommunityNavListFragment
       }
     }
   }

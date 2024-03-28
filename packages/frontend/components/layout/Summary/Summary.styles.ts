@@ -55,7 +55,7 @@ export const Thumbnail = styled.div`
   )}
 `;
 
-export const ThumbnailLink = styled.a`
+export const ThumbnailLink = styled.span`
   ${aFocus()}
 `;
 

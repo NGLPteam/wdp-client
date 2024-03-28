@@ -2,29 +2,18 @@ import { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useLatestPresentValue } from "@wdp/lib/hooks";
 import { Button, Dropdown, Link, NamedLink } from "components/atomic";
-import { useGlobalContext } from "contexts";
 import { CommunityPickerFragment$key } from "@/relay/CommunityPickerFragment.graphql";
-import { CommunityPickerActiveFragment$key } from "@/relay/CommunityPickerActiveFragment.graphql";
+import * as Styled from "./CommunityPicker.styles";
 
-export default function CommunityPicker({ active }: Props) {
-  const siteData = useGlobalContext();
-
-  const communityData = useMaybeFragment<CommunityPickerFragment$key>(
-    fragment,
-    siteData,
-  );
-
-  const activeCommunity = useMaybeFragment(activefragment, active);
+export default function CommunityPicker({ data }: Props) {
+  const communityData = useMaybeFragment(fragment, data);
 
   const { t } = useTranslation();
 
   const menuItems = useMemo(() => {
     return communityData?.pickerCommunities?.edges || [];
   }, [communityData]);
-
-  const { current: memoizedCommunity } = useLatestPresentValue(activeCommunity);
 
   return menuItems.length === 1 ? (
     <NamedLink
@@ -42,7 +31,8 @@ export default function CommunityPicker({ active }: Props) {
     <Dropdown
       disclosure={
         <Button as="div" secondary icon="chevronDown" size="sm">
-          {memoizedCommunity?.title || t("nav.community_picker")}
+          <span data-community-picker-portal />
+          <Styled.Label>{t("nav.community_picker")}</Styled.Label>
         </Button>
       }
       menuItems={menuItems.map(({ node }) => {
@@ -58,7 +48,7 @@ export default function CommunityPicker({ active }: Props) {
 }
 
 type Props = {
-  active?: CommunityPickerActiveFragment$key | null;
+  data?: CommunityPickerFragment$key | null;
 };
 
 const fragment = graphql`
@@ -71,12 +61,5 @@ const fragment = graphql`
         }
       }
     }
-  }
-`;
-
-export const activefragment = graphql`
-  fragment CommunityPickerActiveFragment on Community {
-    title
-    slug
   }
 `;

@@ -46,12 +46,6 @@ const query = graphql`
           precision: $precision
           usOnly: $usOnly
         )
-      ...AppLayoutEntityFragment
-      ...EntityLayoutFactoryFragment
-
-      community {
-        ...AppLayoutCommunityFragment
-      }
     }
   }
 `;

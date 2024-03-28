@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<92edd82b92ac44aa874e8cbd6282eff1>>
+ * @generated SignedSource<<e0abf391b0a2706e47fcc04e7d08582a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,7 @@ export type layoutCommunityQuery$variables = {
 };
 export type layoutCommunityQuery$data = {
   readonly community: {
-    readonly " $fragmentSpreads": FragmentRefs<"AppLayoutCommunityFragment" | "AppLayoutEntityFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"AppFooterCommunityFragment" | "AppHeaderCommunityFragment" | "CommunityNavBarEntityFragment" | "CommunityNavBarFragment" | "PortalCommunityPickerFragment">;
   } | null | undefined;
 };
 export type layoutCommunityQuery = {
@@ -84,12 +84,27 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "AppLayoutCommunityFragment"
+            "name": "CommunityNavBarFragment"
           },
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "AppLayoutEntityFragment"
+            "name": "CommunityNavBarEntityFragment"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "PortalCommunityPickerFragment"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "AppFooterCommunityFragment"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "AppHeaderCommunityFragment"
           }
         ],
         "storageKey": null
@@ -301,16 +316,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b03add693d069c6ae2612cab07e1dc03",
+    "cacheID": "c910072ee83789cc72890724f61b21a2",
     "id": null,
     "metadata": {},
     "name": "layoutCommunityQuery",
     "operationKind": "query",
-    "text": "query layoutCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...AppLayoutCommunityFragment\n    ...AppLayoutEntityFragment\n    id\n  }\n}\n\nfragment AppBodyCommunityFragment on Community {\n  ...AppHeaderCommunityFragment\n  ...AppFooterCommunityFragment\n}\n\nfragment AppBodyEntityFragment on Entity {\n  __isEntity: __typename\n  ...AppHeaderEntityFragment\n}\n\nfragment AppFooterCommunityFragment on Community {\n  slug\n  title\n  ...CommunityPickerActiveFragment\n  ...CommunityNameFragment\n}\n\nfragment AppHeaderCommunityFragment on Community {\n  ...CommunityPickerActiveFragment\n  ...CommunityNavListFragment\n  ...CommunityNameFragment\n}\n\nfragment AppHeaderEntityFragment on Entity {\n  __isEntity: __typename\n  ...SearchButtonFragment\n}\n\nfragment AppLayoutCommunityFragment on Community {\n  ...CommunityNavBarFragment\n  ...AppBodyCommunityFragment\n}\n\nfragment AppLayoutEntityFragment on Entity {\n  __isEntity: __typename\n  ...CommunityNavBarEntityFragment\n  ...AppBodyEntityFragment\n}\n\nfragment CommunityLogoFragment on ImageAttachment {\n  storage\n  original {\n    url\n    width\n    height\n  }\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n  logo {\n    storage\n    original {\n      width\n      height\n    }\n    ...CommunityLogoFragment\n  }\n}\n\nfragment CommunityNavBarEntityFragment on Entity {\n  __isEntity: __typename\n  ...SearchButtonFragment\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    kind\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment CommunityPickerActiveFragment on Community {\n  title\n  slug\n}\n\nfragment SearchButtonFragment on Entity {\n  __isEntity: __typename\n  ...SearchModalFragment\n}\n\nfragment SearchModalFragment on Entity {\n  __isEntity: __typename\n  __typename\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  title\n  breadcrumbs {\n    crumb {\n      __typename\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ... on Entity {\n        __isEntity: __typename\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query layoutCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityNavBarFragment\n    ...CommunityNavBarEntityFragment\n    ...PortalCommunityPickerFragment\n    ...AppFooterCommunityFragment\n    ...AppHeaderCommunityFragment\n    id\n  }\n}\n\nfragment AppFooterCommunityFragment on Community {\n  slug\n  title\n  ...CommunityNameFragment\n}\n\nfragment AppHeaderCommunityFragment on Community {\n  ...CommunityNavListFragment\n  ...CommunityNameFragment\n}\n\nfragment CommunityLogoFragment on ImageAttachment {\n  storage\n  original {\n    url\n    width\n    height\n  }\n}\n\nfragment CommunityNameFragment on Community {\n  title\n  slug\n  logo {\n    storage\n    original {\n      width\n      height\n    }\n    ...CommunityLogoFragment\n  }\n}\n\nfragment CommunityNavBarEntityFragment on Entity {\n  __isEntity: __typename\n  ...SearchButtonFragment\n}\n\nfragment CommunityNavBarFragment on Community {\n  ...CommunityNameFragment\n  ...CommunityNavListFragment\n}\n\nfragment CommunityNavListFragment on Community {\n  slug\n  schemaRanks {\n    slug\n    name\n    count\n    kind\n    id\n  }\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment PortalCommunityPickerFragment on Community {\n  title\n}\n\nfragment SearchButtonFragment on Entity {\n  __isEntity: __typename\n  ...SearchModalFragment\n}\n\nfragment SearchModalFragment on Entity {\n  __isEntity: __typename\n  __typename\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  title\n  breadcrumbs {\n    crumb {\n      __typename\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ... on Entity {\n        __isEntity: __typename\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "71976e2d6ba5481ff99c431d3f4d42ad";
+(node as any).hash = "27258b0f1caf0b478ec0df840dcb01e8";
 
 export default node;

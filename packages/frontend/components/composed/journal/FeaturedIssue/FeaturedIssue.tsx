@@ -30,11 +30,7 @@ export default function FeaturedIssue({ data, header }: Props) {
     <Styled.Section className="a-bg-netural00">
       <Styled.Inner className="l-container-wide">
         <Styled.ImageBlock>
-          <NamedLink
-            route="collection"
-            routeParams={{ slug: issue.slug }}
-            passHref
-          >
+          <NamedLink href={`/collections/${issue.slug}`}>
             <Styled.ImageLink>
               <CoverImage
                 id={issue.id}
@@ -52,12 +48,8 @@ export default function FeaturedIssue({ data, header }: Props) {
           </Styled.Label>
           <Styled.TitleBlock>
             <h3>
-              <NamedLink
-                route="collection"
-                routeParams={{ slug: issue.slug }}
-                passHref
-              >
-                <Styled.IssueTitle as="a" className="a-link">
+              <NamedLink href={`/collections/${issue.slug}`}>
+                <Styled.IssueTitle className="a-link">
                   {getEntityDisplayName(issue)}
                 </Styled.IssueTitle>
               </NamedLink>
@@ -99,14 +91,9 @@ export default function FeaturedIssue({ data, header }: Props) {
           {issue?.ordering?.identifier && issue?.slug && (
             <Styled.Footer>
               <NamedLink
-                route="collection.browse"
-                routeParams={{
-                  slug: issue.slug,
-                  ordering: issue.ordering.identifier,
-                }}
-                passHref
+                href={`/collections/${issue.slug}/browse/${issue.ordering.identifier}`}
               >
-                <Button as="a">{t("layouts.see_all_articles")}</Button>
+                <Button as="div">{t("layouts.see_all_articles")}</Button>
               </NamedLink>
             </Styled.Footer>
           )}
