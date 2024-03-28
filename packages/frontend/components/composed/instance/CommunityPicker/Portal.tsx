@@ -23,7 +23,7 @@ export default function Portal({
       els.forEach((el) => el.setAttribute("data-active", "false"));
     }
     return () => els.forEach((el) => el.setAttribute("data-active", "false"));
-  }, []);
+  }, [community?.title]);
 
   return community?.title ? (
     <>

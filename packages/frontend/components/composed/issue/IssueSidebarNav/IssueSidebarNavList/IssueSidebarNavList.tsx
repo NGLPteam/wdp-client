@@ -14,11 +14,8 @@ export default function IssueSidebarNavList({ data }: Props) {
       {issue.pages.edges.map(({ node }) =>
         node.slug ? (
           <Styled.ListItem key={node.slug}>
-            <NamedLink
-              href={`/collections/${slug}/page/${node.slug}}`}
-              passHref
-            >
-              <a className="t-label-sm t-copy-light">{node.title}</a>
+            <NamedLink href={`/collections/${slug}/page/${node.slug}}`}>
+              <span className="t-label-sm t-copy-light">{node.title}</span>
             </NamedLink>
           </Styled.ListItem>
         ) : null,
