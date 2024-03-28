@@ -12,17 +12,14 @@ import CommunityNavList from "components/composed/community/CommunityNavList";
 import Search from "components/forms/Search";
 import CommunityName from "components/composed/community/CommunityName";
 import BaseDrawer from "components/layout/BaseDrawer";
-import { useGlobalContext } from "contexts";
 import { AppHeaderCommunityFragment$key } from "@/relay/AppHeaderCommunityFragment.graphql";
 import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
 import { AppHeaderEntityFragment$key } from "@/relay/AppHeaderEntityFragment.graphql";
 import SkipLink from "../SkipLink";
 import * as Styled from "./AppHeader.styles";
 
-function AppHeader({ communityData, entityData }: Props) {
-  const globalData = useGlobalContext();
-
-  const appData = useMaybeFragment<AppHeaderFragment$key>(fragment, globalData);
+function AppHeader({ communityData, entityData, data }: Props) {
+  const appData = useMaybeFragment(fragment, data);
 
   const community = useMaybeFragment(communityFragment, communityData);
 
@@ -50,7 +47,7 @@ function AppHeader({ communityData, entityData }: Props) {
                 <Styled.InstallationNameWrapper
                   $logoMode={appData?.globalConfiguration?.site?.logoMode}
                 >
-                  <InstallationName />
+                  <InstallationName data={appData?.globalConfiguration} />
                 </Styled.InstallationNameWrapper>
                 <CommunityPicker active={community} />
               </>
@@ -71,7 +68,7 @@ function AppHeader({ communityData, entityData }: Props) {
         </Styled.HeaderInner>
         <BaseDrawer
           header={<CommunityPicker active={community} />}
-          footer={<InstallationName />}
+          footer={<InstallationName data={appData?.globalConfiguration} />}
           dialog={dialog}
           label={t("nav.menu")}
         >
@@ -94,6 +91,7 @@ function AppHeader({ communityData, entityData }: Props) {
 interface Props {
   communityData?: AppHeaderCommunityFragment$key | null;
   entityData?: AppHeaderEntityFragment$key | null;
+  data?: AppHeaderFragment$key;
 }
 
 export default AppHeader;
@@ -109,6 +107,7 @@ const fragment = graphql`
       site {
         logoMode
       }
+      ...InstallationNameFragment
     }
   }
 `;

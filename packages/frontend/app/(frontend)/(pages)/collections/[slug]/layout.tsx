@@ -2,7 +2,6 @@ import { PropsWithChildren } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
-import AppLayout from "components/global/AppLayout";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { layoutCollectionQuery as Query } from "@/relay/layoutCollectionQuery.graphql";
@@ -24,9 +23,7 @@ export default async function CollectionLayout({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <AppLayout communityData={collection.community} entityData={collection}>
-        <EntityLayoutFactory data={collection}>{children}</EntityLayoutFactory>
-      </AppLayout>
+      <EntityLayoutFactory data={collection}>{children}</EntityLayoutFactory>
     </UpdateClientEnvironment>
   );
 }

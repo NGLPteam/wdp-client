@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d83557f1fbfb7167ce0cb7f96a2b272b>>
+ * @generated SignedSource<<8bd9247e7bde77584d63700300ef2b05>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,6 +21,7 @@ export type AppHeaderFragment$data = {
     readonly site: {
       readonly logoMode: SiteLogoMode;
     };
+    readonly " $fragmentSpreads": FragmentRefs<"InstallationNameFragment">;
   };
   readonly " $fragmentType": "AppHeaderFragment";
 };
@@ -89,6 +90,11 @@ const node: ReaderFragment = {
             }
           ],
           "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "InstallationNameFragment"
         }
       ],
       "storageKey": null
@@ -98,6 +104,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "30faf2d5d1f1f43f2cd2ef1846bdfa2c";
+(node as any).hash = "636c4bcaf89809da1c3f4bc0eb4e003b";
 
 export default node;

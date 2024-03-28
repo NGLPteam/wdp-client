@@ -1,14 +1,9 @@
-"use client";
-
 /** This context is for wrapping all app wide contexts */
-import { useMemo } from "react";
-import { Provider as ReakitSSRProvider } from "reakit";
-import { PageContextProvider } from "@wdp/lib/api/contexts/PageContext";
-import { ThemeProvider } from "styled-components";
-import { graphql } from "react-relay";
-import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
+import { Suspense } from "react";
+import { graphql } from "relay-runtime";
+import fetchQuery from "@/lib/relay/fetchQuery";
 import { AppContextProviderQuery as Query } from "@/relay/AppContextProviderQuery.graphql";
-import { ViewerContextProvider } from "./ViewerContext";
+import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import { GlobalContextProvider } from "./GlobalContext";
 
 /** Wraps the app with all necessary providers
@@ -16,29 +11,27 @@ import { GlobalContextProvider } from "./GlobalContext";
  * ViewerContextProvider - Information about the logged in user
  * PageContextProvider - page loading states, etc
  */
-const AppContextProvider = ({ children }: Props) => {
-  const data = useAuthenticatedQuery<Query>(query);
+const AppContextProvider = async ({ children }: Props) => {
+  const { data, records } = await fetchQuery<Query>(query, {});
 
-  const theme = useMemo(() => data?.globalConfiguration?.theme, [data]);
+  const theme = data?.globalConfiguration?.theme;
 
-  return (
+  // console.log("app context");
+  // console.log({ data });
+  //
+  // console.log(data.globalConfiguration.__fragmentOwner);
+
+  return data ? (
     <>
-      <ThemeProvider
-        theme={{
-          fontStyle: theme?.font,
-          colorStyle: theme?.color,
-        }}
-      >
-        <ReakitSSRProvider>
-          <GlobalContextProvider data={data}>
-            <ViewerContextProvider>
-              <PageContextProvider>{children}</PageContextProvider>
-            </ViewerContextProvider>
-          </GlobalContextProvider>
-        </ReakitSSRProvider>
-      </ThemeProvider>
+      <GlobalContextProvider data={data}>
+        {/*<ViewerContextProvider data={data?.viewer}>*/}
+        <UpdateClientEnvironment records={records}>
+          <Suspense>{children}</Suspense>
+        </UpdateClientEnvironment>
+        {/*</ViewerContextProvider>*/}
+      </GlobalContextProvider>
     </>
-  );
+  ) : null;
 };
 
 interface Props {
@@ -49,8 +42,18 @@ export default AppContextProvider;
 
 const query = graphql`
   query AppContextProviderQuery {
+    communities {
+      nodes {
+        title
+      }
+    }
     ...GlobalContextFragment
+    ...CommunityPickerFragment
+    ...AppHeaderFragment
+    ...AppFooterFragment
     globalConfiguration {
+      ...InstallationNameFragment
+      ...BreadcrumbsBarGlobalFragment
       theme {
         color
         font

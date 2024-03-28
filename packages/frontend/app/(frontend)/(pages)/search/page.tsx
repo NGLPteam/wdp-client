@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import AppLayout from "components/global/AppLayout";
 import SearchLayout from "components/composed/search/SearchLayout";
 import LoadingBlock from "components/atomic/loading/LoadingBlock";
 import normalizeRouteQueryArray from "@wdp/lib/routes/helpers/normalizeRouteQueryArray";
@@ -29,11 +28,9 @@ export default async function SearchPage({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <AppLayout>
-        <Suspense fallback={<LoadingBlock />}>
-          <SearchLayout data={data} />
-        </Suspense>
-      </AppLayout>
+      <Suspense fallback={<LoadingBlock />}>
+        <SearchLayout data={data} />
+      </Suspense>
     </UpdateClientEnvironment>
   );
 }

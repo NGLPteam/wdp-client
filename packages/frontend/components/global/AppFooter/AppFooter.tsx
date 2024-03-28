@@ -5,7 +5,6 @@ import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useParams } from "next/navigation";
 import { RouteHelper } from "routes";
-import { useGlobalContext } from "contexts";
 import InstallationName from "components/composed/instance/InstallationName";
 import { Search } from "components/forms";
 import CommunityPicker from "components/composed/instance/CommunityPicker";
@@ -18,14 +17,12 @@ import { AppFooterCommunityFragment$key } from "@/relay/AppFooterCommunityFragme
 import * as Styled from "./AppFooter.styles";
 
 // Note: About text and community name will come from backend data
-function AppFooter({ communityData }: Props) {
+function AppFooter({ communityData, data }: Props) {
   const staticData = useGlobalStaticContext();
 
   const footer = staticData?.globalConfiguration?.site?.footer;
 
-  const globalData = useGlobalContext();
-
-  const app = useMaybeFragment<AppFooterFragment$key>(fragment, globalData);
+  const app = useMaybeFragment(fragment, data);
 
   const community = useMaybeFragment(communityFragment, communityData);
 
@@ -75,7 +72,10 @@ function AppFooter({ communityData }: Props) {
             <CommunityName data={community} />
           ) : (
             <h4>
-              <InstallationName className="t-h4" />
+              <InstallationName
+                className="t-h4"
+                data={app?.globalConfiguration}
+              />
             </h4>
           )}
         </Styled.CommunityNameWrapper>
@@ -88,7 +88,7 @@ function AppFooter({ communityData }: Props) {
         <Styled.AboutWrapper>
           {community && (
             <Styled.InstallationMobile>
-              <InstallationName />
+              <InstallationName data={app?.globalConfiguration} />
             </Styled.InstallationMobile>
           )}
           {footer?.description && (
@@ -99,7 +99,7 @@ function AppFooter({ communityData }: Props) {
           <Styled.InstallationDesktop>
             {community && (
               <Styled.InstallationDesktopName>
-                <InstallationName />
+                <InstallationName data={app?.globalConfiguration} />
               </Styled.InstallationDesktopName>
             )}
             {communityCount > 1 && <CommunityPicker active={community} />}
@@ -133,6 +133,7 @@ function AppFooter({ communityData }: Props) {
 
 interface Props {
   communityData?: AppFooterCommunityFragment$key | null;
+  data?: AppFooterFragment$key;
 }
 
 export default AppFooter;
@@ -143,6 +144,9 @@ const fragment = graphql`
       pageInfo {
         totalCount
       }
+    }
+    globalConfiguration {
+      ...InstallationNameFragment
     }
   }
 `;

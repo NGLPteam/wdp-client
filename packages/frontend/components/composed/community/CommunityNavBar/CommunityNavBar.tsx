@@ -1,5 +1,8 @@
+"use client";
+
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
+import { usePathname } from "next/navigation";
 import { SearchButton } from "components/atomic";
 import { CommunityNavBarFragment$key } from "@/relay/CommunityNavBarFragment.graphql";
 import { CommunityNavBarEntityFragment$key } from "@/relay/CommunityNavBarEntityFragment.graphql";
@@ -11,7 +14,11 @@ export default function CommunityNavBar({ data, entityData }: Props) {
   const community = useMaybeFragment(fragment, data);
   const entity = useMaybeFragment(entityFragment, entityData);
 
-  return community ? (
+  const pathRegEx = /^\/communities\/[A-Za-z0-9]{30,32}$/;
+
+  const isCommunityRoot = pathRegEx.test(usePathname());
+
+  return community && !isCommunityRoot ? (
     <div className="a-bg-custom10">
       <Styled.Nav className="l-container-wide">
         <div>

@@ -4,6 +4,7 @@ import getStaticGlobalContextData from "contexts/GlobalStaticContext/getStaticGl
 import { GlobalStaticContextProvider } from "contexts/GlobalStaticContext/GlobalStaticContext";
 import ThemeProvider from "contexts/ThemeProvider";
 import { GlobalContextProvider } from "contexts/GlobalContext";
+import AppBody from "components/global/AppBody";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import RelayEnvironmentProvider from "@/lib/relay/RelayClientEnvProvider";
 import StyledComponentsRegistry from "@/lib/styled-components/registry";
@@ -23,7 +24,9 @@ export default async function PageLayout({ children }: PropsWithChildren) {
         <UpdateClientEnvironment records={records}>
           <GlobalContextProvider data={data}>
             <ThemeProvider theme={theme}>
-              <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+              <StyledComponentsRegistry>
+                <AppBody data={data}>{children}</AppBody>
+              </StyledComponentsRegistry>
             </ThemeProvider>
           </GlobalContextProvider>
         </UpdateClientEnvironment>
@@ -35,6 +38,7 @@ export default async function PageLayout({ children }: PropsWithChildren) {
 const query = graphql`
   query layoutAllPagesQuery {
     ...GlobalContextFragment
+    ...AppBodyFragment
     globalConfiguration {
       theme {
         color

@@ -1,7 +1,8 @@
-import React, { createContext, useMemo } from "react";
-import { graphql } from "react-relay";
-import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
-import { ViewerContextQuery } from "@/relay/ViewerContextQuery.graphql";
+"use client";
+
+import { createContext, useMemo } from "react";
+import { graphql, useFragment } from "react-relay";
+import { ViewerContextFragment$key } from "@/relay/ViewerContextFragment.graphql";
 
 const initialState: ViewerContextProps = {
   allowedActions: [],
@@ -12,12 +13,15 @@ const initialState: ViewerContextProps = {
 
 const ViewerContext = createContext<ViewerContextProps>(initialState);
 
-function ViewerContextProvider({ children }: Props) {
-  const viewerData = useAuthenticatedQuery<ViewerContextQuery>(query);
+function ViewerContextProvider({ children, data }: Props) {
+  const viewerData = useFragment<ViewerContextFragment$key>(
+    fragment,
+    data ?? null,
+  );
 
   const viewer = useMemo(() => {
-    if (viewerData?.viewer) {
-      const { avatar, ...viewerProps } = viewerData.viewer;
+    if (viewerData) {
+      const { avatar, ...viewerProps } = viewerData;
       const avatarUrl = avatar?.small.png?.url;
 
       return { avatarUrl, ...viewerProps };
@@ -41,25 +45,24 @@ interface ViewerContextProps {
 
 interface Props {
   children: React.ReactNode;
+  data?: ViewerContextFragment$key;
 }
 
 export default ViewerContext;
 
 export { ViewerContextProvider };
 
-const query = graphql`
-  query ViewerContextQuery {
-    viewer {
-      name
-      allowedActions
-      uploadAccess
-      uploadToken
-      avatar {
-        small {
-          png {
-            url
-            alt
-          }
+const fragment = graphql`
+  fragment ViewerContextFragment on User {
+    name
+    allowedActions
+    uploadAccess
+    uploadToken
+    avatar {
+      small {
+        png {
+          url
+          alt
         }
       }
     }

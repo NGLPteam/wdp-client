@@ -2,7 +2,6 @@ import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import ContributorDetail from "components/composed/contributor/ContributorDetail";
 import ContributorDetailNav from "components/composed/contributor/ContributorDetailNav";
-import AppLayout from "components/global/AppLayout";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { BasePageParams } from "@/types/page";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
@@ -41,11 +40,9 @@ export default async function ContributorPage({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <AppLayout communityData={community}>
-        {item && <ContributorDetailNav data={item} />}
-        {collection && <ContributorDetailNav data={collection} />}
-        <ContributorDetail data={contributor} />
-      </AppLayout>
+      {item && <ContributorDetailNav data={item} />}
+      {collection && <ContributorDetailNav data={collection} />}
+      <ContributorDetail data={contributor} />
     </UpdateClientEnvironment>
   );
 }

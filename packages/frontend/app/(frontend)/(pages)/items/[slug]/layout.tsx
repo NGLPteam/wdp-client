@@ -2,7 +2,6 @@ import { PropsWithChildren } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
-import AppLayout from "components/global/AppLayout";
 import GoogleScholarMetaTags from "components/global/GoogleScholarMetaTags";
 import getStaticGoogleScholarData from "contexts/GlobalStaticContext/getStaticGoogleScholarData";
 import { BasePageParams } from "@/types/page";
@@ -31,9 +30,7 @@ export default async function ItemLayout({
       {googleScholarData && (
         <GoogleScholarMetaTags entity={googleScholarData} />
       )}
-      <AppLayout communityData={item.community} entityData={item}>
-        <EntityLayoutFactory data={item}>{children}</EntityLayoutFactory>
-      </AppLayout>
+      <EntityLayoutFactory data={item}>{children}</EntityLayoutFactory>
     </UpdateClientEnvironment>
   );
 }
