@@ -23,6 +23,5 @@ export default function UpdateClientEnvironment({ children, records }: Props) {
 
     store.publish(source);
   }
-
   return <>{children}</>;
 }

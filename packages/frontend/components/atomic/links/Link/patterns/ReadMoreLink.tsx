@@ -7,7 +7,7 @@ function ReadMoreLink({ ...props }, ref: MaybeLinkRef) {
   const { t } = useTranslation();
 
   return (
-    <ArrowLink ref={ref} {...props}>
+    <ArrowLink ref={ref} as="span" {...props}>
       {t("common.read_more")}
     </ArrowLink>
   );

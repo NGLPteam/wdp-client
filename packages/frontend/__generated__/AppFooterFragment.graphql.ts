@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<db8c7f58c2c17a600da74b3089cb8c71>>
+ * @generated SignedSource<<e597bce5ef8fa8fe33646158b9c35114>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,6 +16,10 @@ export type AppFooterFragment$data = {
       readonly totalCount: number;
     };
   };
+  readonly globalConfiguration: {
+    readonly " $fragmentSpreads": FragmentRefs<"InstallationNameFragment">;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityPickerFragment">;
   readonly " $fragmentType": "AppFooterFragment";
 };
 export type AppFooterFragment$key = {
@@ -57,12 +61,33 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "GlobalConfiguration",
+      "kind": "LinkedField",
+      "name": "globalConfiguration",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "InstallationNameFragment"
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "CommunityPickerFragment"
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
 
-(node as any).hash = "4794cc226705eef8c3f78ddbe7f8ce10";
+(node as any).hash = "8e0b9484b95c389214a43a467f7e8f36";
 
 export default node;

@@ -37,7 +37,7 @@ export const ImageBlock = styled.div`
   max-width: ${pxToRem(240)};
 `;
 
-export const ImageLink = styled.a`
+export const ImageLink = styled.span`
   display: inline-block;
   width: 100%;
   ${aFocus()}

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d83557f1fbfb7167ce0cb7f96a2b272b>>
+ * @generated SignedSource<<f873383f883ba5e81a2586fec2d84a35>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,7 +21,9 @@ export type AppHeaderFragment$data = {
     readonly site: {
       readonly logoMode: SiteLogoMode;
     };
+    readonly " $fragmentSpreads": FragmentRefs<"InstallationNameFragment">;
   };
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityPickerFragment">;
   readonly " $fragmentType": "AppHeaderFragment";
 };
 export type AppHeaderFragment$key = {
@@ -89,15 +91,25 @@ const node: ReaderFragment = {
             }
           ],
           "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "InstallationNameFragment"
         }
       ],
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "CommunityPickerFragment"
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
 
-(node as any).hash = "30faf2d5d1f1f43f2cd2ef1846bdfa2c";
+(node as any).hash = "ed8e478df4ad590e90ac413a2be1c399";
 
 export default node;

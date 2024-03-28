@@ -28,6 +28,7 @@ const query = graphql`
   query pageCommunityQuery($slug: Slug!) {
     community(slug: $slug) {
       ...CommunityLandingLayoutFragment
+      ...PortalCommunityNavListFragment
     }
   }
 `;

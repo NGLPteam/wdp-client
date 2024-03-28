@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8c87633dac0353b167230db8577e114b>>
+ * @generated SignedSource<<84bf379dfcae5d9905ed806e8cec5e9b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,7 +18,7 @@ export type layoutAllPagesQuery$data = {
       readonly font: string;
     };
   };
-  readonly " $fragmentSpreads": FragmentRefs<"GlobalContextFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"AppBodyFragment">;
 };
 export type layoutAllPagesQuery = {
   response: layoutAllPagesQuery$data;
@@ -96,7 +96,7 @@ return {
       {
         "args": null,
         "kind": "FragmentSpread",
-        "name": "GlobalContextFragment"
+        "name": "AppBodyFragment"
       },
       {
         "alias": null,
@@ -123,6 +123,35 @@ return {
       {
         "alias": null,
         "args": null,
+        "concreteType": "CommunityConnection",
+        "kind": "LinkedField",
+        "name": "communities",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "PageInfo",
+            "kind": "LinkedField",
+            "name": "pageInfo",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "totalCount",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
         "concreteType": "GlobalConfiguration",
         "kind": "LinkedField",
         "name": "globalConfiguration",
@@ -140,14 +169,14 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "installationName",
+                "name": "logoMode",
                 "storageKey": null
               },
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "logoMode",
+                "name": "installationName",
                 "storageKey": null
               }
             ],
@@ -298,49 +327,20 @@ return {
           }
         ],
         "storageKey": "communities(order:\"POSITION_ASCENDING\")"
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "CommunityConnection",
-        "kind": "LinkedField",
-        "name": "communities",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "PageInfo",
-            "kind": "LinkedField",
-            "name": "pageInfo",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "totalCount",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "d6f916cc8227f55914c57044493aaac7",
+    "cacheID": "8f9319765fc660f756d59efb2d2e2ccf",
     "id": null,
     "metadata": {},
     "name": "layoutAllPagesQuery",
     "operationKind": "query",
-    "text": "query layoutAllPagesQuery {\n  ...GlobalContextFragment\n  globalConfiguration {\n    theme {\n      color\n      font\n    }\n    id\n  }\n}\n\nfragment AppFooterFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment AppHeaderFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      logoMode\n    }\n    id\n  }\n}\n\nfragment BreadcrumbsBarGlobalFragment on GlobalConfiguration {\n  site {\n    installationName\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  pickerCommunities: communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment GlobalContextFragment on Query {\n  globalConfiguration {\n    ...InstallationNameFragment\n    ...BreadcrumbsBarGlobalFragment\n    id\n  }\n  ...CommunityPickerFragment\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n    logoMode\n  }\n  logo {\n    storage\n    original {\n      originalFilename\n      ...ImageFragment\n    }\n    sansText {\n      size\n      webp {\n        width\n        height\n        ...ImageFragment\n      }\n    }\n  }\n}\n"
+    "text": "query layoutAllPagesQuery {\n  ...AppBodyFragment\n  globalConfiguration {\n    theme {\n      color\n      font\n    }\n    id\n  }\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    ...InstallationNameFragment\n    id\n  }\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      logoMode\n    }\n    ...InstallationNameFragment\n    id\n  }\n  ...CommunityPickerFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  pickerCommunities: communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n    logoMode\n  }\n  logo {\n    storage\n    original {\n      originalFilename\n      ...ImageFragment\n    }\n    sansText {\n      size\n      webp {\n        width\n        height\n        ...ImageFragment\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "57041d413f14c99ecc4193a6c560cad9";
+(node as any).hash = "20238c6aa63065baeadea9ee53cd4980";
 
 export default node;

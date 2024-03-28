@@ -2,20 +2,17 @@ import { useMemo } from "react";
 import { graphql } from "react-relay";
 import Link from "next/link";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useGlobalContext } from "contexts";
 import { Image } from "components/atomic";
 import { InstallationNameFragment$key } from "@/relay/InstallationNameFragment.graphql";
 import * as Styled from "./InstallationName.styles";
 
 const LOGO_SIZE = 40;
 
-export default function InstallationName({ className = "t-label-mix" }: Props) {
-  const data = useGlobalContext();
-
-  const siteData = useMaybeFragment<InstallationNameFragment$key>(
-    fragment,
-    data?.globalConfiguration,
-  );
+export default function InstallationName({
+  className = "t-label-mix",
+  data,
+}: Props) {
+  const siteData = useMaybeFragment(fragment, data);
 
   const linkClasses = "a-link";
 
@@ -55,6 +52,7 @@ export default function InstallationName({ className = "t-label-mix" }: Props) {
 
 type Props = {
   className?: string;
+  data?: InstallationNameFragment$key;
 };
 
 const fragment = graphql`

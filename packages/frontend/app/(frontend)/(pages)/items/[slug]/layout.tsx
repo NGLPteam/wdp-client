@@ -2,9 +2,10 @@ import { PropsWithChildren } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
-import AppLayout from "components/global/AppLayout";
 import GoogleScholarMetaTags from "components/global/GoogleScholarMetaTags";
 import getStaticGoogleScholarData from "contexts/GlobalStaticContext/getStaticGoogleScholarData";
+import CommunityPickerPortal from "components/composed/instance/CommunityPicker/Portal";
+import CommunityNavListPortal from "components/composed/community/CommunityNavList/Portal";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { layoutItemQuery as Query } from "@/relay/layoutItemQuery.graphql";
@@ -31,9 +32,9 @@ export default async function ItemLayout({
       {googleScholarData && (
         <GoogleScholarMetaTags entity={googleScholarData} />
       )}
-      <AppLayout communityData={item.community} entityData={item}>
-        <EntityLayoutFactory data={item}>{children}</EntityLayoutFactory>
-      </AppLayout>
+      <CommunityPickerPortal data={item.community} />
+      <CommunityNavListPortal data={item.community} />
+      <EntityLayoutFactory data={item}>{children}</EntityLayoutFactory>
     </UpdateClientEnvironment>
   );
 }
@@ -41,11 +42,11 @@ export default async function ItemLayout({
 const query = graphql`
   query layoutItemQuery($slug: Slug!) {
     item(slug: $slug) {
-      ...AppLayoutEntityFragment
       ...EntityLayoutFactoryFragment
 
       community {
-        ...AppLayoutCommunityFragment
+        ...PortalCommunityPickerFragment
+        ...PortalCommunityNavListFragment
       }
     }
   }

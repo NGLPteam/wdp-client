@@ -1,3 +1,5 @@
+"use client";
+
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { SearchButton } from "components/atomic";

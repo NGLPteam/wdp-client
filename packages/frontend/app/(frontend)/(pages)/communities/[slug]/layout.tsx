@@ -1,7 +1,8 @@
 import { PropsWithChildren } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import AppLayout from "components/global/AppLayout";
+import CommunityNavBar from "components/composed/community/CommunityNavBar";
+import CommunityPickerPortal from "components/composed/instance/CommunityPicker/Portal";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { layoutCommunityQuery as Query } from "@/relay/layoutCommunityQuery.graphql";
@@ -23,9 +24,9 @@ export default async function CommunityLayout({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <AppLayout communityData={community} entityData={community}>
-        {children}
-      </AppLayout>
+      <CommunityPickerPortal data={community} />
+      <CommunityNavBar data={community} entityData={community} />
+      {children}
     </UpdateClientEnvironment>
   );
 }
@@ -33,8 +34,11 @@ export default async function CommunityLayout({
 const query = graphql`
   query layoutCommunityQuery($slug: Slug!) {
     community(slug: $slug) {
-      ...AppLayoutCommunityFragment
-      ...AppLayoutEntityFragment
+      ...CommunityNavBarFragment
+      ...CommunityNavBarEntityFragment
+      ...PortalCommunityPickerFragment
+      ...AppFooterCommunityFragment
+      ...AppHeaderCommunityFragment
     }
   }
 `;

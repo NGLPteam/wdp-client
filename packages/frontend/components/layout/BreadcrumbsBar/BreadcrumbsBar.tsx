@@ -5,20 +5,14 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { Breadcrumbs, Button, Dropdown, Link } from "components/atomic";
 import { getOrigin, getRouteByEntityType } from "helpers";
-import { useGlobalContext } from "contexts";
+import { useGlobalStaticContext } from "contexts/GlobalStaticContext";
 import { BreadcrumbsBarFragment$key } from "@/relay/BreadcrumbsBarFragment.graphql";
-import { BreadcrumbsBarGlobalFragment$key } from "@/relay/BreadcrumbsBarGlobalFragment.graphql";
 import * as Styled from "./BreadcrumbsBar.styles";
 
 export default function BreadCrumbsBar({ data }: Props) {
   const breadcrumbData = useMaybeFragment(fragment, data);
 
-  const globalData = useGlobalContext();
-
-  const global = useMaybeFragment<BreadcrumbsBarGlobalFragment$key>(
-    globalFragment,
-    globalData?.globalConfiguration,
-  );
+  const globalData = useGlobalStaticContext();
 
   const url = useMemo(() => {
     if (!breadcrumbData) return null;
@@ -34,7 +28,8 @@ export default function BreadCrumbsBar({ data }: Props) {
     return `${origin}/${route}/${slug}`;
   }, [breadcrumbData]);
 
-  const installation = global?.site?.installationName || "WDP";
+  const installation =
+    globalData?.globalConfiguration?.site?.installationName || "WDP";
 
   return breadcrumbData ? (
     <Styled.Nav className="a-bg-custom10">
@@ -94,13 +89,5 @@ export const fragment = graphql`
       slug
     }
     ...BreadcrumbsFragment
-  }
-`;
-
-const globalFragment = graphql`
-  fragment BreadcrumbsBarGlobalFragment on GlobalConfiguration {
-    site {
-      installationName
-    }
   }
 `;
