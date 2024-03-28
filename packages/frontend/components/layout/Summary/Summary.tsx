@@ -11,10 +11,13 @@ export default function Summary({
   summary,
   thumbnail,
   thumbnailRight,
+  href,
   route,
   routeParams = {},
   showReadMore,
 }: Props) {
+  const linkProps = href ? { href } : route ? { route, routeParams } : null;
+
   return (
     <Styled.Wrapper
       $thumbnailRight={thumbnailRight}
@@ -22,8 +25,8 @@ export default function Summary({
     >
       {thumbnail && (
         <Styled.Thumbnail>
-          {route ? (
-            <NamedLink route={route} routeParams={routeParams}>
+          {linkProps ? (
+            <NamedLink {...linkProps}>
               <Styled.ThumbnailLink>{thumbnail}</Styled.ThumbnailLink>
             </NamedLink>
           ) : (
@@ -34,12 +37,8 @@ export default function Summary({
       <Styled.Text>
         <Styled.Headers>
           <h4>
-            {route ? (
-              <NamedLink
-                route={route}
-                routeParams={routeParams}
-                className="default-link-styles"
-              >
+            {linkProps ? (
+              <NamedLink {...linkProps} className="default-link-styles">
                 <Markdown.Title>{title}</Markdown.Title>
               </NamedLink>
             ) : (
@@ -58,8 +57,8 @@ export default function Summary({
             <Markdown.Summary>{summary}</Markdown.Summary>
           </Styled.Summary>
         )}
-        {showReadMore && route && (
-          <NamedLink route={route} routeParams={routeParams} passHref>
+        {showReadMore && linkProps && (
+          <NamedLink {...linkProps} passHref>
             <Styled.ReadMore as={ReadMoreLink} />
           </NamedLink>
         )}
@@ -87,4 +86,5 @@ interface Props {
   routeParams?: LinkProps["routeParams"];
   /** Show read more link */
   showReadMore?: boolean;
+  href?: string;
 }

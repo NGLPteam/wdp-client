@@ -23,14 +23,11 @@ export default function ContributionSummary({ data, showReadMore }: Props) {
     return entity?.__typename ? getRouteByEntityType(entity.__typename) : null;
   }, [entity]);
 
-  // <h5 className="t-copy-italic t-copy-lighter">{
-
   return contribution && entity && route && entity.slug ? (
     <Summary
       title={entity.title}
       subtitle={entity.subtitle}
-      route={route}
-      routeParams={{ slug: entity.slug }}
+      href={`/${route}/${entity.slug}`}
       metadata={
         <DotList className="t-copy-sm t-copy-lighter">
           {contribution.role && <li>{capitalize(contribution.role)}</li>}
@@ -44,7 +41,7 @@ export default function ContributionSummary({ data, showReadMore }: Props) {
       summary={entity.summary}
       showReadMore={showReadMore}
       thumbnail={
-        entity.thumbnail.storage && <SquareThumbnail data={entity.thumbnail} />
+        entity.thumbnail?.storage && <SquareThumbnail data={entity.thumbnail} />
       }
     />
   ) : null;

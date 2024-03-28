@@ -18,8 +18,7 @@ export default function EntitySummary({ data, showReadMore }: Props) {
 
   return entity && route && entity.slug ? (
     <Summary
-      route={route}
-      routeParams={{ slug: entity.slug }}
+      href={`/${route}/${entity.slug}`}
       title={entity.title}
       summary={entity.summary}
       thumbnail={
