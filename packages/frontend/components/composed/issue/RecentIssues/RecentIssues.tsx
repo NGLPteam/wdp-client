@@ -35,12 +35,8 @@ export default function RecentIssues({ data, limit = 4 }: Props) {
         </Styled.List>
         {slug && (
           <Styled.ButtonWrapper>
-            <NamedLink
-              route="collection.browse"
-              routeParams={{ slug, ordering: "issues" }}
-              passHref
-            >
-              <Button as="a">
+            <NamedLink href={`/collections/${slug}/browse/issues`}>
+              <Button as="div">
                 <span className="t-capitalize">
                   {t("layouts.see_all_issues")}
                 </span>

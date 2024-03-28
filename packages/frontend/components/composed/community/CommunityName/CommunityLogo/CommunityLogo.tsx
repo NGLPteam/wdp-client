@@ -19,8 +19,8 @@ export default function CommunityLogo({ data, slug }: Props) {
   const height = image?.height || 1;
 
   return image && image.url ? (
-    <NamedLink route="community" routeParams={{ slug: slug || "" }} passHref>
-      <a className="do-not-apply-default">
+    <NamedLink href={`/communities/${slug}`}>
+      <span>
         <Styled.Logo
           style={{
             width: (SIZE * width) / height,
@@ -36,7 +36,7 @@ export default function CommunityLogo({ data, slug }: Props) {
             layout="responsive"
           />
         </Styled.Logo>
-      </a>
+      </span>
     </NamedLink>
   ) : null;
 }

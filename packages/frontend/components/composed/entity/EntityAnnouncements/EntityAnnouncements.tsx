@@ -37,7 +37,6 @@ export default function EntityAnnouncements({ data }: Props) {
             </Styled.AnnouncementBody>
             <NamedLink
               href={`/collections/${slug}/announcements/${announcement.slug}`}
-              passHref
             >
               <ReadMoreLink className="t-label-mix" />
             </NamedLink>

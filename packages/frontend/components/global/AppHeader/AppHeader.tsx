@@ -12,23 +12,23 @@ import CommunityNavList from "components/composed/community/CommunityNavList";
 import Search from "components/forms/Search";
 import CommunityName from "components/composed/community/CommunityName";
 import BaseDrawer from "components/layout/BaseDrawer";
-import { useGlobalContext } from "contexts";
+import useGlobalContext from "contexts/useGlobalContext";
 import { AppHeaderCommunityFragment$key } from "@/relay/AppHeaderCommunityFragment.graphql";
 import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
 import { AppHeaderEntityFragment$key } from "@/relay/AppHeaderEntityFragment.graphql";
 import SkipLink from "../SkipLink";
 import * as Styled from "./AppHeader.styles";
 
-function AppHeader({ communityData, entityData }: Props) {
-  const globalData = useGlobalContext();
+function AppHeader({ entityData, data }: Props) {
+  const appData = useMaybeFragment(fragment, data);
 
-  const appData = useMaybeFragment<AppHeaderFragment$key>(fragment, globalData);
+  const { communityData } = useGlobalContext() ?? {};
 
   const community = useMaybeFragment(communityFragment, communityData);
 
   const entity = useMaybeFragment(entityFragment, entityData);
 
-  const pathRegEx = /^\/communities\/[A-Za-z0-9]{30,32}$/;
+  const pathRegEx = /^\/communities\/[A-Za-z0-9]{30,32}/;
 
   const isCommunityRoot = pathRegEx.test(usePathname());
 
@@ -50,16 +50,16 @@ function AppHeader({ communityData, entityData }: Props) {
                 <Styled.InstallationNameWrapper
                   $logoMode={appData?.globalConfiguration?.site?.logoMode}
                 >
-                  <InstallationName />
+                  <InstallationName data={appData?.globalConfiguration} />
                 </Styled.InstallationNameWrapper>
-                <CommunityPicker active={community} />
+                <CommunityPicker data={appData} />
               </>
             )}
           </Styled.LeftSide>
           <Styled.RightSide>
-            {community && isCommunityRoot && (
+            {!isCommunityRoot && (
               <>
-                <CommunityNavList data={community} condensed />
+                <CommunityNavList condensed />
                 <SearchButton size="sm" data={entity} />
               </>
             )}
@@ -70,19 +70,19 @@ function AppHeader({ communityData, entityData }: Props) {
           </Styled.MobileRight>
         </Styled.HeaderInner>
         <BaseDrawer
-          header={<CommunityPicker active={community} />}
-          footer={<InstallationName />}
+          header={<CommunityPicker data={appData} />}
+          footer={<InstallationName data={appData?.globalConfiguration} />}
           dialog={dialog}
           label={t("nav.menu")}
         >
           <Styled.MobileList>
-            <CommunityNavList data={community} mobile />
+            <CommunityNavList mobile />
             <Search id="headerSearch" mobile />
             <AccountDropdown mobile />
           </Styled.MobileList>
         </BaseDrawer>
       </Styled.Header>
-      {community && (
+      {true && (
         <Styled.PrintHeader aria-hidden>
           <CommunityName data={community} />
         </Styled.PrintHeader>
@@ -94,6 +94,7 @@ function AppHeader({ communityData, entityData }: Props) {
 interface Props {
   communityData?: AppHeaderCommunityFragment$key | null;
   entityData?: AppHeaderEntityFragment$key | null;
+  data?: AppHeaderFragment$key | null;
 }
 
 export default AppHeader;
@@ -109,13 +110,14 @@ const fragment = graphql`
       site {
         logoMode
       }
+      ...InstallationNameFragment
     }
+    ...CommunityPickerFragment
   }
 `;
 
 const communityFragment = graphql`
   fragment AppHeaderCommunityFragment on Community {
-    ...CommunityPickerActiveFragment
     ...CommunityNavListFragment
     ...CommunityNameFragment
   }
