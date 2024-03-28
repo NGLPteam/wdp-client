@@ -9,11 +9,10 @@ import InstallationName from "components/composed/instance/InstallationName";
 import CommunityPicker from "components/composed/instance/CommunityPicker";
 import AccountDropdown from "components/composed/viewer/AccountDropdown";
 import CommunityNavList from "components/composed/community/CommunityNavList";
+import CommunityName from "components/composed/community/CommunityName";
 import Search from "components/forms/Search";
 import BaseDrawer from "components/layout/BaseDrawer";
-import { AppHeaderCommunityFragment$key } from "@/relay/AppHeaderCommunityFragment.graphql";
 import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
-import { AppHeaderEntityFragment$key } from "@/relay/AppHeaderEntityFragment.graphql";
 import SkipLink from "../SkipLink";
 import * as Styled from "./AppHeader.styles";
 
@@ -77,18 +76,14 @@ function AppHeader({ data }: Props) {
           </Styled.MobileList>
         </BaseDrawer>
       </Styled.Header>
-      {true && (
-        <Styled.PrintHeader aria-hidden>
-          {/*<CommunityName data={community} />*/}
-        </Styled.PrintHeader>
-      )}
+      <Styled.PrintHeader aria-hidden>
+        <CommunityName />
+      </Styled.PrintHeader>
     </>
   );
 }
 
 interface Props {
-  communityData?: AppHeaderCommunityFragment$key | null;
-  entityData?: AppHeaderEntityFragment$key | null;
   data?: AppHeaderFragment$key | null;
 }
 

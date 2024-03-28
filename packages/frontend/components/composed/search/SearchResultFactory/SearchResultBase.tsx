@@ -1,8 +1,5 @@
 import { Markdown, NamedLink } from "components/atomic";
-import { PagesRouterLinkProps } from "components/atomic/links/NamedLink/NamedLink";
 import * as Styled from "./SearchResultBase.styles";
-
-type LinkProps = PagesRouterLinkProps;
 
 export default function SearchResultBase({
   type,
@@ -51,6 +48,5 @@ interface Props {
   description?: string | null;
   metadata?: React.ReactNode;
   image?: React.ReactNode;
-  route: LinkProps["route"];
-  routeParams?: LinkProps["routeParams"];
+  href: string;
 }
