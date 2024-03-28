@@ -1,4 +1,6 @@
-import React, { createContext } from "react";
+"use client";
+
+import { createContext } from "react";
 import { graphql, useFragment } from "react-relay";
 import {
   GlobalContextFragment$data,
