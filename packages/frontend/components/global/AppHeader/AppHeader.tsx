@@ -10,23 +10,15 @@ import CommunityPicker from "components/composed/instance/CommunityPicker";
 import AccountDropdown from "components/composed/viewer/AccountDropdown";
 import CommunityNavList from "components/composed/community/CommunityNavList";
 import Search from "components/forms/Search";
-import CommunityName from "components/composed/community/CommunityName";
 import BaseDrawer from "components/layout/BaseDrawer";
-import useGlobalContext from "contexts/useGlobalContext";
 import { AppHeaderCommunityFragment$key } from "@/relay/AppHeaderCommunityFragment.graphql";
 import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
 import { AppHeaderEntityFragment$key } from "@/relay/AppHeaderEntityFragment.graphql";
 import SkipLink from "../SkipLink";
 import * as Styled from "./AppHeader.styles";
 
-function AppHeader({ entityData, data }: Props) {
+function AppHeader({ data }: Props) {
   const appData = useMaybeFragment(fragment, data);
-
-  const { communityData } = useGlobalContext() ?? {};
-
-  const community = useMaybeFragment(communityFragment, communityData);
-
-  const entity = useMaybeFragment(entityFragment, entityData);
 
   const pathRegEx = /^\/communities\/[A-Za-z0-9]{30,32}/;
 
@@ -60,7 +52,7 @@ function AppHeader({ entityData, data }: Props) {
             {!isCommunityRoot && (
               <>
                 <CommunityNavList condensed />
-                <SearchButton size="sm" data={entity} />
+                <SearchButton size="sm" />
               </>
             )}
             <AccountDropdown condensed={!isCommunityRoot} />
@@ -84,7 +76,7 @@ function AppHeader({ entityData, data }: Props) {
       </Styled.Header>
       {true && (
         <Styled.PrintHeader aria-hidden>
-          <CommunityName data={community} />
+          {/*<CommunityName data={community} />*/}
         </Styled.PrintHeader>
       )}
     </>
@@ -113,18 +105,5 @@ const fragment = graphql`
       ...InstallationNameFragment
     }
     ...CommunityPickerFragment
-  }
-`;
-
-const communityFragment = graphql`
-  fragment AppHeaderCommunityFragment on Community {
-    ...CommunityNavListFragment
-    ...CommunityNameFragment
-  }
-`;
-
-const entityFragment = graphql`
-  fragment AppHeaderEntityFragment on Entity {
-    ...SearchButtonFragment
   }
 `;
