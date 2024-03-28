@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a81b34695c8e7019fae3c0beade620b3>>
+ * @generated SignedSource<<8c87633dac0353b167230db8577e114b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,36 +10,23 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AppContextProviderQuery$variables = Record<PropertyKey, never>;
-export type AppContextProviderQuery$data = {
-  readonly communities: {
-    readonly nodes: ReadonlyArray<{
-      readonly title: string;
-    }>;
-  };
+export type layoutAllPagesQuery$variables = Record<PropertyKey, never>;
+export type layoutAllPagesQuery$data = {
   readonly globalConfiguration: {
     readonly theme: {
       readonly color: string;
       readonly font: string;
     };
-    readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbsBarGlobalFragment" | "InstallationNameFragment">;
   };
-  readonly " $fragmentSpreads": FragmentRefs<"AppFooterFragment" | "AppHeaderFragment" | "CommunityPickerFragment" | "GlobalContextFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"GlobalContextFragment">;
 };
-export type AppContextProviderQuery = {
-  response: AppContextProviderQuery$data;
-  variables: AppContextProviderQuery$variables;
+export type layoutAllPagesQuery = {
+  response: layoutAllPagesQuery$data;
+  variables: layoutAllPagesQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
 var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-},
-v1 = {
   "alias": null,
   "args": null,
   "concreteType": "ThemeSettings",
@@ -64,39 +51,39 @@ v1 = {
   ],
   "storageKey": null
 },
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v3 = {
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "alt",
   "storageKey": null
 },
-v4 = {
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "url",
   "storageKey": null
 },
-v5 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "width",
   "storageKey": null
 },
-v6 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "height",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
   "storageKey": null
 };
 return {
@@ -104,50 +91,12 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "AppContextProviderQuery",
+    "name": "layoutAllPagesQuery",
     "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "CommunityConnection",
-        "kind": "LinkedField",
-        "name": "communities",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Community",
-            "kind": "LinkedField",
-            "name": "nodes",
-            "plural": true,
-            "selections": [
-              (v0/*: any*/)
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      },
       {
         "args": null,
         "kind": "FragmentSpread",
         "name": "GlobalContextFragment"
-      },
-      {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "CommunityPickerFragment"
-      },
-      {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "AppHeaderFragment"
-      },
-      {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "AppFooterFragment"
       },
       {
         "alias": null,
@@ -157,17 +106,7 @@ return {
         "name": "globalConfiguration",
         "plural": false,
         "selections": [
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "InstallationNameFragment"
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "BreadcrumbsBarGlobalFragment"
-          },
-          (v1/*: any*/)
+          (v0/*: any*/)
         ],
         "storageKey": null
       }
@@ -179,50 +118,8 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "AppContextProviderQuery",
+    "name": "layoutAllPagesQuery",
     "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "CommunityConnection",
-        "kind": "LinkedField",
-        "name": "communities",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Community",
-            "kind": "LinkedField",
-            "name": "nodes",
-            "plural": true,
-            "selections": [
-              (v0/*: any*/),
-              (v2/*: any*/)
-            ],
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "PageInfo",
-            "kind": "LinkedField",
-            "name": "pageInfo",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "totalCount",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      },
       {
         "alias": null,
         "args": null,
@@ -289,10 +186,10 @@ return {
                   {
                     "kind": "InlineFragment",
                     "selections": [
+                      (v1/*: any*/),
+                      (v2/*: any*/),
                       (v3/*: any*/),
-                      (v4/*: any*/),
-                      (v5/*: any*/),
-                      (v6/*: any*/)
+                      (v4/*: any*/)
                     ],
                     "type": "Image",
                     "abstractKey": "__isImage"
@@ -323,13 +220,13 @@ return {
                     "name": "webp",
                     "plural": false,
                     "selections": [
-                      (v5/*: any*/),
-                      (v6/*: any*/),
+                      (v3/*: any*/),
+                      (v4/*: any*/),
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          (v3/*: any*/),
-                          (v4/*: any*/)
+                          (v1/*: any*/),
+                          (v2/*: any*/)
                         ],
                         "type": "Image",
                         "abstractKey": "__isImage"
@@ -343,8 +240,8 @@ return {
             ],
             "storageKey": null
           },
-          (v2/*: any*/),
-          (v1/*: any*/)
+          (v5/*: any*/),
+          (v0/*: any*/)
         ],
         "storageKey": null
       },
@@ -385,8 +282,14 @@ return {
                     "name": "slug",
                     "storageKey": null
                   },
-                  (v0/*: any*/),
-                  (v2/*: any*/)
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "title",
+                    "storageKey": null
+                  },
+                  (v5/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -395,20 +298,49 @@ return {
           }
         ],
         "storageKey": "communities(order:\"POSITION_ASCENDING\")"
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "CommunityConnection",
+        "kind": "LinkedField",
+        "name": "communities",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "PageInfo",
+            "kind": "LinkedField",
+            "name": "pageInfo",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "totalCount",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "28adaa4cf39114238fee1226a000a633",
+    "cacheID": "d6f916cc8227f55914c57044493aaac7",
     "id": null,
     "metadata": {},
-    "name": "AppContextProviderQuery",
+    "name": "layoutAllPagesQuery",
     "operationKind": "query",
-    "text": "query AppContextProviderQuery {\n  communities {\n    nodes {\n      title\n      id\n    }\n  }\n  ...GlobalContextFragment\n  ...CommunityPickerFragment\n  ...AppHeaderFragment\n  ...AppFooterFragment\n  globalConfiguration {\n    ...InstallationNameFragment\n    ...BreadcrumbsBarGlobalFragment\n    theme {\n      color\n      font\n    }\n    id\n  }\n}\n\nfragment AppFooterFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment AppHeaderFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      logoMode\n    }\n    id\n  }\n}\n\nfragment BreadcrumbsBarGlobalFragment on GlobalConfiguration {\n  site {\n    installationName\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  pickerCommunities: communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment GlobalContextFragment on Query {\n  globalConfiguration {\n    ...InstallationNameFragment\n    ...BreadcrumbsBarGlobalFragment\n    id\n  }\n  ...CommunityPickerFragment\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n    logoMode\n  }\n  logo {\n    storage\n    original {\n      originalFilename\n      ...ImageFragment\n    }\n    sansText {\n      size\n      webp {\n        width\n        height\n        ...ImageFragment\n      }\n    }\n  }\n}\n"
+    "text": "query layoutAllPagesQuery {\n  ...GlobalContextFragment\n  globalConfiguration {\n    theme {\n      color\n      font\n    }\n    id\n  }\n}\n\nfragment AppFooterFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment AppHeaderFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      logoMode\n    }\n    id\n  }\n}\n\nfragment BreadcrumbsBarGlobalFragment on GlobalConfiguration {\n  site {\n    installationName\n  }\n}\n\nfragment CommunityPickerFragment on Query {\n  pickerCommunities: communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment GlobalContextFragment on Query {\n  globalConfiguration {\n    ...InstallationNameFragment\n    ...BreadcrumbsBarGlobalFragment\n    id\n  }\n  ...CommunityPickerFragment\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n    logoMode\n  }\n  logo {\n    storage\n    original {\n      originalFilename\n      ...ImageFragment\n    }\n    sansText {\n      size\n      webp {\n        width\n        height\n        ...ImageFragment\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "2a3ccfe4378d8289d47964fc4cee1824";
+(node as any).hash = "57041d413f14c99ecc4193a6c560cad9";
 
 export default node;

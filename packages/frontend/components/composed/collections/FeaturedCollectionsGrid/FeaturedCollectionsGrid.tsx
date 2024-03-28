@@ -38,7 +38,7 @@ export default function FeaturedCollectionsGrid({
                   <span className="t-h3">{node.title}</span>
                 </Styled.NamedLink>
               </Styled.Item>
-            ) : null
+            ) : null,
           )}
         </Styled.List>
         {seeAllRoute && (
