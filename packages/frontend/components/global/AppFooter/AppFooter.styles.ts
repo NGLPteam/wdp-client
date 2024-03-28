@@ -107,7 +107,7 @@ export const NavListItem = styled.li`
     margin-top: 8px;
   }
 
-  /* 
+  /*
     Needed for the DialogDisclosures for placeholder routes.
     Can be removed once all routes are links.
   */
@@ -124,6 +124,12 @@ export const CopyrightText = styled.p`
   }
 `;
 
+export const Installation = styled.h4`
+  div[data-community-name-portal]:has(a) + & {
+    display: none;
+  }
+`;
+
 export const InstallationDesktop = styled.div`
   display: flex;
   align-items: center;
@@ -132,11 +138,21 @@ export const InstallationDesktop = styled.div`
 `;
 
 export const InstallationDesktopName = styled.div`
-  ${globalNavRespond(`
+  ${FooterInner}:has(div[data-community-name-portal] > a) & {
+    display: block;
+    ${globalNavRespond(`
       display: none;
     `)}
+  }
+
+  display: none;
 `;
 
 export const InstallationMobile = styled.div`
-  ${globalNavRespond(`display: none;`, "min")}
+  ${FooterInner}:has(div[data-community-name-portal] > a) & {
+    display: block;
+    ${globalNavRespond(`display: none;`, "min")}
+  }
+
+  display: none;
 `;

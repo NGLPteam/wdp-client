@@ -3,6 +3,7 @@ import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import CommunityNavBar from "components/composed/community/CommunityNavBar";
 import CommunityPickerPortal from "components/composed/instance/CommunityPicker/Portal";
+import CommunityNamePortal from "components/composed/community/CommunityName/Portal";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { layoutCommunityQuery as Query } from "@/relay/layoutCommunityQuery.graphql";
@@ -25,6 +26,7 @@ export default async function CommunityLayout({
   return (
     <UpdateClientEnvironment records={records}>
       <CommunityPickerPortal data={community} />
+      <CommunityNamePortal data={community} />
       <CommunityNavBar data={community} entityData={community} />
       {children}
     </UpdateClientEnvironment>
@@ -37,8 +39,7 @@ const query = graphql`
       ...CommunityNavBarFragment
       ...CommunityNavBarEntityFragment
       ...PortalCommunityPickerFragment
-      ...AppFooterCommunityFragment
-      ...AppHeaderCommunityFragment
+      ...PortalCommunityNameFragment
     }
   }
 `;
