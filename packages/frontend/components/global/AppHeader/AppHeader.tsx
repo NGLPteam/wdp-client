@@ -22,7 +22,10 @@ function AppHeader({ data }: Props) {
 
   const pathRegEx = /^\/communities\/[A-Za-z0-9]{30,32}/;
 
-  const isCommunityRoot = pathRegEx.test(usePathname());
+  const pathname = usePathname();
+
+  const isCommunityRoot = pathRegEx.test(pathname);
+  const hideSearch = pathname === "/" || pathname === "/search";
 
   const { t } = useTranslation();
 
@@ -49,7 +52,7 @@ function AppHeader({ data }: Props) {
             )}
           </Styled.LeftSide>
           <Styled.RightSide>
-            {!isCommunityRoot && (
+            {!isCommunityRoot && !hideSearch && (
               <>
                 <CommunityNavList condensed />
                 <SearchButton size="sm" />
