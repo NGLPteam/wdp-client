@@ -17,8 +17,7 @@ export default function SearchEntityResult({ data }: Props) {
 
   return (
     <SearchResultBase
-      route={route}
-      routeParams={{ slug: entity.slug || "" }}
+      href={`/${route}/${entity.slug}`}
       type={entity.schemaVersion.name}
       title={entity.title}
       description={entity.summary}

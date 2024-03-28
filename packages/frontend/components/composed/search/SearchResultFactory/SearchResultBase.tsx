@@ -10,18 +10,15 @@ export default function SearchResultBase({
   description,
   metadata,
   image,
-  route,
-  routeParams,
+  href,
 }: Props) {
   return (
     <Styled.Wrapper>
       <Styled.Text>
         {type && <Styled.Type className="t-label-sm">{type}</Styled.Type>}
         <h4>
-          <NamedLink route={route} routeParams={routeParams} passHref>
-            <a>
-              <Markdown.Title>{title}</Markdown.Title>
-            </a>
+          <NamedLink href={href}>
+            <Markdown.Title>{title}</Markdown.Title>
           </NamedLink>
         </h4>
         {description && (
@@ -39,8 +36,8 @@ export default function SearchResultBase({
         // Because the title is an accessible link and the image is presentational,
         // we can hide this link from screen readers and focus elements
         <Styled.Image aria-hidden="true">
-          <NamedLink route={route} routeParams={routeParams} passHref>
-            <a tabIndex={-1}>{image}</a>
+          <NamedLink href={href} tabIndex={-1}>
+            {image}
           </NamedLink>
         </Styled.Image>
       )}
