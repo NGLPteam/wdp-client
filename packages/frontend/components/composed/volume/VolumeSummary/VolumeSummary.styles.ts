@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const ItemCoverLink = styled.a`
+export const ItemCoverLink = styled.span`
   margin-inline-end: var(--padding-lg);
   flex: 0 0 120px;
 

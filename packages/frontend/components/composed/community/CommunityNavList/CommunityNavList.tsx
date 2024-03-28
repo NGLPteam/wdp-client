@@ -26,7 +26,7 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
 
   function getDisclosure(label: string) {
     return (
-      <NavMenuLink as="button" icon="chevronDown">
+      <NavMenuLink as="div" icon="chevronDown">
         <span className={linkClassName}>{t(label)}</span>
       </NavMenuLink>
     );
@@ -46,9 +46,10 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
               slug: community.slug,
               schema: encodeURIComponent(schema.slug),
             }}
-            passHref
           >
-            <Link>{t(getSchemaTranslationKey(schema.slug), { count: 2 })}</Link>
+            <Link as="span">
+              {t(getSchemaTranslationKey(schema.slug), { count: 2 })}
+            </Link>
           </NamedLink>
         ))
       : [];
@@ -74,11 +75,9 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
           <li key={node.slug}>
             <NamedLink
               href={`/communities/${community.slug}/page/${node.slug}`}
-              passHref
+              aria-current={page === node.slug ? "page" : undefined}
             >
-              <NavMenuLink
-                aria-current={page === node.slug ? "page" : undefined}
-              >
+              <NavMenuLink as="span">
                 <span className={linkClassName}>{node.title}</span>
               </NavMenuLink>
             </NamedLink>

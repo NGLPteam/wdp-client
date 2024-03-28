@@ -1,8 +1,7 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { useRoutePageSlug, useRouteSlug } from "@wdp/lib/routes";
+import { useParams } from "next/navigation";
 import {
   Dropdown,
   NamedLink,
@@ -19,8 +18,7 @@ import * as Styled from "./EntityNavList.styles";
 
 export default function EntityNavList({ data }: Props) {
   const { t } = useTranslation();
-  const slug = useRouteSlug();
-  const pageSlug = useRoutePageSlug();
+  const { slug, page: pageSlug } = useParams();
   const entity = useMaybeFragment(fragment, data);
 
   function getDisclosure(label: string) {
@@ -41,7 +39,6 @@ export default function EntityNavList({ data }: Props) {
           <NamedLink
             key={identifier}
             href={`/${typeRoute}/${slug}/browse/${identifier}`}
-            passHref
           >
             <Button size="sm" secondary>
               {t("nav.browse_schema", { schema: name })}
@@ -52,9 +49,8 @@ export default function EntityNavList({ data }: Props) {
           <NamedLink
             key={identifier}
             href={`/${typeRoute}/${slug}/browse/${identifier}`}
-            passHref
           >
-            <Link>
+            <Link as="span">
               {name} ({count})
             </Link>
           </NamedLink>
@@ -81,12 +77,9 @@ export default function EntityNavList({ data }: Props) {
           <li key={node.slug}>
             <NamedLink
               href={`/${typeRoute}/${slug}/page/${node.slug}`}
-              passHref
+              aria-current={pageSlug === node.slug ? "page" : undefined}
             >
-              <NavMenuLink
-                as="a"
-                aria-current={pageSlug === node.slug ? "page" : undefined}
-              >
+              <NavMenuLink as="span">
                 <span className="t-label-sm">{node.title}</span>
               </NavMenuLink>
             </NamedLink>

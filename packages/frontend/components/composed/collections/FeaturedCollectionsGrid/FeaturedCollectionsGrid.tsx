@@ -34,13 +34,11 @@ export default function FeaturedCollectionsGrid({
             node.slug ? (
               <Styled.Item key={node.slug}>
                 <Styled.NamedLink href={`/collections/${node.slug}`}>
-                  <a>
-                    <FeaturedCollectionsGridImage data={node} />
-                    <span className="t-h3">{node.title}</span>
-                  </a>
+                  <FeaturedCollectionsGridImage data={node} />
+                  <span className="t-h3">{node.title}</span>
                 </Styled.NamedLink>
               </Styled.Item>
-            ) : null,
+            ) : null
           )}
         </Styled.List>
         {seeAllRoute && (

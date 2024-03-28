@@ -19,12 +19,8 @@ export default function VolumeSummary({ data, showReadMore }: Props) {
 
   return volume ? (
     <Styled.Wrapper>
-      <NamedLink
-        route="collection"
-        routeParams={{ slug: volume.slug }}
-        passHref
-      >
-        <Styled.ItemCoverLink>
+      <Styled.ItemCoverLink>
+        <NamedLink href={`/collections/${volume.slug}`}>
           <CoverImage
             id={volume.id}
             title={volume.title}
@@ -32,17 +28,13 @@ export default function VolumeSummary({ data, showReadMore }: Props) {
             maxWidth={120}
             maxHeight={160}
           />
-        </Styled.ItemCoverLink>
-      </NamedLink>
+        </NamedLink>
+      </Styled.ItemCoverLink>
       <div>
         <Styled.ItemTitleBlock>
           <h4>
-            <NamedLink
-              route="collection"
-              routeParams={{ slug: volume.slug }}
-              passHref
-            >
-              <Link>{volume.title}</Link>
+            <NamedLink href={`/collections/${volume.slug}`}>
+              <Link as="span">{volume.title}</Link>
             </NamedLink>
           </h4>
           {volume.subtitle && (
@@ -75,11 +67,7 @@ export default function VolumeSummary({ data, showReadMore }: Props) {
           </Styled.ItemSummary>
         )}
         {showReadMore && (
-          <NamedLink
-            route="collection"
-            routeParams={{ slug: volume.slug }}
-            passHref
-          >
+          <NamedLink href={`/collections/${volume.slug}`}>
             <Styled.ItemReadMore as={ReadMoreLink} />
           </NamedLink>
         )}

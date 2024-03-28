@@ -26,11 +26,13 @@ export default function CommunityName({ data }: Props) {
         <CommunityLogo data={community?.logo} slug={community?.slug} />
         <h4 className={hideName ? "a-hidden" : undefined}>
           <NamedLink
-            route="community"
-            routeParams={{ slug: community?.slug || "" }}
-            passHref
+            href={
+              community?.slug
+                ? `/communities/${community.slug}`
+                : "/communities"
+            }
           >
-            <Link>{community?.title}</Link>
+            <Link as="span">{community?.title}</Link>
           </NamedLink>
         </h4>
       </>
