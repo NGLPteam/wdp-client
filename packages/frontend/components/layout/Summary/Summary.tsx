@@ -1,4 +1,4 @@
-import { NamedLink, Link, ReadMoreLink, Markdown } from "components/atomic";
+import { NamedLink, ReadMoreLink, Markdown } from "components/atomic";
 import { PagesRouterLinkProps } from "components/atomic/links/NamedLink/NamedLink";
 import * as Styled from "./Summary.styles";
 
@@ -23,7 +23,7 @@ export default function Summary({
       {thumbnail && (
         <Styled.Thumbnail>
           {route ? (
-            <NamedLink route={route} routeParams={routeParams} passHref>
+            <NamedLink route={route} routeParams={routeParams}>
               <Styled.ThumbnailLink>{thumbnail}</Styled.ThumbnailLink>
             </NamedLink>
           ) : (
@@ -35,10 +35,12 @@ export default function Summary({
         <Styled.Headers>
           <h4>
             {route ? (
-              <NamedLink route={route} routeParams={routeParams} passHref>
-                <Link>
-                  <Markdown.Title>{title}</Markdown.Title>
-                </Link>
+              <NamedLink
+                route={route}
+                routeParams={routeParams}
+                className="default-link-styles"
+              >
+                <Markdown.Title>{title}</Markdown.Title>
               </NamedLink>
             ) : (
               <Markdown.Title>title</Markdown.Title>

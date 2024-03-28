@@ -39,12 +39,8 @@ export default function FeaturedJournals({ data }: Props) {
       </Styled.List>
       {slug && (
         <Styled.ButtonWrapper>
-          <NamedLink
-            route="community.collections.schema"
-            routeParams={{ slug, schema: "nglp:journal" }}
-            passHref
-          >
-            <Button as="a">{t("layouts.see_all_journals")}</Button>
+          <NamedLink href={`/communities/${slug}/collections/nglp:journal`}>
+            <Button as="div">{t("layouts.see_all_journals")}</Button>
           </NamedLink>
         </Styled.ButtonWrapper>
       )}

@@ -1,13 +1,11 @@
 "use client";
 
-import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { AppBodyCommunityFragment$key } from "@/relay/AppBodyCommunityFragment.graphql";
 import { AppBodyEntityFragment$key } from "@/relay/AppBodyEntityFragment.graphql";
 import AppHeader from "../AppHeader";
 import AppFooter from "../AppFooter";
-import AppProgressBar from "../AppProgressBar";
 import * as Styled from "./AppBody.styles";
 
 function AppBody({ children, communityData, entityData }: Props) {
@@ -17,7 +15,6 @@ function AppBody({ children, communityData, entityData }: Props) {
 
   return (
     <Styled.Body className="a-bg-neutral00">
-      <AppProgressBar />
       <AppHeader communityData={community} entityData={entity} />
       <Styled.Main id="main" tabIndex={-1}>
         {children}

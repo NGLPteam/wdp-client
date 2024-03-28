@@ -12,8 +12,8 @@ export default function FeaturedJournal({ data, coverHeight }: Props) {
   const { t } = useTranslation();
 
   return journal ? (
-    <NamedLink route="collection" routeParams={{ slug: journal.slug }} passHref>
-      <Styled.ItemWrapper as="a">
+    <NamedLink href={`/collections/${journal.slug}`}>
+      <Styled.ItemWrapper as="span">
         <Styled.ItemCover>
           <Styled.CoverWrapper>
             <CoverImage

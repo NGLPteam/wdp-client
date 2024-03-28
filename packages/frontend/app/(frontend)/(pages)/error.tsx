@@ -7,12 +7,16 @@ const Error = ({ error, reset }: { error: Error; reset: () => void }) => {
   return (
     <AppLayout>
       <div
-        className="l-container-max t-align-center t-rte"
-        style={{ paddingBlockStart: "10%", minHeight: "40vh" }}
+        className="l-container-max l-flex l-flex--align-center"
+        style={{ minHeight: "40vh" }}
       >
-        <h2>A server error occured!</h2>
-        <p>{error?.message}</p>
-        <Button onClick={reset}>Try Again</Button>
+        <div className="t-rte t-align-center">
+          <h2>A server error occured!</h2>
+          <p>{error?.message}</p>
+          <Button onClick={reset} size="sm">
+            Try Again
+          </Button>
+        </div>
       </div>
     </AppLayout>
   );

@@ -4,11 +4,13 @@ function Error404() {
   return (
     <AppLayout>
       <div
-        className="l-container-wide t-align-center t-rte"
-        style={{ paddingBlockStart: "10%", minHeight: "40vh" }}
+        className="l-container-wide l-flex l-flex--align-center"
+        style={{ minHeight: "40vh" }}
       >
-        <h2>404</h2>
-        <p>Page not found.</p>
+        <div className="t-rte t-align-center">
+          <h2>404</h2>
+          <p>Page not found.</p>
+        </div>
       </div>
     </AppLayout>
   );
