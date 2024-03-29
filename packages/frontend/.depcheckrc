@@ -12,6 +12,8 @@ ignores: [
    "helpers",
    "types",
    "hooks",
-   "routes"
+   "routes",
+
+   "@wdp/*"
 
 ]

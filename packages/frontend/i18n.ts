@@ -2,7 +2,7 @@ import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 import get from "lodash/get";
-import * as resources from "./locales";
+import * as resources from "@/lib/locales";
 
 export const updateI18n = (lang: string) => {
   i18n.language !== lang && i18n.changeLanguage(lang);

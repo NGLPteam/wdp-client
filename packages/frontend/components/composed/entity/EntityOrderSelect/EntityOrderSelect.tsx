@@ -4,7 +4,7 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useParams, useSearchParams } from "next/navigation";
 import { Button, Dropdown, Link, NamedLink } from "components/atomic";
-import { routeQueryArrayToString } from "routes";
+import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToString";
 import { EntityOrderSelectFragment$key } from "@/relay/EntityOrderSelectFragment.graphql";
 
 export default function EntityOrderSelect({ data }: Props) {

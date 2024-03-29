@@ -1,35 +1,26 @@
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
-import { useRouteSlug } from "@wdp/lib/routes";
+import { usePathname } from "next/navigation";
 import { useRouter, useSearchParams } from "next/navigation";
-import { RouteHelper } from "routes";
 import { IconFactory } from "components/factories";
 import * as Styled from "./SearchHero.styles";
 
 export default function SearchHero() {
   const { t } = useTranslation();
 
-  const slug = useRouteSlug();
-
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
 
   const { register, handleSubmit } = useForm({
     shouldUseNativeValidation: true,
   });
 
-  const searchRoute = RouteHelper.findRouteByName("search");
-  const communityRoute = RouteHelper.findRouteByName("community.search");
-
   const onSubmit = async (data: { q?: string }) => {
     const params = new URLSearchParams(searchParams);
     if (data.q) params.set("q", data.q);
 
-    const path = slug
-      ? communityRoute?.path.replace("[slug]", slug)
-      : searchRoute?.path;
-
-    router.push(`${path}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`);
   };
 
   return (
