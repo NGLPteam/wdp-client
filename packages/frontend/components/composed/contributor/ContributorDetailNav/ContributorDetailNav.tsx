@@ -20,7 +20,7 @@ export default function ContributorDetailNav({ data }: Props) {
   return entity && entity.slug && route ? (
     <nav className="a-bg-custom10">
       <Styled.NavInner className="l-container-wide">
-        <NamedLink href={`/${route}/${entity.slug}`} className="">
+        <NamedLink href={`/${route}/${entity.slug}`}>
           <BackButton as="div">
             {t("common.back_to_name", { name: entity.title })}
           </BackButton>

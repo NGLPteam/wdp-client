@@ -2,11 +2,9 @@
 
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToString";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { NamedLink } from "components/atomic";
-import { RouteHelper } from "routes";
 import SkipLink from "components/global/SkipLink";
 import {
   ArticleTabNavFragment$data,
@@ -21,34 +19,15 @@ export default function ArticleTabNav({ data, contentId }: Props) {
 
   const { t } = useTranslation();
 
-  const { slug, page } = useParams();
+  const { slug } = useParams();
+  const pathname = usePathname();
 
-  const checkIfActive = (routeName: string, pageSlug?: string) => {
-    const checkPage = !pageSlug || pageSlug === page;
-    // Checking against the parent route (item) needs to be strict.
-    // Child routes, such as files, can be fuzzy active.
-    const checkRoute =
-      routeName === "item" || pageSlug
-        ? RouteHelper.isRouteNameActive(routeName)
-        : RouteHelper.isRouteNameFuzzyActive(routeName);
-
-    return checkRoute && checkPage;
-  };
-
-  function getLink(route: string, label: string, pageSlug?: string) {
-    const isCurrent = checkIfActive(route, pageSlug);
+  function getLink(href: string, label: string) {
+    const isCurrent = pathname === href;
 
     return slug ? (
-      <Styled.Item key={route === "item.page" ? pageSlug : route}>
-        <NamedLink
-          route={route}
-          routeParams={
-            pageSlug
-              ? { slug: routeQueryArrayToString(slug), page: pageSlug }
-              : { slug: routeQueryArrayToString(slug) }
-          }
-          scroll={false}
-        >
+      <Styled.Item key={href}>
+        <NamedLink href={href} scroll={false}>
           <Styled.TabLink aria-current={isCurrent ? "page" : undefined}>
             {t(label)}
           </Styled.TabLink>
@@ -69,20 +48,20 @@ export default function ArticleTabNav({ data, contentId }: Props) {
       <SkipLink toId={contentId} label={t("nav.skip_to_content")} />
       <Styled.List>
         {getLink(
-          "item",
+          `/items/${slug}`,
           nav.schemaVersion?.identifier === "journal_article"
             ? "nav.article"
             : "nav.full_text",
         )}
-        {getLink("item.metadata", "nav.metadata")}
+        {getLink(`/items/${slug}/metadata`, "nav.metadata")}
         {nav.assets?.pageInfo.totalCount > 0 &&
-          getLink("item.files", "nav.files")}
+          getLink(`/items/${slug}/files`, "nav.files")}
         {nav.contributions?.pageInfo.totalCount > 0 &&
-          getLink("item.contributors", "nav.contributors")}
-        {getLink("item.metrics", "nav.metrics")}
+          getLink(`/items/${slug}/contributors`, "nav.contributors")}
+        {getLink(`/items/${slug}/metrics`, "nav.metrics")}
         {nav.pages && nav.pages.edges.length > 0
           ? nav.pages.edges.map(({ node }: Node) =>
-              getLink("item.page", node.title, node.slug),
+              getLink(`/items/${slug}/page/${node.slug}`, node.title),
             )
           : null}
       </Styled.List>

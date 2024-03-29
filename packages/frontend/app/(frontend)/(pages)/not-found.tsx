@@ -2,7 +2,7 @@ function Error404() {
   return (
     <div
       className="l-container-wide l-flex l-flex--align-center"
-      style={{ minHeight: "40vh" }}
+      style={{ minHeight: "40vh", justifyContent: "center" }}
     >
       <div className="t-rte t-align-center">
         <h2>404</h2>

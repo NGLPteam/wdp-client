@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { NamedLink, Button } from "components/atomic";
-import { PagesRouterLinkProps } from "components/atomic/links/NamedLink/NamedLink";
 import {
   FeaturedCollectionsGridFragment$data,
   FeaturedCollectionsGridFragment$key,
@@ -10,13 +9,10 @@ import {
 import FeaturedCollectionsGridImage from "./FeaturedCollectionsGridImage";
 import * as Styled from "./FeaturedCollectionsGrid.styles";
 
-type LinkProps = PagesRouterLinkProps;
-
 export default function FeaturedCollectionsGrid({
   data,
   header,
   seeAllRoute,
-  seeAllRouteParams,
   seeAllText,
 }: Props) {
   const collections = useMaybeFragment(fragment, data);
@@ -43,7 +39,7 @@ export default function FeaturedCollectionsGrid({
         </Styled.List>
         {seeAllRoute && (
           <Styled.ButtonWrapper>
-            <NamedLink route={seeAllRoute} routeParams={seeAllRouteParams}>
+            <NamedLink href={seeAllRoute}>
               <Button as="span">
                 {t(seeAllText || "layouts.see_all_collections")}
               </Button>
@@ -58,8 +54,7 @@ export default function FeaturedCollectionsGrid({
 interface Props {
   header?: string;
   data?: FeaturedCollectionsGridFragment$key | null;
-  seeAllRoute?: LinkProps["route"];
-  seeAllRouteParams?: LinkProps["routeParams"];
+  seeAllRoute?: string;
   seeAllText?: string;
 }
 

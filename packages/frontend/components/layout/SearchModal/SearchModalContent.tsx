@@ -18,6 +18,15 @@ export default function SearchModalContent({ searchData }: Props) {
           .filter((entity) => entity.crumb.__typename !== "Item")
       : null;
 
+  const defaultValue =
+    (searchData &&
+      searchData.__typename !== "Item" &&
+      JSON.stringify({
+        type: searchData.__typename,
+        slug: searchData.slug,
+      })) ||
+    undefined;
+
   return (
     (searchData || breadcrumbs) && (
       <Styled.SelectWrapper>
@@ -27,17 +36,13 @@ export default function SearchModalContent({ searchData }: Props) {
         >
           {t("search.search_area_label")}
         </Styled.SelectLabel>
-        <Select id={selectId} {...register("entity")}>
+        <Select
+          id={selectId}
+          defaultValue={defaultValue}
+          {...register("entity")}
+        >
           {searchData && searchData.__typename !== "Item" && (
-            <option
-              selected
-              value={JSON.stringify({
-                type: searchData.__typename,
-                slug: searchData.slug,
-              })}
-            >
-              {searchData.title}
-            </option>
+            <option value={defaultValue}>{searchData.title}</option>
           )}
           {breadcrumbs &&
             breadcrumbs.map(({ crumb: { __typename, slug, title } }) => (

@@ -35,15 +35,15 @@ export default function CommunityNavList({
       ? community.schemaRanks.map((schema) => (
           <NamedLink
             key={schema.slug}
-            route={
+            href={
               schema.kind === "COLLECTION"
-                ? "community.collections.schema"
-                : "community.items.schema"
+                ? `/communities/${
+                    community.slug
+                  }/collections/${encodeURIComponent(schema.slug)}`
+                : `/communities/${community.slug}/items/${encodeURIComponent(
+                    schema.slug,
+                  )}`
             }
-            routeParams={{
-              slug: community.slug,
-              schema: encodeURIComponent(schema.slug),
-            }}
           >
             <Link as="span">
               {t(getSchemaTranslationKey(schema.slug), { count: 2 })}

@@ -42,7 +42,7 @@ export default function BreadCrumbs({ data }: Props) {
           <Dropdown
             key={1}
             label={t("breadcrumbs_dropdown_label")}
-            disclosure={<button>...</button>}
+            disclosure={<span>...</span>}
             menuItems={breadcrumbs}
           />
           <Styled.Delimiter>/</Styled.Delimiter>
@@ -68,7 +68,7 @@ export default function BreadCrumbs({ data }: Props) {
               <Dropdown
                 key={1}
                 label={t("breadcrumbs_dropdown_label")}
-                disclosure={<button>...</button>}
+                disclosure={<span>...</span>}
                 menuItems={breadcrumbs.slice(1, breadcrumbs.length - 1)}
               />
               <Styled.Delimiter>/</Styled.Delimiter>

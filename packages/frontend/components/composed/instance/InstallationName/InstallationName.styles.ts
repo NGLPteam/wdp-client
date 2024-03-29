@@ -6,6 +6,7 @@ export const Link = styled.span`
   align-items: center;
   max-height: 40px;
   position: relative;
+  max-width: 100%;
 
   > * + * {
     margin-inline-start: ${pxToRem(12)};
@@ -18,4 +19,5 @@ export const Link = styled.span`
 
 export const Name = styled.div`
   line-height: 1.25em;
+  max-width: 100%;
 `;
