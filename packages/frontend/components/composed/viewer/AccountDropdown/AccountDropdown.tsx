@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useSignInOut } from "@wdp/lib/api/hooks/useIsAuthenticated";
-import { useViewerContext } from "contexts";
+import useViewerContext from "contexts/useViewerContext";
 import {
   Avatar,
   Dropdown,
