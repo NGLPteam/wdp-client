@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
@@ -16,11 +15,7 @@ export default function RelatedIssueBlock({ data }: Props) {
   return issue && issue.slug ? (
     <>
       <Styled.ItemCover>
-        <NamedLink
-          route={getRouteByEntityType(issue.__typename) || "home"}
-          routeParams={{ slug: issue.slug }}
-          passHref
-        >
+        <NamedLink href={route ? `/${route}/${issue.slug}` : "/"}>
           <Styled.ItemCoverLink>
             <CoverImage
               title={issue.title}
@@ -34,11 +29,8 @@ export default function RelatedIssueBlock({ data }: Props) {
       </Styled.ItemCover>
       <Styled.ItemText>
         <h4>
-          <NamedLink
-            href={route ? `/${route}/${issue.slug}` : "/home"}
-            passHref
-          >
-            <Link>{issue.title}</Link>
+          <NamedLink href={route ? `/${route}/${issue.slug}` : "/home"}>
+            <Link as="span">{issue.title}</Link>
           </NamedLink>
         </h4>
         {issue.subtitle && <Styled.Subtitle>{issue.subtitle}</Styled.Subtitle>}

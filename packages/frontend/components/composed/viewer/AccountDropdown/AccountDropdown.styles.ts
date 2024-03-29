@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const AccountButton = styled.button`
+export const AccountButton = styled.div`
   display: flex;
   align-items: center;
 `;

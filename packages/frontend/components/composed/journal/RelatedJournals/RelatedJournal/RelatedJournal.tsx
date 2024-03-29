@@ -1,4 +1,3 @@
-import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { formatDate } from "@wdp/lib/helpers";
@@ -16,7 +15,7 @@ export default function RelatedJournal({ data }: Props) {
   const route = getRouteByEntityType(journal?.__typename);
 
   return journal ? (
-    <NamedLink href={route ? `/${route}/${journal.slug}` : "/home"} passHref>
+    <NamedLink href={route ? `/${route}/${journal.slug}` : "/home"}>
       <Styled.Item>
         <Styled.ItemCover>
           <CoverImage

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
@@ -28,23 +28,17 @@ export default function PrevNextIssue({ data }: Props) {
   return issues ? (
     <Styled.Outer className="a-bg-custom10">
       <Styled.Inner className="l-container-wide l-flex l-flex--gap">
-        <NamedLink
-          route="collection"
-          routeParams={{ slug: item?.slug }}
-          passHref
-        >
+        <NamedLink href={`/collections/${item?.slug}`}>
           <PrevNextButton
+            as="span"
             iconLeft
             icon="arrowLeft"
             label={mobile.current ? t("nav.previous") : t("nav.previous_issue")}
           />
         </NamedLink>
-        <NamedLink
-          route="collection"
-          routeParams={{ slug: item?.slug }}
-          passHref
-        >
+        <NamedLink href={`/collections/${item?.slug}`}>
           <PrevNextButton
+            as="span"
             icon="arrowRight"
             label={mobile.current ? t("nav.next") : t("nav.next_issue")}
           />

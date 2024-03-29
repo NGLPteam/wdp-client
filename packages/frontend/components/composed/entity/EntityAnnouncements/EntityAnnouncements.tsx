@@ -27,9 +27,8 @@ export default function EntityAnnouncements({ data }: Props) {
             <h5 className="t-copy-medium">
               <NamedLink
                 href={`/collections/${slug}/announcements/${announcement.slug}`}
-                passHref
               >
-                <Link>{announcement.header}</Link>
+                <Link as="span">{announcement.header}</Link>
               </NamedLink>
             </h5>
             <Styled.AnnouncementBody className="t-rte">

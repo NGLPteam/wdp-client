@@ -15,8 +15,7 @@ export default function ArticleSummary({ data, showReadMore }: Props) {
       title={article.title}
       subtitle={article.subtitle}
       summary={article.summary}
-      route="item"
-      routeParams={{ slug: article.slug }}
+      href={`/items/${article.slug}`}
       metadata={
         <>
           {article.contributions && (

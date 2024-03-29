@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { RouteHelper } from "routes";
 import InstallationName from "components/composed/instance/InstallationName";
 import { Search } from "components/forms";
 import CommunityPicker from "components/composed/instance/CommunityPicker";
@@ -28,14 +27,11 @@ function AppFooter({ data }: Props) {
 
   const dialog = useDialogState({ modal: true });
 
-  function renderRoute(route: string, label?: string) {
-    const routeObj = RouteHelper.findRouteByName(route);
-    const routeLabel = label || routeObj?.label || "";
-
+  function renderRoute(href: string, label: string) {
     return (
-      <Styled.NavListItem key={route} className="t-copy-sm t-copy-light">
-        <NamedLink route={route}>
-          <LinkStyle as="span">{startCase(t(routeLabel))}</LinkStyle>
+      <Styled.NavListItem key={href} className="t-copy-sm t-copy-light">
+        <NamedLink href={href}>
+          <LinkStyle as="span">{startCase(t(label))}</LinkStyle>
         </NamedLink>
       </Styled.NavListItem>
     );
@@ -88,14 +84,16 @@ function AppFooter({ data }: Props) {
         <Styled.NavWrapper>
           <h5 className="t-label-lg">{t("nav.explore")}</h5>
           <Styled.NavList className="t-unstyled-list">
-            {renderRoute("home")}
+            {renderRoute("/", "nav.home")}
             {renderPlaceholderRoute("nav.about")}
-            {communityCount > 1 && renderRoute("communities")}
+            {communityCount > 1 &&
+              renderRoute("/communities", "nav.communities")}
             {renderPlaceholderRoute("nav.contact")}
             {renderPlaceholderRoute("nav.privacy")}
             {renderPlaceholderRoute("nav.terms")}
             {renderPlaceholderRoute("nav.accessibility")}
-            {renderRoute("admin")}
+            {process.env.NEXT_PUBLIC_ADMIN_URL &&
+              renderRoute(process.env.NEXT_PUBLIC_ADMIN_URL, "nav.admin")}
           </Styled.NavList>
         </Styled.NavWrapper>
         {footer?.copyrightStatement && (

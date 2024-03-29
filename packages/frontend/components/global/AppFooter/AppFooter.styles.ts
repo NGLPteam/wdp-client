@@ -138,7 +138,7 @@ export const InstallationDesktop = styled.div`
 `;
 
 export const InstallationDesktopName = styled.div`
-  ${FooterInner}:has(div[data-community-name-portal] > a) & {
+  ${FooterInner}:has(div[data-community-name-portal] > h4) & {
     display: block;
     ${globalNavRespond(`
       display: none;
@@ -149,7 +149,7 @@ export const InstallationDesktopName = styled.div`
 `;
 
 export const InstallationMobile = styled.div`
-  ${FooterInner}:has(div[data-community-name-portal] > a) & {
+  ${FooterInner}:has(div[data-community-name-portal] > h4) & {
     display: block;
     ${globalNavRespond(`display: none;`, "min")}
   }
