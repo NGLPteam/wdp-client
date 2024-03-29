@@ -15,8 +15,7 @@ export default function DissertationSummary({ data, showReadMore }: Props) {
       title={entity.title}
       subtitle={entity.subtitle}
       summary={entity.summary}
-      route="item"
-      routeParams={{ slug: entity.slug }}
+      href={`/items/${entity.slug}`}
       metadata={
         <>
           {entity.contributions && (

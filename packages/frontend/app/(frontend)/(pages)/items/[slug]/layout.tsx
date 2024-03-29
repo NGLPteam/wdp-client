@@ -6,6 +6,7 @@ import GoogleScholarMetaTags from "components/global/GoogleScholarMetaTags";
 import getStaticGoogleScholarData from "contexts/GlobalStaticContext/getStaticGoogleScholarData";
 import CommunityPickerPortal from "components/composed/instance/CommunityPicker/Portal";
 import CommunityNavListPortal from "components/composed/community/CommunityNavList/Portal";
+import CommunityNamePortal from "components/composed/community/CommunityName/Portal";
 import SearchModalPortal from "components/layout/SearchModal/Portal";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
@@ -35,6 +36,7 @@ export default async function ItemLayout({
       )}
       <CommunityPickerPortal data={item.community} />
       <CommunityNavListPortal data={item.community} />
+      <CommunityNamePortal data={item.community} />
       <SearchModalPortal data={item} />
       <EntityLayoutFactory data={item}>{children}</EntityLayoutFactory>
     </UpdateClientEnvironment>
@@ -50,6 +52,7 @@ const query = graphql`
       community {
         ...PortalCommunityPickerFragment
         ...PortalCommunityNavListFragment
+        ...PortalCommunityNameFragment
       }
     }
   }

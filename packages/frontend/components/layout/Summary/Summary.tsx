@@ -1,8 +1,5 @@
 import { NamedLink, ReadMoreLink, Markdown } from "components/atomic";
-import { PagesRouterLinkProps } from "components/atomic/links/NamedLink/NamedLink";
 import * as Styled from "./Summary.styles";
-
-type LinkProps = PagesRouterLinkProps;
 
 export default function Summary({
   title,
@@ -12,12 +9,8 @@ export default function Summary({
   thumbnail,
   thumbnailRight,
   href,
-  route,
-  routeParams = {},
   showReadMore,
 }: Props) {
-  const linkProps = href ? { href } : route ? { route, routeParams } : null;
-
   return (
     <Styled.Wrapper
       $thumbnailRight={thumbnailRight}
@@ -25,8 +18,8 @@ export default function Summary({
     >
       {thumbnail && (
         <Styled.Thumbnail>
-          {linkProps ? (
-            <NamedLink {...linkProps}>
+          {href ? (
+            <NamedLink href={href}>
               <Styled.ThumbnailLink>{thumbnail}</Styled.ThumbnailLink>
             </NamedLink>
           ) : (
@@ -37,8 +30,8 @@ export default function Summary({
       <Styled.Text>
         <Styled.Headers>
           <h4>
-            {linkProps ? (
-              <NamedLink {...linkProps} className="default-link-styles">
+            {href ? (
+              <NamedLink href={href} className="default-link-styles">
                 <Markdown.Title>{title}</Markdown.Title>
               </NamedLink>
             ) : (
@@ -57,8 +50,8 @@ export default function Summary({
             <Markdown.Summary>{summary}</Markdown.Summary>
           </Styled.Summary>
         )}
-        {showReadMore && linkProps && (
-          <NamedLink {...linkProps} passHref>
+        {showReadMore && href && (
+          <NamedLink href={href}>
             <Styled.ReadMore as={ReadMoreLink} />
           </NamedLink>
         )}
@@ -80,10 +73,6 @@ interface Props {
   thumbnail?: React.ReactNode;
   /** Position the thumbnail on the right */
   thumbnailRight?: boolean;
-  /** Link route */
-  route?: LinkProps["route"];
-  /** Link route params */
-  routeParams?: LinkProps["routeParams"];
   /** Show read more link */
   showReadMore?: boolean;
   href?: string;

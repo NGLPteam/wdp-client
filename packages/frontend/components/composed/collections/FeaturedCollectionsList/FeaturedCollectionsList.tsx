@@ -24,12 +24,8 @@ export default function FeaturedCollectionsList({ data, header }: Props) {
           <Styled.List as={ArrowList}>
             {collections.edges.map(({ node }: Node) => (
               <li key={node.slug}>
-                <NamedLink
-                  route="collection"
-                  routeParams={{ slug: node.slug }}
-                  passHref
-                >
-                  <Link>{node.title}</Link>
+                <NamedLink href={`/collections/${node.slug}`}>
+                  <Link as="span">{node.title}</Link>
                 </NamedLink>
               </li>
             ))}

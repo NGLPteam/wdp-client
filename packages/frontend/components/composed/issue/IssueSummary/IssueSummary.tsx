@@ -17,8 +17,7 @@ export default function IssueSummary({ data, showReadMore }: Props) {
 
   return issue ? (
     <Summary
-      route="collection"
-      routeParams={{ slug: issue.slug }}
+      href={`/collections/${issue.slug}`}
       title={formattedTitle}
       subtitle={issue.subtitle}
       summary={issue.summary}

@@ -38,7 +38,7 @@ export const List = styled.ul`
   ${respond(`grid-template-columns: 1fr;`, 50)}
 `;
 
-export const ItemLink = styled.a`
+export const ItemLink = styled.span`
   display: block;
 `;
 
@@ -49,7 +49,7 @@ export const ItemCover = styled.div`
   height: 280px;
 `;
 
-export const ItemCoverLink = styled.a`
+export const ItemCoverLink = styled.span`
   display: inline-block;
   width: 100%;
   max-width: 210px;

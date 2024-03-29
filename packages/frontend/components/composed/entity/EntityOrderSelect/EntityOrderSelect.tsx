@@ -50,12 +50,11 @@ export default function EntityOrderSelect({ data }: Props) {
             </Button>
           }
           menuItems={orderings.edges.map(({ node }) => (
-            <NamedLink
-              key={node.identifier}
-              href={getHref(node.identifier)}
-              passHref
-            >
-              <Link active={selectedOrder?.node.identifier === node.identifier}>
+            <NamedLink key={node.identifier} href={getHref(node.identifier)}>
+              <Link
+                as="span"
+                active={selectedOrder?.node.identifier === node.identifier}
+              >
                 {node.name}
               </Link>
             </NamedLink>
@@ -66,9 +65,8 @@ export default function EntityOrderSelect({ data }: Props) {
         <NamedLink
           key={orderings.edges[0].node.identifier}
           href={getHref(orderings.edges[0].node.identifier)}
-          passHref
         >
-          <Button size="sm" type="button" secondary as="a" isBlock>
+          <Button size="sm" type="button" secondary as="span" isBlock>
             {orderings.edges[0].node.name}
           </Button>
         </NamedLink>

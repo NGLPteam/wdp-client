@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { useSignInOut } from "@wdp/lib/api/hooks/useIsAuthenticated";
 import { useViewerContext } from "contexts";
@@ -19,10 +18,16 @@ export default function AccountDropdown({ condensed, mobile }: Props) {
 
   const signInOutClass = mobile ? "t-label-lg" : "t-label-sm";
 
+  const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL;
+
   const menuItems = [
-    <NamedLink key={1} route="admin" passHref>
-      <Link>{t("nav.admin")}</Link>
-    </NamedLink>,
+    ...(adminUrl
+      ? [
+          <NamedLink key={1} href={adminUrl}>
+            <Link>{t("nav.admin")}</Link>
+          </NamedLink>,
+        ]
+      : []),
     <Link as="button" key={2} onClick={handleSignInOut}>
       {t("common.sign_out")}
     </Link>,

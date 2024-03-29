@@ -1,4 +1,3 @@
-import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useRouteSlug } from "@wdp/lib/routes";
 import { graphql } from "react-relay";

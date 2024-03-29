@@ -1,4 +1,3 @@
-import React from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
@@ -30,12 +29,8 @@ export default function FeaturedUnitsList({ data }: Props) {
             {collections.entities.map((node: Node) =>
               node.slug ? (
                 <Styled.UnitsListItem key={node.slug}>
-                  <NamedLink
-                    route="collection"
-                    routeParams={{ slug: node.slug }}
-                    passHref
-                  >
-                    <Link>{node.title}</Link>
+                  <NamedLink href={`/collections/${node.slug}`}>
+                    <Link as="span">{node.title}</Link>
                   </NamedLink>
                 </Styled.UnitsListItem>
               ) : null,

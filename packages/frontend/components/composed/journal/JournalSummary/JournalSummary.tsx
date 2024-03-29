@@ -15,8 +15,7 @@ export default function JournalSummary({ data, showReadMore }: Props) {
 
   return journal ? (
     <Summary
-      route="collection"
-      routeParams={{ slug: journal.slug }}
+      href={`/collections/${journal.slug}`}
       title={journal.title}
       subtitle={journal.subtitle}
       summary={journal.summary}

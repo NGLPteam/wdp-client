@@ -35,8 +35,8 @@ export default function RelatedJournals({ data }: Props) {
         </Styled.List>
         <Styled.ButtonWrapper>
           {/* slug && (
-            <NamedLink route="collection" routeParams={{ slug }} passHref>
-              <Button as="a">
+            <NamedLink href={`/collections/${slug}`}>
+              <Button as="span">
                 <span className="t-capitalize">
                   {t("layouts.see_all_journals")}
                 </span>
