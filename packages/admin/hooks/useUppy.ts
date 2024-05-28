@@ -71,6 +71,11 @@ function buildUppyInstance({ headers }: BuildOptions): UppyInstance {
     endpoint: TUS_URL,
     chunkSize: CHUNK_SIZE,
     headers,
+    // We can't use fingerprinting / resuming with the DigitalOcean app platform.
+    // Chunked uploads will still work fine, but the system uses Cloudflare and
+    // mangles HEAD requests into GET requests
+    storeFingerprintForResuming: false,
+    removeFingerprintOnSuccess: true,
   });
 
   return uppy;
