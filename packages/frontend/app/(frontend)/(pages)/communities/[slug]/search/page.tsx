@@ -21,7 +21,7 @@ export default async function CommunitySearchPage({
     slug,
     ...(q && { query: q }),
     predicates: filters ? routeQueryArrayToString(filters) : [],
-    page: page ?? 1,
+    page: page ? parseInt(page) : 1,
     order: order ?? "PUBLISHED_ASCENDING",
     schema: schema ? normalizeRouteQueryArray(schema) : [],
   });

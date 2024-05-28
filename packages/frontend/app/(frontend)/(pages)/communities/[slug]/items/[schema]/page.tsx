@@ -26,7 +26,7 @@ export default async function CommunityItemsPage({
 
   const { data, records } = await fetchQuery<Query>(query, {
     slug,
-    page: page ?? 1,
+    page: page ? parseInt(page) : 1,
     order: order ?? "PUBLISHED_ASCENDING",
     schema,
     schemaSlug: schema,
