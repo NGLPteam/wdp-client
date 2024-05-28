@@ -18,6 +18,16 @@ const images = {
       port: "",
     },
     {
+      protocol: "https",
+      hostname: "**.meru.host",
+      port: "",
+    },
+    {
+      protocol: "https",
+      hostname: "**.digitaloceanspaces.com",
+      port: "",
+    },
+    {
       protocol: "http",
       hostname: "localhost",
       port: "6007",
