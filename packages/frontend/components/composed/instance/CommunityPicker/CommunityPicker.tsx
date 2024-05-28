@@ -19,7 +19,7 @@ export default function CommunityPicker({ data }: Props) {
     <NamedLink
       href={
         menuItems[0].node.slug
-          ? `/commmunities/${menuItems[0].node.slug}`
+          ? `/communities/${menuItems[0].node.slug}`
           : "/communities"
       }
     >
