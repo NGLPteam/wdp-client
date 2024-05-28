@@ -12,6 +12,8 @@ interface KeycloakRef {
   current?: KeycloakInstance;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
+
 export default function buildEnvironment(
   keycloakRef?: KeycloakRef,
   records?: RecordMap,
@@ -23,7 +25,7 @@ export default function buildEnvironment(
 
   const network = new RelayNetworkLayer([
     urlMiddleware({
-      url: process.env.NEXT_PUBLIC_API_URL || "",
+      url: API_URL,
       headers: isAdmin ? { "X-Analytics-Context": "admin" } : {},
     }),
     authMiddleware({

@@ -8,6 +8,8 @@ import useLazyRef from "./useLazyRef";
 
 const CHUNK_SIZE = 5 * 1024 * 1024; // 5 megabytes, the max amount S3 supports for multipart uploading
 
+const TUS_URL = process.env.NEXT_PUBLIC_TUS_URL || "";
+
 export default function useUppy(): Uppy.Uppy<"strict"> {
   const id = useId();
 
@@ -66,7 +68,7 @@ function buildUppyInstance({ headers }: BuildOptions): UppyInstance {
       maxNumberOfFiles: 1,
     },
   }).use(Tus, {
-    endpoint: process.env.NEXT_PUBLIC_TUS_URL,
+    endpoint: TUS_URL,
     chunkSize: CHUNK_SIZE,
     headers,
   });
