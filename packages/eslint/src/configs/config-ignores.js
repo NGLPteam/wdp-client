@@ -9,5 +9,6 @@ module.exports = {
     "**/.graphqlrc.ts",
     "**/graphql-schema.d.ts",
     "**/.stylelintrc.js",
+    "**/*.xml.ts",
   ],
 };
