@@ -1,0 +1,9 @@
+*.swp
+.env.development
+.env.local
+node_modules
+packages/**/node_modules
+packages/**/.next
+packages/**/.env
+packages/**/.env.development
+packages/**/.env.local
