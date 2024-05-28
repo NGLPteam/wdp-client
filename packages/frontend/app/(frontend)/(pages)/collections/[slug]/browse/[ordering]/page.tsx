@@ -33,6 +33,8 @@ export default async function CollectionBrowsePage({
   );
 }
 
+export const dynamic = "force-dynamic";
+
 const query = graphql`
   query pageBrowseCollectionQuery($slug: Slug!) {
     collection(slug: $slug) {
