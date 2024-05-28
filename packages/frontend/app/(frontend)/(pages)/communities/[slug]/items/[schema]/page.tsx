@@ -53,6 +53,8 @@ export default async function CommunityItemsPage({
   );
 }
 
+export const dynamic = "force-dynamic";
+
 const query = graphql`
   query pageCommunityItemsQuery(
     $slug: Slug!

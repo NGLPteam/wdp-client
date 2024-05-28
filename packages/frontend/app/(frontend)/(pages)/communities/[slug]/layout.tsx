@@ -33,6 +33,8 @@ export default async function CommunityLayout({
   );
 }
 
+export const dynamic = "force-dynamic";
+
 const query = graphql`
   query layoutCommunityQuery($slug: Slug!) {
     community(slug: $slug) {

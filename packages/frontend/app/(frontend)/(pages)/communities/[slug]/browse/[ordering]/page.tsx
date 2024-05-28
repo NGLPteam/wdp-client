@@ -33,6 +33,8 @@ export default async function CommunityBrowsePage({
   );
 }
 
+export const dynamic = "force-dynamic";
+
 const query = graphql`
   query pageBrowseCommunityQuery($slug: Slug!) {
     community(slug: $slug) {

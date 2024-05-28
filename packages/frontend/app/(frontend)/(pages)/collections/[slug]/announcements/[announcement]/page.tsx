@@ -31,6 +31,8 @@ export default async function CollectionAnnouncementPage({
   );
 }
 
+export const dynamic = "force-dynamic";
+
 const query = graphql`
   query pageCollectionAnnouncementQuery(
     $slug: Slug!

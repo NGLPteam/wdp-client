@@ -29,6 +29,8 @@ export default async function CollectionPagePage({ params }: BasePageParams) {
   );
 }
 
+export const dynamic = "force-dynamic";
+
 const query = graphql`
   query pageCollectionPageQuery($slug: Slug!, $pageSlug: String!) {
     collection(slug: $slug) {
