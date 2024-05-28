@@ -34,6 +34,8 @@ export default async function CollectionLayout({
   );
 }
 
+export const dynamic = "force-dynamic";
+
 const query = graphql`
   query layoutCollectionQuery($slug: Slug!) {
     collection(slug: $slug) {

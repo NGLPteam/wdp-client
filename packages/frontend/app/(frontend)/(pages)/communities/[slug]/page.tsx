@@ -24,6 +24,8 @@ export default async function CommunityPage({ params }: BasePageParams) {
   );
 }
 
+export const dynamic = "force-dynamic";
+
 const query = graphql`
   query pageCommunityQuery($slug: Slug!) {
     community(slug: $slug) {

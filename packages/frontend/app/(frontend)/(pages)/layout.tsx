@@ -32,6 +32,8 @@ export default async function PageLayout({ children }: PropsWithChildren) {
   );
 }
 
+export const dynamic = "force-dynamic";
+
 const query = graphql`
   query layoutAllPagesQuery {
     ...AppBodyFragment

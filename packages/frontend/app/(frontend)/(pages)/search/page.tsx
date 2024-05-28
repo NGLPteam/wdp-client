@@ -35,6 +35,8 @@ export default async function SearchPage({
   );
 }
 
+export const dynamic = "force-dynamic";
+
 const query = graphql`
   query pageSearchQuery(
     $query: String
