@@ -12,9 +12,10 @@ import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 export default async function CollectionPage({ params }: BasePageParams) {
   const { slug } = params;
 
-  const { data, records } = await fetchQuery<Query>(query, {
-    slug,
-  });
+  const { data, records } =
+    (await fetchQuery<Query>(query, {
+      slug,
+    })) ?? {};
 
   const { collection } = data ?? {};
 
