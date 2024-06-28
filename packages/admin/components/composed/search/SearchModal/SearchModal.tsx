@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useEffect, useImperativeHandle, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { DialogDisclosure, useDialogState } from "reakit/Dialog";
@@ -18,18 +18,25 @@ export default function SearchModal({
   routeName,
   className,
 }: Props) {
+  const inputRef = useRef<HTMLInputElement>(null);
   const { register, handleSubmit, reset } = useForm();
   const dialog = useDialogState({ visible: false, animated: true });
   const router = useRouter();
   const { t } = useTranslation();
+  const { ref, ...rest } = register("q");
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  useImperativeHandle(ref, () => inputRef.current);
 
   const route = routeName ? RouteHelper.findRouteByName(routeName) : null;
 
   const defaultValue = clearOnSubmit ? "" : router.query?.q || "";
 
   const onSubmit = (data: Record<string, string>) => {
+    console.debug({
+      data,
+      pathname: route?.path || router.pathname,
+      query: { ...router.query, q: data.q },
+    });
     dialog.hide();
     router.push({
       pathname: route?.path || router.pathname,
@@ -58,7 +65,7 @@ export default function SearchModal({
               type="search"
               placeholder={t("forms.fields.search_placeholder")}
               defaultValue={defaultValue}
-              {...register("q")}
+              {...rest}
               ref={inputRef}
             />
             <Styled.SubmitButton onClick={handleSubmit(onSubmit)}>
