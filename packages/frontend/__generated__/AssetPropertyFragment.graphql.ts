@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<44caef0d6c6707d2c4c6e5accd827ae1>>
+ * @generated SignedSource<<247e0bb6f36d7758eb654821945c1ab9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,10 +9,12 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type AssetKind = "audio" | "document" | "image" | "pdf" | "unknown" | "video" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type AssetPropertyFragment$data = {
   readonly asset: {
     readonly downloadUrl?: string | null | undefined;
+    readonly kind?: AssetKind;
     readonly name?: string;
   } | null | undefined;
   readonly fullPath: string;
@@ -66,6 +68,13 @@ const node: ReaderFragment = {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
+              "name": "kind",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
               "name": "downloadUrl",
               "storageKey": null
             }
@@ -81,6 +90,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "f2875a1a266173bb3aa59e686a3a5446";
+(node as any).hash = "4575480e81464d144ad160525a1f892e";
 
 export default node;

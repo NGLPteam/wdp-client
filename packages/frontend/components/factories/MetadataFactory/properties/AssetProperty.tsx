@@ -5,17 +5,29 @@ import { DownloadLink } from "components/atomic";
 import { MetadataProperty } from "components/layout";
 import { AssetPropertyFragment$key } from "@/relay/AssetPropertyFragment.graphql";
 
-export default function AssetProperty({ data, label, showPlaceholder }: Props) {
+export default function AssetProperty({
+  data,
+  showPlaceholder,
+  ...props
+}: Props) {
   const property = useMaybeFragment(fragment, data);
 
-  const hasLabel = label ?? property?.label;
+  const label = props.label ?? property?.label;
 
-  return hasLabel && (property?.asset || showPlaceholder) ? (
-    <MetadataProperty label={hasLabel}>
+  const filename =
+    property?.asset?.name && property.asset.kind === "pdf"
+      ? `${property.asset.name.toLowerCase().replace(" ", "_")}.pdf`
+      : undefined;
+
+  console.debug({ property });
+
+  return label && (property?.asset || showPlaceholder) ? (
+    <MetadataProperty label={label}>
       {property?.asset?.name && (
         <DownloadLink
           href={property.asset.downloadUrl || ""}
           className="t-copy"
+          filename={filename}
         >
           {property.asset.name}
         </DownloadLink>
@@ -37,6 +49,7 @@ const fragment = graphql`
     asset {
       ... on Asset {
         name
+        kind
         downloadUrl
       }
     }
