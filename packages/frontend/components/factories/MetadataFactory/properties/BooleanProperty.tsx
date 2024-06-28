@@ -4,10 +4,14 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { MetadataProperty } from "components/layout";
 import { BooleanPropertyFragment$key } from "@/relay/BooleanPropertyFragment.graphql";
 
-export default function BooleanProperty({ data, label }: Props) {
+export default function BooleanProperty({ data, label, showIfFalse }: Props) {
   const property = useMaybeFragment(fragment, data);
 
-  return property ? (
+  if (!property) return null;
+
+  const showProperty = showIfFalse ? !!property : property.checked;
+
+  return showProperty ? (
     <MetadataProperty label={label || property.label}>
       {property.checked ? "Yes" : "No"}
     </MetadataProperty>
@@ -17,6 +21,7 @@ export default function BooleanProperty({ data, label }: Props) {
 interface Props {
   data?: BooleanPropertyFragment$key | null;
   label?: string;
+  showIfFalse?: boolean;
 }
 
 const fragment = graphql`

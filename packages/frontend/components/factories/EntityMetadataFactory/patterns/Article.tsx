@@ -68,7 +68,7 @@ export default function ArticleMetadata({ data }: Props) {
       />
       <MetadataFactory
         label={t("metadata.preprint_version")}
-        data={article.pdfVersion}
+        data={article.prePrintVersion}
       />
       <MetadataFactory
         label={t("metadata.online_version")}
@@ -114,14 +114,13 @@ const fragment = graphql`
     pageCountMeta: schemaProperty(fullPath: "meta.page_count") {
       ...MetadataFactoryFragment
     }
-
     pdfVersion: schemaProperty(fullPath: "pdf_version") {
       ...MetadataFactoryFragment
     }
     onlineVersion: schemaProperty(fullPath: "online_version") {
       ...MetadataFactoryFragment
     }
-    preprintVersion: schemaProperty(fullPath: "preprint_version") {
+    prePrintVersion: schemaProperty(fullPath: "preprint_version") {
       ...MetadataFactoryFragment
     }
 

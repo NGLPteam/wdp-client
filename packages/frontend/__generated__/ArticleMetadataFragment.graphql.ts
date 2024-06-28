@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<37302b374672113627b790e93155873a>>
+ * @generated SignedSource<<0f871b321eb4697a8f95efe686197143>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -40,7 +40,7 @@ export type ArticleMetadataFragment$data = {
   readonly pdfVersion: {
     readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
   } | null | undefined;
-  readonly preprintVersion: {
+  readonly prePrintVersion: {
     readonly " $fragmentSpreads": FragmentRefs<"MetadataFactoryFragment">;
   } | null | undefined;
   readonly published: {
@@ -277,7 +277,7 @@ return {
       "storageKey": "schemaProperty(fullPath:\"online_version\")"
     },
     {
-      "alias": "preprintVersion",
+      "alias": "prePrintVersion",
       "args": [
         {
           "kind": "Literal",
@@ -319,6 +319,6 @@ return {
 };
 })();
 
-(node as any).hash = "4a9264fa2bf922b086bed948577423c0";
+(node as any).hash = "3c31e4a684140636060e9aa1456a365a";
 
 export default node;
