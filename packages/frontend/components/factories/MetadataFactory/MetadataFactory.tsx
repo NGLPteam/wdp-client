@@ -38,7 +38,13 @@ export default function MetadataFactory({
         />
       );
     case "BooleanProperty":
-      return <BooleanProperty data={field} label={label} />;
+      return (
+        <BooleanProperty
+          data={field}
+          label={label}
+          showIfFalse={showPlaceholder}
+        />
+      );
     case "DateProperty":
       return (
         <DateProperty
