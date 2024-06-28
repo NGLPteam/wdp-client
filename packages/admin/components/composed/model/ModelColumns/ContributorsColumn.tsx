@@ -4,6 +4,7 @@ import { NamedLink } from "components/atomic";
 import { getContributorDisplayName } from "components/composed/contributor/ContributorDisplayName";
 import { ContributorsColumnFragment$key } from "@/relay/ContributorsColumnFragment.graphql";
 import { UpdatableNode, PartialColumnish } from "./types";
+import { getAccessorProps, hasFragments } from "./helpers";
 import type { ColumnDef } from "@tanstack/react-table";
 
 function ContributorsColumnCell({
@@ -35,6 +36,7 @@ function ContributorsColumnCell({
         routeParams={{ slug: fragmentData.slug }}
         passHref
       >
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a className="a-link">{getColumnString()}</a>
       </NamedLink>
     ) : (
@@ -44,18 +46,27 @@ function ContributorsColumnCell({
 }
 
 const ContributorsColumn = <
-  NodeType extends UpdatableNode & ContributorsColumnFragment$key,
+  T extends UpdatableNode & ContributorsColumnFragment$key,
 >(
-  props: PartialColumnish<NodeType> = {},
-): ColumnDef<NodeType> => {
+  props: PartialColumnish<T> = {},
+): ColumnDef<T> => {
   const { t } = useTranslation();
+  const { accessorKey, accessorFn } = getAccessorProps<T>(props);
 
   return {
     header: () => <>{t("lists.contributors_column")}</>,
     id: "contributions",
     enableSorting: false,
-    accessorKey: "contributions",
-    cell: ({ row }) => <ContributorsColumnCell data={row.original} />,
+    ...(accessorFn
+      ? { accessorFn }
+      : { accessorKey: accessorKey || "contributions" }),
+    cell: ({ getValue }) => {
+      const value = getValue<T>();
+
+      return hasFragments(value) ? (
+        <ContributorsColumnCell data={value} />
+      ) : null;
+    },
     ...props,
   };
 };

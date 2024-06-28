@@ -1,11 +1,13 @@
 import { useTranslation } from "react-i18next";
 import { PartialColumnish, SchemaVersionableNode } from "./types";
+import { getAccessorProps } from "./helpers";
 import type { ColumnDef } from "@tanstack/react-table";
 
-const SchemaColumn = <NodeType extends Partial<SchemaVersionableNode>>(
-  props: PartialColumnish<NodeType> = {},
-): ColumnDef<NodeType> => {
+const SchemaColumn = <T extends Partial<SchemaVersionableNode>>(
+  props: PartialColumnish<T> = {},
+): ColumnDef<T> => {
   const { t } = useTranslation();
+  const { accessorKey } = getAccessorProps<T>(props);
 
   return {
     header: () => <>{t("lists.schema_column")}</>,
@@ -13,9 +15,13 @@ const SchemaColumn = <NodeType extends Partial<SchemaVersionableNode>>(
     meta: {
       className: "t-truncate",
     },
-    accessorFn: (originalRow: NodeType) => {
-      return `${originalRow?.schemaVersion?.name}`;
-    },
+    ...(accessorKey
+      ? { accessorKey }
+      : {
+          accessorFn: (originalRow: T) => {
+            return `${originalRow?.schemaVersion?.name}`;
+          },
+        }),
     ...props,
   };
 };

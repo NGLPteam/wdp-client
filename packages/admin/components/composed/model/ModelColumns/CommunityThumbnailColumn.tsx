@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { NamedLink, Image } from "components/atomic";
 import { CommunityThumbnailColumnFragment$key } from "@/relay/CommunityThumbnailColumnFragment.graphql";
 import { PartialColumnish, Node } from "./types";
+import { getAccessorProps, hasFragments } from "./helpers";
 import type { ColumnDef } from "@tanstack/react-table";
 
 type Props<T extends Node> = PartialColumnish<T>;
@@ -13,6 +14,7 @@ const CommunityThumbnailColumn = <T extends Node>(
   props: Props<T> = {},
 ): ColumnDef<T> => {
   const { t } = useTranslation();
+  const { accessorKey } = getAccessorProps<T>(props);
 
   return {
     header: () => (
@@ -20,13 +22,18 @@ const CommunityThumbnailColumn = <T extends Node>(
     ),
     id: "thumbnail",
     // By default, the thumbnail fragment should be on the row root
-    accessorFn: (originalRow: T | Row) => originalRow,
+    ...(accessorKey
+      ? { accessorKey }
+      : { accessorFn: (originalRow: T | Row) => originalRow }),
     meta: {
       cellType: "thumbnail",
     },
     enableSorting: false,
     cell: ({ row: _row, getValue }) => {
-      const value = getValue() as CommunityThumbnailColumnFragment$key;
+      const value = getValue<Row>();
+
+      if (!hasFragments(value)) return <></>;
+
       const community = readInlineData(fragment, value);
 
       const logo = community.logo?.storage ? community.logo.original : null;
@@ -43,6 +50,7 @@ const CommunityThumbnailColumn = <T extends Node>(
           routeParams={{ slug: community.slug || "" }}
           passHref
         >
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a>
             {logo ? (
               <Image

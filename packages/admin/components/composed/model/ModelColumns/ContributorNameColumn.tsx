@@ -4,6 +4,7 @@ import { Avatar, NamedLink } from "components/atomic";
 import { getContributorDisplayName } from "components/composed/contributor/ContributorDisplayName";
 import { ContributorNameColumnFragment$key } from "@/relay/ContributorNameColumnFragment.graphql";
 import { PartialColumnish, Node } from "./types";
+import { getAccessorProps, hasFragments } from "./helpers";
 import type { ColumnDef } from "@tanstack/react-table";
 
 type Props<T extends Node> = PartialColumnish<T>;
@@ -14,16 +15,22 @@ const ContributorNameColumn = <T extends Node>(
   props: Props<T> = {},
 ): ColumnDef<T> => {
   const { t } = useTranslation();
+  const { accessorKey } = getAccessorProps<T>(props);
 
   return {
     header: () => <span>{t("lists.name_column")}</span>,
     id: "name",
-    accessorFn: (originalRow: T | Row) => originalRow,
+    ...(accessorKey
+      ? { accessorKey }
+      : { accessorFn: (originalRow: T | Row) => originalRow }),
     meta: {
       cellType: "name",
     },
     cell: ({ getValue }) => {
-      const value = getValue() as ContributorNameColumnFragment$key;
+      const value = getValue<Row>();
+
+      if (!hasFragments(value)) return <></>;
+
       const contributor = readInlineData(fragment, value);
       const lastNameFirst = false; // get(state, "sortBy[0].id", "") === "name";
 

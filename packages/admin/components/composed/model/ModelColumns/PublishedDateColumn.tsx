@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { PrecisionDate } from "components/atomic";
 import { PublishedDateColumnFragment$key } from "@/relay/PublishedDateColumnFragment.graphql";
 import { PartialColumnish, Node } from "./types";
+import { getAccessorProps, hasFragments } from "./helpers";
 import type { ColumnDef } from "@tanstack/react-table";
 
 type Props<T extends Node> = PartialColumnish<T>;
@@ -13,13 +14,19 @@ const PublishedDateColumn = <T extends Node>(
   props: Props<T> = {},
 ): ColumnDef<T> => {
   const { t } = useTranslation();
+  const { accessorKey } = getAccessorProps<T>(props);
 
   return {
     header: () => <span>{t("lists.published_column")}</span>,
     id: "published",
-    accessorFn: (originalRow: T | Row) => originalRow,
+    ...(accessorKey
+      ? { accessorKey }
+      : { accessorFn: (originalRow: T | Row) => originalRow }),
     cell: ({ getValue }) => {
-      const value = getValue() as PublishedDateColumnFragment$key;
+      const value = getValue<Row>();
+
+      if (!hasFragments(value)) return <></>;
+
       const entity = readInlineData(fragment, value);
 
       return entity ? <PrecisionDate data={entity.published} /> : null;

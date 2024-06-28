@@ -36,7 +36,7 @@ function FileList({ data, headerStyle, hideHeader }: FileListProps) {
       header: () => <>{t("lists.kind_column")}</>,
       id: "kind",
       cell: ({ getValue }) => {
-        const value = getValue() as string;
+        const value = getValue<string>();
 
         return (
           <div className={value === "pdf" ? "t-uppercase" : "t-capitalize"}>

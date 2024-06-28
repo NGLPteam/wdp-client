@@ -1,5 +1,6 @@
 import get from "lodash/get";
 import { PartialColumnish, Node } from "./types";
+import { getAccessorProps } from "./helpers";
 import type { ColumnDef } from "@tanstack/react-table";
 
 type Props<T extends Node> = PartialColumnish<T> & {
@@ -13,10 +14,14 @@ const StringColumn = <T extends Node>({
   id,
   ...props
 }: Props<T>): ColumnDef<T> => {
+  const { accessorKey } = getAccessorProps<T>(props);
+
   return {
     header,
     id,
-    accessorFn: (originalRow: T) => get(originalRow, id),
+    ...(accessorKey
+      ? { accessorKey }
+      : { accessorFn: (originalRow: T) => get(originalRow, id) }),
     enableSorting: false,
     ...props,
   };

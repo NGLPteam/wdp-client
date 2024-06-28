@@ -12,17 +12,11 @@ type NameColumnType<T extends Node> = Partial<ColumnDef<T>> & {
 };
 
 // disableSortBy is getting replaced with enableSorting
-const NameColumn = <NodeType extends Node>(
-  {
-    route,
-    cellType,
-    className,
-    accessor,
-    ...props
-  }: NameColumnType<NodeType> = {
+const NameColumn = <T extends Node>(
+  { route, cellType, className, accessor, ...props }: NameColumnType<T> = {
     cellType: "name",
   },
-): ColumnDef<NodeType> => {
+): ColumnDef<T> => {
   const { t } = useTranslation();
 
   const accessorKey = typeof accessor === "string" ? accessor : undefined;
@@ -31,18 +25,18 @@ const NameColumn = <NodeType extends Node>(
   return {
     header: t("lists.name_column"),
     id: "name",
-    accessorKey,
-    accessorFn,
+    ...(accessorKey ? { accessorKey } : { accessorFn }),
     meta: {
       cellType,
       className,
     },
     cell: (info) => {
       const slug = info.row?.original?.slug;
-      const value = info.getValue() as string;
+      const value = info.getValue<string>();
 
       return route && slug ? (
         <NamedLink route={route} routeParams={{ slug }} passHref>
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a className="t-weight-md a-link">{value}</a>
         </NamedLink>
       ) : (
