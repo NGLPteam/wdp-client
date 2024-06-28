@@ -24,3 +24,8 @@ export type RequiredColumnish<T extends Node> = ColumnDef<T>;
 
 // Use if the column is self sufficient
 export type PartialColumnish<T extends Node> = Partial<ColumnDef<T>>;
+// & {
+//   accessorKey?: string | keyof T;
+//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//   accessorFn?: AccessorFn<T, any>;
+// }

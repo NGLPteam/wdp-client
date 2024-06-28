@@ -44,7 +44,7 @@ function ItemContributionList({
       return row?.item?.title;
     },
     cell: ({ row, getValue }: CellContext<ItemContributionNode, unknown>) => {
-      const value = getValue() as string;
+      const value = getValue<string>();
       return (
         <NamedLink
           route="item"

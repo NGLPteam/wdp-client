@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { NamedLink } from "components/atomic";
 import { CommunityNameColumnFragment$key } from "@/relay/CommunityNameColumnFragment.graphql";
 import { PartialColumnish, Node } from "./types";
+import { getAccessorProps, hasFragments } from "./helpers";
 import type { ColumnDef } from "@tanstack/react-table";
 
 type Props<T extends Node> = PartialColumnish<T>;
@@ -13,17 +14,23 @@ const CommunityNameColumn = <T extends Node>(
   props: Props<T> = {},
 ): ColumnDef<T> => {
   const { t } = useTranslation();
+  const { accessorKey } = getAccessorProps<T>(props);
 
   return {
     header: () => <span>{t("lists.name_column")}</span>,
     id: "title",
     // By default, the thumbnail fragment should be on the row root
-    accessorFn: (originalRow: T | Row) => originalRow,
+    ...(accessorKey
+      ? { accessorKey }
+      : { accessorFn: (originalRow: T | Row) => originalRow }),
     meta: {
       cellType: "name",
     },
     cell: (info) => {
-      const value = info.getValue() as CommunityNameColumnFragment$key;
+      const value = info.getValue<Row>();
+
+      if (!hasFragments(value)) return <></>;
+
       const community = readInlineData(fragment, value);
 
       return community ? (

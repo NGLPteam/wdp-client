@@ -52,7 +52,7 @@ function RoleAssignedUsersList({
       id: "roles",
       accessorKey: "roles",
       cell: (info) => {
-        const value = info.getValue() as Node["roles"];
+        const value = info.getValue<Node>()["roles"];
         return value?.map(({ name }: { name: string }) => name).join(",") || "";
       },
     }),

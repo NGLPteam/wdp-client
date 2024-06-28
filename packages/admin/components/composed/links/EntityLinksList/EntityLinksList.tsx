@@ -46,7 +46,7 @@ function EntityLinksList({
       route: "collection",
       accessorKey: "target",
       cell: ({ row, getValue }: CellContext<EntityLinksNode, unknown>) => {
-        const value = getValue() as EntityLinksNode & { title: string };
+        const value = getValue<EntityLinksNode & { title: string }>();
         if (!row?.original?.target?.slug) return value.slug;
 
         const route =
@@ -73,7 +73,7 @@ function EntityLinksList({
       header: () => <>{t("lists.type_column")}</>,
       id: "operator",
       cell: ({ getValue }: CellContext<EntityLinksNode, unknown>) =>
-        capitalize(getValue() as string),
+        capitalize(getValue<string>()),
     }),
   ];
 

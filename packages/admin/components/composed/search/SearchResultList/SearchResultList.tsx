@@ -31,11 +31,12 @@ function SearchResultList({
   const columns = [
     ModelColumns.EntityThumbnailColumn<Node>({
       accessorKey: "entity",
+      // accessorFn: (originalRow: any) => originalRow.entity,
     }),
     ModelColumns.NameColumn<Node>({
       accessorKey: "entity",
       cell: ({ row, getValue }: CellContext<Node, unknown>) => {
-        const value = getValue() as Node["entity"];
+        const value = getValue<Node["entity"]>();
         if (!row?.original?.entity?.slug) return value.slug;
 
         const route =
