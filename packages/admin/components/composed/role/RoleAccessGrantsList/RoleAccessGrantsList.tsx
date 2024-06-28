@@ -57,7 +57,7 @@ function RoleAccessGrantsList({
       header: () => <>{t("lists.role_column")}</>,
       id: "role",
       accessorKey: "role",
-      cell: (info) => (info.getValue() as Role)?.name || "",
+      cell: (info) => info.getValue<Role>()?.name || "",
     }),
   ];
 

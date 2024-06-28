@@ -48,7 +48,7 @@ function CollectionContributionList({
       row,
       getValue,
     }: CellContext<CollectionContributionNode, unknown>) => {
-      const value = getValue() as string;
+      const value = getValue<string>();
       return (
         <NamedLink
           route="collection"

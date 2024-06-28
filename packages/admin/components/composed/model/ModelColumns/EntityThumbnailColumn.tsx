@@ -4,6 +4,7 @@ import CoverPlaceholder from "@wdp/lib/atomic/CoverPlaceholder";
 import { ImageLink, CoverImage } from "components/atomic";
 import { EntityThumbnailColumnFragment$key } from "@/relay/EntityThumbnailColumnFragment.graphql";
 import { PartialColumnish, Node } from "./types";
+import { getAccessorProps, hasFragments } from "./helpers";
 import type { ColumnDef } from "@tanstack/react-table";
 
 type Props<T extends Node> = PartialColumnish<T>;
@@ -14,16 +15,22 @@ const EntityThumbnailColumn = <T extends Node>(
   props: Props<T> = {},
 ): ColumnDef<T> => {
   const { t } = useTranslation();
+  const { accessorKey } = getAccessorProps<T>(props);
 
   return {
     header: () => <span className="a-hidden">{t("lists.thumbnail")}</span>,
     id: "thumbnail",
     // By default, the thumbnail fragment should be on the row root
-    accessorFn: (originalRow: T | Row) => originalRow,
+    ...(accessorKey
+      ? { accessorKey }
+      : { accessorFn: (originalRow: T | Row) => originalRow }),
     enableSorting: false,
     cell: (info) => {
-      const value = info.getValue() as EntityThumbnailColumnFragment$key;
-      const grid = false; // info.getContext()?.table.options.meta?.grid;
+      const value = info.getValue<Row>();
+      const grid = false;
+
+      if (!hasFragments(value)) return <></>;
+
       const entity = readInlineData(fragment, value);
 
       const objectPosition = grid ? "bottom left" : "top right";

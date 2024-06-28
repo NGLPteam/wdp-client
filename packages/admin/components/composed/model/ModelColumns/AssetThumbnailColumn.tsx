@@ -4,6 +4,7 @@ import get from "lodash/get";
 import { Image } from "components/atomic";
 import { AssetThumbnailColumnFragment$key } from "@/relay/AssetThumbnailColumnFragment.graphql";
 import { PartialColumnish, Node } from "./types";
+import { getAccessorProps } from "./helpers";
 import type { ColumnDef } from "@tanstack/react-table";
 
 type Props<T extends Node> = PartialColumnish<T>;
@@ -14,11 +15,14 @@ const AssetThumbnailColumn = <T extends Row>(
   props: Props<T> = {},
 ): ColumnDef<T> => {
   const { t } = useTranslation();
+  const { accessorKey } = getAccessorProps<T>(props);
 
   return {
     header: () => <span className="a-hidden">{t("lists.thumbnail")}</span>,
     id: "thumbnail",
-    accessorFn: (originalRow: T) => get(originalRow, "thumbnail"),
+    ...(accessorKey
+      ? { accessorKey }
+      : { accessorFn: (originalRow: T) => get(originalRow, "thumbnail") }),
     enableSorting: false,
     meta: {
       cellType: "thumbnail",
