@@ -90,7 +90,7 @@ export default class AppDocument extends Document<Props> {
             <React.Fragment key={font}>
               <link
                 rel="preload"
-                href={`fonts/${font}.woff2`}
+                href={`/fonts/${font}.woff2`}
                 as="font"
                 type="font/woff2"
                 crossOrigin="anonymous"
