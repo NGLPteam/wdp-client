@@ -6,6 +6,7 @@ import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import { AuthContextProvider } from "contexts/AuthContext";
 import { LoadingPage } from "components/atomic";
 import CollectionLayout from "components/composed/collection/CollectionLayout";
+import { ContributionOrder } from "types/graphql-schema";
 import type { contributionsManageSlugCollectionsPagesQuery as Query } from "@/relay/contributionsManageSlugCollectionsPagesQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
 
@@ -32,8 +33,9 @@ type Props = {
 };
 
 const getLayout: GetLayout<Props> = (props) => {
-  const queryVars = useBaseListQueryVars();
-  const searchQueryVars = useSearchQueryVars();
+  const { order, ...queryVars } = useBaseListQueryVars();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { order: searchOrder, ...searchQueryVars } = useSearchQueryVars();
 
   const collectionSlug = useRouteSlug();
 
@@ -44,7 +46,12 @@ const getLayout: GetLayout<Props> = (props) => {
   return (
     <QueryTransitionWrapper<Query>
       query={query}
-      variables={{ ...queryVars, ...searchQueryVars, collectionSlug }}
+      variables={{
+        order: order as ContributionOrder,
+        ...queryVars,
+        ...searchQueryVars,
+        collectionSlug,
+      }}
       loadingFallback={<LoadingPage />}
       refetchTags={["contributions"]}
     >
@@ -68,11 +75,12 @@ const query = graphql`
   query contributionsManageSlugCollectionsPagesQuery(
     $collectionSlug: Slug!
     $page: Int!
+    $order: ContributionOrder
   ) {
     collection(slug: $collectionSlug) {
       ...CollectionLayoutFragment
       ...AuthContextFragment
-      contributions(page: $page, perPage: 20) {
+      contributions(page: $page, perPage: 20, order: $order) {
         ...CollectionContributionListFragment
       }
     }

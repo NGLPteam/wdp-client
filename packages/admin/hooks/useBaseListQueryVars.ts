@@ -4,13 +4,17 @@ import {
   EntityOrder,
   SimpleOrder,
   ContributorOrder,
+  ContributionOrder,
 } from "types/graphql-schema";
 
 interface Props {
   defaultOrder: string;
 }
 
-type Order = EntityOrder & ContributorOrder & SimpleOrder;
+export type Order = EntityOrder &
+  ContributorOrder &
+  SimpleOrder &
+  ContributionOrder;
 
 /**
  * Gets and returns shared list query vars, like page and order

@@ -63,6 +63,7 @@ function CollectionContributionList({
 
   const contributorNameColumn =
     ModelColumns.ContributorNameColumn<CollectionContributionNode>({
+      id: "targetTitle",
       accessorFn: (row: CollectionContributionNode) => {
         return row?.contributor;
       },

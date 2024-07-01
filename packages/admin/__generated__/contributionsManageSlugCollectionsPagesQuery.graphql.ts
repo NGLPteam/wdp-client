@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5fc3b8ddfe89f68bd32eef584eb98fb0>>
+ * @generated SignedSource<<db6ab62185c93f2192b83c6dd4428f1f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,8 +10,10 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
+export type ContributionOrder = "OLDEST" | "RECENT" | "TARGET_TITLE_ASCENDING" | "TARGET_TITLE_DESCENDING" | "%future added value";
 export type contributionsManageSlugCollectionsPagesQuery$variables = {
   collectionSlug: string;
+  order?: ContributionOrder | null | undefined;
   page: number;
 };
 export type contributionsManageSlugCollectionsPagesQuery$data = {
@@ -28,26 +30,34 @@ export type contributionsManageSlugCollectionsPagesQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "collectionSlug"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "page"
-  }
-],
-v1 = [
+var v0 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "collectionSlug"
+},
+v1 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "order"
+},
+v2 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "page"
+},
+v3 = [
   {
     "kind": "Variable",
     "name": "slug",
     "variableName": "collectionSlug"
   }
 ],
-v2 = [
+v4 = [
+  {
+    "kind": "Variable",
+    "name": "order",
+    "variableName": "order"
+  },
   {
     "kind": "Variable",
     "name": "page",
@@ -59,28 +69,28 @@ v2 = [
     "value": 20
   }
 ],
-v3 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "title",
   "storageKey": null
 },
-v4 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
 },
-v5 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v6 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -89,14 +99,18 @@ v6 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/),
+      (v2/*: any*/)
+    ],
     "kind": "Fragment",
     "metadata": null,
     "name": "contributionsManageSlugCollectionsPagesQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v3/*: any*/),
         "concreteType": "Collection",
         "kind": "LinkedField",
         "name": "collection",
@@ -114,7 +128,7 @@ return {
           },
           {
             "alias": null,
-            "args": (v2/*: any*/),
+            "args": (v4/*: any*/),
             "concreteType": "CollectionContributionConnection",
             "kind": "LinkedField",
             "name": "contributions",
@@ -137,24 +151,28 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v2/*: any*/),
+      (v1/*: any*/)
+    ],
     "kind": "Operation",
     "name": "contributionsManageSlugCollectionsPagesQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v3/*: any*/),
         "concreteType": "Collection",
         "kind": "LinkedField",
         "name": "collection",
         "plural": false,
         "selections": [
-          (v3/*: any*/),
-          (v4/*: any*/),
           (v5/*: any*/),
+          (v6/*: any*/),
+          (v7/*: any*/),
           {
             "alias": null,
-            "args": (v2/*: any*/),
+            "args": (v4/*: any*/),
             "concreteType": "CollectionContributionConnection",
             "kind": "LinkedField",
             "name": "contributions",
@@ -168,8 +186,8 @@ return {
                 "name": "nodes",
                 "plural": true,
                 "selections": [
-                  (v5/*: any*/),
-                  (v4/*: any*/),
+                  (v7/*: any*/),
+                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -199,11 +217,11 @@ return {
                     "name": "contributor",
                     "plural": false,
                     "selections": [
-                      (v6/*: any*/),
+                      (v8/*: any*/),
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          (v4/*: any*/),
+                          (v6/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -218,7 +236,7 @@ return {
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          (v4/*: any*/),
+                          (v6/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -318,7 +336,7 @@ return {
                           {
                             "kind": "InlineFragment",
                             "selections": [
-                              (v4/*: any*/)
+                              (v6/*: any*/)
                             ],
                             "type": "Sluggable",
                             "abstractKey": "__isSluggable"
@@ -330,7 +348,7 @@ return {
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          (v5/*: any*/)
+                          (v7/*: any*/)
                         ],
                         "type": "Node",
                         "abstractKey": "__isNode"
@@ -346,9 +364,9 @@ return {
                     "name": "collection",
                     "plural": false,
                     "selections": [
-                      (v3/*: any*/),
-                      (v4/*: any*/),
-                      (v5/*: any*/)
+                      (v5/*: any*/),
+                      (v6/*: any*/),
+                      (v7/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -421,7 +439,7 @@ return {
           {
             "kind": "InlineFragment",
             "selections": [
-              (v6/*: any*/),
+              (v8/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -451,8 +469,8 @@ return {
                     "name": "kind",
                     "storageKey": null
                   },
-                  (v4/*: any*/),
-                  (v5/*: any*/)
+                  (v6/*: any*/),
+                  (v7/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -477,16 +495,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "bebcb659bdbdc8dec7c3034270c08499",
+    "cacheID": "e59856bd2dda164fcbba8bb98be76ecd",
     "id": null,
     "metadata": {},
     "name": "contributionsManageSlugCollectionsPagesQuery",
     "operationKind": "query",
-    "text": "query contributionsManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n  $page: Int!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    ...AuthContextFragment\n    contributions(page: $page, perPage: 20) {\n      ...CollectionContributionListFragment\n    }\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment CollectionContributionListFragment on CollectionContributionConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    role\n    contributor {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        legalName\n      }\n      ... on PersonContributor {\n        slug\n        givenName\n        familyName\n      }\n      ...ContributorNameColumnFragment\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    collection {\n      title\n      slug\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ContributorNameColumnFragment on Contributor {\n  __isContributor: __typename\n  __typename\n  image {\n    ...AvatarFragment\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on OrganizationContributor {\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n"
+    "text": "query contributionsManageSlugCollectionsPagesQuery(\n  $collectionSlug: Slug!\n  $page: Int!\n  $order: ContributionOrder\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    ...AuthContextFragment\n    contributions(page: $page, perPage: 20, order: $order) {\n      ...CollectionContributionListFragment\n    }\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment CollectionContributionListFragment on CollectionContributionConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    role\n    contributor {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        legalName\n      }\n      ... on PersonContributor {\n        slug\n        givenName\n        familyName\n      }\n      ...ContributorNameColumnFragment\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    collection {\n      title\n      slug\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ContributorNameColumnFragment on Contributor {\n  __isContributor: __typename\n  __typename\n  image {\n    ...AvatarFragment\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on OrganizationContributor {\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n"
   }
 };
 })();
 
-(node as any).hash = "2aef4be24fd6691c0bcd874001bcf5d3";
+(node as any).hash = "dc80fce0960e70e45b306dbe644b04b4";
 
 export default node;
