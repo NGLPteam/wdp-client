@@ -30,7 +30,7 @@ export default function FileEditDrawer({
       {({ data }) =>
         data?.asset ? (
           <Drawer
-            header={t("actions.edit.file_header")}
+            header={t("actions.edit.file_header", { name: data.asset.name })}
             dialog={dialog}
             hideOnClickOutside={false}
           >
@@ -45,6 +45,9 @@ export default function FileEditDrawer({
 const query = graphql`
   query FileEditDrawerQuery($slug: Slug!) {
     asset(slug: $slug) {
+      ... on Asset {
+        name
+      }
       ...FileEditFormFragment
     }
   }

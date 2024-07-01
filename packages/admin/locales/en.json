@@ -281,7 +281,7 @@
         "ordering": "Edit Ordering",
         "ordering_header": "Edit {{ name }} Ordering",
         "file": "Edit File",
-        "file_header": "Edit File {{ name }}"
+        "file_header": "Edit File \"{{ name }}\""
       },
       "hide": {
         "inherited_roles": "Hide Inherited Roles"

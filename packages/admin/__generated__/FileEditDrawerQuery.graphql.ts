@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ceccf0bf93eb1be0fd172fd94f282a68>>
+ * @generated SignedSource<<bc357bfd417ebfef99c9eca4822cd063>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type FileEditDrawerQuery$variables = {
 };
 export type FileEditDrawerQuery$data = {
   readonly asset: {
+    readonly name?: string;
     readonly " $fragmentSpreads": FragmentRefs<"FileEditFormFragment">;
   } | null | undefined;
 };
@@ -42,10 +43,17 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "name",
   "storageKey": null
 },
 v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -67,6 +75,14 @@ return {
         "name": "asset",
         "plural": false,
         "selections": [
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              (v2/*: any*/)
+            ],
+            "type": "Asset",
+            "abstractKey": "__isAsset"
+          },
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -104,18 +120,12 @@ return {
             "kind": "InlineFragment",
             "selections": [
               (v2/*: any*/),
+              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
                 "name": "altText",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "name",
                 "storageKey": null
               },
               {
@@ -177,7 +187,7 @@ return {
                         "name": "png",
                         "plural": false,
                         "selections": [
-                          (v3/*: any*/),
+                          (v4/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -202,7 +212,7 @@ return {
                 "name": "previewMetadata",
                 "plural": false,
                 "selections": [
-                  (v3/*: any*/)
+                  (v4/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -213,7 +223,7 @@ return {
           {
             "kind": "InlineFragment",
             "selections": [
-              (v2/*: any*/)
+              (v3/*: any*/)
             ],
             "type": "Node",
             "abstractKey": "__isNode"
@@ -224,16 +234,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "eea80eb2f925084fe851cc0d1658def1",
+    "cacheID": "6b2710ea5486f152b50a4e9c5c0cbc55",
     "id": null,
     "metadata": {},
     "name": "FileEditDrawerQuery",
     "operationKind": "query",
-    "text": "query FileEditDrawerQuery(\n  $slug: Slug!\n) {\n  asset(slug: $slug) {\n    __typename\n    ...FileEditFormFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment FileEditFormFragment on Asset {\n  __isAsset: __typename\n  id\n  altText\n  name\n  caption\n  kind\n  fileSize\n  preview {\n    ...FileUploadFragment\n  }\n  previewMetadata {\n    alt\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
+    "text": "query FileEditDrawerQuery(\n  $slug: Slug!\n) {\n  asset(slug: $slug) {\n    __typename\n    ... on Asset {\n      __isAsset: __typename\n      name\n    }\n    ...FileEditFormFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment FileEditFormFragment on Asset {\n  __isAsset: __typename\n  id\n  altText\n  name\n  caption\n  kind\n  fileSize\n  preview {\n    ...FileUploadFragment\n  }\n  previewMetadata {\n    alt\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "7247ca3e63b0995b864651fe6ae78f46";
+(node as any).hash = "f418b4161749a4fa4c48ae0bfe05b9df";
 
 export default node;
