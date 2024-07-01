@@ -45,6 +45,7 @@ function EntityLinksList({
     ModelColumns.NameColumn<EntityLinksNode>({
       route: "collection",
       accessorKey: "target",
+      enableSorting: false,
       cell: ({ row, getValue }: CellContext<EntityLinksNode, unknown>) => {
         const value = getValue<EntityLinksNode & { title: string }>();
         if (!row?.original?.target?.slug) return value.slug;

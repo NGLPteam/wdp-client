@@ -12,11 +12,14 @@ import ModelColumns from "components/composed/model/ModelColumns";
 import { ButtonControlGroup, NamedLink } from "components/atomic";
 import PageHeader from "components/layout/PageHeader";
 import {
+  type CellContext,
+  type ModelTableActionProps,
+} from "@tanstack/react-table";
+import {
   ItemContributionListFragment$data,
   ItemContributionListFragment$key,
 } from "@/relay/ItemContributionListFragment.graphql";
 import CreateContributionButton from "../CreateContributionButton";
-import type { CellContext, ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -59,6 +62,7 @@ function ItemContributionList({
 
   const contributorNameColumn =
     ModelColumns.ContributorNameColumn<ItemContributionNode>({
+      id: "targetTitle",
       accessorFn: (row: ItemContributionNode) => {
         return row?.contributor;
       },

@@ -5,7 +5,10 @@ import CollectionContributionList from "components/composed/contribution/Collect
 import { LoadingPage } from "components/atomic";
 import ErrorPage from "next/error";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
-import type { collectionsSlugContributorsPagesQuery as Query } from "@/relay/collectionsSlugContributorsPagesQuery.graphql";
+import type {
+  ContributionOrder,
+  collectionsSlugContributorsPagesQuery as Query,
+} from "@/relay/collectionsSlugContributorsPagesQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
 
 function ContributorCollectionContributions({
@@ -25,7 +28,7 @@ function ContributorCollectionContributions({
 }
 
 const getLayout: GetLayout<Props> = (props) => {
-  const queryVars = useBaseListQueryVars();
+  const { order, ...queryVars } = useBaseListQueryVars();
   const contributorSlug = useRouteSlug();
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   const _searchVars = useSearchQueryVars();
@@ -37,7 +40,11 @@ const getLayout: GetLayout<Props> = (props) => {
   return (
     <QueryTransitionWrapper<Query>
       query={query}
-      variables={{ ...queryVars, contributorSlug }}
+      variables={{
+        order: order as ContributionOrder,
+        ...queryVars,
+        contributorSlug,
+      }}
       loadingFallback={<LoadingPage />}
       refetchTags={["contributions"]}
     >

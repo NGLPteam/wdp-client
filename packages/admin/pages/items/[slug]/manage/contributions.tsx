@@ -6,7 +6,10 @@ import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import { AuthContextProvider } from "contexts/AuthContext";
 import { LoadingPage } from "components/atomic";
 import ItemLayout from "components/composed/item/ItemLayout";
-import type { contributionsManageSlugItemsQuery as Query } from "@/relay/contributionsManageSlugItemsQuery.graphql";
+import type {
+  ContributionOrder,
+  contributionsManageSlugItemsQuery as Query,
+} from "@/relay/contributionsManageSlugItemsQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
 
 function ManageContributions({ queryRef, ...layoutProps }: Props) {
@@ -26,8 +29,9 @@ function ManageContributions({ queryRef, ...layoutProps }: Props) {
 }
 
 const getLayout: GetLayout<Props> = (props) => {
-  const queryVars = useBaseListQueryVars();
-  const searchQueryVars = useSearchQueryVars();
+  const { order, ...queryVars } = useBaseListQueryVars();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { order: searchOrder, ...searchQueryVars } = useSearchQueryVars();
 
   const itemSlug = useRouteSlug();
   if (!itemSlug) return <ErrorPage statusCode={404} />;
@@ -38,6 +42,7 @@ const getLayout: GetLayout<Props> = (props) => {
     <QueryTransitionWrapper<Query>
       query={query}
       variables={{
+        order: order as ContributionOrder,
         ...queryVars,
         ...searchQueryVars,
         itemSlug,
@@ -70,11 +75,15 @@ type Props = {
 };
 
 const query = graphql`
-  query contributionsManageSlugItemsQuery($itemSlug: Slug!, $page: Int!) {
+  query contributionsManageSlugItemsQuery(
+    $itemSlug: Slug!
+    $page: Int!
+    $order: ContributionOrder
+  ) {
     item(slug: $itemSlug) {
       ...ItemLayoutFragment
       ...AuthContextFragment
-      contributions(page: $page, perPage: 20) {
+      contributions(page: $page, perPage: 20, order: $order) {
         ...ItemContributionListFragment
       }
     }
