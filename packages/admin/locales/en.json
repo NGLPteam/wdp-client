@@ -137,6 +137,7 @@
       "global_settings": "Global Settings"
     },
     "messages": {
+      "error_message": "Error: {{error}}",
       "add": {
         "success": "$t({{ name }}) added successfully.",
         "link_success": "Link added successfully.",
