@@ -32,11 +32,6 @@ export default function SearchModal({
   const defaultValue = clearOnSubmit ? "" : router.query?.q || "";
 
   const onSubmit = (data: Record<string, string>) => {
-    console.debug({
-      data,
-      pathname: route?.path || router.pathname,
-      query: { ...router.query, q: data.q },
-    });
     dialog.hide();
     router.push({
       pathname: route?.path || router.pathname,

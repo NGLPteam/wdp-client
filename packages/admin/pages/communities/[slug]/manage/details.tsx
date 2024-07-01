@@ -14,7 +14,7 @@ function CommunityDetails({ queryRef, ...layoutProps }: Props) {
 
   return community ? (
     <AuthContextProvider data={community}>
-      <CommunityLayout {...layoutProps} data={community}>
+      <CommunityLayout data={community} {...layoutProps}>
         <CommunityUpdateForm data={community} />
       </CommunityLayout>
     </AuthContextProvider>
