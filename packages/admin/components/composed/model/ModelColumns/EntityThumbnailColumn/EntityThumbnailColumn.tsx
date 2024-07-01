@@ -1,10 +1,11 @@
 import { graphql, readInlineData } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import CoverPlaceholder from "@wdp/lib/atomic/CoverPlaceholder";
-import { ImageLink, CoverImage } from "components/atomic";
+import { ImageLink } from "components/atomic";
 import { EntityThumbnailColumnFragment$key } from "@/relay/EntityThumbnailColumnFragment.graphql";
-import { PartialColumnish, Node } from "./types";
-import { getAccessorProps, hasFragments } from "./helpers";
+import { PartialColumnish, Node } from "../types";
+import { getAccessorProps, hasFragments } from "../helpers";
+import * as Styled from "./EntityThumbnailColumn.styles";
 import type { ColumnDef } from "@tanstack/react-table";
 
 type Props<T extends Node> = PartialColumnish<T>;
@@ -27,15 +28,12 @@ const EntityThumbnailColumn = <T extends Node>(
     enableSorting: false,
     cell: (info) => {
       const value = info.getValue<Row>();
-      const grid = false;
 
       if (!hasFragments(value)) return <></>;
 
       const entity = readInlineData(fragment, value);
 
-      const objectPosition = grid ? "bottom left" : "top right";
-
-      const size = grid ? 180 : 50;
+      const size = 180;
 
       return entity ? (
         <ImageLink
@@ -43,10 +41,9 @@ const EntityThumbnailColumn = <T extends Node>(
           routeParams={{ slug: entity.slug || "" }}
         >
           {entity.thumbnail?.storage ? (
-            <CoverImage
+            <Styled.CoverImage
               data={entity.thumbnail}
               objectFit="contain"
-              objectPosition={objectPosition}
               width={size}
               height={size}
             />

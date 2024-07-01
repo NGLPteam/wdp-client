@@ -11,6 +11,7 @@ export default function CoverImage({
   objectPosition,
   width = 0,
   height = 0,
+  className,
 }: Props) {
   const image = useMaybeFragment(fragment, data);
 
@@ -23,6 +24,7 @@ export default function CoverImage({
       height={height}
       objectFit={objectFit}
       objectPosition={objectPosition}
+      className={className}
     />
   ) : null;
 }
@@ -33,6 +35,7 @@ interface Props {
   objectPosition?: ImageProps["objectPosition"];
   width?: number;
   height?: number;
+  className?: string;
 }
 
 const fragment = graphql`
