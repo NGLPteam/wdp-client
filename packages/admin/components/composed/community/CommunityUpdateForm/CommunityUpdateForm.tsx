@@ -47,6 +47,12 @@ export default function CommunityUpdateForm({
   const { fieldValues: schemaFieldValues, defaultValues: schemaDefaultValues } =
     useSchemaContext(fieldsData.context);
 
+  const defaultValues = {
+    ...values,
+    ...schemaDefaultValues,
+    ...schemaFieldValues,
+  };
+
   const toVariables = useToVariables<CommunityUpdateFormMutation, Fields>(
     (data) => {
       const { heroImage, heroImageMetadata, ...inputValues } = pick(data, [
@@ -76,12 +82,6 @@ export default function CommunityUpdateForm({
     },
     [],
   );
-
-  const defaultValues = {
-    ...values,
-    ...schemaDefaultValues,
-    ...schemaFieldValues,
-  };
 
   const isSuccess = useIsSuccess<CommunityUpdateFormMutation, Fields>(
     function (response) {
@@ -173,10 +173,10 @@ export default function CommunityUpdateForm({
         <SchemaFormFields data={fieldsData} schemaKind="COMMUNITY" />
       </>
     ),
-    [],
+    [fieldsData],
   );
 
-  return (
+  return defaultValues.title ? (
     <MutationForm<CommunityUpdateFormMutation, Fields>
       name={mutationName}
       onSuccess={onSuccess}
@@ -191,6 +191,8 @@ export default function CommunityUpdateForm({
     >
       {renderForm}
     </MutationForm>
+  ) : (
+    <></>
   );
 }
 
@@ -207,7 +209,6 @@ type Fields = Omit<UpdateCommunityInput, "communityId">;
 const fieldsFragment = graphql`
   fragment CommunityUpdateFormFieldsFragment on Community {
     title
-    name
     tagline
     summary
     heroImageLayout
@@ -228,7 +229,6 @@ const mutation = graphql`
   mutation CommunityUpdateFormMutation($input: UpdateCommunityInput!) {
     updateCommunity(input: $input) {
       community {
-        name
         position
         ...CommunityUpdateFormFieldsFragment
       }

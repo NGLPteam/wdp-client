@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<83e7c0dd736766bbb9e469c80d855ed5>>
+ * @generated SignedSource<<d0e89d0a8a2bf04490e9e468456ad6b6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -22,7 +22,6 @@ export type CommunityUpdateFormFieldsFragment$data = {
   readonly logo: {
     readonly " $fragmentSpreads": FragmentRefs<"FileUploadFragment">;
   };
-  readonly name: string;
   readonly position: number | null | undefined;
   readonly summary: string | null | undefined;
   readonly tagline: string | null | undefined;
@@ -53,13 +52,6 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "title",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "name",
       "storageKey": null
     },
     {
@@ -134,6 +126,6 @@ return {
 };
 })();
 
-(node as any).hash = "5c137e7afca7f4161d8b956b85b6cd49";
+(node as any).hash = "65370ec9f077bb21b16803da1bf2f955";
 
 export default node;
