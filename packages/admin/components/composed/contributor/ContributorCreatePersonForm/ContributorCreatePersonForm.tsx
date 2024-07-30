@@ -60,6 +60,7 @@ export default function ContributorCreatePersonForm({
       onSuccess={onSuccess}
       onCancel={onCancel}
       successNotification="messages.create.contributor_success"
+      refetchTags={["contributors"]}
     >
       {renderForm}
     </MutationForm>

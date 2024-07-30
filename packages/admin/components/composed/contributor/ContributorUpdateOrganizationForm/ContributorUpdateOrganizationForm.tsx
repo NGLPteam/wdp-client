@@ -86,6 +86,7 @@ export default function ContributorUpdateOrganizationForm({
       onSuccess={onSuccess}
       onCancel={onCancel}
       successNotification="messages.update.contributor_success"
+      refetchTags={["contributors"]}
     >
       {renderForm}
     </MutationForm>
