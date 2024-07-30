@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7145ad3403865f5a46df9fec9d02ba59>>
+ * @generated SignedSource<<124888a7866f7e2d10b6ff74f4146228>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -65,6 +65,7 @@ export type GlobalSettingsEditFormMutation$data = {
         };
         readonly installationHomePageCopy: string;
         readonly installationName: string;
+        readonly logoMode: SiteLogoMode;
         readonly providerName: string;
       };
       readonly theme: {
@@ -147,6 +148,13 @@ v2 = {
           "storageKey": null
         }
       ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "logoMode",
       "storageKey": null
     }
   ],
@@ -330,16 +338,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ee5dcd7a3baed946f9d15388b69c064c",
+    "cacheID": "8dd3f270ff9c434849794cb013fa678b",
     "id": null,
     "metadata": {},
     "name": "GlobalSettingsEditFormMutation",
     "operationKind": "mutation",
-    "text": "mutation GlobalSettingsEditFormMutation(\n  $input: UpdateGlobalConfigurationInput!\n) {\n  updateGlobalConfiguration(input: $input) {\n    globalConfiguration {\n      site {\n        providerName\n        installationName\n        installationHomePageCopy\n        footer {\n          description\n          copyrightStatement\n        }\n      }\n      theme {\n        color\n        font\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation GlobalSettingsEditFormMutation(\n  $input: UpdateGlobalConfigurationInput!\n) {\n  updateGlobalConfiguration(input: $input) {\n    globalConfiguration {\n      site {\n        providerName\n        installationName\n        installationHomePageCopy\n        footer {\n          description\n          copyrightStatement\n        }\n        logoMode\n      }\n      theme {\n        color\n        font\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "5599b27e6c3442e3491e03a32ad44f1e";
+(node as any).hash = "726d811cc07c83cfa7bc2d3aca94775c";
 
 export default node;

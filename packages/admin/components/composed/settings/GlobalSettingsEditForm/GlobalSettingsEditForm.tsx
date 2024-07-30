@@ -49,14 +49,22 @@ export default function GlobalSettingsEditForm({
           clearName="clearLogo"
         />
         <Forms.Select
-          label="Logo Settings"
+          label="forms.fields.logo_settings"
           options={[
-            { label: "Display with Installation Name", value: "WITH_TEXT" },
-            { label: "Display without Installation Name", value: "SANS_TEXT" },
+            {
+              label: t("forms.fields.select_placeholder"),
+              value: "NONE",
+            },
+            {
+              label: t("forms.fields.logo_settings_with_text"),
+              value: "WITH_TEXT",
+            },
+            {
+              label: t("forms.fields.logo_settings_without_text"),
+              value: "SANS_TEXT",
+            },
           ]}
-          description={
-            "Choose if the logo should be displayed with or without the installation name."
-          }
+          description={t("forms.fields.logo_settings_description")}
           {...register("site.logoMode")}
         />
         <Forms.Textarea
@@ -163,6 +171,7 @@ const mutation = graphql`
             description
             copyrightStatement
           }
+          logoMode
         }
         theme {
           color
