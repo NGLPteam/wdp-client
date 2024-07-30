@@ -19,6 +19,7 @@ export default function CollectionListView() {
       variables={{ ...queryVars, ...searchQueryVars, hasQuery }}
       subscribeIds={["Collection"]}
       loadingFallback={<LoadingPage />}
+      refetchTags={["collections"]}
     >
       {({ queryRef }) =>
         queryRef ? <ListQuery queryRef={queryRef} /> : <CollectionList />

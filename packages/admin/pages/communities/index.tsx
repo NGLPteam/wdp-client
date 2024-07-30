@@ -16,6 +16,7 @@ export default function CommunityListView() {
       variables={queryVars}
       subscribeIds={["Community"]}
       loadingFallback={<LoadingPage />}
+      refetchTags={["communities"]}
     >
       {({ queryRef }) =>
         queryRef ? <ListQuery queryRef={queryRef} /> : <CommunityList />

@@ -95,6 +95,7 @@ export default function ContributorUpdatePersonForm({
       successNotification="messages.update.contributor_success"
       toVariables={toVariables}
       defaultValues={defaultValues}
+      refetchTags={["contributors"]}
     >
       {renderForm}
     </MutationForm>

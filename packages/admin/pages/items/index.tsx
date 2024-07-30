@@ -19,6 +19,7 @@ export default function ItemListView() {
       variables={{ ...queryVars, ...searchQueryVars, hasQuery }}
       subscribeIds={["Item"]}
       loadingFallback={<LoadingPage />}
+      refetchTags={["items"]}
     >
       {({ queryRef }) =>
         queryRef ? <ListQuery queryRef={queryRef} /> : <ItemList />

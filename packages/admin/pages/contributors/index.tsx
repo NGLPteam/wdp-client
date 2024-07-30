@@ -14,6 +14,7 @@ export default function ContributorListView() {
       variables={contributorSearchVars}
       subscribeIds={["Contributor"]}
       loadingFallback={<LoadingPage />}
+      refetchTags={["contributors"]}
     >
       {({ queryRef }) =>
         queryRef ? <ListQuery queryRef={queryRef} /> : <ContributorList />
