@@ -9,6 +9,7 @@ import FeaturedIssue from "components/composed/journal/FeaturedIssue";
 import FeaturedUnits from "components/composed/unit/FeaturedUnits";
 import { CommunityLandingLayoutFragment$key } from "@/relay/CommunityLandingLayoutFragment.graphql";
 import CommunityHero from "../CommunityHero";
+import ViewCounter from "../../analytics/ViewCounter";
 
 export default function CommunityLayout({ data }: Props) {
   const community = useMaybeFragment(fragment, data);
@@ -31,6 +32,7 @@ export default function CommunityLayout({ data }: Props) {
           <FeaturedIssue data={community.featuredIssue.entity} />
         </Suspense>
       )}
+      {community?.slug && <ViewCounter slug={community.slug} />}
     </>
   );
 }
@@ -41,6 +43,8 @@ interface Props {
 
 const fragment = graphql`
   fragment CommunityLandingLayoutFragment on Community {
+    slug
+
     ...CommunityHeroFragment
 
     featuredJournals: schemaProperty(fullPath: "featured.journals") {

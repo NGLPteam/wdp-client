@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4b5defe7a4c83b010d12f15708945410>>
+ * @generated SignedSource<<689d06003073c97ae21195641d8c6a92>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -25,6 +25,7 @@ export type CommunityLandingLayoutFragment$data = {
   readonly featuredUnits: {
     readonly " $fragmentSpreads": FragmentRefs<"FeaturedUnitsFragment">;
   } | null | undefined;
+  readonly slug: string;
   readonly " $fragmentSpreads": FragmentRefs<"CommunityHeroFragment">;
   readonly " $fragmentType": "CommunityLandingLayoutFragment";
 };
@@ -39,6 +40,13 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "CommunityLandingLayoutFragment",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "slug",
+      "storageKey": null
+    },
     {
       "args": null,
       "kind": "FragmentSpread",
@@ -155,6 +163,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "eb40bd5390c1e966851eb35f6874af81";
+(node as any).hash = "753d97fd5b4d22c2ae3963eabd70bf9c";
 
 export default node;
