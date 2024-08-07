@@ -6,34 +6,44 @@ import ArticleLayout from "components/composed/article/ArticleLayout";
 import VolumeLayout from "components/composed/volume/VolumeLayout";
 import SeriesLayout from "components/composed/series/SeriesLayout";
 import { EntityLayoutFactoryFragment$key } from "@/relay/EntityLayoutFactoryFragment.graphql";
+import ViewCounter from "@/components/composed/analytics/ViewCounter";
 
 export default function EntityLayoutFactory({ data, children }: Props) {
   const entity = readInlineData(fragment, data);
 
   if (!entity) return null;
 
-  switch (entity.schemaDefinition?.identifier) {
-    case "journal":
-      return <JournalLayout data={entity}>{children}</JournalLayout>;
+  function renderEntity() {
+    switch (entity?.schemaDefinition?.identifier) {
+      case "journal":
+        return <JournalLayout data={entity}>{children}</JournalLayout>;
 
-    case "journal_volume":
-      return <VolumeLayout data={entity}>{children}</VolumeLayout>;
+      case "journal_volume":
+        return <VolumeLayout data={entity}>{children}</VolumeLayout>;
 
-    case "journal_issue":
-      return <IssueLayout data={entity}>{children}</IssueLayout>;
+      case "journal_issue":
+        return <IssueLayout data={entity}>{children}</IssueLayout>;
 
-    case "article":
-    case "journal_article":
-    case "dissertation":
-    case "paper":
-      return <ArticleLayout data={entity}>{children}</ArticleLayout>;
+      case "article":
+      case "journal_article":
+      case "dissertation":
+      case "paper":
+        return <ArticleLayout data={entity}>{children}</ArticleLayout>;
 
-    case "series":
-      return <SeriesLayout data={entity}>{children}</SeriesLayout>;
+      case "series":
+        return <SeriesLayout data={entity}>{children}</SeriesLayout>;
 
-    default:
-      return <EntityLayout data={entity}>{children}</EntityLayout>;
+      default:
+        return <EntityLayout data={entity}>{children}</EntityLayout>;
+    }
   }
+
+  return (
+    <>
+      {entity.slug && <ViewCounter slug={entity.slug} />}
+      {renderEntity()}
+    </>
+  );
 }
 
 interface Props {
@@ -44,6 +54,7 @@ interface Props {
 const fragment = graphql`
   fragment EntityLayoutFactoryFragment on AnyEntity @inline {
     ... on Collection {
+      slug
       schemaDefinition {
         identifier
       }
@@ -55,6 +66,7 @@ const fragment = graphql`
       ...SeriesLayoutFragment
     }
     ... on Item {
+      slug
       schemaDefinition {
         identifier
       }
