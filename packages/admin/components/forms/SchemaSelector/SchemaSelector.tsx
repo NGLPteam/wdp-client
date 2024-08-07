@@ -18,7 +18,7 @@ import * as Styled from "./SchemaSelector.styles";
 
 type SelectProps = React.ComponentProps<typeof Select>;
 
-const SchemaSelector = ({ schemaData, schemaKind }: Props) => {
+const SchemaSelector = ({ schemaData, schemaKind, schemaSlugs }: Props) => {
   const data = useMaybeFragment(fragment as GraphQLTaggedNode, schemaData);
 
   const dialog = useDialogState({ visible: false, animated: true });
@@ -63,6 +63,7 @@ const SchemaSelector = ({ schemaData, schemaKind }: Props) => {
           entityId={data?.entityId}
           schemaVersionSlug={data?.schemaVersion?.slug}
           schemaKind={schemaKind}
+          schemaSlugs={schemaSlugs}
         />
       </Portal>
     </>
@@ -72,6 +73,8 @@ const SchemaSelector = ({ schemaData, schemaKind }: Props) => {
 interface Props extends Pick<SelectProps, "defaultValue"> {
   schemaData?: SchemaSelectorDataFragment$key;
   schemaKind: "COLLECTION" | "ITEM" | "COMMUNITY";
+  // Filter by these schema slugs
+  schemaSlugs?: string[];
 }
 
 export default SchemaSelector;

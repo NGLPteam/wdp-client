@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<518701f05b598a2338c8c9b88b196383>>
+ * @generated SignedSource<<8b5bb8cbb1e1d7d7e54035d46df37087>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -36,21 +36,22 @@ var v0 = [
     "name": "schemaKind"
   }
 ],
-v1 = [
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v2 = [
   {
     "kind": "Variable",
     "name": "slug",
     "variableName": "entitySlug"
   }
 ],
-v2 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "id",
-    "storageKey": null
-  }
+v3 = [
+  (v1/*: any*/)
 ];
 return {
   "fragment": {
@@ -101,39 +102,58 @@ return {
             "kind": "ScalarField",
             "name": "value",
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "SchemaDefinition",
+            "kind": "LinkedField",
+            "name": "schemaDefinition",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "slug",
+                "storageKey": null
+              },
+              (v1/*: any*/)
+            ],
+            "storageKey": null
           }
         ],
         "storageKey": null
       },
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": "Item",
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
-        "selections": (v2/*: any*/),
+        "selections": (v3/*: any*/),
         "storageKey": null
       },
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": "Collection",
         "kind": "LinkedField",
         "name": "collection",
         "plural": false,
-        "selections": (v2/*: any*/),
+        "selections": (v3/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "ab1189109bc16bd37378f0195d822811",
+    "cacheID": "aad0825f9810d677aa409982f35e939e",
     "id": null,
     "metadata": {},
     "name": "ItemAddDrawerQuery",
     "operationKind": "query",
-    "text": "query ItemAddDrawerQuery(\n  $entitySlug: Slug!\n  $schemaKind: SchemaKind!\n) {\n  ...ItemAddFormFragment\n}\n\nfragment ItemAddFormFragment on Query {\n  ...SchemaSelectFragment\n  item(slug: $entitySlug) {\n    id\n  }\n  collection(slug: $entitySlug) {\n    id\n  }\n}\n\nfragment SchemaSelectFragment on Query {\n  schemaVersionOptions(kind: $schemaKind) {\n    label\n    value\n  }\n}\n"
+    "text": "query ItemAddDrawerQuery(\n  $entitySlug: Slug!\n  $schemaKind: SchemaKind!\n) {\n  ...ItemAddFormFragment\n}\n\nfragment ItemAddFormFragment on Query {\n  ...SchemaSelectFragment\n  item(slug: $entitySlug) {\n    id\n  }\n  collection(slug: $entitySlug) {\n    id\n  }\n}\n\nfragment SchemaSelectFragment on Query {\n  schemaVersionOptions(kind: $schemaKind) {\n    label\n    value\n    schemaDefinition {\n      slug\n      id\n    }\n  }\n}\n"
   }
 };
 })();

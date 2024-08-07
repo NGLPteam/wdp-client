@@ -17,7 +17,7 @@ import type {
   CollectionAddFormMutation,
 } from "@/relay/CollectionAddFormMutation.graphql";
 
-export default function AddCollectionForm({
+export default function CollectionAddForm({
   onSuccess,
   onCancel,
   data,

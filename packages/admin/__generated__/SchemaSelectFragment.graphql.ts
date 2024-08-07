@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<39bc955b7a8eeead758bed63cc56c469>>
+ * @generated SignedSource<<d3e27e67c95f3e309593d09e7c5b135f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,9 @@ import { FragmentRefs } from "relay-runtime";
 export type SchemaSelectFragment$data = {
   readonly schemaVersionOptions: ReadonlyArray<{
     readonly label: string;
+    readonly schemaDefinition: {
+      readonly slug: string;
+    };
     readonly value: string;
   }>;
   readonly " $fragmentType": "SchemaSelectFragment";
@@ -60,6 +63,24 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "value",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "SchemaDefinition",
+          "kind": "LinkedField",
+          "name": "schemaDefinition",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "slug",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -69,6 +90,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "f82da6bde36b4909bd5787dcbfb19439";
+(node as any).hash = "98aa1b8330db2b49515a734792160574";
 
 export default node;
