@@ -15,6 +15,8 @@ export default function CommunityPicker({ data }: Props) {
     return communityData?.pickerCommunities?.edges || [];
   }, [communityData]);
 
+  if (menuItems.length === 0) return null;
+
   return menuItems.length === 1 ? (
     <NamedLink
       href={
