@@ -71,5 +71,8 @@
     "@yarnpkg/types": "^4.0.0",
     "concurrently": "^8.2.2",
     "turbo": "^2.0.6"
+  },
+  "dependencies": {
+    "next-auth": "^4.24.7"
   }
 }
