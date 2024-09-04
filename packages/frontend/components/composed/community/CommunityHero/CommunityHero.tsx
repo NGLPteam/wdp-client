@@ -17,17 +17,15 @@ export default function CommunityHero({ data }: Props) {
   const tagline =
     community.tagline || t("common.welcome_to", { name: community.title });
 
+  const bgColor =
+    community.heroImage?.storage && community.heroImageLayout === "ONE_COLUMN"
+      ? "a-bg-neutral90"
+      : community.heroImage?.storage
+        ? "a-bg-custom20"
+        : "a-bg-custom10";
+
   return (
-    <div
-      className={
-        community.heroImage?.storage &&
-        community.heroImageLayout === "ONE_COLUMN"
-          ? "a-bg-neutral90"
-          : community.heroImage?.storage
-            ? "a-bg-custom20"
-            : "a-bg-custom10"
-      }
-    >
+    <div className={bgColor}>
       <Styled.Hero
         data-hero-image={!!community.heroImage?.storage}
         data-hero-layout={community.heroImageLayout}
