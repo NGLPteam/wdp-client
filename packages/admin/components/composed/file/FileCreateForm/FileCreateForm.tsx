@@ -22,8 +22,12 @@ export default function FileCreateForm({ entityId, onSuccess }: Props) {
   const renderForm = useRenderForm<Fields>(
     ({ form: { register } }) => (
       <Forms.Grid>
-        <Forms.Input label="forms.fields.name" {...register("name")} />
-        <Forms.FileUpload label="forms.fields.attachment" name="attachment" />
+        <Forms.Input label="forms.fields.name" {...register("name")} required />
+        <Forms.FileUpload
+          label="forms.fields.attachment"
+          name="attachment"
+          required
+        />
         <Forms.Input
           label="forms.fields.alt_text"
           description={
