@@ -21,7 +21,7 @@ export default function PrimaryHero({
             {subtitle && typeof subtitle === "string" ? (
               <h2 className="t-h3">{subtitle}</h2>
             ) : (
-              subtitle
+              <div>{subtitle}</div>
             )}
           </Styled.Title>
           {LeftComponent && (
