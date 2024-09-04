@@ -15,7 +15,7 @@ function ManageOrder({ queryRef, ...layoutProps }: Props) {
   return item ? (
     <AuthContextProvider data={item}>
       <ItemLayout data={item} {...layoutProps}>
-        <EntityOrderingList data={item} headerStyle="secondary" />;
+        <EntityOrderingList data={item} headerStyle="secondary" />
       </ItemLayout>
     </AuthContextProvider>
   ) : null;
