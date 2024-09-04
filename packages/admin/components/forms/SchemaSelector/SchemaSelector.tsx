@@ -7,6 +7,7 @@ import { useMaybeFragment } from "hooks";
 import Select from "components/forms/Select";
 import BaseInputLabel from "components/forms/BaseInputLabel";
 import { ButtonControl } from "components/atomic";
+import { Portal } from "reakit";
 import { SchemaSelectorDataFragment$key } from "@/relay/SchemaSelectorDataFragment.graphql";
 import {
   SchemaSelectorSchemasFragment$key,
@@ -55,13 +56,15 @@ const SchemaSelector = ({ schemaData, schemaKind }: Props) => {
           </DialogDisclosure>
         </Styled.Field>
       </Styled.FieldWrapper>
-      <SchemaSelectorModal
-        data={schemas.schemaVersions}
-        dialog={dialog}
-        entityId={data?.entityId}
-        schemaVersionSlug={data?.schemaVersion?.slug}
-        schemaKind={schemaKind}
-      />
+      <Portal>
+        <SchemaSelectorModal
+          data={schemas.schemaVersions}
+          dialog={dialog}
+          entityId={data?.entityId}
+          schemaVersionSlug={data?.schemaVersion?.slug}
+          schemaKind={schemaKind}
+        />
+      </Portal>
     </>
   ) : null;
 };
