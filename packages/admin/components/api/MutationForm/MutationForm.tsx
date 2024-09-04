@@ -174,7 +174,6 @@ export default function MutationForm<
         const nameKeys = Object.keys(form.getValues());
 
         for (const { path, error } of errors.attributes) {
-          // TODO: Add other errors to the UI for reference
           if (nameKeys.includes(path)) {
             form.setError(path, error, { shouldFocus: false });
           }
@@ -202,7 +201,6 @@ export default function MutationForm<
       onSaveAndClose,
       notify,
       t,
-      dispatch,
       failureNotification,
       onFailure,
       form,

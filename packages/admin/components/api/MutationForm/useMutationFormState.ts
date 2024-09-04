@@ -43,12 +43,12 @@ function reducer<
         response: action.response,
       };
     case "failure": {
-      const { global: globalErrors } = action.errors;
+      const { global: globalErrors, user: userErrors } = action.errors;
 
       return {
         ...state,
         status: "failure",
-        globalErrors,
+        globalErrors: [...globalErrors, ...userErrors],
       };
     }
     case "error": {
