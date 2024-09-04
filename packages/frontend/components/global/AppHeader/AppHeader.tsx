@@ -30,7 +30,7 @@ function AppHeader({ data }: Props) {
 
   const dialog = useDialogState({ animated: true });
 
-  const totalCommunities = appData?.communities.pageInfo.totalCount || 0;
+  const totalCommunities = appData?.communities?.pageInfo.totalCount || 0;
 
   return (
     <>
