@@ -33,13 +33,14 @@ export default function FileEditForm({ data, onSuccess }: Props) {
   const renderForm = useRenderForm<Fields>(
     ({ form: { register } }) => (
       <Forms.Grid>
-        <Forms.Input label="forms.fields.name" {...register("name")} />
+        <Forms.Input label="forms.fields.name" {...register("name")} required />
         <Forms.FileUpload
           label="forms.fields.attachment"
           name="attachment"
           data={preview}
           kind={kind}
           fileSize={fileSize}
+          required
         />
         <Forms.Input label="forms.fields.alt_text" {...register("altText")} />
         <Forms.Textarea label="forms.fields.caption" {...register("caption")} />
