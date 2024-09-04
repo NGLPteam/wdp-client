@@ -200,11 +200,14 @@ export default function MutationForm<
       setTriggeredRefetchTags,
       successNotification,
       t,
+      dispatch,
     ],
   );
 
   const submitHandler: SubmitHandler<T> = useCallback(
     (values, event) => {
+      event?.preventDefault();
+
       const variables = castVariables(values);
 
       dispatch({ type: "submit", variables, values });
@@ -216,7 +219,7 @@ export default function MutationForm<
         onError: (err) => dispatch({ type: "error", serverError: err }),
       });
     },
-    [castVariables, dispatch, mutate],
+    [castVariables, dispatch, mutate, handleResponse],
   );
 
   const { handleSubmit } = form;
@@ -248,7 +251,7 @@ export default function MutationForm<
         />
         {children({ form })}
         <Styled.Footer className="l-flex l-flex--gap">
-          <Button type="submit" disabled={submitDisabled}>
+          <Button type="submit" onClick={onSubmit} disabled={submitDisabled}>
             {t("common.save")}
           </Button>
           {onSaveAndClose && (
