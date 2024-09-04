@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<102ec92ad84cf7f70e60211ba1de62d5>>
+ * @generated SignedSource<<3e47ff42178b59963af3a170022eca0e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,9 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 export type SiteLogoMode = "NONE" | "SANS_TEXT" | "WITH_TEXT" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type GlobalSettingsEditFormFragment$data = {
+  readonly entities: {
+    readonly suppressExternalLinks: boolean;
+  };
   readonly logo: {
     readonly " $fragmentSpreads": FragmentRefs<"SiteLogoUploadFragment">;
   };
@@ -134,6 +137,24 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
+      "concreteType": "EntitiesSettings",
+      "kind": "LinkedField",
+      "name": "entities",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "suppressExternalLinks",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "SiteLogoAttachment",
       "kind": "LinkedField",
       "name": "logo",
@@ -152,6 +173,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "68466ff87c0c38065073a60b36af424b";
+(node as any).hash = "f072fd6bd901ae8d330f96736d0de733";
 
 export default node;

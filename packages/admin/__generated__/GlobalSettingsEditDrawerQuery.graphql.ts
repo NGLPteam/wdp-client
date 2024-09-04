@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fd3b71233a3414bcd3ff4e216663bf3b>>
+ * @generated SignedSource<<3328d4617153bf5348b525784b0b4f28>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -154,6 +154,24 @@ const node: ConcreteRequest = {
           {
             "alias": null,
             "args": null,
+            "concreteType": "EntitiesSettings",
+            "kind": "LinkedField",
+            "name": "entities",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "suppressExternalLinks",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "SiteLogoAttachment",
             "kind": "LinkedField",
             "name": "logo",
@@ -214,12 +232,12 @@ const node: ConcreteRequest = {
     ]
   },
   "params": {
-    "cacheID": "4ed8f9a653f2ab1a0169fb3020e245ba",
+    "cacheID": "58f88ea83ff359cfd07ae6d6537ae980",
     "id": null,
     "metadata": {},
     "name": "GlobalSettingsEditDrawerQuery",
     "operationKind": "query",
-    "text": "query GlobalSettingsEditDrawerQuery {\n  globalConfiguration {\n    ...GlobalSettingsEditFormFragment\n    id\n  }\n}\n\nfragment GlobalSettingsEditFormFragment on GlobalConfiguration {\n  site {\n    providerName\n    installationName\n    installationHomePageCopy\n    footer {\n      description\n      copyrightStatement\n    }\n    logoMode\n  }\n  theme {\n    color\n    font\n  }\n  logo {\n    ...SiteLogoUploadFragment\n  }\n}\n\nfragment SiteLogoUploadFragment on SiteLogoAttachment {\n  originalFilename\n  storage\n  original {\n    url\n    alt\n  }\n}\n"
+    "text": "query GlobalSettingsEditDrawerQuery {\n  globalConfiguration {\n    ...GlobalSettingsEditFormFragment\n    id\n  }\n}\n\nfragment GlobalSettingsEditFormFragment on GlobalConfiguration {\n  site {\n    providerName\n    installationName\n    installationHomePageCopy\n    footer {\n      description\n      copyrightStatement\n    }\n    logoMode\n  }\n  theme {\n    color\n    font\n  }\n  entities {\n    suppressExternalLinks\n  }\n  logo {\n    ...SiteLogoUploadFragment\n  }\n}\n\nfragment SiteLogoUploadFragment on SiteLogoAttachment {\n  originalFilename\n  storage\n  original {\n    url\n    alt\n  }\n}\n"
   }
 };
 

@@ -68,3 +68,10 @@ export const Icon = styled(IconFactory)`
     color: var(--accent-light);
   }
 `;
+
+export const Description = styled.div`
+  font-size: var(--font-size-sm);
+  color: var(--color-light);
+  font-style: italic;
+  padding-block-start: ${pxToRem(4)};
+`;
