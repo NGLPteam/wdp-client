@@ -396,9 +396,9 @@
         "search_placeholder": "Enter keyword",
         "initial_ordering": "Initial Ordering",
         "initial_ordering_description": "Set which ordering should be displayed on the landing page of {{name}}.",
-        "entity_settings": "Journal Settings",
+        "entity_settings": "Entity Settings",
         "supress_external_links": "Suppress external links",
-        "supress_external_links_description": "Show or hide the \"Online Version\" in metadata."
+        "supress_external_links_description": "Hide external links in metadata."
       },
       "validation": {
         "year": "Must be a four digit year",
