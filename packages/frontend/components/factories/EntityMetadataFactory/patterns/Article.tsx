@@ -10,7 +10,9 @@ import { ExternalLink, PrecisionDate } from "components/atomic";
 import ContributorName from "components/composed/contributor/ContributorName";
 
 import { normalizeDoiUrl } from "helpers";
+import { Fragment } from "react";
 import { ArticleMetadataFragment$key } from "@/relay/ArticleMetadataFragment.graphql";
+import useGlobalContext from "@/contexts/GlobalStaticContext/useGlobalStaticContext";
 import ArticleIssueMetadata from "./parts/ArticleIssueMetadata";
 
 interface Props {
@@ -20,6 +22,7 @@ interface Props {
 export default function ArticleMetadata({ data }: Props) {
   const { t } = useTranslation();
   const article = useMaybeFragment(fragment, data);
+  const globalData = useGlobalContext();
 
   const authors = article?.contributions?.edges?.filter(
     ({ node }) => node.role?.toLowerCase() === "author",
@@ -34,10 +37,10 @@ export default function ArticleMetadata({ data }: Props) {
       >
         {!!authors?.length &&
           authors.map(({ node }, i) => (
-            <>
-              <ContributorName data={node.contributor} key={i} />
+            <Fragment key={i}>
+              <ContributorName data={node.contributor} />
               {i < authors.length - 1 && ", "}
-            </>
+            </Fragment>
           ))}
       </MetadataProperty>
       <MetadataProperty label={t("metadata.journal")}>
@@ -70,10 +73,12 @@ export default function ArticleMetadata({ data }: Props) {
         label={t("metadata.preprint_version")}
         data={article.prePrintVersion}
       />
-      <MetadataFactory
-        label={t("metadata.online_version")}
-        data={article.onlineVersion}
-      />
+      {!globalData.globalConfiguration?.entities.suppressExternalLinks && (
+        <MetadataFactory
+          label={t("metadata.online_version")}
+          data={article.onlineVersion}
+        />
+      )}
     </EntityMetadataBlock>
   ) : null;
 }

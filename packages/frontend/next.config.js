@@ -4,7 +4,7 @@ const images = {
   remotePatterns: [
     {
       protocol: "https",
-      hostname: "api.staging.nglp.org",
+      hostname: "https://api.sandbox.meru.host/graphql",
       port: "",
     },
     {

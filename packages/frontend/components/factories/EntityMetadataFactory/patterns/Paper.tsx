@@ -54,9 +54,9 @@ export default function PaperMetadata({ data }: Props) {
       <MetadataFactory label={t("metadata.available")} data={paper.available} />
       <MetadataProperty label={"ISSN"}>{paper.issn}</MetadataProperty>
       {!!paper.host?.properties?.length &&
-        paper.host.properties.map((prop) => (
+        paper.host.properties.map((prop, i) => (
           <MetadataFactory
-            key={prop.path}
+            key={i}
             label={
               prop?.path
                 ? t(HOST_LABELS_BY_PATH[prop.path as PathKey])

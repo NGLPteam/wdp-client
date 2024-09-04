@@ -1,4 +1,4 @@
-schema: https://api.staging.nglp.org/graphql
+schema: https://api.sandbox.meru.host/graphql
 extensions:
   customDirectives:
     - "directive @connection(key: String!, filters: [String]) on FIELD"
