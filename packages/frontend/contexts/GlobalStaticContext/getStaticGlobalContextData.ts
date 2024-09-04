@@ -22,6 +22,9 @@ const query = graphql`
           copyrightStatement
         }
       }
+      entities {
+        suppressExternalLinks
+      }
     }
     allCommunities: communities(order: POSITION_ASCENDING) {
       edges {

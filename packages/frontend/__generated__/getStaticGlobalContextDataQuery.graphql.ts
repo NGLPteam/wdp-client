@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f5a50bee8b0ac00a5fd4db1c04db8a79>>
+ * @generated SignedSource<<1920da9ea4328e0efa1ab3aa34a2f719>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,6 +21,9 @@ export type getStaticGlobalContextDataQuery$data = {
     }>;
   };
   readonly globalConfiguration: {
+    readonly entities: {
+      readonly suppressExternalLinks: boolean;
+    };
     readonly site: {
       readonly footer: {
         readonly copyrightStatement: string;
@@ -103,28 +106,46 @@ var v0 = {
   ],
   "storageKey": null
 },
-v1 = [
+v1 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "EntitiesSettings",
+  "kind": "LinkedField",
+  "name": "entities",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "suppressExternalLinks",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v2 = [
   {
     "kind": "Literal",
     "name": "order",
     "value": "POSITION_ASCENDING"
   }
 ],
-v2 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
 },
-v3 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "title",
   "storageKey": null
 },
-v4 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -146,13 +167,14 @@ return {
         "name": "globalConfiguration",
         "plural": false,
         "selections": [
-          (v0/*: any*/)
+          (v0/*: any*/),
+          (v1/*: any*/)
         ],
         "storageKey": null
       },
       {
         "alias": "allCommunities",
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": "CommunityConnection",
         "kind": "LinkedField",
         "name": "communities",
@@ -174,8 +196,8 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v2/*: any*/),
-                  (v3/*: any*/)
+                  (v3/*: any*/),
+                  (v4/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -204,13 +226,14 @@ return {
         "plural": false,
         "selections": [
           (v0/*: any*/),
-          (v4/*: any*/)
+          (v1/*: any*/),
+          (v5/*: any*/)
         ],
         "storageKey": null
       },
       {
         "alias": "allCommunities",
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": "CommunityConnection",
         "kind": "LinkedField",
         "name": "communities",
@@ -232,9 +255,9 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v2/*: any*/),
                   (v3/*: any*/),
-                  (v4/*: any*/)
+                  (v4/*: any*/),
+                  (v5/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -247,16 +270,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6ff5d768c22f538b7f7c5d3697362398",
+    "cacheID": "b91319742f39f525d970752fccbe2728",
     "id": null,
     "metadata": {},
     "name": "getStaticGlobalContextDataQuery",
     "operationKind": "query",
-    "text": "query getStaticGlobalContextDataQuery {\n  globalConfiguration {\n    site {\n      providerName\n      installationName\n      installationHomePageCopy\n      logoMode\n      footer {\n        description\n        copyrightStatement\n      }\n    }\n    id\n  }\n  allCommunities: communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query getStaticGlobalContextDataQuery {\n  globalConfiguration {\n    site {\n      providerName\n      installationName\n      installationHomePageCopy\n      logoMode\n      footer {\n        description\n        copyrightStatement\n      }\n    }\n    entities {\n      suppressExternalLinks\n    }\n    id\n  }\n  allCommunities: communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "a9f196731606ca053649d05588e33723";
+(node as any).hash = "ddb2edc759de6bc930bc4fac3eeb9e77";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<124888a7866f7e2d10b6ff74f4146228>>
+ * @generated SignedSource<<dde0699a70fdcab40cf1c59c7aa132dc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,11 +15,15 @@ export type UploadStorage = "CACHE" | "%future added value";
 export type UpdateGlobalConfigurationInput = {
   clearLogo?: boolean | null | undefined;
   clientMutationId?: string | null | undefined;
+  entities?: EntitiesSettingsInput | null | undefined;
   institution?: InstitutionSettingsInput | null | undefined;
   logo?: UploadedFileInput | null | undefined;
   logoMetadata?: ImageMetadataInput | null | undefined;
   site?: SiteSettingsInput | null | undefined;
   theme?: ThemeSettingsInput | null | undefined;
+};
+export type EntitiesSettingsInput = {
+  suppressExternalLinks?: boolean | null | undefined;
 };
 export type InstitutionSettingsInput = {
   name?: string | null | undefined;
@@ -58,6 +62,9 @@ export type GlobalSettingsEditFormMutation$variables = {
 export type GlobalSettingsEditFormMutation$data = {
   readonly updateGlobalConfiguration: {
     readonly globalConfiguration: {
+      readonly entities: {
+        readonly suppressExternalLinks: boolean;
+      };
       readonly site: {
         readonly footer: {
           readonly copyrightStatement: string;
@@ -185,7 +192,25 @@ v3 = {
   ],
   "storageKey": null
 },
-v4 = [
+v4 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "EntitiesSettings",
+  "kind": "LinkedField",
+  "name": "entities",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "suppressExternalLinks",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v5 = [
   {
     "alias": null,
     "args": null,
@@ -194,7 +219,7 @@ v4 = [
     "storageKey": null
   }
 ],
-v5 = {
+v6 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -236,7 +261,7 @@ v5 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v4/*: any*/),
+      "selections": (v5/*: any*/),
       "storageKey": null
     },
     {
@@ -246,7 +271,7 @@ v5 = {
       "kind": "LinkedField",
       "name": "errors",
       "plural": true,
-      "selections": (v4/*: any*/),
+      "selections": (v5/*: any*/),
       "storageKey": null
     }
   ],
@@ -277,7 +302,8 @@ return {
             "plural": false,
             "selections": [
               (v2/*: any*/),
-              (v3/*: any*/)
+              (v3/*: any*/),
+              (v4/*: any*/)
             ],
             "storageKey": null
           },
@@ -285,7 +311,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v5/*: any*/)
+              (v6/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -321,6 +347,7 @@ return {
             "selections": [
               (v2/*: any*/),
               (v3/*: any*/),
+              (v4/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -331,23 +358,23 @@ return {
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v6/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "8dd3f270ff9c434849794cb013fa678b",
+    "cacheID": "1616149417337645767a8003e29d4f64",
     "id": null,
     "metadata": {},
     "name": "GlobalSettingsEditFormMutation",
     "operationKind": "mutation",
-    "text": "mutation GlobalSettingsEditFormMutation(\n  $input: UpdateGlobalConfigurationInput!\n) {\n  updateGlobalConfiguration(input: $input) {\n    globalConfiguration {\n      site {\n        providerName\n        installationName\n        installationHomePageCopy\n        footer {\n          description\n          copyrightStatement\n        }\n        logoMode\n      }\n      theme {\n        color\n        font\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation GlobalSettingsEditFormMutation(\n  $input: UpdateGlobalConfigurationInput!\n) {\n  updateGlobalConfiguration(input: $input) {\n    globalConfiguration {\n      site {\n        providerName\n        installationName\n        installationHomePageCopy\n        footer {\n          description\n          copyrightStatement\n        }\n        logoMode\n      }\n      theme {\n        color\n        font\n      }\n      entities {\n        suppressExternalLinks\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "726d811cc07c83cfa7bc2d3aca94775c";
+(node as any).hash = "d94b3f86d5babafa2f1e20d74db38348";
 
 export default node;

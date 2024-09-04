@@ -94,6 +94,13 @@ export default function GlobalSettingsEditForm({
           required
           {...register("theme.font")}
         />
+        <Forms.Fieldset label={t("forms.fields.entity_settings")}>
+          <Forms.Checkbox
+            description="forms.fields.supress_external_links_description"
+            label="forms.fields.supress_external_links"
+            {...register("entities.suppressExternalLinks")}
+          />
+        </Forms.Fieldset>
         <Forms.Fieldset label={t("forms.fields.footer")}>
           <Forms.Textarea
             label="forms.fields.footer_description"
@@ -151,6 +158,9 @@ const fragment = graphql`
       color
       font
     }
+    entities {
+      suppressExternalLinks
+    }
     logo {
       ...SiteLogoUploadFragment
     }
@@ -176,6 +186,9 @@ const mutation = graphql`
         theme {
           color
           font
+        }
+        entities {
+          suppressExternalLinks
         }
       }
       ...MutationForm_mutationErrors

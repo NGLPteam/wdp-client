@@ -395,7 +395,10 @@
         "orcid_description": "Link to an optional, unique Open Researcher and Contributor ID associated with this contributor.",
         "search_placeholder": "Enter keyword",
         "initial_ordering": "Initial Ordering",
-        "initial_ordering_description": "Set which ordering should be displayed on the landing page of {{name}}."
+        "initial_ordering_description": "Set which ordering should be displayed on the landing page of {{name}}.",
+        "entity_settings": "Entity Settings",
+        "supress_external_links": "Suppress external links",
+        "supress_external_links_description": "Hide external links in metadata."
       },
       "validation": {
         "year": "Must be a four digit year",

@@ -10,6 +10,7 @@ import { ExternalLink, PrecisionDate } from "components/atomic";
 import ContributorName from "components/composed/contributor/ContributorName";
 
 import { normalizeDoiUrl } from "helpers";
+import { Fragment } from "react";
 import { ArticleMetadataFragment$key } from "@/relay/ArticleMetadataFragment.graphql";
 import ArticleIssueMetadata from "./parts/ArticleIssueMetadata";
 
@@ -34,10 +35,10 @@ export default function ArticleMetadata({ data }: Props) {
       >
         {!!authors?.length &&
           authors.map(({ node }, i) => (
-            <>
-              <ContributorName data={node.contributor} key={i} />
+            <Fragment key={i}>
+              <ContributorName data={node.contributor} />
               {i < authors.length - 1 && ", "}
-            </>
+            </Fragment>
           ))}
       </MetadataProperty>
       <MetadataProperty label={t("metadata.journal")}>
