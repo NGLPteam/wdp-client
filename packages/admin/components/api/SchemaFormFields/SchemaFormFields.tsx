@@ -11,6 +11,7 @@ export default function SchemaFormFields({
   title = "forms.schema.label",
   data,
   schemaKind,
+  schemaSlugs,
 }: Props) {
   const instance = useFragment(fragment, data);
 
@@ -21,7 +22,11 @@ export default function SchemaFormFields({
       <ContentHeader title={t(title)} headerStyle="secondary" />
       {instance.properties && instance.properties.length > 0 ? (
         <>
-          <SchemaSelector schemaData={instance} schemaKind={schemaKind} />
+          <SchemaSelector
+            schemaData={instance}
+            schemaKind={schemaKind}
+            schemaSlugs={schemaSlugs}
+          />
           <FormGrid>
             {instance.properties.map((prop, index) => (
               <Property property={prop} key={index} />
@@ -29,7 +34,11 @@ export default function SchemaFormFields({
           </FormGrid>
         </>
       ) : (
-        <SchemaSelector schemaData={instance} schemaKind={schemaKind} />
+        <SchemaSelector
+          schemaData={instance}
+          schemaKind={schemaKind}
+          schemaSlugs={schemaSlugs}
+        />
       )}
     </SchemaFormFieldsContextProvider>
   );
@@ -39,6 +48,8 @@ interface Props {
   data: SchemaFormFieldsFragment$key;
   title?: string;
   schemaKind: "COLLECTION" | "ITEM" | "COMMUNITY";
+  // Filter options by these schema slugs
+  schemaSlugs?: string[];
 }
 
 const fragment = graphql`

@@ -8,6 +8,7 @@ import has from "lodash/has";
 import { ContentHeader } from "components/layout";
 import { Button } from "components/atomic";
 import { useNotify, usePageContext } from "hooks";
+
 import GlobalErrors from "./GlobalErrors";
 
 import useMutationFormState from "./useMutationFormState";
@@ -82,9 +83,9 @@ export default function MutationForm<
 
   const form = useForm<T>({
     criteriaMode: "all",
+    shouldFocusError: true,
     defaultValues,
   });
-
   const [state, dispatch] = useMutationFormState<M, T>({ form, name });
 
   const [mutate, loading] = useMutation<M>(props.mutation);
@@ -126,8 +127,6 @@ export default function MutationForm<
     },
     [getErrors, name],
   );
-
-  const { setError } = form;
 
   const handleResponse = useCallback(
     (
@@ -172,8 +171,12 @@ export default function MutationForm<
         /* eslint-disable no-console */
         console.dir({ errors });
 
+        const nameKeys = Object.keys(form.getValues());
+
         for (const { path, error } of errors.attributes) {
-          setError(path, error, { shouldFocus: false });
+          if (nameKeys.includes(path)) {
+            form.setError(path, error, { shouldFocus: false });
+          }
         }
 
         if (typeof onFailure === "function") {
@@ -182,7 +185,7 @@ export default function MutationForm<
             response,
             variables,
             values,
-            setError,
+            setError: form.setError,
           });
         }
       }
@@ -190,17 +193,17 @@ export default function MutationForm<
     [
       extractErrorsRef,
       isSuccess,
-      onFailure,
+      dispatch,
+      successNotification,
+      setTriggeredRefetchTags,
+      refetchTags,
       onSuccess,
       onSaveAndClose,
-      setError,
-      failureNotification,
       notify,
-      refetchTags,
-      setTriggeredRefetchTags,
-      successNotification,
       t,
-      dispatch,
+      failureNotification,
+      onFailure,
+      form,
     ],
   );
 
@@ -219,23 +222,20 @@ export default function MutationForm<
         onError: (err) => dispatch({ type: "error", serverError: err }),
       });
     },
-    [castVariables, dispatch, mutate, handleResponse],
+    [castVariables, dispatch, handleResponse, mutate],
   );
 
-  const { handleSubmit } = form;
-
   /* eslint-disable prettier/prettier */
-  const onSubmit = useMemo(() => handleSubmit(submitHandler), [
-    handleSubmit,
-    submitHandler,
-  ]);
+  const onSubmit = useMemo(() => form.handleSubmit(submitHandler), [form, submitHandler]);
   /* eslint-enable prettier/prettier */
 
-  const {
-    formState: { isSubmitting, isValidating },
-  } = form;
+  const submitDisabled = useMemo(() => {
+    const {
+      formState: { isSubmitting, isValidating },
+    } = form;
 
-  const submitDisabled = loading || isSubmitting || isValidating;
+    return loading || isSubmitting || isValidating;
+  }, [form, loading]);
 
   return (
     <FormProvider {...form}>

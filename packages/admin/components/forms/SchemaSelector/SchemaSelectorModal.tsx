@@ -23,6 +23,7 @@ const SchemaSelectorModal = ({
   entityId,
   schemaVersionSlug,
   schemaKind,
+  schemaSlugs,
 }: Props) => {
   const { t } = useTranslation();
 
@@ -41,7 +42,13 @@ const SchemaSelectorModal = ({
 
   const options =
     schemaVersions?.edges
-      ?.filter((item) => item.node.kind === schemaKind)
+      ?.filter(
+        (item) =>
+          item.node.kind === schemaKind &&
+          (schemaSlugs && schemaSlugs.length > 0
+            ? schemaSlugs.includes(item.node.schemaDefinition.slug)
+            : true),
+      )
       .map((item) => ({
         label: `${item.node.name} ${item.node.number}`,
         value: item.node.slug,
@@ -50,7 +57,7 @@ const SchemaSelectorModal = ({
   const renderForm = useRenderForm<Fields>(
     ({ form: { register } }) => (
       <Forms.Select
-        options={options}
+        options={[{ label: "Select an option", value: "" }, ...options]}
         label={t("forms.schema.new_label")}
         description={t("forms.schema.change_warning")}
         {...register("schemaVersionSlug")}
@@ -96,6 +103,8 @@ interface Props {
   entityId: string;
   schemaVersionSlug: string;
   schemaKind: SchemaKind;
+  // Filter by these schema slugs
+  schemaSlugs?: string[];
 }
 
 const fragment = graphql`
@@ -108,6 +117,9 @@ const fragment = graphql`
         kind
         slug
         number
+        schemaDefinition {
+          slug
+        }
       }
     }
   }

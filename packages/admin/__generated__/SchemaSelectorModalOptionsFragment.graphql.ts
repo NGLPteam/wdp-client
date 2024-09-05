@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1a6b915f7d9b8bc8ed366b64f4e0ce6f>>
+ * @generated SignedSource<<1bddcb0ace47fdbd902583bfa54b3f9e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,6 +19,9 @@ export type SchemaSelectorModalOptionsFragment$data = {
       readonly name: string;
       readonly namespace: string;
       readonly number: string;
+      readonly schemaDefinition: {
+        readonly slug: string;
+      };
       readonly slug: string;
     };
   }>;
@@ -29,7 +32,15 @@ export type SchemaSelectorModalOptionsFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"SchemaSelectorModalOptionsFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -79,18 +90,24 @@ const node: ReaderFragment = {
               "name": "kind",
               "storageKey": null
             },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "slug",
-              "storageKey": null
-            },
+            (v0/*: any*/),
             {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
               "name": "number",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "SchemaDefinition",
+              "kind": "LinkedField",
+              "name": "schemaDefinition",
+              "plural": false,
+              "selections": [
+                (v0/*: any*/)
+              ],
               "storageKey": null
             }
           ],
@@ -103,7 +120,8 @@ const node: ReaderFragment = {
   "type": "SchemaVersionConnection",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "a1d8ededc84a8d4c6a451f2dedab1bdd";
+(node as any).hash = "fa39c6b24de2bd45f37f395a1b9d5993";
 
 export default node;

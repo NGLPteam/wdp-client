@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4a46de499677e20d37d3dc310cd9083b>>
+ * @generated SignedSource<<73949155dacad761f352130432495804>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -132,6 +132,25 @@ return {
             "kind": "ScalarField",
             "name": "value",
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "SchemaDefinition",
+            "kind": "LinkedField",
+            "name": "schemaDefinition",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "slug",
+                "storageKey": null
+              },
+              (v2/*: any*/)
+            ],
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -180,12 +199,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ff40218c6fe9061a23bcb28d75b0ccbe",
+    "cacheID": "f538eaca380ea3e3597b7e36bc866476",
     "id": null,
     "metadata": {},
     "name": "CollectionAddDrawerQuery",
     "operationKind": "query",
-    "text": "query CollectionAddDrawerQuery(\n  $parentSlug: Slug!\n  $schemaKind: SchemaKind!\n) {\n  collection(slug: $parentSlug) {\n    id\n  }\n  community(slug: $parentSlug) {\n    id\n  }\n  ...CollectionAddFormFragment\n}\n\nfragment CollectionAddFormFragment on Query {\n  ...SchemaSelectFragment\n  ...CommunitySelectFragment\n}\n\nfragment CommunitySelectFragment on Query {\n  communities {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment SchemaSelectFragment on Query {\n  schemaVersionOptions(kind: $schemaKind) {\n    label\n    value\n  }\n}\n"
+    "text": "query CollectionAddDrawerQuery(\n  $parentSlug: Slug!\n  $schemaKind: SchemaKind!\n) {\n  collection(slug: $parentSlug) {\n    id\n  }\n  community(slug: $parentSlug) {\n    id\n  }\n  ...CollectionAddFormFragment\n}\n\nfragment CollectionAddFormFragment on Query {\n  ...SchemaSelectFragment\n  ...CommunitySelectFragment\n}\n\nfragment CommunitySelectFragment on Query {\n  communities {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment SchemaSelectFragment on Query {\n  schemaVersionOptions(kind: $schemaKind) {\n    label\n    value\n    schemaDefinition {\n      slug\n      id\n    }\n  }\n}\n"
   }
 };
 })();

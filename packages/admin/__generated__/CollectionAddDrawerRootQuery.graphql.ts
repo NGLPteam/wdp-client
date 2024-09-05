@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<af1e60d9af7a2513048642acf9848d7d>>
+ * @generated SignedSource<<a69bb14bf04d5c93d4634c2b2e8bfd56>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -29,7 +29,14 @@ var v0 = [
     "kind": "LocalArgument",
     "name": "schemaKind"
   }
-];
+],
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -79,6 +86,25 @@ return {
             "kind": "ScalarField",
             "name": "value",
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "SchemaDefinition",
+            "kind": "LinkedField",
+            "name": "schemaDefinition",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "slug",
+                "storageKey": null
+              },
+              (v1/*: any*/)
+            ],
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -107,13 +133,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  },
+                  (v1/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -133,12 +153,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a0262bffd549e448765735e09364363d",
+    "cacheID": "de3fb5a1ca30d54ad4c694ca5f73cb45",
     "id": null,
     "metadata": {},
     "name": "CollectionAddDrawerRootQuery",
     "operationKind": "query",
-    "text": "query CollectionAddDrawerRootQuery(\n  $schemaKind: SchemaKind!\n) {\n  ...CollectionAddFormFragment\n}\n\nfragment CollectionAddFormFragment on Query {\n  ...SchemaSelectFragment\n  ...CommunitySelectFragment\n}\n\nfragment CommunitySelectFragment on Query {\n  communities {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment SchemaSelectFragment on Query {\n  schemaVersionOptions(kind: $schemaKind) {\n    label\n    value\n  }\n}\n"
+    "text": "query CollectionAddDrawerRootQuery(\n  $schemaKind: SchemaKind!\n) {\n  ...CollectionAddFormFragment\n}\n\nfragment CollectionAddFormFragment on Query {\n  ...SchemaSelectFragment\n  ...CommunitySelectFragment\n}\n\nfragment CommunitySelectFragment on Query {\n  communities {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment SchemaSelectFragment on Query {\n  schemaVersionOptions(kind: $schemaKind) {\n    label\n    value\n    schemaDefinition {\n      slug\n      id\n    }\n  }\n}\n"
   }
 };
 })();
