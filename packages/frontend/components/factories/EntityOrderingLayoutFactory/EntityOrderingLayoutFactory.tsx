@@ -20,7 +20,6 @@ export default async function EntityOrderingLayoutFactory({
   params,
 }: Props) {
   const entity = readInlineData(fragment, data);
-  console.debug({ entity });
 
   const { ordering: orderingParam, slug, page: pageParam } = params;
 
@@ -41,8 +40,6 @@ export default async function EntityOrderingLayoutFactory({
     page,
     slug,
   });
-
-  console.debug({ orderingData });
 
   const isDisabled =
     !!orderingData?.collection?.ordering?.disabled ||

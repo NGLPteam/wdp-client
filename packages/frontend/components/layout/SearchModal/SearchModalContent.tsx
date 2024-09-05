@@ -15,7 +15,7 @@ export default function SearchModalContent({ searchData }: Props) {
     searchData?.breadcrumbs && searchData.breadcrumbs.length > 0
       ? [...searchData.breadcrumbs]
           .reverse()
-          .filter((entity) => entity.crumb.__typename !== "Item")
+          .filter((entity) => entity.crumb?.__typename !== "Item")
       : null;
 
   const defaultValue =
