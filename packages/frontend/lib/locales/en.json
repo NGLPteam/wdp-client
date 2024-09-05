@@ -252,7 +252,8 @@
       "copy_citation": "Copy Citation"
     },
     "messages": {
-      "hidden": "This {{schema}} is hidden"
+      "hidden": "This {{schema}} is hidden",
+      "server_error": "A server error occured."
     },
     "analytics": {
       "regions": {

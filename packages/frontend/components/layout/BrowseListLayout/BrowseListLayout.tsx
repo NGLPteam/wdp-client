@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { PageCount, Pagination } from "components/atomic";
 import { BrowseListLayoutFragment$key } from "@/relay/BrowseListLayoutFragment.graphql";
-import NoContent from "../NoContent";
+import NoContent from "../messages/NoContent";
 import * as Styled from "./BrowseListLayout.styles";
 
 export default function BrowseListLayout({

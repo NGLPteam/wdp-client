@@ -9,7 +9,7 @@ import {
   BrowseTreeLayoutFragment$data,
   BrowseTreeLayoutFragment$key,
 } from "@/relay/BrowseTreeLayoutFragment.graphql";
-import NoContent from "../NoContent";
+import NoContent from "../messages/NoContent";
 import * as Styled from "./BrowseTreeLayout.styles";
 
 export default function BrowseTreeLayout({

@@ -52,10 +52,13 @@ export default function StatBlocks({
   )[Object.keys(aggregatedByCountry).length - 1];
 
   const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
+
   const regionName =
     map === "US" && topRegion?.regionCode
       ? STATES[topRegion.regionCode as keyof typeof STATES]
-      : topAggregateRegion && regionNames.of(topAggregateRegion);
+      : topAggregateRegion && topAggregateRegion !== "$unknown$"
+        ? regionNames.of(topAggregateRegion)
+        : undefined;
 
   return (
     <Styled.BlockGroup>

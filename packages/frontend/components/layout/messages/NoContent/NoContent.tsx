@@ -7,7 +7,7 @@ const NoContent = ({ message }: Props) => {
 
   return (
     <Styled.Wrapper>
-      <p className="h4">
+      <p className="t-h4">
         {!message
           ? t("common.no_content")
           : typeof message === "string"
