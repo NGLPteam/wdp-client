@@ -16,6 +16,7 @@ export default function SiteLogoUpload({ data, ...inputProps }: Props) {
       image={image}
       originalFilename={imageData?.originalFilename}
       storage={imageData?.storage ? imageData.storage.toString() : undefined}
+      accept="image/*"
       {...inputProps}
     />
   );

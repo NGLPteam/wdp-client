@@ -60,7 +60,7 @@ const UserUpdateForm = ({ data, onSuccess, onCancel }: Props) => {
           isWide
           {...register("email")}
         />
-        <Forms.FileUpload
+        <Forms.FileImageUpload
           label="forms.fields.avatar"
           name="avatar"
           data={fieldData?.avatar}

@@ -113,8 +113,14 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
           />
         )}
         <Forms.Input label="forms.fields.doi" {...register("doi")} />
-        <Forms.FileUpload label="forms.fields.thumbnail" name="thumbnail" />
-        <Forms.FileUpload label="forms.fields.hero_image" name="heroImage" />
+        <Forms.FileImageUpload
+          label="forms.fields.thumbnail"
+          name="thumbnail"
+        />
+        <Forms.FileImageUpload
+          label="forms.fields.hero_image"
+          name="heroImage"
+        />
         <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
 
         <Forms.VariablePrecisionDateControl

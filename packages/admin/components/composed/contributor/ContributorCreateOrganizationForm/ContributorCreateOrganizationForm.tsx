@@ -30,7 +30,7 @@ export default function ContributorCreateOrganizationForm({
           description="forms.fields.orcid_description"
           {...register("orcid")}
         />
-        <Forms.FileUpload label="forms.fields.image" name="image" />
+        <Forms.FileImageUpload name="image" />
         <Forms.Input label="forms.fields.location" {...register("location")} />
         <Forms.Textarea label="forms.fields.bio" {...register("bio")} />
         <Forms.Input label="forms.fields.url" {...register("url")} />

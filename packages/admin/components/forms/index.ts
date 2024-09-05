@@ -35,3 +35,4 @@ export { default as OrderRenderSelect } from "./OrderRenderSelect";
 export { default as OrderingLinksSelection } from "./OrderingLinksSelection";
 export { default as EntitySelector } from "./EntitySelector";
 export { default as SiteLogoUpload } from "./FileUpload/patterns/SiteLogoUpload";
+export { default as FileImageUpload } from "./FileUpload/patterns/FileImageUpload";

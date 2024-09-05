@@ -151,13 +151,13 @@ export default function ItemUpdateForm({
           <Forms.VisibilityFields />
           <Forms.Input label="forms.fields.doi" {...register("doi")} />
           <Forms.Input label="forms.fields.issn" {...register("issn")} />
-          <Forms.FileUpload
+          <Forms.FileImageUpload
             label="forms.fields.thumbnail"
             name="thumbnail"
             data={thumbnail}
             clearName="clearThumbnail"
           />
-          <Forms.FileUpload
+          <Forms.FileImageUpload
             label="forms.fields.hero_image"
             name="heroImage"
             data={heroImage}

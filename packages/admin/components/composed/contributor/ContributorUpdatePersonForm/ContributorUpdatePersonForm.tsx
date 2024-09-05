@@ -67,8 +67,7 @@ export default function ContributorUpdatePersonForm({
           description="forms.fields.orcid_description"
           {...register("orcid")}
         />
-        <Forms.FileUpload
-          label="forms.fields.image"
+        <Forms.FileImageUpload
           name="image"
           data={image}
           clearName="clearImage"
