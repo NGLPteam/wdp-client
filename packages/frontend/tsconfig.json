@@ -6,7 +6,8 @@
       "@/*": ["./*"],
       "@/relay/*": ["__generated__/*"],
       "@/types/*": ["types/*"],
-      "@/components/*": ["components/*"]
+      "@/components/*": ["components/*"],
+      "@/lib/*": ["lib/*"]
     },
     "plugins": [
       {

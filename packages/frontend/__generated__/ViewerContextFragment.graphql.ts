@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dec92a63427d5c2066770500bb78c785>>
+ * @generated SignedSource<<a075923bcea178413104e55832a30ada>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,21 +8,23 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ViewerContextFragment$data = {
-  readonly allowedActions: ReadonlyArray<string>;
-  readonly avatar: {
-    readonly small: {
-      readonly png: {
-        readonly alt: string | null | undefined;
-        readonly url: string | null | undefined;
+  readonly viewer: {
+    readonly allowedActions: ReadonlyArray<string>;
+    readonly avatar: {
+      readonly small: {
+        readonly png: {
+          readonly alt: string | null | undefined;
+          readonly url: string | null | undefined;
+        };
       };
     };
+    readonly name: string | null | undefined;
+    readonly uploadAccess: boolean;
+    readonly uploadToken: string | null | undefined;
   };
-  readonly name: string | null | undefined;
-  readonly uploadAccess: boolean;
-  readonly uploadToken: string | null | undefined;
   readonly " $fragmentType": "ViewerContextFragment";
 };
 export type ViewerContextFragment$key = {
@@ -33,73 +35,90 @@ export type ViewerContextFragment$key = {
 const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
-  "metadata": null,
+  "metadata": {
+    "refetch": {
+      "connection": null,
+      "fragmentPathInResult": [],
+      "operation": require('./ViewerRefetchQuery.graphql')
+    }
+  },
   "name": "ViewerContextFragment",
   "selections": [
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "name",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "allowedActions",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "uploadAccess",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "uploadToken",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ImageAttachment",
+      "concreteType": "User",
       "kind": "LinkedField",
-      "name": "avatar",
+      "name": "viewer",
       "plural": false,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "concreteType": "ImageSize",
+          "kind": "ScalarField",
+          "name": "name",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "allowedActions",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "uploadAccess",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "uploadToken",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageAttachment",
           "kind": "LinkedField",
-          "name": "small",
+          "name": "avatar",
           "plural": false,
           "selections": [
             {
               "alias": null,
               "args": null,
-              "concreteType": "ImageDerivative",
+              "concreteType": "ImageSize",
               "kind": "LinkedField",
-              "name": "png",
+              "name": "small",
               "plural": false,
               "selections": [
                 {
                   "alias": null,
                   "args": null,
-                  "kind": "ScalarField",
-                  "name": "url",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "alt",
+                  "concreteType": "ImageDerivative",
+                  "kind": "LinkedField",
+                  "name": "png",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "url",
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "alt",
+                      "storageKey": null
+                    }
+                  ],
                   "storageKey": null
                 }
               ],
@@ -112,10 +131,10 @@ const node: ReaderFragment = {
       "storageKey": null
     }
   ],
-  "type": "User",
+  "type": "Query",
   "abstractKey": null
 };
 
-(node as any).hash = "cdd69af8cd03dbb2a2b23fad601fe656";
+(node as any).hash = "cce1c4bb1913a79cf124fce048201880";
 
 export default node;

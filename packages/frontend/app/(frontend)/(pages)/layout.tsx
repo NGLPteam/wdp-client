@@ -9,6 +9,8 @@ import RelayEnvironmentProvider from "@/lib/relay/RelayClientEnvProvider";
 import StyledComponentsRegistry from "@/lib/styled-components/registry";
 import { layoutAllPagesQuery as Query } from "@/relay/layoutAllPagesQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
+import { SessionProvider } from "@/lib/auth/session";
+import { ViewerContextProvider } from "@/contexts/ViewerContext";
 
 export default async function PageLayout({ children }: PropsWithChildren) {
   const globalData = await getStaticGlobalContextData();
@@ -18,17 +20,21 @@ export default async function PageLayout({ children }: PropsWithChildren) {
   const theme = data?.globalConfiguration?.theme;
 
   return (
-    <GlobalStaticContextProvider globalData={globalData}>
-      <RelayEnvironmentProvider>
-        <UpdateClientEnvironment records={records}>
-          <ThemeProvider theme={theme}>
-            <StyledComponentsRegistry>
-              <AppBody data={data}>{children}</AppBody>
-            </StyledComponentsRegistry>
-          </ThemeProvider>
-        </UpdateClientEnvironment>
-      </RelayEnvironmentProvider>
-    </GlobalStaticContextProvider>
+    <SessionProvider>
+      <GlobalStaticContextProvider globalData={globalData}>
+        <RelayEnvironmentProvider>
+          <ViewerContextProvider data={data}>
+            <UpdateClientEnvironment records={records}>
+              <ThemeProvider theme={theme}>
+                <StyledComponentsRegistry>
+                  <AppBody data={data}>{children}</AppBody>
+                </StyledComponentsRegistry>
+              </ThemeProvider>
+            </UpdateClientEnvironment>
+          </ViewerContextProvider>
+        </RelayEnvironmentProvider>
+      </GlobalStaticContextProvider>
+    </SessionProvider>
   );
 }
 
@@ -37,6 +43,7 @@ export const dynamic = "force-dynamic";
 const query = graphql`
   query layoutAllPagesQuery {
     ...AppBodyFragment
+    ...ViewerContextFragment
     globalConfiguration {
       theme {
         color
