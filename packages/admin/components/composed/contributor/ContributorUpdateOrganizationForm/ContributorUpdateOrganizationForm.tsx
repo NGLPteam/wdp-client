@@ -58,8 +58,7 @@ export default function ContributorUpdateOrganizationForm({
         />
         <Forms.Input label="forms.fields.location" {...register("location")} />
         <Forms.Input label="forms.fields.url" {...register("url")} />
-        <Forms.FileUpload
-          label="forms.fields.image"
+        <Forms.FileImageUpload
           name="image"
           data={image}
           clearName="clearImage"

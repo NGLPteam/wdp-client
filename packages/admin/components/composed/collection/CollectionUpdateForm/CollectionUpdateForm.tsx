@@ -154,13 +154,13 @@ export default function CollectionUpdateForm({
           <Forms.VisibilityFields />
           <Forms.Input label="forms.fields.doi" {...register("doi")} />
           <Forms.Input label="forms.fields.issn" {...register("issn")} />
-          <Forms.FileUpload
+          <Forms.FileImageUpload
             data={thumbnail}
             label="forms.fields.thumbnail"
             name="thumbnail"
             clearName="clearThumbnail"
           />
-          <Forms.FileUpload
+          <Forms.FileImageUpload
             data={heroImage}
             label="forms.fields.hero_image"
             name="heroImage"

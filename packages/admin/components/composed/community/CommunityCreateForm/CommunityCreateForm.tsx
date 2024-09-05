@@ -39,11 +39,14 @@ export default function CommunityCreateForm({ onSuccess }: Props) {
           {...register("tagline")}
           isWide
         />
-        <Forms.FileUpload label="forms.fields.logo" name="logo" />
+        <Forms.FileImageUpload label="forms.fields.logo" name="logo" />
         <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
 
         <Forms.Fieldset label="Hero">
-          <Forms.FileUpload label="forms.fields.hero_image" name="heroImage" />
+          <Forms.FileImageUpload
+            label="forms.fields.hero_image"
+            name="heroImage"
+          />
           <Forms.AltText {...register("heroImageMetadata.alt")} />
           <Forms.Select
             label="forms.fields.hero_layout"

@@ -132,7 +132,7 @@ export default function CommunityUpdateForm({
             {...register("tagline")}
             isWide
           />
-          <Forms.FileUpload
+          <Forms.FileImageUpload
             label="forms.fields.logo"
             name="logo"
             data={logo}
@@ -143,7 +143,7 @@ export default function CommunityUpdateForm({
             {...register("summary")}
           />
           <Forms.Fieldset label="Hero">
-            <Forms.FileUpload
+            <Forms.FileImageUpload
               label="forms.fields.hero_image"
               name="heroImage"
               data={heroImage}

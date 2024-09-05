@@ -24,7 +24,7 @@ export default function ContributorCreatePersonForm({
           label="forms.fields.family_name"
           {...register("familyName")}
         />
-        <Forms.FileUpload label="forms.fields.image" name="image" />
+        <Forms.FileImageUpload label="forms.fields.image" name="image" />
         <Forms.Input label="forms.fields.title" {...register("title")} />
         <Forms.Email
           label="forms.fields.email"
