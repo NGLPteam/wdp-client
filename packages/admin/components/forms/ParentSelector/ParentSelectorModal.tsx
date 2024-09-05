@@ -54,6 +54,7 @@ export default function ParentSelectorModal({
         setValue("parentId", entity?.id ?? parentId);
         setSelected(entity);
       };
+
       return (
         <EntitySelector
           {...register("parentId", { required: true })}

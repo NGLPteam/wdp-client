@@ -7,7 +7,7 @@ type Props = React.ComponentProps<typeof ContentHeader>;
 
 const HEADER_WRAP_BREAK = 60;
 
-export const Wrapper = styled.div<Pick<Props, "headerStyle">>`
+export const Wrapper = styled.div<{ $headerStyle?: Props["headerStyle"] }>`
   border-bottom: 2px solid var(--accent-color);
   display: flex;
   justify-content: space-between;
@@ -22,10 +22,10 @@ export const Wrapper = styled.div<Pick<Props, "headerStyle">>`
     padding-block-start: ${pxToRem(40)};
   }
 
-  ${({ headerStyle = "primary" }) =>
-    headerStyle === "primary" &&
+  ${({ $headerStyle = "primary" }) =>
+    $headerStyle === "primary" &&
     css`
-      padding-block-end: ${pxToRem(headerStyle === "primary" ? 5 : 2)};
+      padding-block-end: ${pxToRem($headerStyle === "primary" ? 5 : 2)};
     `}
 
   ${noFlexGapSupport(`

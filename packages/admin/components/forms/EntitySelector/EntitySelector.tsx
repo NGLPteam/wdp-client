@@ -1,3 +1,5 @@
+import { forwardRef } from "react";
+import { MaybeRef } from "@castiron/common-types";
 import BaseInputWrapper from "../BaseInputWrapper";
 import Controller from "./EntitySelectorController";
 import * as Styled from "./EntitySelector.styles";
@@ -10,11 +12,11 @@ interface Props extends Omit<BaseProps, "children">, ControllerProps {
   isDisclosure?: boolean;
 }
 
-function EntitySelector({
-  height = "500px",
-  isDisclosure = false,
-  ...props
-}: Props) {
+function EntitySelector(
+  { height = "500px", isDisclosure = false, ...props }: Props,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  ref: MaybeRef<HTMLElement>,
+) {
   return isDisclosure ? (
     <Styled.DisclosureWrapper>
       <Styled.Wrapper $height={height}>
@@ -30,4 +32,4 @@ function EntitySelector({
   );
 }
 
-export default EntitySelector;
+export default forwardRef(EntitySelector);

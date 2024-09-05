@@ -24,12 +24,14 @@ function tablet(content: CssContent) {
   `;
 }
 
-export const Wrapper = styled.div<Partial<Props>>`
+export const Wrapper = styled.div<{
+  $showCheckboxes?: Props["showCheckboxes"];
+}>`
   --checkbox-opacity: 0;
   border-top: 1px solid var(--border-color);
   contain: layout inline-size;
 
-  ${({ showCheckboxes }) => showCheckboxes && `--checkbox-opacity: 1;`}
+  ${({ $showCheckboxes }) => $showCheckboxes && `--checkbox-opacity: 1;`}
 
   ${tablet(
     `

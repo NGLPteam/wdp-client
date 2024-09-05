@@ -57,9 +57,9 @@ export const UploadText = styled.p`
   white-space: pre-wrap;
 `;
 
-export const UploadPreview = styled.div<
-  Pick<FileUploadPreviewProps, "isLoading">
->`
+export const UploadPreview = styled.div<{
+  $isLoading?: FileUploadPreviewProps["isLoading"];
+}>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,7 +69,7 @@ export const UploadPreview = styled.div<
   padding: ${pxToRem(8)};
   transition: var(--opacity-transition);
 
-  ${({ isLoading }) => isLoading && `opacity: .7;`}
+  ${({ $isLoading }) => $isLoading && `opacity: .7;`}
 `;
 
 export const FileName = styled.span`

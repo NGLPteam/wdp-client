@@ -6,7 +6,10 @@ import BaseButtonControl from "./ButtonControl";
 
 type BaseProps = React.ComponentProps<typeof BaseButtonControl>;
 
-export const ButtonControl = styled.button<Pick<BaseProps, "size" | "icon">>`
+export const ButtonControl = styled.button<{
+  $size?: BaseProps["size"];
+  $icon?: BaseProps["icon"];
+}>`
   min-height: ${pxToRem(32)};
   display: inline-block;
   border: 1px solid transparent;
@@ -21,14 +24,14 @@ export const ButtonControl = styled.button<Pick<BaseProps, "size" | "icon">>`
   opacity: var(--button-control-opacity, 1);
   visibility: var(--button-control-visibility, visible);
 
-  ${({ size }) =>
-    size === "large" &&
+  ${({ $size }) =>
+    $size === "large" &&
     css`
       padding: ${pxToRem(12)};
     `}
 
-  ${({ icon }) =>
-    icon &&
+  ${({ $icon }) =>
+    $icon &&
     css`
       display: inline-flex;
       align-items: center;
@@ -67,18 +70,21 @@ export const ButtonControl = styled.button<Pick<BaseProps, "size" | "icon">>`
   }
 `;
 
-export const ButtonText = styled.span<Pick<BaseProps, "size" | "icon">>`
+export const ButtonText = styled.span<{
+  $size?: BaseProps["size"];
+  $icon?: BaseProps["icon"];
+}>`
   display: inline-block;
   white-space: nowrap;
 
-  ${({ size }) =>
-    size === "large" &&
+  ${({ $size }) =>
+    $size === "large" &&
     css`
       padding-inline-start: ${pxToRem(4)};
     `}
 
-  ${({ icon }) =>
-    icon &&
+  ${({ $icon }) =>
+    $icon &&
     css`
       padding-inline-end: ${pxToRem(10)};
     `}

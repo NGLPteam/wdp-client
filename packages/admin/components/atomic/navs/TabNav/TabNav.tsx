@@ -17,7 +17,9 @@ const TabNav = ({ links }: Props) => {
   }
 
   // Check if we should render the tab as a dropdown or link
-  function renderTab({ label, route, ...props }: Link) {
+  // Do not pass actions down to the DOM
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  function renderTab({ label, route, actions, ...props }: Link) {
     const routeObj = RouteHelper.findRouteByName(route);
 
     const active = isActiveRoute(route);
@@ -28,7 +30,7 @@ const TabNav = ({ links }: Props) => {
         <Dropdown
           label={t(label || "")}
           disclosure={
-            <Tab as="button" active={active} icon="chevron">
+            <Tab as="button" active={active}>
               {t(label || "")}
             </Tab>
           }
@@ -65,9 +67,12 @@ const TabNav = ({ links }: Props) => {
     </Styled.Nav>
   ) : null;
 };
+
 interface Link extends NamedLinkProps {
   label?: string;
+  actions?: string[] | undefined;
 }
+
 interface Props {
   links?: Link[];
 }

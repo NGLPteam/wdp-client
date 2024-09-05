@@ -31,7 +31,7 @@ export default function Actions({ onCancel, onSaveAndClose }: Props) {
           type="button"
           disabled={submitDisabled}
           onClick={onCancel}
-          secondary
+          $secondary
         >
           {t("common.cancel")}
         </Button>

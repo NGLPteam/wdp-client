@@ -8,6 +8,7 @@ type LinkProps = React.ComponentProps<typeof Link>;
 
 interface Crumbs extends LinkProps {
   label: string;
+  $closeDropdown?: () => void;
 }
 
 const BreadcrumbsWrapper = ({
@@ -32,9 +33,17 @@ const BreadcrumbsWrapper = ({
   const items = useMemo(() => {
     if (!data) return [];
 
-    const getLink = ({ label, href, ...props }: Crumbs, i: number) => (
-      <Link key={i} href={href} {...props} className={`${className}__link`}>
-        <span className="t-copy-sm t-truncate">{label}</span>
+    const getLink = ({ label, href, $closeDropdown }: Crumbs, i: number) => (
+      <Link
+        key={i}
+        href={href}
+        className={`${className}__link`}
+        legacyBehavior
+        passHref
+        onClick={$closeDropdown}
+      >
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+        <a className="t-copy-sm t-truncate">{label}</a>
       </Link>
     );
 

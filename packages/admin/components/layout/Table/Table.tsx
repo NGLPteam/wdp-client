@@ -19,8 +19,8 @@ const Table = ({
     <TableContext.Provider value={{ columnCount, setColumnCount }}>
       <Styled.TableWrapper
         id={id}
-        selectable={selectable}
-        showCheckboxes={showCheckboxes}
+        $selectable={selectable}
+        $showCheckboxes={showCheckboxes}
       >
         <Styled.Table aria-label={ariaLabel} role="grid" {...tableProps}>
           {children}
