@@ -283,7 +283,7 @@ export default function MutationForm<
               type="button"
               disabled={submitDisabled}
               onClick={onCancel}
-              secondary
+              $secondary
             >
               {t("common.cancel")}
             </Button>

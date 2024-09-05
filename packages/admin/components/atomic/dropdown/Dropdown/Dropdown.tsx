@@ -29,7 +29,7 @@ const Dropdown = ({
   const submenu = (
     <Styled.List
       ref={elRef}
-      right={alignRight || out.right}
+      $right={alignRight || out.right}
       id={uid}
       aria-hidden={!active}
       hidden={!active}
@@ -38,7 +38,8 @@ const Dropdown = ({
         if (item === null) return null;
         return (
           <Styled.Item key={i}>
-            {item && React.cloneElement(item, { closeDropdown: closeDropdown })}
+            {item &&
+              React.cloneElement(item, { $closeDropdown: closeDropdown })}
           </Styled.Item>
         );
       })}

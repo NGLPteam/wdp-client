@@ -14,7 +14,7 @@ const DropdownMenu = forwardRef<HTMLButtonElement, Props>(
           {(disclosureProps) => cloneElement(disclosure, disclosureProps)}
         </MenuButton>
         <Styled.MenuWrapper {...menu} {...menuProps} role="none">
-          <Styled.Menu isMainNav={isMainNav}>
+          <Styled.Menu $isMainNav={isMainNav}>
             {menuItems.map((item, i) => {
               if (item.type === MenuSeparator) {
                 return cloneElement(item, {

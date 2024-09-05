@@ -18,7 +18,7 @@ const ButtonControlConfirm = ({
   children,
   onClick: onConfirm,
   "aria-label": actionLabel,
-  closeDropdown,
+  $closeDropdown,
   actions,
   allowedActions,
 }: Props) => {
@@ -26,8 +26,8 @@ const ButtonControlConfirm = ({
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (closeDropdown) {
-      closeDropdown();
+    if ($closeDropdown) {
+      $closeDropdown();
     }
     dialog.show();
   };

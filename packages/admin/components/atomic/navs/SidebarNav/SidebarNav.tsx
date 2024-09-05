@@ -13,7 +13,7 @@ const SidebarNav = ({ links, className }: Props) => {
 
     return (
       <NamedLink route={route} query={query} passHref>
-        <Styled.Link active={active}>{t(label)}</Styled.Link>
+        <Styled.Link $active={active}>{t(label)}</Styled.Link>
       </NamedLink>
     );
   };

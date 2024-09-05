@@ -20,10 +20,10 @@ function ButtonControlGroup({
 }: Props) {
   return (
     <>
-      <Styled.ButtonWrapper breakpoint={breakpoint}>
+      <Styled.ButtonWrapper $breakpoint={breakpoint}>
         {children}
       </Styled.ButtonWrapper>
-      <Styled.DropdownWrapper breakpoint={breakpoint}>
+      <Styled.DropdownWrapper $breakpoint={breakpoint}>
         <Dropdown
           label={menuLabel}
           disclosure={
@@ -44,7 +44,7 @@ interface BaseProps {
   menuLabel: string;
   toggleLabel?: string;
   toggleText?: string;
-  closeDropdown?: () => void;
+  $closeDropdown?: () => void;
   children: React.ReactElement<ButtonProps> | React.ReactElement<ButtonProps>[];
 }
 

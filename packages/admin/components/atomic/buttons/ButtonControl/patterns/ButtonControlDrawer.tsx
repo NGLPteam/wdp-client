@@ -13,7 +13,7 @@ const ButtonControlDrawer = forwardRef(
       drawerQuery,
       icon,
       children,
-      closeDropdown,
+      $closeDropdown,
       ...buttonProps
     }: Props,
     ref,
@@ -24,7 +24,7 @@ const ButtonControlDrawer = forwardRef(
           as="a"
           icon={icon}
           ref={ref}
-          closeDropdown={closeDropdown}
+          $closeDropdown={$closeDropdown}
           {...buttonProps}
         >
           {children}

@@ -23,7 +23,7 @@ const ConfirmModal = ({
         <Styled.ConfirmButton onClick={onConfirm}>
           {actionLabel ?? i18next.t("common.confirm")}
         </Styled.ConfirmButton>
-        <Styled.ConfirmButton secondary onClick={handleClose}>
+        <Styled.ConfirmButton $secondary onClick={handleClose}>
           {i18next.t("common.cancel")}
         </Styled.ConfirmButton>
       </Styled.ButtonWrapper>

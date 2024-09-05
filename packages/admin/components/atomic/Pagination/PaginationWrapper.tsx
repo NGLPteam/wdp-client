@@ -12,7 +12,7 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
     submit: `a-hidden`,
     total: `${className}__total`,
   };
-  const { currentPage, totalPages } = props;
+  const { currentPage, $totalPages } = props;
 
   // Get current path and query without using next router
   const pathname = window.location.pathname;
@@ -24,7 +24,7 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
     router.push({ pathname, query: { ...router.query, page: value } });
   };
 
-  if (!currentPage || !totalPages) return null;
+  if (!currentPage || !$totalPages) return null;
 
   return (
     <nav className={className} aria-label="Pagination Navigation">
@@ -58,7 +58,7 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
           icon="arrow"
           iconRotate={90}
           aria-label="Next Page"
-          aria-disabled={currentPage >= totalPages}
+          aria-disabled={currentPage >= $totalPages}
         />
       </Link>
     </nav>
@@ -68,7 +68,7 @@ const PaginationWrapper = ({ className, ...props }: Props) => {
 interface Props {
   className?: string;
   currentPage?: Maybe<number> | number;
-  totalPages?: Maybe<number> | number;
+  $totalPages?: Maybe<number> | number;
 }
 
 export default PaginationWrapper;

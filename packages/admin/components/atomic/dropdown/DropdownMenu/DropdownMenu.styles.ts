@@ -13,8 +13,8 @@ export const MenuWrapper = styled(BaseMenu)`
 `;
 
 export const Menu = styled.div<StyledMenuProps>`
-  ${({ isMainNav }) =>
-    isMainNav
+  ${({ $isMainNav }) =>
+    $isMainNav
       ? css`
           --menu-align-items: flex-start;
           --menu-item-border: 2px solid transparent;
@@ -47,7 +47,7 @@ export const Menu = styled.div<StyledMenuProps>`
 `;
 
 interface StyledMenuProps {
-  isMainNav?: boolean;
+  $isMainNav?: boolean;
 }
 
 export const Item = styled(MenuItem)`

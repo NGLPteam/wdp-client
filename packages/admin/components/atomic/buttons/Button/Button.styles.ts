@@ -4,7 +4,7 @@ import { tLabel } from "theme/mixins/typography";
 import { aButton } from "theme/mixins/appearance";
 
 const Button = styled.button<Props>`
-  ${({ secondary }) => aButton(secondary)}
+  ${({ $secondary }) => aButton($secondary)}
 
   ${tLabel("lg")}
   border-radius: ${pxToRem(6)};
@@ -12,7 +12,7 @@ const Button = styled.button<Props>`
 `;
 
 interface Props extends React.HTMLProps<HTMLButtonElement> {
-  secondary?: boolean;
+  $secondary?: boolean;
 }
 
 export default Button;

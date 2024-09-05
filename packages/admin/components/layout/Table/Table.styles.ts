@@ -12,14 +12,14 @@ export const TableWrapper = styled.div<TableWrapperProps>`
   --checkbox-opacity: 0;
   --checkbox-visibility: 0;
 
-  ${({ selectable }) =>
-    selectable &&
+  ${({ $selectable }) =>
+    $selectable &&
     css`
       --table-margin-left: ${pxToRem(52)};
     `}
 
-  ${({ showCheckboxes }) =>
-    showCheckboxes &&
+  ${({ $showCheckboxes }) =>
+    $showCheckboxes &&
     css`
       --checkbox-opacity: 1;
       --checkbox-visibility: 1;
@@ -29,8 +29,8 @@ export const TableWrapper = styled.div<TableWrapperProps>`
 `;
 
 interface TableWrapperProps {
-  selectable?: boolean;
-  showCheckboxes?: boolean;
+  $selectable?: boolean;
+  $showCheckboxes?: boolean;
 }
 
 export const Table = styled.table`

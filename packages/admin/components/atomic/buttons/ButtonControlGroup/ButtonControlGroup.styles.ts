@@ -5,7 +5,7 @@ import ButtonControlGroup from "./ButtonControlGroup";
 
 type BaseProps = React.ComponentProps<typeof ButtonControlGroup>;
 
-type WrapperProps = Pick<BaseProps, "breakpoint">;
+type WrapperProps = { $breakpoint: BaseProps["breakpoint"] };
 
 export const ButtonWrapper = styled.div<WrapperProps>`
   display: inline-flex;
@@ -17,25 +17,25 @@ export const ButtonWrapper = styled.div<WrapperProps>`
     }
   `)}
 
-  ${({ breakpoint }) =>
-    breakpoint &&
+  ${({ $breakpoint }) =>
+    $breakpoint &&
     respond(
       css`
         display: none;
       `,
-      breakpoint,
+      $breakpoint,
     )}
 `;
 
 export const DropdownWrapper = styled.div<WrapperProps>`
   display: none;
 
-  ${({ breakpoint }) =>
-    breakpoint &&
+  ${({ $breakpoint }) =>
+    $breakpoint &&
     respond(
       css`
         display: block;
       `,
-      breakpoint,
+      $breakpoint,
     )}
 `;

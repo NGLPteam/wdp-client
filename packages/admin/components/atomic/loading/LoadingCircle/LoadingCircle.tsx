@@ -9,7 +9,7 @@ const LoadingCircle = ({ label, className }: Props) => {
     <LoadingSkeleton
       role="progressbar"
       aria-label={t(label || "loading")}
-      noShimmer
+      $noShimmer
       className={className}
     >
       <LoadingCircleIcon />

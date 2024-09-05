@@ -72,7 +72,7 @@ const AssetPropertySelect = forwardRef(
             <DialogDisclosure
               as={ButtonControl}
               type="button"
-              icon="plus"
+              $icon="plus"
               {...dialog}
             >
               {t("forms.asset_property_select.add_file")}
