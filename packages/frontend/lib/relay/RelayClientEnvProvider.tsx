@@ -1,10 +1,10 @@
 "use client";
 
 import { useRef, ReactNode } from "react";
-import { useLatest } from "@castiron/hooks";
 import { useSession } from "next-auth/react";
 import { RelayEnvironmentProvider as RelayProvider } from "react-relay";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
+import useLatest from "@wdp/lib/hooks/useLatest";
 import { getCurrentEnvironment } from "./environment";
 
 export default function RelayEnvironmentProvider(props: {
