@@ -61,7 +61,7 @@ function SearchResultList({
       },
     }),
     ModelColumns.PublishedDateColumn<Node>({
-      accessorKey: "entity",
+      accessorFn: (row: Node) => row.entity || row,
     }),
   ];
 
