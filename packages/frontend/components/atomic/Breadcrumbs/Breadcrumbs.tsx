@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
@@ -13,13 +12,15 @@ export default function BreadCrumbs({ data }: Props) {
 
   const { t } = useTranslation();
 
-  const breadcrumbs = useMemo(() => {
-    const breadcrumbs = entity?.breadcrumbs;
+  const breadcrumbs = entity?.breadcrumbs || [];
 
-    if (!breadcrumbs) return [];
+  // const breadcrumbs = useMemo(() => {
+  //   const breadcrumbs = entity?.breadcrumbs;
 
-    return breadcrumbs.map((o, i) => <BreadcrumbLink key={i} data={o} />);
-  }, [entity]);
+  //   if (!breadcrumbs) return [];
+
+  //   return breadcrumbs.map((o, i) => <BreadcrumbLink key={i} data={o} />);
+  // }, [entity]);
 
   function renderCurrent() {
     if (!entity) return null;
@@ -43,7 +44,9 @@ export default function BreadCrumbs({ data }: Props) {
             key={1}
             label={t("breadcrumbs_dropdown_label")}
             disclosure={<span>...</span>}
-            menuItems={breadcrumbs}
+            menuItems={breadcrumbs?.map((crumb, i) => (
+              <BreadcrumbLink key={i} data={crumb} isDropdown />
+            ))}
           />
           <Styled.Delimiter>/</Styled.Delimiter>
         </Styled.Item>
@@ -54,14 +57,18 @@ export default function BreadCrumbs({ data }: Props) {
         {breadcrumbs.length <= 3 &&
           breadcrumbs.map((crumb, i) => (
             <Styled.Item key={i}>
-              <Styled.ItemText>{crumb}</Styled.ItemText>
+              <Styled.ItemText>
+                <BreadcrumbLink data={crumb} />
+              </Styled.ItemText>
               <Styled.Delimiter>/</Styled.Delimiter>
             </Styled.Item>
           ))}
         {breadcrumbs.length > 3 && (
           <>
             <Styled.Item key="root">
-              <Styled.ItemText>{breadcrumbs[0]}</Styled.ItemText>
+              <Styled.ItemText>
+                <BreadcrumbLink data={breadcrumbs[0]} isDropdown />
+              </Styled.ItemText>
               <Styled.Delimiter>/</Styled.Delimiter>
             </Styled.Item>
             <Styled.Item key="dropdown">
@@ -69,13 +76,17 @@ export default function BreadCrumbs({ data }: Props) {
                 key={1}
                 label={t("breadcrumbs_dropdown_label")}
                 disclosure={<span>...</span>}
-                menuItems={breadcrumbs.slice(1, breadcrumbs.length - 1)}
+                menuItems={breadcrumbs
+                  .slice(1, breadcrumbs.length - 1)
+                  .map((crumb, i) => (
+                    <BreadcrumbLink key={i} data={crumb} isDropdown />
+                  ))}
               />
               <Styled.Delimiter>/</Styled.Delimiter>
             </Styled.Item>
             <Styled.Item key="parent">
               <Styled.ItemText>
-                {breadcrumbs[breadcrumbs.length - 1]}
+                <BreadcrumbLink data={breadcrumbs[breadcrumbs.length - 1]} />
               </Styled.ItemText>
               <Styled.Delimiter>/</Styled.Delimiter>
             </Styled.Item>

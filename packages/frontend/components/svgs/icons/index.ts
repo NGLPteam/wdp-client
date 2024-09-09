@@ -24,3 +24,4 @@ export { default as Facebook } from "./Facebook";
 export { default as Twitter } from "./Twitter";
 export { default as AlertTriangle24 } from "./AlertTriangle24";
 export { default as View } from "./View";
+export { default as X } from "./X";

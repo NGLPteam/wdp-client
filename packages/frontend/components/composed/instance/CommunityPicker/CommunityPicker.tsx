@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { Button, Dropdown, Link, NamedLink } from "components/atomic";
+import { Button, Dropdown, NamedLink } from "components/atomic";
 import { CommunityPickerFragment$key } from "@/relay/CommunityPickerFragment.graphql";
 import * as Styled from "./CommunityPicker.styles";
 
@@ -39,9 +39,11 @@ export default function CommunityPicker({ data }: Props) {
       }
       menuItems={menuItems.map(({ node }) => {
         return (
-          <NamedLink key={node.slug} href={`/communities/${node.slug}`}>
-            <Link as="span">{node.title}</Link>
-          </NamedLink>
+          <Dropdown.Link
+            key={node.slug}
+            href={`/communities/${node.slug}`}
+            label={node.title}
+          />
         );
       })}
       label={t("nav.communities")}

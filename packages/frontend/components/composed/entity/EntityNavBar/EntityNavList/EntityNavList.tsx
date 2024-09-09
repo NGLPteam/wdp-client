@@ -2,13 +2,7 @@ import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useParams, usePathname } from "next/navigation";
-import {
-  Dropdown,
-  NamedLink,
-  NavMenuLink,
-  Button,
-  Link,
-} from "components/atomic";
+import { Dropdown, NamedLink, NavMenuLink, Button } from "components/atomic";
 import { getRouteByEntityType } from "helpers";
 import {
   EntityNavListFragment$data,
@@ -47,14 +41,11 @@ export default function EntityNavList({ data }: Props) {
           </NamedLink>
         ))
       : orderings.map(({ identifier, name, count }: Node) => (
-          <NamedLink
+          <Dropdown.Link
             key={identifier}
             href={`/${typeRoute}/${slug}/browse/${identifier}`}
-          >
-            <Link as="span">
-              {name} ({count})
-            </Link>
-          </NamedLink>
+            label={`${name} (${count})`}
+          />
         ))
     : [];
 

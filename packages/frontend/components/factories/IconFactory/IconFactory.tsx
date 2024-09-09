@@ -34,6 +34,7 @@ export const ICON_MAP = {
   facebook: Icons.Facebook,
   twitter: Icons.Twitter,
   view: Icons.View,
+  x: Icons.X,
 };
 
 export const ICON_KEYS = Object.keys(ICON_MAP);

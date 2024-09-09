@@ -289,6 +289,12 @@
       "downloads_week": "Downloads Last 7 Days",
       "downloads_month": "Downloads Last 30 Days",
       "downloads_year": "Downloads Last Year"
+    },
+    "share": {
+      "label": "Share",
+      "email": "Email",
+      "facebook": "Facebook",
+      "x": "X"
     }
   }
 }
