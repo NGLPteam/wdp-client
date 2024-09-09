@@ -39,7 +39,7 @@ const getLayout: GetLayout<Props> = (props) => {
         itemSlug,
       }}
       loadingFallback={<LoadingPage />}
-      refetchTags={["allAccessGrants, assignedUsers"]}
+      refetchTags={["allAccessGrants", "assignedUsers"]}
     >
       {({ queryRef }) =>
         queryRef && (
@@ -67,8 +67,8 @@ const query = graphql`
   query accessManageSlugItemsPagesQuery($itemSlug: Slug!, $page: Int!) {
     item(slug: $itemSlug) {
       ...ItemLayoutFragment
-      ...AuthContextFragment
       ...RoleAccessListFragment
+      ...AuthContextFragment
     }
   }
 `;

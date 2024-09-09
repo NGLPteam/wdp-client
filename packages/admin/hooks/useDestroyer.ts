@@ -350,6 +350,8 @@ const destroyOrderingMutation = graphql`
 const revokeAccessMutation = graphql`
   mutation useDestroyerRevokeAccessMutation($input: RevokeAccessInput!) {
     revokeAccess(input: $input) {
+      # This return schema does not have a destroyedId
+      # destroyedId @deleteRecord
       ...useDestroyerFragment
     }
   }
