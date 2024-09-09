@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b598c08ff3d8485bc62b5d06f2005b68>>
+ * @generated SignedSource<<57eff3c26ea6bd40d60c73d1f2b954e8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,10 @@ export type EntityDescendantsLayoutFragment$data = {
   readonly edges: ReadonlyArray<{
     readonly node: {
       readonly descendant: {
+        readonly schemaDefinition?: {
+          readonly identifier: string;
+          readonly name: string;
+        };
         readonly slug?: string;
         readonly " $fragmentSpreads": FragmentRefs<"EntitySummaryFactoryFragment">;
       };
@@ -34,6 +38,6 @@ const node: ReaderInlineDataFragment = {
   "name": "EntityDescendantsLayoutFragment"
 };
 
-(node as any).hash = "ab5b02a810c11e532c97fba695dfa32c";
+(node as any).hash = "1afad91c9f44d7947fa5c634851b3cfa";
 
 export default node;

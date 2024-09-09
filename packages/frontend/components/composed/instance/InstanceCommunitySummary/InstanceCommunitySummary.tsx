@@ -1,6 +1,6 @@
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { getSchemaTranslationKey } from "helpers";
+import { getSchemaPluralName } from "helpers";
 import { NamedLink, Image } from "components/atomic";
 import Markdown from "components/atomic/Markdown";
 import { InstanceCommunitySummaryFragment$key } from "@/relay/InstanceCommunitySummaryFragment.graphql";
@@ -50,12 +50,16 @@ export default function InstanceCommunitySummary({ data }: Props) {
           )}
           {community.schemaRanks && (
             <Styled.CountList>
-              {community.schemaRanks.map(({ slug, count }) => (
-                <Styled.CountItem key={slug}>
-                  <span>{t(getSchemaTranslationKey(slug), { count: 2 })}</span>{" "}
-                  <span>{new Intl.NumberFormat().format(count)}</span>
-                </Styled.CountItem>
-              ))}
+              {community.schemaRanks.map(({ slug, count, name }) => {
+                return (
+                  <Styled.CountItem key={slug}>
+                    <span>
+                      {count > 1 ? getSchemaPluralName(slug, name, t) : name}
+                    </span>{" "}
+                    <span>{new Intl.NumberFormat().format(count)}</span>
+                  </Styled.CountItem>
+                );
+              })}
             </Styled.CountList>
           )}
         </Styled.TextWrapper>

@@ -27,7 +27,7 @@ export default function Portal({
             const portalEl = portal as HTMLElement;
             return createPortal(
               <CommunityNavListContent
-                community={community}
+                data={community}
                 mobile={portalEl.getAttribute("data-mobile") === "true"}
                 condensed={portalEl.getAttribute("data-condensed") === "true"}
               />,
@@ -42,19 +42,6 @@ export default function Portal({
 export const fragment = graphql`
   fragment PortalCommunityNavListFragment on Community {
     slug
-    schemaRanks {
-      slug
-      name
-      count
-      kind
-    }
-    pages {
-      edges {
-        node {
-          slug
-          title
-        }
-      }
-    }
+    ...CommunityNavListContentFragment
   }
 `;

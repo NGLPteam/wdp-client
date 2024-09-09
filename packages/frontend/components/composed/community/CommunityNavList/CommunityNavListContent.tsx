@@ -7,15 +7,23 @@ import {
   NavMenuLink,
   Link,
 } from "components/atomic";
-import { getSchemaTranslationKey } from "helpers";
-import { CommunityNavListFragment$data } from "@/relay/CommunityNavListFragment.graphql";
-import { PortalCommunityNavListFragment$data } from "@/relay/PortalCommunityNavListFragment.graphql";
+import { graphql, useFragment } from "react-relay";
+import { CommunityNavListContentFragment$key } from "@/__generated__/CommunityNavListContentFragment.graphql";
+import { getSchemaPluralName } from "@/helpers";
+
+interface Props {
+  condensed?: boolean;
+  mobile?: boolean;
+  data: CommunityNavListContentFragment$key;
+}
 
 export default function CommunityNavList({
   condensed,
   mobile,
-  community,
+  ...props
 }: Props) {
+  const community = useFragment(fragment, props.data);
+
   const { t } = useTranslation();
 
   const page = useRoutePageSlug();
@@ -32,24 +40,26 @@ export default function CommunityNavList({
 
   const schemaLinks =
     community && community.slug
-      ? community.schemaRanks.map((schema) => (
-          <NamedLink
-            key={schema.slug}
-            href={
-              schema.kind === "COLLECTION"
-                ? `/communities/${
-                    community.slug
-                  }/collections/${encodeURIComponent(schema.slug)}`
-                : `/communities/${community.slug}/items/${encodeURIComponent(
-                    schema.slug,
-                  )}`
-            }
-          >
-            <Link as="span">
-              {t(getSchemaTranslationKey(schema.slug), { count: 2 })}
-            </Link>
-          </NamedLink>
-        ))
+      ? community.schemaRanks.map((schema) => {
+          return (
+            <NamedLink
+              key={schema.slug}
+              href={
+                schema.kind === "COLLECTION"
+                  ? `/communities/${
+                      community.slug
+                    }/collections/${encodeURIComponent(schema.slug)}`
+                  : `/communities/${community.slug}/items/${encodeURIComponent(
+                      schema.slug,
+                    )}`
+              }
+            >
+              <Link as="span">
+                {getSchemaPluralName(schema.slug, schema.name, t)}
+              </Link>
+            </NamedLink>
+          );
+        })
       : [];
 
   const exploreMenu = mobile ? (
@@ -68,7 +78,8 @@ export default function CommunityNavList({
         <li className="t-capitalize">{exploreMenu}</li>
       )}
       {community.slug &&
-        community.pages.edges &&
+        community.pages?.edges &&
+        community.pages.edges.length > 0 &&
         community.pages.edges.map(({ node }) => (
           <li key={node.slug}>
             <NamedLink
@@ -85,11 +96,22 @@ export default function CommunityNavList({
   ) : null;
 }
 
-interface Props {
-  condensed?: boolean;
-  mobile?: boolean;
-  community?:
-    | CommunityNavListFragment$data
-    | PortalCommunityNavListFragment$data
-    | null;
-}
+const fragment = graphql`
+  fragment CommunityNavListContentFragment on Community {
+    slug
+    schemaRanks {
+      slug
+      name
+      count
+      kind
+    }
+    pages {
+      edges {
+        node {
+          slug
+          title
+        }
+      }
+    }
+  }
+`;

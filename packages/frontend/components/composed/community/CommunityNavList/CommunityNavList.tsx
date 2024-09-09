@@ -16,7 +16,7 @@ export default function CommunityNavList({ condensed, mobile, data }: Props) {
       data-condensed={condensed}
       data-mobile={mobile}
     >
-      {community && <CommunityNavListContent community={community} />}
+      {community && <CommunityNavListContent data={community} />}
     </ListComponent>
   );
 }
@@ -29,20 +29,6 @@ interface Props {
 
 const fragment = graphql`
   fragment CommunityNavListFragment on Community {
-    slug
-    schemaRanks {
-      slug
-      name
-      count
-      kind
-    }
-    pages {
-      edges {
-        node {
-          slug
-          title
-        }
-      }
-    }
+    ...CommunityNavListContentFragment
   }
 `;
