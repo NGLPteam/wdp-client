@@ -106,7 +106,9 @@
       "nglp.unit_other": "units",
       "nglp.series": "series",
       "nglp.paper": "paper",
-      "nglp.paper_other": "papers"
+      "nglp.paper_other": "papers",
+      "cvocab.test_item": "controlled vocabularies test item",
+      "cvocab.test_collection": "controlled vocabularies test collection"
     },
     "counts": {
       "journal": "{{count}} Journal",
