@@ -49,7 +49,7 @@ function enforceContext(
       assets: [],
       contributors: [],
       defaultValues: {},
-      fieldValues: {},
+      fieldValues: undefined,
       refetch: undefined,
     };
   }
