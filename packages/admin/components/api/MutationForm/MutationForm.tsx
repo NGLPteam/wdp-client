@@ -82,10 +82,13 @@ export default function MutationForm<
   const { setTriggeredRefetchTags } = usePageContext();
 
   const form = useForm<T>({
+    mode: "onChange",
     criteriaMode: "all",
     shouldFocusError: true,
     defaultValues,
+    shouldUseNativeValidation: true,
   });
+
   const [state, dispatch] = useMutationFormState<M, T>({ form, name });
 
   const [mutate, loading] = useMutation<M>(props.mutation);
@@ -210,6 +213,7 @@ export default function MutationForm<
   const submitHandler: SubmitHandler<T> = useCallback(
     (values, event) => {
       event?.preventDefault();
+      console.debug({ values });
 
       const variables = castVariables(values);
 
@@ -224,6 +228,14 @@ export default function MutationForm<
     },
     [castVariables, dispatch, handleResponse, mutate],
   );
+
+  const handleSubmitWithoutPropagation = (
+    e: React.FormEvent<HTMLFormElement>,
+  ) => {
+    e.preventDefault();
+    e.stopPropagation();
+    form.handleSubmit(submitHandler)(e);
+  };
 
   /* eslint-disable prettier/prettier */
   const onSubmit = useMemo(() => form.handleSubmit(submitHandler), [form, submitHandler]);
@@ -241,7 +253,7 @@ export default function MutationForm<
     <FormProvider {...form}>
       {props.watchInConsole && <Watcher<T> control={form.control} />}
 
-      <form onSubmit={onSubmit} aria-live="polite">
+      <form onSubmit={handleSubmitWithoutPropagation} aria-live="polite">
         {props.contentTitle && (
           <ContentHeader headerStyle="secondary" title={props.contentTitle} />
         )}
@@ -251,7 +263,7 @@ export default function MutationForm<
         />
         {children({ form })}
         <Styled.Footer className="l-flex l-flex--gap">
-          <Button type="submit" onClick={onSubmit} disabled={submitDisabled}>
+          <Button type="submit" disabled={submitDisabled}>
             {t("common.save")}
           </Button>
           {onSaveAndClose && (
