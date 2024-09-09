@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
 import BaseInputDescription from "components/forms/BaseInputDescription";
 
-export const Group = styled.div`
+export const Fieldset = styled.fieldset`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -22,4 +22,10 @@ export const Label = styled.label`
   flex-wrap: wrap;
   align-items: center;
   margin-block-end: ${pxToRem(16)};
+`;
+
+export const Fields = styled.div`
+  > * + * {
+    margin-block-start: ${pxToRem(16)};
+  }
 `;

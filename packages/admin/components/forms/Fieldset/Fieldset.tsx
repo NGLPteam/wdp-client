@@ -1,9 +1,9 @@
 import BaseInputLabel from "../BaseInputLabel";
 import * as Styled from "./Fieldset.styles";
 
-const Fieldset = ({ label, children, description, style }: Props) => {
+const Fieldset = ({ id, label, children, description, style }: Props) => {
   return (
-    <Styled.Fieldset style={style}>
+    <Styled.Fieldset id={id} style={style}>
       <BaseInputLabel>{label}</BaseInputLabel>
       {description && <Styled.Description>{description}</Styled.Description>}
       <Styled.FieldsWrapper>{children}</Styled.FieldsWrapper>
@@ -14,6 +14,7 @@ const Fieldset = ({ label, children, description, style }: Props) => {
 type CSSwithVars = React.CSSProperties & Record<`--${string}`, number | string>;
 
 interface Props {
+  id?: string;
   label: string;
   children: React.ReactNode;
   description?: string;

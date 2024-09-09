@@ -5,12 +5,12 @@ import { pxToRem } from "theme/mixins/functions";
 
 export const Label = styled.label`
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  align-items: start;
+  cursor: pointer;
 `;
 
 export const LabelText = styled.span`
-  cursor: pointer;
+  margin-block-start: -2px;
 
   input:disabled + & {
     cursor: default;

@@ -70,4 +70,5 @@ export const Actions = styled.div`
 
 export const Description = styled(BaseInputDescription)`
   padding-block-start: 0;
+  padding-block-end: ${pxToRem(4)};
 `;

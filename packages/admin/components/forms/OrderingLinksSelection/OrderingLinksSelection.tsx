@@ -1,7 +1,7 @@
-import React, { forwardRef, Ref } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import BaseInputLabel from "components/forms/BaseInputLabel";
 import Checkbox from "../Checkbox";
+import BaseInputLabel from "../BaseInputLabel";
 import * as Styled from "./OrderingLinksSelection.styles";
 import type { UseFormRegisterReturn } from "react-hook-form";
 
@@ -14,27 +14,28 @@ interface Props
   references: UseFormRegisterReturn;
 }
 
-function OrderingLinkSelectionInput(
-  { id, contains, references, ...props }: Props,
-  ref: Ref<HTMLInputElement>,
-) {
+export default function OrderingLinksSelection({
+  id,
+  contains,
+  references,
+  ...props
+}: Props) {
   const { t } = useTranslation();
 
   return (
-    <Styled.Group
+    <Styled.Fieldset
       id={id}
       role="group"
-      ref={ref}
       aria-label={props["aria-label"] || undefined}
     >
-      <BaseInputLabel>{t("forms.fields.links")}</BaseInputLabel>
+      <BaseInputLabel as="legend">{t("forms.fields.links")}</BaseInputLabel>
       <Styled.Description>
         {t("forms.fields.include_links_description")}
       </Styled.Description>
-      <Checkbox {...contains}>{t("forms.fields.link_contains")}</Checkbox>
-      <Checkbox {...references}>{t("forms.fields.link_references")}</Checkbox>
-    </Styled.Group>
+      <Styled.Fields>
+        <Checkbox {...contains}>{t("forms.fields.link_contains")}</Checkbox>
+        <Checkbox {...references}>{t("forms.fields.link_references")}</Checkbox>
+      </Styled.Fields>
+    </Styled.Fieldset>
   );
 }
-
-export default forwardRef(OrderingLinkSelectionInput);
