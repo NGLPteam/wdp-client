@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fa11a0dc9e904aa7187c4fafdd428f21>>
+ * @generated SignedSource<<0b8e4b1baf5e06cb8ba9b20cf139d1fa>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -83,16 +83,7 @@ v2 = {
   ],
   "storageKey": null
 },
-v3 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
-v4 = {
+v3 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -134,17 +125,15 @@ v4 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v3/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "UserError",
-      "kind": "LinkedField",
-      "name": "errors",
-      "plural": true,
-      "selections": (v3/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "message",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
@@ -171,7 +160,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v4/*: any*/)
+              (v3/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -198,19 +187,19 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v4/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "2d0f9804e382fb3084da640fed87f185",
+    "cacheID": "d6dcd091a89a3ab99c6623e904ea2175",
     "id": null,
     "metadata": {},
     "name": "EntityAnnouncementUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation EntityAnnouncementUpdateFormMutation(\n  $input: UpdateAnnouncementInput!\n) {\n  updateAnnouncement(input: $input) {\n    announcement {\n      id\n      header\n      slug\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation EntityAnnouncementUpdateFormMutation(\n  $input: UpdateAnnouncementInput!\n) {\n  updateAnnouncement(input: $input) {\n    announcement {\n      id\n      header\n      slug\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

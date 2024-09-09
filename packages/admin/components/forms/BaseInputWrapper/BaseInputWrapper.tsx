@@ -52,7 +52,7 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
           {typeof description === "string" ? t(description) : description}
         </Styled.Description>
       )}
-      <Errors name={name} />
+      <Errors name={name} label={label ? t(label) : undefined} />
     </Styled.Wrapper>
   );
 };

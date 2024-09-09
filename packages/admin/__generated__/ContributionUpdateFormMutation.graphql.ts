@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b87a1174a74245ff416561073c246959>>
+ * @generated SignedSource<<d8b5cbb51abd5b5ef00fbdb9ff07138c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -53,16 +53,7 @@ v1 = [
     "variableName": "input"
   }
 ],
-v2 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
-v3 = {
+v2 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -104,24 +95,22 @@ v3 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v2/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "UserError",
-      "kind": "LinkedField",
-      "name": "errors",
-      "plural": true,
-      "selections": (v2/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "message",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
   "type": "StandardMutationPayload",
   "abstractKey": "__isStandardMutationPayload"
 },
-v4 = [
+v3 = [
   {
     "alias": null,
     "args": null,
@@ -165,7 +154,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v3/*: any*/)
+              (v2/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -212,13 +201,13 @@ return {
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v4/*: any*/),
+                "selections": (v3/*: any*/),
                 "type": "CollectionContribution",
                 "abstractKey": null
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v4/*: any*/),
+                "selections": (v3/*: any*/),
                 "type": "ItemContribution",
                 "abstractKey": null
               },
@@ -239,19 +228,19 @@ return {
             ],
             "storageKey": null
           },
-          (v3/*: any*/)
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "080563eb669a109e9a283b41aaf4ecc4",
+    "cacheID": "b2c99dc6fb4d8744cdace71c49dd732e",
     "id": null,
     "metadata": {},
     "name": "ContributionUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ContributionUpdateFormMutation(\n  $input: UpdateContributionInput!\n) {\n  updateContribution(input: $input) {\n    contribution {\n      __typename\n      ...ContributionUpdateFormFieldsFragment\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ContributionUpdateFormFieldsFragment on AnyContribution {\n  __isAnyContribution: __typename\n  ... on CollectionContribution {\n    role\n  }\n  ... on ItemContribution {\n    role\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ContributionUpdateFormMutation(\n  $input: UpdateContributionInput!\n) {\n  updateContribution(input: $input) {\n    contribution {\n      __typename\n      ...ContributionUpdateFormFieldsFragment\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ContributionUpdateFormFieldsFragment on AnyContribution {\n  __isAnyContribution: __typename\n  ... on CollectionContribution {\n    role\n  }\n  ... on ItemContribution {\n    role\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

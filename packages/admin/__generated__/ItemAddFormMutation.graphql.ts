@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6e71fbc76afe1d4e20ac895d330cd5a4>>
+ * @generated SignedSource<<aa139f362c50ce6425ad80cd6a59a093>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -94,16 +94,7 @@ v3 = {
   "name": "slug",
   "storageKey": null
 },
-v4 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
-v5 = {
+v4 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -145,17 +136,15 @@ v5 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v4/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "UserError",
-      "kind": "LinkedField",
-      "name": "errors",
-      "plural": true,
-      "selections": (v4/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "message",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
@@ -194,7 +183,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v5/*: any*/)
+              (v4/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -240,19 +229,19 @@ return {
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "38fb0b548bd8c3ccb85285cb617287a1",
+    "cacheID": "b7137eb0168bc116ca1cd60754a3b6ec",
     "id": null,
     "metadata": {},
     "name": "ItemAddFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ItemAddFormMutation(\n  $input: CreateItemInput!\n) {\n  createItem(input: $input) {\n    item {\n      title\n      slug\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ItemAddFormMutation(\n  $input: CreateItemInput!\n) {\n  createItem(input: $input) {\n    item {\n      title\n      slug\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

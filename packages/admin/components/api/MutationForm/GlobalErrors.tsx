@@ -1,9 +1,19 @@
 import { ContentHeader } from "components/layout";
 import { IconFactory } from "components/factories";
+import useFormErrors from "hooks/useFormErrors";
+import Errors from "components/forms/Errors";
+import { useMemo } from "react";
 import * as Styled from "./GlobalErrors.styles";
 
 export default function GlobalErrors({ globalErrors, hideHeader }: Props) {
-  if (globalErrors.length === 0) {
+  const errors = useFormErrors();
+
+  const hasErrors = useMemo(
+    () => !!errors.root && globalErrors.length > 0,
+    [globalErrors, errors],
+  );
+
+  if (!hasErrors) {
     return null;
   }
 
@@ -15,6 +25,7 @@ export default function GlobalErrors({ globalErrors, hideHeader }: Props) {
       {globalErrors.map((message, index) => (
         <Message key={index} message={message} />
       ))}
+      <Errors name="root" />
     </Styled.Wrapper>
   );
 }

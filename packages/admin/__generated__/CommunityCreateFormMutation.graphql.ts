@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1dcb23cc24b063ee1cbc2c7cc0a62931>>
+ * @generated SignedSource<<f67007b5649125bd90fc6f026bc5077e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -79,16 +79,7 @@ v2 = {
   "name": "title",
   "storageKey": null
 },
-v3 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
-v4 = {
+v3 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -130,17 +121,15 @@ v4 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v3/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "UserError",
-      "kind": "LinkedField",
-      "name": "errors",
-      "plural": true,
-      "selections": (v3/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "message",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
@@ -178,7 +167,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v4/*: any*/)
+              (v3/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -223,19 +212,19 @@ return {
             ],
             "storageKey": null
           },
-          (v4/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "7a98bd4e1f6ea76ce22fb06dbe64573e",
+    "cacheID": "d3b9b90225a3012e329a751807f2fc65",
     "id": null,
     "metadata": {},
     "name": "CommunityCreateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation CommunityCreateFormMutation(\n  $input: CreateCommunityInput!\n) {\n  createCommunity(input: $input) {\n    community {\n      title\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation CommunityCreateFormMutation(\n  $input: CreateCommunityInput!\n) {\n  createCommunity(input: $input) {\n    community {\n      title\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

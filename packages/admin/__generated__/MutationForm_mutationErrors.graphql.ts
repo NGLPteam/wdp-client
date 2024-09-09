@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<260f07fa0c493ad8da45202facf19bbd>>
+ * @generated SignedSource<<eb20a14127ccb9d8e1874e6b5fe6a77f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,9 +16,6 @@ export type MutationForm_mutationErrors$data = {
     readonly path: string;
     readonly type: string;
   }>;
-  readonly errors: ReadonlyArray<{
-    readonly message: string;
-  }>;
   readonly globalErrors: ReadonlyArray<{
     readonly message: string;
   }>;
@@ -34,6 +31,6 @@ const node: ReaderInlineDataFragment = {
   "name": "MutationForm_mutationErrors"
 };
 
-(node as any).hash = "0995e98f6c32f8229802aac5f5e85045";
+(node as any).hash = "9ad69ac04a00084b8a0ce28854ec1a0c";
 
 export default node;

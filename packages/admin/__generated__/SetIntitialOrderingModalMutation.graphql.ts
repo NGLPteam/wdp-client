@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0d0990b10867fc943118a26f8918b439>>
+ * @generated SignedSource<<9e2ed380331277bc3c31a53801ca1827>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -72,16 +72,7 @@ v2 = {
   ],
   "storageKey": null
 },
-v3 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
-v4 = {
+v3 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -123,17 +114,15 @@ v4 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v3/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "UserError",
-      "kind": "LinkedField",
-      "name": "errors",
-      "plural": true,
-      "selections": (v3/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "message",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
@@ -160,7 +149,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v4/*: any*/)
+              (v3/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -187,19 +176,19 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v4/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "6a41ed24313e61fc150beefad839a94c",
+    "cacheID": "4f55115f9d56bc74317fff1aefcfd193",
     "id": null,
     "metadata": {},
     "name": "SetIntitialOrderingModalMutation",
     "operationKind": "mutation",
-    "text": "mutation SetIntitialOrderingModalMutation(\n  $input: SelectInitialOrderingInput!\n) {\n  selectInitialOrdering(input: $input) {\n    ordering {\n      id\n      initial\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation SetIntitialOrderingModalMutation(\n  $input: SelectInitialOrderingInput!\n) {\n  selectInitialOrdering(input: $input) {\n    ordering {\n      id\n      initial\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

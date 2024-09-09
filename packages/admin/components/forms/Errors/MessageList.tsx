@@ -1,7 +1,31 @@
 import Message from "./Message";
 import type { MultipleFieldErrors, ValidateResult } from "react-hook-form";
 
-export default function MessageList({ inlineMessage, messages }: Props) {
+interface Props {
+  messages?: MultipleFieldErrors;
+  inlineMessage?: string;
+  label?: string;
+  name?: string;
+}
+
+export default function MessageList({
+  inlineMessage,
+  messages,
+  label,
+  name,
+}: Props) {
+  function renderMessage(type: string, result: ValidateResult) {
+    return result !== null ? (
+      <Message
+        key={type}
+        type={type}
+        result={result}
+        label={label}
+        name={name}
+      />
+    ) : null;
+  }
+
   if (!messages) {
     if (inlineMessage) {
       return <Message result={inlineMessage} />;
@@ -17,15 +41,4 @@ export default function MessageList({ inlineMessage, messages }: Props) {
       )}
     </>
   );
-}
-
-function renderMessage(type: string, result: ValidateResult) {
-  return result !== null ? (
-    <Message key={type} type={type} result={result} />
-  ) : null;
-}
-
-interface Props {
-  messages?: MultipleFieldErrors;
-  inlineMessage?: string;
 }

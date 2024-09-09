@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1b6c4d15c26f6ce400753dc8679ad1d0>>
+ * @generated SignedSource<<dd839896be0be496c65320100b37808f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -109,16 +109,7 @@ v4 = {
   "type": "Asset",
   "abstractKey": "__isAsset"
 },
-v5 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
-v6 = {
+v5 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -160,17 +151,15 @@ v6 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v5/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "UserError",
-      "kind": "LinkedField",
-      "name": "errors",
-      "plural": true,
-      "selections": (v5/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "message",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
@@ -209,7 +198,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v6/*: any*/)
+              (v5/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -256,19 +245,19 @@ return {
             ],
             "storageKey": null
           },
-          (v6/*: any*/)
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "8c28992551e737a651717a08a86f08d7",
+    "cacheID": "16d0c26ccd37b8d34cca518bfad281f7",
     "id": null,
     "metadata": {},
     "name": "AssetCreateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation AssetCreateFormMutation(\n  $input: CreateAssetInput!\n) {\n  createAsset(input: $input) {\n    asset {\n      __typename\n      ... on Asset {\n        __isAsset: __typename\n        id\n        kind\n        name\n        slug\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation AssetCreateFormMutation(\n  $input: CreateAssetInput!\n) {\n  createAsset(input: $input) {\n    asset {\n      __typename\n      ... on Asset {\n        __isAsset: __typename\n        id\n        kind\n        name\n        slug\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

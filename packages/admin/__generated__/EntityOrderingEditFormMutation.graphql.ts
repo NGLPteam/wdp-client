@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a4cad5194158e61cb4f83307d3300c68>>
+ * @generated SignedSource<<b25fdfa701ceba36e6399248ef2bc4f5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -257,16 +257,7 @@ v3 = {
   ],
   "storageKey": null
 },
-v4 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
-v5 = {
+v4 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -302,17 +293,15 @@ v5 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v4/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "UserError",
-      "kind": "LinkedField",
-      "name": "errors",
-      "plural": true,
-      "selections": (v4/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "message",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
@@ -339,7 +328,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v5/*: any*/)
+              (v4/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -366,19 +355,19 @@ return {
         "plural": false,
         "selections": [
           (v3/*: any*/),
-          (v5/*: any*/)
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "f979ec0a10eb61ab1997c899e19e33dc",
+    "cacheID": "f408dfbd2407c05b725fd266c394736d",
     "id": null,
     "metadata": {},
     "name": "EntityOrderingEditFormMutation",
     "operationKind": "mutation",
-    "text": "mutation EntityOrderingEditFormMutation(\n  $input: UpdateOrderingInput!\n) {\n  updateOrdering(input: $input) {\n    ordering {\n      id\n      name\n      render {\n        mode\n      }\n      order {\n        path\n        direction\n      }\n      select {\n        direct\n        links {\n          contains\n          references\n        }\n      }\n      filter {\n        schemas {\n          namespace\n          identifier\n          version\n        }\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation EntityOrderingEditFormMutation(\n  $input: UpdateOrderingInput!\n) {\n  updateOrdering(input: $input) {\n    ordering {\n      id\n      name\n      render {\n        mode\n      }\n      order {\n        path\n        direction\n      }\n      select {\n        direct\n        links {\n          contains\n          references\n        }\n      }\n      filter {\n        schemas {\n          namespace\n          identifier\n          version\n        }\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

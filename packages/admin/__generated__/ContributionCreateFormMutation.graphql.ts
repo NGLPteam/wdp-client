@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<50e5ee5be2d41b98d5d5ef3072f46228>>
+ * @generated SignedSource<<afbfcd9f8571f7268813b0bc9c106df1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -75,16 +75,7 @@ v4 = {
   "type": "ItemContribution",
   "abstractKey": null
 },
-v5 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
-v6 = {
+v5 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -126,17 +117,15 @@ v6 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v5/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "UserError",
-      "kind": "LinkedField",
-      "name": "errors",
-      "plural": true,
-      "selections": (v5/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "message",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
@@ -175,7 +164,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v6/*: any*/)
+              (v5/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -235,19 +224,19 @@ return {
             ],
             "storageKey": null
           },
-          (v6/*: any*/)
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "e39389cace82acc17c72433e4063c9f3",
+    "cacheID": "ff9458a0d340b71b6ef605aae67b6d70",
     "id": null,
     "metadata": {},
     "name": "ContributionCreateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ContributionCreateFormMutation(\n  $input: UpsertContributionInput!\n) {\n  upsertContribution(input: $input) {\n    contribution {\n      __typename\n      ... on CollectionContribution {\n        role\n      }\n      ... on ItemContribution {\n        role\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ContributionCreateFormMutation(\n  $input: UpsertContributionInput!\n) {\n  upsertContribution(input: $input) {\n    contribution {\n      __typename\n      ... on CollectionContribution {\n        role\n      }\n      ... on ItemContribution {\n        role\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();
