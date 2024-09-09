@@ -81,11 +81,7 @@ export default function ContributionCreateForm({
               }}
             />
           )}
-          <Forms.Input
-            label="forms.fields.role"
-            required
-            {...register("role")}
-          />
+          <Forms.Input label="forms.fields.role" {...register("role")} />
         </Forms.Grid>
       );
     },
