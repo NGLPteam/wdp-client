@@ -51,3 +51,9 @@ export const BaseToast = styled.div`
     padding-inline-start: ${pxToRem(12)};
   }
 `;
+
+export const Text = styled.span`
+  &:first-letter {
+    text-transform: uppercase;
+  }
+`;

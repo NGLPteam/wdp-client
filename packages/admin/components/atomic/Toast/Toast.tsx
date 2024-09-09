@@ -21,7 +21,9 @@ function Toast({ ...toastProps }: Props) {
           {t.type !== "blank" && (
             <IconFactory size="md" icon={getIcon(t.type)} />
           )}
-          <span>{typeof t.message === "string" && t.message}</span>
+          <Styled.Text>
+            {typeof t.message === "string" && t.message}
+          </Styled.Text>
         </Styled.BaseToast>
       )}
     </Toaster>
