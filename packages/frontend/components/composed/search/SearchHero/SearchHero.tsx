@@ -19,8 +19,11 @@ export default function SearchHero() {
   const onSubmit = async (data: { q?: string }) => {
     const params = new URLSearchParams(searchParams);
     if (data.q) params.set("q", data.q);
+    const url = `${pathname !== "/" ? pathname : ""}/search?${params.toString()}`;
 
-    router.push(`${pathname}/search?${params.toString()}`);
+    console.debug(url);
+
+    router.push(url);
   };
 
   return (

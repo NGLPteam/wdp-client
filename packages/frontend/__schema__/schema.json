@@ -50282,7 +50282,7 @@
           },
           {
             "name": "results",
-            "description": "The results of a search. Either `query` or `predicates` should be provided,\notherwise it will return as if everything matches.\n",
+            "description": "The results of a search.\n\nYou must specify one of the following options in order to activate a search:\n\n* `predicates`\n* `prefix`\n* `query`\n* `schema`\n\nIf _none_ of these are set, the search will be considered empty, and return 0 results.\n",
             "args": [
               {
                 "name": "after",

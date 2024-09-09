@@ -12,6 +12,7 @@ const DEFAULTS = {
   predicates: [],
   page: 1,
   order: "PUBLISHED_ASCENDING" as EntityOrder,
+  hasQuery: false,
 };
 
 interface Props {
@@ -20,6 +21,7 @@ interface Props {
   predicates?: SearchPredicateInput[] | null | undefined;
   query?: string | null | undefined;
   schema?: string[];
+  hasQuery: boolean;
 }
 
 /**
@@ -45,6 +47,10 @@ export default function useSearchQueryVars(): Props {
       page: parseInt(page) || DEFAULTS.page,
       order: order || DEFAULTS.order,
       schema,
+      hasQuery:
+        (!!predicates && predicates.length > 0) ||
+        (!!schema && schema.length > 0) ||
+        !!q,
     });
   }, [query, setVars]);
 

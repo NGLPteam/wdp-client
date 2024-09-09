@@ -33,9 +33,7 @@ const getLayout: GetLayout<Props> = (props) => {
   const communitySlug = useRouteSlug();
   if (!communitySlug) return <ErrorPage statusCode={404} />;
 
-  const hasQuery =
-    !!searchQueryVars?.query ||
-    (!!searchQueryVars?.predicates && searchQueryVars.predicates.length > 0);
+  console.debug({ searchQueryVars });
 
   const { PageComponent, pageComponentProps } = props;
 
@@ -45,7 +43,6 @@ const getLayout: GetLayout<Props> = (props) => {
       variables={{
         ...queryVars,
         ...searchQueryVars,
-        hasQuery,
         communitySlug,
       }}
       loadingFallback={<LoadingPage />}

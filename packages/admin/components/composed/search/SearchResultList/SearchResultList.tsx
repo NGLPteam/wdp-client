@@ -83,12 +83,16 @@ function SearchResultList({
         : null,
   };
 
+  const resultsI18nKey = searchQuery.query
+    ? "search.results_for_name"
+    : "search.results";
+
   return (
     <ModelListPage<SearchResultListFragment$data["results"], Node>
       modelName="item"
       header={
         <Trans
-          i18nKey="search.results_for_name"
+          i18nKey={resultsI18nKey}
           values={{
             name: searchQuery.query,
           }}
