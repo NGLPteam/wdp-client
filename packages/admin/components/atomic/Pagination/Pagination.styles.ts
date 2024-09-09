@@ -1,7 +1,17 @@
 import styled from "styled-components";
 import { pxToRem } from "theme/mixins/functions";
+import { CssContent, respond } from "theme/mixins/base";
 import PaginationWrapper from "./PaginationWrapper";
 type Props = React.ComponentProps<typeof PaginationWrapper>;
+
+function mobile(content: CssContent) {
+  return `
+    ${respond(content, "tableBreak")}
+    [data-mobile-layout] & {
+      ${content}
+    }
+  `;
+}
 
 const Pagination = styled(PaginationWrapper)<Props>`
   --input-border-radius: ${pxToRem(6)};
@@ -12,7 +22,7 @@ const Pagination = styled(PaginationWrapper)<Props>`
   display: flex;
   align-items: center;
   padding-block-start: ${pxToRem(24)};
-  border-top: 1px solid var(--border-color);
+  border-block-start: 1px solid var(--border-color);
 
   > * + *,
   &__total {
@@ -22,6 +32,8 @@ const Pagination = styled(PaginationWrapper)<Props>`
   &__total {
     display: inline-block;
   }
+
+  ${mobile(`border-block-start: none;`)}
 `;
 
 export default Pagination;

@@ -50,7 +50,10 @@ export const Inner = styled.div`
   padding-block-end: ${pxToRem(32)};
 
   ${respond(`grid-template-columns: repeat(2, 1fr);`, 60)}
-  ${mobile(`grid-template-columns: repeat(1, 1fr);`)}
+  ${mobile(`
+    grid-template-columns: repeat(1, 1fr);
+    padding-block-end: ${pxToRem(16)};
+  `)}
 
   ${tablet(
     `
