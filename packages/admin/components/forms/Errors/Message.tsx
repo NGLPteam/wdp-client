@@ -3,7 +3,14 @@ import capitalize from "lodash/capitalize";
 import * as Styled from "./Message.styles";
 import type { ValidateResult } from "react-hook-form";
 
-export default function Message({ type, result }: Props) {
+interface Props {
+  type?: string;
+  result: ValidateResult;
+  label?: string;
+  name?: string;
+}
+
+export default function Message({ type, result, label }: Props) {
   const { t } = useTranslation();
 
   let message = "";
@@ -19,12 +26,9 @@ export default function Message({ type, result }: Props) {
   return message ? (
     <Styled.Error>
       <Styled.ErrorIcon icon="warning" title="Error" />
-      <span>{message}</span>
+      <span>
+        {label && <span>{label}</span>} {message}
+      </span>
     </Styled.Error>
   ) : null;
-}
-
-interface Props {
-  type?: string;
-  result: ValidateResult;
 }

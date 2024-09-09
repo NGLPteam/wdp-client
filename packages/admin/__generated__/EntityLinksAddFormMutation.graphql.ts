@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2a8552ec0f2b06212a55aeb6fbc41417>>
+ * @generated SignedSource<<7cb22bd723511c842bc62c90180ff46e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -64,16 +64,7 @@ v2 = {
   "type": "Entity",
   "abstractKey": "__isEntity"
 },
-v3 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
-v4 = {
+v3 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -115,24 +106,22 @@ v4 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v3/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "UserError",
-      "kind": "LinkedField",
-      "name": "errors",
-      "plural": true,
-      "selections": (v3/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "message",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
   "type": "StandardMutationPayload",
   "abstractKey": "__isStandardMutationPayload"
 },
-v5 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -181,7 +170,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v4/*: any*/)
+              (v3/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -234,7 +223,7 @@ return {
                   {
                     "kind": "InlineFragment",
                     "selections": [
-                      (v5/*: any*/)
+                      (v4/*: any*/)
                     ],
                     "type": "Node",
                     "abstractKey": "__isNode"
@@ -242,23 +231,23 @@ return {
                 ],
                 "storageKey": null
               },
-              (v5/*: any*/)
+              (v4/*: any*/)
             ],
             "storageKey": null
           },
-          (v4/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "ef1bbfb93404e3a993f0c3a58b1497ed",
+    "cacheID": "e66c472f8a83f9eb14bf54ff463c7828",
     "id": null,
     "metadata": {},
     "name": "EntityLinksAddFormMutation",
     "operationKind": "mutation",
-    "text": "mutation EntityLinksAddFormMutation(\n  $input: LinkEntityInput!\n) {\n  linkEntity(input: $input) {\n    link {\n      target {\n        __typename\n        ... on Entity {\n          __isEntity: __typename\n          title\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation EntityLinksAddFormMutation(\n  $input: LinkEntityInput!\n) {\n  linkEntity(input: $input) {\n    link {\n      target {\n        __typename\n        ... on Entity {\n          __isEntity: __typename\n          title\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

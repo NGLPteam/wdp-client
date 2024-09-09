@@ -30,11 +30,10 @@ export function extractErrors<T extends FieldValues = FieldValues>(
   const map: ErrorMap<T> = { global: [], attributes: [], user: [] };
 
   if (errors) {
-    const { globalErrors, attributeErrors, errors: userErrors } = errors;
+    const { globalErrors, attributeErrors } = errors;
 
     map.attributes = transformAttributeErrors<T>(attributeErrors);
     map.global = globalErrors.map(({ message }) => message);
-    map.user = userErrors.map(({ message }) => message);
   }
 
   return map;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<90549ed4efe048ae3f91643f6be42e92>>
+ * @generated SignedSource<<2b0bb3b4dfa7439b78881fc976959954>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -179,16 +179,7 @@ v2 = {
   ],
   "storageKey": null
 },
-v3 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
-v4 = {
+v3 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -230,17 +221,15 @@ v4 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v3/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "UserError",
-      "kind": "LinkedField",
-      "name": "errors",
-      "plural": true,
-      "selections": (v3/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "message",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
@@ -267,7 +256,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v4/*: any*/)
+              (v3/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -294,19 +283,19 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v4/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "4ac08e860e369eda91d892c6c6fa5069",
+    "cacheID": "29bd90ce3a4e793c2ac4ae00b3978f58",
     "id": null,
     "metadata": {},
     "name": "EntityPageUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation EntityPageUpdateFormMutation(\n  $input: UpdatePageInput!\n) {\n  updatePage(input: $input) {\n    page {\n      id\n      title\n      slug\n      position\n      heroImage {\n        medium {\n          png {\n            url\n            height\n            width\n            alt\n          }\n        }\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation EntityPageUpdateFormMutation(\n  $input: UpdatePageInput!\n) {\n  updatePage(input: $input) {\n    page {\n      id\n      title\n      slug\n      position\n      heroImage {\n        medium {\n          png {\n            url\n            height\n            width\n            alt\n          }\n        }\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

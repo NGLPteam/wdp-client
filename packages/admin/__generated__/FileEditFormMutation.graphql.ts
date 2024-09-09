@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<91198ce7eba97d388f9cee93f3855fde>>
+ * @generated SignedSource<<12b9547acf61e0920df1a123dc187317>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -61,16 +61,7 @@ v1 = [
     "variableName": "input"
   }
 ],
-v2 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
-v3 = {
+v2 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -112,31 +103,29 @@ v3 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v2/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "UserError",
-      "kind": "LinkedField",
-      "name": "errors",
-      "plural": true,
-      "selections": (v2/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "message",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
   "type": "StandardMutationPayload",
   "abstractKey": "__isStandardMutationPayload"
 },
-v4 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v5 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -185,7 +174,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v3/*: any*/)
+              (v2/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -229,7 +218,7 @@ return {
               {
                 "kind": "InlineFragment",
                 "selections": [
-                  (v4/*: any*/),
+                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -303,7 +292,7 @@ return {
                             "name": "png",
                             "plural": false,
                             "selections": [
-                              (v5/*: any*/),
+                              (v4/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -328,7 +317,7 @@ return {
                     "name": "previewMetadata",
                     "plural": false,
                     "selections": [
-                      (v5/*: any*/)
+                      (v4/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -339,7 +328,7 @@ return {
               {
                 "kind": "InlineFragment",
                 "selections": [
-                  (v4/*: any*/)
+                  (v3/*: any*/)
                 ],
                 "type": "Node",
                 "abstractKey": "__isNode"
@@ -347,19 +336,19 @@ return {
             ],
             "storageKey": null
           },
-          (v3/*: any*/)
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "3204b19e4981556ef536d8a39774b825",
+    "cacheID": "b3c2a9bd172779b3550471c9a08f07d3",
     "id": null,
     "metadata": {},
     "name": "FileEditFormMutation",
     "operationKind": "mutation",
-    "text": "mutation FileEditFormMutation(\n  $input: UpdateAssetInput!\n) {\n  updateAsset(input: $input) {\n    asset {\n      __typename\n      ... on Asset {\n        __isAsset: __typename\n        ...FileEditFormFragment\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment FileEditFormFragment on Asset {\n  __isAsset: __typename\n  id\n  altText\n  name\n  caption\n  kind\n  fileSize\n  preview {\n    ...FileUploadFragment\n  }\n  previewMetadata {\n    alt\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation FileEditFormMutation(\n  $input: UpdateAssetInput!\n) {\n  updateAsset(input: $input) {\n    asset {\n      __typename\n      ... on Asset {\n        __isAsset: __typename\n        ...FileEditFormFragment\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment FileEditFormFragment on Asset {\n  __isAsset: __typename\n  id\n  altText\n  name\n  caption\n  kind\n  fileSize\n  preview {\n    ...FileUploadFragment\n  }\n  previewMetadata {\n    alt\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

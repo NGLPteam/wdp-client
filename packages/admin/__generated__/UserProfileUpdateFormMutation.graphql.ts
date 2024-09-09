@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0ac3cbe13a06cf0d06469c1bb1def488>>
+ * @generated SignedSource<<408ec69d7b29945bddc0072641d3d320>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -68,16 +68,7 @@ v1 = [
     "variableName": "input"
   }
 ],
-v2 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
-v3 = {
+v2 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -119,17 +110,15 @@ v3 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v2/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "UserError",
-      "kind": "LinkedField",
-      "name": "errors",
-      "plural": true,
-      "selections": (v2/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "message",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
@@ -171,7 +160,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v3/*: any*/)
+              (v2/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -304,19 +293,19 @@ return {
             ],
             "storageKey": null
           },
-          (v3/*: any*/)
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "84d47a40ca3e16cf39db254d3d5dbed3",
+    "cacheID": "181c454da83a10c6a8b0df396a8e1bb7",
     "id": null,
     "metadata": {},
     "name": "UserProfileUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation UserProfileUpdateFormMutation(\n  $input: UpdateViewerSettingsInput!\n) {\n  updateViewerSettings(input: $input) {\n    user {\n      ...UserProfileUpdateFormFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n\nfragment UserProfileUpdateFormFragment on User {\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
+    "text": "mutation UserProfileUpdateFormMutation(\n  $input: UpdateViewerSettingsInput!\n) {\n  updateViewerSettings(input: $input) {\n    user {\n      ...UserProfileUpdateFormFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n\nfragment UserProfileUpdateFormFragment on User {\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
   }
 };
 })();

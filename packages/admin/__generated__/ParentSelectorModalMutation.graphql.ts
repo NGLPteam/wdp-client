@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<12a0e60b070583dfd0a0f28e0cdedf12>>
+ * @generated SignedSource<<255c5dcbfc09de215f6e7477dc727c61>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -45,15 +45,6 @@ v1 = [
 ],
 v2 = [
   {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
-v3 = [
-  {
     "kind": "InlineFragment",
     "selections": [
       {
@@ -95,17 +86,15 @@ v3 = [
         "kind": "LinkedField",
         "name": "globalErrors",
         "plural": true,
-        "selections": (v2/*: any*/),
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "UserError",
-        "kind": "LinkedField",
-        "name": "errors",
-        "plural": true,
-        "selections": (v2/*: any*/),
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "message",
+            "storageKey": null
+          }
+        ],
         "storageKey": null
       }
     ],
@@ -131,7 +120,7 @@ return {
           {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
-            "selections": (v3/*: any*/),
+            "selections": (v2/*: any*/),
             "args": null,
             "argumentDefinitions": []
           }
@@ -155,18 +144,18 @@ return {
         "kind": "LinkedField",
         "name": "reparentEntity",
         "plural": false,
-        "selections": (v3/*: any*/),
+        "selections": (v2/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "f0e4382c727ba2cdb8a4f8d49724df3b",
+    "cacheID": "7e427b7a449fb417e7b6f010277048b6",
     "id": null,
     "metadata": {},
     "name": "ParentSelectorModalMutation",
     "operationKind": "mutation",
-    "text": "mutation ParentSelectorModalMutation(\n  $input: ReparentEntityInput!\n) {\n  reparentEntity(input: $input) {\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ParentSelectorModalMutation(\n  $input: ReparentEntityInput!\n) {\n  reparentEntity(input: $input) {\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

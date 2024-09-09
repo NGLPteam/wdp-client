@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<30ceb55352e318f699193c9455f02d33>>
+ * @generated SignedSource<<3d7fecf75f9974aa178ce7b93c88bfae>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -209,16 +209,7 @@ v12 = {
   ],
   "storageKey": null
 },
-v13 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
-v14 = {
+v13 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -260,17 +251,15 @@ v14 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v13/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "UserError",
-      "kind": "LinkedField",
-      "name": "errors",
-      "plural": true,
-      "selections": (v13/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "message",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
@@ -317,7 +306,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v14/*: any*/)
+              (v13/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -371,19 +360,19 @@ return {
             ],
             "storageKey": null
           },
-          (v14/*: any*/)
+          (v13/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "0248a44c0a0e6581221b0a21eb43dac3",
+    "cacheID": "7b8e0ba833c50d56b801490a52107558",
     "id": null,
     "metadata": {},
     "name": "ContributorCreatePersonFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ContributorCreatePersonFormMutation(\n  $input: CreatePersonContributorInput!\n) {\n  createPersonContributor(input: $input) {\n    contributor {\n      __typename\n      givenName\n      familyName\n      title\n      email\n      affiliation\n      bio\n      orcid\n      image {\n        thumb {\n          png {\n            alt\n            url\n          }\n        }\n      }\n      links {\n        title\n        url\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ContributorCreatePersonFormMutation(\n  $input: CreatePersonContributorInput!\n) {\n  createPersonContributor(input: $input) {\n    contributor {\n      __typename\n      givenName\n      familyName\n      title\n      email\n      affiliation\n      bio\n      orcid\n      image {\n        thumb {\n          png {\n            alt\n            url\n          }\n        }\n      }\n      links {\n        title\n        url\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1c2511d1bf7e404debe00b9e42e3b665>>
+ * @generated SignedSource<<08052d397cac7057e7ea6b477f4b0f25>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -48,15 +48,6 @@ v1 = [
 ],
 v2 = [
   {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
-v3 = [
-  {
     "kind": "InlineFragment",
     "selections": [
       {
@@ -98,17 +89,15 @@ v3 = [
         "kind": "LinkedField",
         "name": "globalErrors",
         "plural": true,
-        "selections": (v2/*: any*/),
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "UserError",
-        "kind": "LinkedField",
-        "name": "errors",
-        "plural": true,
-        "selections": (v2/*: any*/),
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "message",
+            "storageKey": null
+          }
+        ],
         "storageKey": null
       }
     ],
@@ -134,7 +123,7 @@ return {
           {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
-            "selections": (v3/*: any*/),
+            "selections": (v2/*: any*/),
             "args": null,
             "argumentDefinitions": []
           }
@@ -158,18 +147,18 @@ return {
         "kind": "LinkedField",
         "name": "alterSchemaVersion",
         "plural": false,
-        "selections": (v3/*: any*/),
+        "selections": (v2/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "df9382f9421d4905a7efd921d869777e",
+    "cacheID": "639afd8a0be8d90e0c27537674883bd5",
     "id": null,
     "metadata": {},
     "name": "SchemaSelectorModalMutation",
     "operationKind": "mutation",
-    "text": "mutation SchemaSelectorModalMutation(\n  $input: AlterSchemaVersionInput!\n) {\n  alterSchemaVersion(input: $input) {\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation SchemaSelectorModalMutation(\n  $input: AlterSchemaVersionInput!\n) {\n  alterSchemaVersion(input: $input) {\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

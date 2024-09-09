@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5bf93a4dd1bc1895a51a4bb383b0123a>>
+ * @generated SignedSource<<b30f127a8235b4ae8f843c80e64f74f3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -46,15 +46,6 @@ v1 = [
 ],
 v2 = [
   {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
-v3 = [
-  {
     "kind": "InlineFragment",
     "selections": [
       {
@@ -96,17 +87,15 @@ v3 = [
         "kind": "LinkedField",
         "name": "globalErrors",
         "plural": true,
-        "selections": (v2/*: any*/),
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "UserError",
-        "kind": "LinkedField",
-        "name": "errors",
-        "plural": true,
-        "selections": (v2/*: any*/),
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "message",
+            "storageKey": null
+          }
+        ],
         "storageKey": null
       }
     ],
@@ -132,7 +121,7 @@ return {
           {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
-            "selections": (v3/*: any*/),
+            "selections": (v2/*: any*/),
             "args": null,
             "argumentDefinitions": []
           }
@@ -156,18 +145,18 @@ return {
         "kind": "LinkedField",
         "name": "grantAccess",
         "plural": false,
-        "selections": (v3/*: any*/),
+        "selections": (v2/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "4531aa477872c8249a51f9cb4a98ed65",
+    "cacheID": "ef7ec6ecc8a0786b259a27ef35ed799a",
     "id": null,
     "metadata": {},
     "name": "UserGrantCollectionAccessFormMutation",
     "operationKind": "mutation",
-    "text": "mutation UserGrantCollectionAccessFormMutation(\n  $input: GrantAccessInput!\n) {\n  grantAccess(input: $input) {\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation UserGrantCollectionAccessFormMutation(\n  $input: GrantAccessInput!\n) {\n  grantAccess(input: $input) {\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

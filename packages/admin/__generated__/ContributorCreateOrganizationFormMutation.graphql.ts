@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a2e242dbf28f7f0a08d683839c1889cb>>
+ * @generated SignedSource<<0378720542b398769e3e0ae06fa2519f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -190,16 +190,7 @@ v9 = {
   ],
   "storageKey": null
 },
-v10 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "message",
-    "storageKey": null
-  }
-],
-v11 = {
+v10 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -241,17 +232,15 @@ v11 = {
       "kind": "LinkedField",
       "name": "globalErrors",
       "plural": true,
-      "selections": (v10/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "UserError",
-      "kind": "LinkedField",
-      "name": "errors",
-      "plural": true,
-      "selections": (v10/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "message",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
@@ -296,7 +285,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v11/*: any*/)
+              (v10/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -348,19 +337,19 @@ return {
             ],
             "storageKey": null
           },
-          (v11/*: any*/)
+          (v10/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "320817791e9b54d54b871910e727bab9",
+    "cacheID": "67710230e0a838781a81622d70e485d5",
     "id": null,
     "metadata": {},
     "name": "ContributorCreateOrganizationFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ContributorCreateOrganizationFormMutation(\n  $input: CreateOrganizationContributorInput!\n) {\n  createOrganizationContributor(input: $input) {\n    contributor {\n      legalName\n      email\n      location\n      bio\n      url\n      orcid\n      image {\n        thumb {\n          png {\n            alt\n            url\n          }\n        }\n      }\n      links {\n        title\n        url\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n  errors {\n    message\n  }\n}\n"
+    "text": "mutation ContributorCreateOrganizationFormMutation(\n  $input: CreateOrganizationContributorInput!\n) {\n  createOrganizationContributor(input: $input) {\n    contributor {\n      legalName\n      email\n      location\n      bio\n      url\n      orcid\n      image {\n        thumb {\n          png {\n            alt\n            url\n          }\n        }\n      }\n      links {\n        title\n        url\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

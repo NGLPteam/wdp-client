@@ -179,6 +179,9 @@ export default function MutationForm<
         for (const { path, error } of errors.attributes) {
           if (nameKeys.includes(path)) {
             form.setError(path, error, { shouldFocus: false });
+          } else {
+            // Root errors do not persist between submissions
+            form.setError(`root.${path}`, error);
           }
         }
 
@@ -213,7 +216,6 @@ export default function MutationForm<
   const submitHandler: SubmitHandler<T> = useCallback(
     (values, event) => {
       event?.preventDefault();
-      console.debug({ values });
 
       const variables = castVariables(values);
 
@@ -263,7 +265,7 @@ export default function MutationForm<
         />
         {children({ form })}
         <Styled.Footer className="l-flex l-flex--gap">
-          <Button type="submit" disabled={submitDisabled}>
+          <Button type="submit" disabled={submitDisabled} onClick={onSubmit}>
             {t("common.save")}
           </Button>
           {onSaveAndClose && (
@@ -475,10 +477,6 @@ const errorFragment = graphql`
     }
 
     globalErrors {
-      message
-    }
-
-    errors {
       message
     }
   }
