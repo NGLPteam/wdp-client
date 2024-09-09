@@ -20,7 +20,7 @@ export default function SearchHero() {
     const params = new URLSearchParams(searchParams);
     if (data.q) params.set("q", data.q);
 
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}/search?${params.toString()}`);
   };
 
   return (
