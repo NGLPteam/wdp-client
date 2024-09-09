@@ -64,7 +64,6 @@ export default async function EntityOrderingLayoutFactory({
           }
         />
       )}
-      <div>hi</div>
     </UpdateClientEnvironment>
   );
 }
