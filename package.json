@@ -73,6 +73,7 @@
     "turbo": "^2.0.6"
   },
   "dependencies": {
-    "next-auth": "^4.24.7"
+    "next-auth": "^4.24.7",
+    "react-hook-form": "7.53.0"
   }
 }

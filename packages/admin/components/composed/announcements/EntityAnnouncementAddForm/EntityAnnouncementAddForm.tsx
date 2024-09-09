@@ -1,6 +1,5 @@
 import { useFragment, graphql } from "react-relay";
 import MutationForm, {
-  useRenderForm,
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
@@ -24,42 +23,18 @@ export default function EntityAnnouncementAddForm({
   // Sets the slug to the title if no slug is provided
   const toVariables = useToVariables<EntityAnnouncementAddFormMutation, Fields>(
     (data) => {
+      const today = new Date();
+
       return {
         input: {
           ...data,
           entityId: sourceEntity.id || "",
+          publishedOn: data.publishedOn || today.toISOString(),
         },
       };
     },
     [],
   );
-
-  const renderForm = useRenderForm<Fields>(({ form: { register } }) => {
-    return (
-      <Forms.Grid>
-        <Forms.Input
-          required
-          label="forms.fields.header"
-          {...register("header")}
-        />
-        <Forms.DatePicker
-          required
-          label="forms.fields.published"
-          {...register("publishedOn")}
-        />
-        <Forms.Textarea
-          required
-          label="forms.fields.teaser"
-          {...register("teaser")}
-        />
-        <Forms.Textarea
-          required
-          label="forms.fields.body"
-          {...register("body")}
-        />
-      </Forms.Grid>
-    );
-  }, []);
 
   return (
     <MutationForm<EntityAnnouncementAddFormMutation, Fields>
@@ -72,7 +47,30 @@ export default function EntityAnnouncementAddForm({
       refetchTags={["announcements"]}
       toVariables={toVariables}
     >
-      {renderForm}
+      {({ form: { register } }) => (
+        <Forms.Grid>
+          <Forms.Input
+            label="forms.fields.header"
+            {...register("header")}
+            required
+          />
+          <Forms.DatePicker
+            label="forms.fields.published"
+            {...register("publishedOn")}
+            required
+          />
+          <Forms.Textarea
+            label="forms.fields.teaser"
+            {...register("teaser")}
+            required
+          />
+          <Forms.Textarea
+            label="forms.fields.body"
+            {...register("body")}
+            required
+          />
+        </Forms.Grid>
+      )}
     </MutationForm>
   );
 }
