@@ -33,10 +33,6 @@ const getLayout: GetLayout<Props> = (props) => {
   const itemSlug = useRouteSlug();
   if (!itemSlug) return <ErrorPage statusCode={404} />;
 
-  const hasQuery =
-    !!searchQueryVars?.query ||
-    (!!searchQueryVars?.predicates && searchQueryVars.predicates.length > 0);
-
   const { PageComponent, pageComponentProps } = props;
 
   return (
@@ -45,7 +41,6 @@ const getLayout: GetLayout<Props> = (props) => {
       variables={{
         ...queryVars,
         ...searchQueryVars,
-        hasQuery,
         itemSlug,
       }}
       loadingFallback={<LoadingPage />}

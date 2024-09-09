@@ -9926,8 +9926,16 @@ export type SearchScope = {
   coreProperties: Array<SearchableCoreProperty>;
   originType: SearchOriginType;
   /**
-   * The results of a search. Either `query` or `predicates` should be provided,
-   * otherwise it will return as if everything matches.
+   * The results of a search.
+   *
+   * You must specify one of the following options in order to activate a search:
+   *
+   * * `predicates`
+   * * `prefix`
+   * * `query`
+   * * `schema`
+   *
+   * If _none_ of these are set, the search will be considered empty, and return 0 results.
    *
    */
   results: SearchResultConnection;

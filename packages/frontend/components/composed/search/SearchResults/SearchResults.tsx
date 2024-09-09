@@ -15,6 +15,9 @@ export default function SearchResults({ data, isLoading }: Props) {
 
   const queryVars = useSearchParams();
   const q = routeQueryArrayToString(queryVars.get("q"));
+  const resultsI18nKey = q
+    ? "search.count_results_for_name"
+    : "search.count_results";
 
   return isLoading ? (
     <LoadingBlock />
@@ -22,7 +25,7 @@ export default function SearchResults({ data, isLoading }: Props) {
     <>
       <Styled.Header>
         <Trans
-          i18nKey="search.count_results_for_name"
+          i18nKey={resultsI18nKey}
           values={{
             count: results?.pageInfo?.totalCount,
             name: q,

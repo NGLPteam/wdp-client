@@ -9,14 +9,10 @@ export default function ItemListView() {
   const queryVars = useBaseListQueryVars();
   const searchQueryVars = useSearchQueryVars();
 
-  const hasQuery =
-    !!searchQueryVars?.query ||
-    (!!searchQueryVars?.predicates && searchQueryVars.predicates.length > 0);
-
   return (
     <QueryTransitionWrapper<Query>
       query={query}
-      variables={{ ...queryVars, ...searchQueryVars, hasQuery }}
+      variables={{ ...queryVars, ...searchQueryVars }}
       subscribeIds={["Item"]}
       loadingFallback={<LoadingPage />}
       refetchTags={["items"]}

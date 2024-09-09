@@ -96,12 +96,7 @@ function CollectionList({
       modelName="collection"
       columns={columns}
       actions={actions}
-      data={
-        searchQuery.query ||
-        (searchQuery.predicates && searchQuery.predicates.length > 0)
-          ? memoizedSearch?.results
-          : memoizedData
-      }
+      data={searchQuery.hasQuery ? memoizedSearch?.results : memoizedData}
       searchData={memoizedSearch}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
