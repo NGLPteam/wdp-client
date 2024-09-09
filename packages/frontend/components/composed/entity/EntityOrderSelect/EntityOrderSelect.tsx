@@ -3,7 +3,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useParams, useSearchParams } from "next/navigation";
-import { Button, Dropdown, Link, NamedLink } from "components/atomic";
+import { Button, Dropdown, NamedLink } from "components/atomic";
 import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToString";
 import { EntityOrderSelectFragment$key } from "@/relay/EntityOrderSelectFragment.graphql";
 
@@ -40,6 +40,7 @@ export default function EntityOrderSelect({ data }: Props) {
           label={t("form.order_label")}
           disclosure={
             <Button
+              as="div"
               secondary
               size="sm"
               type="button"
@@ -49,16 +50,16 @@ export default function EntityOrderSelect({ data }: Props) {
               {selectedOrder?.node.name || orderings.edges[0].node.name}
             </Button>
           }
-          menuItems={orderings.edges.map(({ node }) => (
-            <NamedLink key={node.identifier} href={getHref(node.identifier)}>
-              <Link
-                as="span"
+          menuItems={orderings.edges.map(({ node }) =>
+            node.name ? (
+              <Dropdown.Link
+                key={node.identifier}
+                href={getHref(node.identifier)}
                 active={selectedOrder?.node.identifier === node.identifier}
-              >
-                {node.name}
-              </Link>
-            </NamedLink>
-          ))}
+                label={node.name}
+              />
+            ) : null,
+          )}
           placement="bottom-start"
         />
       ) : (

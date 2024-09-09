@@ -1,5 +1,6 @@
 import BaseDropdown from "../BaseDropdown";
 import * as Styled from "./Dropdown.styles";
+import DropdownLink from "./DropdownLink";
 
 type BaseProps = React.ComponentProps<typeof BaseDropdown>;
 
@@ -30,4 +31,5 @@ interface Props extends Omit<BaseProps, "children"> {
   menuItems: (React.JSX.Element | null)[];
 }
 
+Dropdown.Link = DropdownLink;
 export default Dropdown;

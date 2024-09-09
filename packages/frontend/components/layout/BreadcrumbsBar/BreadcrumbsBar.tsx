@@ -3,14 +3,17 @@
 import { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { Breadcrumbs, Button, Dropdown, Link } from "components/atomic";
+import { Breadcrumbs, Button, Dropdown } from "components/atomic";
 import { getOrigin, getRouteByEntityType } from "helpers";
 import { useGlobalStaticContext } from "contexts/GlobalStaticContext";
+import { useTranslation } from "react-i18next";
 import { BreadcrumbsBarFragment$key } from "@/relay/BreadcrumbsBarFragment.graphql";
 import * as Styled from "./BreadcrumbsBar.styles";
 
 export default function BreadCrumbsBar({ data }: Props) {
   const breadcrumbData = useMaybeFragment(fragment, data);
+
+  const { t } = useTranslation();
 
   const globalData = useGlobalStaticContext();
 
@@ -36,40 +39,35 @@ export default function BreadCrumbsBar({ data }: Props) {
       <Styled.NavInner className="l-container-wide">
         <Breadcrumbs data={breadcrumbData} />
         <Dropdown
-          label="Share"
+          label={t("share.label")}
           disclosure={
             <Button as="div" size="sm" icon="share" secondary>
-              Share
+              {t("share.label")}
             </Button>
           }
           menuItems={[
-            <a
+            <Dropdown.Link
               key="fb"
-              className=""
               href={`mailto:?subject=${breadcrumbData.title} - ${installation}&body=View ${breadcrumbData.title} published on ${installation}.%0d%0a%0d%0a${url}`}
-            >
-              <Link as="span" icon="email" iconLeft>
-                Email
-              </Link>
-            </a>,
-            <a
+              icon="email"
+              iconLeft
+              label={t("share.email")}
+            />,
+            <Dropdown.Link
               key="fb"
-              className=""
               href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}
-            >
-              <Link as="span" icon="facebook" iconLeft>
-                Facebook
-              </Link>
-            </a>,
-            <a
-              key="twitter"
+              icon="facebook"
+              iconLeft
+              label={t("share.facebook")}
+            />,
+            <Dropdown.Link
+              key="x"
               className=""
-              href={`https://twitter.com/share?text=&url=${url}`}
-            >
-              <Link as="span" icon="twitter" iconLeft>
-                Twitter
-              </Link>
-            </a>,
+              href={`https://x.com/share?text=&url=${url}`}
+              icon="x"
+              iconLeft
+              label={t("share.x")}
+            />,
           ]}
         />
       </Styled.NavInner>

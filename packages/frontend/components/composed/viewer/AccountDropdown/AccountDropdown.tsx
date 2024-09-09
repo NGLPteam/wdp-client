@@ -1,12 +1,6 @@
 import { useTranslation } from "react-i18next";
 import useViewerContext from "contexts/useViewerContext";
-import {
-  Avatar,
-  Dropdown,
-  Link,
-  NamedLink,
-  NavMenuLink,
-} from "components/atomic";
+import { Avatar, Dropdown, Link, NavMenuLink } from "components/atomic";
 import { useCallback, useMemo } from "react";
 import { useSession } from "@/lib/auth/session";
 import * as Styled from "./AccountDropdown.styles";
@@ -35,11 +29,7 @@ export default function AccountDropdown({ condensed, mobile }: Props) {
 
   const menuItems = [
     ...(adminUrl
-      ? [
-          <NamedLink key={1} href={adminUrl}>
-            <Link>{t("nav.admin")}</Link>
-          </NamedLink>,
-        ]
+      ? [<Dropdown.Link key={1} href={adminUrl} label={t("nav.admin")} />]
       : []),
     <Link as="button" key={2} onClick={handleClick}>
       {t("common.sign_out")}
