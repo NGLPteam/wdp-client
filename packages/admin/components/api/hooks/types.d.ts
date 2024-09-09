@@ -30,7 +30,7 @@ export interface SchemaContextState<T extends FieldValues = FieldValues> {
   /**
    * The current state of the form, provided by the API.
    */
-  readonly fieldValues: T;
+  readonly fieldValues?: T;
 
   /**
    * The slug for the current schema version

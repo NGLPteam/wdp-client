@@ -15,6 +15,7 @@ import { useSchemaContext, useSchemaProperties } from "components/api/hooks";
 import { convertSchemaErrors } from "components/api/SchemaInstanceForm/convertSchemaErrors";
 import SchemaFormFields from "components/api/SchemaFormFields";
 import { ParentSelector } from "components/forms";
+import { LoadingCircle } from "components/atomic";
 import {
   ItemUpdateForm_schemaErrorsFragment$data,
   // eslint-disable-next-line max-len
@@ -101,37 +102,40 @@ export default function ItemUpdateForm({
     }
   }, []);
 
-  const toVariables = useToVariables<ItemUpdateFormMutation, Fields>((data) => {
-    const inputValues = pick(data, [
-      "title",
-      "subtitle",
-      "doi",
-      "issn",
-      "thumbnail",
-      "clearThumbnail",
-      "heroImage",
-      "clearHeroImage",
-      "summary",
-      "published",
-      "visibility",
-      "visibleAfterAt",
-      "visibleUntilAt",
-    ]);
+  const toVariables = useToVariables<ItemUpdateFormMutation, Fields>(
+    (data) => {
+      const inputValues = pick(data, [
+        "title",
+        "subtitle",
+        "doi",
+        "issn",
+        "thumbnail",
+        "clearThumbnail",
+        "heroImage",
+        "clearHeroImage",
+        "summary",
+        "published",
+        "visibility",
+        "visibleAfterAt",
+        "visibleUntilAt",
+      ]);
 
-    const schemaValues = pick(data, schemaProperties);
+      const schemaValues = pick(data, schemaProperties);
 
-    return {
-      input: {
-        ...inputValues,
-        itemId,
-        visibleAfterAt: sanitizeDateField(data.visibleAfterAt),
-        visibleUntilAt: sanitizeDateField(data.visibleUntilAt),
-        schemaProperties: {
-          ...schemaValues,
+      return {
+        input: {
+          ...inputValues,
+          itemId,
+          visibleAfterAt: sanitizeDateField(data.visibleAfterAt),
+          visibleUntilAt: sanitizeDateField(data.visibleUntilAt),
+          schemaProperties: {
+            ...schemaValues,
+          },
         },
-      },
-    };
-  }, []);
+      };
+    },
+    [schemaProperties],
+  );
 
   const renderForm = useRenderForm<Fields>(
     ({ form: { register } }) => (
@@ -181,7 +185,8 @@ export default function ItemUpdateForm({
     [fieldsData],
   );
 
-  return (
+  // Don't load the form in until defaultValues and schemaFieldValues are defined
+  return defaultValues && schemaFieldValues ? (
     <>
       <ParentSelector data={item} />
       <MutationForm<ItemUpdateFormMutation, Fields>
@@ -199,6 +204,8 @@ export default function ItemUpdateForm({
         {renderForm}
       </MutationForm>
     </>
+  ) : (
+    <LoadingCircle />
   );
 }
 

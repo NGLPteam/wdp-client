@@ -14,6 +14,7 @@ import { useSchemaContext, useSchemaProperties } from "components/api/hooks";
 import { sanitizeDateField } from "helpers";
 import { convertSchemaErrors } from "components/api/SchemaInstanceForm/convertSchemaErrors";
 import { ParentSelector } from "components/forms";
+import { LoadingCircle } from "components/atomic";
 import {
   CollectionUpdateForm_schemaErrorsFragment$data,
   // eslint-disable-next-line max-len
@@ -134,7 +135,7 @@ export default function CollectionUpdateForm({
         },
       };
     },
-    [],
+    [schemaProperties],
   );
 
   const renderForm = useRenderForm<Fields>(
@@ -184,7 +185,8 @@ export default function CollectionUpdateForm({
     [fieldsData],
   );
 
-  return (
+  // Don't load the form in until defaultValues and schemaFieldValues are defined
+  return defaultValues && schemaFieldValues ? (
     <>
       <ParentSelector data={collection} />
       <MutationForm<CollectionUpdateFormMutation, Fields>
@@ -203,6 +205,8 @@ export default function CollectionUpdateForm({
         {renderForm}
       </MutationForm>
     </>
+  ) : (
+    <LoadingCircle />
   );
 }
 

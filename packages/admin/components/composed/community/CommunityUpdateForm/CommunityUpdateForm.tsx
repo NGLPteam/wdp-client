@@ -12,6 +12,7 @@ import MutationForm, {
 import SchemaFormFields from "components/api/SchemaFormFields";
 import { useSchemaContext, useSchemaProperties } from "components/api/hooks";
 import { convertSchemaErrors } from "components/api/SchemaInstanceForm/convertSchemaErrors";
+import { LoadingCircle } from "components/atomic";
 import type {
   UpdateCommunityInput,
   CommunityUpdateFormMutation,
@@ -52,7 +53,6 @@ export default function CommunityUpdateForm({
     ...schemaDefaultValues,
     ...schemaFieldValues,
   };
-
   const toVariables = useToVariables<CommunityUpdateFormMutation, Fields>(
     (data) => {
       const { heroImage, heroImageMetadata, ...inputValues } = pick(data, [
@@ -80,7 +80,7 @@ export default function CommunityUpdateForm({
         },
       };
     },
-    [],
+    [schemaProperties],
   );
 
   const isSuccess = useIsSuccess<CommunityUpdateFormMutation, Fields>(
@@ -176,7 +176,8 @@ export default function CommunityUpdateForm({
     [fieldsData],
   );
 
-  return defaultValues.title ? (
+  // Don't load the form in until defaultValues and schemaFieldValues are defined
+  return defaultValues.title && schemaFieldValues ? (
     <MutationForm<CommunityUpdateFormMutation, Fields>
       name={mutationName}
       onSuccess={onSuccess}
@@ -192,7 +193,7 @@ export default function CommunityUpdateForm({
       {renderForm}
     </MutationForm>
   ) : (
-    <></>
+    <LoadingCircle />
   );
 }
 
