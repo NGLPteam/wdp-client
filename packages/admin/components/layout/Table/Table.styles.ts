@@ -94,7 +94,7 @@ export const Cell = styled.td`
 
   &[data-cell-type="thumbnail"] {
     padding-block-start: ${pxToRem(8)};
-    padding-block-end: ${pxToRem(2)};
+    padding-block-end: ${pxToRem(8)};
     /* First number should be the size of the thumbnail (50px) */
     width: ${50 + 8 * 2}px;
     min-width: ${40 + 8 * 2}px;
