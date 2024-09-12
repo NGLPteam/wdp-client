@@ -4,6 +4,7 @@ import getStaticGlobalContextData from "contexts/GlobalStaticContext/getStaticGl
 import { GlobalStaticContextProvider } from "contexts/GlobalStaticContext/GlobalStaticContext";
 import ThemeProvider from "contexts/ThemeProvider";
 import AppBody from "components/global/AppBody";
+import { Metadata } from "next";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import RelayEnvironmentProvider from "@/lib/relay/RelayClientEnvProvider";
 import StyledComponentsRegistry from "@/lib/styled-components/registry";
@@ -11,6 +12,14 @@ import { layoutAllPagesQuery as Query } from "@/relay/layoutAllPagesQuery.graphq
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import { SessionProvider } from "@/lib/auth/session";
 import { ViewerContextProvider } from "@/contexts/ViewerContext";
+import { BasePageParams } from "@/types/page";
+import generateSiteMetadata from "./_metadata/site";
+
+export async function generateMetadata(
+  props: BasePageParams,
+): Promise<Metadata> {
+  return generateSiteMetadata(props);
+}
 
 export default async function PageLayout({ children }: PropsWithChildren) {
   const globalData = await getStaticGlobalContextData();
