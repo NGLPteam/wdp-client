@@ -89,7 +89,10 @@ export const Item = styled.div`
       padding-block-start: 0;
       gap: ${pxToRem(12)};
       border-radius: 0;
-      border-bottom: 1px solid var(--border-color);
+
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--border-color);
+      }
 
       &[data-has-checkbox="true"] {
         grid-template:

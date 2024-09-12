@@ -7,4 +7,8 @@ export const CoverImage = styled(BaseCoverImage)`
   table & {
     object-position: top right;
   }
+
+  [data-mobile-layout="true"] & {
+    object-position: top left;
+  }
 `;
