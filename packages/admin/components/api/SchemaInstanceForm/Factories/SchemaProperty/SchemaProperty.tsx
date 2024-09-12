@@ -1,5 +1,6 @@
 import { useFragment, graphql } from "react-relay";
 
+import { SchemaKind } from "types/graphql-schema";
 import type { SchemaPropertyFragment$key } from "@/relay/SchemaPropertyFragment.graphql";
 import * as Properties from "../../Properties";
 
@@ -46,9 +47,19 @@ export default function SchemaProperty(props: Props) {
     case "VariableDateProperty":
       return <Properties.VariableDate field={field} />;
     case "EntityProperty":
-      return <Properties.EntityProperty field={field} />;
+      return (
+        <Properties.EntityProperty
+          field={field}
+          schemaKind={props.schemaKind}
+        />
+      );
     case "EntitiesProperty":
-      return <Properties.EntitiesProperty field={field} />;
+      return (
+        <Properties.EntitiesProperty
+          field={field}
+          schemaKind={props.schemaKind}
+        />
+      );
     default:
       console.warn("Got unknown schema property type: %s", field.__typename);
       return null;
@@ -57,6 +68,7 @@ export default function SchemaProperty(props: Props) {
 
 interface Props {
   field: SchemaPropertyFragment$key;
+  schemaKind: SchemaKind;
 }
 
 const fragment = graphql`

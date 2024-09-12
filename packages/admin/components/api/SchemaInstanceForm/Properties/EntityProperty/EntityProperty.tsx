@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import Select from "components/forms/Select";
 import { getEntityTitle } from "components/factories/EntityTitleFactory";
 
+import { SchemaKind } from "types/graphql-schema";
 import type { EntityPropertyFragment$key } from "@/relay/EntityPropertyFragment.graphql";
 import ScalarProperty from "../ScalarProperty";
 
@@ -61,6 +62,7 @@ export default function EntityProperty(props: Props) {
 
 interface Props {
   field: EntityPropertyFragment$key;
+  schemaKind: SchemaKind;
 }
 
 const fragment = graphql`

@@ -3,10 +3,14 @@ import { useFragment, graphql } from "react-relay";
 import { Controller, useFormContext } from "react-hook-form";
 import Multiselect from "components/forms/Multiselect";
 import { getEntityTitle } from "components/factories/EntityTitleFactory";
+import { SchemaKind } from "types/graphql-schema";
+import { useTranslation } from "react-i18next";
 import type { EntitiesPropertyFragment$key } from "@/relay/EntitiesPropertyFragment.graphql";
 import ScalarProperty from "../ScalarProperty";
 
-export default function EntitiesProperty(props: Props) {
+export default function EntitiesProperty({ schemaKind, ...props }: Props) {
+  const { t } = useTranslation();
+
   const field = useFragment<EntitiesPropertyFragment$key>(
     fragment,
     props.field,
@@ -36,6 +40,12 @@ export default function EntitiesProperty(props: Props) {
               options={options}
               isWide
               dragDropOrder
+              disabled={options.length === 0}
+              description={
+                options.length === 0
+                  ? `There are no ${label} in this ${t(`glossary.${schemaKind.toLowerCase()}`)}.`
+                  : ""
+              }
               {...props}
             />
           )}
@@ -47,6 +57,7 @@ export default function EntitiesProperty(props: Props) {
 
 interface Props {
   field: EntitiesPropertyFragment$key;
+  schemaKind: SchemaKind;
 }
 
 const fragment = graphql`

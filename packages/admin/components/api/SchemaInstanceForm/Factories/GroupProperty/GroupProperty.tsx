@@ -1,6 +1,7 @@
 import { useFragment, graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { FieldsetSection, FormGrid } from "components/forms";
+import { SchemaKind } from "types/graphql-schema";
 import type { GroupPropertyFragment$key } from "@/relay/GroupPropertyFragment.graphql";
 import SchemaProperty from "../SchemaProperty";
 
@@ -14,7 +15,11 @@ export default function GroupProperty(props: Props) {
     <FieldsetSection label={group.legend}>
       <FormGrid>
         {group.properties.map((prop, index) => (
-          <SchemaProperty field={prop} key={index} />
+          <SchemaProperty
+            field={prop}
+            key={index}
+            schemaKind={props.schemaKind}
+          />
         ))}
       </FormGrid>
     </FieldsetSection>
@@ -22,7 +27,11 @@ export default function GroupProperty(props: Props) {
     <FieldsetSection label={t("forms.fields.fields")}>
       <FormGrid>
         {group.properties.map((prop, index) => (
-          <SchemaProperty field={prop} key={index} />
+          <SchemaProperty
+            field={prop}
+            key={index}
+            schemaKind={props.schemaKind}
+          />
         ))}
       </FormGrid>
     </FieldsetSection>
@@ -31,6 +40,7 @@ export default function GroupProperty(props: Props) {
 
 interface Props {
   group: GroupPropertyFragment$key;
+  schemaKind: SchemaKind;
 }
 
 const fragment = graphql`
