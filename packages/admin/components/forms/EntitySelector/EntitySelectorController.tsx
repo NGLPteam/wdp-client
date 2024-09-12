@@ -97,7 +97,7 @@ export default function Controller({
 
   const renderOptions = (data: readonly { node: EntityOption }[]) => {
     return data
-      .filter(({ node }) => node.id !== omitSelfId)
+      .filter(({ node }) => node?.id !== omitSelfId)
       .map(({ node }) => {
         const hasDescendants =
           node.__typename === "Community" ||

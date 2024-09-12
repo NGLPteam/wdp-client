@@ -29,7 +29,7 @@ const ContributorTypeahead = <T extends FieldValues = FieldValues>(
     const options = results.map(({ node }) => {
       return {
         label: getContributorDisplayName(node) || "",
-        value: node.__typename !== "%other" ? node.id : "",
+        value: node?.__typename !== "%other" ? node.id : "",
       };
     });
     return options;
