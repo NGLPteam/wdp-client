@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7641a07efc56a227ba1b3ab8f6d42d52>>
+ * @generated SignedSource<<1d2869d3c63198e62afe578f70516166>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,9 +16,15 @@ export type EntityOrderingEditDrawerQuery$variables = {
 };
 export type EntityOrderingEditDrawerQuery$data = {
   readonly collection: {
+    readonly ordering: {
+      readonly name: string | null | undefined;
+    } | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingEditFormFragment">;
   } | null | undefined;
   readonly item: {
+    readonly ordering: {
+      readonly name: string | null | undefined;
+    } | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingEditFormFragment">;
   } | null | undefined;
 };
@@ -47,25 +53,37 @@ v2 = [
 ],
 v3 = [
   {
-    "args": null,
-    "kind": "FragmentSpread",
-    "name": "EntityOrderingEditFormFragment"
+    "kind": "Variable",
+    "name": "identifier",
+    "variableName": "identifier"
   }
 ],
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "namespace",
+  "name": "name",
   "storageKey": null
 },
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "identifier",
-  "storageKey": null
-},
+v5 = [
+  {
+    "args": null,
+    "kind": "FragmentSpread",
+    "name": "EntityOrderingEditFormFragment"
+  },
+  {
+    "alias": null,
+    "args": (v3/*: any*/),
+    "concreteType": "Ordering",
+    "kind": "LinkedField",
+    "name": "ordering",
+    "plural": false,
+    "selections": [
+      (v4/*: any*/)
+    ],
+    "storageKey": null
+  }
+],
 v6 = {
   "alias": null,
   "args": null,
@@ -77,10 +95,31 @@ v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "namespace",
   "storageKey": null
 },
-v8 = [
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "identifier",
+  "storageKey": null
+},
+v9 = [
+  {
+    "alias": null,
+    "args": (v3/*: any*/),
+    "concreteType": "Ordering",
+    "kind": "LinkedField",
+    "name": "ordering",
+    "plural": false,
+    "selections": [
+      (v4/*: any*/),
+      (v6/*: any*/)
+    ],
+    "storageKey": null
+  },
+  (v6/*: any*/),
   {
     "kind": "InlineFragment",
     "selections": [
@@ -92,29 +131,21 @@ v8 = [
         "name": "schemaRanks",
         "plural": true,
         "selections": [
-          (v4/*: any*/),
-          (v5/*: any*/),
+          (v7/*: any*/),
+          (v8/*: any*/),
           (v6/*: any*/),
-          (v7/*: any*/)
+          (v4/*: any*/)
         ],
         "storageKey": null
       },
       {
         "alias": null,
-        "args": [
-          {
-            "kind": "Variable",
-            "name": "identifier",
-            "variableName": "identifier"
-          }
-        ],
+        "args": (v3/*: any*/),
         "concreteType": "Ordering",
         "kind": "LinkedField",
         "name": "ordering",
         "plural": false,
         "selections": [
-          (v6/*: any*/),
-          (v7/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -217,8 +248,8 @@ v8 = [
                 "name": "schemas",
                 "plural": true,
                 "selections": [
-                  (v4/*: any*/),
-                  (v5/*: any*/),
+                  (v7/*: any*/),
+                  (v8/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -238,8 +269,7 @@ v8 = [
     ],
     "type": "Entity",
     "abstractKey": "__isEntity"
-  },
-  (v6/*: any*/)
+  }
 ];
 return {
   "fragment": {
@@ -258,7 +288,7 @@ return {
         "kind": "LinkedField",
         "name": "collection",
         "plural": false,
-        "selections": (v3/*: any*/),
+        "selections": (v5/*: any*/),
         "storageKey": null
       },
       {
@@ -268,7 +298,7 @@ return {
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
-        "selections": (v3/*: any*/),
+        "selections": (v5/*: any*/),
         "storageKey": null
       }
     ],
@@ -291,7 +321,7 @@ return {
         "kind": "LinkedField",
         "name": "collection",
         "plural": false,
-        "selections": (v8/*: any*/),
+        "selections": (v9/*: any*/),
         "storageKey": null
       },
       {
@@ -301,22 +331,22 @@ return {
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
-        "selections": (v8/*: any*/),
+        "selections": (v9/*: any*/),
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "a787fa41b92cc9897f277d929290a8f7",
+    "cacheID": "38b9dd34a77650cdb80544c4d166d6b7",
     "id": null,
     "metadata": {},
     "name": "EntityOrderingEditDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityOrderingEditDrawerQuery(\n  $slug: Slug!\n  $identifier: String!\n) {\n  collection(slug: $slug) {\n    ...EntityOrderingEditFormFragment\n    id\n  }\n  item(slug: $slug) {\n    ...EntityOrderingEditFormFragment\n    id\n  }\n}\n\nfragment EntityOrderingEditFormFragment on Entity {\n  __isEntity: __typename\n  ...OrderDefinitionSelectControlFragment\n  ...SchemaCheckboxGroupFragment\n  ordering(identifier: $identifier) {\n    id\n    name\n    render {\n      mode\n    }\n    order {\n      path\n      direction\n    }\n    select {\n      direct\n      links {\n        contains\n        references\n      }\n    }\n    filter {\n      schemas {\n        namespace\n        identifier\n        version\n      }\n    }\n  }\n}\n\nfragment OrderDefinitionSelectControlFragment on Entity {\n  __isEntity: __typename\n  ...OrderDefinitionSelectFragment\n}\n\nfragment OrderDefinitionSelectFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    namespace\n    identifier\n    id\n  }\n}\n\nfragment SchemaCheckboxGroupFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    name\n    namespace\n    identifier\n    id\n  }\n}\n"
+    "text": "query EntityOrderingEditDrawerQuery(\n  $slug: Slug!\n  $identifier: String!\n) {\n  collection(slug: $slug) {\n    ...EntityOrderingEditFormFragment\n    ordering(identifier: $identifier) {\n      name\n      id\n    }\n    id\n  }\n  item(slug: $slug) {\n    ...EntityOrderingEditFormFragment\n    ordering(identifier: $identifier) {\n      name\n      id\n    }\n    id\n  }\n}\n\nfragment EntityOrderingEditFormFragment on Entity {\n  __isEntity: __typename\n  ...OrderDefinitionSelectControlFragment\n  ...SchemaCheckboxGroupFragment\n  ordering(identifier: $identifier) {\n    id\n    name\n    render {\n      mode\n    }\n    order {\n      path\n      direction\n    }\n    select {\n      direct\n      links {\n        contains\n        references\n      }\n    }\n    filter {\n      schemas {\n        namespace\n        identifier\n        version\n      }\n    }\n  }\n}\n\nfragment OrderDefinitionSelectControlFragment on Entity {\n  __isEntity: __typename\n  ...OrderDefinitionSelectFragment\n}\n\nfragment OrderDefinitionSelectFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    namespace\n    identifier\n    id\n  }\n}\n\nfragment SchemaCheckboxGroupFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    name\n    namespace\n    identifier\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "8f777cfe02777dcb48001bd33f57054a";
+(node as any).hash = "88ff893f4b83ade07733094c9f59f73e";
 
 export default node;

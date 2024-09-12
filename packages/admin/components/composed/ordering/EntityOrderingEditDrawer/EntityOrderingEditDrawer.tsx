@@ -23,9 +23,12 @@ export default function EntityOrderingEditDrawer({
       variables={{ slug: drawerSlug, identifier: drawerIdentifier }}
     >
       {({ data }) => {
+        const name =
+          data.collection?.ordering?.name || data.item?.ordering?.name || "";
+
         return (
           <Drawer
-            header={t("actions.edit.ordering_header")}
+            header={t("actions.edit.ordering_header", { name })}
             dialog={dialog}
             hideOnClickOutside={false}
           >
@@ -53,9 +56,15 @@ const query = graphql`
   query EntityOrderingEditDrawerQuery($slug: Slug!, $identifier: String!) {
     collection(slug: $slug) {
       ...EntityOrderingEditFormFragment
+      ordering(identifier: $identifier) {
+        name
+      }
     }
     item(slug: $slug) {
       ...EntityOrderingEditFormFragment
+      ordering(identifier: $identifier) {
+        name
+      }
     }
   }
 `;
