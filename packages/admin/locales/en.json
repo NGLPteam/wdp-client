@@ -391,6 +391,8 @@
         "logo_settings_without_text": "Display without Installation Name",
         "position": "Position",
         "select_placeholder": "Select an option",
+        "typeahead_placeholder": "Start typing or select an option",
+        "typeahead_no_options": "No options are available",
         "orcid": "ORCID Link",
         "orcid_description": "Link to an optional, unique Open Researcher and Contributor ID associated with this contributor.",
         "search_placeholder": "Enter keyword",

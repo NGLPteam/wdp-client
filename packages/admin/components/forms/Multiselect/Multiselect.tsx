@@ -6,6 +6,7 @@ import {
   DragUpdate,
 } from "react-beautiful-dnd";
 import { useCombobox, useMultipleSelection } from "downshift";
+import { useTranslation } from "react-i18next";
 import BaseInputWrapper from "../BaseInputWrapper";
 import BaseArrayList, { BaseArrayListItem } from "../BaseArrayList";
 import HiddenMultiselect from "./HiddenMultiselect";
@@ -35,10 +36,13 @@ function Multiselect<T extends Record<string, unknown>>(
     value,
     isWide,
     dragDropOrder,
+    placeholder = "forms.fields.typeahead_placeholder",
     ...inputProps
   }: Props<T>,
   ref: Ref<HTMLSelectElement>,
 ) {
+  const { t } = useTranslation();
+
   const [inputValue, setInputValue] = useState("");
 
   const {
@@ -180,6 +184,7 @@ function Multiselect<T extends Record<string, unknown>>(
           <Styled.Input
             {...getInputProps(getDropdownProps({ preventKeyAction: isOpen }))}
             required={required}
+            placeholder={t(placeholder)}
           />
           <Styled.Button
             type="button"
