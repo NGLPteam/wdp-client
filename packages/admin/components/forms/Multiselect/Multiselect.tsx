@@ -37,6 +37,8 @@ function Multiselect<T extends Record<string, unknown>>(
     isWide,
     dragDropOrder,
     placeholder = "forms.fields.typeahead_placeholder",
+    disabled,
+    description,
     ...inputProps
   }: Props<T>,
   ref: Ref<HTMLSelectElement>,
@@ -168,6 +170,7 @@ function Multiselect<T extends Record<string, unknown>>(
       labelProps={getLabelProps()}
       required={required}
       isWide={isWide}
+      description={description}
     >
       <>
         <Styled.InputWrapper>
@@ -185,11 +188,13 @@ function Multiselect<T extends Record<string, unknown>>(
             {...getInputProps(getDropdownProps({ preventKeyAction: isOpen }))}
             required={required}
             placeholder={t(placeholder)}
+            disabled={disabled}
           />
           <Styled.Button
             type="button"
             {...getToggleButtonProps()}
             aria-label="toggle menu"
+            disabled={disabled}
           >
             <Styled.Icon icon="chevron" rotate={180} />
           </Styled.Button>

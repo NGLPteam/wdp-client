@@ -1,5 +1,6 @@
 import { useFragment, graphql } from "react-relay";
 
+import { SchemaKind } from "types/graphql-schema";
 import type { SchemaInstancePropertyFragment$key } from "@/relay/SchemaInstancePropertyFragment.graphql";
 import * as Factories from "./Factories";
 
@@ -11,14 +12,15 @@ export default function SchemaInstanceProperty(props: Props) {
   const property = useFragment(fragment, props.property);
 
   if (property.__typename === "GroupProperty") {
-    return <Factories.Group group={property} />;
+    return <Factories.Group group={property} schemaKind={props.schemaKind} />;
   } else {
-    return <Factories.Single field={property} />;
+    return <Factories.Single field={property} schemaKind={props.schemaKind} />;
   }
 }
 
 interface Props {
   property: SchemaInstancePropertyFragment$key;
+  schemaKind: SchemaKind;
 }
 
 const fragment = graphql`

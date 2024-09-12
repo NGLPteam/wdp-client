@@ -29,7 +29,7 @@ export default function SchemaFormFields({
           />
           <FormGrid>
             {instance.properties.map((prop, index) => (
-              <Property property={prop} key={index} />
+              <Property property={prop} key={index} schemaKind={schemaKind} />
             ))}
           </FormGrid>
         </>

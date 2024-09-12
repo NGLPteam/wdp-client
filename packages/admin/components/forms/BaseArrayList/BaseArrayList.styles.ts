@@ -10,6 +10,10 @@ export const List = styled.ul<{ $column?: true; $isDraggingOver?: boolean }>`
   flex-wrap: wrap;
   margin-block-start: ${pxToRem(12)};
 
+  &:empty {
+    margin-block-start: 0;
+  }
+
   ${({ $column }) => $column && `flex-direction: column;`}
 `;
 
