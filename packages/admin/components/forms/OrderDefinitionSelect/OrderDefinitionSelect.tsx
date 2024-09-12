@@ -11,6 +11,7 @@ import {
   OrderDefinition,
   OrderingSchemaFilterInput,
 } from "types/graphql-schema";
+import { t } from "i18next";
 import { OrderDefinitionSelectQuery as Query } from "@/relay/OrderDefinitionSelectQuery.graphql";
 import { OrderDefinitionSelectFragment$key } from "@/relay/OrderDefinitionSelectFragment.graphql";
 import Select from "../Select";
@@ -109,8 +110,10 @@ function OrderDefinitionSelect(
           description="forms.fields.order_by_description"
           name={name}
           onChange={handleSelect}
-          options={filteredOptions}
-          placeholder="Select an option"
+          options={[
+            { label: t("forms.fields.select_placeholder"), value: "" },
+            ...filteredOptions,
+          ]}
           ref={(e) => {
             if (typeof ref === "function") ref(e);
             selectRef.current = e;

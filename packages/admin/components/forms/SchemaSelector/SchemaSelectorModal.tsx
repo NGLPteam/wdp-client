@@ -57,7 +57,10 @@ const SchemaSelectorModal = ({
   const renderForm = useRenderForm<Fields>(
     ({ form: { register } }) => (
       <Forms.Select
-        options={[{ label: "Select an option", value: "" }, ...options]}
+        options={[
+          { label: t("forms.fields.select_placeholder"), value: "" },
+          ...options,
+        ]}
         label={t("forms.schema.new_label")}
         description={t("forms.schema.change_warning")}
         {...register("schemaVersionSlug")}

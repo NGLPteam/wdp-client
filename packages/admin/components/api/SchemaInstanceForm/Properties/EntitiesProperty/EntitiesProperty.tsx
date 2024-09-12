@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import { useFragment, graphql } from "react-relay";
 import { Controller, useFormContext } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import Multiselect from "components/forms/Multiselect";
 import { getEntityTitle } from "components/factories/EntityTitleFactory";
 import type { EntitiesPropertyFragment$key } from "@/relay/EntitiesPropertyFragment.graphql";
@@ -14,8 +13,6 @@ export default function EntitiesProperty(props: Props) {
   );
 
   const { control } = useFormContext();
-
-  const { t } = useTranslation();
 
   const options = useMemo(() => {
     return field.availableEntities.map(({ entity, value }) => {
@@ -39,9 +36,6 @@ export default function EntitiesProperty(props: Props) {
               options={options}
               isWide
               dragDropOrder
-              placeholder={
-                required ? undefined : t("forms.fields.select_placeholder")
-              }
               {...props}
             />
           )}
