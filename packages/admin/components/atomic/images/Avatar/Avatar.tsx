@@ -9,11 +9,11 @@ const Avatar = ({ data, size = 32, placeholder }: Props) => {
   const avatar = useMaybeFragment(fragment, data);
 
   return avatar?.storage ? (
-    <Styled.Wrapper size={size}>
+    <Styled.Wrapper $size={size}>
       <Image data={avatar?.small?.webp} width={size} height={size} />
     </Styled.Wrapper>
   ) : placeholder ? (
-    <Styled.IconWrapper size={size}>
+    <Styled.IconWrapper $size={size}>
       <IconFactory icon="avatar32" size="lg" />
     </Styled.IconWrapper>
   ) : null;

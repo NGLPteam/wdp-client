@@ -13,12 +13,14 @@ function mobile(content: CssContent) {
   `;
 }
 
-const Pagination = styled(PaginationWrapper)<Props>`
+const Pagination = styled(PaginationWrapper)<{
+  $totalPages: Props["totalPages"];
+}>`
   --input-border-radius: ${pxToRem(6)};
   --input-text-align: center;
   --input-padding: 0 0 0 ${pxToRem(4)};
-  --pagination-input-width: ${({ totalPages }) =>
-    totalPages && pxToRem(totalPages.toString().length * 10 + 25)};
+  --pagination-input-width: ${({ $totalPages }) =>
+    $totalPages && pxToRem($totalPages.toString().length * 10 + 25)};
   display: flex;
   align-items: center;
   padding-block-start: ${pxToRem(24)};

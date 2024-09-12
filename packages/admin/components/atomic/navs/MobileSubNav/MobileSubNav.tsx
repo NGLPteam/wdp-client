@@ -38,7 +38,9 @@ const MobileSubNav = ({ tabRoutes, sidebarLinks }: Props) => {
         ref={mobileNavRef}
       >
         <MobileMenuList>
-          {tabRoutes?.map(({ label = "", ...namedLinkProps }, i) => (
+          {/* Do not pass actions down to the DOM */}
+          {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
+          {tabRoutes?.map(({ label = "", actions, ...namedLinkProps }, i) => (
             <li key={i}>
               <TabLink
                 active={RouteHelper.isRouteNameActive(namedLinkProps.route)}
@@ -53,6 +55,7 @@ const MobileSubNav = ({ tabRoutes, sidebarLinks }: Props) => {
           {sidebarLinks?.map(({ route, label = "", query }, i) => (
             <li key={i}>
               <NamedLink route={route} query={query} passHref>
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <a
                   className="a-link"
                   aria-current={activeRoute?.name === route}
@@ -70,7 +73,9 @@ const MobileSubNav = ({ tabRoutes, sidebarLinks }: Props) => {
 
 interface Link extends NamedLinkProps {
   label?: string;
+  actions?: string[] | undefined;
 }
+
 interface Props {
   tabRoutes?: Link[];
   sidebarLinks?: Link[];

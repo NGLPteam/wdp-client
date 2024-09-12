@@ -38,11 +38,11 @@ export const List = styled.ul<ListProps>`
     z-index: -1;
   }
 
-  ${({ right }) => right && `right: 0;`}
+  ${({ $right }) => $right && `right: 0;`}
 `;
 
 interface ListProps {
-  right?: boolean;
+  $right?: boolean;
 }
 
 export const Item = styled.li`

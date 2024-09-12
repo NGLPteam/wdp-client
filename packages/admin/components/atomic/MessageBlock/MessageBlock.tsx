@@ -7,7 +7,7 @@ declare type Url = string | UrlObject;
 
 const MessageBlock = ({ type = "error", name, message, link }: Props) => {
   return (
-    <Styled.Wrapper type={type} className="a-bg-brand10 t-align-center">
+    <Styled.Wrapper $type={type} className="a-bg-brand10 t-align-center">
       <Styled.Inner>
         <IconFactory icon={type === "error" ? "warning" : "empty"} size="xlg" />
         <Styled.Header>{name}</Styled.Header>
