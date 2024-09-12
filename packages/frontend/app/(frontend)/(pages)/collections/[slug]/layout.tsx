@@ -5,10 +5,19 @@ import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 import CommunityPickerPortal from "components/composed/instance/CommunityPicker/Portal";
 import CommunityNavListPortal from "components/composed/community/CommunityNavList/Portal";
 import SearchModalPortal from "components/layout/SearchModal/Portal";
+import { ResolvingMetadata, Metadata } from "next";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { layoutCollectionQuery as Query } from "@/relay/layoutCollectionQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
+import generateCollectionMetadata from "./_metadata/collection";
+
+export async function generateMetadata(
+  props: BasePageParams,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  return generateCollectionMetadata(props, parent);
+}
 
 export default async function CollectionLayout({
   children,

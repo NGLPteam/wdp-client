@@ -4,10 +4,19 @@ import { notFound } from "next/navigation";
 import CommunityNavBar from "components/composed/community/CommunityNavBar";
 import CommunityPickerPortal from "components/composed/instance/CommunityPicker/Portal";
 import CommunityNamePortal from "components/composed/community/CommunityName/Portal";
+import { ResolvingMetadata, Metadata } from "next";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { layoutCommunityQuery as Query } from "@/relay/layoutCommunityQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
+import generateCommunityMetadata from "./_metadata/community";
+
+export async function generateMetadata(
+  props: BasePageParams,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  return generateCommunityMetadata(props, parent);
+}
 
 export default async function CommunityLayout({
   children,
