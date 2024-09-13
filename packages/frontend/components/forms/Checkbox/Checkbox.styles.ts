@@ -5,8 +5,7 @@ import { boxShadow } from "theme/base/variables";
 
 export const Label = styled.label`
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  align-items: start;
 `;
 
 export const LabelText = styled.span`
@@ -22,6 +21,7 @@ export const Icon = styled(IconFactory)`
   cursor: pointer;
   display: inline-block;
   margin-inline-end: ${pxToRem(8)};
+  margin-block-start: 0.1875rem;
 
   [data-path-name="check"] {
     color: transparent;
