@@ -71,7 +71,7 @@ function AppHeader({ data }: Props) {
         >
           <Styled.MobileList>
             <CommunityNavList mobile />
-            <Search id="headerSearch" mobile />
+            <Search id="headerSearch" onSubmit={dialog.hide} mobile />
             <AccountDropdown mobile />
           </Styled.MobileList>
         </BaseDrawer>
