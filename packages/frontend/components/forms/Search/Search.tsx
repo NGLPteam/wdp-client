@@ -9,6 +9,7 @@ export default function Search({
   placeholder,
   mobile,
   id,
+  onSubmit,
 }: Props) {
   const { t } = useTranslation();
 
@@ -16,7 +17,7 @@ export default function Search({
 
   const { handleSubmit, register } = useForm();
 
-  const onSubmit = (data: Record<string, string>) => {
+  const submitHandler = (data: Record<string, string>) => {
     if (!pathname) return null;
 
     const params = new URLSearchParams({
@@ -25,12 +26,14 @@ export default function Search({
 
     const url = `${pathname}?${params.toString()}`;
 
+    if (onSubmit) onSubmit();
+
     router.push(url);
   };
 
   return (
     <Styled.SearchForm
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(submitHandler)}
       className="a-button-secondary-sm"
     >
       <Styled.SearchLabel htmlFor={id}>
@@ -57,4 +60,5 @@ interface Props {
   placeholder?: string;
   mobile?: boolean;
   id: string;
+  onSubmit?: () => void;
 }
