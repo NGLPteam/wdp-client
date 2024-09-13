@@ -45,6 +45,8 @@ export default function SearchFilters({
     const { schema, ...filters } = data;
 
     const params = new URLSearchParams(searchParams);
+    params.set("page", "1");
+
     if (!isEmpty(filters)) {
       params.set("filters", JSON.stringify(filters));
     } else {
@@ -65,6 +67,7 @@ export default function SearchFilters({
 
   const handleReset = () => {
     const params = new URLSearchParams(searchParams);
+    params.set("page", "1");
     params.delete("filters");
     params.delete("schema");
 
