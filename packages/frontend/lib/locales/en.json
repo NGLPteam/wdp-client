@@ -147,7 +147,9 @@
       "document": "document",
       "file": "file",
       "view_full_pdf": "To view the rest of this document, please <downloadLink>download the PDF</downloadLink>.",
-      "pdf_cannot_be_displayed": "This PDF is over 100 MB and cannot be displayed. Please <downloadLink>download the PDF</downloadLink> instead."
+      "pdf_cannot_be_displayed": "This PDF is over 100 MB and cannot be displayed. Please <downloadLink>download the PDF</downloadLink> instead.",
+      "pdf_server_error": "Unexpected server response ({{code}}) while retrieving the PDF.",
+      "pdf_render_error": "Failed to load PDF file."
     },
     "metadata": {
       "author": "Author",
@@ -259,7 +261,8 @@
     },
     "messages": {
       "hidden": "This {{schema}} is hidden",
-      "server_error": "A server error occured."
+      "server_error": "A server error occured.",
+      "error": "An error occured."
     },
     "analytics": {
       "regions": {
