@@ -7,7 +7,7 @@ import { convertToSlug } from "@wdp/lib/helpers";
 import dynamic from "next/dynamic";
 import { useTranslation } from "react-i18next";
 import { ContentImage, FullText } from "components/atomic";
-import { BackToTopBlock } from "components/layout";
+import { BackToTopBlock, NoContent } from "components/layout";
 import { ArticleTextFragment$key } from "@/relay/ArticleTextFragment.graphql";
 import * as Styled from "./ArticleText.styles";
 
@@ -84,7 +84,7 @@ export default function ArticleText({ data }: Props) {
       {pdf?.asset ? (
         <AssetInlinePDF data={pdf.asset} />
       ) : (
-        t("common.no_content")
+        <NoContent message={t("common.no_content")} />
       )}
     </Styled.BodyWrapper>
   );
