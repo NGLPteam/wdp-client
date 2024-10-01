@@ -3229,7 +3229,7 @@ __metadata:
     react-confirm: "npm:^0.3.0-7"
     react-dom: "npm:^18.2.0"
     react-error-boundary: "npm:^4.0.12"
-    react-google-charts: "npm:^4.0.1"
+    react-google-charts: "npm:^4.0.7"
     react-hook-form: "npm:^7.53.0"
     react-i18next: "npm:^14.0.5"
     react-intersection-observer: "npm:^9.8.0"
@@ -9467,13 +9467,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-google-charts@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "react-google-charts@npm:4.0.1"
+"react-google-charts@npm:^4.0.7":
+  version: 4.0.7
+  resolution: "react-google-charts@npm:4.0.7"
   peerDependencies:
     react: ">=16.3.0"
     react-dom: ">=16.3.0"
-  checksum: 10c0/9869ea6006be87ed2bc14a886628f0a611e56d76e62783606b2c0dec0eabbb06954019c05a5e4e507ede9db14d0a52733623bbd4b5f5330c7fb7c63e6f1ca8ee
+  checksum: 10c0/1a00f42205f5b0b913ba8cf097076a619cea721e7241d2f87fd1e478874591a13ea6002a55c61d234aa3a230ad328052b49f9ef56ac12cb71be762c1b9f1dc3e
   languageName: node
   linkType: hard
 
