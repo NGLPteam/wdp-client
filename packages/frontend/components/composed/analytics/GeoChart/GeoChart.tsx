@@ -9,6 +9,8 @@ import { customColors } from "theme/base/variables";
 
 type Props = Partial<ReactGoogleChartProps> & Partial<ChartWrapperOptions>;
 
+const MAPS_KEY = process.env.googleMapsKey;
+
 export default function GeoChart({
   region,
   data,
@@ -54,6 +56,10 @@ export default function GeoChart({
       options={chartOptions}
       width="100%"
       data={data}
+      chartVersion="current"
+      {...(MAPS_KEY && {
+        mapsApiKey: MAPS_KEY,
+      })}
     />
   );
 }

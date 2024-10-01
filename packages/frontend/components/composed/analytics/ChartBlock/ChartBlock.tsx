@@ -38,7 +38,9 @@ export default function ChartBlock({
       const aggregated = subset?.reduce(
         (obj: { [key: string]: number }, region) => {
           const { count, countryCode } = region;
-          if (Object.keys(obj).includes(countryCode)) {
+          if (countryCode === "$unknown$") {
+            return obj;
+          } else if (Object.keys(obj).includes(countryCode)) {
             obj[countryCode] = obj[countryCode] + count;
             return obj;
           }
