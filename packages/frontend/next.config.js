@@ -57,7 +57,14 @@ const compiler = {
   styledComponents: true,
 };
 
+// Add secret keys here
+// https://nextjs.org/docs/app/api-reference/next-config-js/env
+const env = {
+  googleMapsKey: process.env.GOOGLE_MAPS_KEY,
+};
+
 const nextConfig = {
+  env,
   transpilePackages: ["@spissvinkel/alea"],
   images,
   logging: {

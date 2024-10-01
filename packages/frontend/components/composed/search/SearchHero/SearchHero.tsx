@@ -21,8 +21,6 @@ export default function SearchHero() {
     if (data.q) params.set("q", data.q);
     const url = `${pathname !== "/" ? pathname : ""}/search?${params.toString()}`;
 
-    console.debug(url);
-
     router.push(url);
   };
 
