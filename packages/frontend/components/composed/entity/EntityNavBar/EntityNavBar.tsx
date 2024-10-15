@@ -9,7 +9,11 @@ import { EntityNavBarFragment$key } from "@/relay/EntityNavBarFragment.graphql";
 import EntityNavList from "./EntityNavList";
 import * as Styled from "./EntityNavBar.styles";
 
-export default function EntityNavBar({ data }: Props) {
+export default function EntityNavBar({
+  data,
+  showBrowse = true,
+  showSearch = true,
+}: Props) {
   const { t } = useTranslation();
   const entity = useMaybeFragment(fragment, data);
 
@@ -20,17 +24,19 @@ export default function EntityNavBar({ data }: Props) {
     <Styled.Nav className="a-bg-custom20" as="nav">
       <Styled.NavInner className="l-container-wide">
         <Styled.LeftSide>
-          <EntityNavList data={entity} />
+          {showBrowse && <EntityNavList data={entity} />}
         </Styled.LeftSide>
         {!hideSearch && (
           <Styled.RightSide>
-            <Search
-              pathname={`/collections/${entity.slug}/search`}
-              id="entitySearch"
-              placeholder={t("search.placeholder_name", {
-                name: entity.title,
-              })}
-            />
+            {showSearch && (
+              <Search
+                pathname={`/collections/${entity.slug}/search`}
+                id="entitySearch"
+                placeholder={t("search.placeholder_name", {
+                  name: entity.title,
+                })}
+              />
+            )}
           </Styled.RightSide>
         )}
       </Styled.NavInner>
@@ -40,6 +46,8 @@ export default function EntityNavBar({ data }: Props) {
 
 type Props = {
   data?: EntityNavBarFragment$key | null;
+  showBrowse?: boolean;
+  showSearch?: boolean;
 };
 
 const fragment = graphql`

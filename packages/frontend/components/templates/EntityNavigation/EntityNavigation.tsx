@@ -7,7 +7,7 @@ export type EntityNavigationTemplateData = {
 };
 
 export default function EntityNavigationTemplate(
-  data: EntityNavigationTemplateData
+  data: EntityNavigationTemplateData,
 ) {
   const { config } = data;
 
