@@ -1,11 +1,12 @@
 import TitleBlock from "./HeaderTitleBlock";
 import Sidebar from "./HeaderSidebar";
+import type { Slot } from "../../templates.types";
 
 type HeroHeaderData = {
-  header: string;
-  headerAside: string;
-  headerSummary: string;
-  headerSidebar: string;
+  header: Slot;
+  headerAside: Slot;
+  headerSummary: Slot;
+  headerSidebar: Slot;
 };
 
 export default function HeroHeader(data: HeroHeaderData) {

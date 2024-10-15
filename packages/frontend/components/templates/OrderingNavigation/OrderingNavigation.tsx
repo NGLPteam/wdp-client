@@ -1,5 +1,5 @@
 export type OrderingNavigationTemplateData = {
-  properties: {
+  config: {
     background: "none" | "light" | "dark";
     variant: "previousNext";
     ordering: Ordering;
@@ -9,10 +9,12 @@ export type OrderingNavigationTemplateData = {
 export default function OrderingNavigationTemplate(
   data: OrderingNavigationTemplateData
 ) {
+  const { config } = data;
+
   return (
-    <Container bg={data.properties.background}>
-      {data.properties.variant === "previousNext" && (
-        <OrderingNavigation ordering={data.properties.ordering} />
+    <Container bg={config.background}>
+      {config.variant === "previousNext" && (
+        <OrderingNavigation ordering={config.ordering} />
       )}
     </Container>
   );

@@ -1,31 +1,28 @@
+import type { Slot } from "../templates.types";
+
 export type DetailTemplateData = {
-  properties: {
+  config: {
     background: "none" | "light" | "dark";
     variant: "summary" | "full";
-  };
-  visibility: {
     heroImage: boolean;
     announcements: boolean;
   };
   slots: {
-    header: string;
-    subheader: string;
-    summary: string;
+    header: Slot;
+    subheader: Slot;
+    summary: Slot;
   };
 };
 
 export default function DetailTemplate(data: DetailTemplateData) {
-  const { properties, visibility, slots } = data;
+  const { config, slots } = data;
 
   return (
-    <Container bg={properties.background}>
-      {properties.variant === "summary" ? (
-        <SummaryVariant
-          showAnnouncements={visibility.announcements}
-          data={slots}
-        />
+    <Container bg={config.background}>
+      {config.variant === "summary" ? (
+        <SummaryVariant showAnnouncements={config.announcements} data={slots} />
       ) : (
-        <FullVariant showHeroImage={visibility.heroImage} data={slots} />
+        <FullVariant showHeroImage={config.heroImage} data={slots} />
       )}
     </Container>
   );
