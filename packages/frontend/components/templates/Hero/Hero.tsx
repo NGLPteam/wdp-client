@@ -1,12 +1,11 @@
 import HeroHeader from "./Header";
 import HeroDetail from "./Detail";
+import type { Slot } from "../templates.types";
 
 export type HeroTemplateData = {
-  properties: {
+  config: {
     background: "none" | "light" | "dark";
     searchPrompt: string;
-  };
-  visibility: {
     bigSearch: boolean;
     heroImage: boolean;
     thumbnailImage: boolean;
@@ -19,16 +18,16 @@ export type HeroTemplateData = {
     breadcrumbs: boolean;
   };
   slots: {
-    header: string;
-    headerAside: string;
-    headerSummary: string;
-    headerSidebar: string;
-    subheader: string;
-    subheaderAside: string;
-    sidebar: string;
-    metadata: string;
-    summary: string;
-    cta: string;
+    header: Slot;
+    headerAside: Slot;
+    headerSummary: Slot;
+    headerSidebar: Slot;
+    subheader: Slot;
+    subheaderAside: Slot;
+    sidebar: Slot;
+    metadata: Slot;
+    summary: Slot;
+    cta: Slot;
   };
 };
 
@@ -47,7 +46,7 @@ export type HeroTemplateData = {
 */
 
 export default function HeroTemplate(data: HeroTemplateData) {
-  const { slots, visibility, properties } = data;
+  const { slots, config } = data;
 
   const {
     header,
@@ -64,21 +63,25 @@ export default function HeroTemplate(data: HeroTemplateData) {
     headerSidebar,
   };
 
-  const detailData = { ...detailSlots, contributors, thumbnailImage };
+  const detailData = {
+    ...detailSlots,
+    contributors: config.contributors,
+    thumbnailImage: config.thumbnailImage,
+  };
 
-  const renderBreadcrumbs = !!(visibility.breadcrumbs || visibility.share);
+  const renderBreadcrumbs = !!(config.breadcrumbs || config.share);
 
   return (
-    <Container bg={properties.background}>
+    <Container bg={config.background}>
       {renderBreadcrumbs && <Breadcrumbs />}
       <HeroHeader data={headerData} />
-      {visibility.bigSearch && <SearchBar prompt={properties.searchPrompt} />}
-      {visibility.splitDisplay && <HeroDetail data={detailData} />}
-      {visibility.heroImage && <HeroImage />}
-      {visibility.navBar && (
+      {config.bigSearch && <SearchBar prompt={config.searchPrompt} />}
+      {config.splitDisplay && <HeroDetail data={detailData} />}
+      {config.heroImage && <HeroImage />}
+      {config.navBar && (
         <Navigation
-          showBrowse={visibility.browse}
-          showSearch={visibility.descendantSearch}
+          showBrowse={config.browse}
+          showSearch={config.descendantSearch}
         />
       )}
     </Container>

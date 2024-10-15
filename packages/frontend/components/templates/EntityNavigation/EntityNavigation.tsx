@@ -1,5 +1,5 @@
 export type EntityNavigationTemplateData = {
-  properties: {
+  config: {
     background: "none" | "light" | "dark";
     variant: "tabs";
     entityLabel: string;
@@ -9,10 +9,12 @@ export type EntityNavigationTemplateData = {
 export default function EntityNavigationTemplate(
   data: EntityNavigationTemplateData
 ) {
+  const { config } = data;
+
   return (
-    <Container bg={data.properties.background}>
-      {data.properties.variant === "tabs" && (
-        <NavigationTabs entity={data.properties.entityLabel} />
+    <Container bg={config.background}>
+      {config.variant === "tabs" && (
+        <NavigationTabs entity={config.entityLabel} />
       )}
     </Container>
   );
