@@ -1,5 +1,5 @@
 export type PagesTemplateData = {
-  properties: {
+  config: {
     background: "none" | "light" | "dark";
   };
 };
@@ -10,8 +10,10 @@ export type PagesTemplateData = {
 */
 
 export default function OrderingNavigationTemplate(data: PagesTemplateData) {
+  const { config } = data;
+
   return (
-    <Container bg={data.properties.background}>
+    <Container bg={config.background}>
       <PagesList />
     </Container>
   );

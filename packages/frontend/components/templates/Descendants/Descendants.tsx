@@ -1,25 +1,25 @@
+import type { Slot } from "../templates.types";
+
 type Descendant = {
   slots: {
     thumbnail: AssetImage;
-    header: string;
-    headerAside: string;
-    subtitle: string;
-    metadata: string;
+    header: Slot;
+    headerAside: Slot;
+    subtitle: Slot;
+    metadata: Slot;
   };
 };
 
 export type DescendantsTemplateData = {
-  properties: {
+  config: {
     background: "none" | "light" | "dark";
     blockTitle: string;
     variant: "cards" | "promos" | "compact" | "summary" | "grid";
     seeAll: {
+      visible: boolean;
       buttonLabel: string;
       schema: SchemaEnum;
     };
-  };
-  visibility: {
-    seeAll: boolean;
     heroImage: boolean;
   };
   slots: {
@@ -48,16 +48,16 @@ const LIST_COMPONENT_MAP = {
 };
 
 export default function Descendants(data: DescendantsTemplateData) {
-  const { properties, visibility, slots } = data;
+  const { config, slots } = data;
 
-  const ListComponent = LIST_COMPONENT_MAP[properties.variant];
+  const ListComponent = LIST_COMPONENT_MAP[config.variant];
 
-  const seeAllProps = visibility.seeAll ? { seeAll: properties.seeAll } : {};
+  const seeAllProps = config.seeAll.visible ? { seeAll: config.seeAll } : {};
 
   return (
-    <Container bg={properties.background}>
-      {!!properties.blockTitle && <h3>{properties.blockTitle}</h3>}
-      {visibility.heroImage && <HeroImage data={slots.heroImage} />}
+    <Container bg={config.background}>
+      {!!config.blockTitle && <h3>{config.blockTitle}</h3>}
+      {config.heroImage && <HeroImage data={slots.heroImage} />}
       <ListComponent data={slots.descendants} {...seeAllProps} />
     </Container>
   );

@@ -1,14 +1,16 @@
 export type ContributorsTemplateData = {
-  properties: {
+  config: {
     background: "none" | "light" | "dark";
     max: number;
   };
 };
 
 export default function ContributorsTemplate(data: ContributorsTemplateData) {
+  const { config } = data;
+
   return (
-    <Container bg={data.properties.background}>
-      <ContributorsBlock max={data.properties.max} />
+    <Container bg={config.background}>
+      <ContributorsBlock max={config.max} />
     </Container>
   );
 }
