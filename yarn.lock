@@ -3213,6 +3213,7 @@ __metadata:
     "@types/styled-components": "npm:^5.1.34"
     "@wdp/lib": "workspace:^"
     chunk-text: "npm:^2.0.1"
+    classnames: "npm:^2.5.1"
     cookie: "npm:^0.6.0"
     date-fns: "npm:^3.3.1"
     depcheck: "npm:^1.4.7"
@@ -4230,6 +4231,13 @@ __metadata:
     chunk: bin/server.js
     chunk-text: bin/server.js
   checksum: 10c0/ff2b98f67454cc31c36996ccf6bfeaaf6bb2cd01fde7e2869662a7be3909adbac5b84937f1dd2edf07a7884969fd2af2811b2bbb7866441c46ddd7d8619fca60
+  languageName: node
+  linkType: hard
+
+"classnames@npm:^2.5.1":
+  version: 2.5.1
+  resolution: "classnames@npm:2.5.1"
+  checksum: 10c0/afff4f77e62cea2d79c39962980bf316bacb0d7c49e13a21adaadb9221e1c6b9d3cdb829d8bb1b23c406f4e740507f37e1dcf506f7e3b7113d17c5bab787aa69
   languageName: node
   linkType: hard
 

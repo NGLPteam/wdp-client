@@ -5,13 +5,17 @@ import {
 import type { Slot } from "../../templates.types";
 
 type SidebarData = {
-  sidebar: Slot;
+  sidebar: Slot | null;
 };
 
 export default function Sidebar(data: SidebarData) {
+  const { sidebar } = data;
+
   return (
-    <Styled.Wrapper {...maybeHtml(data.sidebar.content)}>
-      {maybeReactNode(data.sidebar.content)}
-    </Styled.Wrapper>
+    !!sidebar?.content && (
+      <aside {...maybeHtml(sidebar.content)}>
+        {maybeReactNode(sidebar.content)}
+      </aside>
+    )
   );
 }

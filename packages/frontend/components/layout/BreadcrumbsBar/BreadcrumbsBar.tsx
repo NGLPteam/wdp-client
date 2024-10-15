@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { BreadcrumbsBarFragment$key } from "@/relay/BreadcrumbsBarFragment.graphql";
 import * as Styled from "./BreadcrumbsBar.styles";
 
-export default function BreadCrumbsBar({ data }: Props) {
+export default function BreadCrumbsBar({ data, showShare = true }: Props) {
   const breadcrumbData = useMaybeFragment(fragment, data);
 
   const { t } = useTranslation();
@@ -38,38 +38,40 @@ export default function BreadCrumbsBar({ data }: Props) {
     <Styled.Nav className="a-bg-custom10">
       <Styled.NavInner className="l-container-wide">
         <Breadcrumbs data={breadcrumbData} />
-        <Dropdown
-          label={t("share.label")}
-          disclosure={
-            <Button as="div" size="sm" icon="share" secondary>
-              {t("share.label")}
-            </Button>
-          }
-          menuItems={[
-            <Dropdown.Link
-              key="fb"
-              href={`mailto:?subject=${breadcrumbData.title} - ${installation}&body=View ${breadcrumbData.title} published on ${installation}.%0d%0a%0d%0a${url}`}
-              icon="email"
-              iconLeft
-              label={t("share.email")}
-            />,
-            <Dropdown.Link
-              key="fb"
-              href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}
-              icon="facebook"
-              iconLeft
-              label={t("share.facebook")}
-            />,
-            <Dropdown.Link
-              key="x"
-              className=""
-              href={`https://x.com/share?text=&url=${url}`}
-              icon="x"
-              iconLeft
-              label={t("share.x")}
-            />,
-          ]}
-        />
+        {showShare && (
+          <Dropdown
+            label={t("share.label")}
+            disclosure={
+              <Button as="div" size="sm" icon="share" secondary>
+                {t("share.label")}
+              </Button>
+            }
+            menuItems={[
+              <Dropdown.Link
+                key="fb"
+                href={`mailto:?subject=${breadcrumbData.title} - ${installation}&body=View ${breadcrumbData.title} published on ${installation}.%0d%0a%0d%0a${url}`}
+                icon="email"
+                iconLeft
+                label={t("share.email")}
+              />,
+              <Dropdown.Link
+                key="fb"
+                href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}
+                icon="facebook"
+                iconLeft
+                label={t("share.facebook")}
+              />,
+              <Dropdown.Link
+                key="x"
+                className=""
+                href={`https://x.com/share?text=&url=${url}`}
+                icon="x"
+                iconLeft
+                label={t("share.x")}
+              />,
+            ]}
+          />
+        )}
       </Styled.NavInner>
     </Styled.Nav>
   ) : null;
@@ -77,6 +79,7 @@ export default function BreadCrumbsBar({ data }: Props) {
 
 interface Props {
   data?: BreadcrumbsBarFragment$key | null;
+  showShare?: boolean;
 }
 
 export const fragment = graphql`

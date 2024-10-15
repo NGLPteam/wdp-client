@@ -7,7 +7,7 @@ export type OrderingNavigationTemplateData = {
 };
 
 export default function OrderingNavigationTemplate(
-  data: OrderingNavigationTemplateData
+  data: OrderingNavigationTemplateData,
 ) {
   const { config } = data;
 
