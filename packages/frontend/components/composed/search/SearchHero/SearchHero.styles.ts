@@ -11,6 +11,11 @@ export const Form = styled.form`
   @media print {
     display: none;
   }
+
+  .a-bg-custom10 + .a-bg-custom10 & {
+    padding-block-start: 0;
+    padding-block-end: var(--container-padding-sm);
+  }
 `;
 
 export const SearchWrapper = styled.div`

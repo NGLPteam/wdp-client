@@ -2,26 +2,37 @@ import {
   maybeHtml,
   maybeReactNode,
 } from "@/components/templates/helpers/maybeHtml";
+import type { HeroImageLayout } from "@/types/graphql-schema";
+import * as Styled from "./Header.styles";
 import type { Slot } from "../../templates.types";
 
 type TitleBlockData = {
-  header: Slot;
-  headerAside: Slot;
-  headerSummary: Slot;
+  header: Slot | null;
+  headerAside: Slot | null;
+  headerSummary: Slot | null;
+  layout?: HeroImageLayout;
 };
 
 export default function TitleBlock(data: TitleBlockData) {
+  const { header, headerAside, headerSummary, layout } = data;
+
   return (
-    <div>
-      <h1 {...maybeHtml(data.header.content)}>
-        {maybeReactNode(data.header.content)}
-      </h1>
-      <h2 {...maybeHtml(data.headerSummary.content)}>
-        {maybeReactNode(data.headerSummary.content)}
-      </h2>
-      <span {...maybeHtml(data.headerAside.content)}>
-        {maybeReactNode(data.headerAside.content)}
-      </span>
-    </div>
+    <Styled.Left>
+      {!!header?.content && (
+        <h1 className="t-h2" {...maybeHtml(header.content)}>
+          {maybeReactNode(header.content)}
+        </h1>
+      )}
+      {!!headerAside?.content && (
+        <Styled.Aside $layout={layout} {...maybeHtml(headerAside.content)}>
+          {maybeReactNode(headerAside.content)}
+        </Styled.Aside>
+      )}
+      {!!headerSummary?.content && (
+        <Styled.Summary className="t-h3" {...maybeHtml(headerSummary.content)}>
+          {maybeReactNode(headerSummary.content)}
+        </Styled.Summary>
+      )}
+    </Styled.Left>
   );
 }
