@@ -7,7 +7,7 @@ export const mock = {
     thumbnailImage: false,
     splitDisplay: true,
     contributors: true,
-    navBar: true,
+    navBar: false,
     descendantSearch: false,
     browse: false,
     share: true,
