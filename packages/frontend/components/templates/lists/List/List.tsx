@@ -5,10 +5,12 @@ import PromoItem from "../Promo";
 import CompactItem from "../Compact";
 import { mock } from "../mock";
 import * as Styled from "./List.styles";
+import type { ListItem } from "../lists.types";
 
-type Props = {
+export type Props = {
   variant: "card" | "grid" | "summary" | "promo" | "compact";
   bgColor?: "none" | "light" | "dark";
+  items: ListItem[];
 };
 
 const TYPE_TO_LIST = {
@@ -33,8 +35,8 @@ const BG_COLOR_MAP = {
   dark: "a-bg-neutral90",
 };
 
-export default function List({ variant, bgColor }: Props) {
-  const items = [mock, mock, mock];
+export default function List({ variant, bgColor, items: itemsProp }: Props) {
+  const items = itemsProp ?? [mock, mock, mock];
 
   const List = TYPE_TO_LIST[variant];
   const Item = TYPE_TO_ITEM[variant];

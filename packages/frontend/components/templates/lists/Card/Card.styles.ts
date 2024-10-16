@@ -18,9 +18,17 @@ export const Item = styled.li`
   flex: 1 1 30%;
   z-index: 1;
 
+  .a-bg-neutral90 & {
+    --FeaturedJournalsCover-background-color: var(--color-custom10);
+  }
+
   /* Even journals have a lighter bg color */
   &:nth-child(even) {
     --FeaturedJournalsCover-background-color: var(--color-base-neutral80);
+
+    .a-bg-neutral90 & {
+      --FeaturedJournalsCover-background-color: var(--color-custom20);
+    }
   }
 
   &:first-child {

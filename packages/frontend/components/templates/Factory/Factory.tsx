@@ -18,7 +18,6 @@ import OrderingNavigation, {
   type OrderingNavigationTemplateData,
 } from "../OrderingNavigation/OrderingNavigation";
 import Pages, { type PagesTemplateData } from "../Pages/Pages";
-import List from "../lists/List";
 
 type AnyTemplate = (
   | DescendantsTemplateData
@@ -66,16 +65,8 @@ export default function TemplateFactory({
           // @ts-expect-error props for union type
           return <Template key={i} {...t} />;
         })}
-      <List variant="card" />
-      <div className="a-bg-custom10">
-        <div className="l-container-wide" style={{ minBlockSize: "20vh" }}>
-          templates here
-        </div>
-      </div>
-      <List variant="grid" />
-      <List variant="summary" bgColor="light" />
-      <List variant="promo" />
-      <List variant="compact" bgColor="light" />
+      <Descendants />
+      <Links />
     </>
   ) : null;
 }
