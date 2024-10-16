@@ -1,14 +1,4 @@
-import type { Slot } from "../templates.types";
-
-type Descendant = {
-  slots: {
-    thumbnail: AssetImage;
-    header: Slot;
-    headerAside: Slot;
-    subtitle: Slot;
-    metadata: Slot;
-  };
-};
+import type { ListItem } from "../listItems/lists.types";
 
 export type DescendantsTemplateData = {
   config: {
@@ -23,8 +13,8 @@ export type DescendantsTemplateData = {
     heroImage: boolean;
   };
   slots: {
-    heroImage: AssetImage;
-    descendants: Descendant[];
+    heroImage: ImageAttachment;
+    descendants: ListItem[];
   };
 };
 

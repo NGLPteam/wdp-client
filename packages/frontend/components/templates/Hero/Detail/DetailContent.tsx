@@ -1,5 +1,5 @@
 import { graphql, useFragment } from "react-relay";
-import ContributorsList from "components/composed/contributor/ContributorsList";
+import ContributorsList from "@/components/composed/contributor/ContributorsList";
 import {
   maybeHtml,
   maybeReactNode,
