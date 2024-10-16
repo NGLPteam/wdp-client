@@ -1,6 +1,6 @@
 export const mock = {
   config: {
-    background: "none" as const,
+    background: "dark" as const,
     searchPrompt: "{{ search prompt }}",
     bigSearch: false,
     heroImage: false,

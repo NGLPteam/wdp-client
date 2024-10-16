@@ -1,64 +1,47 @@
+import type { ImageAttachment } from "@/types/graphql-schema";
+import { type Props as ListProps } from "../lists/List/List";
+import { type SeeAllProps } from "../Descendants/SeeAll/SeeAll";
+import CompactListBlock from "../Descendants/Compact";
+import GridListBlock from "../Descendants/Grid";
+import PromoListBlock from "../Descendants/Promo";
+import SummaryListBlock from "../Descendants/Summary";
+import CardListBlock from "../Descendants/Card";
+import { mock } from "./mock";
+import type { ListItem } from "../lists/lists.types";
 import type { Slot } from "../templates.types";
-
-type Link = {
-  slots: {
-    thumbnail: AssetImage;
-    header: Slot;
-    headerAside: Slot;
-    subtitle: Slot;
-    metadata: Slot;
-  };
-};
 
 export type LinksTemplateData = {
   config: {
     background: "none" | "light" | "dark";
-    blockTitle: string;
-    variant: "cards" | "promos" | "compact" | "summary" | "grid";
-    seeAll: {
-      visible: boolean;
-      buttonLabel: string;
-      schema: SchemaEnum;
-    };
+    blockTitle: string | null;
+    variant: ListProps["variant"];
     heroImage: boolean;
+    seeAll: Omit<SeeAllProps, "alignment">;
   };
   slots: {
-    heroImage: AssetImage;
-    descendants: Link[];
+    heroImage: ImageAttachment | null;
+    items: ListItem[];
+    entity: {
+      context: Slot | null;
+      header: Slot | null;
+      subheader: Slot | null;
+      metadata: Slot | null;
+    };
   };
 };
 
-/*
-  Questions
-  - Hero image slot vs images for descendants?
-  - Is schema enough to determine route for see all?
-*/
-
-/*
-  Needs other fragment data:
-  - heroImage
-*/
-
-const LIST_COMPONENT_MAP = {
-  cards: "",
-  promos: "",
-  compact: "",
-  summary: "",
-  grid: "",
+const VARIANT_TO_COMPONENT = {
+  compact: CompactListBlock,
+  card: CardListBlock,
+  grid: GridListBlock,
+  summary: SummaryListBlock,
+  promo: PromoListBlock,
 };
 
-export default function Links(data: LinksTemplateData) {
-  const { config, slots } = data;
+export default function Descendants() {
+  const { config } = mock as LinksTemplateData;
 
-  const ListComponent = LIST_COMPONENT_MAP[config.variant];
+  const BlockComponent = VARIANT_TO_COMPONENT[config.variant];
 
-  const seeAllProps = config.seeAll.visible ? { seeAll: config.seeAll } : {};
-
-  return (
-    <Container bg={config.background}>
-      {!!config.blockTitle && <h3>{config.blockTitle}</h3>}
-      {config.heroImage && <HeroImage data={slots.heroImage} />}
-      <ListComponent data={slots.descendants} {...seeAllProps} />
-    </Container>
-  );
+  return <BlockComponent data={mock} />;
 }

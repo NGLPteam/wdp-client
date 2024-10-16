@@ -12,8 +12,8 @@ interface Props extends PropsWithChildren {
 }
 
 const BG_COLOR_MAP = {
-  none: "a-bg-custom10",
-  light: "a-bg-custom20",
+  none: "a-bg-custom00",
+  light: "a-bg-custom10",
   dark: "a-bg-neutral90",
 };
 

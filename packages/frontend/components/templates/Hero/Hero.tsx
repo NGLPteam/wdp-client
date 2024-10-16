@@ -93,7 +93,7 @@ export default function HeroTemplate({
         <HeroHeader {...headerData} layout={heroImageLayout} />
       </Container>
       {config.bigSearch && <SearchHero prompt={config.searchPrompt} />}
-      <Container>
+      <Container bgColor={config.background}>
         {config.splitDisplay && <HeroDetail {...detailData} />}
       </Container>
       {config.heroImage && (
