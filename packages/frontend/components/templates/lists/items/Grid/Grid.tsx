@@ -1,6 +1,6 @@
 import CoverImage from "@/components/atomic/images/CoverImage";
 import * as Styled from "./Grid.styles";
-import type { ListItem } from "../lists.types";
+import type { ListItem } from "../../lists.types";
 
 export default function GridListItem({ data }: { data: ListItem }) {
   const {

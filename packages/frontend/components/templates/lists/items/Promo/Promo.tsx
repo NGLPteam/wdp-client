@@ -1,9 +1,15 @@
 import * as Styled from "./Promo.styles";
-import type { ListItem } from "../lists.types";
+import type { ListItem } from "../../lists.types";
 
 export default function PromoListItem({ data }: { data: ListItem }) {
-  const { header, contextOne, contextTwo, metaOne, metaTwo, thumbnail } =
-    data.slots;
+  const {
+    header,
+    contextOne,
+    contextTwo,
+    metaOne,
+    metaTwo,
+    thumbnail,
+  } = data.slots;
   return (
     <Styled.Item>
       <Styled.TextContent>
