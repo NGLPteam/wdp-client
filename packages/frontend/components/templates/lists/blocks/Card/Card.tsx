@@ -1,7 +1,7 @@
-import List from "../../lists/List/";
-import SeeAll from "../SeeAll";
+import List from "../../List";
+import SeeAll from "../../SeeAll";
 import * as Styled from "./Card.styles";
-import type { DescendantsTemplateData } from "../Descendants";
+import type { DescendantsTemplateData } from "@/components/templates/Descendants/Descendants";
 
 const BG_COLOR_MAP = {
   none: "a-bg-custom00",

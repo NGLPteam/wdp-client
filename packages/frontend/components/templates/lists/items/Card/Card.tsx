@@ -1,6 +1,6 @@
 import CoverImage from "@/components/atomic/images/CoverImage";
 import * as Styled from "./Card.styles";
-import type { ListItem } from "../lists.types";
+import type { ListItem } from "../../lists.types";
 
 export default function CardListItem({ data }: { data: ListItem }) {
   const {
