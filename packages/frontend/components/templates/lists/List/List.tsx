@@ -1,8 +1,8 @@
-import CardItem from "../Card";
-import GridItem from "../Grid";
-import SummaryItem from "../Summary";
-import PromoItem from "../Promo";
-import CompactItem from "../Compact";
+import CardItem from "../items/Card";
+import GridItem from "../items/Grid";
+import SummaryItem from "../items/Summary";
+import PromoItem from "../items/Promo";
+import CompactItem from "../items/Compact";
 import { mock } from "../mock";
 import * as Styled from "./List.styles";
 import type { ListItem } from "../lists.types";

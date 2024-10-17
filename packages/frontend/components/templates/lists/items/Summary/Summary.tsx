@@ -1,6 +1,6 @@
 import CoverImage from "@/components/atomic/images/CoverImage";
 import * as Styled from "./Summary.styles";
-import type { ListItem } from "../lists.types";
+import type { ListItem } from "../../lists.types";
 
 export default function SummaryListItem({ data }: { data: ListItem }) {
   const {
