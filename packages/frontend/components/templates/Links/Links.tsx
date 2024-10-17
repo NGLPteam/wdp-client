@@ -1,11 +1,7 @@
 import type { ImageAttachment } from "@/types/graphql-schema";
 import { type Props as ListProps } from "../lists/List/List";
-import { type SeeAllProps } from "../Descendants/SeeAll/SeeAll";
-import CompactListBlock from "../Descendants/Compact";
-import GridListBlock from "../Descendants/Grid";
-import PromoListBlock from "../Descendants/Promo";
-import SummaryListBlock from "../Descendants/Summary";
-import CardListBlock from "../Descendants/Card";
+import { type SeeAllProps } from "../lists/SeeAll/SeeAll";
+import {CompactListBlock, GridListBlock, CardListBlock, SummaryListBlock, PromoListBlock} from "../lists/blocks";
 import { mock } from "./mock";
 import type { ListItem } from "../lists/lists.types";
 import type { Slot } from "../templates.types";
@@ -38,7 +34,7 @@ const VARIANT_TO_COMPONENT = {
   promo: PromoListBlock,
 };
 
-export default function Descendants() {
+export default function Links() {
   const { config } = mock as LinksTemplateData;
 
   const BlockComponent = VARIANT_TO_COMPONENT[config.variant];

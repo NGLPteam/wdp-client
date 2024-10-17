@@ -1,7 +1,7 @@
-import List from "../../lists/List/";
-import SeeAll from "../SeeAll";
+import List from "../../List";
+import SeeAll from "../../SeeAll";
 import * as Styled from "./Promo.styles";
-import type { DescendantsTemplateData } from "../Descendants";
+import type { DescendantsTemplateData } from "@/components/templates/Descendants/Descendants";
 
 export default function PromoListBlock({
   data,
