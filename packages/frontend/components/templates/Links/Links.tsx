@@ -1,7 +1,13 @@
 import type { ImageAttachment } from "@/types/graphql-schema";
 import { type Props as ListProps } from "../lists/List/List";
 import { type SeeAllProps } from "../lists/SeeAll/SeeAll";
-import {CompactListBlock, GridListBlock, CardListBlock, SummaryListBlock, PromoListBlock} from "../lists/blocks";
+import {
+  CompactListBlock,
+  GridListBlock,
+  CardListBlock,
+  SummaryListBlock,
+  PromoListBlock,
+} from "../lists/blocks";
 import { mock } from "./mock";
 import type { ListItem } from "../lists/lists.types";
 import type { Slot } from "../templates.types";
