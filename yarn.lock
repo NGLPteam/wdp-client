@@ -2177,6 +2177,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@next/mdx@npm:^15.0.0":
+  version: 15.0.0
+  resolution: "@next/mdx@npm:15.0.0"
+  dependencies:
+    source-map: "npm:^0.7.0"
+  peerDependencies:
+    "@mdx-js/loader": ">=0.15.0"
+    "@mdx-js/react": ">=0.15.0"
+  peerDependenciesMeta:
+    "@mdx-js/loader":
+      optional: true
+    "@mdx-js/react":
+      optional: true
+  checksum: 10c0/c207c4c21b08ff864ef0b544da5fb48627c9372a76144d5bc359c4e7505f807faf3536c3afdabef2251c41f8eb95c6aaad66fc29a64d68038c411dd1c894cfd0
+  languageName: node
+  linkType: hard
+
 "@next/swc-darwin-arm64@npm:14.1.0":
   version: 14.1.0
   resolution: "@next/swc-darwin-arm64@npm:14.1.0"
@@ -2558,6 +2575,13 @@ __metadata:
   dependencies:
     "@types/unist": "npm:*"
   checksum: 10c0/e6994404f5ce58073aa6c1a37ceac3060326470a464e2d751580a9f89e2dbca3a2a6222b849bdaaa5bffbe89033c50a886d17e49fca3b040a4ffcf970e387a0c
+  languageName: node
+  linkType: hard
+
+"@types/mdx@npm:^2.0.13":
+  version: 2.0.13
+  resolution: "@types/mdx@npm:2.0.13"
+  checksum: 10c0/5edf1099505ac568da55f9ae8a93e7e314e8cbc13d3445d0be61b75941226b005e1390d9b95caecf5dcb00c9d1bab2f1f60f6ff9876dc091a48b547495007720
   languageName: node
   linkType: hard
 
@@ -3198,11 +3222,13 @@ __metadata:
     "@graphql-codegen/schema-ast": "npm:^4.0.2"
     "@graphql-codegen/typescript": "npm:^4.0.5"
     "@graphql-codegen/typescript-resolvers": "npm:^4.0.5"
+    "@next/mdx": "npm:^15.0.0"
     "@react-keycloak/ssr": "npm:^3.3.0"
     "@spissvinkel/alea": "npm:^1.2.1"
     "@types/chunk-text": "npm:^1.0.2"
     "@types/cookie": "npm:^0.6.0"
     "@types/lodash": "npm:^4.14.202"
+    "@types/mdx": "npm:^2.0.13"
     "@types/node": "npm:^20.11.19"
     "@types/react": "npm:^18.2.57"
     "@types/react-dom": "npm:^18.2.19"
@@ -10531,6 +10557,13 @@ __metadata:
   version: 0.5.7
   resolution: "source-map@npm:0.5.7"
   checksum: 10c0/904e767bb9c494929be013017380cbba013637da1b28e5943b566031e29df04fba57edf3f093e0914be094648b577372bd8ad247fa98cfba9c600794cd16b599
+  languageName: node
+  linkType: hard
+
+"source-map@npm:^0.7.0":
+  version: 0.7.4
+  resolution: "source-map@npm:0.7.4"
+  checksum: 10c0/dc0cf3768fe23c345ea8760487f8c97ef6fca8a73c83cd7c9bf2fde8bc2c34adb9c0824d6feb14bc4f9e37fb522e18af621543f1289038a66ac7586da29aa7dc
   languageName: node
   linkType: hard
 

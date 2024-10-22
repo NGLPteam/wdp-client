@@ -17,8 +17,10 @@
   },
   "dependencies": {
     "@castiron/style-mixins": "^1.0.0",
+    "@next/mdx": "^15.0.0",
     "@react-keycloak/ssr": "^3.3.0",
     "@spissvinkel/alea": "^1.2.1",
+    "@types/mdx": "^2.0.13",
     "@wdp/lib": "workspace:^",
     "chunk-text": "^2.0.1",
     "classnames": "^2.5.1",

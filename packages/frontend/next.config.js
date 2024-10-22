@@ -1,3 +1,5 @@
+import createMDX from "@next/mdx";
+
 /** @type {import('next').NextConfig} */
 
 const images = {
@@ -65,6 +67,7 @@ const env = {
 
 const nextConfig = {
   env,
+  pageExtensions: ["md", "mdx", "ts", "tsx"],
   transpilePackages: ["@spissvinkel/alea"],
   images,
   logging: {
@@ -92,4 +95,6 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+const withMDX = createMDX();
+
+module.exports = withMDX(nextConfig);
