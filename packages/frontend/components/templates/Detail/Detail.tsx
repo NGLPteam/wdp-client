@@ -1,3 +1,4 @@
+import Container from "@/components/layout/Container";
 import type { Slot } from "../templates.types";
 
 export type DetailTemplateData = {
