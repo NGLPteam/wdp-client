@@ -1,7 +1,7 @@
+import type { DescendantsTemplateData } from "@/components/templates/Descendants/Descendants";
 import List from "../../List";
 import SeeAll from "../../SeeAll";
 import * as Styled from "./Compact.styles";
-import type { DescendantsTemplateData } from "@/components/templates/Descendants/Descendants";
 
 export default function CompactListBlock({
   data,

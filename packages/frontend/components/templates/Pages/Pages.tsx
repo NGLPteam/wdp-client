@@ -1,3 +1,5 @@
+import Container from "@/components/layout/Container";
+
 export type PagesTemplateData = {
   config: {
     background: "none" | "light" | "dark";
