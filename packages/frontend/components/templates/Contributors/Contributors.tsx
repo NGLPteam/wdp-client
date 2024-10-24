@@ -1,6 +1,8 @@
+import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import Container from "@/components/layout/Container";
 import { ImageAttachment } from "@/types/graphql-schema";
+import { ContributorsTemplateFragment$key } from "@/relay/ContributorsTemplateFragment.graphql";
 import Contributor from "./Contributor";
 import * as Styled from "./Contributors.styles";
 
@@ -30,8 +32,21 @@ export type ContributorsTemplateData = {
   };
 };
 
-export default function ContributorsTemplate(data: ContributorsTemplateData) {
-  const { config, slots } = data;
+export default function ContributorsTemplate({
+  data,
+}: {
+  data: ContributorsTemplateFragment$key;
+}) {
+  const template = useFragment(fragment, data);
+
+  const { config, slots } = {
+    config: {
+      background: "light" as const,
+    },
+    slots: {
+      contributions: [],
+    },
+  };
 
   const { t } = useTranslation();
 
@@ -46,3 +61,13 @@ export default function ContributorsTemplate(data: ContributorsTemplateData) {
     </Container>
   );
 }
+
+const fragment = graphql`
+  fragment ContributorsTemplateFragment on ContributorListTemplateInstance {
+    slots {
+      sampleBlock {
+        content
+      }
+    }
+  }
+`;
