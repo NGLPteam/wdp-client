@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0478cb62f4981bc20201c94efe51edc3>>
+ * @generated SignedSource<<2d361b8f4f9d6bcc36e2b789f1486e9d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,9 +9,15 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type LayoutKind = "HERO" | "LIST_ITEM" | "MAIN" | "METADATA" | "NAVIGATION" | "SUPPLEMENTARY" | "%future added value";
+export type TemplateKind = "CONTRIBUTOR_LIST" | "DESCENDANT_LIST" | "DETAIL" | "HERO" | "LINK_LIST" | "LIST_ITEM" | "METADATA" | "NAVIGATION" | "ORDERING" | "PAGE_LIST" | "SUPPLEMENTARY" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type FactoryTemplatesFragment$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"HeroTemplateFragment">;
+  readonly __typename: string;
+  readonly lastRenderedAt?: string | null | undefined;
+  readonly layoutKind?: LayoutKind;
+  readonly templateKind?: TemplateKind;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributorsTemplateFragment" | "DescendantsTemplateFragment" | "DetailTemplateFragment" | "LinksTemplateFragment" | "OrderingNavigationTemplateFragment" | "PagesTemplateFragment">;
   readonly " $fragmentType": "FactoryTemplatesFragment";
 };
 export type FactoryTemplatesFragment$key = {
@@ -26,15 +32,117 @@ const node: ReaderFragment = {
   "name": "FactoryTemplatesFragment",
   "selections": [
     {
+      "alias": null,
       "args": null,
-      "kind": "FragmentSpread",
-      "name": "HeroTemplateFragment"
+      "kind": "ScalarField",
+      "name": "__typename",
+      "storageKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "layoutKind",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "templateKind",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "lastRenderedAt",
+          "storageKey": null
+        }
+      ],
+      "type": "TemplateInstance",
+      "abstractKey": "__isTemplateInstance"
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "ContributorsTemplateFragment"
+        }
+      ],
+      "type": "ContributorListTemplateInstance",
+      "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "DescendantsTemplateFragment"
+        }
+      ],
+      "type": "DescendantListTemplateInstance",
+      "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "DetailTemplateFragment"
+        }
+      ],
+      "type": "DetailTemplateInstance",
+      "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "LinksTemplateFragment"
+        }
+      ],
+      "type": "LinkListTemplateInstance",
+      "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "OrderingNavigationTemplateFragment"
+        }
+      ],
+      "type": "OrderingTemplateInstance",
+      "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "PagesTemplateFragment"
+        }
+      ],
+      "type": "PageListTemplateInstance",
+      "abstractKey": null
     }
   ],
-  "type": "AnyEntity",
-  "abstractKey": "__isAnyEntity"
+  "type": "AnyMainTemplateInstance",
+  "abstractKey": "__isAnyMainTemplateInstance"
 };
 
-(node as any).hash = "03ab5bade4786544a8cdeca65fd2e9b7";
+(node as any).hash = "fe81938034af5b90d9d85803fe9b7be2";
 
 export default node;
