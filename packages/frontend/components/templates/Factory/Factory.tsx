@@ -2,7 +2,6 @@
 
 import { graphql, useFragment } from "react-relay";
 import { FactoryTemplatesFragment$key } from "@/relay/FactoryTemplatesFragment.graphql";
-import Hero from "../Hero/Hero";
 import Descendants, {
   type DescendantsTemplateData,
 } from "../Descendants/Descendants";
@@ -49,30 +48,43 @@ export default function TemplateFactory({
 }: {
   data: FactoryTemplatesFragment$key | null;
 }) {
-  const entity = useFragment(fragment, data);
+  const template = useFragment(fragment, data);
 
-  const templates: AnyTemplate[] = [];
+  if (!template) return null;
 
-  return entity ? (
-    <>
-      <Hero data={entity} />
-      {!!templates.length &&
-        templates.map((t, i) => {
-          const Template =
-            TEMPLATE_COMPONENT_MAP[
-              t._typename as keyof typeof TEMPLATE_COMPONENT_MAP
-            ];
-          // @ts-expect-error props for union type
-          return <Template key={i} {...t} />;
-        })}
-      <Descendants />
-      <Links />
-    </>
-  ) : null;
+  const Template =
+    TEMPLATE_COMPONENT_MAP[
+      template.__typename as keyof typeof TEMPLATE_COMPONENT_MAP
+    ];
+
+  return <Template data={template} />;
 }
 
 const fragment = graphql`
-  fragment FactoryTemplatesFragment on AnyEntity {
-    ...HeroTemplateFragment
+  fragment FactoryTemplatesFragment on AnyMainTemplateInstance {
+    __typename
+    ... on TemplateInstance {
+      layoutKind
+      templateKind
+      lastRenderedAt
+    }
+    ... on ContributorListTemplateInstance {
+      ...ContributorsTemplateFragment
+    }
+    ... on DescendantListTemplateInstance {
+      ...DescendantsTemplateFragment
+    }
+    ... on DetailTemplateInstance {
+      ...DetailTemplateFragment
+    }
+    ... on LinkListTemplateInstance {
+      ...LinksTemplateFragment
+    }
+    ... on OrderingTemplateInstance {
+      ...OrderingNavigationTemplateFragment
+    }
+    ... on PageListTemplateInstance {
+      ...PagesTemplateFragment
+    }
   }
 `;

@@ -1,4 +1,6 @@
+import { graphql, useFragment } from "react-relay";
 import type { ImageAttachment } from "@/types/graphql-schema";
+import { DescendantsTemplateFragment$key } from "@/relay/DescendantsTemplateFragment.graphql";
 import { type Props as ListProps } from "../lists/List/List";
 import { type SeeAllProps } from "../lists/SeeAll/SeeAll";
 import {
@@ -40,10 +42,26 @@ const VARIANT_TO_COMPONENT = {
   promo: PromoListBlock,
 };
 
-export default function Descendants() {
+export default function Descendants({
+  data,
+}: {
+  data: DescendantsTemplateFragment$key;
+}) {
+  const template = useFragment(fragment, data);
+
   const { config } = mock as DescendantsTemplateData;
 
   const BlockComponent = VARIANT_TO_COMPONENT[config.variant];
 
   return <BlockComponent data={mock} />;
 }
+
+const fragment = graphql`
+  fragment DescendantsTemplateFragment on DescendantListTemplateInstance {
+    slots {
+      sampleBlock {
+        content
+      }
+    }
+  }
+`;
