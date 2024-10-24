@@ -30,7 +30,13 @@ module.exports = {
     "no-console": ["error", { allow: ["warn", "error", "debug", "info"] }],
 
     // Typescript rules
-    "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+    "@typescript-eslint/no-unused-vars": [
+      "error", 
+      { 
+        argsIgnorePattern: "^_", 
+        ignoreRestSiblings: true,  
+      }
+    ],
     "@typescript-eslint/ban-ts-comment": [
       "error",
       { "ts-expect-error": "allow-with-description" },

@@ -39,7 +39,6 @@ const MobileSubNav = ({ tabRoutes, sidebarLinks }: Props) => {
       >
         <MobileMenuList>
           {/* Do not pass actions down to the DOM */}
-          {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
           {tabRoutes?.map(({ label = "", actions, ...namedLinkProps }, i) => (
             <li key={i}>
               <TabLink
