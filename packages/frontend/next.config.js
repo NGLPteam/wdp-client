@@ -1,4 +1,4 @@
-import createMDX from "@next/mdx";
+const createMDX = require("@next/mdx");
 
 /** @type {import('next').NextConfig} */
 
