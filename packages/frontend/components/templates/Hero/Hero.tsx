@@ -1,9 +1,12 @@
+"use client";
+
 import { graphql, useFragment } from "react-relay";
 import Container from "@/components/layout/Container";
 import BreadcrumbsBar from "@/components/layout/BreadcrumbsBar";
 import SearchHero from "@/components/composed/search/SearchHero";
 import EntityNavBar from "@/components/composed/entity/EntityNavBar";
 import { HeroTemplateFragment$key } from "@/relay/HeroTemplateFragment.graphql";
+import { HeroTemplateLayoutFragment$key } from "@/relay/HeroTemplateLayoutFragment.graphql";
 import HeroHeader from "./Header";
 import HeroDetail from "./Detail";
 import HeroImage from "./Image";
@@ -47,10 +50,13 @@ export type HeroTemplateData = {
 
 export default function HeroTemplate({
   data,
+  layoutData,
 }: {
   data: HeroTemplateFragment$key | null;
+  layoutData?: HeroTemplateLayoutFragment$key | null;
 }) {
   const hero = useFragment(fragment, data);
+  const layout = useFragment(layoutFragment, layoutData);
 
   const {
     slots,
@@ -124,6 +130,25 @@ const fragment = graphql`
     ... on Collection {
       heroImage {
         ...ImageHeroTemplateFragment
+      }
+    }
+  }
+`;
+
+const layoutFragment = graphql`
+  fragment HeroTemplateLayoutFragment on HeroLayoutInstance {
+    lastRenderedAt
+    template {
+      layoutKind
+      templateKind
+      lastRenderedAt
+      slots {
+        sampleInline {
+          content
+        }
+        sampleBlock {
+          content
+        }
       }
     }
   }

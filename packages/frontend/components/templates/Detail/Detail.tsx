@@ -1,4 +1,6 @@
+import { graphql, useFragment } from "react-relay";
 import Container from "@/components/layout/Container";
+import { DetailTemplateFragment$key } from "@/relay/DetailTemplateFragment.graphql";
 import type { Slot } from "../templates.types";
 
 export type DetailTemplateData = {
@@ -15,11 +17,25 @@ export type DetailTemplateData = {
   };
 };
 
-export default function DetailTemplate(data: DetailTemplateData) {
-  const { config, slots } = data;
+export default function DetailTemplate({
+  data,
+}: {
+  data: DetailTemplateFragment$key;
+}) {
+  const template = useFragment(fragment, data);
+
+  const { config, slots } = {
+    config: {
+      background: "light" as const,
+      variant: "summary" as const,
+      announcements: false,
+      heroImage: true,
+    },
+    slots: {},
+  };
 
   return (
-    <Container bg={config.background}>
+    <Container bgColor={config.background}>
       {config.variant === "summary" ? (
         <SummaryVariant showAnnouncements={config.announcements} data={slots} />
       ) : (
@@ -28,3 +44,13 @@ export default function DetailTemplate(data: DetailTemplateData) {
     </Container>
   );
 }
+
+const fragment = graphql`
+  fragment DetailTemplateFragment on DetailTemplateInstance {
+    slots {
+      sampleBlock {
+        content
+      }
+    }
+  }
+`;

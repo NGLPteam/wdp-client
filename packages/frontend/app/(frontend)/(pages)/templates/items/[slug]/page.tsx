@@ -27,7 +27,7 @@ export default async function TemplatePage() {
 const query = graphql`
   query pageItemTemplateQuery($slug: Slug!) {
     item(slug: $slug) {
-      ...FactoryTemplatesFragment
+      __typename
     }
   }
 `;

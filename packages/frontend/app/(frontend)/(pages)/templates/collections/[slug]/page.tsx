@@ -29,7 +29,7 @@ export default async function TemplatePage() {
 const query = graphql`
   query pageCollectionTemplateQuery($slug: Slug!) {
     collection(slug: $slug) {
-      ...FactoryTemplatesFragment
+      __typename
     }
   }
 `;

@@ -1,9 +1,9 @@
 export const mock = {
   config: {
-    background: "dark" as const,
+    background: "light" as const,
     searchPrompt: "{{ search prompt }}",
-    bigSearch: false,
-    heroImage: false,
+    bigSearch: true,
+    heroImage: true,
     thumbnailImage: false,
     splitDisplay: true,
     contributors: true,
