@@ -9,15 +9,15 @@ const LoadingSkeleton = styled.div<Props>`
   height: 100%;
   border-radius: var(--loading-border-radius);
   background: var(--brand10);
-  ${({ noShimmer }) =>
-    !noShimmer &&
+  ${({ $noShimmer }) =>
+    !$noShimmer &&
     css`
       animation: ${pulse} 2s infinite cubic-bezier(0.83, 0, 0.17, 1);
     `};
 `;
 
 interface Props {
-  noShimmer?: boolean;
+  $noShimmer?: boolean;
 }
 
 export default LoadingSkeleton;

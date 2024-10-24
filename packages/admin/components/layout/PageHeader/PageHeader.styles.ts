@@ -5,9 +5,9 @@ import PageHeader from "./PageHeader";
 
 type Props = React.ComponentProps<typeof PageHeader>;
 
-export const Header = styled.header<Pick<Props, "headerStyle">>`
-  ${({ headerStyle }) =>
-    headerStyle !== "secondary" &&
+export const Header = styled.header<{ $headerStyle: Props["headerStyle"] }>`
+  ${({ $headerStyle }) =>
+    $headerStyle !== "secondary" &&
     css`
       padding-block-start: ${pxToRem(24)};
     `}

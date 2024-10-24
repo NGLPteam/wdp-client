@@ -57,7 +57,7 @@ const HeaderAccount = ({ accountNav }: Props) => {
       <Dropdown
         label={t(item.label)}
         disclosure={
-          <Styled.AvatarLink as="button" active={active}>
+          <Styled.AvatarLink as="button" $active={active}>
             <Avatar data={avatar} placeholder />
           </Styled.AvatarLink>
         }

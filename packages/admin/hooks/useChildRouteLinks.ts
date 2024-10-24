@@ -8,6 +8,7 @@ import type { Props as NamedLinkProps } from "components/atomic/links/NamedLink/
 
 interface Link extends NamedLinkProps {
   label?: string;
+  actions?: string[] | undefined;
 }
 
 export function useChildRouteLinks(

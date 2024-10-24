@@ -6,23 +6,40 @@ type IconFactoryProps = React.ComponentProps<typeof IconFactory>;
 type AuthorizeProps = React.ComponentProps<typeof Authorize>;
 
 const ButtonControl = forwardRef(
-  ({ children, iconRotate, actions, allowedActions, ...props }: Props, ref) => {
-    const { icon, size, closeDropdown, onClick } = props;
-
+  (
+    {
+      children,
+      iconRotate,
+      actions,
+      allowedActions,
+      $closeDropdown,
+      icon,
+      size,
+      onClick,
+      ...props
+    }: Props,
+    ref,
+  ) => {
     const handleClick = onClick
-      ? closeDropdown
+      ? $closeDropdown
         ? (e: React.MouseEvent) => {
-            closeDropdown();
+            $closeDropdown();
             onClick(e);
           }
         : onClick
-      : closeDropdown;
+      : $closeDropdown;
 
     const content = (
-      <Styled.ButtonControl ref={ref} onClick={handleClick} {...props}>
+      <Styled.ButtonControl
+        ref={ref}
+        onClick={handleClick}
+        $icon={icon}
+        $size={size}
+        {...props}
+      >
         <>
           {children && (
-            <Styled.ButtonText size={size} icon={icon}>
+            <Styled.ButtonText $size={size} $icon={icon}>
               {children}
             </Styled.ButtonText>
           )}
@@ -53,7 +70,7 @@ interface Props extends Omit<AuthorizeProps, "children"> {
   "aria-label"?: string;
   type?: "button" | "submit";
   size?: "large";
-  closeDropdown?: () => void;
+  $closeDropdown?: () => void;
 }
 
 export default ButtonControl;

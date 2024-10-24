@@ -2,9 +2,9 @@ import isNil from "lodash/isNil";
 import {
   Breadcrumbs,
   NamedLink,
-  TabNav,
   SidebarNav,
   MobileSubNav,
+  TabNav,
 } from "components/atomic";
 import { ContentHeader } from "components/layout";
 import * as Styled from "./PageHeader.styles";
@@ -29,7 +29,7 @@ const PageHeader = ({
   return (
     <Styled.Header
       className={hideHeader ? "a-hidden" : ""}
-      headerStyle={headerStyle}
+      $headerStyle={headerStyle}
     >
       {!isNil(breadcrumbsProps) ? <Breadcrumbs {...breadcrumbsProps} /> : null}
       <ContentHeader

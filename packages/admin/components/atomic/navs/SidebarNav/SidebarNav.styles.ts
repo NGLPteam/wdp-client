@@ -16,7 +16,7 @@ export const ListItem = styled.li`
   }
 `;
 
-export const Link = styled.a<LinkProps>`
+export const Link = styled.a<{ $active: LinkProps["active"] }>`
   display: block;
   box-shadow: inset 0 -1px 0 var(--neutral40);
   padding-block-end: 6px;
@@ -28,8 +28,8 @@ export const Link = styled.a<LinkProps>`
   ${tHeading(3)}
 
   &:hover {
-    ${({ active }) =>
-      !active &&
+    ${({ $active }) =>
+      !$active &&
       css`
         color: inherit;
         box-shadow: inset 0 -1px 0 var(--color-base);
@@ -43,8 +43,8 @@ export const Link = styled.a<LinkProps>`
     ${aTextGlow("lightMode")}
   }
 
-  ${({ active }) =>
-    active &&
+  ${({ $active }) =>
+    $active &&
     css`
       box-shadow: inset 0 -2px 0 var(--accent-color);
       color: var(--accent-color);

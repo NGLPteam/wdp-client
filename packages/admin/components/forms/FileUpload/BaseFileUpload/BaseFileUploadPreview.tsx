@@ -20,7 +20,7 @@ const FileUploadPreview = ({ file, isLoading }: UploadStatusProps) => {
 
   // if no alt text is provided, image is considered presentation only.
   return file ? (
-    <Styled.UploadPreview isLoading={isLoading}>
+    <Styled.UploadPreview $isLoading={isLoading}>
       {fileImageUrl && isImage ? (
         <BaseImage
           image={{

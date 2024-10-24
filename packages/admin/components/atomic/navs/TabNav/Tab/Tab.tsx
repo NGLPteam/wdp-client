@@ -34,7 +34,6 @@ interface Props {
   size?: "md" | "lg";
   bottomBorder?: boolean;
   as?: "a" | "button";
-  icon?: string;
 }
 
 export default forwardRef(Tab);

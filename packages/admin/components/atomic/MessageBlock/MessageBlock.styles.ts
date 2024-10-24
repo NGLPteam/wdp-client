@@ -3,9 +3,9 @@ import { pxToRem } from "theme/mixins/functions";
 import MessageBlock from "./MessageBlock";
 type BaseProps = React.ComponentProps<typeof MessageBlock>;
 
-export const Wrapper = styled.div<Partial<BaseProps>>`
-  ${({ type }) =>
-    type === "error"
+export const Wrapper = styled.div<{ $type: BaseProps["type"] }>`
+  ${({ $type }) =>
+    $type === "error"
       ? css`
           --icon-background-color: var(--accent-color);
           --icon-foreground-color: var(--background-color);

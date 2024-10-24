@@ -76,12 +76,12 @@ export default function NullForm<T extends FieldValues = FieldValues>({
               disabled={isSubmitting}
               onClick={onReset}
               type="reset"
-              secondary
+              $secondary
             >
               {t(resetLabel || "common.reset")}
             </Button>
           )}
-          <Button type="button" secondary onClick={onCancelCallback}>
+          <Button type="button" $secondary onClick={onCancelCallback}>
             {t("common.cancel")}
           </Button>
         </div>
