@@ -11,7 +11,6 @@ module.exports = {
     "**/__schema__/**",
     "**/_pages/**",
   ],
-  extensions: ["ts", "tsx"],
   language: "typescript",
   artifactDirectory: "./__generated__",
   customScalarTypes: {
