@@ -1,37 +1,39 @@
-import type { DescendantsTemplateData } from "@/components/templates/Descendants/Descendants";
-import List from "../../List";
+import { useSharedListTemplateFragment } from "@/components/templates/shared.graphql";
+import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
+import { getBgClass } from "@/components/templates/helpers/bgColor";
 import SeeAll from "../../SeeAll";
+import List from "../../List";
 import * as Styled from "./Card.styles";
-
-const BG_COLOR_MAP = {
-  none: "a-bg-custom00",
-  light: "a-bg-custom10",
-  dark: "a-bg-neutral90",
-};
 
 export default function CardListBlock({
   data,
 }: {
-  data: DescendantsTemplateData;
+  data?: sharedListTemplateFragment$key;
 }) {
-  const { config, slots } = data;
+  const {
+    linksDefinition,
+    descendantsDefinition,
+    slots: _slots,
+  } = useSharedListTemplateFragment(data);
 
-  const bgClass = config.background
-    ? BG_COLOR_MAP[config.background]
-    : undefined;
+  const { background, title, showSeeAllButton, seeAllButtonLabel } =
+    linksDefinition ?? descendantsDefinition ?? {};
+
+  const showHeroImage = false;
+
+  const bgClass = getBgClass(background);
 
   return (
     <Styled.Wrapper className={bgClass}>
-      {!!config.blockTitle && (
-        <Styled.Header>{config.blockTitle}</Styled.Header>
-      )}
-      {config.heroImage && <Styled.HeroImage />}
-      <List
-        items={slots.items}
-        variant={config.variant}
-        bgColor={config.background}
+      {!!title && <Styled.Header>{title}</Styled.Header>}
+      {showHeroImage && <Styled.HeroImage />}
+      <List variant="CARDS" bgColor={background} items={[]} />
+      <SeeAll
+        alignment="center"
+        visible={!!showSeeAllButton}
+        buttonLabel={seeAllButtonLabel}
+        schema="schema"
       />
-      <SeeAll alignment="center" {...config.seeAll} />
     </Styled.Wrapper>
   );
 }

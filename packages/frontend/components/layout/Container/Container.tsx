@@ -1,33 +1,29 @@
 import { PropsWithChildren } from "react";
 import classNames from "classnames";
+import { HeroBackground } from "@/types/graphql-schema";
+import { getBgClass } from "@/components/templates/helpers/bgColor";
 
 interface Props extends PropsWithChildren {
   as?: "section" | "article" | "header" | "div" | "footer";
   width?: "wide" | "max";
   blockPadding?: "lg" | "md" | "sm" | "xSm";
-  bgColor?: "none" | "light" | "dark";
+  bgColor?: HeroBackground | null;
   className?: string;
   id?: string;
   innerClassName?: string;
 }
 
-const BG_COLOR_MAP = {
-  none: "a-bg-custom00",
-  light: "a-bg-custom10",
-  dark: "a-bg-neutral90",
-};
-
 export default function Container({
   as = "section",
   width = "wide",
-  bgColor = "none",
+  bgColor = "NONE",
   className,
   id,
   children,
 }: Props) {
   const Tag = as;
 
-  const bgClass = BG_COLOR_MAP[bgColor];
+  const bgClass = getBgClass(bgColor);
 
   return (
     <Tag id={id} className={bgClass}>

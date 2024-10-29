@@ -45,7 +45,6 @@ const query = graphql`
           ...EntityNavigationTemplateFragment
         }
         main {
-          lastRenderedAt
           templates {
             ...FactoryTemplatesFragment
           }

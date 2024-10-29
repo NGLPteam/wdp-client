@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e19f10521b20f89bff94e24ba69814c6>>
+ * @generated SignedSource<<7e978795d63446ce491fad8f4d80c8be>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,12 +9,15 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type OrderingBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type OrderingNavigationTemplateFragment$data = {
+  readonly __typename: "OrderingTemplateInstance";
+  readonly orderingDefinition: {
+    readonly background: OrderingBackground | null | undefined;
+  };
   readonly slots: {
-    readonly sampleBlock: {
-      readonly content: string | null | undefined;
-    } | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"NavButtonsFragment">;
   };
   readonly " $fragmentType": "OrderingNavigationTemplateFragment";
 };
@@ -32,28 +35,40 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
+      "kind": "ScalarField",
+      "name": "__typename",
+      "storageKey": null
+    },
+    {
+      "alias": "orderingDefinition",
+      "args": null,
+      "concreteType": "OrderingTemplateDefinition",
+      "kind": "LinkedField",
+      "name": "definition",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "background",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "OrderingTemplateInstanceSlots",
       "kind": "LinkedField",
       "name": "slots",
       "plural": false,
       "selections": [
         {
-          "alias": null,
           "args": null,
-          "concreteType": "TemplateSlotBlockInstance",
-          "kind": "LinkedField",
-          "name": "sampleBlock",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "content",
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
+          "kind": "FragmentSpread",
+          "name": "NavButtonsFragment"
         }
       ],
       "storageKey": null
@@ -63,6 +78,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "69aa064e19b521b8c71d91726f41564c";
+(node as any).hash = "bb5d8998336544df3871d323d9e87ae6";
 
 export default node;

@@ -1,3 +1,8 @@
+import { getBgClass } from "@/components/templates/helpers/bgColor";
+import type {
+  LinkListVariant,
+  LinkListBackground,
+} from "@/types/graphql-schema";
 import CardItem from "../items/Card";
 import GridItem from "../items/Grid";
 import SummaryItem from "../items/Summary";
@@ -8,40 +13,36 @@ import * as Styled from "./List.styles";
 import type { ListItem } from "../lists.types";
 
 export type Props = {
-  variant: "card" | "grid" | "summary" | "promo" | "compact";
-  bgColor?: "none" | "light" | "dark";
+  variant?: Exclude<LinkListVariant, "%future added value"> | null;
+  bgColor?: LinkListBackground | null;
   items: ListItem[];
 };
 
 const TYPE_TO_LIST = {
-  card: Styled.CardList,
-  grid: Styled.GridList,
-  summary: Styled.SummaryList,
-  promo: Styled.PromoList,
-  compact: Styled.CompactList,
+  CARDS: Styled.CardList,
+  GRID: Styled.GridList,
+  SUMMARY: Styled.SummaryList,
+  PROMOS: Styled.PromoList,
+  COMPACT: Styled.CompactList,
 };
 
 const TYPE_TO_ITEM = {
-  card: CardItem,
-  grid: GridItem,
-  summary: SummaryItem,
-  promo: PromoItem,
-  compact: CompactItem,
-};
-
-const BG_COLOR_MAP = {
-  none: "a-bg-custom00",
-  light: "a-bg-custom10",
-  dark: "a-bg-neutral90",
+  CARDS: CardItem,
+  GRID: GridItem,
+  SUMMARY: SummaryItem,
+  PROMOS: PromoItem,
+  COMPACT: CompactItem,
 };
 
 export default function List({ variant, bgColor, items: itemsProp }: Props) {
+  if (!variant) return null;
+
   const items = itemsProp ?? [mock, mock, mock];
 
   const List = TYPE_TO_LIST[variant];
   const Item = TYPE_TO_ITEM[variant];
 
-  const bgClass = bgColor ? BG_COLOR_MAP[bgColor] : "a-bg-custom00";
+  const bgClass = getBgClass(bgColor);
 
   return (
     <Styled.BGPositioner>

@@ -10,43 +10,6 @@ import { HeroTemplateLayoutFragment$key } from "@/relay/HeroTemplateLayoutFragme
 import HeroHeader from "./Header";
 import HeroDetail from "./Detail";
 import HeroImage from "./Image";
-import { mock } from "./mock";
-// import * as Styled from "./Hero.styles";
-import type { Slot } from "../templates.types";
-
-export type HeroTemplateData = {
-  config: {
-    background: "none" | "light" | "dark";
-    searchPrompt: string;
-    bigSearch: boolean;
-    heroImage: boolean;
-    thumbnailImage: boolean;
-    splitDisplay: boolean;
-    contributors: boolean;
-    navBar: boolean;
-    descendantSearch: boolean;
-    browse: boolean;
-    share: boolean;
-    breadcrumbs: boolean;
-  };
-  slots: {
-    header: Slot | null;
-    headerAside: Slot | null;
-    headerSummary: Slot | null;
-    headerSidebar: Slot | null;
-    subheader: Slot | null;
-    subheaderAside: Slot | null;
-    sidebar: Slot | null;
-    metadata: Slot | null;
-    summary: Slot | null;
-    cta: Slot | null;
-  };
-};
-
-/*
-  Questions
-  - Idenity and metrics BE only? Included in sidebar liquid?
-*/
 
 export default function HeroTemplate({
   data,
@@ -58,33 +21,21 @@ export default function HeroTemplate({
   const hero = useFragment(fragment, data);
   const layout = useFragment(layoutFragment, layoutData);
 
+  const { slots, definition } = layout?.template ?? {};
+
   const {
-    slots,
-    config,
-    heroImage = null,
-  } = {
-    ...hero,
-    ...mock,
-  };
+    background,
+    descendantSearchPrompt: searchPrompt,
+    enableDescendantBrowsing,
+    enableDescendantSearch,
+    showBreadcrumbs,
+    showHeroImage,
+    showSharingLink,
+    showSplitDisplay,
+    showBigSearchPrompt,
+  } = definition ?? {};
 
-  const { header, headerAside, headerSummary, headerSidebar, ...detailSlots } =
-    slots ?? {};
-
-  const headerData = {
-    header,
-    headerAside,
-    headerSummary,
-    headerSidebar,
-  };
-
-  const detailData = {
-    ...detailSlots,
-    contributors: config.contributors,
-    thumbnailImage: config.thumbnailImage,
-    data: hero,
-  };
-
-  const renderBreadcrumbs = !!(config.breadcrumbs || config.share);
+  const renderBreadcrumbs = !!(showBreadcrumbs || showSharingLink);
 
   const heroImageLayout = undefined;
 
@@ -93,23 +44,25 @@ export default function HeroTemplate({
   return (
     <>
       {renderBreadcrumbs && (
-        <BreadcrumbsBar data={hero} showShare={config.share} />
+        <BreadcrumbsBar data={hero} showShare={showSharingLink ?? false} />
       )}
-      <Container as="header" width="wide" bgColor={config.background}>
-        <HeroHeader {...headerData} layout={heroImageLayout} />
+      <Container as="header" width="wide" bgColor={background}>
+        <HeroHeader data={slots} layout={heroImageLayout} />
       </Container>
-      {config.bigSearch && <SearchHero prompt={config.searchPrompt} />}
-      <Container bgColor={config.background}>
-        {config.splitDisplay && <HeroDetail {...detailData} />}
+      {showBigSearchPrompt && <SearchHero prompt={searchPrompt} />}
+      <Container bgColor={background}>
+        {showSplitDisplay && (
+          <HeroDetail data={hero} layoutData={layout?.template} />
+        )}
       </Container>
-      {config.heroImage && (
-        <HeroImage data={heroImage} layout={heroImageLayout} />
+      {showHeroImage && hero?.heroImage && (
+        <HeroImage data={hero?.heroImage} layout={heroImageLayout} />
       )}
-      {config.navBar && (
+      {(enableDescendantBrowsing || enableDescendantSearch) && (
         <EntityNavBar
           data={hero}
-          showBrowse={config.browse}
-          showSearch={config.descendantSearch}
+          showBrowse={enableDescendantBrowsing}
+          showSearch={enableDescendantSearch}
         />
       )}
     </>
@@ -142,14 +95,26 @@ const layoutFragment = graphql`
       layoutKind
       templateKind
       lastRenderedAt
-      slots {
-        sampleInline {
-          content
-        }
-        sampleBlock {
-          content
-        }
+      definition {
+        background
+        descendantSearchPrompt
+        enableDescendantBrowsing
+        enableDescendantSearch
+        showBreadcrumbs
+        showDOI
+        showISSN
+        showHeroImage
+        showSharingLink
+        showSplitDisplay
+        showThumbnailImage
+        showBigSearchPrompt
+        listContributors
+        showBasicViewMetrics
       }
+      slots {
+        ...HeaderHeroFragment
+      }
+      ...DetailHeroLayoutFragment
     }
   }
 `;

@@ -3032,11 +3032,35 @@ export type ContributorLinkInput = {
   url: Scalars['String']['input'];
 };
 
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type ContributorListBackground =
+  /**
+   * A dark gradient is applied to the background of this template.
+   *
+   */
+  | 'DARK'
+  /**
+   * A light gradient is applied to the background of this template.
+   *
+   */
+  | 'LIGHT'
+  /**
+   * No background is applied to this template.
+   *
+   */
+  | 'NONE'
+  | '%future added value';
+
 export type ContributorListTemplateDefinition = Node & Sluggable & TemplateDefinition & {
   __typename?: 'ContributorListTemplateDefinition';
+  background?: Maybe<ContributorListBackground>;
   createdAt: Scalars['ISO8601DateTime']['output'];
   id: Scalars['ID']['output'];
   layoutKind: LayoutKind;
+  limit?: Maybe<Scalars['Int']['output']>;
   /**
    * Slot definitions for this template.
    *
@@ -3053,13 +3077,17 @@ export type ContributorListTemplateDefinition = Node & Sluggable & TemplateDefin
  */
 export type ContributorListTemplateDefinitionSlots = {
   __typename?: 'ContributorListTemplateDefinitionSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockDefinition>;
-  sampleInline?: Maybe<TemplateSlotInlineDefinition>;
+  header?: Maybe<TemplateSlotInlineDefinition>;
 };
 
 export type ContributorListTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'ContributorListTemplateInstance';
   createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Load the associated definition for this template.
+   *
+   */
+  definition: ContributorListTemplateDefinition;
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -3083,8 +3111,7 @@ export type ContributorListTemplateInstance = Node & Renderable & Sluggable & Te
  */
 export type ContributorListTemplateInstanceSlots = {
   __typename?: 'ContributorListTemplateInstanceSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockInstance>;
-  sampleInline?: Maybe<TemplateSlotInlineInstance>;
+  header?: Maybe<TemplateSlotInlineInstance>;
 };
 
 export type ContributorLookupField =
@@ -4384,11 +4411,65 @@ export type DateProperty = ScalarProperty & SchemaProperty & SearchableProperty 
   type: SchemaPropertyType;
 };
 
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type DescendantListBackground =
+  /**
+   * A dark gradient is applied to the background of this template.
+   *
+   */
+  | 'DARK'
+  /**
+   * A light gradient is applied to the background of this template.
+   *
+   */
+  | 'LIGHT'
+  /**
+   * No background is applied to this template.
+   *
+   */
+  | 'NONE'
+  | '%future added value';
+
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type DescendantListSelectionMode =
+  /**
+   * Render descendants from a dynamic ordering, determined at query time.
+   *
+   */
+  | 'DYNAMIC'
+  /**
+   * Render descendants from a manual ordering set on each individual entity.
+   *
+   */
+  | 'MANUAL'
+  /**
+   * Render descendants from a named ordering that exists on the source entity.
+   *
+   */
+  | 'NAMED'
+  | '%future added value';
+
 export type DescendantListTemplateDefinition = Node & Sluggable & TemplateDefinition & {
   __typename?: 'DescendantListTemplateDefinition';
+  background?: Maybe<DescendantListBackground>;
   createdAt: Scalars['ISO8601DateTime']['output'];
+  dynamicOrderingDefinition?: Maybe<OrderingDefinition>;
   id: Scalars['ID']['output'];
   layoutKind: LayoutKind;
+  orderingName?: Maybe<Scalars['String']['output']>;
+  seeAllButtonLabel?: Maybe<Scalars['String']['output']>;
+  selectionLimit?: Maybe<Scalars['Int']['output']>;
+  selectionMode?: Maybe<DescendantListSelectionMode>;
+  selectionSource?: Maybe<Scalars['String']['output']>;
+  selectionSourceMode?: Maybe<SelectionSourceMode>;
+  showEntityContext?: Maybe<Scalars['Boolean']['output']>;
+  showSeeAllButton?: Maybe<Scalars['Boolean']['output']>;
   /**
    * Slot definitions for this template.
    *
@@ -4396,7 +4477,9 @@ export type DescendantListTemplateDefinition = Node & Sluggable & TemplateDefini
   slots: DescendantListTemplateDefinitionSlots;
   slug: Scalars['Slug']['output'];
   templateKind: TemplateKind;
+  title?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['ISO8601DateTime']['output'];
+  variant?: Maybe<DescendantListVariant>;
 };
 
 /**
@@ -4405,13 +4488,20 @@ export type DescendantListTemplateDefinition = Node & Sluggable & TemplateDefini
  */
 export type DescendantListTemplateDefinitionSlots = {
   __typename?: 'DescendantListTemplateDefinitionSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockDefinition>;
-  sampleInline?: Maybe<TemplateSlotInlineDefinition>;
+  header?: Maybe<TemplateSlotInlineDefinition>;
+  headerAside?: Maybe<TemplateSlotInlineDefinition>;
+  metadata?: Maybe<TemplateSlotInlineDefinition>;
+  subtitle?: Maybe<TemplateSlotInlineDefinition>;
 };
 
 export type DescendantListTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'DescendantListTemplateInstance';
   createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Load the associated definition for this template.
+   *
+   */
+  definition: DescendantListTemplateDefinition;
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -4435,9 +4525,43 @@ export type DescendantListTemplateInstance = Node & Renderable & Sluggable & Tem
  */
 export type DescendantListTemplateInstanceSlots = {
   __typename?: 'DescendantListTemplateInstanceSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockInstance>;
-  sampleInline?: Maybe<TemplateSlotInlineInstance>;
+  header?: Maybe<TemplateSlotInlineInstance>;
+  headerAside?: Maybe<TemplateSlotInlineInstance>;
+  metadata?: Maybe<TemplateSlotInlineInstance>;
+  subtitle?: Maybe<TemplateSlotInlineInstance>;
 };
+
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type DescendantListVariant =
+  /**
+   * A card list of entities.
+   *
+   */
+  | 'CARDS'
+  /**
+   * A compact list of entities.
+   *
+   */
+  | 'COMPACT'
+  /**
+   * A grid of entities
+   *
+   */
+  | 'GRID'
+  /**
+   * A horizontal list of entities with promotional header.
+   *
+   */
+  | 'PROMOS'
+  /**
+   * A vertical, summarized list of entities.
+   *
+   */
+  | 'SUMMARY'
+  | '%future added value';
 
 /**
  * The most basic shared properties for a single schema, whether a definition,
@@ -4715,11 +4839,36 @@ export type DestroyPagePayload = DestroyMutationPayload & StandardMutationPayloa
   haltCode?: Maybe<Scalars['String']['output']>;
 };
 
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type DetailBackground =
+  /**
+   * A dark gradient is applied to the background of this template.
+   *
+   */
+  | 'DARK'
+  /**
+   * A light gradient is applied to the background of this template.
+   *
+   */
+  | 'LIGHT'
+  /**
+   * No background is applied to this template.
+   *
+   */
+  | 'NONE'
+  | '%future added value';
+
 export type DetailTemplateDefinition = Node & Sluggable & TemplateDefinition & {
   __typename?: 'DetailTemplateDefinition';
+  background?: Maybe<DetailBackground>;
   createdAt: Scalars['ISO8601DateTime']['output'];
   id: Scalars['ID']['output'];
   layoutKind: LayoutKind;
+  showAnnouncements?: Maybe<Scalars['Boolean']['output']>;
+  showHeroImage?: Maybe<Scalars['Boolean']['output']>;
   /**
    * Slot definitions for this template.
    *
@@ -4728,6 +4877,7 @@ export type DetailTemplateDefinition = Node & Sluggable & TemplateDefinition & {
   slug: Scalars['Slug']['output'];
   templateKind: TemplateKind;
   updatedAt: Scalars['ISO8601DateTime']['output'];
+  variant?: Maybe<DetailVariant>;
 };
 
 /**
@@ -4736,13 +4886,19 @@ export type DetailTemplateDefinition = Node & Sluggable & TemplateDefinition & {
  */
 export type DetailTemplateDefinitionSlots = {
   __typename?: 'DetailTemplateDefinitionSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockDefinition>;
-  sampleInline?: Maybe<TemplateSlotInlineDefinition>;
+  header?: Maybe<TemplateSlotInlineDefinition>;
+  subheader?: Maybe<TemplateSlotInlineDefinition>;
+  summary?: Maybe<TemplateSlotBlockDefinition>;
 };
 
 export type DetailTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'DetailTemplateInstance';
   createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Load the associated definition for this template.
+   *
+   */
+  definition: DetailTemplateDefinition;
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -4766,9 +4922,19 @@ export type DetailTemplateInstance = Node & Renderable & Sluggable & TemplateIns
  */
 export type DetailTemplateInstanceSlots = {
   __typename?: 'DetailTemplateInstanceSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockInstance>;
-  sampleInline?: Maybe<TemplateSlotInlineInstance>;
+  header?: Maybe<TemplateSlotInlineInstance>;
+  subheader?: Maybe<TemplateSlotInlineInstance>;
+  summary?: Maybe<TemplateSlotBlockInstance>;
 };
+
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type DetailVariant =
+  | 'FULL'
+  | 'SUMMARY'
+  | '%future added value';
 
 export type Direction =
   | 'ASCENDING'
@@ -6092,6 +6258,28 @@ export type HasSchemaProperties = {
   schemaProperties: Array<AnySchemaProperty>;
 };
 
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type HeroBackground =
+  /**
+   * A dark gradient is applied to the background of this template.
+   *
+   */
+  | 'DARK'
+  /**
+   * A light gradient is applied to the background of this template.
+   *
+   */
+  | 'LIGHT'
+  /**
+   * No background is applied to this template.
+   *
+   */
+  | 'NONE'
+  | '%future added value';
+
 /** The layout to use when rendering a Hero for an `Entity`. */
 export type HeroImageLayout =
   | 'ONE_COLUMN'
@@ -6148,9 +6336,23 @@ export type HeroLayoutInstance = LayoutInstance & Node & Renderable & Sluggable 
 
 export type HeroTemplateDefinition = Node & Sluggable & TemplateDefinition & {
   __typename?: 'HeroTemplateDefinition';
+  background?: Maybe<HeroBackground>;
   createdAt: Scalars['ISO8601DateTime']['output'];
+  descendantSearchPrompt?: Maybe<Scalars['String']['output']>;
+  enableDescendantBrowsing?: Maybe<Scalars['Boolean']['output']>;
+  enableDescendantSearch?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['ID']['output'];
   layoutKind: LayoutKind;
+  listContributors?: Maybe<Scalars['Boolean']['output']>;
+  showBasicViewMetrics?: Maybe<Scalars['Boolean']['output']>;
+  showBigSearchPrompt?: Maybe<Scalars['Boolean']['output']>;
+  showBreadcrumbs?: Maybe<Scalars['Boolean']['output']>;
+  showDOI?: Maybe<Scalars['Boolean']['output']>;
+  showHeroImage?: Maybe<Scalars['Boolean']['output']>;
+  showISSN?: Maybe<Scalars['Boolean']['output']>;
+  showSharingLink?: Maybe<Scalars['Boolean']['output']>;
+  showSplitDisplay?: Maybe<Scalars['Boolean']['output']>;
+  showThumbnailImage?: Maybe<Scalars['Boolean']['output']>;
   /**
    * Slot definitions for this template.
    *
@@ -6167,13 +6369,27 @@ export type HeroTemplateDefinition = Node & Sluggable & TemplateDefinition & {
  */
 export type HeroTemplateDefinitionSlots = {
   __typename?: 'HeroTemplateDefinitionSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockDefinition>;
-  sampleInline?: Maybe<TemplateSlotInlineDefinition>;
+  callToAction?: Maybe<TemplateSlotInlineDefinition>;
+  header?: Maybe<TemplateSlotInlineDefinition>;
+  headerAside?: Maybe<TemplateSlotInlineDefinition>;
+  headerSidebar?: Maybe<TemplateSlotBlockDefinition>;
+  headerSummary?: Maybe<TemplateSlotBlockDefinition>;
+  metadata?: Maybe<TemplateSlotInlineDefinition>;
+  sidebar?: Maybe<TemplateSlotBlockDefinition>;
+  subheader?: Maybe<TemplateSlotInlineDefinition>;
+  subheaderAside?: Maybe<TemplateSlotInlineDefinition>;
+  subheaderSummary?: Maybe<TemplateSlotBlockDefinition>;
+  summary?: Maybe<TemplateSlotBlockDefinition>;
 };
 
 export type HeroTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'HeroTemplateInstance';
   createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Load the associated definition for this template.
+   *
+   */
+  definition: HeroTemplateDefinition;
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -6197,8 +6413,17 @@ export type HeroTemplateInstance = Node & Renderable & Sluggable & TemplateInsta
  */
 export type HeroTemplateInstanceSlots = {
   __typename?: 'HeroTemplateInstanceSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockInstance>;
-  sampleInline?: Maybe<TemplateSlotInlineInstance>;
+  callToAction?: Maybe<TemplateSlotInlineInstance>;
+  header?: Maybe<TemplateSlotInlineInstance>;
+  headerAside?: Maybe<TemplateSlotInlineInstance>;
+  headerSidebar?: Maybe<TemplateSlotBlockInstance>;
+  headerSummary?: Maybe<TemplateSlotBlockInstance>;
+  metadata?: Maybe<TemplateSlotInlineInstance>;
+  sidebar?: Maybe<TemplateSlotBlockInstance>;
+  subheader?: Maybe<TemplateSlotInlineInstance>;
+  subheaderAside?: Maybe<TemplateSlotInlineInstance>;
+  subheaderSummary?: Maybe<TemplateSlotBlockInstance>;
+  summary?: Maybe<TemplateSlotBlockInstance>;
 };
 
 /**
@@ -7358,11 +7583,59 @@ export type LinkEntityPayload = StandardMutationPayload & {
   link?: Maybe<EntityLink>;
 };
 
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type LinkListBackground =
+  /**
+   * A dark gradient is applied to the background of this template.
+   *
+   */
+  | 'DARK'
+  /**
+   * A light gradient is applied to the background of this template.
+   *
+   */
+  | 'LIGHT'
+  /**
+   * No background is applied to this template.
+   *
+   */
+  | 'NONE'
+  | '%future added value';
+
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type LinkListSelectionMode =
+  /**
+   * Render links from a dynamic list, determined at query time.
+   *
+   */
+  | 'DYNAMIC'
+  /**
+   * Render links from a manual list set on each individual entity.
+   *
+   */
+  | 'MANUAL'
+  | '%future added value';
+
 export type LinkListTemplateDefinition = Node & Sluggable & TemplateDefinition & {
   __typename?: 'LinkListTemplateDefinition';
+  background?: Maybe<LinkListBackground>;
   createdAt: Scalars['ISO8601DateTime']['output'];
+  dynamicOrderingDefinition?: Maybe<OrderingDefinition>;
   id: Scalars['ID']['output'];
   layoutKind: LayoutKind;
+  seeAllButtonLabel?: Maybe<Scalars['String']['output']>;
+  selectionLimit?: Maybe<Scalars['Int']['output']>;
+  selectionMode?: Maybe<LinkListSelectionMode>;
+  selectionSource?: Maybe<Scalars['String']['output']>;
+  selectionSourceMode?: Maybe<SelectionSourceMode>;
+  showEntityContext?: Maybe<Scalars['Boolean']['output']>;
+  showSeeAllButton?: Maybe<Scalars['Boolean']['output']>;
   /**
    * Slot definitions for this template.
    *
@@ -7370,7 +7643,9 @@ export type LinkListTemplateDefinition = Node & Sluggable & TemplateDefinition &
   slots: LinkListTemplateDefinitionSlots;
   slug: Scalars['Slug']['output'];
   templateKind: TemplateKind;
+  title?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['ISO8601DateTime']['output'];
+  variant?: Maybe<LinkListVariant>;
 };
 
 /**
@@ -7379,13 +7654,20 @@ export type LinkListTemplateDefinition = Node & Sluggable & TemplateDefinition &
  */
 export type LinkListTemplateDefinitionSlots = {
   __typename?: 'LinkListTemplateDefinitionSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockDefinition>;
-  sampleInline?: Maybe<TemplateSlotInlineDefinition>;
+  header?: Maybe<TemplateSlotInlineDefinition>;
+  headerAside?: Maybe<TemplateSlotInlineDefinition>;
+  metadata?: Maybe<TemplateSlotInlineDefinition>;
+  subtitle?: Maybe<TemplateSlotInlineDefinition>;
 };
 
 export type LinkListTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'LinkListTemplateInstance';
   createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Load the associated definition for this template.
+   *
+   */
+  definition: LinkListTemplateDefinition;
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -7409,9 +7691,43 @@ export type LinkListTemplateInstance = Node & Renderable & Sluggable & TemplateI
  */
 export type LinkListTemplateInstanceSlots = {
   __typename?: 'LinkListTemplateInstanceSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockInstance>;
-  sampleInline?: Maybe<TemplateSlotInlineInstance>;
+  header?: Maybe<TemplateSlotInlineInstance>;
+  headerAside?: Maybe<TemplateSlotInlineInstance>;
+  metadata?: Maybe<TemplateSlotInlineInstance>;
+  subtitle?: Maybe<TemplateSlotInlineInstance>;
 };
+
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type LinkListVariant =
+  /**
+   * A card list of entities.
+   *
+   */
+  | 'CARDS'
+  /**
+   * A compact list of entities.
+   *
+   */
+  | 'COMPACT'
+  /**
+   * A grid of entities
+   *
+   */
+  | 'GRID'
+  /**
+   * A horizontal list of entities with promotional header.
+   *
+   */
+  | 'PROMOS'
+  /**
+   * A vertical, summarized list of entities.
+   *
+   */
+  | 'SUMMARY'
+  | '%future added value';
 
 /** A candidate for a link target, scoped to a parent source */
 export type LinkTargetCandidate = Node & {
@@ -7535,13 +7851,24 @@ export type ListItemTemplateDefinition = Node & Sluggable & TemplateDefinition &
  */
 export type ListItemTemplateDefinitionSlots = {
   __typename?: 'ListItemTemplateDefinitionSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockDefinition>;
-  sampleInline?: Maybe<TemplateSlotInlineDefinition>;
+  contextA?: Maybe<TemplateSlotInlineDefinition>;
+  contextB?: Maybe<TemplateSlotInlineDefinition>;
+  contextC?: Maybe<TemplateSlotInlineDefinition>;
+  description?: Maybe<TemplateSlotBlockDefinition>;
+  header?: Maybe<TemplateSlotInlineDefinition>;
+  metaA?: Maybe<TemplateSlotInlineDefinition>;
+  metaB?: Maybe<TemplateSlotInlineDefinition>;
+  subheader?: Maybe<TemplateSlotInlineDefinition>;
 };
 
 export type ListItemTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'ListItemTemplateInstance';
   createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Load the associated definition for this template.
+   *
+   */
+  definition: ListItemTemplateDefinition;
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -7565,8 +7892,14 @@ export type ListItemTemplateInstance = Node & Renderable & Sluggable & TemplateI
  */
 export type ListItemTemplateInstanceSlots = {
   __typename?: 'ListItemTemplateInstanceSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockInstance>;
-  sampleInline?: Maybe<TemplateSlotInlineInstance>;
+  contextA?: Maybe<TemplateSlotInlineInstance>;
+  contextB?: Maybe<TemplateSlotInlineInstance>;
+  contextC?: Maybe<TemplateSlotInlineInstance>;
+  description?: Maybe<TemplateSlotBlockInstance>;
+  header?: Maybe<TemplateSlotInlineInstance>;
+  metaA?: Maybe<TemplateSlotInlineInstance>;
+  metaB?: Maybe<TemplateSlotInlineInstance>;
+  subheader?: Maybe<TemplateSlotInlineInstance>;
 };
 
 export type MainLayoutDefinition = LayoutDefinition & Node & Sluggable & {
@@ -7697,6 +8030,28 @@ export type MatchesOperatorInput = {
   value: Scalars['String']['input'];
 };
 
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type MetadataBackground =
+  /**
+   * A dark gradient is applied to the background of this template.
+   *
+   */
+  | 'DARK'
+  /**
+   * A light gradient is applied to the background of this template.
+   *
+   */
+  | 'LIGHT'
+  /**
+   * No background is applied to this template.
+   *
+   */
+  | 'NONE'
+  | '%future added value';
+
 export type MetadataLayoutDefinition = LayoutDefinition & Node & Sluggable & {
   __typename?: 'MetadataLayoutDefinition';
   createdAt: Scalars['ISO8601DateTime']['output'];
@@ -7747,6 +8102,7 @@ export type MetadataLayoutInstance = LayoutInstance & Node & Renderable & Slugga
 
 export type MetadataTemplateDefinition = Node & Sluggable & TemplateDefinition & {
   __typename?: 'MetadataTemplateDefinition';
+  background?: Maybe<MetadataBackground>;
   createdAt: Scalars['ISO8601DateTime']['output'];
   id: Scalars['ID']['output'];
   layoutKind: LayoutKind;
@@ -7766,13 +8122,17 @@ export type MetadataTemplateDefinition = Node & Sluggable & TemplateDefinition &
  */
 export type MetadataTemplateDefinitionSlots = {
   __typename?: 'MetadataTemplateDefinitionSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockDefinition>;
-  sampleInline?: Maybe<TemplateSlotInlineDefinition>;
+  header?: Maybe<TemplateSlotInlineDefinition>;
 };
 
 export type MetadataTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'MetadataTemplateInstance';
   createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Load the associated definition for this template.
+   *
+   */
+  definition: MetadataTemplateDefinition;
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -7796,8 +8156,7 @@ export type MetadataTemplateInstance = Node & Renderable & Sluggable & TemplateI
  */
 export type MetadataTemplateInstanceSlots = {
   __typename?: 'MetadataTemplateInstanceSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockInstance>;
-  sampleInline?: Maybe<TemplateSlotInlineInstance>;
+  header?: Maybe<TemplateSlotInlineInstance>;
 };
 
 export type MultiselectProperty = OptionableProperty & ScalarProperty & SchemaProperty & SearchableProperty & {
@@ -8567,6 +8926,28 @@ export type NamedAncestor = {
   relativeDepth: Scalars['Int']['output'];
 };
 
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type NavigationBackground =
+  /**
+   * A dark gradient is applied to the background of this template.
+   *
+   */
+  | 'DARK'
+  /**
+   * A light gradient is applied to the background of this template.
+   *
+   */
+  | 'LIGHT'
+  /**
+   * No background is applied to this template.
+   *
+   */
+  | 'NONE'
+  | '%future added value';
+
 export type NavigationLayoutDefinition = LayoutDefinition & Node & Sluggable & {
   __typename?: 'NavigationLayoutDefinition';
   createdAt: Scalars['ISO8601DateTime']['output'];
@@ -8617,6 +8998,7 @@ export type NavigationLayoutInstance = LayoutInstance & Node & Renderable & Slug
 
 export type NavigationTemplateDefinition = Node & Sluggable & TemplateDefinition & {
   __typename?: 'NavigationTemplateDefinition';
+  background?: Maybe<NavigationBackground>;
   createdAt: Scalars['ISO8601DateTime']['output'];
   id: Scalars['ID']['output'];
   layoutKind: LayoutKind;
@@ -8636,13 +9018,17 @@ export type NavigationTemplateDefinition = Node & Sluggable & TemplateDefinition
  */
 export type NavigationTemplateDefinitionSlots = {
   __typename?: 'NavigationTemplateDefinitionSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockDefinition>;
-  sampleInline?: Maybe<TemplateSlotInlineDefinition>;
+  entityLabel?: Maybe<TemplateSlotInlineDefinition>;
 };
 
 export type NavigationTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'NavigationTemplateInstance';
   createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Load the associated definition for this template.
+   *
+   */
+  definition: NavigationTemplateDefinition;
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -8666,8 +9052,7 @@ export type NavigationTemplateInstance = Node & Renderable & Sluggable & Templat
  */
 export type NavigationTemplateInstanceSlots = {
   __typename?: 'NavigationTemplateInstanceSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockInstance>;
-  sampleInline?: Maybe<TemplateSlotInlineInstance>;
+  entityLabel?: Maybe<TemplateSlotInlineInstance>;
 };
 
 /** An object with an ID. */
@@ -8826,6 +9211,28 @@ export type OrderingAvailabilityFilter =
   | 'ENABLED'
   | '%future added value';
 
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type OrderingBackground =
+  /**
+   * A dark gradient is applied to the background of this template.
+   *
+   */
+  | 'DARK'
+  /**
+   * A light gradient is applied to the background of this template.
+   *
+   */
+  | 'LIGHT'
+  /**
+   * No background is applied to this template.
+   *
+   */
+  | 'NONE'
+  | '%future added value';
+
 /** The connection type for Ordering. */
 export type OrderingConnection = Paginated & {
   __typename?: 'OrderingConnection';
@@ -8835,6 +9242,44 @@ export type OrderingConnection = Paginated & {
   nodes: Array<Ordering>;
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
+};
+
+/**
+ * A definition for an ordering (may be dynamic).
+ *
+ */
+export type OrderingDefinition = {
+  __typename?: 'OrderingDefinition';
+  /** A constant ordering should be treated as not being able to invert itself. */
+  constant: Scalars['Boolean']['output'];
+  filter: OrderingFilterDefinition;
+  /**
+   * A hidden ordering represents an ordering that should not be shown in the frontend,
+   * when iterating over an entity's available orderings. It does not affect access, as
+   * hidden orderings may still serve a functional purpose for their schema.
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
+  /** A unique identifier for the ordering within the context of its parent entity. */
+  identifier: Scalars['String']['output'];
+  /** An optional, human-readable name for the ordering */
+  name?: Maybe<Scalars['String']['output']>;
+  order: Array<OrderDefinition>;
+  /**
+   * Configuration for how to render an ordering and its entries.
+   *
+   */
+  render: OrderingRenderDefinition;
+  select: OrderingSelectDefinition;
+  /**
+   * A tree ordering has some special handling to return entities
+   * in deterministic order based on their hierarchical position
+   * and relation to other entities in the same ordering.
+   *
+   * This is effectively a shortcut for `Ordering.render.mode === "TREE"`.
+   *
+   */
+  tree: Scalars['Boolean']['output'];
 };
 
 export type OrderingDirectSelection =
@@ -9146,6 +9591,7 @@ export type OrderingSelectLinkDefinitionInput = {
 
 export type OrderingTemplateDefinition = Node & Sluggable & TemplateDefinition & {
   __typename?: 'OrderingTemplateDefinition';
+  background?: Maybe<OrderingBackground>;
   createdAt: Scalars['ISO8601DateTime']['output'];
   id: Scalars['ID']['output'];
   layoutKind: LayoutKind;
@@ -9165,13 +9611,18 @@ export type OrderingTemplateDefinition = Node & Sluggable & TemplateDefinition &
  */
 export type OrderingTemplateDefinitionSlots = {
   __typename?: 'OrderingTemplateDefinitionSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockDefinition>;
-  sampleInline?: Maybe<TemplateSlotInlineDefinition>;
+  nextLabel?: Maybe<TemplateSlotInlineDefinition>;
+  previousLabel?: Maybe<TemplateSlotInlineDefinition>;
 };
 
 export type OrderingTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'OrderingTemplateInstance';
   createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Load the associated definition for this template.
+   *
+   */
+  definition: OrderingTemplateDefinition;
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -9195,8 +9646,8 @@ export type OrderingTemplateInstance = Node & Renderable & Sluggable & TemplateI
  */
 export type OrderingTemplateInstanceSlots = {
   __typename?: 'OrderingTemplateInstanceSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockInstance>;
-  sampleInline?: Maybe<TemplateSlotInlineInstance>;
+  nextLabel?: Maybe<TemplateSlotInlineInstance>;
+  previousLabel?: Maybe<TemplateSlotInlineInstance>;
 };
 
 export type OrderingVisibilityFilter =
@@ -9338,8 +9789,31 @@ export type PageInfo = {
   totalUnfilteredCount: Scalars['Int']['output'];
 };
 
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type PageListBackground =
+  /**
+   * A dark gradient is applied to the background of this template.
+   *
+   */
+  | 'DARK'
+  /**
+   * A light gradient is applied to the background of this template.
+   *
+   */
+  | 'LIGHT'
+  /**
+   * No background is applied to this template.
+   *
+   */
+  | 'NONE'
+  | '%future added value';
+
 export type PageListTemplateDefinition = Node & Sluggable & TemplateDefinition & {
   __typename?: 'PageListTemplateDefinition';
+  background?: Maybe<PageListBackground>;
   createdAt: Scalars['ISO8601DateTime']['output'];
   id: Scalars['ID']['output'];
   layoutKind: LayoutKind;
@@ -9359,13 +9833,17 @@ export type PageListTemplateDefinition = Node & Sluggable & TemplateDefinition &
  */
 export type PageListTemplateDefinitionSlots = {
   __typename?: 'PageListTemplateDefinitionSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockDefinition>;
-  sampleInline?: Maybe<TemplateSlotInlineDefinition>;
+  header?: Maybe<TemplateSlotInlineDefinition>;
 };
 
 export type PageListTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'PageListTemplateInstance';
   createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Load the associated definition for this template.
+   *
+   */
+  definition: PageListTemplateDefinition;
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -9389,8 +9867,7 @@ export type PageListTemplateInstance = Node & Renderable & Sluggable & TemplateI
  */
 export type PageListTemplateInstanceSlots = {
   __typename?: 'PageListTemplateInstanceSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockInstance>;
-  sampleInline?: Maybe<TemplateSlotInlineInstance>;
+  header?: Maybe<TemplateSlotInlineInstance>;
 };
 
 /** Connections can be paginated by cursor or number. */
@@ -11159,6 +11636,15 @@ export type SelectProperty = OptionableProperty & ScalarProperty & SchemaPropert
   type: SchemaPropertyType;
 };
 
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type SelectionSourceMode =
+  | 'ANCESTOR'
+  | 'SELF'
+  | '%future added value';
+
 /** A generic enum for sorting models that don't have anything more specific implemented */
 export type SimpleOrder =
   /** Sort models by oldest created date */
@@ -11383,6 +11869,28 @@ export type SubtreeNodeFilter =
   | 'DESCENDANTS'
   | '%future added value';
 
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type SupplementaryBackground =
+  /**
+   * A dark gradient is applied to the background of this template.
+   *
+   */
+  | 'DARK'
+  /**
+   * A light gradient is applied to the background of this template.
+   *
+   */
+  | 'LIGHT'
+  /**
+   * No background is applied to this template.
+   *
+   */
+  | 'NONE'
+  | '%future added value';
+
 export type SupplementaryLayoutDefinition = LayoutDefinition & Node & Sluggable & {
   __typename?: 'SupplementaryLayoutDefinition';
   createdAt: Scalars['ISO8601DateTime']['output'];
@@ -11433,6 +11941,7 @@ export type SupplementaryLayoutInstance = LayoutInstance & Node & Renderable & S
 
 export type SupplementaryTemplateDefinition = Node & Sluggable & TemplateDefinition & {
   __typename?: 'SupplementaryTemplateDefinition';
+  background?: Maybe<SupplementaryBackground>;
   createdAt: Scalars['ISO8601DateTime']['output'];
   id: Scalars['ID']['output'];
   layoutKind: LayoutKind;
@@ -11452,13 +11961,18 @@ export type SupplementaryTemplateDefinition = Node & Sluggable & TemplateDefinit
  */
 export type SupplementaryTemplateDefinitionSlots = {
   __typename?: 'SupplementaryTemplateDefinitionSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockDefinition>;
-  sampleInline?: Maybe<TemplateSlotInlineDefinition>;
+  contributorsLabel?: Maybe<TemplateSlotInlineDefinition>;
+  metricsLabel?: Maybe<TemplateSlotInlineDefinition>;
 };
 
 export type SupplementaryTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'SupplementaryTemplateInstance';
   createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Load the associated definition for this template.
+   *
+   */
+  definition: SupplementaryTemplateDefinition;
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -11482,8 +11996,8 @@ export type SupplementaryTemplateInstance = Node & Renderable & Sluggable & Temp
  */
 export type SupplementaryTemplateInstanceSlots = {
   __typename?: 'SupplementaryTemplateInstanceSlots';
-  sampleBlock?: Maybe<TemplateSlotBlockInstance>;
-  sampleInline?: Maybe<TemplateSlotInlineInstance>;
+  contributorsLabel?: Maybe<TemplateSlotInlineInstance>;
+  metricsLabel?: Maybe<TemplateSlotInlineInstance>;
 };
 
 /**
@@ -13917,6 +14431,7 @@ export type ResolversTypes = {
   ContributorKind: ContributorKind;
   ContributorLink: ResolverTypeWrapper<ContributorLink>;
   ContributorLinkInput: ContributorLinkInput;
+  ContributorListBackground: ContributorListBackground;
   ContributorListTemplateDefinition: ResolverTypeWrapper<ContributorListTemplateDefinition>;
   ContributorListTemplateDefinitionSlots: ResolverTypeWrapper<ContributorListTemplateDefinitionSlots>;
   ContributorListTemplateInstance: ResolverTypeWrapper<ContributorListTemplateInstance>;
@@ -13972,10 +14487,13 @@ export type ResolversTypes = {
   DateLTEOperatorInput: DateLteOperatorInput;
   DatePrecision: DatePrecision;
   DateProperty: ResolverTypeWrapper<DateProperty>;
+  DescendantListBackground: DescendantListBackground;
+  DescendantListSelectionMode: DescendantListSelectionMode;
   DescendantListTemplateDefinition: ResolverTypeWrapper<DescendantListTemplateDefinition>;
   DescendantListTemplateDefinitionSlots: ResolverTypeWrapper<DescendantListTemplateDefinitionSlots>;
   DescendantListTemplateInstance: ResolverTypeWrapper<DescendantListTemplateInstance>;
   DescendantListTemplateInstanceSlots: ResolverTypeWrapper<DescendantListTemplateInstanceSlots>;
+  DescendantListVariant: DescendantListVariant;
   DescribesSchema: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['DescribesSchema']>;
   DestroyAnnouncementInput: DestroyAnnouncementInput;
   DestroyAnnouncementPayload: ResolverTypeWrapper<DestroyAnnouncementPayload>;
@@ -13998,10 +14516,12 @@ export type ResolversTypes = {
   DestroyOrderingPayload: ResolverTypeWrapper<DestroyOrderingPayload>;
   DestroyPageInput: DestroyPageInput;
   DestroyPagePayload: ResolverTypeWrapper<DestroyPagePayload>;
+  DetailBackground: DetailBackground;
   DetailTemplateDefinition: ResolverTypeWrapper<DetailTemplateDefinition>;
   DetailTemplateDefinitionSlots: ResolverTypeWrapper<DetailTemplateDefinitionSlots>;
   DetailTemplateInstance: ResolverTypeWrapper<DetailTemplateInstance>;
   DetailTemplateInstanceSlots: ResolverTypeWrapper<DetailTemplateInstanceSlots>;
+  DetailVariant: DetailVariant;
   Direction: Direction;
   EffectiveAccess: ResolverTypeWrapper<EffectiveAccess>;
   EmailProperty: ResolverTypeWrapper<EmailProperty>;
@@ -14052,6 +14572,7 @@ export type ResolversTypes = {
   HasEntityBreadcrumbs: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasEntityBreadcrumbs']>;
   HasISSN: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasISSN']>;
   HasSchemaProperties: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasSchemaProperties']>;
+  HeroBackground: HeroBackground;
   HeroImageLayout: HeroImageLayout;
   HeroLayoutDefinition: ResolverTypeWrapper<Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<ResolversTypes['AnyHeroTemplateDefinition']> }>;
   HeroLayoutInstance: ResolverTypeWrapper<Omit<HeroLayoutInstance, 'templates'> & { templates: Array<ResolversTypes['AnyHeroTemplateInstance']> }>;
@@ -14093,10 +14614,13 @@ export type ResolversTypes = {
   LayoutKind: LayoutKind;
   LinkEntityInput: LinkEntityInput;
   LinkEntityPayload: ResolverTypeWrapper<LinkEntityPayload>;
+  LinkListBackground: LinkListBackground;
+  LinkListSelectionMode: LinkListSelectionMode;
   LinkListTemplateDefinition: ResolverTypeWrapper<LinkListTemplateDefinition>;
   LinkListTemplateDefinitionSlots: ResolverTypeWrapper<LinkListTemplateDefinitionSlots>;
   LinkListTemplateInstance: ResolverTypeWrapper<LinkListTemplateInstance>;
   LinkListTemplateInstanceSlots: ResolverTypeWrapper<LinkListTemplateInstanceSlots>;
+  LinkListVariant: LinkListVariant;
   LinkTargetCandidate: ResolverTypeWrapper<Omit<LinkTargetCandidate, 'target'> & { target: ResolversTypes['AnyLinkTarget'] }>;
   LinkTargetCandidateConnection: ResolverTypeWrapper<LinkTargetCandidateConnection>;
   LinkTargetCandidateEdge: ResolverTypeWrapper<LinkTargetCandidateEdge>;
@@ -14112,6 +14636,7 @@ export type ResolversTypes = {
   MainLayoutInstance: ResolverTypeWrapper<Omit<MainLayoutInstance, 'templates'> & { templates: Array<ResolversTypes['AnyMainTemplateInstance']> }>;
   MarkdownProperty: ResolverTypeWrapper<MarkdownProperty>;
   MatchesOperatorInput: MatchesOperatorInput;
+  MetadataBackground: MetadataBackground;
   MetadataLayoutDefinition: ResolverTypeWrapper<Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<ResolversTypes['AnyMetadataTemplateDefinition']> }>;
   MetadataLayoutInstance: ResolverTypeWrapper<Omit<MetadataLayoutInstance, 'templates'> & { templates: Array<ResolversTypes['AnyMetadataTemplateInstance']> }>;
   MetadataTemplateDefinition: ResolverTypeWrapper<MetadataTemplateDefinition>;
@@ -14124,6 +14649,7 @@ export type ResolversTypes = {
   MutationErrorScope: MutationErrorScope;
   MutationGlobalError: ResolverTypeWrapper<MutationGlobalError>;
   NamedAncestor: ResolverTypeWrapper<Omit<NamedAncestor, 'ancestor'> & { ancestor: ResolversTypes['AnyEntity'] }>;
+  NavigationBackground: NavigationBackground;
   NavigationLayoutDefinition: ResolverTypeWrapper<Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<ResolversTypes['AnyNavigationTemplateDefinition']> }>;
   NavigationLayoutInstance: ResolverTypeWrapper<Omit<NavigationLayoutInstance, 'templates'> & { templates: Array<ResolversTypes['AnyNavigationTemplateInstance']> }>;
   NavigationTemplateDefinition: ResolverTypeWrapper<NavigationTemplateDefinition>;
@@ -14140,7 +14666,9 @@ export type ResolversTypes = {
   OrderDefinitionInput: OrderDefinitionInput;
   Ordering: ResolverTypeWrapper<Omit<Ordering, 'entity'> & { entity: ResolversTypes['AnyEntity'] }>;
   OrderingAvailabilityFilter: OrderingAvailabilityFilter;
+  OrderingBackground: OrderingBackground;
   OrderingConnection: ResolverTypeWrapper<OrderingConnection>;
+  OrderingDefinition: ResolverTypeWrapper<OrderingDefinition>;
   OrderingDirectSelection: OrderingDirectSelection;
   OrderingEdge: ResolverTypeWrapper<OrderingEdge>;
   OrderingEntry: ResolverTypeWrapper<Omit<OrderingEntry, 'entry'> & { entry: ResolversTypes['AnyOrderingEntry'] }>;
@@ -14172,6 +14700,7 @@ export type ResolversTypes = {
   PageDirection: PageDirection;
   PageEdge: ResolverTypeWrapper<PageEdge>;
   PageInfo: ResolverTypeWrapper<PageInfo>;
+  PageListBackground: PageListBackground;
   PageListTemplateDefinition: ResolverTypeWrapper<PageListTemplateDefinition>;
   PageListTemplateDefinitionSlots: ResolverTypeWrapper<PageListTemplateDefinitionSlots>;
   PageListTemplateInstance: ResolverTypeWrapper<PageListTemplateInstance>;
@@ -14236,6 +14765,7 @@ export type ResolversTypes = {
   SelectInitialOrderingPayload: ResolverTypeWrapper<Omit<SelectInitialOrderingPayload, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
   SelectOption: ResolverTypeWrapper<SelectOption>;
   SelectProperty: ResolverTypeWrapper<SelectProperty>;
+  SelectionSourceMode: SelectionSourceMode;
   SimpleOrder: SimpleOrder;
   SiteFooter: ResolverTypeWrapper<SiteFooter>;
   SiteFooterInput: SiteFooterInput;
@@ -14250,6 +14780,7 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   StringProperty: ResolverTypeWrapper<StringProperty>;
   SubtreeNodeFilter: SubtreeNodeFilter;
+  SupplementaryBackground: SupplementaryBackground;
   SupplementaryLayoutDefinition: ResolverTypeWrapper<Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<ResolversTypes['AnySupplementaryTemplateDefinition']> }>;
   SupplementaryLayoutInstance: ResolverTypeWrapper<Omit<SupplementaryLayoutInstance, 'templates'> & { templates: Array<ResolversTypes['AnySupplementaryTemplateInstance']> }>;
   SupplementaryTemplateDefinition: ResolverTypeWrapper<SupplementaryTemplateDefinition>;
@@ -14641,6 +15172,7 @@ export type ResolversParentTypes = {
   OrderDefinitionInput: OrderDefinitionInput;
   Ordering: Omit<Ordering, 'entity'> & { entity: ResolversParentTypes['AnyEntity'] };
   OrderingConnection: OrderingConnection;
+  OrderingDefinition: OrderingDefinition;
   OrderingEdge: OrderingEdge;
   OrderingEntry: Omit<OrderingEntry, 'entry'> & { entry: ResolversParentTypes['AnyOrderingEntry'] };
   OrderingEntryConnection: OrderingEntryConnection;
@@ -15732,9 +16264,11 @@ export type ContributorLinkResolvers<ContextType = any, ParentType extends Resol
 };
 
 export type ContributorListTemplateDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['ContributorListTemplateDefinition'] = ResolversParentTypes['ContributorListTemplateDefinition']> = {
+  background?: Resolver<Maybe<ResolversTypes['ContributorListBackground']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  limit?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['ContributorListTemplateDefinitionSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
@@ -15743,13 +16277,13 @@ export type ContributorListTemplateDefinitionResolvers<ContextType = any, Parent
 };
 
 export type ContributorListTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['ContributorListTemplateDefinitionSlots'] = ResolversParentTypes['ContributorListTemplateDefinitionSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ContributorListTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['ContributorListTemplateInstance'] = ResolversParentTypes['ContributorListTemplateInstance']> = {
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  definition?: Resolver<ResolversTypes['ContributorListTemplateDefinition'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -15761,8 +16295,7 @@ export type ContributorListTemplateInstanceResolvers<ContextType = any, ParentTy
 };
 
 export type ContributorListTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['ContributorListTemplateInstanceSlots'] = ResolversParentTypes['ContributorListTemplateInstanceSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -16062,24 +16595,39 @@ export type DatePropertyResolvers<ContextType = any, ParentType extends Resolver
 };
 
 export type DescendantListTemplateDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['DescendantListTemplateDefinition'] = ResolversParentTypes['DescendantListTemplateDefinition']> = {
+  background?: Resolver<Maybe<ResolversTypes['DescendantListBackground']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  dynamicOrderingDefinition?: Resolver<Maybe<ResolversTypes['OrderingDefinition']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  orderingName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  seeAllButtonLabel?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  selectionLimit?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  selectionMode?: Resolver<Maybe<ResolversTypes['DescendantListSelectionMode']>, ParentType, ContextType>;
+  selectionSource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  selectionSourceMode?: Resolver<Maybe<ResolversTypes['SelectionSourceMode']>, ParentType, ContextType>;
+  showEntityContext?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showSeeAllButton?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['DescendantListTemplateDefinitionSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  variant?: Resolver<Maybe<ResolversTypes['DescendantListVariant']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type DescendantListTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['DescendantListTemplateDefinitionSlots'] = ResolversParentTypes['DescendantListTemplateDefinitionSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  headerAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  metadata?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  subtitle?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type DescendantListTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['DescendantListTemplateInstance'] = ResolversParentTypes['DescendantListTemplateInstance']> = {
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  definition?: Resolver<ResolversTypes['DescendantListTemplateDefinition'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -16091,8 +16639,10 @@ export type DescendantListTemplateInstanceResolvers<ContextType = any, ParentTyp
 };
 
 export type DescendantListTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['DescendantListTemplateInstanceSlots'] = ResolversParentTypes['DescendantListTemplateInstanceSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  headerAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  metadata?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  subtitle?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -16226,24 +16776,30 @@ export type DestroyPagePayloadResolvers<ContextType = any, ParentType extends Re
 };
 
 export type DetailTemplateDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['DetailTemplateDefinition'] = ResolversParentTypes['DetailTemplateDefinition']> = {
+  background?: Resolver<Maybe<ResolversTypes['DetailBackground']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  showAnnouncements?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showHeroImage?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['DetailTemplateDefinitionSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  variant?: Resolver<Maybe<ResolversTypes['DetailVariant']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type DetailTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['DetailTemplateDefinitionSlots'] = ResolversParentTypes['DetailTemplateDefinitionSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  subheader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  summary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type DetailTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['DetailTemplateInstance'] = ResolversParentTypes['DetailTemplateInstance']> = {
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  definition?: Resolver<ResolversTypes['DetailTemplateDefinition'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -16255,8 +16811,9 @@ export type DetailTemplateInstanceResolvers<ContextType = any, ParentType extend
 };
 
 export type DetailTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['DetailTemplateInstanceSlots'] = ResolversParentTypes['DetailTemplateInstanceSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  subheader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  summary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -16626,9 +17183,23 @@ export type HeroLayoutInstanceResolvers<ContextType = any, ParentType extends Re
 };
 
 export type HeroTemplateDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['HeroTemplateDefinition'] = ResolversParentTypes['HeroTemplateDefinition']> = {
+  background?: Resolver<Maybe<ResolversTypes['HeroBackground']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  descendantSearchPrompt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  enableDescendantBrowsing?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  enableDescendantSearch?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  listContributors?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showBasicViewMetrics?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showBigSearchPrompt?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showBreadcrumbs?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showDOI?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showHeroImage?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showISSN?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showSharingLink?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showSplitDisplay?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showThumbnailImage?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['HeroTemplateDefinitionSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
@@ -16637,13 +17208,23 @@ export type HeroTemplateDefinitionResolvers<ContextType = any, ParentType extend
 };
 
 export type HeroTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['HeroTemplateDefinitionSlots'] = ResolversParentTypes['HeroTemplateDefinitionSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  callToAction?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  headerAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  headerSidebar?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
+  headerSummary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
+  metadata?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  sidebar?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
+  subheader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  subheaderAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  subheaderSummary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
+  summary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type HeroTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['HeroTemplateInstance'] = ResolversParentTypes['HeroTemplateInstance']> = {
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  definition?: Resolver<ResolversTypes['HeroTemplateDefinition'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -16655,8 +17236,17 @@ export type HeroTemplateInstanceResolvers<ContextType = any, ParentType extends 
 };
 
 export type HeroTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['HeroTemplateInstanceSlots'] = ResolversParentTypes['HeroTemplateInstanceSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  callToAction?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  headerAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  headerSidebar?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
+  headerSummary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
+  metadata?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  sidebar?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
+  subheader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  subheaderAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  subheaderSummary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
+  summary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -16958,24 +17548,38 @@ export type LinkEntityPayloadResolvers<ContextType = any, ParentType extends Res
 };
 
 export type LinkListTemplateDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['LinkListTemplateDefinition'] = ResolversParentTypes['LinkListTemplateDefinition']> = {
+  background?: Resolver<Maybe<ResolversTypes['LinkListBackground']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  dynamicOrderingDefinition?: Resolver<Maybe<ResolversTypes['OrderingDefinition']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  seeAllButtonLabel?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  selectionLimit?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  selectionMode?: Resolver<Maybe<ResolversTypes['LinkListSelectionMode']>, ParentType, ContextType>;
+  selectionSource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  selectionSourceMode?: Resolver<Maybe<ResolversTypes['SelectionSourceMode']>, ParentType, ContextType>;
+  showEntityContext?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showSeeAllButton?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['LinkListTemplateDefinitionSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  variant?: Resolver<Maybe<ResolversTypes['LinkListVariant']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type LinkListTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['LinkListTemplateDefinitionSlots'] = ResolversParentTypes['LinkListTemplateDefinitionSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  headerAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  metadata?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  subtitle?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type LinkListTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['LinkListTemplateInstance'] = ResolversParentTypes['LinkListTemplateInstance']> = {
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  definition?: Resolver<ResolversTypes['LinkListTemplateDefinition'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -16987,8 +17591,10 @@ export type LinkListTemplateInstanceResolvers<ContextType = any, ParentType exte
 };
 
 export type LinkListTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['LinkListTemplateInstanceSlots'] = ResolversParentTypes['LinkListTemplateInstanceSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  headerAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  metadata?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  subtitle?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -17053,13 +17659,20 @@ export type ListItemTemplateDefinitionResolvers<ContextType = any, ParentType ex
 };
 
 export type ListItemTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['ListItemTemplateDefinitionSlots'] = ResolversParentTypes['ListItemTemplateDefinitionSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  contextA?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  contextB?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  contextC?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
+  header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  metaA?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  metaB?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  subheader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ListItemTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['ListItemTemplateInstance'] = ResolversParentTypes['ListItemTemplateInstance']> = {
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  definition?: Resolver<ResolversTypes['ListItemTemplateDefinition'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -17071,8 +17684,14 @@ export type ListItemTemplateInstanceResolvers<ContextType = any, ParentType exte
 };
 
 export type ListItemTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['ListItemTemplateInstanceSlots'] = ResolversParentTypes['ListItemTemplateInstanceSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  contextA?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  contextB?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  contextC?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
+  header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  metaA?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  metaB?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  subheader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -17142,6 +17761,7 @@ export type MetadataLayoutInstanceResolvers<ContextType = any, ParentType extend
 };
 
 export type MetadataTemplateDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['MetadataTemplateDefinition'] = ResolversParentTypes['MetadataTemplateDefinition']> = {
+  background?: Resolver<Maybe<ResolversTypes['MetadataBackground']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -17153,13 +17773,13 @@ export type MetadataTemplateDefinitionResolvers<ContextType = any, ParentType ex
 };
 
 export type MetadataTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['MetadataTemplateDefinitionSlots'] = ResolversParentTypes['MetadataTemplateDefinitionSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MetadataTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['MetadataTemplateInstance'] = ResolversParentTypes['MetadataTemplateInstance']> = {
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  definition?: Resolver<ResolversTypes['MetadataTemplateDefinition'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -17171,8 +17791,7 @@ export type MetadataTemplateInstanceResolvers<ContextType = any, ParentType exte
 };
 
 export type MetadataTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['MetadataTemplateInstanceSlots'] = ResolversParentTypes['MetadataTemplateInstanceSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -17294,6 +17913,7 @@ export type NavigationLayoutInstanceResolvers<ContextType = any, ParentType exte
 };
 
 export type NavigationTemplateDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['NavigationTemplateDefinition'] = ResolversParentTypes['NavigationTemplateDefinition']> = {
+  background?: Resolver<Maybe<ResolversTypes['NavigationBackground']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -17305,13 +17925,13 @@ export type NavigationTemplateDefinitionResolvers<ContextType = any, ParentType 
 };
 
 export type NavigationTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['NavigationTemplateDefinitionSlots'] = ResolversParentTypes['NavigationTemplateDefinitionSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  entityLabel?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type NavigationTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['NavigationTemplateInstance'] = ResolversParentTypes['NavigationTemplateInstance']> = {
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  definition?: Resolver<ResolversTypes['NavigationTemplateDefinition'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -17323,8 +17943,7 @@ export type NavigationTemplateInstanceResolvers<ContextType = any, ParentType ex
 };
 
 export type NavigationTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['NavigationTemplateInstanceSlots'] = ResolversParentTypes['NavigationTemplateInstanceSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  entityLabel?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -17376,6 +17995,19 @@ export type OrderingConnectionResolvers<ContextType = any, ParentType extends Re
   edges?: Resolver<Array<ResolversTypes['OrderingEdge']>, ParentType, ContextType>;
   nodes?: Resolver<Array<ResolversTypes['Ordering']>, ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OrderingDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderingDefinition'] = ResolversParentTypes['OrderingDefinition']> = {
+  constant?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  filter?: Resolver<ResolversTypes['OrderingFilterDefinition'], ParentType, ContextType>;
+  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  order?: Resolver<Array<ResolversTypes['OrderDefinition']>, ParentType, ContextType>;
+  render?: Resolver<ResolversTypes['OrderingRenderDefinition'], ParentType, ContextType>;
+  select?: Resolver<ResolversTypes['OrderingSelectDefinition'], ParentType, ContextType>;
+  tree?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -17455,6 +18087,7 @@ export type OrderingSelectLinkDefinitionResolvers<ContextType = any, ParentType 
 };
 
 export type OrderingTemplateDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderingTemplateDefinition'] = ResolversParentTypes['OrderingTemplateDefinition']> = {
+  background?: Resolver<Maybe<ResolversTypes['OrderingBackground']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -17466,13 +18099,14 @@ export type OrderingTemplateDefinitionResolvers<ContextType = any, ParentType ex
 };
 
 export type OrderingTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderingTemplateDefinitionSlots'] = ResolversParentTypes['OrderingTemplateDefinitionSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  nextLabel?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  previousLabel?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type OrderingTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderingTemplateInstance'] = ResolversParentTypes['OrderingTemplateInstance']> = {
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  definition?: Resolver<ResolversTypes['OrderingTemplateDefinition'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -17484,8 +18118,8 @@ export type OrderingTemplateInstanceResolvers<ContextType = any, ParentType exte
 };
 
 export type OrderingTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderingTemplateInstanceSlots'] = ResolversParentTypes['OrderingTemplateInstanceSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  nextLabel?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  previousLabel?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -17557,6 +18191,7 @@ export type PageInfoResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type PageListTemplateDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['PageListTemplateDefinition'] = ResolversParentTypes['PageListTemplateDefinition']> = {
+  background?: Resolver<Maybe<ResolversTypes['PageListBackground']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -17568,13 +18203,13 @@ export type PageListTemplateDefinitionResolvers<ContextType = any, ParentType ex
 };
 
 export type PageListTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['PageListTemplateDefinitionSlots'] = ResolversParentTypes['PageListTemplateDefinitionSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type PageListTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['PageListTemplateInstance'] = ResolversParentTypes['PageListTemplateInstance']> = {
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  definition?: Resolver<ResolversTypes['PageListTemplateDefinition'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -17586,8 +18221,7 @@ export type PageListTemplateInstanceResolvers<ContextType = any, ParentType exte
 };
 
 export type PageListTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['PageListTemplateInstanceSlots'] = ResolversParentTypes['PageListTemplateInstanceSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -18121,6 +18755,7 @@ export type SupplementaryLayoutInstanceResolvers<ContextType = any, ParentType e
 };
 
 export type SupplementaryTemplateDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['SupplementaryTemplateDefinition'] = ResolversParentTypes['SupplementaryTemplateDefinition']> = {
+  background?: Resolver<Maybe<ResolversTypes['SupplementaryBackground']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -18132,13 +18767,14 @@ export type SupplementaryTemplateDefinitionResolvers<ContextType = any, ParentTy
 };
 
 export type SupplementaryTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['SupplementaryTemplateDefinitionSlots'] = ResolversParentTypes['SupplementaryTemplateDefinitionSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  contributorsLabel?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  metricsLabel?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type SupplementaryTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['SupplementaryTemplateInstance'] = ResolversParentTypes['SupplementaryTemplateInstance']> = {
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  definition?: Resolver<ResolversTypes['SupplementaryTemplateDefinition'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -18150,8 +18786,8 @@ export type SupplementaryTemplateInstanceResolvers<ContextType = any, ParentType
 };
 
 export type SupplementaryTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['SupplementaryTemplateInstanceSlots'] = ResolversParentTypes['SupplementaryTemplateInstanceSlots']> = {
-  sampleBlock?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
-  sampleInline?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  contributorsLabel?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  metricsLabel?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -18980,6 +19616,7 @@ export type Resolvers<ContextType = any> = {
   OrderDefinition?: OrderDefinitionResolvers<ContextType>;
   Ordering?: OrderingResolvers<ContextType>;
   OrderingConnection?: OrderingConnectionResolvers<ContextType>;
+  OrderingDefinition?: OrderingDefinitionResolvers<ContextType>;
   OrderingEdge?: OrderingEdgeResolvers<ContextType>;
   OrderingEntry?: OrderingEntryResolvers<ContextType>;
   OrderingEntryConnection?: OrderingEntryConnectionResolvers<ContextType>;

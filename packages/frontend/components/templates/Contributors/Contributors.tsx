@@ -3,6 +3,11 @@ import { useTranslation } from "react-i18next";
 import Container from "@/components/layout/Container";
 import { ImageAttachment } from "@/types/graphql-schema";
 import { ContributorsTemplateFragment$key } from "@/relay/ContributorsTemplateFragment.graphql";
+import { useSharedInlineFragment } from "@/components/templates/shared.graphql";
+import {
+  maybeHtml,
+  maybeReactNode,
+} from "@/components/templates/helpers/maybeHtml";
 import Contributor from "./Contributor";
 import * as Styled from "./Contributors.styles";
 
@@ -22,39 +27,31 @@ export type Contribution = {
   };
 };
 
-export type ContributorsTemplateData = {
-  config: {
-    background: "none" | "light" | "dark";
-    max: number;
-  };
-  slots: {
-    contributions: Contribution[];
-  };
-};
-
 export default function ContributorsTemplate({
   data,
 }: {
-  data: ContributorsTemplateFragment$key;
+  data?: ContributorsTemplateFragment$key | null;
 }) {
-  const template = useFragment(fragment, data);
-
-  const { config, slots } = {
-    config: {
-      background: "light" as const,
-    },
-    slots: {
-      contributions: [],
-    },
-  };
-
   const { t } = useTranslation();
 
+  const template = useFragment(fragment, data);
+
+  const { contributorsDefinition, slots } = template ?? {};
+
+  const header = useSharedInlineFragment(slots?.header);
+
+  const headerContent =
+    header?.valid && !!header.content
+      ? header.content
+      : t("glossary.contributor_other");
+
+  const contributions: Contribution[] = [];
+
   return (
-    <Container bgColor={config.background}>
-      <h3 className="t-capitalize">{t("glossary.contributor_other")}</h3>
+    <Container bgColor={contributorsDefinition?.background}>
+      <h3 {...maybeHtml(headerContent)}>{maybeReactNode(headerContent)}</h3>
       <Styled.List>
-        {slots.contributions.map((c, i) => (
+        {contributions.map((c, i) => (
           <Contributor key={i} contribution={c} />
         ))}
       </Styled.List>
@@ -64,9 +61,14 @@ export default function ContributorsTemplate({
 
 const fragment = graphql`
   fragment ContributorsTemplateFragment on ContributorListTemplateInstance {
+    __typename
+    contributorsDefinition: definition {
+      background
+      limit
+    }
     slots {
-      sampleBlock {
-        content
+      header {
+        ...sharedInlineSlotFragment
       }
     }
   }

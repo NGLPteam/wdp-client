@@ -1,7 +1,5 @@
 import capitalize from "lodash/capitalize";
 import { NamedLink } from "components/atomic";
-import ContributorName from "@/components/composed/contributor/ContributorName";
-import ContributorAvatar from "@/components/composed/contributor/ContributorAvatar";
 import * as Styled from "./Contributor.styles";
 import type { Contribution } from "../Contributors";
 
@@ -24,14 +22,14 @@ const ContributionBlockItem = ({ contribution, showAvatar }: Props) => {
         {showAvatar && (
           <NamedLink href={href}>
             <Styled.ItemAvatar>
-              <ContributorAvatar data={contribution.contributor.image} />
+              {/*<ContributorAvatar data={contribution.contributor.image} />*/}
             </Styled.ItemAvatar>
           </NamedLink>
         )}
         <div>
           <NamedLink href={href} className="default-link-styles">
             <strong>
-              <ContributorName data={contribution.contributor} />
+              {/*<ContributorName data={contribution.contributor} />*/}
             </strong>
           </NamedLink>
           <Styled.ItemMetadata className="t-copy-lighter t-copy-sm">

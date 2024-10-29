@@ -5,48 +5,48 @@ import {
   maybeReactNode,
 } from "@/components/templates/helpers/maybeHtml";
 import { DetailContentFragment$key } from "@/relay/DetailContentFragment.graphql";
+import { DetailContentLayoutFragment$key } from "@/relay/DetailContentLayoutFragment.graphql";
+import {
+  useSharedBlockFragment,
+  useSharedInlineFragment,
+} from "@/components/templates/shared.graphql";
 import * as Styled from "./Detail.styles";
-import type { Slot } from "../../templates.types";
 
-type DetailContentData = {
-  subheader: Slot | null;
-  subheaderAside: Slot | null;
-  summary: Slot | null;
-  metadata: Slot | null;
-  cta: Slot | null;
-  contributors: boolean;
+type DetailContentProps = {
   data?: DetailContentFragment$key | null;
+  layoutData?: DetailContentLayoutFragment$key | null;
 };
 
-export default function Content(props: DetailContentData) {
-  const {
-    subheader,
-    subheaderAside,
-    summary,
-    metadata,
-    cta,
-    contributors,
-    data,
-  } = props;
-
+export default function Content({ data, layoutData }: DetailContentProps) {
   const item = useFragment(fragment, data);
+  const template = useFragment(layoutFragment, layoutData);
+
+  const { slots, definition } = template ?? {};
+
+  const subheader = useSharedInlineFragment(slots?.subheader);
+  const subheaderAside = useSharedInlineFragment(slots?.subheaderAside);
+  const metadata = useSharedInlineFragment(slots?.metadata);
+  const summary = useSharedBlockFragment(slots?.subheaderSummary);
+  const cta = useSharedInlineFragment(slots?.callToAction);
 
   return (
     <div>
-      <Styled.SubheaderText className="t-h3">
-        {!!subheader?.content && (
-          <span {...maybeHtml(subheader.content)}>
-            {maybeReactNode(subheader.content)}
-          </span>
-        )}
-        {!!subheaderAside?.content && (
-          <Styled.SubheaderAside {...maybeHtml(subheaderAside.content)}>
-            {maybeReactNode(subheaderAside.content)}
-          </Styled.SubheaderAside>
-        )}
-      </Styled.SubheaderText>
+      {(subheader?.valid || subheaderAside?.valid) && (
+        <Styled.SubheaderText className="t-h3">
+          {!!subheader?.content && (
+            <span {...maybeHtml(subheader.content)}>
+              {maybeReactNode(subheader.content)}
+            </span>
+          )}
+          {!!subheaderAside?.content && (
+            <Styled.SubheaderAside {...maybeHtml(subheaderAside.content)}>
+              {maybeReactNode(subheaderAside.content)}
+            </Styled.SubheaderAside>
+          )}
+        </Styled.SubheaderText>
+      )}
       <Styled.Contributors>
-        {contributors && (
+        {definition?.listContributors && (
           <ContributorsList
             className="t-copy-medium"
             data={item?.contributions}
@@ -55,17 +55,19 @@ export default function Content(props: DetailContentData) {
           />
         )}
       </Styled.Contributors>
-      {!!metadata?.content && (
+      {metadata?.valid && !!metadata?.content && (
         <Styled.Metadata {...maybeHtml(metadata.content)}>
           {maybeReactNode(metadata.content)}
         </Styled.Metadata>
       )}
-      {!!summary?.content && (
+      {summary?.valid && !!summary?.content && (
         <Styled.Summary {...maybeHtml(summary.content)}>
           {maybeReactNode(summary.content)}
         </Styled.Summary>
       )}
-      {!!cta?.content && <Styled.CtaButton {...maybeHtml(cta.content)} />}
+      {cta?.valid && !!cta?.content && (
+        <Styled.CtaButton {...maybeHtml(cta.content)} />
+      )}
     </div>
   );
 }
@@ -76,6 +78,31 @@ const fragment = graphql`
       slug
       contributions {
         ...ContributorsListFragment
+      }
+    }
+  }
+`;
+
+const layoutFragment = graphql`
+  fragment DetailContentLayoutFragment on HeroTemplateInstance {
+    definition {
+      listContributors
+    }
+    slots {
+      subheader {
+        ...sharedInlineSlotFragment
+      }
+      subheaderAside {
+        ...sharedInlineSlotFragment
+      }
+      subheaderSummary {
+        ...sharedBlockSlotFragment
+      }
+      metadata {
+        ...sharedInlineSlotFragment
+      }
+      callToAction {
+        ...sharedInlineSlotFragment
       }
     }
   }

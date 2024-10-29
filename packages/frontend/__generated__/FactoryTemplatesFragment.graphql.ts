@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2d361b8f4f9d6bcc36e2b789f1486e9d>>
+ * @generated SignedSource<<695914ebb0b78f482d2b30a30084af59>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,13 +9,9 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type LayoutKind = "HERO" | "LIST_ITEM" | "MAIN" | "METADATA" | "NAVIGATION" | "SUPPLEMENTARY" | "%future added value";
 export type TemplateKind = "CONTRIBUTOR_LIST" | "DESCENDANT_LIST" | "DETAIL" | "HERO" | "LINK_LIST" | "LIST_ITEM" | "METADATA" | "NAVIGATION" | "ORDERING" | "PAGE_LIST" | "SUPPLEMENTARY" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type FactoryTemplatesFragment$data = {
-  readonly __typename: string;
-  readonly lastRenderedAt?: string | null | undefined;
-  readonly layoutKind?: LayoutKind;
   readonly templateKind?: TemplateKind;
   readonly " $fragmentSpreads": FragmentRefs<"ContributorsTemplateFragment" | "DescendantsTemplateFragment" | "DetailTemplateFragment" | "LinksTemplateFragment" | "OrderingNavigationTemplateFragment" | "PagesTemplateFragment">;
   readonly " $fragmentType": "FactoryTemplatesFragment";
@@ -32,34 +28,13 @@ const node: ReaderFragment = {
   "name": "FactoryTemplatesFragment",
   "selections": [
     {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "__typename",
-      "storageKey": null
-    },
-    {
       "kind": "InlineFragment",
       "selections": [
         {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
-          "name": "layoutKind",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
           "name": "templateKind",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "lastRenderedAt",
           "storageKey": null
         }
       ],
@@ -143,6 +118,6 @@ const node: ReaderFragment = {
   "abstractKey": "__isAnyMainTemplateInstance"
 };
 
-(node as any).hash = "fe81938034af5b90d9d85803fe9b7be2";
+(node as any).hash = "71c4f671d1979d2a57dc67f14bbfae20";
 
 export default node;

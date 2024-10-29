@@ -1,4 +1,4 @@
-import type { ImageAttachment } from "@/types/graphql-schema";
+import { CoverImageFragment$key } from "@/relay/CoverImageFragment.graphql";
 import type { Slot } from "../templates.types";
 
 /*
@@ -7,7 +7,7 @@ import type { Slot } from "../templates.types";
 
 export type ListItem = {
   slots: {
-    thumbnail: ImageAttachment | null;
+    thumbnail: CoverImageFragment$key | null;
     contributors: Slot | null;
     header: Slot | null;
     subheader: Slot | null;

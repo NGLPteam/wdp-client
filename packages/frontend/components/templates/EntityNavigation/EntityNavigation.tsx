@@ -3,6 +3,7 @@
 import { graphql, useFragment } from "react-relay";
 import Container from "@/components/layout/Container";
 import { EntityNavigationTemplateFragment$key } from "@/relay/EntityNavigationTemplateFragment.graphql";
+import { useSharedInlineFragment } from "@/components/templates/shared.graphql";
 
 export type EntityNavigationTemplateData = {
   config: {
@@ -17,38 +18,34 @@ export default function EntityNavigationTemplate({
 }: {
   data?: EntityNavigationTemplateFragment$key | null;
 }) {
-  const template = useFragment(fragment, data);
+  const { template } = useFragment(fragment, data) ?? {};
 
-  const { config } = {
-    config: {
-      background: "light" as const,
-      variant: "tabs" as const,
-      entityLabel: "community",
-    },
-  };
+  const { definition, slots } = template ?? {};
+
+  const entityLabel = useSharedInlineFragment(slots?.entityLabel);
 
   return (
-    <Container bgColor={config.background}>
-      {false && config.variant === "tabs" && (
-        <NavigationTabs entity={config.entityLabel} />
-      )}
+    <Container bgColor={definition?.background}>
+      {/*<NavigationTabs entity={entityLabel} />*/}
+      {entityLabel?.content}
     </Container>
   );
 }
 
 const fragment = graphql`
   fragment EntityNavigationTemplateFragment on NavigationLayoutInstance {
+    __typename
     lastRenderedAt
     template {
       layoutKind
       templateKind
       lastRenderedAt
+      definition {
+        background
+      }
       slots {
-        sampleInline {
-          content
-        }
-        sampleBlock {
-          content
+        entityLabel {
+          ...sharedInlineSlotFragment
         }
       }
     }

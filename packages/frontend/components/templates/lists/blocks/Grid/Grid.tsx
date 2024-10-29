@@ -1,4 +1,5 @@
-import type { DescendantsTemplateData } from "@/components/templates/Descendants/Descendants";
+import { useSharedListTemplateFragment } from "@/components/templates/shared.graphql";
+import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
 import List from "../../List/";
 import SeeAll from "../../SeeAll";
 import * as Styled from "./Grid.styles";
@@ -6,20 +7,30 @@ import * as Styled from "./Grid.styles";
 export default function GridListBlock({
   data,
 }: {
-  data: DescendantsTemplateData;
+  data?: sharedListTemplateFragment$key | null;
 }) {
-  const { config, slots } = data;
+  const {
+    linksDefinition,
+    descendantsDefinition,
+    slots: _slots,
+  } = useSharedListTemplateFragment(data);
+
+  const { background, title, showSeeAllButton, seeAllButtonLabel } =
+    linksDefinition ?? descendantsDefinition ?? {};
+
+  const showHeroImage = false;
 
   return (
-    <Styled.Container $gap={50} bgColor={config.background}>
-      {config.heroImage && <Styled.HeroImage />}
-      {!!config.blockTitle && <h3>{config.blockTitle}</h3>}
-      <List
-        items={slots.items}
-        variant={config.variant}
-        bgColor={config.background}
+    <Styled.Container $gap={50} bgColor={background}>
+      {showHeroImage && <Styled.HeroImage />}
+      {!!title && <h3>{title}</h3>}
+      <List variant="GRID" bgColor={background} items={[]} />
+      <SeeAll
+        alignment="center"
+        visible={!!showSeeAllButton}
+        buttonLabel={seeAllButtonLabel}
+        schema="schema"
       />
-      <SeeAll alignment="center" {...config.seeAll} />
     </Styled.Container>
   );
 }
