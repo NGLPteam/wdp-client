@@ -1,38 +1,59 @@
+import { graphql, useFragment } from "react-relay";
 import {
   maybeHtml,
   maybeReactNode,
 } from "@/components/templates/helpers/maybeHtml";
 import type { HeroImageLayout } from "@/types/graphql-schema";
+import {
+  useSharedBlockFragment,
+  useSharedInlineFragment,
+} from "@/components/templates/shared.graphql";
+import { HeaderTitleBlockFragment$key } from "@/relay/HeaderTitleBlockFragment.graphql";
 import * as Styled from "./Header.styles";
-import type { Slot } from "../../templates.types";
 
-type TitleBlockData = {
-  header: Slot | null;
-  headerAside: Slot | null;
-  headerSummary: Slot | null;
+type TitleBlockProps = {
+  data?: HeaderTitleBlockFragment$key | null;
   layout?: HeroImageLayout;
 };
 
-export default function TitleBlock(data: TitleBlockData) {
-  const { header, headerAside, headerSummary, layout } = data;
+export default function TitleBlock({ data, layout }: TitleBlockProps) {
+  const slots = useFragment(fragment, data);
+
+  const header = useSharedInlineFragment(slots?.header);
+  const headerAside = useSharedInlineFragment(slots?.headerAside);
+  const summary = useSharedBlockFragment(slots?.summary);
 
   return (
     <Styled.Left>
-      {!!header?.content && (
+      {!!header?.content && header.valid && (
         <h1 className="t-h2" {...maybeHtml(header.content)}>
           {maybeReactNode(header.content)}
         </h1>
       )}
-      {!!headerAside?.content && (
+      {!!headerAside?.content && headerAside.valid && (
         <Styled.Aside $layout={layout} {...maybeHtml(headerAside.content)}>
           {maybeReactNode(headerAside.content)}
         </Styled.Aside>
       )}
-      {!!headerSummary?.content && (
-        <Styled.Summary className="t-h3" {...maybeHtml(headerSummary.content)}>
-          {maybeReactNode(headerSummary.content)}
+      {!!summary?.content && summary.valid && (
+        <Styled.Summary className="t-h3" {...maybeHtml(summary.content)}>
+          {maybeReactNode(summary.content)}
         </Styled.Summary>
       )}
     </Styled.Left>
   );
 }
+
+const fragment = graphql`
+  fragment HeaderTitleBlockFragment on HeroTemplateInstanceSlots {
+    header {
+      ...sharedInlineSlotFragment
+    }
+    headerAside {
+      ...sharedInlineSlotFragment
+    }
+    summary {
+      ...sharedBlockSlotFragment
+    }
+  }
+`;

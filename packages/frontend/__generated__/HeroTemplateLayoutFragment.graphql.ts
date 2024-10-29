@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<50605a7a6feb9df5760bc2aae5c67c6b>>
+ * @generated SignedSource<<5f1cd22890a3ebf82428a09f3b65315f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,23 +9,36 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type HeroBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
 export type LayoutKind = "HERO" | "LIST_ITEM" | "MAIN" | "METADATA" | "NAVIGATION" | "SUPPLEMENTARY" | "%future added value";
 export type TemplateKind = "CONTRIBUTOR_LIST" | "DESCENDANT_LIST" | "DETAIL" | "HERO" | "LINK_LIST" | "LIST_ITEM" | "METADATA" | "NAVIGATION" | "ORDERING" | "PAGE_LIST" | "SUPPLEMENTARY" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type HeroTemplateLayoutFragment$data = {
   readonly lastRenderedAt: string | null | undefined;
   readonly template: {
+    readonly definition: {
+      readonly background: HeroBackground | null | undefined;
+      readonly descendantSearchPrompt: string | null | undefined;
+      readonly enableDescendantBrowsing: boolean | null | undefined;
+      readonly enableDescendantSearch: boolean | null | undefined;
+      readonly listContributors: boolean | null | undefined;
+      readonly showBasicViewMetrics: boolean | null | undefined;
+      readonly showBigSearchPrompt: boolean | null | undefined;
+      readonly showBreadcrumbs: boolean | null | undefined;
+      readonly showDOI: boolean | null | undefined;
+      readonly showHeroImage: boolean | null | undefined;
+      readonly showISSN: boolean | null | undefined;
+      readonly showSharingLink: boolean | null | undefined;
+      readonly showSplitDisplay: boolean | null | undefined;
+      readonly showThumbnailImage: boolean | null | undefined;
+    };
     readonly lastRenderedAt: string | null | undefined;
     readonly layoutKind: LayoutKind;
     readonly slots: {
-      readonly sampleBlock: {
-        readonly content: string | null | undefined;
-      } | null | undefined;
-      readonly sampleInline: {
-        readonly content: string | null | undefined;
-      } | null | undefined;
+      readonly " $fragmentSpreads": FragmentRefs<"HeaderHeroFragment">;
     };
     readonly templateKind: TemplateKind;
+    readonly " $fragmentSpreads": FragmentRefs<"DetailHeroLayoutFragment">;
   } | null | undefined;
   readonly " $fragmentType": "HeroTemplateLayoutFragment";
 };
@@ -41,16 +54,7 @@ var v0 = {
   "kind": "ScalarField",
   "name": "lastRenderedAt",
   "storageKey": null
-},
-v1 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "content",
-    "storageKey": null
-  }
-];
+};
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -84,33 +88,132 @@ return {
         {
           "alias": null,
           "args": null,
+          "concreteType": "HeroTemplateDefinition",
+          "kind": "LinkedField",
+          "name": "definition",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "background",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "descendantSearchPrompt",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "enableDescendantBrowsing",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "enableDescendantSearch",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "showBreadcrumbs",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "showDOI",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "showISSN",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "showHeroImage",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "showSharingLink",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "showSplitDisplay",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "showThumbnailImage",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "showBigSearchPrompt",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "listContributors",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "showBasicViewMetrics",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "HeroTemplateInstanceSlots",
           "kind": "LinkedField",
           "name": "slots",
           "plural": false,
           "selections": [
             {
-              "alias": null,
               "args": null,
-              "concreteType": "TemplateSlotInlineInstance",
-              "kind": "LinkedField",
-              "name": "sampleInline",
-              "plural": false,
-              "selections": (v1/*: any*/),
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "TemplateSlotBlockInstance",
-              "kind": "LinkedField",
-              "name": "sampleBlock",
-              "plural": false,
-              "selections": (v1/*: any*/),
-              "storageKey": null
+              "kind": "FragmentSpread",
+              "name": "HeaderHeroFragment"
             }
           ],
           "storageKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "DetailHeroLayoutFragment"
         }
       ],
       "storageKey": null
@@ -121,6 +224,6 @@ return {
 };
 })();
 
-(node as any).hash = "a5c5027c029a5a833b68c65042ea075d";
+(node as any).hash = "8d73c9bc92e401de8ceb43334874c44f";
 
 export default node;

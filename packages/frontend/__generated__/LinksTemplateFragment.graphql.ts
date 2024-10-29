@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8e251f165566749f4fc49974a0de61ae>>
+ * @generated SignedSource<<b07e6a4544dc21aed80ca530adb910b6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,13 +9,14 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type LinkListVariant = "CARDS" | "COMPACT" | "GRID" | "PROMOS" | "SUMMARY" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type LinksTemplateFragment$data = {
-  readonly slots: {
-    readonly sampleBlock: {
-      readonly content: string | null | undefined;
-    } | null | undefined;
+  readonly __typename: "LinkListTemplateInstance";
+  readonly linksDefinition?: {
+    readonly variant: LinkListVariant | null | undefined;
   };
+  readonly " $fragmentSpreads": FragmentRefs<"sharedListTemplateFragment">;
   readonly " $fragmentType": "LinksTemplateFragment";
 };
 export type LinksTemplateFragment$key = {
@@ -30,39 +31,47 @@ const node: ReaderFragment = {
   "name": "LinksTemplateFragment",
   "selections": [
     {
-      "alias": null,
-      "args": null,
-      "concreteType": "LinkListTemplateInstanceSlots",
-      "kind": "LinkedField",
-      "name": "slots",
-      "plural": false,
+      "kind": "InlineFragment",
       "selections": [
         {
           "alias": null,
           "args": null,
-          "concreteType": "TemplateSlotBlockInstance",
+          "kind": "ScalarField",
+          "name": "__typename",
+          "storageKey": null
+        },
+        {
+          "alias": "linksDefinition",
+          "args": null,
+          "concreteType": "LinkListTemplateDefinition",
           "kind": "LinkedField",
-          "name": "sampleBlock",
+          "name": "definition",
           "plural": false,
           "selections": [
             {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "content",
+              "name": "variant",
               "storageKey": null
             }
           ],
           "storageKey": null
         }
       ],
-      "storageKey": null
+      "type": "LinkListTemplateInstance",
+      "abstractKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "sharedListTemplateFragment"
     }
   ],
-  "type": "LinkListTemplateInstance",
-  "abstractKey": null
+  "type": "AnyMainTemplateInstance",
+  "abstractKey": "__isAnyMainTemplateInstance"
 };
 
-(node as any).hash = "3e1a69f06e1e4112f34d3778d1cf74b6";
+(node as any).hash = "14b4e04062118018bd9e3ccfd4abee78";
 
 export default node;

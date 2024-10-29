@@ -3,7 +3,7 @@ import * as Styled from "./SeeAll.styles";
 
 export type SeeAllProps = {
   visible: boolean;
-  buttonLabel: string | null;
+  buttonLabel?: string | null;
   schema: string | null;
   alignment: "center" | "left";
 };
