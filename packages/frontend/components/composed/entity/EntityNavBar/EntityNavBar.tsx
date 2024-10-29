@@ -46,8 +46,8 @@ export default function EntityNavBar({
 
 type Props = {
   data?: EntityNavBarFragment$key | null;
-  showBrowse?: boolean;
-  showSearch?: boolean;
+  showBrowse?: boolean | null;
+  showSearch?: boolean | null;
 };
 
 const fragment = graphql`

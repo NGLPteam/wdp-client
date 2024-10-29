@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7237ddee1edaed6e52748e8ab7c17da7>>
+ * @generated SignedSource<<e4d2186c1b96eb4dd7cff182a571856c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,33 +9,33 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type DetailBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
-export type DetailVariant = "FULL" | "SUMMARY" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
-export type DetailTemplateFragment$data = {
-  readonly __typename: "DetailTemplateInstance";
-  readonly detailDefinition: {
-    readonly background: DetailBackground | null | undefined;
-    readonly showAnnouncements: boolean | null | undefined;
-    readonly showHeroImage: boolean | null | undefined;
-    readonly variant: DetailVariant | null | undefined;
+export type DetailContentLayoutFragment$data = {
+  readonly definition: {
+    readonly listContributors: boolean | null | undefined;
   };
   readonly slots: {
-    readonly header: {
+    readonly callToAction: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+    } | null | undefined;
+    readonly metadata: {
       readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
     } | null | undefined;
     readonly subheader: {
       readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
     } | null | undefined;
-    readonly summary: {
+    readonly subheaderAside: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+    } | null | undefined;
+    readonly subheaderSummary: {
       readonly " $fragmentSpreads": FragmentRefs<"sharedBlockSlotFragment">;
     } | null | undefined;
   };
-  readonly " $fragmentType": "DetailTemplateFragment";
+  readonly " $fragmentType": "DetailContentLayoutFragment";
 };
-export type DetailTemplateFragment$key = {
-  readonly " $data"?: DetailTemplateFragment$data;
-  readonly " $fragmentSpreads": FragmentRefs<"DetailTemplateFragment">;
+export type DetailContentLayoutFragment$key = {
+  readonly " $data"?: DetailContentLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"DetailContentLayoutFragment">;
 };
 
 const node: ReaderFragment = (function(){
@@ -50,19 +50,12 @@ return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "DetailTemplateFragment",
+  "name": "DetailContentLayoutFragment",
   "selections": [
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "__typename",
-      "storageKey": null
-    },
-    {
-      "alias": "detailDefinition",
-      "args": null,
-      "concreteType": "DetailTemplateDefinition",
+      "concreteType": "HeroTemplateDefinition",
       "kind": "LinkedField",
       "name": "definition",
       "plural": false,
@@ -71,28 +64,7 @@ return {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
-          "name": "background",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "variant",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "showAnnouncements",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "showHeroImage",
+          "name": "listContributors",
           "storageKey": null
         }
       ],
@@ -101,21 +73,11 @@ return {
     {
       "alias": null,
       "args": null,
-      "concreteType": "DetailTemplateInstanceSlots",
+      "concreteType": "HeroTemplateInstanceSlots",
       "kind": "LinkedField",
       "name": "slots",
       "plural": false,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "TemplateSlotInlineInstance",
-          "kind": "LinkedField",
-          "name": "header",
-          "plural": false,
-          "selections": (v0/*: any*/),
-          "storageKey": null
-        },
         {
           "alias": null,
           "args": null,
@@ -129,9 +91,19 @@ return {
         {
           "alias": null,
           "args": null,
+          "concreteType": "TemplateSlotInlineInstance",
+          "kind": "LinkedField",
+          "name": "subheaderAside",
+          "plural": false,
+          "selections": (v0/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "TemplateSlotBlockInstance",
           "kind": "LinkedField",
-          "name": "summary",
+          "name": "subheaderSummary",
           "plural": false,
           "selections": [
             {
@@ -141,16 +113,36 @@ return {
             }
           ],
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "TemplateSlotInlineInstance",
+          "kind": "LinkedField",
+          "name": "metadata",
+          "plural": false,
+          "selections": (v0/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "TemplateSlotInlineInstance",
+          "kind": "LinkedField",
+          "name": "callToAction",
+          "plural": false,
+          "selections": (v0/*: any*/),
+          "storageKey": null
         }
       ],
       "storageKey": null
     }
   ],
-  "type": "DetailTemplateInstance",
+  "type": "HeroTemplateInstance",
   "abstractKey": null
 };
 })();
 
-(node as any).hash = "43a352a38010416cabef3b08e23422d0";
+(node as any).hash = "ed1de2e3b8b3c88cb8c025d11eb40d4f";
 
 export default node;

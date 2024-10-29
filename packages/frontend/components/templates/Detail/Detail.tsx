@@ -1,45 +1,27 @@
 import { graphql, useFragment } from "react-relay";
 import Container from "@/components/layout/Container";
 import { DetailTemplateFragment$key } from "@/relay/DetailTemplateFragment.graphql";
-import type { Slot } from "../templates.types";
-
-export type DetailTemplateData = {
-  config: {
-    background: "none" | "light" | "dark";
-    variant: "summary" | "full";
-    heroImage: boolean;
-    announcements: boolean;
-  };
-  slots: {
-    header: Slot;
-    subheader: Slot;
-    summary: Slot;
-  };
-};
+import SummaryVariant from "./Summary";
+import FullVariant from "./Full";
 
 export default function DetailTemplate({
   data,
 }: {
-  data: DetailTemplateFragment$key;
+  data?: DetailTemplateFragment$key | null;
 }) {
   const template = useFragment(fragment, data);
 
-  const { config, slots } = {
-    config: {
-      background: "light" as const,
-      variant: "summary" as const,
-      announcements: false,
-      heroImage: true,
-    },
-    slots: {},
-  };
+  const { detailDefinition, slots: _slots } = template ?? {};
+
+  const { background, variant, showAnnouncements, showHeroImage } =
+    detailDefinition ?? {};
 
   return (
-    <Container bgColor={config.background}>
-      {config.variant === "summary" ? (
-        <SummaryVariant showAnnouncements={config.announcements} data={slots} />
+    <Container bgColor={background}>
+      {variant === "SUMMARY" ? (
+        <SummaryVariant showAnnouncements={showAnnouncements} />
       ) : (
-        <FullVariant showHeroImage={config.heroImage} data={slots} />
+        <FullVariant showHeroImage={showHeroImage} />
       )}
     </Container>
   );
@@ -47,9 +29,22 @@ export default function DetailTemplate({
 
 const fragment = graphql`
   fragment DetailTemplateFragment on DetailTemplateInstance {
+    __typename
+    detailDefinition: definition {
+      background
+      variant
+      showAnnouncements
+      showHeroImage
+    }
     slots {
-      sampleBlock {
-        content
+      header {
+        ...sharedInlineSlotFragment
+      }
+      subheader {
+        ...sharedInlineSlotFragment
+      }
+      summary {
+        ...sharedBlockSlotFragment
       }
     }
   }

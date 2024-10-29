@@ -1,43 +1,32 @@
 import { graphql, useFragment } from "react-relay";
 import Container from "@/components/layout/Container";
 import { OrderingNavigationTemplateFragment$key } from "@/relay/OrderingNavigationTemplateFragment.graphql";
-
-export type OrderingNavigationTemplateData = {
-  config: {
-    background: "none" | "light" | "dark";
-    variant: "previousNext";
-    ordering: Ordering;
-  };
-};
+import NavButtons from "./NavButtons";
 
 export default function OrderingNavigationTemplate({
   data,
 }: {
-  data: OrderingNavigationTemplateFragment$key;
+  data?: OrderingNavigationTemplateFragment$key | null;
 }) {
   const template = useFragment(fragment, data);
 
-  const config = {
-    background: "light",
-    variant: "previousNext",
-    ordering: "issues",
-  };
+  const { orderingDefinition, slots } = template ?? {};
 
   return (
-    <Container bgColor="light">
-      {config.variant === "previousNext" && (
-        <OrderingNavigation ordering={config.ordering} />
-      )}
+    <Container bgColor={orderingDefinition?.background}>
+      <NavButtons data={slots} ordering="needs_to_be_added" />
     </Container>
   );
 }
 
 const fragment = graphql`
   fragment OrderingNavigationTemplateFragment on OrderingTemplateInstance {
+    __typename
+    orderingDefinition: definition {
+      background
+    }
     slots {
-      sampleBlock {
-        content
-      }
+      ...NavButtonsFragment
     }
   }
 `;

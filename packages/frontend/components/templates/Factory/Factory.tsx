@@ -2,45 +2,25 @@
 
 import { graphql, useFragment } from "react-relay";
 import { FactoryTemplatesFragment$key } from "@/relay/FactoryTemplatesFragment.graphql";
-import Descendants, {
-  type DescendantsTemplateData,
-} from "../Descendants/Descendants";
-import Detail, { type DetailTemplateData } from "../Detail/Detail";
-import Contributors, {
-  type ContributorsTemplateData,
-} from "../Contributors/Contributors";
-import EntityNavigation, {
-  type EntityNavigationTemplateData,
-} from "../EntityNavigation/EntityNavigation";
-import Links, { type LinksTemplateData } from "../Links/Links";
-import OrderingNavigation, {
-  type OrderingNavigationTemplateData,
-} from "../OrderingNavigation/OrderingNavigation";
-import Pages, { type PagesTemplateData } from "../Pages/Pages";
-
-type AnyTemplate = (
-  | DescendantsTemplateData
-  | DetailTemplateData
-  | ContributorsTemplateData
-  | EntityNavigationTemplateData
-  | LinksTemplateData
-  | OrderingNavigationTemplateData
-  | PagesTemplateData
-) & { _typename: string };
-
-// type TemplateData = {
-//   hero: HeroTemplateData;
-//   templates?: AnyTemplate[];
-// };
+import Descendants from "../Descendants";
+import Detail from "../Detail";
+import Contributors from "../Contributors";
+import Links from "../Links";
+import OrderingNavigation from "../OrderingNavigation";
+import Pages from "../Pages";
 
 const TEMPLATE_COMPONENT_MAP = {
-  descendants: Descendants,
-  detail: Detail,
-  contributors: Contributors,
-  links: Links,
-  pages: Pages,
-  entityNavigation: EntityNavigation,
-  orderingNavigation: OrderingNavigation,
+  DESCENDANT_LIST: Descendants,
+  DETAIL: Detail,
+  CONTRIBUTOR_LIST: Contributors,
+  LINK_LIST: Links,
+  PAGE_LIST: Pages,
+  ORDERING: OrderingNavigation,
+  METADATA: null,
+  HERO: null,
+  LIST_ITEM: null,
+  SUPPLEMENTARY: null,
+  NAVIGATION: null,
 };
 
 export default function TemplateFactory({
@@ -50,23 +30,22 @@ export default function TemplateFactory({
 }) {
   const template = useFragment(fragment, data);
 
-  if (!template) return null;
+  if (
+    !template ||
+    !template.templateKind ||
+    template.templateKind === "%future added value"
+  )
+    return null;
 
-  const Template =
-    TEMPLATE_COMPONENT_MAP[
-      template.__typename as keyof typeof TEMPLATE_COMPONENT_MAP
-    ];
+  const Template = TEMPLATE_COMPONENT_MAP[template.templateKind];
 
-  return <Template data={template} />;
+  return Template ? <Template data={template} /> : null;
 }
 
 const fragment = graphql`
   fragment FactoryTemplatesFragment on AnyMainTemplateInstance {
-    __typename
     ... on TemplateInstance {
-      layoutKind
       templateKind
-      lastRenderedAt
     }
     ... on ContributorListTemplateInstance {
       ...ContributorsTemplateFragment

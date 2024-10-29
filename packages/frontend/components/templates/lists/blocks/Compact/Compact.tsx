@@ -1,4 +1,5 @@
-import type { DescendantsTemplateData } from "@/components/templates/Descendants/Descendants";
+import { useSharedListTemplateFragment } from "@/components/templates/shared.graphql";
+import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
 import List from "../../List";
 import SeeAll from "../../SeeAll";
 import * as Styled from "./Compact.styles";
@@ -6,26 +7,34 @@ import * as Styled from "./Compact.styles";
 export default function CompactListBlock({
   data,
 }: {
-  data: DescendantsTemplateData;
+  data?: sharedListTemplateFragment$key | null;
 }) {
-  const { config, slots } = data;
+  const {
+    linksDefinition,
+    descendantsDefinition,
+    slots: _slots,
+  } = useSharedListTemplateFragment(data);
+
+  const { background, title, showSeeAllButton, seeAllButtonLabel } =
+    linksDefinition ?? descendantsDefinition ?? {};
+
+  const showHeroImage = false;
 
   return (
-    <Styled.Container $gap={50} bgColor={config.background}>
+    <Styled.Container $gap={50} bgColor={background}>
       <Styled.Grid>
         <Styled.TextColumn>
-          {!!config.blockTitle && (
-            <Styled.Header>{config.blockTitle}</Styled.Header>
-          )}
-          <List
-            items={slots.items}
-            variant={config.variant}
-            bgColor={config.background}
-          />
+          {!!title && <Styled.Header>{title}</Styled.Header>}
+          <List variant="COMPACT" bgColor={background} items={[]} />
         </Styled.TextColumn>
-        {config.heroImage && <Styled.HeroImage />}
+        {showHeroImage && <Styled.HeroImage />}
       </Styled.Grid>
-      <SeeAll alignment="left" {...config.seeAll} />
+      <SeeAll
+        alignment="left"
+        visible={!!showSeeAllButton}
+        buttonLabel={seeAllButtonLabel}
+        schema="schema"
+      />
     </Styled.Container>
   );
 }

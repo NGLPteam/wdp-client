@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { IconFactory } from "components/factories";
 import * as Styled from "./SearchHero.styles";
 
-export default function SearchHero({ prompt }: { prompt: string }) {
+export default function SearchHero({ prompt }: { prompt?: string | null }) {
   const { t } = useTranslation();
 
   const router = useRouter();

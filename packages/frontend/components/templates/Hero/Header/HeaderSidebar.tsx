@@ -1,20 +1,26 @@
+import { useFragment } from "react-relay";
 import {
   maybeHtml,
   maybeReactNode,
 } from "@/components/templates/helpers/maybeHtml";
+import { templateSlotBlockFragment } from "@/components/templates/shared.graphql";
+import { sharedBlockSlotFragment$key } from "@/relay/sharedBlockSlotFragment.graphql";
 import * as Styled from "./Header.styles";
-import type { Slot } from "../../templates.types";
 
-type SidebarData = {
-  sidebar: Slot | null;
-};
+export default function Sidebar({
+  data,
+}: {
+  data?: sharedBlockSlotFragment$key | null;
+}) {
+  const sidebar = useFragment(templateSlotBlockFragment, data);
 
-export default function Sidebar(data: SidebarData) {
-  return data.sidebar ? (
+  return sidebar?.valid ? (
     <Styled.Right>
-      <Styled.Wrapper {...maybeHtml(data.sidebar.content)}>
-        {maybeReactNode(data.sidebar.content)}
-      </Styled.Wrapper>
+      {sidebar?.content && (
+        <Styled.Wrapper {...maybeHtml(sidebar.content)}>
+          {maybeReactNode(sidebar.content)}
+        </Styled.Wrapper>
+      )}
     </Styled.Right>
   ) : null;
 }

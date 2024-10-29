@@ -1,4 +1,5 @@
-import type { DescendantsTemplateData } from "@/components/templates/Descendants/Descendants";
+import { useSharedListTemplateFragment } from "@/components/templates/shared.graphql";
+import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
 import List from "../../List/";
 import SeeAll from "../../SeeAll";
 import * as Styled from "./Summary.styles";
@@ -6,40 +7,46 @@ import * as Styled from "./Summary.styles";
 export default function SummaryListBlock({
   data,
 }: {
-  data: DescendantsTemplateData;
+  data?: sharedListTemplateFragment$key | null;
 }) {
-  const { config, slots } = data;
-  const { entity } = slots;
+  const { linksDefinition, descendantsDefinition, slots } =
+    useSharedListTemplateFragment(data);
+
+  const { background, title, showSeeAllButton, seeAllButtonLabel } =
+    linksDefinition ?? descendantsDefinition ?? {};
+
+  const { header, subtitle, metadata } = slots ?? {};
+
+  const showHeroImage = false;
 
   return (
-    <Styled.Container bgColor={config.background}>
+    <Styled.Container bgColor={background}>
       <Styled.Grid>
         <Styled.TextColumn>
-          {!!config.blockTitle && (
-            <Styled.Header>{config.blockTitle}</Styled.Header>
-          )}
+          {!!title && <Styled.Header>{title}</Styled.Header>}
           <Styled.Entity>
-            {entity.context?.valid && (
-              <Styled.Context>{entity.context.content}</Styled.Context>
+            {/*{context?.valid && (
+              <Styled.Context>{context.content}</Styled.Context>
+            )}*/}
+            {header?.valid && !!header.content && (
+              <Styled.EntityHeader>{header.content}</Styled.EntityHeader>
             )}
-            {entity.header?.valid && (
-              <Styled.EntityHeader>{entity.header.content}</Styled.EntityHeader>
+            {subtitle?.valid && !!subtitle.content && (
+              <Styled.Subheader>{subtitle.content}</Styled.Subheader>
             )}
-            {entity.subheader?.valid && (
-              <Styled.Subheader>{entity.subheader.content}</Styled.Subheader>
-            )}
-            {entity.metadata?.valid && (
-              <Styled.Metadata>{entity.metadata.content}</Styled.Metadata>
+            {metadata?.valid && !!metadata.content && (
+              <Styled.Metadata>{metadata.content}</Styled.Metadata>
             )}
           </Styled.Entity>
-          <List
-            items={slots.items}
-            variant={config.variant}
-            bgColor={config.background}
+          <List variant="SUMMARY" bgColor={background} items={[]} />
+          <SeeAll
+            alignment="left"
+            visible={!!showSeeAllButton}
+            buttonLabel={seeAllButtonLabel}
+            schema="schema"
           />
-          <SeeAll alignment="left" {...config.seeAll} />
         </Styled.TextColumn>
-        {config.heroImage && <Styled.HeroImage />}
+        {showHeroImage && <Styled.HeroImage />}
       </Styled.Grid>
     </Styled.Container>
   );

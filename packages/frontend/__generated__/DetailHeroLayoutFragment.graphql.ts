@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a2afb4e07fc0906c20e726169b8f3397>>
+ * @generated SignedSource<<81595c40cc62d87936b9777a90a44120>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,42 +9,34 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type PageListBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
-export type PagesTemplateFragment$data = {
-  readonly __typename: "PageListTemplateInstance";
-  readonly pagesDefinition: {
-    readonly background: PageListBackground | null | undefined;
+export type DetailHeroLayoutFragment$data = {
+  readonly definition: {
+    readonly showThumbnailImage: boolean | null | undefined;
   };
   readonly slots: {
-    readonly header: {
-      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+    readonly sidebar: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedBlockSlotFragment">;
     } | null | undefined;
   };
-  readonly " $fragmentType": "PagesTemplateFragment";
+  readonly " $fragmentSpreads": FragmentRefs<"DetailContentLayoutFragment">;
+  readonly " $fragmentType": "DetailHeroLayoutFragment";
 };
-export type PagesTemplateFragment$key = {
-  readonly " $data"?: PagesTemplateFragment$data;
-  readonly " $fragmentSpreads": FragmentRefs<"PagesTemplateFragment">;
+export type DetailHeroLayoutFragment$key = {
+  readonly " $data"?: DetailHeroLayoutFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"DetailHeroLayoutFragment">;
 };
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "PagesTemplateFragment",
+  "name": "DetailHeroLayoutFragment",
   "selections": [
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "__typename",
-      "storageKey": null
-    },
-    {
-      "alias": "pagesDefinition",
-      "args": null,
-      "concreteType": "PageListTemplateDefinition",
+      "concreteType": "HeroTemplateDefinition",
       "kind": "LinkedField",
       "name": "definition",
       "plural": false,
@@ -53,7 +45,7 @@ const node: ReaderFragment = {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
-          "name": "background",
+          "name": "showThumbnailImage",
           "storageKey": null
         }
       ],
@@ -62,7 +54,7 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "PageListTemplateInstanceSlots",
+      "concreteType": "HeroTemplateInstanceSlots",
       "kind": "LinkedField",
       "name": "slots",
       "plural": false,
@@ -70,27 +62,32 @@ const node: ReaderFragment = {
         {
           "alias": null,
           "args": null,
-          "concreteType": "TemplateSlotInlineInstance",
+          "concreteType": "TemplateSlotBlockInstance",
           "kind": "LinkedField",
-          "name": "header",
+          "name": "sidebar",
           "plural": false,
           "selections": [
             {
               "args": null,
               "kind": "FragmentSpread",
-              "name": "sharedInlineSlotFragment"
+              "name": "sharedBlockSlotFragment"
             }
           ],
           "storageKey": null
         }
       ],
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "DetailContentLayoutFragment"
     }
   ],
-  "type": "PageListTemplateInstance",
+  "type": "HeroTemplateInstance",
   "abstractKey": null
 };
 
-(node as any).hash = "f3228e3e47d4b226bb207f4a62d9216a";
+(node as any).hash = "d0ca9ec0e703326aa0a48b988d7c493f";
 
 export default node;
