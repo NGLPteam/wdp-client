@@ -31,11 +31,14 @@ module.exports = {
 
     // Typescript rules
     "@typescript-eslint/no-unused-vars": [
-      "error", 
-      { 
-        argsIgnorePattern: "^_", 
-        ignoreRestSiblings: true,  
-      }
+      "error",
+      {
+        varsIgnorePattern: "^_",
+        argsIgnorePattern: "^_",
+        destructuredArrayIgnorePattern: "^_",
+        ignoreRestSiblings: true,
+        caughtErrors: "none",
+      },
     ],
     "@typescript-eslint/ban-ts-comment": [
       "error",
