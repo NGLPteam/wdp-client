@@ -1,7 +1,7 @@
 import { graphql, useFragment } from "react-relay";
 import { PagesTemplateFragment$key } from "@/relay/PagesTemplateFragment.graphql";
 import Container from "@/components/layout/Container";
-import { useSharedInlineFragment } from "@/components/templates/shared.graphql";
+import List from "./List";
 
 export default function PagesListTemplate({
   data,
@@ -10,14 +10,11 @@ export default function PagesListTemplate({
 }) {
   const template = useFragment(fragment, data);
 
-  const { pagesDefinition, slots } = template ?? {};
-
-  const header = useSharedInlineFragment(slots?.header);
+  const { pagesDefinition } = template ?? {};
 
   return (
     <Container bgColor={pagesDefinition?.background}>
-      {/*<PagesList header={header} />*/}
-      {header?.content}
+      <List />
     </Container>
   );
 }
@@ -27,11 +24,6 @@ const fragment = graphql`
     __typename
     pagesDefinition: definition {
       background
-    }
-    slots {
-      header {
-        ...sharedInlineSlotFragment
-      }
     }
   }
 `;

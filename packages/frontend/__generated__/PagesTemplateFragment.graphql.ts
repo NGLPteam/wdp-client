@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a2afb4e07fc0906c20e726169b8f3397>>
+ * @generated SignedSource<<cb445d63bb13f2c5d8508f4ba2d948ea>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,11 +15,6 @@ export type PagesTemplateFragment$data = {
   readonly __typename: "PageListTemplateInstance";
   readonly pagesDefinition: {
     readonly background: PageListBackground | null | undefined;
-  };
-  readonly slots: {
-    readonly header: {
-      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
-    } | null | undefined;
   };
   readonly " $fragmentType": "PagesTemplateFragment";
 };
@@ -58,39 +53,12 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "PageListTemplateInstanceSlots",
-      "kind": "LinkedField",
-      "name": "slots",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "TemplateSlotInlineInstance",
-          "kind": "LinkedField",
-          "name": "header",
-          "plural": false,
-          "selections": [
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "sharedInlineSlotFragment"
-            }
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
     }
   ],
   "type": "PageListTemplateInstance",
   "abstractKey": null
 };
 
-(node as any).hash = "f3228e3e47d4b226bb207f4a62d9216a";
+(node as any).hash = "61145ad40769f738c54799811842fc9e";
 
 export default node;
