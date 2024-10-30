@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c936fa51c0227313a12e7023f551a57c>>
+ * @generated SignedSource<<32fc74cd4beeced66005a985e51372ac>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,18 +9,12 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type ContributorListBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type ContributorsTemplateFragment$data = {
-  readonly __typename: "ContributorListTemplateInstance";
-  readonly contributorsDefinition: {
-    readonly background: ContributorListBackground | null | undefined;
-    readonly limit: number | null | undefined;
-  };
-  readonly slots: {
-    readonly header: {
-      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
-    } | null | undefined;
+  readonly contributions?: {
+    readonly nodes: ReadonlyArray<{
+      readonly " $fragmentSpreads": FragmentRefs<"ContributorBlockFragment">;
+    }>;
   };
   readonly " $fragmentType": "ContributorsTemplateFragment";
 };
@@ -29,76 +23,82 @@ export type ContributorsTemplateFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"ContributorsTemplateFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  {
+    "args": null,
+    "kind": "FragmentSpread",
+    "name": "ContributorBlockFragment"
+  }
+];
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "ContributorsTemplateFragment",
   "selections": [
     {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "__typename",
-      "storageKey": null
-    },
-    {
-      "alias": "contributorsDefinition",
-      "args": null,
-      "concreteType": "ContributorListTemplateDefinition",
-      "kind": "LinkedField",
-      "name": "definition",
-      "plural": false,
+      "kind": "InlineFragment",
       "selections": [
         {
           "alias": null,
           "args": null,
-          "kind": "ScalarField",
-          "name": "background",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "limit",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ContributorListTemplateInstanceSlots",
-      "kind": "LinkedField",
-      "name": "slots",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "TemplateSlotInlineInstance",
+          "concreteType": "ItemContributionConnection",
           "kind": "LinkedField",
-          "name": "header",
+          "name": "contributions",
           "plural": false,
           "selections": [
             {
+              "alias": null,
               "args": null,
-              "kind": "FragmentSpread",
-              "name": "sharedInlineSlotFragment"
+              "concreteType": "ItemContribution",
+              "kind": "LinkedField",
+              "name": "nodes",
+              "plural": true,
+              "selections": (v0/*: any*/),
+              "storageKey": null
             }
           ],
           "storageKey": null
         }
       ],
-      "storageKey": null
+      "type": "Item",
+      "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "CollectionContributionConnection",
+          "kind": "LinkedField",
+          "name": "contributions",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "CollectionContribution",
+              "kind": "LinkedField",
+              "name": "nodes",
+              "plural": true,
+              "selections": (v0/*: any*/),
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "type": "Collection",
+      "abstractKey": null
     }
   ],
-  "type": "ContributorListTemplateInstance",
-  "abstractKey": null
+  "type": "AnyEntity",
+  "abstractKey": "__isAnyEntity"
 };
+})();
 
-(node as any).hash = "392979c5e2ecaae0addeb3e4faa1aae7";
+(node as any).hash = "ba611e2359b603efaa3fed5ae4a74751";
 
 export default node;

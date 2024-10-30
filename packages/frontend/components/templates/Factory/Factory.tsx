@@ -2,6 +2,7 @@
 
 import { graphql, useFragment } from "react-relay";
 import { FactoryTemplatesFragment$key } from "@/relay/FactoryTemplatesFragment.graphql";
+import { FactoryTemplatesEntityFragment$key } from "@/relay/FactoryTemplatesEntityFragment.graphql";
 import Descendants from "../Descendants";
 import Detail from "../Detail";
 import Contributors from "../Contributors";
@@ -25,10 +26,13 @@ const TEMPLATE_COMPONENT_MAP = {
 
 export default function TemplateFactory({
   data,
+  entityData,
 }: {
   data: FactoryTemplatesFragment$key | null;
+  entityData: FactoryTemplatesEntityFragment$key | null;
 }) {
   const template = useFragment(fragment, data);
+  const entity = useFragment(entityFragment, entityData);
 
   if (
     !template ||
@@ -39,8 +43,14 @@ export default function TemplateFactory({
 
   const Template = TEMPLATE_COMPONENT_MAP[template.templateKind];
 
-  return Template ? <Template data={template} /> : null;
+  return Template ? <Template data={template} entityData={entity} /> : null;
 }
+
+const entityFragment = graphql`
+  fragment FactoryTemplatesEntityFragment on AnyEntity {
+    ...ContributorsTemplateFragment
+  }
+`;
 
 const fragment = graphql`
   fragment FactoryTemplatesFragment on AnyMainTemplateInstance {
@@ -48,7 +58,7 @@ const fragment = graphql`
       templateKind
     }
     ... on ContributorListTemplateInstance {
-      ...ContributorsTemplateFragment
+      ...ContributorsTemplateLayoutFragment
     }
     ... on DescendantListTemplateInstance {
       ...DescendantsTemplateFragment

@@ -31,7 +31,9 @@ export default async function TemplatePage() {
       <HeroTemplate data={community} layoutData={hero} />
       <NavigationTemplate data={navigation} skipToId={`${uid}-tab-content`} />
       {!!templates?.length &&
-        templates.map((t, i) => <TemplateFactory key={i} data={t} />)}
+        templates.map((t, i) => (
+          <TemplateFactory key={i} data={t} entityData={community} />
+        ))}
     </UpdateClientEnvironment>
   );
 }
@@ -40,6 +42,7 @@ const query = graphql`
   query pageTemplateQuery($slug: Slug!) {
     community(slug: $slug) {
       ...HeroTemplateFragment
+      ...FactoryTemplatesEntityFragment
       layouts {
         hero {
           ...HeroTemplateLayoutFragment
