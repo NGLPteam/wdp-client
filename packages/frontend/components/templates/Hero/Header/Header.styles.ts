@@ -99,7 +99,11 @@ export const Aside = styled.span<{ $layout?: HeroImageLayout }>`
 `}
 `;
 
-export const Wrapper = styled.ul`
+export const SidebarWrapper = styled.ul`
   text-align: right;
   justify-self: end;
+
+  > li + li {
+    margin-block-start: var(--padding-rg);
+  }
 `;

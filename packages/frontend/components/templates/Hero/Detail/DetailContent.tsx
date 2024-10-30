@@ -1,25 +1,23 @@
 import { graphql, useFragment } from "react-relay";
 import ContributorsList from "@/components/composed/contributor/ContributorsList";
-import {
-  maybeHtml,
-  maybeReactNode,
-} from "@/components/templates/helpers/maybeHtml";
 import { DetailContentFragment$key } from "@/relay/DetailContentFragment.graphql";
 import { DetailContentLayoutFragment$key } from "@/relay/DetailContentLayoutFragment.graphql";
 import {
   useSharedBlockFragment,
   useSharedInlineFragment,
 } from "@/components/templates/shared.graphql";
+import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
+import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import * as Styled from "./Detail.styles";
 
 type DetailContentProps = {
-  data?: DetailContentFragment$key | null;
-  layoutData?: DetailContentLayoutFragment$key | null;
+  entityData?: DetailContentFragment$key | null;
+  data?: DetailContentLayoutFragment$key | null;
 };
 
-export default function Content({ data, layoutData }: DetailContentProps) {
-  const item = useFragment(fragment, data);
-  const template = useFragment(layoutFragment, layoutData);
+export default function Content({ data, entityData }: DetailContentProps) {
+  const entity = useFragment(fragment, entityData);
+  const template = useFragment(layoutFragment, data);
 
   const { slots, definition } = template ?? {};
 
@@ -34,13 +32,13 @@ export default function Content({ data, layoutData }: DetailContentProps) {
       {(subheader?.valid || subheaderAside?.valid) && (
         <Styled.SubheaderText className="t-h3">
           {!!subheader?.content && (
-            <span {...maybeHtml(subheader.content)}>
-              {maybeReactNode(subheader.content)}
+            <span>
+              <InlineSlotWrapper content={subheader.content} />
             </span>
           )}
           {!!subheaderAside?.content && (
-            <Styled.SubheaderAside {...maybeHtml(subheaderAside.content)}>
-              {maybeReactNode(subheaderAside.content)}
+            <Styled.SubheaderAside>
+              <InlineSlotWrapper content={subheaderAside.content} />
             </Styled.SubheaderAside>
           )}
         </Styled.SubheaderText>
@@ -49,24 +47,26 @@ export default function Content({ data, layoutData }: DetailContentProps) {
         {definition?.listContributors && (
           <ContributorsList
             className="t-copy-medium"
-            data={item?.contributions}
-            itemSlug={item?.slug}
+            data={entity?.contributions}
+            itemSlug={entity?.slug}
             filterRole="author"
           />
         )}
       </Styled.Contributors>
       {metadata?.valid && !!metadata?.content && (
-        <Styled.Metadata {...maybeHtml(metadata.content)}>
-          {maybeReactNode(metadata.content)}
+        <Styled.Metadata>
+          <InlineSlotWrapper content={metadata.content} />
         </Styled.Metadata>
       )}
       {summary?.valid && !!summary?.content && (
-        <Styled.Summary {...maybeHtml(summary.content)}>
-          {maybeReactNode(summary.content)}
+        <Styled.Summary>
+          <BlockSlotWrapper content={summary.content} />
         </Styled.Summary>
       )}
       {cta?.valid && !!cta?.content && (
-        <Styled.CtaButton {...maybeHtml(cta.content)} />
+        <Styled.CtaButton>
+          <InlineSlotWrapper content={cta.content} />
+        </Styled.CtaButton>
       )}
     </div>
   );
