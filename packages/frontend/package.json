@@ -18,6 +18,7 @@
   "dependencies": {
     "@castiron/style-mixins": "^1.0.0",
     "@mdx-js/loader": "^3.1.0",
+    "@mdx-js/mdx": "^3.1.0",
     "@next/mdx": "^15.0.0",
     "@react-keycloak/ssr": "^3.3.0",
     "@spissvinkel/alea": "^1.2.1",
@@ -35,6 +36,7 @@
     "lodash": "^4.17.21",
     "next": "^14.1.0",
     "next-auth": "5.0.0-beta.3",
+    "next-mdx-remote": "^5.0.0",
     "react": "^18.2.0",
     "react-confirm": "^0.3.0-7",
     "react-dom": "^18.2.0",
