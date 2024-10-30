@@ -42,7 +42,9 @@ export const Right = styled.div`
   `,
     100,
   )}
+`;
 
+export const Sidebar = styled.ul`
   > * + * {
     margin-block-start: var(--padding-rg);
   }

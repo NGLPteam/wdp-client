@@ -7,28 +7,28 @@ import Sidebar from "./DetailSidebar";
 import * as Styled from "./Detail.styles";
 
 type HeroDetailProps = {
-  data?: DetailHeroFragment$key | null;
-  layoutData?: DetailHeroLayoutFragment$key | null;
+  entityData?: DetailHeroFragment$key | null;
+  data?: DetailHeroLayoutFragment$key | null;
 };
 
-export default function HeroDetail({ data, layoutData }: HeroDetailProps) {
-  const content = useFragment(fragment, data);
-  const template = useFragment(layoutFragment, layoutData);
+export default function HeroDetail({ data, entityData }: HeroDetailProps) {
+  const entity = useFragment(fragment, entityData);
+  const template = useFragment(layoutFragment, data);
 
-  const { slots, definition } = template ?? {};
+  const { definition } = template ?? {};
 
   return (
     <Styled.Columns>
       <Styled.Left>
         {definition?.showThumbnailImage && (
           <Styled.Thumbnail>
-            <CoverImage data={content} />
+            <CoverImage data={entity} />
           </Styled.Thumbnail>
         )}
-        <Content data={content} layoutData={template} />
+        <Content data={template} entityData={entity} />
       </Styled.Left>
       <Styled.Right>
-        <Sidebar data={slots?.sidebar} />
+        <Sidebar data={template} entityData={entity} />
       </Styled.Right>
     </Styled.Columns>
   );
@@ -38,6 +38,7 @@ const fragment = graphql`
   fragment DetailHeroFragment on AnyEntity {
     ...DetailCoverImageFragment
     ...DetailContentFragment
+    ...DetailSidebarFragment
   }
 `;
 
@@ -46,11 +47,7 @@ const layoutFragment = graphql`
     definition {
       showThumbnailImage
     }
-    slots {
-      sidebar {
-        ...sharedBlockSlotFragment
-      }
-    }
     ...DetailContentLayoutFragment
+    ...DetailSidebarLayoutFragment
   }
 `;

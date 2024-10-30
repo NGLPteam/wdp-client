@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e14e9d0dc9b26b7b266680f26f581091>>
+ * @generated SignedSource<<3bfa38dedff33c9cd9a12d7018ac0c88>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type HeroTemplateFragment$data = {
     readonly " $fragmentSpreads": FragmentRefs<"ImageHeroTemplateFragment">;
   };
   readonly heroImageLayout?: HeroImageLayout;
-  readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbsBarFragment" | "DetailHeroFragment" | "EntityNavBarFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbsBarFragment" | "DetailHeroFragment" | "DetailSidebarFragment" | "EntityNavBarFragment" | "HeaderSidebarHeroFragment">;
   readonly " $fragmentType": "HeroTemplateFragment";
 };
 export type HeroTemplateFragment$key = {
@@ -84,6 +84,16 @@ return {
       ],
       "type": "Collection",
       "abstractKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "HeaderSidebarHeroFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "DetailSidebarFragment"
     }
   ],
   "type": "AnyEntity",
@@ -91,6 +101,6 @@ return {
 };
 })();
 
-(node as any).hash = "41c1b31ca2229a2be937a2d50c65aa8c";
+(node as any).hash = "2d4d8a59f5ea333d8cea6c04cb554e0f";
 
 export default node;

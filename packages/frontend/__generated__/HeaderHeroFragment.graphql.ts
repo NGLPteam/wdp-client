@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c2c031e661edbd189a00dc1de041efb1>>
+ * @generated SignedSource<<021f0c51b9f5a9c69f4402af1441410f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,10 +11,10 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type HeaderHeroFragment$data = {
-  readonly headerSidebar: {
-    readonly " $fragmentSpreads": FragmentRefs<"sharedBlockSlotFragment">;
-  } | null | undefined;
-  readonly " $fragmentSpreads": FragmentRefs<"HeaderTitleBlockFragment">;
+  readonly slots: {
+    readonly " $fragmentSpreads": FragmentRefs<"HeaderTitleBlockFragment">;
+  };
+  readonly " $fragmentSpreads": FragmentRefs<"HeaderSidebarHeroLayoutFragment">;
   readonly " $fragmentType": "HeaderHeroFragment";
 };
 export type HeaderHeroFragment$key = {
@@ -31,29 +31,29 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "HeaderTitleBlockFragment"
+      "name": "HeaderSidebarHeroLayoutFragment"
     },
     {
       "alias": null,
       "args": null,
-      "concreteType": "TemplateSlotBlockInstance",
+      "concreteType": "HeroTemplateInstanceSlots",
       "kind": "LinkedField",
-      "name": "headerSidebar",
+      "name": "slots",
       "plural": false,
       "selections": [
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "sharedBlockSlotFragment"
+          "name": "HeaderTitleBlockFragment"
         }
       ],
       "storageKey": null
     }
   ],
-  "type": "HeroTemplateInstanceSlots",
+  "type": "HeroTemplateInstance",
   "abstractKey": null
 };
 
-(node as any).hash = "33a794eb808b48c67f86fe3e7aa21aab";
+(node as any).hash = "8e21d2381b32d48edc979c41e2fd20e4";
 
 export default node;

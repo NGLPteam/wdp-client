@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<81595c40cc62d87936b9777a90a44120>>
+ * @generated SignedSource<<d0940c96bcb04662c18712d10108f60e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,12 +14,7 @@ export type DetailHeroLayoutFragment$data = {
   readonly definition: {
     readonly showThumbnailImage: boolean | null | undefined;
   };
-  readonly slots: {
-    readonly sidebar: {
-      readonly " $fragmentSpreads": FragmentRefs<"sharedBlockSlotFragment">;
-    } | null | undefined;
-  };
-  readonly " $fragmentSpreads": FragmentRefs<"DetailContentLayoutFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"DetailContentLayoutFragment" | "DetailSidebarLayoutFragment">;
   readonly " $fragmentType": "DetailHeroLayoutFragment";
 };
 export type DetailHeroLayoutFragment$key = {
@@ -52,42 +47,20 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
-      "alias": null,
       "args": null,
-      "concreteType": "HeroTemplateInstanceSlots",
-      "kind": "LinkedField",
-      "name": "slots",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "TemplateSlotBlockInstance",
-          "kind": "LinkedField",
-          "name": "sidebar",
-          "plural": false,
-          "selections": [
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "sharedBlockSlotFragment"
-            }
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
+      "kind": "FragmentSpread",
+      "name": "DetailContentLayoutFragment"
     },
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "DetailContentLayoutFragment"
+      "name": "DetailSidebarLayoutFragment"
     }
   ],
   "type": "HeroTemplateInstance",
   "abstractKey": null
 };
 
-(node as any).hash = "d0ca9ec0e703326aa0a48b988d7c493f";
+(node as any).hash = "2b5dcaa781bbdb6aa704997232ad2ab2";
 
 export default node;
