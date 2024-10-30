@@ -3,7 +3,7 @@
 import { graphql, useFragment } from "react-relay";
 import Container from "@/components/layout/Container";
 import { EntityNavigationTemplateFragment$key } from "@/relay/EntityNavigationTemplateFragment.graphql";
-import { useSharedInlineFragment } from "@/components/templates/shared.graphql";
+import NavigationTabs from "./NavigationTabs";
 
 export type EntityNavigationTemplateData = {
   config: {
@@ -15,19 +15,18 @@ export type EntityNavigationTemplateData = {
 
 export default function EntityNavigationTemplate({
   data,
+  skipToId,
 }: {
   data?: EntityNavigationTemplateFragment$key | null;
+  skipToId: string;
 }) {
   const { template } = useFragment(fragment, data) ?? {};
 
   const { definition, slots } = template ?? {};
 
-  const entityLabel = useSharedInlineFragment(slots?.entityLabel);
-
   return (
     <Container bgColor={definition?.background}>
-      {/*<NavigationTabs entity={entityLabel} />*/}
-      {entityLabel?.content}
+      <NavigationTabs data={slots} skipToId={skipToId} />
     </Container>
   );
 }
@@ -35,18 +34,12 @@ export default function EntityNavigationTemplate({
 const fragment = graphql`
   fragment EntityNavigationTemplateFragment on NavigationLayoutInstance {
     __typename
-    lastRenderedAt
     template {
-      layoutKind
-      templateKind
-      lastRenderedAt
       definition {
         background
       }
       slots {
-        entityLabel {
-          ...sharedInlineSlotFragment
-        }
+        ...NavigationTabsFragment
       }
     }
   }

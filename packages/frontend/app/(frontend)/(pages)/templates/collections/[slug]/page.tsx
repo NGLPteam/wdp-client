@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import TemplateFactory from "@/components/templates/Factory";
@@ -8,6 +9,8 @@ import { pageCollectionTemplateQuery as Query } from "@/relay/pageCollectionTemp
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
 export default async function TemplatePage() {
+  const uid = useId();
+
   const slug = "rXaGvy9U0LBVCwz1ToRo7tbov2R2L00";
 
   const { data, records } =
@@ -26,7 +29,7 @@ export default async function TemplatePage() {
   return (
     <UpdateClientEnvironment records={records}>
       <HeroTemplate data={collection} layoutData={hero} />
-      <NavigationTemplate data={navigation} />
+      <NavigationTemplate data={navigation} skipToId={`${uid}-tab-content`} />
       {!!templates?.length &&
         templates.map((t, i) => <TemplateFactory key={i} data={t} />)}
     </UpdateClientEnvironment>
