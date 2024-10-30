@@ -21,7 +21,7 @@ export default function HeroTemplate({
   const hero = useFragment(fragment, data);
   const layout = useFragment(layoutFragment, layoutData);
 
-  const { slots, definition } = layout?.template ?? {};
+  const { definition } = layout?.template ?? {};
 
   const {
     background,
@@ -47,12 +47,16 @@ export default function HeroTemplate({
         <BreadcrumbsBar data={hero} showShare={showSharingLink ?? false} />
       )}
       <Container as="header" width="wide" bgColor={background}>
-        <HeroHeader data={slots} layout={heroImageLayout} />
+        <HeroHeader
+          data={layout?.template}
+          entityData={hero}
+          layout={heroImageLayout}
+        />
       </Container>
       {showBigSearchPrompt && <SearchHero prompt={searchPrompt} />}
       <Container bgColor={background}>
         {showSplitDisplay && (
-          <HeroDetail data={hero} layoutData={layout?.template} />
+          <HeroDetail data={layout?.template} entityData={hero} />
         )}
       </Container>
       {showHeroImage && hero?.heroImage && (
@@ -85,35 +89,26 @@ const fragment = graphql`
         ...ImageHeroTemplateFragment
       }
     }
+    ...HeaderSidebarHeroFragment
+    ...DetailSidebarFragment
   }
 `;
 
 const layoutFragment = graphql`
   fragment HeroTemplateLayoutFragment on HeroLayoutInstance {
-    lastRenderedAt
     template {
-      layoutKind
-      templateKind
-      lastRenderedAt
       definition {
         background
         descendantSearchPrompt
         enableDescendantBrowsing
         enableDescendantSearch
         showBreadcrumbs
-        showDOI
-        showISSN
         showHeroImage
         showSharingLink
         showSplitDisplay
-        showThumbnailImage
         showBigSearchPrompt
-        listContributors
-        showBasicViewMetrics
       }
-      slots {
-        ...HeaderHeroFragment
-      }
+      ...HeaderHeroFragment
       ...DetailHeroLayoutFragment
     }
   }
