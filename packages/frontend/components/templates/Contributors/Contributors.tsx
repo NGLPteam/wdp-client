@@ -1,66 +1,72 @@
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import Container from "@/components/layout/Container";
-import { ImageAttachment } from "@/types/graphql-schema";
+import { ContributorsTemplateLayoutFragment$key } from "@/relay/ContributorsTemplateLayoutFragment.graphql";
 import { ContributorsTemplateFragment$key } from "@/relay/ContributorsTemplateFragment.graphql";
 import { useSharedInlineFragment } from "@/components/templates/shared.graphql";
-import {
-  maybeHtml,
-  maybeReactNode,
-} from "@/components/templates/helpers/maybeHtml";
+import InlineSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import Contributor from "./Contributor";
 import * as Styled from "./Contributors.styles";
 
-export type Contribution = {
-  slug: string;
-  role?: string | null;
-  affiliation?: string | null;
-  contributor: {
-    slug: string | null;
-    image: ImageAttachment;
-    affiliation?: string | null;
-    orcid?: string | null;
-  };
-  entity: {
-    __typename: "ITEM" | "COLLECTION";
-    slug: string | null;
-  };
-};
-
 export default function ContributorsTemplate({
   data,
+  entityData,
 }: {
-  data?: ContributorsTemplateFragment$key | null;
+  data?: ContributorsTemplateLayoutFragment$key | null;
+  entityData?: ContributorsTemplateFragment$key | null;
 }) {
   const { t } = useTranslation();
 
-  const template = useFragment(fragment, data);
+  const template = useFragment(layoutFragment, data);
+  const entity = useFragment(fragment, entityData);
 
   const { contributorsDefinition, slots } = template ?? {};
 
   const header = useSharedInlineFragment(slots?.header);
 
-  const headerContent =
-    header?.valid && !!header.content
-      ? header.content
-      : t("glossary.contributor_other");
+  if (!template || !entity) return null;
 
-  const contributions: Contribution[] = [];
+  const mdxHeader = header?.valid && !!header.content;
+
+  const { contributions } = entity;
 
   return (
     <Container bgColor={contributorsDefinition?.background}>
-      <h3 {...maybeHtml(headerContent)}>{maybeReactNode(headerContent)}</h3>
+      <h3>
+        {mdxHeader ? (
+          <InlineSlotWrapper content={header.content} />
+        ) : (
+          t("glossary.contributor_other")
+        )}
+      </h3>
       <Styled.List>
-        {contributions.map((c, i) => (
-          <Contributor key={i} contribution={c} />
-        ))}
+        {contributions?.nodes.map((c, i) => <Contributor key={i} data={c} />)}
       </Styled.List>
     </Container>
   );
 }
 
 const fragment = graphql`
-  fragment ContributorsTemplateFragment on ContributorListTemplateInstance {
+  fragment ContributorsTemplateFragment on AnyEntity {
+    ... on Item {
+      contributions {
+        nodes {
+          ...ContributorBlockFragment
+        }
+      }
+    }
+    ... on Collection {
+      contributions {
+        nodes {
+          ...ContributorBlockFragment
+        }
+      }
+    }
+  }
+`;
+
+const layoutFragment = graphql`
+  fragment ContributorsTemplateLayoutFragment on ContributorListTemplateInstance {
     __typename
     contributorsDefinition: definition {
       background
