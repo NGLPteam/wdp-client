@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7237ddee1edaed6e52748e8ab7c17da7>>
+ * @generated SignedSource<<4c373446a9efe08e0dc9473d6e77c933>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,15 +21,7 @@ export type DetailTemplateFragment$data = {
     readonly variant: DetailVariant | null | undefined;
   };
   readonly slots: {
-    readonly header: {
-      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
-    } | null | undefined;
-    readonly subheader: {
-      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
-    } | null | undefined;
-    readonly summary: {
-      readonly " $fragmentSpreads": FragmentRefs<"sharedBlockSlotFragment">;
-    } | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"SummaryDetailFragment">;
   };
   readonly " $fragmentType": "DetailTemplateFragment";
 };
@@ -38,15 +30,7 @@ export type DetailTemplateFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"DetailTemplateFragment">;
 };
 
-const node: ReaderFragment = (function(){
-var v0 = [
-  {
-    "args": null,
-    "kind": "FragmentSpread",
-    "name": "sharedInlineSlotFragment"
-  }
-];
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -107,40 +91,9 @@ return {
       "plural": false,
       "selections": [
         {
-          "alias": null,
           "args": null,
-          "concreteType": "TemplateSlotInlineInstance",
-          "kind": "LinkedField",
-          "name": "header",
-          "plural": false,
-          "selections": (v0/*: any*/),
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "TemplateSlotInlineInstance",
-          "kind": "LinkedField",
-          "name": "subheader",
-          "plural": false,
-          "selections": (v0/*: any*/),
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "TemplateSlotBlockInstance",
-          "kind": "LinkedField",
-          "name": "summary",
-          "plural": false,
-          "selections": [
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "sharedBlockSlotFragment"
-            }
-          ],
-          "storageKey": null
+          "kind": "FragmentSpread",
+          "name": "SummaryDetailFragment"
         }
       ],
       "storageKey": null
@@ -149,8 +102,7 @@ return {
   "type": "DetailTemplateInstance",
   "abstractKey": null
 };
-})();
 
-(node as any).hash = "43a352a38010416cabef3b08e23422d0";
+(node as any).hash = "eadabc753543b929593e96178e1710fd";
 
 export default node;
