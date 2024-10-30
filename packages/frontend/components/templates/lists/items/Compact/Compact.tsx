@@ -1,13 +1,28 @@
+import { useSharedListItemTemplateFragment } from "@/components/templates/shared.graphql";
+import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
+import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import * as Styled from "./Compact.styles";
-import type { ListItem } from "../../lists.types";
 
-export default function CompactListItem({ data }: { data: ListItem }) {
-  const { header, contextOne } = data.slots;
+export default function CompactListItem({
+  data,
+}: {
+  data?: sharedListItemTemplateFragment$key | null;
+}) {
+  const { slots } = useSharedListItemTemplateFragment(data);
+
+  const { header, contextA } = slots ?? {};
+
   return (
     <Styled.Item>
-      {header?.valid && <span>{header.content}</span>}
-      {contextOne?.valid && (
-        <Styled.ContextOne>{contextOne.content}</Styled.ContextOne>
+      {header?.valid && !!header.content && (
+        <span>
+          <InlineSlotWrapper content={header.content} />
+        </span>
+      )}
+      {contextA?.valid && !!contextA.content && (
+        <Styled.ContextOne>
+          <InlineSlotWrapper content={contextA.content} />
+        </Styled.ContextOne>
       )}
     </Styled.Item>
   );

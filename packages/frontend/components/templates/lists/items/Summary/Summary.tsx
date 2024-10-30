@@ -1,48 +1,70 @@
 import CoverImage from "@/components/atomic/images/CoverImage";
+import { useSharedListItemTemplateFragment } from "@/components/templates/shared.graphql";
+import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
+import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
+import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import * as Styled from "./Summary.styles";
-import type { ListItem } from "../../lists.types";
 
-export default function SummaryListItem({ data }: { data: ListItem }) {
-  const {
-    header,
-    subheader,
-    contextOne,
-    contextTwo,
-    summary,
-    contributors,
-    metaOne,
-    metaTwo,
-    thumbnail,
-  } = data.slots;
+export default function SummaryListItem({
+  data,
+}: {
+  data?: sharedListItemTemplateFragment$key | null;
+}) {
+  const { slots } = useSharedListItemTemplateFragment(data);
+
+  const { header, subheader, contextA, contextB, metaA, metaB, description } =
+    slots ?? {};
+
+  const { thumbnail = null, contributors = null } = {};
+
   return (
     <Styled.Item>
       <Styled.CoverImage>
-        <CoverImage
-          title={header?.content}
-          data={thumbnail}
-          maxWidth={120}
-          maxHeight={160}
-        />
+        <CoverImage data={thumbnail} maxWidth={120} maxHeight={160} />
       </Styled.CoverImage>
       <Styled.TextContent>
         <Styled.Group>
-          {contextOne?.valid && <span>{contextOne.content}</span>}
-          {contextTwo?.valid && <span>{contextTwo.content}</span>}
+          {contextA?.valid && !!contextA.content && (
+            <span>
+              <InlineSlotWrapper content={contextA.content} />
+            </span>
+          )}
+          {contextB?.valid && !!contextB.content && (
+            <span>
+              <InlineSlotWrapper content={contextB.content} />
+            </span>
+          )}
         </Styled.Group>
-        {header?.valid && <Styled.Header>{header.content}</Styled.Header>}
-        {subheader?.valid && (
-          <Styled.Subheader>{subheader.content}</Styled.Subheader>
+        {header?.valid && !!header.content && (
+          <Styled.Header>
+            <InlineSlotWrapper content={header.content} />
+          </Styled.Header>
         )}
-        {contributors?.valid && (
-          <Styled.Contributors>{contributors.content}</Styled.Contributors>
+        {subheader?.valid && !!subheader.content && (
+          <Styled.Subheader>
+            <InlineSlotWrapper content={subheader.content} />
+          </Styled.Subheader>
+        )}
+        {contributors && (
+          <Styled.Contributors>{contributors}</Styled.Contributors>
         )}
         <Styled.Group>
-          {metaOne?.valid && <span>{metaOne.content}</span>}
-          {metaTwo?.valid && <span>{metaTwo.content}</span>}
+          {metaA?.valid && !!metaA.content && (
+            <span>
+              <InlineSlotWrapper content={metaA.content} />
+            </span>
+          )}
+          {metaB?.valid && (
+            <span>
+              <InlineSlotWrapper content={metaB.content} />
+            </span>
+          )}
         </Styled.Group>
-        <Styled.Summary>
-          {summary?.valid && <p>{summary.content}</p>}
-        </Styled.Summary>
+        {description?.valid && !!description.content && (
+          <Styled.Summary>
+            <BlockSlotWrapper content={description.content} />
+          </Styled.Summary>
+        )}
       </Styled.TextContent>
     </Styled.Item>
   );

@@ -3,19 +3,18 @@ import type {
   LinkListVariant,
   LinkListBackground,
 } from "@/types/graphql-schema";
+import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
 import CardItem from "../items/Card";
 import GridItem from "../items/Grid";
 import SummaryItem from "../items/Summary";
 import PromoItem from "../items/Promo";
 import CompactItem from "../items/Compact";
-import { mock } from "../mock";
 import * as Styled from "./List.styles";
-import type { ListItem } from "../lists.types";
 
 export type Props = {
   variant?: Exclude<LinkListVariant, "%future added value"> | null;
   bgColor?: LinkListBackground | null;
-  items: ListItem[];
+  items: (sharedListItemTemplateFragment$key | null | undefined)[];
 };
 
 const TYPE_TO_LIST = {
@@ -34,10 +33,8 @@ const TYPE_TO_ITEM = {
   COMPACT: CompactItem,
 };
 
-export default function List({ variant, bgColor, items: itemsProp }: Props) {
+export default function List({ variant, bgColor, items }: Props) {
   if (!variant) return null;
-
-  const items = itemsProp ?? [mock, mock, mock];
 
   const List = TYPE_TO_LIST[variant];
   const Item = TYPE_TO_ITEM[variant];
