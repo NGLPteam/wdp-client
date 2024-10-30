@@ -2,6 +2,7 @@ import { graphql, useFragment } from "react-relay";
 import { sharedBlockSlotFragment$key } from "@/relay/sharedBlockSlotFragment.graphql";
 import { sharedInlineSlotFragment$key } from "@/relay/sharedInlineSlotFragment.graphql";
 import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
+import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
 
 export const templateSlotBlockFragment = graphql`
   fragment sharedBlockSlotFragment on TemplateSlotBlockInstance {
@@ -97,4 +98,63 @@ export const useSharedListTemplateFragment = (
   const subtitle = useSharedInlineFragment(slots?.subtitle);
 
   return { ...definition, slots: { header, headerAside, metadata, subtitle } };
+};
+
+export const listItemTemplateFragment = graphql`
+  fragment sharedListItemTemplateFragment on ListItemTemplateInstance {
+    slots {
+      contextA {
+        ...sharedInlineSlotFragment
+      }
+      contextB {
+        ...sharedInlineSlotFragment
+      }
+      contextC {
+        ...sharedInlineSlotFragment
+      }
+      description {
+        ...sharedBlockSlotFragment
+      }
+      header {
+        ...sharedInlineSlotFragment
+      }
+      metaA {
+        ...sharedInlineSlotFragment
+      }
+      metaB {
+        ...sharedInlineSlotFragment
+      }
+      subheader {
+        ...sharedInlineSlotFragment
+      }
+    }
+  }
+`;
+
+export const useSharedListItemTemplateFragment = (
+  data?: sharedListItemTemplateFragment$key | null,
+) => {
+  const template = useFragment(listTemplateFragment, data);
+  const { slots } = template ?? {};
+  const contextA = useSharedInlineFragment(slots?.contextA);
+  const contextB = useSharedInlineFragment(slots?.contextB);
+  const contextC = useSharedInlineFragment(slots?.contextC);
+  const description = useSharedBlockFragment(slots?.description);
+  const header = useSharedInlineFragment(slots?.header);
+  const metaA = useSharedInlineFragment(slots?.metaA);
+  const metaB = useSharedInlineFragment(slots?.metaB);
+  const subheader = useSharedInlineFragment(slots?.subheader);
+
+  return {
+    slots: {
+      contextA,
+      contextB,
+      contextC,
+      description,
+      header,
+      metaA,
+      metaB,
+      subheader,
+    },
+  };
 };
