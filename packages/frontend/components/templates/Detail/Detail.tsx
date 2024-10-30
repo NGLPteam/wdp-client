@@ -1,28 +1,37 @@
 import { graphql, useFragment } from "react-relay";
 import Container from "@/components/layout/Container";
 import { DetailTemplateFragment$key } from "@/relay/DetailTemplateFragment.graphql";
-import SummaryVariant from "./Summary";
-import FullVariant from "./Full";
+import { DetailTemplateEntityFragment$key } from "@/relay/DetailTemplateEntityFragment.graphql";
+import Summary from "./Summary";
+import Full from "./Full";
 
 export default function DetailTemplate({
   data,
+  entityData,
 }: {
   data?: DetailTemplateFragment$key | null;
+  entityData?: DetailTemplateEntityFragment$key | null;
 }) {
   const template = useFragment(fragment, data);
+  const entity = useFragment(entityFragment, entityData);
 
-  const { detailDefinition, slots: _slots } = template ?? {};
+  const { detailDefinition, slots } = template ?? {};
 
   const { background, variant, showAnnouncements, showHeroImage } =
     detailDefinition ?? {};
 
   return (
-    <Container bgColor={background}>
+    <Container width="wide" bgColor={background}>
       {variant === "SUMMARY" ? (
-        <SummaryVariant showAnnouncements={showAnnouncements} />
+        <Summary
+          data={slots}
+          entityData={entity}
+          showAnnouncements={showAnnouncements}
+        />
       ) : (
-        <FullVariant showHeroImage={showHeroImage} />
+        <Full data={entity} showHeroImage={showHeroImage} />
       )}
+      );
     </Container>
   );
 }
@@ -37,15 +46,14 @@ const fragment = graphql`
       showHeroImage
     }
     slots {
-      header {
-        ...sharedInlineSlotFragment
-      }
-      subheader {
-        ...sharedInlineSlotFragment
-      }
-      summary {
-        ...sharedBlockSlotFragment
-      }
+      ...SummaryDetailFragment
     }
+  }
+`;
+
+const entityFragment = graphql`
+  fragment DetailTemplateEntityFragment on AnyEntity {
+    ...FullDetailFragment
+    ...SummaryDetailEntityFragment
   }
 `;

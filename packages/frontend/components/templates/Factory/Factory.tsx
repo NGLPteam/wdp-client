@@ -49,6 +49,7 @@ export default function TemplateFactory({
 const entityFragment = graphql`
   fragment FactoryTemplatesEntityFragment on AnyEntity {
     ...ContributorsTemplateFragment
+    ...DetailTemplateEntityFragment
   }
 `;
 
