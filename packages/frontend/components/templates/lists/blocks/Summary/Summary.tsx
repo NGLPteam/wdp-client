@@ -9,11 +9,20 @@ export default function SummaryListBlock({
 }: {
   data?: sharedListTemplateFragment$key | null;
 }) {
-  const { linksDefinition, descendantsDefinition, slots } =
+  const { linksDefinition, descendantsDefinition, slots, entityList } =
     useSharedListTemplateFragment(data);
 
-  const { background, title, showSeeAllButton, seeAllButtonLabel } =
-    linksDefinition ?? descendantsDefinition ?? {};
+  const { empty } = entityList ?? {};
+
+  if (empty) return null;
+
+  const {
+    background,
+    title,
+    showSeeAllButton,
+    seeAllButtonLabel,
+    // showEntityContext,
+  } = linksDefinition ?? descendantsDefinition ?? {};
 
   const { header, subtitle, metadata } = slots ?? {};
 
@@ -25,7 +34,7 @@ export default function SummaryListBlock({
         <Styled.TextColumn>
           {!!title && <Styled.Header>{title}</Styled.Header>}
           <Styled.Entity>
-            {/*{context?.valid && (
+            {/*{showEntityContext && context?.valid && (
               <Styled.Context>{context.content}</Styled.Context>
             )}*/}
             {header?.valid && !!header.content && (
@@ -38,7 +47,7 @@ export default function SummaryListBlock({
               <Styled.Metadata>{metadata.content}</Styled.Metadata>
             )}
           </Styled.Entity>
-          <List variant="SUMMARY" bgColor={background} items={[]} />
+          <List variant="SUMMARY" bgColor={background} data={entityList} />
           <SeeAll
             alignment="left"
             visible={!!showSeeAllButton}
