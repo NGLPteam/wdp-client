@@ -13,7 +13,12 @@ export default function GridListBlock({
     linksDefinition,
     descendantsDefinition,
     slots: _slots,
+    entityList,
   } = useSharedListTemplateFragment(data);
+
+  const { empty } = entityList ?? {};
+
+  if (empty) return null;
 
   const { background, title, showSeeAllButton, seeAllButtonLabel } =
     linksDefinition ?? descendantsDefinition ?? {};
@@ -24,7 +29,7 @@ export default function GridListBlock({
     <Styled.Container $gap={50} bgColor={background}>
       {showHeroImage && <Styled.HeroImage />}
       {!!title && <h3>{title}</h3>}
-      <List variant="GRID" bgColor={background} items={[]} />
+      <List variant="GRID" bgColor={background} data={entityList} />
       <SeeAll
         alignment="center"
         visible={!!showSeeAllButton}

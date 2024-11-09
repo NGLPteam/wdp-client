@@ -3,6 +3,7 @@ import { sharedBlockSlotFragment$key } from "@/relay/sharedBlockSlotFragment.gra
 import { sharedInlineSlotFragment$key } from "@/relay/sharedInlineSlotFragment.graphql";
 import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
 import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
+import { sharedListItemsTemplateFragment$key } from "@/relay/sharedListItemsTemplateFragment.graphql";
 
 export const templateSlotBlockFragment = graphql`
   fragment sharedBlockSlotFragment on TemplateSlotBlockInstance {
@@ -58,6 +59,11 @@ export const listTemplateFragment = graphql`
           ...sharedInlineSlotFragment
         }
       }
+      entityList {
+        count
+        empty
+        ...sharedListItemsTemplateFragment
+      }
     }
     ... on DescendantListTemplateInstance {
       descendantsDefinition: definition {
@@ -83,6 +89,11 @@ export const listTemplateFragment = graphql`
           ...sharedInlineSlotFragment
         }
       }
+      entityList {
+        count
+        empty
+        ...sharedListItemsTemplateFragment
+      }
     }
   }
 `;
@@ -98,6 +109,24 @@ export const useSharedListTemplateFragment = (
   const subtitle = useSharedInlineFragment(slots?.subtitle);
 
   return { ...definition, slots: { header, headerAside, metadata, subtitle } };
+};
+
+export const listItemsTemplateFragment = graphql`
+  fragment sharedListItemsTemplateFragment on TemplateEntityList {
+    listItemLayouts {
+      template {
+        ...sharedListItemTemplateFragment
+      }
+    }
+  }
+`;
+
+export const useSharedListItemsTemplateFragment = (
+  data?: sharedListItemsTemplateFragment$key | null,
+) => {
+  const items = useFragment(listItemsTemplateFragment, data);
+  const { listItemLayouts } = items ?? {};
+  return listItemLayouts;
 };
 
 export const listItemTemplateFragment = graphql`

@@ -14,7 +14,12 @@ export default function CardListBlock({
     linksDefinition,
     descendantsDefinition,
     slots: _slots,
+    entityList,
   } = useSharedListTemplateFragment(data);
+
+  const { empty } = entityList ?? {};
+
+  if (empty) return null;
 
   const { background, title, showSeeAllButton, seeAllButtonLabel } =
     linksDefinition ?? descendantsDefinition ?? {};
@@ -27,7 +32,7 @@ export default function CardListBlock({
     <Styled.Wrapper className={bgClass}>
       {!!title && <Styled.Header>{title}</Styled.Header>}
       {showHeroImage && <Styled.HeroImage />}
-      <List variant="CARDS" bgColor={background} items={[]} />
+      <List variant="CARDS" bgColor={background} data={entityList} />
       <SeeAll
         alignment="center"
         visible={!!showSeeAllButton}
