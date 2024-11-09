@@ -3,7 +3,8 @@ import type {
   LinkListVariant,
   LinkListBackground,
 } from "@/types/graphql-schema";
-import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
+import { sharedListItemsTemplateFragment$key } from "@/relay/sharedListItemsTemplateFragment.graphql";
+import { useSharedListItemsTemplateFragment } from "@/components/templates/shared.graphql";
 import CardItem from "../items/Card";
 import GridItem from "../items/Grid";
 import SummaryItem from "../items/Summary";
@@ -14,7 +15,7 @@ import * as Styled from "./List.styles";
 export type Props = {
   variant?: Exclude<LinkListVariant, "%future added value"> | null;
   bgColor?: LinkListBackground | null;
-  items: (sharedListItemTemplateFragment$key | null | undefined)[];
+  data: sharedListItemsTemplateFragment$key | null | undefined;
 };
 
 const TYPE_TO_LIST = {
@@ -33,8 +34,12 @@ const TYPE_TO_ITEM = {
   COMPACT: CompactItem,
 };
 
-export default function List({ variant, bgColor, items }: Props) {
+export default function List({ variant, bgColor, data }: Props) {
   if (!variant) return null;
+
+  const items = useSharedListItemsTemplateFragment(data);
+
+  if (!items) return null;
 
   const List = TYPE_TO_LIST[variant];
   const Item = TYPE_TO_ITEM[variant];
@@ -45,7 +50,7 @@ export default function List({ variant, bgColor, items }: Props) {
     <Styled.BGPositioner>
       <List className={bgClass}>
         {items.map((item, i) => (
-          <Item data={item} key={i} />
+          <Item data={item.template} key={i} />
         ))}
       </List>
     </Styled.BGPositioner>

@@ -13,7 +13,12 @@ export default function CompactListBlock({
     linksDefinition,
     descendantsDefinition,
     slots: _slots,
+    entityList,
   } = useSharedListTemplateFragment(data);
+
+  const { empty } = entityList ?? {};
+
+  if (empty) return null;
 
   const { background, title, showSeeAllButton, seeAllButtonLabel } =
     linksDefinition ?? descendantsDefinition ?? {};
@@ -25,7 +30,7 @@ export default function CompactListBlock({
       <Styled.Grid>
         <Styled.TextColumn>
           {!!title && <Styled.Header>{title}</Styled.Header>}
-          <List variant="COMPACT" bgColor={background} items={[]} />
+          <List variant="COMPACT" bgColor={background} data={entityList} />
         </Styled.TextColumn>
         {showHeroImage && <Styled.HeroImage />}
       </Styled.Grid>
