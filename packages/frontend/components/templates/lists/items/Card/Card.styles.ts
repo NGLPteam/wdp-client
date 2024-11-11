@@ -135,6 +135,7 @@ export const Subheader = styled.span`
 
 export const Contributors = styled.span`
   display: block;
+  min-height: ${pxToRem(22)};
 `;
 
 export const Group = styled.div`

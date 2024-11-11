@@ -3,6 +3,7 @@ import { useSharedListItemTemplateFragment } from "@/components/templates/shared
 import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
+import ContributorsList from "@/components/composed/contributor/ContributorsList";
 import * as Styled from "./Summary.styles";
 
 export default function SummaryListItem({
@@ -10,17 +11,15 @@ export default function SummaryListItem({
 }: {
   data?: sharedListItemTemplateFragment$key | null;
 }) {
-  const { slots } = useSharedListItemTemplateFragment(data);
+  const { slots, entity } = useSharedListItemTemplateFragment(data);
 
   const { header, subheader, contextA, contextB, metaA, metaB, description } =
     slots ?? {};
 
-  const { thumbnail = null, contributors = null } = {};
-
   return (
     <Styled.Item>
       <Styled.CoverImage>
-        <CoverImage data={thumbnail} maxWidth={120} maxHeight={160} />
+        <CoverImage {...entity} maxWidth={120} maxHeight={160} />
       </Styled.CoverImage>
       <Styled.TextContent>
         <Styled.Group>
@@ -45,8 +44,10 @@ export default function SummaryListItem({
             <InlineSlotWrapper content={subheader.content} />
           </Styled.Subheader>
         )}
-        {contributors && (
-          <Styled.Contributors>{contributors}</Styled.Contributors>
+        {entity?.contributions && (
+          <Styled.Contributors>
+            <ContributorsList data={entity.contributions} />
+          </Styled.Contributors>
         )}
         <Styled.Group>
           {metaA?.valid && !!metaA.content && (
