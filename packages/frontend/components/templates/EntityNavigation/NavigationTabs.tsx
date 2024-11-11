@@ -7,7 +7,7 @@ import { NamedLink } from "components/atomic";
 import SkipLink from "components/global/SkipLink";
 import { ArticleTabNavFragment$data } from "@/relay/ArticleTabNavFragment.graphql";
 import { NavigationTabsFragment$key } from "@/relay/NavigationTabsFragment.graphql";
-import { useSharedInlineFragment } from "@/components/templates/shared.graphql";
+import { useSharedInlineFragment } from "@/components/templates/shared/shared.slots.graphql";
 import type { TemplateSlotInlineInstance } from "@/types/graphql-schema";
 import * as Styled from "./EntityNavigation.styles";
 

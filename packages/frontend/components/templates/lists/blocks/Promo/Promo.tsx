@@ -1,4 +1,4 @@
-import { useSharedListTemplateFragment } from "@/components/templates/shared.graphql";
+import { useSharedListTemplateFragment } from "@/components/templates/shared/shared.list.graphql";
 import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
 import List from "../../List";
 import SeeAll from "../../SeeAll";

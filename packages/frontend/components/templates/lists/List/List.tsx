@@ -4,7 +4,7 @@ import type {
   LinkListBackground,
 } from "@/types/graphql-schema";
 import { sharedListItemsTemplateFragment$key } from "@/relay/sharedListItemsTemplateFragment.graphql";
-import { useSharedListItemsTemplateFragment } from "@/components/templates/shared.graphql";
+import { useSharedListItemsTemplateFragment } from "@/components/templates/shared/shared.listItems.graphql";
 import CardItem from "../items/Card";
 import GridItem from "../items/Grid";
 import SummaryItem from "../items/Summary";

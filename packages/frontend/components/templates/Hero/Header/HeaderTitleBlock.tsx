@@ -3,7 +3,7 @@ import type { HeroImageLayout } from "@/types/graphql-schema";
 import {
   useSharedBlockFragment,
   useSharedInlineFragment,
-} from "@/components/templates/shared.graphql";
+} from "@/components/templates/shared/shared.slots.graphql";
 import { HeaderTitleBlockFragment$key } from "@/relay/HeaderTitleBlockFragment.graphql";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import * as Styled from "./Header.styles";

@@ -18162,10 +18162,51 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "ContributorListBackground",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DARK",
+            "description": "A dark gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LIGHT",
+            "description": "A light gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NONE",
+            "description": "No background is applied to this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "ContributorListTemplateDefinition",
         "description": null,
         "fields": [
+          {
+            "name": "background",
+            "description": "The background gradient to use for this template. Affects presentation.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "ContributorListBackground",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,
@@ -18210,6 +18251,18 @@
                 "name": "LayoutKind",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "limit",
+            "description": "Limit the number of contributors for this template.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -18306,19 +18359,7 @@
         "description": "Slot definitions for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "TemplateSlotBlockDefinition",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "sampleInline",
+            "name": "header",
             "description": null,
             "args": [],
             "type": {
@@ -18350,6 +18391,38 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "definition",
+            "description": "Load the associated definition for this template.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ContributorListTemplateDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "The associated entity for this template instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
                 "ofType": null
               }
             },
@@ -18497,19 +18570,7 @@
         "description": "Rendered slots for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "TemplateSlotBlockInstance",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "sampleInline",
+            "name": "header",
             "description": null,
             "args": [],
             "type": {
@@ -24199,10 +24260,86 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "DescendantListBackground",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DARK",
+            "description": "A dark gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LIGHT",
+            "description": "A light gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NONE",
+            "description": "No background is applied to this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "DescendantListSelectionMode",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DYNAMIC",
+            "description": "Render descendants from a dynamic ordering, determined at query time.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "MANUAL",
+            "description": "Render descendants from a manual ordering set on each individual entity. See `manualListName` for how this works.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NAMED",
+            "description": "Render descendants from a named ordering that exists on the source entity.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PROPERTY",
+            "description": "Render entities from a schema property on the source entity.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "DescendantListTemplateDefinition",
         "description": null,
         "fields": [
+          {
+            "name": "background",
+            "description": "The background gradient to use for this template. Affects presentation.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "DescendantListBackground",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,
@@ -24215,6 +24352,18 @@
                 "name": "ISO8601DateTime",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dynamicOrderingDefinition",
+            "description": "When `selectionMode` is set to `DYNAMIC`, this uses the same basic structure\nas schemas to define a dynamic ordering that is resolved at runtime and based\non the `selectionSource`.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "OrderingDefinition",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -24247,6 +24396,138 @@
                 "name": "LayoutKind",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "manualListName",
+            "description": "When `selectionMode` is set to `MANUAL`, the purpose of this property\nis to specify a name under which all the manual selections (per entity)\nwill be stored. This allows a layout to have multiple templates of the\nsame type using different lists, that will persist across rearrangements\nof the layout _without_ losing connections between entities.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "SchemaComponent",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "orderingIdentifier",
+            "description": "When `selectionMode` is set to `NAMED`, this will look up the named ordering\non the resolved `selectionSource` and render up to `selectionLimit` entities.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "SchemaComponent",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "seeAllButtonLabel",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionLimit",
+            "description": "Regardless of `selectionMode`, this limit will be applied on whatever resulting\nlist of entities are produced, so that only up to that amount of entities are\nrendered in the template proper.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionMode",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "DescendantListSelectionMode",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionPropertyPath",
+            "description": "When `selectionMode` is set to `PROPERTY`, this should be set to the full path\nfor a given schema property on the associated `selectionSource`\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "SchemaPropertyPath",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionSource",
+            "description": "When selecting entities based on `selectionMode`, this property determines\nwhich entity (relevant to the rendering entity) should be used for lookups.\n\nBy default, it is `self`, which means the rendering entity itself.\n\nIt can also support things like `ancestor.journal`, `ancestor.issue`, etc.,\nin order to render a list of values in its parent.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "TemplateSelectionSource",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionSourceAncestorName",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "SchemaComponent",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionSourceMode",
+            "description": "An enum representing what mode `selectionSource` is in. Not directly set,\nit is used internally for lookups.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "SelectionSourceMode",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showEntityContext",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showSeeAllButton",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -24300,6 +24581,18 @@
             "deprecationReason": null
           },
           {
+            "name": "title",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "updatedAt",
             "description": null,
             "args": [],
@@ -24311,6 +24604,18 @@
                 "name": "ISO8601DateTime",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant rendering mode to use for this template. Affects presentation.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "DescendantListVariant",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -24343,19 +24648,43 @@
         "description": "Slot definitions for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
+            "name": "header",
             "description": null,
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "TemplateSlotBlockDefinition",
+              "name": "TemplateSlotInlineDefinition",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "sampleInline",
+            "name": "headerAside",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metadata",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subtitle",
             "description": null,
             "args": [],
             "type": {
@@ -24387,6 +24716,54 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "definition",
+            "description": "Load the associated definition for this template.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DescendantListTemplateDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "The associated entity for this template instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entityList",
+            "description": "The list of entities to render as part of this template's content.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TemplateEntityList",
                 "ofType": null
               }
             },
@@ -24521,6 +24898,11 @@
           },
           {
             "kind": "INTERFACE",
+            "name": "TemplateHasEntityList",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
             "name": "TemplateInstance",
             "ofType": null
           }
@@ -24534,19 +24916,43 @@
         "description": "Rendered slots for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
+            "name": "header",
             "description": null,
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "TemplateSlotBlockInstance",
+              "name": "TemplateSlotInlineInstance",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "sampleInline",
+            "name": "headerAside",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metadata",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subtitle",
             "description": null,
             "args": [],
             "type": {
@@ -24561,6 +24967,47 @@
         "inputFields": null,
         "interfaces": [],
         "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "DescendantListVariant",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "CARDS",
+            "description": "A card list of entities.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "COMPACT",
+            "description": "A compact list of entities.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "GRID",
+            "description": "A grid of entities\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PROMOS",
+            "description": "A horizontal list of entities with promotional header.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SUMMARY",
+            "description": "A vertical, summarized list of entities.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
         "possibleTypes": null
       },
       {
@@ -26657,10 +27104,51 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "DetailBackground",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DARK",
+            "description": "A dark gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LIGHT",
+            "description": "A light gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NONE",
+            "description": "No background is applied to this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "DetailTemplateDefinition",
         "description": null,
         "fields": [
+          {
+            "name": "background",
+            "description": "The background gradient to use for this template. Affects presentation.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "DetailBackground",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,
@@ -26705,6 +27193,30 @@
                 "name": "LayoutKind",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showAnnouncements",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showHeroImage",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -26772,6 +27284,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant rendering mode to use for this template. Affects presentation.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "DetailVariant",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -26801,24 +27325,36 @@
         "description": "Slot definitions for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
+            "name": "header",
             "description": null,
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "TemplateSlotBlockDefinition",
+              "name": "TemplateSlotInlineDefinition",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "sampleInline",
+            "name": "subheader",
             "description": null,
             "args": [],
             "type": {
               "kind": "OBJECT",
               "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "summary",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockDefinition",
               "ofType": null
             },
             "isDeprecated": false,
@@ -26845,6 +27381,38 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "definition",
+            "description": "Load the associated definition for this template.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DetailTemplateDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "The associated entity for this template instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
                 "ofType": null
               }
             },
@@ -26992,19 +27560,7 @@
         "description": "Rendered slots for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "TemplateSlotBlockInstance",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "sampleInline",
+            "name": "header",
             "description": null,
             "args": [],
             "type": {
@@ -27014,11 +27570,58 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "subheader",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "summary",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
         "interfaces": [],
         "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "DetailVariant",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "FULL",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SUMMARY",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
         "possibleTypes": null
       },
       {
@@ -32877,6 +33480,35 @@
       },
       {
         "kind": "ENUM",
+        "name": "HeroBackground",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DARK",
+            "description": "A dark gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LIGHT",
+            "description": "A light gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NONE",
+            "description": "No background is applied to this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
         "name": "HeroImageLayout",
         "description": "The layout to use when rendering a Hero for an `Entity`.",
         "fields": null,
@@ -33063,6 +33695,22 @@
             "deprecationReason": null
           },
           {
+            "name": "entity",
+            "description": "The associated entity for this layout instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -33223,6 +33871,18 @@
         "description": null,
         "fields": [
           {
+            "name": "background",
+            "description": "The background gradient to use for this template. Affects presentation.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "HeroBackground",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -33234,6 +33894,42 @@
                 "name": "ISO8601DateTime",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "descendantSearchPrompt",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "enableDescendantBrowsing",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "enableDescendantSearch",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -33266,6 +33962,126 @@
                 "name": "LayoutKind",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "listContributors",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showBasicViewMetrics",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showBigSearchPrompt",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showBreadcrumbs",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showDOI",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showHeroImage",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showISSN",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showSharingLink",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showSplitDisplay",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showThumbnailImage",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -33362,7 +34178,43 @@
         "description": "Slot definitions for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
+            "name": "callToAction",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "header",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "headerAside",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "headerSidebar",
             "description": null,
             "args": [],
             "type": {
@@ -33374,12 +34226,84 @@
             "deprecationReason": null
           },
           {
-            "name": "sampleInline",
+            "name": "headerSummary",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metadata",
             "description": null,
             "args": [],
             "type": {
               "kind": "OBJECT",
               "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "sidebar",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subheader",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subheaderAside",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subheaderSummary",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "summary",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockDefinition",
               "ofType": null
             },
             "isDeprecated": false,
@@ -33406,6 +34330,38 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "definition",
+            "description": "Load the associated definition for this template.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HeroTemplateDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "The associated entity for this template instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
                 "ofType": null
               }
             },
@@ -33553,7 +34509,43 @@
         "description": "Rendered slots for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
+            "name": "callToAction",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "header",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "headerAside",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "headerSidebar",
             "description": null,
             "args": [],
             "type": {
@@ -33565,12 +34557,84 @@
             "deprecationReason": null
           },
           {
-            "name": "sampleInline",
+            "name": "headerSummary",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metadata",
             "description": null,
             "args": [],
             "type": {
               "kind": "OBJECT",
               "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "sidebar",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subheader",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subheaderAside",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subheaderSummary",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "summary",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockInstance",
               "ofType": null
             },
             "isDeprecated": false,
@@ -39476,6 +40540,22 @@
         "description": "An interface describing an instance type that can be rendered for a given entity.\n",
         "fields": [
           {
+            "name": "entity",
+            "description": "The associated entity for this layout instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "lastRenderedAt",
             "description": "The time this object was last rendered.\n",
             "args": [],
@@ -39790,10 +40870,74 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "LinkListBackground",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DARK",
+            "description": "A dark gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LIGHT",
+            "description": "A light gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NONE",
+            "description": "No background is applied to this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "LinkListSelectionMode",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DYNAMIC",
+            "description": "Render links from a dynamic list, determined at query time.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "MANUAL",
+            "description": "Render links from a manual list set on each individual entity. See `manualListName` for how this works.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "LinkListTemplateDefinition",
         "description": null,
         "fields": [
+          {
+            "name": "background",
+            "description": "The background gradient to use for this template. Affects presentation.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "LinkListBackground",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,
@@ -39806,6 +40950,18 @@
                 "name": "ISO8601DateTime",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dynamicOrderingDefinition",
+            "description": "When `selectionMode` is set to `DYNAMIC`, this uses the same basic structure\nas schemas to define a dynamic ordering that is resolved at runtime and based\non the `selectionSource`.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "OrderingDefinition",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -39838,6 +40994,114 @@
                 "name": "LayoutKind",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "manualListName",
+            "description": "When `selectionMode` is set to `MANUAL`, the purpose of this property\nis to specify a name under which all the manual selections (per entity)\nwill be stored. This allows a layout to have multiple templates of the\nsame type using different lists, that will persist across rearrangements\nof the layout _without_ losing connections between entities.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "SchemaComponent",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "seeAllButtonLabel",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionLimit",
+            "description": "Regardless of `selectionMode`, this limit will be applied on whatever resulting\nlist of entities are produced, so that only up to that amount of entities are\nrendered in the template proper.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionMode",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "LinkListSelectionMode",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionSource",
+            "description": "When selecting entities based on `selectionMode`, this property determines\nwhich entity (relevant to the rendering entity) should be used for lookups.\n\nBy default, it is `self`, which means the rendering entity itself.\n\nIt can also support things like `ancestor.journal`, `ancestor.issue`, etc.,\nin order to render a list of values in its parent.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "TemplateSelectionSource",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionSourceAncestorName",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "SchemaComponent",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionSourceMode",
+            "description": "An enum representing what mode `selectionSource` is in. Not directly set,\nit is used internally for lookups.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "SelectionSourceMode",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showEntityContext",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showSeeAllButton",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -39891,6 +41155,18 @@
             "deprecationReason": null
           },
           {
+            "name": "title",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "updatedAt",
             "description": null,
             "args": [],
@@ -39902,6 +41178,18 @@
                 "name": "ISO8601DateTime",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "variant",
+            "description": "The variant rendering mode to use for this template. Affects presentation.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "LinkListVariant",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -39934,19 +41222,43 @@
         "description": "Slot definitions for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
+            "name": "header",
             "description": null,
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "TemplateSlotBlockDefinition",
+              "name": "TemplateSlotInlineDefinition",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "sampleInline",
+            "name": "headerAside",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metadata",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subtitle",
             "description": null,
             "args": [],
             "type": {
@@ -39978,6 +41290,54 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "definition",
+            "description": "Load the associated definition for this template.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "LinkListTemplateDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "The associated entity for this template instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entityList",
+            "description": "The list of entities to render as part of this template's content.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TemplateEntityList",
                 "ofType": null
               }
             },
@@ -40112,6 +41472,11 @@
           },
           {
             "kind": "INTERFACE",
+            "name": "TemplateHasEntityList",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
             "name": "TemplateInstance",
             "ofType": null
           }
@@ -40125,19 +41490,43 @@
         "description": "Rendered slots for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
+            "name": "header",
             "description": null,
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "TemplateSlotBlockInstance",
+              "name": "TemplateSlotInlineInstance",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "sampleInline",
+            "name": "headerAside",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metadata",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subtitle",
             "description": null,
             "args": [],
             "type": {
@@ -40152,6 +41541,47 @@
         "inputFields": null,
         "interfaces": [],
         "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "LinkListVariant",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "CARDS",
+            "description": "A card list of entities.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "COMPACT",
+            "description": "A compact list of entities.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "GRID",
+            "description": "A grid of entities\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PROMOS",
+            "description": "A horizontal list of entities with promotional header.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SUMMARY",
+            "description": "A vertical, summarized list of entities.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
         "possibleTypes": null
       },
       {
@@ -40640,6 +42070,22 @@
             "deprecationReason": null
           },
           {
+            "name": "entity",
+            "description": "The associated entity for this layout instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -40939,7 +42385,43 @@
         "description": "Slot definitions for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
+            "name": "contextA",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "contextB",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "contextC",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "description",
             "description": null,
             "args": [],
             "type": {
@@ -40951,7 +42433,43 @@
             "deprecationReason": null
           },
           {
-            "name": "sampleInline",
+            "name": "header",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metaA",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metaB",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subheader",
             "description": null,
             "args": [],
             "type": {
@@ -40983,6 +42501,38 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "definition",
+            "description": "Load the associated definition for this template.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ListItemTemplateDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "The associated entity for this template instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
                 "ofType": null
               }
             },
@@ -41130,7 +42680,43 @@
         "description": "Rendered slots for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
+            "name": "contextA",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "contextB",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "contextC",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "description",
             "description": null,
             "args": [],
             "type": {
@@ -41142,7 +42728,43 @@
             "deprecationReason": null
           },
           {
-            "name": "sampleInline",
+            "name": "header",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metaA",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metaB",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subheader",
             "description": null,
             "args": [],
             "type": {
@@ -41305,6 +42927,22 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "The associated entity for this layout instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
                 "ofType": null
               }
             },
@@ -41761,6 +43399,35 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "MetadataBackground",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DARK",
+            "description": "A dark gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LIGHT",
+            "description": "A light gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NONE",
+            "description": "No background is applied to this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "MetadataLayoutDefinition",
         "description": null,
@@ -41918,6 +43585,22 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "The associated entity for this layout instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
                 "ofType": null
               }
             },
@@ -42085,6 +43768,18 @@
         "description": null,
         "fields": [
           {
+            "name": "background",
+            "description": "The background gradient to use for this template. Affects presentation.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "MetadataBackground",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -42224,19 +43919,7 @@
         "description": "Slot definitions for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "TemplateSlotBlockDefinition",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "sampleInline",
+            "name": "header",
             "description": null,
             "args": [],
             "type": {
@@ -42268,6 +43951,38 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "definition",
+            "description": "Load the associated definition for this template.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "MetadataTemplateDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "The associated entity for this template instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
                 "ofType": null
               }
             },
@@ -42415,19 +44130,7 @@
         "description": "Rendered slots for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "TemplateSlotBlockInstance",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "sampleInline",
+            "name": "header",
             "description": null,
             "args": [],
             "type": {
@@ -44380,6 +46083,35 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "NavigationBackground",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DARK",
+            "description": "A dark gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LIGHT",
+            "description": "A light gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NONE",
+            "description": "No background is applied to this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "NavigationLayoutDefinition",
         "description": null,
@@ -44537,6 +46269,22 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "The associated entity for this layout instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
                 "ofType": null
               }
             },
@@ -44704,6 +46452,18 @@
         "description": null,
         "fields": [
           {
+            "name": "background",
+            "description": "The background gradient to use for this template. Affects presentation.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "NavigationBackground",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -44843,19 +46603,7 @@
         "description": "Slot definitions for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "TemplateSlotBlockDefinition",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "sampleInline",
+            "name": "entityLabel",
             "description": null,
             "args": [],
             "type": {
@@ -44887,6 +46635,38 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "definition",
+            "description": "Load the associated definition for this template.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "NavigationTemplateDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "The associated entity for this template instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
                 "ofType": null
               }
             },
@@ -45034,19 +46814,7 @@
         "description": "Rendered slots for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "TemplateSlotBlockInstance",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "sampleInline",
+            "name": "entityLabel",
             "description": null,
             "args": [],
             "type": {
@@ -46268,6 +48036,35 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "OrderingBackground",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DARK",
+            "description": "A dark gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LIGHT",
+            "description": "A light gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NONE",
+            "description": "No background is applied to this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "OrderingConnection",
         "description": "The connection type for Ordering.",
@@ -46345,6 +48142,165 @@
             "ofType": null
           }
         ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "OrderingDefinition",
+        "description": "A definition for an ordering (may be dynamic).\n",
+        "fields": [
+          {
+            "name": "constant",
+            "description": "A constant ordering should be treated as not being able to invert itself.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "filter",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "OrderingFilterDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hidden",
+            "description": "A hidden ordering represents an ordering that should not be shown in the frontend,\nwhen iterating over an entity's available orderings. It does not affect access, as\nhidden orderings may still serve a functional purpose for their schema.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "identifier",
+            "description": "A unique identifier for the ordering within the context of its parent entity.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": "An optional, human-readable name for the ordering",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "order",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "OrderDefinition",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "render",
+            "description": "Configuration for how to render an ordering and its entries.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "OrderingRenderDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "select",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "OrderingSelectDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "tree",
+            "description": "A tree ordering has some special handling to return entities\nin deterministic order based on their hierarchical position\nand relation to other entities in the same ordering.\n\nThis is effectively a shortcut for `Ordering.render.mode === \"TREE\"`.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -46545,6 +48501,18 @@
                 "name": "Ordering",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "position",
+            "description": "The 1-based position of this entry.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -47370,6 +49338,18 @@
         "description": null,
         "fields": [
           {
+            "name": "background",
+            "description": "The background gradient to use for this template. Affects presentation.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "OrderingBackground",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -47413,6 +49393,90 @@
                 "name": "LayoutKind",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "orderingIdentifier",
+            "description": "The identifier for the ordering to derive next/prev siblings from.\n\nRefer to `orderingSource` and `selectionSource` for more details.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "SchemaComponent",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "orderingSource",
+            "description": "A reference to the entity that contains an ordering identified by `orderingIdentifier`.\nIt operates exactly like `selectionSource`. See that property for more documentation.\n\n**Note**: While `self` is allowed here, it only makes sense if the rendering entity\nis contained in one of its own orderings, which doesn't happen normally. The template\nwill still render, but it likely won't find siblings.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "TemplateSelectionSource",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "orderingSourceAncestorName",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "SchemaComponent",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "orderingSourceMode",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "SelectionSourceMode",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionSource",
+            "description": "What entity to use for detecting the positional prev/next siblings.\n\nBy default, it is `self`. However, it can be overridden for creating templates that\nnavigate through parent issues, volumes, journals, etc. For instance, an article could\ncreate an `<ordering />` template that has the following properties set:\n\n* `selectionSource`: `\"ancestors.issue\"`\n* `orderingSource`: `\"ancestors.journal\"`\n* `orderingIdentifier`: `\"issues\"`\n\nThis would use the _journal's_ `issues` ordering to navigate through the article's\nassociated `issues`, and provide a quick way to navigate through varying levels of\nthe upper hierarchy from lower points in the tree.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "TemplateSelectionSource",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionSourceAncestorName",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "SchemaComponent",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionSourceMode",
+            "description": "An enum representing what mode `selectionSource` is in. Not directly set,\nit is used internally for lookups.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "SelectionSourceMode",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -47509,19 +49573,19 @@
         "description": "Slot definitions for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
+            "name": "nextLabel",
             "description": null,
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "TemplateSlotBlockDefinition",
+              "name": "TemplateSlotInlineDefinition",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "sampleInline",
+            "name": "previousLabel",
             "description": null,
             "args": [],
             "type": {
@@ -47553,6 +49617,38 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "definition",
+            "description": "Load the associated definition for this template.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "OrderingTemplateDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "The associated entity for this template instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
                 "ofType": null
               }
             },
@@ -47597,6 +49693,22 @@
               "ofType": {
                 "kind": "ENUM",
                 "name": "LayoutKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "orderingPair",
+            "description": "Access the prev/next siblings within the template's specified ordering.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TemplateOrderingPair",
                 "ofType": null
               }
             },
@@ -47687,6 +49799,11 @@
           },
           {
             "kind": "INTERFACE",
+            "name": "TemplateHasOrderingPair",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
             "name": "TemplateInstance",
             "ofType": null
           }
@@ -47700,19 +49817,19 @@
         "description": "Rendered slots for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
+            "name": "nextLabel",
             "description": null,
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "TemplateSlotBlockInstance",
+              "name": "TemplateSlotInlineInstance",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "sampleInline",
+            "name": "previousLabel",
             "description": null,
             "args": [],
             "type": {
@@ -48771,10 +50888,51 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "PageListBackground",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DARK",
+            "description": "A dark gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LIGHT",
+            "description": "A light gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NONE",
+            "description": "No background is applied to this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "PageListTemplateDefinition",
         "description": null,
         "fields": [
+          {
+            "name": "background",
+            "description": "The background gradient to use for this template. Affects presentation.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "PageListBackground",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,
@@ -48915,19 +51073,7 @@
         "description": "Slot definitions for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "TemplateSlotBlockDefinition",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "sampleInline",
+            "name": "header",
             "description": null,
             "args": [],
             "type": {
@@ -48959,6 +51105,38 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "definition",
+            "description": "Load the associated definition for this template.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageListTemplateDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "The associated entity for this template instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
                 "ofType": null
               }
             },
@@ -49106,19 +51284,7 @@
         "description": "Rendered slots for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "OBJECT",
-              "name": "TemplateSlotBlockInstance",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "sampleInline",
+            "name": "header",
             "description": null,
             "args": [],
             "type": {
@@ -54084,6 +56250,16 @@
         ]
       },
       {
+        "kind": "SCALAR",
+        "name": "SchemaComponent",
+        "description": "A string primitive with a very constrained format, representing components\nof a schema like namespaces, identifiers, ordering names, etc.\n\nIt is also used in the templating subsystem.\n\nIt corresponds to the regular expression `(?-mix:\\A[a-z][a-z0-9_]*?[a-z0-9]\\z)`.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "SchemaCoreDefinition",
         "description": "Configuration for controlling how instances handle specific optional core properties.\n",
@@ -55224,6 +57400,16 @@
             "deprecationReason": null
           }
         ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "SchemaPropertyPath",
+        "description": "A path to a schema property (it will always be a string primitive).\n\nIt can come in the form of a `\"single_property\"` or a `\"nested.property\"`.\n\nThis scalar is only used to assert the _format_, it does not\nvalidate that it is an existing schema property.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
         "possibleTypes": null
       },
       {
@@ -57830,6 +60016,29 @@
       },
       {
         "kind": "ENUM",
+        "name": "SelectionSourceMode",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "ANCESTOR",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SELF",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
         "name": "SimpleOrder",
         "description": "A generic enum for sorting models that don't have anything more specific implemented",
         "fields": null,
@@ -59360,6 +61569,35 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "SupplementaryBackground",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DARK",
+            "description": "A dark gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LIGHT",
+            "description": "A light gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NONE",
+            "description": "No background is applied to this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "SupplementaryLayoutDefinition",
         "description": null,
@@ -59517,6 +61755,22 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "The associated entity for this layout instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
                 "ofType": null
               }
             },
@@ -59684,6 +61938,18 @@
         "description": null,
         "fields": [
           {
+            "name": "background",
+            "description": "The background gradient to use for this template. Affects presentation.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "SupplementaryBackground",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -59823,19 +62089,19 @@
         "description": "Slot definitions for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
+            "name": "contributorsLabel",
             "description": null,
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "TemplateSlotBlockDefinition",
+              "name": "TemplateSlotInlineDefinition",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "sampleInline",
+            "name": "metricsLabel",
             "description": null,
             "args": [],
             "type": {
@@ -59867,6 +62133,38 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "definition",
+            "description": "Load the associated definition for this template.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SupplementaryTemplateDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "The associated entity for this template instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
                 "ofType": null
               }
             },
@@ -60014,19 +62312,19 @@
         "description": "Rendered slots for the associated template.\n",
         "fields": [
           {
-            "name": "sampleBlock",
+            "name": "contributorsLabel",
             "description": null,
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "TemplateSlotBlockInstance",
+              "name": "TemplateSlotInlineInstance",
               "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "sampleInline",
+            "name": "metricsLabel",
             "description": null,
             "args": [],
             "type": {
@@ -60324,7 +62622,7 @@
       {
         "kind": "INTERFACE",
         "name": "TemplateDefinition",
-        "description": null,
+        "description": "Entities within the system have templates associated with schema-specific layouts,\nthat can be overridden within the hierarchy for more custom approaches.\n\nThis interface defines the *definition* for one such template and `layoutDefinition`,\nwhich controls how associated `TemplateInstance`s are rendered.\n",
         "fields": [
           {
             "name": "layoutKind",
@@ -60421,10 +62719,188 @@
         ]
       },
       {
+        "kind": "OBJECT",
+        "name": "TemplateEntityList",
+        "description": "Some template instances return an ordered list of entities to render\nwithin as part of their content.\n\nThis provides access to that list, as well as a shortcut to each entity's\nassociated `ListItemLayoutInstance`.\n\n**note** It's possible that entities could match the parameters of the list\nbut be skipped because they have no layouts (yet). This is intentional behavior,\nand subsequent fetches should see the list populated as soon as the descendant\nentities layouts have rendered.\n",
+        "fields": [
+          {
+            "name": "count",
+            "description": "The size of the list.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "empty",
+            "description": "Whether the list is empty, provided for easier filtering and render-skipping.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entities",
+            "description": "The actual entity records within this list.\n\nThe order is deterministic.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "UNION",
+                    "name": "AnyEntity",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "listItemLayouts",
+            "description": "A shortcut to access the list item layouts for each entity in `entities`.\n\nThe order is deterministic.\n\nSee `ListItemLayoutInstance`.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ListItemLayoutInstance",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "TemplateHasEntityList",
+        "description": "An interface for a template instance that has a `TemplateEntityList`.\n",
+        "fields": [
+          {
+            "name": "entityList",
+            "description": "The list of entities to render as part of this template's content.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TemplateEntityList",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "DescendantListTemplateInstance",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "LinkListTemplateInstance",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "TemplateHasOrderingPair",
+        "description": "An interface that implements the `prev` / `next` siblings\nfor navigating through orderings.\n",
+        "fields": [
+          {
+            "name": "orderingPair",
+            "description": "Access the prev/next siblings within the template's specified ordering.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TemplateOrderingPair",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "OrderingTemplateInstance",
+            "ofType": null
+          }
+        ]
+      },
+      {
         "kind": "INTERFACE",
         "name": "TemplateInstance",
         "description": "An interface describing an instance type that can be rendered for a given entity.\n",
         "fields": [
+          {
+            "name": "entity",
+            "description": "The associated entity for this template instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "lastRenderedAt",
             "description": "The time this object was last rendered.\n",
@@ -60612,6 +63088,123 @@
             "deprecationReason": null
           }
         ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TemplateOrderingPair",
+        "description": "An object that provides a next/prev pair for navigating through ordering siblings\nwithin a template.\n",
+        "fields": [
+          {
+            "name": "count",
+            "description": "The number of entries in the ordering (`null` if no match).\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "exists",
+            "description": "Whether or not the ordering / entry actually exists—can be used to skip rendering.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "first",
+            "description": "Whether the source entity is the _first_ entity in the ordering.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "last",
+            "description": "Whether the source entity is the _last_ entity in the ordering.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nextSibling",
+            "description": "The next entry in the current ordering, if one exists. This will be null if this entry is the last.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "OrderingEntry",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "position",
+            "description": "The source entity's (1-based) position in the ordering.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "prevSibling",
+            "description": "The previous entry in the current ordering, if one exists. This will be null if this entry is the first.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "OrderingEntry",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "TemplateSelectionSource",
+        "description": "A string primitive that represents a selection source for a template definition.\n\nIt is used to resolve ordered lists of entities for a given template.\n\nValues can be things like `\"self\"` or `ancestors.${name}`, where `name` is the\nassociated ancestor name defined in the originating entity's schema.\n\n```\n(?x-mi:\\A\n    (?:(?-mix:\\Aself\\z))\n    |\n    (?:(?-mix:\\Aparent\\z))\n    |\n    (?:(?x-mi:\n    ancestors\n    \\.\n    (?<ancestor_name>[a-z][a-z0-9_]*[a-z])\n    ))\n    \\z\n    )\n```\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
         "possibleTypes": null
       },
       {

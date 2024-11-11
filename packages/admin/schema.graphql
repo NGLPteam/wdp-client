@@ -3276,10 +3276,42 @@ input ContributorLinkInput {
   url: String!
 }
 
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum ContributorListBackground {
+  """
+  A dark gradient is applied to the background of this template.
+  
+  """
+  DARK
+  """
+  A light gradient is applied to the background of this template.
+  
+  """
+  LIGHT
+  """
+  No background is applied to this template.
+  
+  """
+  NONE
+}
+
 type ContributorListTemplateDefinition implements Node & Sluggable & TemplateDefinition {
+  """
+  The background gradient to use for this template. Affects presentation.
+  
+  """
+  background: ContributorListBackground
   createdAt: ISO8601DateTime!
   id: ID!
   layoutKind: LayoutKind!
+  """
+  Limit the number of contributors for this template.
+  
+  """
+  limit: Int
   """
   Slot definitions for this template.
   
@@ -3295,12 +3327,21 @@ Slot definitions for the associated template.
 
 """
 type ContributorListTemplateDefinitionSlots {
-  sampleBlock: TemplateSlotBlockDefinition
-  sampleInline: TemplateSlotInlineDefinition
+  header: TemplateSlotInlineDefinition
 }
 
 type ContributorListTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
   createdAt: ISO8601DateTime!
+  """
+  Load the associated definition for this template.
+  
+  """
+  definition: ContributorListTemplateDefinition!
+  """
+  The associated entity for this template instance.
+  
+  """
+  entity: AnyEntity!
   id: ID!
   """
   The time this object was last rendered.
@@ -3323,8 +3364,7 @@ Rendered slots for the associated template.
 
 """
 type ContributorListTemplateInstanceSlots {
-  sampleBlock: TemplateSlotBlockInstance
-  sampleInline: TemplateSlotInlineInstance
+  header: TemplateSlotInlineInstance
 }
 
 enum ContributorLookupField {
@@ -4604,10 +4644,121 @@ type DateProperty implements ScalarProperty & SchemaProperty & SearchablePropert
   type: SchemaPropertyType!
 }
 
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum DescendantListBackground {
+  """
+  A dark gradient is applied to the background of this template.
+  
+  """
+  DARK
+  """
+  A light gradient is applied to the background of this template.
+  
+  """
+  LIGHT
+  """
+  No background is applied to this template.
+  
+  """
+  NONE
+}
+
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum DescendantListSelectionMode {
+  """
+  Render descendants from a dynamic ordering, determined at query time.
+  
+  """
+  DYNAMIC
+  """
+  Render descendants from a manual ordering set on each individual entity. See `manualListName` for how this works.
+  
+  """
+  MANUAL
+  """
+  Render descendants from a named ordering that exists on the source entity.
+  
+  """
+  NAMED
+  """
+  Render entities from a schema property on the source entity.
+  
+  """
+  PROPERTY
+}
+
 type DescendantListTemplateDefinition implements Node & Sluggable & TemplateDefinition {
+  """
+  The background gradient to use for this template. Affects presentation.
+  
+  """
+  background: DescendantListBackground
   createdAt: ISO8601DateTime!
+  """
+  When `selectionMode` is set to `DYNAMIC`, this uses the same basic structure
+  as schemas to define a dynamic ordering that is resolved at runtime and based
+  on the `selectionSource`.
+  
+  """
+  dynamicOrderingDefinition: OrderingDefinition
   id: ID!
   layoutKind: LayoutKind!
+  """
+  When `selectionMode` is set to `MANUAL`, the purpose of this property
+  is to specify a name under which all the manual selections (per entity)
+  will be stored. This allows a layout to have multiple templates of the
+  same type using different lists, that will persist across rearrangements
+  of the layout _without_ losing connections between entities.
+  
+  """
+  manualListName: SchemaComponent
+  """
+  When `selectionMode` is set to `NAMED`, this will look up the named ordering
+  on the resolved `selectionSource` and render up to `selectionLimit` entities.
+  
+  """
+  orderingIdentifier: SchemaComponent
+  seeAllButtonLabel: String
+  """
+  Regardless of `selectionMode`, this limit will be applied on whatever resulting
+  list of entities are produced, so that only up to that amount of entities are
+  rendered in the template proper.
+  
+  """
+  selectionLimit: Int
+  selectionMode: DescendantListSelectionMode
+  """
+  When `selectionMode` is set to `PROPERTY`, this should be set to the full path
+  for a given schema property on the associated `selectionSource`
+  
+  """
+  selectionPropertyPath: SchemaPropertyPath
+  """
+  When selecting entities based on `selectionMode`, this property determines
+  which entity (relevant to the rendering entity) should be used for lookups.
+  
+  By default, it is `self`, which means the rendering entity itself.
+  
+  It can also support things like `ancestor.journal`, `ancestor.issue`, etc.,
+  in order to render a list of values in its parent.
+  
+  """
+  selectionSource: TemplateSelectionSource
+  selectionSourceAncestorName: SchemaComponent
+  """
+  An enum representing what mode `selectionSource` is in. Not directly set,
+  it is used internally for lookups.
+  
+  """
+  selectionSourceMode: SelectionSourceMode
+  showEntityContext: Boolean
+  showSeeAllButton: Boolean
   """
   Slot definitions for this template.
   
@@ -4615,7 +4766,13 @@ type DescendantListTemplateDefinition implements Node & Sluggable & TemplateDefi
   slots: DescendantListTemplateDefinitionSlots!
   slug: Slug!
   templateKind: TemplateKind!
+  title: String
   updatedAt: ISO8601DateTime!
+  """
+  The variant rendering mode to use for this template. Affects presentation.
+  
+  """
+  variant: DescendantListVariant
 }
 
 """
@@ -4623,12 +4780,29 @@ Slot definitions for the associated template.
 
 """
 type DescendantListTemplateDefinitionSlots {
-  sampleBlock: TemplateSlotBlockDefinition
-  sampleInline: TemplateSlotInlineDefinition
+  header: TemplateSlotInlineDefinition
+  headerAside: TemplateSlotInlineDefinition
+  metadata: TemplateSlotInlineDefinition
+  subtitle: TemplateSlotInlineDefinition
 }
 
-type DescendantListTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
+type DescendantListTemplateInstance implements Node & Renderable & Sluggable & TemplateHasEntityList & TemplateInstance {
   createdAt: ISO8601DateTime!
+  """
+  Load the associated definition for this template.
+  
+  """
+  definition: DescendantListTemplateDefinition!
+  """
+  The associated entity for this template instance.
+  
+  """
+  entity: AnyEntity!
+  """
+  The list of entities to render as part of this template's content.
+  
+  """
+  entityList: TemplateEntityList!
   id: ID!
   """
   The time this object was last rendered.
@@ -4651,8 +4825,42 @@ Rendered slots for the associated template.
 
 """
 type DescendantListTemplateInstanceSlots {
-  sampleBlock: TemplateSlotBlockInstance
-  sampleInline: TemplateSlotInlineInstance
+  header: TemplateSlotInlineInstance
+  headerAside: TemplateSlotInlineInstance
+  metadata: TemplateSlotInlineInstance
+  subtitle: TemplateSlotInlineInstance
+}
+
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum DescendantListVariant {
+  """
+  A card list of entities.
+  
+  """
+  CARDS
+  """
+  A compact list of entities.
+  
+  """
+  COMPACT
+  """
+  A grid of entities
+  
+  """
+  GRID
+  """
+  A horizontal list of entities with promotional header.
+  
+  """
+  PROMOS
+  """
+  A vertical, summarized list of entities.
+  
+  """
+  SUMMARY
 }
 
 """
@@ -4934,10 +5142,39 @@ type DestroyPagePayload implements DestroyMutationPayload & StandardMutationPayl
   haltCode: String
 }
 
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum DetailBackground {
+  """
+  A dark gradient is applied to the background of this template.
+  
+  """
+  DARK
+  """
+  A light gradient is applied to the background of this template.
+  
+  """
+  LIGHT
+  """
+  No background is applied to this template.
+  
+  """
+  NONE
+}
+
 type DetailTemplateDefinition implements Node & Sluggable & TemplateDefinition {
+  """
+  The background gradient to use for this template. Affects presentation.
+  
+  """
+  background: DetailBackground
   createdAt: ISO8601DateTime!
   id: ID!
   layoutKind: LayoutKind!
+  showAnnouncements: Boolean
+  showHeroImage: Boolean
   """
   Slot definitions for this template.
   
@@ -4946,6 +5183,11 @@ type DetailTemplateDefinition implements Node & Sluggable & TemplateDefinition {
   slug: Slug!
   templateKind: TemplateKind!
   updatedAt: ISO8601DateTime!
+  """
+  The variant rendering mode to use for this template. Affects presentation.
+  
+  """
+  variant: DetailVariant
 }
 
 """
@@ -4953,12 +5195,23 @@ Slot definitions for the associated template.
 
 """
 type DetailTemplateDefinitionSlots {
-  sampleBlock: TemplateSlotBlockDefinition
-  sampleInline: TemplateSlotInlineDefinition
+  header: TemplateSlotInlineDefinition
+  subheader: TemplateSlotInlineDefinition
+  summary: TemplateSlotBlockDefinition
 }
 
 type DetailTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
   createdAt: ISO8601DateTime!
+  """
+  Load the associated definition for this template.
+  
+  """
+  definition: DetailTemplateDefinition!
+  """
+  The associated entity for this template instance.
+  
+  """
+  entity: AnyEntity!
   id: ID!
   """
   The time this object was last rendered.
@@ -4981,8 +5234,18 @@ Rendered slots for the associated template.
 
 """
 type DetailTemplateInstanceSlots {
-  sampleBlock: TemplateSlotBlockInstance
-  sampleInline: TemplateSlotInlineInstance
+  header: TemplateSlotInlineInstance
+  subheader: TemplateSlotInlineInstance
+  summary: TemplateSlotBlockInstance
+}
+
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum DetailVariant {
+  FULL
+  SUMMARY
 }
 
 enum Direction {
@@ -6375,6 +6638,28 @@ interface HasSchemaProperties {
   schemaProperties: [AnySchemaProperty!]!
 }
 
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum HeroBackground {
+  """
+  A dark gradient is applied to the background of this template.
+  
+  """
+  DARK
+  """
+  A light gradient is applied to the background of this template.
+  
+  """
+  LIGHT
+  """
+  No background is applied to this template.
+  
+  """
+  NONE
+}
+
 """The layout to use when rendering a Hero for an `Entity`."""
 enum HeroImageLayout {
   ONE_COLUMN
@@ -6401,6 +6686,11 @@ type HeroLayoutDefinition implements LayoutDefinition & Node & Sluggable {
 
 type HeroLayoutInstance implements LayoutInstance & Node & Renderable & Sluggable {
   createdAt: ISO8601DateTime!
+  """
+  The associated entity for this layout instance.
+  
+  """
+  entity: AnyEntity!
   id: ID!
   """
   The time this object was last rendered.
@@ -6428,9 +6718,27 @@ type HeroLayoutInstance implements LayoutInstance & Node & Renderable & Sluggabl
 }
 
 type HeroTemplateDefinition implements Node & Sluggable & TemplateDefinition {
+  """
+  The background gradient to use for this template. Affects presentation.
+  
+  """
+  background: HeroBackground
   createdAt: ISO8601DateTime!
+  descendantSearchPrompt: String
+  enableDescendantBrowsing: Boolean
+  enableDescendantSearch: Boolean
   id: ID!
   layoutKind: LayoutKind!
+  listContributors: Boolean
+  showBasicViewMetrics: Boolean
+  showBigSearchPrompt: Boolean
+  showBreadcrumbs: Boolean
+  showDOI: Boolean
+  showHeroImage: Boolean
+  showISSN: Boolean
+  showSharingLink: Boolean
+  showSplitDisplay: Boolean
+  showThumbnailImage: Boolean
   """
   Slot definitions for this template.
   
@@ -6446,12 +6754,31 @@ Slot definitions for the associated template.
 
 """
 type HeroTemplateDefinitionSlots {
-  sampleBlock: TemplateSlotBlockDefinition
-  sampleInline: TemplateSlotInlineDefinition
+  callToAction: TemplateSlotInlineDefinition
+  header: TemplateSlotInlineDefinition
+  headerAside: TemplateSlotInlineDefinition
+  headerSidebar: TemplateSlotBlockDefinition
+  headerSummary: TemplateSlotBlockDefinition
+  metadata: TemplateSlotInlineDefinition
+  sidebar: TemplateSlotBlockDefinition
+  subheader: TemplateSlotInlineDefinition
+  subheaderAside: TemplateSlotInlineDefinition
+  subheaderSummary: TemplateSlotBlockDefinition
+  summary: TemplateSlotBlockDefinition
 }
 
 type HeroTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
   createdAt: ISO8601DateTime!
+  """
+  Load the associated definition for this template.
+  
+  """
+  definition: HeroTemplateDefinition!
+  """
+  The associated entity for this template instance.
+  
+  """
+  entity: AnyEntity!
   id: ID!
   """
   The time this object was last rendered.
@@ -6474,8 +6801,17 @@ Rendered slots for the associated template.
 
 """
 type HeroTemplateInstanceSlots {
-  sampleBlock: TemplateSlotBlockInstance
-  sampleInline: TemplateSlotInlineInstance
+  callToAction: TemplateSlotInlineInstance
+  header: TemplateSlotInlineInstance
+  headerAside: TemplateSlotInlineInstance
+  headerSidebar: TemplateSlotBlockInstance
+  headerSummary: TemplateSlotBlockInstance
+  metadata: TemplateSlotInlineInstance
+  sidebar: TemplateSlotBlockInstance
+  subheader: TemplateSlotInlineInstance
+  subheaderAside: TemplateSlotInlineInstance
+  subheaderSummary: TemplateSlotBlockInstance
+  summary: TemplateSlotBlockInstance
 }
 
 """
@@ -7688,6 +8024,11 @@ An interface describing an instance type that can be rendered for a given entity
 """
 interface LayoutInstance implements Renderable {
   """
+  The associated entity for this layout instance.
+  
+  """
+  entity: AnyEntity!
+  """
   The time this object was last rendered.
   
   """
@@ -7761,10 +8102,99 @@ type LinkEntityPayload implements StandardMutationPayload {
   link: EntityLink
 }
 
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum LinkListBackground {
+  """
+  A dark gradient is applied to the background of this template.
+  
+  """
+  DARK
+  """
+  A light gradient is applied to the background of this template.
+  
+  """
+  LIGHT
+  """
+  No background is applied to this template.
+  
+  """
+  NONE
+}
+
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum LinkListSelectionMode {
+  """
+  Render links from a dynamic list, determined at query time.
+  
+  """
+  DYNAMIC
+  """
+  Render links from a manual list set on each individual entity. See `manualListName` for how this works.
+  
+  """
+  MANUAL
+}
+
 type LinkListTemplateDefinition implements Node & Sluggable & TemplateDefinition {
+  """
+  The background gradient to use for this template. Affects presentation.
+  
+  """
+  background: LinkListBackground
   createdAt: ISO8601DateTime!
+  """
+  When `selectionMode` is set to `DYNAMIC`, this uses the same basic structure
+  as schemas to define a dynamic ordering that is resolved at runtime and based
+  on the `selectionSource`.
+  
+  """
+  dynamicOrderingDefinition: OrderingDefinition
   id: ID!
   layoutKind: LayoutKind!
+  """
+  When `selectionMode` is set to `MANUAL`, the purpose of this property
+  is to specify a name under which all the manual selections (per entity)
+  will be stored. This allows a layout to have multiple templates of the
+  same type using different lists, that will persist across rearrangements
+  of the layout _without_ losing connections between entities.
+  
+  """
+  manualListName: SchemaComponent
+  seeAllButtonLabel: String
+  """
+  Regardless of `selectionMode`, this limit will be applied on whatever resulting
+  list of entities are produced, so that only up to that amount of entities are
+  rendered in the template proper.
+  
+  """
+  selectionLimit: Int
+  selectionMode: LinkListSelectionMode
+  """
+  When selecting entities based on `selectionMode`, this property determines
+  which entity (relevant to the rendering entity) should be used for lookups.
+  
+  By default, it is `self`, which means the rendering entity itself.
+  
+  It can also support things like `ancestor.journal`, `ancestor.issue`, etc.,
+  in order to render a list of values in its parent.
+  
+  """
+  selectionSource: TemplateSelectionSource
+  selectionSourceAncestorName: SchemaComponent
+  """
+  An enum representing what mode `selectionSource` is in. Not directly set,
+  it is used internally for lookups.
+  
+  """
+  selectionSourceMode: SelectionSourceMode
+  showEntityContext: Boolean
+  showSeeAllButton: Boolean
   """
   Slot definitions for this template.
   
@@ -7772,7 +8202,13 @@ type LinkListTemplateDefinition implements Node & Sluggable & TemplateDefinition
   slots: LinkListTemplateDefinitionSlots!
   slug: Slug!
   templateKind: TemplateKind!
+  title: String
   updatedAt: ISO8601DateTime!
+  """
+  The variant rendering mode to use for this template. Affects presentation.
+  
+  """
+  variant: LinkListVariant
 }
 
 """
@@ -7780,12 +8216,29 @@ Slot definitions for the associated template.
 
 """
 type LinkListTemplateDefinitionSlots {
-  sampleBlock: TemplateSlotBlockDefinition
-  sampleInline: TemplateSlotInlineDefinition
+  header: TemplateSlotInlineDefinition
+  headerAside: TemplateSlotInlineDefinition
+  metadata: TemplateSlotInlineDefinition
+  subtitle: TemplateSlotInlineDefinition
 }
 
-type LinkListTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
+type LinkListTemplateInstance implements Node & Renderable & Sluggable & TemplateHasEntityList & TemplateInstance {
   createdAt: ISO8601DateTime!
+  """
+  Load the associated definition for this template.
+  
+  """
+  definition: LinkListTemplateDefinition!
+  """
+  The associated entity for this template instance.
+  
+  """
+  entity: AnyEntity!
+  """
+  The list of entities to render as part of this template's content.
+  
+  """
+  entityList: TemplateEntityList!
   id: ID!
   """
   The time this object was last rendered.
@@ -7808,8 +8261,42 @@ Rendered slots for the associated template.
 
 """
 type LinkListTemplateInstanceSlots {
-  sampleBlock: TemplateSlotBlockInstance
-  sampleInline: TemplateSlotInlineInstance
+  header: TemplateSlotInlineInstance
+  headerAside: TemplateSlotInlineInstance
+  metadata: TemplateSlotInlineInstance
+  subtitle: TemplateSlotInlineInstance
+}
+
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum LinkListVariant {
+  """
+  A card list of entities.
+  
+  """
+  CARDS
+  """
+  A compact list of entities.
+  
+  """
+  COMPACT
+  """
+  A grid of entities
+  
+  """
+  GRID
+  """
+  A horizontal list of entities with promotional header.
+  
+  """
+  PROMOS
+  """
+  A vertical, summarized list of entities.
+  
+  """
+  SUMMARY
 }
 
 """A candidate for a link target, scoped to a parent source"""
@@ -7882,6 +8369,11 @@ type ListItemLayoutDefinition implements LayoutDefinition & Node & Sluggable {
 
 type ListItemLayoutInstance implements LayoutInstance & Node & Renderable & Sluggable {
   createdAt: ISO8601DateTime!
+  """
+  The associated entity for this layout instance.
+  
+  """
+  entity: AnyEntity!
   id: ID!
   """
   The time this object was last rendered.
@@ -7927,12 +8419,28 @@ Slot definitions for the associated template.
 
 """
 type ListItemTemplateDefinitionSlots {
-  sampleBlock: TemplateSlotBlockDefinition
-  sampleInline: TemplateSlotInlineDefinition
+  contextA: TemplateSlotInlineDefinition
+  contextB: TemplateSlotInlineDefinition
+  contextC: TemplateSlotInlineDefinition
+  description: TemplateSlotBlockDefinition
+  header: TemplateSlotInlineDefinition
+  metaA: TemplateSlotInlineDefinition
+  metaB: TemplateSlotInlineDefinition
+  subheader: TemplateSlotInlineDefinition
 }
 
 type ListItemTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
   createdAt: ISO8601DateTime!
+  """
+  Load the associated definition for this template.
+  
+  """
+  definition: ListItemTemplateDefinition!
+  """
+  The associated entity for this template instance.
+  
+  """
+  entity: AnyEntity!
   id: ID!
   """
   The time this object was last rendered.
@@ -7955,8 +8463,14 @@ Rendered slots for the associated template.
 
 """
 type ListItemTemplateInstanceSlots {
-  sampleBlock: TemplateSlotBlockInstance
-  sampleInline: TemplateSlotInlineInstance
+  contextA: TemplateSlotInlineInstance
+  contextB: TemplateSlotInlineInstance
+  contextC: TemplateSlotInlineInstance
+  description: TemplateSlotBlockInstance
+  header: TemplateSlotInlineInstance
+  metaA: TemplateSlotInlineInstance
+  metaB: TemplateSlotInlineInstance
+  subheader: TemplateSlotInlineInstance
 }
 
 type MainLayoutDefinition implements LayoutDefinition & Node & Sluggable {
@@ -7974,6 +8488,11 @@ type MainLayoutDefinition implements LayoutDefinition & Node & Sluggable {
 
 type MainLayoutInstance implements LayoutInstance & Node & Renderable & Sluggable {
   createdAt: ISO8601DateTime!
+  """
+  The associated entity for this layout instance.
+  
+  """
+  entity: AnyEntity!
   id: ID!
   """
   The time this object was last rendered.
@@ -8084,6 +8603,28 @@ input MatchesOperatorInput {
   value: String!
 }
 
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum MetadataBackground {
+  """
+  A dark gradient is applied to the background of this template.
+  
+  """
+  DARK
+  """
+  A light gradient is applied to the background of this template.
+  
+  """
+  LIGHT
+  """
+  No background is applied to this template.
+  
+  """
+  NONE
+}
+
 type MetadataLayoutDefinition implements LayoutDefinition & Node & Sluggable {
   createdAt: ISO8601DateTime!
   id: ID!
@@ -8104,6 +8645,11 @@ type MetadataLayoutDefinition implements LayoutDefinition & Node & Sluggable {
 
 type MetadataLayoutInstance implements LayoutInstance & Node & Renderable & Sluggable {
   createdAt: ISO8601DateTime!
+  """
+  The associated entity for this layout instance.
+  
+  """
+  entity: AnyEntity!
   id: ID!
   """
   The time this object was last rendered.
@@ -8131,6 +8677,11 @@ type MetadataLayoutInstance implements LayoutInstance & Node & Renderable & Slug
 }
 
 type MetadataTemplateDefinition implements Node & Sluggable & TemplateDefinition {
+  """
+  The background gradient to use for this template. Affects presentation.
+  
+  """
+  background: MetadataBackground
   createdAt: ISO8601DateTime!
   id: ID!
   layoutKind: LayoutKind!
@@ -8149,12 +8700,21 @@ Slot definitions for the associated template.
 
 """
 type MetadataTemplateDefinitionSlots {
-  sampleBlock: TemplateSlotBlockDefinition
-  sampleInline: TemplateSlotInlineDefinition
+  header: TemplateSlotInlineDefinition
 }
 
 type MetadataTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
   createdAt: ISO8601DateTime!
+  """
+  Load the associated definition for this template.
+  
+  """
+  definition: MetadataTemplateDefinition!
+  """
+  The associated entity for this template instance.
+  
+  """
+  entity: AnyEntity!
   id: ID!
   """
   The time this object was last rendered.
@@ -8177,8 +8737,7 @@ Rendered slots for the associated template.
 
 """
 type MetadataTemplateInstanceSlots {
-  sampleBlock: TemplateSlotBlockInstance
-  sampleInline: TemplateSlotInlineInstance
+  header: TemplateSlotInlineInstance
 }
 
 type MultiselectProperty implements OptionableProperty & ScalarProperty & SchemaProperty & SearchableProperty {
@@ -8661,6 +9220,28 @@ type NamedAncestor {
   relativeDepth: Int!
 }
 
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum NavigationBackground {
+  """
+  A dark gradient is applied to the background of this template.
+  
+  """
+  DARK
+  """
+  A light gradient is applied to the background of this template.
+  
+  """
+  LIGHT
+  """
+  No background is applied to this template.
+  
+  """
+  NONE
+}
+
 type NavigationLayoutDefinition implements LayoutDefinition & Node & Sluggable {
   createdAt: ISO8601DateTime!
   id: ID!
@@ -8681,6 +9262,11 @@ type NavigationLayoutDefinition implements LayoutDefinition & Node & Sluggable {
 
 type NavigationLayoutInstance implements LayoutInstance & Node & Renderable & Sluggable {
   createdAt: ISO8601DateTime!
+  """
+  The associated entity for this layout instance.
+  
+  """
+  entity: AnyEntity!
   id: ID!
   """
   The time this object was last rendered.
@@ -8708,6 +9294,11 @@ type NavigationLayoutInstance implements LayoutInstance & Node & Renderable & Sl
 }
 
 type NavigationTemplateDefinition implements Node & Sluggable & TemplateDefinition {
+  """
+  The background gradient to use for this template. Affects presentation.
+  
+  """
+  background: NavigationBackground
   createdAt: ISO8601DateTime!
   id: ID!
   layoutKind: LayoutKind!
@@ -8726,12 +9317,21 @@ Slot definitions for the associated template.
 
 """
 type NavigationTemplateDefinitionSlots {
-  sampleBlock: TemplateSlotBlockDefinition
-  sampleInline: TemplateSlotInlineDefinition
+  entityLabel: TemplateSlotInlineDefinition
 }
 
 type NavigationTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
   createdAt: ISO8601DateTime!
+  """
+  Load the associated definition for this template.
+  
+  """
+  definition: NavigationTemplateDefinition!
+  """
+  The associated entity for this template instance.
+  
+  """
+  entity: AnyEntity!
   id: ID!
   """
   The time this object was last rendered.
@@ -8754,8 +9354,7 @@ Rendered slots for the associated template.
 
 """
 type NavigationTemplateInstanceSlots {
-  sampleBlock: TemplateSlotBlockInstance
-  sampleInline: TemplateSlotInlineInstance
+  entityLabel: TemplateSlotInlineInstance
 }
 
 """An object with an ID."""
@@ -8932,6 +9531,28 @@ enum OrderingAvailabilityFilter {
   ENABLED
 }
 
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum OrderingBackground {
+  """
+  A dark gradient is applied to the background of this template.
+  
+  """
+  DARK
+  """
+  A light gradient is applied to the background of this template.
+  
+  """
+  LIGHT
+  """
+  No background is applied to this template.
+  
+  """
+  NONE
+}
+
 """The connection type for Ordering."""
 type OrderingConnection implements Paginated {
   """A list of edges."""
@@ -8940,6 +9561,47 @@ type OrderingConnection implements Paginated {
   nodes: [Ordering!]!
   """Information to aid in pagination."""
   pageInfo: PageInfo!
+}
+
+"""
+A definition for an ordering (may be dynamic).
+
+"""
+type OrderingDefinition {
+  """
+  A constant ordering should be treated as not being able to invert itself.
+  """
+  constant: Boolean!
+  filter: OrderingFilterDefinition!
+  """
+  A hidden ordering represents an ordering that should not be shown in the frontend,
+  when iterating over an entity's available orderings. It does not affect access, as
+  hidden orderings may still serve a functional purpose for their schema.
+  
+  """
+  hidden: Boolean!
+  """
+  A unique identifier for the ordering within the context of its parent entity.
+  """
+  identifier: String!
+  """An optional, human-readable name for the ordering"""
+  name: String
+  order: [OrderDefinition!]!
+  """
+  Configuration for how to render an ordering and its entries.
+  
+  """
+  render: OrderingRenderDefinition!
+  select: OrderingSelectDefinition!
+  """
+  A tree ordering has some special handling to return entities
+  in deterministic order based on their hierarchical position
+  and relation to other entities in the same ordering.
+  
+  This is effectively a shortcut for `Ordering.render.mode === "TREE"`.
+  
+  """
+  tree: Boolean!
 }
 
 enum OrderingDirectSelection {
@@ -8995,6 +9657,11 @@ type OrderingEntry implements Node & Sluggable {
   nextSibling: OrderingEntry
   """The parent ordering"""
   ordering: Ordering!
+  """
+  The 1-based position of this entry.
+  
+  """
+  position: Int
   """
   The previous entry in the current ordering, if one exists. This will be null if this entry is the first.
   
@@ -9255,9 +9922,57 @@ input OrderingSelectLinkDefinitionInput {
 }
 
 type OrderingTemplateDefinition implements Node & Sluggable & TemplateDefinition {
+  """
+  The background gradient to use for this template. Affects presentation.
+  
+  """
+  background: OrderingBackground
   createdAt: ISO8601DateTime!
   id: ID!
   layoutKind: LayoutKind!
+  """
+  The identifier for the ordering to derive next/prev siblings from.
+  
+  Refer to `orderingSource` and `selectionSource` for more details.
+  
+  """
+  orderingIdentifier: SchemaComponent
+  """
+  A reference to the entity that contains an ordering identified by `orderingIdentifier`.
+  It operates exactly like `selectionSource`. See that property for more documentation.
+  
+  **Note**: While `self` is allowed here, it only makes sense if the rendering entity
+  is contained in one of its own orderings, which doesn't happen normally. The template
+  will still render, but it likely won't find siblings.
+  
+  """
+  orderingSource: TemplateSelectionSource
+  orderingSourceAncestorName: SchemaComponent
+  orderingSourceMode: SelectionSourceMode
+  """
+  What entity to use for detecting the positional prev/next siblings.
+  
+  By default, it is `self`. However, it can be overridden for creating templates that
+  navigate through parent issues, volumes, journals, etc. For instance, an article could
+  create an `<ordering />` template that has the following properties set:
+  
+  * `selectionSource`: `"ancestors.issue"`
+  * `orderingSource`: `"ancestors.journal"`
+  * `orderingIdentifier`: `"issues"`
+  
+  This would use the _journal's_ `issues` ordering to navigate through the article's
+  associated `issues`, and provide a quick way to navigate through varying levels of
+  the upper hierarchy from lower points in the tree.
+  
+  """
+  selectionSource: TemplateSelectionSource
+  selectionSourceAncestorName: SchemaComponent
+  """
+  An enum representing what mode `selectionSource` is in. Not directly set,
+  it is used internally for lookups.
+  
+  """
+  selectionSourceMode: SelectionSourceMode
   """
   Slot definitions for this template.
   
@@ -9273,12 +9988,22 @@ Slot definitions for the associated template.
 
 """
 type OrderingTemplateDefinitionSlots {
-  sampleBlock: TemplateSlotBlockDefinition
-  sampleInline: TemplateSlotInlineDefinition
+  nextLabel: TemplateSlotInlineDefinition
+  previousLabel: TemplateSlotInlineDefinition
 }
 
-type OrderingTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
+type OrderingTemplateInstance implements Node & Renderable & Sluggable & TemplateHasOrderingPair & TemplateInstance {
   createdAt: ISO8601DateTime!
+  """
+  Load the associated definition for this template.
+  
+  """
+  definition: OrderingTemplateDefinition!
+  """
+  The associated entity for this template instance.
+  
+  """
+  entity: AnyEntity!
   id: ID!
   """
   The time this object was last rendered.
@@ -9286,6 +10011,11 @@ type OrderingTemplateInstance implements Node & Renderable & Sluggable & Templat
   """
   lastRenderedAt: ISO8601DateTime
   layoutKind: LayoutKind!
+  """
+  Access the prev/next siblings within the template's specified ordering.
+  
+  """
+  orderingPair: TemplateOrderingPair!
   """
   Rendered slots for this template.
   
@@ -9301,8 +10031,8 @@ Rendered slots for the associated template.
 
 """
 type OrderingTemplateInstanceSlots {
-  sampleBlock: TemplateSlotBlockInstance
-  sampleInline: TemplateSlotInlineInstance
+  nextLabel: TemplateSlotInlineInstance
+  previousLabel: TemplateSlotInlineInstance
 }
 
 enum OrderingVisibilityFilter {
@@ -9463,7 +10193,34 @@ type PageInfo {
   totalUnfilteredCount: Int!
 }
 
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum PageListBackground {
+  """
+  A dark gradient is applied to the background of this template.
+  
+  """
+  DARK
+  """
+  A light gradient is applied to the background of this template.
+  
+  """
+  LIGHT
+  """
+  No background is applied to this template.
+  
+  """
+  NONE
+}
+
 type PageListTemplateDefinition implements Node & Sluggable & TemplateDefinition {
+  """
+  The background gradient to use for this template. Affects presentation.
+  
+  """
+  background: PageListBackground
   createdAt: ISO8601DateTime!
   id: ID!
   layoutKind: LayoutKind!
@@ -9482,12 +10239,21 @@ Slot definitions for the associated template.
 
 """
 type PageListTemplateDefinitionSlots {
-  sampleBlock: TemplateSlotBlockDefinition
-  sampleInline: TemplateSlotInlineDefinition
+  header: TemplateSlotInlineDefinition
 }
 
 type PageListTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
   createdAt: ISO8601DateTime!
+  """
+  Load the associated definition for this template.
+  
+  """
+  definition: PageListTemplateDefinition!
+  """
+  The associated entity for this template instance.
+  
+  """
+  entity: AnyEntity!
   id: ID!
   """
   The time this object was last rendered.
@@ -9510,8 +10276,7 @@ Rendered slots for the associated template.
 
 """
 type PageListTemplateInstanceSlots {
-  sampleBlock: TemplateSlotBlockInstance
-  sampleInline: TemplateSlotInlineInstance
+  header: TemplateSlotInlineInstance
 }
 
 """Connections can be paginated by cursor or number."""
@@ -10470,6 +11235,17 @@ interface ScalarProperty implements SchemaProperty {
 }
 
 """
+A string primitive with a very constrained format, representing components
+of a schema like namespaces, identifiers, ordering names, etc.
+
+It is also used in the templating subsystem.
+
+It corresponds to the regular expression `(?-mix:\A[a-z][a-z0-9_]*?[a-z0-9]\z)`.
+
+"""
+scalar SchemaComponent
+
+"""
 Configuration for controlling how instances handle specific optional core properties.
 
 """
@@ -10738,6 +11514,17 @@ enum SchemaPropertyKind {
   """
   SIMPLE
 }
+
+"""
+A path to a schema property (it will always be a string primitive).
+
+It can come in the form of a `"single_property"` or a `"nested.property"`.
+
+This scalar is only used to assert the _format_, it does not
+validate that it is an existing schema property.
+
+"""
+scalar SchemaPropertyPath
 
 """The data type for a schema property."""
 enum SchemaPropertyType {
@@ -11258,6 +12045,15 @@ type SelectProperty implements OptionableProperty & ScalarProperty & SchemaPrope
 }
 
 """
+An enumerated value associated with the templating subsystem.
+
+"""
+enum SelectionSourceMode {
+  ANCESTOR
+  SELF
+}
+
+"""
 A generic enum for sorting models that don't have anything more specific implemented
 """
 enum SimpleOrder {
@@ -11496,6 +12292,28 @@ enum SubtreeNodeFilter {
   DESCENDANTS
 }
 
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum SupplementaryBackground {
+  """
+  A dark gradient is applied to the background of this template.
+  
+  """
+  DARK
+  """
+  A light gradient is applied to the background of this template.
+  
+  """
+  LIGHT
+  """
+  No background is applied to this template.
+  
+  """
+  NONE
+}
+
 type SupplementaryLayoutDefinition implements LayoutDefinition & Node & Sluggable {
   createdAt: ISO8601DateTime!
   id: ID!
@@ -11516,6 +12334,11 @@ type SupplementaryLayoutDefinition implements LayoutDefinition & Node & Sluggabl
 
 type SupplementaryLayoutInstance implements LayoutInstance & Node & Renderable & Sluggable {
   createdAt: ISO8601DateTime!
+  """
+  The associated entity for this layout instance.
+  
+  """
+  entity: AnyEntity!
   id: ID!
   """
   The time this object was last rendered.
@@ -11543,6 +12366,11 @@ type SupplementaryLayoutInstance implements LayoutInstance & Node & Renderable &
 }
 
 type SupplementaryTemplateDefinition implements Node & Sluggable & TemplateDefinition {
+  """
+  The background gradient to use for this template. Affects presentation.
+  
+  """
+  background: SupplementaryBackground
   createdAt: ISO8601DateTime!
   id: ID!
   layoutKind: LayoutKind!
@@ -11561,12 +12389,22 @@ Slot definitions for the associated template.
 
 """
 type SupplementaryTemplateDefinitionSlots {
-  sampleBlock: TemplateSlotBlockDefinition
-  sampleInline: TemplateSlotInlineDefinition
+  contributorsLabel: TemplateSlotInlineDefinition
+  metricsLabel: TemplateSlotInlineDefinition
 }
 
 type SupplementaryTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
   createdAt: ISO8601DateTime!
+  """
+  Load the associated definition for this template.
+  
+  """
+  definition: SupplementaryTemplateDefinition!
+  """
+  The associated entity for this template instance.
+  
+  """
+  entity: AnyEntity!
   id: ID!
   """
   The time this object was last rendered.
@@ -11589,8 +12427,8 @@ Rendered slots for the associated template.
 
 """
 type SupplementaryTemplateInstanceSlots {
-  sampleBlock: TemplateSlotBlockInstance
-  sampleInline: TemplateSlotInlineInstance
+  contributorsLabel: TemplateSlotInlineInstance
+  metricsLabel: TemplateSlotInlineInstance
 }
 
 """
@@ -11694,9 +12532,84 @@ type TagsProperty implements ScalarProperty & SchemaProperty {
   type: SchemaPropertyType!
 }
 
+"""
+Entities within the system have templates associated with schema-specific layouts,
+that can be overridden within the hierarchy for more custom approaches.
+
+This interface defines the *definition* for one such template and `layoutDefinition`,
+which controls how associated `TemplateInstance`s are rendered.
+
+"""
 interface TemplateDefinition {
   layoutKind: LayoutKind!
   templateKind: TemplateKind!
+}
+
+"""
+Some template instances return an ordered list of entities to render
+within as part of their content.
+
+This provides access to that list, as well as a shortcut to each entity's
+associated `ListItemLayoutInstance`.
+
+**note** It's possible that entities could match the parameters of the list
+but be skipped because they have no layouts (yet). This is intentional behavior,
+and subsequent fetches should see the list populated as soon as the descendant
+entities layouts have rendered.
+
+"""
+type TemplateEntityList {
+  """
+  The size of the list.
+  
+  """
+  count: Int!
+  """
+  Whether the list is empty, provided for easier filtering and render-skipping.
+  
+  """
+  empty: Boolean!
+  """
+  The actual entity records within this list.
+  
+  The order is deterministic.
+  
+  """
+  entities: [AnyEntity!]!
+  """
+  A shortcut to access the list item layouts for each entity in `entities`.
+  
+  The order is deterministic.
+  
+  See `ListItemLayoutInstance`.
+  
+  """
+  listItemLayouts: [ListItemLayoutInstance!]!
+}
+
+"""
+An interface for a template instance that has a `TemplateEntityList`.
+
+"""
+interface TemplateHasEntityList {
+  """
+  The list of entities to render as part of this template's content.
+  
+  """
+  entityList: TemplateEntityList!
+}
+
+"""
+An interface that implements the `prev` / `next` siblings
+for navigating through orderings.
+
+"""
+interface TemplateHasOrderingPair {
+  """
+  Access the prev/next siblings within the template's specified ordering.
+  
+  """
+  orderingPair: TemplateOrderingPair!
 }
 
 """
@@ -11704,6 +12617,11 @@ An interface describing an instance type that can be rendered for a given entity
 
 """
 interface TemplateInstance implements Renderable {
+  """
+  The associated entity for this template instance.
+  
+  """
+  entity: AnyEntity!
   """
   The time this object was last rendered.
   
@@ -11799,6 +12717,75 @@ enum TemplateKind {
   """
   SUPPLEMENTARY
 }
+
+"""
+An object that provides a next/prev pair for navigating through ordering siblings
+within a template.
+
+"""
+type TemplateOrderingPair {
+  """
+  The number of entries in the ordering (`null` if no match).
+  
+  """
+  count: Int
+  """
+  Whether or not the ordering / entry actually exists—can be used to skip rendering.
+  
+  """
+  exists: Boolean!
+  """
+  Whether the source entity is the _first_ entity in the ordering.
+  
+  """
+  first: Boolean!
+  """
+  Whether the source entity is the _last_ entity in the ordering.
+  
+  """
+  last: Boolean!
+  """
+  The next entry in the current ordering, if one exists. This will be null if this entry is the last.
+  
+  """
+  nextSibling: OrderingEntry
+  """
+  The source entity's (1-based) position in the ordering.
+  
+  """
+  position: Int
+  """
+  The previous entry in the current ordering, if one exists. This will be null if this entry is the first.
+  
+  """
+  prevSibling: OrderingEntry
+}
+
+"""
+A string primitive that represents a selection source for a template definition.
+
+It is used to resolve ordered lists of entities for a given template.
+
+Values can be things like `"self"` or `ancestors.${name}`, where `name` is the
+associated ancestor name defined in the originating entity's schema.
+
+```
+(?x-mi:\A
+    (?:(?-mix:\Aself\z))
+    |
+    (?:(?-mix:\Aparent\z))
+    |
+    (?:(?x-mi:
+    ancestors
+    \.
+    (?<ancestor_name>[a-z][a-z0-9_]*[a-z])
+    ))
+    \z
+    )
+```
+
+"""
+scalar TemplateSelectionSource
 
 """
 A definition for a block-type template slot.
