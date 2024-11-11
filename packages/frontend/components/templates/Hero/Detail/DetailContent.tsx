@@ -1,7 +1,6 @@
 import { graphql, useFragment } from "react-relay";
 import ContributorsList from "@/components/composed/contributor/ContributorsList";
 import { DetailContentFragment$key } from "@/relay/DetailContentFragment.graphql";
-import { DetailContentLayoutFragment$key } from "@/relay/DetailContentLayoutFragment.graphql";
 import {
   useSharedBlockFragment,
   useSharedInlineFragment,
@@ -11,15 +10,13 @@ import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import * as Styled from "./Detail.styles";
 
 type DetailContentProps = {
-  entityData?: DetailContentFragment$key | null;
-  data?: DetailContentLayoutFragment$key | null;
+  data?: DetailContentFragment$key | null;
 };
 
-export default function Content({ data, entityData }: DetailContentProps) {
-  const entity = useFragment(fragment, entityData);
-  const template = useFragment(layoutFragment, data);
+export default function Content({ data }: DetailContentProps) {
+  const template = useFragment(fragment, data);
 
-  const { slots, definition } = template ?? {};
+  const { entity, slots, definition } = template ?? {};
 
   const subheader = useSharedInlineFragment(slots?.subheader);
   const subheaderAside = useSharedInlineFragment(slots?.subheaderAside);
@@ -73,18 +70,15 @@ export default function Content({ data, entityData }: DetailContentProps) {
 }
 
 const fragment = graphql`
-  fragment DetailContentFragment on AnyEntity {
-    ... on Item {
-      slug
-      contributions {
-        ...ContributorsListFragment
+  fragment DetailContentFragment on HeroTemplateInstance {
+    entity {
+      ... on Item {
+        slug
+        contributions {
+          ...ContributorsListFragment
+        }
       }
     }
-  }
-`;
-
-const layoutFragment = graphql`
-  fragment DetailContentLayoutFragment on HeroTemplateInstance {
     definition {
       listContributors
     }

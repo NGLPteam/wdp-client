@@ -6,22 +6,18 @@ import BreadcrumbsBar from "@/components/layout/BreadcrumbsBar";
 import SearchHero from "@/components/composed/search/SearchHero";
 import EntityNavBar from "@/components/composed/entity/EntityNavBar";
 import { HeroTemplateFragment$key } from "@/relay/HeroTemplateFragment.graphql";
-import { HeroTemplateLayoutFragment$key } from "@/relay/HeroTemplateLayoutFragment.graphql";
 import HeroHeader from "./Header";
 import HeroDetail from "./Detail";
 import HeroImage from "./Image";
 
 export default function HeroTemplate({
   data,
-  layoutData,
 }: {
   data: HeroTemplateFragment$key | null;
-  layoutData?: HeroTemplateLayoutFragment$key | null;
 }) {
-  const hero = useFragment(fragment, data);
-  const layout = useFragment(layoutFragment, layoutData);
+  const layout = useFragment(fragment, data);
 
-  const { definition } = layout?.template ?? {};
+  const { template, entity } = layout ?? {};
 
   const {
     background,
@@ -33,7 +29,7 @@ export default function HeroTemplate({
     showSharingLink,
     showSplitDisplay,
     showBigSearchPrompt,
-  } = definition ?? {};
+  } = template?.definition ?? {};
 
   const renderBreadcrumbs = !!(showBreadcrumbs || showSharingLink);
 
@@ -44,27 +40,21 @@ export default function HeroTemplate({
   return (
     <>
       {renderBreadcrumbs && (
-        <BreadcrumbsBar data={hero} showShare={showSharingLink ?? false} />
+        <BreadcrumbsBar data={entity} showShare={showSharingLink ?? false} />
       )}
       <Container as="header" width="wide" bgColor={background}>
-        <HeroHeader
-          data={layout?.template}
-          entityData={hero}
-          layout={heroImageLayout}
-        />
+        <HeroHeader data={layout?.template} layout={heroImageLayout} />
       </Container>
       {showBigSearchPrompt && <SearchHero prompt={searchPrompt} />}
       <Container bgColor={background}>
-        {showSplitDisplay && (
-          <HeroDetail data={layout?.template} entityData={hero} />
-        )}
+        {showSplitDisplay && <HeroDetail data={layout?.template} />}
       </Container>
-      {showHeroImage && hero?.heroImage && (
-        <HeroImage data={hero?.heroImage} layout={heroImageLayout} />
+      {showHeroImage && entity?.heroImage && (
+        <HeroImage data={entity?.heroImage} layout={heroImageLayout} />
       )}
       {(enableDescendantBrowsing || enableDescendantSearch) && (
         <EntityNavBar
-          data={hero}
+          data={entity}
           showBrowse={enableDescendantBrowsing}
           showSearch={enableDescendantSearch}
         />
@@ -74,28 +64,22 @@ export default function HeroTemplate({
 }
 
 const fragment = graphql`
-  fragment HeroTemplateFragment on AnyEntity {
-    ...BreadcrumbsBarFragment
-    ...EntityNavBarFragment
-    ...DetailHeroFragment
-    ... on Community {
-      heroImage {
-        ...ImageHeroTemplateFragment
+  fragment HeroTemplateFragment on HeroLayoutInstance {
+    entity {
+      ...BreadcrumbsBarFragment
+      ...EntityNavBarFragment
+      ... on Community {
+        heroImage {
+          ...ImageHeroTemplateFragment
+        }
+        heroImageLayout
       }
-      heroImageLayout
-    }
-    ... on Collection {
-      heroImage {
-        ...ImageHeroTemplateFragment
+      ... on Collection {
+        heroImage {
+          ...ImageHeroTemplateFragment
+        }
       }
     }
-    ...HeaderSidebarHeroFragment
-    ...DetailSidebarFragment
-  }
-`;
-
-const layoutFragment = graphql`
-  fragment HeroTemplateLayoutFragment on HeroLayoutInstance {
     template {
       definition {
         background
@@ -109,7 +93,7 @@ const layoutFragment = graphql`
         showBigSearchPrompt
       }
       ...HeaderHeroFragment
-      ...DetailHeroLayoutFragment
+      ...DetailHeroFragment
     }
   }
 `;

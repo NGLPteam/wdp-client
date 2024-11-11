@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<021f0c51b9f5a9c69f4402af1441410f>>
+ * @generated SignedSource<<50133d5894be2e478682cf4454046e30>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,7 @@ export type HeaderHeroFragment$data = {
   readonly slots: {
     readonly " $fragmentSpreads": FragmentRefs<"HeaderTitleBlockFragment">;
   };
-  readonly " $fragmentSpreads": FragmentRefs<"HeaderSidebarHeroLayoutFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"HeaderSidebarFragment">;
   readonly " $fragmentType": "HeaderHeroFragment";
 };
 export type HeaderHeroFragment$key = {
@@ -31,7 +31,7 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "HeaderSidebarHeroLayoutFragment"
+      "name": "HeaderSidebarFragment"
     },
     {
       "alias": null,
@@ -54,6 +54,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "8e21d2381b32d48edc979c41e2fd20e4";
+(node as any).hash = "76efbc76fb059f95bef9bca2086b9ddb";
 
 export default node;

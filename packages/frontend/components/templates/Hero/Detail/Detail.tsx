@@ -1,21 +1,18 @@
 import { graphql, useFragment } from "react-relay";
 import { DetailHeroFragment$key } from "@/relay/DetailHeroFragment.graphql";
-import { DetailHeroLayoutFragment$key } from "@/relay/DetailHeroLayoutFragment.graphql";
 import CoverImage from "./DetailCoverImage";
 import Content from "./DetailContent";
 import Sidebar from "./DetailSidebar";
 import * as Styled from "./Detail.styles";
 
 type HeroDetailProps = {
-  entityData?: DetailHeroFragment$key | null;
-  data?: DetailHeroLayoutFragment$key | null;
+  data?: DetailHeroFragment$key | null;
 };
 
-export default function HeroDetail({ data, entityData }: HeroDetailProps) {
-  const entity = useFragment(fragment, entityData);
-  const template = useFragment(layoutFragment, data);
+export default function HeroDetail({ data }: HeroDetailProps) {
+  const template = useFragment(fragment, data);
 
-  const { definition } = template ?? {};
+  const { definition, entity } = template ?? {};
 
   return (
     <Styled.Columns>
@@ -25,29 +22,24 @@ export default function HeroDetail({ data, entityData }: HeroDetailProps) {
             <CoverImage data={entity} />
           </Styled.Thumbnail>
         )}
-        <Content data={template} entityData={entity} />
+        <Content data={template} />
       </Styled.Left>
       <Styled.Right>
-        <Sidebar data={template} entityData={entity} />
+        <Sidebar data={template} />
       </Styled.Right>
     </Styled.Columns>
   );
 }
 
 const fragment = graphql`
-  fragment DetailHeroFragment on AnyEntity {
-    ...DetailCoverImageFragment
-    ...DetailContentFragment
-    ...DetailSidebarFragment
-  }
-`;
-
-const layoutFragment = graphql`
-  fragment DetailHeroLayoutFragment on HeroTemplateInstance {
+  fragment DetailHeroFragment on HeroTemplateInstance {
+    entity {
+      ...DetailCoverImageFragment
+    }
     definition {
       showThumbnailImage
     }
-    ...DetailContentLayoutFragment
-    ...DetailSidebarLayoutFragment
+    ...DetailContentFragment
+    ...DetailSidebarFragment
   }
 `;
