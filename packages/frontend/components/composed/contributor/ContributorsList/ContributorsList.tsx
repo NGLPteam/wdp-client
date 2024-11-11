@@ -10,7 +10,7 @@ import {
 } from "@/relay/ContributorsListFragment.graphql";
 import ContributorName from "../ContributorName";
 
-type Node = ContributorsListFragment$data["nodes"][number];
+type Node = NonNullable<ContributorsListFragment$data["nodes"]>[number];
 
 export default function ContributorsList({
   data,
@@ -94,14 +94,27 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment ContributorsListFragment on ItemContributionConnection {
-    nodes {
-      role
-      contributor {
-        ... on Sluggable {
-          slug
+  fragment ContributorsListFragment on Paginated {
+    ... on ItemContributionConnection {
+      nodes {
+        role
+        contributor {
+          ... on Sluggable {
+            slug
+          }
+          ...ContributorNameFragment
         }
-        ...ContributorNameFragment
+      }
+    }
+    ... on CollectionContributionConnection {
+      nodes {
+        role
+        contributor {
+          ... on Sluggable {
+            slug
+          }
+          ...ContributorNameFragment
+        }
       }
     }
   }

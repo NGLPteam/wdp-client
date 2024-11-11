@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<281c789dd8cc7c1174d7b63aba969474>>
+ * @generated SignedSource<<40312000d109650d178c5c2a6a92b543>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,16 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type sharedListItemTemplateFragment$data = {
+  readonly entity: {
+    readonly contributions?: {
+      readonly " $fragmentSpreads": FragmentRefs<"ContributorsListFragment">;
+    };
+    readonly id?: string;
+    readonly thumbnail?: {
+      readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
+    };
+    readonly title?: string;
+  };
   readonly slots: {
     readonly contextA: {
       readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
@@ -45,7 +55,44 @@ export type sharedListItemTemplateFragment$key = {
 };
 
 const node: ReaderFragment = (function(){
-var v0 = [
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "ImageAttachment",
+  "kind": "LinkedField",
+  "name": "thumbnail",
+  "plural": false,
+  "selections": [
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "CoverImageFragment"
+    }
+  ],
+  "storageKey": null
+},
+v3 = [
+  {
+    "args": null,
+    "kind": "FragmentSpread",
+    "name": "ContributorsListFragment"
+  }
+],
+v4 = [
   {
     "args": null,
     "kind": "FragmentSpread",
@@ -61,6 +108,57 @@ return {
     {
       "alias": null,
       "args": null,
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "entity",
+      "plural": false,
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            (v0/*: any*/),
+            (v1/*: any*/),
+            (v2/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "CollectionContributionConnection",
+              "kind": "LinkedField",
+              "name": "contributions",
+              "plural": false,
+              "selections": (v3/*: any*/),
+              "storageKey": null
+            }
+          ],
+          "type": "Collection",
+          "abstractKey": null
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            (v0/*: any*/),
+            (v1/*: any*/),
+            (v2/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "ItemContributionConnection",
+              "kind": "LinkedField",
+              "name": "contributions",
+              "plural": false,
+              "selections": (v3/*: any*/),
+              "storageKey": null
+            }
+          ],
+          "type": "Item",
+          "abstractKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "ListItemTemplateInstanceSlots",
       "kind": "LinkedField",
       "name": "slots",
@@ -73,7 +171,7 @@ return {
           "kind": "LinkedField",
           "name": "contextA",
           "plural": false,
-          "selections": (v0/*: any*/),
+          "selections": (v4/*: any*/),
           "storageKey": null
         },
         {
@@ -83,7 +181,7 @@ return {
           "kind": "LinkedField",
           "name": "contextB",
           "plural": false,
-          "selections": (v0/*: any*/),
+          "selections": (v4/*: any*/),
           "storageKey": null
         },
         {
@@ -93,7 +191,7 @@ return {
           "kind": "LinkedField",
           "name": "contextC",
           "plural": false,
-          "selections": (v0/*: any*/),
+          "selections": (v4/*: any*/),
           "storageKey": null
         },
         {
@@ -119,7 +217,7 @@ return {
           "kind": "LinkedField",
           "name": "header",
           "plural": false,
-          "selections": (v0/*: any*/),
+          "selections": (v4/*: any*/),
           "storageKey": null
         },
         {
@@ -129,7 +227,7 @@ return {
           "kind": "LinkedField",
           "name": "metaA",
           "plural": false,
-          "selections": (v0/*: any*/),
+          "selections": (v4/*: any*/),
           "storageKey": null
         },
         {
@@ -139,7 +237,7 @@ return {
           "kind": "LinkedField",
           "name": "metaB",
           "plural": false,
-          "selections": (v0/*: any*/),
+          "selections": (v4/*: any*/),
           "storageKey": null
         },
         {
@@ -149,7 +247,7 @@ return {
           "kind": "LinkedField",
           "name": "subheader",
           "plural": false,
-          "selections": (v0/*: any*/),
+          "selections": (v4/*: any*/),
           "storageKey": null
         }
       ],
@@ -161,6 +259,6 @@ return {
 };
 })();
 
-(node as any).hash = "88ff87b04ce7e654c79ec0b97724bff8";
+(node as any).hash = "3d09654a9ae775c52a44cd278b589f1a";
 
 export default node;
