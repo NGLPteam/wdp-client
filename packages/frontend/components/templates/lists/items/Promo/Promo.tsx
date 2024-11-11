@@ -1,4 +1,4 @@
-import { useSharedListItemTemplateFragment } from "@/components/templates/shared.graphql";
+import { useSharedListItemTemplateFragment } from "@/components/templates/shared/shared.listItems.graphql";
 import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import * as Styled from "./Promo.styles";

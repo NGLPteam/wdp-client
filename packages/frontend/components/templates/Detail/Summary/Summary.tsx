@@ -2,7 +2,7 @@ import { graphql, useFragment } from "react-relay";
 import {
   useSharedInlineFragment,
   useSharedBlockFragment,
-} from "@/components/templates/shared.graphql";
+} from "@/components/templates/shared/shared.slots.graphql";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import EntityAnnouncements from "@/components/composed/entity/EntityAnnouncements";

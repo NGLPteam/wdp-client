@@ -12430,6 +12430,11 @@ export type TemplateDefinition = {
  * This provides access to that list, as well as a shortcut to each entity's
  * associated `ListItemLayoutInstance`.
  *
+ * **note** It's possible that entities could match the parameters of the list
+ * but be skipped because they have no layouts (yet). This is intentional behavior,
+ * and subsequent fetches should see the list populated as soon as the descendant
+ * entities layouts have rendered.
+ *
  */
 export type TemplateEntityList = {
   __typename?: 'TemplateEntityList';

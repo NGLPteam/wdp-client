@@ -50,14 +50,8 @@ const fragment = graphql`
     ... on ContributorListTemplateInstance {
       ...ContributorsTemplateFragment
     }
-    ... on DescendantListTemplateInstance {
-      ...DescendantsTemplateFragment
-    }
     ... on DetailTemplateInstance {
       ...DetailTemplateFragment
-    }
-    ... on LinkListTemplateInstance {
-      ...LinksTemplateFragment
     }
     ... on OrderingTemplateInstance {
       ...OrderingNavigationTemplateFragment
@@ -65,5 +59,7 @@ const fragment = graphql`
     ... on PageListTemplateInstance {
       ...PagesTemplateFragment
     }
+    ...DescendantsTemplateFragment
+    ...LinksTemplateFragment
   }
 `;

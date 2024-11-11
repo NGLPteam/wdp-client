@@ -4,7 +4,7 @@ import { DetailContentFragment$key } from "@/relay/DetailContentFragment.graphql
 import {
   useSharedBlockFragment,
   useSharedInlineFragment,
-} from "@/components/templates/shared.graphql";
+} from "@/components/templates/shared/shared.slots.graphql";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import * as Styled from "./Detail.styles";

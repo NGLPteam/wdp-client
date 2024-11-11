@@ -62721,7 +62721,7 @@
       {
         "kind": "OBJECT",
         "name": "TemplateEntityList",
-        "description": "Some template instances return an ordered list of entities to render\nwithin as part of their content.\n\nThis provides access to that list, as well as a shortcut to each entity's\nassociated `ListItemLayoutInstance`.\n",
+        "description": "Some template instances return an ordered list of entities to render\nwithin as part of their content.\n\nThis provides access to that list, as well as a shortcut to each entity's\nassociated `ListItemLayoutInstance`.\n\n**note** It's possible that entities could match the parameters of the list\nbut be skipped because they have no layouts (yet). This is intentional behavior,\nand subsequent fetches should see the list populated as soon as the descendant\nentities layouts have rendered.\n",
         "fields": [
           {
             "name": "count",

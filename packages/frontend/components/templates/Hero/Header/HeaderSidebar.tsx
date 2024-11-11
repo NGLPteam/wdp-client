@@ -1,5 +1,5 @@
 import { graphql, useFragment } from "react-relay";
-import { useSharedBlockFragment } from "@/components/templates/shared.graphql";
+import { useSharedBlockFragment } from "@/components/templates/shared/shared.slots.graphql";
 import { HeaderSidebarFragment$key } from "@/relay/HeaderSidebarFragment.graphql";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import DOI from "@/components/atomic/properties/DOI";

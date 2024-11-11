@@ -2,7 +2,7 @@ import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import Container from "@/components/layout/Container";
 import { ContributorsTemplateFragment$key } from "@/relay/ContributorsTemplateFragment.graphql";
-import { useSharedInlineFragment } from "@/components/templates/shared.graphql";
+import { useSharedInlineFragment } from "@/components/templates/shared/shared.slots.graphql";
 import InlineSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import Contributor from "./Contributor";
 import * as Styled from "./Contributors.styles";
