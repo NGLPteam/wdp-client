@@ -1,7 +1,6 @@
 import { graphql, useFragment } from "react-relay";
 import { useSharedBlockFragment } from "@/components/templates/shared.graphql";
-import { HeaderSidebarHeroFragment$key } from "@/relay/HeaderSidebarHeroFragment.graphql";
-import { HeaderSidebarHeroLayoutFragment$key } from "@/relay/HeaderSidebarHeroLayoutFragment.graphql";
+import { HeaderSidebarFragment$key } from "@/relay/HeaderSidebarFragment.graphql";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import DOI from "@/components/atomic/properties/DOI";
 import ISSN from "@/components/atomic/properties/ISSN";
@@ -11,15 +10,12 @@ import * as Styled from "./Header.styles";
 
 export default function Sidebar({
   data,
-  entityData,
 }: {
-  data?: HeaderSidebarHeroLayoutFragment$key | null;
-  entityData?: HeaderSidebarHeroFragment$key | null;
+  data?: HeaderSidebarFragment$key | null;
 }) {
-  const template = useFragment(layoutFragment, data);
-  const entity = useFragment(fragment, entityData);
+  const template = useFragment(fragment, data);
 
-  const { definition, slots } = template ?? {};
+  const { entity, definition, slots } = template ?? {};
 
   const slot = useSharedBlockFragment(slots?.headerSidebar);
 
@@ -48,22 +44,19 @@ export default function Sidebar({
 }
 
 const fragment = graphql`
-  fragment HeaderSidebarHeroFragment on AnyEntity {
-    ...DOIFragment
-    ...ISSNFragment
-    ... on Item {
-      entityViews {
-        ...ViewCountFragment
-      }
-      assetDownloads {
-        ...DownloadCountFragment
+  fragment HeaderSidebarFragment on HeroTemplateInstance {
+    entity {
+      ...DOIFragment
+      ...ISSNFragment
+      ... on Item {
+        entityViews {
+          ...ViewCountFragment
+        }
+        assetDownloads {
+          ...DownloadCountFragment
+        }
       }
     }
-  }
-`;
-
-const layoutFragment = graphql`
-  fragment HeaderSidebarHeroLayoutFragment on HeroTemplateInstance {
     definition {
       showDOI
       showISSN
