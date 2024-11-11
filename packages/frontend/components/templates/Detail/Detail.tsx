@@ -31,7 +31,6 @@ export default function DetailTemplate({
       ) : (
         <Full data={entity} showHeroImage={showHeroImage} />
       )}
-      );
     </Container>
   );
 }
