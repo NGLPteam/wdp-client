@@ -7,11 +7,12 @@ import NavigationTemplate from "@/components/templates/EntityNavigation";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageItemTemplateQuery as Query } from "@/relay/pageItemTemplateQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
+import { BasePageParams } from "@/types/page";
 
-export default async function TemplatePage() {
+export default async function TemplatePage({
+  params: { slug },
+}: BasePageParams) {
   const uid = useId();
-
-  const slug = "Yv3YGPBhqvnmI27Ybum7Nzf6xEgmnOKE";
 
   const { data, records } =
     (await fetchQuery<Query>(query, {

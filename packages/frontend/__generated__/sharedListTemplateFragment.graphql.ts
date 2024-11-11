@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<27367e34c25900aea74fccb4de3e7a86>>
+ * @generated SignedSource<<7072a3a966ea967f4384ad5fa338812a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,11 +23,6 @@ export type sharedListTemplateFragment$data = {
     readonly showSeeAllButton: boolean | null | undefined;
     readonly title: string | null | undefined;
     readonly variant: DescendantListVariant | null | undefined;
-  };
-  readonly entityList?: {
-    readonly count: number;
-    readonly empty: boolean;
-    readonly " $fragmentSpreads": FragmentRefs<"sharedListItemsTemplateFragment">;
   };
   readonly linksDefinition?: {
     readonly background: LinkListBackground | null | undefined;
@@ -159,37 +154,7 @@ v2 = [
     "selections": (v1/*: any*/),
     "storageKey": null
   }
-],
-v3 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "TemplateEntityList",
-  "kind": "LinkedField",
-  "name": "entityList",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "count",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "empty",
-      "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "sharedListItemsTemplateFragment"
-    }
-  ],
-  "storageKey": null
-};
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -218,8 +183,7 @@ return {
           "plural": false,
           "selections": (v2/*: any*/),
           "storageKey": null
-        },
-        (v3/*: any*/)
+        }
       ],
       "type": "LinkListTemplateInstance",
       "abstractKey": null
@@ -246,8 +210,7 @@ return {
           "plural": false,
           "selections": (v2/*: any*/),
           "storageKey": null
-        },
-        (v3/*: any*/)
+        }
       ],
       "type": "DescendantListTemplateInstance",
       "abstractKey": null
@@ -258,6 +221,6 @@ return {
 };
 })();
 
-(node as any).hash = "734f165e5758ebe0ecd2e00cbc677276";
+(node as any).hash = "075417229e9a2c2db9efa16aad2fda40";
 
 export default node;
