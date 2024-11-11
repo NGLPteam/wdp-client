@@ -1,7 +1,6 @@
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import Container from "@/components/layout/Container";
-import { ContributorsTemplateLayoutFragment$key } from "@/relay/ContributorsTemplateLayoutFragment.graphql";
 import { ContributorsTemplateFragment$key } from "@/relay/ContributorsTemplateFragment.graphql";
 import { useSharedInlineFragment } from "@/components/templates/shared.graphql";
 import InlineSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
@@ -10,17 +9,14 @@ import * as Styled from "./Contributors.styles";
 
 export default function ContributorsTemplate({
   data,
-  entityData,
 }: {
-  data?: ContributorsTemplateLayoutFragment$key | null;
-  entityData?: ContributorsTemplateFragment$key | null;
+  data?: ContributorsTemplateFragment$key | null;
 }) {
   const { t } = useTranslation();
 
-  const template = useFragment(layoutFragment, data);
-  const entity = useFragment(fragment, entityData);
+  const template = useFragment(fragment, data);
 
-  const { contributorsDefinition, slots } = template ?? {};
+  const { entity, contributorsDefinition, slots } = template ?? {};
 
   const header = useSharedInlineFragment(slots?.header);
 
@@ -47,27 +43,24 @@ export default function ContributorsTemplate({
 }
 
 const fragment = graphql`
-  fragment ContributorsTemplateFragment on AnyEntity {
-    ... on Item {
-      contributions {
-        nodes {
-          ...ContributorBlockFragment
-        }
-      }
-    }
-    ... on Collection {
-      contributions {
-        nodes {
-          ...ContributorBlockFragment
-        }
-      }
-    }
-  }
-`;
-
-const layoutFragment = graphql`
-  fragment ContributorsTemplateLayoutFragment on ContributorListTemplateInstance {
+  fragment ContributorsTemplateFragment on ContributorListTemplateInstance {
     __typename
+    entity {
+      ... on Item {
+        contributions {
+          nodes {
+            ...ContributorBlockFragment
+          }
+        }
+      }
+      ... on Collection {
+        contributions {
+          nodes {
+            ...ContributorBlockFragment
+          }
+        }
+      }
+    }
     contributorsDefinition: definition {
       background
       limit

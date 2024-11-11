@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<85a3a9e80f88b047c801e7aa5381ee40>>
+ * @generated SignedSource<<695914ebb0b78f482d2b30a30084af59>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,7 @@ export type TemplateKind = "CONTRIBUTOR_LIST" | "DESCENDANT_LIST" | "DETAIL" | "
 import { FragmentRefs } from "relay-runtime";
 export type FactoryTemplatesFragment$data = {
   readonly templateKind?: TemplateKind;
-  readonly " $fragmentSpreads": FragmentRefs<"ContributorsTemplateLayoutFragment" | "DescendantsTemplateFragment" | "DetailTemplateFragment" | "LinksTemplateFragment" | "OrderingNavigationTemplateFragment" | "PagesTemplateFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributorsTemplateFragment" | "DescendantsTemplateFragment" | "DetailTemplateFragment" | "LinksTemplateFragment" | "OrderingNavigationTemplateFragment" | "PagesTemplateFragment">;
   readonly " $fragmentType": "FactoryTemplatesFragment";
 };
 export type FactoryTemplatesFragment$key = {
@@ -47,7 +47,7 @@ const node: ReaderFragment = {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "ContributorsTemplateLayoutFragment"
+          "name": "ContributorsTemplateFragment"
         }
       ],
       "type": "ContributorListTemplateInstance",
@@ -118,6 +118,6 @@ const node: ReaderFragment = {
   "abstractKey": "__isAnyMainTemplateInstance"
 };
 
-(node as any).hash = "131326fa03a6bdc166cb53c0f155172a";
+(node as any).hash = "71c4f671d1979d2a57dc67f14bbfae20";
 
 export default node;

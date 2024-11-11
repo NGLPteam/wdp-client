@@ -27,9 +27,7 @@ export default async function TemplatePage({
     <UpdateClientEnvironment records={records}>
       {hero && <HeroTemplate data={hero} />}
       {!!templates?.length &&
-        templates.map((t, i) => (
-          <TemplateFactory key={i} data={t} entityData={community} />
-        ))}
+        templates.map((t, i) => <TemplateFactory key={i} data={t} />)}
     </UpdateClientEnvironment>
   );
 }
@@ -37,7 +35,6 @@ export default async function TemplatePage({
 const query = graphql`
   query pageTemplateQuery($slug: Slug!) {
     community(slug: $slug) {
-      ...FactoryTemplatesEntityFragment
       layouts {
         hero {
           ...HeroTemplateFragment
