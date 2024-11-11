@@ -2,6 +2,7 @@ import CoverImage from "@/components/atomic/images/CoverImage";
 import { useSharedListItemTemplateFragment } from "@/components/templates/shared/shared.listItems.graphql";
 import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
+import ContributorsList from "@/components/composed/contributor/ContributorsList";
 import * as Styled from "./Grid.styles";
 
 export default function GridListItem({
@@ -9,16 +10,17 @@ export default function GridListItem({
 }: {
   data?: sharedListItemTemplateFragment$key | null;
 }) {
-  const { slots } = useSharedListItemTemplateFragment(data);
+  const { slots, entity } = useSharedListItemTemplateFragment(data);
 
   const { header, subheader, contextA, contextB, contextC, metaA, metaB } =
     slots ?? {};
 
-  const { thumbnail = null, contributors = null } = {};
+  const renderMeta =
+    metaA?.valid || metaB?.valid || contextB?.valid || contextC?.valid;
 
   return (
     <li>
-      <CoverImage data={thumbnail} maxWidth={225} maxHeight={300} />
+      <CoverImage {...entity} maxWidth={225} maxHeight={300} />
       <Styled.TextContent>
         {contextA?.valid && !!contextA.content && (
           <Styled.ContextOne>
@@ -35,31 +37,33 @@ export default function GridListItem({
             <InlineSlotWrapper content={subheader.content} />
           </Styled.Subheader>
         )}
-        {contributors && (
-          <Styled.Contributors>{contributors}</Styled.Contributors>
+        <Styled.Contributors>
+          <ContributorsList data={entity?.contributions} />
+        </Styled.Contributors>
+        {renderMeta && (
+          <Styled.Group>
+            {metaA?.valid && !!metaA.content && (
+              <span>
+                <InlineSlotWrapper content={metaA.content} />
+              </span>
+            )}
+            {metaB?.valid && (
+              <span>
+                <InlineSlotWrapper content={metaB.content} />
+              </span>
+            )}
+            {contextB?.valid && !!contextB.content && (
+              <span>
+                <InlineSlotWrapper content={contextB.content} />
+              </span>
+            )}
+            {contextC?.valid && !!contextC.content && (
+              <span>
+                <InlineSlotWrapper content={contextC.content} />
+              </span>
+            )}
+          </Styled.Group>
         )}
-        <Styled.Group>
-          {metaA?.valid && !!metaA.content && (
-            <span>
-              <InlineSlotWrapper content={metaA.content} />
-            </span>
-          )}
-          {metaB?.valid && (
-            <span>
-              <InlineSlotWrapper content={metaB.content} />
-            </span>
-          )}
-          {contextB?.valid && !!contextB.content && (
-            <span>
-              <InlineSlotWrapper content={contextB.content} />
-            </span>
-          )}
-          {contextC?.valid && !!contextC.content && (
-            <span>
-              <InlineSlotWrapper content={contextC.content} />
-            </span>
-          )}
-        </Styled.Group>
       </Styled.TextContent>
     </li>
   );

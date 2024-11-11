@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b86285d1217694c582f87b9bd8df64b7>>
+ * @generated SignedSource<<60e4488a94c02b5438c045626c3f2b38>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -271,6 +271,69 @@ v27 = {
   "abstractKey": "__isNode"
 },
 v28 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "role",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": null,
+    "kind": "LinkedField",
+    "name": "contributor",
+    "plural": false,
+    "selections": [
+      (v17/*: any*/),
+      {
+        "kind": "TypeDiscriminator",
+        "abstractKey": "__isAnyContributor"
+      },
+      (v12/*: any*/),
+      {
+        "kind": "InlineFragment",
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "familyName",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "givenName",
+            "storageKey": null
+          }
+        ],
+        "type": "PersonContributor",
+        "abstractKey": null
+      },
+      {
+        "kind": "InlineFragment",
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "legalName",
+            "storageKey": null
+          }
+        ],
+        "type": "OrganizationContributor",
+        "abstractKey": null
+      },
+      (v27/*: any*/)
+    ],
+    "storageKey": null
+  },
+  (v16/*: any*/)
+],
+v29 = [
   (v17/*: any*/),
   {
     "kind": "InlineFragment",
@@ -282,7 +345,7 @@ v28 = [
   },
   (v27/*: any*/)
 ],
-v29 = {
+v30 = {
   "alias": "journal",
   "args": [
     {
@@ -295,10 +358,10 @@ v29 = {
   "kind": "LinkedField",
   "name": "ancestorOfType",
   "plural": false,
-  "selections": (v28/*: any*/),
+  "selections": (v29/*: any*/),
   "storageKey": "ancestorOfType(schema:\"nglp:journal\")"
 },
-v30 = {
+v31 = {
   "alias": "image",
   "args": null,
   "concreteType": "ImageSize",
@@ -324,14 +387,14 @@ v30 = {
   ],
   "storageKey": null
 },
-v31 = {
+v32 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "totalCount",
   "storageKey": null
 },
-v32 = [
+v33 = [
   {
     "alias": null,
     "args": null,
@@ -340,24 +403,24 @@ v32 = [
     "name": "pageInfo",
     "plural": false,
     "selections": [
-      (v31/*: any*/)
+      (v32/*: any*/)
     ],
     "storageKey": null
   }
 ],
-v33 = {
+v34 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "content",
   "storageKey": null
 },
-v34 = [
+v35 = [
   (v17/*: any*/),
   {
     "kind": "InlineFragment",
     "selections": [
-      (v33/*: any*/)
+      (v34/*: any*/)
     ],
     "type": "StringProperty",
     "abstractKey": null
@@ -815,82 +878,51 @@ return {
                                     "plural": false,
                                     "selections": [
                                       {
-                                        "alias": null,
-                                        "args": null,
-                                        "concreteType": "ItemContribution",
-                                        "kind": "LinkedField",
-                                        "name": "nodes",
-                                        "plural": true,
+                                        "kind": "InlineFragment",
                                         "selections": [
                                           {
-                                            "alias": null,
-                                            "args": null,
-                                            "kind": "ScalarField",
-                                            "name": "role",
-                                            "storageKey": null
+                                            "kind": "InlineFragment",
+                                            "selections": [
+                                              {
+                                                "alias": null,
+                                                "args": null,
+                                                "concreteType": "ItemContribution",
+                                                "kind": "LinkedField",
+                                                "name": "nodes",
+                                                "plural": true,
+                                                "selections": (v28/*: any*/),
+                                                "storageKey": null
+                                              }
+                                            ],
+                                            "type": "ItemContributionConnection",
+                                            "abstractKey": null
                                           },
                                           {
-                                            "alias": null,
-                                            "args": null,
-                                            "concreteType": null,
-                                            "kind": "LinkedField",
-                                            "name": "contributor",
-                                            "plural": false,
+                                            "kind": "InlineFragment",
                                             "selections": [
-                                              (v17/*: any*/),
                                               {
-                                                "kind": "TypeDiscriminator",
-                                                "abstractKey": "__isAnyContributor"
-                                              },
-                                              (v12/*: any*/),
-                                              {
-                                                "kind": "InlineFragment",
-                                                "selections": [
-                                                  {
-                                                    "alias": null,
-                                                    "args": null,
-                                                    "kind": "ScalarField",
-                                                    "name": "familyName",
-                                                    "storageKey": null
-                                                  },
-                                                  {
-                                                    "alias": null,
-                                                    "args": null,
-                                                    "kind": "ScalarField",
-                                                    "name": "givenName",
-                                                    "storageKey": null
-                                                  }
-                                                ],
-                                                "type": "PersonContributor",
-                                                "abstractKey": null
-                                              },
-                                              {
-                                                "kind": "InlineFragment",
-                                                "selections": [
-                                                  {
-                                                    "alias": null,
-                                                    "args": null,
-                                                    "kind": "ScalarField",
-                                                    "name": "legalName",
-                                                    "storageKey": null
-                                                  }
-                                                ],
-                                                "type": "OrganizationContributor",
-                                                "abstractKey": null
-                                              },
-                                              (v27/*: any*/)
+                                                "alias": null,
+                                                "args": null,
+                                                "concreteType": "CollectionContribution",
+                                                "kind": "LinkedField",
+                                                "name": "nodes",
+                                                "plural": true,
+                                                "selections": (v28/*: any*/),
+                                                "storageKey": null
+                                              }
                                             ],
-                                            "storageKey": null
-                                          },
-                                          (v16/*: any*/)
+                                            "type": "CollectionContributionConnection",
+                                            "abstractKey": null
+                                          }
                                         ],
-                                        "storageKey": null
+                                        "type": "Paginated",
+                                        "abstractKey": "__isPaginated"
                                       }
                                     ],
                                     "storageKey": null
                                   },
                                   (v24/*: any*/),
-                                  (v29/*: any*/),
+                                  (v30/*: any*/),
                                   (v16/*: any*/),
                                   {
                                     "alias": "cover",
@@ -901,7 +933,7 @@ return {
                                     "plural": false,
                                     "selections": [
                                       (v19/*: any*/),
-                                      (v30/*: any*/)
+                                      (v31/*: any*/)
                                     ],
                                     "storageKey": null
                                   }
@@ -924,7 +956,7 @@ return {
                                     "name": "thumbnail",
                                     "plural": false,
                                     "selections": [
-                                      (v30/*: any*/),
+                                      (v31/*: any*/),
                                       (v19/*: any*/)
                                     ],
                                     "storageKey": null
@@ -943,10 +975,10 @@ return {
                                     "kind": "LinkedField",
                                     "name": "ancestorOfType",
                                     "plural": false,
-                                    "selections": (v28/*: any*/),
+                                    "selections": (v29/*: any*/),
                                     "storageKey": "ancestorOfType(schema:\"nglp:journal_volume\")"
                                   },
-                                  (v29/*: any*/),
+                                  (v30/*: any*/),
                                   {
                                     "alias": "articles",
                                     "args": [
@@ -960,7 +992,7 @@ return {
                                     "kind": "LinkedField",
                                     "name": "items",
                                     "plural": false,
-                                    "selections": (v32/*: any*/),
+                                    "selections": (v33/*: any*/),
                                     "storageKey": "items(schema:\"nglp:journal_article\")"
                                   },
                                   {
@@ -975,7 +1007,7 @@ return {
                                       {
                                         "kind": "InlineFragment",
                                         "selections": [
-                                          (v33/*: any*/),
+                                          (v34/*: any*/),
                                           {
                                             "alias": null,
                                             "args": null,
@@ -1010,7 +1042,7 @@ return {
                                     "kind": "LinkedField",
                                     "name": "descendants",
                                     "plural": false,
-                                    "selections": (v32/*: any*/),
+                                    "selections": (v33/*: any*/),
                                     "storageKey": "descendants(schema:[\"nglp:journal_issue\"],scope:\"COLLECTION\")"
                                   },
                                   {
@@ -1051,7 +1083,7 @@ return {
                                                     "kind": "LinkedField",
                                                     "name": "schemaProperty",
                                                     "plural": false,
-                                                    "selections": (v34/*: any*/),
+                                                    "selections": (v35/*: any*/),
                                                     "storageKey": "schemaProperty(fullPath:\"id\")"
                                                   }
                                                 ],
@@ -1075,7 +1107,7 @@ return {
                                             "kind": "LinkedField",
                                             "name": "schemaProperty",
                                             "plural": false,
-                                            "selections": (v34/*: any*/),
+                                            "selections": (v35/*: any*/),
                                             "storageKey": "schemaProperty(fullPath:\"number\")"
                                           },
                                           {
@@ -1091,7 +1123,7 @@ return {
                                             "kind": "LinkedField",
                                             "name": "schemaProperty",
                                             "plural": false,
-                                            "selections": (v34/*: any*/),
+                                            "selections": (v35/*: any*/),
                                             "storageKey": "schemaProperty(fullPath:\"volume.id\")"
                                           }
                                         ],
@@ -1142,7 +1174,7 @@ return {
                     "name": "pageCount",
                     "storageKey": null
                   },
-                  (v31/*: any*/),
+                  (v32/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -1282,12 +1314,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d5531115a533ceb2a4c1237488209120",
+    "cacheID": "83e5c65ec15347b1ca3b67505d5985d5",
     "id": null,
     "metadata": {},
     "name": "pageCommunityItemsQuery",
     "operationKind": "query",
-    "text": "query pageCommunityItemsQuery(\n  $slug: Slug!\n  $schema: String!\n  $schemaSlug: Slug!\n  $page: Int\n  $order: EntityDescendantOrder!\n) {\n  community(slug: $slug) {\n    orderingForSchema(slug: $schemaSlug) {\n      name\n      slug\n      identifier\n      count\n      id\n    }\n    descendants(scope: ITEM, order: $order, schema: [$schema], page: $page) {\n      ...EntityDescendantsLayoutFragment\n    }\n    ...EntityOrderingLayoutFactoryFragment\n    id\n  }\n}\n\nfragment ArticleSummaryFragment_2PIB2P on Item {\n  __typename\n  title\n  subtitle\n  thumbnail {\n    storage\n    ...SquareThumbnailFragment\n  }\n  slug\n  summary\n  contributions {\n    ...ContributorsListFragment\n  }\n  published {\n    value\n    ...PrecisionDateFragment\n  }\n  journal: ancestorOfType(schema: \"nglp:journal\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment BrowseListLayoutFragment on PageInfo {\n  ...PaginationFragment\n  ...PageCountFragment\n}\n\nfragment ContentImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      alt\n      url\n      width\n      height\n    }\n  }\n  placeholder: thumb {\n    webp {\n      url\n    }\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on ItemContributionConnection {\n  nodes {\n    role\n    contributor {\n      __typename\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ...ContributorNameFragment\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment DissertationSummaryFragment on Item {\n  __typename\n  id\n  title\n  subtitle\n  slug\n  summary\n  cover: thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  contributions {\n    ...ContributorsListFragment\n  }\n  published {\n    value\n    ...PrecisionDateFragment\n  }\n}\n\nfragment EntityDescendantsLayoutFragment on EntityDescendantConnection {\n  edges {\n    node {\n      descendant {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ... on Entity {\n          __isEntity: __typename\n          schemaDefinition {\n            identifier\n            name\n            id\n          }\n          ...EntitySummaryFactoryFragment_2PIB2P\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n  }\n  pageInfo {\n    ...BrowseListLayoutFragment\n  }\n}\n\nfragment EntityOrderSelectFragment on OrderingConnection {\n  edges {\n    node {\n      name\n      identifier\n      id\n    }\n  }\n}\n\nfragment EntityOrderingLayoutFactoryFragment on Entity {\n  __isEntity: __typename\n  schemaDefinition {\n    identifier\n    id\n  }\n  initialOrdering {\n    identifier\n    disabled\n    id\n  }\n  ...IssueSidebarNavFragment\n}\n\nfragment EntitySummaryFactoryFragment_2PIB2P on Entity {\n  __isEntity: __typename\n  schemaDefinition {\n    identifier\n    id\n  }\n  ...EntitySummaryFragment\n  ...ArticleSummaryFragment_2PIB2P\n  ...IssueSummaryFragment_2PIB2P\n  ...VolumeSummaryFragment_2PIB2P\n  ...JournalSummaryFragment\n  ...DissertationSummaryFragment\n}\n\nfragment EntitySummaryFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  subtitle\n  thumbnail {\n    storage\n    ...ContentImageFragment\n  }\n  schemaRanks {\n    count\n    namespace\n    identifier\n    id\n  }\n  ... on ReferencesGlobalEntityDates {\n    __isReferencesGlobalEntityDates: __typename\n    published {\n      value\n      ...PrecisionDateFragment\n    }\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on Item {\n    summary\n    updatedAt\n  }\n  ... on Collection {\n    summary\n    updatedAt\n  }\n}\n\nfragment IssueSidebarNavFragment on Collection {\n  orderings(availability: ENABLED) {\n    ...EntityOrderSelectFragment\n  }\n  ...IssueSidebarNavListFragment\n}\n\nfragment IssueSidebarNavListFragment on Collection {\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment IssueSummaryFragment_2PIB2P on Collection {\n  id\n  title\n  subtitle\n  slug\n  summary\n  cover: thumbnail {\n    ...CoverImageFragment\n  }\n  published {\n    value\n    ...PrecisionDateFragment\n  }\n  volume: ancestorOfType(schema: \"nglp:journal_volume\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  journal: ancestorOfType(schema: \"nglp:journal\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  articles: items(schema: \"nglp:journal_article\") {\n    pageInfo {\n      totalCount\n    }\n  }\n  ...getEntityDisplayNameFragment\n}\n\nfragment JournalSummaryFragment on Collection {\n  __typename\n  id\n  slug\n  title\n  subtitle\n  updatedAt\n  summary\n  cover: thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  issues: descendants(scope: COLLECTION, schema: [\"nglp:journal_issue\"]) {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment PageCountFragment on PageInfo {\n  totalCount\n  page\n  perPage\n}\n\nfragment PaginationFragment on PageInfo {\n  page\n  pageCount\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  thumb: medium {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment VolumeSummaryFragment_2PIB2P on Collection {\n  id\n  title\n  subtitle\n  slug\n  summary\n  cover: thumbnail {\n    ...CoverImageFragment\n  }\n  published {\n    value\n    ...PrecisionDateFragment\n  }\n  journal: ancestorOfType(schema: \"nglp:journal\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  properties: schemaProperties {\n    __typename\n    ... on StringProperty {\n      content\n      path\n    }\n  }\n  articles: items(schema: \"nglp:journal_article\") {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment getEntityDisplayNameFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    title\n    vol: ancestorByName(name: \"volume\") {\n      __typename\n      ... on Collection {\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    issueNumber: schemaProperty(fullPath: \"number\") {\n      __typename\n      ... on StringProperty {\n        content\n      }\n    }\n  }\n  ...getEntityVolumeNumberFragment\n}\n\nfragment getEntityVolumeNumberFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    vol: ancestorByName(name: \"volume\") {\n      __typename\n      ... on Collection {\n        number: schemaProperty(fullPath: \"id\") {\n          __typename\n          ... on StringProperty {\n            content\n          }\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    volumeNumber: schemaProperty(fullPath: \"volume.id\") {\n      __typename\n      ... on StringProperty {\n        content\n      }\n    }\n  }\n}\n"
+    "text": "query pageCommunityItemsQuery(\n  $slug: Slug!\n  $schema: String!\n  $schemaSlug: Slug!\n  $page: Int\n  $order: EntityDescendantOrder!\n) {\n  community(slug: $slug) {\n    orderingForSchema(slug: $schemaSlug) {\n      name\n      slug\n      identifier\n      count\n      id\n    }\n    descendants(scope: ITEM, order: $order, schema: [$schema], page: $page) {\n      ...EntityDescendantsLayoutFragment\n    }\n    ...EntityOrderingLayoutFactoryFragment\n    id\n  }\n}\n\nfragment ArticleSummaryFragment_2PIB2P on Item {\n  __typename\n  title\n  subtitle\n  thumbnail {\n    storage\n    ...SquareThumbnailFragment\n  }\n  slug\n  summary\n  contributions {\n    ...ContributorsListFragment\n  }\n  published {\n    value\n    ...PrecisionDateFragment\n  }\n  journal: ancestorOfType(schema: \"nglp:journal\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment BrowseListLayoutFragment on PageInfo {\n  ...PaginationFragment\n  ...PageCountFragment\n}\n\nfragment ContentImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      alt\n      url\n      width\n      height\n    }\n  }\n  placeholder: thumb {\n    webp {\n      url\n    }\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on Paginated {\n  __isPaginated: __typename\n  ... on ItemContributionConnection {\n    nodes {\n      role\n      contributor {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n  ... on CollectionContributionConnection {\n    nodes {\n      role\n      contributor {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment DissertationSummaryFragment on Item {\n  __typename\n  id\n  title\n  subtitle\n  slug\n  summary\n  cover: thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  contributions {\n    ...ContributorsListFragment\n  }\n  published {\n    value\n    ...PrecisionDateFragment\n  }\n}\n\nfragment EntityDescendantsLayoutFragment on EntityDescendantConnection {\n  edges {\n    node {\n      descendant {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ... on Entity {\n          __isEntity: __typename\n          schemaDefinition {\n            identifier\n            name\n            id\n          }\n          ...EntitySummaryFactoryFragment_2PIB2P\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n  }\n  pageInfo {\n    ...BrowseListLayoutFragment\n  }\n}\n\nfragment EntityOrderSelectFragment on OrderingConnection {\n  edges {\n    node {\n      name\n      identifier\n      id\n    }\n  }\n}\n\nfragment EntityOrderingLayoutFactoryFragment on Entity {\n  __isEntity: __typename\n  schemaDefinition {\n    identifier\n    id\n  }\n  initialOrdering {\n    identifier\n    disabled\n    id\n  }\n  ...IssueSidebarNavFragment\n}\n\nfragment EntitySummaryFactoryFragment_2PIB2P on Entity {\n  __isEntity: __typename\n  schemaDefinition {\n    identifier\n    id\n  }\n  ...EntitySummaryFragment\n  ...ArticleSummaryFragment_2PIB2P\n  ...IssueSummaryFragment_2PIB2P\n  ...VolumeSummaryFragment_2PIB2P\n  ...JournalSummaryFragment\n  ...DissertationSummaryFragment\n}\n\nfragment EntitySummaryFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  subtitle\n  thumbnail {\n    storage\n    ...ContentImageFragment\n  }\n  schemaRanks {\n    count\n    namespace\n    identifier\n    id\n  }\n  ... on ReferencesGlobalEntityDates {\n    __isReferencesGlobalEntityDates: __typename\n    published {\n      value\n      ...PrecisionDateFragment\n    }\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on Item {\n    summary\n    updatedAt\n  }\n  ... on Collection {\n    summary\n    updatedAt\n  }\n}\n\nfragment IssueSidebarNavFragment on Collection {\n  orderings(availability: ENABLED) {\n    ...EntityOrderSelectFragment\n  }\n  ...IssueSidebarNavListFragment\n}\n\nfragment IssueSidebarNavListFragment on Collection {\n  pages {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment IssueSummaryFragment_2PIB2P on Collection {\n  id\n  title\n  subtitle\n  slug\n  summary\n  cover: thumbnail {\n    ...CoverImageFragment\n  }\n  published {\n    value\n    ...PrecisionDateFragment\n  }\n  volume: ancestorOfType(schema: \"nglp:journal_volume\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  journal: ancestorOfType(schema: \"nglp:journal\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  articles: items(schema: \"nglp:journal_article\") {\n    pageInfo {\n      totalCount\n    }\n  }\n  ...getEntityDisplayNameFragment\n}\n\nfragment JournalSummaryFragment on Collection {\n  __typename\n  id\n  slug\n  title\n  subtitle\n  updatedAt\n  summary\n  cover: thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  issues: descendants(scope: COLLECTION, schema: [\"nglp:journal_issue\"]) {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment PageCountFragment on PageInfo {\n  totalCount\n  page\n  perPage\n}\n\nfragment PaginationFragment on PageInfo {\n  page\n  pageCount\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  thumb: medium {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment VolumeSummaryFragment_2PIB2P on Collection {\n  id\n  title\n  subtitle\n  slug\n  summary\n  cover: thumbnail {\n    ...CoverImageFragment\n  }\n  published {\n    value\n    ...PrecisionDateFragment\n  }\n  journal: ancestorOfType(schema: \"nglp:journal\") {\n    __typename\n    ... on Collection {\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  properties: schemaProperties {\n    __typename\n    ... on StringProperty {\n      content\n      path\n    }\n  }\n  articles: items(schema: \"nglp:journal_article\") {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment getEntityDisplayNameFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    title\n    vol: ancestorByName(name: \"volume\") {\n      __typename\n      ... on Collection {\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    issueNumber: schemaProperty(fullPath: \"number\") {\n      __typename\n      ... on StringProperty {\n        content\n      }\n    }\n  }\n  ...getEntityVolumeNumberFragment\n}\n\nfragment getEntityVolumeNumberFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    vol: ancestorByName(name: \"volume\") {\n      __typename\n      ... on Collection {\n        number: schemaProperty(fullPath: \"id\") {\n          __typename\n          ... on StringProperty {\n            content\n          }\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    volumeNumber: schemaProperty(fullPath: \"volume.id\") {\n      __typename\n      ... on StringProperty {\n        content\n      }\n    }\n  }\n}\n"
   }
 };
 })();
