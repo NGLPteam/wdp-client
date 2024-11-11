@@ -35,11 +35,9 @@ const TYPE_TO_ITEM = {
 };
 
 export default function List({ variant, bgColor, data }: Props) {
-  if (!variant) return null;
-
   const items = useSharedListItemsTemplateFragment(data);
 
-  if (!items) return null;
+  if (!variant || !items) return null;
 
   const List = TYPE_TO_LIST[variant];
   const Item = TYPE_TO_ITEM[variant];
