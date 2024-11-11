@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<695914ebb0b78f482d2b30a30084af59>>
+ * @generated SignedSource<<6f363a9d25fdb15c51921790313cd16f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -59,34 +59,10 @@ const node: ReaderFragment = {
         {
           "args": null,
           "kind": "FragmentSpread",
-          "name": "DescendantsTemplateFragment"
-        }
-      ],
-      "type": "DescendantListTemplateInstance",
-      "abstractKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
           "name": "DetailTemplateFragment"
         }
       ],
       "type": "DetailTemplateInstance",
-      "abstractKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "LinksTemplateFragment"
-        }
-      ],
-      "type": "LinkListTemplateInstance",
       "abstractKey": null
     },
     {
@@ -112,12 +88,22 @@ const node: ReaderFragment = {
       ],
       "type": "PageListTemplateInstance",
       "abstractKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "DescendantsTemplateFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "LinksTemplateFragment"
     }
   ],
   "type": "AnyMainTemplateInstance",
   "abstractKey": "__isAnyMainTemplateInstance"
 };
 
-(node as any).hash = "71c4f671d1979d2a57dc67f14bbfae20";
+(node as any).hash = "c09ade61da7f8ff95ce39ea80d6f1b5e";
 
 export default node;

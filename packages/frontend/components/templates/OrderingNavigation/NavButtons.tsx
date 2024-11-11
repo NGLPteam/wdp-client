@@ -1,7 +1,7 @@
 import { graphql, useFragment } from "react-relay";
 import { PrevNextButton } from "components/atomic/Button/patterns";
 import { NamedLink } from "components/atomic";
-import { useSharedInlineFragment } from "@/components/templates/shared.graphql";
+import { useSharedInlineFragment } from "@/components/templates/shared/shared.slots.graphql";
 import { NavButtonsFragment$key } from "@/relay/NavButtonsFragment.graphql";
 import * as Styled from "./OrderingNavigation.styles";
 
