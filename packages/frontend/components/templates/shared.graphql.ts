@@ -59,11 +59,6 @@ export const listTemplateFragment = graphql`
           ...sharedInlineSlotFragment
         }
       }
-      entityList {
-        count
-        empty
-        ...sharedListItemsTemplateFragment
-      }
     }
     ... on DescendantListTemplateInstance {
       descendantsDefinition: definition {
@@ -89,14 +84,15 @@ export const listTemplateFragment = graphql`
           ...sharedInlineSlotFragment
         }
       }
-      entityList {
-        count
-        empty
-        ...sharedListItemsTemplateFragment
-      }
     }
   }
 `;
+
+// entityList {
+//   count
+//   empty
+//   ...sharedListItemsTemplateFragment
+// }
 
 export const useSharedListTemplateFragment = (
   data?: sharedListTemplateFragment$key | null,

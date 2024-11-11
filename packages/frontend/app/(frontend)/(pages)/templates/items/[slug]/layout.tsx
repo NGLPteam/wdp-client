@@ -15,10 +15,8 @@ import ViewCounter from "@/components/composed/analytics/ViewCounter";
 
 export default async function ItemLayout({
   children,
+  params: { slug },
 }: BasePageParams & PropsWithChildren) {
-  // const { slug } = params;
-  const slug = "Yv3YGPBhqvnmI27Ybum7Nzf6xEgmnOKE";
-
   const { data, records } = await fetchQuery<Query>(query, {
     slug,
   });

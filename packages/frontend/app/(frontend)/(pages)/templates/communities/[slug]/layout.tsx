@@ -11,10 +11,8 @@ import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
 export default async function CommunityLayout({
   children,
+  params: { slug },
 }: BasePageParams & PropsWithChildren) {
-  // const { slug } = params;
-  const slug = "vENG574TN4K9Uo34Kh4N2ZsenJxpe2JO";
-
   const { data, records } = await fetchQuery<Query>(query, {
     slug,
   });

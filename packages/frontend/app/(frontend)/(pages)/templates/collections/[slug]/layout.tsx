@@ -14,10 +14,8 @@ export const dynamic = "force-dynamic";
 
 export default async function CollectionTemplateLayout({
   children,
+  params: { slug },
 }: BasePageParams & PropsWithChildren) {
-  // const slug = "rXaGvy9U0LBVCwz1ToRo7tbov2R2L00";
-  const slug = "12d7ooyhn8ZxTJQXup656HQ4Y2mm8Rw";
-
   const { data, records } = await fetchQuery<Query>(query, {
     slug,
   });
