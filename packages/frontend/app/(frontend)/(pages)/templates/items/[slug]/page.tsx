@@ -29,7 +29,7 @@ export default async function TemplatePage({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <HeroTemplate data={item} layoutData={hero} />
+      {hero && <HeroTemplate data={hero} />}
       <NavigationTemplate data={navigation} skipToId={`${uid}-tab-content`} />
       {!!templates?.length &&
         templates.map((t, i) => (
@@ -42,11 +42,10 @@ export default async function TemplatePage({
 const query = graphql`
   query pageItemTemplateQuery($slug: Slug!) {
     item(slug: $slug) {
-      ...HeroTemplateFragment
       ...FactoryTemplatesEntityFragment
       layouts {
         hero {
-          ...HeroTemplateLayoutFragment
+          ...HeroTemplateFragment
         }
         navigation {
           ...EntityNavigationTemplateFragment

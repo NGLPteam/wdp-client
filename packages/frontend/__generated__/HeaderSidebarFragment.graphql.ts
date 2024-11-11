@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<659f493cb76b488a1477909699406c4c>>
+ * @generated SignedSource<<00f6482ffd7ef50623a8ede44510cd87>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,7 +10,7 @@
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type DetailSidebarFragment$data = {
+export type HeaderSidebarFragment$data = {
   readonly definition: {
     readonly showBasicViewMetrics: boolean | null | undefined;
     readonly showDOI: boolean | null | undefined;
@@ -30,18 +30,18 @@ export type DetailSidebarFragment$data = {
       readonly " $fragmentSpreads": FragmentRefs<"sharedBlockSlotFragment">;
     } | null | undefined;
   };
-  readonly " $fragmentType": "DetailSidebarFragment";
+  readonly " $fragmentType": "HeaderSidebarFragment";
 };
-export type DetailSidebarFragment$key = {
-  readonly " $data"?: DetailSidebarFragment$data;
-  readonly " $fragmentSpreads": FragmentRefs<"DetailSidebarFragment">;
+export type HeaderSidebarFragment$key = {
+  readonly " $data"?: HeaderSidebarFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"HeaderSidebarFragment">;
 };
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "DetailSidebarFragment",
+  "name": "HeaderSidebarFragment",
   "selections": [
     {
       "alias": null,
@@ -167,6 +167,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "06bcee84dd23d95fbb276e71f3332823";
+(node as any).hash = "437bc54b07c768504edccfac8a9796fe";
 
 export default node;
