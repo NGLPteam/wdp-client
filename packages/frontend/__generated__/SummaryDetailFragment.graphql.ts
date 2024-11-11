@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b016fe85fc9626f56499f66c749bf3fd>>
+ * @generated SignedSource<<aa317253877bd12d5be4f3149e677154>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,15 +11,25 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SummaryDetailFragment$data = {
-  readonly header: {
-    readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
-  } | null | undefined;
-  readonly subheader: {
-    readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
-  } | null | undefined;
-  readonly summary: {
-    readonly " $fragmentSpreads": FragmentRefs<"sharedBlockSlotFragment">;
-  } | null | undefined;
+  readonly entity: {
+    readonly announcements?: {
+      readonly nodes: ReadonlyArray<{
+        readonly slug: string;
+      }>;
+      readonly " $fragmentSpreads": FragmentRefs<"EntityAnnouncementsFragment">;
+    };
+  };
+  readonly slots: {
+    readonly header: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+    } | null | undefined;
+    readonly subheader: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+    } | null | undefined;
+    readonly summary: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedBlockSlotFragment">;
+    } | null | undefined;
+  };
   readonly " $fragmentType": "SummaryDetailFragment";
 };
 export type SummaryDetailFragment$key = {
@@ -29,6 +39,42 @@ export type SummaryDetailFragment$key = {
 
 const node: ReaderFragment = (function(){
 var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "AnnouncementConnection",
+    "kind": "LinkedField",
+    "name": "announcements",
+    "plural": false,
+    "selections": [
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "EntityAnnouncementsFragment"
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "Announcement",
+        "kind": "LinkedField",
+        "name": "nodes",
+        "plural": true,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "slug",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+],
+v1 = [
   {
     "args": null,
     "kind": "FragmentSpread",
@@ -44,45 +90,85 @@ return {
     {
       "alias": null,
       "args": null,
-      "concreteType": "TemplateSlotInlineInstance",
+      "concreteType": null,
       "kind": "LinkedField",
-      "name": "header",
-      "plural": false,
-      "selections": (v0/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "TemplateSlotInlineInstance",
-      "kind": "LinkedField",
-      "name": "subheader",
-      "plural": false,
-      "selections": (v0/*: any*/),
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "TemplateSlotBlockInstance",
-      "kind": "LinkedField",
-      "name": "summary",
+      "name": "entity",
       "plural": false,
       "selections": [
         {
+          "kind": "InlineFragment",
+          "selections": (v0/*: any*/),
+          "type": "Collection",
+          "abstractKey": null
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": (v0/*: any*/),
+          "type": "Community",
+          "abstractKey": null
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": (v0/*: any*/),
+          "type": "Item",
+          "abstractKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "DetailTemplateInstanceSlots",
+      "kind": "LinkedField",
+      "name": "slots",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
           "args": null,
-          "kind": "FragmentSpread",
-          "name": "sharedBlockSlotFragment"
+          "concreteType": "TemplateSlotInlineInstance",
+          "kind": "LinkedField",
+          "name": "header",
+          "plural": false,
+          "selections": (v1/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "TemplateSlotInlineInstance",
+          "kind": "LinkedField",
+          "name": "subheader",
+          "plural": false,
+          "selections": (v1/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "TemplateSlotBlockInstance",
+          "kind": "LinkedField",
+          "name": "summary",
+          "plural": false,
+          "selections": [
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "sharedBlockSlotFragment"
+            }
+          ],
+          "storageKey": null
         }
       ],
       "storageKey": null
     }
   ],
-  "type": "DetailTemplateInstanceSlots",
+  "type": "DetailTemplateInstance",
   "abstractKey": null
 };
 })();
 
-(node as any).hash = "25aeece04429949ff64233fc5eb83460";
+(node as any).hash = "844de6bc99ff2863ce18446b59570e15";
 
 export default node;

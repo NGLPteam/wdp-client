@@ -7,20 +7,19 @@ import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import EntityAnnouncements from "@/components/composed/entity/EntityAnnouncements";
 import { SummaryDetailFragment$key } from "@/relay/SummaryDetailFragment.graphql";
-import { SummaryDetailEntityFragment$key } from "@/relay/SummaryDetailEntityFragment.graphql";
 import * as Styled from "./Summary.styles";
 
 export default function Summary({
   data,
-  entityData,
   showAnnouncements,
 }: {
   data?: SummaryDetailFragment$key | null;
-  entityData?: SummaryDetailEntityFragment$key | null;
   showAnnouncements?: boolean | null;
 }) {
-  const entity = useFragment(entityFragment, entityData);
-  const slots = useFragment(fragment, data);
+  const template = useFragment(fragment, data);
+
+  const { entity, slots } = template ?? {};
+
   const header = useSharedInlineFragment(slots?.header);
   const subheader = useSharedInlineFragment(slots?.subheader);
   const summary = useSharedBlockFragment(slots?.summary);
@@ -54,49 +53,48 @@ export default function Summary({
 }
 
 const fragment = graphql`
-  fragment SummaryDetailFragment on DetailTemplateInstanceSlots {
-    header {
-      ...sharedInlineSlotFragment
-    }
-    subheader {
-      ...sharedInlineSlotFragment
-    }
-    summary {
-      ...sharedBlockSlotFragment
-    }
-  }
-`;
-
-const entityFragment = graphql`
-  fragment SummaryDetailEntityFragment on AnyEntity {
-    ... on Collection {
-      announcements {
-        ...EntityAnnouncementsFragment
-        ... on AnnouncementConnection {
-          nodes {
-            slug
+  fragment SummaryDetailFragment on DetailTemplateInstance {
+    entity {
+      ... on Collection {
+        announcements {
+          ...EntityAnnouncementsFragment
+          ... on AnnouncementConnection {
+            nodes {
+              slug
+            }
+          }
+        }
+      }
+      ... on Community {
+        announcements {
+          ...EntityAnnouncementsFragment
+          ... on AnnouncementConnection {
+            nodes {
+              slug
+            }
+          }
+        }
+      }
+      ... on Item {
+        announcements {
+          ...EntityAnnouncementsFragment
+          ... on AnnouncementConnection {
+            nodes {
+              slug
+            }
           }
         }
       }
     }
-    ... on Community {
-      announcements {
-        ...EntityAnnouncementsFragment
-        ... on AnnouncementConnection {
-          nodes {
-            slug
-          }
-        }
+    slots {
+      header {
+        ...sharedInlineSlotFragment
       }
-    }
-    ... on Item {
-      announcements {
-        ...EntityAnnouncementsFragment
-        ... on AnnouncementConnection {
-          nodes {
-            slug
-          }
-        }
+      subheader {
+        ...sharedInlineSlotFragment
+      }
+      summary {
+        ...sharedBlockSlotFragment
       }
     }
   }
