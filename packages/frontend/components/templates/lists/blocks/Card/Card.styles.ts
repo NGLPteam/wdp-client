@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { containerWidths } from "theme/base/variables";
+import { respond } from "theme/mixins";
 
 export const HeroImage = styled.div`
   min-block-size: 300px;
@@ -15,4 +16,6 @@ export const Header = styled.h3`
   margin-block-end: 1.5rem;
   max-inline-size: ${containerWidths.wide};
   margin-inline: auto;
+
+  ${respond(`padding-inline: var(--container-v-padding);`, 120)}
 `;
