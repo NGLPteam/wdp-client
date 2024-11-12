@@ -1,6 +1,17 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { lGrid } from "theme/mixins";
+import BaseContainer from "@/components/layout/Container";
+
+export const Container = styled(BaseContainer)`
+  section + section & {
+    padding-block-start: var(--container-padding-md);
+  }
+
+  section:is(:last-child) & {
+    padding-block-end: var(--container-padding-md);
+  }
+`;
 
 export const SectionInner = styled.div<{ $paddingBottom?: string }>`
   padding-block-start: var(--container-padding-md);

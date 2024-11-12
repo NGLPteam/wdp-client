@@ -1,6 +1,6 @@
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import Container from "@/components/layout/Container";
+import capitalize from "lodash/capitalize";
 import { ContributorsTemplateFragment$key } from "@/relay/ContributorsTemplateFragment.graphql";
 import { useSharedInlineFragment } from "@/components/templates/shared/shared.slots.graphql";
 import InlineSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
@@ -27,18 +27,18 @@ export default function ContributorsTemplate({
   const { contributions } = entity;
 
   return (
-    <Container bgColor={contributorsDefinition?.background}>
+    <Styled.Container bgColor={contributorsDefinition?.background}>
       <h3>
         {mdxHeader ? (
           <InlineSlotWrapper content={header.content} />
         ) : (
-          t("glossary.contributor_other")
+          capitalize(t("glossary.contributor_other"))
         )}
       </h3>
       <Styled.List>
         {contributions?.nodes.map((c, i) => <Contributor key={i} data={c} />)}
       </Styled.List>
-    </Container>
+    </Styled.Container>
   );
 }
 
