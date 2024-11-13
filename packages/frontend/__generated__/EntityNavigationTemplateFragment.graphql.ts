@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0e8848abcdd6fabd8a2bbbf0fb6eff3d>>
+ * @generated SignedSource<<4cd69d7a0c0c6664dc8708afd0f486a1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,14 +12,11 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 export type NavigationBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type EntityNavigationTemplateFragment$data = {
-  readonly __typename: "NavigationLayoutInstance";
   readonly template: {
     readonly definition: {
       readonly background: NavigationBackground | null | undefined;
     };
-    readonly slots: {
-      readonly " $fragmentSpreads": FragmentRefs<"NavigationTabsFragment">;
-    };
+    readonly " $fragmentSpreads": FragmentRefs<"NavigationTabsFragment">;
   } | null | undefined;
   readonly " $fragmentType": "EntityNavigationTemplateFragment";
 };
@@ -34,13 +31,6 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "EntityNavigationTemplateFragment",
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "__typename",
-      "storageKey": null
-    },
     {
       "alias": null,
       "args": null,
@@ -68,20 +58,9 @@ const node: ReaderFragment = {
           "storageKey": null
         },
         {
-          "alias": null,
           "args": null,
-          "concreteType": "NavigationTemplateInstanceSlots",
-          "kind": "LinkedField",
-          "name": "slots",
-          "plural": false,
-          "selections": [
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "NavigationTabsFragment"
-            }
-          ],
-          "storageKey": null
+          "kind": "FragmentSpread",
+          "name": "NavigationTabsFragment"
         }
       ],
       "storageKey": null
@@ -91,6 +70,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "dc6856938e4983f3240cabce67b47c12";
+(node as any).hash = "da2ab8df690ff5d2580a7da5736ea5a7";
 
 export default node;
