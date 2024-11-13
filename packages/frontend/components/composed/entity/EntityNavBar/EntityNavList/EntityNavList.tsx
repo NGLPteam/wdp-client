@@ -18,9 +18,14 @@ export default function EntityNavList({ data }: Props) {
 
   function getDisclosure(label: string) {
     return (
-      <Button as="div" size="sm" icon="chevronDown" secondary>
+      <Styled.Disclosure
+        forwardedAs="div"
+        size="sm"
+        icon="chevronDown"
+        secondary
+      >
         {t(label)}
-      </Button>
+      </Styled.Disclosure>
     );
   }
 
