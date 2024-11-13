@@ -4,9 +4,10 @@ import { notFound } from "next/navigation";
 import CommunityNavBar from "components/composed/community/CommunityNavBar";
 import CommunityPickerPortal from "components/composed/instance/CommunityPicker/Portal";
 import CommunityNamePortal from "components/composed/community/CommunityName/Portal";
+import HeroTemplate from "@/components/templates/Hero";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
-import { layoutCommunityQuery as Query } from "@/relay/layoutCommunityQuery.graphql";
+import { layoutCommunityTemplateQuery as Query } from "@/relay/layoutCommunityTemplateQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
 export default async function CommunityLayout({
@@ -21,11 +22,16 @@ export default async function CommunityLayout({
 
   if (!community) return notFound();
 
+  const {
+    layouts: { hero },
+  } = community;
+
   return (
     <UpdateClientEnvironment records={records}>
       <CommunityPickerPortal data={community} />
       <CommunityNamePortal data={community} />
       <CommunityNavBar data={community} entityData={community} />
+      {hero && <HeroTemplate data={hero} />}
       {children}
     </UpdateClientEnvironment>
   );
@@ -34,8 +40,13 @@ export default async function CommunityLayout({
 export const dynamic = "force-dynamic";
 
 const query = graphql`
-  query layoutTemplateQuery($slug: Slug!) {
+  query layoutCommunityTemplateQuery($slug: Slug!) {
     community(slug: $slug) {
+      layouts {
+        hero {
+          ...HeroTemplateFragment
+        }
+      }
       ...CommunityNavBarFragment
       ...CommunityNavBarEntityFragment
       ...PortalCommunityPickerFragment
