@@ -10,23 +10,23 @@ export default function OrderingNavigationTemplate({
 }) {
   const template = useFragment(fragment, data);
 
-  const { orderingDefinition, slots } = template ?? {};
+  const { orderingDefinition, orderingPair } = template ?? {};
 
-  return (
+  return orderingPair?.exists ? (
     <Container bgColor={orderingDefinition?.background}>
-      <NavButtons data={slots} ordering="needs_to_be_added" />
+      <NavButtons data={template} />
     </Container>
-  );
+  ) : null;
 }
 
 const fragment = graphql`
   fragment OrderingNavigationTemplateFragment on OrderingTemplateInstance {
-    __typename
     orderingDefinition: definition {
       background
     }
-    slots {
-      ...NavButtonsFragment
+    orderingPair {
+      exists
     }
+    ...NavButtonsFragment
   }
 `;

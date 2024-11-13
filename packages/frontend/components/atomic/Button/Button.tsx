@@ -69,7 +69,7 @@ interface Props {
 
 type LinkProps = Props & {
   as: string;
-  href: string;
+  href?: string;
   target?: string;
   download?: boolean;
 };
