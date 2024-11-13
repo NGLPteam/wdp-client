@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<32cb45c0b6e0ce7d5d337cfe59093674>>
+ * @generated SignedSource<<e4ef73c47e92aaee29f47b37780f80e1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,15 +10,19 @@
 
 import { InlineFragment, ReaderInlineDataFragment } from 'relay-runtime';
 export type DescendantListBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
+export type DescendantListSelectionMode = "DYNAMIC" | "MANUAL" | "NAMED" | "PROPERTY" | "%future added value";
 export type DescendantListVariant = "CARDS" | "COMPACT" | "GRID" | "PROMOS" | "SUMMARY" | "%future added value";
 export type LinkListBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
+export type LinkListSelectionMode = "DYNAMIC" | "MANUAL" | "%future added value";
 export type LinkListVariant = "CARDS" | "COMPACT" | "GRID" | "PROMOS" | "SUMMARY" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type sharedListTemplateFragment$data = {
   readonly descendantsDefinition?: {
     readonly background: DescendantListBackground | null | undefined;
+    readonly orderingIdentifier: any | null | undefined;
     readonly seeAllButtonLabel: string | null | undefined;
     readonly selectionLimit: number | null | undefined;
+    readonly selectionMode: DescendantListSelectionMode | null | undefined;
     readonly showEntityContext: boolean | null | undefined;
     readonly showSeeAllButton: boolean | null | undefined;
     readonly title: string | null | undefined;
@@ -33,6 +37,7 @@ export type sharedListTemplateFragment$data = {
     readonly background: LinkListBackground | null | undefined;
     readonly seeAllButtonLabel: string | null | undefined;
     readonly selectionLimit: number | null | undefined;
+    readonly selectionMode: LinkListSelectionMode | null | undefined;
     readonly showEntityContext: boolean | null | undefined;
     readonly showSeeAllButton: boolean | null | undefined;
     readonly title: string | null | undefined;
@@ -64,6 +69,6 @@ const node: ReaderInlineDataFragment = {
   "name": "sharedListTemplateFragment"
 };
 
-(node as any).hash = "ea72a60ba6e3d7f8f26fe2b37a246c7e";
+(node as any).hash = "eabb8ba0814be4e974d2c9f59bbe0f6c";
 
 export default node;

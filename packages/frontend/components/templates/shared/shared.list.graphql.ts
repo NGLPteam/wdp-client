@@ -9,6 +9,7 @@ export const listTemplateFragment = graphql`
         background
         seeAllButtonLabel
         showSeeAllButton
+        selectionMode
         selectionLimit
         showEntityContext
         title
@@ -39,6 +40,8 @@ export const listTemplateFragment = graphql`
         background
         seeAllButtonLabel
         showSeeAllButton
+        selectionMode
+        orderingIdentifier
         selectionLimit
         showEntityContext
         title

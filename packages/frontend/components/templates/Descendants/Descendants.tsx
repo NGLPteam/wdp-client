@@ -1,5 +1,6 @@
 import { graphql, useFragment } from "react-relay";
 import { DescendantsTemplateFragment$key } from "@/relay/DescendantsTemplateFragment.graphql";
+import { getRouteByEntityType } from "@/helpers/routes";
 import {
   CompactListBlock,
   GridListBlock,
@@ -23,20 +24,33 @@ export default function Descendants({
 }) {
   const template = useFragment(fragment, data);
 
-  const variant = template?.descendantsDefinition?.variant;
+  const { entity, descendantsDefinition } = template ?? {};
+
+  const variant = descendantsDefinition?.variant;
+
+  const basePath = entity
+    ? `/${getRouteByEntityType(entity.__typename)}/${entity.slug}`
+    : null;
 
   const BlockComponent =
     variant && variant !== "%future added value"
       ? VARIANT_TO_COMPONENT[variant]
       : null;
 
-  return BlockComponent && <BlockComponent data={template} />;
+  return (
+    BlockComponent && <BlockComponent data={template} basePath={basePath} />
+  );
 }
 
 const fragment = graphql`
   fragment DescendantsTemplateFragment on AnyMainTemplateInstance {
     ... on DescendantListTemplateInstance {
-      __typename
+      entity {
+        __typename
+        ... on Sluggable {
+          slug
+        }
+      }
       descendantsDefinition: definition {
         variant
       }
