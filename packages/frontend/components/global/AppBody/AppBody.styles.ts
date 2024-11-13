@@ -9,4 +9,5 @@ export const Body = styled.div`
 export const Main = styled.main`
   flex-grow: 1;
   width: 100%;
+  min-block-size: 90vh;
 `;
