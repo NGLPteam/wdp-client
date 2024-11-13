@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { graphql } from "react-relay";
 import { updateI18n } from "i18n";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
@@ -20,7 +21,14 @@ function AppBody({ children, data, searchData }: Props) {
 
   const globalData = useMaybeFragment(fragment, data);
 
-  return (
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Required to avoid flash of unstyled content before styled-components loads
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  return isMounted ? (
     <Styled.Body className="a-bg-neutral00">
       <AppHeader data={globalData} searchData={searchData} />
       <Styled.Main id="main" tabIndex={-1}>
@@ -28,7 +36,7 @@ function AppBody({ children, data, searchData }: Props) {
       </Styled.Main>
       <AppFooter data={globalData} />
     </Styled.Body>
-  );
+  ) : null;
 }
 
 export default AppBody;
