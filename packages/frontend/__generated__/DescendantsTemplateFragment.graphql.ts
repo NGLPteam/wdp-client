@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<35633a177485d087dd70d976d4cdcf07>>
+ * @generated SignedSource<<94231b15c2be57d6a89abc637fc8f359>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,9 +12,12 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 export type DescendantListVariant = "CARDS" | "COMPACT" | "GRID" | "PROMOS" | "SUMMARY" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type DescendantsTemplateFragment$data = {
-  readonly __typename: "DescendantListTemplateInstance";
   readonly descendantsDefinition?: {
     readonly variant: DescendantListVariant | null | undefined;
+  };
+  readonly entity?: {
+    readonly __typename: string;
+    readonly slug?: string;
   };
   readonly " $fragmentSpreads": FragmentRefs<"sharedListTemplateFragment">;
   readonly " $fragmentType": "DescendantsTemplateFragment";
@@ -32,59 +35,63 @@ var v0 = {
   "name": "variant",
   "storageKey": null
 },
-v1 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "background",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "seeAllButtonLabel",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "showSeeAllButton",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "selectionLimit",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "showEntityContext",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "title",
-    "storageKey": null
-  },
-  (v0/*: any*/)
-],
-v2 = [
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "background",
+  "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "seeAllButtonLabel",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "showSeeAllButton",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "selectionMode",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "selectionLimit",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "showEntityContext",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v8 = [
   {
     "args": null,
     "kind": "FragmentSpread",
     "name": "sharedInlineSlotFragment"
   }
 ],
-v3 = [
+v9 = [
   {
     "alias": null,
     "args": null,
@@ -92,7 +99,7 @@ v3 = [
     "kind": "LinkedField",
     "name": "header",
     "plural": false,
-    "selections": (v2/*: any*/),
+    "selections": (v8/*: any*/),
     "storageKey": null
   },
   {
@@ -102,7 +109,7 @@ v3 = [
     "kind": "LinkedField",
     "name": "headerAside",
     "plural": false,
-    "selections": (v2/*: any*/),
+    "selections": (v8/*: any*/),
     "storageKey": null
   },
   {
@@ -112,7 +119,7 @@ v3 = [
     "kind": "LinkedField",
     "name": "metadata",
     "plural": false,
-    "selections": (v2/*: any*/),
+    "selections": (v8/*: any*/),
     "storageKey": null
   },
   {
@@ -122,11 +129,11 @@ v3 = [
     "kind": "LinkedField",
     "name": "subtitle",
     "plural": false,
-    "selections": (v2/*: any*/),
+    "selections": (v8/*: any*/),
     "storageKey": null
   }
 ],
-v4 = {
+v10 = {
   "alias": null,
   "args": null,
   "concreteType": "TemplateEntityList",
@@ -168,8 +175,33 @@ return {
         {
           "alias": null,
           "args": null,
-          "kind": "ScalarField",
-          "name": "__typename",
+          "concreteType": null,
+          "kind": "LinkedField",
+          "name": "entity",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "__typename",
+              "storageKey": null
+            },
+            {
+              "kind": "InlineFragment",
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "slug",
+                  "storageKey": null
+                }
+              ],
+              "type": "Sluggable",
+              "abstractKey": "__isSluggable"
+            }
+          ],
           "storageKey": null
         },
         {
@@ -202,7 +234,16 @@ return {
               "kind": "LinkedField",
               "name": "definition",
               "plural": false,
-              "selections": (v1/*: any*/),
+              "selections": [
+                (v1/*: any*/),
+                (v2/*: any*/),
+                (v3/*: any*/),
+                (v4/*: any*/),
+                (v5/*: any*/),
+                (v6/*: any*/),
+                (v7/*: any*/),
+                (v0/*: any*/)
+              ],
               "storageKey": null
             },
             {
@@ -212,10 +253,10 @@ return {
               "kind": "LinkedField",
               "name": "slots",
               "plural": false,
-              "selections": (v3/*: any*/),
+              "selections": (v9/*: any*/),
               "storageKey": null
             },
-            (v4/*: any*/)
+            (v10/*: any*/)
           ],
           "type": "LinkListTemplateInstance",
           "abstractKey": null
@@ -230,7 +271,23 @@ return {
               "kind": "LinkedField",
               "name": "definition",
               "plural": false,
-              "selections": (v1/*: any*/),
+              "selections": [
+                (v1/*: any*/),
+                (v2/*: any*/),
+                (v3/*: any*/),
+                (v4/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "orderingIdentifier",
+                  "storageKey": null
+                },
+                (v5/*: any*/),
+                (v6/*: any*/),
+                (v7/*: any*/),
+                (v0/*: any*/)
+              ],
               "storageKey": null
             },
             {
@@ -240,10 +297,10 @@ return {
               "kind": "LinkedField",
               "name": "slots",
               "plural": false,
-              "selections": (v3/*: any*/),
+              "selections": (v9/*: any*/),
               "storageKey": null
             },
-            (v4/*: any*/)
+            (v10/*: any*/)
           ],
           "type": "DescendantListTemplateInstance",
           "abstractKey": null
@@ -258,6 +315,6 @@ return {
 };
 })();
 
-(node as any).hash = "55dec957a078e186f2aed14c4e9627d4";
+(node as any).hash = "e1fd70e793a5133ccd02a70f9e71a85c";
 
 export default node;
