@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7e978795d63446ce491fad8f4d80c8be>>
+ * @generated SignedSource<<361a3a25ed81e306ef484c40fe3ee30c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,13 +12,13 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 export type OrderingBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type OrderingNavigationTemplateFragment$data = {
-  readonly __typename: "OrderingTemplateInstance";
   readonly orderingDefinition: {
     readonly background: OrderingBackground | null | undefined;
   };
-  readonly slots: {
-    readonly " $fragmentSpreads": FragmentRefs<"NavButtonsFragment">;
+  readonly orderingPair: {
+    readonly exists: boolean;
   };
+  readonly " $fragmentSpreads": FragmentRefs<"NavButtonsFragment">;
   readonly " $fragmentType": "OrderingNavigationTemplateFragment";
 };
 export type OrderingNavigationTemplateFragment$key = {
@@ -32,13 +32,6 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "OrderingNavigationTemplateFragment",
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "__typename",
-      "storageKey": null
-    },
     {
       "alias": "orderingDefinition",
       "args": null,
@@ -60,24 +53,31 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "concreteType": "OrderingTemplateInstanceSlots",
+      "concreteType": "TemplateOrderingPair",
       "kind": "LinkedField",
-      "name": "slots",
+      "name": "orderingPair",
       "plural": false,
       "selections": [
         {
+          "alias": null,
           "args": null,
-          "kind": "FragmentSpread",
-          "name": "NavButtonsFragment"
+          "kind": "ScalarField",
+          "name": "exists",
+          "storageKey": null
         }
       ],
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "NavButtonsFragment"
     }
   ],
   "type": "OrderingTemplateInstance",
   "abstractKey": null
 };
 
-(node as any).hash = "bb5d8998336544df3871d323d9e87ae6";
+(node as any).hash = "941adcdcf41069cf3bf783ca4d5ee78b";
 
 export default node;
