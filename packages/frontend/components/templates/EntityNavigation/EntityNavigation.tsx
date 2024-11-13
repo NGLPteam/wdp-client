@@ -22,25 +22,22 @@ export default function EntityNavigationTemplate({
 }) {
   const { template } = useFragment(fragment, data) ?? {};
 
-  const { definition, slots } = template ?? {};
+  const { definition } = template ?? {};
 
-  return (
+  return template ? (
     <Container bgColor={definition?.background}>
-      <NavigationTabs data={slots} skipToId={skipToId} />
+      <NavigationTabs data={template} skipToId={skipToId} />
     </Container>
-  );
+  ) : null;
 }
 
 const fragment = graphql`
   fragment EntityNavigationTemplateFragment on NavigationLayoutInstance {
-    __typename
     template {
       definition {
         background
       }
-      slots {
-        ...NavigationTabsFragment
-      }
+      ...NavigationTabsFragment
     }
   }
 `;

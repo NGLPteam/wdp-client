@@ -9,6 +9,7 @@ import { ArticleTabNavFragment$data } from "@/relay/ArticleTabNavFragment.graphq
 import { NavigationTabsFragment$key } from "@/relay/NavigationTabsFragment.graphql";
 import { useSharedInlineFragment } from "@/components/templates/shared/shared.slots.graphql";
 import type { TemplateSlotInlineInstance } from "@/types/graphql-schema";
+import { getRouteByEntityType } from "@/helpers/routes";
 import * as Styled from "./EntityNavigation.styles";
 
 type Node = ArticleTabNavFragment$data["pages"]["edges"][number];
@@ -22,16 +23,19 @@ export default function NavigationTabs({
   data?: NavigationTabsFragment$key | null;
   skipToId: string;
 }) {
-  const slots = useFragment(fragment, data);
-
-  const entityLabel = useSharedInlineFragment(slots?.entityLabel);
-  // Todo: get route from __typename
-  const route = "items";
-
-  const { t } = useTranslation();
-
   const { slug } = useParams();
   const pathname = usePathname();
+  const { t } = useTranslation();
+
+  const template = useFragment(fragment, data);
+
+  const { slots, entity } = template ?? {};
+
+  const entityLabel = useSharedInlineFragment(slots?.entityLabel);
+
+  if (!entity) return null;
+
+  const basePath = `/${getRouteByEntityType(entity.__typename)}/${slug}`;
 
   function getLink(
     href: string,
@@ -70,16 +74,17 @@ export default function NavigationTabs({
     >
       <SkipLink toId={skipToId} label={t("nav.skip_to_content")} />
       <Styled.List>
-        {getLink(`/${route}/${slug}`, entityLabel)}
-        {getLink(`/${route}/${slug}/metadata`, "nav.metadata")}
+        {getLink(basePath, entityLabel)}
+        {getLink(`${basePath}/metadata`, "nav.metadata")}
         {nav.assets?.pageInfo.totalCount > 0 &&
-          getLink(`/${route}/${slug}/files`, "nav.files")}
+          getLink(`${basePath}/files`, "nav.files")}
         {nav.contributions?.pageInfo.totalCount > 0 &&
-          getLink(`/${route}/${slug}/contributors`, "nav.contributors")}
-        {getLink(`/${route}/${slug}/metrics`, "nav.metrics")}
+          getLink(`${basePath}/contributors`, "nav.contributors")}
+        {entity.__typename === "Item" &&
+          getLink(`${basePath}/metrics`, "nav.metrics")}
         {nav.pages && nav.pages.edges.length > 0
           ? nav.pages.edges.map(({ node }: Node) =>
-              getLink(`/${route}/${slug}/page/${node.slug}`, node.title),
+              getLink(`${basePath}/page/${node.slug}`, node.title),
             )
           : null}
       </Styled.List>
@@ -88,36 +93,71 @@ export default function NavigationTabs({
 }
 
 const fragment = graphql`
-  fragment NavigationTabsFragment on NavigationTemplateInstanceSlots {
-    entityLabel {
-      ...sharedInlineSlotFragment
+  fragment NavigationTabsFragment on NavigationTemplateInstance {
+    entity {
+      ... on Item {
+        __typename
+        pages {
+          edges {
+            node {
+              title
+              slug
+            }
+          }
+        }
+        contributions {
+          pageInfo {
+            totalCount
+          }
+        }
+        assets {
+          pageInfo {
+            totalCount
+          }
+        }
+      }
+      ... on Collection {
+        __typename
+        pages {
+          edges {
+            node {
+              title
+              slug
+            }
+          }
+        }
+        contributions {
+          pageInfo {
+            totalCount
+          }
+        }
+        assets {
+          pageInfo {
+            totalCount
+          }
+        }
+      }
+      ... on Community {
+        __typename
+        pages {
+          edges {
+            node {
+              title
+              slug
+            }
+          }
+        }
+        assets {
+          pageInfo {
+            totalCount
+          }
+        }
+      }
+    }
+    slots {
+      entityLabel {
+        ...sharedInlineSlotFragment
+      }
     }
   }
 `;
-
-// const fragment = graphql`
-//   fragment ArticleTabNavFragment on Item {
-//     schemaVersion {
-//       identifier
-//       name
-//     }
-//     pages {
-//       edges {
-//         node {
-//           title
-//           slug
-//         }
-//       }
-//     }
-//     contributions {
-//       pageInfo {
-//         totalCount
-//       }
-//     }
-//     assets {
-//       pageInfo {
-//         totalCount
-//       }
-//     }
-//   }
-// `;
