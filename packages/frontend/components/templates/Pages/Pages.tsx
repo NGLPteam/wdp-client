@@ -10,11 +10,11 @@ export default function PagesListTemplate({
 }) {
   const template = useFragment(fragment, data);
 
-  const { pagesDefinition } = template ?? {};
+  const { pagesDefinition, entity } = template ?? {};
 
   return (
     <Container bgColor={pagesDefinition?.background}>
-      <List />
+      <List data={entity} />
     </Container>
   );
 }
@@ -24,6 +24,9 @@ const fragment = graphql`
     __typename
     pagesDefinition: definition {
       background
+    }
+    entity {
+      ...ListPagesTemplateFragment
     }
   }
 `;

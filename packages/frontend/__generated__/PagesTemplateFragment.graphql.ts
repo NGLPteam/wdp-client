@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cb445d63bb13f2c5d8508f4ba2d948ea>>
+ * @generated SignedSource<<a3f6bf50ddb29bdd2e95d261ab914118>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,9 @@ export type PageListBackground = "DARK" | "LIGHT" | "NONE" | "%future added valu
 import { FragmentRefs } from "relay-runtime";
 export type PagesTemplateFragment$data = {
   readonly __typename: "PageListTemplateInstance";
+  readonly entity: {
+    readonly " $fragmentSpreads": FragmentRefs<"ListPagesTemplateFragment">;
+  };
   readonly pagesDefinition: {
     readonly background: PageListBackground | null | undefined;
   };
@@ -53,12 +56,28 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "entity",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "ListPagesTemplateFragment"
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "PageListTemplateInstance",
   "abstractKey": null
 };
 
-(node as any).hash = "61145ad40769f738c54799811842fc9e";
+(node as any).hash = "3ea94f8e9130ec3aef893b66034886fe";
 
 export default node;
