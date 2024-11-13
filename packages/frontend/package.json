@@ -12,7 +12,7 @@
     "schema": "graphql-codegen",
     "lint": "eslint --cache \"**/*.{js,ts,tsx}\"",
     "fix": "eslint --cache --fix \"**/*.{js,ts,tsx}\"",
-    "types": "npx tsc --strict -w",
+    "types": "npx tsc --strict",
     "depcheck": "depcheck"
   },
   "dependencies": {

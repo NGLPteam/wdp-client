@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1e310c697e736cc20e67c8fd7fa14a74>>
+ * @generated SignedSource<<4fd63dd496a2a8b78bf1d69bdf2d277b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,12 +11,24 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type NavButtonsFragment$data = {
-  readonly nextLabel: {
-    readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
-  } | null | undefined;
-  readonly previousLabel: {
-    readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
-  } | null | undefined;
+  readonly orderingPair: {
+    readonly first: boolean;
+    readonly last: boolean;
+    readonly nextSibling: {
+      readonly " $fragmentSpreads": FragmentRefs<"routesOrderingTemplateFragment">;
+    } | null | undefined;
+    readonly prevSibling: {
+      readonly " $fragmentSpreads": FragmentRefs<"routesOrderingTemplateFragment">;
+    } | null | undefined;
+  };
+  readonly slots: {
+    readonly nextLabel: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+    } | null | undefined;
+    readonly previousLabel: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+    } | null | undefined;
+  };
   readonly " $fragmentType": "NavButtonsFragment";
 };
 export type NavButtonsFragment$key = {
@@ -25,7 +37,88 @@ export type NavButtonsFragment$key = {
 };
 
 const node: ReaderFragment = (function(){
-var v0 = [
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v1 = [
+  (v0/*: any*/)
+],
+v2 = {
+  "kind": "InlineFragment",
+  "selections": (v1/*: any*/),
+  "type": "Collection",
+  "abstractKey": null
+},
+v3 = {
+  "kind": "InlineFragment",
+  "selections": (v1/*: any*/),
+  "type": "Item",
+  "abstractKey": null
+},
+v4 = {
+  "kind": "InlineFragment",
+  "selections": (v1/*: any*/),
+  "type": "Community",
+  "abstractKey": null
+},
+v5 = [
+  {
+    "kind": "InlineDataFragmentSpread",
+    "name": "routesOrderingTemplateFragment",
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "entrySlug",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "entry",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
+          (v4/*: any*/),
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              (v0/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": null,
+                "kind": "LinkedField",
+                "name": "target",
+                "plural": false,
+                "selections": [
+                  (v2/*: any*/),
+                  (v3/*: any*/),
+                  (v4/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "type": "EntityLink",
+            "abstractKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
+    "args": null,
+    "argumentDefinitions": ([]/*: any*/)
+  }
+],
+v6 = [
   {
     "args": null,
     "kind": "FragmentSpread",
@@ -41,29 +134,85 @@ return {
     {
       "alias": null,
       "args": null,
-      "concreteType": "TemplateSlotInlineInstance",
+      "concreteType": "TemplateOrderingPair",
       "kind": "LinkedField",
-      "name": "nextLabel",
+      "name": "orderingPair",
       "plural": false,
-      "selections": (v0/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "first",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "last",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "OrderingEntry",
+          "kind": "LinkedField",
+          "name": "nextSibling",
+          "plural": false,
+          "selections": (v5/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "OrderingEntry",
+          "kind": "LinkedField",
+          "name": "prevSibling",
+          "plural": false,
+          "selections": (v5/*: any*/),
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     },
     {
       "alias": null,
       "args": null,
-      "concreteType": "TemplateSlotInlineInstance",
+      "concreteType": "OrderingTemplateInstanceSlots",
       "kind": "LinkedField",
-      "name": "previousLabel",
+      "name": "slots",
       "plural": false,
-      "selections": (v0/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "TemplateSlotInlineInstance",
+          "kind": "LinkedField",
+          "name": "nextLabel",
+          "plural": false,
+          "selections": (v6/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "TemplateSlotInlineInstance",
+          "kind": "LinkedField",
+          "name": "previousLabel",
+          "plural": false,
+          "selections": (v6/*: any*/),
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
-  "type": "OrderingTemplateInstanceSlots",
+  "type": "OrderingTemplateInstance",
   "abstractKey": null
 };
 })();
 
-(node as any).hash = "8d105ab4f35ab7c9701246f4fb76d678";
+(node as any).hash = "f0b222aae920cdc84343bec201e23144";
 
 export default node;

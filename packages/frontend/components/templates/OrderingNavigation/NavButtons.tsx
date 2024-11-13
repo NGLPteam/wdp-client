@@ -3,48 +3,80 @@ import { PrevNextButton } from "components/atomic/Button/patterns";
 import { NamedLink } from "components/atomic";
 import { useSharedInlineFragment } from "@/components/templates/shared/shared.slots.graphql";
 import { NavButtonsFragment$key } from "@/relay/NavButtonsFragment.graphql";
+import { hrefFromTypename } from "./routes";
 import * as Styled from "./OrderingNavigation.styles";
 
 export default function NavButtons({
   data,
-  ordering: _ordering,
 }: {
   data?: NavButtonsFragment$key | null;
-  ordering?: string | null;
 }) {
-  const slots = useFragment(fragment, data);
+  const template = useFragment(fragment, data);
+
+  const { orderingPair, slots } = template ?? {};
+
+  const { first, last, nextSibling, prevSibling } = orderingPair ?? {};
 
   const nextLabel = useSharedInlineFragment(slots?.nextLabel);
-  const previousLabel = useSharedInlineFragment(slots?.previousLabel);
+  const nextHref = hrefFromTypename(nextSibling);
+
+  const prevLabel = useSharedInlineFragment(slots?.previousLabel);
+  const prevHref = hrefFromTypename(prevSibling);
+
+  const nextProps = {
+    as: first || !prevHref ? undefined : "span",
+    iconLeft: true as const,
+    icon: "arrowLeft" as const,
+    label: prevLabel?.content ?? "",
+    "aria-disabled": first || !prevHref,
+  };
+
+  const prevProps = {
+    as: last || !nextHref ? undefined : "span",
+    icon: "arrowRight" as const,
+    label: nextLabel?.content ?? "",
+    "aria-disabled": last || !nextHref,
+  };
+
+  const maybeWrapLink = (
+    props: typeof prevProps | typeof nextProps,
+    href: string | null,
+  ) =>
+    href ? (
+      <NamedLink href={href}>
+        <PrevNextButton {...props} />
+      </NamedLink>
+    ) : (
+      <PrevNextButton {...props} />
+    );
 
   return (
     <Styled.Inner className="l-container-wide l-flex l-flex--gap">
-      <NamedLink href={`/collections/[slug]`}>
-        <PrevNextButton
-          as="span"
-          iconLeft
-          icon="arrowLeft"
-          label={previousLabel?.content ?? "Previous"}
-        />
-      </NamedLink>
-      <NamedLink href={`/collections/[slug]`}>
-        <PrevNextButton
-          as="span"
-          icon="arrowRight"
-          label={nextLabel?.content ?? "Next"}
-        />
-      </NamedLink>
+      {maybeWrapLink(prevProps, prevHref)}
+      {maybeWrapLink(nextProps, nextHref)}
     </Styled.Inner>
   );
 }
 
 const fragment = graphql`
-  fragment NavButtonsFragment on OrderingTemplateInstanceSlots {
-    nextLabel {
-      ...sharedInlineSlotFragment
+  fragment NavButtonsFragment on OrderingTemplateInstance {
+    orderingPair {
+      first
+      last
+      nextSibling {
+        ...routesOrderingTemplateFragment
+      }
+      prevSibling {
+        ...routesOrderingTemplateFragment
+      }
     }
-    previousLabel {
-      ...sharedInlineSlotFragment
+    slots {
+      nextLabel {
+        ...sharedInlineSlotFragment
+      }
+      previousLabel {
+        ...sharedInlineSlotFragment
+      }
     }
   }
 `;
