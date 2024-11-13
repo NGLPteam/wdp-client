@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { respond } from "theme/mixins";
+import Button from "@/components/atomic/Button";
 
 export const NavList = styled.ul`
   display: flex;
@@ -22,5 +23,11 @@ export const NavButton = styled.button`
 
   > * + * {
     margin-inline-start: var(--padding-sm);
+  }
+`;
+
+export const Disclosure = styled(Button)`
+  svg {
+    margin-block-start: 4px;
   }
 `;

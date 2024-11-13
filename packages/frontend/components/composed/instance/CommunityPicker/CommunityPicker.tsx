@@ -5,6 +5,7 @@ import { Button, Dropdown, NamedLink } from "components/atomic";
 import { CommunityPickerFragment$key } from "@/relay/CommunityPickerFragment.graphql";
 import { CommunityPickerCommunityNameFragment$key } from "@/relay/CommunityPickerCommunityNameFragment.graphql";
 import { CommunityContext } from "@/contexts/CommunityContext";
+import * as Styled from "./CommunityPicker.styles";
 
 type Props = {
   data?: CommunityPickerFragment$key | null;
@@ -17,7 +18,7 @@ export default function CommunityPicker({ data }: Props) {
   const activeCommunityData = useContext(CommunityContext);
   const activeCommunity = useFragment<CommunityPickerCommunityNameFragment$key>(
     communityNameFragment,
-    activeCommunityData,
+    activeCommunityData
   );
 
   const { t } = useTranslation();
@@ -43,9 +44,14 @@ export default function CommunityPicker({ data }: Props) {
   ) : (
     <Dropdown
       disclosure={
-        <Button as="div" secondary icon="chevronDown" size="sm">
+        <Styled.Disclosure
+          forwardedAs="div"
+          secondary
+          icon="chevronDown"
+          size="sm"
+        >
           <span>{activeCommunity?.title || t("nav.community_picker")}</span>
-        </Button>
+        </Styled.Disclosure>
       }
       menuItems={menuItems.map(({ node }) => {
         return (
