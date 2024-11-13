@@ -7,22 +7,25 @@ import * as Styled from "./Card.styles";
 
 export default function CardListBlock({
   data,
+  basePath,
 }: {
   data?: sharedListTemplateFragment$key;
+  basePath?: string | null;
 }) {
-  const {
-    linksDefinition,
-    descendantsDefinition,
-    slots: _slots,
-    entityList,
-  } = useSharedListTemplateFragment(data);
+  const { linksDefinition, descendantsDefinition, entityList } =
+    useSharedListTemplateFragment(data);
 
   const { empty } = entityList ?? {};
 
   if (empty) return null;
 
-  const { background, title, showSeeAllButton, seeAllButtonLabel } =
-    linksDefinition ?? descendantsDefinition ?? {};
+  const {
+    background,
+    title,
+    showSeeAllButton,
+    seeAllButtonLabel,
+    selectionMode,
+  } = linksDefinition ?? descendantsDefinition ?? {};
 
   const showHeroImage = false;
 
@@ -33,12 +36,13 @@ export default function CardListBlock({
       {!!title && <Styled.Header>{title}</Styled.Header>}
       {showHeroImage && <Styled.HeroImage />}
       <List variant="CARDS" bgColor={background} data={entityList} />
-      <SeeAll
-        alignment="center"
-        visible={!!showSeeAllButton}
-        buttonLabel={seeAllButtonLabel}
-        schema="schema"
-      />
+      {!!showSeeAllButton && selectionMode === "NAMED" && (
+        <SeeAll
+          alignment="center"
+          buttonLabel={seeAllButtonLabel}
+          href={`${basePath}/${descendantsDefinition?.orderingIdentifier}`}
+        />
+      )}
     </Styled.Wrapper>
   );
 }

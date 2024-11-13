@@ -6,8 +6,10 @@ import * as Styled from "./Summary.styles";
 
 export default function SummaryListBlock({
   data,
+  basePath,
 }: {
   data?: sharedListTemplateFragment$key | null;
+  basePath?: string | null;
 }) {
   const { linksDefinition, descendantsDefinition, slots, entityList } =
     useSharedListTemplateFragment(data);
@@ -21,6 +23,7 @@ export default function SummaryListBlock({
     title,
     showSeeAllButton,
     seeAllButtonLabel,
+    selectionMode,
     // showEntityContext,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
@@ -48,12 +51,13 @@ export default function SummaryListBlock({
             )}
           </Styled.Entity>
           <List variant="SUMMARY" bgColor={background} data={entityList} />
-          <SeeAll
-            alignment="left"
-            visible={!!showSeeAllButton}
-            buttonLabel={seeAllButtonLabel}
-            schema="schema"
-          />
+          {!!showSeeAllButton && selectionMode === "NAMED" && (
+            <SeeAll
+              alignment="left"
+              buttonLabel={seeAllButtonLabel}
+              href={`${basePath}/${descendantsDefinition?.orderingIdentifier}`}
+            />
+          )}
         </Styled.TextColumn>
         {showHeroImage && <Styled.HeroImage />}
       </Styled.Grid>
