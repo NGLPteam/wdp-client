@@ -14,7 +14,7 @@ export default function DOI({ data }: Props) {
   const doi = normalizeDoiUrl(entity.doi);
 
   return (
-    <div>
+    <li>
       <a
         target="_blank"
         rel="noreferrer"
@@ -25,7 +25,7 @@ export default function DOI({ data }: Props) {
         {doi.displayUrl}
         <span className="a-hidden">{t("common.opens_new_window")}</span>
       </a>
-    </div>
+    </li>
   );
 }
 
