@@ -3,7 +3,6 @@
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import EntityMetadataBlock from "components/composed/entity/EntityMetadataBlock";
 import { MetadataProperty } from "components/layout";
 import MetadataFactory from "components/factories/MetadataFactory";
 import ContributorName from "components/composed/contributor/ContributorName";
@@ -35,7 +34,7 @@ export default function PaperMetadata({ data }: Props) {
   );
 
   return paper ? (
-    <EntityMetadataBlock>
+    <>
       <MetadataProperty
         label={t("metadata.author", { count: authors?.length ?? 1 })}
       >
@@ -73,7 +72,7 @@ export default function PaperMetadata({ data }: Props) {
         label={t("metadata.pdf_version")}
         data={paper.pdfVersion}
       />
-    </EntityMetadataBlock>
+    </>
   ) : null;
 }
 

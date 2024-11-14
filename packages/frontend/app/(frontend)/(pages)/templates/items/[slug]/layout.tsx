@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useId } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import GoogleScholarMetaTags from "components/global/GoogleScholarMetaTags";
@@ -8,6 +8,7 @@ import CommunityNavListPortal from "components/composed/community/CommunityNavLi
 import CommunityNamePortal from "components/composed/community/CommunityName/Portal";
 import SearchModalPortal from "components/layout/SearchModal/Portal";
 import HeroTemplate from "@/components/templates/Hero";
+import NavigationTemplate from "@/components/templates/EntityNavigation";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { layoutItemTemplateQuery as Query } from "@/relay/layoutItemTemplateQuery.graphql";
@@ -18,6 +19,8 @@ export default async function ItemLayout({
   children,
   params: { slug },
 }: BasePageParams & PropsWithChildren) {
+  const uid = useId();
+
   const { data, records } = await fetchQuery<Query>(query, {
     slug,
   });
@@ -30,7 +33,7 @@ export default async function ItemLayout({
 
   const {
     community,
-    layouts: { hero },
+    layouts: { hero, navigation },
   } = item;
 
   return (
@@ -44,6 +47,7 @@ export default async function ItemLayout({
       <SearchModalPortal data={item} />
       {slug && <ViewCounter slug={slug} />}
       {hero && <HeroTemplate data={hero} />}
+      <NavigationTemplate data={navigation} skipToId={`${uid}-tab-content`} />
       {children}
     </UpdateClientEnvironment>
   );
@@ -55,6 +59,9 @@ const query = graphql`
       layouts {
         hero {
           ...HeroTemplateFragment
+        }
+        navigation {
+          ...EntityNavigationTemplateFragment
         }
       }
       ...PortalSearchModalFragment

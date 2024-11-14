@@ -7,6 +7,8 @@ import {
 } from "./patterns";
 
 export default function EntityMetadataFactory({ data }: Props) {
+  if (!data) return null;
+
   const entity = readInlineData(fragment, data);
 
   if (entity?.schemaDefinition?.kind === "COLLECTION") return null;
@@ -23,7 +25,7 @@ export default function EntityMetadataFactory({ data }: Props) {
 }
 
 interface Props {
-  data: EntityMetadataFactoryFragment$key | null;
+  data?: EntityMetadataFactoryFragment$key | null;
 }
 
 const fragment = graphql`
