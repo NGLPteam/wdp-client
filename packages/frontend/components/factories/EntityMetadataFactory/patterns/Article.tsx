@@ -3,7 +3,6 @@
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import EntityMetadataBlock from "components/composed/entity/EntityMetadataBlock/";
 import { MetadataProperty } from "components/layout";
 import MetadataFactory from "components/factories/MetadataFactory";
 import { ExternalLink, PrecisionDate } from "components/atomic";
@@ -29,7 +28,7 @@ export default function ArticleMetadata({ data }: Props) {
   const doi = article?.doi ? normalizeDoiUrl(article.doi) : null;
 
   return article ? (
-    <EntityMetadataBlock>
+    <>
       <MetadataProperty
         label={t("metadata.author", { count: authors?.length ?? 1 })}
       >
@@ -75,7 +74,7 @@ export default function ArticleMetadata({ data }: Props) {
         label={t("metadata.online_version")}
         data={article.onlineVersion}
       />
-    </EntityMetadataBlock>
+    </>
   ) : null;
 }
 

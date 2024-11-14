@@ -13,15 +13,3 @@ export const List = styled.ul`
 
   ${respond(`grid-template-columns: 1fr`, 50)}
 `;
-
-export const ListItem = styled.li`
-  grid-column: span 3;
-
-  ${respond(`grid-column: span 4;`, 100)}
-  ${respond(`grid-column: span 6;`, 70)}
-  ${respond(`grid-column: span 1;`, 50)}
-
-  &:empty {
-    display: none;
-  }
-`;
