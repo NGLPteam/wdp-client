@@ -10,9 +10,9 @@ export default function ISSN({ data }: Props) {
   const { t } = useTranslation();
 
   return entity?.issn ? (
-    <div>
+    <li>
       {t("metadata.issn")} <span className="t-copy-light">{entity.issn}</span>
-    </div>
+    </li>
   ) : null;
 }
 

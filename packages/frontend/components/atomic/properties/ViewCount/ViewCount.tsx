@@ -11,10 +11,10 @@ export default function ViewCount({ data, className }: Props) {
   const { t } = useTranslation();
 
   return summary?.total ? (
-    <div className={`l-flex l-flex--gap l-flex--gap-sm ${className || ""}`}>
+    <li className={`l-flex l-flex--gap l-flex--gap-sm ${className || ""}`}>
       <IconFactory icon="view" role="presentation" />
       <span>{t("metadata.view_count", { count: summary.total })}</span>
-    </div>
+    </li>
   ) : null;
 }
 

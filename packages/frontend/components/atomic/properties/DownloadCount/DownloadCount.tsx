@@ -11,10 +11,10 @@ export default function DownloadCount({ data, className }: Props) {
   const { t } = useTranslation();
 
   return summary?.total ? (
-    <div className={`l-flex l-flex--gap l-flex--gap-sm ${className || ""}`}>
+    <li className={`l-flex l-flex--gap l-flex--gap-sm ${className || ""}`}>
       <IconFactory icon="download" role="presentation" />
       <span>{t("metadata.download_count", { count: summary.total })}</span>
-    </div>
+    </li>
   ) : null;
 }
 

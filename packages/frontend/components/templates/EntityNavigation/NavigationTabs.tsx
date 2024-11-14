@@ -14,8 +14,6 @@ import * as Styled from "./EntityNavigation.styles";
 
 type Node = ArticleTabNavFragment$data["pages"]["edges"][number];
 
-type Nav = Omit<ArticleTabNavFragment$data, " $fragmentType" | "schemaVersion">;
-
 export default function NavigationTabs({
   data,
   skipToId,
@@ -33,7 +31,7 @@ export default function NavigationTabs({
 
   const entityLabel = useSharedInlineFragment(slots?.entityLabel);
 
-  if (!entity) return null;
+  if (!entity || entity.__typename === "%other") return null;
 
   const basePath = `/${getRouteByEntityType(entity.__typename)}/${slug}`;
 
@@ -48,7 +46,7 @@ export default function NavigationTabs({
         ? t(label)
         : label?.valid
           ? label?.content
-          : null;
+          : t("glossary.item");
 
     return renderedLabel ? (
       <Styled.Item key={href}>
@@ -61,12 +59,6 @@ export default function NavigationTabs({
     ) : null;
   }
 
-  const nav: Nav = {
-    assets: { pageInfo: { totalCount: 0 } },
-    contributions: { pageInfo: { totalCount: 0 } },
-    pages: { edges: [] },
-  };
-
   return (
     <Styled.Nav
       className="l-container-wide"
@@ -76,14 +68,15 @@ export default function NavigationTabs({
       <Styled.List>
         {getLink(basePath, entityLabel)}
         {getLink(`${basePath}/metadata`, "nav.metadata")}
-        {nav.assets?.pageInfo.totalCount > 0 &&
+        {entity.assets?.pageInfo.totalCount > 0 &&
           getLink(`${basePath}/files`, "nav.files")}
-        {nav.contributions?.pageInfo.totalCount > 0 &&
+        {"contributions" in entity &&
+          entity.contributions?.pageInfo.totalCount > 0 &&
           getLink(`${basePath}/contributors`, "nav.contributors")}
         {entity.__typename === "Item" &&
           getLink(`${basePath}/metrics`, "nav.metrics")}
-        {nav.pages && nav.pages.edges.length > 0
-          ? nav.pages.edges.map(({ node }: Node) =>
+        {entity.pages && entity.pages.edges.length > 0
+          ? entity.pages.edges.map(({ node }: Node) =>
               getLink(`${basePath}/page/${node.slug}`, node.title),
             )
           : null}

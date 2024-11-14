@@ -25,7 +25,7 @@ export default function Sidebar({
     showDOI || showISSN || showBasicViewMetrics || slot?.valid || true;
 
   return shouldRender ? (
-    <Styled.Sidebar>
+    <Styled.Sidebar className="t-label-sm">
       {showDOI && <DOI data={entity} />}
       {showISSN && <ISSN data={entity} />}
       {slot?.valid && !!slot.content && (
