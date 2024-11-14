@@ -3,6 +3,8 @@ import { boxShadow, transition } from "theme/base/variables";
 import { aFocusReset, tLabel } from "theme/mixins";
 
 export const Nav = styled.nav`
+  --container-v-padding: 0;
+
   padding-block-start: var(--container-padding-md);
 `;
 

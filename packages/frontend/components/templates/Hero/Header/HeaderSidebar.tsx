@@ -26,7 +26,7 @@ export default function Sidebar({
 
   return shouldRender ? (
     <Styled.Right>
-      <Styled.SidebarWrapper>
+      <Styled.SidebarWrapper className="t-label-sm">
         {showDOI && <DOI data={entity} />}
         {showISSN && <ISSN data={entity} />}
         {slot?.valid && !!slot.content && (
