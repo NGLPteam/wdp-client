@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4c5e4549cd42ccfc7ec887e2f99df9f3>>
+ * @generated SignedSource<<b972779129f90692edb1cac5074dca51>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,7 @@ export type HeroImageLayout = "ONE_COLUMN" | "TWO_COLUMN" | "%future added value
 import { FragmentRefs } from "relay-runtime";
 export type HeroTemplateFragment$data = {
   readonly entity: {
+    readonly __typename: "Community";
     readonly heroImage?: {
       readonly " $fragmentSpreads": FragmentRefs<"ImageHeroTemplateFragment">;
     };
@@ -45,6 +46,13 @@ const node: ReaderFragment = (function(){
 var v0 = {
   "alias": null,
   "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
   "concreteType": "ImageAttachment",
   "kind": "LinkedField",
   "name": "heroImage",
@@ -57,7 +65,11 @@ var v0 = {
     }
   ],
   "storageKey": null
-};
+},
+v2 = [
+  (v0/*: any*/),
+  (v1/*: any*/)
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -86,6 +98,7 @@ return {
           "kind": "InlineFragment",
           "selections": [
             (v0/*: any*/),
+            (v1/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -99,10 +112,14 @@ return {
         },
         {
           "kind": "InlineFragment",
-          "selections": [
-            (v0/*: any*/)
-          ],
+          "selections": (v2/*: any*/),
           "type": "Collection",
+          "abstractKey": null
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": (v2/*: any*/),
+          "type": "Item",
           "abstractKey": null
         }
       ],
@@ -209,6 +226,6 @@ return {
 };
 })();
 
-(node as any).hash = "f88bedebb8d56f45cfb0c5f995bf12b2";
+(node as any).hash = "0f4025782c0cbb827e78b4164f12777a";
 
 export default node;
