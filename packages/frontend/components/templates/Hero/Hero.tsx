@@ -9,6 +9,7 @@ import { HeroTemplateFragment$key } from "@/relay/HeroTemplateFragment.graphql";
 import HeroHeader from "./Header";
 import HeroDetail from "./Detail";
 import HeroImage from "./Image";
+import * as Styled from "./Hero.styles";
 
 export default function HeroTemplate({
   data,
@@ -33,25 +34,48 @@ export default function HeroTemplate({
 
   const renderBreadcrumbs = !!(showBreadcrumbs || showSharingLink);
 
-  const heroImageLayout = undefined;
+  const { heroImageLayout } = entity ?? {};
 
-  // const Inner = heroImageLayout ? Styled.Inner : "div";
+  const Inner = heroImageLayout ? Styled.Inner : "div";
+
+  const CommunityHeroHeader = (
+    <section
+      className={
+        heroImageLayout === "ONE_COLUMN" ? "a-bg-neutral90" : undefined
+      }
+    >
+      <Inner>
+        <HeroHeader data={layout?.template} layout={heroImageLayout} />
+        {showHeroImage && entity?.heroImage && (
+          <HeroImage data={entity?.heroImage} layout={heroImageLayout} />
+        )}
+      </Inner>
+    </section>
+  );
+
+  const BaseHeroHeader = (
+    <>
+      <Container as="header" width="wide" bgColor={background}>
+        <HeroHeader data={layout?.template} layout={heroImageLayout} />
+      </Container>
+      {showHeroImage && entity?.heroImage && (
+        <HeroImage data={entity?.heroImage} layout={heroImageLayout} />
+      )}
+    </>
+  );
 
   return (
     <>
       {renderBreadcrumbs && (
         <BreadcrumbsBar data={entity} showShare={showSharingLink ?? false} />
       )}
-      <Container as="header" width="wide" bgColor={background}>
-        <HeroHeader data={layout?.template} layout={heroImageLayout} />
-      </Container>
+      {entity?.__typename === "Community"
+        ? CommunityHeroHeader
+        : BaseHeroHeader}
       {showBigSearchPrompt && <SearchHero prompt={searchPrompt} />}
       <Container bgColor={background}>
         {showSplitDisplay && <HeroDetail data={layout?.template} />}
       </Container>
-      {showHeroImage && entity?.heroImage && (
-        <HeroImage data={entity?.heroImage} layout={heroImageLayout} />
-      )}
       {(enableDescendantBrowsing || enableDescendantSearch) && (
         <EntityNavBar
           data={entity}
@@ -69,12 +93,20 @@ const fragment = graphql`
       ...BreadcrumbsBarFragment
       ...EntityNavBarFragment
       ... on Community {
+        __typename
         heroImage {
           ...ImageHeroTemplateFragment
         }
         heroImageLayout
       }
       ... on Collection {
+        __typename
+        heroImage {
+          ...ImageHeroTemplateFragment
+        }
+      }
+      ... on Item {
+        __typename
         heroImage {
           ...ImageHeroTemplateFragment
         }
