@@ -18,11 +18,10 @@ export const Inner = styled.div`
     `,
     80,
   )}
-
   ${respond(
     css`
       grid-template-columns: auto;
     `,
     60,
-  )}
+  )};
 `;
