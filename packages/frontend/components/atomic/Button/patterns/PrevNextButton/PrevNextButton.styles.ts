@@ -8,9 +8,19 @@ export const FixedWidthButton = styled(Button)`
   width: ${pxToRem(181)};
   justify-content: center;
   overflow: hidden;
+  align-items: center;
 
-  & > svg {
+  > svg {
+    margin-block-start: 2px;
+  }
+
+  > span {
     flex-grow: 0;
+  }
+
+  &[aria-disabled="true"] {
+    opacity: 0.7;
+    pointer-events: none;
   }
 
   ${respond(`width: ${pxToRem(140)};`, 70)}

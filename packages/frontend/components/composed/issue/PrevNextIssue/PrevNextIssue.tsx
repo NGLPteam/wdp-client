@@ -30,7 +30,7 @@ export default function PrevNextIssue({ data }: Props) {
       <Styled.Inner className="l-container-wide l-flex l-flex--gap">
         <NamedLink href={`/collections/${item?.slug}`}>
           <PrevNextButton
-            as="span"
+            forwardedAs="span"
             iconLeft
             icon="arrowLeft"
             label={mobile.current ? t("nav.previous") : t("nav.previous_issue")}
@@ -38,7 +38,7 @@ export default function PrevNextIssue({ data }: Props) {
         </NamedLink>
         <NamedLink href={`/collections/${item?.slug}`}>
           <PrevNextButton
-            as="span"
+            forwardedAs="span"
             icon="arrowRight"
             label={mobile.current ? t("nav.next") : t("nav.next_issue")}
           />

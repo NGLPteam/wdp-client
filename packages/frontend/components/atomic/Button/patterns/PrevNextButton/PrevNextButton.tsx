@@ -13,10 +13,11 @@ const PrevNextButton = forwardRef(
   },
 );
 
-type BaseProps = React.ComponentProps<typeof Button>;
+type BaseProps = Omit<React.ComponentProps<typeof Button>, "as">;
 
 type Props = BaseProps & {
-  label?: string;
+  label?: string | React.ReactElement;
+  forwardedAs?: string;
 };
 
 export default PrevNextButton;

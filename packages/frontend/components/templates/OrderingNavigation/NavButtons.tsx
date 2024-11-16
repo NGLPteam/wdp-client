@@ -1,7 +1,9 @@
 import { graphql, useFragment } from "react-relay";
+import { useTranslation } from "react-i18next";
 import { PrevNextButton } from "components/atomic/Button/patterns";
 import { NamedLink } from "components/atomic";
 import { useSharedInlineFragment } from "@/components/templates/shared/shared.slots.graphql";
+import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import { NavButtonsFragment$key } from "@/relay/NavButtonsFragment.graphql";
 import { hrefFromTypename } from "./routes";
 import * as Styled from "./OrderingNavigation.styles";
@@ -11,6 +13,8 @@ export default function NavButtons({
 }: {
   data?: NavButtonsFragment$key | null;
 }) {
+  const { t } = useTranslation();
+
   const template = useFragment(fragment, data);
 
   const { orderingPair, slots } = template ?? {};
@@ -23,19 +27,27 @@ export default function NavButtons({
   const prevLabel = useSharedInlineFragment(slots?.previousLabel);
   const prevHref = hrefFromTypename(prevSibling);
 
-  const nextProps = {
-    as: first || !prevHref ? undefined : "span",
+  const prevProps = {
+    forwardedAs: first || !prevHref ? "button" : "span",
     iconLeft: true as const,
     icon: "arrowLeft" as const,
-    label: prevLabel?.content ?? "",
-    "aria-disabled": first || !prevHref,
+    label: prevLabel?.valid ? (
+      <InlineSlotWrapper content={prevLabel.content} />
+    ) : (
+      t("nav.previous")
+    ),
+    "aria-disabled": first || !prevHref ? true : undefined,
   };
 
-  const prevProps = {
-    as: last || !nextHref ? undefined : "span",
+  const nextProps = {
+    forwardedAs: last || !nextHref ? "button" : "span",
     icon: "arrowRight" as const,
-    label: nextLabel?.content ?? "",
-    "aria-disabled": last || !nextHref,
+    label: nextLabel?.valid ? (
+      <InlineSlotWrapper content={nextLabel.content} />
+    ) : (
+      t("nav.next")
+    ),
+    "aria-disabled": last || !nextHref ? true : undefined,
   };
 
   const maybeWrapLink = (
@@ -43,7 +55,7 @@ export default function NavButtons({
     href: string | null,
   ) =>
     href ? (
-      <NamedLink href={href}>
+      <NamedLink href={href} {...props}>
         <PrevNextButton {...props} />
       </NamedLink>
     ) : (
