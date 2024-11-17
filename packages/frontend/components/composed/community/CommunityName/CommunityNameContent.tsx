@@ -7,6 +7,7 @@ export default function CommunityName({ community }: Props) {
   const hideName = useMemo(
     () =>
       community &&
+      community.logo &&
       community.logo.original.width &&
       community.logo.original.height &&
       Math.floor(
