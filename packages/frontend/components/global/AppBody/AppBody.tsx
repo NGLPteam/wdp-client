@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { graphql } from "react-relay";
 import { updateI18n } from "i18n";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import useIsMounted from "@wdp/lib/hooks/useIsMounted";
 import { AppBodyFragment$key } from "@/relay/AppBodyFragment.graphql";
 import { SearchButtonFragment$key } from "@/relay/SearchButtonFragment.graphql";
 import AppHeader from "../AppHeader";
@@ -21,12 +21,7 @@ function AppBody({ children, data, searchData }: Props) {
 
   const globalData = useMaybeFragment(fragment, data);
 
-  const [isMounted, setIsMounted] = useState(false);
-
-  // Required to avoid flash of unstyled content before styled-components loads
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const isMounted = useIsMounted();
 
   return isMounted ? (
     <Styled.Body className="a-bg-neutral00">
