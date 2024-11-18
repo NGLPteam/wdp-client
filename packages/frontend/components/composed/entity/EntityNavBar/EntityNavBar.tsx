@@ -13,6 +13,7 @@ export default function EntityNavBar({
   data,
   showBrowse = true,
   showSearch = true,
+  searchPrompt,
 }: Props) {
   const { t } = useTranslation();
   const entity = useMaybeFragment(fragment, data);
@@ -32,9 +33,12 @@ export default function EntityNavBar({
               <Search
                 pathname={`/collections/${entity.slug}/search`}
                 id="entitySearch"
-                placeholder={t("search.placeholder_name", {
-                  name: entity.title,
-                })}
+                placeholder={
+                  searchPrompt ??
+                  t("search.placeholder_name", {
+                    name: entity.title,
+                  })
+                }
               />
             )}
           </Styled.RightSide>
@@ -48,6 +52,7 @@ type Props = {
   data?: EntityNavBarFragment$key | null;
   showBrowse?: boolean | null;
   showSearch?: boolean | null;
+  searchPrompt?: string | null;
 };
 
 const fragment = graphql`

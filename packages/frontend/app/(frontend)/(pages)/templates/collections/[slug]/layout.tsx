@@ -10,6 +10,7 @@ import fetchQuery from "@/lib/relay/fetchQuery";
 import { layoutCollectionTemplateQuery as Query } from "@/relay/layoutCollectionTemplateQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import ViewCounter from "@/components/composed/analytics/ViewCounter";
+import EntityNavBar from "@/components/composed/entity/EntityNavBar";
 
 export const dynamic = "force-dynamic";
 
@@ -30,6 +31,12 @@ export default async function CollectionTemplateLayout({
     layouts: { hero },
   } = collection;
 
+  const {
+    enableDescendantSearch,
+    enableDescendantBrowsing,
+    descendantSearchPrompt,
+  } = hero?.template?.definition ?? {};
+
   return (
     <UpdateClientEnvironment records={records}>
       <CommunityNavListPortal data={community} />
@@ -37,6 +44,14 @@ export default async function CollectionTemplateLayout({
       <SearchModalPortal data={collection} />
       {slug && <ViewCounter slug={slug} />}
       {hero && <HeroTemplate data={hero} />}
+      {(enableDescendantBrowsing || enableDescendantSearch) && (
+        <EntityNavBar
+          data={collection}
+          showBrowse={enableDescendantBrowsing}
+          showSearch={enableDescendantSearch}
+          searchPrompt={descendantSearchPrompt}
+        />
+      )}
       {children}
     </UpdateClientEnvironment>
   );
@@ -47,10 +62,18 @@ const query = graphql`
     collection(slug: $slug) {
       layouts {
         hero {
+          template {
+            definition {
+              enableDescendantBrowsing
+              enableDescendantSearch
+              descendantSearchPrompt
+            }
+          }
           ...HeroTemplateFragment
         }
       }
       ...PortalSearchModalFragment
+      ...EntityNavBarFragment
 
       community {
         ...PortalCommunityPickerFragment
