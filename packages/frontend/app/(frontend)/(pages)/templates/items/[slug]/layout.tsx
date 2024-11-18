@@ -14,6 +14,7 @@ import fetchQuery from "@/lib/relay/fetchQuery";
 import { layoutItemTemplateQuery as Query } from "@/relay/layoutItemTemplateQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import ViewCounter from "@/components/composed/analytics/ViewCounter";
+import EntityNavBar from "@/components/composed/entity/EntityNavBar";
 
 export default async function ItemLayout({
   children,
@@ -36,6 +37,12 @@ export default async function ItemLayout({
     layouts: { hero, navigation },
   } = item;
 
+  const {
+    enableDescendantSearch,
+    enableDescendantBrowsing,
+    descendantSearchPrompt,
+  } = hero?.template?.definition ?? {};
+
   return (
     <UpdateClientEnvironment records={records}>
       {googleScholarData && (
@@ -47,6 +54,14 @@ export default async function ItemLayout({
       <SearchModalPortal data={item} />
       {slug && <ViewCounter slug={slug} />}
       {hero && <HeroTemplate data={hero} />}
+      {(enableDescendantBrowsing || enableDescendantSearch) && (
+        <EntityNavBar
+          data={item}
+          showBrowse={enableDescendantBrowsing}
+          showSearch={enableDescendantSearch}
+          searchPrompt={descendantSearchPrompt}
+        />
+      )}
       <NavigationTemplate data={navigation} skipToId={`${uid}-tab-content`} />
       {children}
     </UpdateClientEnvironment>
@@ -58,6 +73,13 @@ const query = graphql`
     item(slug: $slug) {
       layouts {
         hero {
+          template {
+            definition {
+              enableDescendantBrowsing
+              enableDescendantSearch
+              descendantSearchPrompt
+            }
+          }
           ...HeroTemplateFragment
         }
         navigation {
@@ -65,6 +87,7 @@ const query = graphql`
         }
       }
       ...PortalSearchModalFragment
+      ...EntityNavBarFragment
 
       community {
         ...PortalCommunityPickerFragment

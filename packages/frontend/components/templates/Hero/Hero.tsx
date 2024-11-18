@@ -4,7 +4,6 @@ import { graphql, useFragment } from "react-relay";
 import Container from "@/components/layout/Container";
 import BreadcrumbsBar from "@/components/layout/BreadcrumbsBar";
 import SearchHero from "@/components/composed/search/SearchHero";
-import EntityNavBar from "@/components/composed/entity/EntityNavBar";
 import { HeroTemplateFragment$key } from "@/relay/HeroTemplateFragment.graphql";
 import HeroDetail from "./Detail";
 import CommunityHeroHeader from "./patterns/Community";
@@ -22,8 +21,6 @@ export default function HeroTemplate({
   const {
     background,
     descendantSearchPrompt: searchPrompt,
-    enableDescendantBrowsing,
-    enableDescendantSearch,
     showBreadcrumbs,
     showSharingLink,
     showSplitDisplay,
@@ -48,13 +45,6 @@ export default function HeroTemplate({
       <Container bgColor={background}>
         {showSplitDisplay && <HeroDetail data={layout?.template} />}
       </Container>
-      {(enableDescendantBrowsing || enableDescendantSearch) && !isCommunity && (
-        <EntityNavBar
-          data={entity}
-          showBrowse={enableDescendantBrowsing}
-          showSearch={enableDescendantSearch}
-        />
-      )}
     </>
   );
 }
@@ -62,18 +52,15 @@ export default function HeroTemplate({
 const fragment = graphql`
   fragment HeroTemplateFragment on HeroLayoutInstance {
     entity {
-      ...BreadcrumbsBarFragment
-      ...EntityNavBarFragment
       ... on Community {
         __typename
       }
+      ...BreadcrumbsBarFragment
     }
     template {
       definition {
         background
         descendantSearchPrompt
-        enableDescendantBrowsing
-        enableDescendantSearch
         showBreadcrumbs
         showSharingLink
         showSplitDisplay
