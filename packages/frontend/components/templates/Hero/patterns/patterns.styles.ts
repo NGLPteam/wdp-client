@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { fluidScale, respond } from "theme/mixins";
 import { containerWidths } from "theme/base/variables";
 
-export const Inner = styled.div`
+export const Grid = styled.div`
   display: grid;
   position: relative;
   max-inline-size: ${containerWidths.max};
