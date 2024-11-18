@@ -26,11 +26,15 @@ export default async function CommunityLayout({
     layouts: { hero },
   } = community;
 
+  const showNavBar = hero?.template?.definition?.enableDescendantBrowsing;
+
   return (
     <UpdateClientEnvironment records={records}>
       <CommunityPickerPortal data={community} />
       <CommunityNamePortal data={community} />
-      <CommunityNavBar data={community} entityData={community} />
+      {showNavBar && (
+        <CommunityNavBar data={community} entityData={community} />
+      )}
       {hero && <HeroTemplate data={hero} />}
       {children}
     </UpdateClientEnvironment>
@@ -44,6 +48,11 @@ const query = graphql`
     community(slug: $slug) {
       layouts {
         hero {
+          template {
+            definition {
+              enableDescendantBrowsing
+            }
+          }
           ...HeroTemplateFragment
         }
       }
