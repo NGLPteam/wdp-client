@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e2aaab07183f0509782a22ba1b3430bd>>
+ * @generated SignedSource<<e69a349c6a17faa5347322c34baa033e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,14 +14,12 @@ import { FragmentRefs } from "relay-runtime";
 export type HeroTemplateFragment$data = {
   readonly entity: {
     readonly __typename: "Community";
-    readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbsBarFragment" | "EntityNavBarFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbsBarFragment">;
   };
   readonly template: {
     readonly definition: {
       readonly background: HeroBackground | null | undefined;
       readonly descendantSearchPrompt: string | null | undefined;
-      readonly enableDescendantBrowsing: boolean | null | undefined;
-      readonly enableDescendantSearch: boolean | null | undefined;
       readonly showBigSearchPrompt: boolean | null | undefined;
       readonly showBreadcrumbs: boolean | null | undefined;
       readonly showSharingLink: boolean | null | undefined;
@@ -52,16 +50,6 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "BreadcrumbsBarFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "EntityNavBarFragment"
-        },
-        {
           "kind": "InlineFragment",
           "selections": [
             {
@@ -74,6 +62,11 @@ const node: ReaderFragment = {
           ],
           "type": "Community",
           "abstractKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "BreadcrumbsBarFragment"
         }
       ],
       "storageKey": null
@@ -106,20 +99,6 @@ const node: ReaderFragment = {
               "args": null,
               "kind": "ScalarField",
               "name": "descendantSearchPrompt",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "enableDescendantBrowsing",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "enableDescendantSearch",
               "storageKey": null
             },
             {
@@ -176,6 +155,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "1a3d74b78565e8120663aee7638fcc4c";
+(node as any).hash = "2e7c5e1ba33bf38f644879f9e386314d";
 
 export default node;
