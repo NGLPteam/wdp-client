@@ -38,9 +38,7 @@ export default function Summary({
           </h4>
         )}
         {summary?.valid && !!summary.content && (
-          <p>
-            <BlockSlotWrapper content={summary.content} />
-          </p>
+          <BlockSlotWrapper content={summary.content} />
         )}
       </Styled.Content>
       {showAnnouncements && !!entity?.announcements && (
