@@ -10,7 +10,11 @@ import { useTranslation } from "react-i18next";
 import { BreadcrumbsBarFragment$key } from "@/relay/BreadcrumbsBarFragment.graphql";
 import * as Styled from "./BreadcrumbsBar.styles";
 
-export default function BreadCrumbsBar({ data, showShare = true }: Props) {
+export default function BreadcrumbsBar({
+  data,
+  showShare = true,
+  className,
+}: Props) {
   const breadcrumbData = useMaybeFragment(fragment, data);
 
   const { t } = useTranslation();
@@ -35,7 +39,7 @@ export default function BreadCrumbsBar({ data, showShare = true }: Props) {
     globalData?.globalConfiguration?.site?.installationName || "WDP";
 
   return breadcrumbData ? (
-    <Styled.Nav className="a-bg-custom10">
+    <Styled.Nav className={className ?? "a-bg-custom10"}>
       <Styled.NavInner className="l-container-wide">
         <Breadcrumbs data={breadcrumbData} />
         {showShare && (
@@ -80,6 +84,7 @@ export default function BreadCrumbsBar({ data, showShare = true }: Props) {
 interface Props {
   data?: BreadcrumbsBarFragment$key | null;
   showShare?: boolean;
+  className?: string;
 }
 
 export const fragment = graphql`
