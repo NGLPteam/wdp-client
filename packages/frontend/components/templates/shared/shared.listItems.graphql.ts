@@ -29,6 +29,7 @@ export const listItemTemplateFragment = graphql`
     entity {
       ... on Collection {
         __typename
+        id
         slug
         title
         thumbnail {
@@ -40,6 +41,7 @@ export const listItemTemplateFragment = graphql`
       }
       ... on Item {
         __typename
+        id
         slug
         title
         thumbnail {
