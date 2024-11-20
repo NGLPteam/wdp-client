@@ -13,11 +13,13 @@ const NamedLink = ({ children, href, as, ...props }: Props) => {
     >
       {children}
     </Link>
-  ) : null;
+  ) : (
+    <span className={props.className}>{children}</span>
+  );
 };
 
 interface Props extends Omit<LinkProps, "href"> {
-  href?: string;
+  href?: string | null;
 }
 
 export default NamedLink;
