@@ -3,6 +3,12 @@
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
 import { useEffect, useState } from "react";
+import { inlineSlotComponents } from "./components";
+import type { PropsWithChildren } from "react";
+
+const overrides = {
+  p: (props: PropsWithChildren) => <span {...props}>{props.children}</span>,
+};
 
 export default function InlineSlotWrapper({
   content,
@@ -22,5 +28,10 @@ export default function InlineSlotWrapper({
     renderMDX();
   }, [content]);
 
-  return mdxContent ? <MDXRemote {...mdxContent} /> : null;
+  return mdxContent ? (
+    <MDXRemote
+      {...mdxContent}
+      components={{ ...inlineSlotComponents, ...overrides }}
+    />
+  ) : null;
 }
