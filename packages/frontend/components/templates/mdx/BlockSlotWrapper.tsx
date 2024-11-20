@@ -3,7 +3,7 @@
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
 import { useEffect, useState } from "react";
-import * as components from "./components";
+import { blockSlotComponents } from "./components";
 
 export default function BlockSlotWrapper({
   content,
@@ -24,6 +24,6 @@ export default function BlockSlotWrapper({
   }, [content]);
 
   return mdxContent ? (
-    <MDXRemote {...mdxContent} components={components} />
+    <MDXRemote {...mdxContent} components={blockSlotComponents} />
   ) : null;
 }
