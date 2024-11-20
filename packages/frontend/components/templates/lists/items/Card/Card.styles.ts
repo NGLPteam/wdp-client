@@ -9,6 +9,7 @@ import {
   aFocusReset,
   aBgNeutral90,
 } from "theme/mixins";
+import { containerWidths } from "theme/base/variables";
 
 const DESKTOP_BREAK = 100;
 
@@ -34,6 +35,14 @@ export const Item = styled.li`
   &:first-child {
     &::before {
       left: 0;
+      z-index: 1;
+    }
+  }
+
+  &:last-child {
+    &::before {
+      right: 0;
+      z-index: -1;
     }
   }
 
@@ -49,11 +58,13 @@ export const Item = styled.li`
         var(--FeaturedJournals-cover-height, ${pxToRem(300)}) +
           var(--container-padding-sm) * 2
       );
-      width: 100vw;
-      z-index: -1;
       background: var(--FeaturedJournalsCover-background-color);
+      inline-size: max(
+        calc((100vw - ${containerWidths.max}) / 2),
+        var(--container-v-padding)
+      );
 
-      ${respond(`display: none;`, DESKTOP_BREAK)}
+      ${respond(`display: none;`, DESKTOP_BREAK)};
     }
   }
 `;
