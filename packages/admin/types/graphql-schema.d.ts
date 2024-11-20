@@ -4959,6 +4959,12 @@ export type DetailTemplateDefinition = Node & Sluggable & TemplateDefinition & {
   id: Scalars['ID']['output'];
   layoutKind: LayoutKind;
   showAnnouncements?: Maybe<Scalars['Boolean']['output']>;
+  /**
+   * Whether to show and use the 'body' slot on a detail view.
+   * Primarily intended for items with copious text to display.
+   *
+   */
+  showBody?: Maybe<Scalars['Boolean']['output']>;
   showHeroImage?: Maybe<Scalars['Boolean']['output']>;
   /**
    * Slot definitions for this template.
@@ -4981,6 +4987,7 @@ export type DetailTemplateDefinition = Node & Sluggable & TemplateDefinition & {
  */
 export type DetailTemplateDefinitionSlots = {
   __typename?: 'DetailTemplateDefinitionSlots';
+  body?: Maybe<TemplateSlotBlockDefinition>;
   header?: Maybe<TemplateSlotInlineDefinition>;
   subheader?: Maybe<TemplateSlotInlineDefinition>;
   summary?: Maybe<TemplateSlotBlockDefinition>;
@@ -5022,6 +5029,7 @@ export type DetailTemplateInstance = Node & Renderable & Sluggable & TemplateIns
  */
 export type DetailTemplateInstanceSlots = {
   __typename?: 'DetailTemplateInstanceSlots';
+  body?: Maybe<TemplateSlotBlockInstance>;
   header?: Maybe<TemplateSlotInlineInstance>;
   subheader?: Maybe<TemplateSlotInlineInstance>;
   summary?: Maybe<TemplateSlotBlockInstance>;
@@ -8321,6 +8329,10 @@ export type MetadataTemplateDefinition = Node & Sluggable & TemplateDefinition &
 export type MetadataTemplateDefinitionSlots = {
   __typename?: 'MetadataTemplateDefinitionSlots';
   header?: Maybe<TemplateSlotInlineDefinition>;
+  itemsA?: Maybe<TemplateSlotBlockDefinition>;
+  itemsB?: Maybe<TemplateSlotBlockDefinition>;
+  itemsC?: Maybe<TemplateSlotBlockDefinition>;
+  itemsD?: Maybe<TemplateSlotBlockDefinition>;
 };
 
 export type MetadataTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
@@ -8360,6 +8372,10 @@ export type MetadataTemplateInstance = Node & Renderable & Sluggable & TemplateI
 export type MetadataTemplateInstanceSlots = {
   __typename?: 'MetadataTemplateInstanceSlots';
   header?: Maybe<TemplateSlotInlineInstance>;
+  itemsA?: Maybe<TemplateSlotBlockInstance>;
+  itemsB?: Maybe<TemplateSlotBlockInstance>;
+  itemsC?: Maybe<TemplateSlotBlockInstance>;
+  itemsD?: Maybe<TemplateSlotBlockInstance>;
 };
 
 export type MultiselectProperty = OptionableProperty & ScalarProperty & SchemaProperty & SearchableProperty & {
@@ -12678,7 +12694,7 @@ export type TemplateSlotBlockInstance = TemplateSlotInstance & {
    * Any errors for this slot that occurred during rendering, if applicable.
    *
    */
-  errors?: Maybe<Array<Scalars['String']['output']>>;
+  errors?: Maybe<Array<TemplateSlotError>>;
   /**
    * The kind of slot instance this is.
    *
@@ -12706,6 +12722,31 @@ export type TemplateSlotDefinition = {
    *
    */
   rawTemplate?: Maybe<Scalars['String']['output']>;
+};
+
+/**
+ * Any number of things can go awry when rendering slot templates,
+ * this provides insight into errors that can occur at compilation
+ * or render-time.
+ *
+ */
+export type TemplateSlotError = {
+  __typename?: 'TemplateSlotError';
+  /**
+   * The line number where the error started (if available).
+   *
+   */
+  lineNumber?: Maybe<Scalars['Int']['output']>;
+  /**
+   * The excerpt of markup that triggered the error (if available).
+   *
+   */
+  markupContext?: Maybe<Scalars['String']['output']>;
+  /**
+   * The description of the error.
+   *
+   */
+  message: Scalars['String']['output'];
 };
 
 /**
@@ -12745,7 +12786,7 @@ export type TemplateSlotInlineInstance = TemplateSlotInstance & {
    * Any errors for this slot that occurred during rendering, if applicable.
    *
    */
-  errors?: Maybe<Array<Scalars['String']['output']>>;
+  errors?: Maybe<Array<TemplateSlotError>>;
   /**
    * The kind of slot instance this is.
    *
@@ -12773,7 +12814,7 @@ export type TemplateSlotInstance = {
    * Any errors for this slot that occurred during rendering, if applicable.
    *
    */
-  errors?: Maybe<Array<Scalars['String']['output']>>;
+  errors?: Maybe<Array<TemplateSlotError>>;
   /**
    * The kind of slot instance this is.
    *
@@ -15231,6 +15272,7 @@ export type ResolversTypes = {
   TemplateSlotBlockDefinition: ResolverTypeWrapper<TemplateSlotBlockDefinition>;
   TemplateSlotBlockInstance: ResolverTypeWrapper<TemplateSlotBlockInstance>;
   TemplateSlotDefinition: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['TemplateSlotDefinition']>;
+  TemplateSlotError: ResolverTypeWrapper<TemplateSlotError>;
   TemplateSlotInlineDefinition: ResolverTypeWrapper<TemplateSlotInlineDefinition>;
   TemplateSlotInlineInstance: ResolverTypeWrapper<TemplateSlotInlineInstance>;
   TemplateSlotInstance: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['TemplateSlotInstance']>;
@@ -15715,6 +15757,7 @@ export type ResolversParentTypes = {
   TemplateSlotBlockDefinition: TemplateSlotBlockDefinition;
   TemplateSlotBlockInstance: TemplateSlotBlockInstance;
   TemplateSlotDefinition: ResolversInterfaceTypes<ResolversParentTypes>['TemplateSlotDefinition'];
+  TemplateSlotError: TemplateSlotError;
   TemplateSlotInlineDefinition: TemplateSlotInlineDefinition;
   TemplateSlotInlineInstance: TemplateSlotInlineInstance;
   TemplateSlotInstance: ResolversInterfaceTypes<ResolversParentTypes>['TemplateSlotInstance'];
@@ -17230,6 +17273,7 @@ export type DetailTemplateDefinitionResolvers<ContextType = any, ParentType exte
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
   showAnnouncements?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showBody?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showHeroImage?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['DetailTemplateDefinitionSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
@@ -17240,6 +17284,7 @@ export type DetailTemplateDefinitionResolvers<ContextType = any, ParentType exte
 };
 
 export type DetailTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['DetailTemplateDefinitionSlots'] = ResolversParentTypes['DetailTemplateDefinitionSlots']> = {
+  body?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   subheader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
@@ -17261,6 +17306,7 @@ export type DetailTemplateInstanceResolvers<ContextType = any, ParentType extend
 };
 
 export type DetailTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['DetailTemplateInstanceSlots'] = ResolversParentTypes['DetailTemplateInstanceSlots']> = {
+  body?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   subheader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
@@ -18235,6 +18281,10 @@ export type MetadataTemplateDefinitionResolvers<ContextType = any, ParentType ex
 
 export type MetadataTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['MetadataTemplateDefinitionSlots'] = ResolversParentTypes['MetadataTemplateDefinitionSlots']> = {
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  itemsA?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
+  itemsB?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
+  itemsC?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
+  itemsD?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -18254,6 +18304,10 @@ export type MetadataTemplateInstanceResolvers<ContextType = any, ParentType exte
 
 export type MetadataTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['MetadataTemplateInstanceSlots'] = ResolversParentTypes['MetadataTemplateInstanceSlots']> = {
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  itemsA?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
+  itemsB?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
+  itemsC?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
+  itemsD?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -19352,7 +19406,7 @@ export type TemplateSlotBlockDefinitionResolvers<ContextType = any, ParentType e
 
 export type TemplateSlotBlockInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateSlotBlockInstance'] = ResolversParentTypes['TemplateSlotBlockInstance']> = {
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  errors?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  errors?: Resolver<Maybe<Array<ResolversTypes['TemplateSlotError']>>, ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['TemplateSlotKind'], ParentType, ContextType>;
   valid?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -19364,6 +19418,13 @@ export type TemplateSlotDefinitionResolvers<ContextType = any, ParentType extend
   rawTemplate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 };
 
+export type TemplateSlotErrorResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateSlotError'] = ResolversParentTypes['TemplateSlotError']> = {
+  lineNumber?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  markupContext?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type TemplateSlotInlineDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateSlotInlineDefinition'] = ResolversParentTypes['TemplateSlotInlineDefinition']> = {
   kind?: Resolver<ResolversTypes['TemplateSlotKind'], ParentType, ContextType>;
   rawTemplate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -19372,7 +19433,7 @@ export type TemplateSlotInlineDefinitionResolvers<ContextType = any, ParentType 
 
 export type TemplateSlotInlineInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateSlotInlineInstance'] = ResolversParentTypes['TemplateSlotInlineInstance']> = {
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  errors?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  errors?: Resolver<Maybe<Array<ResolversTypes['TemplateSlotError']>>, ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['TemplateSlotKind'], ParentType, ContextType>;
   valid?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -19381,7 +19442,7 @@ export type TemplateSlotInlineInstanceResolvers<ContextType = any, ParentType ex
 export type TemplateSlotInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateSlotInstance'] = ResolversParentTypes['TemplateSlotInstance']> = {
   __resolveType: TypeResolveFn<'TemplateSlotBlockInstance' | 'TemplateSlotInlineInstance', ParentType, ContextType>;
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  errors?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  errors?: Resolver<Maybe<Array<ResolversTypes['TemplateSlotError']>>, ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['TemplateSlotKind'], ParentType, ContextType>;
   valid?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
 };
@@ -20229,6 +20290,7 @@ export type Resolvers<ContextType = any> = {
   TemplateSlotBlockDefinition?: TemplateSlotBlockDefinitionResolvers<ContextType>;
   TemplateSlotBlockInstance?: TemplateSlotBlockInstanceResolvers<ContextType>;
   TemplateSlotDefinition?: TemplateSlotDefinitionResolvers<ContextType>;
+  TemplateSlotError?: TemplateSlotErrorResolvers<ContextType>;
   TemplateSlotInlineDefinition?: TemplateSlotInlineDefinitionResolvers<ContextType>;
   TemplateSlotInlineInstance?: TemplateSlotInlineInstanceResolvers<ContextType>;
   TemplateSlotInstance?: TemplateSlotInstanceResolvers<ContextType>;
