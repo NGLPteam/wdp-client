@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
-import { respond } from "theme/mixins";
+import { respond, tLabel } from "theme/mixins";
+import { pxToRem } from "@wdp/lib/theme/functions";
+import ReadMoreLink from "@/components/atomic/links/Link/patterns/ReadMoreLink";
 
 export const Item = styled.li`
   display: grid;
@@ -78,4 +80,9 @@ export const Group = styled.div`
   &:not(:first-child) {
     margin-block-start: 0.5rem;
   }
+`;
+
+export const ReadMore = styled(ReadMoreLink)`
+  margin-block-start: ${pxToRem(10)};
+  ${tLabel("sm")}
 `;

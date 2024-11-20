@@ -4,6 +4,8 @@ import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTempla
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import ContributorsList from "@/components/composed/contributor/ContributorsList";
+import NamedLink from "@/components/atomic/links/NamedLink";
+import { getRouteByEntityType } from "@/helpers/routes";
 import * as Styled from "./Summary.styles";
 
 export default function SummaryListItem({
@@ -15,6 +17,11 @@ export default function SummaryListItem({
 
   const { header, subheader, contextA, contextB, metaA, metaB, description } =
     slots ?? {};
+
+  if (!(entity?.__typename === "Item" || entity?.__typename === "Collection"))
+    return null;
+
+  const href = `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`;
 
   return (
     <Styled.Item>
@@ -65,6 +72,11 @@ export default function SummaryListItem({
           <Styled.Summary>
             <BlockSlotWrapper content={description.content} />
           </Styled.Summary>
+        )}
+        {href && (
+          <NamedLink href={href}>
+            <Styled.ReadMore />
+          </NamedLink>
         )}
       </Styled.TextContent>
     </Styled.Item>

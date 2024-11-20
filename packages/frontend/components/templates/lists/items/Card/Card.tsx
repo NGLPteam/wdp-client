@@ -3,6 +3,8 @@ import { useSharedListItemTemplateFragment } from "@/components/templates/shared
 import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import ContributorsList from "@/components/composed/contributor/ContributorsList";
+import NamedLink from "@/components/atomic/links/NamedLink";
+import { getRouteByEntityType } from "@/helpers/routes";
 import * as Styled from "./Card.styles";
 
 export default function CardListItem({
@@ -15,65 +17,72 @@ export default function CardListItem({
   const { header, subheader, contextA, contextB, contextC, metaA, metaB } =
     slots ?? {};
 
+  if (!(entity?.__typename === "Item" || entity?.__typename === "Collection"))
+    return null;
+
+  const href = `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`;
+
   return (
     <Styled.Item>
-      <Styled.ItemInner>
-        <Styled.CoverWrapper>
-          <Styled.CoverInner>
-            <CoverImage {...entity} maxWidth={225} maxHeight={300} />
-          </Styled.CoverInner>
-        </Styled.CoverWrapper>
-        <Styled.TextContent>
-          <Styled.TitleBlock>
-            {contextA?.valid && !!contextA.content && (
-              <Styled.ContextOne>
-                <InlineSlotWrapper content={contextA.content} />
-              </Styled.ContextOne>
+      <NamedLink href={href}>
+        <Styled.ItemInner>
+          <Styled.CoverWrapper>
+            <Styled.CoverInner>
+              <CoverImage {...entity} maxWidth={225} maxHeight={300} />
+            </Styled.CoverInner>
+          </Styled.CoverWrapper>
+          <Styled.TextContent>
+            <Styled.TitleBlock>
+              {contextA?.valid && !!contextA.content && (
+                <Styled.ContextOne>
+                  <InlineSlotWrapper content={contextA.content} />
+                </Styled.ContextOne>
+              )}
+              {header?.valid && !!header.content && (
+                <Styled.Header>
+                  <InlineSlotWrapper content={header.content} />
+                </Styled.Header>
+              )}
+              {subheader?.valid && !!subheader.content && (
+                <Styled.Subheader>
+                  <InlineSlotWrapper content={subheader.content} />
+                </Styled.Subheader>
+              )}
+              <Styled.Contributors>
+                <ContributorsList data={entity?.contributions} noLinks />
+              </Styled.Contributors>
+            </Styled.TitleBlock>
+            {(metaA?.valid || metaB?.valid) && (
+              <Styled.Group>
+                {metaA?.valid && !!metaA.content && (
+                  <span>
+                    <InlineSlotWrapper content={metaA.content} />
+                  </span>
+                )}
+                {metaB?.valid && (
+                  <span>
+                    <InlineSlotWrapper content={metaB.content} />
+                  </span>
+                )}
+              </Styled.Group>
             )}
-            {header?.valid && !!header.content && (
-              <Styled.Header>
-                <InlineSlotWrapper content={header.content} />
-              </Styled.Header>
+            {(contextB?.valid || contextC?.valid) && (
+              <Styled.Group>
+                {contextB?.valid && !!contextB.content && (
+                  <span>
+                    <InlineSlotWrapper content={contextB.content} />
+                  </span>
+                )}
+                {contextC?.valid && !!contextC.content && (
+                  <span>
+                    <InlineSlotWrapper content={contextC.content} />
+                  </span>
+                )}
+              </Styled.Group>
             )}
-            {subheader?.valid && !!subheader.content && (
-              <Styled.Subheader>
-                <InlineSlotWrapper content={subheader.content} />
-              </Styled.Subheader>
-            )}
-            <Styled.Contributors>
-              <ContributorsList data={entity?.contributions} />
-            </Styled.Contributors>
-          </Styled.TitleBlock>
-          {(metaA?.valid || metaB?.valid) && (
-            <Styled.Group>
-              {metaA?.valid && !!metaA.content && (
-                <span>
-                  <InlineSlotWrapper content={metaA.content} />
-                </span>
-              )}
-              {metaB?.valid && (
-                <span>
-                  <InlineSlotWrapper content={metaB.content} />
-                </span>
-              )}
-            </Styled.Group>
-          )}
-          {(contextB?.valid || contextC?.valid) && (
-            <Styled.Group>
-              {contextB?.valid && !!contextB.content && (
-                <span>
-                  <InlineSlotWrapper content={contextB.content} />
-                </span>
-              )}
-              {contextC?.valid && !!contextC.content && (
-                <span>
-                  <InlineSlotWrapper content={contextC.content} />
-                </span>
-              )}
-            </Styled.Group>
-          )}
-        </Styled.TextContent>
-      </Styled.ItemInner>
+          </Styled.TextContent>
+        </Styled.ItemInner>
+      </NamedLink>
     </Styled.Item>
   );
 }
