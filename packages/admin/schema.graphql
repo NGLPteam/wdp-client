@@ -5174,6 +5174,12 @@ type DetailTemplateDefinition implements Node & Sluggable & TemplateDefinition {
   id: ID!
   layoutKind: LayoutKind!
   showAnnouncements: Boolean
+  """
+  Whether to show and use the 'body' slot on a detail view.
+  Primarily intended for items with copious text to display.
+  
+  """
+  showBody: Boolean
   showHeroImage: Boolean
   """
   Slot definitions for this template.
@@ -5195,6 +5201,7 @@ Slot definitions for the associated template.
 
 """
 type DetailTemplateDefinitionSlots {
+  body: TemplateSlotBlockDefinition
   header: TemplateSlotInlineDefinition
   subheader: TemplateSlotInlineDefinition
   summary: TemplateSlotBlockDefinition
@@ -5234,6 +5241,7 @@ Rendered slots for the associated template.
 
 """
 type DetailTemplateInstanceSlots {
+  body: TemplateSlotBlockInstance
   header: TemplateSlotInlineInstance
   subheader: TemplateSlotInlineInstance
   summary: TemplateSlotBlockInstance
@@ -8701,6 +8709,10 @@ Slot definitions for the associated template.
 """
 type MetadataTemplateDefinitionSlots {
   header: TemplateSlotInlineDefinition
+  itemsA: TemplateSlotBlockDefinition
+  itemsB: TemplateSlotBlockDefinition
+  itemsC: TemplateSlotBlockDefinition
+  itemsD: TemplateSlotBlockDefinition
 }
 
 type MetadataTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
@@ -8738,6 +8750,10 @@ Rendered slots for the associated template.
 """
 type MetadataTemplateInstanceSlots {
   header: TemplateSlotInlineInstance
+  itemsA: TemplateSlotBlockInstance
+  itemsB: TemplateSlotBlockInstance
+  itemsC: TemplateSlotBlockInstance
+  itemsD: TemplateSlotBlockInstance
 }
 
 type MultiselectProperty implements OptionableProperty & ScalarProperty & SchemaProperty & SearchableProperty {
@@ -12822,7 +12838,7 @@ type TemplateSlotBlockInstance implements TemplateSlotInstance {
   Any errors for this slot that occurred during rendering, if applicable.
   
   """
-  errors: [String!]
+  errors: [TemplateSlotError!]
   """
   The kind of slot instance this is.
   
@@ -12850,6 +12866,30 @@ interface TemplateSlotDefinition {
   
   """
   rawTemplate: String
+}
+
+"""
+Any number of things can go awry when rendering slot templates,
+this provides insight into errors that can occur at compilation
+or render-time.
+
+"""
+type TemplateSlotError {
+  """
+  The line number where the error started (if available).
+  
+  """
+  lineNumber: Int
+  """
+  The excerpt of markup that triggered the error (if available).
+  
+  """
+  markupContext: String
+  """
+  The description of the error.
+  
+  """
+  message: String!
 }
 
 """
@@ -12887,7 +12927,7 @@ type TemplateSlotInlineInstance implements TemplateSlotInstance {
   Any errors for this slot that occurred during rendering, if applicable.
   
   """
-  errors: [String!]
+  errors: [TemplateSlotError!]
   """
   The kind of slot instance this is.
   
@@ -12915,7 +12955,7 @@ interface TemplateSlotInstance {
   Any errors for this slot that occurred during rendering, if applicable.
   
   """
-  errors: [String!]
+  errors: [TemplateSlotError!]
   """
   The kind of slot instance this is.
   
