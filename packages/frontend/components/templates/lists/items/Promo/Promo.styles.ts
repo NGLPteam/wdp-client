@@ -10,12 +10,23 @@ export const Item = styled.li`
   border-radius: ${pxToRem(16)};
   padding: ${pxToRem(20)};
   background: var(--color-base-neutral90);
+  color: var(--color-base-neutral00);
   transition: ${transition.background};
   min-block-size: ${pxToRem(250)};
 
   &:hover,
   &:focus-within {
     background: var(--color-base-neutral80);
+  }
+
+  .a-bg-neutral90 & {
+    background: var(--color-base-neutral80);
+
+    &:hover,
+    &:focus-within {
+      background: var(--color-base-neutral20);
+      color: var(--color-base-neutral90);
+    }
   }
 `;
 
@@ -32,7 +43,6 @@ export const TextContent = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--color-base-neutral00);
   padding-inline-start: ${pxToRem(20)};
   padding-inline-end: ${pxToRem(20)};
   text-align: center;
