@@ -1,7 +1,10 @@
 import { useSharedListTemplateFragment } from "@/components/templates/shared/shared.list.graphql";
 import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
-import List from "../../List/";
+import NamedLink from "@/components/atomic/links/NamedLink";
+import CoverImage from "@/components/atomic/images/CoverImage";
+import { getRouteByEntityType } from "@/helpers/routes";
 import SeeAll from "../../SeeAll";
+import List from "../../List/";
 import * as Styled from "./Summary.styles";
 
 export default function SummaryListBlock({
@@ -11,7 +14,7 @@ export default function SummaryListBlock({
   data?: sharedListTemplateFragment$key | null;
   basePath?: string | null;
 }) {
-  const { linksDefinition, descendantsDefinition, slots, entityList } =
+  const { linksDefinition, descendantsDefinition, slots, entityList, entity } =
     useSharedListTemplateFragment(data);
 
   const { empty } = entityList ?? {};
@@ -29,6 +32,11 @@ export default function SummaryListBlock({
 
   const { header, subtitle, metadata } = slots ?? {};
 
+  const href =
+    entity?.__typename === "Item" || entity?.__typename === "Collection"
+      ? `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`
+      : null;
+
   const showHeroImage = false;
 
   return (
@@ -40,12 +48,14 @@ export default function SummaryListBlock({
             {/*{showEntityContext && context?.valid && (
               <Styled.Context>{context.content}</Styled.Context>
             )}*/}
-            {header?.valid && !!header.content && (
-              <Styled.EntityHeader>{header.content}</Styled.EntityHeader>
-            )}
-            {subtitle?.valid && !!subtitle.content && (
-              <Styled.Subheader>{subtitle.content}</Styled.Subheader>
-            )}
+            <NamedLink href={href}>
+              {header?.valid && !!header.content && (
+                <Styled.EntityHeader>{header.content}</Styled.EntityHeader>
+              )}
+              {subtitle?.valid && !!subtitle.content && (
+                <Styled.Subheader>{subtitle.content}</Styled.Subheader>
+              )}
+            </NamedLink>
             {metadata?.valid && !!metadata.content && (
               <Styled.Metadata>{metadata.content}</Styled.Metadata>
             )}
@@ -59,7 +69,13 @@ export default function SummaryListBlock({
             />
           )}
         </Styled.TextColumn>
-        {showHeroImage && <Styled.HeroImage />}
+        {showHeroImage && (
+          <Styled.HeroImage>
+            <NamedLink href={href}>
+              <CoverImage {...entity} maxWidth={168} maxHeight={248} />
+            </NamedLink>
+          </Styled.HeroImage>
+        )}
       </Styled.Grid>
     </Styled.Container>
   );

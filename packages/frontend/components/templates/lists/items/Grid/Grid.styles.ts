@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { aLinkHoverFocus } from "theme/mixins";
+import NamedLink from "@/components/atomic/links/NamedLink";
 
 export const TextContent = styled.div`
   margin-block-start: 1rem;
@@ -18,6 +20,16 @@ export const Subheader = styled.span`
   color: var(--color-base-neutral70);
   font-size: var(--font-size-base);
   margin-block-start: 0.5rem;
+`;
+
+export const Link = styled(NamedLink)`
+  &:hover,
+  &[data-focus-visible-added] {
+    ${Header} > span,
+    ${Subheader} > span {
+      ${aLinkHoverFocus}
+    }
+  }
 `;
 
 export const Contributors = styled.span`

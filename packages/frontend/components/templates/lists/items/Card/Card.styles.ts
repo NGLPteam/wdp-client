@@ -73,6 +73,16 @@ export const ItemLinkText = styled.span`
   ${aLinkBase}
 `;
 
+export const Header = styled.h4`
+  ${tLineClamp(2)}
+`;
+
+export const Subheader = styled.span`
+  display: block;
+  color: var(--color-base-neutral70);
+  font-size: var(--font-size-base);
+`;
+
 export const ItemInner = styled.div`
   display: flex;
   flex-direction: column;
@@ -80,7 +90,8 @@ export const ItemInner = styled.div`
 
   &:hover,
   &[data-focus-visible-added] {
-    ${ItemLinkText} {
+    ${Header} > span,
+    ${Subheader} > span {
       ${aLinkHoverFocus}
     }
   }
@@ -132,16 +143,6 @@ export const TitleBlock = styled.div`
 
 export const ContextOne = styled.span`
   color: var(--color-base-neutral70);
-`;
-
-export const Header = styled.h4`
-  ${tLineClamp(2)}
-`;
-
-export const Subheader = styled.span`
-  display: block;
-  color: var(--color-base-neutral70);
-  font-size: var(--font-size-base);
 `;
 
 export const Contributors = styled.span`

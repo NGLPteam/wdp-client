@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e4ef73c47e92aaee29f47b37780f80e1>>
+ * @generated SignedSource<<00c53a68d3fd8ea21fe6af6e4a2842ce>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -27,6 +27,26 @@ export type sharedListTemplateFragment$data = {
     readonly showSeeAllButton: boolean | null | undefined;
     readonly title: string | null | undefined;
     readonly variant: DescendantListVariant | null | undefined;
+  };
+  readonly entity?: {
+    readonly __typename: "Collection";
+    readonly slug: string;
+    readonly thumbnail: {
+      readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
+    };
+  } | {
+    readonly __typename: "Community";
+    readonly slug: string;
+  } | {
+    readonly __typename: "Item";
+    readonly slug: string;
+    readonly thumbnail: {
+      readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
+    };
+  } | {
+    // This will never be '%other', but we need some
+    // value in case none of the concrete values match.
+    readonly __typename: "%other";
   };
   readonly entityList?: {
     readonly count: number;
@@ -69,6 +89,6 @@ const node: ReaderInlineDataFragment = {
   "name": "sharedListTemplateFragment"
 };
 
-(node as any).hash = "eabb8ba0814be4e974d2c9f59bbe0f6c";
+(node as any).hash = "e3f82a7e76cb11bdb343d8737d8c364b";
 
 export default node;

@@ -18,6 +18,7 @@ export default function ContributorsList({
   itemSlug,
   collectionSlug,
   filterRole,
+  noLinks = false,
 }: Props) {
   const contributionData = useMaybeFragment(fragment, data);
 
@@ -56,7 +57,7 @@ export default function ContributorsList({
 
         return (
           <Fragment key={i}>
-            {contributor.slug ? (
+            {contributor.slug && !noLinks ? (
               <>
                 <NamedLink href={href} className="default-link-styles">
                   <Link as="span">
@@ -91,6 +92,7 @@ interface Props {
   collectionSlug?: string;
   /** Filter by a role, such as 'author' */
   filterRole?: string;
+  noLinks?: boolean;
 }
 
 const fragment = graphql`
