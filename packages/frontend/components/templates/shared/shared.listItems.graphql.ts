@@ -28,7 +28,8 @@ export const listItemTemplateFragment = graphql`
   fragment sharedListItemTemplateFragment on ListItemTemplateInstance {
     entity {
       ... on Collection {
-        id
+        __typename
+        slug
         title
         thumbnail {
           ...CoverImageFragment
@@ -38,7 +39,8 @@ export const listItemTemplateFragment = graphql`
         }
       }
       ... on Item {
-        id
+        __typename
+        slug
         title
         thumbnail {
           ...CoverImageFragment

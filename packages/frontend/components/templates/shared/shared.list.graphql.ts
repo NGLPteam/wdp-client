@@ -5,6 +5,26 @@ import { useSharedInlineFragment } from "./shared.slots.graphql";
 export const listTemplateFragment = graphql`
   fragment sharedListTemplateFragment on AnyMainTemplateInstance @inline {
     ... on LinkListTemplateInstance {
+      entity {
+        ... on Community {
+          __typename
+          slug
+        }
+        ... on Collection {
+          __typename
+          slug
+          thumbnail {
+            ...CoverImageFragment
+          }
+        }
+        ... on Item {
+          __typename
+          slug
+          thumbnail {
+            ...CoverImageFragment
+          }
+        }
+      }
       linksDefinition: definition {
         background
         seeAllButtonLabel
@@ -36,6 +56,26 @@ export const listTemplateFragment = graphql`
       }
     }
     ... on DescendantListTemplateInstance {
+      entity {
+        ... on Community {
+          __typename
+          slug
+        }
+        ... on Collection {
+          __typename
+          slug
+          thumbnail {
+            ...CoverImageFragment
+          }
+        }
+        ... on Item {
+          __typename
+          slug
+          thumbnail {
+            ...CoverImageFragment
+          }
+        }
+      }
       descendantsDefinition: definition {
         background
         seeAllButtonLabel

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<40312000d109650d178c5c2a6a92b543>>
+ * @generated SignedSource<<33fb602d0870403aa0232f490198d2c3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,14 +12,29 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type sharedListItemTemplateFragment$data = {
   readonly entity: {
-    readonly contributions?: {
+    readonly __typename: "Collection";
+    readonly contributions: {
       readonly " $fragmentSpreads": FragmentRefs<"ContributorsListFragment">;
     };
-    readonly id?: string;
-    readonly thumbnail?: {
+    readonly slug: string;
+    readonly thumbnail: {
       readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
     };
-    readonly title?: string;
+    readonly title: string;
+  } | {
+    readonly __typename: "Item";
+    readonly contributions: {
+      readonly " $fragmentSpreads": FragmentRefs<"ContributorsListFragment">;
+    };
+    readonly slug: string;
+    readonly thumbnail: {
+      readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
+    };
+    readonly title: string;
+  } | {
+    // This will never be '%other', but we need some
+    // value in case none of the concrete values match.
+    readonly __typename: "%other";
   };
   readonly slots: {
     readonly contextA: {
@@ -59,17 +74,24 @@ var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "__typename",
   "storageKey": null
 },
 v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
+  "name": "slug",
   "storageKey": null
 },
 v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v3 = {
   "alias": null,
   "args": null,
   "concreteType": "ImageAttachment",
@@ -85,14 +107,14 @@ v2 = {
   ],
   "storageKey": null
 },
-v3 = [
+v4 = [
   {
     "args": null,
     "kind": "FragmentSpread",
     "name": "ContributorsListFragment"
   }
 ],
-v4 = [
+v5 = [
   {
     "args": null,
     "kind": "FragmentSpread",
@@ -119,6 +141,7 @@ return {
             (v0/*: any*/),
             (v1/*: any*/),
             (v2/*: any*/),
+            (v3/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -126,7 +149,7 @@ return {
               "kind": "LinkedField",
               "name": "contributions",
               "plural": false,
-              "selections": (v3/*: any*/),
+              "selections": (v4/*: any*/),
               "storageKey": null
             }
           ],
@@ -139,6 +162,7 @@ return {
             (v0/*: any*/),
             (v1/*: any*/),
             (v2/*: any*/),
+            (v3/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -146,7 +170,7 @@ return {
               "kind": "LinkedField",
               "name": "contributions",
               "plural": false,
-              "selections": (v3/*: any*/),
+              "selections": (v4/*: any*/),
               "storageKey": null
             }
           ],
@@ -171,7 +195,7 @@ return {
           "kind": "LinkedField",
           "name": "contextA",
           "plural": false,
-          "selections": (v4/*: any*/),
+          "selections": (v5/*: any*/),
           "storageKey": null
         },
         {
@@ -181,7 +205,7 @@ return {
           "kind": "LinkedField",
           "name": "contextB",
           "plural": false,
-          "selections": (v4/*: any*/),
+          "selections": (v5/*: any*/),
           "storageKey": null
         },
         {
@@ -191,7 +215,7 @@ return {
           "kind": "LinkedField",
           "name": "contextC",
           "plural": false,
-          "selections": (v4/*: any*/),
+          "selections": (v5/*: any*/),
           "storageKey": null
         },
         {
@@ -217,7 +241,7 @@ return {
           "kind": "LinkedField",
           "name": "header",
           "plural": false,
-          "selections": (v4/*: any*/),
+          "selections": (v5/*: any*/),
           "storageKey": null
         },
         {
@@ -227,7 +251,7 @@ return {
           "kind": "LinkedField",
           "name": "metaA",
           "plural": false,
-          "selections": (v4/*: any*/),
+          "selections": (v5/*: any*/),
           "storageKey": null
         },
         {
@@ -237,7 +261,7 @@ return {
           "kind": "LinkedField",
           "name": "metaB",
           "plural": false,
-          "selections": (v4/*: any*/),
+          "selections": (v5/*: any*/),
           "storageKey": null
         },
         {
@@ -247,7 +271,7 @@ return {
           "kind": "LinkedField",
           "name": "subheader",
           "plural": false,
-          "selections": (v4/*: any*/),
+          "selections": (v5/*: any*/),
           "storageKey": null
         }
       ],
@@ -259,6 +283,6 @@ return {
 };
 })();
 
-(node as any).hash = "3d09654a9ae775c52a44cd278b589f1a";
+(node as any).hash = "c6d199b55118d8a6f6b3bcd276a988ad";
 
 export default node;
