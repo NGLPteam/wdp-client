@@ -13,7 +13,7 @@ export default function OrderingNavigationTemplate({
   const { orderingDefinition, orderingPair } = template ?? {};
 
   return orderingPair?.exists ? (
-    <Container bgColor={orderingDefinition?.background}>
+    <Container width="max" bgColor={orderingDefinition?.background}>
       <NavButtons data={template} />
     </Container>
   ) : null;
