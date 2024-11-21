@@ -4,9 +4,7 @@ import { lGrid } from "theme/mixins";
 import BaseContainer from "@/components/layout/Container";
 
 export const Container = styled(BaseContainer)`
-  section + section & {
-    padding-block: var(--container-padding-md);
-  }
+  padding-block: var(--container-padding-md);
 `;
 
 export const SectionInner = styled.div<{ $paddingBottom?: string }>`

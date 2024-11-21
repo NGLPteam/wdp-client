@@ -5,7 +5,7 @@ import Button from "../..";
 
 export const FixedWidthButton = styled(Button)`
   ${aButton("primary", "lg")}
-  width: ${pxToRem(181)};
+  min-width: ${pxToRem(181)};
   justify-content: center;
   overflow: hidden;
   align-items: center;

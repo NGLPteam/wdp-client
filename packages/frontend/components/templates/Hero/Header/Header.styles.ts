@@ -41,7 +41,6 @@ export const Left = styled.div`
 export const Right = styled.div`
   grid-area: right;
   display: flex;
-  align-items: flex-end;
   justify-content: flex-end;
 
   > * + * {
