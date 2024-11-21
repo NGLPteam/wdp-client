@@ -38,7 +38,9 @@ export const Link = styled(BaseLink)<LinkProps>`
 
   ${aFocusReset}
 
-  &[data-focus-visible-added],
+  button:focus-visible &,
+  a:focus-visible &,
+  &:focus-visible,
   &[aria-current] {
     color: var(--color-base);
 

@@ -14,7 +14,7 @@ export default function InstallationName({
 }: Props) {
   const siteData = useMaybeFragment(fragment, data);
 
-  const linkClasses = "a-link";
+  const linkClasses = "a-link-text";
 
   const isSvg = siteData?.logo?.original?.originalFilename?.endsWith(".svg");
 

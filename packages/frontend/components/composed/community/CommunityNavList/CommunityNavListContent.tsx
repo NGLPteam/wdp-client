@@ -95,8 +95,8 @@ export default function CommunityNavList({
               href={`/communities/${community.slug}/page/${node.slug}`}
               aria-current={page === node.slug ? "page" : undefined}
             >
-              <NavMenuLink as="span">
-                <span className={linkClassName}>{node.title}</span>
+              <NavMenuLink as="span" className={linkClassName}>
+                {node.title}
               </NavMenuLink>
             </NamedLink>
           </li>

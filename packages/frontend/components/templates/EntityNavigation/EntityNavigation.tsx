@@ -5,20 +5,10 @@ import Container from "@/components/layout/Container";
 import { EntityNavigationTemplateFragment$key } from "@/relay/EntityNavigationTemplateFragment.graphql";
 import NavigationTabs from "./NavigationTabs";
 
-export type EntityNavigationTemplateData = {
-  config: {
-    background: "none" | "light" | "dark";
-    variant: "tabs";
-    entityLabel: string;
-  };
-};
-
 export default function EntityNavigationTemplate({
   data,
-  skipToId,
 }: {
   data?: EntityNavigationTemplateFragment$key | null;
-  skipToId: string;
 }) {
   const { template } = useFragment(fragment, data) ?? {};
 
@@ -26,7 +16,7 @@ export default function EntityNavigationTemplate({
 
   return template ? (
     <Container bgColor={definition?.background}>
-      <NavigationTabs data={template} skipToId={skipToId} />
+      <NavigationTabs data={template} />
     </Container>
   ) : null;
 }

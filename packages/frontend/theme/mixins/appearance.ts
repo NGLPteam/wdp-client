@@ -146,10 +146,12 @@ export function aFocus(content?: CssContent) {
   return css`
     ${aFocusReset}
 
+    button:focus-visible &,
     &:focus-within,
-    &[data-focus-visible-added] {
+    &:focus-visible {
       ${aFocusBase}
       ${content}
+      outline: none;
     }
   `;
 }
@@ -186,7 +188,7 @@ export const aLinkBase = `
   cursor: pointer;
   transition: ${transition.color}, box-shadow 0.17s ease-in,
     text-shadow 0.17s ease-in;
-    
+
 
   &[aria-current] {
     font-weight: var(--font-weight-medium);
@@ -200,11 +202,12 @@ export const aLink = css`
     ${aLinkHoverFocus}
   }
 
-  &[data-focus-visible-added] {
+  &:focus-visible {
     ${aLinkHoverFocus}
   }
 
-  &:focus {
+  &:focus,
+  &:focus-visible {
     outline: none;
   }
 `;
@@ -219,8 +222,8 @@ export const aLinkText = css`
     ${aLinkHoverFocus}
   }
 
-  a[data-focus-visible-added] &,
-  button[data-focus-visible-added] & {
+  a:focus-visible &,
+  button:focus-visible & {
     ${aLinkHoverFocus}
   }
 `;

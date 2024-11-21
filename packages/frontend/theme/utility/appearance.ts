@@ -12,6 +12,7 @@ import {
   aBgNeutral90,
   aButton,
   aLink,
+  aLinkText,
 } from "../mixins/appearance";
 
 export default css`
@@ -58,6 +59,10 @@ export default css`
 
   .a-link {
     ${aLink}
+  }
+
+  .a-link-text {
+    ${aLinkText}
   }
 
   .a-color {

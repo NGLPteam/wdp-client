@@ -14,7 +14,8 @@ export type LinkProps = Omit<
 export const Link = styled(BaseLink)<LinkProps>`
   display: inline-block;
 
-  &:focus {
+  &:focus,
+  &:focus-visible {
     outline: none;
   }
 `;
@@ -23,7 +24,8 @@ export const LinkText = styled.span`
   display: inline;
   ${aLinkBase}
 
-  [data-focus-visible-added] & {
+  a:focus-visible &,
+  button:focus-visible & {
     ${aLinkHoverFocus}
   }
 

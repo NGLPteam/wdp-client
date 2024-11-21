@@ -1,7 +1,7 @@
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { tTruncate } from "@wdp/lib/theme/mixins";
 import styled from "styled-components";
-import { respond } from "theme/mixins";
+import { respond, aLinkHoverFocus } from "theme/mixins";
 
 const TABLET_BREAK = 60;
 
@@ -37,4 +37,10 @@ export const ItemText = styled.span`
   ${respond(`max-width: 60vw;`, TABLET_BREAK)}
 
   ${tTruncate}
+`;
+
+export const Ellipses = styled.span`
+  button:focus-visible & {
+    ${aLinkHoverFocus}
+  }
 `;
