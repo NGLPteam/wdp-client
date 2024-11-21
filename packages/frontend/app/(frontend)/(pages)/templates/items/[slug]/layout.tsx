@@ -1,4 +1,4 @@
-import { PropsWithChildren, useId } from "react";
+import { PropsWithChildren } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import GoogleScholarMetaTags from "components/global/GoogleScholarMetaTags";
@@ -20,8 +20,6 @@ export default async function ItemLayout({
   children,
   params: { slug },
 }: BasePageParams & PropsWithChildren) {
-  const uid = useId();
-
   const { data, records } = await fetchQuery<Query>(query, {
     slug,
   });
@@ -62,7 +60,7 @@ export default async function ItemLayout({
           searchPrompt={descendantSearchPrompt}
         />
       )}
-      <NavigationTemplate data={navigation} skipToId={`${uid}-tab-content`} />
+      <NavigationTemplate data={navigation} />
       {children}
     </UpdateClientEnvironment>
   );

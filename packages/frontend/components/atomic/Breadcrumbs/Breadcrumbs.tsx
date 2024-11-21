@@ -7,20 +7,12 @@ import { BreadcrumbsFragment$key } from "@/relay/BreadcrumbsFragment.graphql";
 import * as Styled from "./Breadcrumbs.styles";
 import BreadcrumbLink from "./BreadcrumbLink";
 
-export default function BreadCrumbs({ data }: Props) {
+export default function Breadcrumbs({ data }: Props) {
   const entity = useMaybeFragment(fragment, data);
 
   const { t } = useTranslation();
 
   const breadcrumbs = entity?.breadcrumbs || [];
-
-  // const breadcrumbs = useMemo(() => {
-  //   const breadcrumbs = entity?.breadcrumbs;
-
-  //   if (!breadcrumbs) return [];
-
-  //   return breadcrumbs.map((o, i) => <BreadcrumbLink key={i} data={o} />);
-  // }, [entity]);
 
   function renderCurrent() {
     if (!entity) return null;
@@ -28,11 +20,11 @@ export default function BreadCrumbs({ data }: Props) {
     const currentRoute = getRouteByEntityType(entity.__typename);
 
     return currentRoute && entity.slug ? (
-      <NamedLink href={`/${currentRoute}/${entity.slug}`} aria-current="page">
-        <Styled.ItemText>
+      <Styled.ItemText>
+        <NamedLink href={`/${currentRoute}/${entity.slug}`} aria-current="page">
           <Markdown.Title>{entity.title}</Markdown.Title>
-        </Styled.ItemText>
-      </NamedLink>
+        </NamedLink>
+      </Styled.ItemText>
     ) : null;
   }
 
@@ -43,9 +35,9 @@ export default function BreadCrumbs({ data }: Props) {
           <Dropdown
             key={1}
             label={t("breadcrumbs_dropdown_label")}
-            disclosure={<span>...</span>}
+            disclosure={<Styled.Ellipses>...</Styled.Ellipses>}
             menuItems={breadcrumbs?.map((crumb, i) => (
-              <BreadcrumbLink key={i} data={crumb} isDropdown />
+              <BreadcrumbLink key={i} data={crumb} />
             ))}
           />
           <Styled.Delimiter>/</Styled.Delimiter>
@@ -67,7 +59,7 @@ export default function BreadCrumbs({ data }: Props) {
           <>
             <Styled.Item key="root">
               <Styled.ItemText>
-                <BreadcrumbLink data={breadcrumbs[0]} isDropdown />
+                <BreadcrumbLink data={breadcrumbs[0]} />
               </Styled.ItemText>
               <Styled.Delimiter>/</Styled.Delimiter>
             </Styled.Item>
@@ -75,11 +67,11 @@ export default function BreadCrumbs({ data }: Props) {
               <Dropdown
                 key={1}
                 label={t("breadcrumbs_dropdown_label")}
-                disclosure={<span>...</span>}
+                disclosure={<Styled.Ellipses>...</Styled.Ellipses>}
                 menuItems={breadcrumbs
                   .slice(1, breadcrumbs.length - 1)
                   .map((crumb, i) => (
-                    <BreadcrumbLink key={i} data={crumb} isDropdown />
+                    <BreadcrumbLink key={i} data={crumb} />
                   ))}
               />
               <Styled.Delimiter>/</Styled.Delimiter>

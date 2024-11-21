@@ -5,6 +5,7 @@ export const SkipLink = styled.a`
   top: 10px;
   left: -400px;
   transition: left 0.25s ease;
+  z-index: 10;
 
   &:focus {
     left: 10px;
