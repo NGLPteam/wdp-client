@@ -11,6 +11,6 @@ export const Label = styled.span`
 
 export const Disclosure = styled(Button)`
   svg {
-    margin-block-start: 4px;
+    margin-block-start: 2px;
   }
 `;
