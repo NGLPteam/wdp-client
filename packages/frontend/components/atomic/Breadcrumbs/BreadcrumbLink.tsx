@@ -3,26 +3,23 @@ import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { getRouteByEntityKind } from "helpers";
 import { BreadcrumbLinkFragment$key } from "@/relay/BreadcrumbLinkFragment.graphql";
-import { Dropdown, Link, NamedLink } from "..";
+import NamedLink from "@/components/atomic/links/NamedLink";
 
 interface Props {
   data: BreadcrumbLinkFragment$key | null;
-  isDropdown?: boolean;
 }
 
-export default function BreadcrumbLink({ data, isDropdown }: Props) {
+export default function BreadcrumbLink({ data }: Props) {
   const crumb = useMaybeFragment(fragment, data);
 
   const route = getRouteByEntityKind(crumb?.kind);
 
   if (!crumb?.slug || !route) return null;
 
-  return isDropdown ? (
+  return (
     <NamedLink href={`/${route}/${crumb.slug}`}>
-      <Link as="span">{crumb.label}</Link>
+      <span>{crumb.label}</span>
     </NamedLink>
-  ) : (
-    <Dropdown.Link href={`/${route}/${crumb.slug}`} label={crumb.label} />
   );
 }
 

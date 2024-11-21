@@ -14,7 +14,6 @@ import Search from "components/forms/Search";
 import BaseDrawer from "components/layout/BaseDrawer";
 import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
 import { SearchButtonFragment$key } from "@/relay/SearchButtonFragment.graphql";
-import SkipLink from "../SkipLink";
 import * as Styled from "./AppHeader.styles";
 
 interface Props {
@@ -41,7 +40,6 @@ export default function AppHeader({ data, searchData }: Props) {
   return (
     <>
       <Styled.Header>
-        <SkipLink toId="main" />
         <Styled.HeaderInner className="l-container-wide">
           <Styled.LeftSide>
             {(!isCommunityRoot ||
