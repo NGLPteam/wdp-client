@@ -1,11 +1,10 @@
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import EntityMetadataFactory from "@/components/factories/EntityMetadataFactory";
-import EntityMetadataBlock from "@/components/composed/entity/EntityMetadataBlock";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageTemplatesItemMetadataQuery as Query } from "@/relay/pageTemplatesItemMetadataQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
+import MetadataTemplate from "@/components/templates/Metadata";
 
 export default async function ItemPage({ params }: BasePageParams) {
   const { slug } = params;
@@ -22,13 +21,11 @@ export default async function ItemPage({ params }: BasePageParams) {
     layouts: { metadata },
   } = item;
 
-  const { template, entity } = metadata ?? {};
+  const { template } = metadata ?? {};
 
-  return entity ? (
+  return template ? (
     <UpdateClientEnvironment records={records}>
-      <EntityMetadataBlock data={template}>
-        <EntityMetadataFactory data={entity} />
-      </EntityMetadataBlock>
+      <MetadataTemplate data={template} />
     </UpdateClientEnvironment>
   ) : null;
 }
@@ -38,11 +35,8 @@ const query = graphql`
     item(slug: $slug) {
       layouts {
         metadata {
-          entity {
-            ...EntityMetadataFactoryFragment
-          }
           template {
-            ...EntityMetadataBlockFragment
+            ...MetadataTemplateFragment
           }
         }
       }
