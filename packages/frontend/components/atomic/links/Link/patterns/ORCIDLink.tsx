@@ -9,9 +9,7 @@ export default function ORCIDLink({ children, ...props }: Props) {
   return children ? (
     <Styled.ORCIDLink target="_blank" {...props}>
       <Styled.IconFactory icon="orcid" role="presentation" />
-      <div>
-        <span className="a-link">{children}</span>
-      </div>
+      <span>{children}</span>
     </Styled.ORCIDLink>
   ) : null;
 }

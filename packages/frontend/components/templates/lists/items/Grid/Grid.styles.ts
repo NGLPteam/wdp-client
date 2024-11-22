@@ -24,7 +24,7 @@ export const Subheader = styled.span`
 
 export const Link = styled(NamedLink)`
   &:hover,
-  &[data-focus-visible-added] {
+  &:focus-visible {
     ${Header} > span,
     ${Subheader} > span {
       ${aLinkHoverFocus}

@@ -3,6 +3,7 @@ import BaseLink from "next/link";
 import { aLinkHoverFocus } from "theme/mixins";
 
 export const Link = styled(BaseLink)`
+  &:hover,
   &:focus,
   &:focus-visible {
     outline: none;

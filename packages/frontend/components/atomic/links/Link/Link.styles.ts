@@ -57,4 +57,16 @@ export const ORCIDLink = styled.a`
   > * + * {
     margin-inline-start: ${pxToRem(8)};
   }
+
+  > span {
+    transition: text-decoration 0.17s ease-in;
+  }
+
+  &:hover,
+  &:focus-visible {
+    > span {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  }
 `;

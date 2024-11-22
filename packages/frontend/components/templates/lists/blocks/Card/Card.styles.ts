@@ -4,7 +4,6 @@ import { respond } from "theme/mixins";
 
 export const HeroImage = styled.div`
   min-block-size: 300px;
-  background: var(--color-base-blueDark);
 `;
 
 export const Wrapper = styled.div`

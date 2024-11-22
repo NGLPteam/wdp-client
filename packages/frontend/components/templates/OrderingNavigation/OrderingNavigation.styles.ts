@@ -18,11 +18,3 @@ export const Inner = styled.div`
     70,
   )}
 `;
-
-export const Outer = styled.section`
-  .a-bg-custom10 + & {
-    > ${Inner} {
-      border-top: 1px solid var(--color-base-neutral70);
-    }
-  }
-`;

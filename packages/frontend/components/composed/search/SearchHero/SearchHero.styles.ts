@@ -52,7 +52,7 @@ export const SearchInput = styled.input`
 
   ${aFocusReset}
 
-  &[data-focus-visible-added] {
+  &:focus-visible {
     border-bottom: 3px solid var(--color-base-neutral60);
   }
 `;
