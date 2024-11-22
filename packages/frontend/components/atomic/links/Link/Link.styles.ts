@@ -2,8 +2,16 @@ import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { aLinkHoverFocus, aLinkBase } from "theme/mixins";
 import { IconFactory as BaseIconFactory } from "components/factories";
+import BaseLink from "next/link";
 
-export const Link = styled.a`
+export type LinkProps = Omit<
+  React.ComponentProps<typeof BaseLink>,
+  "href" | "as"
+> & {
+  href?: string | null;
+};
+
+export const Link = styled(BaseLink)<LinkProps>`
   display: inline-block;
 
   &:focus {

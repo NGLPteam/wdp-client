@@ -2,8 +2,16 @@ import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { transition } from "theme/base/variables";
 import { aFocusReset } from "theme/mixins";
+import BaseLink from "next/link";
 
-export const Link = styled.a`
+export type LinkProps = Omit<
+  React.ComponentProps<typeof BaseLink>,
+  "href" | "as"
+> & {
+  href?: string | null;
+};
+
+export const Link = styled(BaseLink)<LinkProps>`
   position: relative;
   display: inline-flex;
   align-items: center;
