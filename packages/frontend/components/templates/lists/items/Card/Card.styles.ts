@@ -35,14 +35,12 @@ export const Item = styled.li`
   &:first-child {
     &::before {
       left: 0;
-      z-index: 1;
     }
   }
 
   &:last-child {
     &::before {
       right: 0;
-      z-index: -1;
     }
   }
 
@@ -89,7 +87,7 @@ export const ItemInner = styled.div`
   height: 100%;
 
   &:hover,
-  &[data-focus-visible-added] {
+  a:focus-visible & {
     ${Header} > span,
     ${Subheader} > span {
       ${aLinkHoverFocus}
