@@ -8,6 +8,7 @@ import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToSt
 import { pageSearchQuery as Query } from "@/relay/pageSearchQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import fetchQuery from "@/lib/relay/fetchQuery";
+import AppBody from "@/components/global/AppBody";
 
 export default async function SearchPage({
   searchParams,
@@ -28,9 +29,11 @@ export default async function SearchPage({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <Suspense fallback={<LoadingBlock />}>
-        <SearchLayout data={data} />
-      </Suspense>
+      <AppBody data={data}>
+        <Suspense fallback={<LoadingBlock />}>
+          <SearchLayout data={data} />
+        </Suspense>
+      </AppBody>
     </UpdateClientEnvironment>
   );
 }
@@ -53,5 +56,7 @@ const query = graphql`
         order: $order
         schema: $schema
       )
+
+    ...AppBodyFragment
   }
 `;

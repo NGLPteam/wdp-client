@@ -17,7 +17,7 @@ export default function CommunityNavBar({ data, entityData }: Props) {
     <div className="a-bg-custom10">
       <Styled.Nav className="l-container-wide">
         <div>
-          <CommunityName data={community} />
+          <CommunityName />
         </div>
         <Styled.RightSide>
           <CommunityNavList data={community} />

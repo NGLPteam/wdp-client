@@ -16,7 +16,11 @@ import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
 import SkipLink from "../SkipLink";
 import * as Styled from "./AppHeader.styles";
 
-function AppHeader({ data }: Props) {
+interface Props {
+  data?: AppHeaderFragment$key | null;
+}
+
+export default function AppHeader({ data }: Props) {
   const appData = useMaybeFragment(fragment, data);
 
   const pathRegEx = /^\/communities\/[A-Za-z0-9]{30,32}/;
@@ -83,15 +87,9 @@ function AppHeader({ data }: Props) {
   );
 }
 
-interface Props {
-  data?: AppHeaderFragment$key | null;
-}
-
-export default AppHeader;
-
 const fragment = graphql`
   fragment AppHeaderFragment on Query {
-    communities {
+    communities(order: POSITION_ASCENDING) {
       pageInfo {
         totalCount
       }

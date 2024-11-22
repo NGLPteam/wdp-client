@@ -1,13 +1,18 @@
-import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useContext } from "react";
+import { graphql, useFragment } from "react-relay";
 import { CommunityNavListFragment$key } from "@/relay/CommunityNavListFragment.graphql";
+import { CommunityContext } from "@/contexts/CommunityContext";
 import CommunityNavListContent from "./CommunityNavListContent";
 import * as Styled from "./CommunityNavList.styles";
 
-export default function CommunityNavList({ condensed, mobile, data }: Props) {
-  const ListComponent = mobile ? Styled.MobileNavList : Styled.NavList;
+export default function CommunityNavList({ condensed, mobile }: Props) {
+  const communityData = useContext(CommunityContext);
+  const community = useFragment<CommunityNavListFragment$key>(
+    fragment,
+    communityData,
+  );
 
-  const community = useMaybeFragment(fragment, data);
+  const ListComponent = mobile ? Styled.MobileNavList : Styled.NavList;
 
   return (
     <ListComponent

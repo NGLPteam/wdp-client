@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7ef2ae221f48aa04d58b6130a3d1dcb1>>
+ * @generated SignedSource<<556df34be76d0ebfc1eec78bd80aa580>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,7 +23,7 @@ export type pageInstanceContentLayoutQuery$data = {
     };
     readonly " $fragmentSpreads": FragmentRefs<"InstanceCommunitiesFragment">;
   };
-  readonly " $fragmentSpreads": FragmentRefs<"InstanceHeroFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"AppBodyFragment" | "InstanceHeroFragment">;
 };
 export type pageInstanceContentLayoutQuery = {
   response: pageInstanceContentLayoutQuery$data;
@@ -74,45 +74,57 @@ v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "storage",
   "storageKey": null
 },
-v5 = [
-  {
-    "kind": "InlineFragment",
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "alt",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "url",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "width",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "height",
-        "storageKey": null
-      }
-    ],
-    "type": "Image",
-    "abstractKey": "__isImage"
-  }
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "alt",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "width",
+  "storageKey": null
+},
+v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "height",
+  "storageKey": null
+},
+v10 = {
+  "kind": "InlineFragment",
+  "selections": [
+    (v6/*: any*/),
+    (v7/*: any*/),
+    (v8/*: any*/),
+    (v9/*: any*/)
+  ],
+  "type": "Image",
+  "abstractKey": "__isImage"
+},
+v11 = [
+  (v10/*: any*/)
 ];
 return {
   "fragment": {
@@ -165,6 +177,11 @@ return {
         "args": null,
         "kind": "FragmentSpread",
         "name": "InstanceHeroFragment"
+      },
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "AppBodyFragment"
       }
     ],
     "type": "Query",
@@ -202,13 +219,7 @@ return {
                 "selections": [
                   (v1/*: any*/),
                   (v3/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "title",
-                    "storageKey": null
-                  },
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -258,7 +269,7 @@ return {
                     "name": "heroImage",
                     "plural": false,
                     "selections": [
-                      (v4/*: any*/),
+                      (v5/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -274,7 +285,7 @@ return {
                             "kind": "LinkedField",
                             "name": "webp",
                             "plural": false,
-                            "selections": (v5/*: any*/),
+                            "selections": (v11/*: any*/),
                             "storageKey": null
                           }
                         ],
@@ -291,7 +302,7 @@ return {
                     "name": "logo",
                     "plural": false,
                     "selections": [
-                      (v4/*: any*/),
+                      (v5/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -299,7 +310,7 @@ return {
                         "kind": "LinkedField",
                         "name": "original",
                         "plural": false,
-                        "selections": (v5/*: any*/),
+                        "selections": (v11/*: any*/),
                         "storageKey": null
                       }
                     ],
@@ -351,27 +362,141 @@ return {
                 "kind": "ScalarField",
                 "name": "installationHomePageCopy",
                 "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "logoMode",
+                "storageKey": null
               }
             ],
             "storageKey": null
           },
-          (v3/*: any*/)
+          (v3/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "SiteLogoAttachment",
+            "kind": "LinkedField",
+            "name": "logo",
+            "plural": false,
+            "selections": [
+              (v5/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ImageOriginal",
+                "kind": "LinkedField",
+                "name": "original",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "originalFilename",
+                    "storageKey": null
+                  },
+                  (v10/*: any*/)
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ImageSize",
+                "kind": "LinkedField",
+                "name": "sansText",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "size",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ImageDerivative",
+                    "kind": "LinkedField",
+                    "name": "webp",
+                    "plural": false,
+                    "selections": [
+                      (v8/*: any*/),
+                      (v9/*: any*/),
+                      {
+                        "kind": "InlineFragment",
+                        "selections": [
+                          (v6/*: any*/),
+                          (v7/*: any*/)
+                        ],
+                        "type": "Image",
+                        "abstractKey": "__isImage"
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
         ],
         "storageKey": null
+      },
+      {
+        "alias": "pickerCommunities",
+        "args": (v0/*: any*/),
+        "concreteType": "CommunityConnection",
+        "kind": "LinkedField",
+        "name": "communities",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "CommunityEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Community",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v1/*: any*/),
+                  (v4/*: any*/),
+                  (v3/*: any*/)
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": "communities(order:\"POSITION_ASCENDING\")"
       }
     ]
   },
   "params": {
-    "cacheID": "000280c83c4cc13ad47217b294c88607",
+    "cacheID": "b9c2d05600da07f3eeb829f4591cbc23",
     "id": null,
     "metadata": {},
     "name": "pageInstanceContentLayoutQuery",
     "operationKind": "query",
-    "text": "query pageInstanceContentLayoutQuery {\n  communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        id\n      }\n    }\n    pageInfo {\n      totalCount\n    }\n    ...InstanceCommunitiesFragment\n  }\n  ...InstanceHeroFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstanceCommunitiesFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      ...InstanceCommunitySummaryFragment\n      id\n    }\n  }\n}\n\nfragment InstanceCommunitySummaryFragment on Community {\n  slug\n  title\n  tagline\n  summary\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  heroImage {\n    storage\n    large {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n  logo {\n    storage\n    original {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment InstanceHeroFragment on Query {\n  globalConfiguration {\n    site {\n      providerName\n      installationName\n      installationHomePageCopy\n    }\n    id\n  }\n}\n"
+    "text": "query pageInstanceContentLayoutQuery {\n  communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        id\n      }\n    }\n    pageInfo {\n      totalCount\n    }\n    ...InstanceCommunitiesFragment\n  }\n  ...InstanceHeroFragment\n  ...AppBodyFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  communities(order: POSITION_ASCENDING) {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    ...InstallationNameFragment\n    id\n  }\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  communities(order: POSITION_ASCENDING) {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      logoMode\n    }\n    ...InstallationNameFragment\n    id\n  }\n  ...CommunityPickerFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  pickerCommunities: communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n    logoMode\n  }\n  logo {\n    storage\n    original {\n      originalFilename\n      ...ImageFragment\n    }\n    sansText {\n      size\n      webp {\n        width\n        height\n        ...ImageFragment\n      }\n    }\n  }\n}\n\nfragment InstanceCommunitiesFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      ...InstanceCommunitySummaryFragment\n      id\n    }\n  }\n}\n\nfragment InstanceCommunitySummaryFragment on Community {\n  slug\n  title\n  tagline\n  summary\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  heroImage {\n    storage\n    large {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n  logo {\n    storage\n    original {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment InstanceHeroFragment on Query {\n  globalConfiguration {\n    site {\n      providerName\n      installationName\n      installationHomePageCopy\n    }\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "8c58cabc7d0a122e015acdb337ed1fff";
+(node as any).hash = "9e0bfb622e062e316c413787062f5dfc";
 
 export default node;

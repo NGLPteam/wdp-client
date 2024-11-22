@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f873383f883ba5e81a2586fec2d84a35>>
+ * @generated SignedSource<<afdb83460b785cf6b0da7e63c7c9ad30>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -39,7 +39,13 @@ const node: ReaderFragment = {
   "selections": [
     {
       "alias": null,
-      "args": null,
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "order",
+          "value": "POSITION_ASCENDING"
+        }
+      ],
       "concreteType": "CommunityConnection",
       "kind": "LinkedField",
       "name": "communities",
@@ -64,7 +70,7 @@ const node: ReaderFragment = {
           "storageKey": null
         }
       ],
-      "storageKey": null
+      "storageKey": "communities(order:\"POSITION_ASCENDING\")"
     },
     {
       "alias": null,
@@ -110,6 +116,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "ed8e478df4ad590e90ac413a2be1c399";
+(node as any).hash = "81aec0df107b762c32ddcda7d8ef8ac8";
 
 export default node;
