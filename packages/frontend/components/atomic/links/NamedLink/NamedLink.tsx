@@ -17,7 +17,7 @@ const NamedLink = ({ children, href, as, ...props }: Props) => {
 };
 
 interface Props extends Omit<LinkProps, "href"> {
-  href: string;
+  href?: string;
 }
 
 export default NamedLink;

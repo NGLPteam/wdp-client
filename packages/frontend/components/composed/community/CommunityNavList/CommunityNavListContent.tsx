@@ -40,18 +40,22 @@ export default function CommunityNavList({
 
   const schemaLinks =
     community && community.slug
-      ? community.schemaRanks.map((schema) => ({
-          href:
-            schema.kind === "COLLECTION"
-              ? `/communities/${
-                  community.slug
-                }/collections/${encodeURIComponent(schema.slug)}`
-              : `/communities/${community.slug}/items/${encodeURIComponent(
-                  schema.slug,
-                )}`,
-          label: getSchemaPluralName(schema.slug, schema.name, t),
-          slug: schema.slug,
-        }))
+      ? community.schemaRanks.map((schema) =>
+          schema
+            ? {
+                href:
+                  schema.kind === "COLLECTION"
+                    ? `/communities/${
+                        community.slug
+                      }/collections/${encodeURIComponent(schema.slug)}`
+                    : `/communities/${
+                        community.slug
+                      }/items/${encodeURIComponent(schema.slug)}`,
+                label: getSchemaPluralName(schema.slug, schema.name, t),
+                slug: schema.slug,
+              }
+            : {},
+        )
       : [];
 
   const exploreMenu = mobile ? (
@@ -68,7 +72,11 @@ export default function CommunityNavList({
       disclosure={getDisclosure("nav.explore")}
       label={t("nav.explore")}
       menuItems={schemaLinks.map((link) => (
-        <Dropdown.Link key={link.slug} href={link.href} label={link.label} />
+        <Dropdown.Link
+          key={link.slug}
+          href={link.href}
+          label={link.label ?? ""}
+        />
       ))}
     />
   );
