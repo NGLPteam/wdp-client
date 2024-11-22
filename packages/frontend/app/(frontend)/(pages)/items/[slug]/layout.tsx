@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 import GoogleScholarMetaTags from "components/global/GoogleScholarMetaTags";
 import getStaticGoogleScholarData from "contexts/GlobalStaticContext/getStaticGoogleScholarData";
-import SearchModalPortal from "components/layout/SearchModal/Portal";
 import { ResolvingMetadata, Metadata } from "next";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
@@ -40,11 +39,10 @@ export default async function ItemLayout({
   return (
     <UpdateClientEnvironment records={records}>
       <CommunityContextProvider data={item.community}>
-        <AppBody data={data}>
+        <AppBody data={data} searchData={item}>
           {googleScholarData && (
             <GoogleScholarMetaTags entity={googleScholarData} />
           )}
-          <SearchModalPortal data={item} />
           <EntityLayoutFactory data={item}>{children}</EntityLayoutFactory>
         </AppBody>
       </CommunityContextProvider>
@@ -56,7 +54,7 @@ const query = graphql`
   query layoutItemQuery($slug: Slug!) {
     item(slug: $slug) {
       ...EntityLayoutFactoryFragment
-      ...PortalSearchModalFragment
+      ...SearchButtonFragment
 
       community {
         ...CommunityContextFragment

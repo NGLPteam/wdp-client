@@ -2,7 +2,6 @@ import { PropsWithChildren } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
-import SearchModalPortal from "components/layout/SearchModal/Portal";
 import { ResolvingMetadata, Metadata } from "next";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
@@ -36,8 +35,7 @@ export default async function CollectionLayout({
   return (
     <UpdateClientEnvironment records={records}>
       <CommunityContextProvider data={collection.community}>
-        <AppBody data={data}>
-          <SearchModalPortal data={collection} />
+        <AppBody data={data} searchData={collection}>
           <EntityLayoutFactory data={collection}>
             {children}
           </EntityLayoutFactory>
@@ -53,7 +51,7 @@ const query = graphql`
   query layoutCollectionQuery($slug: Slug!) {
     collection(slug: $slug) {
       ...EntityLayoutFactoryFragment
-      ...PortalSearchModalFragment
+      ...SearchButtonFragment
 
       community {
         ...CommunityContextFragment

@@ -13,14 +13,16 @@ import CommunityName from "components/composed/community/CommunityName";
 import Search from "components/forms/Search";
 import BaseDrawer from "components/layout/BaseDrawer";
 import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
+import { SearchButtonFragment$key } from "@/relay/SearchButtonFragment.graphql";
 import SkipLink from "../SkipLink";
 import * as Styled from "./AppHeader.styles";
 
 interface Props {
   data?: AppHeaderFragment$key | null;
+  searchData?: SearchButtonFragment$key | null;
 }
 
-export default function AppHeader({ data }: Props) {
+export default function AppHeader({ data, searchData }: Props) {
   const appData = useMaybeFragment(fragment, data);
 
   const pathRegEx = /^\/communities\/[A-Za-z0-9]{30,32}/;
@@ -58,7 +60,7 @@ export default function AppHeader({ data }: Props) {
             {!isCommunityRoot && !hideSearch && (
               <>
                 <CommunityNavList condensed />
-                <SearchButton size="sm" />
+                <SearchButton size="sm" data={searchData} />
               </>
             )}
             <AccountDropdown condensed={!isCommunityRoot} />
