@@ -86,8 +86,6 @@ function AppFooter({ data }: Props) {
           <Styled.NavList className="t-unstyled-list">
             {renderRoute("/", "nav.home")}
             {renderPlaceholderRoute("nav.about")}
-            {communityCount > 1 &&
-              renderRoute("/communities", "nav.communities")}
             {renderPlaceholderRoute("nav.contact")}
             {renderPlaceholderRoute("nav.privacy")}
             {renderPlaceholderRoute("nav.terms")}
