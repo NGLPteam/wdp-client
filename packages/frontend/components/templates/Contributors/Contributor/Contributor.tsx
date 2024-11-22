@@ -32,11 +32,9 @@ export default function ContributorBlock({
   return (
     <Styled.ListItem>
       <Styled.ItemContent>
-        <NamedLink href={href}>
-          <Styled.ItemAvatar>
-            <ContributorAvatar data={contributor.image} />
-          </Styled.ItemAvatar>
-        </NamedLink>
+        <Styled.ItemAvatar>
+          <ContributorAvatar data={contributor.image} />
+        </Styled.ItemAvatar>
         <div>
           <NamedLink href={href} className="default-link-styles">
             <strong>

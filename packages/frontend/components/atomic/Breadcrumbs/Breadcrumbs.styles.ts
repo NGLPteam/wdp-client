@@ -40,6 +40,7 @@ export const ItemText = styled.span`
 `;
 
 export const Ellipses = styled.span`
+  &:hover,
   button:focus-visible & {
     ${aLinkHoverFocus}
   }
