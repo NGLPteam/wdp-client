@@ -11,10 +11,15 @@ import AnnouncementModal from "components/layout/AnnouncementModal";
 import { Link as LinkStyle, NamedLink } from "components/atomic";
 import { useGlobalStaticContext } from "contexts/GlobalStaticContext";
 import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
+import { CommunityPickerCommunityNameFragment$key } from "@/relay/CommunityPickerCommunityNameFragment.graphql";
 import * as Styled from "./AppFooter.styles";
 
-// Note: About text and community name will come from backend data
-function AppFooter({ data }: Props) {
+interface Props {
+  data?: AppFooterFragment$key | null;
+  communityData?: CommunityPickerCommunityNameFragment$key | null;
+}
+
+export default function AppFooter({ data, communityData }: Props) {
   const staticData = useGlobalStaticContext();
 
   const footer = staticData?.globalConfiguration?.site?.footer;
@@ -78,7 +83,9 @@ function AppFooter({ data }: Props) {
             <Styled.InstallationDesktopName>
               <InstallationName data={app?.globalConfiguration} />
             </Styled.InstallationDesktopName>
-            {communityCount > 1 && <CommunityPicker data={app} />}
+            {communityCount > 1 && (
+              <CommunityPicker data={app} activeData={communityData} />
+            )}
           </Styled.InstallationDesktop>
         </Styled.AboutWrapper>
         <Styled.NavWrapper>
@@ -107,15 +114,9 @@ function AppFooter({ data }: Props) {
   );
 }
 
-interface Props {
-  data?: AppFooterFragment$key | null;
-}
-
-export default AppFooter;
-
 const fragment = graphql`
   fragment AppFooterFragment on Query {
-    communities {
+    communities(order: POSITION_ASCENDING) {
       pageInfo {
         totalCount
       }

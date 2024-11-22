@@ -1,11 +1,16 @@
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { graphql } from "react-relay";
+import { useContext } from "react";
+import { graphql, useFragment } from "react-relay";
 import { CommunityNameFragment$key } from "@/relay/CommunityNameFragment.graphql";
+import { CommunityContext } from "@/contexts/CommunityContext";
 import * as Styled from "./CommunityName.styles";
 import CommunityNameContent from "./CommunityNameContent";
 
-export default function CommunityName({ data }: Props) {
-  const community = useMaybeFragment(fragment, data);
+export default function CommunityName() {
+  const communityData = useContext(CommunityContext);
+  const community = useFragment<CommunityNameFragment$key>(
+    fragment,
+    communityData,
+  );
 
   return (
     <Styled.Wrapper
@@ -16,10 +21,6 @@ export default function CommunityName({ data }: Props) {
       {community && <CommunityNameContent community={community} />}
     </Styled.Wrapper>
   );
-}
-
-interface Props {
-  data?: CommunityNameFragment$key | null;
 }
 
 const fragment = graphql`

@@ -1,19 +1,30 @@
-import { useMemo } from "react";
-import { graphql } from "react-relay";
+import { useContext } from "react";
+import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { Button, Dropdown, NamedLink } from "components/atomic";
 import { CommunityPickerFragment$key } from "@/relay/CommunityPickerFragment.graphql";
-import * as Styled from "./CommunityPicker.styles";
+import { CommunityPickerCommunityNameFragment$key } from "@/relay/CommunityPickerCommunityNameFragment.graphql";
+import { CommunityContext } from "@/contexts/CommunityContext";
+
+type Props = {
+  data?: CommunityPickerFragment$key | null;
+  activeData?: CommunityPickerCommunityNameFragment$key | null;
+};
 
 export default function CommunityPicker({ data }: Props) {
-  const communityData = useMaybeFragment(fragment, data);
+  const communityData = useFragment(fragment, data);
+
+  const activeCommunityData = useContext(CommunityContext);
+  const activeCommunity = useFragment<CommunityPickerCommunityNameFragment$key>(
+    communityNameFragment,
+    activeCommunityData,
+  );
 
   const { t } = useTranslation();
 
-  const menuItems = useMemo(() => {
-    return communityData?.pickerCommunities?.edges || [];
-  }, [communityData]);
+  if (!communityData) return null;
+
+  const menuItems = communityData.pickerCommunities?.edges || [];
 
   if (menuItems.length === 0) return null;
 
@@ -33,8 +44,7 @@ export default function CommunityPicker({ data }: Props) {
     <Dropdown
       disclosure={
         <Button as="div" secondary icon="chevronDown" size="sm">
-          <span data-community-picker-portal />
-          <Styled.Label>{t("nav.community_picker")}</Styled.Label>
+          <span>{activeCommunity?.title || t("nav.community_picker")}</span>
         </Button>
       }
       menuItems={menuItems.map(({ node }) => {
@@ -51,9 +61,11 @@ export default function CommunityPicker({ data }: Props) {
   );
 }
 
-type Props = {
-  data?: CommunityPickerFragment$key | null;
-};
+const communityNameFragment = graphql`
+  fragment CommunityPickerCommunityNameFragment on Community {
+    title
+  }
+`;
 
 const fragment = graphql`
   fragment CommunityPickerFragment on Query {

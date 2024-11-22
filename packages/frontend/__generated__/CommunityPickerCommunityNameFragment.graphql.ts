@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<58fb736c67c44930a30c3ef5b0f38683>>
+ * @generated SignedSource<<d9019b5412203039c237ef5290fdc190>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,20 +10,20 @@
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type PortalCommunityPickerFragment$data = {
+export type CommunityPickerCommunityNameFragment$data = {
   readonly title: string;
-  readonly " $fragmentType": "PortalCommunityPickerFragment";
+  readonly " $fragmentType": "CommunityPickerCommunityNameFragment";
 };
-export type PortalCommunityPickerFragment$key = {
-  readonly " $data"?: PortalCommunityPickerFragment$data;
-  readonly " $fragmentSpreads": FragmentRefs<"PortalCommunityPickerFragment">;
+export type CommunityPickerCommunityNameFragment$key = {
+  readonly " $data"?: CommunityPickerCommunityNameFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"CommunityPickerCommunityNameFragment">;
 };
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "PortalCommunityPickerFragment",
+  "name": "CommunityPickerCommunityNameFragment",
   "selections": [
     {
       "alias": null,
@@ -37,6 +37,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "9f41da28d80461c775b3ed389b5587f8";
+(node as any).hash = "142a474ddd1888fc36f02b5bdd86888a";
 
 export default node;

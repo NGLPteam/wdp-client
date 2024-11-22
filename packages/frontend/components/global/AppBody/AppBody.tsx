@@ -8,6 +8,11 @@ import AppHeader from "../AppHeader";
 import AppFooter from "../AppFooter";
 import * as Styled from "./AppBody.styles";
 
+interface Props {
+  children: React.ReactNode;
+  data?: AppBodyFragment$key | null;
+}
+
 function AppBody({ children, data }: Props) {
   updateI18n("en");
 
@@ -22,11 +27,6 @@ function AppBody({ children, data }: Props) {
       <AppFooter data={globalData} />
     </Styled.Body>
   );
-}
-
-interface Props {
-  children: React.ReactNode;
-  data?: AppBodyFragment$key;
 }
 
 export default AppBody;

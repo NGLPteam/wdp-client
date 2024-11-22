@@ -2,14 +2,14 @@ import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import ContributorDetail from "components/composed/contributor/ContributorDetail";
 import ContributorDetailNav from "components/composed/contributor/ContributorDetailNav";
-import CommunityPickerPortal from "components/composed/instance/CommunityPicker/Portal";
-import CommunityNavListPortal from "components/composed/community/CommunityNavList/Portal";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { BasePageParams } from "@/types/page";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import { pageContributorDetailQuery as DetailQuery } from "@/relay/pageContributorDetailQuery.graphql";
 import { pageContributorItemDetailQuery as ItemQuery } from "@/relay/pageContributorItemDetailQuery.graphql";
 import { pageContributorCollectionLayoutQuery as CollectionQuery } from "@/relay/pageContributorCollectionLayoutQuery.graphql";
+import AppBody from "@/components/global/AppBody";
+import { CommunityContextProvider } from "@/contexts/CommunityContext";
 
 export default async function ContributorPage({
   params,
@@ -43,11 +43,13 @@ export default async function ContributorPage({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <CommunityPickerPortal data={community} />
-      <CommunityNavListPortal data={community} />
-      {item && <ContributorDetailNav data={item} />}
-      {collection && <ContributorDetailNav data={collection} />}
-      <ContributorDetail data={contributor} />
+      <CommunityContextProvider data={community}>
+        <AppBody data={data}>
+          {item && <ContributorDetailNav data={item} />}
+          {collection && <ContributorDetailNav data={collection} />}
+          <ContributorDetail data={contributor} />
+        </AppBody>
+      </CommunityContextProvider>
     </UpdateClientEnvironment>
   );
 }
@@ -58,6 +60,7 @@ const detailQuery = graphql`
       ...ContributorHTMLHeadFragment
       ...ContributorDetailFragment
     }
+    ...AppBodyFragment
   }
 `;
 
@@ -72,10 +75,11 @@ const itemQuery = graphql`
       ...ContributorDetailNavFragment
 
       community {
-        ...PortalCommunityPickerFragment
-        ...PortalCommunityNavListFragment
+        ...CommunityContextFragment
       }
     }
+
+    ...AppBodyFragment
   }
 `;
 
@@ -90,9 +94,10 @@ const collectionQuery = graphql`
       ...ContributorDetailNavFragment
 
       community {
-        ...PortalCommunityPickerFragment
-        ...PortalCommunityNavListFragment
+        ...CommunityContextFragment
       }
     }
+
+    ...AppBodyFragment
   }
 `;

@@ -4,15 +4,14 @@ import { notFound } from "next/navigation";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 import GoogleScholarMetaTags from "components/global/GoogleScholarMetaTags";
 import getStaticGoogleScholarData from "contexts/GlobalStaticContext/getStaticGoogleScholarData";
-import CommunityPickerPortal from "components/composed/instance/CommunityPicker/Portal";
-import CommunityNavListPortal from "components/composed/community/CommunityNavList/Portal";
-import CommunityNamePortal from "components/composed/community/CommunityName/Portal";
 import SearchModalPortal from "components/layout/SearchModal/Portal";
 import { ResolvingMetadata, Metadata } from "next";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { layoutItemQuery as Query } from "@/relay/layoutItemQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
+import AppBody from "@/components/global/AppBody";
+import { CommunityContextProvider } from "@/contexts/CommunityContext";
 import generateItemMetadata from "./_metadata/item";
 
 export async function generateMetadata(
@@ -40,14 +39,15 @@ export default async function ItemLayout({
 
   return (
     <UpdateClientEnvironment records={records}>
-      {googleScholarData && (
-        <GoogleScholarMetaTags entity={googleScholarData} />
-      )}
-      <CommunityPickerPortal data={item.community} />
-      <CommunityNavListPortal data={item.community} />
-      <CommunityNamePortal data={item.community} />
-      <SearchModalPortal data={item} />
-      <EntityLayoutFactory data={item}>{children}</EntityLayoutFactory>
+      <CommunityContextProvider data={item.community}>
+        <AppBody data={data}>
+          {googleScholarData && (
+            <GoogleScholarMetaTags entity={googleScholarData} />
+          )}
+          <SearchModalPortal data={item} />
+          <EntityLayoutFactory data={item}>{children}</EntityLayoutFactory>
+        </AppBody>
+      </CommunityContextProvider>
     </UpdateClientEnvironment>
   );
 }
@@ -59,10 +59,9 @@ const query = graphql`
       ...PortalSearchModalFragment
 
       community {
-        ...PortalCommunityPickerFragment
-        ...PortalCommunityNavListFragment
-        ...PortalCommunityNameFragment
+        ...CommunityContextFragment
       }
     }
+    ...AppBodyFragment
   }
 `;

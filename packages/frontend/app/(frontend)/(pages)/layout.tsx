@@ -3,7 +3,6 @@ import { PropsWithChildren } from "react";
 import getStaticGlobalContextData from "contexts/GlobalStaticContext/getStaticGlobalContextData";
 import { GlobalStaticContextProvider } from "contexts/GlobalStaticContext/GlobalStaticContext";
 import ThemeProvider from "contexts/ThemeProvider";
-import AppBody from "components/global/AppBody";
 import { Metadata } from "next";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import RelayEnvironmentProvider from "@/lib/relay/RelayClientEnvProvider";
@@ -35,9 +34,7 @@ export default async function PageLayout({ children }: PropsWithChildren) {
           <ViewerContextProvider data={data}>
             <UpdateClientEnvironment records={records}>
               <ThemeProvider theme={theme}>
-                <StyledComponentsRegistry>
-                  <AppBody data={data}>{children}</AppBody>
-                </StyledComponentsRegistry>
+                <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
               </ThemeProvider>
             </UpdateClientEnvironment>
           </ViewerContextProvider>
@@ -51,7 +48,6 @@ export const dynamic = "force-dynamic";
 
 const query = graphql`
   query layoutAllPagesQuery {
-    ...AppBodyFragment
     ...ViewerContextFragment
     globalConfiguration {
       theme {

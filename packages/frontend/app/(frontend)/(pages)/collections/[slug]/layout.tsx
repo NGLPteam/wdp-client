@@ -2,14 +2,14 @@ import { PropsWithChildren } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
-import CommunityPickerPortal from "components/composed/instance/CommunityPicker/Portal";
-import CommunityNavListPortal from "components/composed/community/CommunityNavList/Portal";
 import SearchModalPortal from "components/layout/SearchModal/Portal";
 import { ResolvingMetadata, Metadata } from "next";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { layoutCollectionQuery as Query } from "@/relay/layoutCollectionQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
+import AppBody from "@/components/global/AppBody";
+import { CommunityContextProvider } from "@/contexts/CommunityContext";
 import generateCollectionMetadata from "./_metadata/collection";
 
 export async function generateMetadata(
@@ -35,10 +35,14 @@ export default async function CollectionLayout({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <CommunityNavListPortal data={collection.community} />
-      <CommunityPickerPortal data={collection.community} />
-      <SearchModalPortal data={collection} />
-      <EntityLayoutFactory data={collection}>{children}</EntityLayoutFactory>
+      <CommunityContextProvider data={collection.community}>
+        <AppBody data={data}>
+          <SearchModalPortal data={collection} />
+          <EntityLayoutFactory data={collection}>
+            {children}
+          </EntityLayoutFactory>
+        </AppBody>
+      </CommunityContextProvider>
     </UpdateClientEnvironment>
   );
 }
@@ -52,9 +56,9 @@ const query = graphql`
       ...PortalSearchModalFragment
 
       community {
-        ...PortalCommunityPickerFragment
-        ...PortalCommunityNavListFragment
+        ...CommunityContextFragment
       }
     }
+    ...AppBodyFragment
   }
 `;
