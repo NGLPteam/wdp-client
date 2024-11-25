@@ -1,0 +1,11 @@
+.container {
+  padding-block: var(--container-padding-md);
+}
+
+.list {
+  --grid-row-gap: 1.875rem;
+
+  @mixin l-grid;
+
+  padding-block-start: var(--padding-xl);
+}

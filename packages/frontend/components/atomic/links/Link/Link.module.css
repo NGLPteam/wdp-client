@@ -1,0 +1,65 @@
+.link {
+  display: inline-block;
+  color: red;
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.linkText {
+  display: inline;
+  @mixin a-link-base;
+
+  a:focus-visible &,
+  button:focus-visible & {
+    @mixin a-link-hover-focus;
+  }
+
+  a:hover &,
+  button:hover & {
+    @mixin a-link-hover-focus;
+  }
+
+  a[aria-current] & {
+    font-weight: var(--font-weight-medium);
+  }
+}
+
+.icon {
+  flex: 1 0 auto;
+  padding-block-start: 1px;
+  vertical-align: text-bottom;
+
+  & + * {
+    margin-inline-start: var(--padding-xxs);
+  }
+
+  * + & {
+    margin-inline-start: var(--padding-xxs);
+  }
+}
+
+.orcid {
+  display: inline-flex;
+  align-items: flex-start;
+  word-break: break-all;
+
+  > * + * {
+    margin-inline-start: 0.5rem;
+  }
+
+  > span {
+    transition: text-decoration theme("transitionDuration.DEFAULT")
+      theme("transitionTimingFunction.DEFAULT");
+  }
+
+  &:hover,
+  &:focus-visible {
+    > span {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  }
+}

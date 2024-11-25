@@ -1,18 +1,23 @@
 import Link from "next/link";
+import classNames from "classnames";
 type LinkProps = React.ComponentProps<typeof Link>;
-import * as Styled from "./NamedLink.styles";
+import styles from "./NamedLink.module.css";
 
 const NamedLink = ({ children, href, as, ...props }: Props) => {
   return href ? (
-    <Styled.Link
+    <Link
       as={as !== "a" ? as : undefined}
-      href={href}
       prefetch={false}
-      className={props.className ? props.className : "no-default-link-styles"}
+      href={href}
+      className={classNames(
+        props.className,
+        styles.link,
+        "no-default-link-styles"
+      )}
       aria-current={props["aria-current"]}
     >
       {children}
-    </Styled.Link>
+    </Link>
   ) : (
     <span className={props.className}>{children}</span>
   );
