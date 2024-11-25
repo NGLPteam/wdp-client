@@ -16,7 +16,8 @@
     "depcheck": "depcheck"
   },
   "dependencies": {
-    "@castiron/style-mixins": "^1.0.0",
+    "@castiron/style-mixins": "^2.0.0",
+    "@csstools/postcss-oklab-function": "^4.0.6",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/mdx": "^3.1.0",
     "@next/mdx": "^15.0.0",
@@ -24,6 +25,7 @@
     "@spissvinkel/alea": "^1.2.1",
     "@types/mdx": "^2.0.13",
     "@wdp/lib": "workspace:^",
+    "autoprefixer": "^10.4.20",
     "chunk-text": "^2.0.1",
     "classnames": "^2.5.1",
     "cookie": "^0.6.0",
@@ -37,6 +39,10 @@
     "next": "^14.1.0",
     "next-auth": "5.0.0-beta.3",
     "next-mdx-remote": "^5.0.0",
+    "postcss": "^8.4.49",
+    "postcss-import": "^16.1.0",
+    "postcss-mixins": "^11.0.3",
+    "postcss-nested": "^7.0.2",
     "react": "^18.2.0",
     "react-confirm": "^0.3.0-7",
     "react-dom": "^18.2.0",
@@ -59,7 +65,8 @@
     "relay-runtime": "^16.2.0",
     "relay-test-utils": "^16.2.0",
     "sharp": "^0.33.4",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.1.8",
+    "tailwindcss": "^3.4.15"
   },
   "devDependencies": {
     "@castiron/common-types": "^2.0.1",

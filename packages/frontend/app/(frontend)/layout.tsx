@@ -1,3 +1,5 @@
+import "@/styles/global.css";
+
 import { unstable_noStore as noStore } from "next/cache";
 import type { RouteParams } from "@/types/page";
 import type { PropsWithChildren } from "react";

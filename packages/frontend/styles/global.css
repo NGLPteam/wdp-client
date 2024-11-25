@@ -1,0 +1,14 @@
+@import "tailwindcss/base";
+/* @import "base/_root.css";
+@import "base/_appearance.css";
+@import "base/_layout.css";
+@import "base/_typography.css"; */
+
+@import "tailwindcss/components";
+/* @import "modules/index.css"; */
+
+/* @import "utilities/_appearance.css";
+@import "utilities/_layout.css";
+@import "utilities/_typography.css";
+@import "utilities/_state.css"; */
+@import "tailwindcss/utilities";

@@ -1,0 +1,5 @@
+@define-mixin respond $size: 768px, $operator: max, $aspect: width {
+  @media all and ($(operator)-$(aspect): $size) {
+    @mixin-content;
+  }
+}
