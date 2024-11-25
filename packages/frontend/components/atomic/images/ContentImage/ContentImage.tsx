@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { ContentImageFragment$key } from "@/relay/ContentImageFragment.graphql";

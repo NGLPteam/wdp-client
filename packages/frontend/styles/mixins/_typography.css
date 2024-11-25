@@ -1,0 +1,59 @@
+@define-mixin t-h1 {
+  @apply text-h1;
+
+  font-family: var(--font-face-header);
+  font-weight: theme("font.regular");
+}
+
+@define-mixin t-h2 {
+  @apply text-h2;
+
+  font-family: var(--font-face-header);
+  font-weight: theme("font.regular");
+}
+
+@define-mixin t-h3 {
+  @apply text-h3;
+
+  font-family: var(--font-face-header);
+  font-weight: theme("font.regular");
+}
+
+@define-mixin t-h4 {
+  @apply text-h4;
+
+  font-family: var(--font-face-header);
+  font-weight: theme("font.regular");
+}
+
+@define-mixin t-label-sm {
+  @apply text-labelSm;
+
+  font-family: var(--font-face-base);
+  text-transform: uppercase;
+  font-size: var(--font-size-label-sm);
+  font-weight: var(--font-weight-label-sm);
+  letter-spacing: var(--letter-spacing-label-sm);
+  line-height: var(--line-height-label-sm);
+}
+
+@define-mixin t-label-lg {
+  @apply text-labelLg;
+
+  font-family: var(--font-face-base);
+  text-transform: uppercase;
+  font-size: var(--font-size-label-lg);
+  font-weight: var(--font-weight-label-lg);
+  letter-spacing: var(--letter-spacing-label-lg);
+  line-height: var(--line-height-label-lg);
+}
+
+@define-mixin t-label-mix {
+  @apply text-labelMix;
+
+  font-family: var(--font-face-base);
+  font-size: var(--font-size-label-mix);
+  font-weight: var(--font-weight-label-mix);
+  letter-spacing: var(--letter-spacing-label-mix);
+  line-height: var(--line-height-label-mix);
+}
