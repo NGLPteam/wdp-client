@@ -1,6 +1,6 @@
-import * as Styled from "./components.styles";
+import styles from "./components.module.css";
 import type { PropsWithChildren } from "react";
 
 export default function MetadataItem({ children }: PropsWithChildren) {
-  return <Styled.MetadataValue>{children}</Styled.MetadataValue>;
+  return <dd className={styles.metadataValue}>{children}</dd>;
 }

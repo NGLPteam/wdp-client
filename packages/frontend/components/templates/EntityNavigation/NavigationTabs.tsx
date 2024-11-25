@@ -3,13 +3,14 @@
 import { graphql, useFragment } from "react-relay";
 import { useParams, usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import { NamedLink } from "components/atomic";
+import classNames from "classnames";
+import NamedLink from "@/components/atomic/links/NamedLink";
 import { ArticleTabNavFragment$data } from "@/relay/ArticleTabNavFragment.graphql";
 import { NavigationTabsFragment$key } from "@/relay/NavigationTabsFragment.graphql";
 import { useSharedInlineFragment } from "@/components/templates/shared/shared.slots.graphql";
 import type { TemplateSlotInlineInstance } from "@/types/graphql-schema";
 import { getRouteByEntityType } from "@/helpers/routes";
-import * as Styled from "./EntityNavigation.styles";
+import styles from "./EntityNavigation.module.css";
 
 type Node = ArticleTabNavFragment$data["pages"]["edges"][number];
 
@@ -34,10 +35,10 @@ export default function NavigationTabs({
     entity.__typename,
   )}/${slug}`;
 
-  function getLink(
+  const getLink = (
     href: string,
     label?: TemplateSlotInlineInstance | string | null,
-  ) {
+  ) => {
     const isCurrent = pathname === href;
 
     const renderedLabel =
@@ -48,22 +49,25 @@ export default function NavigationTabs({
           : t("glossary.item");
 
     return renderedLabel ? (
-      <Styled.Item key={href}>
+      <li className={styles.item} key={href}>
         <NamedLink href={href} scroll={false}>
-          <Styled.TabLink aria-current={isCurrent ? "page" : undefined}>
+          <span
+            className={styles.tab}
+            aria-current={isCurrent ? "page" : undefined}
+          >
             {renderedLabel}
-          </Styled.TabLink>
+          </span>
         </NamedLink>
-      </Styled.Item>
+      </li>
     ) : null;
-  }
+  };
 
   return (
-    <Styled.Nav
-      className="l-container-wide"
+    <nav
+      className={classNames("l-container-wide", styles.nav)}
       aria-label={t("nav.content_navigation_label")}
     >
-      <Styled.List>
+      <ul className={styles.list}>
         {getLink(basePath, entityLabel)}
         {getLink(`${basePath}/metadata`, "nav.metadata")}
         {entity.assets?.pageInfo.totalCount > 0 &&
@@ -78,8 +82,8 @@ export default function NavigationTabs({
               getLink(`${basePath}/page/${node.slug}`, node.title),
             )
           : null}
-      </Styled.List>
-    </Styled.Nav>
+      </ul>
+    </nav>
   );
 }
 

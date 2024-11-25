@@ -1,34 +1,34 @@
-import styled from "styled-components";
-import { boxShadow, transition } from "theme/base/variables";
-import { aFocusReset, tLabel } from "theme/mixins";
-
-export const Nav = styled.nav`
+.nav {
   --container-v-padding: 0;
 
   padding-block-start: var(--container-padding-md);
-`;
+}
 
-export const List = styled.ul`
+.list {
   border-bottom: 1px solid var(--border-color);
   display: flex;
   overflow-x: auto;
-`;
+}
 
-export const Item = styled.li`
+.item {
   & + & {
     margin-inline-start: var(--padding-lg);
   }
-`;
+}
 
-export const TabLink = styled.span`
+.tab {
   display: inline-block;
   padding-block-end: var(--padding-sm);
   border-bottom: 2px solid transparent;
   color: var(--color-light);
-  transition: ${transition.border};
-  ${tLabel("sm")}
+  transition: border theme(transitionDuration.DEFAULT)
+    theme(transitionTimingFunction.DEFAULT);
 
-  ${aFocusReset}
+  @mixin t-label-sm;
+
+  &:focus {
+    outline: none;
+  }
 
   &[aria-current],
   a:focus-visible & {
@@ -37,7 +37,7 @@ export const TabLink = styled.span`
   }
 
   a:focus-visible & {
-    text-shadow: ${boxShadow.focusShadow};
+    text-shadow: theme("boxShadow.focusShadow");
   }
 
   &:hover {
@@ -50,4 +50,4 @@ export const TabLink = styled.span`
   a:hover & {
     box-shadow: none;
   }
-`;
+}
