@@ -10,7 +10,8 @@ import {
 } from "@/components/templates/shared/shared.slots.graphql";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
-import * as Styled from "./Metadata.styles";
+import Container from "@/components/layout/Container";
+import styles from "./Metadata.module.css";
 
 export default function MetadataTemplate({
   data,
@@ -31,7 +32,7 @@ export default function MetadataTemplate({
     itemsA?.valid || itemsB?.valid || itemsC?.valid || itemsD?.valid;
 
   return canRender ? (
-    <Styled.Container bgColor={definition?.background}>
+    <Container className={styles.container} bgColor={definition?.background}>
       <h3>
         {header?.valid ? (
           <InlineSlotWrapper content={header.content} />
@@ -39,29 +40,29 @@ export default function MetadataTemplate({
           t("metadata.header")
         )}
       </h3>
-      <Styled.List>
+      <dl className={styles.list}>
         {itemsA?.valid && (
-          <Styled.Column>
+          <div className={styles.column}>
             <BlockSlotWrapper content={itemsA.content} />
-          </Styled.Column>
+          </div>
         )}
         {itemsB?.valid && (
-          <Styled.Column>
+          <div className={styles.column}>
             <BlockSlotWrapper content={itemsB.content} />
-          </Styled.Column>
+          </div>
         )}
         {itemsC?.valid && (
-          <Styled.Column>
+          <div className={styles.column}>
             <BlockSlotWrapper content={itemsC.content} />
-          </Styled.Column>
+          </div>
         )}
         {itemsD?.valid && (
-          <Styled.Column>
+          <div className={styles.column}>
             <BlockSlotWrapper content={itemsD.content} />
-          </Styled.Column>
+          </div>
         )}
-      </Styled.List>
-    </Styled.Container>
+      </dl>
+    </Container>
   ) : null;
 }
 

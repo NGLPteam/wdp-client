@@ -1,4 +1,5 @@
 import { graphql, useFragment } from "react-relay";
+import classNames from "classnames";
 import {
   useSharedInlineFragment,
   useSharedBlockFragment,
@@ -7,7 +8,7 @@ import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import EntityAnnouncements from "@/components/composed/entity/EntityAnnouncements";
 import { SummaryDetailFragment$key } from "@/relay/SummaryDetailFragment.graphql";
-import * as Styled from "./Summary.styles";
+import styles from "./Summary.module.css";
 
 export default function Summary({
   data,
@@ -25,8 +26,8 @@ export default function Summary({
   const summary = useSharedBlockFragment(slots?.summary);
 
   return (
-    <Styled.Grid>
-      <Styled.Content className="t-rte">
+    <div className={styles.grid}>
+      <div className={classNames("t-rte", styles.content)}>
         {header?.valid && !!header.content && (
           <h3>
             <InlineSlotWrapper content={header.content} />
@@ -40,13 +41,13 @@ export default function Summary({
         {summary?.valid && !!summary.content && (
           <BlockSlotWrapper content={summary.content} />
         )}
-      </Styled.Content>
+      </div>
       {showAnnouncements && !!entity?.announcements && (
-        <Styled.Announcements>
+        <div className={styles.announcements}>
           <EntityAnnouncements data={entity.announcements} />
-        </Styled.Announcements>
+        </div>
       )}
-    </Styled.Grid>
+    </div>
   );
 }
 

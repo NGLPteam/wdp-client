@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import classNames from "classnames";
 import { graphql, useFragment } from "react-relay";
 import { convertToSlug } from "@wdp/lib/helpers";
 import { useTranslation } from "react-i18next";
 import { ContentImage, FullText } from "components/atomic";
 import { BackToTopBlock } from "components/layout";
 import { FullDetailFragment$key } from "@/relay/FullDetailFragment.graphql";
-import * as Styled from "./Full.styles";
+import styles from "./Full.module.css";
 
 type TOCItem = {
   text: string;
@@ -53,34 +54,39 @@ export default function FullVariant({
   const { fullText, thumbnail } = entity ?? {};
 
   return entity && fullText ? (
-    <Styled.BodyWrapper as={BackToTopBlock}>
-      <Styled.BodyInner>
+    <BackToTopBlock className={styles.outer}>
+      <div className={styles.inner}>
         {toc && (
-          <Styled.TOCBlock>
-            <Styled.TOCInner>
-              <Styled.TOCHeader className="t-label-sm t-copy-light">
+          <div className={styles.toc}>
+            <div className={styles["toc__inner"]}>
+              <h3
+                className={classNames(
+                  "t-label-sm t-copy-light",
+                  styles["toc__header"],
+                )}
+              >
                 {t("glossary.table_of_contents")}
-              </Styled.TOCHeader>
-              <Styled.TOCList>
+              </h3>
+              <ul className={styles["toc__list"]}>
                 {toc.map(({ id, text }, i: number) => (
-                  <Styled.TOCListItem key={i}>
+                  <li className={styles["toc__item"]} key={i}>
                     <a href={`#${id}`}>{text}</a>
-                  </Styled.TOCListItem>
+                  </li>
                 ))}
-              </Styled.TOCList>
-            </Styled.TOCInner>
-          </Styled.TOCBlock>
+              </ul>
+            </div>
+          </div>
         )}
-        <Styled.TextBlock ref={textEl}>
+        <div className={styles.text} ref={textEl}>
           {showHeroImage && thumbnail?.storage && (
-            <Styled.ImageBlock>
+            <div className={styles.image}>
               <ContentImage data={thumbnail} />
-            </Styled.ImageBlock>
+            </div>
           )}
           <FullText data={fullText} />
-        </Styled.TextBlock>
-      </Styled.BodyInner>
-    </Styled.BodyWrapper>
+        </div>
+      </div>
+    </BackToTopBlock>
   ) : null;
 }
 

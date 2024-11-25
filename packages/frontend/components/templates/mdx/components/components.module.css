@@ -1,6 +1,4 @@
-import styled from "styled-components";
-
-export const MetadataLabel = styled.dt`
+.metadataLabel {
   display: block;
   padding-block-end: var(--padding-xs);
   font-weight: var(--font-weight-medium);
@@ -8,8 +6,8 @@ export const MetadataLabel = styled.dt`
   &:not(:first-child) {
     margin-block-start: var(--padding-lg);
   }
-`;
+}
 
-export const MetadataValue = styled.dd`
+.metadataValue {
   color: var(--color-light);
-`;
+}

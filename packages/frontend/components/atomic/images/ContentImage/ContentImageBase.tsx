@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from "react";
 import Image from "next/legacy/image";
-import * as Styled from "./ContentImage.styles";
+import styles from "./ContentImage.module.css";
 
 type ImageProps = React.ComponentProps<typeof Image>;
 
@@ -12,7 +12,7 @@ export default function ContentImageBase({
   ...imageProps
 }: BaseProps) {
   return url ? (
-    <Styled.Wrapper>
+    <div className={styles.wrapper}>
       <Image
         alt={alt || ""}
         src={url}
@@ -21,7 +21,7 @@ export default function ContentImageBase({
         layout="responsive"
         {...imageProps}
       />
-    </Styled.Wrapper>
+    </div>
   ) : null;
 }
 
