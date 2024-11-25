@@ -104,4 +104,8 @@ export default css`
   .t-align-center {
     text-align: center;
   }
+
+  .t-break-words {
+    word-break: break-word;
+  }
 `;

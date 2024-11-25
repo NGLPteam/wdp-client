@@ -1,10 +1,13 @@
-import { useState, useRef } from "react";
+"use client";
+
+import { useState, useRef, useCallback } from "react";
 import { Document, pdfjs } from "react-pdf";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { Trans } from "react-i18next";
-import { NoContent } from "components/layout";
+import { Trans, useTranslation } from "react-i18next";
+import { ErrorBlock, NoContent } from "components/layout";
 import { BackToTopButton, LoadingBlock } from "components/atomic";
+import { useRouter } from "next/navigation";
 import { AssetInlinePDFFragment$key } from "@/relay/AssetInlinePDFFragment.graphql";
 import * as Styled from "./AssetInlinePDF.styles";
 import AssetInlinePDFNav from "./AssetInlinePDFNav";
@@ -17,11 +20,33 @@ export default function AssetInlinePDF({ data }: Props) {
 
   const wrapperRef = useRef<HTMLDivElement>(null);
 
+  const router = useRouter();
+
+  const { t } = useTranslation();
+
   const [state, setState] = useState<{
     numPages: number;
+    error?: Error;
   }>({
     numPages: 0,
+    error: undefined,
   });
+
+  const renderError = useCallback(() => {
+    const message =
+      state.error && "status" in state.error
+        ? t("asset.pdf_server_error", { code: state.error?.status })
+        : t("asset.pdf_render_error");
+    const heading =
+      state.error && "status" in state.error ? t("messages.error") : undefined;
+
+    // Log error
+    console.error("Error rendering PDF", state.error);
+
+    return (
+      <ErrorBlock heading={heading} message={message} reset={router.refresh} />
+    );
+  }, [state, t, router]);
 
   const handleBackToTop = () => {
     if (!wrapperRef || !wrapperRef.current || !document) return;
@@ -36,6 +61,13 @@ export default function AssetInlinePDF({ data }: Props) {
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) =>
     setState({
       numPages,
+      error: undefined,
+    });
+
+  const onDocumentLoadError = (error: Error) =>
+    setState({
+      numPages: 0,
+      error,
     });
 
   const { numPages } = state;
@@ -64,7 +96,9 @@ export default function AssetInlinePDF({ data }: Props) {
       <Document
         file={pdf.downloadUrl}
         onLoadSuccess={onDocumentLoadSuccess}
+        onLoadError={onDocumentLoadError}
         loading={<LoadingBlock />}
+        error={renderError}
       >
         <Styled.DocumentWrapper>
           <AssetInlinePDFNav
