@@ -1,9 +1,16 @@
-import styled, { css } from "styled-components";
+import styled, { css, type RuleSet } from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { noInsetSupport } from "@wdp/lib/theme/mixins";
-import { reducedMotion } from "@castiron/style-mixins";
 import { Dialog as BaseDialog } from "reakit/Dialog";
 import { slideDrawerIn, slideDrawerOut } from "theme/base/animations";
+
+const reducedMotion = (content: RuleSet | string) => {
+  return `
+    @media (prefers-reduced-motion: reduce) {
+      ${content}
+    }
+  `;
+};
 
 export const Wrapper = styled(BaseDialog)`
   position: fixed;

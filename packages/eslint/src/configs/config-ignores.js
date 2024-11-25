@@ -10,5 +10,7 @@ module.exports = {
     "**/graphql-schema.d.ts",
     "**/.stylelintrc.js",
     "**/*.xml.ts",
+    "**/tailwind.config.js",
+    "**/postcss.config.js",
   ],
 };
