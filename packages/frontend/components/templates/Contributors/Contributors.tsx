@@ -4,8 +4,9 @@ import capitalize from "lodash/capitalize";
 import { ContributorsTemplateFragment$key } from "@/relay/ContributorsTemplateFragment.graphql";
 import { useSharedInlineFragment } from "@/components/templates/shared/shared.slots.graphql";
 import InlineSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
+import Container from "@/components/layout/Container";
 import Contributor from "./Contributor";
-import * as Styled from "./Contributors.styles";
+import styles from "./Contributors.module.css";
 
 export default function ContributorsTemplate({
   data,
@@ -27,18 +28,21 @@ export default function ContributorsTemplate({
   const { contributions } = entity;
 
   return (
-    <Styled.Container bgColor={contributorsDefinition?.background}>
-      <h3>
+    <Container
+      className={styles.container}
+      bgColor={contributorsDefinition?.background}
+    >
+      <h3 className={styles?.testClass}>
         {mdxHeader ? (
           <InlineSlotWrapper content={header.content} />
         ) : (
           capitalize(t("glossary.contributor_other"))
         )}
       </h3>
-      <Styled.List>
+      <ul className={styles.list}>
         {contributions?.nodes.map((c, i) => <Contributor key={i} data={c} />)}
-      </Styled.List>
-    </Styled.Container>
+      </ul>
+    </Container>
   );
 }
 

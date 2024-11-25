@@ -1,10 +1,12 @@
 import { graphql, useFragment } from "react-relay";
 import capitalize from "lodash/capitalize";
+import classNames from "classnames";
 import { NamedLink } from "components/atomic";
 import { ContributorBlockFragment$key } from "@/relay/ContributorBlockFragment.graphql";
 import ContributorName from "@/components/composed/contributor/ContributorName";
 import ContributorAvatar from "@/components/composed/contributor/ContributorAvatar";
-import * as Styled from "./Contributor.styles";
+import ORCIDLink from "@/components/atomic/links/Link/patterns/ORCIDLink";
+import styles from "./Contributor.module.css";
 
 export default function ContributorBlock({
   data,
@@ -30,31 +32,31 @@ export default function ContributorBlock({
     : "#";
 
   return (
-    <Styled.ListItem>
-      <Styled.ItemContent>
-        <Styled.ItemAvatar>
-          <ContributorAvatar data={contributor.image} />
-        </Styled.ItemAvatar>
-        <div>
-          <NamedLink href={href} className="default-link-styles">
-            <strong>
-              <ContributorName data={contribution.contributor} />
-            </strong>
-          </NamedLink>
-          <Styled.ItemMetadata className="t-copy-lighter t-copy-sm">
-            {contribution.role && <p>{capitalize(contribution.role)}</p>}
-            {(contribution.affiliation || contributor.affiliation) && (
-              <p>{contribution.affiliation || contributor.affiliation}</p>
-            )}
-            {contributor.orcid && (
-              <Styled.ORCIDLink href={contributor.orcid}>
-                {contributor.orcid}
-              </Styled.ORCIDLink>
-            )}
-          </Styled.ItemMetadata>
+    <li className={styles.item}>
+      <span>
+        <ContributorAvatar data={contributor.image} />
+      </span>
+      <div>
+        <NamedLink href={href} className="default-link-styles">
+          <strong>
+            <ContributorName data={contribution.contributor} />
+          </strong>
+        </NamedLink>
+        <div
+          className={classNames("t-copy-lighter t-copy-sm", styles.metadata)}
+        >
+          {contribution.role && <p>{capitalize(contribution.role)}</p>}
+          {(contribution.affiliation || contributor.affiliation) && (
+            <p>{contribution.affiliation || contributor.affiliation}</p>
+          )}
+          {contributor.orcid && (
+            <ORCIDLink className={styles.orcid} href={contributor.orcid}>
+              {contributor.orcid}
+            </ORCIDLink>
+          )}
         </div>
-      </Styled.ItemContent>
-    </Styled.ListItem>
+      </div>
+    </li>
   );
 }
 

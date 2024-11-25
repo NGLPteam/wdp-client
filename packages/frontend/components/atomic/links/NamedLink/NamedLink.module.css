@@ -1,0 +1,15 @@
+.link {
+  &:hover,
+  &:focus,
+  &:focus-visible {
+    outline: none;
+
+    > span {
+      @mixin a-link-hover-focus;
+    }
+  }
+
+  &[aria-current] {
+    pointer-events: none;
+  }
+}
