@@ -18,7 +18,7 @@ export default function CommunityPicker({ data }: Props) {
   const activeCommunityData = useContext(CommunityContext);
   const activeCommunity = useFragment<CommunityPickerCommunityNameFragment$key>(
     communityNameFragment,
-    activeCommunityData
+    activeCommunityData,
   );
 
   const { t } = useTranslation();

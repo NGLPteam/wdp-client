@@ -14,7 +14,7 @@ type IconProps = React.ComponentProps<typeof IconFactory>;
  * style can be changed using the className property */
 function Link(
   { children, icon, iconLeft, href, as, ...props }: Props & LinkProps,
-  ref: MaybeLinkRef | Ref<HTMLAnchorElement>
+  ref: MaybeLinkRef | Ref<HTMLAnchorElement>,
 ) {
   if (!children) return null;
 
