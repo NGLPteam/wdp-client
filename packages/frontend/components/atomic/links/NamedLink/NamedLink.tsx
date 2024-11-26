@@ -12,7 +12,7 @@ const NamedLink = ({ children, href, as, ...props }: Props) => {
       className={classNames(
         props.className,
         styles.link,
-        "no-default-link-styles"
+        "no-default-link-styles",
       )}
       aria-current={props["aria-current"]}
     >
