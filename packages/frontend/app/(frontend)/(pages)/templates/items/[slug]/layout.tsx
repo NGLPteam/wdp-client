@@ -3,10 +3,7 @@ import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import GoogleScholarMetaTags from "components/global/GoogleScholarMetaTags";
 import getStaticGoogleScholarData from "contexts/GlobalStaticContext/getStaticGoogleScholarData";
-import CommunityPickerPortal from "components/composed/instance/CommunityPicker/Portal";
-import CommunityNavListPortal from "components/composed/community/CommunityNavList/Portal";
-import CommunityNamePortal from "components/composed/community/CommunityName/Portal";
-import SearchModalPortal from "components/layout/SearchModal/Portal";
+import { ResolvingMetadata, Metadata } from "next";
 import HeroTemplate from "@/components/templates/Hero";
 import NavigationTemplate from "@/components/templates/EntityNavigation";
 import { BasePageParams } from "@/types/page";
@@ -15,6 +12,16 @@ import { layoutItemTemplateQuery as Query } from "@/relay/layoutItemTemplateQuer
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import ViewCounter from "@/components/composed/analytics/ViewCounter";
 import EntityNavBar from "@/components/composed/entity/EntityNavBar";
+import AppBody from "@/components/global/AppBody";
+import { CommunityContextProvider } from "@/contexts/CommunityContext";
+import generateItemMetadata from "@/app/(frontend)/(pages)/items/[slug]/_metadata/item";
+
+export async function generateMetadata(
+  props: BasePageParams,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  return generateItemMetadata(props, parent);
+}
 
 export default async function ItemLayout({
   children,
@@ -43,25 +50,25 @@ export default async function ItemLayout({
 
   return (
     <UpdateClientEnvironment records={records}>
-      {googleScholarData && (
-        <GoogleScholarMetaTags entity={googleScholarData} />
-      )}
-      <CommunityPickerPortal data={community} />
-      <CommunityNavListPortal data={community} />
-      <CommunityNamePortal data={community} />
-      <SearchModalPortal data={item} />
-      {slug && <ViewCounter slug={slug} />}
-      {hero && <HeroTemplate data={hero} />}
-      {(enableDescendantBrowsing || enableDescendantSearch) && (
-        <EntityNavBar
-          data={item}
-          showBrowse={enableDescendantBrowsing}
-          showSearch={enableDescendantSearch}
-          searchPrompt={descendantSearchPrompt}
-        />
-      )}
-      <NavigationTemplate data={navigation} />
-      {children}
+      <CommunityContextProvider data={community}>
+        <AppBody data={data} searchData={item}>
+          {googleScholarData && (
+            <GoogleScholarMetaTags entity={googleScholarData} />
+          )}
+          {slug && <ViewCounter slug={slug} />}
+          {hero && <HeroTemplate data={hero} />}
+          {(enableDescendantBrowsing || enableDescendantSearch) && (
+            <EntityNavBar
+              data={item}
+              showBrowse={enableDescendantBrowsing}
+              showSearch={enableDescendantSearch}
+              searchPrompt={descendantSearchPrompt}
+            />
+          )}
+          <NavigationTemplate data={navigation} />
+          {children}
+        </AppBody>
+      </CommunityContextProvider>
     </UpdateClientEnvironment>
   );
 }
@@ -84,14 +91,13 @@ const query = graphql`
           ...EntityNavigationTemplateFragment
         }
       }
-      ...PortalSearchModalFragment
+      ...SearchButtonFragment
       ...EntityNavBarFragment
 
       community {
-        ...PortalCommunityPickerFragment
-        ...PortalCommunityNavListFragment
-        ...PortalCommunityNameFragment
+        ...CommunityContextFragment
       }
     }
+    ...AppBodyFragment
   }
 `;
