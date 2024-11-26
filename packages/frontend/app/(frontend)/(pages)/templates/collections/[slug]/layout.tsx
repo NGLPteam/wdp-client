@@ -1,9 +1,7 @@
 import { PropsWithChildren } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import CommunityPickerPortal from "components/composed/instance/CommunityPicker/Portal";
-import CommunityNavListPortal from "components/composed/community/CommunityNavList/Portal";
-import SearchModalPortal from "components/layout/SearchModal/Portal";
+import { ResolvingMetadata, Metadata } from "next";
 import HeroTemplate from "@/components/templates/Hero";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
@@ -11,6 +9,16 @@ import { layoutCollectionTemplateQuery as Query } from "@/relay/layoutCollection
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import ViewCounter from "@/components/composed/analytics/ViewCounter";
 import EntityNavBar from "@/components/composed/entity/EntityNavBar";
+import AppBody from "@/components/global/AppBody";
+import { CommunityContextProvider } from "@/contexts/CommunityContext";
+import generateCollectionMetadata from "@/app/(frontend)/(pages)/collections/[slug]/_metadata/collection";
+
+export async function generateMetadata(
+  props: BasePageParams,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  return generateCollectionMetadata(props, parent);
+}
 
 export const dynamic = "force-dynamic";
 
@@ -39,20 +47,21 @@ export default async function CollectionTemplateLayout({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <CommunityNavListPortal data={community} />
-      <CommunityPickerPortal data={community} />
-      <SearchModalPortal data={collection} />
-      {slug && <ViewCounter slug={slug} />}
-      {hero && <HeroTemplate data={hero} />}
-      {(enableDescendantBrowsing || enableDescendantSearch) && (
-        <EntityNavBar
-          data={collection}
-          showBrowse={enableDescendantBrowsing}
-          showSearch={enableDescendantSearch}
-          searchPrompt={descendantSearchPrompt}
-        />
-      )}
-      {children}
+      <CommunityContextProvider data={community}>
+        <AppBody data={data} searchData={collection}>
+          {slug && <ViewCounter slug={slug} />}
+          {hero && <HeroTemplate data={hero} />}
+          {(enableDescendantBrowsing || enableDescendantSearch) && (
+            <EntityNavBar
+              data={collection}
+              showBrowse={enableDescendantBrowsing}
+              showSearch={enableDescendantSearch}
+              searchPrompt={descendantSearchPrompt}
+            />
+          )}
+          {children}
+        </AppBody>
+      </CommunityContextProvider>
     </UpdateClientEnvironment>
   );
 }
@@ -72,13 +81,13 @@ const query = graphql`
           ...HeroTemplateFragment
         }
       }
-      ...PortalSearchModalFragment
+      ...SearchButtonFragment
       ...EntityNavBarFragment
 
       community {
-        ...PortalCommunityPickerFragment
-        ...PortalCommunityNavListFragment
+        ...CommunityContextFragment
       }
     }
+    ...AppBodyFragment
   }
 `;
