@@ -1,9 +1,9 @@
-import React, { forwardRef } from "react";
+import { ComponentProps, forwardRef } from "react";
 import { useTranslation } from "react-i18next";
 import Button from "..";
 import type { MaybeButtonRef } from "@castiron/common-types";
 
-type Props = React.ComponentProps<typeof Button> & {
+type Props = ComponentProps<typeof Button> & {
   as: "a" | "div" | "button";
 };
 

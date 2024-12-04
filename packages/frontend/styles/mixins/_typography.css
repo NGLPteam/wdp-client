@@ -2,28 +2,28 @@
   @apply text-h1;
 
   font-family: var(--font-face-header);
-  font-weight: theme("font.regular");
+  font-weight: 400;
 }
 
 @define-mixin t-h2 {
   @apply text-h2;
 
   font-family: var(--font-face-header);
-  font-weight: theme("font.regular");
+  font-weight: 400;
 }
 
 @define-mixin t-h3 {
   @apply text-h3;
 
   font-family: var(--font-face-header);
-  font-weight: theme("font.regular");
+  font-weight: 400;
 }
 
 @define-mixin t-h4 {
   @apply text-h4;
 
   font-family: var(--font-face-header);
-  font-weight: theme("font.regular");
+  font-weight: 400;
 }
 
 @define-mixin t-label-sm {

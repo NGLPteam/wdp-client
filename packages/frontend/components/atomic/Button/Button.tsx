@@ -1,9 +1,8 @@
-import React, { forwardRef } from "react";
-import { IconFactory } from "../../factories";
-import * as Styles from "./Button.styles";
+import { forwardRef, ComponentProps, type PropsWithChildren } from "react";
+import classNames from "classnames";
+import IconFactory from "@/components/factories/IconFactory";
+import styles from "./Button.module.css";
 import type { MaybeButtonRef } from "@castiron/common-types";
-
-type ButtonProps = React.ComponentProps<typeof Styles.ButtonStyles>;
 
 /**
  * This component can be used as a button or link, and uses the a-button utility classes.
@@ -20,40 +19,43 @@ const Button = forwardRef(
       hideLabelOnMobile,
       isBlock,
       ...props
-    }: (Props | LinkProps) & ButtonProps,
+    }: (Props | LinkProps) & PropsWithChildren,
     ref: MaybeButtonRef,
   ) => {
     return (
-      <Styles.ButtonStyles
+      <button
         ref={ref}
-        className={className}
-        $hideLabelOnMobile={(hideLabelOnMobile && !!icon) || undefined}
-        $isBlock={isBlock}
-        $size={size}
-        $style={secondary ? "secondary" : "primary"}
+        className={classNames(styles.button, className, {
+          [styles["button--secondary"]]: !!secondary,
+          [styles["button--block"]]: !!isBlock,
+          [styles["button-hideLabelMobile"]]: hideLabelOnMobile && !!icon,
+          [styles["button--sm"]]: size === "sm",
+        })}
         {...props}
       >
         {icon && iconLeft && (
           <IconFactory icon={icon} role={children ? "presentation" : "img"} />
         )}
         {children && (
-          <Styles.ButtonLabel
-            $hideOnMobile={(hideLabelOnMobile && !!icon) || undefined}
+          <span
+            className={classNames(styles.label, {
+              [styles["label--hideOnMobile"]]: hideLabelOnMobile && !!icon,
+            })}
           >
             {children}
-          </Styles.ButtonLabel>
+          </span>
         )}
         {icon && !iconLeft && (
           <IconFactory icon={icon} role={children ? "presentation" : "img"} />
         )}
-      </Styles.ButtonStyles>
+      </button>
     );
   },
 );
 
 export default Button;
 
-interface Props {
+interface Props extends ComponentProps<"button"> {
   /** Button size - default is large */
   size?: "lg" | "sm";
   /** Show icon on the left */
@@ -65,6 +67,7 @@ interface Props {
   /** Use secondary style */
   secondary?: true;
   icon?: React.ComponentProps<typeof IconFactory>["icon"];
+  className?: string;
 }
 
 type LinkProps = Props & {

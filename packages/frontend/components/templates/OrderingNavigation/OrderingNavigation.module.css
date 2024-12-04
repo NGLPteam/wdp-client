@@ -1,20 +1,14 @@
-import styled from "styled-components";
-import { respond } from "theme/mixins";
-
-export const Inner = styled.div`
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--grid-column-gap);
   padding-block-start: var(--container-padding-md);
   padding-block-end: var(--container-padding-md);
 
-  ${respond(
-    `
+  @mixin respond theme("screens.70") {
     justify-content: center;
+    gap-x: 0;
     padding-block-start: var(--container-padding-lg);
     padding-block-end: var(--container-padding-lg);
-
-    > * + * {
-      margin-inline-start: var(--grid-column-gap-lg);
-    }
-    `,
-    70,
-  )}
-`;
+  }
+}
