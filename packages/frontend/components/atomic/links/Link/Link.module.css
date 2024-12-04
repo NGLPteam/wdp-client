@@ -1,6 +1,5 @@
 .link {
   display: inline-block;
-  color: red;
 
   &:focus,
   &:focus-visible {
@@ -60,6 +59,7 @@
     > span {
       text-decoration: underline;
       text-underline-offset: 2px;
+      box-shadow: none;
     }
   }
 }
