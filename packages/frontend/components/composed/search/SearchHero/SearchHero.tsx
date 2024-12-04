@@ -1,9 +1,10 @@
 import { useTranslation } from "react-i18next";
+import classNames from "classnames";
 import { useForm } from "react-hook-form";
 import { usePathname } from "next/navigation";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IconFactory } from "components/factories";
-import * as Styled from "./SearchHero.styles";
+import styles from "./SearchHero.module.css";
 
 export default function SearchHero({ prompt }: { prompt?: string | null }) {
   const { t } = useTranslation();
@@ -28,27 +29,28 @@ export default function SearchHero({ prompt }: { prompt?: string | null }) {
 
   return (
     <section className="a-bg-custom10">
-      <Styled.Form
-        className="l-container-wide"
+      <form
+        className={classNames("l-container-wide", styles.form)}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Styled.SearchWrapper>
-          <Styled.SearchIconLabel htmlFor="communityHeroSearch">
+        <div className={styles.wrapper}>
+          <label className={styles.label} htmlFor="communityHeroSearch">
             <IconFactory icon="search32" role="presentation" />
             <span className="a-hidden">{t("search.label")}</span>
-          </Styled.SearchIconLabel>
-          <Styled.SearchInput
+          </label>
+          <input
             type="search"
             id="heroSearch"
+            className={styles.input}
             placeholder={prompt ?? t("search.community_placeholder")}
             {...register("q")}
           />
-          <Styled.SearchButton type="submit">
+          <button type="submit" className={styles.button}>
             <IconFactory icon="arrowRight" />
             <span className="a-hidden">{t("search.submit")}</span>
-          </Styled.SearchButton>
-        </Styled.SearchWrapper>
-      </Styled.Form>
+          </button>
+        </div>
+      </form>
     </section>
   );
 }

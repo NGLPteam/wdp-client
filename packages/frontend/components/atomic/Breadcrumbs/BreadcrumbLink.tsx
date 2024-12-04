@@ -4,6 +4,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { getRouteByEntityKind } from "helpers";
 import { BreadcrumbLinkFragment$key } from "@/relay/BreadcrumbLinkFragment.graphql";
 import NamedLink from "@/components/atomic/links/NamedLink";
+import styles from "./Breadcrumbs.module.css";
 
 interface Props {
   data: BreadcrumbLinkFragment$key | null;
@@ -18,7 +19,7 @@ export default function BreadcrumbLink({ data }: Props) {
 
   return (
     <NamedLink href={`/${route}/${crumb.slug}`}>
-      <span>{crumb.label}</span>
+      <span className={styles.text}>{crumb.label}</span>
     </NamedLink>
   );
 }
