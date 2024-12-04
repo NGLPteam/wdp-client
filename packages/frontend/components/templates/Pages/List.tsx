@@ -2,7 +2,7 @@ import { graphql, useFragment } from "react-relay";
 import { useRouteSlug } from "@wdp/lib/routes";
 import { NamedLink } from "@/components/atomic";
 import { ListPagesTemplateFragment$key } from "@/relay/ListPagesTemplateFragment.graphql";
-import * as Styled from "./Pages.styles";
+import styles from "./Pages.module.css";
 
 export default function List({
   data,
@@ -20,17 +20,17 @@ export default function List({
 
   return (
     slug && (
-      <Styled.List>
+      <ul className={styles.list}>
         {pages.edges.map((p) =>
           p.node.slug ? (
-            <Styled.ListItem key={p.node.slug}>
+            <li className={styles.item} key={p.node.slug}>
               <NamedLink href={`/collections/${slug}/page/${p.node.slug}}`}>
                 <span className="t-label-sm t-copy-light">{p.node.title}</span>
               </NamedLink>
-            </Styled.ListItem>
+            </li>
           ) : null,
         )}
-      </Styled.List>
+      </ul>
     )
   );
 }
