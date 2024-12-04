@@ -1,4 +1,5 @@
 import { graphql, useFragment } from "react-relay";
+import classNames from "classnames";
 import type { HeroImageLayout } from "@/types/graphql-schema";
 import {
   useSharedBlockFragment,
@@ -6,7 +7,7 @@ import {
 } from "@/components/templates/shared/shared.slots.graphql";
 import { HeaderTitleBlockFragment$key } from "@/relay/HeaderTitleBlockFragment.graphql";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
-import * as Styled from "./Header.styles";
+import styles from "./Header.module.css";
 
 type TitleBlockProps = {
   data?: HeaderTitleBlockFragment$key | null;
@@ -21,23 +22,27 @@ export default function TitleBlock({ data, layout }: TitleBlockProps) {
   const summary = useSharedBlockFragment(slots?.summary);
 
   return (
-    <Styled.Left>
+    <div className={styles.left}>
       {header?.valid && !!header.content && (
         <h1 className="t-h2">
           <InlineSlotWrapper content={header.content} />
         </h1>
       )}
       {!!headerAside?.content && headerAside.valid && (
-        <Styled.Aside $layout={layout}>
+        <span
+          className={classNames(styles.aside, {
+            [styles["aside--in-columns"]]: !!layout,
+          })}
+        >
           <InlineSlotWrapper content={headerAside.content} />
-        </Styled.Aside>
+        </span>
       )}
       {!!summary?.content && summary.valid && (
-        <Styled.Summary className="t-h3">
+        <h2 className="t-h3">
           <InlineSlotWrapper content={summary.content} />
-        </Styled.Summary>
+        </h2>
       )}
-    </Styled.Left>
+    </div>
   );
 }
 

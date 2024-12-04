@@ -1,4 +1,5 @@
 import { graphql, useFragment } from "react-relay";
+import classNames from "classnames";
 import ContributorsList from "@/components/composed/contributor/ContributorsList";
 import { DetailContentFragment$key } from "@/relay/DetailContentFragment.graphql";
 import {
@@ -7,7 +8,7 @@ import {
 } from "@/components/templates/shared/shared.slots.graphql";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
-import * as Styled from "./Detail.styles";
+import styles from "./Detail.module.css";
 
 type DetailContentProps = {
   data?: DetailContentFragment$key | null;
@@ -27,20 +28,18 @@ export default function Content({ data }: DetailContentProps) {
   return (
     <div>
       {(subheader?.valid || subheaderAside?.valid) && (
-        <Styled.SubheaderText className="t-h3">
+        <h2 className={classNames("t-h3", styles.subheader)}>
           {!!subheader?.content && (
-            <span>
-              <InlineSlotWrapper content={subheader.content} />
-            </span>
+            <InlineSlotWrapper content={subheader.content} />
           )}
           {!!subheaderAside?.content && (
-            <Styled.SubheaderAside>
+            <span className={styles["subheader__aside"]}>
               <InlineSlotWrapper content={subheaderAside.content} />
-            </Styled.SubheaderAside>
+            </span>
           )}
-        </Styled.SubheaderText>
+        </h2>
       )}
-      <Styled.Contributors>
+      <div className={styles.contributors}>
         {definition?.listContributors && (
           <ContributorsList
             className="t-copy-medium"
@@ -49,21 +48,19 @@ export default function Content({ data }: DetailContentProps) {
             filterRole="author"
           />
         )}
-      </Styled.Contributors>
+      </div>
       {metadata?.valid && !!metadata?.content && (
-        <Styled.Metadata>
+        <span className={styles.metadata}>
           <InlineSlotWrapper content={metadata.content} />
-        </Styled.Metadata>
+        </span>
       )}
       {summary?.valid && !!summary?.content && (
-        <Styled.Summary>
+        <div className={styles.summary}>
           <BlockSlotWrapper content={summary.content} />
-        </Styled.Summary>
+        </div>
       )}
       {cta?.valid && !!cta?.content && (
-        <Styled.CtaButton>
-          <InlineSlotWrapper content={cta.content} />
-        </Styled.CtaButton>
+        <InlineSlotWrapper content={cta.content} />
       )}
     </div>
   );
