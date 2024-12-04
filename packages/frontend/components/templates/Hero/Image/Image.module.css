@@ -1,0 +1,24 @@
+.baseWrapper {
+  position: relative;
+  height: 300px;
+}
+
+.gridWrapper {
+  position: relative;
+  grid-column: 1 / -1;
+  grid-row: 1;
+
+  &--two-column {
+    grid-column: 2;
+
+    @mixin respond theme("screens.60") {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      min-block-size: 300px;
+    }
+  }
+}
+
+.image--one-column {
+  opacity: 0.3;
+}

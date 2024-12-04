@@ -3,9 +3,9 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import Image from "next/legacy/image";
 import { graphql } from "react-relay";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { CoverPlaceholder } from "@wdp/lib/atomic";
 import { CoverImageFragment$key } from "@/relay/CoverImageFragment.graphql";
-import * as Styled from "./CoverImage.styles";
+import CoverPlaceholder from "./CoverPlaceholder";
+import styles from "./CoverImage.module.css";
 
 /* We can't use objectFit contain because of the drop shadow */
 export default function CoverImage({
@@ -24,19 +24,19 @@ export default function CoverImage({
 
   if (!image || !image.url) {
     return (
-      <Styled.Figure style={style}>
+      <figure className={styles.figure} style={style}>
         <CoverPlaceholder
           seed={id || "fallback-placeholder"}
           title={title}
           maxWidth={maxWidth}
           maxHeight={maxHeight}
         />
-      </Styled.Figure>
+      </figure>
     );
   }
 
   return (
-    <Styled.Figure style={style}>
+    <figure className={styles.figure} style={style}>
       <Image
         layout="intrinsic"
         src={image.url}
@@ -44,7 +44,7 @@ export default function CoverImage({
         width={image.width || 0}
         height={image.height || 0}
       />
-    </Styled.Figure>
+    </figure>
   );
 }
 

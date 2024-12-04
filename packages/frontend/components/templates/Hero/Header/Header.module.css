@@ -1,0 +1,85 @@
+.inner {
+  @mixin l-grid;
+  grid-template-areas: "left left left left left left left left . right right right";
+  @mixin fluidScalePx padding-block-start, 60px, 50px;
+  @mixin fluidScalePx padding-block-end, 60px, 50px;
+
+  @mixin respond theme("screens.120") {
+    grid-template-areas: "left left left left left left left left right right right right";
+  }
+
+  @mixin respond theme("screens.100") {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, auto);
+    grid-template-areas:
+      "left"
+      "right";
+  }
+}
+
+.left {
+  grid-area: left;
+
+  > * + * {
+    margin-block-start: var(--padding-rg);
+  }
+}
+
+.right {
+  grid-area: right;
+  display: flex;
+  justify-content: flex-end;
+
+  > * + * {
+    margin-block-start: var(--padding-rg);
+  }
+
+  @mixin respond theme("screens.100") {
+    border-top: 1px solid var(--border-color);
+    margin-block-start: var(--padding-rg);
+    padding-block-start: var(--padding-rg);
+  }
+}
+
+.columns {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  align-self: center;
+  justify-self: center;
+  inline-size: 100%;
+  max-inline-size: calc(
+    theme("maxWidth.wide") + var(--container-v-padding) * 2
+  );
+  padding-inline-start: var(--container-v-padding);
+  padding-inline-end: var(--container-v-padding);
+  padding-block-start: var(--container-padding-md);
+  z-index: 1;
+  padding-block-end: var(--container-padding-md);
+
+  &--two-column {
+    grid-column: 1;
+    max-inline-size: 650px;
+    justify-self: end;
+
+    @mixin respond theme("screens.60") {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+.aside {
+  display: block;
+
+  &--in-columns {
+    padding-block-start: 1.8125rem;
+  }
+}
+
+.sidebar {
+  text-align: right;
+  justify-self: end;
+
+  > li + li {
+    margin-block-start: var(--padding-rg);
+  }
+}

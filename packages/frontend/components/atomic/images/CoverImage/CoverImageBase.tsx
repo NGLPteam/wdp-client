@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/legacy/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import CoverPlaceholder from "@wdp/lib/atomic/CoverPlaceholder";
-import * as Styled from "./CoverImage.styles";
+import styles from "./CoverImage.module.css";
 
 export default function CoverImageBase({
   alt,
@@ -20,7 +20,7 @@ export default function CoverImageBase({
   };
 
   return url ? (
-    <Styled.Figure style={style}>
+    <figure className={styles.figure} style={style}>
       <Image
         alt={alt || ""}
         src={url}
@@ -28,11 +28,11 @@ export default function CoverImageBase({
         height={height || 0}
         layout="intrinsic"
       />
-    </Styled.Figure>
+    </figure>
   ) : (
-    <Styled.Figure style={style}>
+    <figure className={styles.figure} style={style}>
       <CoverPlaceholder seed={id || "fallback-placeholder"} title={title} />
-    </Styled.Figure>
+    </figure>
   );
 }
 

@@ -3,7 +3,7 @@ import { DetailHeroFragment$key } from "@/relay/DetailHeroFragment.graphql";
 import CoverImage from "./DetailCoverImage";
 import Content from "./DetailContent";
 import Sidebar from "./DetailSidebar";
-import * as Styled from "./Detail.styles";
+import styles from "./Detail.module.css";
 
 type HeroDetailProps = {
   data?: DetailHeroFragment$key | null;
@@ -15,19 +15,19 @@ export default function HeroDetail({ data }: HeroDetailProps) {
   const { definition, entity } = template ?? {};
 
   return (
-    <Styled.Columns>
-      <Styled.Left>
+    <div className={styles.columns}>
+      <div className={styles.left}>
         {definition?.showThumbnailImage && (
-          <Styled.Thumbnail>
+          <div className={styles.thumbnail}>
             <CoverImage data={entity} />
-          </Styled.Thumbnail>
+          </div>
         )}
         <Content data={template} />
-      </Styled.Left>
-      <Styled.Right>
+      </div>
+      <div className={styles.right}>
         <Sidebar data={template} />
-      </Styled.Right>
-    </Styled.Columns>
+      </div>
+    </div>
   );
 }
 

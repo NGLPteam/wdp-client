@@ -1,0 +1,29 @@
+.figure {
+  position: relative;
+  max-width: var(--CoverImage-max-width);
+  max-height: var(--CoverImage-max-height);
+  transition: box-shadow theme("transitionDuration.DEFAULT")
+    theme("transitionTimingFunction.DEFAULT");
+  box-shadow: theme("boxShadow.popUp");
+
+  a:hover & {
+    @mixin a-image-hover;
+  }
+
+  a:focus-visible & {
+    @mixin a-image-focus;
+  }
+
+  > * {
+    vertical-align: top;
+  }
+
+  img {
+    display: block;
+    /* This must match the wrapper's width and height */
+    max-width: var(--CoverImage-max-width);
+    max-height: var(--CoverImage-max-height);
+    height: auto;
+    width: auto;
+  }
+}
