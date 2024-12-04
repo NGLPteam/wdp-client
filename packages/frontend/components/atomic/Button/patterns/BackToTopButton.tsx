@@ -1,7 +1,7 @@
-import React from "react";
+import { ComponentProps } from "react";
 import { useTranslation } from "react-i18next";
 import Button from "..";
-type Props = React.ComponentProps<typeof Button>;
+type Props = ComponentProps<typeof Button>;
 
 export default function BackToTopButton(
   props: Omit<Props, "icon" | "hideLabelOnMobile">,

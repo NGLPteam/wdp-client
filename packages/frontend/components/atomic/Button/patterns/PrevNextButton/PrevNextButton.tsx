@@ -1,14 +1,19 @@
-import React, { forwardRef } from "react";
-import Button from "../..";
-import * as Styled from "./PrevNextButton.styles";
+import { forwardRef } from "react";
+import classNames from "classnames";
+import Button from "@/components/atomic/Button";
+import styles from "./PrevNextButton.module.css";
 import type { MaybeButtonRef } from "@castiron/common-types";
 
 const PrevNextButton = forwardRef(
   ({ label, ...props }: Props, ref: MaybeButtonRef) => {
     return (
-      <Styled.FixedWidthButton ref={ref} className="t-capitalize" {...props}>
+      <Button
+        ref={ref}
+        className={classNames("t-capitalize", styles.button)}
+        {...props}
+      >
         {label}
-      </Styled.FixedWidthButton>
+      </Button>
     );
   },
 );
