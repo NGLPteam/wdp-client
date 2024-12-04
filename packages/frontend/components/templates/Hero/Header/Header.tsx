@@ -3,7 +3,7 @@ import type { HeroImageLayout } from "@/types/graphql-schema";
 import { HeaderHeroFragment$key } from "@/relay/HeaderHeroFragment.graphql";
 import TitleBlock from "./HeaderTitleBlock";
 import Sidebar from "./HeaderSidebar";
-import * as Styled from "./Header.styles";
+import styles from "./Header.module.css";
 
 export default function HeroHeader({
   data,
@@ -16,13 +16,11 @@ export default function HeroHeader({
 
   const { slots } = template ?? {};
 
-  const Wrapper = layout ? Styled.Columns : Styled.Inner;
-
   return template ? (
-    <Wrapper $layout={layout}>
+    <div className={layout ? styles.columns : styles.inner}>
       <TitleBlock layout={layout} data={slots} />
       <Sidebar data={template} />
-    </Wrapper>
+    </div>
   ) : null;
 }
 

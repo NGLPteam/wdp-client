@@ -2,7 +2,7 @@ import { graphql, useFragment } from "react-relay";
 import { CommunityHeroHeaderFragment$key } from "@/relay/CommunityHeroHeaderFragment.graphql";
 import HeroHeader from "../Header";
 import HeroImage from "../Image";
-import * as Styled from "./patterns.styles";
+import styles from "./patterns.module.css";
 
 export default function CommunityHeroHeader({
   data,
@@ -23,12 +23,12 @@ export default function CommunityHeroHeader({
         heroImageLayout === "ONE_COLUMN" ? "a-bg-neutral90" : undefined
       }
     >
-      <Styled.Grid>
+      <div className={styles.grid}>
         <HeroHeader data={template} layout={heroImageLayout} />
         {showHeroImage && entity?.heroImage && (
           <HeroImage data={entity?.heroImage} layout={heroImageLayout} />
         )}
-      </Styled.Grid>
+      </div>
     </section>
   );
 }

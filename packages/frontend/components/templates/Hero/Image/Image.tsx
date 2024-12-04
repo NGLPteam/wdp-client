@@ -1,7 +1,8 @@
 import { graphql, useFragment } from "react-relay";
+import Image from "next/legacy/image";
 import type { HeroImageLayout } from "@/types/graphql-schema";
 import { ImageHeroTemplateFragment$key } from "@/relay/ImageHeroTemplateFragment.graphql";
-import * as Styled from "./Image.styles";
+import styles from "./Image.module.css";
 
 export default function HeroImage({
   data,
@@ -14,11 +15,9 @@ export default function HeroImage({
 
   const src = heroImage?.hero?.webp?.url;
 
-  const Wrapper = layout ? Styled.GridWrapper : Styled.Wrapper;
-
   return src ? (
-    <Wrapper $layout={layout}>
-      <Styled.Image
+    <div className={layout ? styles.gridWrapper : styles.baseWrapper}>
+      <Image
         alt=""
         src={src}
         layout="fill"
@@ -28,9 +27,11 @@ export default function HeroImage({
           placeholder: "blur",
           blurDataURL: heroImage.thumb.webp.url,
         })}
-        $layout={layout}
+        className={
+          layout === "ONE_COLUMN" ? styles["image--one-column"] : undefined
+        }
       />
-    </Wrapper>
+    </div>
   ) : null;
 }
 
