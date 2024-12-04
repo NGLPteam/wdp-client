@@ -1,0 +1,66 @@
+.form {
+  padding-block-start: 4.5625rem;
+  padding-block-end: var(--container-padding-xl);
+
+  @media print {
+    display: none;
+  }
+
+  .a-bg-custom10 + .a-bg-custom10 & {
+    padding-block-start: 0;
+    padding-block-end: var(--container-padding-sm);
+  }
+}
+
+.wrapper {
+  display: flex;
+  align-items: stretch;
+  height: 4rem;
+  width: 100%;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  border-bottom: 3px solid var(--color-base-neutral90);
+}
+
+.input {
+  @mixin a-input-reset;
+  @mixin t-h4;
+
+  flex: 1 1 auto;
+  padding-block-start: 1.0625rem;
+  padding-block-end: 1.25rem;
+  padding-inline-start: 0.75rem;
+  padding-inline-end: 0.75rem;
+  border-bottom: 3px solid var(--color-base-neutral20);
+  transition: border theme("transitionTimingFunction.DEFAULT")
+    theme("transitionDuration.DEFAULT");
+
+  &::-webkit-search-cancel-button {
+    width: 2rem;
+    height: 2rem;
+    margin-block-start: 0.125rem;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    border-bottom: 3px solid var(--color-base-neutral60);
+  }
+}
+
+.button {
+  @apply sr-only;
+
+  border-bottom: 3px solid var(--color-base-neutral20);
+
+  &:focus {
+    outline: none;
+  }
+}

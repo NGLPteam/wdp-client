@@ -1,7 +1,7 @@
 import { createContext, forwardRef, useContext } from "react";
 import { useIsMounted } from "@wdp/lib/hooks";
-import { usePopoverState, PopoverDisclosure } from "reakit/Popover";
-import * as Styled from "./BaseDropdown.styles";
+import { usePopoverState, PopoverDisclosure, Popover } from "reakit/Popover";
+import styles from "./BaseDropdown.module.css";
 import type { PopoverStateReturn } from "reakit/Popover";
 
 type ButtonProps = Partial<
@@ -47,7 +47,8 @@ const BaseDropdown = forwardRef<HTMLButtonElement, Props>(
         <PopoverDisclosure ref={ref} {...popoverState} {...props}>
           {disclosure}
         </PopoverDisclosure>
-        <Styled.Popover
+        <Popover
+          className={styles.popover}
           hideOnEsc={hideOnEsc}
           hideOnClickOutside={hideOnClickOutside}
           {...popoverState}
@@ -57,7 +58,7 @@ const BaseDropdown = forwardRef<HTMLButtonElement, Props>(
           {typeof children === "function"
             ? children({ onClick: closePopover })
             : children}
-        </Styled.Popover>
+        </Popover>
       </DropdownContext.Provider>
     ) : null;
   },
