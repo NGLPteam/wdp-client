@@ -1,21 +1,21 @@
 "use client";
 
 import { useMemo } from "react";
-import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { graphql, useFragment } from "react-relay";
+import classNames from "classnames";
 import { Breadcrumbs, Button, Dropdown } from "components/atomic";
 import { getOrigin, getRouteByEntityType } from "helpers";
 import { useGlobalStaticContext } from "contexts/GlobalStaticContext";
 import { useTranslation } from "react-i18next";
 import { BreadcrumbsBarFragment$key } from "@/relay/BreadcrumbsBarFragment.graphql";
-import * as Styled from "./BreadcrumbsBar.styles";
+import styles from "./BreadcrumbsBar.module.css";
 
 export default function BreadcrumbsBar({
   data,
   showShare = true,
   className,
 }: Props) {
-  const breadcrumbData = useMaybeFragment(fragment, data);
+  const breadcrumbData = useFragment(fragment, data);
 
   const { t } = useTranslation();
 
@@ -39,8 +39,8 @@ export default function BreadcrumbsBar({
     globalData?.globalConfiguration?.site?.installationName || "WDP";
 
   return breadcrumbData ? (
-    <Styled.Nav className={className ?? "a-bg-custom10"}>
-      <Styled.NavInner className="l-container-wide">
+    <nav className={classNames(className ?? "a-bg-custom10", styles.outer)}>
+      <div className={classNames("l-container-wide", styles.inner)}>
         <Breadcrumbs data={breadcrumbData} />
         {showShare && (
           <Dropdown
@@ -76,8 +76,8 @@ export default function BreadcrumbsBar({
             ]}
           />
         )}
-      </Styled.NavInner>
-    </Styled.Nav>
+      </div>
+    </nav>
   ) : null;
 }
 

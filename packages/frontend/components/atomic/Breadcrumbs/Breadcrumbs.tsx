@@ -1,14 +1,14 @@
-import { graphql } from "react-relay";
+import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import classNames from "classnames";
 import { Dropdown, Markdown, NamedLink } from "components/atomic";
 import { getRouteByEntityType } from "helpers";
 import { BreadcrumbsFragment$key } from "@/relay/BreadcrumbsFragment.graphql";
-import * as Styled from "./Breadcrumbs.styles";
 import BreadcrumbLink from "./BreadcrumbLink";
+import styles from "./Breadcrumbs.module.css";
 
 export default function Breadcrumbs({ data }: Props) {
-  const entity = useMaybeFragment(fragment, data);
+  const entity = useFragment(fragment, data);
 
   const { t } = useTranslation();
 
@@ -20,72 +20,68 @@ export default function Breadcrumbs({ data }: Props) {
     const currentRoute = getRouteByEntityType(entity.__typename);
 
     return currentRoute && entity.slug ? (
-      <Styled.ItemText>
-        <NamedLink href={`/${currentRoute}/${entity.slug}`} aria-current="page">
-          <Markdown.Title>{entity.title}</Markdown.Title>
-        </NamedLink>
-      </Styled.ItemText>
+      <NamedLink
+        className={styles.text}
+        href={`/${currentRoute}/${entity.slug}`}
+        aria-current="page"
+      >
+        <Markdown.Title>{entity.title}</Markdown.Title>
+      </NamedLink>
     ) : null;
   }
 
   return breadcrumbs.length > 0 ? (
     <>
-      <Styled.List className="t-copy-sm" data-mobile>
-        <Styled.Item>
+      <ul className={classNames("t-copy-sm", styles.list)} data-mobile>
+        <li className={styles.item}>
           <Dropdown
             key={1}
             label={t("breadcrumbs_dropdown_label")}
-            disclosure={<Styled.Ellipses>...</Styled.Ellipses>}
+            disclosure={<span className={styles.ellipsis}>...</span>}
             menuItems={breadcrumbs?.map((crumb, i) => (
               <BreadcrumbLink key={i} data={crumb} />
             ))}
           />
-          <Styled.Delimiter>/</Styled.Delimiter>
-        </Styled.Item>
+          <span className={styles.delimiter}>/</span>
+        </li>
         <li key="current">{renderCurrent()}</li>
-      </Styled.List>
+      </ul>
 
-      <Styled.List className="t-copy-sm" data-desktop>
+      <ul className={classNames("t-copy-sm", styles.list)} data-desktop>
         {breadcrumbs.length <= 3 &&
           breadcrumbs.map((crumb, i) => (
-            <Styled.Item key={i}>
-              <Styled.ItemText>
-                <BreadcrumbLink data={crumb} />
-              </Styled.ItemText>
-              <Styled.Delimiter>/</Styled.Delimiter>
-            </Styled.Item>
+            <li className={styles.item} key={i}>
+              <BreadcrumbLink data={crumb} />
+              <span className={styles.delimiter}>/</span>
+            </li>
           ))}
         {breadcrumbs.length > 3 && (
           <>
-            <Styled.Item key="root">
-              <Styled.ItemText>
-                <BreadcrumbLink data={breadcrumbs[0]} />
-              </Styled.ItemText>
-              <Styled.Delimiter>/</Styled.Delimiter>
-            </Styled.Item>
-            <Styled.Item key="dropdown">
+            <li className={styles.item} key="root">
+              <BreadcrumbLink data={breadcrumbs[0]} />
+              <span className={styles.delimiter}>/</span>
+            </li>
+            <li key="dropdown" className={styles.item}>
               <Dropdown
                 key={1}
                 label={t("breadcrumbs_dropdown_label")}
-                disclosure={<Styled.Ellipses>...</Styled.Ellipses>}
+                disclosure={<span className={styles.ellipsis}>...</span>}
                 menuItems={breadcrumbs
                   .slice(1, breadcrumbs.length - 1)
                   .map((crumb, i) => (
                     <BreadcrumbLink key={i} data={crumb} />
                   ))}
               />
-              <Styled.Delimiter>/</Styled.Delimiter>
-            </Styled.Item>
-            <Styled.Item key="parent">
-              <Styled.ItemText>
-                <BreadcrumbLink data={breadcrumbs[breadcrumbs.length - 1]} />
-              </Styled.ItemText>
-              <Styled.Delimiter>/</Styled.Delimiter>
-            </Styled.Item>
+              <span className={styles.delimiter}>/</span>
+            </li>
+            <li className={styles.item} key="parent">
+              <BreadcrumbLink data={breadcrumbs[breadcrumbs.length - 1]} />
+              <span className={styles.delimiter}>/</span>
+            </li>
           </>
         )}
         <li key="current">{renderCurrent()}</li>
-      </Styled.List>
+      </ul>
     </>
   ) : null;
 }

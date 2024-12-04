@@ -26,6 +26,19 @@
   font-weight: 400;
 }
 
+@define-mixin t-copy {
+  font-family: var(--font-face-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+}
+
+@define-mixin t-copy-sm {
+  font-size: var(--font-size-base-sm);
+  line-height: var(--line-height-base-sm);
+  letter-spacing: var(--letter-spacing-base-sm);
+}
+
 @define-mixin t-label-sm {
   @apply text-labelSm;
 
@@ -56,4 +69,10 @@
   font-weight: var(--font-weight-label-mix);
   letter-spacing: var(--letter-spacing-label-mix);
   line-height: var(--line-height-label-mix);
+}
+
+@define-mixin t-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

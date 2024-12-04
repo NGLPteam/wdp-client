@@ -1,7 +1,6 @@
 // Utility layout classes
 // --------------------
 import { css } from "styled-components";
-import { containerWidths } from "../base/variables";
 
 const COLUMNS = 12;
 
@@ -22,27 +21,6 @@ function createItems() {
 }
 
 export default css`
-  .l-container-max {
-    max-width: calc(${containerWidths.max} + (var(--container-v-padding) * 2));
-    margin-inline-start: auto;
-    margin-inline-end: auto;
-    padding-inline-start: var(--container-v-padding);
-    padding-inline-end: var(--container-v-padding);
-  }
-
-  .l-container-wide {
-    max-width: calc(${containerWidths.wide} + (var(--container-v-padding) * 2));
-    margin-inline-start: auto;
-    margin-inline-end: auto;
-    padding-inline-start: var(--container-v-padding);
-    padding-inline-end: var(--container-v-padding);
-  }
-
-  .l-container-wide--p-lg {
-    padding-block-start: var(--container-padding-md);
-    padding-block-end: var(--container-padding-md);
-  }
-
   .l-grid {
     display: grid;
     row-gap: var(--grid-row-gap);

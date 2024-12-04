@@ -37,3 +37,11 @@
   transition: color 170ms ease-in, background 170ms ease-in,
     opacity 170ms ease-in;
 }
+
+@define-mixin a-input-reset {
+  appearance: none;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  color: inherit;
+}

@@ -7,8 +7,8 @@
 @import "tailwindcss/components";
 /* @import "modules/index.css"; */
 
-/* @import "utilities/_appearance.css";
+/* @import "utilities/_appearance.css" */
 @import "utilities/_layout.css";
-@import "utilities/_typography.css";
+/* @import "utilities/_typography.css";
 @import "utilities/_state.css"; */
 @import "tailwindcss/utilities";

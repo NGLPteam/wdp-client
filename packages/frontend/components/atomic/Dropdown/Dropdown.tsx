@@ -1,6 +1,7 @@
-import BaseDropdown from "../BaseDropdown";
-import * as Styled from "./Dropdown.styles";
+import classNames from "classnames";
+import BaseDropdown from "@/components/atomic/BaseDropdown";
 import DropdownLink from "./DropdownLink";
+import styles from "./Dropdown.module.css";
 
 type BaseProps = React.ComponentProps<typeof BaseDropdown>;
 
@@ -15,14 +16,18 @@ const Dropdown = ({
 }: Props) => {
   return (
     <BaseDropdown label={label} disclosure={disclosure} {...dropdownProps}>
-      <Styled.DropdownWrapper className="a-bg-neutral00">
-        <Styled.List>
+      <div className={classNames("a-bg-neutral00", styles.wrapper)}>
+        <ul className={styles.list}>
           {menuItems.map((item, i) => {
             if (item === null) return null;
-            return <Styled.Item key={i}>{item}</Styled.Item>;
+            return (
+              <li className={styles.item} key={i}>
+                {item}
+              </li>
+            );
           })}
-        </Styled.List>
-      </Styled.DropdownWrapper>
+        </ul>
+      </div>
     </BaseDropdown>
   );
 };

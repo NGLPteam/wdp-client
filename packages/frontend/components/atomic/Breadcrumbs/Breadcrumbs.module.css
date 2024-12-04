@@ -1,0 +1,48 @@
+.list {
+  display: flex;
+
+  &[data-mobile] {
+    @mixin respond theme("screens.60"), min {
+      display: none;
+    }
+  }
+
+  &[data-desktop] {
+    @mixin respond theme("screens.60") {
+      display: none;
+    }
+  }
+}
+
+.item {
+  display: flex;
+  color: var(--color-lighter);
+}
+
+.delimiter {
+  display: inline-block;
+  padding-inline-start: 0.625rem;
+  padding-inline-end: 0.625rem;
+}
+
+.text {
+  @mixin t-truncate;
+
+  display: inline-block;
+  max-width: 270px;
+
+  @mixin respond theme("screens.100") {
+    max-width: 20vw;
+  }
+
+  @mixin respond theme("screens.60") {
+    max-width: 60vw;
+  }
+}
+
+.ellipsis {
+  &:hover,
+  button:focus-visible & {
+    @mixin a-link-hover-focus;
+  }
+}
