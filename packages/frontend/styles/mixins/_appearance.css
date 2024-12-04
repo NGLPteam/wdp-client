@@ -1,11 +1,7 @@
 @define-mixin a-link-base {
   cursor: pointer;
-  transition: color theme("transitionTimingFunction.DEFAULT")
-      theme("transitionDuration.DEFAULT"),
-    box-shadow theme("transitionTimingFunction.DEFAULT")
-      theme("transitionDuration.DEFAULT"),
-    text-shadow theme("transitionTimingFunction.DEFAULT")
-      theme("transitionDuration.DEFAULT");
+  transition: color 170ms ease-in, box-shadow 170ms ease-in,
+    text-shadow 170ms ease-in;
 }
 
 @define-mixin a-link-hover-focus {
@@ -31,4 +27,13 @@
 @define-mixin a-image-focus {
   box-shadow: 0px 0px 0px 1px var(--border-color-focus),
     theme("boxShadow.focusGlow");
+}
+
+@define-mixin a-button {
+  @mixin t-label-mix;
+
+  display: inline-flex;
+  align-items: center;
+  transition: color 170ms ease-in, background 170ms ease-in,
+    opacity 170ms ease-in;
 }

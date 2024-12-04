@@ -1,12 +1,13 @@
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { PrevNextButton } from "components/atomic/Button/patterns";
-import { NamedLink } from "components/atomic";
+import classNames from "classnames";
+import { PrevNextButton } from "@/components/atomic/Button/patterns";
+import NamedLink from "@/components/atomic/links/NamedLink";
 import { useSharedInlineFragment } from "@/components/templates/shared/shared.slots.graphql";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import { NavButtonsFragment$key } from "@/relay/NavButtonsFragment.graphql";
 import { hrefFromTypename } from "./routes";
-import * as Styled from "./OrderingNavigation.styles";
+import styles from "./OrderingNavigation.module.css";
 
 export default function NavButtons({
   data,
@@ -63,10 +64,10 @@ export default function NavButtons({
     );
 
   return (
-    <Styled.Inner className="l-container-wide l-flex l-flex--gap">
+    <div className={classNames("l-container-wide", styles.inner)}>
       {maybeWrapLink(prevProps, prevHref)}
       {maybeWrapLink(nextProps, nextHref)}
-    </Styled.Inner>
+    </div>
   );
 }
 
