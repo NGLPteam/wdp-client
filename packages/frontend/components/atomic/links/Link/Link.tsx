@@ -1,14 +1,14 @@
-import React, { forwardRef, Ref } from "react";
+import { forwardRef, Ref, ComponentProps } from "react";
 import { MaybeLinkRef } from "@castiron/common-types";
 import NextLink from "next/link";
 import IconFactory from "@/components/factories/IconFactory";
 import styles from "./Link.module.css";
 
-export type LinkProps = Omit<React.ComponentProps<typeof NextLink>, "href"> & {
+export type LinkProps = Omit<ComponentProps<typeof NextLink>, "href"> & {
   href?: string | null;
 };
 
-type IconProps = React.ComponentProps<typeof IconFactory>;
+type IconProps = ComponentProps<typeof IconFactory>;
 
 /* Simple download text and icon,
  * style can be changed using the className property */
