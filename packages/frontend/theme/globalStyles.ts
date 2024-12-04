@@ -5,7 +5,6 @@ import baseFonts from "./base/fonts";
 import baseAppearance from "./base/appearance";
 import baseTypography from "./base/typography";
 import utilityAppearance from "./utility/appearance";
-import utilityLayout from "./utility/layout";
 import utilityTypography from "./utility/typography";
 
 const GlobalStyles = createGlobalStyle`
@@ -15,7 +14,6 @@ const GlobalStyles = createGlobalStyle`
   ${baseAppearance}
   ${baseTypography}
   ${utilityAppearance}
-  ${utilityLayout}
   ${utilityTypography}
 `;
 

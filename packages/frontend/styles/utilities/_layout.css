@@ -18,3 +18,30 @@
   padding-block-start: var(--container-padding-md);
   padding-block-end: var(--container-padding-md);
 }
+
+.l-flex {
+  display: flex;
+  flex-wrap: wrap;
+
+  &--align-center {
+    align-items: center;
+  }
+
+  &--justify-end {
+    justify-content: flex-end;
+  }
+
+  &--gap {
+    gap: var(--grid-column-gap);
+
+    > * + * {
+      margin-inline-start: var(--grid-column-gap);
+    }
+  }
+
+  &--gap-sm {
+    > * + * {
+      margin-inline-start: var(--grid-column-gap-sm);
+    }
+  }
+}
