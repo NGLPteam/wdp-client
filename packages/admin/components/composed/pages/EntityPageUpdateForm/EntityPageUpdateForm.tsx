@@ -109,6 +109,7 @@ const mutation = graphql`
         id
         title
         slug
+        body
         position
         heroImage {
           medium {
