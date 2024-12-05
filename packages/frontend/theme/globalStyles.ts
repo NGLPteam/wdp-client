@@ -8,13 +8,15 @@ import utilityAppearance from "./utility/appearance";
 import utilityTypography from "./utility/typography";
 
 const GlobalStyles = createGlobalStyle`
-  ${baseFonts}
-  ${baseRoot}
-  ${baseResets}
-  ${baseAppearance}
-  ${baseTypography}
-  ${utilityAppearance}
-  ${utilityTypography}
+  @layer styled-components {
+    ${baseFonts}
+    ${baseRoot}
+    ${baseResets}
+    ${baseAppearance}
+    ${baseTypography}
+    ${utilityAppearance}
+    ${utilityTypography}
+  }
 `;
 
 export default GlobalStyles;

@@ -17,7 +17,7 @@ module.exports = {
           max,
           min,
           maxBreak,
-          minBreak,
+          minBreak
         ) {
           const scale = fluidScaleRemBase(max, min, maxBreak, minBreak);
           return { [property]: scale };
@@ -35,5 +35,8 @@ module.exports = {
     tailwindcss: { config: path.join(__dirname, "./tailwind.config.js") },
     "@csstools/postcss-oklab-function": { preserve: true },
     autoprefixer: {},
+    "postcss-assign-layer": [
+      { include: "**/*.module.css", layerName: "meru-components" },
+    ],
   },
 };
