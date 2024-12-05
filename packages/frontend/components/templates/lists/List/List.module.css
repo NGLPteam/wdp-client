@@ -1,0 +1,57 @@
+.bgPositioner {
+  position: relative;
+}
+
+.cardList {
+  list-style-type: none;
+  display: flex;
+  max-width: theme("maxWidth.max");
+  margin: 0 auto;
+  justify-content: center;
+
+  @mixin respond theme("screens.100") {
+    flex-wrap: wrap;
+  }
+  @mixin respond theme("screens.50") {
+    flex-direction: column;
+  }
+}
+
+.gridList {
+  --grid-col-count: 4;
+  --grid-row-gap: 3.75;
+  --grid-col-gap: 2.25;
+
+  @mixin l-grid;
+
+  margin-block-end: 3.125;
+
+  @mixin respond theme("screens.70") {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @mixin respond theme("screens.50") {
+    grid-template-columns: 1fr;
+  }
+}
+
+.summaryList {
+  border-bottom: 1px solid var(--border-color);
+  padding-block-end: var(--padding-xl);
+}
+
+.promoList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  @mixin fluidScalePx gap, 30px, 10px;
+
+  @mixin respond theme("screens.50") {
+    grid-template-columns: auto;
+    gap: 1.875rem;
+  }
+}
+
+.compactList {
+  padding-block-start: 1.75rem;
+  padding-block-end: var(--padding-lg);
+  border-bottom: 1px solid var(--border-color);
+}

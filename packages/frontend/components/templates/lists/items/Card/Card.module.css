@@ -1,0 +1,137 @@
+.item {
+  --Item-background-color: var(--color-base-neutral90);
+
+  flex: 1 1 30%;
+  z-index: 1;
+
+  :global(.a-bg-neutral90) & {
+    --Item-background-color: var(--color-custom10);
+  }
+
+  &:nth-child(even) {
+    --Item-background-color: var(--color-base-neutral80);
+
+    :global(.a-bg-neutral90) & {
+      --Item-background-color: var(--color-custom20);
+    }
+  }
+
+  &:first-child {
+    &::before {
+      left: 0;
+    }
+  }
+
+  &:last-child {
+    &::before {
+      right: 0;
+    }
+  }
+
+  &:first-child,
+  &:last-child:nth-child(even) {
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      height: calc(
+        var(--Item-cover-height, 18.75) + var(--container-padding-sm) * 2
+      );
+      background: var(--Item-background-color);
+      inline-size: max(
+        calc((100vw - theme("maxWidth.max")) / 2),
+        var(--container-v-padding)
+      );
+
+      @mixin respond theme("screens.100") {
+        display: none;
+      }
+    }
+  }
+}
+
+.linkText {
+  @mixin a-link-base;
+}
+
+.subheader {
+  display: block;
+  color: var(--color-base-neutral70);
+  font-size: var(--font-size-base);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &:hover,
+  a:focus-visible & {
+    :global(.has-focus-styles) {
+      @mixin a-link-hover-focus;
+    }
+  }
+}
+
+.coverWrapper {
+  @mixin fluidScalePx --Item-cover-v-padding 36px 60px;
+
+  background-color: var(--Item-background-color);
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(
+    var(--Item-cover-height, 18.75) + var(--Item-cover-v-padding) * 2
+  );
+  padding-block-start: var(--Item-cover-v-padding);
+  padding-block-end: var(--Item-cover-v-padding);
+  padding-inline-start: var(--container-padding-sm);
+  padding-inline-end: var(--container-padding-sm);
+}
+
+.coverInner {
+  svg {
+    width: 100%;
+    max-width: 225px !important;
+  }
+}
+
+.text {
+  padding-block: 1.25rem;
+  padding-inline: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  font-size: var(--font-size-base-sm);
+}
+
+.titleBlock {
+  > * + * {
+    margin-block-start: 0.5rem;
+  }
+}
+
+.contextOne {
+  color: var(--color-base-neutral70);
+}
+
+.contributors {
+  display: block;
+  min-height: 1.375;
+}
+
+.group {
+  margin-block-start: 1.5rem;
+  color: var(--color-base-neutral70);
+
+  > span {
+    display: block;
+  }
+
+  > * + * {
+    margin-block-start: 0.25rem;
+  }
+}

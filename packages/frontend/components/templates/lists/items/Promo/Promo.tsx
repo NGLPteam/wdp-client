@@ -3,7 +3,7 @@ import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTempla
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import NamedLink from "@/components/atomic/links/NamedLink";
 import { getRouteByEntityType } from "@/helpers/routes";
-import * as Styled from "./Promo.styles";
+import styles from "./Promo.module.css";
 
 export default function PromoListItem({
   data,
@@ -20,40 +20,30 @@ export default function PromoListItem({
       : null;
 
   return (
-    <Styled.Item>
+    <li className={styles.item}>
       <NamedLink href={href}>
-        <Styled.TextContent>
-          <Styled.Group>
+        <div className={styles.text}>
+          <div className={styles.group}>
             {contextA?.valid && !!contextA.content && (
-              <span>
-                <InlineSlotWrapper content={contextA.content} />
-              </span>
+              <InlineSlotWrapper content={contextA.content} />
             )}
             {contextB?.valid && !!contextB.content && (
-              <span>
-                <InlineSlotWrapper content={contextB.content} />
-              </span>
+              <InlineSlotWrapper content={contextB.content} />
             )}
-          </Styled.Group>
+          </div>
           {header?.valid && !!header.content && (
-            <Styled.Header>
+            <h3 className={styles.header}>
               <InlineSlotWrapper content={header.content} />
-            </Styled.Header>
+            </h3>
           )}
-          <Styled.Group>
+          <div className={styles.group}>
             {metaA?.valid && !!metaA.content && (
-              <span>
-                <InlineSlotWrapper content={metaA.content} />
-              </span>
+              <InlineSlotWrapper content={metaA.content} />
             )}
-            {metaB?.valid && (
-              <span>
-                <InlineSlotWrapper content={metaB.content} />
-              </span>
-            )}
-          </Styled.Group>
-        </Styled.TextContent>
+            {metaB?.valid && <InlineSlotWrapper content={metaB.content} />}
+          </div>
+        </div>
       </NamedLink>
-    </Styled.Item>
+    </li>
   );
 }

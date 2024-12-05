@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { getBgClass } from "@/components/templates/helpers/bgColor";
 import type {
   LinkListVariant,
@@ -10,7 +11,7 @@ import GridItem from "../items/Grid";
 import SummaryItem from "../items/Summary";
 import PromoItem from "../items/Promo";
 import CompactItem from "../items/Compact";
-import * as Styled from "./List.styles";
+import styles from "./List.module.css";
 
 export type Props = {
   variant?: Exclude<LinkListVariant, "%future added value"> | null;
@@ -18,12 +19,12 @@ export type Props = {
   data: sharedListItemsTemplateFragment$key | null | undefined;
 };
 
-const TYPE_TO_LIST = {
-  CARDS: Styled.CardList,
-  GRID: Styled.GridList,
-  SUMMARY: Styled.SummaryList,
-  PROMOS: Styled.PromoList,
-  COMPACT: Styled.CompactList,
+const TYPE_TO_CLASS = {
+  CARDS: styles.cardList,
+  GRID: styles.gridList,
+  SUMMARY: styles.summaryList,
+  PROMOS: styles.promoList,
+  COMPACT: styles.compactList,
 };
 
 const TYPE_TO_ITEM = {
@@ -39,18 +40,18 @@ export default function List({ variant, bgColor, data }: Props) {
 
   if (!variant || !items) return null;
 
-  const List = TYPE_TO_LIST[variant];
+  const listClass = TYPE_TO_CLASS[variant];
   const Item = TYPE_TO_ITEM[variant];
 
   const bgClass = getBgClass(bgColor);
 
   return (
-    <Styled.BGPositioner>
-      <List className={bgClass}>
+    <div className={styles.bgPositioner}>
+      <ul className={classNames(bgClass, listClass)}>
         {items.map((item, i) => (
           <Item data={item.template} key={i} />
         ))}
-      </List>
-    </Styled.BGPositioner>
+      </ul>
+    </div>
   );
 }

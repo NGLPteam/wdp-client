@@ -1,0 +1,18 @@
+.heroImage {
+  min-block-size: 300px;
+}
+
+.wrapper {
+  padding-block-end: var(--container-padding-xl);
+}
+
+.header {
+  padding-block-start: 1.5rem;
+  margin-block-end: 1.5rem;
+  max-inline-size: theme("maxWidth.wide");
+  margin-inline: auto;
+
+  @mixin respond theme("screens.120") {
+    padding-inline: var(--container-v-padding);
+  }
+}

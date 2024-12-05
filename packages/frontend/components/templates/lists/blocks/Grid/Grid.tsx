@@ -1,8 +1,9 @@
 import { useSharedListTemplateFragment } from "@/components/templates/shared/shared.list.graphql";
 import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
+import Container from "@/components/layout/Container";
 import List from "../../List/";
 import SeeAll from "../../SeeAll";
-import * as Styled from "./Grid.styles";
+import styles from "./Grid.module.css";
 
 export default function GridListBlock({
   data,
@@ -29,8 +30,8 @@ export default function GridListBlock({
   const showHeroImage = false;
 
   return (
-    <Styled.Container $gap={50} bgColor={background}>
-      {showHeroImage && <Styled.HeroImage />}
+    <Container className={styles.container} bgColor={background}>
+      {showHeroImage && <div className={styles.heroImage} />}
       {!!title && <h3>{title}</h3>}
       <List variant="GRID" bgColor={background} data={entityList} />
       {!!showSeeAllButton && selectionMode === "NAMED" && (
@@ -40,6 +41,6 @@ export default function GridListBlock({
           href={`${basePath}/${descendantsDefinition?.orderingIdentifier}`}
         />
       )}
-    </Styled.Container>
+    </Container>
   );
 }
