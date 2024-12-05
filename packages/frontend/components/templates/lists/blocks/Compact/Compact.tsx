@@ -1,8 +1,9 @@
 import { useSharedListTemplateFragment } from "@/components/templates/shared/shared.list.graphql";
 import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
+import Container from "@/components/layout/Container";
 import List from "../../List";
 import SeeAll from "../../SeeAll";
-import * as Styled from "./Compact.styles";
+import styles from "./Compact.module.css";
 
 export default function CompactListBlock({
   data,
@@ -29,14 +30,14 @@ export default function CompactListBlock({
   const showHeroImage = false;
 
   return (
-    <Styled.Container $gap={50} bgColor={background}>
-      <Styled.Grid>
-        <Styled.TextColumn>
-          {!!title && <Styled.Header>{title}</Styled.Header>}
+    <Container className={styles.container} bgColor={background}>
+      <div className={styles.grid}>
+        <div className={styles.textColumn}>
+          {!!title && <h3 className={styles.header}>{title}</h3>}
           <List variant="COMPACT" bgColor={background} data={entityList} />
-        </Styled.TextColumn>
-        {showHeroImage && <Styled.HeroImage />}
-      </Styled.Grid>
+        </div>
+        {showHeroImage && <div className={styles.heroImage} />}
+      </div>
       {!!showSeeAllButton && selectionMode === "NAMED" && (
         <SeeAll
           alignment="left"
@@ -44,6 +45,6 @@ export default function CompactListBlock({
           href={`${basePath}/${descendantsDefinition?.orderingIdentifier}`}
         />
       )}
-    </Styled.Container>
+    </Container>
   );
 }

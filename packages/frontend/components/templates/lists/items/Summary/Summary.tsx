@@ -5,8 +5,9 @@ import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import ContributorsList from "@/components/composed/contributor/ContributorsList";
 import NamedLink from "@/components/atomic/links/NamedLink";
+import ReadMoreLink from "@/components/atomic/links/Link/patterns/ReadMoreLink";
 import { getRouteByEntityType } from "@/helpers/routes";
-import * as Styled from "./Summary.styles";
+import styles from "./Summary.module.css";
 
 export default function SummaryListItem({
   data,
@@ -24,61 +25,51 @@ export default function SummaryListItem({
   const href = `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`;
 
   return (
-    <Styled.Item>
-      <Styled.CoverImage>
+    <li className={styles.item}>
+      <div className={styles.coverImage}>
         <CoverImage {...entity} maxWidth={120} maxHeight={160} />
-      </Styled.CoverImage>
-      <Styled.TextContent>
-        <Styled.Group>
+      </div>
+      <div className={styles.text}>
+        <div className={styles.group}>
           {contextA?.valid && !!contextA.content && (
-            <span>
-              <InlineSlotWrapper content={contextA.content} />
-            </span>
+            <InlineSlotWrapper content={contextA.content} />
           )}
           {contextB?.valid && !!contextB.content && (
-            <span>
-              <InlineSlotWrapper content={contextB.content} />
-            </span>
+            <InlineSlotWrapper content={contextB.content} />
           )}
-        </Styled.Group>
+        </div>
         {header?.valid && !!header.content && (
-          <Styled.Header>
+          <h4 className={styles.header}>
             <InlineSlotWrapper content={header.content} />
-          </Styled.Header>
+          </h4>
         )}
         {subheader?.valid && !!subheader.content && (
-          <Styled.Subheader>
+          <span className={styles.subheader}>
             <InlineSlotWrapper content={subheader.content} />
-          </Styled.Subheader>
+          </span>
         )}
         {entity?.contributions && (
-          <Styled.Contributors>
+          <span className={styles.contributors}>
             <ContributorsList data={entity.contributions} />
-          </Styled.Contributors>
+          </span>
         )}
-        <Styled.Group>
+        <div className={styles.group}>
           {metaA?.valid && !!metaA.content && (
-            <span>
-              <InlineSlotWrapper content={metaA.content} />
-            </span>
+            <InlineSlotWrapper content={metaA.content} />
           )}
-          {metaB?.valid && (
-            <span>
-              <InlineSlotWrapper content={metaB.content} />
-            </span>
-          )}
-        </Styled.Group>
+          {metaB?.valid && <InlineSlotWrapper content={metaB.content} />}
+        </div>
         {description?.valid && !!description.content && (
-          <Styled.Summary>
+          <div className={styles.summary}>
             <BlockSlotWrapper content={description.content} />
-          </Styled.Summary>
+          </div>
         )}
         {href && (
           <NamedLink href={href}>
-            <Styled.ReadMore />
+            <ReadMoreLink className={styles.readMore} />
           </NamedLink>
         )}
-      </Styled.TextContent>
-    </Styled.Item>
+      </div>
+    </li>
   );
 }

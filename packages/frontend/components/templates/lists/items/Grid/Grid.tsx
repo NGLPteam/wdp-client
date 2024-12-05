@@ -1,10 +1,12 @@
+import classNames from "classnames";
 import CoverImage from "@/components/atomic/images/CoverImage";
 import { useSharedListItemTemplateFragment } from "@/components/templates/shared/shared.listItems.graphql";
 import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import ContributorsList from "@/components/composed/contributor/ContributorsList";
+import NamedLink from "@/components/atomic/links/NamedLink";
 import { getRouteByEntityType } from "@/helpers/routes";
-import * as Styled from "./Grid.styles";
+import styles from "./Grid.module.css";
 
 export default function GridListItem({
   data,
@@ -26,53 +28,45 @@ export default function GridListItem({
 
   return (
     <li>
-      <Styled.Link href={href}>
+      <NamedLink className={styles.link} href={href}>
         <CoverImage {...entity} maxWidth={168} maxHeight={248} />
-        <Styled.TextContent>
+        <div className={styles.text}>
           {contextA?.valid && !!contextA.content && (
-            <Styled.ContextOne>
+            <span className={styles.contextOne}>
               <InlineSlotWrapper content={contextA.content} />
-            </Styled.ContextOne>
+            </span>
           )}
           {header?.valid && !!header.content && (
-            <Styled.Header>
-              <InlineSlotWrapper content={header.content} />
-            </Styled.Header>
+            <h4 className={styles.header}>
+              <span className="has-focus-styles">
+                <InlineSlotWrapper content={header.content} />
+              </span>
+            </h4>
           )}
           {subheader?.valid && !!subheader.content && (
-            <Styled.Subheader>
+            <span className={classNames(styles.subheader, "has-focus-styles")}>
               <InlineSlotWrapper content={subheader.content} />
-            </Styled.Subheader>
+            </span>
           )}
-          <Styled.Contributors>
+          <span className={styles.contributors}>
             <ContributorsList data={entity?.contributions} noLinks />
-          </Styled.Contributors>
+          </span>
           {renderMeta && (
-            <Styled.Group>
+            <div className={styles.group}>
               {metaA?.valid && !!metaA.content && (
-                <span>
-                  <InlineSlotWrapper content={metaA.content} />
-                </span>
+                <InlineSlotWrapper content={metaA.content} />
               )}
-              {metaB?.valid && (
-                <span>
-                  <InlineSlotWrapper content={metaB.content} />
-                </span>
-              )}
+              {metaB?.valid && <InlineSlotWrapper content={metaB.content} />}
               {contextB?.valid && !!contextB.content && (
-                <span>
-                  <InlineSlotWrapper content={contextB.content} />
-                </span>
+                <InlineSlotWrapper content={contextB.content} />
               )}
               {contextC?.valid && !!contextC.content && (
-                <span>
-                  <InlineSlotWrapper content={contextC.content} />
-                </span>
+                <InlineSlotWrapper content={contextC.content} />
               )}
-            </Styled.Group>
+            </div>
           )}
-        </Styled.TextContent>
-      </Styled.Link>
+        </div>
+      </NamedLink>
     </li>
   );
 }

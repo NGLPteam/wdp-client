@@ -2,10 +2,11 @@ import { useSharedListTemplateFragment } from "@/components/templates/shared/sha
 import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
 import NamedLink from "@/components/atomic/links/NamedLink";
 import CoverImage from "@/components/atomic/images/CoverImage";
+import Container from "@/components/layout/Container";
 import { getRouteByEntityType } from "@/helpers/routes";
 import SeeAll from "../../SeeAll";
 import List from "../../List/";
-import * as Styled from "./Summary.styles";
+import styles from "./Summary.module.css";
 
 export default function SummaryListBlock({
   data,
@@ -40,26 +41,26 @@ export default function SummaryListBlock({
   const showHeroImage = false;
 
   return (
-    <Styled.Container bgColor={background}>
-      <Styled.Grid>
-        <Styled.TextColumn>
-          {!!title && <Styled.Header>{title}</Styled.Header>}
-          <Styled.Entity>
+    <Container className={styles.container} bgColor={background}>
+      <div className={styles.grid}>
+        <div className={styles.textColumn}>
+          {!!title && <h3 className={styles.header}>{title}</h3>}
+          <div className={styles.entity}>
             {/*{showEntityContext && context?.valid && (
               <Styled.Context>{context.content}</Styled.Context>
             )}*/}
             <NamedLink href={href}>
               {header?.valid && !!header.content && (
-                <Styled.EntityHeader>{header.content}</Styled.EntityHeader>
+                <h4 className="t-h3">{header.content}</h4>
               )}
               {subtitle?.valid && !!subtitle.content && (
-                <Styled.Subheader>{subtitle.content}</Styled.Subheader>
+                <span className={styles.subheader}>{subtitle.content}</span>
               )}
             </NamedLink>
             {metadata?.valid && !!metadata.content && (
-              <Styled.Metadata>{metadata.content}</Styled.Metadata>
+              <span className={styles.metadata}>{metadata.content}</span>
             )}
-          </Styled.Entity>
+          </div>
           <List variant="SUMMARY" bgColor={background} data={entityList} />
           {!!showSeeAllButton && selectionMode === "NAMED" && (
             <SeeAll
@@ -68,15 +69,15 @@ export default function SummaryListBlock({
               href={`${basePath}/${descendantsDefinition?.orderingIdentifier}`}
             />
           )}
-        </Styled.TextColumn>
+        </div>
         {showHeroImage && (
-          <Styled.HeroImage>
+          <div className={styles.heroImage}>
             <NamedLink href={href}>
               <CoverImage {...entity} maxWidth={168} maxHeight={248} />
             </NamedLink>
-          </Styled.HeroImage>
+          </div>
         )}
-      </Styled.Grid>
-    </Styled.Container>
+      </div>
+    </Container>
   );
 }

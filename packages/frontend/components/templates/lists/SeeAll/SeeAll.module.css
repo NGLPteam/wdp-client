@@ -1,0 +1,8 @@
+.seeAll {
+  display: flex;
+  justify-content: center;
+
+  &--left {
+    justify-content: left;
+  }
+}

@@ -1,8 +1,9 @@
 import { useSharedListTemplateFragment } from "@/components/templates/shared/shared.list.graphql";
 import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
+import Container from "@/components/layout/Container";
 import List from "../../List";
 import SeeAll from "../../SeeAll";
-import * as Styled from "./Promo.styles";
+import styles from "./Promo.module.css";
 
 export default function PromoListBlock({
   data,
@@ -29,9 +30,9 @@ export default function PromoListBlock({
   const showHeroImage = false;
 
   return (
-    <Styled.Container $gap={36} bgColor={background}>
+    <Container className={styles.container} bgColor={background}>
       {!!title && <h3>{title}</h3>}
-      {showHeroImage && <Styled.HeroImage />}
+      {showHeroImage && <div className={styles.heroImage} />}
       <List variant="PROMOS" bgColor={background} data={entityList} />
       {!!showSeeAllButton && selectionMode === "NAMED" && (
         <SeeAll
@@ -40,6 +41,6 @@ export default function PromoListBlock({
           href={`${basePath}/${descendantsDefinition?.orderingIdentifier}`}
         />
       )}
-    </Styled.Container>
+    </Container>
   );
 }

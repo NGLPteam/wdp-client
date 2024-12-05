@@ -1,25 +1,20 @@
-import styled from "styled-components";
-import { pxToRem } from "@wdp/lib/theme/functions";
-import { aFocus } from "theme/mixins";
-import { transition } from "theme/base/variables";
-import { default as BaseImage } from "next/legacy/image";
-
-export const Item = styled.li`
+.item {
   position: relative;
   overflow: hidden;
-  border-radius: ${pxToRem(16)};
-  padding: ${pxToRem(20)};
+  border-radius: 1rem;
+  padding: 1.25rem;
   background: var(--color-base-neutral90);
   color: var(--color-base-neutral00);
-  transition: ${transition.background};
-  min-block-size: ${pxToRem(250)};
+  transition: background theme("transitionTimingFunction.DEFAULT")
+    theme("transitionDuration.DEFAULT");
+  min-block-size: 15.625rem;
 
   &:hover,
   &:focus-within {
     background: var(--color-base-neutral80);
   }
 
-  .a-bg-neutral90 & {
+  :global(.a-bg-neutral90) & {
     background: var(--color-base-neutral80);
 
     &:hover,
@@ -28,40 +23,44 @@ export const Item = styled.li`
       color: var(--color-base-neutral90);
     }
   }
-`;
+}
 
-export const Image = styled(BaseImage)`
+.image {
   position: absolute;
   z-index: 0;
   width: 100%;
   height: 100%;
   opacity: 0.3;
-`;
+}
 
-export const TextContent = styled.div`
+.text {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-inline-start: ${pxToRem(20)};
-  padding-inline-end: ${pxToRem(20)};
+  padding-inline-start: 1.25rem;
+  padding-inline-end: 1.25rem;
   text-align: center;
   block-size: 100%;
   font-size: var(--font-size-base-sm);
-
-  ${aFocus()}
 
   > span {
     position: relative;
     z-index: 1;
   }
-`;
 
-export const Header = styled.h3`
+  a:focus-visible & {
+    box-shadow: 0px 0px 0px 1px var(--border-color-focus),
+      theme("boxShadow.focusGlow");
+    outline: none;
+  }
+}
+
+.header {
   margin-block: 0.75rem;
-`;
+}
 
-export const Group = styled.div`
+.group {
   > span {
     display: block;
   }
@@ -73,4 +72,4 @@ export const Group = styled.div`
   &:not(:first-child) {
     margin-block-start: 0.5rem;
   }
-`;
+}
