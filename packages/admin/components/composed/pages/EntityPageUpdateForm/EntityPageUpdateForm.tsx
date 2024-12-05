@@ -50,7 +50,11 @@ export default function EntityPageUpdateForm({
           data={page?.heroImage}
           clearName="clearHeroImage"
         />
-        <Forms.Textarea label="forms.fields.body" {...register("body")} />
+        <Forms.Textarea
+          label="forms.fields.body"
+          description="forms.fields.body_description"
+          {...register("body")}
+        />
         <Forms.Input
           type="number"
           label="forms.fields.position"
@@ -109,6 +113,7 @@ const mutation = graphql`
         id
         title
         slug
+        body
         position
         heroImage {
           medium {

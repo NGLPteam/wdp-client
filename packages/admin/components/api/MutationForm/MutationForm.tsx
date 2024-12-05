@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useEffect } from "react";
 import { useMutation, graphql, GraphQLTaggedNode } from "react-relay";
 
 import { useForm, FormProvider } from "react-hook-form";
@@ -240,7 +240,10 @@ export default function MutationForm<
   };
 
   /* eslint-disable prettier/prettier */
-  const onSubmit = useMemo(() => form.handleSubmit(submitHandler), [form, submitHandler]);
+  const onSubmit = useMemo(() => form.handleSubmit(submitHandler), [
+    form,
+    submitHandler,
+  ]);
   /* eslint-enable prettier/prettier */
 
   const submitDisabled = useMemo(() => {
@@ -250,6 +253,10 @@ export default function MutationForm<
 
     return loading || isSubmitting || isValidating;
   }, [form, loading]);
+
+  useEffect(() => {
+    form.reset(defaultValues);
+  }, [defaultValues]);
 
   return (
     <FormProvider {...form}>

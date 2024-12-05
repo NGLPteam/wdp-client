@@ -47,7 +47,7 @@ function LazyLoadQueryWrapperInner<T extends OperationType>({
   children,
 }: Props<T>) {
   const data = useLazyLoadQuery<T>(query, variables, {
-    fetchPolicy: "store-or-network",
+    fetchPolicy: "store-and-network",
   });
   const deferred = useDeferredValue(data);
 
