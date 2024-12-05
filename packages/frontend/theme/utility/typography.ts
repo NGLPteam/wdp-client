@@ -23,6 +23,14 @@ export default css`
     ${tHeading(4)}
   }
 
+  .t-h5 {
+    ${tHeading(5)}
+  }
+
+  .t-h6 {
+    ${tHeading(6)}
+  }
+
   /* Labels */
   .t-label-lg {
     ${tLabel("lg")}

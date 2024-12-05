@@ -19,7 +19,7 @@ export default function PrimaryHero({
           <Styled.Title>
             <h1 className="t-h2">{title}</h1>
             {subtitle && typeof subtitle === "string" ? (
-              <h2 className="t-h3">{subtitle}</h2>
+              <span className="t-h3">{subtitle}</span>
             ) : (
               <div>{subtitle}</div>
             )}
