@@ -17,7 +17,7 @@ export default function CommunityPageLayout({ data }: Props) {
       <HeroImage data={page.heroImage} metadata={page.heroImageMetadata} />
       <div className="l-container-wide">
         <Styled.Content className="t-rte">
-          <h2>{page.title}</h2>
+          <h1 className="t-h2">{page.title}</h1>
           {isMounted ? (
             <Markdown.Page>{page.body}</Markdown.Page>
           ) : (

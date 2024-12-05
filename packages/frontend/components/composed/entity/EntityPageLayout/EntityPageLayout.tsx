@@ -16,7 +16,7 @@ export default function EntityPageLayout({ data }: Props) {
     <Styled.Wrapper className="l-container-wide a-bg-neutral00">
       <Styled.Inner className="t-rte">
         {page.heroImage && <ContentImage data={page.heroImage} />}
-        <h3>{page.title}</h3>
+        <h2 className="t-h3">{page.title}</h2>
         {isMounted ? (
           <Markdown.Page>{page.body}</Markdown.Page>
         ) : (
