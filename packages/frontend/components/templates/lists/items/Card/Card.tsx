@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import CoverImage from "@/components/atomic/images/CoverImage";
 import { useSharedListItemTemplateFragment } from "@/components/templates/shared/shared.listItems.graphql";
 import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
@@ -5,7 +6,7 @@ import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import ContributorsList from "@/components/composed/contributor/ContributorsList";
 import NamedLink from "@/components/atomic/links/NamedLink";
 import { getRouteByEntityType } from "@/helpers/routes";
-import * as Styled from "./Card.styles";
+import styles from "./Card.module.css";
 
 export default function CardListItem({
   data,
@@ -23,66 +24,56 @@ export default function CardListItem({
   const href = `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`;
 
   return (
-    <Styled.Item>
+    <li className={styles.item}>
       <NamedLink href={href}>
-        <Styled.ItemInner>
-          <Styled.CoverWrapper>
-            <Styled.CoverInner>
+        <div className={styles.inner}>
+          <div className={classNames("a-bg-neutral90", styles.coverWrapper)}>
+            <div className={styles.coverInner}>
               <CoverImage {...entity} maxWidth={225} maxHeight={300} />
-            </Styled.CoverInner>
-          </Styled.CoverWrapper>
-          <Styled.TextContent>
-            <Styled.TitleBlock>
+            </div>
+          </div>
+          <div className={styles.text}>
+            <div className={styles.titleBlock}>
               {contextA?.valid && !!contextA.content && (
-                <Styled.ContextOne>
+                <span className={styles.contextOne}>
                   <InlineSlotWrapper content={contextA.content} />
-                </Styled.ContextOne>
+                </span>
               )}
               {header?.valid && !!header.content && (
-                <Styled.Header>
+                <h4 className="line-clamp-2">
                   <InlineSlotWrapper content={header.content} />
-                </Styled.Header>
+                </h4>
               )}
               {subheader?.valid && !!subheader.content && (
-                <Styled.Subheader>
+                <span className={styles.subheader}>
                   <InlineSlotWrapper content={subheader.content} />
-                </Styled.Subheader>
+                </span>
               )}
-              <Styled.Contributors>
+              <span className={styles.contributors}>
                 <ContributorsList data={entity?.contributions} noLinks />
-              </Styled.Contributors>
-            </Styled.TitleBlock>
+              </span>
+            </div>
             {(metaA?.valid || metaB?.valid) && (
-              <Styled.Group>
+              <div className={styles.group}>
                 {metaA?.valid && !!metaA.content && (
-                  <span>
-                    <InlineSlotWrapper content={metaA.content} />
-                  </span>
+                  <InlineSlotWrapper content={metaA.content} />
                 )}
-                {metaB?.valid && (
-                  <span>
-                    <InlineSlotWrapper content={metaB.content} />
-                  </span>
-                )}
-              </Styled.Group>
+                {metaB?.valid && <InlineSlotWrapper content={metaB.content} />}
+              </div>
             )}
             {(contextB?.valid || contextC?.valid) && (
-              <Styled.Group>
+              <div className={styles.group}>
                 {contextB?.valid && !!contextB.content && (
-                  <span>
-                    <InlineSlotWrapper content={contextB.content} />
-                  </span>
+                  <InlineSlotWrapper content={contextB.content} />
                 )}
                 {contextC?.valid && !!contextC.content && (
-                  <span>
-                    <InlineSlotWrapper content={contextC.content} />
-                  </span>
+                  <InlineSlotWrapper content={contextC.content} />
                 )}
-              </Styled.Group>
+              </div>
             )}
-          </Styled.TextContent>
-        </Styled.ItemInner>
+          </div>
+        </div>
       </NamedLink>
-    </Styled.Item>
+    </li>
   );
 }

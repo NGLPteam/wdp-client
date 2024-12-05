@@ -1,6 +1,7 @@
+import classNames from "classnames";
 import Button from "@/components/atomic/Button";
 import NamedLink from "@/components/atomic/links/NamedLink";
-import * as Styled from "./SeeAll.styles";
+import styles from "./SeeAll.module.css";
 
 export type SeeAllProps = {
   buttonLabel?: string | null;
@@ -10,12 +11,16 @@ export type SeeAllProps = {
 
 export default function SeeAll(props: SeeAllProps) {
   return (
-    <Styled.SeeAll $align={props.alignment}>
+    <div
+      className={classNames(styles.seeAll, {
+        [styles["seeAll--left"]]: props.alignment === "left",
+      })}
+    >
       <NamedLink href={props.href}>
         <Button as="div">
           <span className="t-capitalize">{props.buttonLabel}</span>
         </Button>
       </NamedLink>
-    </Styled.SeeAll>
+    </div>
   );
 }

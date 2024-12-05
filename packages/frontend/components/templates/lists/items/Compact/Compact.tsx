@@ -3,7 +3,7 @@ import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTempla
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import NamedLink from "@/components/atomic/links/NamedLink";
 import { getRouteByEntityType } from "@/helpers/routes";
-import * as Styled from "./Compact.styles";
+import styles from "./Compact.module.css";
 
 export default function CompactListItem({
   data,
@@ -20,19 +20,17 @@ export default function CompactListItem({
       : null;
 
   return (
-    <Styled.Item>
+    <li className={styles.item}>
       <NamedLink href={href}>
         {header?.valid && !!header.content && (
-          <span>
-            <InlineSlotWrapper content={header.content} />
-          </span>
+          <InlineSlotWrapper content={header.content} />
         )}
         {contextA?.valid && !!contextA.content && (
-          <Styled.ContextOne>
+          <span className={styles.contextOne}>
             <InlineSlotWrapper content={contextA.content} />
-          </Styled.ContextOne>
+          </span>
         )}
       </NamedLink>
-    </Styled.Item>
+    </li>
   );
 }
