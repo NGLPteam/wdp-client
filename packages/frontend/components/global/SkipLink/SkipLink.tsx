@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Alert } from "components/atomic";
-import * as Styled from "./SkipLink.styles";
+import styles from "./SkipLink.module.css";
 
 interface Props {
   toId: string;
@@ -12,8 +12,8 @@ export default function SkipLink({ toId, label }: Props) {
   const href = `#${toId}`;
 
   return (
-    <Styled.SkipLink href={href}>
+    <a className={styles.link} href={href}>
       <Alert message={label ?? t("nav.skip_to_content")} color="blue" badge />
-    </Styled.SkipLink>
+    </a>
   );
 }

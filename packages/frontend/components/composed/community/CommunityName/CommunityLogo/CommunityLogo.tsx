@@ -5,7 +5,7 @@ import Image from "next/legacy/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { NamedLink } from "components/atomic";
 import { CommunityLogoFragment$key } from "@/relay/CommunityLogoFragment.graphql";
-import * as Styled from "./CommunityLogo.styles";
+import styles from "./CommunityLogo.module.css";
 
 const SIZE = 40;
 
@@ -21,12 +21,13 @@ export default function CommunityLogo({ data, slug }: Props) {
   return image && image.url ? (
     <NamedLink href={`/communities/${slug}`}>
       <span>
-        <Styled.Logo
+        <figure
           style={{
             width: (SIZE * width) / height,
             height: pxToRem(SIZE),
             minWidth: pxToRem(SIZE),
           }}
+          className={styles.logo}
         >
           <Image
             alt=""
@@ -35,7 +36,7 @@ export default function CommunityLogo({ data, slug }: Props) {
             height={image.height || SIZE}
             layout="responsive"
           />
-        </Styled.Logo>
+        </figure>
       </span>
     </NamedLink>
   ) : null;

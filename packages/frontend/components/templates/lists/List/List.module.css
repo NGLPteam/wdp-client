@@ -24,7 +24,7 @@
 
   @mixin l-grid;
 
-  margin-block-end: 3.125;
+  margin-block-end: 3.125rem;
 
   @mixin respond theme("screens.70") {
     grid-template-columns: repeat(2, 1fr);

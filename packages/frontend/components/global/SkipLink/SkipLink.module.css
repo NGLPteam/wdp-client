@@ -1,6 +1,4 @@
-import styled from "styled-components";
-
-export const SkipLink = styled.a`
+.link {
   position: fixed;
   top: 10px;
   left: -400px;
@@ -11,8 +9,4 @@ export const SkipLink = styled.a`
     left: 10px;
     outline: none;
   }
-`;
-
-export const SRText = styled.span`
-  display: none;
-`;
+}

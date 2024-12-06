@@ -1,26 +1,25 @@
 import React from "react";
-import { useDetailsToggle } from "@wdp/lib/hooks";
-import { IconKeys } from "components/factories/IconFactory/IconFactory";
-import * as Styled from "./Accordion.styles";
+import IconFactory from "@/components/factories/IconFactory";
+import styles from "./Accordion.module.css";
 
 export default function Accordion({ label, menuItems }: Props) {
-  const { ref, icon, onToggle } = useDetailsToggle<IconKeys>({
-    iconClosed: "chevronDown",
-    iconOpen: "chevronUp",
-  });
-
   const submenu =
     menuItems &&
-    menuItems.map((item, i) => <Styled.Item key={i}>{item}</Styled.Item>);
+    menuItems.map((item, i) => (
+      <li key={i} className={styles.item}>
+        {item}
+      </li>
+    ));
 
   return (
-    <Styled.Accordion ref={ref}>
-      <Styled.Summary onClick={onToggle}>
+    <details>
+      <summary className={styles.summary}>
         <span>{label}</span>
-        <Styled.Arrow icon={icon} role="presentation" />
-      </Styled.Summary>
-      <Styled.List>{submenu}</Styled.List>
-    </Styled.Accordion>
+        <IconFactory icon="chevronDown" role="presentation" data-closed />
+        <IconFactory icon="chevronUp" role="presentation" data-open />
+      </summary>
+      <ul className={styles.list}>{submenu}</ul>
+    </details>
   );
 }
 

@@ -6,7 +6,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { IconFactory } from "components/factories";
 import SearchModal from "components/layout/SearchModal";
 import { SearchButtonFragment$key } from "@/relay/SearchButtonFragment.graphql";
-import * as Styled from "./SearchButton.styles";
+import styles from "./SearchButton.module.css";
 
 export default function SearchButton({ data, size = "sm" }: Props) {
   const { t } = useTranslation();
@@ -19,7 +19,12 @@ export default function SearchButton({ data, size = "sm" }: Props) {
 
   return (
     <>
-      <DialogDisclosure as={Styled.ButtonWrapper} style={style} {...dialog}>
+      <DialogDisclosure
+        as={"button"}
+        className={styles.button}
+        style={style}
+        {...dialog}
+      >
         <IconFactory
           icon={size === "sm" ? "search" : "search32"}
           role="presentation"

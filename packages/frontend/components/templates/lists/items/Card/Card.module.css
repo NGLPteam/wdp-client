@@ -75,7 +75,7 @@
 }
 
 .coverWrapper {
-  @mixin fluidScalePx --Item-cover-v-padding 36px 60px;
+  @mixin fluidScalePx --Item-cover-v-padding, 36px, 60px;
 
   background-color: var(--Item-background-color);
   flex: 1 0 auto;
@@ -120,7 +120,7 @@
 
 .contributors {
   display: block;
-  min-height: 1.375;
+  min-height: 1.375rem;
 }
 
 .group {

@@ -4,9 +4,6 @@ import IconFactory from "@/components/factories/IconFactory";
 import styles from "./Button.module.css";
 import type { MaybeButtonRef } from "@castiron/common-types";
 
-/**
- * This component can be used as a button or link, and uses the a-button utility classes.
- */
 const Button = forwardRef(
   (
     {
@@ -18,21 +15,22 @@ const Button = forwardRef(
       iconLeft,
       hideLabelOnMobile,
       isBlock,
+      as,
       ...props
     }: (Props | LinkProps) & PropsWithChildren,
     ref: MaybeButtonRef,
   ) => {
-    return (
-      <button
-        ref={ref}
-        className={classNames(styles.button, className, {
-          [styles["button--secondary"]]: !!secondary,
-          [styles["button--block"]]: !!isBlock,
-          [styles["button-hideLabelMobile"]]: hideLabelOnMobile && !!icon,
-          [styles["button--sm"]]: size === "sm",
-        })}
-        {...props}
-      >
+    const Tag = as;
+
+    const buttonClasses = classNames(styles.button, className, {
+      [styles["button--secondary"]]: !!secondary,
+      [styles["button--block"]]: !!isBlock,
+      [styles["button-hideLabelMobile"]]: hideLabelOnMobile && !!icon,
+      [styles["button--sm"]]: size === "sm",
+    });
+
+    const content = (
+      <>
         {icon && iconLeft && (
           <IconFactory icon={icon} role={children ? "presentation" : "img"} />
         )}
@@ -48,6 +46,14 @@ const Button = forwardRef(
         {icon && !iconLeft && (
           <IconFactory icon={icon} role={children ? "presentation" : "img"} />
         )}
+      </>
+    );
+
+    return Tag ? (
+      <Tag className={buttonClasses}>{content}</Tag>
+    ) : (
+      <button ref={ref} className={buttonClasses} {...props}>
+        {content}
       </button>
     );
   },
@@ -68,10 +74,11 @@ interface Props extends ComponentProps<"button"> {
   secondary?: true;
   icon?: React.ComponentProps<typeof IconFactory>["icon"];
   className?: string;
+  as?: "div" | "span" | "a";
 }
 
 type LinkProps = Props & {
-  as: string;
+  as: "div" | "span" | "a";
   href?: string;
   target?: string;
   download?: boolean;

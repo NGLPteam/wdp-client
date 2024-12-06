@@ -13,7 +13,7 @@
   border-radius: 1rem;
 
   @mixin respond theme("screens.70") {
-    min-block-size: 12.5;
+    min-block-size: 12.5rem;
   }
 }
 
