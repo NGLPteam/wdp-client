@@ -2,8 +2,9 @@ import { useTranslation } from "react-i18next";
 import useViewerContext from "contexts/useViewerContext";
 import { Avatar, Dropdown, Link, NavMenuLink } from "components/atomic";
 import { useCallback, useMemo } from "react";
+import IconFactory from "@/components/factories/IconFactory";
 import { useSession } from "@/lib/auth/session";
-import * as Styled from "./AccountDropdown.styles";
+import styles from "./AccountDropdown.module.css";
 import { signIn, signOut } from "./actions";
 
 export default function AccountDropdown({ condensed, mobile }: Props) {
@@ -37,17 +38,19 @@ export default function AccountDropdown({ condensed, mobile }: Props) {
   ];
 
   return (
-    <Styled.Wrapper>
+    <div className={styles.wrapper}>
       {isAuthenticated ? (
         <Dropdown
           disclosure={
-            <Styled.AccountButton>
+            <div className={styles.disclosure}>
               <Avatar url={avatarUrl} />
               {name && (
-                <Styled.Name data-condensed={condensed}>{name}</Styled.Name>
+                <span className={styles.name} data-condensed={condensed}>
+                  {name}
+                </span>
               )}
-              <Styled.Icon icon="chevronDown" />
-            </Styled.AccountButton>
+              <IconFactory className={styles.icon} icon="chevronDown" />
+            </div>
           }
           label={t("nav.account")}
           menuItems={menuItems}
@@ -61,7 +64,7 @@ export default function AccountDropdown({ condensed, mobile }: Props) {
           {t("common.sign_in")}
         </NavMenuLink>
       )}
-    </Styled.Wrapper>
+    </div>
   );
 }
 

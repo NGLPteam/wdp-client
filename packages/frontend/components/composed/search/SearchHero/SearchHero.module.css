@@ -29,7 +29,6 @@
 
 .input {
   @mixin a-input-reset;
-  @mixin t-h4;
 
   flex: 1 1 auto;
   padding-block-start: 1.0625rem;

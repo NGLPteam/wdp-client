@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { Button, Dropdown, NamedLink } from "components/atomic";
+import { Dropdown, NamedLink } from "components/atomic";
 import { CommunityPickerFragment$key } from "@/relay/CommunityPickerFragment.graphql";
 import { CommunityPickerCommunityNameFragment$key } from "@/relay/CommunityPickerCommunityNameFragment.graphql";
 import { CommunityContext } from "@/contexts/CommunityContext";
-import * as Styled from "./CommunityPicker.styles";
+import Button from "@/components/atomic/Button";
+import styles from "./CommunityPicker.module.css";
 
 type Props = {
   data?: CommunityPickerFragment$key | null;
@@ -44,14 +45,15 @@ export default function CommunityPicker({ data }: Props) {
   ) : (
     <Dropdown
       disclosure={
-        <Styled.Disclosure
-          forwardedAs="div"
+        <Button
+          as="div"
           secondary
           icon="chevronDown"
           size="sm"
+          className={styles.disclosure}
         >
           <span>{activeCommunity?.title || t("nav.community_picker")}</span>
-        </Styled.Disclosure>
+        </Button>
       }
       menuItems={menuItems.map(({ node }) => {
         return (

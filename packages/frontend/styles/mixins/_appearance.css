@@ -45,3 +45,26 @@
   background: transparent;
   color: inherit;
 }
+
+@define-mixin a-bg-custom10 {
+  --background-color: var(--color-custom10);
+  --color-base: var(--color-base-neutral90);
+  --color-light: var(--color-base-neutral80);
+  --color-lighter: var(--color-base-neutral80);
+  --button-secondary-bg-color: var(--color-base-neutral00);
+
+  background-color: var(--background-color);
+  color: var(--color-base);
+}
+
+@define-mixin a-bg-custom20 {
+  --background-color: var(--color-custom20);
+  --color-base: var(--color-base-neutral90);
+  --color-light: var(--color-base-neutral80);
+  --color-lighter: var(--color-base-neutral80);
+  --button-secondary-bg-color: var(--color-custom10);
+  --button-secondary-bg-focus-color: var(--color-custom20);
+
+  background-color: var(--background-color);
+  color: var(--color-base);
+}

@@ -41,7 +41,7 @@ export default function SearchHero({ prompt }: { prompt?: string | null }) {
           <input
             type="search"
             id="heroSearch"
-            className={styles.input}
+            className={classNames(styles.input, "t-h4")}
             placeholder={prompt ?? t("search.community_placeholder")}
             {...register("q")}
           />

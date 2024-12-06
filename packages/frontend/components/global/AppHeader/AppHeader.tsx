@@ -1,6 +1,7 @@
 import { graphql } from "react-relay";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
+import classNames from "classnames";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import { SearchButton } from "components/atomic";
@@ -14,7 +15,7 @@ import Search from "components/forms/Search";
 import BaseDrawer from "components/layout/BaseDrawer";
 import { AppHeaderFragment$key } from "@/relay/AppHeaderFragment.graphql";
 import { SearchButtonFragment$key } from "@/relay/SearchButtonFragment.graphql";
-import * as Styled from "./AppHeader.styles";
+import styles from "./AppHeader.module.css";
 
 interface Props {
   data?: AppHeaderFragment$key | null;
@@ -39,22 +40,26 @@ export default function AppHeader({ data, searchData }: Props) {
 
   return (
     <>
-      <Styled.Header>
-        <Styled.HeaderInner className="l-container-wide">
-          <Styled.LeftSide>
+      <header className={styles.header}>
+        <div className={classNames("l-container-wide", styles.inner)}>
+          <div className={styles.left}>
             {(!isCommunityRoot ||
               (isCommunityRoot && totalCommunities > 1)) && (
               <>
-                <Styled.InstallationNameWrapper
-                  $logoMode={appData?.globalConfiguration?.site?.logoMode}
+                <span
+                  className={classNames(styles.installatioName, {
+                    [styles["installatioName--with-text"]]:
+                      appData?.globalConfiguration?.site?.logoMode ===
+                      "WITH_TEXT",
+                  })}
                 >
                   <InstallationName data={appData?.globalConfiguration} />
-                </Styled.InstallationNameWrapper>
+                </span>
                 <CommunityPicker data={appData} />
               </>
             )}
-          </Styled.LeftSide>
-          <Styled.RightSide>
+          </div>
+          <div className={styles.right}>
             {!isCommunityRoot && !hideSearch && (
               <>
                 <CommunityNavList condensed />
@@ -62,27 +67,27 @@ export default function AppHeader({ data, searchData }: Props) {
               </>
             )}
             <AccountDropdown condensed={!isCommunityRoot} />
-          </Styled.RightSide>
-          <Styled.MobileRight>
+          </div>
+          <div className={styles.mobileRight}>
             <DialogDisclosure as={MobileMenuToggle} {...dialog} />
-          </Styled.MobileRight>
-        </Styled.HeaderInner>
+          </div>
+        </div>
         <BaseDrawer
           header={<CommunityPicker data={appData} />}
           footer={<InstallationName data={appData?.globalConfiguration} />}
           dialog={dialog}
           label={t("nav.menu")}
         >
-          <Styled.MobileList>
+          <div className={styles.mobileList}>
             <CommunityNavList mobile />
             <Search id="headerSearch" onSubmit={dialog.hide} mobile />
             <AccountDropdown mobile />
-          </Styled.MobileList>
+          </div>
         </BaseDrawer>
-      </Styled.Header>
-      <Styled.PrintHeader aria-hidden>
+      </header>
+      <div className={styles.printHeader} aria-hidden>
         <CommunityName />
-      </Styled.PrintHeader>
+      </div>
     </>
   );
 }

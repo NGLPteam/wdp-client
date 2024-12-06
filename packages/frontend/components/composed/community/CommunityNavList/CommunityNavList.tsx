@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { graphql, useFragment } from "react-relay";
+import classNames from "classnames";
 import { CommunityNavListFragment$key } from "@/relay/CommunityNavListFragment.graphql";
 import { CommunityContext } from "@/contexts/CommunityContext";
 import CommunityNavListContent from "./CommunityNavListContent";
-import * as Styled from "./CommunityNavList.styles";
+import styles from "./CommunityNavlist.module.css";
 
 export default function CommunityNavList({ condensed, mobile }: Props) {
   const communityData = useContext(CommunityContext);
@@ -12,17 +13,16 @@ export default function CommunityNavList({ condensed, mobile }: Props) {
     communityData,
   );
 
-  const ListComponent = mobile ? Styled.MobileNavList : Styled.NavList;
+  const listClasses = mobile
+    ? styles.mobileList
+    : classNames(styles.list, { [styles["list--condensed"]]: condensed });
 
   return (
-    <ListComponent
-      $condensed={condensed}
-      data-community-nav-list-portal
-      data-condensed={condensed}
-      data-mobile={mobile}
-    >
-      {community && <CommunityNavListContent data={community} />}
-    </ListComponent>
+    <ul className={listClasses} data-condensed={condensed}>
+      {community && (
+        <CommunityNavListContent data={community} mobile={mobile} />
+      )}
+    </ul>
   );
 }
 

@@ -10,7 +10,6 @@ import { SearchButtonFragment$key } from "@/relay/SearchButtonFragment.graphql";
 import SkipLink from "@/components/global/SkipLink";
 import AppHeader from "../AppHeader";
 import AppFooter from "../AppFooter";
-import * as Styled from "./AppBody.styles";
 
 interface Props {
   children: React.ReactNode;
@@ -28,14 +27,14 @@ function AppBody({ children, data, searchData }: Props) {
   const { t } = useTranslation();
 
   return isMounted ? (
-    <Styled.Body className="a-bg-neutral00">
+    <div className="a-bg-neutral00">
       <SkipLink toId="main-content" label={t("nav.skip_to_content")} />
       <AppHeader data={globalData} searchData={searchData} />
-      <Styled.Main id="main" tabIndex={-1}>
+      <main id="main" tabIndex={-1}>
         {children}
-      </Styled.Main>
+      </main>
       <AppFooter data={globalData} />
-    </Styled.Body>
+    </div>
   ) : null;
 }
 
