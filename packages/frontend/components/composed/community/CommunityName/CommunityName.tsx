@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { graphql, useFragment } from "react-relay";
+import classNames from "classnames";
 import { CommunityNameFragment$key } from "@/relay/CommunityNameFragment.graphql";
 import { CommunityContext } from "@/contexts/CommunityContext";
-import * as Styled from "./CommunityName.styles";
+import styles from "./CommunityName.module.css";
 import CommunityNameContent from "./CommunityNameContent";
 
 export default function CommunityName() {
@@ -13,13 +14,12 @@ export default function CommunityName() {
   );
 
   return (
-    <Styled.Wrapper
-      className="l-flex l-flex--align-center"
-      data-community-name-portal
+    <div
+      className={classNames("l-flex l-flex--align-center", styles.wrapper)}
       data-active={!!community}
     >
       {community && <CommunityNameContent community={community} />}
-    </Styled.Wrapper>
+    </div>
   );
 }
 

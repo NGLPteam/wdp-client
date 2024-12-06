@@ -1,0 +1,5 @@
+.wrapper {
+  > * + * {
+    padding-inline-start: var(--padding-rg);
+  }
+}

@@ -1,36 +1,70 @@
-import React, { forwardRef } from "react";
-import { MaybeButtonOrLinkRef } from "@castiron/common-types";
+import { type ComponentProps, forwardRef } from "react";
+import classNames from "classnames";
+import Link from "next/link";
+import { MaybeLinkRef } from "@castiron/common-types";
 import { IconFactory } from "components/factories";
-import * as Styled from "./NavMenuLink.styles";
-import type { LinkProps } from "./NavMenuLink.styles";
+import styles from "./NavMenuLink.module.css";
 
-type IconProps = React.ComponentProps<typeof IconFactory>;
+type IconProps = ComponentProps<typeof IconFactory>;
 
 function NavMenuLink(
-  { children, as, className, icon, ...props }: Props & LinkProps,
-  ref: MaybeButtonOrLinkRef,
+  {
+    children,
+    as,
+    className,
+    icon,
+    ...props
+  }: Props & (LinkProps | ButtonProps),
+  ref: MaybeLinkRef,
 ) {
-  const isLink = !as || as === "a";
+  if ("href" in props) {
+    const Tag = as ?? "span";
 
-  return (
-    <Styled.Link
-      as={as}
-      prefetch={isLink ? false : undefined}
-      className={className}
-      ref={ref}
-      {...props}
-    >
-      <span>{children}</span>
-      {icon && <IconFactory icon={icon} />}
-    </Styled.Link>
-  );
+    return as ? (
+      <Tag className={classNames(styles.link, className)}>
+        <span>{children}</span>
+        {icon && <IconFactory icon={icon} />}
+      </Tag>
+    ) : props.href ? (
+      <Link
+        prefetch={false}
+        className={classNames(styles.link, className)}
+        ref={ref}
+        {...props}
+        href={props.href}
+      >
+        <span>{children}</span>
+        {icon && <IconFactory icon={icon} />}
+      </Link>
+    ) : null;
+  }
+
+  if ("onClick" in props) {
+    return (
+      <button className={classNames(styles.link, className)} {...props}>
+        <span>{children}</span>
+        {icon && <IconFactory icon={icon} />}
+      </button>
+    );
+  }
 }
 
 export default forwardRef(NavMenuLink);
 
 interface Props {
   children: React.ReactNode;
-  as?: "a" | "span" | "div" | "button";
   className?: string;
   icon?: IconProps["icon"];
 }
+
+type LinkProps = Omit<
+  ComponentProps<typeof Link>,
+  "href" | "as" | "onClick"
+> & {
+  href?: string | null;
+  as?: "span" | "div";
+};
+
+type ButtonProps = Omit<ComponentProps<"button">, "href"> & {
+  as: "button";
+};

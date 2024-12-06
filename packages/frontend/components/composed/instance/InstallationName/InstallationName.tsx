@@ -1,10 +1,11 @@
 import { useMemo } from "react";
 import { graphql } from "react-relay";
 import Link from "next/link";
+import classNames from "classnames";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { Image } from "components/atomic";
 import { InstallationNameFragment$key } from "@/relay/InstallationNameFragment.graphql";
-import * as Styled from "./InstallationName.styles";
+import styles from "./InstallationName.module.css";
 
 const LOGO_SIZE = 40;
 
@@ -13,8 +14,6 @@ export default function InstallationName({
   data,
 }: Props) {
   const siteData = useMaybeFragment(fragment, data);
-
-  const linkClasses = "a-link-text";
 
   const isSvg = siteData?.logo?.original?.originalFilename?.endsWith(".svg");
 
@@ -27,7 +26,7 @@ export default function InstallationName({
 
   return siteData?.site?.installationName ? (
     <Link href="/">
-      <Styled.Link className={className}>
+      <span className={classNames(className, styles.link)}>
         {siteData?.logo?.storage && (
           <Image
             data={isSvg ? siteData.logo.original : siteData.logo.sansText?.webp}
@@ -38,14 +37,9 @@ export default function InstallationName({
         )}
         {(!siteData?.logo?.storage ||
           siteData?.site?.logoMode === "WITH_TEXT") && (
-          <Styled.Name>
-            {/* Extra wrapper is needed for hover link styles */}
-            <span className={linkClasses}>
-              {siteData.site.installationName}
-            </span>
-          </Styled.Name>
+          <span className={styles.name}>{siteData.site.installationName}</span>
         )}
-      </Styled.Link>
+      </span>
     </Link>
   ) : null;
 }

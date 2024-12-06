@@ -72,5 +72,5 @@
 .readMore {
   @mixin t-label-sm;
 
-  margin-block-start: 0.625;
+  margin-block-start: 0.625rem;
 }

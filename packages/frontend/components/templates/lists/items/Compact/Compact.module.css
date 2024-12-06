@@ -5,7 +5,7 @@
 
   &::before {
     flex-shrink: 0;
-    margin-inline-end: ;
+    margin-inline-end: 0.875rem;
   }
 
   > * + * {
