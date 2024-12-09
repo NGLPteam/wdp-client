@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e69a349c6a17faa5347322c34baa033e>>
+ * @generated SignedSource<<99f0ac6966f5be799f0c1b2ccc9d44d9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -24,6 +24,11 @@ export type HeroTemplateFragment$data = {
       readonly showBreadcrumbs: boolean | null | undefined;
       readonly showSharingLink: boolean | null | undefined;
       readonly showSplitDisplay: boolean | null | undefined;
+    };
+    readonly slots: {
+      readonly bigSearchPrompt: {
+        readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+      } | null | undefined;
     };
     readonly " $fragmentSpreads": FragmentRefs<"DetailHeroFragment">;
   } | null | undefined;
@@ -133,6 +138,33 @@ const node: ReaderFragment = {
           "storageKey": null
         },
         {
+          "alias": null,
+          "args": null,
+          "concreteType": "HeroTemplateInstanceSlots",
+          "kind": "LinkedField",
+          "name": "slots",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "TemplateSlotInlineInstance",
+              "kind": "LinkedField",
+              "name": "bigSearchPrompt",
+              "plural": false,
+              "selections": [
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "sharedInlineSlotFragment"
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
           "args": null,
           "kind": "FragmentSpread",
           "name": "DetailHeroFragment"
@@ -155,6 +187,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "2e7c5e1ba33bf38f644879f9e386314d";
+(node as any).hash = "e250dbb54118c0ccd6aa40f4fc4b3320";
 
 export default node;

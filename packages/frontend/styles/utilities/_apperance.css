@@ -1,0 +1,15 @@
+.a-bg-custom10 {
+  @mixin a-bg-custom10;
+
+  & + & {
+    padding-block-start: 0;
+  }
+}
+
+.a-bg-custom20 {
+  @mixin a-bg-custom20;
+
+  & + & {
+    padding-block-start: 0;
+  }
+}
