@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<df11a2c14fd2357953277df6d4ea7a54>>
+ * @generated SignedSource<<5a1bf39f2b00d09a4b28e3eb3fbc0230>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,28 +9,15 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type HeroBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type HeroTemplateFragment$data = {
   readonly entity: {
     readonly __typename: "Community";
-    readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbsBarFragment">;
+  } | {
+    // This will never be '%other', but we need some
+    // value in case none of the concrete values match.
+    readonly __typename: "%other";
   };
-  readonly template: {
-    readonly definition: {
-      readonly background: HeroBackground | null | undefined;
-      readonly showBigSearchPrompt: boolean | null | undefined;
-      readonly showBreadcrumbs: boolean | null | undefined;
-      readonly showSharingLink: boolean | null | undefined;
-      readonly showSplitDisplay: boolean | null | undefined;
-    };
-    readonly slots: {
-      readonly bigSearchPrompt: {
-        readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
-      } | null | undefined;
-    };
-    readonly " $fragmentSpreads": FragmentRefs<"DetailHeroFragment">;
-  } | null | undefined;
   readonly " $fragmentSpreads": FragmentRefs<"CommunityHeroHeaderFragment" | "EntityHeroHeaderFragment">;
   readonly " $fragmentType": "HeroTemplateFragment";
 };
@@ -66,100 +53,6 @@ const node: ReaderFragment = {
           ],
           "type": "Community",
           "abstractKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "BreadcrumbsBarFragment"
-        }
-      ],
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "HeroTemplateInstance",
-      "kind": "LinkedField",
-      "name": "template",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "HeroTemplateDefinition",
-          "kind": "LinkedField",
-          "name": "definition",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "background",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "showBreadcrumbs",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "showSharingLink",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "showSplitDisplay",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "showBigSearchPrompt",
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "HeroTemplateInstanceSlots",
-          "kind": "LinkedField",
-          "name": "slots",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "TemplateSlotInlineInstance",
-              "kind": "LinkedField",
-              "name": "bigSearchPrompt",
-              "plural": false,
-              "selections": [
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "sharedInlineSlotFragment"
-                }
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "DetailHeroFragment"
         }
       ],
       "storageKey": null
@@ -179,6 +72,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "f5ed94a12f387448aacd29a1ed4e0707";
+(node as any).hash = "cc53cbe181cfece84e90e086837a99d7";
 
 export default node;

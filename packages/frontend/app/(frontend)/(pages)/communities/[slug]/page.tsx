@@ -1,14 +1,14 @@
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import CommunityLandingLayout from "components/composed/community/CommunityLandingLayout";
-import { BasePageParams } from "@/types/page";
+import TemplateFactory from "@/components/templates/Factory";
 import fetchQuery from "@/lib/relay/fetchQuery";
-import { pageCommunityQuery as Query } from "@/relay/pageCommunityQuery.graphql";
+import { pageTemplateQuery as Query } from "@/relay/pageTemplateQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
+import { BasePageParams } from "@/types/page";
 
-export default async function CommunityPage({ params }: BasePageParams) {
-  const { slug } = params;
-
+export default async function TemplatePage({
+  params: { slug },
+}: BasePageParams) {
   const { data, records } =
     (await fetchQuery<Query>(query, {
       slug,
@@ -18,19 +18,28 @@ export default async function CommunityPage({ params }: BasePageParams) {
 
   if (!community) return notFound();
 
+  const { main } = community.layouts;
+
+  const { templates } = main ?? {};
+
   return (
     <UpdateClientEnvironment records={records}>
-      <CommunityLandingLayout data={community} />
+      {!!templates?.length &&
+        templates.map((t, i) => <TemplateFactory key={i} data={t} />)}
     </UpdateClientEnvironment>
   );
 }
 
-export const dynamic = "force-dynamic";
-
 const query = graphql`
-  query pageCommunityQuery($slug: Slug!) {
+  query pageTemplateQuery($slug: Slug!) {
     community(slug: $slug) {
-      ...CommunityLandingLayoutFragment
+      layouts {
+        main {
+          templates {
+            ...FactoryTemplatesFragment
+          }
+        }
+      }
     }
   }
 `;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b48de715e8480e4c2a4727975d813780>>
+ * @generated SignedSource<<e40a9a1462cca8c579805c855a32b434>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,7 +20,13 @@ export type CommunityHeroHeaderFragment$data = {
   };
   readonly template: {
     readonly definition: {
+      readonly showBigSearchPrompt: boolean | null | undefined;
       readonly showHeroImage: boolean | null | undefined;
+    };
+    readonly slots: {
+      readonly bigSearchPrompt: {
+        readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+      } | null | undefined;
     };
     readonly " $fragmentSpreads": FragmentRefs<"HeaderHeroFragment">;
   } | null | undefined;
@@ -100,6 +106,40 @@ const node: ReaderFragment = {
               "kind": "ScalarField",
               "name": "showHeroImage",
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "showBigSearchPrompt",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "HeroTemplateInstanceSlots",
+          "kind": "LinkedField",
+          "name": "slots",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "TemplateSlotInlineInstance",
+              "kind": "LinkedField",
+              "name": "bigSearchPrompt",
+              "plural": false,
+              "selections": [
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "sharedInlineSlotFragment"
+                }
+              ],
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -117,6 +157,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "d241aaf3714ec594024fd3701a871be1";
+(node as any).hash = "b353da1c2c40ef04cabc2edc023db87b";
 
 export default node;

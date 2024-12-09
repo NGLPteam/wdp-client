@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import CommunityPageLayout from "components/composed/community/CommunityPageLayout";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
-import { pageCommunityPageQuery as Query } from "@/relay/pageCommunityPageQuery.graphql";
+import { pageTemplatesCommunityPageQuery as Query } from "@/relay/pageTemplatesCommunityPageQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
 export default async function CommunityPagePage({ params }: BasePageParams) {
@@ -28,7 +28,7 @@ export default async function CommunityPagePage({ params }: BasePageParams) {
 export const dynamic = "force-dynamic";
 
 const query = graphql`
-  query pageCommunityPageQuery($slug: Slug!, $pageSlug: String!) {
+  query pageTemplatesCommunityPageQuery($slug: Slug!, $pageSlug: String!) {
     community(slug: $slug) {
       page(slug: $pageSlug) {
         ...CommunityPageLayoutFragment

@@ -24,14 +24,6 @@ export const baseRoutes: BaseRoute[] = [
         path: "/communities/[slug]/search",
       },
       {
-        name: "community.items.schema",
-        path: "/communities/[slug]/items/[schema]",
-      },
-      {
-        name: "community.collections.schema",
-        path: "/communities/[slug]/collections/[schema]",
-      },
-      {
         name: "community.browse.schema",
         path: "/communities/[slug]/browse/[schema]",
       },
