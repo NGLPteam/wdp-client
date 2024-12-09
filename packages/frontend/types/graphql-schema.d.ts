@@ -2365,7 +2365,7 @@ export type CollectionConnection = Paginated & {
 };
 
 /** A contribution to a collection */
-export type CollectionContribution = Contribution & Node & Sluggable & {
+export type CollectionContribution = Contribution & ContributionBase & Node & Sluggable & {
   __typename?: 'CollectionContribution';
   /** A potentially-overridden value from person contributors */
   affiliation?: Maybe<Scalars['String']['output']>;
@@ -2900,11 +2900,47 @@ export type ContributableContributorsArgs = {
   prefix?: InputMaybe<Scalars['String']['input']>;
 };
 
-/** A contribution from a certain contributor */
+/**
+ * An interface representing a contribution from a certain contributor.
+ *
+ * It leaves the `contributor` field's implementation up to later
+ * implementations, as we have different needs elsewhere in the API.
+ *
+ * See `Contribution` and `TemplateContribution`.
+ *
+ */
 export type Contribution = {
   /** A potentially-overridden value from person contributors */
   affiliation?: Maybe<Scalars['String']['output']>;
+  /**
+   * The contributor, loaded via union for the most control.
+   *
+   */
   contributor: AnyContributor;
+  contributorKind: ContributorKind;
+  /** A potentially-overridden display name value for all contributor types */
+  displayName: Scalars['String']['output'];
+  /** A potentially-overridden value from organization contributors */
+  location?: Maybe<Scalars['String']['output']>;
+  metadata: ContributionMetadata;
+  /** An arbitrary text value describing the role the contributor had */
+  role?: Maybe<Scalars['String']['output']>;
+  /** A potentially-overridden value from person contributors */
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+/**
+ * An interface representing a contribution from a certain contributor.
+ *
+ * It leaves the `contributor` field's implementation up to later
+ * implementations, as we have different needs elsewhere in the API.
+ *
+ * See `Contribution` and `TemplateContribution`.
+ *
+ */
+export type ContributionBase = {
+  /** A potentially-overridden value from person contributors */
+  affiliation?: Maybe<Scalars['String']['output']>;
   contributorKind: ContributorKind;
   /** A potentially-overridden display name value for all contributor types */
   displayName: Scalars['String']['output'];
@@ -2954,26 +2990,71 @@ export type ContributionOrder =
   | 'TARGET_TITLE_DESCENDING'
   | '%future added value';
 
-/** A contributor who has made a contribution */
+/**
+ * An interface for an abstract contributor who has made a contribution.
+ *
+ * See `kind` for what type it is.
+ *
+ * This type differentiates from `Contributor` in that it lacks the ability to grab contributions,
+ * in order to prevent inordinately long nesting in GQL fetches in certain situations.
+ *
+ */
 export type Contributor = {
+  /**
+   * Only applicable when `kind` = `PERSON`.
+   *
+   */
+  affiliation?: Maybe<Scalars['String']['output']>;
   bio?: Maybe<Scalars['String']['output']>;
-  /** The total number of collection contributions from this contributor */
+  /**
+   * The total number of collection contributions from this contributor.
+   *
+   */
   collectionContributionCount: Scalars['Int']['output'];
   collectionContributions: CollectionContributionConnection;
-  /** The total number of contributions (item + collection) from this contributor */
+  /**
+   * The total number of contributions (item + collection) from this contributor.
+   *
+   */
   contributionCount: Scalars['Int']['output'];
   email?: Maybe<Scalars['String']['output']>;
+  /**
+   * Only applicable when `kind` = `PERSON`.
+   *
+   */
+  familyName?: Maybe<Scalars['String']['output']>;
+  /**
+   * Only applicable when `kind` = `PERSON`.
+   *
+   */
+  givenName?: Maybe<Scalars['String']['output']>;
   identifier: Scalars['String']['output'];
   /** An optional image associated with the contributor. */
   image: ImageAttachment;
   /** Configurable metadata for the image attachment */
   imageMetadata?: Maybe<ImageMetadata>;
-  /** The total number of item contributions from this contributor */
+  /**
+   * The total number of item contributions from this contributor.
+   *
+   */
   itemContributionCount: Scalars['Int']['output'];
   itemContributions: ItemContributionConnection;
   kind: ContributorKind;
+  /**
+   * Only applicable when `kind` = `ORGANIZATION`.
+   *
+   */
+  legalName?: Maybe<Scalars['String']['output']>;
   links: Array<ContributorLink>;
-  /** A display name, independent of the type of contributor */
+  /**
+   * Only applicable when `kind` = `ORGANIZATION`.
+   *
+   */
+  location?: Maybe<Scalars['String']['output']>;
+  /**
+   * A display name, independent of the type of contributor.
+   *
+   */
   name: Scalars['String']['output'];
   /**
    * An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor.
@@ -2982,11 +3063,24 @@ export type Contributor = {
   orcid?: Maybe<Scalars['String']['output']>;
   prefix?: Maybe<Scalars['String']['output']>;
   suffix?: Maybe<Scalars['String']['output']>;
+  /**
+   * Only applicable when `kind` = `PERSON`.
+   *
+   */
+  title?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
 };
 
 
-/** A contributor who has made a contribution */
+/**
+ * An interface for an abstract contributor who has made a contribution.
+ *
+ * See `kind` for what type it is.
+ *
+ * This type differentiates from `Contributor` in that it lacks the ability to grab contributions,
+ * in order to prevent inordinately long nesting in GQL fetches in certain situations.
+ *
+ */
 export type ContributorCollectionContributionsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
@@ -2999,7 +3093,15 @@ export type ContributorCollectionContributionsArgs = {
 };
 
 
-/** A contributor who has made a contribution */
+/**
+ * An interface for an abstract contributor who has made a contribution.
+ *
+ * See `kind` for what type it is.
+ *
+ * This type differentiates from `Contributor` in that it lacks the ability to grab contributions,
+ * in order to prevent inordinately long nesting in GQL fetches in certain situations.
+ *
+ */
 export type ContributorItemContributionsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
@@ -3009,6 +3111,85 @@ export type ContributorItemContributionsArgs = {
   page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: InputMaybe<PageDirection>;
   perPage?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/**
+ * An interface for an abstract contributor who has made a contribution.
+ *
+ * See `kind` for what type it is.
+ *
+ * This type differentiates from `Contributor` in that it lacks the ability to grab contributions,
+ * in order to prevent inordinately long nesting in GQL fetches in certain situations.
+ *
+ */
+export type ContributorBase = {
+  /**
+   * Only applicable when `kind` = `PERSON`.
+   *
+   */
+  affiliation?: Maybe<Scalars['String']['output']>;
+  bio?: Maybe<Scalars['String']['output']>;
+  /**
+   * The total number of collection contributions from this contributor.
+   *
+   */
+  collectionContributionCount: Scalars['Int']['output'];
+  /**
+   * The total number of contributions (item + collection) from this contributor.
+   *
+   */
+  contributionCount: Scalars['Int']['output'];
+  email?: Maybe<Scalars['String']['output']>;
+  /**
+   * Only applicable when `kind` = `PERSON`.
+   *
+   */
+  familyName?: Maybe<Scalars['String']['output']>;
+  /**
+   * Only applicable when `kind` = `PERSON`.
+   *
+   */
+  givenName?: Maybe<Scalars['String']['output']>;
+  identifier: Scalars['String']['output'];
+  /** An optional image associated with the contributor. */
+  image: ImageAttachment;
+  /** Configurable metadata for the image attachment */
+  imageMetadata?: Maybe<ImageMetadata>;
+  /**
+   * The total number of item contributions from this contributor.
+   *
+   */
+  itemContributionCount: Scalars['Int']['output'];
+  kind: ContributorKind;
+  /**
+   * Only applicable when `kind` = `ORGANIZATION`.
+   *
+   */
+  legalName?: Maybe<Scalars['String']['output']>;
+  links: Array<ContributorLink>;
+  /**
+   * Only applicable when `kind` = `ORGANIZATION`.
+   *
+   */
+  location?: Maybe<Scalars['String']['output']>;
+  /**
+   * A display name, independent of the type of contributor.
+   *
+   */
+  name: Scalars['String']['output'];
+  /**
+   * An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor.
+   *
+   */
+  orcid?: Maybe<Scalars['String']['output']>;
+  prefix?: Maybe<Scalars['String']['output']>;
+  suffix?: Maybe<Scalars['String']['output']>;
+  /**
+   * Only applicable when `kind` = `PERSON`.
+   *
+   */
+  title?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 export type ContributorFilterKind =
@@ -3057,6 +3238,23 @@ export type ContributorListBackground =
   | 'NONE'
   | '%future added value';
 
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type ContributorListFilter =
+  /**
+   * Show all contributors, regardless of role.
+   *
+   */
+  | 'ALL'
+  /**
+   * Show only authors.
+   *
+   */
+  | 'AUTHORS'
+  | '%future added value';
+
 export type ContributorListTemplateDefinition = Node & Sluggable & TemplateDefinition & {
   __typename?: 'ContributorListTemplateDefinition';
   /**
@@ -3065,6 +3263,11 @@ export type ContributorListTemplateDefinition = Node & Sluggable & TemplateDefin
    */
   background?: Maybe<ContributorListBackground>;
   createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Filter which contributors may appear based on their contribution role.
+   *
+   */
+  filter?: Maybe<ContributorListFilter>;
   id: Scalars['ID']['output'];
   layoutKind: LayoutKind;
   /**
@@ -3080,6 +3283,14 @@ export type ContributorListTemplateDefinition = Node & Sluggable & TemplateDefin
   slug: Scalars['Slug']['output'];
   templateKind: TemplateKind;
   updatedAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * This controls how wide the template should render.
+   *
+   * **Note**: When using `HALF`, you should take care to make sure that there is an adjacent
+   * template that also uses `HALF`.
+   *
+   */
+  width?: Maybe<TemplateWidth>;
 };
 
 /**
@@ -3091,8 +3302,13 @@ export type ContributorListTemplateDefinitionSlots = {
   header?: Maybe<TemplateSlotInlineDefinition>;
 };
 
-export type ContributorListTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
+export type ContributorListTemplateInstance = Node & Renderable & Sluggable & TemplateHasContributionList & TemplateInstance & {
   __typename?: 'ContributorListTemplateInstance';
+  /**
+   * The list of contributions to render as part of this template's content.
+   *
+   */
+  contributionList: TemplateContributionList;
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * Load the associated definition for this template.
@@ -4510,12 +4726,24 @@ export type DescendantListTemplateDefinition = Node & Sluggable & TemplateDefini
   orderingIdentifier?: Maybe<Scalars['SchemaComponent']['output']>;
   seeAllButtonLabel?: Maybe<Scalars['String']['output']>;
   /**
+   * The fallback mode to use when rendering a list of entities, when the list from
+   * `selectionMode` is empty and `useSelectionFallback` has been set to true.
+   *
+   */
+  selectionFallbackMode?: Maybe<DescendantListSelectionMode>;
+  /**
    * Regardless of `selectionMode`, this limit will be applied on whatever resulting
    * list of entities are produced, so that only up to that amount of entities are
    * rendered in the template proper.
    *
    */
   selectionLimit?: Maybe<Scalars['Int']['output']>;
+  /**
+   * The default mode to use when rendering a list of entities.
+   *
+   * See also `selectionFallbackMode` and `useSelectionFallback`.
+   *
+   */
   selectionMode?: Maybe<DescendantListSelectionMode>;
   /**
    * When `selectionMode` is set to `PROPERTY`, this should be set to the full path
@@ -4541,7 +4769,12 @@ export type DescendantListTemplateDefinition = Node & Sluggable & TemplateDefini
    *
    */
   selectionSourceMode?: Maybe<SelectionSourceMode>;
+  /**
+   * Show additional context about each entity in the selection.
+   *
+   */
   showEntityContext?: Maybe<Scalars['Boolean']['output']>;
+  showHeroImage?: Maybe<Scalars['Boolean']['output']>;
   showSeeAllButton?: Maybe<Scalars['Boolean']['output']>;
   /**
    * Slot definitions for this template.
@@ -4553,10 +4786,24 @@ export type DescendantListTemplateDefinition = Node & Sluggable & TemplateDefini
   title?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['ISO8601DateTime']['output'];
   /**
+   * Controls whether or not to use `selectionFallbackMode` if the entity list returned
+   * via `selectionMode` turns out to be empty at runtime.
+   *
+   */
+  useSelectionFallback?: Maybe<Scalars['Boolean']['output']>;
+  /**
    * The variant rendering mode to use for this template. Affects presentation.
    *
    */
   variant?: Maybe<DescendantListVariant>;
+  /**
+   * This controls how wide the template should render.
+   *
+   * **Note**: When using `HALF`, you should take care to make sure that there is an adjacent
+   * template that also uses `HALF`.
+   *
+   */
+  width?: Maybe<TemplateWidth>;
 };
 
 /**
@@ -4979,6 +5226,14 @@ export type DetailTemplateDefinition = Node & Sluggable & TemplateDefinition & {
    *
    */
   variant?: Maybe<DetailVariant>;
+  /**
+   * This controls how wide the template should render.
+   *
+   * **Note**: When using `HALF`, you should take care to make sure that there is an adjacent
+   * template that also uses `HALF`.
+   *
+   */
+  width?: Maybe<TemplateWidth>;
 };
 
 /**
@@ -6455,6 +6710,7 @@ export type HeroTemplateDefinition = Node & Sluggable & TemplateDefinition & {
    */
   background?: Maybe<HeroBackground>;
   createdAt: Scalars['ISO8601DateTime']['output'];
+  /** @deprecated This is a slot now. */
   descendantSearchPrompt?: Maybe<Scalars['String']['output']>;
   enableDescendantBrowsing?: Maybe<Scalars['Boolean']['output']>;
   enableDescendantSearch?: Maybe<Scalars['Boolean']['output']>;
@@ -6486,7 +6742,9 @@ export type HeroTemplateDefinition = Node & Sluggable & TemplateDefinition & {
  */
 export type HeroTemplateDefinitionSlots = {
   __typename?: 'HeroTemplateDefinitionSlots';
-  callToAction?: Maybe<TemplateSlotInlineDefinition>;
+  bigSearchPrompt?: Maybe<TemplateSlotInlineDefinition>;
+  callToAction?: Maybe<TemplateSlotBlockDefinition>;
+  descendantSearchPrompt?: Maybe<TemplateSlotInlineDefinition>;
   header?: Maybe<TemplateSlotInlineDefinition>;
   headerAside?: Maybe<TemplateSlotInlineDefinition>;
   headerSidebar?: Maybe<TemplateSlotBlockDefinition>;
@@ -6535,7 +6793,9 @@ export type HeroTemplateInstance = Node & Renderable & Sluggable & TemplateInsta
  */
 export type HeroTemplateInstanceSlots = {
   __typename?: 'HeroTemplateInstanceSlots';
-  callToAction?: Maybe<TemplateSlotInlineInstance>;
+  bigSearchPrompt?: Maybe<TemplateSlotInlineInstance>;
+  callToAction?: Maybe<TemplateSlotBlockInstance>;
+  descendantSearchPrompt?: Maybe<TemplateSlotInlineInstance>;
   header?: Maybe<TemplateSlotInlineInstance>;
   headerAside?: Maybe<TemplateSlotInlineInstance>;
   headerSidebar?: Maybe<TemplateSlotBlockInstance>;
@@ -7559,7 +7819,7 @@ export type ItemConnection = Paginated & {
 };
 
 /** A contribution to an item */
-export type ItemContribution = Contribution & Node & Sluggable & {
+export type ItemContribution = Contribution & ContributionBase & Node & Sluggable & {
   __typename?: 'ItemContribution';
   /** A potentially-overridden value from person contributors */
   affiliation?: Maybe<Scalars['String']['output']>;
@@ -7777,12 +8037,24 @@ export type LinkListTemplateDefinition = Node & Sluggable & TemplateDefinition &
   manualListName?: Maybe<Scalars['SchemaComponent']['output']>;
   seeAllButtonLabel?: Maybe<Scalars['String']['output']>;
   /**
+   * The fallback mode to use when rendering a list of entities, when the list from
+   * `selectionMode` is empty and `useSelectionFallback` has been set to true.
+   *
+   */
+  selectionFallbackMode?: Maybe<LinkListSelectionMode>;
+  /**
    * Regardless of `selectionMode`, this limit will be applied on whatever resulting
    * list of entities are produced, so that only up to that amount of entities are
    * rendered in the template proper.
    *
    */
   selectionLimit?: Maybe<Scalars['Int']['output']>;
+  /**
+   * The default mode to use when rendering a list of entities.
+   *
+   * See also `selectionFallbackMode` and `useSelectionFallback`.
+   *
+   */
   selectionMode?: Maybe<LinkListSelectionMode>;
   /**
    * When selecting entities based on `selectionMode`, this property determines
@@ -7802,7 +8074,12 @@ export type LinkListTemplateDefinition = Node & Sluggable & TemplateDefinition &
    *
    */
   selectionSourceMode?: Maybe<SelectionSourceMode>;
+  /**
+   * Show additional context about each entity in the selection.
+   *
+   */
   showEntityContext?: Maybe<Scalars['Boolean']['output']>;
+  showHeroImage?: Maybe<Scalars['Boolean']['output']>;
   showSeeAllButton?: Maybe<Scalars['Boolean']['output']>;
   /**
    * Slot definitions for this template.
@@ -7814,10 +8091,24 @@ export type LinkListTemplateDefinition = Node & Sluggable & TemplateDefinition &
   title?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['ISO8601DateTime']['output'];
   /**
+   * Controls whether or not to use `selectionFallbackMode` if the entity list returned
+   * via `selectionMode` turns out to be empty at runtime.
+   *
+   */
+  useSelectionFallback?: Maybe<Scalars['Boolean']['output']>;
+  /**
    * The variant rendering mode to use for this template. Affects presentation.
    *
    */
   variant?: Maybe<LinkListVariant>;
+  /**
+   * This controls how wide the template should render.
+   *
+   * **Note**: When using `HALF`, you should take care to make sure that there is an adjacent
+   * template that also uses `HALF`.
+   *
+   */
+  width?: Maybe<TemplateWidth>;
 };
 
 /**
@@ -8575,6 +8866,16 @@ export type Mutation = {
   /** Link two entities together */
   linkEntity?: Maybe<LinkEntityPayload>;
   /**
+   * Preview a slot for a given entity.
+   *
+   */
+  previewSlot?: Maybe<PreviewSlotPayload>;
+  /**
+   * Force the layouts to render for a given `Entity`.
+   *
+   */
+  renderLayouts?: Maybe<RenderLayoutsPayload>;
+  /**
    * A polymorphic mutation to reassign an entity to another point in the hierarchy.
    *
    * It performs validations to make sure that the parent entity can accept the child.
@@ -8914,6 +9215,24 @@ export type MutationGrantAccessArgs = {
  */
 export type MutationLinkEntityArgs = {
   input: LinkEntityInput;
+};
+
+
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
+export type MutationPreviewSlotArgs = {
+  input: PreviewSlotInput;
+};
+
+
+/**
+ * The entry point for making changes to the data within the WDP API.
+ *
+ */
+export type MutationRenderLayoutsArgs = {
+  input: RenderLayoutsInput;
 };
 
 
@@ -9888,6 +10207,14 @@ export type OrderingTemplateDefinition = Node & Sluggable & TemplateDefinition &
   slug: Scalars['Slug']['output'];
   templateKind: TemplateKind;
   updatedAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * This controls how wide the template should render.
+   *
+   * **Note**: When using `HALF`, you should take care to make sure that there is an adjacent
+   * template that also uses `HALF`.
+   *
+   */
+  width?: Maybe<TemplateWidth>;
 };
 
 /**
@@ -9954,31 +10281,69 @@ export type OrderingVisibilityFilter =
   | 'VISIBLE'
   | '%future added value';
 
-/** An organization that has made contributions */
-export type OrganizationContributor = Contributor & Node & Sluggable & {
+/**
+ * An organization that has made contributions.
+ *
+ */
+export type OrganizationContributor = Contributor & ContributorBase & Node & Sluggable & {
   __typename?: 'OrganizationContributor';
+  /**
+   * Only applicable when `kind` = `PERSON`.
+   *
+   */
+  affiliation?: Maybe<Scalars['String']['output']>;
   bio?: Maybe<Scalars['String']['output']>;
-  /** The total number of collection contributions from this contributor */
+  /**
+   * The total number of collection contributions from this contributor.
+   *
+   */
   collectionContributionCount: Scalars['Int']['output'];
   collectionContributions: CollectionContributionConnection;
-  /** The total number of contributions (item + collection) from this contributor */
+  /**
+   * The total number of contributions (item + collection) from this contributor.
+   *
+   */
   contributionCount: Scalars['Int']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   email?: Maybe<Scalars['String']['output']>;
+  /**
+   * Only applicable when `kind` = `PERSON`.
+   *
+   */
+  familyName?: Maybe<Scalars['String']['output']>;
+  /**
+   * Only applicable when `kind` = `PERSON`.
+   *
+   */
+  givenName?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   identifier: Scalars['String']['output'];
   /** An optional image associated with the contributor. */
   image: ImageAttachment;
   /** Configurable metadata for the image attachment */
   imageMetadata?: Maybe<ImageMetadata>;
-  /** The total number of item contributions from this contributor */
+  /**
+   * The total number of item contributions from this contributor.
+   *
+   */
   itemContributionCount: Scalars['Int']['output'];
   itemContributions: ItemContributionConnection;
   kind: ContributorKind;
+  /**
+   * Only applicable when `kind` = `ORGANIZATION`.
+   *
+   */
   legalName?: Maybe<Scalars['String']['output']>;
   links: Array<ContributorLink>;
+  /**
+   * Only applicable when `kind` = `ORGANIZATION`.
+   *
+   */
   location?: Maybe<Scalars['String']['output']>;
-  /** A display name, independent of the type of contributor */
+  /**
+   * A display name, independent of the type of contributor.
+   *
+   */
   name: Scalars['String']['output'];
   /**
    * An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor.
@@ -9988,12 +10353,20 @@ export type OrganizationContributor = Contributor & Node & Sluggable & {
   prefix?: Maybe<Scalars['String']['output']>;
   slug: Scalars['Slug']['output'];
   suffix?: Maybe<Scalars['String']['output']>;
+  /**
+   * Only applicable when `kind` = `PERSON`.
+   *
+   */
+  title?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['ISO8601DateTime']['output'];
   url?: Maybe<Scalars['String']['output']>;
 };
 
 
-/** An organization that has made contributions */
+/**
+ * An organization that has made contributions.
+ *
+ */
 export type OrganizationContributorCollectionContributionsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
@@ -10006,7 +10379,10 @@ export type OrganizationContributorCollectionContributionsArgs = {
 };
 
 
-/** An organization that has made contributions */
+/**
+ * An organization that has made contributions.
+ *
+ */
 export type OrganizationContributorItemContributionsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
@@ -10124,6 +10500,14 @@ export type PageListTemplateDefinition = Node & Sluggable & TemplateDefinition &
   slug: Scalars['Slug']['output'];
   templateKind: TemplateKind;
   updatedAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * This controls how wide the template should render.
+   *
+   * **Note**: When using `HALF`, you should take care to make sure that there is an adjacent
+   * template that also uses `HALF`.
+   *
+   */
+  width?: Maybe<TemplateWidth>;
 };
 
 /**
@@ -10201,19 +10585,40 @@ export type PermissionGrid = {
   permissions: Array<PermissionGrant>;
 };
 
-/** A person that has made contributions */
-export type PersonContributor = Contributor & Node & Sluggable & {
+/**
+ * A person that has made contributions.
+ *
+ */
+export type PersonContributor = Contributor & ContributorBase & Node & Sluggable & {
   __typename?: 'PersonContributor';
+  /**
+   * Only applicable when `kind` = `PERSON`.
+   *
+   */
   affiliation?: Maybe<Scalars['String']['output']>;
   bio?: Maybe<Scalars['String']['output']>;
-  /** The total number of collection contributions from this contributor */
+  /**
+   * The total number of collection contributions from this contributor.
+   *
+   */
   collectionContributionCount: Scalars['Int']['output'];
   collectionContributions: CollectionContributionConnection;
-  /** The total number of contributions (item + collection) from this contributor */
+  /**
+   * The total number of contributions (item + collection) from this contributor.
+   *
+   */
   contributionCount: Scalars['Int']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   email?: Maybe<Scalars['String']['output']>;
+  /**
+   * Only applicable when `kind` = `PERSON`.
+   *
+   */
   familyName?: Maybe<Scalars['String']['output']>;
+  /**
+   * Only applicable when `kind` = `PERSON`.
+   *
+   */
   givenName?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   identifier: Scalars['String']['output'];
@@ -10221,12 +10626,28 @@ export type PersonContributor = Contributor & Node & Sluggable & {
   image: ImageAttachment;
   /** Configurable metadata for the image attachment */
   imageMetadata?: Maybe<ImageMetadata>;
-  /** The total number of item contributions from this contributor */
+  /**
+   * The total number of item contributions from this contributor.
+   *
+   */
   itemContributionCount: Scalars['Int']['output'];
   itemContributions: ItemContributionConnection;
   kind: ContributorKind;
+  /**
+   * Only applicable when `kind` = `ORGANIZATION`.
+   *
+   */
+  legalName?: Maybe<Scalars['String']['output']>;
   links: Array<ContributorLink>;
-  /** A display name, independent of the type of contributor */
+  /**
+   * Only applicable when `kind` = `ORGANIZATION`.
+   *
+   */
+  location?: Maybe<Scalars['String']['output']>;
+  /**
+   * A display name, independent of the type of contributor.
+   *
+   */
   name: Scalars['String']['output'];
   /**
    * An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor.
@@ -10236,13 +10657,20 @@ export type PersonContributor = Contributor & Node & Sluggable & {
   prefix?: Maybe<Scalars['String']['output']>;
   slug: Scalars['Slug']['output'];
   suffix?: Maybe<Scalars['String']['output']>;
+  /**
+   * Only applicable when `kind` = `PERSON`.
+   *
+   */
   title?: Maybe<Scalars['String']['output']>;
   updatedAt: Scalars['ISO8601DateTime']['output'];
   url?: Maybe<Scalars['String']['output']>;
 };
 
 
-/** A person that has made contributions */
+/**
+ * A person that has made contributions.
+ *
+ */
 export type PersonContributorCollectionContributionsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
@@ -10255,7 +10683,10 @@ export type PersonContributorCollectionContributionsArgs = {
 };
 
 
-/** A person that has made contributions */
+/**
+ * A person that has made contributions.
+ *
+ */
 export type PersonContributorItemContributionsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   before?: InputMaybe<Scalars['String']['input']>;
@@ -10265,6 +10696,45 @@ export type PersonContributorItemContributionsArgs = {
   page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: InputMaybe<PageDirection>;
   perPage?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Autogenerated input type of PreviewSlot */
+export type PreviewSlotInput = {
+  /** A unique identifier for the client performing the mutation. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * The entity to update.
+   *
+   */
+  entityId: Scalars['ID']['input'];
+  /**
+   * The kind of slot to render.
+   *
+   */
+  kind: TemplateSlotKind;
+  /**
+   * The template to render.
+   *
+   */
+  template: Scalars['String']['input'];
+};
+
+/** Autogenerated return type of PreviewSlot. */
+export type PreviewSlotPayload = StandardMutationPayload & {
+  __typename?: 'PreviewSlotPayload';
+  attributeErrors: Array<MutationAttributeError>;
+  /** A unique identifier for the client performing the mutation. */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /** @deprecated Use attributeErrors or globalErrors */
+  errors: Array<UserError>;
+  globalErrors: Array<MutationGlobalError>;
+  /** Not presently used */
+  haltCode?: Maybe<Scalars['String']['output']>;
+  /**
+   * The rendered slot (if successful)
+   *
+   */
+  slot?: Maybe<TemplateSlotInstance>;
 };
 
 /** When altering a schema version for an entity, there are various strategies that can be used to determine how to handle the provided properties. */
@@ -10833,6 +11303,35 @@ export type ReferencesEntityVisibilityVisibleAsOfArgs = {
 export type ReferencesGlobalEntityDates = {
   /** The date this entity was published */
   published: VariablePrecisionDate;
+};
+
+/** Autogenerated input type of RenderLayouts */
+export type RenderLayoutsInput = {
+  /** A unique identifier for the client performing the mutation. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /**
+   * The entity to render layouts on.
+   *
+   */
+  entityId: Scalars['ID']['input'];
+};
+
+/** Autogenerated return type of RenderLayouts. */
+export type RenderLayoutsPayload = StandardMutationPayload & {
+  __typename?: 'RenderLayoutsPayload';
+  attributeErrors: Array<MutationAttributeError>;
+  /** A unique identifier for the client performing the mutation. */
+  clientMutationId?: Maybe<Scalars['String']['output']>;
+  /**
+   * The newly-rendered entity with its updated layouts, if successful.
+   *
+   */
+  entity?: Maybe<AnyEntity>;
+  /** @deprecated Use attributeErrors or globalErrors */
+  errors: Array<UserError>;
+  globalErrors: Array<MutationGlobalError>;
+  /** Not presently used */
+  haltCode?: Maybe<Scalars['String']['output']>;
 };
 
 /**
@@ -11945,7 +12444,20 @@ export type SelectProperty = OptionableProperty & ScalarProperty & SchemaPropert
  *
  */
 export type SelectionSourceMode =
+  /**
+   * Selections should inherit from a named ancestor of this entity.
+   *
+   */
   | 'ANCESTOR'
+  /**
+   * Selections should inherit from the hierarchical parent of this entity.
+   *
+   */
+  | 'PARENT'
+  /**
+   * Selections should inherit from the exact entity in question
+   *
+   */
   | 'SELF'
   | '%future added value';
 
@@ -12427,6 +12939,62 @@ export type TagsProperty = ScalarProperty & SchemaProperty & {
 };
 
 /**
+ * A contribution from a certain contributor.
+ *
+ * This is a pared-down version of `Contribution` in order to
+ * better support fragment caching and smaller queries.
+ *
+ * It uses `ContributorBase` in place of the `AnyContributor` union.
+ *
+ */
+export type TemplateContribution = ContributionBase & {
+  __typename?: 'TemplateContribution';
+  /** A potentially-overridden value from person contributors */
+  affiliation?: Maybe<Scalars['String']['output']>;
+  /**
+   * The contributor, loaded via abstract interface for simplicity.
+   *
+   */
+  contributor: ContributorBase;
+  contributorKind: ContributorKind;
+  /** A potentially-overridden display name value for all contributor types */
+  displayName: Scalars['String']['output'];
+  /** A potentially-overridden value from organization contributors */
+  location?: Maybe<Scalars['String']['output']>;
+  metadata: ContributionMetadata;
+  /** An arbitrary text value describing the role the contributor had */
+  role?: Maybe<Scalars['String']['output']>;
+  /** A potentially-overridden value from person contributors */
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+/**
+ * `ContributorListTemplateInstance`s return an ordered list of contributions to render
+ * within as part of their content.
+ *
+ */
+export type TemplateContributionList = {
+  __typename?: 'TemplateContributionList';
+  /**
+   * The actual entity records within this list.
+   *
+   * The order is deterministic.
+   *
+   */
+  contributions: Array<TemplateContribution>;
+  /**
+   * The size of the list.
+   *
+   */
+  count: Scalars['Int']['output'];
+  /**
+   * Whether the list is empty, provided for easier filtering and render-skipping.
+   *
+   */
+  empty: Scalars['Boolean']['output'];
+};
+
+/**
  * Entities within the system have templates associated with schema-specific layouts,
  * that can be overridden within the hierarchy for more custom approaches.
  *
@@ -12472,6 +13040,13 @@ export type TemplateEntityList = {
    */
   entities: Array<AnyEntity>;
   /**
+   * Whether the entity selection tried to use the fallback selection mode.
+   *
+   * When true, the resulting list is fallback. It can still be empty.
+   *
+   */
+  fallback: Scalars['Boolean']['output'];
+  /**
    * A shortcut to access the list item layouts for each entity in `entities`.
    *
    * The order is deterministic.
@@ -12480,6 +13055,18 @@ export type TemplateEntityList = {
    *
    */
   listItemLayouts: Array<ListItemLayoutInstance>;
+};
+
+/**
+ * An interface for a template instance that has a `TemplateContributionList`.
+ *
+ */
+export type TemplateHasContributionList = {
+  /**
+   * The list of contributions to render as part of this template's content.
+   *
+   */
+  contributionList: TemplateContributionList;
 };
 
 /**
@@ -12844,6 +13431,26 @@ export type TemplateSlotKind =
    *
    */
   | 'INLINE'
+  | '%future added value';
+
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type TemplateWidth =
+  /**
+   * This template should occupy the full-width of the layout.
+   *
+   */
+  | 'FULL'
+  /**
+   * This template should occupy half of the width of the layout.
+   *
+   * **Note**: This should be used in concert with an adjacent HALF-width template.
+   * The server will not validate this is the case.
+   *
+   */
+  | 'HALF'
   | '%future added value';
 
 /** Configuration settings for the theme of the WDP frontend. */
@@ -14744,7 +15351,9 @@ export type ResolversInterfaceTypes<RefType extends Record<string, unknown>> = {
   ChildEntity: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
   Contributable: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
   Contribution: ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } );
+  ContributionBase: ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( TemplateContribution );
   Contributor: ( OrganizationContributor ) | ( PersonContributor );
+  ContributorBase: ( OrganizationContributor ) | ( PersonContributor );
   DescribesSchema: ( HierarchicalSchemaRank ) | ( HierarchicalSchemaVersionRank ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } );
   DestroyMutationPayload: ( ControlledVocabularyDestroyPayload ) | ( DestroyAnnouncementPayload ) | ( DestroyAssetPayload ) | ( DestroyCollectionPayload ) | ( DestroyCommunityPayload ) | ( DestroyContributionPayload ) | ( DestroyContributorPayload ) | ( DestroyEntityLinkPayload ) | ( DestroyItemPayload ) | ( DestroyOrderingPayload ) | ( DestroyPagePayload );
   Entity: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
@@ -14779,8 +15388,9 @@ export type ResolversInterfaceTypes<RefType extends Record<string, unknown>> = {
   Searchable: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Query, 'asset' | 'contributor' | 'contributorLookup' | 'orderingPaths'> & { asset?: Maybe<RefType['AnyAsset']>, contributor?: Maybe<RefType['AnyContributor']>, contributorLookup?: Maybe<RefType['AnyContributor']>, orderingPaths: Array<RefType['AnyOrderingPath']> } ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } );
   SearchableProperty: ( BooleanProperty ) | ( DateProperty ) | ( FloatProperty ) | ( FullTextProperty ) | ( IntegerProperty ) | ( MarkdownProperty ) | ( MultiselectProperty ) | ( SearchableCoreProperty ) | ( SelectProperty ) | ( StringProperty ) | ( TimestampProperty ) | ( VariableDateProperty );
   Sluggable: ( Omit<Announcement, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<RefType['AnyUserAccessGrant']> } ) | ( ContributorListTemplateDefinition ) | ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( ControlledVocabulary ) | ( ControlledVocabularyItem ) | ( ControlledVocabularySource ) | ( DescendantListTemplateDefinition ) | ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( DetailTemplateDefinition ) | ( Omit<DetailTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<EntityLink, 'source' | 'target'> & { source: RefType['AnyEntity'], target: RefType['AnyEntity'] } ) | ( Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyHeroTemplateDefinition']> } ) | ( Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyHeroTemplateInstance']> } ) | ( HeroTemplateDefinition ) | ( Omit<HeroTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( LinkListTemplateDefinition ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyListItemTemplateDefinition']> } ) | ( Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyListItemTemplateInstance']> } ) | ( ListItemTemplateDefinition ) | ( Omit<ListItemTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<MainLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMainTemplateDefinition']> } ) | ( Omit<MainLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMainTemplateInstance']> } ) | ( Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMetadataTemplateDefinition']> } ) | ( Omit<MetadataLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMetadataTemplateInstance']> } ) | ( MetadataTemplateDefinition ) | ( Omit<MetadataTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyNavigationTemplateDefinition']> } ) | ( Omit<NavigationLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyNavigationTemplateInstance']> } ) | ( NavigationTemplateDefinition ) | ( Omit<NavigationTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingEntry, 'entry'> & { entry: RefType['AnyOrderingEntry'] } ) | ( OrderingTemplateDefinition ) | ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( OrganizationContributor ) | ( PageListTemplateDefinition ) | ( Omit<PageListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PersonContributor ) | ( Role ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } ) | ( Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<RefType['AnySupplementaryTemplateDefinition']> } ) | ( Omit<SupplementaryLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnySupplementaryTemplateInstance']> } ) | ( SupplementaryTemplateDefinition ) | ( Omit<SupplementaryTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( User ) | ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( UserGroup ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
-  StandardMutationPayload: ( Omit<AlterSchemaVersionPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ApplySchemaPropertiesPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ClearInitialOrderingPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( ControlledVocabularyDestroyPayload ) | ( ControlledVocabularySourceUpdatePayload ) | ( ControlledVocabularyUpsertPayload ) | ( CreateAnnouncementPayload ) | ( Omit<CreateAssetPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( CreateCollectionPayload ) | ( CreateCommunityPayload ) | ( CreateItemPayload ) | ( CreateOrderingPayload ) | ( CreateOrganizationContributorPayload ) | ( CreatePagePayload ) | ( CreatePersonContributorPayload ) | ( CreateRolePayload ) | ( DestroyAnnouncementPayload ) | ( DestroyAssetPayload ) | ( DestroyCollectionPayload ) | ( DestroyCommunityPayload ) | ( DestroyContributionPayload ) | ( DestroyContributorPayload ) | ( DestroyEntityLinkPayload ) | ( DestroyItemPayload ) | ( DestroyOrderingPayload ) | ( DestroyPagePayload ) | ( Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( LinkEntityPayload ) | ( Omit<ReparentEntityPayload, 'child'> & { child?: Maybe<RefType['AnyChildEntity']> } ) | ( ResetOrderingPayload ) | ( Omit<RevokeAccessPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<SelectInitialOrderingPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( UpdateAnnouncementPayload ) | ( Omit<UpdateAssetAttachmentPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( Omit<UpdateAssetPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( UpdateCollectionPayload ) | ( UpdateCommunityPayload ) | ( Omit<UpdateContributionPayload, 'contribution'> & { contribution?: Maybe<RefType['AnyContribution']> } ) | ( UpdateGlobalConfigurationPayload ) | ( UpdateItemPayload ) | ( UpdateOrderingPayload ) | ( UpdateOrganizationContributorPayload ) | ( UpdatePagePayload ) | ( UpdatePersonContributorPayload ) | ( UpdateRolePayload ) | ( UpdateUserPayload ) | ( UpdateViewerSettingsPayload ) | ( Omit<UpsertContributionPayload, 'contribution'> & { contribution?: Maybe<RefType['AnyContribution']> } );
+  StandardMutationPayload: ( Omit<AlterSchemaVersionPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ApplySchemaPropertiesPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ClearInitialOrderingPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( ControlledVocabularyDestroyPayload ) | ( ControlledVocabularySourceUpdatePayload ) | ( ControlledVocabularyUpsertPayload ) | ( CreateAnnouncementPayload ) | ( Omit<CreateAssetPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( CreateCollectionPayload ) | ( CreateCommunityPayload ) | ( CreateItemPayload ) | ( CreateOrderingPayload ) | ( CreateOrganizationContributorPayload ) | ( CreatePagePayload ) | ( CreatePersonContributorPayload ) | ( CreateRolePayload ) | ( DestroyAnnouncementPayload ) | ( DestroyAssetPayload ) | ( DestroyCollectionPayload ) | ( DestroyCommunityPayload ) | ( DestroyContributionPayload ) | ( DestroyContributorPayload ) | ( DestroyEntityLinkPayload ) | ( DestroyItemPayload ) | ( DestroyOrderingPayload ) | ( DestroyPagePayload ) | ( Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( LinkEntityPayload ) | ( PreviewSlotPayload ) | ( Omit<RenderLayoutsPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ReparentEntityPayload, 'child'> & { child?: Maybe<RefType['AnyChildEntity']> } ) | ( ResetOrderingPayload ) | ( Omit<RevokeAccessPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<SelectInitialOrderingPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( UpdateAnnouncementPayload ) | ( Omit<UpdateAssetAttachmentPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( Omit<UpdateAssetPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( UpdateCollectionPayload ) | ( UpdateCommunityPayload ) | ( Omit<UpdateContributionPayload, 'contribution'> & { contribution?: Maybe<RefType['AnyContribution']> } ) | ( UpdateGlobalConfigurationPayload ) | ( UpdateItemPayload ) | ( UpdateOrderingPayload ) | ( UpdateOrganizationContributorPayload ) | ( UpdatePagePayload ) | ( UpdatePersonContributorPayload ) | ( UpdateRolePayload ) | ( UpdateUserPayload ) | ( UpdateViewerSettingsPayload ) | ( Omit<UpsertContributionPayload, 'contribution'> & { contribution?: Maybe<RefType['AnyContribution']> } );
   TemplateDefinition: ( ContributorListTemplateDefinition ) | ( DescendantListTemplateDefinition ) | ( DetailTemplateDefinition ) | ( HeroTemplateDefinition ) | ( LinkListTemplateDefinition ) | ( ListItemTemplateDefinition ) | ( MetadataTemplateDefinition ) | ( NavigationTemplateDefinition ) | ( OrderingTemplateDefinition ) | ( PageListTemplateDefinition ) | ( SupplementaryTemplateDefinition );
+  TemplateHasContributionList: ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } );
   TemplateHasEntityList: ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } );
   TemplateHasOrderingPair: ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } );
   TemplateInstance: ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<DetailTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<HeroTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<ListItemTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<MetadataTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<NavigationTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<PageListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<SupplementaryTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } );
@@ -14893,15 +15503,18 @@ export type ResolversTypes = {
   ContextualPermissionOrder: ContextualPermissionOrder;
   Contributable: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['Contributable']>;
   Contribution: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['Contribution']>;
+  ContributionBase: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['ContributionBase']>;
   ContributionMetadata: ResolverTypeWrapper<ContributionMetadata>;
   ContributionMetadataInput: ContributionMetadataInput;
   ContributionOrder: ContributionOrder;
   Contributor: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['Contributor']>;
+  ContributorBase: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['ContributorBase']>;
   ContributorFilterKind: ContributorFilterKind;
   ContributorKind: ContributorKind;
   ContributorLink: ResolverTypeWrapper<ContributorLink>;
   ContributorLinkInput: ContributorLinkInput;
   ContributorListBackground: ContributorListBackground;
+  ContributorListFilter: ContributorListFilter;
   ContributorListTemplateDefinition: ResolverTypeWrapper<ContributorListTemplateDefinition>;
   ContributorListTemplateDefinitionSlots: ResolverTypeWrapper<ContributorListTemplateDefinitionSlots>;
   ContributorListTemplateInstance: ResolverTypeWrapper<Omit<ContributorListTemplateInstance, 'entity'> & { entity: ResolversTypes['AnyEntity'] }>;
@@ -15179,12 +15792,16 @@ export type ResolversTypes = {
   PermissionGrant: ResolverTypeWrapper<PermissionGrant>;
   PermissionGrid: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['PermissionGrid']>;
   PersonContributor: ResolverTypeWrapper<PersonContributor>;
+  PreviewSlotInput: PreviewSlotInput;
+  PreviewSlotPayload: ResolverTypeWrapper<PreviewSlotPayload>;
   PropertyApplicationStrategy: PropertyApplicationStrategy;
   QueriesControlledVocabulary: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['QueriesControlledVocabulary']>;
   QueriesControlledVocabularySource: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['QueriesControlledVocabularySource']>;
   Query: ResolverTypeWrapper<{}>;
   ReferencesEntityVisibility: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['ReferencesEntityVisibility']>;
   ReferencesGlobalEntityDates: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['ReferencesGlobalEntityDates']>;
+  RenderLayoutsInput: RenderLayoutsInput;
+  RenderLayoutsPayload: ResolverTypeWrapper<Omit<RenderLayoutsPayload, 'entity'> & { entity?: Maybe<ResolversTypes['AnyEntity']> }>;
   Renderable: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['Renderable']>;
   ReparentEntityInput: ReparentEntityInput;
   ReparentEntityPayload: ResolverTypeWrapper<Omit<ReparentEntityPayload, 'child'> & { child?: Maybe<ResolversTypes['AnyChildEntity']> }>;
@@ -15261,8 +15878,11 @@ export type ResolversTypes = {
   SupplementaryTemplateInstanceSlots: ResolverTypeWrapper<SupplementaryTemplateInstanceSlots>;
   SystemInfo: ResolverTypeWrapper<SystemInfo>;
   TagsProperty: ResolverTypeWrapper<TagsProperty>;
+  TemplateContribution: ResolverTypeWrapper<TemplateContribution>;
+  TemplateContributionList: ResolverTypeWrapper<TemplateContributionList>;
   TemplateDefinition: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['TemplateDefinition']>;
   TemplateEntityList: ResolverTypeWrapper<Omit<TemplateEntityList, 'entities'> & { entities: Array<ResolversTypes['AnyEntity']> }>;
+  TemplateHasContributionList: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['TemplateHasContributionList']>;
   TemplateHasEntityList: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['TemplateHasEntityList']>;
   TemplateHasOrderingPair: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['TemplateHasOrderingPair']>;
   TemplateInstance: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['TemplateInstance']>;
@@ -15277,6 +15897,7 @@ export type ResolversTypes = {
   TemplateSlotInlineInstance: ResolverTypeWrapper<TemplateSlotInlineInstance>;
   TemplateSlotInstance: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['TemplateSlotInstance']>;
   TemplateSlotKind: TemplateSlotKind;
+  TemplateWidth: TemplateWidth;
   ThemeSettings: ResolverTypeWrapper<ThemeSettings>;
   ThemeSettingsInput: ThemeSettingsInput;
   TimestampProperty: ResolverTypeWrapper<TimestampProperty>;
@@ -15448,9 +16069,11 @@ export type ResolversParentTypes = {
   ContextualPermissionEdge: ContextualPermissionEdge;
   Contributable: ResolversInterfaceTypes<ResolversParentTypes>['Contributable'];
   Contribution: ResolversInterfaceTypes<ResolversParentTypes>['Contribution'];
+  ContributionBase: ResolversInterfaceTypes<ResolversParentTypes>['ContributionBase'];
   ContributionMetadata: ContributionMetadata;
   ContributionMetadataInput: ContributionMetadataInput;
   Contributor: ResolversInterfaceTypes<ResolversParentTypes>['Contributor'];
+  ContributorBase: ResolversInterfaceTypes<ResolversParentTypes>['ContributorBase'];
   ContributorLink: ContributorLink;
   ContributorLinkInput: ContributorLinkInput;
   ContributorListTemplateDefinition: ContributorListTemplateDefinition;
@@ -15683,11 +16306,15 @@ export type ResolversParentTypes = {
   PermissionGrant: PermissionGrant;
   PermissionGrid: ResolversInterfaceTypes<ResolversParentTypes>['PermissionGrid'];
   PersonContributor: PersonContributor;
+  PreviewSlotInput: PreviewSlotInput;
+  PreviewSlotPayload: PreviewSlotPayload;
   QueriesControlledVocabulary: ResolversInterfaceTypes<ResolversParentTypes>['QueriesControlledVocabulary'];
   QueriesControlledVocabularySource: ResolversInterfaceTypes<ResolversParentTypes>['QueriesControlledVocabularySource'];
   Query: {};
   ReferencesEntityVisibility: ResolversInterfaceTypes<ResolversParentTypes>['ReferencesEntityVisibility'];
   ReferencesGlobalEntityDates: ResolversInterfaceTypes<ResolversParentTypes>['ReferencesGlobalEntityDates'];
+  RenderLayoutsInput: RenderLayoutsInput;
+  RenderLayoutsPayload: Omit<RenderLayoutsPayload, 'entity'> & { entity?: Maybe<ResolversParentTypes['AnyEntity']> };
   Renderable: ResolversInterfaceTypes<ResolversParentTypes>['Renderable'];
   ReparentEntityInput: ReparentEntityInput;
   ReparentEntityPayload: Omit<ReparentEntityPayload, 'child'> & { child?: Maybe<ResolversParentTypes['AnyChildEntity']> };
@@ -15747,8 +16374,11 @@ export type ResolversParentTypes = {
   SupplementaryTemplateInstanceSlots: SupplementaryTemplateInstanceSlots;
   SystemInfo: SystemInfo;
   TagsProperty: TagsProperty;
+  TemplateContribution: TemplateContribution;
+  TemplateContributionList: TemplateContributionList;
   TemplateDefinition: ResolversInterfaceTypes<ResolversParentTypes>['TemplateDefinition'];
   TemplateEntityList: Omit<TemplateEntityList, 'entities'> & { entities: Array<ResolversParentTypes['AnyEntity']> };
+  TemplateHasContributionList: ResolversInterfaceTypes<ResolversParentTypes>['TemplateHasContributionList'];
   TemplateHasEntityList: ResolversInterfaceTypes<ResolversParentTypes>['TemplateHasEntityList'];
   TemplateHasOrderingPair: ResolversInterfaceTypes<ResolversParentTypes>['TemplateHasOrderingPair'];
   TemplateInstance: ResolversInterfaceTypes<ResolversParentTypes>['TemplateInstance'];
@@ -16714,6 +17344,17 @@ export type ContributionResolvers<ContextType = any, ParentType extends Resolver
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 };
 
+export type ContributionBaseResolvers<ContextType = any, ParentType extends ResolversParentTypes['ContributionBase'] = ResolversParentTypes['ContributionBase']> = {
+  __resolveType: TypeResolveFn<'CollectionContribution' | 'ItemContribution' | 'TemplateContribution', ParentType, ContextType>;
+  affiliation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  contributorKind?: Resolver<ResolversTypes['ContributorKind'], ParentType, ContextType>;
+  displayName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  metadata?: Resolver<ResolversTypes['ContributionMetadata'], ParentType, ContextType>;
+  role?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
 export type ContributionMetadataResolvers<ContextType = any, ParentType extends ResolversParentTypes['ContributionMetadata'] = ResolversParentTypes['ContributionMetadata']> = {
   affiliation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   displayName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -16724,22 +17365,53 @@ export type ContributionMetadataResolvers<ContextType = any, ParentType extends 
 
 export type ContributorResolvers<ContextType = any, ParentType extends ResolversParentTypes['Contributor'] = ResolversParentTypes['Contributor']> = {
   __resolveType: TypeResolveFn<'OrganizationContributor' | 'PersonContributor', ParentType, ContextType>;
+  affiliation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   bio?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   collectionContributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   collectionContributions?: Resolver<ResolversTypes['CollectionContributionConnection'], ParentType, ContextType, RequireFields<ContributorCollectionContributionsArgs, 'order' | 'pageDirection'>>;
   contributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  familyName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  givenName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   image?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   imageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   itemContributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   itemContributions?: Resolver<ResolversTypes['ItemContributionConnection'], ParentType, ContextType, RequireFields<ContributorItemContributionsArgs, 'order' | 'pageDirection'>>;
   kind?: Resolver<ResolversTypes['ContributorKind'], ParentType, ContextType>;
+  legalName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   links?: Resolver<Array<ResolversTypes['ContributorLink']>, ParentType, ContextType>;
+  location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   orcid?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   prefix?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   suffix?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+};
+
+export type ContributorBaseResolvers<ContextType = any, ParentType extends ResolversParentTypes['ContributorBase'] = ResolversParentTypes['ContributorBase']> = {
+  __resolveType: TypeResolveFn<'OrganizationContributor' | 'PersonContributor', ParentType, ContextType>;
+  affiliation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  bio?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  collectionContributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  contributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  familyName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  givenName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  image?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
+  imageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
+  itemContributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  kind?: Resolver<ResolversTypes['ContributorKind'], ParentType, ContextType>;
+  legalName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  links?: Resolver<Array<ResolversTypes['ContributorLink']>, ParentType, ContextType>;
+  location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  orcid?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  prefix?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  suffix?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 };
 
@@ -16752,6 +17424,7 @@ export type ContributorLinkResolvers<ContextType = any, ParentType extends Resol
 export type ContributorListTemplateDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['ContributorListTemplateDefinition'] = ResolversParentTypes['ContributorListTemplateDefinition']> = {
   background?: Resolver<Maybe<ResolversTypes['ContributorListBackground']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  filter?: Resolver<Maybe<ResolversTypes['ContributorListFilter']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
   limit?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -16759,6 +17432,7 @@ export type ContributorListTemplateDefinitionResolvers<ContextType = any, Parent
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  width?: Resolver<Maybe<ResolversTypes['TemplateWidth']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -16768,6 +17442,7 @@ export type ContributorListTemplateDefinitionSlotsResolvers<ContextType = any, P
 };
 
 export type ContributorListTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['ContributorListTemplateInstance'] = ResolversParentTypes['ContributorListTemplateInstance']> = {
+  contributionList?: Resolver<ResolversTypes['TemplateContributionList'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['ContributorListTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
@@ -17090,6 +17765,7 @@ export type DescendantListTemplateDefinitionResolvers<ContextType = any, ParentT
   manualListName?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
   orderingIdentifier?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
   seeAllButtonLabel?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  selectionFallbackMode?: Resolver<Maybe<ResolversTypes['DescendantListSelectionMode']>, ParentType, ContextType>;
   selectionLimit?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   selectionMode?: Resolver<Maybe<ResolversTypes['DescendantListSelectionMode']>, ParentType, ContextType>;
   selectionPropertyPath?: Resolver<Maybe<ResolversTypes['SchemaPropertyPath']>, ParentType, ContextType>;
@@ -17097,13 +17773,16 @@ export type DescendantListTemplateDefinitionResolvers<ContextType = any, ParentT
   selectionSourceAncestorName?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
   selectionSourceMode?: Resolver<Maybe<ResolversTypes['SelectionSourceMode']>, ParentType, ContextType>;
   showEntityContext?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showHeroImage?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showSeeAllButton?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['DescendantListTemplateDefinitionSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  useSelectionFallback?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   variant?: Resolver<Maybe<ResolversTypes['DescendantListVariant']>, ParentType, ContextType>;
+  width?: Resolver<Maybe<ResolversTypes['TemplateWidth']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -17280,6 +17959,7 @@ export type DetailTemplateDefinitionResolvers<ContextType = any, ParentType exte
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   variant?: Resolver<Maybe<ResolversTypes['DetailVariant']>, ParentType, ContextType>;
+  width?: Resolver<Maybe<ResolversTypes['TemplateWidth']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -17705,7 +18385,9 @@ export type HeroTemplateDefinitionResolvers<ContextType = any, ParentType extend
 };
 
 export type HeroTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['HeroTemplateDefinitionSlots'] = ResolversParentTypes['HeroTemplateDefinitionSlots']> = {
-  callToAction?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  bigSearchPrompt?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  callToAction?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
+  descendantSearchPrompt?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   headerAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   headerSidebar?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
@@ -17734,7 +18416,9 @@ export type HeroTemplateInstanceResolvers<ContextType = any, ParentType extends 
 };
 
 export type HeroTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['HeroTemplateInstanceSlots'] = ResolversParentTypes['HeroTemplateInstanceSlots']> = {
-  callToAction?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  bigSearchPrompt?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  callToAction?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
+  descendantSearchPrompt?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   headerAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   headerSidebar?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
@@ -18054,19 +18738,23 @@ export type LinkListTemplateDefinitionResolvers<ContextType = any, ParentType ex
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
   manualListName?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
   seeAllButtonLabel?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  selectionFallbackMode?: Resolver<Maybe<ResolversTypes['LinkListSelectionMode']>, ParentType, ContextType>;
   selectionLimit?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   selectionMode?: Resolver<Maybe<ResolversTypes['LinkListSelectionMode']>, ParentType, ContextType>;
   selectionSource?: Resolver<Maybe<ResolversTypes['TemplateSelectionSource']>, ParentType, ContextType>;
   selectionSourceAncestorName?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
   selectionSourceMode?: Resolver<Maybe<ResolversTypes['SelectionSourceMode']>, ParentType, ContextType>;
   showEntityContext?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showHeroImage?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showSeeAllButton?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['LinkListTemplateDefinitionSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  useSelectionFallback?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   variant?: Resolver<Maybe<ResolversTypes['LinkListVariant']>, ParentType, ContextType>;
+  width?: Resolver<Maybe<ResolversTypes['TemplateWidth']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -18360,6 +19048,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   destroyPage?: Resolver<Maybe<ResolversTypes['DestroyPagePayload']>, ParentType, ContextType, RequireFields<MutationDestroyPageArgs, 'input'>>;
   grantAccess?: Resolver<Maybe<ResolversTypes['GrantAccessPayload']>, ParentType, ContextType, RequireFields<MutationGrantAccessArgs, 'input'>>;
   linkEntity?: Resolver<Maybe<ResolversTypes['LinkEntityPayload']>, ParentType, ContextType, RequireFields<MutationLinkEntityArgs, 'input'>>;
+  previewSlot?: Resolver<Maybe<ResolversTypes['PreviewSlotPayload']>, ParentType, ContextType, RequireFields<MutationPreviewSlotArgs, 'input'>>;
+  renderLayouts?: Resolver<Maybe<ResolversTypes['RenderLayoutsPayload']>, ParentType, ContextType, RequireFields<MutationRenderLayoutsArgs, 'input'>>;
   reparentEntity?: Resolver<Maybe<ResolversTypes['ReparentEntityPayload']>, ParentType, ContextType, RequireFields<MutationReparentEntityArgs, 'input'>>;
   resetOrdering?: Resolver<Maybe<ResolversTypes['ResetOrderingPayload']>, ParentType, ContextType, RequireFields<MutationResetOrderingArgs, 'input'>>;
   revokeAccess?: Resolver<Maybe<ResolversTypes['RevokeAccessPayload']>, ParentType, ContextType, RequireFields<MutationRevokeAccessArgs, 'input'>>;
@@ -18621,6 +19311,7 @@ export type OrderingTemplateDefinitionResolvers<ContextType = any, ParentType ex
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  width?: Resolver<Maybe<ResolversTypes['TemplateWidth']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -18652,12 +19343,15 @@ export type OrderingTemplateInstanceSlotsResolvers<ContextType = any, ParentType
 };
 
 export type OrganizationContributorResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrganizationContributor'] = ResolversParentTypes['OrganizationContributor']> = {
+  affiliation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   bio?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   collectionContributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   collectionContributions?: Resolver<ResolversTypes['CollectionContributionConnection'], ParentType, ContextType, RequireFields<OrganizationContributorCollectionContributionsArgs, 'order' | 'pageDirection'>>;
   contributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  familyName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  givenName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   image?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
@@ -18673,6 +19367,7 @@ export type OrganizationContributorResolvers<ContextType = any, ParentType exten
   prefix?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   suffix?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -18727,6 +19422,7 @@ export type PageListTemplateDefinitionResolvers<ContextType = any, ParentType ex
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  width?: Resolver<Maybe<ResolversTypes['TemplateWidth']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -18790,7 +19486,9 @@ export type PersonContributorResolvers<ContextType = any, ParentType extends Res
   itemContributionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   itemContributions?: Resolver<ResolversTypes['ItemContributionConnection'], ParentType, ContextType, RequireFields<PersonContributorItemContributionsArgs, 'order' | 'pageDirection'>>;
   kind?: Resolver<ResolversTypes['ContributorKind'], ParentType, ContextType>;
+  legalName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   links?: Resolver<Array<ResolversTypes['ContributorLink']>, ParentType, ContextType>;
+  location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   orcid?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   prefix?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -18799,6 +19497,16 @@ export type PersonContributorResolvers<ContextType = any, ParentType extends Res
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type PreviewSlotPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['PreviewSlotPayload'] = ResolversParentTypes['PreviewSlotPayload']> = {
+  attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  errors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
+  globalErrors?: Resolver<Array<ResolversTypes['MutationGlobalError']>, ParentType, ContextType>;
+  haltCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  slot?: Resolver<Maybe<ResolversTypes['TemplateSlotInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -18866,6 +19574,16 @@ export type ReferencesEntityVisibilityResolvers<ContextType = any, ParentType ex
 export type ReferencesGlobalEntityDatesResolvers<ContextType = any, ParentType extends ResolversParentTypes['ReferencesGlobalEntityDates'] = ResolversParentTypes['ReferencesGlobalEntityDates']> = {
   __resolveType: TypeResolveFn<'Collection' | 'Item', ParentType, ContextType>;
   published?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
+};
+
+export type RenderLayoutsPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['RenderLayoutsPayload'] = ResolversParentTypes['RenderLayoutsPayload']> = {
+  attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
+  clientMutationId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  entity?: Resolver<Maybe<ResolversTypes['AnyEntity']>, ParentType, ContextType>;
+  errors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
+  globalErrors?: Resolver<Array<ResolversTypes['MutationGlobalError']>, ParentType, ContextType>;
+  haltCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type RenderableResolvers<ContextType = any, ParentType extends ResolversParentTypes['Renderable'] = ResolversParentTypes['Renderable']> = {
@@ -19231,7 +19949,7 @@ export type SluggableResolvers<ContextType = any, ParentType extends ResolversPa
 };
 
 export type StandardMutationPayloadResolvers<ContextType = any, ParentType extends ResolversParentTypes['StandardMutationPayload'] = ResolversParentTypes['StandardMutationPayload']> = {
-  __resolveType: TypeResolveFn<'AlterSchemaVersionPayload' | 'ApplySchemaPropertiesPayload' | 'ClearInitialOrderingPayload' | 'ControlledVocabularyDestroyPayload' | 'ControlledVocabularySourceUpdatePayload' | 'ControlledVocabularyUpsertPayload' | 'CreateAnnouncementPayload' | 'CreateAssetPayload' | 'CreateCollectionPayload' | 'CreateCommunityPayload' | 'CreateItemPayload' | 'CreateOrderingPayload' | 'CreateOrganizationContributorPayload' | 'CreatePagePayload' | 'CreatePersonContributorPayload' | 'CreateRolePayload' | 'DestroyAnnouncementPayload' | 'DestroyAssetPayload' | 'DestroyCollectionPayload' | 'DestroyCommunityPayload' | 'DestroyContributionPayload' | 'DestroyContributorPayload' | 'DestroyEntityLinkPayload' | 'DestroyItemPayload' | 'DestroyOrderingPayload' | 'DestroyPagePayload' | 'GrantAccessPayload' | 'LinkEntityPayload' | 'ReparentEntityPayload' | 'ResetOrderingPayload' | 'RevokeAccessPayload' | 'SelectInitialOrderingPayload' | 'UpdateAnnouncementPayload' | 'UpdateAssetAttachmentPayload' | 'UpdateAssetPayload' | 'UpdateCollectionPayload' | 'UpdateCommunityPayload' | 'UpdateContributionPayload' | 'UpdateGlobalConfigurationPayload' | 'UpdateItemPayload' | 'UpdateOrderingPayload' | 'UpdateOrganizationContributorPayload' | 'UpdatePagePayload' | 'UpdatePersonContributorPayload' | 'UpdateRolePayload' | 'UpdateUserPayload' | 'UpdateViewerSettingsPayload' | 'UpsertContributionPayload', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AlterSchemaVersionPayload' | 'ApplySchemaPropertiesPayload' | 'ClearInitialOrderingPayload' | 'ControlledVocabularyDestroyPayload' | 'ControlledVocabularySourceUpdatePayload' | 'ControlledVocabularyUpsertPayload' | 'CreateAnnouncementPayload' | 'CreateAssetPayload' | 'CreateCollectionPayload' | 'CreateCommunityPayload' | 'CreateItemPayload' | 'CreateOrderingPayload' | 'CreateOrganizationContributorPayload' | 'CreatePagePayload' | 'CreatePersonContributorPayload' | 'CreateRolePayload' | 'DestroyAnnouncementPayload' | 'DestroyAssetPayload' | 'DestroyCollectionPayload' | 'DestroyCommunityPayload' | 'DestroyContributionPayload' | 'DestroyContributorPayload' | 'DestroyEntityLinkPayload' | 'DestroyItemPayload' | 'DestroyOrderingPayload' | 'DestroyPagePayload' | 'GrantAccessPayload' | 'LinkEntityPayload' | 'PreviewSlotPayload' | 'RenderLayoutsPayload' | 'ReparentEntityPayload' | 'ResetOrderingPayload' | 'RevokeAccessPayload' | 'SelectInitialOrderingPayload' | 'UpdateAnnouncementPayload' | 'UpdateAssetAttachmentPayload' | 'UpdateAssetPayload' | 'UpdateCollectionPayload' | 'UpdateCommunityPayload' | 'UpdateContributionPayload' | 'UpdateGlobalConfigurationPayload' | 'UpdateItemPayload' | 'UpdateOrderingPayload' | 'UpdateOrganizationContributorPayload' | 'UpdatePagePayload' | 'UpdatePersonContributorPayload' | 'UpdateRolePayload' | 'UpdateUserPayload' | 'UpdateViewerSettingsPayload' | 'UpsertContributionPayload', ParentType, ContextType>;
   attributeErrors?: Resolver<Array<ResolversTypes['MutationAttributeError']>, ParentType, ContextType>;
   errors?: Resolver<Array<ResolversTypes['UserError']>, ParentType, ContextType>;
   globalErrors?: Resolver<Array<ResolversTypes['MutationGlobalError']>, ParentType, ContextType>;
@@ -19351,6 +20069,25 @@ export type TagsPropertyResolvers<ContextType = any, ParentType extends Resolver
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type TemplateContributionResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateContribution'] = ResolversParentTypes['TemplateContribution']> = {
+  affiliation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  contributor?: Resolver<ResolversTypes['ContributorBase'], ParentType, ContextType>;
+  contributorKind?: Resolver<ResolversTypes['ContributorKind'], ParentType, ContextType>;
+  displayName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  metadata?: Resolver<ResolversTypes['ContributionMetadata'], ParentType, ContextType>;
+  role?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TemplateContributionListResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateContributionList'] = ResolversParentTypes['TemplateContributionList']> = {
+  contributions?: Resolver<Array<ResolversTypes['TemplateContribution']>, ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  empty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type TemplateDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateDefinition'] = ResolversParentTypes['TemplateDefinition']> = {
   __resolveType: TypeResolveFn<'ContributorListTemplateDefinition' | 'DescendantListTemplateDefinition' | 'DetailTemplateDefinition' | 'HeroTemplateDefinition' | 'LinkListTemplateDefinition' | 'ListItemTemplateDefinition' | 'MetadataTemplateDefinition' | 'NavigationTemplateDefinition' | 'OrderingTemplateDefinition' | 'PageListTemplateDefinition' | 'SupplementaryTemplateDefinition', ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -19361,8 +20098,14 @@ export type TemplateEntityListResolvers<ContextType = any, ParentType extends Re
   count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   empty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   entities?: Resolver<Array<ResolversTypes['AnyEntity']>, ParentType, ContextType>;
+  fallback?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   listItemLayouts?: Resolver<Array<ResolversTypes['ListItemLayoutInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TemplateHasContributionListResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateHasContributionList'] = ResolversParentTypes['TemplateHasContributionList']> = {
+  __resolveType: TypeResolveFn<'ContributorListTemplateInstance', ParentType, ContextType>;
+  contributionList?: Resolver<ResolversTypes['TemplateContributionList'], ParentType, ContextType>;
 };
 
 export type TemplateHasEntityListResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateHasEntityList'] = ResolversParentTypes['TemplateHasEntityList']> = {
@@ -20040,8 +20783,10 @@ export type Resolvers<ContextType = any> = {
   ContextualPermissionEdge?: ContextualPermissionEdgeResolvers<ContextType>;
   Contributable?: ContributableResolvers<ContextType>;
   Contribution?: ContributionResolvers<ContextType>;
+  ContributionBase?: ContributionBaseResolvers<ContextType>;
   ContributionMetadata?: ContributionMetadataResolvers<ContextType>;
   Contributor?: ContributorResolvers<ContextType>;
+  ContributorBase?: ContributorBaseResolvers<ContextType>;
   ContributorLink?: ContributorLinkResolvers<ContextType>;
   ContributorListTemplateDefinition?: ContributorListTemplateDefinitionResolvers<ContextType>;
   ContributorListTemplateDefinitionSlots?: ContributorListTemplateDefinitionSlotsResolvers<ContextType>;
@@ -20224,11 +20969,13 @@ export type Resolvers<ContextType = any> = {
   PermissionGrant?: PermissionGrantResolvers<ContextType>;
   PermissionGrid?: PermissionGridResolvers<ContextType>;
   PersonContributor?: PersonContributorResolvers<ContextType>;
+  PreviewSlotPayload?: PreviewSlotPayloadResolvers<ContextType>;
   QueriesControlledVocabulary?: QueriesControlledVocabularyResolvers<ContextType>;
   QueriesControlledVocabularySource?: QueriesControlledVocabularySourceResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   ReferencesEntityVisibility?: ReferencesEntityVisibilityResolvers<ContextType>;
   ReferencesGlobalEntityDates?: ReferencesGlobalEntityDatesResolvers<ContextType>;
+  RenderLayoutsPayload?: RenderLayoutsPayloadResolvers<ContextType>;
   Renderable?: RenderableResolvers<ContextType>;
   ReparentEntityPayload?: ReparentEntityPayloadResolvers<ContextType>;
   ResetOrderingPayload?: ResetOrderingPayloadResolvers<ContextType>;
@@ -20280,8 +21027,11 @@ export type Resolvers<ContextType = any> = {
   SupplementaryTemplateInstanceSlots?: SupplementaryTemplateInstanceSlotsResolvers<ContextType>;
   SystemInfo?: SystemInfoResolvers<ContextType>;
   TagsProperty?: TagsPropertyResolvers<ContextType>;
+  TemplateContribution?: TemplateContributionResolvers<ContextType>;
+  TemplateContributionList?: TemplateContributionListResolvers<ContextType>;
   TemplateDefinition?: TemplateDefinitionResolvers<ContextType>;
   TemplateEntityList?: TemplateEntityListResolvers<ContextType>;
+  TemplateHasContributionList?: TemplateHasContributionListResolvers<ContextType>;
   TemplateHasEntityList?: TemplateHasEntityListResolvers<ContextType>;
   TemplateHasOrderingPair?: TemplateHasOrderingPairResolvers<ContextType>;
   TemplateInstance?: TemplateInstanceResolvers<ContextType>;

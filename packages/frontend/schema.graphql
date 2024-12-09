@@ -2494,7 +2494,7 @@ type CollectionConnection implements Paginated {
 }
 
 """A contribution to a collection"""
-type CollectionContribution implements Contribution & Node & Sluggable {
+type CollectionContribution implements Contribution & ContributionBase & Node & Sluggable {
   """A potentially-overridden value from person contributors"""
   affiliation: String
   collection: Collection!
@@ -3129,11 +3129,47 @@ interface Contributable {
   ): AnyContributorConnection!
 }
 
-"""A contribution from a certain contributor"""
-interface Contribution {
+"""
+An interface representing a contribution from a certain contributor.
+
+It leaves the `contributor` field's implementation up to later
+implementations, as we have different needs elsewhere in the API.
+
+See `Contribution` and `TemplateContribution`.
+
+"""
+interface Contribution implements ContributionBase {
   """A potentially-overridden value from person contributors"""
   affiliation: String
+  """
+  The contributor, loaded via union for the most control.
+  
+  """
   contributor: AnyContributor!
+  contributorKind: ContributorKind!
+  """A potentially-overridden display name value for all contributor types"""
+  displayName: String!
+  """A potentially-overridden value from organization contributors"""
+  location: String
+  metadata: ContributionMetadata!
+  """An arbitrary text value describing the role the contributor had"""
+  role: String
+  """A potentially-overridden value from person contributors"""
+  title: String
+}
+
+"""
+An interface representing a contribution from a certain contributor.
+
+It leaves the `contributor` field's implementation up to later
+implementations, as we have different needs elsewhere in the API.
+
+See `Contribution` and `TemplateContribution`.
+
+"""
+interface ContributionBase {
+  """A potentially-overridden value from person contributors"""
+  affiliation: String
   contributorKind: ContributorKind!
   """A potentially-overridden display name value for all contributor types"""
   displayName: String!
@@ -3184,10 +3220,26 @@ enum ContributionOrder {
   TARGET_TITLE_DESCENDING
 }
 
-"""A contributor who has made a contribution"""
-interface Contributor {
+"""
+An interface for an abstract contributor who has made a contribution.
+
+See `kind` for what type it is.
+
+This type differentiates from `Contributor` in that it lacks the ability to grab contributions,
+in order to prevent inordinately long nesting in GQL fetches in certain situations.
+
+"""
+interface Contributor implements ContributorBase {
+  """
+  Only applicable when `kind` = `PERSON`.
+  
+  """
+  affiliation: String
   bio: String
-  """The total number of collection contributions from this contributor"""
+  """
+  The total number of collection contributions from this contributor.
+  
+  """
   collectionContributionCount: Int!
   collectionContributions(
     """Returns the elements in the list that come after the specified cursor."""
@@ -3209,16 +3261,30 @@ interface Contributor {
     perPage: Int
   ): CollectionContributionConnection!
   """
-  The total number of contributions (item + collection) from this contributor
+  The total number of contributions (item + collection) from this contributor.
+  
   """
   contributionCount: Int!
   email: String
+  """
+  Only applicable when `kind` = `PERSON`.
+  
+  """
+  familyName: String
+  """
+  Only applicable when `kind` = `PERSON`.
+  
+  """
+  givenName: String
   identifier: String!
   """An optional image associated with the contributor."""
   image: ImageAttachment!
   """Configurable metadata for the image attachment"""
   imageMetadata: ImageMetadata
-  """The total number of item contributions from this contributor"""
+  """
+  The total number of item contributions from this contributor.
+  
+  """
   itemContributionCount: Int!
   itemContributions(
     """Returns the elements in the list that come after the specified cursor."""
@@ -3240,8 +3306,21 @@ interface Contributor {
     perPage: Int
   ): ItemContributionConnection!
   kind: ContributorKind!
+  """
+  Only applicable when `kind` = `ORGANIZATION`.
+  
+  """
+  legalName: String
   links: [ContributorLink!]!
-  """A display name, independent of the type of contributor"""
+  """
+  Only applicable when `kind` = `ORGANIZATION`.
+  
+  """
+  location: String
+  """
+  A display name, independent of the type of contributor.
+  
+  """
   name: String!
   """
   An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor.
@@ -3250,6 +3329,90 @@ interface Contributor {
   orcid: String
   prefix: String
   suffix: String
+  """
+  Only applicable when `kind` = `PERSON`.
+  
+  """
+  title: String
+  url: String
+}
+
+"""
+An interface for an abstract contributor who has made a contribution.
+
+See `kind` for what type it is.
+
+This type differentiates from `Contributor` in that it lacks the ability to grab contributions,
+in order to prevent inordinately long nesting in GQL fetches in certain situations.
+
+"""
+interface ContributorBase {
+  """
+  Only applicable when `kind` = `PERSON`.
+  
+  """
+  affiliation: String
+  bio: String
+  """
+  The total number of collection contributions from this contributor.
+  
+  """
+  collectionContributionCount: Int!
+  """
+  The total number of contributions (item + collection) from this contributor.
+  
+  """
+  contributionCount: Int!
+  email: String
+  """
+  Only applicable when `kind` = `PERSON`.
+  
+  """
+  familyName: String
+  """
+  Only applicable when `kind` = `PERSON`.
+  
+  """
+  givenName: String
+  identifier: String!
+  """An optional image associated with the contributor."""
+  image: ImageAttachment!
+  """Configurable metadata for the image attachment"""
+  imageMetadata: ImageMetadata
+  """
+  The total number of item contributions from this contributor.
+  
+  """
+  itemContributionCount: Int!
+  kind: ContributorKind!
+  """
+  Only applicable when `kind` = `ORGANIZATION`.
+  
+  """
+  legalName: String
+  links: [ContributorLink!]!
+  """
+  Only applicable when `kind` = `ORGANIZATION`.
+  
+  """
+  location: String
+  """
+  A display name, independent of the type of contributor.
+  
+  """
+  name: String!
+  """
+  An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor.
+  
+  """
+  orcid: String
+  prefix: String
+  suffix: String
+  """
+  Only applicable when `kind` = `PERSON`.
+  
+  """
+  title: String
   url: String
 }
 
@@ -3298,6 +3461,23 @@ enum ContributorListBackground {
   NONE
 }
 
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum ContributorListFilter {
+  """
+  Show all contributors, regardless of role.
+  
+  """
+  ALL
+  """
+  Show only authors.
+  
+  """
+  AUTHORS
+}
+
 type ContributorListTemplateDefinition implements Node & Sluggable & TemplateDefinition {
   """
   The background gradient to use for this template. Affects presentation.
@@ -3305,6 +3485,11 @@ type ContributorListTemplateDefinition implements Node & Sluggable & TemplateDef
   """
   background: ContributorListBackground
   createdAt: ISO8601DateTime!
+  """
+  Filter which contributors may appear based on their contribution role.
+  
+  """
+  filter: ContributorListFilter
   id: ID!
   layoutKind: LayoutKind!
   """
@@ -3320,6 +3505,14 @@ type ContributorListTemplateDefinition implements Node & Sluggable & TemplateDef
   slug: Slug!
   templateKind: TemplateKind!
   updatedAt: ISO8601DateTime!
+  """
+  This controls how wide the template should render.
+  
+  **Note**: When using `HALF`, you should take care to make sure that there is an adjacent
+  template that also uses `HALF`.
+  
+  """
+  width: TemplateWidth
 }
 
 """
@@ -3330,7 +3523,12 @@ type ContributorListTemplateDefinitionSlots {
   header: TemplateSlotInlineDefinition
 }
 
-type ContributorListTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
+type ContributorListTemplateInstance implements Node & Renderable & Sluggable & TemplateHasContributionList & TemplateInstance {
+  """
+  The list of contributions to render as part of this template's content.
+  
+  """
+  contributionList: TemplateContributionList!
   createdAt: ISO8601DateTime!
   """
   Load the associated definition for this template.
@@ -4726,12 +4924,24 @@ type DescendantListTemplateDefinition implements Node & Sluggable & TemplateDefi
   orderingIdentifier: SchemaComponent
   seeAllButtonLabel: String
   """
+  The fallback mode to use when rendering a list of entities, when the list from
+  `selectionMode` is empty and `useSelectionFallback` has been set to true.
+  
+  """
+  selectionFallbackMode: DescendantListSelectionMode
+  """
   Regardless of `selectionMode`, this limit will be applied on whatever resulting
   list of entities are produced, so that only up to that amount of entities are
   rendered in the template proper.
   
   """
   selectionLimit: Int
+  """
+  The default mode to use when rendering a list of entities.
+  
+  See also `selectionFallbackMode` and `useSelectionFallback`.
+  
+  """
   selectionMode: DescendantListSelectionMode
   """
   When `selectionMode` is set to `PROPERTY`, this should be set to the full path
@@ -4757,7 +4967,12 @@ type DescendantListTemplateDefinition implements Node & Sluggable & TemplateDefi
   
   """
   selectionSourceMode: SelectionSourceMode
+  """
+  Show additional context about each entity in the selection.
+  
+  """
   showEntityContext: Boolean
+  showHeroImage: Boolean
   showSeeAllButton: Boolean
   """
   Slot definitions for this template.
@@ -4769,10 +4984,24 @@ type DescendantListTemplateDefinition implements Node & Sluggable & TemplateDefi
   title: String
   updatedAt: ISO8601DateTime!
   """
+  Controls whether or not to use `selectionFallbackMode` if the entity list returned
+  via `selectionMode` turns out to be empty at runtime.
+  
+  """
+  useSelectionFallback: Boolean
+  """
   The variant rendering mode to use for this template. Affects presentation.
   
   """
   variant: DescendantListVariant
+  """
+  This controls how wide the template should render.
+  
+  **Note**: When using `HALF`, you should take care to make sure that there is an adjacent
+  template that also uses `HALF`.
+  
+  """
+  width: TemplateWidth
 }
 
 """
@@ -5194,6 +5423,14 @@ type DetailTemplateDefinition implements Node & Sluggable & TemplateDefinition {
   
   """
   variant: DetailVariant
+  """
+  This controls how wide the template should render.
+  
+  **Note**: When using `HALF`, you should take care to make sure that there is an adjacent
+  template that also uses `HALF`.
+  
+  """
+  width: TemplateWidth
 }
 
 """
@@ -6732,7 +6969,7 @@ type HeroTemplateDefinition implements Node & Sluggable & TemplateDefinition {
   """
   background: HeroBackground
   createdAt: ISO8601DateTime!
-  descendantSearchPrompt: String
+  descendantSearchPrompt: String @deprecated(reason: "This is a slot now.")
   enableDescendantBrowsing: Boolean
   enableDescendantSearch: Boolean
   id: ID!
@@ -6762,7 +6999,9 @@ Slot definitions for the associated template.
 
 """
 type HeroTemplateDefinitionSlots {
-  callToAction: TemplateSlotInlineDefinition
+  bigSearchPrompt: TemplateSlotInlineDefinition
+  callToAction: TemplateSlotBlockDefinition
+  descendantSearchPrompt: TemplateSlotInlineDefinition
   header: TemplateSlotInlineDefinition
   headerAside: TemplateSlotInlineDefinition
   headerSidebar: TemplateSlotBlockDefinition
@@ -6809,7 +7048,9 @@ Rendered slots for the associated template.
 
 """
 type HeroTemplateInstanceSlots {
-  callToAction: TemplateSlotInlineInstance
+  bigSearchPrompt: TemplateSlotInlineInstance
+  callToAction: TemplateSlotBlockInstance
+  descendantSearchPrompt: TemplateSlotInlineInstance
   header: TemplateSlotInlineInstance
   headerAside: TemplateSlotInlineInstance
   headerSidebar: TemplateSlotBlockInstance
@@ -7962,7 +8203,7 @@ type ItemConnection implements Paginated {
 }
 
 """A contribution to an item"""
-type ItemContribution implements Contribution & Node & Sluggable {
+type ItemContribution implements Contribution & ContributionBase & Node & Sluggable {
   """A potentially-overridden value from person contributors"""
   affiliation: String
   contributor: AnyContributor!
@@ -8176,12 +8417,24 @@ type LinkListTemplateDefinition implements Node & Sluggable & TemplateDefinition
   manualListName: SchemaComponent
   seeAllButtonLabel: String
   """
+  The fallback mode to use when rendering a list of entities, when the list from
+  `selectionMode` is empty and `useSelectionFallback` has been set to true.
+  
+  """
+  selectionFallbackMode: LinkListSelectionMode
+  """
   Regardless of `selectionMode`, this limit will be applied on whatever resulting
   list of entities are produced, so that only up to that amount of entities are
   rendered in the template proper.
   
   """
   selectionLimit: Int
+  """
+  The default mode to use when rendering a list of entities.
+  
+  See also `selectionFallbackMode` and `useSelectionFallback`.
+  
+  """
   selectionMode: LinkListSelectionMode
   """
   When selecting entities based on `selectionMode`, this property determines
@@ -8201,7 +8454,12 @@ type LinkListTemplateDefinition implements Node & Sluggable & TemplateDefinition
   
   """
   selectionSourceMode: SelectionSourceMode
+  """
+  Show additional context about each entity in the selection.
+  
+  """
   showEntityContext: Boolean
+  showHeroImage: Boolean
   showSeeAllButton: Boolean
   """
   Slot definitions for this template.
@@ -8213,10 +8471,24 @@ type LinkListTemplateDefinition implements Node & Sluggable & TemplateDefinition
   title: String
   updatedAt: ISO8601DateTime!
   """
+  Controls whether or not to use `selectionFallbackMode` if the entity list returned
+  via `selectionMode` turns out to be empty at runtime.
+  
+  """
+  useSelectionFallback: Boolean
+  """
   The variant rendering mode to use for this template. Affects presentation.
   
   """
   variant: LinkListVariant
+  """
+  This controls how wide the template should render.
+  
+  **Note**: When using `HALF`, you should take care to make sure that there is an adjacent
+  template that also uses `HALF`.
+  
+  """
+  width: TemplateWidth
 }
 
 """
@@ -9034,6 +9306,22 @@ type Mutation {
     """Parameters for LinkEntity"""
     input: LinkEntityInput!
   ): LinkEntityPayload
+  """
+  Preview a slot for a given entity.
+  
+  """
+  previewSlot(
+    """Parameters for PreviewSlot"""
+    input: PreviewSlotInput!
+  ): PreviewSlotPayload
+  """
+  Force the layouts to render for a given `Entity`.
+  
+  """
+  renderLayouts(
+    """Parameters for RenderLayouts"""
+    input: RenderLayoutsInput!
+  ): RenderLayoutsPayload
   """
   A polymorphic mutation to reassign an entity to another point in the hierarchy.
   
@@ -9997,6 +10285,14 @@ type OrderingTemplateDefinition implements Node & Sluggable & TemplateDefinition
   slug: Slug!
   templateKind: TemplateKind!
   updatedAt: ISO8601DateTime!
+  """
+  This controls how wide the template should render.
+  
+  **Note**: When using `HALF`, you should take care to make sure that there is an adjacent
+  template that also uses `HALF`.
+  
+  """
+  width: TemplateWidth
 }
 
 """
@@ -10062,10 +10358,21 @@ enum OrderingVisibilityFilter {
   VISIBLE
 }
 
-"""An organization that has made contributions"""
-type OrganizationContributor implements Contributor & Node & Sluggable {
+"""
+An organization that has made contributions.
+
+"""
+type OrganizationContributor implements Contributor & ContributorBase & Node & Sluggable {
+  """
+  Only applicable when `kind` = `PERSON`.
+  
+  """
+  affiliation: String
   bio: String
-  """The total number of collection contributions from this contributor"""
+  """
+  The total number of collection contributions from this contributor.
+  
+  """
   collectionContributionCount: Int!
   collectionContributions(
     """Returns the elements in the list that come after the specified cursor."""
@@ -10087,18 +10394,32 @@ type OrganizationContributor implements Contributor & Node & Sluggable {
     perPage: Int
   ): CollectionContributionConnection!
   """
-  The total number of contributions (item + collection) from this contributor
+  The total number of contributions (item + collection) from this contributor.
+  
   """
   contributionCount: Int!
   createdAt: ISO8601DateTime!
   email: String
+  """
+  Only applicable when `kind` = `PERSON`.
+  
+  """
+  familyName: String
+  """
+  Only applicable when `kind` = `PERSON`.
+  
+  """
+  givenName: String
   id: ID!
   identifier: String!
   """An optional image associated with the contributor."""
   image: ImageAttachment!
   """Configurable metadata for the image attachment"""
   imageMetadata: ImageMetadata
-  """The total number of item contributions from this contributor"""
+  """
+  The total number of item contributions from this contributor.
+  
+  """
   itemContributionCount: Int!
   itemContributions(
     """Returns the elements in the list that come after the specified cursor."""
@@ -10120,10 +10441,21 @@ type OrganizationContributor implements Contributor & Node & Sluggable {
     perPage: Int
   ): ItemContributionConnection!
   kind: ContributorKind!
+  """
+  Only applicable when `kind` = `ORGANIZATION`.
+  
+  """
   legalName: String
   links: [ContributorLink!]!
+  """
+  Only applicable when `kind` = `ORGANIZATION`.
+  
+  """
   location: String
-  """A display name, independent of the type of contributor"""
+  """
+  A display name, independent of the type of contributor.
+  
+  """
   name: String!
   """
   An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor.
@@ -10133,6 +10465,11 @@ type OrganizationContributor implements Contributor & Node & Sluggable {
   prefix: String
   slug: Slug!
   suffix: String
+  """
+  Only applicable when `kind` = `PERSON`.
+  
+  """
+  title: String
   updatedAt: ISO8601DateTime!
   url: String
 }
@@ -10248,6 +10585,14 @@ type PageListTemplateDefinition implements Node & Sluggable & TemplateDefinition
   slug: Slug!
   templateKind: TemplateKind!
   updatedAt: ISO8601DateTime!
+  """
+  This controls how wide the template should render.
+  
+  **Note**: When using `HALF`, you should take care to make sure that there is an adjacent
+  template that also uses `HALF`.
+  
+  """
+  width: TemplateWidth
 }
 
 """
@@ -10325,11 +10670,21 @@ interface PermissionGrid implements ExposesPermissions {
   permissions: [PermissionGrant!]!
 }
 
-"""A person that has made contributions"""
-type PersonContributor implements Contributor & Node & Sluggable {
+"""
+A person that has made contributions.
+
+"""
+type PersonContributor implements Contributor & ContributorBase & Node & Sluggable {
+  """
+  Only applicable when `kind` = `PERSON`.
+  
+  """
   affiliation: String
   bio: String
-  """The total number of collection contributions from this contributor"""
+  """
+  The total number of collection contributions from this contributor.
+  
+  """
   collectionContributionCount: Int!
   collectionContributions(
     """Returns the elements in the list that come after the specified cursor."""
@@ -10351,12 +10706,21 @@ type PersonContributor implements Contributor & Node & Sluggable {
     perPage: Int
   ): CollectionContributionConnection!
   """
-  The total number of contributions (item + collection) from this contributor
+  The total number of contributions (item + collection) from this contributor.
+  
   """
   contributionCount: Int!
   createdAt: ISO8601DateTime!
   email: String
+  """
+  Only applicable when `kind` = `PERSON`.
+  
+  """
   familyName: String
+  """
+  Only applicable when `kind` = `PERSON`.
+  
+  """
   givenName: String
   id: ID!
   identifier: String!
@@ -10364,7 +10728,10 @@ type PersonContributor implements Contributor & Node & Sluggable {
   image: ImageAttachment!
   """Configurable metadata for the image attachment"""
   imageMetadata: ImageMetadata
-  """The total number of item contributions from this contributor"""
+  """
+  The total number of item contributions from this contributor.
+  
+  """
   itemContributionCount: Int!
   itemContributions(
     """Returns the elements in the list that come after the specified cursor."""
@@ -10386,8 +10753,21 @@ type PersonContributor implements Contributor & Node & Sluggable {
     perPage: Int
   ): ItemContributionConnection!
   kind: ContributorKind!
+  """
+  Only applicable when `kind` = `ORGANIZATION`.
+  
+  """
+  legalName: String
   links: [ContributorLink!]!
-  """A display name, independent of the type of contributor"""
+  """
+  Only applicable when `kind` = `ORGANIZATION`.
+  
+  """
+  location: String
+  """
+  A display name, independent of the type of contributor.
+  
+  """
   name: String!
   """
   An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor.
@@ -10397,9 +10777,50 @@ type PersonContributor implements Contributor & Node & Sluggable {
   prefix: String
   slug: Slug!
   suffix: String
+  """
+  Only applicable when `kind` = `PERSON`.
+  
+  """
   title: String
   updatedAt: ISO8601DateTime!
   url: String
+}
+
+"""Autogenerated input type of PreviewSlot"""
+input PreviewSlotInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  """
+  The entity to update.
+  
+  """
+  entityId: ID!
+  """
+  The kind of slot to render.
+  
+  """
+  kind: TemplateSlotKind!
+  """
+  The template to render.
+  
+  """
+  template: String!
+}
+
+"""Autogenerated return type of PreviewSlot."""
+type PreviewSlotPayload implements StandardMutationPayload {
+  attributeErrors: [MutationAttributeError!]!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
+  globalErrors: [MutationGlobalError!]!
+  """Not presently used"""
+  haltCode: String
+  """
+  The rendered slot (if successful)
+  
+  """
+  slot: TemplateSlotInstance
 }
 
 """
@@ -10912,6 +11333,33 @@ of an entity.
 interface ReferencesGlobalEntityDates {
   """The date this entity was published"""
   published: VariablePrecisionDate!
+}
+
+"""Autogenerated input type of RenderLayouts"""
+input RenderLayoutsInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  """
+  The entity to render layouts on.
+  
+  """
+  entityId: ID!
+}
+
+"""Autogenerated return type of RenderLayouts."""
+type RenderLayoutsPayload implements StandardMutationPayload {
+  attributeErrors: [MutationAttributeError!]!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  """
+  The newly-rendered entity with its updated layouts, if successful.
+  
+  """
+  entity: AnyEntity
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
+  globalErrors: [MutationGlobalError!]!
+  """Not presently used"""
+  haltCode: String
 }
 
 """
@@ -12065,7 +12513,20 @@ An enumerated value associated with the templating subsystem.
 
 """
 enum SelectionSourceMode {
+  """
+  Selections should inherit from a named ancestor of this entity.
+  
+  """
   ANCESTOR
+  """
+  Selections should inherit from the hierarchical parent of this entity.
+  
+  """
+  PARENT
+  """
+  Selections should inherit from the exact entity in question
+  
+  """
   SELF
 }
 
@@ -12549,6 +13010,60 @@ type TagsProperty implements ScalarProperty & SchemaProperty {
 }
 
 """
+A contribution from a certain contributor.
+
+This is a pared-down version of `Contribution` in order to
+better support fragment caching and smaller queries.
+
+It uses `ContributorBase` in place of the `AnyContributor` union.
+
+"""
+type TemplateContribution implements ContributionBase {
+  """A potentially-overridden value from person contributors"""
+  affiliation: String
+  """
+  The contributor, loaded via abstract interface for simplicity.
+  
+  """
+  contributor: ContributorBase!
+  contributorKind: ContributorKind!
+  """A potentially-overridden display name value for all contributor types"""
+  displayName: String!
+  """A potentially-overridden value from organization contributors"""
+  location: String
+  metadata: ContributionMetadata!
+  """An arbitrary text value describing the role the contributor had"""
+  role: String
+  """A potentially-overridden value from person contributors"""
+  title: String
+}
+
+"""
+`ContributorListTemplateInstance`s return an ordered list of contributions to render
+within as part of their content.
+
+"""
+type TemplateContributionList {
+  """
+  The actual entity records within this list.
+  
+  The order is deterministic.
+  
+  """
+  contributions: [TemplateContribution!]!
+  """
+  The size of the list.
+  
+  """
+  count: Int!
+  """
+  Whether the list is empty, provided for easier filtering and render-skipping.
+  
+  """
+  empty: Boolean!
+}
+
+"""
 Entities within the system have templates associated with schema-specific layouts,
 that can be overridden within the hierarchy for more custom approaches.
 
@@ -12593,6 +13108,13 @@ type TemplateEntityList {
   """
   entities: [AnyEntity!]!
   """
+  Whether the entity selection tried to use the fallback selection mode.
+  
+  When true, the resulting list is fallback. It can still be empty.
+  
+  """
+  fallback: Boolean!
+  """
   A shortcut to access the list item layouts for each entity in `entities`.
   
   The order is deterministic.
@@ -12601,6 +13123,18 @@ type TemplateEntityList {
   
   """
   listItemLayouts: [ListItemLayoutInstance!]!
+}
+
+"""
+An interface for a template instance that has a `TemplateContributionList`.
+
+"""
+interface TemplateHasContributionList {
+  """
+  The list of contributions to render as part of this template's content.
+  
+  """
+  contributionList: TemplateContributionList!
 }
 
 """
@@ -12985,6 +13519,26 @@ enum TemplateSlotKind {
   
   """
   INLINE
+}
+
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum TemplateWidth {
+  """
+  This template should occupy the full-width of the layout.
+  
+  """
+  FULL
+  """
+  This template should occupy half of the width of the layout.
+  
+  **Note**: This should be used in concert with an adjacent HALF-width template.
+  The server will not validate this is the case.
+  
+  """
+  HALF
 }
 
 """Configuration settings for the theme of the WDP frontend."""
