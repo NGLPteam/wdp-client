@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<568c6af19a11305d8145447b557f6916>>
+ * @generated SignedSource<<432c9544f4b312cb449c890b67195ae6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -22,7 +22,7 @@ export type DetailContentFragment$data = {
   };
   readonly slots: {
     readonly callToAction: {
-      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+      readonly " $fragmentSpreads": FragmentRefs<"sharedBlockSlotFragment">;
     } | null | undefined;
     readonly metadata: {
       readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
@@ -50,6 +50,13 @@ var v0 = [
     "args": null,
     "kind": "FragmentSpread",
     "name": "sharedInlineSlotFragment"
+  }
+],
+v1 = [
+  {
+    "args": null,
+    "kind": "FragmentSpread",
+    "name": "sharedBlockSlotFragment"
   }
 ];
 return {
@@ -152,13 +159,7 @@ return {
           "kind": "LinkedField",
           "name": "subheaderSummary",
           "plural": false,
-          "selections": [
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "sharedBlockSlotFragment"
-            }
-          ],
+          "selections": (v1/*: any*/),
           "storageKey": null
         },
         {
@@ -174,11 +175,11 @@ return {
         {
           "alias": null,
           "args": null,
-          "concreteType": "TemplateSlotInlineInstance",
+          "concreteType": "TemplateSlotBlockInstance",
           "kind": "LinkedField",
           "name": "callToAction",
           "plural": false,
-          "selections": (v0/*: any*/),
+          "selections": (v1/*: any*/),
           "storageKey": null
         }
       ],
@@ -190,6 +191,6 @@ return {
 };
 })();
 
-(node as any).hash = "c35c450aa7c5e0e6f0dcb94395af5324";
+(node as any).hash = "57b9179bb5b946573de3eb6f86d67845";
 
 export default node;

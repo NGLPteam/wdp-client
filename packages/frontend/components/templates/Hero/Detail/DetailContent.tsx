@@ -23,7 +23,7 @@ export default function Content({ data }: DetailContentProps) {
   const subheaderAside = useSharedInlineFragment(slots?.subheaderAside);
   const metadata = useSharedInlineFragment(slots?.metadata);
   const summary = useSharedBlockFragment(slots?.subheaderSummary);
-  const cta = useSharedInlineFragment(slots?.callToAction);
+  const cta = useSharedBlockFragment(slots?.callToAction);
 
   return (
     <div>
@@ -93,7 +93,7 @@ const fragment = graphql`
         ...sharedInlineSlotFragment
       }
       callToAction {
-        ...sharedInlineSlotFragment
+        ...sharedBlockSlotFragment
       }
     }
   }
