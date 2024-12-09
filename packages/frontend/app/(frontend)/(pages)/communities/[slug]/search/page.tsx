@@ -8,7 +8,7 @@ import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToSt
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
-import { pageSearchCommunityQuery as Query } from "@/relay/pageSearchCommunityQuery.graphql";
+import { pageTemplatesSearchCommunityQuery as Query } from "@/relay/pageTemplatesSearchCommunityQuery.graphql";
 
 export default async function CommunitySearchPage({
   params,
@@ -42,7 +42,7 @@ export default async function CommunitySearchPage({
 export const dynamic = "force-dynamic";
 
 const query = graphql`
-  query pageSearchCommunityQuery(
+  query pageTemplatesSearchCommunityQuery(
     $slug: Slug!
     $query: String
     $predicates: [SearchPredicateInput!]

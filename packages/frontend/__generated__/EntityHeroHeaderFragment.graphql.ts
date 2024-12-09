@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2eb7a2c3e8d73c3b086c4234e35bb12c>>
+ * @generated SignedSource<<008a077152fe3bd2aa3f09a10517654d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,25 +14,20 @@ import { FragmentRefs } from "relay-runtime";
 export type EntityHeroHeaderFragment$data = {
   readonly entity: {
     readonly __typename: "Collection";
-    readonly heroImage: {
+    readonly heroImage?: {
       readonly " $fragmentSpreads": FragmentRefs<"ImageHeroTemplateFragment">;
     };
-  } | {
-    readonly __typename: "Item";
-    readonly heroImage: {
-      readonly " $fragmentSpreads": FragmentRefs<"ImageHeroTemplateFragment">;
-    };
-  } | {
-    // This will never be '%other', but we need some
-    // value in case none of the concrete values match.
-    readonly __typename: "%other";
+    readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbsBarFragment">;
   };
   readonly template: {
     readonly definition: {
       readonly background: HeroBackground | null | undefined;
+      readonly showBreadcrumbs: boolean | null | undefined;
       readonly showHeroImage: boolean | null | undefined;
+      readonly showSharingLink: boolean | null | undefined;
+      readonly showSplitDisplay: boolean | null | undefined;
     };
-    readonly " $fragmentSpreads": FragmentRefs<"HeaderHeroFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"DetailHeroFragment" | "HeaderHeroFragment">;
   } | null | undefined;
   readonly " $fragmentType": "EntityHeroHeaderFragment";
 };
@@ -92,6 +87,11 @@ return {
           "selections": (v0/*: any*/),
           "type": "Item",
           "abstractKey": null
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "BreadcrumbsBarFragment"
         }
       ],
       "storageKey": null
@@ -125,6 +125,27 @@ return {
               "kind": "ScalarField",
               "name": "showHeroImage",
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "showBreadcrumbs",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "showSharingLink",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "showSplitDisplay",
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -133,6 +154,11 @@ return {
           "args": null,
           "kind": "FragmentSpread",
           "name": "HeaderHeroFragment"
+        },
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "DetailHeroFragment"
         }
       ],
       "storageKey": null
@@ -143,6 +169,6 @@ return {
 };
 })();
 
-(node as any).hash = "313aa70212978cd6154bf940e1b1de0a";
+(node as any).hash = "e8b02e2953034d882308402728155d15";
 
 export default node;

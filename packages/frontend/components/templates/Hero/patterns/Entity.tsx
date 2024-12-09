@@ -1,6 +1,9 @@
 import { graphql, useFragment } from "react-relay";
 import Container from "@/components/layout/Container";
+import BreadcrumbsBar from "@/components/layout/BreadcrumbsBar";
 import { EntityHeroHeaderFragment$key } from "@/relay/EntityHeroHeaderFragment.graphql";
+import { getBgClass } from "@/components/templates/helpers/bgColor";
+import HeroDetail from "../Detail";
 import HeroHeader from "../Header";
 import HeroImage from "../Image";
 
@@ -13,17 +16,38 @@ export default function EntityHeroHeader({
 
   const { template, entity } = layout ?? {};
 
-  const { showHeroImage, background } = template?.definition ?? {};
+  const {
+    showHeroImage,
+    background,
+    showBreadcrumbs,
+    showSharingLink,
+    showSplitDisplay,
+  } = template?.definition ?? {};
 
-  const heroImage =
-    entity && entity?.__typename !== "%other" ? entity.heroImage : null;
+  const renderBreadcrumbs = !!(showBreadcrumbs || showSharingLink);
+
+  const bgClass = getBgClass(background);
 
   return (
     <>
+      {renderBreadcrumbs && (
+        <BreadcrumbsBar
+          data={entity}
+          showShare={showSharingLink ?? false}
+          className={bgClass}
+        />
+      )}
       <Container as="header" width="wide" bgColor={background}>
         <HeroHeader data={layout?.template} />
       </Container>
-      {showHeroImage && heroImage && <HeroImage data={heroImage} />}
+      {showHeroImage && entity?.heroImage && (
+        <HeroImage data={entity.heroImage} />
+      )}
+      {showSplitDisplay && (
+        <Container bgColor={background}>
+          <HeroDetail data={layout?.template} />
+        </Container>
+      )}
     </>
   );
 }
@@ -43,13 +67,18 @@ const fragment = graphql`
           ...ImageHeroTemplateFragment
         }
       }
+      ...BreadcrumbsBarFragment
     }
     template {
       definition {
         background
         showHeroImage
+        showBreadcrumbs
+        showSharingLink
+        showSplitDisplay
       }
       ...HeaderHeroFragment
+      ...DetailHeroFragment
     }
   }
 `;
