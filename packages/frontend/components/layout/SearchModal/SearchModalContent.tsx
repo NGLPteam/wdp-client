@@ -2,7 +2,6 @@ import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { Select } from "components/forms";
 import { SearchModalFragment$data } from "@/relay/SearchModalFragment.graphql";
-import { PortalSearchModalFragment$data } from "@/relay/PortalSearchModalFragment.graphql";
 import * as Styled from "./SearchModal.styles";
 
 export default function SearchModalContent({ searchData }: Props) {
@@ -61,5 +60,5 @@ export default function SearchModalContent({ searchData }: Props) {
 }
 
 interface Props {
-  searchData?: SearchModalFragment$data | PortalSearchModalFragment$data | null;
+  searchData?: SearchModalFragment$data | null;
 }
