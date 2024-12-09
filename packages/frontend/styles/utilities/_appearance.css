@@ -1,0 +1,21 @@
+.a-bg-custom10 {
+  @mixin a-bg-custom10;
+
+  & + & {
+    & > .l-container-wide:first-child,
+    & > .l-container-max:first-child {
+      padding-block-start: 0;
+    }
+  }
+}
+
+.a-bg-custom20 {
+  @mixin a-bg-custom20;
+
+  & + & {
+    & > .l-container-wide:first-child,
+    & > .l-container-max:first-child {
+      padding-block-start: 0;
+    }
+  }
+}

@@ -56,9 +56,11 @@ export default function HeroTemplate({
         <EntityHeroHeader data={layout} />
       )}
       {showBigSearchPrompt && <SearchHero prompt={bigSearchPrompt?.content} />}
-      <Container bgColor={background}>
-        {showSplitDisplay && <HeroDetail data={layout?.template} />}
-      </Container>
+      {showSplitDisplay && (
+        <Container bgColor={background}>
+          <HeroDetail data={layout?.template} />
+        </Container>
+      )}
     </>
   );
 }

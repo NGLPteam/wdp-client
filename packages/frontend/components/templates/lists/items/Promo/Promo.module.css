@@ -43,11 +43,8 @@
   text-align: center;
   block-size: 100%;
   font-size: var(--font-size-base-sm);
-
-  > span {
-    position: relative;
-    z-index: 1;
-  }
+  z-index: 5;
+  position: relative;
 
   a:focus-visible & {
     box-shadow: 0px 0px 0px 1px var(--border-color-focus),

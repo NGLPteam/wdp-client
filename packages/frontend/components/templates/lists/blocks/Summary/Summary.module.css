@@ -3,15 +3,15 @@
 }
 
 .heroImage {
-  block-size: 18.75rem;
-  inline-size: 14.0625rem;
-  background: var(--color-base-blueDark);
+  block-size: 20rem;
+  inline-size: 15rem;
   grid-area: image;
 }
 
-.header {
-  padding-block-end: 0.75rem;
-  border-bottom: 1px solid var(--border-color);
+.blockTitle {
+  @mixin t-label-lg;
+
+  margin-block-end: var(--padding-rg);
 }
 
 .grid {

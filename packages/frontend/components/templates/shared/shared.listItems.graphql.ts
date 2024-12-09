@@ -38,6 +38,14 @@ export const listItemTemplateFragment = graphql`
         contributions {
           ...ContributorsListFragment
         }
+        heroImage {
+          image: large {
+            webp {
+              alt
+              url
+            }
+          }
+        }
       }
       ... on Item {
         __typename
@@ -49,6 +57,14 @@ export const listItemTemplateFragment = graphql`
         }
         contributions {
           ...ContributorsListFragment
+        }
+        heroImage {
+          image: large {
+            webp {
+              alt
+              url
+            }
+          }
         }
       }
     }

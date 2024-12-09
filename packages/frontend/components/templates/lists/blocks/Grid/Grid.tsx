@@ -3,6 +3,7 @@ import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragme
 import Container from "@/components/layout/Container";
 import List from "../../List/";
 import SeeAll from "../../SeeAll";
+import { getSeeAllHref } from "../../SeeAll/helpers";
 import styles from "./Grid.module.css";
 
 export default function GridListBlock({
@@ -25,20 +26,31 @@ export default function GridListBlock({
     showSeeAllButton,
     seeAllButtonLabel,
     selectionMode,
+    showHeroImage,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
-  const showHeroImage = false;
+  const { selectionPropertyPath, orderingIdentifier } =
+    descendantsDefinition ?? {};
+
+  const seeAllHref = descendantsDefinition
+    ? getSeeAllHref(
+        basePath,
+        selectionMode,
+        orderingIdentifier,
+        selectionPropertyPath,
+      )
+    : null;
 
   return (
     <Container className={styles.container} bgColor={background}>
       {showHeroImage && <div className={styles.heroImage} />}
       {!!title && <h3>{title}</h3>}
       <List variant="GRID" bgColor={background} data={entityList} />
-      {!!showSeeAllButton && selectionMode === "NAMED" && (
+      {!!showSeeAllButton && !!seeAllHref && (
         <SeeAll
           alignment="center"
           buttonLabel={seeAllButtonLabel}
-          href={`${basePath}/${descendantsDefinition?.orderingIdentifier}`}
+          href={seeAllHref}
         />
       )}
     </Container>

@@ -29,14 +29,14 @@
   }
 
   &:first-child,
-  &:last-child:nth-child(even) {
+  &:last-child {
     &::before {
       content: "";
       display: block;
       position: absolute;
       top: 0;
       height: calc(
-        var(--Item-cover-height, 18.75) + var(--container-padding-sm) * 2
+        var(--Item-cover-height, 18.75rem) + var(--container-padding-sm) * 2
       );
       background: var(--Item-background-color);
       inline-size: max(
@@ -78,7 +78,6 @@
   @mixin fluidScalePx --Item-cover-v-padding, 36px, 60px;
 
   background-color: var(--Item-background-color);
-  flex: 1 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
