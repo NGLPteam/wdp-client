@@ -1,4 +1,5 @@
 import { graphql, useFragment } from "react-relay";
+import classNames from "classnames";
 import type { HeroImageLayout } from "@/types/graphql-schema";
 import { HeaderHeroFragment$key } from "@/relay/HeaderHeroFragment.graphql";
 import TitleBlock from "./HeaderTitleBlock";
@@ -17,7 +18,15 @@ export default function HeroHeader({
   const { slots } = template ?? {};
 
   return template ? (
-    <div className={layout ? styles.columns : styles.inner}>
+    <div
+      className={
+        layout
+          ? classNames(styles.columns, {
+              [styles["columns--two-column"]]: layout === "TWO_COLUMN",
+            })
+          : styles.inner
+      }
+    >
       <TitleBlock layout={layout} data={slots} />
       <Sidebar data={template} />
     </div>

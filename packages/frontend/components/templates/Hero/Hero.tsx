@@ -1,11 +1,13 @@
 "use client";
 
 import { graphql, useFragment } from "react-relay";
+import { useTranslation } from "react-i18next";
 import Container from "@/components/layout/Container";
 import BreadcrumbsBar from "@/components/layout/BreadcrumbsBar";
 import SearchHero from "@/components/composed/search/SearchHero";
 import { HeroTemplateFragment$key } from "@/relay/HeroTemplateFragment.graphql";
 import { getBgClass } from "@/components/templates/helpers/bgColor";
+import { useSharedInlineFragment } from "@/components/templates/shared/shared.slots.graphql";
 import HeroDetail from "./Detail";
 import CommunityHeroHeader from "./patterns/Community";
 import EntityHeroHeader from "./patterns/Entity";
@@ -15,18 +17,23 @@ export default function HeroTemplate({
 }: {
   data: HeroTemplateFragment$key | null;
 }) {
+  const { t } = useTranslation();
+
   const layout = useFragment(fragment, data);
 
   const { template, entity } = layout ?? {};
 
   const {
     background,
-    descendantSearchPrompt: searchPrompt,
     showBreadcrumbs,
     showSharingLink,
     showSplitDisplay,
     showBigSearchPrompt,
   } = template?.definition ?? {};
+
+  const bigSearchPrompt = useSharedInlineFragment(
+    template?.slots?.bigSearchPrompt,
+  ) ?? { content: t("search.community_placeholder") };
 
   const renderBreadcrumbs = !!(showBreadcrumbs || showSharingLink);
 
@@ -48,7 +55,7 @@ export default function HeroTemplate({
       ) : (
         <EntityHeroHeader data={layout} />
       )}
-      {showBigSearchPrompt && <SearchHero prompt={searchPrompt} />}
+      {showBigSearchPrompt && <SearchHero prompt={bigSearchPrompt?.content} />}
       <Container bgColor={background}>
         {showSplitDisplay && <HeroDetail data={layout?.template} />}
       </Container>
@@ -67,11 +74,15 @@ const fragment = graphql`
     template {
       definition {
         background
-        descendantSearchPrompt
         showBreadcrumbs
         showSharingLink
         showSplitDisplay
         showBigSearchPrompt
+      }
+      slots {
+        bigSearchPrompt {
+          ...sharedInlineSlotFragment
+        }
       }
       ...DetailHeroFragment
     }
