@@ -73,4 +73,6 @@
   @mixin t-label-sm;
 
   margin-block-start: 0.625rem;
+  display: flex;
+  inline-size: max-content;
 }

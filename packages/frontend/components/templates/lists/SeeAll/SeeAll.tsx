@@ -12,7 +12,7 @@ export type SeeAllProps = {
 export default function SeeAll(props: SeeAllProps) {
   return (
     <div
-      className={classNames(styles.seeAll, {
+      className={classNames("see-all-button", styles.seeAll, {
         [styles["seeAll--left"]]: props.alignment === "left",
       })}
     >

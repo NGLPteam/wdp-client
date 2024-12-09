@@ -34,6 +34,7 @@ export const listTemplateFragment = graphql`
         showEntityContext
         title
         variant
+        showHeroImage
       }
       slots {
         header {
@@ -81,11 +82,13 @@ export const listTemplateFragment = graphql`
         seeAllButtonLabel
         showSeeAllButton
         selectionMode
+        selectionPropertyPath
         orderingIdentifier
         selectionLimit
         showEntityContext
         title
         variant
+        showHeroImage
       }
       slots {
         header {

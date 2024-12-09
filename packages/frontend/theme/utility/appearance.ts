@@ -6,8 +6,6 @@ import { encodedIconClose } from "components/svgs/icons/Close";
 import { baseColors } from "theme/base/variables";
 import {
   aBgNeutral00,
-  aBgCustom10,
-  aBgCustom20,
   aBgNeutral80,
   aBgNeutral90,
   aButton,
@@ -22,14 +20,6 @@ export default css`
 
   .a-bg-neutral00 {
     ${aBgNeutral00()}
-  }
-
-  .a-bg-custom10 {
-    ${aBgCustom10()}
-  }
-
-  .a-bg-custom20 {
-    ${aBgCustom20()}
   }
 
   .a-bg-neutral80 {

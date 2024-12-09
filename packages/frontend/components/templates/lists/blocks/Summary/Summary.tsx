@@ -5,6 +5,7 @@ import CoverImage from "@/components/atomic/images/CoverImage";
 import Container from "@/components/layout/Container";
 import { getRouteByEntityType } from "@/helpers/routes";
 import SeeAll from "../../SeeAll";
+import { getSeeAllHref } from "../../SeeAll/helpers";
 import List from "../../List/";
 import styles from "./Summary.module.css";
 
@@ -29,7 +30,11 @@ export default function SummaryListBlock({
     seeAllButtonLabel,
     selectionMode,
     // showEntityContext,
+    showHeroImage,
   } = linksDefinition ?? descendantsDefinition ?? {};
+
+  const { selectionPropertyPath, orderingIdentifier } =
+    descendantsDefinition ?? {};
 
   const { header, subtitle, metadata } = slots ?? {};
 
@@ -38,13 +43,20 @@ export default function SummaryListBlock({
       ? `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`
       : null;
 
-  const showHeroImage = false;
+  const seeAllHref = descendantsDefinition
+    ? getSeeAllHref(
+        basePath,
+        selectionMode,
+        orderingIdentifier,
+        selectionPropertyPath,
+      )
+    : null;
 
   return (
     <Container className={styles.container} bgColor={background}>
       <div className={styles.grid}>
         <div className={styles.textColumn}>
-          {!!title && <h3 className={styles.header}>{title}</h3>}
+          {!!title && <span className={styles.blockTitle}>{title}</span>}
           <div className={styles.entity}>
             {/*{showEntityContext && context?.valid && (
               <Styled.Context>{context.content}</Styled.Context>
@@ -62,18 +74,18 @@ export default function SummaryListBlock({
             )}
           </div>
           <List variant="SUMMARY" bgColor={background} data={entityList} />
-          {!!showSeeAllButton && selectionMode === "NAMED" && (
+          {!!showSeeAllButton && !!seeAllHref && (
             <SeeAll
               alignment="left"
               buttonLabel={seeAllButtonLabel}
-              href={`${basePath}/${descendantsDefinition?.orderingIdentifier}`}
+              href={seeAllHref}
             />
           )}
         </div>
         {showHeroImage && (
           <div className={styles.heroImage}>
             <NamedLink href={href}>
-              <CoverImage {...entity} maxWidth={168} maxHeight={248} />
+              <CoverImage {...entity} maxWidth={240} maxHeight={320} />
             </NamedLink>
           </div>
         )}

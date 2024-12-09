@@ -10,7 +10,7 @@
 /* @import "modules/index.css"; */
 
 @import "tailwindcss/utilities" layer(tw-utilities);
-/* @import "utilities/_appearance.css" */
+@import "utilities/_appearance.css" layer(meru-utilities);
 @import "utilities/_layout.css" layer(meru-utilities);
 /* @import "utilities/_typography.css";
 @import "utilities/_state.css"; */

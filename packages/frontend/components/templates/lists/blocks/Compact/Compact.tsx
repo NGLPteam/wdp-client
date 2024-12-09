@@ -3,6 +3,7 @@ import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragme
 import Container from "@/components/layout/Container";
 import List from "../../List";
 import SeeAll from "../../SeeAll";
+import { getSeeAllHref } from "../../SeeAll/helpers";
 import styles from "./Compact.module.css";
 
 export default function CompactListBlock({
@@ -25,9 +26,20 @@ export default function CompactListBlock({
     showSeeAllButton,
     seeAllButtonLabel,
     selectionMode,
+    showHeroImage,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
-  const showHeroImage = false;
+  const { selectionPropertyPath, orderingIdentifier } =
+    descendantsDefinition ?? {};
+
+  const seeAllHref = descendantsDefinition
+    ? getSeeAllHref(
+        basePath,
+        selectionMode,
+        orderingIdentifier,
+        selectionPropertyPath,
+      )
+    : null;
 
   return (
     <Container className={styles.container} bgColor={background}>
@@ -38,11 +50,11 @@ export default function CompactListBlock({
         </div>
         {showHeroImage && <div className={styles.heroImage} />}
       </div>
-      {!!showSeeAllButton && selectionMode === "NAMED" && (
+      {!!showSeeAllButton && !!seeAllHref && (
         <SeeAll
           alignment="left"
           buttonLabel={seeAllButtonLabel}
-          href={`${basePath}/${descendantsDefinition?.orderingIdentifier}`}
+          href={seeAllHref}
         />
       )}
     </Container>
