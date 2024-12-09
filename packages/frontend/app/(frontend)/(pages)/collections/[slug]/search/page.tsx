@@ -1,10 +1,10 @@
 import { Suspense } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import SearchLayout from "components/composed/search/SearchLayout";
-import LoadingBlock from "components/atomic/loading/LoadingBlock";
 import normalizeRouteQueryArray from "@wdp/lib/routes/helpers/normalizeRouteQueryArray";
 import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToString";
+import SearchLayout from "@/components/composed/search/SearchLayout";
+import LoadingBlock from "@/components/atomic/loading/LoadingBlock";
 import { pageSearchCollectionQuery as Query } from "@/relay/pageSearchCollectionQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import fetchQuery from "@/lib/relay/fetchQuery";
