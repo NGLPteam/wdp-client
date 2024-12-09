@@ -125,7 +125,7 @@ export const CopyrightText = styled.p`
 `;
 
 export const Installation = styled.h4`
-  div[data-community-name-portal]:has(a) + & {
+  div:has(.community-name-visible) + & {
     display: none;
   }
 `;
@@ -138,7 +138,7 @@ export const InstallationDesktop = styled.div`
 `;
 
 export const InstallationDesktopName = styled.div`
-  ${FooterInner}:has(div[data-community-name-portal] > h4) & {
+  ${FooterInner}:has(.community-name-visible) & {
     display: block;
     ${globalNavRespond(`
       display: none;

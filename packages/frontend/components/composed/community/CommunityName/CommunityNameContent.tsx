@@ -19,7 +19,7 @@ export default function CommunityName({ community }: Props) {
   return (
     <>
       <CommunityLogo data={community?.logo} slug={community?.slug} />
-      <h4 className={hideName ? "a-hidden" : undefined}>
+      <h4 className={hideName ? "sr-only" : "community-name-visible"}>
         <NamedLink
           href={
             community?.slug ? `/communities/${community.slug}` : "/communities"
