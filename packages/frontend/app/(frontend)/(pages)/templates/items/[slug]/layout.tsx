@@ -42,12 +42,6 @@ export default async function ItemLayout({
     layouts: { hero, navigation },
   } = item;
 
-  const {
-    enableDescendantSearch,
-    enableDescendantBrowsing,
-    descendantSearchPrompt,
-  } = hero?.template?.definition ?? {};
-
   return (
     <UpdateClientEnvironment records={records}>
       <CommunityContextProvider data={community}>
@@ -57,14 +51,7 @@ export default async function ItemLayout({
           )}
           {slug && <ViewCounter slug={slug} />}
           {hero && <HeroTemplate data={hero} />}
-          {(enableDescendantBrowsing || enableDescendantSearch) && (
-            <EntityNavBar
-              data={item}
-              showBrowse={enableDescendantBrowsing}
-              showSearch={enableDescendantSearch}
-              searchPrompt={descendantSearchPrompt}
-            />
-          )}
+          <EntityNavBar data={item} />
           <NavigationTemplate data={navigation} />
           {children}
         </AppBody>
@@ -78,13 +65,6 @@ const query = graphql`
     item(slug: $slug) {
       layouts {
         hero {
-          template {
-            definition {
-              enableDescendantBrowsing
-              enableDescendantSearch
-              descendantSearchPrompt
-            }
-          }
           ...HeroTemplateFragment
         }
         navigation {
