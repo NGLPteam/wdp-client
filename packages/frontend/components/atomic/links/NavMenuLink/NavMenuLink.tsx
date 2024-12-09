@@ -17,15 +17,19 @@ function NavMenuLink(
   }: Props & (LinkProps | ButtonProps),
   ref: MaybeLinkRef,
 ) {
-  if ("href" in props) {
-    const Tag = as ?? "span";
+  if (as === "span" || as === "div") {
+    const Tag = as;
 
-    return as ? (
+    return (
       <Tag className={classNames(styles.link, className)}>
         <span>{children}</span>
         {icon && <IconFactory icon={icon} />}
       </Tag>
-    ) : props.href ? (
+    );
+  }
+
+  if ("href" in props) {
+    return props.href ? (
       <Link
         prefetch={false}
         className={classNames(styles.link, className)}

@@ -1,15 +1,22 @@
 .item {
+  font-weight: theme("fontWeight.medium");
+
   & + & {
     margin-block-start: 1.25rem;
   }
 
-  &::before {
-    flex-shrink: 0;
-    margin-inline-end: 0.875rem;
-  }
+  > a {
+    display: flex;
+    align-items: start;
 
-  > * + * {
-    margin-inline-start: 0.75rem;
+    > svg {
+      flex-shrink: 0;
+      margin-block-start: 2px;
+    }
+
+    > * + * {
+      margin-inline-start: 0.75rem;
+    }
   }
 }
 

@@ -1,3 +1,4 @@
+import Image from "next/legacy/image";
 import { useSharedListItemTemplateFragment } from "@/components/templates/shared/shared.listItems.graphql";
 import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
@@ -17,6 +18,11 @@ export default function PromoListItem({
   const href =
     entity?.__typename === "Item" || entity?.__typename === "Collection"
       ? `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`
+      : null;
+
+  const image =
+    entity?.__typename === "Item" || entity?.__typename === "Collection"
+      ? entity.heroImage?.image.webp
       : null;
 
   return (
@@ -43,6 +49,17 @@ export default function PromoListItem({
             {metaB?.valid && <InlineSlotWrapper content={metaB.content} />}
           </div>
         </div>
+        {!!image && !!image.url && (
+          <Image
+            className={styles.image}
+            role="presentation"
+            alt={image.alt || ""}
+            src={image.url}
+            layout="fill"
+            objectFit="cover"
+            objectPosition="center"
+          />
+        )}
       </NamedLink>
     </li>
   );

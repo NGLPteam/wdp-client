@@ -2,6 +2,7 @@ import { useSharedListItemTemplateFragment } from "@/components/templates/shared
 import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import NamedLink from "@/components/atomic/links/NamedLink";
+import IconFactory from "@/components/factories/IconFactory";
 import { getRouteByEntityType } from "@/helpers/routes";
 import styles from "./Compact.module.css";
 
@@ -22,6 +23,7 @@ export default function CompactListItem({
   return (
     <li className={styles.item}>
       <NamedLink href={href}>
+        <IconFactory icon="arrowRight" role="presentation" />
         {header?.valid && !!header.content && (
           <InlineSlotWrapper content={header.content} />
         )}

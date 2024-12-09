@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6f363a9d25fdb15c51921790313cd16f>>
+ * @generated SignedSource<<9d8c92296edf035742c4507cc0ebc37d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,9 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 export type TemplateKind = "CONTRIBUTOR_LIST" | "DESCENDANT_LIST" | "DETAIL" | "HERO" | "LINK_LIST" | "LIST_ITEM" | "METADATA" | "NAVIGATION" | "ORDERING" | "PAGE_LIST" | "SUPPLEMENTARY" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type FactoryTemplatesFragment$data = {
+  readonly entityList?: {
+    readonly empty: boolean;
+  };
   readonly templateKind?: TemplateKind;
   readonly " $fragmentSpreads": FragmentRefs<"ContributorsTemplateFragment" | "DescendantsTemplateFragment" | "DetailTemplateFragment" | "LinksTemplateFragment" | "OrderingNavigationTemplateFragment" | "PagesTemplateFragment">;
   readonly " $fragmentType": "FactoryTemplatesFragment";
@@ -21,7 +24,28 @@ export type FactoryTemplatesFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"FactoryTemplatesFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "TemplateEntityList",
+    "kind": "LinkedField",
+    "name": "entityList",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "empty",
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+];
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -90,6 +114,18 @@ const node: ReaderFragment = {
       "abstractKey": null
     },
     {
+      "kind": "InlineFragment",
+      "selections": (v0/*: any*/),
+      "type": "DescendantListTemplateInstance",
+      "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": (v0/*: any*/),
+      "type": "LinkListTemplateInstance",
+      "abstractKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "DescendantsTemplateFragment"
@@ -103,7 +139,8 @@ const node: ReaderFragment = {
   "type": "AnyMainTemplateInstance",
   "abstractKey": "__isAnyMainTemplateInstance"
 };
+})();
 
-(node as any).hash = "c09ade61da7f8ff95ce39ea80d6f1b5e";
+(node as any).hash = "1f772a60f24ffa2e0742dd98c2f607c1";
 
 export default node;

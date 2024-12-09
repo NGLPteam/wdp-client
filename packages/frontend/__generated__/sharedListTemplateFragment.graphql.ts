@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<00c53a68d3fd8ea21fe6af6e4a2842ce>>
+ * @generated SignedSource<<f952d8a06520fcc486f70baa618a2a51>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,7 +23,9 @@ export type sharedListTemplateFragment$data = {
     readonly seeAllButtonLabel: string | null | undefined;
     readonly selectionLimit: number | null | undefined;
     readonly selectionMode: DescendantListSelectionMode | null | undefined;
+    readonly selectionPropertyPath: any | null | undefined;
     readonly showEntityContext: boolean | null | undefined;
+    readonly showHeroImage: boolean | null | undefined;
     readonly showSeeAllButton: boolean | null | undefined;
     readonly title: string | null | undefined;
     readonly variant: DescendantListVariant | null | undefined;
@@ -59,6 +61,7 @@ export type sharedListTemplateFragment$data = {
     readonly selectionLimit: number | null | undefined;
     readonly selectionMode: LinkListSelectionMode | null | undefined;
     readonly showEntityContext: boolean | null | undefined;
+    readonly showHeroImage: boolean | null | undefined;
     readonly showSeeAllButton: boolean | null | undefined;
     readonly title: string | null | undefined;
     readonly variant: LinkListVariant | null | undefined;
@@ -89,6 +92,6 @@ const node: ReaderInlineDataFragment = {
   "name": "sharedListTemplateFragment"
 };
 
-(node as any).hash = "e3f82a7e76cb11bdb343d8737d8c364b";
+(node as any).hash = "39947602f202edd0b2026e6a8d403297";
 
 export default node;

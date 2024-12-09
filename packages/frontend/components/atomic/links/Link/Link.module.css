@@ -28,7 +28,7 @@
 
 .icon {
   flex: 1 0 auto;
-  padding-block-start: 1px;
+  padding-block-start: 2px;
   vertical-align: text-bottom;
 
   & + * {

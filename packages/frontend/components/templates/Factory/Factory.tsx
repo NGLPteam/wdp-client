@@ -39,6 +39,14 @@ export default function TemplateFactory({
 
   const Template = TEMPLATE_COMPONENT_MAP[template.templateKind];
 
+  if (
+    (template.templateKind === "DESCENDANT_LIST" ||
+      template.templateKind === "LINK_LIST") &&
+    template.entityList?.empty
+  ) {
+    return null;
+  }
+
   return Template ? <Template data={template} /> : null;
 }
 
@@ -58,6 +66,16 @@ const fragment = graphql`
     }
     ... on PageListTemplateInstance {
       ...PagesTemplateFragment
+    }
+    ... on DescendantListTemplateInstance {
+      entityList {
+        empty
+      }
+    }
+    ... on LinkListTemplateInstance {
+      entityList {
+        empty
+      }
     }
     ...DescendantsTemplateFragment
     ...LinksTemplateFragment

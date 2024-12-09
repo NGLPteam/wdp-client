@@ -25,11 +25,8 @@
 .grid {
   @mixin l-grid;
 
-  grid-template-areas: "text text text text text . image image image image image image";
+  grid-template-areas: ". text text text text . image image image image image image";
 
-  @mixin respond theme("screens.120") {
-    grid-template-areas: "text text text text text text . image image image image image";
-  }
   @mixin respond theme("screens.100") {
     grid-template-columns: 1fr;
     grid-template-rows: auto;

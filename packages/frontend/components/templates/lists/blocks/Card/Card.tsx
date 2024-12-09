@@ -3,6 +3,7 @@ import { useSharedListTemplateFragment } from "@/components/templates/shared/sha
 import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
 import { getBgClass } from "@/components/templates/helpers/bgColor";
 import SeeAll from "../../SeeAll";
+import { getSeeAllHref } from "../../SeeAll/helpers";
 import List from "../../List";
 import styles from "./Card.module.css";
 
@@ -26,22 +27,33 @@ export default function CardListBlock({
     showSeeAllButton,
     seeAllButtonLabel,
     selectionMode,
+    showHeroImage,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
-  const showHeroImage = false;
+  const { selectionPropertyPath, orderingIdentifier } =
+    descendantsDefinition ?? {};
 
   const bgClass = getBgClass(background);
 
+  const seeAllHref = descendantsDefinition
+    ? getSeeAllHref(
+        basePath,
+        selectionMode,
+        orderingIdentifier,
+        selectionPropertyPath,
+      )
+    : null;
+
   return (
     <div className={classNames(bgClass, styles.wrapper)}>
-      {!!title && <h3 className={styles.header}>{title}</h3>}
+      {!!title && <h3 className={classNames(styles.header, "")}>{title}</h3>}
       {showHeroImage && <div className={styles.heroImage} />}
       <List variant="CARDS" bgColor={background} data={entityList} />
-      {!!showSeeAllButton && selectionMode === "NAMED" && (
+      {!!showSeeAllButton && !!seeAllHref && (
         <SeeAll
           alignment="center"
           buttonLabel={seeAllButtonLabel}
-          href={`${basePath}/${descendantsDefinition?.orderingIdentifier}`}
+          href={seeAllHref}
         />
       )}
     </div>

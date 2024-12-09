@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<99f0ac6966f5be799f0c1b2ccc9d44d9>>
+ * @generated SignedSource<<df11a2c14fd2357953277df6d4ea7a54>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,7 +19,6 @@ export type HeroTemplateFragment$data = {
   readonly template: {
     readonly definition: {
       readonly background: HeroBackground | null | undefined;
-      readonly descendantSearchPrompt: string | null | undefined;
       readonly showBigSearchPrompt: boolean | null | undefined;
       readonly showBreadcrumbs: boolean | null | undefined;
       readonly showSharingLink: boolean | null | undefined;
@@ -103,13 +102,6 @@ const node: ReaderFragment = {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "descendantSearchPrompt",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
               "name": "showBreadcrumbs",
               "storageKey": null
             },
@@ -187,6 +179,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "e250dbb54118c0ccd6aa40f4fc4b3320";
+(node as any).hash = "f5ed94a12f387448aacd29a1ed4e0707";
 
 export default node;
