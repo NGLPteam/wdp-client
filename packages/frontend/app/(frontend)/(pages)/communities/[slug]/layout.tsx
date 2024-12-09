@@ -3,13 +3,14 @@ import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import CommunityNavBar from "components/composed/community/CommunityNavBar";
 import { ResolvingMetadata, Metadata } from "next";
+import HeroTemplate from "@/components/templates/Hero";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
-import { layoutCommunityQuery as Query } from "@/relay/layoutCommunityQuery.graphql";
+import { layoutCommunityTemplateQuery as Query } from "@/relay/layoutCommunityTemplateQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import AppBody from "@/components/global/AppBody";
 import { CommunityContextProvider } from "@/contexts/CommunityContext";
-import generateCommunityMetadata from "./_metadata/community";
+import generateCommunityMetadata from "@/app/(frontend)/(pages)/communities/[slug]/_metadata/community";
 
 export async function generateMetadata(
   props: BasePageParams,
@@ -20,10 +21,8 @@ export async function generateMetadata(
 
 export default async function CommunityLayout({
   children,
-  params,
+  params: { slug },
 }: BasePageParams & PropsWithChildren) {
-  const { slug } = params;
-
   const { data, records } = await fetchQuery<Query>(query, {
     slug,
   });
@@ -32,11 +31,20 @@ export default async function CommunityLayout({
 
   if (!community) return notFound();
 
+  const {
+    layouts: { hero },
+  } = community;
+
+  const showNavBar = hero?.template?.definition?.enableDescendantBrowsing;
+
   return (
     <UpdateClientEnvironment records={records}>
       <CommunityContextProvider data={community}>
         <AppBody data={data}>
-          <CommunityNavBar data={community} entityData={community} />
+          {showNavBar && (
+            <CommunityNavBar data={community} entityData={community} />
+          )}
+          {hero && <HeroTemplate data={hero} />}
           {children}
         </AppBody>
       </CommunityContextProvider>
@@ -47,8 +55,18 @@ export default async function CommunityLayout({
 export const dynamic = "force-dynamic";
 
 const query = graphql`
-  query layoutCommunityQuery($slug: Slug!) {
+  query layoutCommunityTemplateQuery($slug: Slug!) {
     community(slug: $slug) {
+      layouts {
+        hero {
+          template {
+            definition {
+              enableDescendantBrowsing
+            }
+          }
+          ...HeroTemplateFragment
+        }
+      }
       ...CommunityNavBarFragment
       ...CommunityNavBarEntityFragment
       ...CommunityContextFragment

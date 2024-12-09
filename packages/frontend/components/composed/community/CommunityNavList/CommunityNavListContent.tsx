@@ -43,18 +43,13 @@ export default function CommunityNavList({
       ? community.schemaRanks.map((schema) =>
           schema
             ? {
-                href:
-                  schema.kind === "COLLECTION"
-                    ? `/communities/${
-                        community.slug
-                      }/collections/${encodeURIComponent(schema.slug)}`
-                    : `/communities/${
-                        community.slug
-                      }/items/${encodeURIComponent(schema.slug)}`,
+                href: `/communities/${
+                  community.slug
+                }/browse/${encodeURIComponent(schema.slug)}`,
                 label: getSchemaPluralName(schema.slug, schema.name, t),
                 slug: schema.slug,
               }
-            : {},
+            : {}
         )
       : [];
 
