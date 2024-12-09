@@ -1,44 +1,54 @@
 "use client";
 
-import { graphql } from "react-relay";
+import { graphql, useFragment } from "react-relay";
 import { usePathname } from "next/navigation";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
+import { markdownToTxt } from "markdown-to-txt";
 import { Search } from "components/forms";
 import { EntityNavBarFragment$key } from "@/relay/EntityNavBarFragment.graphql";
+import { useSharedInlineFragment } from "@/components/templates/shared/shared.slots.graphql";
 import EntityNavList from "./EntityNavList";
 import * as Styled from "./EntityNavBar.styles";
 
-export default function EntityNavBar({
-  data,
-  showBrowse = true,
-  showSearch = true,
-  searchPrompt,
-}: Props) {
+export default function EntityNavBar({ data }: Props) {
   const { t } = useTranslation();
-  const entity = useMaybeFragment(fragment, data);
+  const entity = useFragment(fragment, data);
+
+  const hero = entity?.layouts?.hero;
+
+  const { enableDescendantSearch, enableDescendantBrowsing } =
+    hero?.template?.definition ?? {};
+
+  const descendantSearchPrompt = useSharedInlineFragment(
+    hero?.template?.slots.descendantSearchPrompt,
+  );
 
   const pathname = usePathname();
   const hideSearch = pathname.includes("search");
 
-  return entity ? (
+  const canRender =
+    !!entity && (enableDescendantSearch || enableDescendantBrowsing);
+
+  const placeholder =
+    descendantSearchPrompt?.valid && !!descendantSearchPrompt?.content
+      ? markdownToTxt(descendantSearchPrompt?.content)
+      : t("search.placeholder_name", {
+          name: entity?.title,
+        });
+
+  return canRender ? (
     <Styled.Nav className="a-bg-custom20" as="nav">
       <Styled.NavInner className="l-container-wide">
         <Styled.LeftSide>
-          {showBrowse && <EntityNavList data={entity} />}
+          {enableDescendantBrowsing && <EntityNavList data={entity} />}
         </Styled.LeftSide>
         {!hideSearch && (
           <Styled.RightSide>
-            {showSearch && (
+            {enableDescendantSearch && (
               <Search
                 pathname={`/collections/${entity.slug}/search`}
                 id="entitySearch"
-                placeholder={
-                  searchPrompt ??
-                  t("search.placeholder_name", {
-                    name: entity.title,
-                  })
-                }
+                placeholder={placeholder}
               />
             )}
           </Styled.RightSide>
@@ -50,9 +60,6 @@ export default function EntityNavBar({
 
 type Props = {
   data?: EntityNavBarFragment$key | null;
-  showBrowse?: boolean | null;
-  showSearch?: boolean | null;
-  searchPrompt?: string | null;
 };
 
 const fragment = graphql`
@@ -66,6 +73,21 @@ const fragment = graphql`
     ... on Entity {
       title
       ...EntityNavListFragment
+      layouts {
+        hero {
+          template {
+            definition {
+              enableDescendantBrowsing
+              enableDescendantSearch
+            }
+            slots {
+              descendantSearchPrompt {
+                ...sharedInlineSlotFragment
+              }
+            }
+          }
+        }
+      }
     }
   }
 `;

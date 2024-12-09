@@ -1,11 +1,11 @@
 import { Suspense } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import EntityPageLayoutFactory from "components/factories/EntityPageLayoutFactory";
-import LoadingBlock from "components/atomic/loading/LoadingBlock";
+import EntityPageLayoutFactory from "@/components/factories/EntityPageLayoutFactory";
+import LoadingBlock from "@/components/atomic/loading/LoadingBlock";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
-import { pageCollectionPageQuery as Query } from "@/relay/pageCollectionPageQuery.graphql";
+import { pageTemplatesCollectionPageQuery as Query } from "@/relay/pageTemplatesCollectionPageQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
 export default async function CollectionPagePage({ params }: BasePageParams) {
@@ -32,7 +32,7 @@ export default async function CollectionPagePage({ params }: BasePageParams) {
 export const dynamic = "force-dynamic";
 
 const query = graphql`
-  query pageCollectionPageQuery($slug: Slug!, $pageSlug: String!) {
+  query pageTemplatesCollectionPageQuery($slug: Slug!, $pageSlug: String!) {
     collection(slug: $slug) {
       ...EntityPageLayoutFactoryFragment
     }

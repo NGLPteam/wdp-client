@@ -1,17 +1,14 @@
-import { Suspense } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import JournalContent from "components/composed/journal/JournalContent";
-import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
-import LoadingBlock from "components/atomic/loading/LoadingBlock";
-import { BasePageParams } from "@/types/page";
+import TemplateFactory from "@/components/templates/Factory";
 import fetchQuery from "@/lib/relay/fetchQuery";
-import { pageCollectionQuery as Query } from "@/relay/pageCollectionQuery.graphql";
+import { pageCollectionTemplateQuery as Query } from "@/relay/pageCollectionTemplateQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
+import { BasePageParams } from "@/types/page";
 
-export default async function CollectionPage({ params }: BasePageParams) {
-  const { slug } = params;
-
+export default async function TemplatePage({
+  params: { slug },
+}: BasePageParams) {
   const { data, records } =
     (await fetchQuery<Query>(query, {
       slug,
@@ -21,39 +18,28 @@ export default async function CollectionPage({ params }: BasePageParams) {
 
   if (!collection) return notFound();
 
-  const pageComponent = () => {
-    switch (collection?.schemaDefinition?.identifier) {
-      case "journal":
-        return <JournalContent data={collection} />;
+  const { main } = collection.layouts;
 
-      // By default, return the entity's layout and show ordering content
-      default:
-        return (
-          <Suspense fallback={<LoadingBlock />}>
-            <EntityOrderingLayoutFactory data={collection} params={params} />
-          </Suspense>
-        );
-    }
-  };
+  const { templates } = main ?? {};
 
   return (
     <UpdateClientEnvironment records={records}>
-      {pageComponent()}
+      {!!templates?.length &&
+        templates.map((t, i) => <TemplateFactory key={i} data={t} />)}
     </UpdateClientEnvironment>
   );
 }
 
-export const dynamic = "force-dynamic";
-
 const query = graphql`
-  query pageCollectionQuery($slug: Slug!) {
+  query pageCollectionTemplateQuery($slug: Slug!) {
     collection(slug: $slug) {
-      schemaDefinition {
-        identifier
+      layouts {
+        main {
+          templates {
+            ...FactoryTemplatesFragment
+          }
+        }
       }
-
-      ...EntityOrderingLayoutFactoryFragment
-      ...JournalContentFragment
     }
   }
 `;
