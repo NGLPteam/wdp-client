@@ -20,7 +20,7 @@ export default function CommunityHeroHeader({
   return (
     <section
       className={
-        heroImageLayout === "ONE_COLUMN" ? "a-bg-neutral90" : undefined
+        heroImageLayout === "ONE_COLUMN" ? "a-bg-neutral90" : "a-bg-custom20"
       }
     >
       <div className={styles.grid}>

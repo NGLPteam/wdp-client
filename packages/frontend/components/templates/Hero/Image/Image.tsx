@@ -1,4 +1,5 @@
 import { graphql, useFragment } from "react-relay";
+import classNames from "classnames";
 import Image from "next/legacy/image";
 import type { HeroImageLayout } from "@/types/graphql-schema";
 import { ImageHeroTemplateFragment$key } from "@/relay/ImageHeroTemplateFragment.graphql";
@@ -16,7 +17,15 @@ export default function HeroImage({
   const src = heroImage?.hero?.webp?.url;
 
   return src ? (
-    <div className={layout ? styles.gridWrapper : styles.baseWrapper}>
+    <div
+      className={
+        layout
+          ? classNames(styles.gridWrapper, {
+              [styles["gridWrapper--two-column"]]: layout === "TWO_COLUMN",
+            })
+          : styles.baseWrapper
+      }
+    >
       <Image
         alt=""
         src={src}
