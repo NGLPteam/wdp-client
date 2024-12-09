@@ -49,7 +49,7 @@ export default function CommunityNavList({
                 label: getSchemaPluralName(schema.slug, schema.name, t),
                 slug: schema.slug,
               }
-            : {}
+            : {},
         )
       : [];
 
