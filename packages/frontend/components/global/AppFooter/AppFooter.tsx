@@ -1,6 +1,7 @@
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
+import classNames from "classnames";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import InstallationName from "components/composed/instance/InstallationName";
@@ -12,7 +13,7 @@ import { Link as LinkStyle, NamedLink } from "components/atomic";
 import { useGlobalStaticContext } from "contexts/GlobalStaticContext";
 import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
 import { CommunityPickerCommunityNameFragment$key } from "@/relay/CommunityPickerCommunityNameFragment.graphql";
-import * as Styled from "./AppFooter.styles";
+import styles from "./AppFooter.module.css";
 
 interface Props {
   data?: AppFooterFragment$key | null;
@@ -34,63 +35,67 @@ export default function AppFooter({ data, communityData }: Props) {
 
   function renderRoute(href: string, label: string) {
     return (
-      <Styled.NavListItem key={href} className="t-copy-sm t-copy-light">
-        <NamedLink href={href}>
-          <LinkStyle as="span">{startCase(t(label))}</LinkStyle>
-        </NamedLink>
-      </Styled.NavListItem>
+      <li
+        key={href}
+        className={classNames("t-copy-sm t-copy-light", styles.navItem)}
+      >
+        <NamedLink href={href}>{startCase(t(label))}</NamedLink>
+      </li>
     );
   }
 
   function renderPlaceholderRoute(label: string) {
     return (
-      <Styled.NavListItem key={label} className="t-copy-sm t-copy-light">
+      <li
+        key={label}
+        className={classNames("t-copy-sm t-copy-light", styles.navItem)}
+      >
         <DialogDisclosure {...dialog}>
           <LinkStyle as="span">{t(label)}</LinkStyle>
         </DialogDisclosure>
-      </Styled.NavListItem>
+      </li>
     );
   }
 
   return (
-    <Styled.FooterWrapper className={`a-bg-custom20`}>
-      <Styled.FooterInner className="l-container-wide">
-        <Styled.CommunityNameWrapper>
+    <footer className={classNames("a-bg-custom20", styles.footer)}>
+      <div className={classNames("l-container-wide", styles.inner)}>
+        <div className={styles.communityName}>
           <CommunityName />
-          <Styled.Installation>
+          <h4 className={styles.installation}>
             <InstallationName
               className="t-h4"
               data={app?.globalConfiguration}
             />
-          </Styled.Installation>
-        </Styled.CommunityNameWrapper>
-        <Styled.SearchWrapper>
+          </h4>
+        </div>
+        <div className={styles.search}>
           <Search id="footerSearch" />
-        </Styled.SearchWrapper>
-        <Styled.SearchMobile>
+        </div>
+        <div className={styles.searchMobile}>
           <Search mobile id="footerMobileSearch" />
-        </Styled.SearchMobile>
-        <Styled.AboutWrapper>
-          <Styled.InstallationMobile>
+        </div>
+        <div className={styles.about}>
+          <div className={styles.installationMobile}>
             <InstallationName data={app?.globalConfiguration} />
-          </Styled.InstallationMobile>
+          </div>
           {footer?.description && (
             <div className="t-copy-sm t-copy-lighter">
               {footer?.description}
             </div>
           )}
-          <Styled.InstallationDesktop>
-            <Styled.InstallationDesktopName>
+          <div className={styles.installationDesktop}>
+            <div className={styles["installationDesktop__name"]}>
               <InstallationName data={app?.globalConfiguration} />
-            </Styled.InstallationDesktopName>
+            </div>
             {communityCount > 1 && (
               <CommunityPicker data={app} activeData={communityData} />
             )}
-          </Styled.InstallationDesktop>
-        </Styled.AboutWrapper>
-        <Styled.NavWrapper>
+          </div>
+        </div>
+        <nav className={styles.nav}>
           <h5 className="t-label-lg">{t("nav.explore")}</h5>
-          <Styled.NavList className="t-unstyled-list">
+          <ul className={classNames("t-unstyled-list", styles.navList)}>
             {renderRoute("/", "nav.home")}
             {renderPlaceholderRoute("nav.about")}
             {renderPlaceholderRoute("nav.contact")}
@@ -99,18 +104,18 @@ export default function AppFooter({ data, communityData }: Props) {
             {renderPlaceholderRoute("nav.accessibility")}
             {process.env.NEXT_PUBLIC_ADMIN_URL &&
               renderRoute(process.env.NEXT_PUBLIC_ADMIN_URL, "nav.admin")}
-          </Styled.NavList>
-        </Styled.NavWrapper>
+          </ul>
+        </nav>
         {footer?.copyrightStatement && (
-          <Styled.CopyrightText className="t-copy-sm t-copy-light">
+          <p className={classNames("t-copy-sm t-copy-light", styles.copyright)}>
             {`© ${footer?.copyrightStatement}`}
-          </Styled.CopyrightText>
+          </p>
         )}
-      </Styled.FooterInner>
+      </div>
       <AnnouncementModal dialog={dialog}>
         <p>{t("app.placeholder_page_text")}</p>
       </AnnouncementModal>
-    </Styled.FooterWrapper>
+    </footer>
   );
 }
 
