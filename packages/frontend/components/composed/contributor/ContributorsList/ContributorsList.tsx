@@ -1,9 +1,8 @@
 import { useMemo, Fragment } from "react";
-import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useWindowSize } from "@wdp/lib/hooks";
-import { Link, NamedLink } from "components/atomic";
+import NamedLink from "@/components/atomic/links/NamedLink";
 import {
   ContributorsListFragment$data,
   ContributorsListFragment$key,
@@ -20,7 +19,7 @@ export default function ContributorsList({
   filterRole,
   noLinks = false,
 }: Props) {
-  const contributionData = useMaybeFragment(fragment, data);
+  const contributionData = useFragment(fragment, data);
 
   const { t } = useTranslation();
 
@@ -59,10 +58,8 @@ export default function ContributorsList({
           <Fragment key={i}>
             {contributor.slug && !noLinks ? (
               <>
-                <NamedLink href={href} className="default-link-styles">
-                  <Link as="span">
-                    <ContributorName data={contributor} />
-                  </Link>
+                <NamedLink href={href}>
+                  <ContributorName data={contributor} />
                 </NamedLink>
                 {i < contributions.length - 1 && ", "}
               </>
