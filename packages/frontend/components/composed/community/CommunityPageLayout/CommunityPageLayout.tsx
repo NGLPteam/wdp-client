@@ -1,14 +1,15 @@
 "use client";
 
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useFragment } from "react-relay";
+import classNames from "classnames";
 import useIsMounted from "@wdp/lib/hooks/useIsMounted";
 import { graphql } from "react-relay";
 import { HeroImage, LoadingBlock, Markdown } from "components/atomic";
 import { CommunityPageLayoutFragment$key } from "@/relay/CommunityPageLayoutFragment.graphql";
-import * as Styled from "./CommunityPageLayout.styles";
+import styles from "./CommunityPageLayout.module.css";
 
 export default function CommunityPageLayout({ data }: Props) {
-  const page = useMaybeFragment(fragment, data);
+  const page = useFragment(fragment, data);
 
   const isMounted = useIsMounted();
 
@@ -16,16 +17,16 @@ export default function CommunityPageLayout({ data }: Props) {
     <section className="a-bg-custom10">
       <HeroImage data={page.heroImage} metadata={page.heroImageMetadata} />
       <div className="l-container-wide">
-        <Styled.Content className="t-rte">
-          <h1 className="t-h2">{page.title}</h1>
+        <div className={classNames("t-rte", styles.content)}>
+          <h2>{page.title}</h2>
           {isMounted ? (
             <Markdown.Page>{page.body}</Markdown.Page>
           ) : (
-            <Styled.LoadingWrapper className="t-rte">
+            <div className={classNames("t-rte", styles.loading)}>
               <LoadingBlock />
-            </Styled.LoadingWrapper>
+            </div>
           )}
-        </Styled.Content>
+        </div>
       </div>
     </section>
   ) : (
