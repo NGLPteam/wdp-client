@@ -1,4 +1,5 @@
 import { graphql, useFragment } from "react-relay";
+import { useTranslation } from "react-i18next";
 import Container from "@/components/layout/Container";
 import BreadcrumbsBar from "@/components/layout/BreadcrumbsBar";
 import { EntityHeroHeaderFragment$key } from "@/relay/EntityHeroHeaderFragment.graphql";
@@ -12,6 +13,8 @@ export default function EntityHeroHeader({
 }: {
   data?: EntityHeroHeaderFragment$key | null;
 }) {
+  const { t } = useTranslation();
+
   const layout = useFragment(fragment, data);
 
   const { template, entity } = layout ?? {};
@@ -23,6 +26,12 @@ export default function EntityHeroHeader({
     showSharingLink,
     showSplitDisplay,
   } = template?.definition ?? {};
+
+  const hidden = !!(entity?.visibility === "HIDDEN" || entity?.currentlyHidden);
+
+  const hiddenAlert = hidden
+    ? t("messages.hidden", { schema: entity?.schemaDefinition?.identifier })
+    : undefined;
 
   const renderBreadcrumbs = !!(showBreadcrumbs || showSharingLink);
 
@@ -38,7 +47,7 @@ export default function EntityHeroHeader({
         />
       )}
       <Container as="header" width="wide" bgColor={background}>
-        <HeroHeader data={layout?.template} />
+        <HeroHeader data={layout?.template} hiddenAlert={hiddenAlert} />
       </Container>
       {showHeroImage && entity?.heroImage && (
         <HeroImage data={entity.heroImage} />
@@ -57,14 +66,24 @@ const fragment = graphql`
     entity {
       ... on Collection {
         __typename
+        visibility
+        currentlyHidden
         heroImage {
           ...ImageHeroTemplateFragment
+        }
+        schemaDefinition {
+          identifier
         }
       }
       ... on Item {
         __typename
+        visibility
+        currentlyHidden
         heroImage {
           ...ImageHeroTemplateFragment
+        }
+        schemaDefinition {
+          identifier
         }
       }
       ...BreadcrumbsBarFragment

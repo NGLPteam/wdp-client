@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<aa317253877bd12d5be4f3149e677154>>
+ * @generated SignedSource<<eb245541bbafaff8bad1040fc1a0f60a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type SummaryDetailFragment$data = {
       readonly nodes: ReadonlyArray<{
         readonly slug: string;
       }>;
-      readonly " $fragmentSpreads": FragmentRefs<"EntityAnnouncementsFragment">;
+      readonly " $fragmentSpreads": FragmentRefs<"AnnouncementsFragment">;
     };
   };
   readonly slots: {
@@ -50,7 +50,7 @@ var v0 = [
       {
         "args": null,
         "kind": "FragmentSpread",
-        "name": "EntityAnnouncementsFragment"
+        "name": "AnnouncementsFragment"
       },
       {
         "alias": null,
@@ -169,6 +169,6 @@ return {
 };
 })();
 
-(node as any).hash = "844de6bc99ff2863ce18446b59570e15";
+(node as any).hash = "e576a51fc1ec927e7c45a00dc6a11271";
 
 export default node;

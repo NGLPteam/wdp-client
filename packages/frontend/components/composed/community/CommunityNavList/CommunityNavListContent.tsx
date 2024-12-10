@@ -40,7 +40,7 @@ export default function CommunityNavList({
 
   const schemaLinks =
     community && community.slug
-      ? community.schemaRanks.map((schema) =>
+      ? community.schemaRanks?.map((schema) =>
           schema
             ? {
                 href: `/communities/${
@@ -56,7 +56,7 @@ export default function CommunityNavList({
   const exploreMenu = mobile ? (
     <Accordion
       label={t("nav.explore")}
-      menuItems={schemaLinks.map((link) => (
+      menuItems={schemaLinks?.map((link) => (
         <NamedLink key={link.slug} href={link.href}>
           <Link as="span">{link.label}</Link>
         </NamedLink>
