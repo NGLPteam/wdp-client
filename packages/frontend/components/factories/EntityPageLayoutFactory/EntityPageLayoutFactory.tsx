@@ -34,7 +34,6 @@ const fragment = graphql`
       }
 
       ...IssueSidebarNavFragment
-      ...EntityLayoutFactoryFragment
 
       page(slug: $pageSlug) {
         ...EntityPageLayoutFragment
@@ -45,8 +44,6 @@ const fragment = graphql`
       schemaDefinition {
         identifier
       }
-
-      ...EntityLayoutFactoryFragment
 
       page(slug: $pageSlug) {
         ...EntityPageLayoutFragment
