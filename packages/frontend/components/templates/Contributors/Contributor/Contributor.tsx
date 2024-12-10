@@ -1,7 +1,7 @@
 import { graphql, useFragment } from "react-relay";
 import capitalize from "lodash/capitalize";
 import classNames from "classnames";
-import { NamedLink } from "components/atomic";
+import NamedLink from "@/components/atomic/links/NamedLink";
 import { ContributorBlockFragment$key } from "@/relay/ContributorBlockFragment.graphql";
 import ContributorName from "@/components/composed/contributor/ContributorName";
 import ContributorAvatar from "@/components/composed/contributor/ContributorAvatar";
