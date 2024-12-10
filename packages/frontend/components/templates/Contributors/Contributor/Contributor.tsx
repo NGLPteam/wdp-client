@@ -1,5 +1,5 @@
 import { graphql, useFragment } from "react-relay";
-import capitalize from "lodash/capitalize";
+import startCase from "lodash/startCase";
 import classNames from "classnames";
 import NamedLink from "@/components/atomic/links/NamedLink";
 import { ContributorBlockFragment$key } from "@/relay/ContributorBlockFragment.graphql";
@@ -45,7 +45,9 @@ export default function ContributorBlock({
         <div
           className={classNames("t-copy-lighter t-copy-sm", styles.metadata)}
         >
-          {contribution.role && <p>{capitalize(contribution.role)}</p>}
+          {contribution.role && (
+            <p>{startCase(contribution.role.replaceAll("_", " "))}</p>
+          )}
           {(contribution.affiliation || contributor.affiliation) && (
             <p>{contribution.affiliation || contributor.affiliation}</p>
           )}
