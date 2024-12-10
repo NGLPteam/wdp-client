@@ -28,8 +28,17 @@
   font-size: var(--font-size-base-sm);
 }
 
+.headerGroup {
+  margin-block-end: 1rem;
+}
+
 .header {
   margin-block-start: 0.75rem;
+
+  a:hover &,
+  a:focus-visible & {
+    text-decoration: underline;
+  }
 }
 
 .subheader {
@@ -41,7 +50,7 @@
 
 .contributors {
   display: block;
-  margin-block-start: 0.5rem;
+  font-weight: var(--font-weight-medium);
 }
 
 .summary {
@@ -61,14 +70,14 @@
   }
 
   &:not(:first-child) {
-    margin-block-start: 0.5rem;
+    margin-block-start: 0.25rem;
   }
 }
 
 .readMore {
   @mixin t-label-sm;
 
-  margin-block-start: 0.625rem;
+  margin-block-start: 0.75rem;
   display: flex;
   inline-size: max-content;
 }

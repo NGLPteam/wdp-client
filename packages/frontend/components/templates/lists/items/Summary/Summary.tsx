@@ -42,16 +42,20 @@ export default function SummaryListItem({
             <InlineSlotWrapper content={contextB.content} />
           )}
         </div>
-        {header?.valid && !!header.content && (
-          <h4 className={styles.header}>
-            <InlineSlotWrapper content={header.content} />
-          </h4>
-        )}
-        {subheader?.valid && !!subheader.content && (
-          <span className={styles.subheader}>
-            <InlineSlotWrapper content={subheader.content} />
-          </span>
-        )}
+        <div className={styles.headerGroup}>
+          {header?.valid && !!header.content && (
+            <NamedLink href={href}>
+              <h4 className={styles.header}>
+                <InlineSlotWrapper content={header.content} />
+              </h4>
+            </NamedLink>
+          )}
+          {subheader?.valid && !!subheader.content && (
+            <span className={styles.subheader}>
+              <InlineSlotWrapper content={subheader.content} />
+            </span>
+          )}
+        </div>
         {entity?.contributions && (
           <span className={styles.contributors}>
             <ContributorsList data={entity.contributions} />
