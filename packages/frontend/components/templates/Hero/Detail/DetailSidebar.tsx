@@ -23,22 +23,24 @@ export default function Sidebar({
   const { showDOI, showISSN, showBasicViewMetrics } = definition ?? {};
 
   const shouldRender =
-    showDOI || showISSN || showBasicViewMetrics || slot?.valid || true;
+    showDOI || showISSN || showBasicViewMetrics || slot?.valid;
 
   return shouldRender ? (
-    <ul className={classNames("t-label-sm", styles.sidebar)}>
-      {showDOI && <DOI data={entity} />}
-      {showISSN && <ISSN data={entity} />}
-      {slot?.valid && !!slot.content && (
-        <BlockSlotWrapper content={slot.content} />
-      )}
-      {showBasicViewMetrics && (
-        <>
-          <ViewCount data={entity?.entityViews} />
-          <DownloadCount data={entity?.assetDownloads} />
-        </>
-      )}
-    </ul>
+    <div className={styles.right}>
+      <ul className={classNames("t-label-sm", styles.sidebar)}>
+        {showDOI && <DOI data={entity} />}
+        {showISSN && <ISSN data={entity} />}
+        {slot?.valid && !!slot.content && (
+          <BlockSlotWrapper content={slot.content} />
+        )}
+        {showBasicViewMetrics && (
+          <>
+            <ViewCount data={entity?.entityViews} />
+            <DownloadCount data={entity?.assetDownloads} />
+          </>
+        )}
+      </ul>
+    </div>
   ) : null;
 }
 
