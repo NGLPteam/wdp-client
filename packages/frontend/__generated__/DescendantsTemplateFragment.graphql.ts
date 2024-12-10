@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<550ff8f4ccfe1fef45bbec6d627e48ab>>
+ * @generated SignedSource<<ad9782ad3f66a11532fde9e963a3d932>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -135,14 +135,21 @@ v13 = {
   "name": "showHeroImage",
   "storageKey": null
 },
-v14 = [
+v14 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "width",
+  "storageKey": null
+},
+v15 = [
   {
     "args": null,
     "kind": "FragmentSpread",
     "name": "sharedInlineSlotFragment"
   }
 ],
-v15 = [
+v16 = [
   {
     "alias": null,
     "args": null,
@@ -150,7 +157,7 @@ v15 = [
     "kind": "LinkedField",
     "name": "header",
     "plural": false,
-    "selections": (v14/*: any*/),
+    "selections": (v15/*: any*/),
     "storageKey": null
   },
   {
@@ -160,7 +167,7 @@ v15 = [
     "kind": "LinkedField",
     "name": "headerAside",
     "plural": false,
-    "selections": (v14/*: any*/),
+    "selections": (v15/*: any*/),
     "storageKey": null
   },
   {
@@ -170,7 +177,7 @@ v15 = [
     "kind": "LinkedField",
     "name": "metadata",
     "plural": false,
-    "selections": (v14/*: any*/),
+    "selections": (v15/*: any*/),
     "storageKey": null
   },
   {
@@ -180,11 +187,11 @@ v15 = [
     "kind": "LinkedField",
     "name": "subtitle",
     "plural": false,
-    "selections": (v14/*: any*/),
+    "selections": (v15/*: any*/),
     "storageKey": null
   }
 ],
-v16 = {
+v17 = {
   "alias": null,
   "args": null,
   "concreteType": "TemplateEntityList",
@@ -214,7 +221,7 @@ v16 = {
   ],
   "storageKey": null
 },
-v17 = [
+v18 = [
   (v0/*: any*/),
   {
     "alias": null,
@@ -319,7 +326,8 @@ return {
                 (v11/*: any*/),
                 (v12/*: any*/),
                 (v2/*: any*/),
-                (v13/*: any*/)
+                (v13/*: any*/),
+                (v14/*: any*/)
               ],
               "storageKey": null
             },
@@ -330,10 +338,10 @@ return {
               "kind": "LinkedField",
               "name": "slots",
               "plural": false,
-              "selections": (v15/*: any*/),
+              "selections": (v16/*: any*/),
               "storageKey": null
             },
-            (v16/*: any*/)
+            (v17/*: any*/)
           ],
           "type": "LinkListTemplateInstance",
           "abstractKey": null
@@ -352,13 +360,13 @@ return {
                 (v3/*: any*/),
                 {
                   "kind": "InlineFragment",
-                  "selections": (v17/*: any*/),
+                  "selections": (v18/*: any*/),
                   "type": "Collection",
                   "abstractKey": null
                 },
                 {
                   "kind": "InlineFragment",
-                  "selections": (v17/*: any*/),
+                  "selections": (v18/*: any*/),
                   "type": "Item",
                   "abstractKey": null
                 }
@@ -395,7 +403,8 @@ return {
                 (v11/*: any*/),
                 (v12/*: any*/),
                 (v2/*: any*/),
-                (v13/*: any*/)
+                (v13/*: any*/),
+                (v14/*: any*/)
               ],
               "storageKey": null
             },
@@ -406,10 +415,10 @@ return {
               "kind": "LinkedField",
               "name": "slots",
               "plural": false,
-              "selections": (v15/*: any*/),
+              "selections": (v16/*: any*/),
               "storageKey": null
             },
-            (v16/*: any*/)
+            (v17/*: any*/)
           ],
           "type": "DescendantListTemplateInstance",
           "abstractKey": null

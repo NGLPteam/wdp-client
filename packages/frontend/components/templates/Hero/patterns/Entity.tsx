@@ -46,14 +46,14 @@ export default function EntityHeroHeader({
           className={bgClass}
         />
       )}
-      <Container as="header" width="wide" bgColor={background}>
+      <Container as="header" width="wide" bgColor={background} hideDivider>
         <HeroHeader data={layout?.template} hiddenAlert={hiddenAlert} />
       </Container>
       {showHeroImage && entity?.heroImage && (
         <HeroImage data={entity.heroImage} />
       )}
       {showSplitDisplay && (
-        <Container bgColor={background}>
+        <Container bgColor={background} hideDivider>
           <HeroDetail data={layout?.template} />
         </Container>
       )}

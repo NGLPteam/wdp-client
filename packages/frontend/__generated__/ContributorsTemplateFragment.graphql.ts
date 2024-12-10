@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c90b8152ce773a4569749174caa35cf5>>
+ * @generated SignedSource<<9f8806ca74873181169e9d1b7b78f400>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,12 +10,14 @@
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
 export type ContributorListBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
+export type TemplateWidth = "FULL" | "HALF" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type ContributorsTemplateFragment$data = {
   readonly __typename: "ContributorListTemplateInstance";
   readonly contributorsDefinition: {
     readonly background: ContributorListBackground | null | undefined;
     readonly limit: number | null | undefined;
+    readonly width: TemplateWidth | null | undefined;
   };
   readonly entity: {
     readonly contributions?: {
@@ -145,6 +147,13 @@ return {
           "kind": "ScalarField",
           "name": "limit",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "width",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -182,6 +191,6 @@ return {
 };
 })();
 
-(node as any).hash = "1d6c0bc5f481d4ddbb3253a445bea6cd";
+(node as any).hash = "ebc4001fd2928bf406b47e584efc4783";
 
 export default node;

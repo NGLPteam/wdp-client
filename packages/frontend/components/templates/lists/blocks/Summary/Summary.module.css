@@ -15,6 +15,9 @@
 }
 
 .grid {
+  --grid-col-count: 12;
+  --grid-row-gap: 1rem;
+  --grid-column-gap: 1rem;
   @mixin l-grid;
 
   grid-template-areas: "image image image . text text text text text text text text";
@@ -35,11 +38,15 @@
   }
 
   &:only-child {
-    grid-column: 2 / 12;
+    grid-column: 2 / span 10;
 
     @mixin respond theme("screens.70") {
       grid-row: 1;
       grid-column: 1;
+    }
+
+    *[data-half] & {
+      grid-column: 1 / span 12;
     }
   }
 }

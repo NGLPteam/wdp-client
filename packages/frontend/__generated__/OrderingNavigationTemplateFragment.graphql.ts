@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<361a3a25ed81e306ef484c40fe3ee30c>>
+ * @generated SignedSource<<fbe4be8c9844860a8e1ef48346bbd6e6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,10 +10,12 @@
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
 export type OrderingBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
+export type TemplateWidth = "FULL" | "HALF" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type OrderingNavigationTemplateFragment$data = {
   readonly orderingDefinition: {
     readonly background: OrderingBackground | null | undefined;
+    readonly width: TemplateWidth | null | undefined;
   };
   readonly orderingPair: {
     readonly exists: boolean;
@@ -45,6 +47,13 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "ScalarField",
           "name": "background",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "width",
           "storageKey": null
         }
       ],
@@ -78,6 +87,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "941adcdcf41069cf3bf783ca4d5ee78b";
+(node as any).hash = "cb915cd8d023c4c218848b9218a2ab11";
 
 export default node;

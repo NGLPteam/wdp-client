@@ -13,11 +13,15 @@ export default function DetailTemplate({
 
   const { detailDefinition, entity } = template ?? {};
 
-  const { background, variant, showAnnouncements, showHeroImage } =
+  const { background, variant, showAnnouncements, showHeroImage, width } =
     detailDefinition ?? {};
 
   return (
-    <Container width="wide" bgColor={background}>
+    <Container
+      width="wide"
+      bgColor={background}
+      halfWidthTemplate={width === "HALF"}
+    >
       {variant === "SUMMARY" ? (
         <Summary data={template} showAnnouncements={showAnnouncements} />
       ) : (
@@ -38,6 +42,7 @@ const fragment = graphql`
       variant
       showAnnouncements
       showHeroImage
+      width
     }
     ...SummaryDetailFragment
   }
