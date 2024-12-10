@@ -15,11 +15,15 @@
   @mixin respond theme("screens.100") {
     grid-column: 1 / -1;
   }
+
+  @mixin respond theme("screens.50") {
+    flex-direction: column;
+  }
 }
 
 .thumbnail {
   margin-inline-end: 2.375rem;
-  flex: 1 0;
+  flex-shrink: 0;
   @mixin fluidScalePx flex-basis, 225px, 180px;
 
   @mixin respond theme("screens.50") {

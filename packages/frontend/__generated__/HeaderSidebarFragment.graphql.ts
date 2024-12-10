@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<00f6482ffd7ef50623a8ede44510cd87>>
+ * @generated SignedSource<<8d15f3f201a18d108edc9a0ac0ed973e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type HeaderSidebarFragment$data = {
     readonly showBasicViewMetrics: boolean | null | undefined;
     readonly showDOI: boolean | null | undefined;
     readonly showISSN: boolean | null | undefined;
+    readonly showSplitDisplay: boolean | null | undefined;
   };
   readonly entity: {
     readonly assetDownloads?: {
@@ -131,6 +132,13 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "showBasicViewMetrics",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "showSplitDisplay",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -167,6 +175,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "437bc54b07c768504edccfac8a9796fe";
+(node as any).hash = "87123924f850c214792d1068258a8a1e";
 
 export default node;

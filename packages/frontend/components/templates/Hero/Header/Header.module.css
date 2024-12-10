@@ -2,18 +2,10 @@
   @mixin l-grid;
   grid-template-areas: "left left left left left left left left . right right right";
   @mixin fluidScalePx padding-block-start, 60px, 50px;
-  @mixin fluidScalePx padding-block-end, 60px, 50px;
+  @mixin fluidScalePx padding-block-end, 60px, 32px;
 
   @mixin respond theme("screens.120") {
     grid-template-areas: "left left left left left left left left right right right right";
-  }
-
-  @mixin respond theme("screens.100") {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(2, auto);
-    grid-template-areas:
-      "left"
-      "right";
   }
 
   &:has(:nth-child(3)) {
@@ -25,12 +17,12 @@
       grid-template-areas:
         "alert alert alert alert alert alert alert alert alert alert alert alert"
         "left left left left left left left left right right right right";
-
-      grid-template-areas:
-        "alert"
-        "left"
-        "right";
     }
+  }
+
+  @mixin respond theme("screens.100") {
+    display: flex;
+    flex-direction: column;
   }
 }
 
