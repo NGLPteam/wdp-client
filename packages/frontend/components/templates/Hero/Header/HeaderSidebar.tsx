@@ -20,10 +20,12 @@ export default function Sidebar({
 
   const slot = useSharedBlockFragment(slots?.headerSidebar);
 
-  const { showDOI, showISSN, showBasicViewMetrics } = definition ?? {};
+  const { showDOI, showISSN, showBasicViewMetrics, showSplitDisplay } =
+    definition ?? {};
 
   const shouldRender =
-    showDOI || showISSN || showBasicViewMetrics || slot?.valid || true;
+    !showSplitDisplay &&
+    (showDOI || showISSN || showBasicViewMetrics || slot?.valid);
 
   return shouldRender ? (
     <div className={styles.right}>
@@ -62,6 +64,7 @@ const fragment = graphql`
       showDOI
       showISSN
       showBasicViewMetrics
+      showSplitDisplay
     }
     slots {
       headerSidebar {

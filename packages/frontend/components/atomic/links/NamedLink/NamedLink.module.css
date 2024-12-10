@@ -3,7 +3,10 @@
   &:focus,
   &:focus-visible {
     outline: none;
+  }
 
+  &:hover,
+  &:focus-visible {
     > span {
       @mixin a-link-hover-focus;
     }

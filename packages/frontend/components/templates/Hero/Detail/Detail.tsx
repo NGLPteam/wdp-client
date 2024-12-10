@@ -24,9 +24,7 @@ export default function HeroDetail({ data }: HeroDetailProps) {
         )}
         <Content data={template} />
       </div>
-      <div className={styles.right}>
-        <Sidebar data={template} />
-      </div>
+      <Sidebar data={template} />
     </div>
   );
 }
