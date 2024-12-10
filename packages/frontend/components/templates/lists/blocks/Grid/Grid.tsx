@@ -27,6 +27,7 @@ export default function GridListBlock({
     seeAllButtonLabel,
     selectionMode,
     showHeroImage,
+    width,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
   const { selectionPropertyPath, orderingIdentifier } =
@@ -42,7 +43,11 @@ export default function GridListBlock({
     : null;
 
   return (
-    <Container className={styles.container} bgColor={background}>
+    <Container
+      className={styles.container}
+      bgColor={background}
+      halfWidthTemplate={width === "HALF"}
+    >
       {showHeroImage && <div className={styles.heroImage} />}
       {!!title && <h3>{title}</h3>}
       <List variant="GRID" bgColor={background} data={entityList} />

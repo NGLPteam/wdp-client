@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<795d01b82367dbd94db12f7ec48f4278>>
+ * @generated SignedSource<<7c1c4d3b1e6fe6bc6489b2643fb25082>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type DescendantListVariant = "CARDS" | "COMPACT" | "GRID" | "PROMOS" | "S
 export type LinkListBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
 export type LinkListSelectionMode = "DYNAMIC" | "MANUAL" | "%future added value";
 export type LinkListVariant = "CARDS" | "COMPACT" | "GRID" | "PROMOS" | "SUMMARY" | "%future added value";
+export type TemplateWidth = "FULL" | "HALF" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type sharedListTemplateFragment$data = {
   readonly descendantsDefinition?: {
@@ -29,6 +30,7 @@ export type sharedListTemplateFragment$data = {
     readonly showSeeAllButton: boolean | null | undefined;
     readonly title: string | null | undefined;
     readonly variant: DescendantListVariant | null | undefined;
+    readonly width: TemplateWidth | null | undefined;
   };
   readonly entity?: {
     readonly __typename: "Collection";
@@ -69,6 +71,7 @@ export type sharedListTemplateFragment$data = {
     readonly showSeeAllButton: boolean | null | undefined;
     readonly title: string | null | undefined;
     readonly variant: LinkListVariant | null | undefined;
+    readonly width: TemplateWidth | null | undefined;
   };
   readonly slots?: {
     readonly header: {
@@ -96,6 +99,6 @@ const node: ReaderInlineDataFragment = {
   "name": "sharedListTemplateFragment"
 };
 
-(node as any).hash = "543511b9f1697d9f4a8b8a82a244bf4b";
+(node as any).hash = "1e5f1e0adc232fbc44ca3c52af2c9b1a";
 
 export default node;

@@ -27,6 +27,7 @@ export default function PromoListBlock({
     seeAllButtonLabel,
     selectionMode,
     showHeroImage,
+    width,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
   const { selectionPropertyPath, orderingIdentifier } =
@@ -42,7 +43,11 @@ export default function PromoListBlock({
     : null;
 
   return (
-    <Container className={styles.container} bgColor={background}>
+    <Container
+      className={styles.container}
+      bgColor={background}
+      halfWidthTemplate={width === "HALF"}
+    >
       {!!title && <h3>{title}</h3>}
       {showHeroImage && <div className={styles.heroImage} />}
       <List variant="PROMOS" bgColor={background} data={entityList} />

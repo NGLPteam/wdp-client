@@ -29,6 +29,7 @@ export default function SummaryListBlock({
     showSeeAllButton,
     seeAllButtonLabel,
     selectionMode,
+    width,
     // showEntityContext,
     showHeroImage,
   } = linksDefinition ?? descendantsDefinition ?? {};
@@ -53,7 +54,11 @@ export default function SummaryListBlock({
     : null;
 
   return (
-    <Container className={styles.container} bgColor={background}>
+    <Container
+      className={styles.container}
+      bgColor={background}
+      halfWidthTemplate={width === "HALF"}
+    >
       <div className={styles.grid}>
         <div className={styles.textColumn}>
           {!!title && <span className={styles.blockTitle}>{title}</span>}

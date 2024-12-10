@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a3f6bf50ddb29bdd2e95d261ab914118>>
+ * @generated SignedSource<<1ab7c409208098691bbedae389c796b4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,6 +10,7 @@
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
 export type PageListBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
+export type TemplateWidth = "FULL" | "HALF" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type PagesTemplateFragment$data = {
   readonly __typename: "PageListTemplateInstance";
@@ -18,6 +19,7 @@ export type PagesTemplateFragment$data = {
   };
   readonly pagesDefinition: {
     readonly background: PageListBackground | null | undefined;
+    readonly width: TemplateWidth | null | undefined;
   };
   readonly " $fragmentType": "PagesTemplateFragment";
 };
@@ -53,6 +55,13 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "background",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "width",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -78,6 +87,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "3ea94f8e9130ec3aef893b66034886fe";
+(node as any).hash = "c1fbd70c33fbe40fedb9d09b31c84bff";
 
 export default node;
