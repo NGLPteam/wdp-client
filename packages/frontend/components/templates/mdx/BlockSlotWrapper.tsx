@@ -24,8 +24,6 @@ export default function BlockSlotWrapper({
   }, [content]);
 
   return mdxContent ? (
-    <div style={{ color: "blue", border: "2px solid" }}>
-      <MDXRemote {...mdxContent} components={blockSlotComponents} />
-    </div>
+    <MDXRemote {...mdxContent} components={blockSlotComponents} />
   ) : null;
 }

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import ContributionsBlock from "components/composed/contribution/ContributionsBlock";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
-import { pageItemContributorsQuery as Query } from "@/relay/pageItemContributorsQuery.graphql";
+import { pageTemplatesItemContributorsQuery as Query } from "@/relay/pageTemplatesItemContributorsQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
 export default async function ItemContributorsPage({ params }: BasePageParams) {
@@ -29,7 +29,7 @@ export default async function ItemContributorsPage({ params }: BasePageParams) {
 }
 
 const query = graphql`
-  query pageItemContributorsQuery($slug: Slug!) {
+  query pageTemplatesItemContributorsQuery($slug: Slug!) {
     item(slug: $slug) {
       contributions {
         ...ContributionsBlockFragment

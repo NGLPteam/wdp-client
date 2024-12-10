@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import AssetDetailBlock from "components/composed/asset/AssetDetailBlock";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
-import { pageItemFileDetailQuery as Query } from "@/relay/pageItemFileDetailQuery.graphql";
+import { pageTemplatesItemFileDetailQuery as Query } from "@/relay/pageTemplatesItemFileDetailQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
 export default async function ItemFileDetailPage({ params }: BasePageParams) {
@@ -25,7 +25,7 @@ export default async function ItemFileDetailPage({ params }: BasePageParams) {
 }
 
 const query = graphql`
-  query pageItemFileDetailQuery($file: Slug!) {
+  query pageTemplatesItemFileDetailQuery($file: Slug!) {
     asset(slug: $file) {
       ...AssetDetailBlockFragment
     }

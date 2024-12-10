@@ -31,9 +31,7 @@ export default function NavigationTabs({
 
   if (!entity || entity.__typename === "%other") return null;
 
-  const basePath = `/templates/${getRouteByEntityType(
-    entity.__typename,
-  )}/${slug}`;
+  const basePath = `/${getRouteByEntityType(entity.__typename)}/${slug}`;
 
   const getLink = (
     href: string,
