@@ -1,17 +1,20 @@
 import { PropsWithChildren } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import EntityLayoutFactory from "components/factories/EntityLayoutFactory";
 import GoogleScholarMetaTags from "components/global/GoogleScholarMetaTags";
 import getStaticGoogleScholarData from "contexts/GlobalStaticContext/getStaticGoogleScholarData";
 import { ResolvingMetadata, Metadata } from "next";
+import HeroTemplate from "@/components/templates/Hero";
+import NavigationTemplate from "@/components/templates/EntityNavigation";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
-import { layoutItemQuery as Query } from "@/relay/layoutItemQuery.graphql";
+import { layoutItemTemplateQuery as Query } from "@/relay/layoutItemTemplateQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
+import ViewCounter from "@/components/composed/analytics/ViewCounter";
+import EntityNavBar from "@/components/composed/entity/EntityNavBar";
 import AppBody from "@/components/global/AppBody";
 import { CommunityContextProvider } from "@/contexts/CommunityContext";
-import generateItemMetadata from "./_metadata/item";
+import generateItemMetadata from "@/app/(frontend)/(pages)/items/[slug]/_metadata/item";
 
 export async function generateMetadata(
   props: BasePageParams,
@@ -22,10 +25,8 @@ export async function generateMetadata(
 
 export default async function ItemLayout({
   children,
-  params,
+  params: { slug },
 }: BasePageParams & PropsWithChildren) {
-  const { slug } = params;
-
   const { data, records } = await fetchQuery<Query>(query, {
     slug,
   });
@@ -36,14 +37,23 @@ export default async function ItemLayout({
 
   if (!item) return notFound();
 
+  const {
+    community,
+    layouts: { hero, navigation },
+  } = item;
+
   return (
     <UpdateClientEnvironment records={records}>
-      <CommunityContextProvider data={item.community}>
+      <CommunityContextProvider data={community}>
         <AppBody data={data} searchData={item}>
           {googleScholarData && (
             <GoogleScholarMetaTags entity={googleScholarData} />
           )}
-          <EntityLayoutFactory data={item}>{children}</EntityLayoutFactory>
+          {slug && <ViewCounter slug={slug} />}
+          {hero && <HeroTemplate data={hero} />}
+          <EntityNavBar data={item} />
+          <NavigationTemplate data={navigation} />
+          {children}
         </AppBody>
       </CommunityContextProvider>
     </UpdateClientEnvironment>
@@ -51,10 +61,18 @@ export default async function ItemLayout({
 }
 
 const query = graphql`
-  query layoutItemQuery($slug: Slug!) {
+  query layoutItemTemplateQuery($slug: Slug!) {
     item(slug: $slug) {
-      ...EntityLayoutFactoryFragment
+      layouts {
+        hero {
+          ...HeroTemplateFragment
+        }
+        navigation {
+          ...EntityNavigationTemplateFragment
+        }
+      }
       ...SearchButtonFragment
+      ...EntityNavBarFragment
 
       community {
         ...CommunityContextFragment

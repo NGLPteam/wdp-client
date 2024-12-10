@@ -6,7 +6,7 @@ import { AnalyticsPrecision } from "types/graphql-schema";
 import LoadingBlock from "components/atomic/loading/LoadingBlock";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
-import { pageItemMetricsQuery as Query } from "@/relay/pageItemMetricsQuery.graphql";
+import { pageTemplatesItemMetricsQuery as Query } from "@/relay/pageTemplatesItemMetricsQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
 export default async function ItemMetricsPage({ params }: BasePageParams) {
@@ -33,7 +33,7 @@ export default async function ItemMetricsPage({ params }: BasePageParams) {
 }
 
 const query = graphql`
-  query pageItemMetricsQuery(
+  query pageTemplatesItemMetricsQuery(
     $slug: Slug!
     $dateRange: DateFilterInput!
     $precision: AnalyticsPrecision!

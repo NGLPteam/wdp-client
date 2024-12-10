@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import EntityPageLayoutFactory from "components/factories/EntityPageLayoutFactory";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
-import { pageItemPageQuery as Query } from "@/relay/pageItemPageQuery.graphql";
+import { pageTemplatesItemPageQuery as Query } from "@/relay/pageTemplatesItemPageQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
 export default async function ItemPagePage({ params }: BasePageParams) {
@@ -26,7 +26,7 @@ export default async function ItemPagePage({ params }: BasePageParams) {
 }
 
 const query = graphql`
-  query pageItemPageQuery($slug: Slug!, $pageSlug: String!) {
+  query pageTemplatesItemPageQuery($slug: Slug!, $pageSlug: String!) {
     item(slug: $slug) {
       ...EntityPageLayoutFactoryFragment
     }

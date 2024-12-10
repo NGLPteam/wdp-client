@@ -1,33 +1,45 @@
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import EntityContentLayoutFactory from "components/factories/EntityContentLayoutFactory";
-import { BasePageParams } from "@/types/page";
+import TemplateFactory from "@/components/templates/Factory";
 import fetchQuery from "@/lib/relay/fetchQuery";
-import { pageItemQuery as Query } from "@/relay/pageItemQuery.graphql";
+import { pageItemTemplateQuery as Query } from "@/relay/pageItemTemplateQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
+import { BasePageParams } from "@/types/page";
 
-export default async function ItemPage({ params }: BasePageParams) {
-  const { slug } = params;
-
-  const { data, records } = await fetchQuery<Query>(query, {
-    slug,
-  });
+export default async function TemplatePage({
+  params: { slug },
+}: BasePageParams) {
+  const { data, records } =
+    (await fetchQuery<Query>(query, {
+      slug,
+    })) ?? {};
 
   const { item } = data ?? {};
 
   if (!item) return notFound();
 
+  const { main } = item.layouts;
+
+  const { templates } = main ?? {};
+
   return (
     <UpdateClientEnvironment records={records}>
-      <EntityContentLayoutFactory data={item} params={params} />
+      {!!templates?.length &&
+        templates.map((t, i) => <TemplateFactory key={i} data={t} />)}
     </UpdateClientEnvironment>
   );
 }
 
 const query = graphql`
-  query pageItemQuery($slug: Slug!) {
+  query pageItemTemplateQuery($slug: Slug!) {
     item(slug: $slug) {
-      ...EntityContentLayoutFactoryFragment
+      layouts {
+        main {
+          templates {
+            ...FactoryTemplatesFragment
+          }
+        }
+      }
     }
   }
 `;
