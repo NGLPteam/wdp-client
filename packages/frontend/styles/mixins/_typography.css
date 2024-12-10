@@ -42,3 +42,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+@define-mixin t-h3 {
+  font-family: var(--font-face-header);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-h3, 400);
+  line-height: var(--line-height-h3});
+  letter-spacing: var(--letter-spacing-h3});
+}

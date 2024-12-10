@@ -1,0 +1,18 @@
+.content {
+  max-inline-size: 48rem;
+  padding-block-end: var(--container-padding-xl);
+
+  section:has(figure) & {
+    padding-block-start: var(--container-padding-md);
+  }
+
+  h1,
+  h2 {
+    @mixin t-h3;
+  }
+}
+
+.loading {
+  min-height: 40vh;
+  padding-block-start: 20%;
+}
