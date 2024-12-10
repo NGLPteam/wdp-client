@@ -13662,6 +13662,11 @@
           },
           {
             "kind": "INTERFACE",
+            "name": "ContributionBase",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
             "name": "Node",
             "ofType": null
           },
@@ -17271,7 +17276,7 @@
       {
         "kind": "INTERFACE",
         "name": "Contribution",
-        "description": "A contribution from a certain contributor",
+        "description": "An interface representing a contribution from a certain contributor.\n\nIt leaves the `contributor` field's implementation up to later\nimplementations, as we have different needs elsewhere in the API.\n\nSee `Contribution` and `TemplateContribution`.\n",
         "fields": [
           {
             "name": "affiliation",
@@ -17287,7 +17292,7 @@
           },
           {
             "name": "contributor",
-            "description": null,
+            "description": "The contributor, loaded via union for the most control.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -17297,6 +17302,130 @@
                 "name": "AnyContributor",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "contributorKind",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "ContributorKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "displayName",
+            "description": "A potentially-overridden display name value for all contributor types",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "location",
+            "description": "A potentially-overridden value from organization contributors",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metadata",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ContributionMetadata",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "role",
+            "description": "An arbitrary text value describing the role the contributor had",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "title",
+            "description": "A potentially-overridden value from person contributors",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "ContributionBase",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "CollectionContribution",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ItemContribution",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "ContributionBase",
+        "description": "An interface representing a contribution from a certain contributor.\n\nIt leaves the `contributor` field's implementation up to later\nimplementations, as we have different needs elsewhere in the API.\n\nSee `Contribution` and `TemplateContribution`.\n",
+        "fields": [
+          {
+            "name": "affiliation",
+            "description": "A potentially-overridden value from person contributors",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -17398,6 +17527,11 @@
           {
             "kind": "OBJECT",
             "name": "ItemContribution",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "TemplateContribution",
             "ofType": null
           }
         ]
@@ -17558,8 +17692,20 @@
       {
         "kind": "INTERFACE",
         "name": "Contributor",
-        "description": "A contributor who has made a contribution",
+        "description": "An interface for an abstract contributor who has made a contribution.\n\nSee `kind` for what type it is.\n\nThis type differentiates from `Contributor` in that it lacks the ability to grab contributions,\nin order to prevent inordinately long nesting in GQL fetches in certain situations.\n",
         "fields": [
+          {
+            "name": "affiliation",
+            "description": "Only applicable when `kind` = `PERSON`.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "bio",
             "description": null,
@@ -17574,7 +17720,7 @@
           },
           {
             "name": "collectionContributionCount",
-            "description": "The total number of collection contributions from this contributor",
+            "description": "The total number of collection contributions from this contributor.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -17703,7 +17849,7 @@
           },
           {
             "name": "contributionCount",
-            "description": "The total number of contributions (item + collection) from this contributor",
+            "description": "The total number of contributions (item + collection) from this contributor.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -17720,6 +17866,30 @@
           {
             "name": "email",
             "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "familyName",
+            "description": "Only applicable when `kind` = `PERSON`.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "givenName",
+            "description": "Only applicable when `kind` = `PERSON`.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -17775,7 +17945,7 @@
           },
           {
             "name": "itemContributionCount",
-            "description": "The total number of item contributions from this contributor",
+            "description": "The total number of item contributions from this contributor.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -17919,6 +18089,18 @@
             "deprecationReason": null
           },
           {
+            "name": "legalName",
+            "description": "Only applicable when `kind` = `ORGANIZATION`.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "links",
             "description": null,
             "args": [],
@@ -17943,8 +18125,20 @@
             "deprecationReason": null
           },
           {
+            "name": "location",
+            "description": "Only applicable when `kind` = `ORGANIZATION`.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "name",
-            "description": "A display name, independent of the type of contributor",
+            "description": "A display name, independent of the type of contributor.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -17985,6 +18179,338 @@
           {
             "name": "suffix",
             "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "title",
+            "description": "Only applicable when `kind` = `PERSON`.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "url",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "ContributorBase",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "OrganizationContributor",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "PersonContributor",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "ContributorBase",
+        "description": "An interface for an abstract contributor who has made a contribution.\n\nSee `kind` for what type it is.\n\nThis type differentiates from `Contributor` in that it lacks the ability to grab contributions,\nin order to prevent inordinately long nesting in GQL fetches in certain situations.\n",
+        "fields": [
+          {
+            "name": "affiliation",
+            "description": "Only applicable when `kind` = `PERSON`.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "bio",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "collectionContributionCount",
+            "description": "The total number of collection contributions from this contributor.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "contributionCount",
+            "description": "The total number of contributions (item + collection) from this contributor.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "email",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "familyName",
+            "description": "Only applicable when `kind` = `PERSON`.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "givenName",
+            "description": "Only applicable when `kind` = `PERSON`.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "identifier",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "image",
+            "description": "An optional image associated with the contributor.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ImageAttachment",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "imageMetadata",
+            "description": "Configurable metadata for the image attachment",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "ImageMetadata",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "itemContributionCount",
+            "description": "The total number of item contributions from this contributor.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "kind",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "ContributorKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "legalName",
+            "description": "Only applicable when `kind` = `ORGANIZATION`.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "links",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "ContributorLink",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "location",
+            "description": "Only applicable when `kind` = `ORGANIZATION`.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": "A display name, independent of the type of contributor.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "orcid",
+            "description": "An optional, unique [**O**pen **R**esearcher and **C**ontributor **ID**](https://orcid.org) associated with this contributor.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "prefix",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "suffix",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "title",
+            "description": "Only applicable when `kind` = `PERSON`.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -18191,6 +18717,29 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "ContributorListFilter",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "ALL",
+            "description": "Show all contributors, regardless of role.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "AUTHORS",
+            "description": "Show only authors.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "ContributorListTemplateDefinition",
         "description": null,
@@ -18219,6 +18768,18 @@
                 "name": "ISO8601DateTime",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "filter",
+            "description": "Filter which contributors may appear based on their contribution role.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "ContributorListFilter",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -18330,6 +18891,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "width",
+            "description": "This controls how wide the template should render.\n\n**Note**: When using `HALF`, you should take care to make sure that there is an adjacent\ntemplate that also uses `HALF`.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "TemplateWidth",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -18381,6 +18954,22 @@
         "name": "ContributorListTemplateInstance",
         "description": null,
         "fields": [
+          {
+            "name": "contributionList",
+            "description": "The list of contributions to render as part of this template's content.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TemplateContributionList",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,
@@ -18553,6 +19142,11 @@
           {
             "kind": "INTERFACE",
             "name": "Sluggable",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "TemplateHasContributionList",
             "ofType": null
           },
           {
@@ -24437,6 +25031,18 @@
             "deprecationReason": null
           },
           {
+            "name": "selectionFallbackMode",
+            "description": "The fallback mode to use when rendering a list of entities, when the list from\n`selectionMode` is empty and `useSelectionFallback` has been set to true.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "DescendantListSelectionMode",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "selectionLimit",
             "description": "Regardless of `selectionMode`, this limit will be applied on whatever resulting\nlist of entities are produced, so that only up to that amount of entities are\nrendered in the template proper.\n",
             "args": [],
@@ -24450,7 +25056,7 @@
           },
           {
             "name": "selectionMode",
-            "description": "",
+            "description": "The default mode to use when rendering a list of entities.\n\nSee also `selectionFallbackMode` and `useSelectionFallback`.\n",
             "args": [],
             "type": {
               "kind": "ENUM",
@@ -24510,6 +25116,18 @@
           },
           {
             "name": "showEntityContext",
+            "description": "Show additional context about each entity in the selection.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showHeroImage",
             "description": "",
             "args": [],
             "type": {
@@ -24609,12 +25227,36 @@
             "deprecationReason": null
           },
           {
+            "name": "useSelectionFallback",
+            "description": "Controls whether or not to use `selectionFallbackMode` if the entity list returned\nvia `selectionMode` turns out to be empty at runtime.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "variant",
             "description": "The variant rendering mode to use for this template. Affects presentation.\n",
             "args": [],
             "type": {
               "kind": "ENUM",
               "name": "DescendantListVariant",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "width",
+            "description": "This controls how wide the template should render.\n\n**Note**: When using `HALF`, you should take care to make sure that there is an adjacent\ntemplate that also uses `HALF`.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "TemplateWidth",
               "ofType": null
             },
             "isDeprecated": false,
@@ -27304,6 +27946,18 @@
             "type": {
               "kind": "ENUM",
               "name": "DetailVariant",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "width",
+            "description": "This controls how wide the template should render.\n\n**Note**: When using `HALF`, you should take care to make sure that there is an adjacent\ntemplate that also uses `HALF`.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "TemplateWidth",
               "ofType": null
             },
             "isDeprecated": false,
@@ -33943,8 +34597,8 @@
               "name": "String",
               "ofType": null
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "This is a slot now."
           },
           {
             "name": "enableDescendantBrowsing",
@@ -34214,7 +34868,31 @@
         "description": "Slot definitions for the associated template.\n",
         "fields": [
           {
+            "name": "bigSearchPrompt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "callToAction",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "descendantSearchPrompt",
             "description": null,
             "args": [],
             "type": {
@@ -34545,7 +35223,31 @@
         "description": "Rendered slots for the associated template.\n",
         "fields": [
           {
+            "name": "bigSearchPrompt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "callToAction",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "descendantSearchPrompt",
             "description": null,
             "args": [],
             "type": {
@@ -40302,6 +41004,11 @@
           },
           {
             "kind": "INTERFACE",
+            "name": "ContributionBase",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
             "name": "Node",
             "ofType": null
           },
@@ -41059,6 +41766,18 @@
             "deprecationReason": null
           },
           {
+            "name": "selectionFallbackMode",
+            "description": "The fallback mode to use when rendering a list of entities, when the list from\n`selectionMode` is empty and `useSelectionFallback` has been set to true.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "LinkListSelectionMode",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "selectionLimit",
             "description": "Regardless of `selectionMode`, this limit will be applied on whatever resulting\nlist of entities are produced, so that only up to that amount of entities are\nrendered in the template proper.\n",
             "args": [],
@@ -41072,7 +41791,7 @@
           },
           {
             "name": "selectionMode",
-            "description": "",
+            "description": "The default mode to use when rendering a list of entities.\n\nSee also `selectionFallbackMode` and `useSelectionFallback`.\n",
             "args": [],
             "type": {
               "kind": "ENUM",
@@ -41120,6 +41839,18 @@
           },
           {
             "name": "showEntityContext",
+            "description": "Show additional context about each entity in the selection.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showHeroImage",
             "description": "",
             "args": [],
             "type": {
@@ -41219,12 +41950,36 @@
             "deprecationReason": null
           },
           {
+            "name": "useSelectionFallback",
+            "description": "Controls whether or not to use `selectionFallbackMode` if the entity list returned\nvia `selectionMode` turns out to be empty at runtime.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "variant",
             "description": "The variant rendering mode to use for this template. Affects presentation.\n",
             "args": [],
             "type": {
               "kind": "ENUM",
               "name": "LinkListVariant",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "width",
+            "description": "This controls how wide the template should render.\n\n**Note**: When using `HALF`, you should take care to make sure that there is an adjacent\ntemplate that also uses `HALF`.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "TemplateWidth",
               "ofType": null
             },
             "isDeprecated": false,
@@ -45399,6 +46154,64 @@
             "type": {
               "kind": "OBJECT",
               "name": "LinkEntityPayload",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "previewSlot",
+            "description": "Preview a slot for a given entity.\n",
+            "args": [
+              {
+                "name": "input",
+                "description": "Parameters for PreviewSlot",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "PreviewSlotInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "PreviewSlotPayload",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "renderLayouts",
+            "description": "Force the layouts to render for a given `Entity`.\n",
+            "args": [
+              {
+                "name": "input",
+                "description": "Parameters for RenderLayouts",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "RenderLayoutsInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "RenderLayoutsPayload",
               "ofType": null
             },
             "isDeprecated": false,
@@ -49676,6 +50489,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "width",
+            "description": "This controls how wide the template should render.\n\n**Note**: When using `HALF`, you should take care to make sure that there is an adjacent\ntemplate that also uses `HALF`.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "TemplateWidth",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -50010,8 +50835,20 @@
       {
         "kind": "OBJECT",
         "name": "OrganizationContributor",
-        "description": "An organization that has made contributions",
+        "description": "An organization that has made contributions.\n",
         "fields": [
+          {
+            "name": "affiliation",
+            "description": "Only applicable when `kind` = `PERSON`.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "bio",
             "description": null,
@@ -50026,7 +50863,7 @@
           },
           {
             "name": "collectionContributionCount",
-            "description": "The total number of collection contributions from this contributor",
+            "description": "The total number of collection contributions from this contributor.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -50155,7 +50992,7 @@
           },
           {
             "name": "contributionCount",
-            "description": "The total number of contributions (item + collection) from this contributor",
+            "description": "The total number of contributions (item + collection) from this contributor.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -50188,6 +51025,30 @@
           {
             "name": "email",
             "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "familyName",
+            "description": "Only applicable when `kind` = `PERSON`.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "givenName",
+            "description": "Only applicable when `kind` = `PERSON`.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -50259,7 +51120,7 @@
           },
           {
             "name": "itemContributionCount",
-            "description": "The total number of item contributions from this contributor",
+            "description": "The total number of item contributions from this contributor.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -50404,7 +51265,7 @@
           },
           {
             "name": "legalName",
-            "description": null,
+            "description": "Only applicable when `kind` = `ORGANIZATION`.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -50440,7 +51301,7 @@
           },
           {
             "name": "location",
-            "description": null,
+            "description": "Only applicable when `kind` = `ORGANIZATION`.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -50452,7 +51313,7 @@
           },
           {
             "name": "name",
-            "description": "A display name, independent of the type of contributor",
+            "description": "A display name, independent of the type of contributor.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -50519,6 +51380,18 @@
             "deprecationReason": null
           },
           {
+            "name": "title",
+            "description": "Only applicable when `kind` = `PERSON`.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "updatedAt",
             "description": null,
             "args": [],
@@ -50552,6 +51425,11 @@
           {
             "kind": "INTERFACE",
             "name": "Contributor",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "ContributorBase",
             "ofType": null
           },
           {
@@ -51176,6 +52054,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "width",
+            "description": "This controls how wide the template should render.\n\n**Note**: When using `HALF`, you should take care to make sure that there is an adjacent\ntemplate that also uses `HALF`.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "TemplateWidth",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -51776,11 +52666,11 @@
       {
         "kind": "OBJECT",
         "name": "PersonContributor",
-        "description": "A person that has made contributions",
+        "description": "A person that has made contributions.\n",
         "fields": [
           {
             "name": "affiliation",
-            "description": null,
+            "description": "Only applicable when `kind` = `PERSON`.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -51804,7 +52694,7 @@
           },
           {
             "name": "collectionContributionCount",
-            "description": "The total number of collection contributions from this contributor",
+            "description": "The total number of collection contributions from this contributor.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -51933,7 +52823,7 @@
           },
           {
             "name": "contributionCount",
-            "description": "The total number of contributions (item + collection) from this contributor",
+            "description": "The total number of contributions (item + collection) from this contributor.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -51977,7 +52867,7 @@
           },
           {
             "name": "familyName",
-            "description": null,
+            "description": "Only applicable when `kind` = `PERSON`.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -51989,7 +52879,7 @@
           },
           {
             "name": "givenName",
-            "description": null,
+            "description": "Only applicable when `kind` = `PERSON`.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -52061,7 +52951,7 @@
           },
           {
             "name": "itemContributionCount",
-            "description": "The total number of item contributions from this contributor",
+            "description": "The total number of item contributions from this contributor.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -52205,6 +53095,18 @@
             "deprecationReason": null
           },
           {
+            "name": "legalName",
+            "description": "Only applicable when `kind` = `ORGANIZATION`.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "links",
             "description": null,
             "args": [],
@@ -52229,8 +53131,20 @@
             "deprecationReason": null
           },
           {
+            "name": "location",
+            "description": "Only applicable when `kind` = `ORGANIZATION`.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "name",
-            "description": "A display name, independent of the type of contributor",
+            "description": "A display name, independent of the type of contributor.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -52298,7 +53212,7 @@
           },
           {
             "name": "title",
-            "description": null,
+            "description": "Only applicable when `kind` = `PERSON`.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -52346,12 +53260,213 @@
           },
           {
             "kind": "INTERFACE",
+            "name": "ContributorBase",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
             "name": "Node",
             "ofType": null
           },
           {
             "kind": "INTERFACE",
             "name": "Sluggable",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "PreviewSlotInput",
+        "description": "Autogenerated input type of PreviewSlot",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "clientMutationId",
+            "description": "A unique identifier for the client performing the mutation.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entityId",
+            "description": "The entity to update.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "kind",
+            "description": "The kind of slot to render.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "TemplateSlotKind",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "template",
+            "description": "The template to render.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "PreviewSlotPayload",
+        "description": "Autogenerated return type of PreviewSlot.",
+        "fields": [
+          {
+            "name": "attributeErrors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "MutationAttributeError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clientMutationId",
+            "description": "A unique identifier for the client performing the mutation.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "errors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "UserError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
+          },
+          {
+            "name": "globalErrors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "MutationGlobalError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "haltCode",
+            "description": "Not presently used",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "slot",
+            "description": "The rendered slot (if successful)\n",
+            "args": [],
+            "type": {
+              "kind": "INTERFACE",
+              "name": "TemplateSlotInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "StandardMutationPayload",
             "ofType": null
           }
         ],
@@ -54863,6 +55978,170 @@
             "ofType": null
           }
         ]
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "RenderLayoutsInput",
+        "description": "Autogenerated input type of RenderLayouts",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "clientMutationId",
+            "description": "A unique identifier for the client performing the mutation.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entityId",
+            "description": "The entity to render layouts on.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "RenderLayoutsPayload",
+        "description": "Autogenerated return type of RenderLayouts.",
+        "fields": [
+          {
+            "name": "attributeErrors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "MutationAttributeError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clientMutationId",
+            "description": "A unique identifier for the client performing the mutation.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "The newly-rendered entity with its updated layouts, if successful.\n",
+            "args": [],
+            "type": {
+              "kind": "UNION",
+              "name": "AnyEntity",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "errors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "UserError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
+          },
+          {
+            "name": "globalErrors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "MutationGlobalError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "haltCode",
+            "description": "Not presently used",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "StandardMutationPayload",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
       },
       {
         "kind": "INTERFACE",
@@ -60156,13 +61435,19 @@
         "enumValues": [
           {
             "name": "ANCESTOR",
-            "description": "",
+            "description": "Selections should inherit from a named ancestor of this entity.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PARENT",
+            "description": "Selections should inherit from the hierarchical parent of this entity.\n",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "SELF",
-            "description": "",
+            "description": "Selections should inherit from the exact entity in question\n",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -61195,6 +62480,16 @@
           {
             "kind": "OBJECT",
             "name": "LinkEntityPayload",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "PreviewSlotPayload",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "RenderLayoutsPayload",
             "ofType": null
           },
           {
@@ -62752,6 +64047,202 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "TemplateContribution",
+        "description": "A contribution from a certain contributor.\n\nThis is a pared-down version of `Contribution` in order to\nbetter support fragment caching and smaller queries.\n\nIt uses `ContributorBase` in place of the `AnyContributor` union.\n",
+        "fields": [
+          {
+            "name": "affiliation",
+            "description": "A potentially-overridden value from person contributors",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "contributor",
+            "description": "The contributor, loaded via abstract interface for simplicity.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INTERFACE",
+                "name": "ContributorBase",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "contributorKind",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "ContributorKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "displayName",
+            "description": "A potentially-overridden display name value for all contributor types",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "location",
+            "description": "A potentially-overridden value from organization contributors",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metadata",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ContributionMetadata",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "role",
+            "description": "An arbitrary text value describing the role the contributor had",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "title",
+            "description": "A potentially-overridden value from person contributors",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "ContributionBase",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TemplateContributionList",
+        "description": "`ContributorListTemplateInstance`s return an ordered list of contributions to render\nwithin as part of their content.\n",
+        "fields": [
+          {
+            "name": "contributions",
+            "description": "The actual entity records within this list.\n\nThe order is deterministic.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateContribution",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "count",
+            "description": "The size of the list.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "empty",
+            "description": "Whether the list is empty, provided for easier filtering and render-skipping.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "INTERFACE",
         "name": "TemplateDefinition",
         "description": "Entities within the system have templates associated with schema-specific layouts,\nthat can be overridden within the hierarchy for more custom approaches.\n\nThis interface defines the *definition* for one such template and `layoutDefinition`,\nwhich controls how associated `TemplateInstance`s are rendered.\n",
@@ -62912,6 +64403,22 @@
             "deprecationReason": null
           },
           {
+            "name": "fallback",
+            "description": "Whether the entity selection tried to use the fallback selection mode.\n\nWhen true, the resulting list is fallback. It can still be empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "listItemLayouts",
             "description": "A shortcut to access the list item layouts for each entity in `entities`.\n\nThe order is deterministic.\n\nSee `ListItemLayoutInstance`.\n",
             "args": [],
@@ -62940,6 +64447,39 @@
         "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "TemplateHasContributionList",
+        "description": "An interface for a template instance that has a `TemplateContributionList`.\n",
+        "fields": [
+          {
+            "name": "contributionList",
+            "description": "The list of contributions to render as part of this template's content.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TemplateContributionList",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "ContributorListTemplateInstance",
+            "ofType": null
+          }
+        ]
       },
       {
         "kind": "INTERFACE",
@@ -63795,6 +65335,29 @@
           {
             "name": "INLINE",
             "description": "A template slot containing only inline information. It should contain no block level tags.\n\nIt is intended for use in header, list item, and generally any other short-form spans of content.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "TemplateWidth",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "FULL",
+            "description": "This template should occupy the full-width of the layout.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "HALF",
+            "description": "This template should occupy half of the width of the layout.\n\n**Note**: This should be used in concert with an adjacent HALF-width template.\nThe server will not validate this is the case.\n",
             "isDeprecated": false,
             "deprecationReason": null
           }
