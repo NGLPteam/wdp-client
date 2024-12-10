@@ -1,5 +1,5 @@
 .link {
-  display: inline-block;
+  display: inline-flex;
 
   &:focus,
   &:focus-visible {
@@ -62,4 +62,8 @@
       box-shadow: none;
     }
   }
+}
+
+.readMore {
+  display: inline-flex;
 }

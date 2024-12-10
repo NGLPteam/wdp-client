@@ -12,6 +12,7 @@ export default function GridListItem({
   data,
 }: {
   data?: sharedListItemTemplateFragment$key | null;
+  hideCover?: boolean;
 }) {
   const { slots, entity } = useSharedListItemTemplateFragment(data);
 

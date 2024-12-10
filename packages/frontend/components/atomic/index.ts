@@ -1,4 +1,3 @@
-export { default as ArrowList } from "./ArrowList";
 export { default as Accordion } from "./accordions/Accordion";
 export { default as Breadcrumbs } from "./Breadcrumbs";
 export { default as Button } from "./Button";
