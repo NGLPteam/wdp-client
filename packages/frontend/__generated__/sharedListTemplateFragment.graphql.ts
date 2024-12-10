@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f952d8a06520fcc486f70baa618a2a51>>
+ * @generated SignedSource<<795d01b82367dbd94db12f7ec48f4278>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -32,19 +32,23 @@ export type sharedListTemplateFragment$data = {
   };
   readonly entity?: {
     readonly __typename: "Collection";
+    readonly id?: string;
     readonly slug: string;
     readonly thumbnail: {
       readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
     };
+    readonly title?: string;
   } | {
     readonly __typename: "Community";
     readonly slug: string;
   } | {
     readonly __typename: "Item";
+    readonly id?: string;
     readonly slug: string;
     readonly thumbnail: {
       readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
     };
+    readonly title?: string;
   } | {
     // This will never be '%other', but we need some
     // value in case none of the concrete values match.
@@ -92,6 +96,6 @@ const node: ReaderInlineDataFragment = {
   "name": "sharedListTemplateFragment"
 };
 
-(node as any).hash = "39947602f202edd0b2026e6a8d403297";
+(node as any).hash = "543511b9f1697d9f4a8b8a82a244bf4b";
 
 export default node;

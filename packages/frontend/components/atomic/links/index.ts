@@ -1,4 +1,3 @@
-export { default as ArrowLink } from "./Link/patterns/ArrowLink";
 export { default as ReadMoreLink } from "./Link/patterns/ReadMoreLink";
 export { default as ExternalLink } from "./Link/patterns/ExternalLink";
 export { default as NamedLink } from "./NamedLink";

@@ -6,8 +6,8 @@ import {
 } from "@/components/templates/shared/shared.slots.graphql";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
-import EntityAnnouncements from "@/components/composed/entity/EntityAnnouncements";
 import { SummaryDetailFragment$key } from "@/relay/SummaryDetailFragment.graphql";
+import Announcements from "./Announcements";
 import styles from "./Summary.module.css";
 
 export default function Summary({
@@ -44,7 +44,7 @@ export default function Summary({
       </div>
       {showAnnouncements && !!entity?.announcements && (
         <div className={styles.announcements}>
-          <EntityAnnouncements data={entity.announcements} />
+          <Announcements data={entity.announcements} />
         </div>
       )}
     </div>
@@ -56,7 +56,7 @@ const fragment = graphql`
     entity {
       ... on Collection {
         announcements {
-          ...EntityAnnouncementsFragment
+          ...AnnouncementsFragment
           ... on AnnouncementConnection {
             nodes {
               slug
@@ -66,7 +66,7 @@ const fragment = graphql`
       }
       ... on Community {
         announcements {
-          ...EntityAnnouncementsFragment
+          ...AnnouncementsFragment
           ... on AnnouncementConnection {
             nodes {
               slug
@@ -76,7 +76,7 @@ const fragment = graphql`
       }
       ... on Item {
         announcements {
-          ...EntityAnnouncementsFragment
+          ...AnnouncementsFragment
           ... on AnnouncementConnection {
             nodes {
               slug

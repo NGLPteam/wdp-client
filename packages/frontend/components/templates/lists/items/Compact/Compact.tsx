@@ -10,6 +10,7 @@ export default function CompactListItem({
   data,
 }: {
   data?: sharedListItemTemplateFragment$key | null;
+  hideCover?: boolean;
 }) {
   const { slots, entity } = useSharedListItemTemplateFragment(data);
 

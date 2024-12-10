@@ -12,6 +12,7 @@ export default function CardListItem({
   data,
 }: {
   data?: sharedListItemTemplateFragment$key | null;
+  hideCover?: boolean;
 }) {
   const { slots, entity } = useSharedListItemTemplateFragment(data);
 

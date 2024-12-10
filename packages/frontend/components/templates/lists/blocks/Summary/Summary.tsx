@@ -73,7 +73,12 @@ export default function SummaryListBlock({
               <span className={styles.metadata}>{metadata.content}</span>
             )}
           </div>
-          <List variant="SUMMARY" bgColor={background} data={entityList} />
+          <List
+            variant="SUMMARY"
+            bgColor={background}
+            data={entityList}
+            hideCovers={!!showHeroImage}
+          />
           {!!showSeeAllButton && !!seeAllHref && (
             <SeeAll
               alignment="left"

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<008a077152fe3bd2aa3f09a10517654d>>
+ * @generated SignedSource<<9d9f664d06300649ba7cd4b8ecf652e7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,14 +9,20 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
 export type HeroBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type EntityHeroHeaderFragment$data = {
   readonly entity: {
     readonly __typename: "Collection";
+    readonly currentlyHidden?: boolean;
     readonly heroImage?: {
       readonly " $fragmentSpreads": FragmentRefs<"ImageHeroTemplateFragment">;
     };
+    readonly schemaDefinition?: {
+      readonly identifier: string;
+    };
+    readonly visibility?: EntityVisibility;
     readonly " $fragmentSpreads": FragmentRefs<"BreadcrumbsBarFragment">;
   };
   readonly template: {
@@ -48,6 +54,20 @@ var v0 = [
   {
     "alias": null,
     "args": null,
+    "kind": "ScalarField",
+    "name": "visibility",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "currentlyHidden",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
     "concreteType": "ImageAttachment",
     "kind": "LinkedField",
     "name": "heroImage",
@@ -57,6 +77,24 @@ var v0 = [
         "args": null,
         "kind": "FragmentSpread",
         "name": "ImageHeroTemplateFragment"
+      }
+    ],
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "SchemaDefinition",
+    "kind": "LinkedField",
+    "name": "schemaDefinition",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "identifier",
+        "storageKey": null
       }
     ],
     "storageKey": null
@@ -169,6 +207,6 @@ return {
 };
 })();
 
-(node as any).hash = "e8b02e2953034d882308402728155d15";
+(node as any).hash = "dd40b8c4d11356949dc8b3f0bc71648d";
 
 export default node;

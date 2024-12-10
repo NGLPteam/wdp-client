@@ -11,8 +11,10 @@ import styles from "./Summary.module.css";
 
 export default function SummaryListItem({
   data,
+  hideCover,
 }: {
   data?: sharedListItemTemplateFragment$key | null;
+  hideCover?: boolean;
 }) {
   const { slots, entity } = useSharedListItemTemplateFragment(data);
 
@@ -26,9 +28,11 @@ export default function SummaryListItem({
 
   return (
     <li className={styles.item}>
-      <div className={styles.coverImage}>
-        <CoverImage {...entity} maxWidth={120} maxHeight={160} />
-      </div>
+      {!hideCover && (
+        <div className={styles.coverImage}>
+          <CoverImage {...entity} maxWidth={120} maxHeight={160} />
+        </div>
+      )}
       <div className={styles.text}>
         <div className={styles.group}>
           {contextA?.valid && !!contextA.content && (

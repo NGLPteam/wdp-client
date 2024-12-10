@@ -64,6 +64,8 @@ export const listTemplateFragment = graphql`
         }
         ... on Collection {
           __typename
+          id
+          title
           slug
           thumbnail {
             ...CoverImageFragment
@@ -71,6 +73,8 @@ export const listTemplateFragment = graphql`
         }
         ... on Item {
           __typename
+          id
+          title
           slug
           thumbnail {
             ...CoverImageFragment

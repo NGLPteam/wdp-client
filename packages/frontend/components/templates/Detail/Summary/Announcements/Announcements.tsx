@@ -1,29 +1,24 @@
 import { useTranslation } from "react-i18next";
-import { useFragment } from "react-relay";
-import { graphql } from "react-relay";
+import { useFragment, graphql } from "react-relay";
+import classNames from "classnames";
 import { useRouteSlug } from "@wdp/lib/routes";
-import { Link, NamedLink, ReadMoreLink } from "components/atomic";
-import { EntityAnnouncementsFragment$key } from "@/relay/EntityAnnouncementsFragment.graphql";
-import * as Styled from "./EntityAnnouncements.styles";
+import { Link, NamedLink, ReadMoreLink } from "@/components/atomic";
+import { AnnouncementsFragment$key } from "@/relay/AnnouncementsFragment.graphql";
+import styles from "./Announcements.module.css";
 
 export default function EntityAnnouncements({ data }: Props) {
-  const announcements = useFragment<EntityAnnouncementsFragment$key>(
-    fragment,
-    data,
-  );
+  const announcements = useFragment<AnnouncementsFragment$key>(fragment, data);
 
   const { t } = useTranslation();
 
   const slug = useRouteSlug();
 
   return !!announcements.nodes.length && slug ? (
-    <Styled.AnnouncementsBlock as="aside" className="a-bg-neutral00">
-      <Styled.AnnouncementsHeader>
-        {t("layouts.announcements_header")}
-      </Styled.AnnouncementsHeader>
+    <aside className={classNames("a-bg-neutral00", styles.block)}>
+      <h4 className={styles.header}>{t("layouts.announcements_header")}</h4>
       <ul className="t-unstyled-list">
         {announcements.nodes.map((announcement) => (
-          <Styled.AnnouncementItem key={announcement.slug}>
+          <li className={styles.item} key={announcement.slug}>
             <h5 className="t-copy-medium">
               <NamedLink
                 href={`/collections/${slug}/announcements/${announcement.slug}`}
@@ -31,27 +26,27 @@ export default function EntityAnnouncements({ data }: Props) {
                 <Link as="span">{announcement.header}</Link>
               </NamedLink>
             </h5>
-            <Styled.AnnouncementBody className="t-rte">
+            <div className={classNames("t-rte", styles.itemContent)}>
               <p>{announcement.teaser}</p>
-            </Styled.AnnouncementBody>
+            </div>
             <NamedLink
               href={`/collections/${slug}/announcements/${announcement.slug}`}
             >
               <ReadMoreLink className="t-label-mix" />
             </NamedLink>
-          </Styled.AnnouncementItem>
+          </li>
         ))}
       </ul>
-    </Styled.AnnouncementsBlock>
+    </aside>
   ) : null;
 }
 
 interface Props {
-  data: EntityAnnouncementsFragment$key;
+  data: AnnouncementsFragment$key;
 }
 
 const fragment = graphql`
-  fragment EntityAnnouncementsFragment on AnnouncementConnection {
+  fragment AnnouncementsFragment on AnnouncementConnection {
     nodes {
       teaser
       header

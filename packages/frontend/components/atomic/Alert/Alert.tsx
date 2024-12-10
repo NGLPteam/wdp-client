@@ -1,5 +1,6 @@
+import classNames from "classnames";
 import { IconFactory } from "components/factories";
-import * as Styled from "./Alert.styles";
+import styles from "./Alert.module.css";
 
 type Props = {
   color?: "red" | "blue" | "green";
@@ -10,9 +11,15 @@ type Props = {
 
 export default function Alert({ color = "red", message, icon, badge }: Props) {
   return (
-    <Styled.Wrapper color={color} $badge={badge}>
+    <div
+      className={classNames(styles.wrapper, {
+        [styles["wrapper--badge"]]: badge,
+        [styles["wrapper--blue"]]: color === "blue",
+        [styles["wrapper--green"]]: color === "green",
+      })}
+    >
       {icon && <IconFactory icon="alertTriangle24" role="presentation" />}
       <span className="t-copy">{message}</span>
-    </Styled.Wrapper>
+    </div>
   );
 }

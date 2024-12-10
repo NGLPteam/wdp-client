@@ -33,6 +33,10 @@
   > * + * {
     margin-block-start: 1.5rem;
   }
+
+  &:only-child {
+    grid-column: 2 / 12;
+  }
 }
 
 .entity {

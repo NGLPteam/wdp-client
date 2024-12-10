@@ -15,6 +15,23 @@
       "left"
       "right";
   }
+
+  &:has(:nth-child(3)) {
+    grid-template-areas:
+      "alert alert alert alert alert alert alert alert alert alert alert alert"
+      "left left left left left left left left . right right right";
+
+    @mixin respond theme("screens.120") {
+      grid-template-areas:
+        "alert alert alert alert alert alert alert alert alert alert alert alert"
+        "left left left left left left left left right right right right";
+
+      grid-template-areas:
+        "alert"
+        "left"
+        "right";
+    }
+  }
 }
 
 .left {

@@ -1,15 +1,13 @@
 .item {
-  display: grid;
+  display: flex;
   gap: var(--padding-lg);
-  grid-template:
-    "thumbnail text" auto
-    / auto 1fr;
-
   @mixin respond theme("screens.50") {
-    grid-template:
-      "thumbnail" auto
-      "text" auto
-      / auto;
+    flex-direction: column;
+  }
+
+  section:not(:global(.a-bg-neutral90)) &:not(:last-child) {
+    border-bottom: 1px solid;
+    padding-block-end: var(--padding-xl);
   }
 
   & + & {
@@ -18,7 +16,6 @@
 }
 
 .coverImage {
-  grid-area: thumbnail;
   min-width: 120px;
 
   @mixin respond theme("screens.50") {
@@ -27,7 +24,6 @@
 }
 
 .text {
-  grid-area: text;
   flex: 1 1 100%;
   font-size: var(--font-size-base-sm);
 }
