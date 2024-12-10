@@ -50,3 +50,11 @@
   line-height: var(--line-height-h3});
   letter-spacing: var(--letter-spacing-h3});
 }
+
+@define-mixin t-h5 {
+  font-family: var(--font-face-header);
+  font-size: var(--font-size-h5);
+  font-weight: var(--font-weight-h5, 400);
+  line-height: var(--line-height-h5});
+  letter-spacing: var(--letter-spacing-h5});
+}

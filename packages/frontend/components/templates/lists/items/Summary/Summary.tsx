@@ -29,9 +29,9 @@ export default function SummaryListItem({
   return (
     <li className={styles.item}>
       {!hideCover && (
-        <div className={styles.coverImage}>
+        <NamedLink href={href} className={styles.coverImage}>
           <CoverImage {...entity} maxWidth={120} maxHeight={160} />
-        </div>
+        </NamedLink>
       )}
       <div className={styles.text}>
         <div className={styles.group}>

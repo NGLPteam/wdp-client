@@ -36,6 +36,11 @@
 
   &:only-child {
     grid-column: 2 / 12;
+
+    @mixin respond theme("screens.70") {
+      grid-row: 1;
+      grid-column: 1;
+    }
   }
 }
 

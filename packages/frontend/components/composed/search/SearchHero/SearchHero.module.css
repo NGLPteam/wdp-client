@@ -1,6 +1,8 @@
 .form {
   padding-block-start: 4.5625rem;
   padding-block-end: var(--container-padding-xl);
+  @mixin fluidScalePx padding-block-start, 73px, 40px;
+  @mixin fluidScalePx padding-block-end, 80px, 50px;
 
   @media print {
     display: none;
@@ -15,16 +17,24 @@
 .wrapper {
   display: flex;
   align-items: stretch;
-  height: 4rem;
+  block-size: 4rem;
   width: 100%;
+
+  @mixin respond theme("screens.50") {
+    block-size: 3rem;
+  }
 }
 
 .label {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 4rem;
+  inline-size: 4rem;
   border-bottom: 3px solid var(--color-base-neutral90);
+
+  @mixin respond theme("screens.50") {
+    inline-size: 3rem;
+  }
 }
 
 .input {
@@ -51,6 +61,10 @@
 
   &:focus-visible {
     border-bottom: 3px solid var(--color-base-neutral60);
+  }
+
+  @mixin respond theme("screens.50") {
+    @mixin t-h5;
   }
 }
 

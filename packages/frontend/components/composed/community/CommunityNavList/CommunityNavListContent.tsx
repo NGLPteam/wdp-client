@@ -66,7 +66,7 @@ export default function CommunityNavList({
     <Dropdown
       disclosure={getDisclosure("nav.explore")}
       label={t("nav.explore")}
-      menuItems={schemaLinks.map((link) => (
+      menuItems={schemaLinks?.map((link) => (
         <Dropdown.Link
           key={link.slug}
           href={link.href}
@@ -78,7 +78,7 @@ export default function CommunityNavList({
 
   return community ? (
     <>
-      {schemaLinks.length > 0 && (
+      {schemaLinks?.length > 0 && (
         <li className="t-capitalize">{exploreMenu}</li>
       )}
       {community.slug &&

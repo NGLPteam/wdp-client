@@ -2,7 +2,8 @@ import { useTranslation } from "react-i18next";
 import { useFragment, graphql } from "react-relay";
 import classNames from "classnames";
 import { useRouteSlug } from "@wdp/lib/routes";
-import { Link, NamedLink, ReadMoreLink } from "@/components/atomic";
+import NamedLink from "@/components/atomic/links/NamedLink";
+import ReadMoreLink from "@/components/atomic/links/Link/patterns/ReadMoreLink";
 import { AnnouncementsFragment$key } from "@/relay/AnnouncementsFragment.graphql";
 import styles from "./Announcements.module.css";
 
@@ -23,7 +24,7 @@ export default function EntityAnnouncements({ data }: Props) {
               <NamedLink
                 href={`/collections/${slug}/announcements/${announcement.slug}`}
               >
-                <Link as="span">{announcement.header}</Link>
+                <span>{announcement.header}</span>
               </NamedLink>
             </h5>
             <div className={classNames("t-rte", styles.itemContent)}>
