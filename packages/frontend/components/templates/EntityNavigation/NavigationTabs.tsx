@@ -5,14 +5,11 @@ import { useParams, usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import classNames from "classnames";
 import NamedLink from "@/components/atomic/links/NamedLink";
-import { ArticleTabNavFragment$data } from "@/relay/ArticleTabNavFragment.graphql";
 import { NavigationTabsFragment$key } from "@/relay/NavigationTabsFragment.graphql";
 import { useSharedInlineFragment } from "@/components/templates/shared/shared.slots.graphql";
 import type { TemplateSlotInlineInstance } from "@/types/graphql-schema";
 import { getRouteByEntityType } from "@/helpers/routes";
 import styles from "./EntityNavigation.module.css";
-
-type Node = ArticleTabNavFragment$data["pages"]["edges"][number];
 
 export default function NavigationTabs({
   data,
@@ -76,7 +73,7 @@ export default function NavigationTabs({
         {entity.__typename === "Item" &&
           getLink(`${basePath}/metrics`, "nav.metrics")}
         {entity.pages && entity.pages.edges.length > 0
-          ? entity.pages.edges.map(({ node }: Node) =>
+          ? entity.pages.edges.map(({ node }) =>
               getLink(`${basePath}/page/${node.slug}`, node.title),
             )
           : null}

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9b2146925d1c1b6e9a61edb8bd59ed0d>>
+ * @generated SignedSource<<8534dbc491d68ebecc13ceeb985f586b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,7 @@ export type EntityPageLayoutFactoryFragment$data = {
   readonly schemaDefinition?: {
     readonly identifier: string;
   };
-  readonly " $fragmentSpreads": FragmentRefs<"EntityLayoutFactoryFragment" | "IssueSidebarNavFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"IssueSidebarNavFragment">;
   readonly " $fragmentType": "EntityPageLayoutFactoryFragment";
 };
 export type EntityPageLayoutFactoryFragment$key = {
@@ -30,6 +30,6 @@ const node: ReaderInlineDataFragment = {
   "name": "EntityPageLayoutFactoryFragment"
 };
 
-(node as any).hash = "efb6f87f667cec862fbe7ddc594bc20f";
+(node as any).hash = "3847114578881f73154a65b60e5803c6";
 
 export default node;
