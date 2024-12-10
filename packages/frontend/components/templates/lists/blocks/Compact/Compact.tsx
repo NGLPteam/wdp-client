@@ -27,6 +27,7 @@ export default function CompactListBlock({
     seeAllButtonLabel,
     selectionMode,
     showHeroImage,
+    width,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
   const { selectionPropertyPath, orderingIdentifier } =
@@ -42,7 +43,11 @@ export default function CompactListBlock({
     : null;
 
   return (
-    <Container className={styles.container} bgColor={background}>
+    <Container
+      className={styles.container}
+      bgColor={background}
+      halfWidthTemplate={width === "HALF"}
+    >
       <div className={styles.grid}>
         <div className={styles.textColumn}>
           {!!title && <h3 className={styles.header}>{title}</h3>}

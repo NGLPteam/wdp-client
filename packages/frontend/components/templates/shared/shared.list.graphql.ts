@@ -35,6 +35,7 @@ export const listTemplateFragment = graphql`
         title
         variant
         showHeroImage
+        width
       }
       slots {
         header {
@@ -93,6 +94,7 @@ export const listTemplateFragment = graphql`
         title
         variant
         showHeroImage
+        width
       }
       slots {
         header {

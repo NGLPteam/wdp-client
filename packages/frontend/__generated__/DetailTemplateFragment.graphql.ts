@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dbec12a78c86540a84808592997c4cd9>>
+ * @generated SignedSource<<75aae4b8ae6f5f0af0fb1996fd03b989>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,7 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 export type DetailBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
 export type DetailVariant = "FULL" | "SUMMARY" | "%future added value";
+export type TemplateWidth = "FULL" | "HALF" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type DetailTemplateFragment$data = {
   readonly __typename: "DetailTemplateInstance";
@@ -19,6 +20,7 @@ export type DetailTemplateFragment$data = {
     readonly showAnnouncements: boolean | null | undefined;
     readonly showHeroImage: boolean | null | undefined;
     readonly variant: DetailVariant | null | undefined;
+    readonly width: TemplateWidth | null | undefined;
   };
   readonly entity: {
     readonly " $fragmentSpreads": FragmentRefs<"FullDetailFragment">;
@@ -95,6 +97,13 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "showHeroImage",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "width",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -109,6 +118,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "2ad5f0350af4b4adee0db8e9f4c2b114";
+(node as any).hash = "dd9a535229ba498f79a16be38ab23720";
 
 export default node;

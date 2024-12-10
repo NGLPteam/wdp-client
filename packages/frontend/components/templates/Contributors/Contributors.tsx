@@ -19,6 +19,8 @@ export default function ContributorsTemplate({
 
   const { entity, contributorsDefinition, slots } = template ?? {};
 
+  const { background, width } = contributorsDefinition ?? {};
+
   const header = useSharedInlineFragment(slots?.header);
 
   if (!template || !entity) return null;
@@ -30,7 +32,8 @@ export default function ContributorsTemplate({
   return (
     <Container
       className={styles.container}
-      bgColor={contributorsDefinition?.background}
+      bgColor={background}
+      halfWidthTemplate={width === "HALF"}
     >
       <h3 className={styles?.testClass}>
         {mdxHeader ? (
@@ -68,6 +71,7 @@ const fragment = graphql`
     contributorsDefinition: definition {
       background
       limit
+      width
     }
     slots {
       header {
