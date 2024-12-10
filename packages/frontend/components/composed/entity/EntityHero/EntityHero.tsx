@@ -10,7 +10,7 @@ import {
   Markdown,
   Alert,
 } from "components/atomic";
-import { PrimaryHero } from "components/layout/hero";
+import PrimaryHero from "@/components/layout/hero/PrimaryHero";
 import { EntityHeroFragment$key } from "@/relay/EntityHeroFragment.graphql";
 
 export default function EntityHero({ data }: Props) {

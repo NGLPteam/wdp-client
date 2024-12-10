@@ -5,7 +5,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
 import { Markdown, PrecisionDate, Alert } from "components/atomic";
 import ArticleParentHeader from "components/composed/article/ArticleParentHeader";
-import { PrimaryHero } from "components/layout/hero";
+import PrimaryHero from "@/components/layout/hero/PrimaryHero";
 import { SeriesHeroFragment$key } from "@/relay/SeriesHeroFragment.graphql";
 
 export default function SeriesHero({ data }: Props) {
