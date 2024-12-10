@@ -2,9 +2,9 @@
 
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { CompactHero } from "components/layout/hero";
 import { Markdown } from "components/atomic";
 import { getEntityDisplayName } from "helpers";
+import CompactHero from "@/components/layout/hero/CompactHero";
 import { ArticleParentHeaderFragment$key } from "@/relay/ArticleParentHeaderFragment.graphql";
 
 export default function ArticleParentHeader({ data }: Props) {
