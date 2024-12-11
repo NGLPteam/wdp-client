@@ -30,3 +30,8 @@
     grid-column: span 1;
   }
 }
+
+.noContent {
+  padding-block-start: var(--container-padding-md);
+  min-block-size: 10rem;
+}
