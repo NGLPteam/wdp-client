@@ -32,7 +32,7 @@ export default function Breadcrumbs({ data }: Props) {
 
   return breadcrumbs.length > 0 ? (
     <>
-      <ul className={classNames("t-copy-sm", styles.list)} data-mobile>
+      <ul className={classNames("t-copy-sm", styles.listMobile)}>
         <li className={styles.item}>
           <Dropdown
             key={1}
@@ -47,7 +47,7 @@ export default function Breadcrumbs({ data }: Props) {
         <li key="current">{renderCurrent()}</li>
       </ul>
 
-      <ul className={classNames("t-copy-sm", styles.list)} data-desktop>
+      <ul className={classNames("t-copy-sm", styles.list)}>
         {breadcrumbs.length <= 3 &&
           breadcrumbs.map((crumb, i) => (
             <li className={styles.item} key={i}>
