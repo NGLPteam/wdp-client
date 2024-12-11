@@ -1,12 +1,12 @@
-import React from "react";
 import Image from "next/legacy/image";
-import * as Styled from "./HeroImage.styles";
+import classNames from "classnames";
+import styles from "./HeroImage.module.css";
 
 type ImageProps = React.ComponentProps<typeof Image>;
 
 export default function HeroImageBase({ alt, url, ...imageProps }: BaseProps) {
   return url ? (
-    <Styled.Wrapper className="a-bg-custom20">
+    <div className={classNames("a-bg-custom20", styles.wrapper)}>
       <Image
         alt={alt || ""}
         src={url}
@@ -15,7 +15,7 @@ export default function HeroImageBase({ alt, url, ...imageProps }: BaseProps) {
         objectPosition="center"
         {...imageProps}
       />
-    </Styled.Wrapper>
+    </div>
   ) : null;
 }
 

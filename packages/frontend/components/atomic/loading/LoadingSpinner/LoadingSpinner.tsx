@@ -1,7 +1,10 @@
-import * as Styled from "./LoadingSpinner.styles";
+import classNames from "classnames";
+import styles from "./LoadingSpinner.module.css";
 
 const LoadingSpinner = ({ className }: Props) => {
-  return <Styled.Icon className={className} role="presentation" />;
+  return (
+    <div className={classNames(className, styles.icon)} role="presentation" />
+  );
 };
 
 interface Props {

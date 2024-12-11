@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import IconFactory from "@/components/factories/IconFactory";
-import * as Styled from "./Pagination.styles";
+import styles from "./Pagination.module.css";
 
 export default function PaginationPrevNext({
   direction,
@@ -17,13 +17,14 @@ export default function PaginationPrevNext({
   }, [onSubmit, page, direction]);
 
   return (
-    <Styled.PrevNextButton
+    <button
       aria-label={direction === "prev" ? "Previous Page" : "Next Page"}
       {...props}
       onClick={handleSubmit}
+      className={styles.prevNextButton}
     >
       <IconFactory icon={direction === "prev" ? "arrowLeft" : "arrowRight"} />
-    </Styled.PrevNextButton>
+    </button>
   );
 }
 

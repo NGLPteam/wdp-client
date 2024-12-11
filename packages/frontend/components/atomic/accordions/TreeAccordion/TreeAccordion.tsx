@@ -1,26 +1,21 @@
-import { useDetailsToggle } from "@wdp/lib/hooks";
-import { IconKeys } from "components/factories/IconFactory/IconFactory";
-import * as Styled from "./TreeAccordion.styles";
+import IconFactory from "components/factories/IconFactory";
+import styles from "./TreeAccordion.module.css";
 
 export default function TreeAccordion({
   SummaryComponent,
-  children,
   id,
+  children,
   className,
 }: Props) {
-  const { ref, icon, onToggle } = useDetailsToggle<IconKeys>({
-    iconClosed: "plus",
-    iconOpen: "minus",
-  });
-
   return (
-    <Styled.Details ref={ref} id={id} className={className}>
-      <Styled.Summary onClick={onToggle}>
-        <Styled.Toggle icon={icon} />
+    <details id={id} className={className}>
+      <summary className={styles.summary}>
+        <IconFactory icon="plus" role="presentation" data-closed />
+        <IconFactory icon="minus" role="presentation" data-open />
         {SummaryComponent}
-      </Styled.Summary>
+      </summary>
       {children}
-    </Styled.Details>
+    </details>
   );
 }
 
