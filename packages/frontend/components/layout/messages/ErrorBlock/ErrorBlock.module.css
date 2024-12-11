@@ -1,6 +1,4 @@
-import styled from "styled-components";
-
-export const Wrapper = styled.div`
+.wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,4 +17,4 @@ export const Wrapper = styled.div`
     color: var(--color-dark);
     text-decoration: underline;
   }
-`;
+}

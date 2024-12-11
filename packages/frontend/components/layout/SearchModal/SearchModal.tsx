@@ -7,7 +7,7 @@ import SearchBar from "components/composed/search/SearchBar";
 import { SearchModalFragment$key } from "@/relay/SearchModalFragment.graphql";
 import Modal from "../BaseModal";
 import SearchModalContent from "./SearchModalContent";
-import * as Styled from "./SearchModal.styles";
+import styles from "./SearchModal.module.css";
 
 type ModalProps = React.ComponentProps<typeof Modal>;
 
@@ -51,10 +51,10 @@ export default function SearchModal({ dialog, data }: Props) {
 
   return (
     <Modal dialog={dialog} label={t("search.label")}>
-      <Styled.Form onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <SearchBar id={searchId} {...register("q")} />
         {searchData && <SearchModalContent searchData={searchData} />}
-      </Styled.Form>
+      </form>
     </Modal>
   );
 }

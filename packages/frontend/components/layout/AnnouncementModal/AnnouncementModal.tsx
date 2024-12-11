@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import Modal from "components/layout/BaseModal";
 import IconFactory from "@/components/factories/IconFactory";
-import * as Styled from "./AnnouncementModal.styles";
+import styles from "./AnnouncementModal.module.css";
 
 type ModalProps = React.ComponentProps<typeof Modal>;
 
@@ -14,13 +14,13 @@ export default function AnnouncementModal({
 
   return (
     <Modal label="Announcement" dialog={dialog} {...modalProps}>
-      <Styled.Wrapper>
-        <Styled.CloseButton type="button" onClick={dialog.hide}>
+      <div className={styles.wrapper}>
+        <button className={styles.button} type="button" onClick={dialog.hide}>
           <IconFactory icon="close" />
           <span className="a-hidden">{t("common.close")}</span>
-        </Styled.CloseButton>
+        </button>
         {children}
-      </Styled.Wrapper>
+      </div>
     </Modal>
   );
 }

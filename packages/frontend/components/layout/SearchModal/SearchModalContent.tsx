@@ -1,8 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
+import classNames from "classnames";
 import { Select } from "components/forms";
 import { SearchModalFragment$data } from "@/relay/SearchModalFragment.graphql";
-import * as Styled from "./SearchModal.styles";
+import styles from "./SearchModal.module.css";
 
 export default function SearchModalContent({ searchData }: Props) {
   const selectId = "searchFilter";
@@ -28,13 +29,16 @@ export default function SearchModalContent({ searchData }: Props) {
 
   return (
     (searchData || breadcrumbs) && (
-      <Styled.SelectWrapper>
-        <Styled.SelectLabel
+      <div className={styles.selectWrapper}>
+        <label
           htmlFor={selectId}
-          className="t-label-mix a-color-lighter"
+          className={classNames(
+            "t-label-mix a-color-lighter",
+            styles.selectLabel,
+          )}
         >
           {t("search.search_area_label")}
-        </Styled.SelectLabel>
+        </label>
         <Select
           id={selectId}
           defaultValue={defaultValue}
@@ -54,7 +58,7 @@ export default function SearchModalContent({ searchData }: Props) {
             ))}
           <option value={""}>{t("search.instance_scope_label")}</option>
         </Select>
-      </Styled.SelectWrapper>
+      </div>
     )
   );
 }

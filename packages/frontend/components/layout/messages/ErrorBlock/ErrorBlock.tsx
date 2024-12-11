@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/atomic";
-import * as Styled from "./ErrorBlock.styles";
+import styles from "./ErrorBlock.module.css";
 
 interface Props {
   /** The error message */
@@ -15,7 +14,7 @@ export default function ErrorMessage({ message, reset }: Props) {
   const { t } = useTranslation();
 
   return (
-    <Styled.Wrapper>
+    <div className={styles.wrapper}>
       <p className="t-h3">{t("messages.server_error")}</p>
       <p className="a-color-light">{message}</p>
       {reset && (
@@ -23,6 +22,6 @@ export default function ErrorMessage({ message, reset }: Props) {
           Try again
         </Button>
       )}
-    </Styled.Wrapper>
+    </div>
   );
 }

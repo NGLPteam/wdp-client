@@ -1,5 +1,6 @@
+import classNames from "classnames";
 import { NamedLink, ReadMoreLink, Markdown } from "components/atomic";
-import * as Styled from "./Summary.styles";
+import styles from "./Summary.module.css";
 
 export default function Summary({
   title,
@@ -12,23 +13,25 @@ export default function Summary({
   showReadMore,
 }: Props) {
   return (
-    <Styled.Wrapper
-      $thumbnailRight={thumbnailRight}
-      $hasThumbnail={!!thumbnail}
+    <div
+      className={classNames(styles.wrapper, {
+        [styles["wrapper--has-thumbnail"]]: !!thumbnail,
+        [styles["wrapper--thumbnail-right"]]: thumbnailRight,
+      })}
     >
       {thumbnail && (
-        <Styled.Thumbnail>
+        <div className={styles.thumbnail}>
           {href ? (
             <NamedLink href={href}>
-              <Styled.ThumbnailLink>{thumbnail}</Styled.ThumbnailLink>
+              <span className={styles.thumbnailLink}>{thumbnail}</span>
             </NamedLink>
           ) : (
             thumbnail
           )}
-        </Styled.Thumbnail>
+        </div>
       )}
-      <Styled.Text>
-        <Styled.Headers>
+      <div className={styles.text}>
+        <div className={styles.headers}>
           <h4>
             {href ? (
               <NamedLink href={href} className="default-link-styles">
@@ -43,20 +46,25 @@ export default function Summary({
               <Markdown.Title>{subtitle}</Markdown.Title>
             </h5>
           )}
-        </Styled.Headers>
-        {metadata && <Styled.Metadata>{metadata}</Styled.Metadata>}
+        </div>
+        {metadata && <div className="t-copy-sm">{metadata}</div>}
         {summary && (
-          <Styled.Summary className="t-copy-lighter">
+          <p
+            className={classNames(
+              "t-copy-lighter line-clamp-2",
+              styles.summary,
+            )}
+          >
             <Markdown.Summary>{summary}</Markdown.Summary>
-          </Styled.Summary>
+          </p>
         )}
         {showReadMore && href && (
           <NamedLink href={href}>
-            <Styled.ReadMore as={ReadMoreLink} />
+            <ReadMoreLink className={styles.readMore} />
           </NamedLink>
         )}
-      </Styled.Text>
-    </Styled.Wrapper>
+      </div>
+    </div>
   );
 }
 
