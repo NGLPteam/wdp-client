@@ -22,7 +22,7 @@ type BaseProps = Omit<React.ComponentProps<typeof Button>, "as">;
 
 type Props = BaseProps & {
   label?: string | React.ReactElement;
-  forwardedAs?: string;
+  as?: "a" | "div" | "span";
 };
 
 export default PrevNextButton;
