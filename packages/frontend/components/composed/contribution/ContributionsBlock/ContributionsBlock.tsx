@@ -7,7 +7,7 @@ import {
   ContributionsBlockFragment$key,
   ContributionsBlockFragment$data,
 } from "@/relay/ContributionsBlockFragment.graphql";
-import ContributionBlockItem from "./ContributionBlockItem";
+import Contributor from "@/components/templates/Contributors/Contributor";
 import BaseContributionsBlock from "./BaseContributionsBlock";
 
 type BaseProps = Omit<
@@ -34,11 +34,7 @@ const ContributionsBlock = ({ data, filterRole, ...baseProps }: Props) => {
     <BaseContributionsBlock {...baseProps}>
       {contributions && contributions.length > 0
         ? contributions.map((node: Node) => (
-            <ContributionBlockItem
-              data={node}
-              key={node.slug}
-              showAvatar={showAvatars}
-            />
+            <Contributor data={node} key={node.slug} showAvatar={showAvatars} />
           ))
         : null}
     </BaseContributionsBlock>
@@ -73,7 +69,7 @@ const fragment = graphql`
             }
           }
         }
-        ...ContributionBlockItemFragment
+        ...ContributorFragment
       }
     }
 
@@ -93,7 +89,7 @@ const fragment = graphql`
             }
           }
         }
-        ...ContributionBlockItemFragment
+        ...ContributorFragment
       }
     }
   }

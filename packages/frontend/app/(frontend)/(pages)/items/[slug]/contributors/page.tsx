@@ -19,11 +19,7 @@ export default async function ItemContributorsPage({ params }: BasePageParams) {
 
   return (
     <UpdateClientEnvironment records={records}>
-      <ContributionsBlock
-        data={item.contributions}
-        background="neutral00"
-        paddingBottom="xxl"
-      />
+      <ContributionsBlock data={item.contributions} background="neutral00" />
     </UpdateClientEnvironment>
   );
 }

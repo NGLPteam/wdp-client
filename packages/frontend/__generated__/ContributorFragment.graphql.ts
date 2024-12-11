@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b0ded6e633f000a467caa40225c8688c>>
+ * @generated SignedSource<<90d0484f6e2bcc3a0fedfb9467e4517b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,7 +10,7 @@
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ContributorBlockFragment$data = {
+export type ContributorFragment$data = {
   readonly affiliation: string | null | undefined;
   readonly collection?: {
     readonly __typename: "Collection";
@@ -30,11 +30,11 @@ export type ContributorBlockFragment$data = {
     readonly slug: string;
   };
   readonly role: string | null | undefined;
-  readonly " $fragmentType": "ContributorBlockFragment";
+  readonly " $fragmentType": "ContributorFragment";
 };
-export type ContributorBlockFragment$key = {
-  readonly " $data"?: ContributorBlockFragment$data;
-  readonly " $fragmentSpreads": FragmentRefs<"ContributorBlockFragment">;
+export type ContributorFragment$key = {
+  readonly " $data"?: ContributorFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ContributorFragment">;
 };
 
 const node: ReaderFragment = (function(){
@@ -66,7 +66,7 @@ return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "ContributorBlockFragment",
+  "name": "ContributorFragment",
   "selections": [
     (v0/*: any*/),
     {
@@ -178,6 +178,6 @@ return {
 };
 })();
 
-(node as any).hash = "dd3b5d414d1673eca437e49fe827ced1";
+(node as any).hash = "babff048c31a094e8a15690669211260";
 
 export default node;
