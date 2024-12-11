@@ -63,7 +63,11 @@ export default function MetadataTemplate({
         )}
       </dl>
     </Container>
-  ) : null;
+  ) : (
+    <Container bgColor="NONE" className={styles.noContent}>
+      {t("common.no_content")}
+    </Container>
+  );
 }
 
 const fragment = graphql`
