@@ -3,6 +3,7 @@ import { default as VariablePrecisionDate } from "./VariablePrecisionDate";
 import { default as EntityLink } from "./EntityLink";
 import { default as MetadataLabel } from "./MetadataLabel";
 import { default as MetadataValue } from "./MetadataValue";
+import { default as PDFViewer } from "./PDFViewer";
 
 export const inlineSlotComponents = { VariablePrecisionDate, EntityLink };
 
@@ -12,4 +13,5 @@ export const blockSlotComponents = {
   SidebarItem,
   MetadataLabel,
   MetadataValue,
+  PDFViewer,
 };

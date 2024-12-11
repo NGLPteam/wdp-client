@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Page } from "react-pdf";
 import SkipLink from "components/global/SkipLink";
 import AssetPDFPage from "../../AssetPDFPage";
-import * as Styled from "./AssetInlinePDFNav.styles";
+import styles from "./AssetInlinePDFNav.module.css";
 
 export default function AssetInlinePDFNav({
   numPages,
@@ -23,10 +23,10 @@ export default function AssetInlinePDFNav({
   const pagesRenderedPlusOne = Math.min(pagesRendered + 1, numPages);
 
   return (
-    <Styled.OutlineWrapper>
+    <div className={styles.thumbnails}>
       <SkipLink toId={contentId} label={t("nav.skip_to_pdf_content")} />
-      <Styled.OutlineInner as="ol">
-        {Array.from(new Array(pagesRenderedPlusOne), (el, i) => {
+      <ol className={styles.inner}>
+        {Array.from(new Array(pagesRenderedPlusOne), (_el, i) => {
           const isCurrentlyRendering = pagesRenderedPlusOne === i + 1;
           const isLastPage = numPages === i + 1;
           const needsCallbackToRenderNextPage =
@@ -34,7 +34,7 @@ export default function AssetInlinePDFNav({
 
           return (
             <li key={i}>
-              <Styled.OutlineLink href={`#${pageId}${i + 1}`}>
+              <a className={styles.link} href={`#${pageId}${i + 1}`}>
                 <AssetPDFPage pageNumber={i + 1}>
                   <Page
                     key={`page_${i + 1}`}
@@ -49,12 +49,12 @@ export default function AssetInlinePDFNav({
                     renderTextLayer={false}
                   />
                 </AssetPDFPage>
-              </Styled.OutlineLink>
+              </a>
             </li>
           );
         })}
-      </Styled.OutlineInner>
-    </Styled.OutlineWrapper>
+      </ol>
+    </div>
   );
 }
 

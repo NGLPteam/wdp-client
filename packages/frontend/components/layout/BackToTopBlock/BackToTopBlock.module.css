@@ -1,16 +1,14 @@
-import styled from "styled-components";
-
-export const Section = styled.div`
+.section {
   overflow: visible;
   display: flex;
   align-items: flex-start;
-`;
+}
 
-export const ChildrenWrapper = styled.div`
+.children {
   flex: 1 1 auto;
-`;
+}
 
-export const ButtonWrapper = styled.div`
+.button {
   position: sticky;
   top: 0;
   width: 0;
@@ -27,4 +25,4 @@ export const ButtonWrapper = styled.div`
   @media print {
     display: none;
   }
-`;
+}

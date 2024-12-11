@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<054818f304486d141b7cb77d3d68f767>>
+ * @generated SignedSource<<319ae033b8668b90769650b9dc561772>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -283,23 +283,21 @@ v20 = {
   "name": "width",
   "storageKey": null
 },
-v21 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "content",
-  "storageKey": null
-},
-v22 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "kind",
-  "storageKey": null
-},
-v23 = [
-  (v21/*: any*/),
-  (v22/*: any*/),
+v21 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "content",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "kind",
+    "storageKey": null
+  },
   {
     "alias": null,
     "args": null,
@@ -308,136 +306,31 @@ v23 = [
     "storageKey": null
   }
 ],
-v24 = {
+v22 = {
   "alias": null,
   "args": null,
   "concreteType": "TemplateSlotInlineInstance",
   "kind": "LinkedField",
   "name": "header",
   "plural": false,
-  "selections": (v23/*: any*/),
+  "selections": (v21/*: any*/),
   "storageKey": null
 },
-v25 = {
-  "kind": "TypeDiscriminator",
-  "abstractKey": "__isAnyEntity"
-},
-v26 = {
+v23 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "height",
+  "name": "variant",
   "storageKey": null
 },
-v27 = {
+v24 = {
   "alias": null,
   "args": null,
-  "concreteType": "ImageAttachment",
-  "kind": "LinkedField",
-  "name": "thumbnail",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "storage",
-      "storageKey": null
-    },
-    {
-      "alias": "image",
-      "args": null,
-      "concreteType": "ImageSize",
-      "kind": "LinkedField",
-      "name": "large",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "ImageDerivative",
-          "kind": "LinkedField",
-          "name": "webp",
-          "plural": false,
-          "selections": [
-            (v10/*: any*/),
-            (v11/*: any*/),
-            (v20/*: any*/),
-            (v26/*: any*/)
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    },
-    {
-      "alias": "placeholder",
-      "args": null,
-      "concreteType": "ImageSize",
-      "kind": "LinkedField",
-      "name": "thumb",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "ImageDerivative",
-          "kind": "LinkedField",
-          "name": "webp",
-          "plural": false,
-          "selections": [
-            (v11/*: any*/)
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
-  ],
+  "kind": "ScalarField",
+  "name": "showHeroImage",
   "storageKey": null
 },
-v28 = [
-  (v2/*: any*/),
-  {
-    "kind": "InlineFragment",
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "FullText",
-        "kind": "LinkedField",
-        "name": "fullText",
-        "plural": false,
-        "selections": [
-          (v21/*: any*/),
-          (v22/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "lang",
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "type",
-        "storageKey": null
-      }
-    ],
-    "type": "FullTextProperty",
-    "abstractKey": null
-  },
-  {
-    "kind": "TypeDiscriminator",
-    "abstractKey": "__isAnySchemaProperty"
-  }
-],
-v29 = {
+v25 = {
   "alias": null,
   "args": null,
   "concreteType": "AnnouncementConnection",
@@ -475,36 +368,99 @@ v29 = {
   ],
   "storageKey": null
 },
-v30 = {
+v26 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "variant",
+  "name": "height",
   "storageKey": null
 },
-v31 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "showHeroImage",
-  "storageKey": null
-},
-v32 = {
+v27 = [
+  (v25/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "ImageAttachment",
+    "kind": "LinkedField",
+    "name": "thumbnail",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "storage",
+        "storageKey": null
+      },
+      {
+        "alias": "image",
+        "args": null,
+        "concreteType": "ImageSize",
+        "kind": "LinkedField",
+        "name": "large",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "ImageDerivative",
+            "kind": "LinkedField",
+            "name": "webp",
+            "plural": false,
+            "selections": [
+              (v10/*: any*/),
+              (v11/*: any*/),
+              (v20/*: any*/),
+              (v26/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": "placeholder",
+        "args": null,
+        "concreteType": "ImageSize",
+        "kind": "LinkedField",
+        "name": "thumb",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "ImageDerivative",
+            "kind": "LinkedField",
+            "name": "webp",
+            "plural": false,
+            "selections": [
+              (v11/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+],
+v28 = {
   "alias": null,
   "args": null,
   "concreteType": "TemplateSlotInlineInstance",
   "kind": "LinkedField",
   "name": "subheader",
   "plural": false,
-  "selections": (v23/*: any*/),
+  "selections": (v21/*: any*/),
   "storageKey": null
 },
-v33 = [
+v29 = [
   (v19/*: any*/),
   (v20/*: any*/),
   (v3/*: any*/)
 ],
-v34 = [
+v30 = [
   {
     "alias": null,
     "args": null,
@@ -547,14 +503,14 @@ v34 = [
   },
   (v3/*: any*/)
 ],
-v35 = {
+v31 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "title",
   "storageKey": null
 },
-v36 = [
+v32 = [
   {
     "alias": null,
     "args": null,
@@ -580,7 +536,7 @@ v36 = [
             "plural": false,
             "selections": [
               (v7/*: any*/),
-              (v35/*: any*/),
+              (v31/*: any*/),
               (v3/*: any*/)
             ],
             "storageKey": null
@@ -592,7 +548,7 @@ v36 = [
     "storageKey": null
   }
 ],
-v37 = {
+v33 = {
   "alias": null,
   "args": null,
   "concreteType": "ImageAttachment",
@@ -629,7 +585,7 @@ v37 = {
   ],
   "storageKey": null
 },
-v38 = [
+v34 = [
   (v5/*: any*/),
   {
     "alias": null,
@@ -658,7 +614,7 @@ v38 = [
   },
   (v3/*: any*/)
 ],
-v39 = [
+v35 = [
   {
     "kind": "InlineFragment",
     "selections": [
@@ -672,7 +628,7 @@ v39 = [
             "kind": "LinkedField",
             "name": "nodes",
             "plural": true,
-            "selections": (v38/*: any*/),
+            "selections": (v34/*: any*/),
             "storageKey": null
           }
         ],
@@ -689,7 +645,7 @@ v39 = [
             "kind": "LinkedField",
             "name": "nodes",
             "plural": true,
-            "selections": (v38/*: any*/),
+            "selections": (v34/*: any*/),
             "storageKey": null
           }
         ],
@@ -701,7 +657,7 @@ v39 = [
     "abstractKey": "__isPaginated"
   }
 ],
-v40 = {
+v36 = {
   "alias": null,
   "args": null,
   "concreteType": "ImageAttachment",
@@ -722,7 +678,7 @@ v40 = {
   ],
   "storageKey": null
 },
-v41 = {
+v37 = {
   "alias": null,
   "args": null,
   "concreteType": "TemplateEntityList",
@@ -774,8 +730,8 @@ v41 = {
                   "selections": [
                     (v3/*: any*/),
                     (v7/*: any*/),
-                    (v35/*: any*/),
-                    (v37/*: any*/),
+                    (v31/*: any*/),
+                    (v33/*: any*/),
                     {
                       "alias": null,
                       "args": null,
@@ -783,10 +739,10 @@ v41 = {
                       "kind": "LinkedField",
                       "name": "contributions",
                       "plural": false,
-                      "selections": (v39/*: any*/),
+                      "selections": (v35/*: any*/),
                       "storageKey": null
                     },
-                    (v40/*: any*/)
+                    (v36/*: any*/)
                   ],
                   "type": "Collection",
                   "abstractKey": null
@@ -796,8 +752,8 @@ v41 = {
                   "selections": [
                     (v3/*: any*/),
                     (v7/*: any*/),
-                    (v35/*: any*/),
-                    (v37/*: any*/),
+                    (v31/*: any*/),
+                    (v33/*: any*/),
                     {
                       "alias": null,
                       "args": null,
@@ -805,10 +761,10 @@ v41 = {
                       "kind": "LinkedField",
                       "name": "contributions",
                       "plural": false,
-                      "selections": (v39/*: any*/),
+                      "selections": (v35/*: any*/),
                       "storageKey": null
                     },
-                    (v40/*: any*/)
+                    (v36/*: any*/)
                   ],
                   "type": "Item",
                   "abstractKey": null
@@ -832,7 +788,7 @@ v41 = {
                   "kind": "LinkedField",
                   "name": "contextA",
                   "plural": false,
-                  "selections": (v23/*: any*/),
+                  "selections": (v21/*: any*/),
                   "storageKey": null
                 },
                 {
@@ -842,7 +798,7 @@ v41 = {
                   "kind": "LinkedField",
                   "name": "contextB",
                   "plural": false,
-                  "selections": (v23/*: any*/),
+                  "selections": (v21/*: any*/),
                   "storageKey": null
                 },
                 {
@@ -852,7 +808,7 @@ v41 = {
                   "kind": "LinkedField",
                   "name": "contextC",
                   "plural": false,
-                  "selections": (v23/*: any*/),
+                  "selections": (v21/*: any*/),
                   "storageKey": null
                 },
                 {
@@ -862,10 +818,10 @@ v41 = {
                   "kind": "LinkedField",
                   "name": "description",
                   "plural": false,
-                  "selections": (v23/*: any*/),
+                  "selections": (v21/*: any*/),
                   "storageKey": null
                 },
-                (v24/*: any*/),
+                (v22/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -873,7 +829,7 @@ v41 = {
                   "kind": "LinkedField",
                   "name": "metaA",
                   "plural": false,
-                  "selections": (v23/*: any*/),
+                  "selections": (v21/*: any*/),
                   "storageKey": null
                 },
                 {
@@ -883,10 +839,10 @@ v41 = {
                   "kind": "LinkedField",
                   "name": "metaB",
                   "plural": false,
-                  "selections": (v23/*: any*/),
+                  "selections": (v21/*: any*/),
                   "storageKey": null
                 },
-                (v32/*: any*/)
+                (v28/*: any*/)
               ],
               "storageKey": null
             },
@@ -901,55 +857,55 @@ v41 = {
   ],
   "storageKey": null
 },
-v42 = {
+v38 = {
   "kind": "InlineFragment",
   "selections": (v8/*: any*/),
   "type": "Community",
   "abstractKey": null
 },
-v43 = [
+v39 = [
   (v3/*: any*/),
-  (v35/*: any*/),
+  (v31/*: any*/),
   (v7/*: any*/),
-  (v37/*: any*/)
+  (v33/*: any*/)
 ],
-v44 = {
+v40 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "seeAllButtonLabel",
   "storageKey": null
 },
-v45 = {
+v41 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "showSeeAllButton",
   "storageKey": null
 },
-v46 = {
+v42 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "selectionMode",
   "storageKey": null
 },
-v47 = {
+v43 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "selectionLimit",
   "storageKey": null
 },
-v48 = {
+v44 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "showEntityContext",
   "storageKey": null
 },
-v49 = [
-  (v24/*: any*/),
+v45 = [
+  (v22/*: any*/),
   {
     "alias": null,
     "args": null,
@@ -957,7 +913,7 @@ v49 = [
     "kind": "LinkedField",
     "name": "headerAside",
     "plural": false,
-    "selections": (v23/*: any*/),
+    "selections": (v21/*: any*/),
     "storageKey": null
   },
   {
@@ -967,7 +923,7 @@ v49 = [
     "kind": "LinkedField",
     "name": "metadata",
     "plural": false,
-    "selections": (v23/*: any*/),
+    "selections": (v21/*: any*/),
     "storageKey": null
   },
   {
@@ -977,13 +933,13 @@ v49 = [
     "kind": "LinkedField",
     "name": "subtitle",
     "plural": false,
-    "selections": (v23/*: any*/),
+    "selections": (v21/*: any*/),
     "storageKey": null
   }
 ],
-v50 = [
+v46 = [
   (v7/*: any*/),
-  (v37/*: any*/)
+  (v33/*: any*/)
 ];
 return {
   "fragment": {
@@ -1203,7 +1159,7 @@ return {
                             "name": "slots",
                             "plural": false,
                             "selections": [
-                              (v24/*: any*/)
+                              (v22/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -1215,78 +1171,6 @@ return {
                         "kind": "InlineFragment",
                         "selections": [
                           {
-                            "alias": null,
-                            "args": null,
-                            "concreteType": null,
-                            "kind": "LinkedField",
-                            "name": "entity",
-                            "plural": false,
-                            "selections": [
-                              (v2/*: any*/),
-                              (v25/*: any*/),
-                              {
-                                "kind": "InlineFragment",
-                                "selections": [
-                                  (v27/*: any*/),
-                                  {
-                                    "alias": "fullText",
-                                    "args": [
-                                      {
-                                        "kind": "Literal",
-                                        "name": "fullPath",
-                                        "value": "body"
-                                      }
-                                    ],
-                                    "concreteType": null,
-                                    "kind": "LinkedField",
-                                    "name": "schemaProperty",
-                                    "plural": false,
-                                    "selections": (v28/*: any*/),
-                                    "storageKey": "schemaProperty(fullPath:\"body\")"
-                                  },
-                                  (v29/*: any*/)
-                                ],
-                                "type": "Item",
-                                "abstractKey": null
-                              },
-                              {
-                                "kind": "InlineFragment",
-                                "selections": [
-                                  (v27/*: any*/),
-                                  {
-                                    "alias": "fullText",
-                                    "args": [
-                                      {
-                                        "kind": "Literal",
-                                        "name": "fullPath",
-                                        "value": "description"
-                                      }
-                                    ],
-                                    "concreteType": null,
-                                    "kind": "LinkedField",
-                                    "name": "schemaProperty",
-                                    "plural": false,
-                                    "selections": (v28/*: any*/),
-                                    "storageKey": "schemaProperty(fullPath:\"description\")"
-                                  },
-                                  (v29/*: any*/)
-                                ],
-                                "type": "Collection",
-                                "abstractKey": null
-                              },
-                              (v16/*: any*/),
-                              {
-                                "kind": "InlineFragment",
-                                "selections": [
-                                  (v29/*: any*/)
-                                ],
-                                "type": "Community",
-                                "abstractKey": null
-                              }
-                            ],
-                            "storageKey": null
-                          },
-                          {
                             "alias": "detailDefinition",
                             "args": null,
                             "concreteType": "DetailTemplateDefinition",
@@ -1295,7 +1179,7 @@ return {
                             "plural": false,
                             "selections": [
                               (v19/*: any*/),
-                              (v30/*: any*/),
+                              (v23/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -1303,9 +1187,42 @@ return {
                                 "name": "showAnnouncements",
                                 "storageKey": null
                               },
-                              (v31/*: any*/),
+                              (v24/*: any*/),
                               (v20/*: any*/),
                               (v3/*: any*/)
+                            ],
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": null,
+                            "kind": "LinkedField",
+                            "name": "entity",
+                            "plural": false,
+                            "selections": [
+                              (v2/*: any*/),
+                              {
+                                "kind": "InlineFragment",
+                                "selections": (v27/*: any*/),
+                                "type": "Collection",
+                                "abstractKey": null
+                              },
+                              {
+                                "kind": "InlineFragment",
+                                "selections": [
+                                  (v25/*: any*/)
+                                ],
+                                "type": "Community",
+                                "abstractKey": null
+                              },
+                              {
+                                "kind": "InlineFragment",
+                                "selections": (v27/*: any*/),
+                                "type": "Item",
+                                "abstractKey": null
+                              },
+                              (v16/*: any*/)
                             ],
                             "storageKey": null
                           },
@@ -1317,8 +1234,8 @@ return {
                             "name": "slots",
                             "plural": false,
                             "selections": [
-                              (v24/*: any*/),
-                              (v32/*: any*/),
+                              (v22/*: any*/),
+                              (v28/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -1326,7 +1243,17 @@ return {
                                 "kind": "LinkedField",
                                 "name": "summary",
                                 "plural": false,
-                                "selections": (v23/*: any*/),
+                                "selections": (v21/*: any*/),
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "TemplateSlotBlockInstance",
+                                "kind": "LinkedField",
+                                "name": "body",
+                                "plural": false,
+                                "selections": (v21/*: any*/),
                                 "storageKey": null
                               }
                             ],
@@ -1346,7 +1273,7 @@ return {
                             "kind": "LinkedField",
                             "name": "definition",
                             "plural": false,
-                            "selections": (v33/*: any*/),
+                            "selections": (v29/*: any*/),
                             "storageKey": null
                           },
                           {
@@ -1385,7 +1312,7 @@ return {
                                 "kind": "LinkedField",
                                 "name": "nextSibling",
                                 "plural": false,
-                                "selections": (v34/*: any*/),
+                                "selections": (v30/*: any*/),
                                 "storageKey": null
                               },
                               {
@@ -1395,7 +1322,7 @@ return {
                                 "kind": "LinkedField",
                                 "name": "prevSibling",
                                 "plural": false,
-                                "selections": (v34/*: any*/),
+                                "selections": (v30/*: any*/),
                                 "storageKey": null
                               }
                             ],
@@ -1416,7 +1343,7 @@ return {
                                 "kind": "LinkedField",
                                 "name": "nextLabel",
                                 "plural": false,
-                                "selections": (v23/*: any*/),
+                                "selections": (v21/*: any*/),
                                 "storageKey": null
                               },
                               {
@@ -1426,7 +1353,7 @@ return {
                                 "kind": "LinkedField",
                                 "name": "previousLabel",
                                 "plural": false,
-                                "selections": (v23/*: any*/),
+                                "selections": (v21/*: any*/),
                                 "storageKey": null
                               }
                             ],
@@ -1446,7 +1373,7 @@ return {
                             "kind": "LinkedField",
                             "name": "definition",
                             "plural": false,
-                            "selections": (v33/*: any*/),
+                            "selections": (v29/*: any*/),
                             "storageKey": null
                           },
                           {
@@ -1458,22 +1385,25 @@ return {
                             "plural": false,
                             "selections": [
                               (v2/*: any*/),
-                              (v25/*: any*/),
+                              {
+                                "kind": "TypeDiscriminator",
+                                "abstractKey": "__isAnyEntity"
+                              },
                               {
                                 "kind": "InlineFragment",
-                                "selections": (v36/*: any*/),
+                                "selections": (v32/*: any*/),
                                 "type": "Item",
                                 "abstractKey": null
                               },
                               {
                                 "kind": "InlineFragment",
-                                "selections": (v36/*: any*/),
+                                "selections": (v32/*: any*/),
                                 "type": "Collection",
                                 "abstractKey": null
                               },
                               {
                                 "kind": "InlineFragment",
-                                "selections": (v36/*: any*/),
+                                "selections": (v32/*: any*/),
                                 "type": "Community",
                                 "abstractKey": null
                               },
@@ -1488,7 +1418,7 @@ return {
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          (v41/*: any*/),
+                          (v37/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -1500,16 +1430,16 @@ return {
                               (v2/*: any*/),
                               (v9/*: any*/),
                               (v16/*: any*/),
-                              (v42/*: any*/),
+                              (v38/*: any*/),
                               {
                                 "kind": "InlineFragment",
-                                "selections": (v43/*: any*/),
+                                "selections": (v39/*: any*/),
                                 "type": "Collection",
                                 "abstractKey": null
                               },
                               {
                                 "kind": "InlineFragment",
-                                "selections": (v43/*: any*/),
+                                "selections": (v39/*: any*/),
                                 "type": "Item",
                                 "abstractKey": null
                               }
@@ -1524,12 +1454,12 @@ return {
                             "name": "definition",
                             "plural": false,
                             "selections": [
-                              (v30/*: any*/),
+                              (v23/*: any*/),
                               (v3/*: any*/),
                               (v19/*: any*/),
-                              (v44/*: any*/),
-                              (v45/*: any*/),
-                              (v46/*: any*/),
+                              (v40/*: any*/),
+                              (v41/*: any*/),
+                              (v42/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -1544,10 +1474,10 @@ return {
                                 "name": "orderingIdentifier",
                                 "storageKey": null
                               },
-                              (v47/*: any*/),
-                              (v48/*: any*/),
-                              (v35/*: any*/),
+                              (v43/*: any*/),
+                              (v44/*: any*/),
                               (v31/*: any*/),
+                              (v24/*: any*/),
                               (v20/*: any*/)
                             ],
                             "storageKey": null
@@ -1559,7 +1489,7 @@ return {
                             "kind": "LinkedField",
                             "name": "slots",
                             "plural": false,
-                            "selections": (v49/*: any*/),
+                            "selections": (v45/*: any*/),
                             "storageKey": null
                           }
                         ],
@@ -1569,7 +1499,7 @@ return {
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          (v41/*: any*/),
+                          (v37/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -1579,16 +1509,16 @@ return {
                             "plural": false,
                             "selections": [
                               (v2/*: any*/),
-                              (v42/*: any*/),
+                              (v38/*: any*/),
                               {
                                 "kind": "InlineFragment",
-                                "selections": (v50/*: any*/),
+                                "selections": (v46/*: any*/),
                                 "type": "Collection",
                                 "abstractKey": null
                               },
                               {
                                 "kind": "InlineFragment",
-                                "selections": (v50/*: any*/),
+                                "selections": (v46/*: any*/),
                                 "type": "Item",
                                 "abstractKey": null
                               },
@@ -1605,14 +1535,14 @@ return {
                             "plural": false,
                             "selections": [
                               (v19/*: any*/),
+                              (v40/*: any*/),
+                              (v41/*: any*/),
+                              (v42/*: any*/),
+                              (v43/*: any*/),
                               (v44/*: any*/),
-                              (v45/*: any*/),
-                              (v46/*: any*/),
-                              (v47/*: any*/),
-                              (v48/*: any*/),
-                              (v35/*: any*/),
-                              (v30/*: any*/),
                               (v31/*: any*/),
+                              (v23/*: any*/),
+                              (v24/*: any*/),
                               (v20/*: any*/),
                               (v3/*: any*/)
                             ],
@@ -1625,7 +1555,7 @@ return {
                             "kind": "LinkedField",
                             "name": "slots",
                             "plural": false,
-                            "selections": (v49/*: any*/),
+                            "selections": (v45/*: any*/),
                             "storageKey": null
                           }
                         ],
@@ -1650,12 +1580,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e16890ae531af2123ff897513d397707",
+    "cacheID": "cd46f6a37cc59aaf16b421d9491ba6a8",
     "id": null,
     "metadata": {},
     "name": "pageItemTemplateQuery",
     "operationKind": "query",
-    "text": "query pageItemTemplateQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    layouts {\n      main {\n        templates {\n          __typename\n          ...FactoryTemplatesFragment\n          ... on Node {\n            __isNode: __typename\n            id\n          }\n        }\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment AnnouncementsFragment on AnnouncementConnection {\n  nodes {\n    teaser\n    header\n    slug\n    id\n  }\n}\n\nfragment ContentImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      alt\n      url\n      width\n      height\n    }\n  }\n  placeholder: thumb {\n    webp {\n      url\n    }\n  }\n}\n\nfragment ContributorAvatarFragment on ImageAttachment {\n  small {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment ContributorBlockFragment on Contribution {\n  __isContribution: __typename\n  affiliation\n  role\n  contributor {\n    __typename\n    ... on Sluggable {\n      __isSluggable: __typename\n      slug\n    }\n    ... on Contributor {\n      __isContributor: __typename\n      image {\n        ...ContributorAvatarFragment\n      }\n    }\n    ... on PersonContributor {\n      affiliation\n      orcid\n    }\n    ...ContributorNameFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ... on ItemContribution {\n    item {\n      __typename\n      slug\n      id\n    }\n  }\n  ... on CollectionContribution {\n    collection {\n      __typename\n      slug\n      id\n    }\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on Paginated {\n  __isPaginated: __typename\n  ... on ItemContributionConnection {\n    nodes {\n      role\n      contributor {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n  ... on CollectionContributionConnection {\n    nodes {\n      role\n      contributor {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment ContributorsTemplateFragment on ContributorListTemplateInstance {\n  __typename\n  entity {\n    __typename\n    ... on Item {\n      contributions {\n        nodes {\n          ...ContributorBlockFragment\n          id\n        }\n      }\n    }\n    ... on Collection {\n      contributions {\n        nodes {\n          ...ContributorBlockFragment\n          id\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  contributorsDefinition: definition {\n    background\n    limit\n    width\n    id\n  }\n  slots {\n    header {\n      ...sharedInlineSlotFragment\n    }\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment DescendantsTemplateFragment on AnyMainTemplateInstance {\n  __isAnyMainTemplateInstance: __typename\n  ... on DescendantListTemplateInstance {\n    entity {\n      __typename\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    descendantsDefinition: definition {\n      variant\n      id\n    }\n  }\n  ...sharedListTemplateFragment\n}\n\nfragment DetailTemplateFragment on DetailTemplateInstance {\n  __typename\n  entity {\n    __typename\n    ...FullDetailFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  detailDefinition: definition {\n    background\n    variant\n    showAnnouncements\n    showHeroImage\n    width\n    id\n  }\n  ...SummaryDetailFragment\n}\n\nfragment FactoryTemplatesFragment on AnyMainTemplateInstance {\n  __isAnyMainTemplateInstance: __typename\n  ... on TemplateInstance {\n    __isTemplateInstance: __typename\n    templateKind\n  }\n  ... on ContributorListTemplateInstance {\n    ...ContributorsTemplateFragment\n  }\n  ... on DetailTemplateInstance {\n    ...DetailTemplateFragment\n  }\n  ... on OrderingTemplateInstance {\n    ...OrderingNavigationTemplateFragment\n  }\n  ... on PageListTemplateInstance {\n    ...PagesTemplateFragment\n  }\n  ... on DescendantListTemplateInstance {\n    entityList {\n      empty\n    }\n  }\n  ... on LinkListTemplateInstance {\n    entityList {\n      empty\n    }\n  }\n  ...DescendantsTemplateFragment\n  ...LinksTemplateFragment\n}\n\nfragment FullDetailFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    thumbnail {\n      storage\n      ...ContentImageFragment\n    }\n    fullText: schemaProperty(fullPath: \"body\") {\n      __typename\n      ... on FullTextProperty {\n        fullText {\n          content\n        }\n      }\n      ...FullTextFragment\n    }\n  }\n  ... on Collection {\n    thumbnail {\n      storage\n      ...ContentImageFragment\n    }\n    fullText: schemaProperty(fullPath: \"description\") {\n      __typename\n      ... on FullTextProperty {\n        fullText {\n          content\n        }\n      }\n      ...FullTextFragment\n    }\n  }\n}\n\nfragment FullTextFragment on AnySchemaProperty {\n  __isAnySchemaProperty: __typename\n  ... on FullTextProperty {\n    fullText {\n      content\n      kind\n      lang\n    }\n    type\n  }\n}\n\nfragment LinksTemplateFragment on AnyMainTemplateInstance {\n  __isAnyMainTemplateInstance: __typename\n  ... on LinkListTemplateInstance {\n    __typename\n    linksDefinition: definition {\n      variant\n      id\n    }\n  }\n  ...sharedListTemplateFragment\n}\n\nfragment ListPagesTemplateFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    pages {\n      edges {\n        node {\n          slug\n          title\n          id\n        }\n      }\n    }\n  }\n  ... on Collection {\n    pages {\n      edges {\n        node {\n          slug\n          title\n          id\n        }\n      }\n    }\n  }\n  ... on Community {\n    pages {\n      edges {\n        node {\n          slug\n          title\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment NavButtonsFragment on OrderingTemplateInstance {\n  orderingPair {\n    first\n    last\n    nextSibling {\n      ...routesOrderingTemplateFragment\n      id\n    }\n    prevSibling {\n      ...routesOrderingTemplateFragment\n      id\n    }\n  }\n  slots {\n    nextLabel {\n      ...sharedInlineSlotFragment\n    }\n    previousLabel {\n      ...sharedInlineSlotFragment\n    }\n  }\n}\n\nfragment OrderingNavigationTemplateFragment on OrderingTemplateInstance {\n  orderingDefinition: definition {\n    background\n    width\n    id\n  }\n  orderingPair {\n    exists\n  }\n  ...NavButtonsFragment\n}\n\nfragment PagesTemplateFragment on PageListTemplateInstance {\n  __typename\n  pagesDefinition: definition {\n    background\n    width\n    id\n  }\n  entity {\n    __typename\n    ...ListPagesTemplateFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment SummaryDetailFragment on DetailTemplateInstance {\n  entity {\n    __typename\n    ... on Collection {\n      announcements {\n        ...AnnouncementsFragment\n        nodes {\n          slug\n          id\n        }\n      }\n    }\n    ... on Community {\n      announcements {\n        ...AnnouncementsFragment\n        nodes {\n          slug\n          id\n        }\n      }\n    }\n    ... on Item {\n      announcements {\n        ...AnnouncementsFragment\n        nodes {\n          slug\n          id\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  slots {\n    header {\n      ...sharedInlineSlotFragment\n    }\n    subheader {\n      ...sharedInlineSlotFragment\n    }\n    summary {\n      ...sharedBlockSlotFragment\n    }\n  }\n}\n\nfragment routesOrderingTemplateFragment on OrderingEntry {\n  entrySlug\n  entry {\n    __typename\n    ... on Collection {\n      __typename\n    }\n    ... on Item {\n      __typename\n    }\n    ... on Community {\n      __typename\n    }\n    ... on EntityLink {\n      __typename\n      target {\n        __typename\n        ... on Collection {\n          __typename\n        }\n        ... on Item {\n          __typename\n        }\n        ... on Community {\n          __typename\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment sharedBlockSlotFragment on TemplateSlotBlockInstance {\n  content\n  kind\n  valid\n}\n\nfragment sharedInlineSlotFragment on TemplateSlotInlineInstance {\n  content\n  kind\n  valid\n}\n\nfragment sharedListItemTemplateFragment on ListItemTemplateInstance {\n  entity {\n    __typename\n    ... on Collection {\n      __typename\n      id\n      slug\n      title\n      thumbnail {\n        ...CoverImageFragment\n      }\n      contributions {\n        ...ContributorsListFragment\n      }\n      heroImage {\n        image: large {\n          webp {\n            alt\n            url\n          }\n        }\n      }\n    }\n    ... on Item {\n      __typename\n      id\n      slug\n      title\n      thumbnail {\n        ...CoverImageFragment\n      }\n      contributions {\n        ...ContributorsListFragment\n      }\n      heroImage {\n        image: large {\n          webp {\n            alt\n            url\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  slots {\n    contextA {\n      ...sharedInlineSlotFragment\n    }\n    contextB {\n      ...sharedInlineSlotFragment\n    }\n    contextC {\n      ...sharedInlineSlotFragment\n    }\n    description {\n      ...sharedBlockSlotFragment\n    }\n    header {\n      ...sharedInlineSlotFragment\n    }\n    metaA {\n      ...sharedInlineSlotFragment\n    }\n    metaB {\n      ...sharedInlineSlotFragment\n    }\n    subheader {\n      ...sharedInlineSlotFragment\n    }\n  }\n}\n\nfragment sharedListItemsTemplateFragment on TemplateEntityList {\n  listItemLayouts {\n    template {\n      ...sharedListItemTemplateFragment\n      id\n    }\n    id\n  }\n}\n\nfragment sharedListTemplateFragment on AnyMainTemplateInstance {\n  __isAnyMainTemplateInstance: __typename\n  ... on LinkListTemplateInstance {\n    entity {\n      __typename\n      ... on Community {\n        __typename\n        slug\n      }\n      ... on Collection {\n        __typename\n        slug\n        thumbnail {\n          ...CoverImageFragment\n        }\n      }\n      ... on Item {\n        __typename\n        slug\n        thumbnail {\n          ...CoverImageFragment\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    linksDefinition: definition {\n      background\n      seeAllButtonLabel\n      showSeeAllButton\n      selectionMode\n      selectionLimit\n      showEntityContext\n      title\n      variant\n      showHeroImage\n      width\n      id\n    }\n    slots {\n      header {\n        ...sharedInlineSlotFragment\n      }\n      headerAside {\n        ...sharedInlineSlotFragment\n      }\n      metadata {\n        ...sharedInlineSlotFragment\n      }\n      subtitle {\n        ...sharedInlineSlotFragment\n      }\n    }\n    entityList {\n      count\n      empty\n      ...sharedListItemsTemplateFragment\n    }\n  }\n  ... on DescendantListTemplateInstance {\n    entity {\n      __typename\n      ... on Community {\n        __typename\n        slug\n      }\n      ... on Collection {\n        __typename\n        id\n        title\n        slug\n        thumbnail {\n          ...CoverImageFragment\n        }\n      }\n      ... on Item {\n        __typename\n        id\n        title\n        slug\n        thumbnail {\n          ...CoverImageFragment\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    descendantsDefinition: definition {\n      background\n      seeAllButtonLabel\n      showSeeAllButton\n      selectionMode\n      selectionPropertyPath\n      orderingIdentifier\n      selectionLimit\n      showEntityContext\n      title\n      variant\n      showHeroImage\n      width\n      id\n    }\n    slots {\n      header {\n        ...sharedInlineSlotFragment\n      }\n      headerAside {\n        ...sharedInlineSlotFragment\n      }\n      metadata {\n        ...sharedInlineSlotFragment\n      }\n      subtitle {\n        ...sharedInlineSlotFragment\n      }\n    }\n    entityList {\n      count\n      empty\n      ...sharedListItemsTemplateFragment\n    }\n  }\n}\n"
+    "text": "query pageItemTemplateQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    layouts {\n      main {\n        templates {\n          __typename\n          ...FactoryTemplatesFragment\n          ... on Node {\n            __isNode: __typename\n            id\n          }\n        }\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment AnnouncementsFragment on AnnouncementConnection {\n  nodes {\n    teaser\n    header\n    slug\n    id\n  }\n}\n\nfragment ContentImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      alt\n      url\n      width\n      height\n    }\n  }\n  placeholder: thumb {\n    webp {\n      url\n    }\n  }\n}\n\nfragment ContributorAvatarFragment on ImageAttachment {\n  small {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment ContributorBlockFragment on Contribution {\n  __isContribution: __typename\n  affiliation\n  role\n  contributor {\n    __typename\n    ... on Sluggable {\n      __isSluggable: __typename\n      slug\n    }\n    ... on Contributor {\n      __isContributor: __typename\n      image {\n        ...ContributorAvatarFragment\n      }\n    }\n    ... on PersonContributor {\n      affiliation\n      orcid\n    }\n    ...ContributorNameFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ... on ItemContribution {\n    item {\n      __typename\n      slug\n      id\n    }\n  }\n  ... on CollectionContribution {\n    collection {\n      __typename\n      slug\n      id\n    }\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on Paginated {\n  __isPaginated: __typename\n  ... on ItemContributionConnection {\n    nodes {\n      role\n      contributor {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n  ... on CollectionContributionConnection {\n    nodes {\n      role\n      contributor {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment ContributorsTemplateFragment on ContributorListTemplateInstance {\n  __typename\n  entity {\n    __typename\n    ... on Item {\n      contributions {\n        nodes {\n          ...ContributorBlockFragment\n          id\n        }\n      }\n    }\n    ... on Collection {\n      contributions {\n        nodes {\n          ...ContributorBlockFragment\n          id\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  contributorsDefinition: definition {\n    background\n    limit\n    width\n    id\n  }\n  slots {\n    header {\n      ...sharedInlineSlotFragment\n    }\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment DescendantsTemplateFragment on AnyMainTemplateInstance {\n  __isAnyMainTemplateInstance: __typename\n  ... on DescendantListTemplateInstance {\n    entity {\n      __typename\n      ... on Sluggable {\n        __isSluggable: __typename\n        slug\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    descendantsDefinition: definition {\n      variant\n      id\n    }\n  }\n  ...sharedListTemplateFragment\n}\n\nfragment DetailTemplateFragment on DetailTemplateInstance {\n  __typename\n  detailDefinition: definition {\n    background\n    variant\n    showAnnouncements\n    showHeroImage\n    width\n    id\n  }\n  ...SummaryDetailFragment\n  ...FullDetailFragment\n}\n\nfragment FactoryTemplatesFragment on AnyMainTemplateInstance {\n  __isAnyMainTemplateInstance: __typename\n  ... on TemplateInstance {\n    __isTemplateInstance: __typename\n    templateKind\n  }\n  ... on ContributorListTemplateInstance {\n    ...ContributorsTemplateFragment\n  }\n  ... on DetailTemplateInstance {\n    ...DetailTemplateFragment\n  }\n  ... on OrderingTemplateInstance {\n    ...OrderingNavigationTemplateFragment\n  }\n  ... on PageListTemplateInstance {\n    ...PagesTemplateFragment\n  }\n  ... on DescendantListTemplateInstance {\n    entityList {\n      empty\n    }\n  }\n  ... on LinkListTemplateInstance {\n    entityList {\n      empty\n    }\n  }\n  ...DescendantsTemplateFragment\n  ...LinksTemplateFragment\n}\n\nfragment FullDetailFragment on DetailTemplateInstance {\n  entity {\n    __typename\n    ... on Item {\n      thumbnail {\n        storage\n        ...ContentImageFragment\n      }\n    }\n    ... on Collection {\n      thumbnail {\n        storage\n        ...ContentImageFragment\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  slots {\n    header {\n      ...sharedInlineSlotFragment\n    }\n    subheader {\n      ...sharedInlineSlotFragment\n    }\n    body {\n      ...sharedBlockSlotFragment\n    }\n  }\n}\n\nfragment LinksTemplateFragment on AnyMainTemplateInstance {\n  __isAnyMainTemplateInstance: __typename\n  ... on LinkListTemplateInstance {\n    __typename\n    linksDefinition: definition {\n      variant\n      id\n    }\n  }\n  ...sharedListTemplateFragment\n}\n\nfragment ListPagesTemplateFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    pages {\n      edges {\n        node {\n          slug\n          title\n          id\n        }\n      }\n    }\n  }\n  ... on Collection {\n    pages {\n      edges {\n        node {\n          slug\n          title\n          id\n        }\n      }\n    }\n  }\n  ... on Community {\n    pages {\n      edges {\n        node {\n          slug\n          title\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment NavButtonsFragment on OrderingTemplateInstance {\n  orderingPair {\n    first\n    last\n    nextSibling {\n      ...routesOrderingTemplateFragment\n      id\n    }\n    prevSibling {\n      ...routesOrderingTemplateFragment\n      id\n    }\n  }\n  slots {\n    nextLabel {\n      ...sharedInlineSlotFragment\n    }\n    previousLabel {\n      ...sharedInlineSlotFragment\n    }\n  }\n}\n\nfragment OrderingNavigationTemplateFragment on OrderingTemplateInstance {\n  orderingDefinition: definition {\n    background\n    width\n    id\n  }\n  orderingPair {\n    exists\n  }\n  ...NavButtonsFragment\n}\n\nfragment PagesTemplateFragment on PageListTemplateInstance {\n  __typename\n  pagesDefinition: definition {\n    background\n    width\n    id\n  }\n  entity {\n    __typename\n    ...ListPagesTemplateFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment SummaryDetailFragment on DetailTemplateInstance {\n  entity {\n    __typename\n    ... on Collection {\n      announcements {\n        ...AnnouncementsFragment\n        nodes {\n          slug\n          id\n        }\n      }\n    }\n    ... on Community {\n      announcements {\n        ...AnnouncementsFragment\n        nodes {\n          slug\n          id\n        }\n      }\n    }\n    ... on Item {\n      announcements {\n        ...AnnouncementsFragment\n        nodes {\n          slug\n          id\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  slots {\n    header {\n      ...sharedInlineSlotFragment\n    }\n    subheader {\n      ...sharedInlineSlotFragment\n    }\n    summary {\n      ...sharedBlockSlotFragment\n    }\n  }\n}\n\nfragment routesOrderingTemplateFragment on OrderingEntry {\n  entrySlug\n  entry {\n    __typename\n    ... on Collection {\n      __typename\n    }\n    ... on Item {\n      __typename\n    }\n    ... on Community {\n      __typename\n    }\n    ... on EntityLink {\n      __typename\n      target {\n        __typename\n        ... on Collection {\n          __typename\n        }\n        ... on Item {\n          __typename\n        }\n        ... on Community {\n          __typename\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment sharedBlockSlotFragment on TemplateSlotBlockInstance {\n  content\n  kind\n  valid\n}\n\nfragment sharedInlineSlotFragment on TemplateSlotInlineInstance {\n  content\n  kind\n  valid\n}\n\nfragment sharedListItemTemplateFragment on ListItemTemplateInstance {\n  entity {\n    __typename\n    ... on Collection {\n      __typename\n      id\n      slug\n      title\n      thumbnail {\n        ...CoverImageFragment\n      }\n      contributions {\n        ...ContributorsListFragment\n      }\n      heroImage {\n        image: large {\n          webp {\n            alt\n            url\n          }\n        }\n      }\n    }\n    ... on Item {\n      __typename\n      id\n      slug\n      title\n      thumbnail {\n        ...CoverImageFragment\n      }\n      contributions {\n        ...ContributorsListFragment\n      }\n      heroImage {\n        image: large {\n          webp {\n            alt\n            url\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  slots {\n    contextA {\n      ...sharedInlineSlotFragment\n    }\n    contextB {\n      ...sharedInlineSlotFragment\n    }\n    contextC {\n      ...sharedInlineSlotFragment\n    }\n    description {\n      ...sharedBlockSlotFragment\n    }\n    header {\n      ...sharedInlineSlotFragment\n    }\n    metaA {\n      ...sharedInlineSlotFragment\n    }\n    metaB {\n      ...sharedInlineSlotFragment\n    }\n    subheader {\n      ...sharedInlineSlotFragment\n    }\n  }\n}\n\nfragment sharedListItemsTemplateFragment on TemplateEntityList {\n  listItemLayouts {\n    template {\n      ...sharedListItemTemplateFragment\n      id\n    }\n    id\n  }\n}\n\nfragment sharedListTemplateFragment on AnyMainTemplateInstance {\n  __isAnyMainTemplateInstance: __typename\n  ... on LinkListTemplateInstance {\n    entity {\n      __typename\n      ... on Community {\n        __typename\n        slug\n      }\n      ... on Collection {\n        __typename\n        slug\n        thumbnail {\n          ...CoverImageFragment\n        }\n      }\n      ... on Item {\n        __typename\n        slug\n        thumbnail {\n          ...CoverImageFragment\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    linksDefinition: definition {\n      background\n      seeAllButtonLabel\n      showSeeAllButton\n      selectionMode\n      selectionLimit\n      showEntityContext\n      title\n      variant\n      showHeroImage\n      width\n      id\n    }\n    slots {\n      header {\n        ...sharedInlineSlotFragment\n      }\n      headerAside {\n        ...sharedInlineSlotFragment\n      }\n      metadata {\n        ...sharedInlineSlotFragment\n      }\n      subtitle {\n        ...sharedInlineSlotFragment\n      }\n    }\n    entityList {\n      count\n      empty\n      ...sharedListItemsTemplateFragment\n    }\n  }\n  ... on DescendantListTemplateInstance {\n    entity {\n      __typename\n      ... on Community {\n        __typename\n        slug\n      }\n      ... on Collection {\n        __typename\n        id\n        title\n        slug\n        thumbnail {\n          ...CoverImageFragment\n        }\n      }\n      ... on Item {\n        __typename\n        id\n        title\n        slug\n        thumbnail {\n          ...CoverImageFragment\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    descendantsDefinition: definition {\n      background\n      seeAllButtonLabel\n      showSeeAllButton\n      selectionMode\n      selectionPropertyPath\n      orderingIdentifier\n      selectionLimit\n      showEntityContext\n      title\n      variant\n      showHeroImage\n      width\n      id\n    }\n    slots {\n      header {\n        ...sharedInlineSlotFragment\n      }\n      headerAside {\n        ...sharedInlineSlotFragment\n      }\n      metadata {\n        ...sharedInlineSlotFragment\n      }\n      subtitle {\n        ...sharedInlineSlotFragment\n      }\n    }\n    entityList {\n      count\n      empty\n      ...sharedListItemsTemplateFragment\n    }\n  }\n}\n"
   }
 };
 })();
