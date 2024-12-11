@@ -1,10 +1,9 @@
 "use client";
 
-import React from "react";
 import { useTranslation } from "react-i18next";
 import isNumber from "lodash/isNumber";
 import { useAutoProgress } from "@wdp/lib/hooks";
-import * as Styled from "./ProgressBar.styles";
+import styles from "./ProgressBar.module.css";
 
 /* Exported progress bar - determines if bar should show and if auto progress should be used */
 const ProgressBar = ({ label, loading = false, percentLoaded }: Props) => {
@@ -33,7 +32,8 @@ const BaseProgressBar = ({ label, percentLoaded }: Props) => {
   const percent = percentLoaded ? Math.floor(percentLoaded) : 0;
 
   return (
-    <Styled.Bar
+    <div
+      className={styles.bar}
       role="progressbar"
       aria-valuenow={percent}
       aria-valuemin={0}
@@ -41,10 +41,10 @@ const BaseProgressBar = ({ label, percentLoaded }: Props) => {
       aria-valuetext={`${percent}%`}
       aria-label={t(label || "loading")}
     >
-      <Styled.Percent style={{ width: `${percent}%` }}>
+      <span className={styles.percent} style={{ width: `${percent}%` }}>
         <span className="a-hidden">{percent}%</span>
-      </Styled.Percent>
-    </Styled.Bar>
+      </span>
+    </div>
   );
 };
 

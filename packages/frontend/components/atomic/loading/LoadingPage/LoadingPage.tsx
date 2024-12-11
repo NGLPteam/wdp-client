@@ -1,12 +1,12 @@
 "use client";
 
 import LoadingSpinner from "../LoadingSpinner";
-import * as Styled from "./LoadingPage.styles";
+import styles from "./LoadingPage.module.css";
 
 export default function LoadingPage() {
   return (
-    <Styled.Wrapper>
+    <div className={styles.wrapper}>
       <LoadingSpinner />
-    </Styled.Wrapper>
+    </div>
   );
 }

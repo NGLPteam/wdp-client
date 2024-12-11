@@ -1,12 +1,13 @@
 "use client";
 
+import classNames from "classnames";
 import LoadingSpinner from "../LoadingSpinner";
-import * as Styled from "./LoadingBlock.styles";
+import styles from "./LoadingBlock.module.css";
 
 export default function LoadingBlock({ className }: { className?: string }) {
   return (
-    <Styled.Wrapper className={className}>
+    <div className={classNames(className, styles.wrapper)}>
       <LoadingSpinner />
-    </Styled.Wrapper>
+    </div>
   );
 }

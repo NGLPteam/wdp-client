@@ -1,24 +1,33 @@
-import React from "react";
+import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { FileIconFactory } from "@wdp/lib/factories";
 import { SquareThumbnailBase } from "../SquareThumbnail";
-import * as Styled from "./FileThumbnail.styles";
+import styles from "./FileThumbnail.module.css";
 
 export default function FileThumbnail({ alt, url, kind, size }: BaseProps) {
   const { t } = useTranslation();
 
   return (
-    <Styled.Figure
-      className={url ? "a-bg-neutral90" : "a-bg-custom10"}
-      $size={size}
+    <figure
+      className={classNames(styles.figure, {
+        "a-bg-neutral90": !!url,
+        "a-bg-custom10": !url,
+      })}
+      {...(size
+        ? {
+            style: {
+              "--FileThumbnail-size": `${size}px`,
+            } as React.CSSProperties,
+          }
+        : {})}
     >
       {url && (
-        <Styled.ImageWrapper>
+        <span className={styles.imageWrapper}>
           <SquareThumbnailBase alt={alt} url={url} size={size || 120} />
-        </Styled.ImageWrapper>
+        </span>
       )}
       <FileIconFactory kind={kind} title={t(`asset.${kind}`)} />
-    </Styled.Figure>
+    </figure>
   );
 }
 

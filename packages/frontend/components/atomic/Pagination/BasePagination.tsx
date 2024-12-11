@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import BasePaginationButton from "./BasePaginationButton";
-import * as Styled from "./Pagination.styles";
+import styles from "./Pagination.module.css";
 
 export default function BasePagination({ page, pageCount, onSubmit }: Props) {
   const { t } = useTranslation();
@@ -24,7 +24,7 @@ export default function BasePagination({ page, pageCount, onSubmit }: Props) {
   if (!pageCount) return null;
 
   return (
-    <Styled.Nav aria-label="Pagination Navigation">
+    <nav className={styles.nav} aria-label="Pagination Navigation">
       {currentPage > 1 && (
         <BasePaginationButton
           direction="prev"
@@ -33,7 +33,8 @@ export default function BasePagination({ page, pageCount, onSubmit }: Props) {
         />
       )}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Styled.PageInput
+        <input
+          className={styles.input}
           type="number"
           min={1}
           max={pageCount}
@@ -54,7 +55,7 @@ export default function BasePagination({ page, pageCount, onSubmit }: Props) {
           onSubmit={onSubmit}
         />
       )}
-    </Styled.Nav>
+    </nav>
   );
 }
 

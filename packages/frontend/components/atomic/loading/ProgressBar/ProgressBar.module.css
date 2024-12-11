@@ -1,0 +1,15 @@
+.bar {
+  position: fixed;
+  inset-block-start: 0;
+  height: 0.25rem;
+  background: transparent;
+  width: 100vw;
+}
+
+.percent {
+  display: block;
+  height: 100%;
+  width: 0px;
+  transition: width var(--base-duration) var(--base-timing);
+  background: var(--color-custom60);
+}

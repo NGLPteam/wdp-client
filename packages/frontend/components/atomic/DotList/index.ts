@@ -1,1 +1,1 @@
-export { List as default } from "./DotList.styles";
+export { default } from "./DotList";

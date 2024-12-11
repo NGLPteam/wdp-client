@@ -1,17 +1,20 @@
-import React from "react";
+import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import IconFactory from "@/components/factories/IconFactory";
-import * as Styled from "./CloseModalButton.styles";
+import styles from "./CloseModalButton.module.css";
 
 export default function MobileMenuToggle({
+  className,
   ...props
 }: React.HTMLAttributes<HTMLButtonElement>) {
   const { t } = useTranslation();
 
   return (
-    <Styled.Toggle {...props}>
-      <Styled.Label className="t-label-lg">{t("common.close")}</Styled.Label>
+    <button className={classNames(styles.toggle, className)} {...props}>
+      <span className={classNames("t-label-lg", styles.label)}>
+        {t("common.close")}
+      </span>
       <IconFactory icon="close24" role="presentation" />
-    </Styled.Toggle>
+    </button>
   );
 }
