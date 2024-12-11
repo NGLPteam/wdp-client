@@ -9,7 +9,8 @@ const Avatar = ({ url, alt, size = "sm" }: Props) => {
 
   const style = {
     "--Avatar-size": `${pxToRem(imageSize)}`,
-    "--Avatar-border-color": size === "sm" ? "none" : "var()",
+    "--Avatar-border-color":
+      size === "sm" ? "none" : "var(--color-base-neutral90)",
   } as React.CSSProperties;
 
   return (
