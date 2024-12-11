@@ -29,7 +29,7 @@ export default function NavButtons({
   const prevHref = hrefFromTypename(prevSibling);
 
   const prevProps = {
-    forwardedAs: first || !prevHref ? "button" : "div",
+    as: first || !prevHref ? undefined : ("div" as const),
     iconLeft: true as const,
     icon: "arrowLeft" as const,
     label: prevLabel?.valid ? (
@@ -41,7 +41,7 @@ export default function NavButtons({
   };
 
   const nextProps = {
-    forwardedAs: last || !nextHref ? "button" : "div",
+    as: last || !nextHref ? undefined : ("div" as const),
     icon: "arrowRight" as const,
     label: nextLabel?.valid ? (
       <InlineSlotWrapper content={nextLabel.content} />
