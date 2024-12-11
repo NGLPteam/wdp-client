@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import EntityAnnouncementLayoutFactory from "@/components/factories/EntityAnnouncementLayoutFactory";
+import EntityAnnouncementLayout from "components/composed/entity/EntityAnnouncementLayout";
 import LoadingBlock from "@/components/atomic/loading/LoadingBlock";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
@@ -25,7 +25,7 @@ export default async function CollectionAnnouncementPage({
   return (
     <UpdateClientEnvironment records={records}>
       <Suspense fallback={<LoadingBlock />}>
-        <EntityAnnouncementLayoutFactory data={collection} />
+        <EntityAnnouncementLayout data={collection.announcement} />
       </Suspense>
     </UpdateClientEnvironment>
   );
@@ -39,7 +39,11 @@ const query = graphql`
     $announcementSlug: Slug!
   ) {
     collection(slug: $slug) {
-      ...EntityAnnouncementLayoutFactoryFragment
+      ... on Collection {
+        announcement(slug: $announcementSlug) {
+          ...EntityAnnouncementLayoutFragment
+        }
+      }
     }
   }
 `;

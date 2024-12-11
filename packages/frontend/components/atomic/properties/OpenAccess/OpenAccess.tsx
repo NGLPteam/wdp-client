@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { IconFactory } from "components/factories";
+import IconFactory from "@/components/factories/IconFactory";
 import { OpenAccessFragment$key } from "@/relay/OpenAccessFragment.graphql";
 
 export default function OpenAccess({ data, className }: Props) {

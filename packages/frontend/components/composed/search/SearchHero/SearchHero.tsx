@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { useForm } from "react-hook-form";
 import { usePathname } from "next/navigation";
 import { useRouter, useSearchParams } from "next/navigation";
-import { IconFactory } from "components/factories";
+import IconFactory from "@/components/factories/IconFactory";
 import styles from "./SearchHero.module.css";
 
 export default function SearchHero({ prompt }: { prompt?: string | null }) {
