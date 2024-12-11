@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2b0bb3b4dfa7439b78881fc976959954>>
+ * @generated SignedSource<<13c046189b2f40d0784a3eb6e6d3bad4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -41,6 +41,7 @@ export type EntityPageUpdateFormMutation$variables = {
 export type EntityPageUpdateFormMutation$data = {
   readonly updatePage: {
     readonly page: {
+      readonly body: string;
       readonly heroImage: {
         readonly medium: {
           readonly png: {
@@ -106,6 +107,13 @@ v2 = {
       "args": null,
       "kind": "ScalarField",
       "name": "slug",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "body",
       "storageKey": null
     },
     {
@@ -290,16 +298,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "29bd90ce3a4e793c2ac4ae00b3978f58",
+    "cacheID": "65da3455154a4691e35162995951bf94",
     "id": null,
     "metadata": {},
     "name": "EntityPageUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation EntityPageUpdateFormMutation(\n  $input: UpdatePageInput!\n) {\n  updatePage(input: $input) {\n    page {\n      id\n      title\n      slug\n      position\n      heroImage {\n        medium {\n          png {\n            url\n            height\n            width\n            alt\n          }\n        }\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
+    "text": "mutation EntityPageUpdateFormMutation(\n  $input: UpdatePageInput!\n) {\n  updatePage(input: $input) {\n    page {\n      id\n      title\n      slug\n      body\n      position\n      heroImage {\n        medium {\n          png {\n            url\n            height\n            width\n            alt\n          }\n        }\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "06e579e330057dbf9853934b1f18b89f";
+(node as any).hash = "30d505e2380197a2134c3c1f3f30bb03";
 
 export default node;
