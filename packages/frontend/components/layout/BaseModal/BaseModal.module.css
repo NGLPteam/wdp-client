@@ -1,12 +1,4 @@
-import styled from "styled-components";
-import {
-  Dialog as BaseDialog,
-  DialogBackdrop as BaseDialogBackdrop,
-} from "reakit/Dialog";
-import { noInsetSupport } from "@wdp/lib/theme/mixins";
-import { borderRadius } from "theme/base/variables";
-
-export const Backdrop = styled(BaseDialogBackdrop)`
+.backdrop {
   position: fixed;
   /* Center align short modals on the x-axis */
   display: flex;
@@ -14,16 +6,9 @@ export const Backdrop = styled(BaseDialogBackdrop)`
   inset-inline: 0;
   z-index: var(--z-index-modal);
   background: rgba(0, 0, 0, 0.7);
+}
 
-  ${noInsetSupport(`
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  `)}
-`;
-
-export const Wrapper = styled.div`
+.wrapper {
   position: absolute;
   inset-inline-start: 50%;
   transform: translateX(-50%);
@@ -39,27 +24,27 @@ export const Wrapper = styled.div`
   padding-block-start: 144px;
   /* Scrolling should happen inside this container */
   overflow: auto;
-`;
+}
 
-export const Modal = styled(BaseDialog)`
+.modal {
   display: flex;
   flex-direction: column;
   background: var(--color-base-neutral00);
   border: 1px solid var(--color-base-neutral40);
-  border-radius: ${borderRadius.md};
-`;
+  border-radius: theme("borderRadius.md");
+}
 
-export const Header = styled.header`
+.header {
   flex: 0 auto;
-`;
+}
 
-export const Content = styled.div`
+.content {
   flex: 1 1 auto;
   padding-block-end: var(--modal-padding-inline);
   padding-inline-start: var(--modal-padding-inline);
   padding-inline-end: var(--modal-padding-inline);
-`;
+}
 
-export const Footer = styled.footer`
+.footer {
   flex: 0 auto;
-`;
+}

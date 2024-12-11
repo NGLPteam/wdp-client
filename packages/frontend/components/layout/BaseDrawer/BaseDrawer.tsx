@@ -1,8 +1,10 @@
 "use client";
 
+import classNames from "classnames";
 import { CloseModalButton } from "components/atomic";
 import { useIsMounted } from "@wdp/lib/hooks";
-import * as Styled from "./BaseDrawer.styles";
+import { Dialog } from "reakit/Dialog";
+import styles from "./BaseDrawer.module.css";
 import type { DialogProps } from "reakit/Dialog";
 
 export default function Drawer({
@@ -15,21 +17,27 @@ export default function Drawer({
   const isMounted = useIsMounted();
 
   return isMounted ? (
-    <Styled.Wrapper className="a-bg-custom20" aria-label={label} {...dialog}>
-      <Styled.Header>
+    <Dialog
+      className={classNames("a-bg-custom20", styles.wrapper)}
+      aria-label={label}
+      {...dialog}
+    >
+      <div className={styles.header}>
         <div>{header}</div>
         <CloseModalButton
           onClick={dialog.hide}
           aria-expanded={dialog.visible}
         />
-      </Styled.Header>
-      <Styled.Content>
-        <Styled.Inner>{children}</Styled.Inner>
-      </Styled.Content>
+      </div>
+      <div className={styles.content}>
+        <div className={styles.inner}>{children}</div>
+      </div>
       {footer && (
-        <Styled.Footer className="a-bg-custom10">{footer}</Styled.Footer>
+        <footer className={classNames("a-bg-custom10", styles.footer)}>
+          {footer}
+        </footer>
       )}
-    </Styled.Wrapper>
+    </Dialog>
   ) : null;
 }
 

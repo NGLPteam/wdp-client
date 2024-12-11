@@ -6,7 +6,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { PageCount, Pagination } from "components/atomic";
 import { BrowseListLayoutFragment$key } from "@/relay/BrowseListLayoutFragment.graphql";
 import NoContent from "../messages/NoContent";
-import * as Styled from "./BrowseListLayout.styles";
+import styles from "./BrowseListLayout.module.css";
 
 export default function BrowseListLayout({
   data,
@@ -27,25 +27,27 @@ export default function BrowseListLayout({
   return pageInfo ? (
     <section className="a-bg-neutral00">
       <div className="l-container-wide">
-        <Styled.Header>
+        <header className={styles.header}>
           {header && <h3 className="t-capitalize">{header}</h3>}
-          <Styled.PageCountBar>
+          <div className={styles.pageCount}>
             <PageCount data={pageInfo} className="t-label-lg" />
             {orderComponent}
-          </Styled.PageCountBar>
-        </Styled.Header>
+          </div>
+        </header>
         {items && items.length > 0 ? (
           <ul className="t-unstyled-list">
             {items.map((item, i) => (
-              <Styled.Item key={i}>{item}</Styled.Item>
+              <li className={styles.item} key={i}>
+                {item}
+              </li>
             ))}
           </ul>
         ) : (
           <NoContent />
         )}
-        <Styled.Footer>
+        <div className={styles.footer}>
           <Pagination data={pageInfo} />
-        </Styled.Footer>
+        </div>
       </div>
     </section>
   ) : null;

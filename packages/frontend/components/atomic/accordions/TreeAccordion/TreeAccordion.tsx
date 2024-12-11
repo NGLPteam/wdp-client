@@ -10,8 +10,18 @@ export default function TreeAccordion({
   return (
     <details id={id} className={className}>
       <summary className={styles.summary}>
-        <IconFactory icon="plus" role="presentation" data-closed />
-        <IconFactory icon="minus" role="presentation" data-open />
+        <IconFactory
+          className={styles.toggleIcon}
+          icon="plus"
+          role="presentation"
+          data-closed
+        />
+        <IconFactory
+          className={styles.toggleIcon}
+          icon="minus"
+          role="presentation"
+          data-open
+        />
         {SummaryComponent}
       </summary>
       {children}

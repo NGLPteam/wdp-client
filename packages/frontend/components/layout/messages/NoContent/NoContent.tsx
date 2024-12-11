@@ -1,12 +1,11 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./NoContent.styles";
+import styles from "./NoContent.module.css";
 
 const NoContent = ({ message }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <Styled.Wrapper>
+    <div className={styles.wrapper}>
       <p className="t-h4">
         {!message
           ? t("common.no_content")
@@ -14,7 +13,7 @@ const NoContent = ({ message }: Props) => {
             ? t(message)
             : message}
       </p>
-    </Styled.Wrapper>
+    </div>
   );
 };
 

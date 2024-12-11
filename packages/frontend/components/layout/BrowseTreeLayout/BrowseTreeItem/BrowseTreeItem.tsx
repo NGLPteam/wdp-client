@@ -2,7 +2,7 @@ import { graphql, useFragment } from "react-relay";
 import { Markdown, NamedLink } from "components/atomic";
 import { getRouteByEntityType } from "helpers";
 import { BrowseTreeItemFragment$key } from "@/relay/BrowseTreeItemFragment.graphql";
-import * as Styled from "./BrowseTreeItem.styles";
+import styles from "./BrowseTreeItem.module.css";
 import Teasers from "./Teasers";
 
 export default function BrowseTreeItem({ data }: Props) {
@@ -12,10 +12,17 @@ export default function BrowseTreeItem({ data }: Props) {
   const href = row.entry?.slug ? `/${route}/${row.entry?.slug}` : `/${route}`;
 
   return row ? (
-    <Styled.Row
+    <div
+      className={styles.row}
       role="row"
       aria-level={row.treeDepth || undefined}
-      $level={row.treeDepth || undefined}
+      {...(row.treeDepth
+        ? {
+            style: {
+              "--BrowseTreeItem-level": row.treeDepth,
+            } as React.CSSProperties,
+          }
+        : {})}
     >
       <NamedLink href={href}>
         <span
@@ -28,7 +35,7 @@ export default function BrowseTreeItem({ data }: Props) {
       {row.entry?.schemaVersion?.kind === "COLLECTION" && (
         <Teasers data={row.entry} />
       )}
-    </Styled.Row>
+    </div>
   ) : null;
 }
 
