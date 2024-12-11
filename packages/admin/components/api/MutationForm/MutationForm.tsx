@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useEffect } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useMutation, graphql, GraphQLTaggedNode } from "react-relay";
 
 import { useForm, FormProvider } from "react-hook-form";
@@ -253,10 +253,6 @@ export default function MutationForm<
 
     return loading || isSubmitting || isValidating;
   }, [form, loading]);
-
-  useEffect(() => {
-    form.reset(defaultValues);
-  }, [defaultValues]);
 
   return (
     <FormProvider {...form}>
