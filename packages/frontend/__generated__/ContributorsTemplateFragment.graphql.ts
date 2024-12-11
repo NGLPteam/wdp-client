@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9f8806ca74873181169e9d1b7b78f400>>
+ * @generated SignedSource<<0fadc6b35e7ad55fb25f9a14c391f7b5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -22,7 +22,7 @@ export type ContributorsTemplateFragment$data = {
   readonly entity: {
     readonly contributions?: {
       readonly nodes: ReadonlyArray<{
-        readonly " $fragmentSpreads": FragmentRefs<"ContributorBlockFragment">;
+        readonly " $fragmentSpreads": FragmentRefs<"ContributorFragment">;
       }>;
     };
   };
@@ -43,7 +43,7 @@ var v0 = [
   {
     "args": null,
     "kind": "FragmentSpread",
-    "name": "ContributorBlockFragment"
+    "name": "ContributorFragment"
   }
 ];
 return {
@@ -191,6 +191,6 @@ return {
 };
 })();
 
-(node as any).hash = "ebc4001fd2928bf406b47e584efc4783";
+(node as any).hash = "72200b54e605c4749c761f7e4f3d6384";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<97b9dd0029fec84c58e55f7a32846dcf>>
+ * @generated SignedSource<<ab2cec80beeea98b50dae29d529f5858>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,7 +20,7 @@ export type ContributionsBlockFragment$data = {
     };
     readonly role: string | null | undefined;
     readonly slug: string;
-    readonly " $fragmentSpreads": FragmentRefs<"ContributionBlockItemFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"ContributorFragment">;
   }>;
   readonly " $fragmentType": "ContributionsBlockFragment";
 };
@@ -91,7 +91,7 @@ v1 = [
   {
     "args": null,
     "kind": "FragmentSpread",
-    "name": "ContributionBlockItemFragment"
+    "name": "ContributorFragment"
   }
 ];
 return {
@@ -140,6 +140,6 @@ return {
 };
 })();
 
-(node as any).hash = "e3267af377d0d3b1185634c96ae5dcdc";
+(node as any).hash = "fcc46829b3a122a79782d07aeab3264d";
 
 export default node;

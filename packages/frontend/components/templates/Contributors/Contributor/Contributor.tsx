@@ -2,16 +2,18 @@ import { graphql, useFragment } from "react-relay";
 import startCase from "lodash/startCase";
 import classNames from "classnames";
 import NamedLink from "@/components/atomic/links/NamedLink";
-import { ContributorBlockFragment$key } from "@/relay/ContributorBlockFragment.graphql";
+import { ContributorFragment$key } from "@/relay/ContributorFragment.graphql";
 import ContributorName from "@/components/composed/contributor/ContributorName";
 import ContributorAvatar from "@/components/composed/contributor/ContributorAvatar";
 import ORCIDLink from "@/components/atomic/links/Link/patterns/ORCIDLink";
 import styles from "./Contributor.module.css";
 
-export default function ContributorBlock({
+export default function Contributor({
   data,
+  showAvatar = true,
 }: {
-  data?: ContributorBlockFragment$key | null;
+  data?: ContributorFragment$key | null;
+  showAvatar?: boolean;
 }) {
   const contribution = useFragment(fragment, data);
 
@@ -33,9 +35,11 @@ export default function ContributorBlock({
 
   return (
     <li className={styles.item}>
-      <span>
-        <ContributorAvatar data={contributor.image} />
-      </span>
+      {showAvatar && (
+        <span>
+          <ContributorAvatar data={contributor.image} />
+        </span>
+      )}
       <div>
         <NamedLink href={href} className="default-link-styles">
           <strong>
@@ -63,7 +67,7 @@ export default function ContributorBlock({
 }
 
 const fragment = graphql`
-  fragment ContributorBlockFragment on Contribution {
+  fragment ContributorFragment on Contribution {
     affiliation
     role
     contributor {

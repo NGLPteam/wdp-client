@@ -56,14 +56,14 @@ const fragment = graphql`
       ... on Item {
         contributions {
           nodes {
-            ...ContributorBlockFragment
+            ...ContributorFragment
           }
         }
       }
       ... on Collection {
         contributions {
           nodes {
-            ...ContributorBlockFragment
+            ...ContributorFragment
           }
         }
       }
