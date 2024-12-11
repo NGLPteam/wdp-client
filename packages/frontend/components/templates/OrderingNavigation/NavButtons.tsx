@@ -56,7 +56,7 @@ export default function NavButtons({
     href: string | null,
   ) =>
     href ? (
-      <NamedLink href={href} {...props}>
+      <NamedLink href={href}>
         <PrevNextButton {...props} />
       </NamedLink>
     ) : (
