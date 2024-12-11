@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { aFocusReset, fluidScale } from "theme/mixins";
-import { IconFactory } from "components/factories";
+import IconFactory from "@/components/factories/IconFactory";
 
 export const Details = styled.details``;
 

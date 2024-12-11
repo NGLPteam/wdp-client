@@ -57,7 +57,6 @@ export default async function ContributorPage({
 const detailQuery = graphql`
   query pageContributorDetailQuery($slug: Slug!) {
     contributor(slug: $slug) {
-      ...ContributorHTMLHeadFragment
       ...ContributorDetailFragment
     }
     ...AppBodyFragment
@@ -67,7 +66,6 @@ const detailQuery = graphql`
 const itemQuery = graphql`
   query pageContributorItemDetailQuery($slug: Slug!, $item: Slug!) {
     contributor(slug: $slug) {
-      ...ContributorHTMLHeadFragment
       ...ContributorDetailFragment
     }
 
@@ -86,7 +84,6 @@ const itemQuery = graphql`
 const collectionQuery = graphql`
   query pageContributorCollectionLayoutQuery($slug: Slug!, $collection: Slug!) {
     contributor(slug: $slug) {
-      ...ContributorHTMLHeadFragment
       ...ContributorDetailFragment
     }
 

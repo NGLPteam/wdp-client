@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<70cb7e8757af17bada41ff4574019cfb>>
+ * @generated SignedSource<<ee168726a3c17558fbdb42309a6279cb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,9 @@ export type pageTemplatesCollectionAnnouncementQuery$variables = {
 };
 export type pageTemplatesCollectionAnnouncementQuery$data = {
   readonly collection: {
-    readonly " $fragmentSpreads": FragmentRefs<"EntityAnnouncementLayoutFactoryFragment">;
+    readonly announcement: {
+      readonly " $fragmentSpreads": FragmentRefs<"EntityAnnouncementLayoutFragment">;
+    } | null | undefined;
   } | null | undefined;
 };
 export type pageTemplatesCollectionAnnouncementQuery = {
@@ -75,47 +77,20 @@ return {
         "plural": false,
         "selections": [
           {
-            "kind": "InlineDataFragmentSpread",
-            "name": "EntityAnnouncementLayoutFactoryFragment",
+            "alias": null,
+            "args": (v3/*: any*/),
+            "concreteType": "Announcement",
+            "kind": "LinkedField",
+            "name": "announcement",
+            "plural": false,
             "selections": [
               {
-                "kind": "InlineFragment",
-                "selections": [
-                  {
-                    "kind": "InlineFragment",
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": (v3/*: any*/),
-                        "concreteType": "Announcement",
-                        "kind": "LinkedField",
-                        "name": "announcement",
-                        "plural": false,
-                        "selections": [
-                          {
-                            "args": null,
-                            "kind": "FragmentSpread",
-                            "name": "EntityAnnouncementLayoutFragment"
-                          }
-                        ],
-                        "storageKey": null
-                      }
-                    ],
-                    "type": "Collection",
-                    "abstractKey": null
-                  }
-                ],
-                "type": "AnyEntity",
-                "abstractKey": "__isAnyEntity"
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "EntityAnnouncementLayoutFragment"
               }
             ],
-            "args": null,
-            "argumentDefinitions": [
-              {
-                "kind": "RootArgument",
-                "name": "announcementSlug"
-              }
-            ]
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -142,58 +117,44 @@ return {
         "plural": false,
         "selections": [
           {
-            "kind": "InlineFragment",
+            "alias": null,
+            "args": (v3/*: any*/),
+            "concreteType": "Announcement",
+            "kind": "LinkedField",
+            "name": "announcement",
+            "plural": false,
             "selections": [
               {
-                "kind": "InlineFragment",
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": (v3/*: any*/),
-                    "concreteType": "Announcement",
-                    "kind": "LinkedField",
-                    "name": "announcement",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "header",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "body",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "publishedOn",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "updatedAt",
-                        "storageKey": null
-                      },
-                      (v4/*: any*/)
-                    ],
-                    "storageKey": null
-                  }
-                ],
-                "type": "Collection",
-                "abstractKey": null
-              }
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "header",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "body",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "publishedOn",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "updatedAt",
+                "storageKey": null
+              },
+              (v4/*: any*/)
             ],
-            "type": "AnyEntity",
-            "abstractKey": "__isAnyEntity"
+            "storageKey": null
           },
           (v4/*: any*/)
         ],
@@ -202,16 +163,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2ad8134e8794b9895bec464f4ee0f9cc",
+    "cacheID": "4c1fcccc4623ff1cde5b5ae0691d0e72",
     "id": null,
     "metadata": {},
     "name": "pageTemplatesCollectionAnnouncementQuery",
     "operationKind": "query",
-    "text": "query pageTemplatesCollectionAnnouncementQuery(\n  $slug: Slug!\n  $announcementSlug: Slug!\n) {\n  collection(slug: $slug) {\n    ...EntityAnnouncementLayoutFactoryFragment\n    id\n  }\n}\n\nfragment EntityAnnouncementLayoutFactoryFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    announcement(slug: $announcementSlug) {\n      ...EntityAnnouncementLayoutFragment\n      id\n    }\n  }\n}\n\nfragment EntityAnnouncementLayoutFragment on Announcement {\n  header\n  body\n  publishedOn\n  updatedAt\n}\n"
+    "text": "query pageTemplatesCollectionAnnouncementQuery(\n  $slug: Slug!\n  $announcementSlug: Slug!\n) {\n  collection(slug: $slug) {\n    announcement(slug: $announcementSlug) {\n      ...EntityAnnouncementLayoutFragment\n      id\n    }\n    id\n  }\n}\n\nfragment EntityAnnouncementLayoutFragment on Announcement {\n  header\n  body\n  publishedOn\n  updatedAt\n}\n"
   }
 };
 })();
 
-(node as any).hash = "c30f4c766238dddee5c378974170dbc1";
+(node as any).hash = "78272df42b7e08e09590245716cf24c1";
 
 export default node;

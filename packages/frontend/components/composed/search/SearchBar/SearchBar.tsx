@@ -1,6 +1,6 @@
 import React, { forwardRef, Ref } from "react";
 import { useTranslation } from "react-i18next";
-import { IconFactory } from "components/factories";
+import IconFactory from "@/components/factories/IconFactory";
 import * as Styled from "./SearchBar.styles";
 
 type InputProps = Pick<React.HTMLProps<HTMLInputElement>, "defaultValue">;

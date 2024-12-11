@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { IconFactory } from "components/factories";
 import { boxShadow } from "theme/base/variables";
+import IconFactory from "@/components/factories/IconFactory";
 
 export const Label = styled.label`
   display: flex;
