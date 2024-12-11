@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { IconFactory } from "components/factories";
+import IconFactory from "@/components/factories/IconFactory";
 import * as Styled from "./Pagination.styles";
 
 export default function PaginationPrevNext({

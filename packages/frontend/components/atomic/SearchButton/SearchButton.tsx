@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { IconFactory } from "components/factories";
 import SearchModal from "components/layout/SearchModal";
+import IconFactory from "@/components/factories/IconFactory";
 import { SearchButtonFragment$key } from "@/relay/SearchButtonFragment.graphql";
 import styles from "./SearchButton.module.css";
 

@@ -1,7 +1,7 @@
 import React, { forwardRef, InputHTMLAttributes } from "react";
 import { MaybeInputRef } from "@castiron/common-types";
 import { useCombobox } from "downshift";
-import { IconFactory } from "components/factories";
+import IconFactory from "@/components/factories/IconFactory";
 import Label from "../Label";
 import * as Styled from "./Typeahead.styles";
 

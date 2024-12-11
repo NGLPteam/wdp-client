@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { IconFactory } from "components/factories";
+import IconFactory from "@/components/factories/IconFactory";
 import { PeerReviewedFragment$key } from "@/relay/PeerReviewedFragment.graphql";
 
 export default function PeerReviewed({ data, className }: Props) {

@@ -2,7 +2,7 @@ import { type ComponentProps, forwardRef } from "react";
 import classNames from "classnames";
 import Link from "next/link";
 import { MaybeLinkRef } from "@castiron/common-types";
-import { IconFactory } from "components/factories";
+import IconFactory from "@/components/factories/IconFactory";
 import styles from "./NavMenuLink.module.css";
 
 type IconProps = ComponentProps<typeof IconFactory>;

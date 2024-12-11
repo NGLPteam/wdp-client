@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/legacy/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { IconFactory } from "components/factories";
+import IconFactory from "@/components/factories/IconFactory";
 import styles from "./Avatar.module.css";
 
 const Avatar = ({ url, alt, size = "sm" }: Props) => {

@@ -2,8 +2,8 @@ import React, { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { IconFactory } from "components/factories";
 import { Link } from "components/atomic";
+import IconFactory from "@/components/factories/IconFactory";
 import { CCLicenseFragment$key } from "@/relay/CCLicenseFragment.graphql";
 
 export default function CCLicense({ data, className }: Props) {

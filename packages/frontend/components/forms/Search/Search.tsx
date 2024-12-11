@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
-import { IconFactory } from "../../factories";
+import IconFactory from "@/components/factories/IconFactory";
 import * as Styled from "./Search.styles";
 
 export default function Search({

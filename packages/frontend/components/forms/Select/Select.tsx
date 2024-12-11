@@ -1,6 +1,6 @@
 import React, { forwardRef, SelectHTMLAttributes } from "react";
 import { MaybeSelectRef } from "@castiron/common-types";
-import { IconFactory } from "components/factories";
+import IconFactory from "@/components/factories/IconFactory";
 import Label from "../Label";
 import * as Styled from "./Select.styles";
 

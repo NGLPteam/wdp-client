@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { IconFactory } from "components/factories";
+import IconFactory from "@/components/factories/IconFactory";
 import styles from "./Alert.module.css";
 
 type Props = {

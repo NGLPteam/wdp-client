@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { IconFactory } from "components/factories";
+import IconFactory from "@/components/factories/IconFactory";
 import { DownloadCountFragment$key } from "@/relay/DownloadCountFragment.graphql";
 
 export default function DownloadCount({ data, className }: Props) {
