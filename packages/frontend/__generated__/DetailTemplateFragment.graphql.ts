@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<75aae4b8ae6f5f0af0fb1996fd03b989>>
+ * @generated SignedSource<<af442566f9724beb1618f33018d4c971>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -22,10 +22,7 @@ export type DetailTemplateFragment$data = {
     readonly variant: DetailVariant | null | undefined;
     readonly width: TemplateWidth | null | undefined;
   };
-  readonly entity: {
-    readonly " $fragmentSpreads": FragmentRefs<"FullDetailFragment">;
-  };
-  readonly " $fragmentSpreads": FragmentRefs<"SummaryDetailFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"FullDetailFragment" | "SummaryDetailFragment">;
   readonly " $fragmentType": "DetailTemplateFragment";
 };
 export type DetailTemplateFragment$key = {
@@ -44,22 +41,6 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "__typename",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "entity",
-      "plural": false,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "FullDetailFragment"
-        }
-      ],
       "storageKey": null
     },
     {
@@ -112,12 +93,17 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "SummaryDetailFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "FullDetailFragment"
     }
   ],
   "type": "DetailTemplateInstance",
   "abstractKey": null
 };
 
-(node as any).hash = "dd9a535229ba498f79a16be38ab23720";
+(node as any).hash = "759a30982220e544f8b4f4d7dca32cfa";
 
 export default node;

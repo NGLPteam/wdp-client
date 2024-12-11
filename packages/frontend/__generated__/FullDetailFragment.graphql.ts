@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<342e5be2d9d9e375c9601b361d1a0f73>>
+ * @generated SignedSource<<2c8db4b0d44e5aa30b5b2d245156484b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,15 +12,22 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type FullDetailFragment$data = {
-  readonly fullText?: {
-    readonly fullText?: {
-      readonly content: string | null | undefined;
+  readonly entity: {
+    readonly thumbnail?: {
+      readonly storage: AttachmentStorage | null | undefined;
+      readonly " $fragmentSpreads": FragmentRefs<"ContentImageFragment">;
+    };
+  };
+  readonly slots: {
+    readonly body: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedBlockSlotFragment">;
     } | null | undefined;
-    readonly " $fragmentSpreads": FragmentRefs<"FullTextFragment">;
-  } | null | undefined;
-  readonly thumbnail?: {
-    readonly storage: AttachmentStorage | null | undefined;
-    readonly " $fragmentSpreads": FragmentRefs<"ContentImageFragment">;
+    readonly header: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+    } | null | undefined;
+    readonly subheader: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+    } | null | undefined;
   };
   readonly " $fragmentType": "FullDetailFragment";
 };
@@ -30,59 +37,36 @@ export type FullDetailFragment$key = {
 };
 
 const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "ImageAttachment",
-  "kind": "LinkedField",
-  "name": "thumbnail",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "storage",
-      "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "ContentImageFragment"
-    }
-  ],
-  "storageKey": null
-},
-v1 = [
+var v0 = [
   {
-    "kind": "InlineFragment",
+    "alias": null,
+    "args": null,
+    "concreteType": "ImageAttachment",
+    "kind": "LinkedField",
+    "name": "thumbnail",
+    "plural": false,
     "selections": [
       {
         "alias": null,
         "args": null,
-        "concreteType": "FullText",
-        "kind": "LinkedField",
-        "name": "fullText",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "content",
-            "storageKey": null
-          }
-        ],
+        "kind": "ScalarField",
+        "name": "storage",
         "storageKey": null
+      },
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "ContentImageFragment"
       }
     ],
-    "type": "FullTextProperty",
-    "abstractKey": null
-  },
+    "storageKey": null
+  }
+],
+v1 = [
   {
     "args": null,
     "kind": "FragmentSpread",
-    "name": "FullTextFragment"
+    "name": "sharedInlineSlotFragment"
   }
 ];
 return {
@@ -92,59 +76,81 @@ return {
   "name": "FullDetailFragment",
   "selections": [
     {
-      "kind": "InlineFragment",
+      "alias": null,
+      "args": null,
+      "concreteType": null,
+      "kind": "LinkedField",
+      "name": "entity",
+      "plural": false,
       "selections": [
-        (v0/*: any*/),
         {
-          "alias": "fullText",
-          "args": [
-            {
-              "kind": "Literal",
-              "name": "fullPath",
-              "value": "body"
-            }
-          ],
-          "concreteType": null,
-          "kind": "LinkedField",
-          "name": "schemaProperty",
-          "plural": false,
-          "selections": (v1/*: any*/),
-          "storageKey": "schemaProperty(fullPath:\"body\")"
+          "kind": "InlineFragment",
+          "selections": (v0/*: any*/),
+          "type": "Item",
+          "abstractKey": null
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": (v0/*: any*/),
+          "type": "Collection",
+          "abstractKey": null
         }
       ],
-      "type": "Item",
-      "abstractKey": null
+      "storageKey": null
     },
     {
-      "kind": "InlineFragment",
+      "alias": null,
+      "args": null,
+      "concreteType": "DetailTemplateInstanceSlots",
+      "kind": "LinkedField",
+      "name": "slots",
+      "plural": false,
       "selections": [
-        (v0/*: any*/),
         {
-          "alias": "fullText",
-          "args": [
-            {
-              "kind": "Literal",
-              "name": "fullPath",
-              "value": "description"
-            }
-          ],
-          "concreteType": null,
+          "alias": null,
+          "args": null,
+          "concreteType": "TemplateSlotInlineInstance",
           "kind": "LinkedField",
-          "name": "schemaProperty",
+          "name": "header",
           "plural": false,
           "selections": (v1/*: any*/),
-          "storageKey": "schemaProperty(fullPath:\"description\")"
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "TemplateSlotInlineInstance",
+          "kind": "LinkedField",
+          "name": "subheader",
+          "plural": false,
+          "selections": (v1/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "TemplateSlotBlockInstance",
+          "kind": "LinkedField",
+          "name": "body",
+          "plural": false,
+          "selections": [
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "sharedBlockSlotFragment"
+            }
+          ],
+          "storageKey": null
         }
       ],
-      "type": "Collection",
-      "abstractKey": null
+      "storageKey": null
     }
   ],
-  "type": "AnyEntity",
-  "abstractKey": "__isAnyEntity"
+  "type": "DetailTemplateInstance",
+  "abstractKey": null
 };
 })();
 
-(node as any).hash = "249c7fd9afd24fb461caf47708a44921";
+(node as any).hash = "3d000f5f9a5dc57751e32ceea1521b7b";
 
 export default node;

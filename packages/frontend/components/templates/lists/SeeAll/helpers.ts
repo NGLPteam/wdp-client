@@ -2,7 +2,7 @@ import type { DescendantListSelectionMode } from "@/types/graphql-schema";
 
 const FEATURED_PATHS = {
   journals: "browse/nglp:journal",
-  issues: "browse/articles",
+  issues: "browse/issues",
   articles: "browse/articles",
 };
 
@@ -15,7 +15,7 @@ export const getSeeAllHref = (
   if (!basePath) return null;
 
   if (selectionMode === "NAMED" && !!identifier)
-    return `${basePath}/${identifier}`;
+    return `${basePath}/browse/${identifier}`;
 
   if (
     selectionMode === "PROPERTY" &&
