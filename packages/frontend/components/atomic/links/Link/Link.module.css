@@ -64,6 +64,7 @@
   }
 }
 
-.readMore {
+.readMore,
+.download {
   display: inline-flex;
 }

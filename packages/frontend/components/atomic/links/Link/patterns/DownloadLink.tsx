@@ -1,6 +1,7 @@
-import React from "react";
+import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import Link from "..";
+import styles from "../Link.module.css";
 
 type BaseProps = React.ComponentProps<typeof Link> & { className?: string };
 
@@ -16,7 +17,7 @@ export default function DownloadLink({
   return (
     <Link
       {...props}
-      className={className}
+      className={classNames(className, styles.download)}
       icon="download"
       target="_blank"
       download
