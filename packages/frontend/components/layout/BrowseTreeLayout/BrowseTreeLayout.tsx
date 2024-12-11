@@ -10,7 +10,7 @@ import {
   BrowseTreeLayoutFragment$key,
 } from "@/relay/BrowseTreeLayoutFragment.graphql";
 import NoContent from "../messages/NoContent";
-import * as Styled from "./BrowseTreeLayout.styles";
+import styles from "./BrowseTreeLayout.module.css";
 
 export default function BrowseTreeLayout({
   data,
@@ -35,7 +35,7 @@ export default function BrowseTreeLayout({
           key={node.id}
           id={node.id}
         >
-          <Styled.ListItems>{renderList(node.children)}</Styled.ListItems>
+          <div className={styles.listItems}>{renderList(node.children)}</div>
         </TreeAccordion>
       ) : (
         <BrowseTreeItem key={node.id} data={node} />
@@ -46,23 +46,23 @@ export default function BrowseTreeLayout({
   return listData ? (
     <section className="a-bg-neutral00">
       <div className="l-container-wide">
-        <Styled.Header>
+        <header className={styles.header}>
           {header && <h3 className="t-capitalize">{header}</h3>}
-          <Styled.PageCountBar>
+          <div className={styles.pageCount}>
             <PageCount data={listData.pageInfo} className="t-label-lg" />
             {orderComponent}
-          </Styled.PageCountBar>
-        </Styled.Header>
-        <Styled.ListItems>
+          </div>
+        </header>
+        <div className={styles.listItems}>
           {treeList && treeList.length > 0 ? (
             renderList(treeList)
           ) : (
             <NoContent />
           )}
-        </Styled.ListItems>
-        <Styled.Footer>
+        </div>
+        <footer className={styles.footer}>
           <Pagination data={listData.pageInfo} />
-        </Styled.Footer>
+        </footer>
       </div>
     </section>
   ) : null;

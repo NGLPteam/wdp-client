@@ -1,6 +1,7 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { useIsMounted } from "@wdp/lib/hooks";
-import * as Styled from "./BaseModal.styles";
+import { Dialog, DialogBackdrop } from "reakit/Dialog";
+import styles from "./BaseModal.module.css";
 import type { DialogProps } from "reakit/Dialog";
 
 const Modal = ({
@@ -18,23 +19,24 @@ const Modal = ({
   }, [dialog]);
 
   return isMounted ? (
-    <Styled.Backdrop {...dialog}>
-      <Styled.Wrapper>
-        <Styled.Modal
+    <DialogBackdrop className={styles.backdrop} {...dialog}>
+      <div className={styles.wrapper}>
+        <Dialog
+          className={styles.modal}
           hideOnClickOutside={hideOnClickOutside}
           aria-label={label}
           {...dialog}
         >
-          {header && <Styled.Header>{header}</Styled.Header>}
-          <Styled.Content>
+          {header && <header className={styles.header}>{header}</header>}
+          <div className={styles.content}>
             {typeof children === "function"
               ? children({ handleClose })
               : children}
-          </Styled.Content>
-          {footer && <Styled.Footer>{footer}</Styled.Footer>}
-        </Styled.Modal>
-      </Styled.Wrapper>
-    </Styled.Backdrop>
+          </div>
+          {footer && <footer className={styles.footer}>{footer}</footer>}
+        </Dialog>
+      </div>
+    </DialogBackdrop>
   ) : null;
 };
 

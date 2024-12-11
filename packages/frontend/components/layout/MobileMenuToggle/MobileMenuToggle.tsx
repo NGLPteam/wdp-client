@@ -1,17 +1,27 @@
-import React, { forwardRef } from "react";
+import { forwardRef, type ComponentProps } from "react";
+import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { MaybeButtonRef } from "@castiron/common-types";
 import IconFactory from "@/components/factories/IconFactory";
-import * as Styled from "./MobileMenuToggle.styles";
+import styles from "./MobileMenuToggle.module.css";
 
-function MobileMenuToggle({ ...props }, ref: MaybeButtonRef) {
+function MobileMenuToggle(
+  { className, ...props }: ComponentProps<"button">,
+  ref: MaybeButtonRef,
+) {
   const { t } = useTranslation();
 
   return (
-    <Styled.Toggle ref={ref} {...props}>
-      <Styled.Label className="t-label-lg">{t("nav.menu")}</Styled.Label>
+    <button
+      className={classNames(styles.toggle, className)}
+      ref={ref}
+      {...props}
+    >
+      <span className={classNames("t-label-lg", styles.label)}>
+        {t("nav.menu")}
+      </span>
       <IconFactory icon="hamburger24" role="presentation" />
-    </Styled.Toggle>
+    </button>
   );
 }
 
