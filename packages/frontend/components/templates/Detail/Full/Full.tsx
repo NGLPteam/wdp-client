@@ -1,17 +1,16 @@
-import { useEffect, useRef, useState } from "react";
-import classNames from "classnames";
+import { useRef } from "react";
 import { graphql, useFragment } from "react-relay";
-import { convertToSlug } from "@wdp/lib/helpers";
 import { useTranslation } from "react-i18next";
-import { ContentImage, FullText } from "components/atomic";
 import { BackToTopBlock } from "components/layout";
+import ContentImage from "@/components/atomic/images/ContentImage";
 import { FullDetailFragment$key } from "@/relay/FullDetailFragment.graphql";
+import {
+  useSharedInlineFragment,
+  useSharedBlockFragment,
+} from "@/components/templates/shared/shared.slots.graphql";
+import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
+import TOC from "./TOC";
 import styles from "./Full.module.css";
-
-type TOCItem = {
-  text: string;
-  id: string;
-};
 
 export default function FullVariant({
   data,
@@ -20,105 +19,82 @@ export default function FullVariant({
   data?: FullDetailFragment$key | null;
   showHeroImage?: boolean | null;
 }) {
-  const entity = useFragment(fragment, data);
+  const template = useFragment(fragment, data);
 
-  const [toc, setTOC] = useState<TOCItem[]>();
+  const { entity, slots } = template ?? {};
+
+  const header = useSharedInlineFragment(slots?.header);
+  const subheader = useSharedInlineFragment(slots?.subheader);
+  const body = useSharedBlockFragment(slots?.body);
 
   const textEl = useRef<HTMLDivElement>(null);
 
   const { t } = useTranslation();
 
-  /* Get all headers and set table of contents */
-  useEffect(() => {
-    const headerEls = textEl.current?.querySelectorAll("h1, h2, h3");
+  const canRender =
+    (showHeroImage && !!entity?.thumbnail?.storage) ||
+    header?.valid ||
+    subheader?.valid ||
+    body?.valid;
 
-    if (!headerEls || headerEls.length === 0) return;
+  if (!canRender) return null;
 
-    const tocList: TOCItem[] = [];
+  const isPDF = body?.content?.startsWith("<PDFViewer");
 
-    [...headerEls].forEach((header) => {
-      const text = header.textContent;
-
-      if (!text) return;
-
-      const id = convertToSlug(text);
-      header.setAttribute("id", id);
-      tocList.push({ text, id });
-    });
-
-    setTOC(tocList);
-  }, [textEl]);
-
-  if (!entity) return null;
-
-  const { fullText, thumbnail } = entity ?? {};
-
-  return entity && fullText ? (
+  return isPDF ? (
+    <div className={styles.outer}>
+      {body?.valid && !!body.content ? (
+        <BlockSlotWrapper content={body.content} />
+      ) : (
+        t("common.no_content")
+      )}
+    </div>
+  ) : (
     <BackToTopBlock className={styles.outer}>
       <div className={styles.inner}>
-        {toc && (
-          <div className={styles.toc}>
-            <div className={styles["toc__inner"]}>
-              <h3
-                className={classNames(
-                  "t-label-sm t-copy-light",
-                  styles["toc__header"],
-                )}
-              >
-                {t("glossary.table_of_contents")}
-              </h3>
-              <ul className={styles["toc__list"]}>
-                {toc.map(({ id, text }, i: number) => (
-                  <li className={styles["toc__item"]} key={i}>
-                    <a href={`#${id}`}>{text}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        )}
+        <TOC textRef={textEl} />
         <div className={styles.text} ref={textEl}>
-          {showHeroImage && thumbnail?.storage && (
+          {showHeroImage && entity?.thumbnail?.storage && (
             <div className={styles.image}>
-              <ContentImage data={thumbnail} />
+              <ContentImage data={entity.thumbnail} />
             </div>
           )}
-          <FullText data={fullText} />
+          {body?.valid && !!body.content ? (
+            <BlockSlotWrapper content={body.content} />
+          ) : (
+            t("common.no_content")
+          )}
         </div>
       </div>
     </BackToTopBlock>
-  ) : null;
+  );
 }
 
 const fragment = graphql`
-  fragment FullDetailFragment on AnyEntity {
-    ... on Item {
-      thumbnail {
-        storage
-        ...ContentImageFragment
-      }
-      fullText: schemaProperty(fullPath: "body") {
-        ... on FullTextProperty {
-          fullText {
-            content
-          }
+  fragment FullDetailFragment on DetailTemplateInstance {
+    entity {
+      ... on Item {
+        thumbnail {
+          storage
+          ...ContentImageFragment
         }
-        ...FullTextFragment
+      }
+      ... on Collection {
+        thumbnail {
+          storage
+          ...ContentImageFragment
+        }
       }
     }
-
-    ... on Collection {
-      thumbnail {
-        storage
-        ...ContentImageFragment
+    slots {
+      header {
+        ...sharedInlineSlotFragment
       }
-      fullText: schemaProperty(fullPath: "description") {
-        ... on FullTextProperty {
-          fullText {
-            content
-          }
-        }
-        ...FullTextFragment
+      subheader {
+        ...sharedInlineSlotFragment
+      }
+      body {
+        ...sharedBlockSlotFragment
       }
     }
   }

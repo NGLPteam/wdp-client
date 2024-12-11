@@ -11,7 +11,7 @@ export default function DetailTemplate({
 }) {
   const template = useFragment(fragment, data);
 
-  const { detailDefinition, entity } = template ?? {};
+  const { detailDefinition } = template ?? {};
 
   const { background, variant, showAnnouncements, showHeroImage, width } =
     detailDefinition ?? {};
@@ -25,7 +25,7 @@ export default function DetailTemplate({
       {variant === "SUMMARY" ? (
         <Summary data={template} showAnnouncements={showAnnouncements} />
       ) : (
-        <Full data={entity} showHeroImage={showHeroImage} />
+        <Full data={template} showHeroImage={showHeroImage} />
       )}
     </Container>
   );
@@ -34,9 +34,6 @@ export default function DetailTemplate({
 const fragment = graphql`
   fragment DetailTemplateFragment on DetailTemplateInstance {
     __typename
-    entity {
-      ...FullDetailFragment
-    }
     detailDefinition: definition {
       background
       variant
@@ -45,5 +42,6 @@ const fragment = graphql`
       width
     }
     ...SummaryDetailFragment
+    ...FullDetailFragment
   }
 `;

@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./AssetPDFPage.styles";
+import styles from "./AssetPDFPage.module.css";
 
 export default function AssetInlinePDFPage({
   pageNumber,
@@ -11,11 +11,11 @@ export default function AssetInlinePDFPage({
 
   return (
     <>
-      <Styled.Page>{children}</Styled.Page>
+      <div className={styles.page}>{children}</div>
       {pageNumber && (
-        <Styled.PageNumber>
+        <div className={styles.pageNumber}>
           {pageLabel ? t(pageLabel, { number: pageNumber }) : pageNumber}
-        </Styled.PageNumber>
+        </div>
       )}
     </>
   );

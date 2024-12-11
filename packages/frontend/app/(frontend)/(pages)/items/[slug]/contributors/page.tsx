@@ -1,6 +1,6 @@
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import ContributionsBlock from "components/composed/contribution/ContributionsBlock";
+import ContributionsBlock from "@/components/composed/contribution/ContributionsBlock";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageTemplatesItemContributorsQuery as Query } from "@/relay/pageTemplatesItemContributorsQuery.graphql";
