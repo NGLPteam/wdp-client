@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<043657e1f9ac50ff9cd7bac62e7f0446>>
+ * @generated SignedSource<<784deec49b0dcf84c0ab6addbaee89b6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,7 @@ export type EntityOrderingLayoutFragment$data = {
       readonly node: {
         readonly entry: {
           readonly slug?: string;
-          readonly " $fragmentSpreads": FragmentRefs<"EntitySummaryFactoryFragment">;
+          readonly " $fragmentSpreads": FragmentRefs<"EntitySummaryFragment">;
         };
         readonly id: string;
       };
@@ -57,14 +57,7 @@ var v0 = {
   ],
   "type": "Sluggable",
   "abstractKey": "__isSluggable"
-},
-v1 = [
-  {
-    "kind": "Variable",
-    "name": "showJournal",
-    "variableName": "showJournal"
-  }
-];
+};
 return {
   "argumentDefinitions": [
     {
@@ -185,73 +178,9 @@ return {
                   "selections": [
                     (v0/*: any*/),
                     {
-                      "kind": "InlineDataFragmentSpread",
-                      "name": "EntitySummaryFactoryFragment",
-                      "selections": [
-                        {
-                          "kind": "InlineFragment",
-                          "selections": [
-                            {
-                              "alias": null,
-                              "args": null,
-                              "concreteType": "SchemaDefinition",
-                              "kind": "LinkedField",
-                              "name": "schemaDefinition",
-                              "plural": false,
-                              "selections": [
-                                {
-                                  "alias": null,
-                                  "args": null,
-                                  "kind": "ScalarField",
-                                  "name": "identifier",
-                                  "storageKey": null
-                                }
-                              ],
-                              "storageKey": null
-                            },
-                            {
-                              "args": null,
-                              "kind": "FragmentSpread",
-                              "name": "EntitySummaryFragment"
-                            },
-                            {
-                              "args": (v1/*: any*/),
-                              "kind": "FragmentSpread",
-                              "name": "ArticleSummaryFragment"
-                            },
-                            {
-                              "args": (v1/*: any*/),
-                              "kind": "FragmentSpread",
-                              "name": "IssueSummaryFragment"
-                            },
-                            {
-                              "args": (v1/*: any*/),
-                              "kind": "FragmentSpread",
-                              "name": "VolumeSummaryFragment"
-                            },
-                            {
-                              "args": null,
-                              "kind": "FragmentSpread",
-                              "name": "JournalSummaryFragment"
-                            },
-                            {
-                              "args": null,
-                              "kind": "FragmentSpread",
-                              "name": "DissertationSummaryFragment"
-                            }
-                          ],
-                          "type": "Entity",
-                          "abstractKey": "__isEntity"
-                        }
-                      ],
                       "args": null,
-                      "argumentDefinitions": [
-                        {
-                          "defaultValue": false,
-                          "kind": "LocalArgument",
-                          "name": "showJournal"
-                        }
-                      ]
+                      "kind": "FragmentSpread",
+                      "name": "EntitySummaryFragment"
                     }
                   ],
                   "storageKey": null
@@ -292,6 +221,6 @@ return {
 };
 })();
 
-(node as any).hash = "5761e0a1e0d6339a6e8283f4df86929e";
+(node as any).hash = "42194ad8013a8c7a7c3c365e4e1146ab";
 
 export default node;

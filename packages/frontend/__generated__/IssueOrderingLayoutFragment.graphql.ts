@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d2a100c4bd50a07bce7c203e664819a6>>
+ * @generated SignedSource<<e37db9272150de8b91dad113c19b90b4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type IssueOrderingLayoutFragment$data = {
       readonly node: {
         readonly entry: {
           readonly slug?: string;
-          readonly " $fragmentSpreads": FragmentRefs<"EntitySummaryFactoryFragment">;
+          readonly " $fragmentSpreads": FragmentRefs<"EntitySummaryFragment">;
         };
       };
     }>;
@@ -33,15 +33,7 @@ export type IssueOrderingLayoutFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"IssueOrderingLayoutFragment">;
 };
 
-const node: ReaderFragment = (function(){
-var v0 = [
-  {
-    "kind": "Variable",
-    "name": "showJournal",
-    "variableName": "showJournal"
-  }
-];
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [
     {
       "defaultValue": 1,
@@ -130,73 +122,9 @@ return {
                       "abstractKey": "__isSluggable"
                     },
                     {
-                      "kind": "InlineDataFragmentSpread",
-                      "name": "EntitySummaryFactoryFragment",
-                      "selections": [
-                        {
-                          "kind": "InlineFragment",
-                          "selections": [
-                            {
-                              "alias": null,
-                              "args": null,
-                              "concreteType": "SchemaDefinition",
-                              "kind": "LinkedField",
-                              "name": "schemaDefinition",
-                              "plural": false,
-                              "selections": [
-                                {
-                                  "alias": null,
-                                  "args": null,
-                                  "kind": "ScalarField",
-                                  "name": "identifier",
-                                  "storageKey": null
-                                }
-                              ],
-                              "storageKey": null
-                            },
-                            {
-                              "args": null,
-                              "kind": "FragmentSpread",
-                              "name": "EntitySummaryFragment"
-                            },
-                            {
-                              "args": (v0/*: any*/),
-                              "kind": "FragmentSpread",
-                              "name": "ArticleSummaryFragment"
-                            },
-                            {
-                              "args": (v0/*: any*/),
-                              "kind": "FragmentSpread",
-                              "name": "IssueSummaryFragment"
-                            },
-                            {
-                              "args": (v0/*: any*/),
-                              "kind": "FragmentSpread",
-                              "name": "VolumeSummaryFragment"
-                            },
-                            {
-                              "args": null,
-                              "kind": "FragmentSpread",
-                              "name": "JournalSummaryFragment"
-                            },
-                            {
-                              "args": null,
-                              "kind": "FragmentSpread",
-                              "name": "DissertationSummaryFragment"
-                            }
-                          ],
-                          "type": "Entity",
-                          "abstractKey": "__isEntity"
-                        }
-                      ],
                       "args": null,
-                      "argumentDefinitions": [
-                        {
-                          "defaultValue": false,
-                          "kind": "LocalArgument",
-                          "name": "showJournal"
-                        }
-                      ]
+                      "kind": "FragmentSpread",
+                      "name": "EntitySummaryFragment"
                     }
                   ],
                   "storageKey": null
@@ -230,8 +158,7 @@ return {
   "type": "Ordering",
   "abstractKey": null
 };
-})();
 
-(node as any).hash = "0ed0f439a92e224104105ddbcb4f68dc";
+(node as any).hash = "672382b3b4465aaba7301aa0641eff9a";
 
 export default node;
