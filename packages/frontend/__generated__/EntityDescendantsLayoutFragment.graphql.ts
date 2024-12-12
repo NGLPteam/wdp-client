@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<57eff3c26ea6bd40d60c73d1f2b954e8>>
+ * @generated SignedSource<<255c92664351ea98d1b18e1640214582>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,7 +19,7 @@ export type EntityDescendantsLayoutFragment$data = {
           readonly name: string;
         };
         readonly slug?: string;
-        readonly " $fragmentSpreads": FragmentRefs<"EntitySummaryFactoryFragment">;
+        readonly " $fragmentSpreads": FragmentRefs<"EntitySummaryFragment">;
       };
     };
   }>;
@@ -38,6 +38,6 @@ const node: ReaderInlineDataFragment = {
   "name": "EntityDescendantsLayoutFragment"
 };
 
-(node as any).hash = "1afad91c9f44d7947fa5c634851b3cfa";
+(node as any).hash = "09d3948284f38958305b74c68afff88d";
 
 export default node;

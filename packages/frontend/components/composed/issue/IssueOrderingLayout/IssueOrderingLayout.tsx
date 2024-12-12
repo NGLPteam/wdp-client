@@ -3,9 +3,9 @@
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { useTranslation } from "react-i18next";
-import EntitySummaryFactory from "components/factories/EntitySummaryFactory";
 import { Pagination } from "components/atomic";
 import { NoContent } from "components/layout";
+import EntitySummary from "@/components/composed/entity/EntitySummary";
 import {
   IssueOrderingLayoutFragment$data,
   IssueOrderingLayoutFragment$key,
@@ -27,7 +27,7 @@ export default function IssueOrderingLayout({ data }: Props) {
           {content.children.edges.map(({ node }: Node) =>
             node.entry ? (
               <Styled.ListItem key={node.entry.slug}>
-                <EntitySummaryFactory data={node.entry} />
+                <EntitySummary data={node.entry} />
               </Styled.ListItem>
             ) : null,
           )}
@@ -69,7 +69,7 @@ const fragment = graphql`
             ... on Sluggable {
               slug
             }
-            ...EntitySummaryFactoryFragment
+            ...EntitySummaryFragment
           }
         }
       }

@@ -3,10 +3,10 @@
 import { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import EntitySummaryFactory from "components/factories/EntitySummaryFactory";
 import BrowseListLayout from "components/layout/BrowseListLayout";
 import BrowseTreeLayout from "components/layout/BrowseTreeLayout";
 import { NoContent } from "components/layout";
+import EntitySummary from "@/components/composed/entity/EntitySummary";
 import {
   EntityOrderingLayoutFragment$data,
   EntityOrderingLayoutFragment$key,
@@ -29,7 +29,7 @@ export default function EntityOrderingLayout({ data }: Props) {
         data={pageInfo}
         header={ordering.header || ordering.name}
         items={ordering.children.edges.map(({ node: { entry } }: Node) => (
-          <EntitySummaryFactory key={entry.slug} data={entry} />
+          <EntitySummary key={entry.slug} data={entry} />
         ))}
       />
     )
@@ -71,7 +71,7 @@ const fragment = graphql`
             ... on Sluggable {
               slug
             }
-            ...EntitySummaryFactoryFragment
+            ...EntitySummaryFragment
           }
         }
       }
