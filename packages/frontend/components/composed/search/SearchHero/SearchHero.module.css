@@ -69,11 +69,15 @@
 }
 
 .button {
-  @apply sr-only;
+  opacity: 0;
 
   border-bottom: 3px solid var(--color-base-neutral20);
 
   &:focus {
     outline: none;
+  }
+
+  &:focus-visible {
+    opacity: 1;
   }
 }

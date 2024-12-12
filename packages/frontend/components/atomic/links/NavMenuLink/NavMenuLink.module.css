@@ -16,10 +16,10 @@
   }
 
   &:hover,
-  &[aria-expanded="true"] {
-    color: var(--color-light);
-
+  a:hover &,
+  &[aria-expanded] {
     > span {
+      color: var(--color-lighter);
       border-bottom-color: var(--color-lighter);
     }
   }

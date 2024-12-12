@@ -47,7 +47,7 @@ export default function SearchHero({ prompt }: { prompt?: string | null }) {
           />
           <button type="submit" className={styles.button}>
             <IconFactory icon="arrowRight" />
-            <span className="a-hidden">{t("search.submit")}</span>
+            <span className="sr-only">{t("search.submit")}</span>
           </button>
         </div>
       </form>

@@ -49,6 +49,12 @@
       }
     }
   }
+
+  &:only-child {
+    &::before {
+      inline-size: 100vw;
+    }
+  }
 }
 
 .linkText {
