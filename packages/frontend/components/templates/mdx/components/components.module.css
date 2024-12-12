@@ -11,3 +11,8 @@
 .metadataValue {
   color: var(--color-light);
 }
+
+.copyLink {
+  display: block;
+  margin-block-start: 1.25rem;
+}
