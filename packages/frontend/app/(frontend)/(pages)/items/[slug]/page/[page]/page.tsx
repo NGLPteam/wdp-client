@@ -1,6 +1,6 @@
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import EntityPageLayoutFactory from "components/factories/EntityPageLayoutFactory";
+import EntityPageLayout from "@/components/composed/entity/EntityPageLayout";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageTemplatesItemPageQuery as Query } from "@/relay/pageTemplatesItemPageQuery.graphql";
@@ -20,7 +20,7 @@ export default async function ItemPagePage({ params }: BasePageParams) {
 
   return (
     <UpdateClientEnvironment records={records}>
-      <EntityPageLayoutFactory data={item} />
+      <EntityPageLayout data={item.page} />
     </UpdateClientEnvironment>
   );
 }
@@ -28,7 +28,9 @@ export default async function ItemPagePage({ params }: BasePageParams) {
 const query = graphql`
   query pageTemplatesItemPageQuery($slug: Slug!, $pageSlug: String!) {
     item(slug: $slug) {
-      ...EntityPageLayoutFactoryFragment
+      page(slug: $pageSlug) {
+        ...EntityPageLayoutFragment
+      }
     }
   }
 `;
