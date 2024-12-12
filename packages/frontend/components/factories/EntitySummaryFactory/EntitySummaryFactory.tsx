@@ -1,10 +1,10 @@
 import { graphql, readInlineData } from "relay-runtime";
-import IssueSummary from "components/composed/issue/IssueSummary";
-import ArticleSummary from "components/composed/article/ArticleSummary";
-import EntitySummary from "components/composed/entity/EntitySummary";
-import VolumeSummary from "components/composed/volume/VolumeSummary";
-import JournalSummary from "components/composed/journal/JournalSummary";
-import DissertationSummary from "components/composed/dissertation/DissertationSummary";
+import IssueSummary from "@/components/composed/summary/IssueSummary";
+import ArticleSummary from "@/components/composed/summary/ArticleSummary";
+import EntitySummary from "@/components/composed/summary/EntitySummary";
+import VolumeSummary from "@/components/composed/summary/VolumeSummary";
+import JournalSummary from "@/components/composed/summary/JournalSummary";
+import DissertationSummary from "@/components/composed/summary/DissertationSummary";
 import { EntitySummaryFactoryFragment$key } from "@/relay/EntitySummaryFactoryFragment.graphql";
 
 export default function EntitySummaryFactory({ data, ...props }: Props) {
