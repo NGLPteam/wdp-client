@@ -1,7 +1,8 @@
 import { Suspense } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import EntityOrderingLayoutFactory from "@/components/factories/EntityOrderingLayoutFactory";
+import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToString";
+import EntityOrderingLayout from "@/components/composed/entity/EntityOrderingLayout";
 import LoadingBlock from "@/components/atomic/loading/LoadingBlock";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
@@ -16,7 +17,14 @@ export default async function CollectionBrowsePage({
     page?: string | string[];
   };
 }) {
+  const identifier =
+    decodeURIComponent(routeQueryArrayToString(params.ordering)) ?? "";
+
+  const page = parseInt(routeQueryArrayToString(params.page)) || 1;
+
   const { data, records } = await fetchQuery<Query>(query, {
+    identifier,
+    page,
     slug: params.slug,
   });
 
@@ -27,7 +35,7 @@ export default async function CollectionBrowsePage({
   return (
     <UpdateClientEnvironment records={records}>
       <Suspense fallback={<LoadingBlock />}>
-        <EntityOrderingLayoutFactory data={collection} params={params} />
+        <EntityOrderingLayout data={collection.ordering} />
       </Suspense>
     </UpdateClientEnvironment>
   );
@@ -36,9 +44,16 @@ export default async function CollectionBrowsePage({
 export const dynamic = "force-dynamic";
 
 const query = graphql`
-  query pageTemplatesBrowseCollectionQuery($slug: Slug!) {
+  query pageTemplatesBrowseCollectionQuery(
+    $slug: Slug!
+    $identifier: String!
+    $page: Int
+  ) {
     collection(slug: $slug) {
-      ...EntityOrderingLayoutFactoryFragment
+      ordering(identifier: $identifier) {
+        disabled
+        ...EntityOrderingLayoutFragment @arguments(page: $page)
+      }
     }
   }
 `;
