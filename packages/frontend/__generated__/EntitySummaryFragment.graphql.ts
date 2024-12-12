@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b429c89ba0bfb7666babdd665fd8dd82>>
+ * @generated SignedSource<<131aa3aab7f3c587c68e72f37d775b68>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,28 +9,16 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type EntitySummaryFragment$data = {
   readonly __typename: string;
-  readonly published?: {
-    readonly value: string | null | undefined;
-    readonly " $fragmentSpreads": FragmentRefs<"PrecisionDateFragment">;
+  readonly layouts: {
+    readonly listItem: {
+      readonly template: {
+        readonly " $fragmentSpreads": FragmentRefs<"sharedListItemTemplateFragment">;
+      } | null | undefined;
+    } | null | undefined;
   };
-  readonly schemaRanks: ReadonlyArray<{
-    readonly count: number;
-    readonly identifier: string;
-    readonly namespace: string;
-  }>;
-  readonly slug?: string;
-  readonly subtitle: string | null | undefined;
-  readonly summary?: string | null | undefined;
-  readonly thumbnail: {
-    readonly storage: AttachmentStorage | null | undefined;
-    readonly " $fragmentSpreads": FragmentRefs<"ContentImageFragment">;
-  };
-  readonly title: string;
-  readonly updatedAt?: string;
   readonly " $fragmentType": "EntitySummaryFragment";
 };
 export type EntitySummaryFragment$key = {
@@ -38,24 +26,7 @@ export type EntitySummaryFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"EntitySummaryFragment">;
 };
 
-const node: ReaderFragment = (function(){
-var v0 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "summary",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "updatedAt",
-    "storageKey": null
-  }
-];
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -71,134 +42,46 @@ return {
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "title",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "subtitle",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ImageAttachment",
+      "concreteType": "EntityLayouts",
       "kind": "LinkedField",
-      "name": "thumbnail",
+      "name": "layouts",
       "plural": false,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "kind": "ScalarField",
-          "name": "storage",
-          "storageKey": null
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "ContentImageFragment"
-        }
-      ],
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "HierarchicalSchemaRank",
-      "kind": "LinkedField",
-      "name": "schemaRanks",
-      "plural": true,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "count",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "namespace",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "identifier",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "VariablePrecisionDate",
+          "concreteType": "ListItemLayoutInstance",
           "kind": "LinkedField",
-          "name": "published",
+          "name": "listItem",
           "plural": false,
           "selections": [
             {
               "alias": null,
               "args": null,
-              "kind": "ScalarField",
-              "name": "value",
+              "concreteType": "ListItemTemplateInstance",
+              "kind": "LinkedField",
+              "name": "template",
+              "plural": false,
+              "selections": [
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "sharedListItemTemplateFragment"
+                }
+              ],
               "storageKey": null
-            },
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "PrecisionDateFragment"
             }
           ],
           "storageKey": null
         }
       ],
-      "type": "ReferencesGlobalEntityDates",
-      "abstractKey": "__isReferencesGlobalEntityDates"
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "slug",
-          "storageKey": null
-        }
-      ],
-      "type": "Sluggable",
-      "abstractKey": "__isSluggable"
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": (v0/*: any*/),
-      "type": "Item",
-      "abstractKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": (v0/*: any*/),
-      "type": "Collection",
-      "abstractKey": null
+      "storageKey": null
     }
   ],
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
-})();
 
-(node as any).hash = "c32c47f5c86de179f108b5feb1d37384";
+(node as any).hash = "b44d9888930061ac261e65345e5a7f09";
 
 export default node;

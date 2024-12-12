@@ -1,11 +1,11 @@
 "use client";
 
 import { graphql, readInlineData } from "relay-runtime";
-import EntitySummaryFactory from "components/factories/EntitySummaryFactory";
 import { getSchemaPluralName } from "helpers/translations";
 import BrowseListLayout from "components/layout/BrowseListLayout";
 import LoadingBlock from "components/atomic/loading/LoadingBlock";
 import { useTranslation } from "react-i18next";
+import EntitySummary from "@/components/composed/entity/EntitySummary";
 import {
   EntityDescendantsLayoutFragment$data,
   EntityDescendantsLayoutFragment$key,
@@ -30,7 +30,7 @@ export default function EntityDescendantsLayout({ data, schema }: Props) {
       header={getSchemaPluralName(schema, schemaName, t)}
       orderComponent={<EntityDescendantOrderSelect />}
       items={decendants.edges.map(({ node: { descendant } }: Node) => (
-        <EntitySummaryFactory key={descendant.slug} data={descendant} />
+        <EntitySummary key={descendant.slug} data={descendant} />
       ))}
     />
   ) : (
@@ -54,7 +54,7 @@ const fragment = graphql`
               identifier
               name
             }
-            ...EntitySummaryFactoryFragment @arguments(showJournal: true)
+            ...EntitySummaryFragment
           }
         }
       }
