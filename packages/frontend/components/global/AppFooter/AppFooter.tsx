@@ -39,7 +39,9 @@ export default function AppFooter({ data, communityData }: Props) {
         key={href}
         className={classNames("t-copy-sm t-copy-light", styles.navItem)}
       >
-        <NamedLink href={href}>{startCase(t(label))}</NamedLink>
+        <NamedLink href={href}>
+          <span>{startCase(t(label))}</span>
+        </NamedLink>
       </li>
     );
   }
