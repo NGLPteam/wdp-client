@@ -1,12 +1,13 @@
 import { Suspense } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import EntityOrderingLayoutFactory from "components/factories/EntityOrderingLayoutFactory";
 import EntityDescendantsLayout from "components/composed/entity/EntityDescendantsLayout";
 import LoadingBlock from "components/atomic/loading/LoadingBlock";
+import EntityOrderingLayout from "@/components/composed/entity/EntityOrderingLayout";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageTemplatesBrowseCommunityQuery as Query } from "@/relay/pageTemplatesBrowseCommunityQuery.graphql";
+import { pageBrowseCommunityOrderingQuery as OrderingQuery } from "@/relay/pageBrowseCommunityOrderingQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
 export default async function CommunityBrowsePage({
@@ -33,24 +34,32 @@ export default async function CommunityBrowsePage({
 
   if (!community) return notFound();
 
-  return (
+  const descendants = (
     <UpdateClientEnvironment records={records}>
-      {community.orderingForSchema ? (
-        <Suspense fallback={<LoadingBlock />}>
-          <EntityOrderingLayoutFactory
-            data={community}
-            ordering={community.orderingForSchema.identifier}
-            params={{ slug }}
-          />
-        </Suspense>
-      ) : (
-        <Suspense fallback={<LoadingBlock />}>
-          <EntityDescendantsLayout
-            data={community.descendants}
-            schema={schema}
-          />
-        </Suspense>
-      )}
+      <Suspense fallback={<LoadingBlock />}>
+        <EntityDescendantsLayout data={community.descendants} schema={schema} />
+      </Suspense>
+    </UpdateClientEnvironment>
+  );
+
+  if (!community.orderingForSchema) {
+    return descendants;
+  }
+
+  const { data: orderingData, records: orderingRecords } =
+    await fetchQuery<OrderingQuery>(orderingQuery, {
+      slug,
+      page: page ? parseInt(page) : 1,
+      identifier: community.orderingForSchema.identifier,
+    });
+
+  if (!orderingData?.community) return descendants;
+
+  return (
+    <UpdateClientEnvironment records={orderingRecords}>
+      <Suspense fallback={<LoadingBlock />}>
+        <EntityOrderingLayout data={orderingData.community.ordering} />
+      </Suspense>
     </UpdateClientEnvironment>
   );
 }
@@ -72,7 +81,21 @@ const query = graphql`
       descendants(order: $order, schema: [$schema], page: $page) {
         ...EntityDescendantsLayoutFragment
       }
-      ...EntityOrderingLayoutFactoryFragment
+    }
+  }
+`;
+
+const orderingQuery = graphql`
+  query pageBrowseCommunityOrderingQuery(
+    $slug: Slug!
+    $identifier: String!
+    $page: Int
+  ) {
+    community(slug: $slug) {
+      ordering(identifier: $identifier) {
+        disabled
+        ...EntityOrderingLayoutFragment @arguments(page: $page)
+      }
     }
   }
 `;
