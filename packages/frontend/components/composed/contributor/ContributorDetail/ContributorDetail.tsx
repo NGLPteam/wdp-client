@@ -7,7 +7,7 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import get from "lodash/get";
 import { ExternalLink, Markdown, ORCIDLink } from "components/atomic";
 import { BackToTopBlock } from "components/layout";
-import ContributionSummary from "components/composed/contribution/ContributionSummary";
+import ContributionSummary from "@/components/composed/summary/ContributionSummary";
 import { ContributorDetailFragment$key } from "@/relay/ContributorDetailFragment.graphql";
 import ContributorName from "../ContributorName";
 import ContributorAvatar from "../ContributorAvatar";
