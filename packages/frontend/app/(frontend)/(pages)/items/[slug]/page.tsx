@@ -6,7 +6,6 @@ import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageItemTemplateQuery as Query } from "@/relay/pageItemTemplateQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import { BasePageParams } from "@/types/page";
-import TextTemplate from "@/components/templates/Text";
 
 export default async function TemplatePage({
   params: { slug },
@@ -29,7 +28,6 @@ export default async function TemplatePage({
       <MainLayoutGrid>
         {!!templates?.length &&
           templates.map((t, i) => <TemplateFactory key={i} data={t} />)}
-        <TextTemplate />
       </MainLayoutGrid>
     </UpdateClientEnvironment>
   );
