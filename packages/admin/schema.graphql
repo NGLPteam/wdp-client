@@ -579,13 +579,13 @@ union AnyListItemTemplateInstance = ListItemTemplateInstance
 Encompasses all the possible template definition types that can fall under a `MAIN` layout.
 
 """
-union AnyMainTemplateDefinition = ContributorListTemplateDefinition | DescendantListTemplateDefinition | DetailTemplateDefinition | LinkListTemplateDefinition | OrderingTemplateDefinition | PageListTemplateDefinition
+union AnyMainTemplateDefinition = BlurbTemplateDefinition | ContributorListTemplateDefinition | DescendantListTemplateDefinition | DetailTemplateDefinition | LinkListTemplateDefinition | OrderingTemplateDefinition | PageListTemplateDefinition
 
 """
 Encompasses all the possible template instance types that can fall under a `MAIN` layout.
 
 """
-union AnyMainTemplateInstance = ContributorListTemplateInstance | DescendantListTemplateInstance | DetailTemplateInstance | LinkListTemplateInstance | OrderingTemplateInstance | PageListTemplateInstance
+union AnyMainTemplateInstance = BlurbTemplateInstance | ContributorListTemplateInstance | DescendantListTemplateInstance | DetailTemplateInstance | LinkListTemplateInstance | OrderingTemplateInstance | PageListTemplateInstance
 
 """
 Encompasses all the possible template definition types that can fall under a `METADATA` layout.
@@ -1307,6 +1307,104 @@ enum AttachmentStorage {
   STORE refers to permanent storage. An asset here has been fully processed and is ready for access
   """
   STORE
+}
+
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum BlurbBackground {
+  """
+  A dark gradient is applied to the background of this template.
+  
+  """
+  DARK
+  """
+  A light gradient is applied to the background of this template.
+  
+  """
+  LIGHT
+  """
+  No background is applied to this template.
+  
+  """
+  NONE
+}
+
+type BlurbTemplateDefinition implements Node & Sluggable & TemplateDefinition {
+  """
+  The background gradient to use for this template. Affects presentation.
+  
+  """
+  background: BlurbBackground
+  createdAt: ISO8601DateTime!
+  id: ID!
+  layoutKind: LayoutKind!
+  """
+  Slot definitions for this template.
+  
+  """
+  slots: BlurbTemplateDefinitionSlots!
+  slug: Slug!
+  templateKind: TemplateKind!
+  updatedAt: ISO8601DateTime!
+  """
+  This controls how wide the template should render.
+  
+  **Note**: When using `HALF`, you should take care to make sure that there is an adjacent
+  template that also uses `HALF`.
+  
+  """
+  width: TemplateWidth
+}
+
+"""
+Slot definitions for the associated template.
+
+"""
+type BlurbTemplateDefinitionSlots {
+  body: TemplateSlotBlockDefinition
+  header: TemplateSlotInlineDefinition
+  subheader: TemplateSlotInlineDefinition
+}
+
+type BlurbTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
+  createdAt: ISO8601DateTime!
+  """
+  Load the associated definition for this template.
+  
+  """
+  definition: BlurbTemplateDefinition!
+  """
+  The associated entity for this template instance.
+  
+  """
+  entity: AnyEntity!
+  id: ID!
+  """
+  The time this object was last rendered.
+  
+  """
+  lastRenderedAt: ISO8601DateTime
+  layoutKind: LayoutKind!
+  """
+  Rendered slots for this template.
+  
+  """
+  slots: BlurbTemplateInstanceSlots!
+  slug: Slug!
+  templateKind: TemplateKind!
+  updatedAt: ISO8601DateTime!
+}
+
+"""
+Rendered slots for the associated template.
+
+"""
+type BlurbTemplateInstanceSlots {
+  body: TemplateSlotBlockInstance
+  header: TemplateSlotInlineInstance
+  subheader: TemplateSlotInlineInstance
 }
 
 type BooleanProperty implements ScalarProperty & SchemaProperty & SearchableProperty {
@@ -8293,8 +8391,6 @@ enum LayoutKind {
   """
   The "hero" layout for an Entity.
   
-  It takes an associated `HERO` template.
-  
   """
   HERO
   """
@@ -13188,6 +13284,14 @@ based on its schema.
 """
 enum TemplateKind {
   """
+  An arbitrary text blurb that can be used for describing citations or other
+  runs of content that don't neatly fit within the prescribed hierarchies.
+  
+  Contained within the `MAIN` layout
+  
+  """
+  BLURB
+  """
   A template for listing contributors of note on the main layout of an entity.
   
   Contained within the `MAIN` layout.
@@ -13211,6 +13315,8 @@ enum TemplateKind {
   DETAIL
   """
   A template for describing how an entity's header / hero should look.
+  
+  Contained within the `HERO` layout.
   
   """
   HERO
