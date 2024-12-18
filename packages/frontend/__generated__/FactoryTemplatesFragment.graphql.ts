@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a9200535d1e2d749829ff76e6f32c577>>
+ * @generated SignedSource<<91077cd823005c38dc70218f752ed8b2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type FactoryTemplatesFragment$data = {
     readonly empty: boolean;
   };
   readonly templateKind?: TemplateKind;
-  readonly " $fragmentSpreads": FragmentRefs<"ContributorsTemplateFragment" | "DescendantsTemplateFragment" | "DetailTemplateFragment" | "LinksTemplateFragment" | "OrderingNavigationTemplateFragment" | "PagesTemplateFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"BlurbTemplateFragment" | "ContributorsTemplateFragment" | "DescendantsTemplateFragment" | "DetailTemplateFragment" | "LinksTemplateFragment" | "OrderingNavigationTemplateFragment" | "PagesTemplateFragment">;
   readonly " $fragmentType": "FactoryTemplatesFragment";
 };
 export type FactoryTemplatesFragment$key = {
@@ -126,6 +126,18 @@ return {
       "abstractKey": null
     },
     {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "BlurbTemplateFragment"
+        }
+      ],
+      "type": "BlurbTemplateInstance",
+      "abstractKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "DescendantsTemplateFragment"
@@ -141,6 +153,6 @@ return {
 };
 })();
 
-(node as any).hash = "1f772a60f24ffa2e0742dd98c2f607c1";
+(node as any).hash = "6334abacdc1023b3326f45711efdd3ed";
 
 export default node;

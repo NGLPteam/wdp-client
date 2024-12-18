@@ -8,6 +8,7 @@ import Contributors from "../Contributors";
 import Links from "../Links";
 import OrderingNavigation from "../OrderingNavigation";
 import Pages from "../Pages";
+import Blurb from "../Blurb";
 
 const TEMPLATE_COMPONENT_MAP = {
   DESCENDANT_LIST: Descendants,
@@ -16,6 +17,7 @@ const TEMPLATE_COMPONENT_MAP = {
   LINK_LIST: Links,
   PAGE_LIST: Pages,
   ORDERING: OrderingNavigation,
+  BLURB: Blurb,
   METADATA: null,
   HERO: null,
   LIST_ITEM: null,
@@ -76,6 +78,9 @@ const fragment = graphql`
       entityList {
         empty
       }
+    }
+    ... on BlurbTemplateInstance {
+      ...BlurbTemplateFragment
     }
     ...DescendantsTemplateFragment
     ...LinksTemplateFragment
