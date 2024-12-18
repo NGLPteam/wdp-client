@@ -2819,6 +2819,11 @@
         "possibleTypes": [
           {
             "kind": "OBJECT",
+            "name": "BlurbTemplateDefinition",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "ContributorListTemplateDefinition",
             "ofType": null
           },
@@ -2858,6 +2863,11 @@
         "interfaces": null,
         "enumValues": null,
         "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "BlurbTemplateInstance",
+            "ofType": null
+          },
           {
             "kind": "OBJECT",
             "name": "ContributorListTemplateInstance",
@@ -7100,6 +7110,480 @@
             "deprecationReason": null
           }
         ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "BlurbBackground",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DARK",
+            "description": "A dark gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "LIGHT",
+            "description": "A light gradient is applied to the background of this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NONE",
+            "description": "No background is applied to this template.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "BlurbTemplateDefinition",
+        "description": null,
+        "fields": [
+          {
+            "name": "background",
+            "description": "The background gradient to use for this template. Affects presentation.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "BlurbBackground",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "createdAt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "layoutKind",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "LayoutKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "slots",
+            "description": "Slot definitions for this template.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "BlurbTemplateDefinitionSlots",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "slug",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Slug",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "templateKind",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "TemplateKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updatedAt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "width",
+            "description": "This controls how wide the template should render.\n\n**Note**: When using `HALF`, you should take care to make sure that there is an adjacent\ntemplate that also uses `HALF`.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "TemplateWidth",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "Sluggable",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "TemplateDefinition",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "BlurbTemplateDefinitionSlots",
+        "description": "Slot definitions for the associated template.\n",
+        "fields": [
+          {
+            "name": "body",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "header",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subheader",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "BlurbTemplateInstance",
+        "description": null,
+        "fields": [
+          {
+            "name": "createdAt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "definition",
+            "description": "Load the associated definition for this template.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "BlurbTemplateDefinition",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entity",
+            "description": "The associated entity for this template instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "UNION",
+                "name": "AnyEntity",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "lastRenderedAt",
+            "description": "The time this object was last rendered.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "layoutKind",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "LayoutKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "slots",
+            "description": "Rendered slots for this template.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "BlurbTemplateInstanceSlots",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "slug",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Slug",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "templateKind",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "TemplateKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updatedAt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "Renderable",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "Sluggable",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "TemplateInstance",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "BlurbTemplateInstanceSlots",
+        "description": "Rendered slots for the associated template.\n",
+        "fields": [
+          {
+            "name": "body",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "header",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subheader",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
         "possibleTypes": null
       },
       {
@@ -41379,7 +41863,7 @@
         "enumValues": [
           {
             "name": "HERO",
-            "description": "The \"hero\" layout for an Entity.\n\nIt takes an associated `HERO` template.\n",
+            "description": "The \"hero\" layout for an Entity.\n",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -47835,6 +48319,16 @@
           {
             "kind": "OBJECT",
             "name": "AssetVideo",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "BlurbTemplateDefinition",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "BlurbTemplateInstance",
             "ofType": null
           },
           {
@@ -56167,6 +56661,11 @@
         "possibleTypes": [
           {
             "kind": "OBJECT",
+            "name": "BlurbTemplateInstance",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "ContributorListTemplateInstance",
             "ofType": null
           },
@@ -61953,6 +62452,16 @@
           },
           {
             "kind": "OBJECT",
+            "name": "BlurbTemplateDefinition",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "BlurbTemplateInstance",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "Collection",
             "ofType": null
           },
@@ -64286,6 +64795,11 @@
         "possibleTypes": [
           {
             "kind": "OBJECT",
+            "name": "BlurbTemplateDefinition",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "ContributorListTemplateDefinition",
             "ofType": null
           },
@@ -64630,6 +65144,11 @@
         "possibleTypes": [
           {
             "kind": "OBJECT",
+            "name": "BlurbTemplateInstance",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "ContributorListTemplateInstance",
             "ofType": null
           },
@@ -64694,6 +65213,12 @@
         "interfaces": null,
         "enumValues": [
           {
+            "name": "BLURB",
+            "description": "An arbitrary text blurb that can be used for describing citations or other\nruns of content that don't neatly fit within the prescribed hierarchies.\n\nContained within the `MAIN` layout\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "CONTRIBUTOR_LIST",
             "description": "A template for listing contributors of note on the main layout of an entity.\n\nContained within the `MAIN` layout.\n",
             "isDeprecated": false,
@@ -64713,7 +65238,7 @@
           },
           {
             "name": "HERO",
-            "description": "A template for describing how an entity's header / hero should look.\n",
+            "description": "A template for describing how an entity's header / hero should look.\n\nContained within the `HERO` layout.\n",
             "isDeprecated": false,
             "deprecationReason": null
           },
