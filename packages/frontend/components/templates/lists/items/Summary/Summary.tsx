@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import CoverImage from "@/components/atomic/images/CoverImage";
 import { useSharedListItemTemplateFragment } from "@/components/templates/shared/shared.listItems.graphql";
 import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
@@ -12,9 +13,11 @@ import styles from "./Summary.module.css";
 export default function SummaryListItem({
   data,
   hideCover,
+  showContext,
 }: {
   data?: sharedListItemTemplateFragment$key | null;
   hideCover?: boolean;
+  showContext?: boolean | null;
 }) {
   const { slots, entity } = useSharedListItemTemplateFragment(data);
 
@@ -26,22 +29,31 @@ export default function SummaryListItem({
 
   const href = `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`;
 
+  // Currently, we're only using a single line contextA
+  const contextVisible = showContext && contextA?.valid && !!contextA.content;
+
+  const showThumb =
+    !hideCover &&
+    (entity.__typename !== "Item" || !!entity?.thumbnail?.image.webp.url);
+
   return (
     <li className={styles.item}>
-      {!hideCover && (
+      {showThumb && (
         <NamedLink href={href} className={styles.coverImage}>
           <CoverImage {...entity} maxWidth={120} maxHeight={160} />
         </NamedLink>
       )}
       <div className={styles.text}>
-        <div className={styles.group}>
-          {contextA?.valid && !!contextA.content && (
-            <InlineSlotWrapper content={contextA.content} />
-          )}
-          {contextB?.valid && !!contextB.content && (
-            <InlineSlotWrapper content={contextB.content} />
-          )}
-        </div>
+        {contextVisible && (
+          <div className={styles.group}>
+            {contextA?.valid && !!contextA.content && (
+              <InlineSlotWrapper content={contextA.content} />
+            )}
+            {contextB?.valid && !!contextB.content && (
+              <InlineSlotWrapper content={contextB.content} />
+            )}
+          </div>
+        )}
         <div className={styles.headerGroup}>
           {header?.valid && !!header.content && (
             <NamedLink href={href}>
@@ -68,7 +80,7 @@ export default function SummaryListItem({
           {metaB?.valid && <InlineSlotWrapper content={metaB.content} />}
         </div>
         {description?.valid && !!description.content && (
-          <div className={styles.summary}>
+          <div className={classNames(styles.summary, "line-clamp-5")}>
             <BlockSlotWrapper content={description.content} />
           </div>
         )}

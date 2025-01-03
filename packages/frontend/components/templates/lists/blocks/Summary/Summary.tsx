@@ -1,9 +1,11 @@
+import classNames from "classnames";
 import { useSharedListTemplateFragment } from "@/components/templates/shared/shared.list.graphql";
 import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
 import NamedLink from "@/components/atomic/links/NamedLink";
 import CoverImage from "@/components/atomic/images/CoverImage";
 import Container from "@/components/layout/Container";
 import { getRouteByEntityType } from "@/helpers/routes";
+import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import SeeAll from "../../SeeAll";
 import { getSeeAllHref } from "../../SeeAll/helpers";
 import List from "../../List/";
@@ -30,14 +32,14 @@ export default function SummaryListBlock({
     seeAllButtonLabel,
     selectionMode,
     width,
-    // showEntityContext,
+    showEntityContext,
     showHeroImage,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
   const { selectionPropertyPath, orderingIdentifier } =
     descendantsDefinition ?? {};
 
-  const { header, subtitle, metadata } = slots ?? {};
+  const { header, headerAside, subtitle, metadata } = slots ?? {};
 
   const href =
     entity?.__typename === "Item" || entity?.__typename === "Collection"
@@ -68,12 +70,19 @@ export default function SummaryListBlock({
             )}*/}
             <NamedLink href={href}>
               {header?.valid && !!header.content && (
-                <h4 className="t-h3">{header.content}</h4>
-              )}
-              {subtitle?.valid && !!subtitle.content && (
-                <span className={styles.subheader}>{subtitle.content}</span>
+                <h4 className={classNames(styles.title, "t-h3")}>
+                  {headerAside?.valid && !!headerAside.content && (
+                    <span>
+                      <InlineSlotWrapper content={headerAside.content} />,{" "}
+                    </span>
+                  )}
+                  <InlineSlotWrapper content={header.content} />
+                </h4>
               )}
             </NamedLink>
+            {subtitle?.valid && !!subtitle.content && (
+              <span className={styles.subheader}>{subtitle.content}</span>
+            )}
             {metadata?.valid && !!metadata.content && (
               <span className={styles.metadata}>{metadata.content}</span>
             )}
@@ -83,6 +92,7 @@ export default function SummaryListBlock({
             bgColor={background}
             data={entityList}
             hideCovers={!!showHeroImage}
+            showContext={showEntityContext}
           />
           {!!showSeeAllButton && !!seeAllHref && (
             <SeeAll

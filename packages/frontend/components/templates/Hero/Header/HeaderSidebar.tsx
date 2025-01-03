@@ -25,7 +25,10 @@ export default function Sidebar({
 
   const shouldRender =
     !showSplitDisplay &&
-    (showDOI || showISSN || showBasicViewMetrics || slot?.valid);
+    ((showDOI && !!entity?.doi) ||
+      (showISSN && !!entity?.issn) ||
+      showBasicViewMetrics ||
+      slot?.valid);
 
   return shouldRender ? (
     <div className={styles.right}>
@@ -49,7 +52,13 @@ export default function Sidebar({
 const fragment = graphql`
   fragment HeaderSidebarFragment on HeroTemplateInstance {
     entity {
+      ... on HasDOI {
+        doi
+      }
       ...DOIFragment
+      ... on HasISSN {
+        issn
+      }
       ...ISSNFragment
       ... on Item {
         entityViews {

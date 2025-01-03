@@ -17,6 +17,7 @@ export type Props = {
   variant?: Exclude<LinkListVariant, "%future added value"> | null;
   bgColor?: LinkListBackground | null;
   hideCovers?: boolean;
+  showContext?: boolean | null;
   data: sharedListItemsTemplateFragment$key | null | undefined;
 };
 
@@ -36,7 +37,13 @@ const TYPE_TO_ITEM = {
   COMPACT: CompactItem,
 };
 
-export default function List({ variant, bgColor, hideCovers, data }: Props) {
+export default function List({
+  variant,
+  bgColor,
+  hideCovers,
+  showContext,
+  data,
+}: Props) {
   const items = useSharedListItemsTemplateFragment(data);
 
   if (!variant || !items) return null;
@@ -50,7 +57,12 @@ export default function List({ variant, bgColor, hideCovers, data }: Props) {
     <div className={styles.bgPositioner}>
       <ul className={classNames(bgClass, listClass)}>
         {items.map((item, i) => (
-          <Item data={item.template} key={i} hideCover={hideCovers} />
+          <Item
+            data={item.template}
+            key={i}
+            hideCover={hideCovers}
+            showContext={showContext}
+          />
         ))}
       </ul>
     </div>

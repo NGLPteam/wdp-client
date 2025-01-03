@@ -6,10 +6,7 @@ export default function EntitySummary({ data }: Props) {
   const entity = useFragment(fragment, data);
 
   return entity ? (
-    <SummaryListItem
-      data={entity.layouts.listItem?.template}
-      hideCover={entity.__typename === "Item"}
-    />
+    <SummaryListItem data={entity.layouts.listItem?.template} showContext />
   ) : null;
 }
 
