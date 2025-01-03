@@ -62,6 +62,7 @@ export function aBgNeutral80() {
       --background-color: ${baseColors.neutral80};
       --color-base: ${baseColors.neutral00};
       --color-light: ${baseColors.neutral30};
+      --color-lighter: ${baseColors.neutral30};
       --button-primary-text-color: ${baseColors.neutral90};
       --button-primary-text-focus-color: ${baseColors.neutral00};
       --button-primary-bg-color: var(--color-custom20);
