@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<50133d5894be2e478682cf4454046e30>>
+ * @generated SignedSource<<d2a6c678124c00370bc01608bf59cf61>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,10 +11,7 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type HeaderHeroFragment$data = {
-  readonly slots: {
-    readonly " $fragmentSpreads": FragmentRefs<"HeaderTitleBlockFragment">;
-  };
-  readonly " $fragmentSpreads": FragmentRefs<"HeaderSidebarFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"HeaderSidebarFragment" | "HeaderTitleBlockFragment">;
   readonly " $fragmentType": "HeaderHeroFragment";
 };
 export type HeaderHeroFragment$key = {
@@ -34,26 +31,15 @@ const node: ReaderFragment = {
       "name": "HeaderSidebarFragment"
     },
     {
-      "alias": null,
       "args": null,
-      "concreteType": "HeroTemplateInstanceSlots",
-      "kind": "LinkedField",
-      "name": "slots",
-      "plural": false,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "HeaderTitleBlockFragment"
-        }
-      ],
-      "storageKey": null
+      "kind": "FragmentSpread",
+      "name": "HeaderTitleBlockFragment"
     }
   ],
   "type": "HeroTemplateInstance",
   "abstractKey": null
 };
 
-(node as any).hash = "76efbc76fb059f95bef9bca2086b9ddb";
+(node as any).hash = "4e689bd085ae175509c955f664b3178b";
 
 export default node;

@@ -29,7 +29,9 @@ export default function ContributorsTemplate({
 
   const { contributions } = entity;
 
-  return (
+  const shouldRender = !!contributions?.nodes?.length;
+
+  return shouldRender ? (
     <Container
       className={styles.container}
       bgColor={background}
@@ -46,7 +48,7 @@ export default function ContributorsTemplate({
         {contributions?.nodes.map((c, i) => <Contributor key={i} data={c} />)}
       </ul>
     </Container>
-  );
+  ) : null;
 }
 
 const fragment = graphql`

@@ -15,7 +15,9 @@ type TitleBlockProps = {
 };
 
 export default function TitleBlock({ data, layout }: TitleBlockProps) {
-  const slots = useFragment(fragment, data);
+  const template = useFragment(fragment, data);
+
+  const { definition, slots } = template ?? {};
 
   const header = useSharedInlineFragment(slots?.header);
   const headerAside = useSharedInlineFragment(slots?.headerAside);
@@ -38,7 +40,7 @@ export default function TitleBlock({ data, layout }: TitleBlockProps) {
         </span>
       )}
       {!!headerSummary?.content && headerSummary.valid && (
-        <h2 className="t-h3">
+        <h2 className={definition?.showSplitDisplay ? "t-h4" : "t-h3"}>
           <InlineSlotWrapper content={headerSummary.content} />
         </h2>
       )}
@@ -47,15 +49,20 @@ export default function TitleBlock({ data, layout }: TitleBlockProps) {
 }
 
 const fragment = graphql`
-  fragment HeaderTitleBlockFragment on HeroTemplateInstanceSlots {
-    header {
-      ...sharedInlineSlotFragment
+  fragment HeaderTitleBlockFragment on HeroTemplateInstance {
+    definition {
+      showSplitDisplay
     }
-    headerAside {
-      ...sharedInlineSlotFragment
-    }
-    headerSummary {
-      ...sharedBlockSlotFragment
+    slots {
+      header {
+        ...sharedInlineSlotFragment
+      }
+      headerAside {
+        ...sharedInlineSlotFragment
+      }
+      headerSummary {
+        ...sharedBlockSlotFragment
+      }
     }
   }
 `;
