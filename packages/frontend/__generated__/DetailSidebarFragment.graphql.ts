@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<659f493cb76b488a1477909699406c4c>>
+ * @generated SignedSource<<7444839ea4dbeabb8e6453fba54f738b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,7 +26,7 @@ export type DetailSidebarFragment$data = {
     readonly " $fragmentSpreads": FragmentRefs<"DOIFragment" | "ISSNFragment">;
   };
   readonly slots: {
-    readonly headerSidebar: {
+    readonly sidebar: {
       readonly " $fragmentSpreads": FragmentRefs<"sharedBlockSlotFragment">;
     } | null | undefined;
   };
@@ -148,7 +148,7 @@ const node: ReaderFragment = {
           "args": null,
           "concreteType": "TemplateSlotBlockInstance",
           "kind": "LinkedField",
-          "name": "headerSidebar",
+          "name": "sidebar",
           "plural": false,
           "selections": [
             {
@@ -167,6 +167,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "06bcee84dd23d95fbb276e71f3332823";
+(node as any).hash = "f5d33faf72d090d7820c6c89abc023bf";
 
 export default node;

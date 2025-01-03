@@ -2,9 +2,9 @@ import IconFactory, {
   type IconKeys,
 } from "components/factories/IconFactory/IconFactory";
 import { Link } from "components/atomic";
+import type { PropsWithChildren } from "react";
 
-type Props = {
-  label: string;
+type Props = PropsWithChildren & {
   icon?: IconKeys | null;
   url?: string | null;
   className?: string | null;
@@ -13,7 +13,7 @@ type Props = {
 export default function HeroSidebarItem({
   icon,
   url,
-  label,
+  children,
   className,
 }: Props) {
   return (
@@ -23,10 +23,10 @@ export default function HeroSidebarItem({
       {!!icon && <IconFactory icon={icon} role="presentation" />}
       {url ? (
         <Link target="_blank" rel="noreferrer" href={url}>
-          <span>{label}</span>
+          <span>{children}</span>
         </Link>
       ) : (
-        <span>{label}</span>
+        <span>{children}</span>
       )}
     </li>
   );

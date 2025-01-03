@@ -1,6 +1,6 @@
 .header {
   padding-block-start: var(--container-padding-lg);
-  padding-block-end: 3.5rem;
+  padding-block-end: 1.5rem;
 
   > * + * {
     padding-block-start: 3rem;

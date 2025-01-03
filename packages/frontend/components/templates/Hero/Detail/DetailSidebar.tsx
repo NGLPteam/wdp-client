@@ -18,7 +18,7 @@ export default function Sidebar({
 
   const { entity, definition, slots } = template ?? {};
 
-  const slot = useSharedBlockFragment(slots?.headerSidebar);
+  const slot = useSharedBlockFragment(slots?.sidebar);
 
   const { showDOI, showISSN, showBasicViewMetrics } = definition ?? {};
 
@@ -64,7 +64,7 @@ const fragment = graphql`
       showBasicViewMetrics
     }
     slots {
-      headerSidebar {
+      sidebar {
         ...sharedBlockSlotFragment
       }
     }

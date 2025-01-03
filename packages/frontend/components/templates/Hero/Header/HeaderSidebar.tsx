@@ -24,14 +24,17 @@ export default function Sidebar({
     definition ?? {};
 
   const shouldRender =
-    !showSplitDisplay &&
-    ((showDOI && !!entity?.doi) ||
-      (showISSN && !!entity?.issn) ||
-      showBasicViewMetrics ||
-      slot?.valid);
+    (showDOI && !!entity?.doi) ||
+    (showISSN && !!entity?.issn) ||
+    showBasicViewMetrics ||
+    slot?.valid;
 
   return shouldRender ? (
-    <div className={styles.right}>
+    <div
+      className={classNames(styles.right, {
+        [styles["right--split"]]: showSplitDisplay,
+      })}
+    >
       <ul className={classNames("t-label-sm", styles.sidebar)}>
         {showDOI && <DOI data={entity} />}
         {showISSN && <ISSN data={entity} />}
@@ -61,6 +64,14 @@ const fragment = graphql`
       }
       ...ISSNFragment
       ... on Item {
+        entityViews {
+          ...ViewCountFragment
+        }
+        assetDownloads {
+          ...DownloadCountFragment
+        }
+      }
+      ... on Collection {
         entityViews {
           ...ViewCountFragment
         }
