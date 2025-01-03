@@ -29,12 +29,14 @@
 }
 
 .headerGroup {
-  margin-block-end: 1rem;
+  margin-block-end: 0.25rem;
+
+  &:not(:first-child) {
+    margin-block-start: 0.75rem;
+  }
 }
 
 .header {
-  margin-block-start: 0.75rem;
-
   a:hover &,
   a:focus-visible & {
     text-decoration: underline;
@@ -44,8 +46,9 @@
 .subheader {
   display: block;
   font-size: var(--font-size-base);
-  color: var(--color-base-neutral70);
+  color: var(--color-lighter);
   margin-block-start: 0.5rem;
+  font-style: italic;
 }
 
 .contributors {
@@ -54,22 +57,18 @@
 }
 
 .summary {
-  margin-block-start: 0.75rem;
-  color: var(--color-base-neutral70);
+  margin-block-start: 1rem;
+  color: var(--color-lighter);
 }
 
 .group {
-  color: var(--color-base-neutral70);
+  color: var(--color-lighter);
 
   > span {
     display: block;
   }
 
   > * + * {
-    margin-block-start: 0.25rem;
-  }
-
-  &:not(:first-child) {
     margin-block-start: 0.25rem;
   }
 }

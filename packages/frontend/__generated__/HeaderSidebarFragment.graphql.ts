@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8d15f3f201a18d108edc9a0ac0ed973e>>
+ * @generated SignedSource<<2af088558899b4757aea6549c07da83d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,9 +21,11 @@ export type HeaderSidebarFragment$data = {
     readonly assetDownloads?: {
       readonly " $fragmentSpreads": FragmentRefs<"DownloadCountFragment">;
     };
+    readonly doi?: string | null | undefined;
     readonly entityViews?: {
       readonly " $fragmentSpreads": FragmentRefs<"ViewCountFragment">;
     };
+    readonly issn?: string | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"DOIFragment" | "ISSNFragment">;
   };
   readonly slots: {
@@ -53,9 +55,37 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "doi",
+              "storageKey": null
+            }
+          ],
+          "type": "HasDOI",
+          "abstractKey": "__isHasDOI"
+        },
+        {
           "args": null,
           "kind": "FragmentSpread",
           "name": "DOIFragment"
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "issn",
+              "storageKey": null
+            }
+          ],
+          "type": "HasISSN",
+          "abstractKey": "__isHasISSN"
         },
         {
           "args": null,
@@ -175,6 +205,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "87123924f850c214792d1068258a8a1e";
+(node as any).hash = "770f0bc6ea55f2dedff7175f788bdfac";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<56c1ead56fa12c84633bc69213d68e65>>
+ * @generated SignedSource<<a22d75e82d1df3c7aaa5b679d2c88353>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,7 @@ export type HeaderTitleBlockFragment$data = {
   readonly headerAside: {
     readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
   } | null | undefined;
-  readonly summary: {
+  readonly headerSummary: {
     readonly " $fragmentSpreads": FragmentRefs<"sharedBlockSlotFragment">;
   } | null | undefined;
   readonly " $fragmentType": "HeaderTitleBlockFragment";
@@ -66,7 +66,7 @@ return {
       "args": null,
       "concreteType": "TemplateSlotBlockInstance",
       "kind": "LinkedField",
-      "name": "summary",
+      "name": "headerSummary",
       "plural": false,
       "selections": [
         {
@@ -83,6 +83,6 @@ return {
 };
 })();
 
-(node as any).hash = "c4f3f6068cee2e2b770a3bda20b47aa4";
+(node as any).hash = "4358bd94e0098ee4b636e0b2e350338c";
 
 export default node;

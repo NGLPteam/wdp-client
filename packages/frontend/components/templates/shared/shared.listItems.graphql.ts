@@ -33,6 +33,11 @@ export const listItemTemplateFragment = graphql`
         slug
         title
         thumbnail {
+          image: large {
+            webp {
+              url
+            }
+          }
           ...CoverImageFragment
         }
         contributions {
@@ -53,6 +58,11 @@ export const listItemTemplateFragment = graphql`
         slug
         title
         thumbnail {
+          image: large {
+            webp {
+              url
+            }
+          }
           ...CoverImageFragment
         }
         contributions {

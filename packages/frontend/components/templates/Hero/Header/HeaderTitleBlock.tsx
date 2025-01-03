@@ -19,7 +19,7 @@ export default function TitleBlock({ data, layout }: TitleBlockProps) {
 
   const header = useSharedInlineFragment(slots?.header);
   const headerAside = useSharedInlineFragment(slots?.headerAside);
-  const summary = useSharedBlockFragment(slots?.summary);
+  const headerSummary = useSharedBlockFragment(slots?.headerSummary);
 
   return (
     <div className={styles.left}>
@@ -37,9 +37,9 @@ export default function TitleBlock({ data, layout }: TitleBlockProps) {
           <InlineSlotWrapper content={headerAside.content} />
         </span>
       )}
-      {!!summary?.content && summary.valid && (
+      {!!headerSummary?.content && headerSummary.valid && (
         <h2 className="t-h3">
-          <InlineSlotWrapper content={summary.content} />
+          <InlineSlotWrapper content={headerSummary.content} />
         </h2>
       )}
     </div>
@@ -54,7 +54,7 @@ const fragment = graphql`
     headerAside {
       ...sharedInlineSlotFragment
     }
-    summary {
+    headerSummary {
       ...sharedBlockSlotFragment
     }
   }
