@@ -63,7 +63,7 @@
 
 .subheader {
   display: block;
-  color: var(--color-base-neutral70);
+  color: var(--color-lighter);
   font-size: var(--font-size-base);
 }
 
@@ -120,7 +120,7 @@
 }
 
 .contextOne {
-  color: var(--color-base-neutral70);
+  color: var(--color-lighter);
 }
 
 .contributors {
@@ -130,7 +130,7 @@
 
 .group {
   margin-block-start: 1.5rem;
-  color: var(--color-base-neutral70);
+  color: var(--color-lighter);
 
   > span {
     display: block;

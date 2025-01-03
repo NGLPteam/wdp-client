@@ -43,6 +43,10 @@
     margin-block-start: var(--padding-rg);
   }
 
+  &--split {
+    align-items: flex-end;
+  }
+
   @mixin respond theme("screens.100") {
     border-top: 1px solid var(--border-color);
     margin-block-start: var(--padding-rg);

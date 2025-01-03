@@ -18,8 +18,6 @@ export default function HeroHeader({
 }) {
   const template = useFragment(fragment, data);
 
-  const { slots } = template ?? {};
-
   return template ? (
     <div
       className={
@@ -31,7 +29,7 @@ export default function HeroHeader({
       }
     >
       {!!hiddenAlert && <Alert message={hiddenAlert} badge color="blue" />}
-      <TitleBlock layout={layout} data={slots} />
+      <TitleBlock layout={layout} data={template} />
       <Sidebar data={template} />
     </div>
   ) : null;
@@ -40,8 +38,6 @@ export default function HeroHeader({
 const fragment = graphql`
   fragment HeaderHeroFragment on HeroTemplateInstance {
     ...HeaderSidebarFragment
-    slots {
-      ...HeaderTitleBlockFragment
-    }
+    ...HeaderTitleBlockFragment
   }
 `;
