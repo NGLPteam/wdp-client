@@ -6,6 +6,8 @@
   &:not(:first-child) {
     margin-block-start: var(--padding-lg);
   }
+
+  grid-row: auto;
 }
 
 .metadataValue {

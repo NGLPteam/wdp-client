@@ -15,11 +15,7 @@ export default function OrderingNavigationTemplate({
   const { background, width } = orderingDefinition ?? {};
 
   return orderingPair?.exists ? (
-    <Container
-      width="max"
-      bgColor={background}
-      halfWidthTemplate={width === "HALF"}
-    >
+    <Container bgColor={background} halfWidthTemplate={width === "HALF"}>
       <NavButtons data={template} />
     </Container>
   ) : null;

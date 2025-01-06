@@ -57,6 +57,14 @@ const fragment = graphql`
           ...DownloadCountFragment
         }
       }
+      ... on Collection {
+        entityViews {
+          ...ViewCountFragment
+        }
+        assetDownloads {
+          ...DownloadCountFragment
+        }
+      }
     }
     definition {
       showDOI

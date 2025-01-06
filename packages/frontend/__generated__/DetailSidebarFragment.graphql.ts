@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7444839ea4dbeabb8e6453fba54f738b>>
+ * @generated SignedSource<<7b80bf644a62b536a067653380ad11f7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -37,7 +37,42 @@ export type DetailSidebarFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"DetailSidebarFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "AnalyticsEventCountSummary",
+    "kind": "LinkedField",
+    "name": "entityViews",
+    "plural": false,
+    "selections": [
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "ViewCountFragment"
+      }
+    ],
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "AnalyticsEventCountSummary",
+    "kind": "LinkedField",
+    "name": "assetDownloads",
+    "plural": false,
+    "selections": [
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "DownloadCountFragment"
+      }
+    ],
+    "storageKey": null
+  }
+];
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -63,41 +98,14 @@ const node: ReaderFragment = {
         },
         {
           "kind": "InlineFragment",
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "AnalyticsEventCountSummary",
-              "kind": "LinkedField",
-              "name": "entityViews",
-              "plural": false,
-              "selections": [
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "ViewCountFragment"
-                }
-              ],
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "AnalyticsEventCountSummary",
-              "kind": "LinkedField",
-              "name": "assetDownloads",
-              "plural": false,
-              "selections": [
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "DownloadCountFragment"
-                }
-              ],
-              "storageKey": null
-            }
-          ],
+          "selections": (v0/*: any*/),
           "type": "Item",
+          "abstractKey": null
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": (v0/*: any*/),
+          "type": "Collection",
           "abstractKey": null
         }
       ],
@@ -166,7 +174,8 @@ const node: ReaderFragment = {
   "type": "HeroTemplateInstance",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "f5d33faf72d090d7820c6c89abc023bf";
+(node as any).hash = "6a3d98bffa20be36b2081ce6dad05d1f";
 
 export default node;

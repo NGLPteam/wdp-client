@@ -18,6 +18,8 @@ export default function HeroHeader({
 }) {
   const template = useFragment(fragment, data);
 
+  const { definition } = template ?? {};
+
   return template ? (
     <div
       className={
@@ -25,7 +27,9 @@ export default function HeroHeader({
           ? classNames(styles.columns, {
               [styles["columns--two-column"]]: layout === "TWO_COLUMN",
             })
-          : styles.inner
+          : classNames(styles.inner, {
+              [styles["inner--split"]]: definition?.showSplitDisplay,
+            })
       }
     >
       {!!hiddenAlert && <Alert message={hiddenAlert} badge color="blue" />}
@@ -37,6 +41,9 @@ export default function HeroHeader({
 
 const fragment = graphql`
   fragment HeaderHeroFragment on HeroTemplateInstance {
+    definition {
+      showSplitDisplay
+    }
     ...HeaderSidebarFragment
     ...HeaderTitleBlockFragment
   }
