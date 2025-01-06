@@ -48,14 +48,17 @@ export default function SearchModalContent({ searchData }: Props) {
             <option value={defaultValue}>{searchData.title}</option>
           )}
           {breadcrumbs &&
-            breadcrumbs.map(({ crumb: { __typename, slug, title } }) => (
-              <option
-                key={slug}
-                value={JSON.stringify({ type: __typename, slug })}
-              >
-                {title}
-              </option>
-            ))}
+            breadcrumbs.map(({ crumb }) => {
+              const { __typename, slug, title } = crumb ?? {};
+              return (
+                <option
+                  key={slug}
+                  value={JSON.stringify({ type: __typename, slug })}
+                >
+                  {title}
+                </option>
+              );
+            })}
           <option value={""}>{t("search.instance_scope_label")}</option>
         </Select>
       </div>

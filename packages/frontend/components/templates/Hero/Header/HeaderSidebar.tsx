@@ -36,12 +36,12 @@ export default function Sidebar({
       })}
     >
       <ul className={classNames("t-label-sm", styles.sidebar)}>
-        {showDOI && <DOI data={entity} />}
+        {showDOI && !showSplitDisplay && <DOI data={entity} />}
         {showISSN && <ISSN data={entity} />}
         {slot?.valid && !!slot.content && (
           <BlockSlotWrapper content={slot.content} />
         )}
-        {showBasicViewMetrics && (
+        {showBasicViewMetrics && !showSplitDisplay && (
           <>
             <ViewCount data={entity?.entityViews} />
             <DownloadCount data={entity?.assetDownloads} />

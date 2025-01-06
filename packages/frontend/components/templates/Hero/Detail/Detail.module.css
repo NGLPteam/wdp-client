@@ -6,6 +6,10 @@
   padding-block-end: var(--container-padding-md);
   @mixin fluidScalePx padding-block-start, 46px, 40px;
   border-top: 1px solid;
+
+  @mixin respond theme("screens.50") {
+    --grid-row-gap: var(--padding-xs);
+  }
 }
 
 .left {
@@ -33,7 +37,7 @@
 }
 
 .right {
-  grid-column: 9 / -1;
+  grid-column: 10 / -1;
 
   @mixin respond theme("screens.100") {
     grid-column: 1 / -1;
