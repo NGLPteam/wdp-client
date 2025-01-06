@@ -64,7 +64,7 @@ export default function NavButtons({
     );
 
   return (
-    <div className={classNames("l-container-wide", styles.inner)}>
+    <div className={classNames(styles.inner)}>
       {maybeWrapLink(prevProps, prevHref)}
       {maybeWrapLink(nextProps, nextHref)}
     </div>

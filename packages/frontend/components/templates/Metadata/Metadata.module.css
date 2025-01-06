@@ -7,8 +7,9 @@
   @mixin l-grid;
 
   padding-block-start: var(--padding-xl);
-  grid-row-gap: var(--padding-xl);
+  grid-row-gap: 0.5rem;
   grid-column-gap: var(--padding-md);
+  grid-template-rows: repeat(8, auto);
 
   @mixin respond theme("screens.100") {
     grid-row-gap: var(--padding-lg);
@@ -20,7 +21,11 @@
 }
 
 .column {
+  display: grid;
   grid-column: span 3;
+  grid-row: span 8;
+  grid-template-rows: subgrid;
+  grid-template-columns: 1fr;
 
   @mixin respond theme("screens.100") {
     grid-column: span 6;
