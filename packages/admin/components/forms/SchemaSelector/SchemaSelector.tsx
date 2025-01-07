@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useGlobalContext } from "contexts";
 import { useMaybeFragment } from "hooks";
 import Select from "components/forms/Select";
+import { ContentHeader } from "components/layout";
 import BaseInputLabel from "components/forms/BaseInputLabel";
 import { ButtonControl } from "components/atomic";
 import { Portal } from "reakit";
@@ -18,7 +19,13 @@ import * as Styled from "./SchemaSelector.styles";
 
 type SelectProps = React.ComponentProps<typeof Select>;
 
-const SchemaSelector = ({ schemaData, schemaKind, schemaSlugs }: Props) => {
+const SchemaSelector = ({
+  schemaData,
+  schemaKind,
+  schemaSlugs,
+  title,
+  showHeader,
+}: Props) => {
   const data = useMaybeFragment(fragment as GraphQLTaggedNode, schemaData);
 
   const dialog = useDialogState({ visible: false, animated: true });
@@ -43,6 +50,7 @@ const SchemaSelector = ({ schemaData, schemaKind, schemaSlugs }: Props) => {
     data?.entityId &&
     optionCount > 1 ? (
     <>
+      <ContentHeader title={t(title)} headerStyle="secondary" />
       <Styled.FieldWrapper>
         <BaseInputLabel as="span">
           {t("forms.schema.current_label")}
@@ -67,7 +75,9 @@ const SchemaSelector = ({ schemaData, schemaKind, schemaSlugs }: Props) => {
         />
       </Portal>
     </>
-  ) : null;
+  ) : (
+    showHeader && <ContentHeader title={t(title)} headerStyle="secondary" />
+  );
 };
 
 interface Props extends Pick<SelectProps, "defaultValue"> {
@@ -75,6 +85,8 @@ interface Props extends Pick<SelectProps, "defaultValue"> {
   schemaKind: "COLLECTION" | "ITEM" | "COMMUNITY";
   // Filter by these schema slugs
   schemaSlugs?: string[];
+  title: string;
+  showHeader?: boolean;
 }
 
 export default SchemaSelector;

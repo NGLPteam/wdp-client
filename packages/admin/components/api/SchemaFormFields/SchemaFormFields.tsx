@@ -1,7 +1,5 @@
 import { useFragment, graphql } from "react-relay";
-import { useTranslation } from "react-i18next";
 import FormGrid from "components/forms/FormGrid";
-import { ContentHeader } from "components/layout";
 import SchemaSelector from "components/forms/SchemaSelector";
 import type { SchemaFormFieldsFragment$key } from "@/relay/SchemaFormFieldsFragment.graphql";
 import Property from "../SchemaInstanceForm/SchemaInstanceProperty";
@@ -15,30 +13,23 @@ export default function SchemaFormFields({
 }: Props) {
   const instance = useFragment(fragment, data);
 
-  const { t } = useTranslation();
+  const showForm = instance.properties && instance.properties.length > 0;
 
   return (
     <SchemaFormFieldsContextProvider data={instance}>
-      <ContentHeader title={t(title)} headerStyle="secondary" />
-      {instance.properties && instance.properties.length > 0 ? (
-        <>
-          <SchemaSelector
-            schemaData={instance}
-            schemaKind={schemaKind}
-            schemaSlugs={schemaSlugs}
-          />
-          <FormGrid>
-            {instance.properties.map((prop, index) => (
-              <Property property={prop} key={index} schemaKind={schemaKind} />
-            ))}
-          </FormGrid>
-        </>
-      ) : (
-        <SchemaSelector
-          schemaData={instance}
-          schemaKind={schemaKind}
-          schemaSlugs={schemaSlugs}
-        />
+      <SchemaSelector
+        schemaData={instance}
+        schemaKind={schemaKind}
+        schemaSlugs={schemaSlugs}
+        title={title}
+        showHeader={showForm}
+      />
+      {showForm && (
+        <FormGrid>
+          {instance.properties.map((prop, index) => (
+            <Property property={prop} key={index} schemaKind={schemaKind} />
+          ))}
+        </FormGrid>
       )}
     </SchemaFormFieldsContextProvider>
   );
