@@ -257,6 +257,7 @@
       "order_label": "Order:"
     },
     "actions": {
+      "copy": "Copy",
       "copy_citation": "Copy Citation"
     },
     "messages": {

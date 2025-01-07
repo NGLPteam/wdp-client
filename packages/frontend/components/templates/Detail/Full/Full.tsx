@@ -4,10 +4,7 @@ import { useTranslation } from "react-i18next";
 import { BackToTopBlock } from "components/layout";
 import ContentImage from "@/components/atomic/images/ContentImage";
 import { FullDetailFragment$key } from "@/relay/FullDetailFragment.graphql";
-import {
-  useSharedInlineFragment,
-  useSharedBlockFragment,
-} from "@/components/templates/shared/shared.slots.graphql";
+import { useSharedBlockFragment } from "@/components/templates/shared/shared.slots.graphql";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import TOC from "./TOC";
 import styles from "./Full.module.css";
@@ -23,21 +20,11 @@ export default function FullVariant({
 
   const { entity, slots } = template ?? {};
 
-  const header = useSharedInlineFragment(slots?.header);
-  const subheader = useSharedInlineFragment(slots?.subheader);
   const body = useSharedBlockFragment(slots?.body);
 
   const textEl = useRef<HTMLDivElement>(null);
 
   const { t } = useTranslation();
-
-  const canRender =
-    (showHeroImage && !!entity?.thumbnail?.storage) ||
-    header?.valid ||
-    subheader?.valid ||
-    body?.valid;
-
-  if (!canRender) return null;
 
   const isPDF = body?.content?.startsWith("<PDFViewer");
 

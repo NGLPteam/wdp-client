@@ -24,7 +24,7 @@ export default function BlurbTemplate({
   const subheader = useSharedInlineFragment(slots?.subheader);
   const body = useSharedBlockFragment(slots?.body);
 
-  return !body?.content ? (
+  return body?.content ? (
     <Container
       className={styles.container}
       bgColor={background}
