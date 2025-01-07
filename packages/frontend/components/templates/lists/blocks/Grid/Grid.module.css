@@ -3,6 +3,10 @@
 
   > * + * {
     margin-block-start: 3.125rem;
+
+    &:not(:has(figure)) {
+      margin-block-start: 1.5rem;
+    }
   }
 }
 

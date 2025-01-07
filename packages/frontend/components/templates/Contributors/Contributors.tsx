@@ -19,7 +19,7 @@ export default function ContributorsTemplate({
 
   const { entity, contributorsDefinition, slots } = template ?? {};
 
-  const { background, width } = contributorsDefinition ?? {};
+  const { background, width, limit } = contributorsDefinition ?? {};
 
   const header = useSharedInlineFragment(slots?.header);
 
@@ -30,6 +30,11 @@ export default function ContributorsTemplate({
   const { contributions } = entity;
 
   const shouldRender = !!contributions?.nodes?.length;
+
+  const renderedContributions =
+    limit && typeof limit === "number"
+      ? contributions?.nodes.slice(0, limit)
+      : contributions?.nodes;
 
   return shouldRender ? (
     <Container
@@ -45,7 +50,7 @@ export default function ContributorsTemplate({
         )}
       </h3>
       <ul className={styles.list}>
-        {contributions?.nodes.map((c, i) => <Contributor key={i} data={c} />)}
+        {renderedContributions?.map((c, i) => <Contributor key={i} data={c} />)}
       </ul>
     </Container>
   ) : null;
