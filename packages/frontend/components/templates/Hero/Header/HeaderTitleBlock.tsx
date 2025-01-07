@@ -26,7 +26,7 @@ export default function TitleBlock({ data, layout }: TitleBlockProps) {
   return (
     <div className={styles.left}>
       {header?.valid && !!header.content && (
-        <h1 className="t-h2">
+        <h1 className={layout ? "" : "t-h2"}>
           <InlineSlotWrapper content={header.content} />
         </h1>
       )}
@@ -40,9 +40,11 @@ export default function TitleBlock({ data, layout }: TitleBlockProps) {
         </span>
       )}
       {!!headerSummary?.content && headerSummary.valid && (
-        <h2 className={definition?.showSplitDisplay ? "t-h4" : "t-h3"}>
+        <p
+          className={definition?.showSplitDisplay || !!layout ? "t-h4" : "t-h3"}
+        >
           <InlineSlotWrapper content={headerSummary.content} />
-        </h2>
+        </p>
       )}
     </div>
   );

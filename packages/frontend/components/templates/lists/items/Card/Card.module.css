@@ -123,11 +123,6 @@
   color: var(--color-lighter);
 }
 
-.contributors {
-  display: block;
-  min-height: 1.375rem;
-}
-
 .group {
   margin-block-start: 1.5rem;
   color: var(--color-lighter);

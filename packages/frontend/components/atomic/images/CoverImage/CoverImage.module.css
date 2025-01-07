@@ -1,21 +1,25 @@
 .figure {
   position: relative;
   max-width: var(--CoverImage-max-width);
-  max-height: var(--CoverImage-max-height);
-  transition: box-shadow theme("transitionDuration.DEFAULT")
-    theme("transitionTimingFunction.DEFAULT");
-  box-shadow: theme("boxShadow.popUp");
-
-  a:hover & {
-    @mixin a-image-hover;
-  }
-
-  a:focus-visible & {
-    @mixin a-image-focus;
-  }
+  height: var(--CoverImage-max-height);
 
   > * {
     vertical-align: top;
+  }
+
+  *:first-child {
+    transition: box-shadow theme("transitionDuration.DEFAULT")
+      theme("transitionTimingFunction.DEFAULT");
+    box-shadow: theme("boxShadow.popUp");
+    border: 1px solid transparent;
+
+    a:hover & {
+      @mixin a-image-hover;
+    }
+
+    a:focus-visible & {
+      @mixin a-image-focus;
+    }
   }
 
   img {

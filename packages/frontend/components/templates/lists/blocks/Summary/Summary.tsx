@@ -65,9 +65,6 @@ export default function SummaryListBlock({
         <div className={styles.textColumn}>
           {!!title && <span className={styles.blockTitle}>{title}</span>}
           <div className={styles.entity}>
-            {/*{showEntityContext && context?.valid && (
-              <Styled.Context>{context.content}</Styled.Context>
-            )}*/}
             <NamedLink href={href}>
               {header?.valid && !!header.content && (
                 <h4 className={classNames(styles.title, "t-h3")}>

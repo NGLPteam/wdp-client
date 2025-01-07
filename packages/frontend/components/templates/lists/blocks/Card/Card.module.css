@@ -6,7 +6,7 @@
   padding-block-end: var(--container-padding-xl);
 
   & > :global(.see-all-button) {
-    margin-block-start: var(--padding-md);
+    margin-block-start: var(--padding-xl);
   }
 }
 
