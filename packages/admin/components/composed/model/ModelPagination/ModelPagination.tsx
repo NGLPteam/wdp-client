@@ -24,7 +24,7 @@ function ModelPagination<T extends ModelPaginationFragment$key>({
   return (
     <Pagination
       currentPage={enhancedData.pageInfo.page}
-      $totalPages={enhancedData.pageInfo.pageCount}
+      totalPages={enhancedData.pageInfo.pageCount}
     />
   );
 }
