@@ -53,7 +53,9 @@ export default function SearchModal({ dialog, data }: Props) {
     <Modal dialog={dialog} label={t("search.label")}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <SearchBar id={searchId} {...register("q")} />
-        {searchData && <SearchModalContent searchData={searchData} />}
+        {searchData && (
+          <SearchModalContent searchData={searchData} register={register} />
+        )}
       </form>
     </Modal>
   );
