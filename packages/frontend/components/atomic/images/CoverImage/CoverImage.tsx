@@ -41,8 +41,8 @@ export default function CoverImage({
         layout="intrinsic"
         src={image.url}
         alt={image.alt || ""}
-        width={image.width || 0}
-        height={image.height || 0}
+        width={image.width || maxWidth}
+        height={image.height || maxHeight}
       />
     </figure>
   );

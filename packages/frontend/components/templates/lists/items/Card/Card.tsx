@@ -30,7 +30,13 @@ export default function CardListItem({
         <div className={styles.inner}>
           <div className={classNames("a-bg-neutral90", styles.coverWrapper)}>
             <div className={styles.coverInner}>
-              <CoverImage {...entity} maxWidth={225} maxHeight={300} />
+              <CoverImage
+                title={entity.title}
+                id={entity.id}
+                data={entity.thumbnail}
+                maxWidth={225}
+                maxHeight={300}
+              />
             </div>
           </div>
           <div className={styles.text}>
@@ -50,9 +56,7 @@ export default function CardListItem({
                   <InlineSlotWrapper content={subheader.content} />
                 </span>
               )}
-              <span className={styles.contributors}>
-                <ContributorsList data={entity?.contributions} noLinks />
-              </span>
+              <ContributorsList data={entity?.contributions} noLinks />
             </div>
             {(metaA?.valid || metaB?.valid) && (
               <div className={styles.group}>

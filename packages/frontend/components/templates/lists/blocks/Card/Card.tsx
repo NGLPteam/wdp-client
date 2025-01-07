@@ -23,7 +23,6 @@ export default function CardListBlock({
 
   const {
     background,
-    title,
     showSeeAllButton,
     seeAllButtonLabel,
     selectionMode,
@@ -46,7 +45,6 @@ export default function CardListBlock({
 
   return (
     <div className={classNames(bgClass, styles.wrapper)}>
-      {!!title && <h3 className={classNames(styles.header, "")}>{title}</h3>}
       {showHeroImage && <div className={styles.heroImage} />}
       <List variant="CARDS" bgColor={background} data={entityList} />
       {!!showSeeAllButton && !!seeAllHref && (

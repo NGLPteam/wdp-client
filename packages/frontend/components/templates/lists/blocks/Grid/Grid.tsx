@@ -1,6 +1,7 @@
 import { useSharedListTemplateFragment } from "@/components/templates/shared/shared.list.graphql";
 import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
 import Container from "@/components/layout/Container";
+import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import List from "../../List/";
 import SeeAll from "../../SeeAll";
 import { getSeeAllHref } from "../../SeeAll/helpers";
@@ -13,7 +14,7 @@ export default function GridListBlock({
   data?: sharedListTemplateFragment$key | null;
   basePath?: string | null;
 }) {
-  const { linksDefinition, descendantsDefinition, entityList } =
+  const { linksDefinition, descendantsDefinition, entityList, slots } =
     useSharedListTemplateFragment(data);
 
   const { empty } = entityList ?? {};
@@ -22,7 +23,6 @@ export default function GridListBlock({
 
   const {
     background,
-    title,
     showSeeAllButton,
     seeAllButtonLabel,
     selectionMode,
@@ -42,6 +42,8 @@ export default function GridListBlock({
       )
     : null;
 
+  const { header } = slots ?? {};
+
   return (
     <Container
       className={styles.container}
@@ -49,7 +51,11 @@ export default function GridListBlock({
       halfWidthTemplate={width === "HALF"}
     >
       {showHeroImage && <div className={styles.heroImage} />}
-      {!!title && <h3>{title}</h3>}
+      {!!header?.content && header?.valid && (
+        <h3>
+          <InlineSlotWrapper content={header.content} />
+        </h3>
+      )}
       <List variant="GRID" bgColor={background} data={entityList} />
       {!!showSeeAllButton && !!seeAllHref && (
         <SeeAll

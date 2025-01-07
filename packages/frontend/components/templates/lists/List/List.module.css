@@ -19,12 +19,13 @@
 
 .gridList {
   --grid-col-count: 4;
-  --grid-row-gap: 3.75;
-  --grid-col-gap: 2.25;
+  --grid-row-gap: 3.75rem;
+  --grid-col-gap: 2.25rem;
 
   @mixin l-grid;
 
   margin-block-end: 3.125rem;
+  gap: var(--grid-row-gap) var(--grid-col-gap);
 
   @mixin respond theme("screens.70") {
     grid-template-columns: repeat(2, 1fr);
