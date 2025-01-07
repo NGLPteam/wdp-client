@@ -27,16 +27,20 @@ export default function GridListItem({
 
   const href = `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`;
 
+  const showCover = entity?.__typename === "Collection";
+
+  const renderContext = contextA?.valid && !!contextA.content && (
+    <span className={styles.contextOne}>
+      <InlineSlotWrapper content={contextA.content} />
+    </span>
+  );
+
   return (
     <li>
       <NamedLink className={styles.link} href={href}>
-        <CoverImage {...entity} maxWidth={168} maxHeight={248} />
+        {showCover && <CoverImage {...entity} maxWidth={168} maxHeight={248} />}
         <div className={styles.text}>
-          {contextA?.valid && !!contextA.content && (
-            <span className={styles.contextOne}>
-              <InlineSlotWrapper content={contextA.content} />
-            </span>
-          )}
+          {showCover && renderContext}
           {header?.valid && !!header.content && (
             <h4 className={styles.header}>
               <span className="has-focus-styles">
@@ -54,6 +58,7 @@ export default function GridListItem({
           </span>
           {renderMeta && (
             <div className={styles.group}>
+              {!showCover && renderContext}
               {metaA?.valid && !!metaA.content && (
                 <InlineSlotWrapper content={metaA.content} />
               )}

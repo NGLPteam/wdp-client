@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { useParams } from "next/navigation";
 import { useSharedListTemplateFragment } from "@/components/templates/shared/shared.list.graphql";
 import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
 import NamedLink from "@/components/atomic/links/NamedLink";
@@ -18,6 +19,8 @@ export default function SummaryListBlock({
   data?: sharedListTemplateFragment$key | null;
   basePath?: string | null;
 }) {
+  const { slug } = useParams();
+
   const { linksDefinition, descendantsDefinition, slots, entityList, entity } =
     useSharedListTemplateFragment(data);
 
@@ -42,7 +45,8 @@ export default function SummaryListBlock({
   const { header, headerAside, subtitle, metadata } = slots ?? {};
 
   const href =
-    entity?.__typename === "Item" || entity?.__typename === "Collection"
+    (entity?.__typename === "Item" || entity?.__typename === "Collection") &&
+    entity?.slug !== slug
       ? `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`
       : null;
 

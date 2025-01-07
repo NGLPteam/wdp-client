@@ -6,12 +6,12 @@
   }
 
   section:not(:global(.a-bg-neutral90)) &:not(:last-child) {
-    border-bottom: 1px solid;
-    padding-block-end: var(--padding-xl);
+    border-bottom: 0px solid;
+    padding-block-end: var(--padding-md);
   }
 
   & + & {
-    padding-block-start: var(--padding-xl);
+    padding-block-start: var(--padding-md);
   }
 }
 
