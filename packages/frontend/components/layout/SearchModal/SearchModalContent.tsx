@@ -1,15 +1,13 @@
 import { useTranslation } from "react-i18next";
-import { useForm } from "react-hook-form";
 import classNames from "classnames";
 import { Select } from "components/forms";
 import { SearchModalFragment$data } from "@/relay/SearchModalFragment.graphql";
 import styles from "./SearchModal.module.css";
+import type { UseFormRegisterReturn } from "react-hook-form";
 
-export default function SearchModalContent({ searchData }: Props) {
+export default function SearchModalContent({ searchData, register }: Props) {
   const selectId = "searchFilter";
   const { t } = useTranslation();
-
-  const { register } = useForm();
 
   const breadcrumbs =
     searchData?.breadcrumbs && searchData.breadcrumbs.length > 0
@@ -68,4 +66,5 @@ export default function SearchModalContent({ searchData }: Props) {
 
 interface Props {
   searchData?: SearchModalFragment$data | null;
+  register: (name: string) => UseFormRegisterReturn;
 }
