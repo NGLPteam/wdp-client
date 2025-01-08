@@ -1,19 +1,24 @@
 "use client";
 
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { graphql } from "react-relay";
+import classNames from "classnames";
+import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { formatDate } from "@wdp/lib/helpers";
 import { Markdown } from "components/atomic";
 import { EntityAnnouncementLayoutFragment$key } from "@/relay/EntityAnnouncementLayoutFragment.graphql";
-import * as Styled from "./EntityAnnouncementLayout.styles";
+import styles from "./EntityAnnouncementLayout.module.css";
 
 export default function EntityAnnouncementLayout({ data }: Props) {
-  const announcement = useMaybeFragment(fragment, data);
+  const announcement = useFragment(fragment, data);
   const { t } = useTranslation();
 
   return announcement ? (
-    <Styled.Wrapper className="t-rte l-container-wide a-bg-neutral00">
+    <div
+      className={classNames(
+        styles.wrapper,
+        "t-rte l-container-wide a-bg-neutral00",
+      )}
+    >
       <h3>{announcement.header}</h3>
       {announcement.updatedAt && (
         <p>
@@ -30,7 +35,7 @@ export default function EntityAnnouncementLayout({ data }: Props) {
         </p>
       )}
       <Markdown.Base className="t-rte">{announcement.body}</Markdown.Base>
-    </Styled.Wrapper>
+    </div>
   ) : null;
 }
 

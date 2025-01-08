@@ -1,5 +1,6 @@
 "use client";
 
+import classNames from "classnames";
 import { graphql, useFragment } from "react-relay";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
@@ -8,7 +9,7 @@ import { Search } from "components/forms";
 import { EntityNavBarFragment$key } from "@/relay/EntityNavBarFragment.graphql";
 import { useSharedInlineFragment } from "@/components/templates/shared/shared.slots.graphql";
 import EntityNavList from "./EntityNavList";
-import * as Styled from "./EntityNavBar.styles";
+import styles from "./EntityNavBar.module.css";
 
 export default function EntityNavBar({ data }: Props) {
   const { t } = useTranslation();
@@ -37,13 +38,13 @@ export default function EntityNavBar({ data }: Props) {
         });
 
   return canRender ? (
-    <Styled.Nav className="a-bg-custom20" as="nav">
-      <Styled.NavInner className="l-container-wide">
-        <Styled.LeftSide>
+    <nav className={classNames("a-bg-custom20", styles.nav)}>
+      <div className={classNames("l-container-wide", styles.inner)}>
+        <div className={styles.left}>
           {enableDescendantBrowsing && <EntityNavList data={entity} />}
-        </Styled.LeftSide>
+        </div>
         {!hideSearch && (
-          <Styled.RightSide>
+          <div className={styles.right}>
             {enableDescendantSearch && (
               <Search
                 pathname={`/collections/${entity.slug}/search`}
@@ -51,10 +52,10 @@ export default function EntityNavBar({ data }: Props) {
                 placeholder={placeholder}
               />
             )}
-          </Styled.RightSide>
+          </div>
         )}
-      </Styled.NavInner>
-    </Styled.Nav>
+      </div>
+    </nav>
   ) : null;
 }
 
