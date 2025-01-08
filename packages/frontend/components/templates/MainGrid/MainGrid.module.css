@@ -1,5 +1,5 @@
 .grid {
-  --grid-col-count: 14;
+  --grid-col-count: 12;
   --grid-row-gap: 0;
   --grid-column-gap: 0;
 
@@ -10,7 +10,7 @@
   }
 
   > * {
-    grid-column: 1 / span 14;
+    grid-column: 1 / span 12;
 
     @mixin respond theme("screens.70") {
       grid-column: 1;
@@ -18,10 +18,10 @@
   }
 
   > *[data-half] {
-    grid-column: 2 / span 8;
+    grid-column: 2 / span 7;
 
     @mixin respond theme("screens.100") {
-      grid-column: 1 / span 9;
+      grid-column: 1 / span 8;
     }
 
     @mixin respond theme("screens.70") {
@@ -30,10 +30,10 @@
   }
 
   > *[data-half] + *[data-half] {
-    grid-column: 11 / span 3;
+    grid-column: 10 / span 2;
 
     @mixin respond theme("screens.100") {
-      grid-column: 11 / span 4;
+      grid-column: 10 / span 3;
     }
 
     @mixin respond theme("screens.70") {

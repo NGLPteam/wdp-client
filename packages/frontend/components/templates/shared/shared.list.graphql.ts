@@ -89,6 +89,14 @@ export const listTemplateFragment = graphql`
         selectionMode
         selectionPropertyPath
         orderingIdentifier
+        dynamicOrderingDefinition {
+          filter {
+            schemas {
+              namespace
+              identifier
+            }
+          }
+        }
         selectionLimit
         showEntityContext
         title

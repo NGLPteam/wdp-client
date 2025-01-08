@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7c1c4d3b1e6fe6bc6489b2643fb25082>>
+ * @generated SignedSource<<7a478825e1a2e39114a7454335629313>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,6 +20,14 @@ import { FragmentRefs } from "relay-runtime";
 export type sharedListTemplateFragment$data = {
   readonly descendantsDefinition?: {
     readonly background: DescendantListBackground | null | undefined;
+    readonly dynamicOrderingDefinition: {
+      readonly filter: {
+        readonly schemas: ReadonlyArray<{
+          readonly identifier: string;
+          readonly namespace: string;
+        }>;
+      };
+    } | null | undefined;
     readonly orderingIdentifier: any | null | undefined;
     readonly seeAllButtonLabel: string | null | undefined;
     readonly selectionLimit: number | null | undefined;
@@ -99,6 +107,6 @@ const node: ReaderInlineDataFragment = {
   "name": "sharedListTemplateFragment"
 };
 
-(node as any).hash = "1e5f1e0adc232fbc44ca3c52af2c9b1a";
+(node as any).hash = "91ec2314ac9f7cd8f38aaab0a7f5a051";
 
 export default node;
