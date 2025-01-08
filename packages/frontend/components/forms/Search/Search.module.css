@@ -1,0 +1,38 @@
+.form {
+  display: flex;
+  align-items: stretch;
+  height: 2rem;
+  width: 100%;
+}
+
+.label {
+  margin-inline-end: 0.75rem;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  @mixin a-input-reset;
+  @mixin t-truncate;
+
+  flex: 1 1 auto;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.submit {
+  display: flex;
+  align-items: center;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:not(:focus-visible) {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
