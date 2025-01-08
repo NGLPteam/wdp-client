@@ -5,7 +5,7 @@ import { routeQueryArrayToString } from "@wdp/lib/routes";
 import { NoContent } from "components/layout";
 import { LoadingBlock, Pagination } from "components/atomic";
 import { SearchResultsFragment$key } from "@/relay/SearchResultsFragment.graphql";
-import SearchResultFactory from "../SearchResultFactory";
+import EntitySummary from "@/components/composed/entity/EntitySummary";
 import * as Styled from "./SearchResults.styles";
 
 export default function SearchResults({ data, isLoading }: Props) {
@@ -41,7 +41,7 @@ export default function SearchResults({ data, isLoading }: Props) {
           <Styled.List>
             {results.nodes.map(({ entity }, i) => (
               <Styled.ListItem key={i}>
-                <SearchResultFactory data={entity} />
+                <EntitySummary data={entity} />
               </Styled.ListItem>
             ))}
           </Styled.List>
@@ -66,7 +66,7 @@ const fragment = graphql`
         ... on Node {
           id
         }
-        ...SearchResultFactoryFragment
+        ...EntitySummaryFragment
       }
     }
     pageInfo {
