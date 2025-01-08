@@ -3,7 +3,7 @@ import { graphql } from "react-relay";
 import { useRouteSlug } from "@wdp/lib/routes";
 import { FileThumbnail, NamedLink } from "components/atomic";
 import { AssetThumbnailFragment$key } from "@/relay/AssetThumbnailFragment.graphql";
-import * as Styled from "./AssetThumbnail.styles";
+import styles from "./AssetThumbnail.module.css";
 
 export default function AssetThumbnail({ data }: Props) {
   const asset = useMaybeFragment(fragment, data);
@@ -21,8 +21,11 @@ export default function AssetThumbnail({ data }: Props) {
   }
 
   return asset?.slug && slug ? (
-    <NamedLink href={`/items/${slug}/files/${asset.slug}`}>
-      <Styled.ImageLink>{renderThumbnail()}</Styled.ImageLink>
+    <NamedLink
+      className={styles.imageLink}
+      href={`/items/${slug}/files/${asset.slug}`}
+    >
+      {renderThumbnail()}
     </NamedLink>
   ) : (
     renderThumbnail()

@@ -1,42 +1,38 @@
 "use client";
 
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { graphql } from "react-relay";
+import classNames from "classnames";
+import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { AssetsBlockFragment$key } from "@/relay/AssetsBlockFragment.graphql";
-import * as Styled from "./AssetsBlock.styles";
 import AssetBlockItem from "./AssetBlockItem";
+import styles from "./AssetsBlock.module.css";
 
-const AssetsBlock = ({ data, paddingBottom = "md" }: Props) => {
+const AssetsBlock = ({ data }: Props) => {
   const { t } = useTranslation();
-  const files = useMaybeFragment(fragment, data);
+  const files = useFragment(fragment, data);
 
   return (
     <section className={`a-bg-neutral00`}>
-      <Styled.SectionInner
-        className="l-container-wide"
-        $paddingBottom={paddingBottom}
-      >
+      <div className={classNames("l-container-wide", styles.inner)}>
         <h3 className="t-capitalize">{t("glossary.files_other")}</h3>
         {files?.edges && files.edges.length > 0 ? (
-          <Styled.List>
+          <ul className={styles.list}>
             {files.edges.map(({ node }, i) => (
-              <Styled.ListItem key={i}>
+              <li className={styles.item} key={i}>
                 <AssetBlockItem key={i} data={node} />
-              </Styled.ListItem>
+              </li>
             ))}
-          </Styled.List>
+          </ul>
         ) : (
           <p>No files found.</p>
         )}
-      </Styled.SectionInner>
+      </div>
     </section>
   );
 };
 
 interface Props {
   data?: AssetsBlockFragment$key | null;
-  paddingBottom?: "md" | "xxl";
 }
 
 export default AssetsBlock;
