@@ -1,10 +1,11 @@
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
+import classNames from "classnames";
 import { getSchemaPluralName } from "helpers";
 import { NamedLink, Image } from "components/atomic";
 import Markdown from "components/atomic/Markdown";
 import { InstanceCommunitySummaryFragment$key } from "@/relay/InstanceCommunitySummaryFragment.graphql";
-import * as Styled from "./InstanceCommunitySummary.styles";
+import styles from "./InstanceCommunitySummary.module.css";
 
 export default function InstanceCommunitySummary({ data }: Props) {
   const community = useFragment(fragment, data);
@@ -13,57 +14,61 @@ export default function InstanceCommunitySummary({ data }: Props) {
 
   return community && community.slug ? (
     <NamedLink href={`/communities/${community.slug}`}>
-      <Styled.LinkWrapper className="a-bg-neutral00">
+      <div className={classNames("a-bg-neutral00", styles.link)}>
         {community.logo?.storage ? (
-          <Styled.ImageWrapper $withPadding>
-            <Styled.LogoWrapper>
+          <figure
+            className={classNames(styles.figure, styles["figure--padded"])}
+          >
+            <div className={styles.logo}>
               <Image
                 data={community.logo.original}
                 layout="fill"
                 objectFit="contain"
                 objectPosition="center"
               />
-            </Styled.LogoWrapper>
-          </Styled.ImageWrapper>
+            </div>
+          </figure>
         ) : community.heroImage?.storage ? (
-          <Styled.ImageWrapper>
+          <figure className={styles.figure}>
             <Image
               data={community.heroImage.large?.webp}
               layout="fill"
               objectFit="cover"
               objectPosition="center"
             />
-          </Styled.ImageWrapper>
+          </figure>
         ) : null}
-        <Styled.TextWrapper className="a-bg-custom10">
-          <h4>{community.title}</h4>
+        <div className={classNames("a-bg-custom10", styles.text)}>
+          <h3 className="t-h4">{community.title}</h3>
           {community.tagline && (
-            <Styled.Tagline>{community.tagline}</Styled.Tagline>
+            <em className={styles.tagline}>{community.tagline}</em>
           )}
           {community.summary && (
-            <Styled.Summary
-              as={Markdown.Summary}
-              className="t-color-light t-copy-sm"
+            <Markdown.Summary
+              className={classNames(
+                styles.summary,
+                "t-color-light t-copy-sm line-clamp-3",
+              )}
             >
               {community.summary}
-            </Styled.Summary>
+            </Markdown.Summary>
           )}
           {community.schemaRanks && (
-            <Styled.CountList>
+            <ul className={styles["count__list"]}>
               {community.schemaRanks.map(({ slug, count, name }) => {
                 return (
-                  <Styled.CountItem key={slug}>
+                  <li className={styles["count__item"]} key={slug}>
                     <span>
                       {count > 1 ? getSchemaPluralName(slug, name, t) : name}
-                    </span>{" "}
+                    </span>
                     <span>{new Intl.NumberFormat().format(count)}</span>
-                  </Styled.CountItem>
+                  </li>
                 );
               })}
-            </Styled.CountList>
+            </ul>
           )}
-        </Styled.TextWrapper>
-      </Styled.LinkWrapper>
+        </div>
+      </div>
     </NamedLink>
   ) : null;
 }
