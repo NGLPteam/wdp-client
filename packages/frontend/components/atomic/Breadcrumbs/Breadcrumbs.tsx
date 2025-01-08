@@ -1,6 +1,7 @@
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import classNames from "classnames";
+import { usePathname } from "next/navigation";
 import { Dropdown, Markdown, NamedLink } from "components/atomic";
 import { getRouteByEntityType } from "helpers";
 import { BreadcrumbsFragment$key } from "@/relay/BreadcrumbsFragment.graphql";
@@ -12,6 +13,8 @@ export default function Breadcrumbs({ data }: Props) {
 
   const { t } = useTranslation();
 
+  const pathname = usePathname();
+
   const breadcrumbs = entity?.breadcrumbs || [];
 
   function renderCurrent() {
@@ -19,11 +22,14 @@ export default function Breadcrumbs({ data }: Props) {
 
     const currentRoute = getRouteByEntityType(entity.__typename);
 
+    const href = `/${currentRoute}/${entity.slug}`;
+    const isEntityMain = href === pathname;
+
     return currentRoute && entity.slug ? (
       <NamedLink
         className={styles.text}
-        href={`/${currentRoute}/${entity.slug}`}
-        aria-current="page"
+        href={href}
+        aria-current={isEntityMain ? "page" : undefined}
       >
         <Markdown.Title>{entity.title}</Markdown.Title>
       </NamedLink>
