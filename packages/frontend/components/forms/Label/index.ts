@@ -1,3 +1,1 @@
-import { Label } from "./Label.styles";
-
-export default Label;
+export { default } from "./Label";

@@ -1,8 +1,9 @@
-import React, { forwardRef, SelectHTMLAttributes } from "react";
+import { forwardRef, SelectHTMLAttributes } from "react";
+import classNames from "classnames";
 import { MaybeSelectRef } from "@castiron/common-types";
 import IconFactory from "@/components/factories/IconFactory";
 import Label from "../Label";
-import * as Styled from "./Select.styles";
+import styles from "./Select.module.css";
 
 function Select(
   {
@@ -25,14 +26,28 @@ function Select(
           {label}
         </Label>
       )}
-      <Styled.Wrapper $block={block} $size={size} $secondary={secondary}>
-        <Styled.Select id={id} ref={ref} $secondary={secondary} {...props}>
+      <div
+        className={classNames(styles.wrapper, {
+          [styles["wrapper--default"]]: !secondary,
+          [styles["wrapper--secondary"]]: secondary,
+          [styles["wrapper--lg"]]: size === "lg",
+          [styles["wrapper--block"]]: block,
+        })}
+      >
+        <select
+          className={classNames(styles.select, {
+            [styles["select--secondary"]]: secondary,
+          })}
+          id={id}
+          ref={ref}
+          {...props}
+        >
           {children}
-        </Styled.Select>
-        <Styled.Icon>
+        </select>
+        <span className={styles.icon}>
           <IconFactory icon="chevronDown" />
-        </Styled.Icon>
-      </Styled.Wrapper>
+        </span>
+      </div>
     </div>
   );
 }

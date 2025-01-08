@@ -1,8 +1,9 @@
+import classNames from "classnames";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import IconFactory from "@/components/factories/IconFactory";
-import * as Styled from "./Search.styles";
+import styles from "./Search.module.css";
 
 export default function Search({
   pathname = "/search",
@@ -32,26 +33,26 @@ export default function Search({
   };
 
   return (
-    <Styled.SearchForm
+    <form
       onSubmit={handleSubmit(submitHandler)}
-      className="a-button-secondary-sm"
+      className={classNames(styles.form, "a-button-secondary-sm")}
     >
-      <Styled.SearchLabel htmlFor={id}>
+      <label className={styles.label} htmlFor={id}>
         <span className="a-hidden">{placeholder || t("search.label")}</span>
         <IconFactory icon="search" role="presentation" />
-      </Styled.SearchLabel>
-      <Styled.SearchInput
+      </label>
+      <input
         id={id}
         type="search"
         placeholder={placeholder || t("search.label")}
-        className={mobile ? "t-copy-sm" : undefined}
+        className={classNames(styles.input, { "t-copy-sm": mobile })}
         {...register("q")}
       />
-      <Styled.SubmitButton type="submit">
+      <button className={styles.submit} type="submit">
         <IconFactory icon="arrowRight" role="presentation" />
         <span className="a-hidden">{t("search.submit")}</span>
-      </Styled.SubmitButton>
-    </Styled.SearchForm>
+      </button>
+    </form>
   );
 }
 

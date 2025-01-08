@@ -1,11 +1,10 @@
-import React from "react";
-import * as Styled from "./Fieldset.styles";
+import styles from "./Fieldset.module.css";
 
 export default function Fieldset({ legend, children }: Props) {
   return (
     <fieldset>
-      <Styled.Legend>{legend}</Styled.Legend>
-      <Styled.Fields>{children}</Styled.Fields>
+      <legend className={styles.legend}>{legend}</legend>
+      <div className={styles.fields}>{children}</div>
     </fieldset>
   );
 }

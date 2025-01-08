@@ -1,7 +1,8 @@
-import React, { forwardRef, InputHTMLAttributes } from "react";
+import { forwardRef, InputHTMLAttributes } from "react";
+import classNames from "classnames";
 import { MaybeInputRef } from "@castiron/common-types";
 import Label from "../Label";
-import * as Styled from "./Input.styles";
+import styles from "./Input.module.css";
 
 function Input(
   {
@@ -20,9 +21,13 @@ function Input(
           {label}
         </Label>
       )}
-      <Styled.Wrapper $block={block}>
-        <Styled.Input id={id} ref={ref} {...props} />
-      </Styled.Wrapper>
+      <div
+        className={classNames(styles.wrapper, {
+          [styles["wrapper--block"]]: block,
+        })}
+      >
+        <input className={styles.input} id={id} ref={ref} {...props} />
+      </div>
     </div>
   );
 }

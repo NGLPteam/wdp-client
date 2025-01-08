@@ -1,15 +1,15 @@
 import React from "react";
 import Label from "../Label";
-import * as Styled from "./CheckboxGroup.styles";
+import styles from "./CheckboxGroup.module.css";
 
 export default function CheckboxGroup({ children, label, ...props }: Props) {
   return (
-    <Styled.Wrapper as="fieldset" {...props}>
+    <fieldset className={styles.wrapper} {...props}>
       <Label as="legend" className="t-label-sm a-color-light">
         {label}
       </Label>
       {children}
-    </Styled.Wrapper>
+    </fieldset>
   );
 }
 

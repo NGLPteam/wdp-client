@@ -1,6 +1,8 @@
-import React, { forwardRef, Ref } from "react";
+import { forwardRef, Ref } from "react";
+import classNames from "classnames";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./Checkbox.styles";
+import IconFactory from "@/components/factories/IconFactory";
+import styles from "./Checkbox.module.css";
 
 function Checkbox(
   { label, defaultChecked, ...props }: Props,
@@ -9,7 +11,10 @@ function Checkbox(
   const { t } = useTranslation();
 
   return (
-    <Styled.Label aria-label={props["aria-label"] || undefined}>
+    <label
+      className={styles.label}
+      aria-label={props["aria-label"] || undefined}
+    >
       <input
         className="a-hidden"
         type="checkbox"
@@ -17,9 +22,15 @@ function Checkbox(
         defaultChecked={defaultChecked}
         {...props}
       />
-      <Styled.Icon icon="checkbox" role="presentation" />
-      <Styled.LabelText className="t-copy-sm">{t(label)}</Styled.LabelText>
-    </Styled.Label>
+      <IconFactory
+        className={styles.icon}
+        icon="checkbox"
+        role="presentation"
+      />
+      <span className={classNames(styles["label__text"], "t-copy-sm")}>
+        {t(label)}
+      </span>
+    </label>
   );
 }
 
