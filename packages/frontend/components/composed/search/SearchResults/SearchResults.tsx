@@ -6,7 +6,7 @@ import { NoContent } from "components/layout";
 import { LoadingBlock, Pagination } from "components/atomic";
 import { SearchResultsFragment$key } from "@/relay/SearchResultsFragment.graphql";
 import EntitySummary from "@/components/composed/entity/EntitySummary";
-import * as Styled from "./SearchResults.styles";
+import styles from "./SearchResults.module.css";
 
 export default function SearchResults({ data, isLoading }: Props) {
   const results = useFragment<SearchResultsFragment$key>(fragment, data);
@@ -23,7 +23,7 @@ export default function SearchResults({ data, isLoading }: Props) {
     <LoadingBlock />
   ) : (
     <>
-      <Styled.Header>
+      <header className={styles.header}>
         <Trans
           i18nKey={resultsI18nKey}
           values={{
@@ -35,16 +35,16 @@ export default function SearchResults({ data, isLoading }: Props) {
             <em key="name"></em>,
           ]}
         />
-      </Styled.Header>
+      </header>
       {results && results.nodes.length > 0 ? (
         <>
-          <Styled.List>
+          <ul>
             {results.nodes.map(({ entity }, i) => (
-              <Styled.ListItem key={i}>
+              <li className={styles.item} key={i}>
                 <EntitySummary data={entity} />
-              </Styled.ListItem>
+              </li>
             ))}
-          </Styled.List>
+          </ul>
           <Pagination data={results.pageInfo} />
         </>
       ) : (

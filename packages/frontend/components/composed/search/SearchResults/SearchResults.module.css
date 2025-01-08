@@ -1,0 +1,9 @@
+.header {
+  border-bottom: 1px solid var(--border-color);
+  min-height: 1.875rem;
+  margin-block-end: var(--padding-md);
+}
+
+.item {
+  margin-block-end: var(--padding-xl);
+}

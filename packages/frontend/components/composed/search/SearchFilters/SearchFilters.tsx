@@ -17,7 +17,7 @@ import {
 import SearchFilter from "../SearchFilter";
 import SearchOrderBy from "../SearchOrderBy";
 import SearchSchemaFilter from "../SearchSchemaFilter";
-import * as Styled from "./SearchFilters.styles";
+import styles from "./SearchFilters.module.css";
 
 export default function SearchFilters({
   data,
@@ -97,7 +97,7 @@ export default function SearchFilters({
     <BaseForm onSubmit={onSubmit} defaultValues={defaultValues}>
       {({ form: { reset } }) => (
         <>
-          <Styled.Filters id={id}>
+          <div className={styles.filters} id={id}>
             <SearchOrderBy />
             {searchData && (
               <Fieldset legend={t("filter.results_header")}>
@@ -110,8 +110,8 @@ export default function SearchFilters({
                 ))}
               </Fieldset>
             )}
-          </Styled.Filters>
-          <Styled.FormButtons>
+          </div>
+          <div className={styles.buttons}>
             <Button type="submit" size="sm">
               {t("common.submit")}
             </Button>
@@ -126,7 +126,7 @@ export default function SearchFilters({
             >
               {t("filter.clear_filters")}
             </Button>
-          </Styled.FormButtons>
+          </div>
         </>
       )}
     </BaseForm>
