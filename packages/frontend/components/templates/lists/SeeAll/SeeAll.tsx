@@ -18,7 +18,7 @@ export default function SeeAll(props: SeeAllProps) {
     >
       <NamedLink href={props.href}>
         <Button as="div">
-          <span className="t-capitalize">{props.buttonLabel}</span>
+          <span className="t-capitalize">{props.buttonLabel ?? "See All"}</span>
         </Button>
       </NamedLink>
     </div>

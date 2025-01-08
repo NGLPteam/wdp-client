@@ -39,8 +39,11 @@ export default function SummaryListBlock({
     showHeroImage,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
-  const { selectionPropertyPath, orderingIdentifier } =
-    descendantsDefinition ?? {};
+  const {
+    selectionPropertyPath,
+    orderingIdentifier,
+    dynamicOrderingDefinition,
+  } = descendantsDefinition ?? {};
 
   const { header, headerAside, subtitle, metadata } = slots ?? {};
 
@@ -56,8 +59,11 @@ export default function SummaryListBlock({
         selectionMode,
         orderingIdentifier,
         selectionPropertyPath,
+        dynamicOrderingDefinition,
       )
     : null;
+
+  const renderEntity = header?.valid || subtitle?.valid || metadata?.valid;
 
   return (
     <Container
@@ -68,26 +74,28 @@ export default function SummaryListBlock({
       <div className={styles.grid}>
         <div className={styles.textColumn}>
           {!!title && <span className={styles.blockTitle}>{title}</span>}
-          <div className={styles.entity}>
-            <NamedLink href={href}>
-              {header?.valid && !!header.content && (
-                <h4 className={classNames(styles.title, "t-h3")}>
-                  {headerAside?.valid && !!headerAside.content && (
-                    <span>
-                      <InlineSlotWrapper content={headerAside.content} />,{" "}
-                    </span>
-                  )}
-                  <InlineSlotWrapper content={header.content} />
-                </h4>
+          {renderEntity && (
+            <div className={styles.entity}>
+              <NamedLink href={href}>
+                {header?.valid && !!header.content && (
+                  <h4 className={classNames(styles.title, "t-h3")}>
+                    {headerAside?.valid && !!headerAside.content && (
+                      <span>
+                        <InlineSlotWrapper content={headerAside.content} />,{" "}
+                      </span>
+                    )}
+                    <InlineSlotWrapper content={header.content} />
+                  </h4>
+                )}
+              </NamedLink>
+              {subtitle?.valid && !!subtitle.content && (
+                <span className={styles.subheader}>{subtitle.content}</span>
               )}
-            </NamedLink>
-            {subtitle?.valid && !!subtitle.content && (
-              <span className={styles.subheader}>{subtitle.content}</span>
-            )}
-            {metadata?.valid && !!metadata.content && (
-              <span className={styles.metadata}>{metadata.content}</span>
-            )}
-          </div>
+              {metadata?.valid && !!metadata.content && (
+                <span className={styles.metadata}>{metadata.content}</span>
+              )}
+            </div>
+          )}
           <List
             variant="SUMMARY"
             bgColor={background}
