@@ -7,7 +7,7 @@
 }
 
 .heroImage {
-  min-block-size: 300px;
+  block-size: 300px;
   background: var(--color-base-blueDark);
   grid-area: image;
   border-radius: 1rem;
@@ -25,7 +25,7 @@
 .grid {
   @mixin l-grid;
 
-  grid-template-areas: ". text text text text text . image image image image image";
+  grid-template-areas: ". text text text text . image image image image image image";
 
   @mixin respond theme("screens.100") {
     grid-template-columns: 1fr;

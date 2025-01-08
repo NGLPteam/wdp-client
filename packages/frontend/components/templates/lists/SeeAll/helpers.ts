@@ -11,11 +11,22 @@ export const getSeeAllHref = (
   selectionMode?: DescendantListSelectionMode | null,
   identifier?: string | null,
   propertyPath?: string | null,
+  dynamicOrderingDefinition?: {
+    filter: { schemas: readonly { namespace: string; identifier: string }[] };
+  } | null,
 ) => {
   if (!basePath) return null;
 
   if (selectionMode === "NAMED" && !!identifier)
     return `${basePath}/browse/${identifier}`;
+
+  if (selectionMode === "DYNAMIC") {
+    const schema = dynamicOrderingDefinition?.filter?.schemas[0];
+    if (schema)
+      return `${basePath}/browse/${encodeURIComponent(
+        `${schema.namespace}:${schema.identifier}`,
+      )}`;
+  }
 
   if (
     selectionMode === "PROPERTY" &&

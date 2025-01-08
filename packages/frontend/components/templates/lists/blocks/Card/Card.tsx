@@ -29,8 +29,11 @@ export default function CardListBlock({
     showHeroImage,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
-  const { selectionPropertyPath, orderingIdentifier } =
-    descendantsDefinition ?? {};
+  const {
+    selectionPropertyPath,
+    orderingIdentifier,
+    dynamicOrderingDefinition,
+  } = descendantsDefinition ?? {};
 
   const bgClass = getBgClass(background);
 
@@ -40,6 +43,7 @@ export default function CardListBlock({
         selectionMode,
         orderingIdentifier,
         selectionPropertyPath,
+        dynamicOrderingDefinition,
       )
     : null;
 

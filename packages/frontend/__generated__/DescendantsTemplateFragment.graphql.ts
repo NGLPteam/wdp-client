@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ad9782ad3f66a11532fde9e963a3d932>>
+ * @generated SignedSource<<c35c2e9f41dedad47428b83b5500e296>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -397,6 +397,53 @@ return {
                   "args": null,
                   "kind": "ScalarField",
                   "name": "orderingIdentifier",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "OrderingDefinition",
+                  "kind": "LinkedField",
+                  "name": "dynamicOrderingDefinition",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "concreteType": "OrderingFilterDefinition",
+                      "kind": "LinkedField",
+                      "name": "filter",
+                      "plural": false,
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "concreteType": "OrderingSchemaFilter",
+                          "kind": "LinkedField",
+                          "name": "schemas",
+                          "plural": true,
+                          "selections": [
+                            {
+                              "alias": null,
+                              "args": null,
+                              "kind": "ScalarField",
+                              "name": "namespace",
+                              "storageKey": null
+                            },
+                            {
+                              "alias": null,
+                              "args": null,
+                              "kind": "ScalarField",
+                              "name": "identifier",
+                              "storageKey": null
+                            }
+                          ],
+                          "storageKey": null
+                        }
+                      ],
+                      "storageKey": null
+                    }
+                  ],
                   "storageKey": null
                 },
                 (v10/*: any*/),
