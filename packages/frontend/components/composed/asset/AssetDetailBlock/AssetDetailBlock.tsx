@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { graphql } from "react-relay";
+import { graphql, useFragment } from "react-relay";
+import classNames from "classnames";
 import Image from "next/legacy/image";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { formatDate, formatFileSize } from "@wdp/lib/helpers";
 import { useParams } from "next/navigation";
 import {
@@ -15,11 +15,11 @@ import {
 } from "components/atomic";
 import { AssetDetailBlockFragment$key } from "@/relay/AssetDetailBlockFragment.graphql";
 import AssetPDFPreview from "../AssetPDFPreview";
-import * as Styled from "./AssetDetailBlock.styles";
+import styles from "./AssetDetailBlock.module.css";
 
 export default function AssetDetailBlock({ data }: Props) {
   const [loaded, setLoaded] = useState<boolean>(false);
-  const asset = useMaybeFragment(fragment, data);
+  const asset = useFragment(fragment, data);
   const { slug } = useParams();
 
   // Since we don't have a preview thumbnail for original images,
@@ -43,13 +43,13 @@ export default function AssetDetailBlock({ data }: Props) {
   }
 
   return asset ? (
-    <Styled.Section className="l-container-wide">
+    <section className={classNames("l-container-wide", styles.section)}>
       {slug && (
         <NamedLink href={`/items/${slug}/files`}>
           <BackButton as="div">Back to Files</BackButton>
         </NamedLink>
       )}
-      <Styled.ContentBlock>
+      <div className={styles.content}>
         {asset.preview?.storage ? (
           <ContentImage data={asset.preview} />
         ) : asset.downloadUrl && asset.kind === "image" ? (
@@ -58,7 +58,7 @@ export default function AssetDetailBlock({ data }: Props) {
           <AssetPDFPreview data={asset} />
         ) : null}
         <h3>{asset.name}</h3>
-        <Styled.AssetInfo>
+        <div className={styles.info}>
           <p className="t-label-lg">{asset.kind}</p>
           <ul className="t-copy-lighter">
             {asset.fileSize && <li>{formatFileSize(asset.fileSize)}</li>}
@@ -66,11 +66,11 @@ export default function AssetDetailBlock({ data }: Props) {
               <li>{formatDate(asset.updatedAt, "MMM d, yyyy")}</li>
             )}
           </ul>
-        </Styled.AssetInfo>
+        </div>
         {asset.caption && <div className="t-copy-light">{asset.caption}</div>}
-      </Styled.ContentBlock>
+      </div>
       {asset.downloadUrl && <DownloadLink href={asset.downloadUrl} />}
-    </Styled.Section>
+    </section>
   ) : null;
 }
 

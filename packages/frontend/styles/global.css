@@ -12,5 +12,5 @@
 @import "tailwindcss/utilities" layer(tw-utilities);
 @import "utilities/_appearance.css" layer(meru-utilities);
 @import "utilities/_layout.css" layer(meru-utilities);
-@import "utilities/_typography.css";
+@import "utilities/_typography.css" layer(meru-utilities);
 /* @import "utilities/_state.css"; */

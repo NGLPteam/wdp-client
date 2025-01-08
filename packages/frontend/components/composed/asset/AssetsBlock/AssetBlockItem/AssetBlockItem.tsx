@@ -1,23 +1,22 @@
-import React from "react";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { graphql } from "react-relay";
+import classNames from "classnames";
+import { graphql, useFragment } from "react-relay";
 import { formatDate, formatFileSize } from "@wdp/lib/helpers";
 import { useRouteSlug } from "@wdp/lib/routes";
 import { DownloadLink, NamedLink } from "components/atomic";
 import { AssetBlockItemFragment$key } from "@/relay/AssetBlockItemFragment.graphql";
 import AssetThumbnail from "../../AssetThumbnail";
-import * as Styled from "./AssetBlockItem.styles";
+import styles from "./AssetBlockItem.module.css";
 
 export default function AssetBlockItem({ data }: Props) {
-  const file = useMaybeFragment(fragment, data);
+  const file = useFragment(fragment, data);
   const slug = useRouteSlug();
 
   return file ? (
-    <Styled.Wrapper>
-      <Styled.ImageWrapper>
+    <div className={styles.wrapper}>
+      <div className={styles.image}>
         <AssetThumbnail data={file} />
-      </Styled.ImageWrapper>
-      <Styled.TextBlock>
+      </div>
+      <div className={styles.text}>
         <h4>
           {slug && file.slug ? (
             <NamedLink
@@ -30,23 +29,23 @@ export default function AssetBlockItem({ data }: Props) {
             file.name
           )}
         </h4>
-        <Styled.InfoBlock>
+        <div className={styles.info}>
           {file.kind && <p className="t-label-sm">{file.kind}</p>}
-          <Styled.MetadataList className="t-copy-lighter t-copy-sm">
+          <ul
+            className={classNames("t-copy-lighter t-copy-sm", styles.metadata)}
+          >
             {file.updatedAt && (
               <li>{formatDate(file.updatedAt, "MMM d, yyyy")}</li>
             )}
             {file.fileSize && <li>{formatFileSize(file.fileSize)}</li>}
-          </Styled.MetadataList>
-        </Styled.InfoBlock>
-        <Styled.Caption className="t-copy-lighter t-copy-sm">
-          {file.caption}
-        </Styled.Caption>
+          </ul>
+        </div>
+        <p className="t-copy-lighter t-copy-sm line-clamp-2">{file.caption}</p>
         {file.downloadUrl && (
           <DownloadLink className="t-label-sm" href={file.downloadUrl} />
         )}
-      </Styled.TextBlock>
-    </Styled.Wrapper>
+      </div>
+    </div>
   ) : null;
 }
 
