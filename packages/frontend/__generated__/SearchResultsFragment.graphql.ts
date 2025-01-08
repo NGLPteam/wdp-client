@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<841fbc1cf1bf28f1f2b3506ce8ea6b90>>
+ * @generated SignedSource<<c69b57adbd6826be86eea3b7fe423db4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,7 @@ export type SearchResultsFragment$data = {
   readonly nodes: ReadonlyArray<{
     readonly entity: {
       readonly id?: string;
-      readonly " $fragmentSpreads": FragmentRefs<"SearchResultFactoryFragment">;
+      readonly " $fragmentSpreads": FragmentRefs<"EntitySummaryFragment">;
     };
   }>;
   readonly pageInfo: {
@@ -67,7 +67,7 @@ const node: ReaderFragment = {
             {
               "args": null,
               "kind": "FragmentSpread",
-              "name": "SearchResultFactoryFragment"
+              "name": "EntitySummaryFragment"
             }
           ],
           "storageKey": null
@@ -103,6 +103,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "9a58ff3a96effe0e3456d09761949dac";
+(node as any).hash = "dcdefb7505495721cea58ed03dcc4b43";
 
 export default node;
