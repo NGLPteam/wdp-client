@@ -1,9 +1,9 @@
 "use client";
 
 import { useMemo } from "react";
-import { graphql } from "react-relay";
+import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import classNames from "classnames";
 import get from "lodash/get";
 import { ExternalLink, Markdown, ORCIDLink } from "components/atomic";
 import { BackToTopBlock } from "components/layout";
@@ -11,10 +11,10 @@ import ContributionSummary from "@/components/composed/contribution/Contribution
 import { ContributorDetailFragment$key } from "@/relay/ContributorDetailFragment.graphql";
 import ContributorName from "../ContributorName";
 import ContributorAvatar from "../ContributorAvatar";
-import * as Styled from "./ContributorDetail.styles";
+import styles from "./ContributorDetail.module.css";
 
 export default function ContributorDetail({ data }: Props) {
-  const contributor = useMaybeFragment(fragment, data);
+  const contributor = useFragment(fragment, data);
   const { t } = useTranslation();
 
   const contributionCount = useMemo(
@@ -29,18 +29,22 @@ export default function ContributorDetail({ data }: Props) {
     [contributor],
   );
 
+  const ContributionsComponent = contributionCount > 6 ? BackToTopBlock : "div";
+
   return contributor ? (
     <>
       <section className="a-bg-custom10">
-        <Styled.ContributorWrapper className="l-container-wide">
-          <Styled.NameHeader as="header">
+        <div
+          className={classNames("l-container-wide", styles.contributorWrapper)}
+        >
+          <header className={styles.name}>
             {contributor.image?.storage && (
               <ContributorAvatar data={contributor.image} />
             )}
-            <h3>
+            <h1 className="t-h3">
               <ContributorName data={contributor} />
-            </h3>
-          </Styled.NameHeader>
+            </h1>
+          </header>
           {contributor.title && (
             <p className="t-label-lg">{contributor.title}</p>
           )}
@@ -55,43 +59,41 @@ export default function ContributorDetail({ data }: Props) {
           {(hasLinks || contributor.orcid) && (
             <ul className="t-label-sm">
               {contributor.orcid && (
-                <Styled.BioLinkItem>
+                <li className={styles.bioLink}>
                   <ORCIDLink href={contributor.orcid}>
                     {contributor.orcid}
                   </ORCIDLink>
-                </Styled.BioLinkItem>
+                </li>
               )}
               {hasLinks &&
                 contributor.links.map(({ title, url }, i) => (
-                  <Styled.BioLinkItem key={i}>
+                  <li className={styles.bioLink} key={i}>
                     <ExternalLink href={url}>{title}</ExternalLink>
-                  </Styled.BioLinkItem>
+                  </li>
                 ))}
             </ul>
           )}
-        </Styled.ContributorWrapper>
+        </div>
       </section>
       {contributionCount > 0 && (
         <section className="l-container-wide">
-          <Styled.ContributionsWrapper
-            as={contributionCount > 6 ? BackToTopBlock : "div"}
-          >
-            <Styled.ContributionsHeader>
+          <ContributionsComponent className={styles["contributions__wrapper"]}>
+            <h2 className={classNames("t-h3", styles["contributions__header"])}>
               {t("layouts.contributions_header")}
-            </Styled.ContributionsHeader>
-            <Styled.ContributionList>
+            </h2>
+            <ul className={styles["contributions__list"]}>
               {contributor.collectionContributions.nodes.map((node, i) => (
-                <Styled.ContributionItem key={i}>
+                <li className={styles["contributions__item"]} key={i}>
                   <ContributionSummary data={node} showReadMore />
-                </Styled.ContributionItem>
+                </li>
               ))}
               {contributor.itemContributions.nodes.map((node, i) => (
-                <Styled.ContributionItem key={i}>
+                <li className={styles["contributions__item"]} key={i}>
                   <ContributionSummary data={node} showReadMore />
-                </Styled.ContributionItem>
+                </li>
               ))}
-            </Styled.ContributionList>
-          </Styled.ContributionsWrapper>
+            </ul>
+          </ContributionsComponent>
         </section>
       )}
     </>

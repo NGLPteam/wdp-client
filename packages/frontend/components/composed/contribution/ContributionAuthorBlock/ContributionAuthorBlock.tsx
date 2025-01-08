@@ -1,16 +1,16 @@
 "use client";
 
-import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { graphql, useFragment } from "react-relay";
+import classNames from "classnames";
 import capitalize from "lodash/capitalize";
 import ContributorAvatar from "components/composed/contributor/ContributorAvatar";
 import ContributorName from "components/composed/contributor/ContributorName";
 import { DotList, Link, NamedLink, Markdown } from "components/atomic";
 import { ContributionAuthorBlockFragment$key } from "@/relay/ContributionAuthorBlockFragment.graphql";
-import * as Styled from "./ContributionAuthorBlock.styles";
+import styles from "./ContributrionAuthorBlock.module.css";
 
 export default function ContributionAuthorBlock({ data }: Props) {
-  const contribution = useMaybeFragment(fragment, data);
+  const contribution = useFragment(fragment, data);
 
   const contributor = contribution?.contributor;
 
@@ -37,16 +37,16 @@ export default function ContributionAuthorBlock({ data }: Props) {
 
   return (
     <section className="a-bg-custom10">
-      <Styled.Inner className="l-container-wide">
+      <div className={classNames("l-container-wide", styles.inner)}>
         {showAvatar && (
           /* Users are used to images being links, but for a11y we want to only have one tabbable link per contributor  */
           <NamedLink href={href} aria-hidden="true" tabIndex={-1}>
-            <Styled.AvatarWrapper>
+            <div className={styles.avatar}>
               <ContributorAvatar data={contributor.image} />
-            </Styled.AvatarWrapper>
+            </div>
           </NamedLink>
         )}
-        <Styled.Info>
+        <div className={styles.info}>
           <NamedLink href={entityHref} className="default-link-styles">
             <Link as="span">
               <ContributorName data={contributor} />
@@ -54,7 +54,7 @@ export default function ContributionAuthorBlock({ data }: Props) {
           </NamedLink>
           {contributor.__typename === "PersonContributor" && (
             <>
-              <Styled.Roles>
+              <div className={styles.roles}>
                 <DotList className="t-copy-sm t-copy-lighter">
                   {contribution.role && (
                     <li>{capitalize(contribution.role)}</li>
@@ -64,18 +64,18 @@ export default function ContributionAuthorBlock({ data }: Props) {
                     <li>{contributor.affiliation}</li>
                   )}
                 </DotList>
-              </Styled.Roles>
+              </div>
               {contributor.bio && (
-                <Styled.Bio>
+                <p className={classNames(styles.bio, "line-clamp-3")}>
                   <Markdown.Summary className="t-copy-sm t-copy-lighter t-rte">
                     {contributor.bio}
                   </Markdown.Summary>
-                </Styled.Bio>
+                </p>
               )}
             </>
           )}
-        </Styled.Info>
-      </Styled.Inner>
+        </div>
+      </div>
     </section>
   );
 }
