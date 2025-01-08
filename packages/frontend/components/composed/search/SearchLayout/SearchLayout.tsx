@@ -1,6 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
+import classNames from "classnames";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { graphql, useRefetchableFragment } from "react-relay";
 import { useForm } from "react-hook-form";
@@ -18,7 +19,7 @@ import { SearchLayoutQuery } from "@/relay/SearchLayoutQuery.graphql";
 import SearchBar from "../SearchBar";
 import SearchResults from "../SearchResults";
 import SearchFilters from "../SearchFilters";
-import * as Styled from "./SearchLayout.styles";
+import styles from "./SearchLayout.module.css";
 
 export default function SearchLayout({ data, scoped }: Props) {
   const router = useRouter();
@@ -91,8 +92,8 @@ export default function SearchLayout({ data, scoped }: Props) {
 
   return (
     <section className="a-bg-neutral00">
-      <Styled.Inner className="l-container-wide">
-        <Styled.Search>
+      <div className={classNames("l-container-wide", styles.inner)}>
+        <div className={styles.search}>
           <form onSubmit={handleSubmit(onQuerySubmit)}>
             <SearchBar
               id="searchPageInput"
@@ -100,8 +101,8 @@ export default function SearchLayout({ data, scoped }: Props) {
               {...register("q")}
             />
           </form>
-        </Styled.Search>
-        <Styled.FiltersToggle>
+        </div>
+        <div className={styles.filterToggle}>
           <DialogDisclosure
             as={Button}
             {...dialog}
@@ -111,18 +112,18 @@ export default function SearchLayout({ data, scoped }: Props) {
           >
             Show Filters
           </DialogDisclosure>
-        </Styled.FiltersToggle>
-        <Styled.Sidebar>
+        </div>
+        <div className={styles.sidebar}>
           {search && <SearchFilters id="sidebarFilters" data={search} />}
-        </Styled.Sidebar>
-        <Styled.Results>
+        </div>
+        <div className={styles.results}>
           {noSearchQuery ? (
             <NoContent message="search.start_search" />
           ) : (
             <SearchResults data={search?.results} isLoading={isPending} />
           )}
-        </Styled.Results>
-      </Styled.Inner>
+        </div>
+      </div>
       <BaseDrawer label="Filters" dialog={dialog}>
         {search && (
           <SearchFilters

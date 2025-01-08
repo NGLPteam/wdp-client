@@ -1,7 +1,7 @@
 import React, { forwardRef, Ref } from "react";
 import { useTranslation } from "react-i18next";
 import IconFactory from "@/components/factories/IconFactory";
-import * as Styled from "./SearchBar.styles";
+import styles from "./SearchBar.module.css";
 
 type InputProps = Pick<React.HTMLProps<HTMLInputElement>, "defaultValue">;
 
@@ -12,23 +12,24 @@ function SearchBar(
   const { t } = useTranslation();
 
   return (
-    <Styled.Wrapper>
-      <Styled.Label htmlFor={id}>
+    <div className={styles.wrapper}>
+      <label className={styles.label} htmlFor={id}>
         <IconFactory icon="search" role="presentation" />
         <span className="a-hidden">{t("search.label")}</span>
-      </Styled.Label>
-      <Styled.Input
+      </label>
+      <input
         id={id}
         type="search"
+        className={styles.input}
         placeholder={t("search.placeholder")}
         ref={ref}
         {...inputProps}
       />
-      <Styled.Button type="submit">
+      <button className={styles.button} type="submit">
         <IconFactory icon="arrowRight" role="presentation" />
         <span className="a-hidden">{t("search.submit")}</span>
-      </Styled.Button>
-    </Styled.Wrapper>
+      </button>
+    </div>
   );
 }
 
