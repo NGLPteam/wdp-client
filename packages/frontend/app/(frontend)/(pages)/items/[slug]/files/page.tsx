@@ -19,7 +19,7 @@ export default async function ItemFilesPage({ params }: BasePageParams) {
 
   return (
     <UpdateClientEnvironment records={records}>
-      <AssetsBlock data={item.assets} paddingBottom="xxl" />
+      <AssetsBlock data={item.assets} />
     </UpdateClientEnvironment>
   );
 }
