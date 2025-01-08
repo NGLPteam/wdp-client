@@ -36,6 +36,7 @@
   &:hover,
   &:focus-visible {
     color: var(--color-light);
+    outline: none;
 
     > span {
       border-bottom-color: var(--color-lighter);
