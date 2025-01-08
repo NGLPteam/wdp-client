@@ -1,5 +1,6 @@
 "use client";
 
+import classNames from "classnames";
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import {
@@ -7,7 +8,7 @@ import {
   InstanceCommunitiesFragment$key,
 } from "@/relay/InstanceCommunitiesFragment.graphql";
 import InstanceCommunitySummary from "../InstanceCommunitySummary/InstanceCommunitySummary";
-import * as Styled from "./InstanceCommunities.styles";
+import styles from "./InstanceCommunities.module.css";
 
 export default function InstanceCommunities({ data }: Props) {
   const communities = useFragment(fragment, data);
@@ -15,19 +16,19 @@ export default function InstanceCommunities({ data }: Props) {
   const { t } = useTranslation();
 
   return communities.edges?.length > 0 ? (
-    <section className="a-bg-neutral90">
-      <Styled.Inner className="l-container-wide">
-        <Styled.Header as="h3">
+    <section className={classNames("a-bg-neutral90", styles.inner)}>
+      <div className="l-container-wide">
+        <h2 className={classNames(styles.header, "t-h3")}>
           {t("layouts.instance_communities_header")}
-        </Styled.Header>
-        <Styled.List>
+        </h2>
+        <ul className={styles.list}>
           {communities.edges.map(({ node }: Node) => (
             <li key={node.slug}>
               <InstanceCommunitySummary data={node} />
             </li>
           ))}
-        </Styled.List>
-      </Styled.Inner>
+        </ul>
+      </div>
     </section>
   ) : null;
 }

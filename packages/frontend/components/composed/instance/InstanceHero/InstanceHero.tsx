@@ -1,29 +1,31 @@
 "use client";
 
-import React from "react";
+import classNames from "classnames";
 import { graphql, useFragment } from "react-relay";
 import SearchHero from "components/composed/search/SearchHero";
 import { Markdown } from "components/atomic";
 import { InstanceHeroFragment$key } from "@/relay/InstanceHeroFragment.graphql";
-import * as Styled from "./InstanceHero.styles";
+import styles from "./InstanceHero.module.css";
 
 export default function InstanceHero({ data }: Props) {
   const app = useFragment(fragment, data);
 
   return (
     <>
-      <Styled.Header as="header" className="a-bg-custom10">
+      <header className={classNames("a-bg-custom10", styles.header)}>
         <div className="l-container-wide">
-          <h2>{app?.globalConfiguration.site.installationName || "WDP"}</h2>
+          <h1 className="t-h2">
+            {app?.globalConfiguration.site.installationName || "Meru"}
+          </h1>
           {app?.globalConfiguration.site.installationHomePageCopy && (
-            <Styled.Text>
+            <div className={styles.text}>
               <Markdown.Summary>
                 {app.globalConfiguration.site.installationHomePageCopy}
               </Markdown.Summary>
-            </Styled.Text>
+            </div>
           )}
         </div>
-      </Styled.Header>
+      </header>
       <SearchHero />
     </>
   );
