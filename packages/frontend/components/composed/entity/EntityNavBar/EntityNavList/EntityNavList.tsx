@@ -8,7 +8,7 @@ import {
   EntityNavListFragment$data,
   EntityNavListFragment$key,
 } from "@/relay/EntityNavListFragment.graphql";
-import * as Styled from "./EntityNavList.styles";
+import styles from "./EntityNavList.module.css";
 
 export default function EntityNavList({ data }: Props) {
   const { t } = useTranslation();
@@ -18,14 +18,15 @@ export default function EntityNavList({ data }: Props) {
 
   function getDisclosure(label: string) {
     return (
-      <Styled.Disclosure
-        forwardedAs="div"
+      <Button
+        as="div"
+        className={styles.disclosure}
         size="sm"
         icon="chevronDown"
         secondary
       >
         {t(label)}
-      </Styled.Disclosure>
+      </Button>
     );
   }
 
@@ -55,7 +56,7 @@ export default function EntityNavList({ data }: Props) {
     : [];
 
   return (
-    <Styled.NavList>
+    <ul className={styles.list}>
       {dropdownLinks.length > 1 && (
         <li className="t-capitalize">
           <Dropdown
@@ -85,7 +86,7 @@ export default function EntityNavList({ data }: Props) {
             </li>
           );
         })}
-    </Styled.NavList>
+    </ul>
   );
 }
 
