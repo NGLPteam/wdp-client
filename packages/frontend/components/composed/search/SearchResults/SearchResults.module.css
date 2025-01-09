@@ -3,7 +3,3 @@
   min-height: 1.875rem;
   margin-block-end: var(--padding-md);
 }
-
-.item {
-  margin-block-end: var(--padding-xl);
-}
