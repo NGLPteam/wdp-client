@@ -14,7 +14,7 @@ export default function ExternalLink({
   return children ? (
     <Link {...props} target="_blank" rel="noreferrer" icon="linkExternal">
       {children}
-      <span className="a-hidden">{t("common.opens_new_window")}</span>
+      <span className="sr-only">{t("common.opens_new_window")}</span>
     </Link>
   ) : null;
 }

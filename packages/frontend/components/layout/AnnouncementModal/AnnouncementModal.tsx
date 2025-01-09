@@ -17,7 +17,7 @@ export default function AnnouncementModal({
       <div className={styles.wrapper}>
         <button className={styles.button} type="button" onClick={dialog.hide}>
           <IconFactory icon="close" />
-          <span className="a-hidden">{t("common.close")}</span>
+          <span className="sr-only">{t("common.close")}</span>
         </button>
         {children}
       </div>

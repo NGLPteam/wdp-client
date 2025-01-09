@@ -4,8 +4,6 @@ import baseRoot from "./base/root";
 import baseFonts from "./base/fonts";
 import baseAppearance from "./base/appearance";
 import baseTypography from "./base/typography";
-import utilityAppearance from "./utility/appearance";
-import utilityTypography from "./utility/typography";
 
 const GlobalStyles = createGlobalStyle`
   @layer styled-components {
@@ -14,8 +12,6 @@ const GlobalStyles = createGlobalStyle`
     ${baseResets}
     ${baseAppearance}
     ${baseTypography}
-    ${utilityAppearance}
-    ${utilityTypography}
   }
 `;
 

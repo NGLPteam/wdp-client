@@ -16,7 +16,7 @@ function Checkbox(
       aria-label={props["aria-label"] || undefined}
     >
       <input
-        className="a-hidden"
+        className="sr-only"
         type="checkbox"
         ref={ref}
         defaultChecked={defaultChecked}

@@ -29,7 +29,7 @@ export default function SearchButton({ data, size = "sm" }: Props) {
           icon={size === "sm" ? "search" : "search32"}
           role="presentation"
         />
-        <span className="a-hidden">{t("search.label")}</span>
+        <span className="sr-only">{t("search.label")}</span>
       </DialogDisclosure>
       <SearchModal dialog={dialog} data={searchData} />
     </>

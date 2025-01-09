@@ -23,7 +23,7 @@ export default function DOI({ data }: Props) {
         aria-label={t("metadata.doi_link")}
       >
         {doi.displayUrl}
-        <span className="a-hidden">{t("common.opens_new_window")}</span>
+        <span className="sr-only">{t("common.opens_new_window")}</span>
       </a>
     </li>
   );
