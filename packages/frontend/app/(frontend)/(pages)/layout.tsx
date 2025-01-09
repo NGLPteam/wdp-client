@@ -6,7 +6,6 @@ import ThemeProvider from "contexts/ThemeProvider";
 import { Metadata } from "next";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import RelayEnvironmentProvider from "@/lib/relay/RelayClientEnvProvider";
-import StyledComponentsRegistry from "@/lib/styled-components/registry";
 import { layoutAllPagesQuery as Query } from "@/relay/layoutAllPagesQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import { SessionProvider } from "@/lib/auth/session";
@@ -15,7 +14,7 @@ import { BasePageParams } from "@/types/page";
 import generateSiteMetadata from "./_metadata/site";
 
 export async function generateMetadata(
-  props: BasePageParams,
+  props: BasePageParams
 ): Promise<Metadata> {
   return generateSiteMetadata(props);
 }
@@ -33,9 +32,7 @@ export default async function PageLayout({ children }: PropsWithChildren) {
         <RelayEnvironmentProvider>
           <ViewerContextProvider data={data}>
             <UpdateClientEnvironment records={records}>
-              <ThemeProvider theme={theme}>
-                <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
-              </ThemeProvider>
+              <ThemeProvider theme={theme}>{children}</ThemeProvider>
             </UpdateClientEnvironment>
           </ViewerContextProvider>
         </RelayEnvironmentProvider>
