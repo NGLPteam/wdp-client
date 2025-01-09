@@ -1,5 +1,6 @@
+import classNames from "classnames";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./StatBlock.styles";
+import styles from "./StatBlock.module.css";
 
 type Props = {
   stat: string | number;
@@ -11,9 +12,16 @@ export default function StatBlock({ stat, label, headingLevel = 1 }: Props) {
   const { t } = useTranslation();
 
   return (
-    <Styled.Outer>
-      <Styled.Label>{t(label)}</Styled.Label>
-      <Styled.Stat $level={headingLevel}>{stat}</Styled.Stat>
-    </Styled.Outer>
+    <div className={styles.outer}>
+      <span className={styles.label}>{t(label)}</span>
+      <span
+        className={classNames(styles.stat, {
+          [styles["stat--lg"]]: headingLevel === 1,
+          [styles["stat--sm"]]: headingLevel === 3,
+        })}
+      >
+        {stat}
+      </span>
+    </div>
   );
 }

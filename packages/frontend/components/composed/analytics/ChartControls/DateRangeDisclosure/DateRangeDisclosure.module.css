@@ -1,7 +1,4 @@
-import styled from "styled-components";
-import { respond, tLabel } from "theme/mixins";
-
-export const Wrapper = styled.button`
+.wrapper {
   position: relative;
   display: flex;
   gap: 6px;
@@ -16,27 +13,36 @@ export const Wrapper = styled.button`
   padding-inline-end: 12px;
   color: var(--color-custom70);
 
-  & > svg {
-    margin-block-start: 3px;
+  button:focus-visible > & {
+    background: var(--color-custom20);
   }
 
-  ${respond(`width: 100%; justify-content: space-between;`, 100)}
-`;
+  & > svg {
+    margin-block-start: 2px;
+  }
 
-export const TextWrapper = styled.div`
+  @mixin respond theme("screens.100") {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+.text {
   display: flex;
   gap: 6px;
-`;
+}
 
-export const Label = styled.span`
-  ${tLabel("sm")}
+.label {
+  @mixin t-label-sm;
   white-space: nowrap;
 
-  ${respond(`display: none;`, 50)}
-`;
+  @mixin respond theme("screens.50") {
+    display: none;
+  }
+}
 
-export const Selected = styled.span`
-  ${tLabel("mix")}
+.selected {
+  @mixin t-label-mix;
   margin-inline-end: 2px;
   white-space: nowrap;
-`;
+}

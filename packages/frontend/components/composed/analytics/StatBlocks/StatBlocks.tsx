@@ -1,7 +1,7 @@
 import { ArticleAnalyticsBlockFragment$data } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
 import StatBlock from "./StatBlock";
 import STATES from "./states.json";
-import * as Styled from "./StatBlocks.styles";
+import styles from "./StatBlocks.module.css";
 
 type Props = {
   data: ArticleAnalyticsBlockFragment$data;
@@ -29,8 +29,8 @@ export default function StatBlocks({
         ? [...data.entityViewsByRegion.results]
         : []
       : data.assetDownloadsByRegion
-        ? [...data.assetDownloadsByRegion.results]
-        : [];
+      ? [...data.assetDownloadsByRegion.results]
+      : [];
 
   const aggregatedByCountry = regionsData.reduce(
     (obj: { [key: string]: number }, region) => {
@@ -44,13 +44,13 @@ export default function StatBlocks({
       obj[countryCode] = count;
       return obj;
     },
-    {},
+    {}
   );
   const topRegion = regionsData.sort((a, b) => a.count - b.count)[
     regionsData.length - 1
   ];
   const topAggregateRegion = Object.keys(aggregatedByCountry).sort(
-    (a, b) => aggregatedByCountry[a] - aggregatedByCountry[b],
+    (a, b) => aggregatedByCountry[a] - aggregatedByCountry[b]
   )[Object.keys(aggregatedByCountry).length - 1];
 
   const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
@@ -59,11 +59,11 @@ export default function StatBlocks({
     map === "US" && topRegion?.regionCode
       ? STATES[topRegion.regionCode as keyof typeof STATES]
       : topAggregateRegion && topAggregateRegion !== "$unknown$"
-        ? regionNames.of(topAggregateRegion)
-        : undefined;
+      ? regionNames.of(topAggregateRegion)
+      : undefined;
 
   return (
-    <Styled.BlockGroup>
+    <div className={styles.group}>
       {dateLabel !== "all" && (
         <StatBlock
           stat={total}
@@ -85,6 +85,6 @@ export default function StatBlocks({
         stat={regionName ?? "--"}
         label={map === "US" ? "analytics.top_state" : "analytics.top_country"}
       />
-    </Styled.BlockGroup>
+    </div>
   );
 }

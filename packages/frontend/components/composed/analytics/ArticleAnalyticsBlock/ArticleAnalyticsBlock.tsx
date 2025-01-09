@@ -18,7 +18,7 @@ import {
 import ChartControls from "../ChartControls";
 import StatBlocks from "../StatBlocks";
 import { State, Action, chartSettingsReducer } from "./settingsReducer";
-import * as Styled from "./ArticleAnalyticsBlock.styles";
+import styles from "./ArticleAnalyticsBlock.module.css";
 
 import type { AnalyticsPrecision } from "types/graphql-schema";
 
@@ -59,7 +59,7 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
         return;
       });
     },
-    [startTransition, refetch],
+    [startTransition, refetch]
   );
 
   const [settings, dispatchSettingsUpdate] = useReducer<
@@ -74,7 +74,7 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
 
   return chartData?.viewsByDate ? (
     <div className="l-container-wide">
-      <Styled.Block>
+      <div className={styles.block}>
         <ChartControls
           setMode={setMode}
           mode={mode}
@@ -84,9 +84,9 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
           dateLabel={settings.dateLabel}
         />
         {isPending ? (
-          <Styled.LoaderWrapper>
+          <div className={styles.loading}>
             <LoadingBlock />
-          </Styled.LoaderWrapper>
+          </div>
         ) : (
           <ChartBlock
             data={chartData}
@@ -102,19 +102,19 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
           mode={mode}
           dateLabel={settings.dateLabel}
         />
-      </Styled.Block>
+      </div>
     </div>
   ) : null;
 }
 
 const fragment = graphql`
   fragment ArticleAnalyticsBlockFragment on Item
-  @refetchable(queryName: "ArticleAnalyticsBlockQuery")
-  @argumentDefinitions(
-    dateRange: { type: "DateFilterInput", defaultValue: {} }
-    precision: { type: "AnalyticsPrecision", defaultValue: YEAR }
-    usOnly: { type: "Boolean", defaultValue: false }
-  ) {
+    @refetchable(queryName: "ArticleAnalyticsBlockQuery")
+    @argumentDefinitions(
+      dateRange: { type: "DateFilterInput", defaultValue: {} }
+      precision: { type: "AnalyticsPrecision", defaultValue: YEAR }
+      usOnly: { type: "Boolean", defaultValue: false }
+    ) {
     downloadsByDate: assetDownloads(
       dateFilter: $dateRange
       precision: $precision

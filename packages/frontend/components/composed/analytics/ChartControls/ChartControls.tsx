@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Dropdown } from "components/atomic";
 import Switch from "./Switch";
 import DateRangeDisclosure from "./DateRangeDisclosure";
-import * as Styled from "./ChartControls.styles";
+import styles from "./ChartControls.module.css";
 
 type Props = {
   setMode: (val: string) => void;
@@ -41,12 +41,12 @@ export default function ChartControls({
         dispatchSettingsUpdate({ type: "dateRange", value: dateRange.value })
       }
     >
-      <Styled.LinkText>{t(dateRange.label)}</Styled.LinkText>
+      <span className={styles.linkText}>{t(dateRange.label)}</span>
     </button>
   ));
 
   return (
-    <Styled.Wrapper>
+    <div className={styles.wrapper}>
       <Switch
         options={[
           { label: "analytics.views", value: "views" },
@@ -78,6 +78,6 @@ export default function ChartControls({
           }
         />
       )}
-    </Styled.Wrapper>
+    </div>
   );
 }

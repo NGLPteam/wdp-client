@@ -1,3 +1,7 @@
+.t-h1 {
+  @mixin t-h1;
+}
+
 .t-rte {
   a:not([class]),
   a[class=""] {
