@@ -36,7 +36,7 @@ export default function SearchHero({ prompt }: { prompt?: string | null }) {
         <div className={styles.wrapper}>
           <label className={styles.label} htmlFor="communityHeroSearch">
             <IconFactory icon="search32" role="presentation" />
-            <span className="a-hidden">{t("search.label")}</span>
+            <span className="sr-only">{t("search.label")}</span>
           </label>
           <input
             type="search"

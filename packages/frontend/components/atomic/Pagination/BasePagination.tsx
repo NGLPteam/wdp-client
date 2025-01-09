@@ -43,7 +43,7 @@ export default function BasePagination({ page, pageCount, onSubmit }: Props) {
           aria-label="Page"
           {...register("page")}
         />
-        <button type="submit" className="a-hidden">
+        <button type="submit" className="sr-only">
           {t("common.submit")}
         </button>
       </form>

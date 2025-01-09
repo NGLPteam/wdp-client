@@ -42,7 +42,7 @@ const BaseProgressBar = ({ label, percentLoaded }: Props) => {
       aria-label={t(label || "loading")}
     >
       <span className={styles.percent} style={{ width: `${percent}%` }}>
-        <span className="a-hidden">{percent}%</span>
+        <span className="sr-only">{percent}%</span>
       </span>
     </div>
   );

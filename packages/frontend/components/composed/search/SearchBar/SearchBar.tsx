@@ -1,4 +1,4 @@
-import React, { forwardRef, Ref } from "react";
+import { forwardRef, Ref } from "react";
 import { useTranslation } from "react-i18next";
 import IconFactory from "@/components/factories/IconFactory";
 import styles from "./SearchBar.module.css";
@@ -15,7 +15,7 @@ function SearchBar(
     <div className={styles.wrapper}>
       <label className={styles.label} htmlFor={id}>
         <IconFactory icon="search" role="presentation" />
-        <span className="a-hidden">{t("search.label")}</span>
+        <span className="sr-only">{t("search.label")}</span>
       </label>
       <input
         id={id}
@@ -27,7 +27,7 @@ function SearchBar(
       />
       <button className={styles.button} type="submit">
         <IconFactory icon="arrowRight" role="presentation" />
-        <span className="a-hidden">{t("search.submit")}</span>
+        <span className="sr-only">{t("search.submit")}</span>
       </button>
     </div>
   );

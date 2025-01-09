@@ -17,7 +17,7 @@ function Input(
   return (
     <div>
       {label && (
-        <Label htmlFor={id} className={hideLabel && "a-hidden"}>
+        <Label htmlFor={id} className={hideLabel && "sr-only"}>
           {label}
         </Label>
       )}

@@ -46,24 +46,82 @@
   color: inherit;
 }
 
-@define-mixin a-bg-custom10 {
-  --background-color: var(--color-custom10);
+@define-mixin a-bg-neutral00 {
+  --background-color: var(--color-base-neutral00);
   --color-base: var(--color-base-neutral90);
   --color-light: var(--color-base-neutral80);
-  --color-lighter: var(--color-base-neutral80);
-  --button-secondary-bg-color: var(--color-base-neutral00);
+  --color-lighter: var(--color-base-neutral70);
+
+  background-color: var(--background-color);
+  color: var(--color-base);
+}
+
+@define-mixin a-bg-neutral80 {
+  @media screen {
+    --background-color: var(--color-base-neutral80);
+    --color-base: var(--color-base-neutral00);
+    --color-light: var(--color-base-neutral30);
+    --color-lighter: var(--color-base-neutral30);
+    --button-primary-text-color: var(--color-base-neutral90);
+    --button-primary-text-focus-color: var(--color-base-neutral00);
+    --button-primary-bg-color: var(--color-custom20);
+    --button-primary-bg-hover-color: var(--color-base-neutral80);
+    --button-primary-bg-focus-color: var(--color-custom20);
+    --button-secondary-bg-color: var(--color-base-neutral90);
+    --button-secondary-bg-hover-color: var(--color-base-neutral70);
+    --button-secondary-bg-focus-color: var(--color-base-neutral70);
+    --button-secondary-text-color: var(--color-base-neutral00);
+    --border-color-focus: var(--color-base-neutral00);
+  }
+
+  background-color: var(--background-color);
+  color: var(--color-base);
+}
+
+@define-mixin a-bg-neutral90 {
+  @media screen {
+    --background-color: var(--color-base-neutral90);
+    --color-base: var(--color-base-neutral00);
+    --color-light: var(--color-base-neutral60);
+    --color-lighter: var(--color-base-neutral30);
+    --button-primary-text-color: var(--color-base-neutral90);
+    --button-primary-text-focus-color: var(--color-base-neutral00);
+    --button-primary-bg-color: var(--color-custom20);
+    --button-primary-bg-hover-color: var(--color-base-neutral80);
+    --button-primary-bg-focus-color: var(--color-custom20);
+    --button-secondary-bg-color: var(--color-base-neutral80);
+    --button-secondary-bg-hover-color: var(--color-base-neutral70);
+    --button-secondary-bg-focus-color: var(--color-base-neutral70);
+    --button-secondary-text-color: var(--color-base-neutral00);
+    --border-color-focus: var(--color-base-neutral00);
+  }
+
+  background-color: var(--background-color);
+  color: var(--color-base);
+}
+
+@define-mixin a-bg-custom10 {
+  @media screen {
+    --background-color: var(--color-custom10);
+    --color-base: var(--color-base-neutral90);
+    --color-light: var(--color-base-neutral80);
+    --color-lighter: var(--color-base-neutral80);
+    --button-secondary-bg-color: var(--color-base-neutral00);
+  }
 
   background-color: var(--background-color);
   color: var(--color-base);
 }
 
 @define-mixin a-bg-custom20 {
-  --background-color: var(--color-custom20);
-  --color-base: var(--color-base-neutral90);
-  --color-light: var(--color-base-neutral80);
-  --color-lighter: var(--color-base-neutral80);
-  --button-secondary-bg-color: var(--color-custom10);
-  --button-secondary-bg-focus-color: var(--color-custom20);
+  @media screen {
+    --background-color: var(--color-custom20);
+    --color-base: var(--color-base-neutral90);
+    --color-light: var(--color-base-neutral80);
+    --color-lighter: var(--color-base-neutral80);
+    --button-secondary-bg-color: var(--color-custom10);
+    --button-secondary-bg-focus-color: var(--color-custom20);
+  }
 
   background-color: var(--background-color);
   color: var(--color-base);

@@ -1,6 +1,6 @@
 import { css } from "styled-components";
 import { pxToRem } from "@wdp/lib/theme/functions";
-import { fluidScale } from "theme/mixins";
+import { fluidScale } from "theme/mixins/base";
 import {
   baseColors,
   baseSansSerifFont,

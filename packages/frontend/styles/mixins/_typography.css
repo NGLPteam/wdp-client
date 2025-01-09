@@ -67,6 +67,14 @@
   letter-spacing: var(--letter-spacing-h3);
 }
 
+@define-mixin t-h4 {
+  font-family: var(--font-face-header);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-h4, 400);
+  line-height: var(--line-height-h4);
+  letter-spacing: var(--letter-spacing-h4);
+}
+
 @define-mixin t-h5 {
   font-family: var(--font-face-header);
   font-size: var(--font-size-h5);

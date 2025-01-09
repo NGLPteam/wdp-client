@@ -23,15 +23,15 @@
   grid-area: text;
 
   h1 {
-    @apply text-h2;
+    @mixin t-h2;
   }
 
   h2 {
-    @apply text-h3;
+    @mixin t-h3;
   }
 
   h3 {
-    @apply text-h4;
+    @mixin t-h4;
   }
 
   h4 {
