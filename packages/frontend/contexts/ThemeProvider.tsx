@@ -1,7 +1,11 @@
 "use client";
 
-import { PropsWithChildren } from "react";
-import { ThemeProvider as SCProvider } from "styled-components";
+import { PropsWithChildren, createContext, useContext } from "react";
+
+const ThemeContext = createContext<{ font?: string; color?: string }>({
+  font: undefined,
+  color: undefined,
+});
 
 export default function ThemeProvider({
   theme,
@@ -10,13 +14,17 @@ export default function ThemeProvider({
   theme?: { color: string; font: string };
 }) {
   return (
-    <SCProvider
-      theme={{
-        fontStyle: theme?.font,
-        colorStyle: theme?.color,
+    <ThemeContext.Provider
+      value={{
+        font: theme?.font,
+        color: theme?.color,
       }}
     >
       {children}
-    </SCProvider>
+    </ThemeContext.Provider>
   );
 }
+
+export const useTheme = () => {
+  return useContext(ThemeContext);
+};
