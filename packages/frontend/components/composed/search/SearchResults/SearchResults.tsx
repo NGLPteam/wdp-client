@@ -40,9 +40,7 @@ export default function SearchResults({ data, isLoading }: Props) {
         <>
           <ul>
             {results.nodes.map(({ entity }, i) => (
-              <li className={styles.item} key={i}>
-                <EntitySummary data={entity} />
-              </li>
+              <EntitySummary key={i} data={entity} />
             ))}
           </ul>
           <Pagination data={results.pageInfo} />
