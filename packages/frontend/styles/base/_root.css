@@ -34,10 +34,10 @@
   --color-custom10: theme("colors.custom.cream.10");
 
   /* base font styles */
-  --font-face-header: Ilisarniq, sans-serif;
+  --font-face-header: var(--font-ilisarniq), sans-serif;
   --font-size-h4: 20px;
   --line-height-h4: 24px;
-  --font-face-base: Ilisarniq, sans-serif;
+  --font-face-base: var(--font-ilisarniq), sans-serif;
   --font-size-base: 16px;
   --line-height-base: 22px;
   --font-size-base-sm: 14px;

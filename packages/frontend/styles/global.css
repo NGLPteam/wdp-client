@@ -6,6 +6,7 @@
 @import "base/_appearance.css" layer(meru-base);
 @import "base/_layout.css" layer(meru-base);
 @import "base/_typography.css" layer(meru-base);
+@import "base/_resets.css" layer(meru-base);
 
 @import "tailwindcss/components" layer(tw-components);
 
@@ -15,4 +16,4 @@
 @import "utilities/_layout.css" layer(meru-utilities);
 @import "utilities/_typography.css" layer(meru-utilities);
 
-@import "utilities/_theme.css" layer("meru-theme");
+@import "utilities/_theme.css" layer(meru-theme);
