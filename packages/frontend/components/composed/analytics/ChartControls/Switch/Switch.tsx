@@ -1,5 +1,6 @@
+import classNames from "classnames";
 import { useTranslation } from "react-i18next";
-import * as Styled from "./Switch.styles";
+import styles from "./Switch.module.css";
 
 type Props = {
   options: { label: string; value: string }[];
@@ -11,19 +12,21 @@ export default function Switch({ options, active, onClick }: Props) {
   const { t } = useTranslation();
 
   return (
-    <Styled.Wrapper>
+    <div className={styles.wrapper}>
       {options.map((option) => (
-        <Styled.SwitchButton
+        <button
           key={option.value}
-          $active={option.value === active}
+          className={classNames(styles.button, {
+            [styles["button--active"]]: option.value === active,
+          })}
           disabled={option.value === active}
           aria-disabled={option.value === active}
           tabIndex={option.value === active ? -1 : 0}
           onClick={() => onClick(option.value)}
         >
           {t(option.label)}
-        </Styled.SwitchButton>
+        </button>
       ))}
-    </Styled.Wrapper>
+    </div>
   );
 }

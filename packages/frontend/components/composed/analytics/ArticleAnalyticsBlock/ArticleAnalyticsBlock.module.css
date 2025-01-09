@@ -1,7 +1,4 @@
-import styled from "styled-components";
-import { respond } from "theme/mixins";
-
-export const Block = styled.div`
+.block {
   padding: var(--container-padding-md);
   display: grid;
   grid-template-columns: 200px repeat(3, 1fr);
@@ -16,8 +13,7 @@ export const Block = styled.div`
   overflow: hidden;
   max-width: 100%;
 
-  ${respond(
-    `
+  @mixin respond theme("screens.100") {
     grid-template-columns: 100%;
     grid-template-rows: auto;
     grid-template-areas:
@@ -25,18 +21,20 @@ export const Block = styled.div`
       "chart"
       "stats";
     gap: 30px;
-    `,
-    100,
-  )}
+  }
 
-  ${respond(`padding-inline: var(--container-padding-sm)`, 50)}
+  @mixin respond theme("screens.50") {
+    padding-inline: var(--container-padding-sm);
+  }
 
-  ${respond(`padding-inline: var(--container-padding-xs)`, 30)}
-`;
+  @mixin respond theme("screens.30") {
+    padding-inline: var(--container-padding-xs);
+  }
+}
 
-export const LoaderWrapper = styled.div`
+.loading {
   grid-area: chart;
   display: flex;
   justify-content: center;
   align-items: center;
-`;
+}
