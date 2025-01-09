@@ -5,7 +5,7 @@ import {
   ChartWrapperOptions,
 } from "react-google-charts";
 import { ThemeContext, DefaultTheme } from "styled-components";
-import { customColors } from "theme/base/variables";
+import { colors } from "styles/helpers.cjs";
 
 type Props = Partial<ReactGoogleChartProps> & Partial<ChartWrapperOptions>;
 
@@ -24,8 +24,8 @@ export default function GeoChart({
     fontStyle === "style1"
       ? "Ilisarniq"
       : fontStyle === "style2"
-        ? "Switzer"
-        : "Libre Franklin";
+      ? "Switzer"
+      : "Libre Franklin";
 
   const color = colorStyle as "blue" | "cream" | "gray";
 
@@ -36,15 +36,15 @@ export default function GeoChart({
     legend,
     datalessRegionColor: "#FFFFFF",
     defaultColor: "#FFFFFF",
-    backgroundColor: customColors[`${color}10`],
+    backgroundColor: colors.custom[`${color}`][10],
     colorAxis: {
       minValue: 1,
-      colors: [customColors[`${color}20`], customColors[`${color}70`]],
+      colors: [colors.custom[`${color}`][20], colors.custom[`${color}`][70]],
     },
     magnifyingGlass: { enable: false },
     tooltip: {
       textStyle: {
-        color: customColors[`${color}70`],
+        color: colors.custom[`${color}`][70],
         fontName,
       },
     },
