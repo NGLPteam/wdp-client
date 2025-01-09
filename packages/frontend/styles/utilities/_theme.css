@@ -1,21 +1,21 @@
 .theme-font-ilsarniq {
-  --font-face-header: Ilisarniq, sans-serif;
+  --font-face-header: var(--font-ilisarniq), sans-serif;
   --letter-spacing-h1: -1.5px;
   --letter-spacing-h2: -1px;
   --letter-spacing-h3: -0.5px;
-  --font-face-base: Ilisarniq, sans-serif;
+  --font-face-base: var(--font-ilisarniq), sans-serif;
   --letter-spacing-label-lg: 1.25px;
   --letter-spacing-label-sm: 1.25px;
   --letter-spacing-label-mix: 0.25px;
 }
 
 .theme-font-switzer {
-  --font-face-header: Switzer, sans-serif;
+  --font-face-header: var(--font-switzer), sans-serif;
   --letter-spacing-h1: 0.25;
   --letter-spacing-h2: 0.8;
   --letter-spacing-h3: 0.5px;
   --letter-spacing-h4: 0.5px;
-  --font-face-base: Switzer, sans-serif;
+  --font-face-base: var(--font-switzer), sans-serif;
   --letter-spacing-base: 0.5px;
   --letter-spacing-label-lg: 1.75px;
   --letter-spacing-label-sm: 1.75px;
@@ -23,12 +23,12 @@
 }
 
 .theme-font-sentient {
-  --font-face-header: Sentient, serif;
+  --font-face-header: var(--font-sentient), serif;
   --letter-spacing-h1: -0.75px;
   --letter-spacing-h2: -0.5px;
   --letter-spacing-h3: normal;
   --letter-spacing-h4: normal;
-  --font-face-base: Libre Franklin, serif;
+  --font-face-base: var(--font-libre-franklin), serif;
   --letter-spacing-base: 0.25px;
   --letter-spacing-base-sm: 0.25px;
   --font-size-label-lg: 13.5px;
