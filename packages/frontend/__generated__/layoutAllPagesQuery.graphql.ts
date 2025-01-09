@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1d26b796738a9ddbba064b8b41ef00bb>>
+ * @generated SignedSource<<f6d399e6e53b28947442c8cd9e70a009>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,12 +12,6 @@ import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type layoutAllPagesQuery$variables = Record<PropertyKey, never>;
 export type layoutAllPagesQuery$data = {
-  readonly globalConfiguration: {
-    readonly theme: {
-      readonly color: string;
-      readonly font: string;
-    };
-  };
   readonly " $fragmentSpreads": FragmentRefs<"ViewerContextFragment">;
 };
 export type layoutAllPagesQuery = {
@@ -25,40 +19,7 @@ export type layoutAllPagesQuery = {
   variables: layoutAllPagesQuery$variables;
 };
 
-const node: ConcreteRequest = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "ThemeSettings",
-  "kind": "LinkedField",
-  "name": "theme",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "color",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "font",
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-},
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-};
-return {
+const node: ConcreteRequest = {
   "fragment": {
     "argumentDefinitions": [],
     "kind": "Fragment",
@@ -69,18 +30,6 @@ return {
         "args": null,
         "kind": "FragmentSpread",
         "name": "ViewerContextFragment"
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "GlobalConfiguration",
-        "kind": "LinkedField",
-        "name": "globalConfiguration",
-        "plural": false,
-        "selections": [
-          (v0/*: any*/)
-        ],
-        "storageKey": null
       }
     ],
     "type": "Query",
@@ -175,36 +124,28 @@ return {
             ],
             "storageKey": null
           },
-          (v1/*: any*/)
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "GlobalConfiguration",
-        "kind": "LinkedField",
-        "name": "globalConfiguration",
-        "plural": false,
-        "selections": [
-          (v0/*: any*/),
-          (v1/*: any*/)
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "id",
+            "storageKey": null
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "d0389cdc26768636eb5212d714334315",
+    "cacheID": "5afe129887b661debc8b38452f2c9c5b",
     "id": null,
     "metadata": {},
     "name": "layoutAllPagesQuery",
     "operationKind": "query",
-    "text": "query layoutAllPagesQuery {\n  ...ViewerContextFragment\n  globalConfiguration {\n    theme {\n      color\n      font\n    }\n    id\n  }\n}\n\nfragment ViewerContextFragment on Query {\n  viewer {\n    name\n    allowedActions\n    uploadAccess\n    uploadToken\n    avatar {\n      small {\n        png {\n          url\n          alt\n        }\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query layoutAllPagesQuery {\n  ...ViewerContextFragment\n}\n\nfragment ViewerContextFragment on Query {\n  viewer {\n    name\n    allowedActions\n    uploadAccess\n    uploadToken\n    avatar {\n      small {\n        png {\n          url\n          alt\n        }\n      }\n    }\n    id\n  }\n}\n"
   }
 };
-})();
 
-(node as any).hash = "bf04e8c2e0aa28243433c9065d9a2201";
+(node as any).hash = "0cd5a50fe4eb7fa001840180c5ba70b0";
 
 export default node;

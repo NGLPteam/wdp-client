@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import { Chart } from "react-google-charts";
 import {
   ReactGoogleChartProps,
   ChartWrapperOptions,
 } from "react-google-charts";
-import { ThemeContext, DefaultTheme } from "styled-components";
 import { colors } from "styles/helpers.cjs";
+import { useTheme } from "@/contexts/ThemeProvider";
 
 type Props = Partial<ReactGoogleChartProps> &
   Partial<ChartWrapperOptions> & {
@@ -19,19 +18,11 @@ export default function LineColChart({
   legend = "none",
   chartType = "ColumnChart",
 }: Props) {
-  const { colorStyle, fontStyle } =
-    useContext<DefaultTheme | undefined>(ThemeContext) ?? {};
+  const { color: colorName } = useTheme();
 
   const handleZero = data?.length === 1 ? [...data, [0, 0]] : data;
 
-  const fontName =
-    fontStyle === "style1"
-      ? "Ilisarniq"
-      : fontStyle === "style2"
-      ? "Switzer"
-      : "Libre Franklin";
-
-  const color = colorStyle as "cream" | "blue" | "gray";
+  const color = (colorName as "cream" | "blue" | "gray") ?? "cream";
 
   const chartOptions = {
     curveType,
@@ -42,13 +33,13 @@ export default function LineColChart({
     tooltip: {
       textStyle: {
         color: colors.custom[`${color}`][70],
-        fontName,
+        fontName: "var(--font-face-base)",
       },
     },
     hAxis: {
       textStyle: {
         color: colors.custom[`${color}`][70],
-        fontName,
+        fontName: "var(--font-face-base)",
         bold: true,
       },
       slantedText: "automatic",
@@ -60,7 +51,7 @@ export default function LineColChart({
     vAxis: {
       textStyle: {
         color: colors.custom[`${color}`][70],
-        fontName,
+        fontName: "var(--font-face-base)",
         bold: true,
       },
       minValue: 0,
