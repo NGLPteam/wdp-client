@@ -35,10 +35,10 @@ export default function Search({
   return (
     <form
       onSubmit={handleSubmit(submitHandler)}
-      className={classNames(styles.form, "a-button-secondary-sm")}
+      className={classNames(styles.form)}
     >
       <label className={styles.label} htmlFor={id}>
-        <span className="a-hidden">{placeholder || t("search.label")}</span>
+        <span className="sr-only">{placeholder || t("search.label")}</span>
         <IconFactory icon="search" role="presentation" />
       </label>
       <input
@@ -50,7 +50,7 @@ export default function Search({
       />
       <button className={styles.submit} type="submit">
         <IconFactory icon="arrowRight" role="presentation" />
-        <span className="a-hidden">{t("search.submit")}</span>
+        <span className="sr-only">{t("search.submit")}</span>
       </button>
     </form>
   );

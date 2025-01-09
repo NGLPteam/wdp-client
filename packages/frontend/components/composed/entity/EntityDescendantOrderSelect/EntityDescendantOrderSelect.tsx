@@ -26,7 +26,7 @@ export default function EntityDescendantOrderSelect() {
 
   return (
     <div>
-      <label className="a-hidden" htmlFor="order">
+      <label className="sr-only" htmlFor="order">
         {t("list.order_by_label")}
       </label>
       <Select

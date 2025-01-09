@@ -22,7 +22,7 @@ function Select(
   return (
     <div className={className}>
       {label && (
-        <Label htmlFor={id} className={hideLabel && "a-hidden"}>
+        <Label htmlFor={id} className={hideLabel && "sr-only"}>
           {label}
         </Label>
       )}
