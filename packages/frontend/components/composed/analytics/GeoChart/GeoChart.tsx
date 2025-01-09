@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import { Chart } from "react-google-charts";
 import {
   ReactGoogleChartProps,
   ChartWrapperOptions,
 } from "react-google-charts";
-import { ThemeContext, DefaultTheme } from "styled-components";
 import { colors } from "styles/helpers.cjs";
+import { useTheme } from "@/contexts/ThemeProvider";
 
 type Props = Partial<ReactGoogleChartProps> & Partial<ChartWrapperOptions>;
 
@@ -17,17 +16,9 @@ export default function GeoChart({
   displayMode = "regions",
   legend = "none",
 }: Props) {
-  const { colorStyle, fontStyle } =
-    useContext<DefaultTheme | undefined>(ThemeContext) ?? {};
+  const { color: colorName } = useTheme();
 
-  const fontName =
-    fontStyle === "style1"
-      ? "Ilisarniq"
-      : fontStyle === "style2"
-      ? "Switzer"
-      : "Libre Franklin";
-
-  const color = colorStyle as "blue" | "cream" | "gray";
+  const color = (colorName as "blue" | "cream" | "gray") ?? "cream";
 
   const chartOptions = {
     region,
@@ -45,7 +36,7 @@ export default function GeoChart({
     tooltip: {
       textStyle: {
         color: colors.custom[`${color}`][70],
-        fontName,
+        fontName: "var(--font-face-base)",
       },
     },
   };

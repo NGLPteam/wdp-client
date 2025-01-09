@@ -2,7 +2,6 @@ import { graphql } from "relay-runtime";
 import { PropsWithChildren } from "react";
 import getStaticGlobalContextData from "contexts/GlobalStaticContext/getStaticGlobalContextData";
 import { GlobalStaticContextProvider } from "contexts/GlobalStaticContext/GlobalStaticContext";
-import ThemeProvider from "contexts/ThemeProvider";
 import { Metadata } from "next";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import RelayEnvironmentProvider from "@/lib/relay/RelayClientEnvProvider";
@@ -14,7 +13,7 @@ import { BasePageParams } from "@/types/page";
 import generateSiteMetadata from "./_metadata/site";
 
 export async function generateMetadata(
-  props: BasePageParams
+  props: BasePageParams,
 ): Promise<Metadata> {
   return generateSiteMetadata(props);
 }
@@ -24,15 +23,13 @@ export default async function PageLayout({ children }: PropsWithChildren) {
 
   const { data, records } = await fetchQuery<Query>(query, {});
 
-  const theme = data?.globalConfiguration?.theme;
-
   return (
     <SessionProvider>
       <GlobalStaticContextProvider globalData={globalData}>
         <RelayEnvironmentProvider>
           <ViewerContextProvider data={data}>
             <UpdateClientEnvironment records={records}>
-              <ThemeProvider theme={theme}>{children}</ThemeProvider>
+              {children}
             </UpdateClientEnvironment>
           </ViewerContextProvider>
         </RelayEnvironmentProvider>
@@ -46,11 +43,5 @@ export const dynamic = "force-dynamic";
 const query = graphql`
   query layoutAllPagesQuery {
     ...ViewerContextFragment
-    globalConfiguration {
-      theme {
-        color
-        font
-      }
-    }
   }
 `;
