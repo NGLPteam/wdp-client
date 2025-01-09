@@ -10,7 +10,7 @@ type Props = {
 
 const DateRangeDisclosure = (
   { active, ...props }: Props,
-  _ref: MaybeButtonRef
+  _ref: MaybeButtonRef,
 ) => {
   const { t } = useTranslation();
 
