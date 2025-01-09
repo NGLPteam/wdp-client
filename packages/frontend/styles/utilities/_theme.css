@@ -48,6 +48,8 @@
   --color-custom60: theme("colors.custom.cream.60");
   --color-custom20: theme("colors.custom.cream.20");
   --color-custom10: theme("colors.custom.cream.10");
+  --box-shadow-theme: 0 0.01em 0 0 var(--color-light),
+    inset 0 -0.06em 0 0 var(--color-light);
 }
 
 .theme-custom-blue {
@@ -56,6 +58,8 @@
   --color-custom60: theme("colors.custom.blue.60");
   --color-custom20: theme("colors.custom.blue.20");
   --color-custom10: theme("colors.custom.blue.10");
+  --box-shadow-theme: inset 0 -0.07em 0 0 var(--background-color),
+    inset 0 -0.14em 0 0 var(--color-light);
 }
 
 .theme-custom-gray {
@@ -64,4 +68,6 @@
   --color-custom60: theme("colors.custom.gray.60");
   --color-custom20: theme("colors.custom.gray.20");
   --color-custom10: theme("colors.custom.gray.10");
+  --box-shadow-theme: inset 0 -0.11em 0 0 var(--background-color),
+    inset 0 -0.18em 0 0 var(--color-light);
 }

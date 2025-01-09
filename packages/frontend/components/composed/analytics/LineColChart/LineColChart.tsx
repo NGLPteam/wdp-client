@@ -5,7 +5,7 @@ import {
   ChartWrapperOptions,
 } from "react-google-charts";
 import { ThemeContext, DefaultTheme } from "styled-components";
-import { customColors } from "theme/base/variables";
+import { colors } from "styles/helpers.cjs";
 
 type Props = Partial<ReactGoogleChartProps> &
   Partial<ChartWrapperOptions> & {
@@ -28,26 +28,26 @@ export default function LineColChart({
     fontStyle === "style1"
       ? "Ilisarniq"
       : fontStyle === "style2"
-        ? "Switzer"
-        : "Libre Franklin";
+      ? "Switzer"
+      : "Libre Franklin";
 
   const color = colorStyle as "cream" | "blue" | "gray";
 
   const chartOptions = {
     curveType,
     legend,
-    backgroundColor: customColors[`${color}10`],
-    colors: [customColors[`${color}70`]],
+    backgroundColor: colors.custom[`${color}`][10],
+    colors: [colors.custom[`${color}`][70]],
     explorer: null,
     tooltip: {
       textStyle: {
-        color: customColors[`${color}70`],
+        color: colors.custom[`${color}`][70],
         fontName,
       },
     },
     hAxis: {
       textStyle: {
-        color: customColors[`${color}70`],
+        color: colors.custom[`${color}`][70],
         fontName,
         bold: true,
       },
@@ -59,7 +59,7 @@ export default function LineColChart({
     },
     vAxis: {
       textStyle: {
-        color: customColors[`${color}70`],
+        color: colors.custom[`${color}`][70],
         fontName,
         bold: true,
       },

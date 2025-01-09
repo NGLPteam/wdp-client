@@ -1,0 +1,14 @@
+hr {
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+}
+
+input::-webkit-search-cancel-button {
+  appearance: none;
+  cursor: pointer;
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  background: url() center no-repeat;
+  background-size: cover;
+}

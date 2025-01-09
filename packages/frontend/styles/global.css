@@ -1,16 +1,18 @@
-@layer tw-base, styled-components, meru-base, tw-components, meru-utilities, meru-components, tw-utilities;
+@layer tw-base, styled-components, meru-base, tw-components, meru-utilities, meru-components, meru-theme, tw-utilities;
 
 @import "tailwindcss/base" layer(tw-base);
+
 @import "base/_root.css" layer(meru-base);
-/* @import "base/_appearance.css"; */
+@import "base/_appearance.css" layer(meru-base);
 @import "base/_layout.css" layer(meru-base);
-/* @import "base/_typography.css"; */
+@import "base/_typography.css" layer(meru-base);
 
 @import "tailwindcss/components" layer(tw-components);
-/* @import "modules/index.css"; */
 
 @import "tailwindcss/utilities" layer(tw-utilities);
+
 @import "utilities/_appearance.css" layer(meru-utilities);
 @import "utilities/_layout.css" layer(meru-utilities);
 @import "utilities/_typography.css" layer(meru-utilities);
-/* @import "utilities/_state.css"; */
+
+@import "utilities/_theme.css" layer("meru-theme");
