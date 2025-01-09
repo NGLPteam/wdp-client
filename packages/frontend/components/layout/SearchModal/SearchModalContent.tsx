@@ -32,7 +32,7 @@ export default function SearchModalContent({ searchData, register }: Props) {
           htmlFor={selectId}
           className={classNames(
             "t-label-mix a-color-lighter",
-            styles.selectLabel
+            styles.selectLabel,
           )}
         >
           {t("search.search_area_label")}

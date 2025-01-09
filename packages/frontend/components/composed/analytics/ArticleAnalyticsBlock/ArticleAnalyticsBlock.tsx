@@ -59,7 +59,7 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
         return;
       });
     },
-    [startTransition, refetch]
+    [startTransition, refetch],
   );
 
   const [settings, dispatchSettingsUpdate] = useReducer<
@@ -109,12 +109,12 @@ export default function ArticleAnalyticsBlock({ data }: Props) {
 
 const fragment = graphql`
   fragment ArticleAnalyticsBlockFragment on Item
-    @refetchable(queryName: "ArticleAnalyticsBlockQuery")
-    @argumentDefinitions(
-      dateRange: { type: "DateFilterInput", defaultValue: {} }
-      precision: { type: "AnalyticsPrecision", defaultValue: YEAR }
-      usOnly: { type: "Boolean", defaultValue: false }
-    ) {
+  @refetchable(queryName: "ArticleAnalyticsBlockQuery")
+  @argumentDefinitions(
+    dateRange: { type: "DateFilterInput", defaultValue: {} }
+    precision: { type: "AnalyticsPrecision", defaultValue: YEAR }
+    usOnly: { type: "Boolean", defaultValue: false }
+  ) {
     downloadsByDate: assetDownloads(
       dateFilter: $dateRange
       precision: $precision
