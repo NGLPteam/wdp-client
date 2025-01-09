@@ -10,7 +10,7 @@ export default function SearchModalContent({ searchData, register }: Props) {
   const { t } = useTranslation();
 
   const breadcrumbs =
-    searchData?.breadcrumbs && searchData.breadcrumbs.length > 0
+    searchData?.breadcrumbs && searchData.breadcrumbs?.length > 0
       ? [...searchData.breadcrumbs]
           .reverse()
           .filter((entity) => entity?.crumb?.__typename !== "Item")
@@ -32,7 +32,7 @@ export default function SearchModalContent({ searchData, register }: Props) {
           htmlFor={selectId}
           className={classNames(
             "t-label-mix a-color-lighter",
-            styles.selectLabel,
+            styles.selectLabel
           )}
         >
           {t("search.search_area_label")}
@@ -46,7 +46,8 @@ export default function SearchModalContent({ searchData, register }: Props) {
             <option value={defaultValue}>{searchData.title}</option>
           )}
           {breadcrumbs &&
-            breadcrumbs.map(({ crumb }) => {
+            breadcrumbs.map((item) => {
+              const { crumb } = item ?? {};
               const { __typename, slug, title } = crumb ?? {};
               return (
                 <option
