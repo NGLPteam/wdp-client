@@ -1,33 +1,27 @@
-import styled from "styled-components";
-import { tLabel, aFocus, respond } from "theme/mixins";
-import { transition } from "theme/base/variables";
-
-export const Wrapper = styled.div`
+.wrapper {
   display: flex;
   border: 1px solid var(--color-custom70);
   border-radius: 78px;
   height: 32px;
   width: auto;
 
-  ${respond(`width: 100%;`, 100)}
-`;
+  @mixin respond theme("screens.100") {
+    width: 100%;
+  }
+}
 
-export const SwitchButton = styled.button<{ $active?: boolean }>`
-  ${tLabel("mix")}
+.button {
+  @mixin t-label-mix;
   white-space: nowrap;
-  transition: ${transition.color}, ${transition.background},
-    ${transition.opacity};
+  transition: color 170ms ease-in, background 170ms ease-in,
+    opacity 170ms ease-in;
+  background-color: var(--color-base-neutral00);
+  color: var(--color-custom70);
 
-  ${({ $active }) =>
-    $active
-      ? `
-      background-color: var(--color-custom70);
-      color: var(--color-base-neutral00);
-      `
-      : `
-      background-color: var(--color-base-neutral00);
-      color: var(--color-custom70);
-      `}
+  &--active {
+    background-color: var(--color-custom70);
+    color: var(--color-base-neutral00);
+  }
 
   &:first-child {
     border-top-right-radius: 0;
@@ -56,10 +50,13 @@ export const SwitchButton = styled.button<{ $active?: boolean }>`
     color: var(--color-base-neutral00);
   }
 
-  ${aFocus(`
+  &:focus-visible {
+    outline: none;
     background: var(--color-custom20);
     z-index: 10;
-  `)}
+  }
 
-  ${respond(`width: 50%;`, 100)}
-`;
+  @mixin respond theme("screens.100") {
+    width: 50%;
+  }
+}

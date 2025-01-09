@@ -1,10 +1,11 @@
+import classNames from "classnames";
 import { useCallback } from "react";
 import { format, parseISO } from "date-fns";
 import { useIsMounted } from "@wdp/lib/hooks";
 import { ArticleAnalyticsBlockFragment$data } from "@/relay/ArticleAnalyticsBlockFragment.graphql";
 import GeoChart from "../GeoChart";
 import LineColChart from "../LineColChart";
-import * as Styled from "./ChartBlock.styles";
+import styles from "./ChartBlock.module.css";
 
 type Props = {
   data: ArticleAnalyticsBlockFragment$data;
@@ -47,7 +48,7 @@ export default function ChartBlock({
           obj[countryCode] = count;
           return obj;
         },
-        {},
+        {}
       );
 
       return [
@@ -58,7 +59,7 @@ export default function ChartBlock({
         ]),
       ];
     },
-    [mode, region],
+    [mode, region]
   );
 
   const formatLineChartData = useCallback(
@@ -87,18 +88,22 @@ export default function ChartBlock({
         ]),
       ];
     },
-    [mode, precision],
+    [mode, precision]
   );
 
   const isMounted = useIsMounted();
 
   return isMounted && data ? (
-    <Styled.ChartWrapper $type={chartType}>
+    <div
+      className={classNames(styles.wrapper, {
+        [styles["wrapper--chart"]]: chartType !== "map",
+      })}
+    >
       {chartType === "map" ? (
         <GeoChart data={formatMapData(data)} region={region} />
       ) : (
         <LineColChart data={formatLineChartData(data)} />
       )}
-    </Styled.ChartWrapper>
+    </div>
   ) : null;
 }

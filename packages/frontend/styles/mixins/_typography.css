@@ -43,18 +43,34 @@
   text-overflow: ellipsis;
 }
 
+@define-mixin t-h1 {
+  font-family: var(--font-face-header);
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-h1, 400);
+  line-height: var(--line-height-h1);
+  letter-spacing: var(--letter-spacing-h1);
+}
+
+@define-mixin t-h2 {
+  font-family: var(--font-face-header);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-h2, 400);
+  line-height: var(--line-height-h2);
+  letter-spacing: var(--letter-spacing-h2);
+}
+
 @define-mixin t-h3 {
   font-family: var(--font-face-header);
   font-size: var(--font-size-h3);
   font-weight: var(--font-weight-h3, 400);
-  line-height: var(--line-height-h3});
-  letter-spacing: var(--letter-spacing-h3});
+  line-height: var(--line-height-h3);
+  letter-spacing: var(--letter-spacing-h3);
 }
 
 @define-mixin t-h5 {
   font-family: var(--font-face-header);
   font-size: var(--font-size-h5);
   font-weight: var(--font-weight-h5, 400);
-  line-height: var(--line-height-h5});
-  letter-spacing: var(--letter-spacing-h5});
+  line-height: var(--line-height-h5);
+  letter-spacing: var(--letter-spacing-h5);
 }
