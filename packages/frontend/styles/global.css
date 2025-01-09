@@ -1,8 +1,8 @@
-@layer tw-base, styled-components, meru-base, tw-components, meru-components, tw-utilities, meru-utilities;
+@layer tw-base, styled-components, meru-base, tw-components, meru-utilities, meru-components, tw-utilities;
 
 @import "tailwindcss/base" layer(tw-base);
-/* @import "base/_root.css";
-@import "base/_appearance.css"; */
+@import "base/_root.css" layer(meru-base);
+/* @import "base/_appearance.css"; */
 @import "base/_layout.css" layer(meru-base);
 /* @import "base/_typography.css"; */
 
