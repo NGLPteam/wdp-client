@@ -22,6 +22,11 @@
   --color-base-redAA: theme("colors.red.DEFAULT");
   --color-base-redTint: theme("colors.red.tint");
 
+  --color-base-blueDark: theme("colors.blue.dark");
+  --color-base-blueAlert: theme("colors.blue.alert");
+  --color-base-blueAA: theme("colors.blue.DEFAULT");
+  --color-base-blueTint: theme("colors.blue.tint");
+
   --color-base: theme("colors.neutral.90");
   --color-light: theme("colors.neutral.80");
   --color-lighter: theme("colors.neutral.70");

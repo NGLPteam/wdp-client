@@ -1,3 +1,7 @@
+.a-bg-custom10 {
+  @mixin a-bg-custom10;
+}
+
 .a-bg-neutral00 {
   @mixin a-bg-neutral00;
 }
@@ -8,14 +12,6 @@
 
 .a-bg-neutral90 {
   @mixin a-bg-neutral90;
-}
-
-.a-bg-custom10 {
-  @mixin a-bg-custom10;
-}
-
-.a-bg-custom20 {
-  @mixin a-bg-custom20;
 }
 
 .a-link {
@@ -41,4 +37,8 @@
 
 .a-color-lighter {
   color: var(--color-lighter);
+}
+
+.a-bg-custom20 {
+  @mixin a-bg-custom20;
 }
