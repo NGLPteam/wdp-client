@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1ab7c409208098691bbedae389c796b4>>
+ * @generated SignedSource<<e77fc01092972adb00ff2104a3c2fc09>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,6 +17,7 @@ export type PagesTemplateFragment$data = {
   readonly entity: {
     readonly " $fragmentSpreads": FragmentRefs<"ListPagesTemplateFragment">;
   };
+  readonly hidden: boolean;
   readonly pagesDefinition: {
     readonly background: PageListBackground | null | undefined;
     readonly width: TemplateWidth | null | undefined;
@@ -39,6 +40,13 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "__typename",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "hidden",
       "storageKey": null
     },
     {
@@ -87,6 +95,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "c1fbd70c33fbe40fedb9d09b31c84bff";
+(node as any).hash = "ce124d3e7416797ffc0f6476678519a3";
 
 export default node;

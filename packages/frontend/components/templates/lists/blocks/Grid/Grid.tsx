@@ -29,6 +29,7 @@ export default function GridListBlock({
     showHeroImage,
     width,
     showContributors,
+    showEntityContext,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
   const { selectionPropertyPath, orderingIdentifier } =
@@ -62,6 +63,7 @@ export default function GridListBlock({
         bgColor={background}
         items={listItemLayouts}
         showContributors={showContributors}
+        showContext={showEntityContext}
       />
       {!!showSeeAllButton && !!seeAllHref && (
         <SeeAll
