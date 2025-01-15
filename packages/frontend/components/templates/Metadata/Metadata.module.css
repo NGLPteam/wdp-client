@@ -4,14 +4,17 @@
 }
 
 .list {
+  --grid-col-count: 4;
+
   @mixin l-grid;
 
   padding-block-start: var(--padding-xl);
-  grid-row-gap: 0.5rem;
-  grid-column-gap: var(--padding-md);
+  grid-column-gap: var(--padding-xl);
+  grid-row-gap: var(--padding-lg);
   grid-template-rows: repeat(8, auto);
 
   @mixin respond theme("screens.100") {
+    --grid-col-count: 2;
     grid-row-gap: var(--padding-lg);
   }
 

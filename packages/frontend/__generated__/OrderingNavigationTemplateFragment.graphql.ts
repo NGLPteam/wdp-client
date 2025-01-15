@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<25e5003dd4d64d98f382d0957893bd81>>
+ * @generated SignedSource<<1aaac8033e9a3a11edc698b797126369>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,6 +17,9 @@ export type OrderingNavigationTemplateFragment$data = {
   readonly orderingDefinition: {
     readonly background: OrderingBackground | null | undefined;
     readonly width: TemplateWidth | null | undefined;
+  };
+  readonly orderingPair: {
+    readonly exists: boolean;
   };
   readonly " $fragmentSpreads": FragmentRefs<"NavButtonsFragment">;
   readonly " $fragmentType": "OrderingNavigationTemplateFragment";
@@ -65,6 +68,24 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
+      "concreteType": "TemplateOrderingPair",
+      "kind": "LinkedField",
+      "name": "orderingPair",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "exists",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "NavButtonsFragment"
@@ -74,6 +95,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "be006586dc17cb6960b9a5648481d54b";
+(node as any).hash = "b81bb3a9439a37c712ca8267a0ff04e7";
 
 export default node;

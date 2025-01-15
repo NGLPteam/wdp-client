@@ -29,7 +29,11 @@ export default function MetadataTemplate({
   const itemsD = useSharedBlockFragment(slots?.itemsD);
 
   const canRender =
-    itemsA?.valid || itemsB?.valid || itemsC?.valid || itemsD?.valid;
+    header?.valid ||
+    itemsA?.valid ||
+    itemsB?.valid ||
+    itemsC?.valid ||
+    itemsD?.valid;
 
   return canRender ? (
     <Container className={styles.container} bgColor={definition?.background}>
@@ -41,26 +45,10 @@ export default function MetadataTemplate({
         )}
       </h3>
       <dl className={styles.list}>
-        {itemsA?.valid && (
-          <div className={styles.column}>
-            <BlockSlotWrapper content={itemsA.content} />
-          </div>
-        )}
-        {itemsB?.valid && (
-          <div className={styles.column}>
-            <BlockSlotWrapper content={itemsB.content} />
-          </div>
-        )}
-        {itemsC?.valid && (
-          <div className={styles.column}>
-            <BlockSlotWrapper content={itemsC.content} />
-          </div>
-        )}
-        {itemsD?.valid && (
-          <div className={styles.column}>
-            <BlockSlotWrapper content={itemsD.content} />
-          </div>
-        )}
+        {itemsA?.valid && <BlockSlotWrapper content={itemsA.content} />}
+        {itemsB?.valid && <BlockSlotWrapper content={itemsB.content} />}
+        {itemsC?.valid && <BlockSlotWrapper content={itemsC.content} />}
+        {itemsD?.valid && <BlockSlotWrapper content={itemsD.content} />}
       </dl>
     </Container>
   ) : (

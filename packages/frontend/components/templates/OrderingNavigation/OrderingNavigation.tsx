@@ -10,11 +10,11 @@ export default function OrderingNavigationTemplate({
 }) {
   const template = useFragment(fragment, data);
 
-  const { orderingDefinition, hidden } = template ?? {};
+  const { orderingDefinition, orderingPair } = template ?? {};
 
   const { background, width } = orderingDefinition ?? {};
 
-  return !hidden ? (
+  return orderingPair?.exists ? (
     <Container bgColor={background} halfWidthTemplate={width === "HALF"}>
       <NavButtons data={template} />
     </Container>
@@ -27,6 +27,9 @@ const fragment = graphql`
     orderingDefinition: definition {
       background
       width
+    }
+    orderingPair {
+      exists
     }
     ...NavButtonsFragment
   }

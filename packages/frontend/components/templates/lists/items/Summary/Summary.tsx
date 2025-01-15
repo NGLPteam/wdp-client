@@ -38,7 +38,6 @@ export default function SummaryListItem({
 
   const href = `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`;
 
-  // Currently, we're only using a single line contextA
   const context = isNested ? contextAbbr : contextFull;
   const contextVisible = showContext && context?.valid && !!context.content;
 
