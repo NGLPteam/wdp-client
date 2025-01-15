@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a98f5ffa0a020b068d9192b6c2d6cb9b>>
+ * @generated SignedSource<<3d505ac092a90d336ec500cb27886d69>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -65,13 +65,13 @@ export type sharedListItemTemplateFragment$data = {
     readonly __typename: "%other";
   };
   readonly slots: {
-    readonly contextA: {
-      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
-    } | null | undefined;
-    readonly contextB: {
+    readonly contextAbbr: {
       readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
     } | null | undefined;
     readonly contextC: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+    } | null | undefined;
+    readonly contextFull: {
       readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
     } | null | undefined;
     readonly description: {
@@ -303,7 +303,7 @@ return {
           "args": null,
           "concreteType": "TemplateSlotInlineInstance",
           "kind": "LinkedField",
-          "name": "contextA",
+          "name": "contextFull",
           "plural": false,
           "selections": (v8/*: any*/),
           "storageKey": null
@@ -313,7 +313,7 @@ return {
           "args": null,
           "concreteType": "TemplateSlotInlineInstance",
           "kind": "LinkedField",
-          "name": "contextB",
+          "name": "contextAbbr",
           "plural": false,
           "selections": (v8/*: any*/),
           "storageKey": null
@@ -393,6 +393,6 @@ return {
 };
 })();
 
-(node as any).hash = "3bb8546244736c7241291f034ee6b7de";
+(node as any).hash = "6aa2fe33557ef4098e3c8fc66dd4caaf";
 
 export default node;

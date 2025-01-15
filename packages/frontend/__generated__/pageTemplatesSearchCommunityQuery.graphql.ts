@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4126136a43cedc7743b0abbc792c5f3a>>
+ * @generated SignedSource<<3bf19569d604ceb511654723ed37988d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -391,37 +391,47 @@ v22 = {
   ],
   "storageKey": null
 },
-v23 = [
+v23 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "content",
+  "storageKey": null
+},
+v24 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "kind",
+  "storageKey": null
+},
+v25 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "valid",
+  "storageKey": null
+},
+v26 = [
+  (v23/*: any*/),
+  (v24/*: any*/),
+  (v25/*: any*/),
   {
     "alias": null,
     "args": null,
     "kind": "ScalarField",
-    "name": "content",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "kind",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "valid",
+    "name": "hidesTemplate",
     "storageKey": null
   }
 ],
-v24 = {
+v27 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "searchPath",
   "storageKey": null
 },
-v25 = {
+v28 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -435,28 +445,28 @@ v25 = {
   "type": "ScalarProperty",
   "abstractKey": "__isScalarProperty"
 },
-v26 = {
+v29 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "label",
   "storageKey": null
 },
-v27 = {
+v30 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "description",
   "storageKey": null
 },
-v28 = {
+v31 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "searchOperators",
   "storageKey": null
 },
-v29 = {
+v32 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -467,7 +477,7 @@ v29 = {
       "name": "options",
       "plural": true,
       "selections": [
-        (v26/*: any*/),
+        (v29/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -689,9 +699,9 @@ return {
                                                     "args": null,
                                                     "concreteType": "TemplateSlotInlineInstance",
                                                     "kind": "LinkedField",
-                                                    "name": "contextA",
+                                                    "name": "contextFull",
                                                     "plural": false,
-                                                    "selections": (v23/*: any*/),
+                                                    "selections": (v26/*: any*/),
                                                     "storageKey": null
                                                   },
                                                   {
@@ -699,9 +709,9 @@ return {
                                                     "args": null,
                                                     "concreteType": "TemplateSlotInlineInstance",
                                                     "kind": "LinkedField",
-                                                    "name": "contextB",
+                                                    "name": "contextAbbr",
                                                     "plural": false,
-                                                    "selections": (v23/*: any*/),
+                                                    "selections": (v26/*: any*/),
                                                     "storageKey": null
                                                   },
                                                   {
@@ -711,7 +721,7 @@ return {
                                                     "kind": "LinkedField",
                                                     "name": "contextC",
                                                     "plural": false,
-                                                    "selections": (v23/*: any*/),
+                                                    "selections": (v26/*: any*/),
                                                     "storageKey": null
                                                   },
                                                   {
@@ -721,7 +731,11 @@ return {
                                                     "kind": "LinkedField",
                                                     "name": "description",
                                                     "plural": false,
-                                                    "selections": (v23/*: any*/),
+                                                    "selections": [
+                                                      (v23/*: any*/),
+                                                      (v24/*: any*/),
+                                                      (v25/*: any*/)
+                                                    ],
                                                     "storageKey": null
                                                   },
                                                   {
@@ -731,7 +745,7 @@ return {
                                                     "kind": "LinkedField",
                                                     "name": "header",
                                                     "plural": false,
-                                                    "selections": (v23/*: any*/),
+                                                    "selections": (v26/*: any*/),
                                                     "storageKey": null
                                                   },
                                                   {
@@ -741,7 +755,7 @@ return {
                                                     "kind": "LinkedField",
                                                     "name": "metaA",
                                                     "plural": false,
-                                                    "selections": (v23/*: any*/),
+                                                    "selections": (v26/*: any*/),
                                                     "storageKey": null
                                                   },
                                                   {
@@ -751,7 +765,7 @@ return {
                                                     "kind": "LinkedField",
                                                     "name": "metaB",
                                                     "plural": false,
-                                                    "selections": (v23/*: any*/),
+                                                    "selections": (v26/*: any*/),
                                                     "storageKey": null
                                                   },
                                                   {
@@ -761,7 +775,7 @@ return {
                                                     "kind": "LinkedField",
                                                     "name": "subheader",
                                                     "plural": false,
-                                                    "selections": (v23/*: any*/),
+                                                    "selections": (v26/*: any*/),
                                                     "storageKey": null
                                                   }
                                                 ],
@@ -835,12 +849,12 @@ return {
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          (v24/*: any*/),
-                          (v25/*: any*/),
-                          (v26/*: any*/),
                           (v27/*: any*/),
                           (v28/*: any*/),
-                          (v29/*: any*/)
+                          (v29/*: any*/),
+                          (v30/*: any*/),
+                          (v31/*: any*/),
+                          (v32/*: any*/)
                         ],
                         "type": "SearchableProperty",
                         "abstractKey": "__isSearchableProperty"
@@ -889,12 +903,12 @@ return {
                           {
                             "kind": "InlineFragment",
                             "selections": [
-                              (v24/*: any*/),
-                              (v26/*: any*/),
-                              (v25/*: any*/),
                               (v27/*: any*/),
+                              (v29/*: any*/),
                               (v28/*: any*/),
-                              (v29/*: any*/)
+                              (v30/*: any*/),
+                              (v31/*: any*/),
+                              (v32/*: any*/)
                             ],
                             "type": "SearchableProperty",
                             "abstractKey": "__isSearchableProperty"
@@ -922,12 +936,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1828d1a13654fefab76a6c27ac679868",
+    "cacheID": "fcfb1c594ec27712c74fbe499cff1878",
     "id": null,
     "metadata": {},
     "name": "pageTemplatesSearchCommunityQuery",
     "operationKind": "query",
-    "text": "query pageTemplatesSearchCommunityQuery(\n  $slug: Slug!\n  $query: String\n  $predicates: [SearchPredicateInput!]\n  $page: Int\n  $order: EntityOrder\n  $schema: [String!]\n) {\n  community(slug: $slug) {\n    ...SearchLayoutEntityFragment_dJrY9\n    id\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on Paginated {\n  __isPaginated: __typename\n  ... on ItemContributionConnection {\n    nodes {\n      role\n      contributor {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n  ... on CollectionContributionConnection {\n    nodes {\n      role\n      contributor {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment EntitySummaryFragment on Entity {\n  __isEntity: __typename\n  __typename\n  layouts {\n    listItem {\n      template {\n        ...sharedListItemTemplateFragment\n        id\n      }\n      id\n    }\n  }\n}\n\nfragment PaginationFragment on PageInfo {\n  page\n  pageCount\n}\n\nfragment SearchFilterBooleanFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterDateFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  ... on ScalarProperty {\n    __isScalarProperty: __typename\n    type\n  }\n  ...SearchFilterInputFragment\n  ...SearchFilterSelectFragment\n  ...SearchFilterDateFragment\n  ...SearchFilterNumberFragment\n  ...SearchFilterBooleanFragment\n}\n\nfragment SearchFilterInputFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterNumberFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterSelectFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n  ... on SelectProperty {\n    options {\n      label\n      value\n    }\n  }\n}\n\nfragment SearchFiltersFragment on SearchScope {\n  coreProperties {\n    ... on SearchableProperty {\n      __isSearchableProperty: __typename\n      searchPath\n    }\n    ...SearchFilterFragment\n  }\n  ...SearchSchemaFilterFragment\n  schemas: availableSchemaVersions {\n    searchableProperties {\n      __typename\n      ... on SearchableProperty {\n        __isSearchableProperty: __typename\n        searchPath\n        label\n      }\n      ...SearchFilterFragment\n    }\n    id\n  }\n}\n\nfragment SearchLayoutEntityFragment_dJrY9 on Entity {\n  __isEntity: __typename\n  search {\n    results(query: $query, page: $page, perPage: 20, predicates: $predicates, order: $order, schema: $schema) {\n      ...SearchResultsFragment\n    }\n    ...SearchFiltersFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n}\n\nfragment SearchResultsFragment on SearchResultConnection {\n  nodes {\n    entity {\n      __typename\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n      ...EntitySummaryFragment\n    }\n    id\n  }\n  pageInfo {\n    totalCount\n    ...PaginationFragment\n  }\n}\n\nfragment SearchSchemaFilterFragment on SearchScope {\n  schemas: availableSchemaVersions {\n    name\n    schemaDefinition {\n      slug\n      id\n    }\n    id\n  }\n}\n\nfragment sharedBlockSlotFragment on TemplateSlotBlockInstance {\n  content\n  kind\n  valid\n}\n\nfragment sharedInlineSlotFragment on TemplateSlotInlineInstance {\n  content\n  kind\n  valid\n}\n\nfragment sharedListItemTemplateFragment on ListItemTemplateInstance {\n  entity {\n    __typename\n    ... on Collection {\n      __typename\n      id\n      slug\n      title\n      thumbnail {\n        image: large {\n          webp {\n            url\n          }\n        }\n        ...CoverImageFragment\n      }\n      contributions {\n        ...ContributorsListFragment\n      }\n      heroImage {\n        image: large {\n          webp {\n            alt\n            url\n          }\n        }\n      }\n    }\n    ... on Item {\n      __typename\n      id\n      slug\n      title\n      thumbnail {\n        image: large {\n          webp {\n            url\n          }\n        }\n        ...CoverImageFragment\n      }\n      contributions {\n        ...ContributorsListFragment\n      }\n      heroImage {\n        image: large {\n          webp {\n            alt\n            url\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  slots {\n    contextA {\n      ...sharedInlineSlotFragment\n    }\n    contextB {\n      ...sharedInlineSlotFragment\n    }\n    contextC {\n      ...sharedInlineSlotFragment\n    }\n    description {\n      ...sharedBlockSlotFragment\n    }\n    header {\n      ...sharedInlineSlotFragment\n    }\n    metaA {\n      ...sharedInlineSlotFragment\n    }\n    metaB {\n      ...sharedInlineSlotFragment\n    }\n    subheader {\n      ...sharedInlineSlotFragment\n    }\n  }\n}\n"
+    "text": "query pageTemplatesSearchCommunityQuery(\n  $slug: Slug!\n  $query: String\n  $predicates: [SearchPredicateInput!]\n  $page: Int\n  $order: EntityOrder\n  $schema: [String!]\n) {\n  community(slug: $slug) {\n    ...SearchLayoutEntityFragment_dJrY9\n    id\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ContributorsListFragment on Paginated {\n  __isPaginated: __typename\n  ... on ItemContributionConnection {\n    nodes {\n      role\n      contributor {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n  ... on CollectionContributionConnection {\n    nodes {\n      role\n      contributor {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ...ContributorNameFragment\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      url\n      alt\n      width\n      height\n    }\n  }\n}\n\nfragment EntitySummaryFragment on Entity {\n  __isEntity: __typename\n  __typename\n  layouts {\n    listItem {\n      template {\n        ...sharedListItemTemplateFragment\n        id\n      }\n      id\n    }\n  }\n}\n\nfragment PaginationFragment on PageInfo {\n  page\n  pageCount\n}\n\nfragment SearchFilterBooleanFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterDateFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  ... on ScalarProperty {\n    __isScalarProperty: __typename\n    type\n  }\n  ...SearchFilterInputFragment\n  ...SearchFilterSelectFragment\n  ...SearchFilterDateFragment\n  ...SearchFilterNumberFragment\n  ...SearchFilterBooleanFragment\n}\n\nfragment SearchFilterInputFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterNumberFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n}\n\nfragment SearchFilterSelectFragment on SearchableProperty {\n  __isSearchableProperty: __typename\n  label\n  description\n  searchPath\n  searchOperators\n  ... on SelectProperty {\n    options {\n      label\n      value\n    }\n  }\n}\n\nfragment SearchFiltersFragment on SearchScope {\n  coreProperties {\n    ... on SearchableProperty {\n      __isSearchableProperty: __typename\n      searchPath\n    }\n    ...SearchFilterFragment\n  }\n  ...SearchSchemaFilterFragment\n  schemas: availableSchemaVersions {\n    searchableProperties {\n      __typename\n      ... on SearchableProperty {\n        __isSearchableProperty: __typename\n        searchPath\n        label\n      }\n      ...SearchFilterFragment\n    }\n    id\n  }\n}\n\nfragment SearchLayoutEntityFragment_dJrY9 on Entity {\n  __isEntity: __typename\n  search {\n    results(query: $query, page: $page, perPage: 20, predicates: $predicates, order: $order, schema: $schema) {\n      ...SearchResultsFragment\n    }\n    ...SearchFiltersFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n}\n\nfragment SearchResultsFragment on SearchResultConnection {\n  nodes {\n    entity {\n      __typename\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n      ...EntitySummaryFragment\n    }\n    id\n  }\n  pageInfo {\n    totalCount\n    ...PaginationFragment\n  }\n}\n\nfragment SearchSchemaFilterFragment on SearchScope {\n  schemas: availableSchemaVersions {\n    name\n    schemaDefinition {\n      slug\n      id\n    }\n    id\n  }\n}\n\nfragment sharedBlockSlotFragment on TemplateSlotBlockInstance {\n  content\n  kind\n  valid\n}\n\nfragment sharedInlineSlotFragment on TemplateSlotInlineInstance {\n  content\n  kind\n  valid\n  hidesTemplate\n}\n\nfragment sharedListItemTemplateFragment on ListItemTemplateInstance {\n  entity {\n    __typename\n    ... on Collection {\n      __typename\n      id\n      slug\n      title\n      thumbnail {\n        image: large {\n          webp {\n            url\n          }\n        }\n        ...CoverImageFragment\n      }\n      contributions {\n        ...ContributorsListFragment\n      }\n      heroImage {\n        image: large {\n          webp {\n            alt\n            url\n          }\n        }\n      }\n    }\n    ... on Item {\n      __typename\n      id\n      slug\n      title\n      thumbnail {\n        image: large {\n          webp {\n            url\n          }\n        }\n        ...CoverImageFragment\n      }\n      contributions {\n        ...ContributorsListFragment\n      }\n      heroImage {\n        image: large {\n          webp {\n            alt\n            url\n          }\n        }\n      }\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  slots {\n    contextFull {\n      ...sharedInlineSlotFragment\n    }\n    contextAbbr {\n      ...sharedInlineSlotFragment\n    }\n    contextC {\n      ...sharedInlineSlotFragment\n    }\n    description {\n      ...sharedBlockSlotFragment\n    }\n    header {\n      ...sharedInlineSlotFragment\n    }\n    metaA {\n      ...sharedInlineSlotFragment\n    }\n    metaB {\n      ...sharedInlineSlotFragment\n    }\n    subheader {\n      ...sharedInlineSlotFragment\n    }\n  }\n}\n"
   }
 };
 })();

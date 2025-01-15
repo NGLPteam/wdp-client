@@ -17,7 +17,7 @@ export default function CardListBlock({
   const { linksDefinition, descendantsDefinition, entityList } =
     useSharedListTemplateFragment(data);
 
-  const { empty } = entityList ?? {};
+  const { empty, listItemLayouts } = entityList ?? {};
 
   if (empty) return null;
 
@@ -50,7 +50,7 @@ export default function CardListBlock({
   return (
     <div className={classNames(bgClass, styles.wrapper)}>
       {showHeroImage && <div className={styles.heroImage} />}
-      <List variant="CARDS" bgColor={background} data={entityList} />
+      <List variant="CARDS" bgColor={background} items={listItemLayouts} />
       {!!showSeeAllButton && !!seeAllHref && (
         <SeeAll
           alignment="center"

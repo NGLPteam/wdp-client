@@ -15,6 +15,7 @@ export default function DOI({ data }: Props) {
 
   return (
     <li>
+      {t("metadata.doi")}{" "}
       <a
         target="_blank"
         rel="noreferrer"

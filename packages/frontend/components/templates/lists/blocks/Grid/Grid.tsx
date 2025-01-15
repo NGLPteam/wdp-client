@@ -17,7 +17,7 @@ export default function GridListBlock({
   const { linksDefinition, descendantsDefinition, entityList, slots } =
     useSharedListTemplateFragment(data);
 
-  const { empty } = entityList ?? {};
+  const { empty, listItemLayouts } = entityList ?? {};
 
   if (empty) return null;
 
@@ -28,6 +28,7 @@ export default function GridListBlock({
     selectionMode,
     showHeroImage,
     width,
+    showContributors,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
   const { selectionPropertyPath, orderingIdentifier } =
@@ -42,7 +43,7 @@ export default function GridListBlock({
       )
     : null;
 
-  const { header } = slots ?? {};
+  const { blockHeader } = slots ?? {};
 
   return (
     <Container
@@ -51,12 +52,17 @@ export default function GridListBlock({
       halfWidthTemplate={width === "HALF"}
     >
       {showHeroImage && <div className={styles.heroImage} />}
-      {!!header?.content && header?.valid && (
+      {!!blockHeader?.content && blockHeader?.valid && (
         <h3>
-          <InlineSlotWrapper content={header.content} />
+          <InlineSlotWrapper content={blockHeader.content} />
         </h3>
       )}
-      <List variant="GRID" bgColor={background} data={entityList} />
+      <List
+        variant="GRID"
+        bgColor={background}
+        items={listItemLayouts}
+        showContributors={showContributors}
+      />
       {!!showSeeAllButton && !!seeAllHref && (
         <SeeAll
           alignment="center"

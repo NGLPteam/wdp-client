@@ -4,8 +4,7 @@ import type {
   LinkListVariant,
   LinkListBackground,
 } from "@/types/graphql-schema";
-import { sharedListItemsTemplateFragment$key } from "@/relay/sharedListItemsTemplateFragment.graphql";
-import { useSharedListItemsTemplateFragment } from "@/components/templates/shared/shared.listItems.graphql";
+import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
 import CardItem from "../items/Card";
 import GridItem from "../items/Grid";
 import SummaryItem from "../items/Summary";
@@ -18,7 +17,12 @@ export type Props = {
   bgColor?: LinkListBackground | null;
   hideCovers?: boolean;
   showContext?: boolean | null;
-  data: sharedListItemsTemplateFragment$key | null | undefined;
+  isNested?: boolean | null;
+  showContributors?: boolean | null;
+  items:
+    | readonly { template?: sharedListItemTemplateFragment$key | null }[]
+    | null
+    | undefined;
 };
 
 const TYPE_TO_CLASS = {
@@ -42,10 +46,10 @@ export default function List({
   bgColor,
   hideCovers,
   showContext,
-  data,
+  isNested,
+  items,
+  showContributors,
 }: Props) {
-  const items = useSharedListItemsTemplateFragment(data);
-
   if (!variant || !items) return null;
 
   const listClass = TYPE_TO_CLASS[variant];
@@ -62,6 +66,8 @@ export default function List({
             key={i}
             hideCover={hideCovers}
             showContext={showContext}
+            isNested={isNested}
+            showContributors={showContributors}
           />
         ))}
       </ul>

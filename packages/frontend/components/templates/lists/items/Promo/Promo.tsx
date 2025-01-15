@@ -14,7 +14,7 @@ export default function PromoListItem({
 }) {
   const { slots, entity } = useSharedListItemTemplateFragment(data);
 
-  const { header, contextA, contextB, metaA, metaB } = slots ?? {};
+  const { header, contextFull } = slots ?? {};
 
   const href =
     entity?.__typename === "Item" || entity?.__typename === "Collection"
@@ -31,11 +31,8 @@ export default function PromoListItem({
       <NamedLink href={href}>
         <div className={styles.text}>
           <div className={styles.group}>
-            {contextA?.valid && !!contextA.content && (
-              <InlineSlotWrapper content={contextA.content} />
-            )}
-            {contextB?.valid && !!contextB.content && (
-              <InlineSlotWrapper content={contextB.content} />
+            {contextFull?.valid && !!contextFull.content && (
+              <InlineSlotWrapper content={contextFull.content} />
             )}
           </div>
           {header?.valid && !!header.content && (
@@ -43,12 +40,6 @@ export default function PromoListItem({
               <InlineSlotWrapper content={header.content} />
             </h3>
           )}
-          <div className={styles.group}>
-            {metaA?.valid && !!metaA.content && (
-              <InlineSlotWrapper content={metaA.content} />
-            )}
-            {metaB?.valid && <InlineSlotWrapper content={metaB.content} />}
-          </div>
         </div>
         {!!image && !!image.url && (
           <Image

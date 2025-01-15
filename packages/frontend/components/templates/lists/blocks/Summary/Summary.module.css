@@ -9,9 +9,9 @@
 }
 
 .blockTitle {
-  @mixin t-label-lg;
-
   margin-block-end: var(--padding-rg);
+  border-bottom: 1px solid;
+  padding-block-end: var(--padding-xs);
 }
 
 .title {
@@ -83,4 +83,5 @@
   display: block;
   color: var(--color-base-neutral70);
   margin-block-start: 0.25rem;
+  font-style: italic;
 }

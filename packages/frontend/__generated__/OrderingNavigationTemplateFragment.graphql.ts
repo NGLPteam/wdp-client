@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fbe4be8c9844860a8e1ef48346bbd6e6>>
+ * @generated SignedSource<<25e5003dd4d64d98f382d0957893bd81>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,12 +13,10 @@ export type OrderingBackground = "DARK" | "LIGHT" | "NONE" | "%future added valu
 export type TemplateWidth = "FULL" | "HALF" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type OrderingNavigationTemplateFragment$data = {
+  readonly hidden: boolean;
   readonly orderingDefinition: {
     readonly background: OrderingBackground | null | undefined;
     readonly width: TemplateWidth | null | undefined;
-  };
-  readonly orderingPair: {
-    readonly exists: boolean;
   };
   readonly " $fragmentSpreads": FragmentRefs<"NavButtonsFragment">;
   readonly " $fragmentType": "OrderingNavigationTemplateFragment";
@@ -34,6 +32,13 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "OrderingNavigationTemplateFragment",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "hidden",
+      "storageKey": null
+    },
     {
       "alias": "orderingDefinition",
       "args": null,
@@ -60,24 +65,6 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
-      "alias": null,
-      "args": null,
-      "concreteType": "TemplateOrderingPair",
-      "kind": "LinkedField",
-      "name": "orderingPair",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "exists",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    },
-    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "NavButtonsFragment"
@@ -87,6 +74,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "cb915cd8d023c4c218848b9218a2ab11";
+(node as any).hash = "be006586dc17cb6960b9a5648481d54b";
 
 export default node;

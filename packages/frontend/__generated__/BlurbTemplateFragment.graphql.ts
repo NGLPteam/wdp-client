@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<38fedaf6fb6479dcecb5e123bc3ab1d7>>
+ * @generated SignedSource<<75cbce9ae4e67ce4764992f7c6c1282a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,11 @@ export type TemplateWidth = "FULL" | "HALF" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type BlurbTemplateFragment$data = {
   readonly __typename: "BlurbTemplateInstance";
+  readonly blurbDefinition: {
+    readonly background: BlurbBackground | null | undefined;
+    readonly width: TemplateWidth | null | undefined;
+  };
+  readonly hidden: boolean;
   readonly slots: {
     readonly body: {
       readonly " $fragmentSpreads": FragmentRefs<"sharedBlockSlotFragment">;
@@ -24,10 +29,6 @@ export type BlurbTemplateFragment$data = {
     readonly subheader: {
       readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
     } | null | undefined;
-  };
-  readonly textDefinition: {
-    readonly background: BlurbBackground | null | undefined;
-    readonly width: TemplateWidth | null | undefined;
   };
   readonly " $fragmentType": "BlurbTemplateFragment";
 };
@@ -58,7 +59,14 @@ return {
       "storageKey": null
     },
     {
-      "alias": "textDefinition",
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "hidden",
+      "storageKey": null
+    },
+    {
+      "alias": "blurbDefinition",
       "args": null,
       "concreteType": "BlurbTemplateDefinition",
       "kind": "LinkedField",
@@ -135,6 +143,6 @@ return {
 };
 })();
 
-(node as any).hash = "5b5b8180417d80943b1be07ead842aef";
+(node as any).hash = "80cc2defc1612e4decf28de27bf17175";
 
 export default node;

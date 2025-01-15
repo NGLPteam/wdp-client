@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<af442566f9724beb1618f33018d4c971>>
+ * @generated SignedSource<<772045ed0faecde17249f75ca421def5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -22,6 +22,7 @@ export type DetailTemplateFragment$data = {
     readonly variant: DetailVariant | null | undefined;
     readonly width: TemplateWidth | null | undefined;
   };
+  readonly hidden: boolean;
   readonly " $fragmentSpreads": FragmentRefs<"FullDetailFragment" | "SummaryDetailFragment">;
   readonly " $fragmentType": "DetailTemplateFragment";
 };
@@ -41,6 +42,13 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "__typename",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "hidden",
       "storageKey": null
     },
     {
@@ -104,6 +112,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "759a30982220e544f8b4f4d7dca32cfa";
+(node as any).hash = "bb3c6e68a4fd780f4f29dcfa492e82fa";
 
 export default node;

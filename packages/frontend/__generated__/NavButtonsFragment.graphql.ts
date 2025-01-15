@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4fd63dd496a2a8b78bf1d69bdf2d277b>>
+ * @generated SignedSource<<d664d9f4787ae41127d9be6a61125592>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,7 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type NavButtonsFragment$data = {
   readonly orderingPair: {
+    readonly exists: boolean;
     readonly first: boolean;
     readonly last: boolean;
     readonly nextSibling: {
@@ -143,6 +144,13 @@ return {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
+          "name": "exists",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
           "name": "first",
           "storageKey": null
         },
@@ -213,6 +221,6 @@ return {
 };
 })();
 
-(node as any).hash = "f0b222aae920cdc84343bec201e23144";
+(node as any).hash = "f5ac6de0597deb4be94c5d23f12f8333";
 
 export default node;
