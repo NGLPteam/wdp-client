@@ -19,7 +19,6 @@ export default function DownloadLink({
       {...props}
       className={classNames(className, styles.download)}
       icon="download"
-      target="_blank"
       download
     >
       {children || t("common.download")}

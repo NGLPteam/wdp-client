@@ -26,7 +26,6 @@ export default function CompactListBlock({
     showSeeAllButton,
     seeAllButtonLabel,
     selectionMode,
-    showHeroImage,
     width,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
@@ -63,7 +62,10 @@ export default function CompactListBlock({
             items={listItemLayouts}
           />
         </div>
-        {showHeroImage && <div className={styles.heroImage} />}
+        {/*
+          Need to identify which image to use here
+          {showHeroImage && <div className={styles.heroImage} />}
+          */}
       </div>
       {!!showSeeAllButton && !!seeAllHref && (
         <SeeAll
