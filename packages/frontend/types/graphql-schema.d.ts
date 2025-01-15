@@ -1305,6 +1305,13 @@ export type BlurbTemplateInstance = Node & Renderable & Sluggable & TemplateInst
    *
    */
   entity: AnyEntity;
+  /**
+   * Whether this template instance should be hidden based on some logic.
+   *
+   * At present, this only occurs if certain slots are empty.
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -3422,6 +3429,13 @@ export type ContributorListTemplateInstance = Node & Renderable & Sluggable & Te
    *
    */
   entity: AnyEntity;
+  /**
+   * Whether this template instance should be hidden based on some logic.
+   *
+   * At present, this only occurs if certain slots are empty.
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -4828,6 +4842,12 @@ export type DescendantListTemplateDefinition = Node & Sluggable & TemplateDefini
   orderingIdentifier?: Maybe<Scalars['SchemaComponent']['output']>;
   seeAllButtonLabel?: Maybe<Scalars['String']['output']>;
   /**
+   * If provided, this will expose an ordering on the template instance that can
+   * be used to generate a link to the ordering in the frontend.
+   *
+   */
+  seeAllOrderingIdentifier?: Maybe<Scalars['SchemaComponent']['output']>;
+  /**
    * The fallback mode to use when rendering a list of entities, when the list from
    * `selectionMode` is empty and `useSelectionFallback` has been set to true.
    *
@@ -4864,6 +4884,12 @@ export type DescendantListTemplateDefinition = Node & Sluggable & TemplateDefini
    *
    */
   selectionSource?: Maybe<Scalars['TemplateSelectionSource']['output']>;
+  /**
+   * The derived name of the ancestor used for the `selectionSource`.
+   *
+   * Exposed for introspection only.
+   *
+   */
   selectionSourceAncestorName?: Maybe<Scalars['SchemaComponent']['output']>;
   /**
    * An enum representing what mode `selectionSource` is in. Not directly set,
@@ -4872,11 +4898,22 @@ export type DescendantListTemplateDefinition = Node & Sluggable & TemplateDefini
    */
   selectionSourceMode?: Maybe<SelectionSourceMode>;
   /**
+   * Show contributors when listing entities.
+   *
+   */
+  showContributors?: Maybe<Scalars['Boolean']['output']>;
+  /**
    * Show additional context about each entity in the selection.
    *
    */
   showEntityContext?: Maybe<Scalars['Boolean']['output']>;
   showHeroImage?: Maybe<Scalars['Boolean']['output']>;
+  /**
+   * Show nested items from the associated listItemLayouts in order to generate
+   * a two-tier list.
+   *
+   */
+  showNestedEntities?: Maybe<Scalars['Boolean']['output']>;
   showSeeAllButton?: Maybe<Scalars['Boolean']['output']>;
   /**
    * Slot definitions for this template.
@@ -4914,13 +4951,17 @@ export type DescendantListTemplateDefinition = Node & Sluggable & TemplateDefini
  */
 export type DescendantListTemplateDefinitionSlots = {
   __typename?: 'DescendantListTemplateDefinitionSlots';
+  blockHeader?: Maybe<TemplateSlotInlineDefinition>;
+  blockHeaderFallback?: Maybe<TemplateSlotInlineDefinition>;
   header?: Maybe<TemplateSlotInlineDefinition>;
   headerAside?: Maybe<TemplateSlotInlineDefinition>;
+  headerFallback?: Maybe<TemplateSlotInlineDefinition>;
+  listContext?: Maybe<TemplateSlotInlineDefinition>;
   metadata?: Maybe<TemplateSlotInlineDefinition>;
   subtitle?: Maybe<TemplateSlotInlineDefinition>;
 };
 
-export type DescendantListTemplateInstance = Node & Renderable & Sluggable & TemplateHasEntityList & TemplateInstance & {
+export type DescendantListTemplateInstance = Node & Renderable & Sluggable & TemplateHasEntityList & TemplateHasSeeAllOrdering & TemplateInstance & {
   __typename?: 'DescendantListTemplateInstance';
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
@@ -4938,6 +4979,13 @@ export type DescendantListTemplateInstance = Node & Renderable & Sluggable & Tem
    *
    */
   entityList: TemplateEntityList;
+  /**
+   * Whether this template instance should be hidden based on some logic.
+   *
+   * At present, this only occurs if certain slots are empty.
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -4945,6 +4993,11 @@ export type DescendantListTemplateInstance = Node & Renderable & Sluggable & Tem
    */
   lastRenderedAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   layoutKind: LayoutKind;
+  /**
+   * The ordering to render for a "see all" link.
+   *
+   */
+  seeAllOrdering?: Maybe<Ordering>;
   /**
    * Rendered slots for this template.
    *
@@ -4961,8 +5014,12 @@ export type DescendantListTemplateInstance = Node & Renderable & Sluggable & Tem
  */
 export type DescendantListTemplateInstanceSlots = {
   __typename?: 'DescendantListTemplateInstanceSlots';
+  blockHeader?: Maybe<TemplateSlotInlineInstance>;
+  blockHeaderFallback?: Maybe<TemplateSlotInlineInstance>;
   header?: Maybe<TemplateSlotInlineInstance>;
   headerAside?: Maybe<TemplateSlotInlineInstance>;
+  headerFallback?: Maybe<TemplateSlotInlineInstance>;
+  listContext?: Maybe<TemplateSlotInlineInstance>;
   metadata?: Maybe<TemplateSlotInlineInstance>;
   subtitle?: Maybe<TemplateSlotInlineInstance>;
 };
@@ -5363,6 +5420,13 @@ export type DetailTemplateInstance = Node & Renderable & Sluggable & TemplateIns
    *
    */
   entity: AnyEntity;
+  /**
+   * Whether this template instance should be hidden based on some logic.
+   *
+   * At present, this only occurs if certain slots are empty.
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -6872,6 +6936,13 @@ export type HeroTemplateInstance = Node & Renderable & Sluggable & TemplateInsta
    *
    */
   entity: AnyEntity;
+  /**
+   * Whether this template instance should be hidden based on some logic.
+   *
+   * At present, this only occurs if certain slots are empty.
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -8137,6 +8208,12 @@ export type LinkListTemplateDefinition = Node & Sluggable & TemplateDefinition &
   manualListName?: Maybe<Scalars['SchemaComponent']['output']>;
   seeAllButtonLabel?: Maybe<Scalars['String']['output']>;
   /**
+   * If provided, this will expose an ordering on the template instance that can
+   * be used to generate a link to the ordering in the frontend.
+   *
+   */
+  seeAllOrderingIdentifier?: Maybe<Scalars['SchemaComponent']['output']>;
+  /**
    * The fallback mode to use when rendering a list of entities, when the list from
    * `selectionMode` is empty and `useSelectionFallback` has been set to true.
    *
@@ -8167,6 +8244,12 @@ export type LinkListTemplateDefinition = Node & Sluggable & TemplateDefinition &
    *
    */
   selectionSource?: Maybe<Scalars['TemplateSelectionSource']['output']>;
+  /**
+   * The derived name of the ancestor used for the `selectionSource`.
+   *
+   * Exposed for introspection only.
+   *
+   */
   selectionSourceAncestorName?: Maybe<Scalars['SchemaComponent']['output']>;
   /**
    * An enum representing what mode `selectionSource` is in. Not directly set,
@@ -8175,11 +8258,22 @@ export type LinkListTemplateDefinition = Node & Sluggable & TemplateDefinition &
    */
   selectionSourceMode?: Maybe<SelectionSourceMode>;
   /**
+   * Show contributors when listing entities.
+   *
+   */
+  showContributors?: Maybe<Scalars['Boolean']['output']>;
+  /**
    * Show additional context about each entity in the selection.
    *
    */
   showEntityContext?: Maybe<Scalars['Boolean']['output']>;
   showHeroImage?: Maybe<Scalars['Boolean']['output']>;
+  /**
+   * Show nested items from the associated listItemLayouts in order to generate
+   * a two-tier list.
+   *
+   */
+  showNestedEntities?: Maybe<Scalars['Boolean']['output']>;
   showSeeAllButton?: Maybe<Scalars['Boolean']['output']>;
   /**
    * Slot definitions for this template.
@@ -8217,13 +8311,17 @@ export type LinkListTemplateDefinition = Node & Sluggable & TemplateDefinition &
  */
 export type LinkListTemplateDefinitionSlots = {
   __typename?: 'LinkListTemplateDefinitionSlots';
+  blockHeader?: Maybe<TemplateSlotInlineDefinition>;
+  blockHeaderFallback?: Maybe<TemplateSlotInlineDefinition>;
   header?: Maybe<TemplateSlotInlineDefinition>;
   headerAside?: Maybe<TemplateSlotInlineDefinition>;
+  headerFallback?: Maybe<TemplateSlotInlineDefinition>;
+  listContext?: Maybe<TemplateSlotInlineDefinition>;
   metadata?: Maybe<TemplateSlotInlineDefinition>;
   subtitle?: Maybe<TemplateSlotInlineDefinition>;
 };
 
-export type LinkListTemplateInstance = Node & Renderable & Sluggable & TemplateHasEntityList & TemplateInstance & {
+export type LinkListTemplateInstance = Node & Renderable & Sluggable & TemplateHasEntityList & TemplateHasSeeAllOrdering & TemplateInstance & {
   __typename?: 'LinkListTemplateInstance';
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
@@ -8241,6 +8339,13 @@ export type LinkListTemplateInstance = Node & Renderable & Sluggable & TemplateH
    *
    */
   entityList: TemplateEntityList;
+  /**
+   * Whether this template instance should be hidden based on some logic.
+   *
+   * At present, this only occurs if certain slots are empty.
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -8248,6 +8353,11 @@ export type LinkListTemplateInstance = Node & Renderable & Sluggable & TemplateH
    */
   lastRenderedAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   layoutKind: LayoutKind;
+  /**
+   * The ordering to render for a "see all" link.
+   *
+   */
+  seeAllOrdering?: Maybe<Ordering>;
   /**
    * Rendered slots for this template.
    *
@@ -8264,8 +8374,12 @@ export type LinkListTemplateInstance = Node & Renderable & Sluggable & TemplateH
  */
 export type LinkListTemplateInstanceSlots = {
   __typename?: 'LinkListTemplateInstanceSlots';
+  blockHeader?: Maybe<TemplateSlotInlineInstance>;
+  blockHeaderFallback?: Maybe<TemplateSlotInlineInstance>;
   header?: Maybe<TemplateSlotInlineInstance>;
   headerAside?: Maybe<TemplateSlotInlineInstance>;
+  headerFallback?: Maybe<TemplateSlotInlineInstance>;
+  listContext?: Maybe<TemplateSlotInlineInstance>;
   metadata?: Maybe<TemplateSlotInlineInstance>;
   subtitle?: Maybe<TemplateSlotInlineInstance>;
 };
@@ -8408,11 +8522,94 @@ export type ListItemLayoutInstance = LayoutInstance & Node & Renderable & Slugga
   updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type ListItemSelectionMode =
+  | 'DYNAMIC'
+  | 'MANUAL'
+  | 'NAMED'
+  | 'PROPERTY'
+  | '%future added value';
+
 export type ListItemTemplateDefinition = Node & Sluggable & TemplateDefinition & {
   __typename?: 'ListItemTemplateDefinition';
   createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * When `selectionMode` is set to `DYNAMIC`, this uses the same basic structure
+   * as schemas to define a dynamic ordering that is resolved at runtime and based
+   * on the `selectionSource`.
+   *
+   */
+  dynamicOrderingDefinition?: Maybe<OrderingDefinition>;
   id: Scalars['ID']['output'];
   layoutKind: LayoutKind;
+  /**
+   * When `selectionMode` is set to `MANUAL`, the purpose of this property
+   * is to specify a name under which all the manual selections (per entity)
+   * will be stored. This allows a layout to have multiple templates of the
+   * same type using different lists, that will persist across rearrangements
+   * of the layout _without_ losing connections between entities.
+   *
+   */
+  manualListName?: Maybe<Scalars['SchemaComponent']['output']>;
+  /**
+   * This can be set to specify the named ordering on the `selectionSource`
+   * that should be used to populate the associated entity list.
+   *
+   */
+  orderingIdentifier?: Maybe<Scalars['SchemaComponent']['output']>;
+  /**
+   * The fallback mode to use when rendering a list of entities, when the list from
+   * `selectionMode` is empty and `useSelectionFallback` has been set to true.
+   *
+   */
+  selectionFallbackMode?: Maybe<ListItemSelectionMode>;
+  /**
+   * Regardless of `selectionMode`, this limit will be applied on whatever resulting
+   * list of entities are produced, so that only up to that amount of entities are
+   * rendered in the template proper.
+   *
+   */
+  selectionLimit?: Maybe<Scalars['Int']['output']>;
+  /**
+   * The default mode to use when rendering a list of entities.
+   *
+   * See also `selectionFallbackMode` and `useSelectionFallback`.
+   *
+   */
+  selectionMode?: Maybe<ListItemSelectionMode>;
+  /**
+   * When `selectionMode` is set to `PROPERTY`, this should be set to the full path
+   * for a given schema property on the associated `selectionSource`
+   *
+   */
+  selectionPropertyPath?: Maybe<Scalars['SchemaPropertyPath']['output']>;
+  /**
+   * When selecting entities based on `selectionMode`, this property determines
+   * which entity (relevant to the rendering entity) should be used for lookups.
+   *
+   * By default, it is `self`, which means the rendering entity itself.
+   *
+   * It can also support things like `ancestor.journal`, `ancestor.issue`, etc.,
+   * in order to render a list of values in its parent.
+   *
+   */
+  selectionSource?: Maybe<Scalars['TemplateSelectionSource']['output']>;
+  /**
+   * The derived name of the ancestor used for the `selectionSource`.
+   *
+   * Exposed for introspection only.
+   *
+   */
+  selectionSourceAncestorName?: Maybe<Scalars['SchemaComponent']['output']>;
+  /**
+   * An enum representing what mode `selectionSource` is in. Not directly set,
+   * it is used internally for lookups.
+   *
+   */
+  selectionSourceMode?: Maybe<SelectionSourceMode>;
   /**
    * Slot definitions for this template.
    *
@@ -8421,6 +8618,12 @@ export type ListItemTemplateDefinition = Node & Sluggable & TemplateDefinition &
   slug: Scalars['Slug']['output'];
   templateKind: TemplateKind;
   updatedAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Controls whether or not to use `selectionFallbackMode` if the entity list returned
+   * via `selectionMode` turns out to be empty at runtime.
+   *
+   */
+  useSelectionFallback?: Maybe<Scalars['Boolean']['output']>;
 };
 
 /**
@@ -8430,8 +8633,10 @@ export type ListItemTemplateDefinition = Node & Sluggable & TemplateDefinition &
 export type ListItemTemplateDefinitionSlots = {
   __typename?: 'ListItemTemplateDefinitionSlots';
   contextA?: Maybe<TemplateSlotInlineDefinition>;
+  contextAbbr?: Maybe<TemplateSlotInlineDefinition>;
   contextB?: Maybe<TemplateSlotInlineDefinition>;
   contextC?: Maybe<TemplateSlotInlineDefinition>;
+  contextFull?: Maybe<TemplateSlotInlineDefinition>;
   description?: Maybe<TemplateSlotBlockDefinition>;
   header?: Maybe<TemplateSlotInlineDefinition>;
   metaA?: Maybe<TemplateSlotInlineDefinition>;
@@ -8439,7 +8644,7 @@ export type ListItemTemplateDefinitionSlots = {
   subheader?: Maybe<TemplateSlotInlineDefinition>;
 };
 
-export type ListItemTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
+export type ListItemTemplateInstance = Node & Renderable & Sluggable & TemplateHasEntityList & TemplateInstance & {
   __typename?: 'ListItemTemplateInstance';
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
@@ -8452,6 +8657,18 @@ export type ListItemTemplateInstance = Node & Renderable & Sluggable & TemplateI
    *
    */
   entity: AnyEntity;
+  /**
+   * The list of entities to render as part of this template's content.
+   *
+   */
+  entityList: TemplateEntityList;
+  /**
+   * Whether this template instance should be hidden based on some logic.
+   *
+   * At present, this only occurs if certain slots are empty.
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -8476,8 +8693,10 @@ export type ListItemTemplateInstance = Node & Renderable & Sluggable & TemplateI
 export type ListItemTemplateInstanceSlots = {
   __typename?: 'ListItemTemplateInstanceSlots';
   contextA?: Maybe<TemplateSlotInlineInstance>;
+  contextAbbr?: Maybe<TemplateSlotInlineInstance>;
   contextB?: Maybe<TemplateSlotInlineInstance>;
   contextC?: Maybe<TemplateSlotInlineInstance>;
+  contextFull?: Maybe<TemplateSlotInlineInstance>;
   description?: Maybe<TemplateSlotBlockInstance>;
   header?: Maybe<TemplateSlotInlineInstance>;
   metaA?: Maybe<TemplateSlotInlineInstance>;
@@ -8739,6 +8958,13 @@ export type MetadataTemplateInstance = Node & Renderable & Sluggable & TemplateI
    *
    */
   entity: AnyEntity;
+  /**
+   * Whether this template instance should be hidden based on some logic.
+   *
+   * At present, this only occurs if certain slots are empty.
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -9681,6 +9907,13 @@ export type NavigationTemplateInstance = Node & Renderable & Sluggable & Templat
    *
    */
   entity: AnyEntity;
+  /**
+   * Whether this template instance should be hidden based on some logic.
+   *
+   * At present, this only occurs if certain slots are empty.
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -10292,6 +10525,12 @@ export type OrderingTemplateDefinition = Node & Sluggable & TemplateDefinition &
    *
    */
   selectionSource?: Maybe<Scalars['TemplateSelectionSource']['output']>;
+  /**
+   * The derived name of the ancestor used for the `selectionSource`.
+   *
+   * Exposed for introspection only.
+   *
+   */
   selectionSourceAncestorName?: Maybe<Scalars['SchemaComponent']['output']>;
   /**
    * An enum representing what mode `selectionSource` is in. Not directly set,
@@ -10340,6 +10579,13 @@ export type OrderingTemplateInstance = Node & Renderable & Sluggable & TemplateH
    *
    */
   entity: AnyEntity;
+  /**
+   * Whether this template instance should be hidden based on some logic.
+   *
+   * At present, this only occurs if certain slots are empty.
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -10632,6 +10878,13 @@ export type PageListTemplateInstance = Node & Renderable & Sluggable & TemplateI
    *
    */
   entity: AnyEntity;
+  /**
+   * Whether this template instance should be hidden based on some logic.
+   *
+   * At present, this only occurs if certain slots are empty.
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -12903,6 +13156,13 @@ export type SupplementaryTemplateInstance = Node & Renderable & Sluggable & Temp
    *
    */
   entity: AnyEntity;
+  /**
+   * Whether this template instance should be hidden based on some logic.
+   *
+   * At present, this only occurs if certain slots are empty.
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   /**
    * The time this object was last rendered.
@@ -13195,6 +13455,19 @@ export type TemplateHasOrderingPair = {
 };
 
 /**
+ * An interface for a template instance that exposes an `Ordering`
+ * in order to to link to see all associated records.
+ *
+ */
+export type TemplateHasSeeAllOrdering = {
+  /**
+   * The ordering to render for a "see all" link.
+   *
+   */
+  seeAllOrdering?: Maybe<Ordering>;
+};
+
+/**
  * An interface describing an instance type that can be rendered for a given entity.
  *
  */
@@ -13204,6 +13477,13 @@ export type TemplateInstance = {
    *
    */
   entity: AnyEntity;
+  /**
+   * Whether this template instance should be hidden based on some logic.
+   *
+   * At present, this only occurs if certain slots are empty.
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
   /**
    * The time this object was last rendered.
    *
@@ -13363,6 +13643,12 @@ export type TemplateOrderingPair = {
 export type TemplateSlotBlockDefinition = TemplateSlotDefinition & {
   __typename?: 'TemplateSlotBlockDefinition';
   /**
+   * Whether this slot should cause its parent template to be marked as `hidden`
+   * if it ends up rendering empty.
+   *
+   */
+  hideWhenEmpty: Scalars['Boolean']['output'];
+  /**
    * The kind of slot instance this is.
    *
    */
@@ -13393,6 +13679,14 @@ export type TemplateSlotBlockInstance = TemplateSlotInstance & {
    */
   errors?: Maybe<Array<TemplateSlotError>>;
   /**
+   * Whether this slot should cause its parent template to hide.
+   *
+   * **Note**: This is exposed for introspection, but does not need
+   * to be checked on the frontend. Defer to `TemplateInstance.hidden`.
+   *
+   */
+  hidesTemplate: Scalars['Boolean']['output'];
+  /**
    * The kind of slot instance this is.
    *
    */
@@ -13409,6 +13703,12 @@ export type TemplateSlotBlockInstance = TemplateSlotInstance & {
  *
  */
 export type TemplateSlotDefinition = {
+  /**
+   * Whether this slot should cause its parent template to be marked as `hidden`
+   * if it ends up rendering empty.
+   *
+   */
+  hideWhenEmpty: Scalars['Boolean']['output'];
   /**
    * The kind of slot instance this is.
    *
@@ -13455,6 +13755,12 @@ export type TemplateSlotError = {
 export type TemplateSlotInlineDefinition = TemplateSlotDefinition & {
   __typename?: 'TemplateSlotInlineDefinition';
   /**
+   * Whether this slot should cause its parent template to be marked as `hidden`
+   * if it ends up rendering empty.
+   *
+   */
+  hideWhenEmpty: Scalars['Boolean']['output'];
+  /**
    * The kind of slot instance this is.
    *
    */
@@ -13485,6 +13791,14 @@ export type TemplateSlotInlineInstance = TemplateSlotInstance & {
    */
   errors?: Maybe<Array<TemplateSlotError>>;
   /**
+   * Whether this slot should cause its parent template to hide.
+   *
+   * **Note**: This is exposed for introspection, but does not need
+   * to be checked on the frontend. Defer to `TemplateInstance.hidden`.
+   *
+   */
+  hidesTemplate: Scalars['Boolean']['output'];
+  /**
    * The kind of slot instance this is.
    *
    */
@@ -13512,6 +13826,14 @@ export type TemplateSlotInstance = {
    *
    */
   errors?: Maybe<Array<TemplateSlotError>>;
+  /**
+   * Whether this slot should cause its parent template to hide.
+   *
+   * **Note**: This is exposed for introspection, but does not need
+   * to be checked on the frontend. Defer to `TemplateInstance.hidden`.
+   *
+   */
+  hidesTemplate: Scalars['Boolean']['output'];
   /**
    * The kind of slot instance this is.
    *
@@ -15501,8 +15823,9 @@ export type ResolversInterfaceTypes<RefType extends Record<string, unknown>> = {
   StandardMutationPayload: ( Omit<AlterSchemaVersionPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ApplySchemaPropertiesPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ClearInitialOrderingPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( ControlledVocabularyDestroyPayload ) | ( ControlledVocabularySourceUpdatePayload ) | ( ControlledVocabularyUpsertPayload ) | ( CreateAnnouncementPayload ) | ( Omit<CreateAssetPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( CreateCollectionPayload ) | ( CreateCommunityPayload ) | ( CreateItemPayload ) | ( CreateOrderingPayload ) | ( CreateOrganizationContributorPayload ) | ( CreatePagePayload ) | ( CreatePersonContributorPayload ) | ( CreateRolePayload ) | ( DestroyAnnouncementPayload ) | ( DestroyAssetPayload ) | ( DestroyCollectionPayload ) | ( DestroyCommunityPayload ) | ( DestroyContributionPayload ) | ( DestroyContributorPayload ) | ( DestroyEntityLinkPayload ) | ( DestroyItemPayload ) | ( DestroyOrderingPayload ) | ( DestroyPagePayload ) | ( Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( LinkEntityPayload ) | ( PreviewSlotPayload ) | ( Omit<RenderLayoutsPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ReparentEntityPayload, 'child'> & { child?: Maybe<RefType['AnyChildEntity']> } ) | ( ResetOrderingPayload ) | ( Omit<RevokeAccessPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<SelectInitialOrderingPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( UpdateAnnouncementPayload ) | ( Omit<UpdateAssetAttachmentPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( Omit<UpdateAssetPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( UpdateCollectionPayload ) | ( UpdateCommunityPayload ) | ( Omit<UpdateContributionPayload, 'contribution'> & { contribution?: Maybe<RefType['AnyContribution']> } ) | ( UpdateGlobalConfigurationPayload ) | ( UpdateItemPayload ) | ( UpdateOrderingPayload ) | ( UpdateOrganizationContributorPayload ) | ( UpdatePagePayload ) | ( UpdatePersonContributorPayload ) | ( UpdateRolePayload ) | ( UpdateUserPayload ) | ( UpdateViewerSettingsPayload ) | ( Omit<UpsertContributionPayload, 'contribution'> & { contribution?: Maybe<RefType['AnyContribution']> } );
   TemplateDefinition: ( BlurbTemplateDefinition ) | ( ContributorListTemplateDefinition ) | ( DescendantListTemplateDefinition ) | ( DetailTemplateDefinition ) | ( HeroTemplateDefinition ) | ( LinkListTemplateDefinition ) | ( ListItemTemplateDefinition ) | ( MetadataTemplateDefinition ) | ( NavigationTemplateDefinition ) | ( OrderingTemplateDefinition ) | ( PageListTemplateDefinition ) | ( SupplementaryTemplateDefinition );
   TemplateHasContributionList: ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } );
-  TemplateHasEntityList: ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } );
+  TemplateHasEntityList: ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<ListItemTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } );
   TemplateHasOrderingPair: ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } );
+  TemplateHasSeeAllOrdering: ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } );
   TemplateInstance: ( Omit<BlurbTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<DetailTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<HeroTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<ListItemTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<MetadataTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<NavigationTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<PageListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<SupplementaryTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } );
   TemplateSlotDefinition: ( TemplateSlotBlockDefinition ) | ( TemplateSlotInlineDefinition );
   TemplateSlotInstance: ( TemplateSlotBlockInstance ) | ( TemplateSlotInlineInstance );
@@ -15826,6 +16149,7 @@ export type ResolversTypes = {
   LinkTargetCandidateKind: LinkTargetCandidateKind;
   ListItemLayoutDefinition: ResolverTypeWrapper<Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<ResolversTypes['AnyListItemTemplateDefinition']> }>;
   ListItemLayoutInstance: ResolverTypeWrapper<Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: ResolversTypes['AnyEntity'], templates: Array<ResolversTypes['AnyListItemTemplateInstance']> }>;
+  ListItemSelectionMode: ListItemSelectionMode;
   ListItemTemplateDefinition: ResolverTypeWrapper<ListItemTemplateDefinition>;
   ListItemTemplateDefinitionSlots: ResolverTypeWrapper<ListItemTemplateDefinitionSlots>;
   ListItemTemplateInstance: ResolverTypeWrapper<Omit<ListItemTemplateInstance, 'entity'> & { entity: ResolversTypes['AnyEntity'] }>;
@@ -16000,6 +16324,7 @@ export type ResolversTypes = {
   TemplateHasContributionList: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['TemplateHasContributionList']>;
   TemplateHasEntityList: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['TemplateHasEntityList']>;
   TemplateHasOrderingPair: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['TemplateHasOrderingPair']>;
+  TemplateHasSeeAllOrdering: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['TemplateHasSeeAllOrdering']>;
   TemplateInstance: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['TemplateInstance']>;
   TemplateKind: TemplateKind;
   TemplateOrderingPair: ResolverTypeWrapper<TemplateOrderingPair>;
@@ -16500,6 +16825,7 @@ export type ResolversParentTypes = {
   TemplateHasContributionList: ResolversInterfaceTypes<ResolversParentTypes>['TemplateHasContributionList'];
   TemplateHasEntityList: ResolversInterfaceTypes<ResolversParentTypes>['TemplateHasEntityList'];
   TemplateHasOrderingPair: ResolversInterfaceTypes<ResolversParentTypes>['TemplateHasOrderingPair'];
+  TemplateHasSeeAllOrdering: ResolversInterfaceTypes<ResolversParentTypes>['TemplateHasSeeAllOrdering'];
   TemplateInstance: ResolversInterfaceTypes<ResolversParentTypes>['TemplateInstance'];
   TemplateOrderingPair: TemplateOrderingPair;
   TemplateSelectionSource: Scalars['TemplateSelectionSource']['output'];
@@ -17138,6 +17464,7 @@ export type BlurbTemplateInstanceResolvers<ContextType = any, ParentType extends
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['BlurbTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
+  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -17606,6 +17933,7 @@ export type ContributorListTemplateInstanceResolvers<ContextType = any, ParentTy
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['ContributorListTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
+  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -17925,6 +18253,7 @@ export type DescendantListTemplateDefinitionResolvers<ContextType = any, ParentT
   manualListName?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
   orderingIdentifier?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
   seeAllButtonLabel?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  seeAllOrderingIdentifier?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
   selectionFallbackMode?: Resolver<Maybe<ResolversTypes['DescendantListSelectionMode']>, ParentType, ContextType>;
   selectionLimit?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   selectionMode?: Resolver<Maybe<ResolversTypes['DescendantListSelectionMode']>, ParentType, ContextType>;
@@ -17932,8 +18261,10 @@ export type DescendantListTemplateDefinitionResolvers<ContextType = any, ParentT
   selectionSource?: Resolver<Maybe<ResolversTypes['TemplateSelectionSource']>, ParentType, ContextType>;
   selectionSourceAncestorName?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
   selectionSourceMode?: Resolver<Maybe<ResolversTypes['SelectionSourceMode']>, ParentType, ContextType>;
+  showContributors?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showEntityContext?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showHeroImage?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showNestedEntities?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showSeeAllButton?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['DescendantListTemplateDefinitionSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
@@ -17947,8 +18278,12 @@ export type DescendantListTemplateDefinitionResolvers<ContextType = any, ParentT
 };
 
 export type DescendantListTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['DescendantListTemplateDefinitionSlots'] = ResolversParentTypes['DescendantListTemplateDefinitionSlots']> = {
+  blockHeader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  blockHeaderFallback?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   headerAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  headerFallback?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  listContext?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   metadata?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   subtitle?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -17959,9 +18294,11 @@ export type DescendantListTemplateInstanceResolvers<ContextType = any, ParentTyp
   definition?: Resolver<ResolversTypes['DescendantListTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
   entityList?: Resolver<ResolversTypes['TemplateEntityList'], ParentType, ContextType>;
+  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  seeAllOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['DescendantListTemplateInstanceSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
@@ -17970,8 +18307,12 @@ export type DescendantListTemplateInstanceResolvers<ContextType = any, ParentTyp
 };
 
 export type DescendantListTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['DescendantListTemplateInstanceSlots'] = ResolversParentTypes['DescendantListTemplateInstanceSlots']> = {
+  blockHeader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  blockHeaderFallback?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   headerAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  headerFallback?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  listContext?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   metadata?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   subtitle?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -18135,6 +18476,7 @@ export type DetailTemplateInstanceResolvers<ContextType = any, ParentType extend
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['DetailTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
+  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -18565,6 +18907,7 @@ export type HeroTemplateInstanceResolvers<ContextType = any, ParentType extends 
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['HeroTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
+  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -18898,14 +19241,17 @@ export type LinkListTemplateDefinitionResolvers<ContextType = any, ParentType ex
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
   manualListName?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
   seeAllButtonLabel?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  seeAllOrderingIdentifier?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
   selectionFallbackMode?: Resolver<Maybe<ResolversTypes['LinkListSelectionMode']>, ParentType, ContextType>;
   selectionLimit?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   selectionMode?: Resolver<Maybe<ResolversTypes['LinkListSelectionMode']>, ParentType, ContextType>;
   selectionSource?: Resolver<Maybe<ResolversTypes['TemplateSelectionSource']>, ParentType, ContextType>;
   selectionSourceAncestorName?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
   selectionSourceMode?: Resolver<Maybe<ResolversTypes['SelectionSourceMode']>, ParentType, ContextType>;
+  showContributors?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showEntityContext?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showHeroImage?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  showNestedEntities?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showSeeAllButton?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['LinkListTemplateDefinitionSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
@@ -18919,8 +19265,12 @@ export type LinkListTemplateDefinitionResolvers<ContextType = any, ParentType ex
 };
 
 export type LinkListTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['LinkListTemplateDefinitionSlots'] = ResolversParentTypes['LinkListTemplateDefinitionSlots']> = {
+  blockHeader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  blockHeaderFallback?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   headerAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  headerFallback?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  listContext?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   metadata?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   subtitle?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -18931,9 +19281,11 @@ export type LinkListTemplateInstanceResolvers<ContextType = any, ParentType exte
   definition?: Resolver<ResolversTypes['LinkListTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
   entityList?: Resolver<ResolversTypes['TemplateEntityList'], ParentType, ContextType>;
+  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  seeAllOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['LinkListTemplateInstanceSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
@@ -18942,8 +19294,12 @@ export type LinkListTemplateInstanceResolvers<ContextType = any, ParentType exte
 };
 
 export type LinkListTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['LinkListTemplateInstanceSlots'] = ResolversParentTypes['LinkListTemplateInstanceSlots']> = {
+  blockHeader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  blockHeaderFallback?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   headerAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  headerFallback?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  listContext?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   metadata?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   subtitle?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -19001,19 +19357,32 @@ export type ListItemLayoutInstanceResolvers<ContextType = any, ParentType extend
 
 export type ListItemTemplateDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['ListItemTemplateDefinition'] = ResolversParentTypes['ListItemTemplateDefinition']> = {
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  dynamicOrderingDefinition?: Resolver<Maybe<ResolversTypes['OrderingDefinition']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  manualListName?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
+  orderingIdentifier?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
+  selectionFallbackMode?: Resolver<Maybe<ResolversTypes['ListItemSelectionMode']>, ParentType, ContextType>;
+  selectionLimit?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  selectionMode?: Resolver<Maybe<ResolversTypes['ListItemSelectionMode']>, ParentType, ContextType>;
+  selectionPropertyPath?: Resolver<Maybe<ResolversTypes['SchemaPropertyPath']>, ParentType, ContextType>;
+  selectionSource?: Resolver<Maybe<ResolversTypes['TemplateSelectionSource']>, ParentType, ContextType>;
+  selectionSourceAncestorName?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
+  selectionSourceMode?: Resolver<Maybe<ResolversTypes['SelectionSourceMode']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['ListItemTemplateDefinitionSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  useSelectionFallback?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type ListItemTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['ListItemTemplateDefinitionSlots'] = ResolversParentTypes['ListItemTemplateDefinitionSlots']> = {
   contextA?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  contextAbbr?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   contextB?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   contextC?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  contextFull?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   metaA?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
@@ -19026,6 +19395,8 @@ export type ListItemTemplateInstanceResolvers<ContextType = any, ParentType exte
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['ListItemTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
+  entityList?: Resolver<ResolversTypes['TemplateEntityList'], ParentType, ContextType>;
+  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -19038,8 +19409,10 @@ export type ListItemTemplateInstanceResolvers<ContextType = any, ParentType exte
 
 export type ListItemTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['ListItemTemplateInstanceSlots'] = ResolversParentTypes['ListItemTemplateInstanceSlots']> = {
   contextA?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  contextAbbr?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   contextB?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   contextC?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  contextFull?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   metaA?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
@@ -19140,6 +19513,7 @@ export type MetadataTemplateInstanceResolvers<ContextType = any, ParentType exte
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['MetadataTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
+  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -19300,6 +19674,7 @@ export type NavigationTemplateInstanceResolvers<ContextType = any, ParentType ex
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['NavigationTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
+  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -19485,6 +19860,7 @@ export type OrderingTemplateInstanceResolvers<ContextType = any, ParentType exte
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['OrderingTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
+  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -19595,6 +19971,7 @@ export type PageListTemplateInstanceResolvers<ContextType = any, ParentType exte
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['PageListTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
+  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -20192,6 +20569,7 @@ export type SupplementaryTemplateInstanceResolvers<ContextType = any, ParentType
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['SupplementaryTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
+  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -20269,7 +20647,7 @@ export type TemplateHasContributionListResolvers<ContextType = any, ParentType e
 };
 
 export type TemplateHasEntityListResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateHasEntityList'] = ResolversParentTypes['TemplateHasEntityList']> = {
-  __resolveType: TypeResolveFn<'DescendantListTemplateInstance' | 'LinkListTemplateInstance', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'DescendantListTemplateInstance' | 'LinkListTemplateInstance' | 'ListItemTemplateInstance', ParentType, ContextType>;
   entityList?: Resolver<ResolversTypes['TemplateEntityList'], ParentType, ContextType>;
 };
 
@@ -20278,9 +20656,15 @@ export type TemplateHasOrderingPairResolvers<ContextType = any, ParentType exten
   orderingPair?: Resolver<ResolversTypes['TemplateOrderingPair'], ParentType, ContextType>;
 };
 
+export type TemplateHasSeeAllOrderingResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateHasSeeAllOrdering'] = ResolversParentTypes['TemplateHasSeeAllOrdering']> = {
+  __resolveType: TypeResolveFn<'DescendantListTemplateInstance' | 'LinkListTemplateInstance', ParentType, ContextType>;
+  seeAllOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
+};
+
 export type TemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateInstance'] = ResolversParentTypes['TemplateInstance']> = {
   __resolveType: TypeResolveFn<'BlurbTemplateInstance' | 'ContributorListTemplateInstance' | 'DescendantListTemplateInstance' | 'DetailTemplateInstance' | 'HeroTemplateInstance' | 'LinkListTemplateInstance' | 'ListItemTemplateInstance' | 'MetadataTemplateInstance' | 'NavigationTemplateInstance' | 'OrderingTemplateInstance' | 'PageListTemplateInstance' | 'SupplementaryTemplateInstance', ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
+  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
@@ -20302,6 +20686,7 @@ export interface TemplateSelectionSourceScalarConfig extends GraphQLScalarTypeCo
 }
 
 export type TemplateSlotBlockDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateSlotBlockDefinition'] = ResolversParentTypes['TemplateSlotBlockDefinition']> = {
+  hideWhenEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['TemplateSlotKind'], ParentType, ContextType>;
   rawTemplate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -20310,6 +20695,7 @@ export type TemplateSlotBlockDefinitionResolvers<ContextType = any, ParentType e
 export type TemplateSlotBlockInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateSlotBlockInstance'] = ResolversParentTypes['TemplateSlotBlockInstance']> = {
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   errors?: Resolver<Maybe<Array<ResolversTypes['TemplateSlotError']>>, ParentType, ContextType>;
+  hidesTemplate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['TemplateSlotKind'], ParentType, ContextType>;
   valid?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -20317,6 +20703,7 @@ export type TemplateSlotBlockInstanceResolvers<ContextType = any, ParentType ext
 
 export type TemplateSlotDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateSlotDefinition'] = ResolversParentTypes['TemplateSlotDefinition']> = {
   __resolveType: TypeResolveFn<'TemplateSlotBlockDefinition' | 'TemplateSlotInlineDefinition', ParentType, ContextType>;
+  hideWhenEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['TemplateSlotKind'], ParentType, ContextType>;
   rawTemplate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 };
@@ -20329,6 +20716,7 @@ export type TemplateSlotErrorResolvers<ContextType = any, ParentType extends Res
 };
 
 export type TemplateSlotInlineDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateSlotInlineDefinition'] = ResolversParentTypes['TemplateSlotInlineDefinition']> = {
+  hideWhenEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['TemplateSlotKind'], ParentType, ContextType>;
   rawTemplate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -20337,6 +20725,7 @@ export type TemplateSlotInlineDefinitionResolvers<ContextType = any, ParentType 
 export type TemplateSlotInlineInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateSlotInlineInstance'] = ResolversParentTypes['TemplateSlotInlineInstance']> = {
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   errors?: Resolver<Maybe<Array<ResolversTypes['TemplateSlotError']>>, ParentType, ContextType>;
+  hidesTemplate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['TemplateSlotKind'], ParentType, ContextType>;
   valid?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -20346,6 +20735,7 @@ export type TemplateSlotInstanceResolvers<ContextType = any, ParentType extends 
   __resolveType: TypeResolveFn<'TemplateSlotBlockInstance' | 'TemplateSlotInlineInstance', ParentType, ContextType>;
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   errors?: Resolver<Maybe<Array<ResolversTypes['TemplateSlotError']>>, ParentType, ContextType>;
+  hidesTemplate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['TemplateSlotKind'], ParentType, ContextType>;
   valid?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
 };
@@ -21198,6 +21588,7 @@ export type Resolvers<ContextType = any> = {
   TemplateHasContributionList?: TemplateHasContributionListResolvers<ContextType>;
   TemplateHasEntityList?: TemplateHasEntityListResolvers<ContextType>;
   TemplateHasOrderingPair?: TemplateHasOrderingPairResolvers<ContextType>;
+  TemplateHasSeeAllOrdering?: TemplateHasSeeAllOrderingResolvers<ContextType>;
   TemplateInstance?: TemplateInstanceResolvers<ContextType>;
   TemplateOrderingPair?: TemplateOrderingPairResolvers<ContextType>;
   TemplateSelectionSource?: GraphQLScalarType;
