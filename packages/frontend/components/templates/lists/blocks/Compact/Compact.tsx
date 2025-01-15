@@ -1,6 +1,7 @@
 import { useSharedListTemplateFragment } from "@/components/templates/shared/shared.list.graphql";
 import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
 import Container from "@/components/layout/Container";
+import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import List from "../../List";
 import SeeAll from "../../SeeAll";
 import { getSeeAllHref } from "../../SeeAll/helpers";
@@ -13,16 +14,15 @@ export default function CompactListBlock({
   data?: sharedListTemplateFragment$key | null;
   basePath?: string | null;
 }) {
-  const { linksDefinition, descendantsDefinition, entityList } =
+  const { linksDefinition, descendantsDefinition, entityList, slots } =
     useSharedListTemplateFragment(data);
 
-  const { empty } = entityList ?? {};
+  const { empty, listItemLayouts } = entityList ?? {};
 
   if (empty) return null;
 
   const {
     background,
-    title,
     showSeeAllButton,
     seeAllButtonLabel,
     selectionMode,
@@ -42,6 +42,8 @@ export default function CompactListBlock({
       )
     : null;
 
+  const { blockHeader } = slots ?? {};
+
   return (
     <Container
       className={styles.container}
@@ -50,8 +52,16 @@ export default function CompactListBlock({
     >
       <div className={styles.grid}>
         <div className={styles.textColumn}>
-          {!!title && <h3 className={styles.header}>{title}</h3>}
-          <List variant="COMPACT" bgColor={background} data={entityList} />
+          {blockHeader?.valid && !!blockHeader?.content && (
+            <h3 className={styles.header}>
+              <InlineSlotWrapper content={blockHeader.content} />
+            </h3>
+          )}
+          <List
+            variant="COMPACT"
+            bgColor={background}
+            items={listItemLayouts}
+          />
         </div>
         {showHeroImage && <div className={styles.heroImage} />}
       </div>

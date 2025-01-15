@@ -1,6 +1,7 @@
 import { useSharedListTemplateFragment } from "@/components/templates/shared/shared.list.graphql";
 import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
 import Container from "@/components/layout/Container";
+import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import List from "../../List";
 import SeeAll from "../../SeeAll";
 import { getSeeAllHref } from "../../SeeAll/helpers";
@@ -13,16 +14,15 @@ export default function PromoListBlock({
   data?: sharedListTemplateFragment$key | null;
   basePath?: string | null;
 }) {
-  const { linksDefinition, descendantsDefinition, entityList } =
+  const { linksDefinition, descendantsDefinition, entityList, slots } =
     useSharedListTemplateFragment(data);
 
-  const { empty } = entityList ?? {};
+  const { empty, listItemLayouts } = entityList ?? {};
 
   if (empty) return null;
 
   const {
     background,
-    title,
     showSeeAllButton,
     seeAllButtonLabel,
     selectionMode,
@@ -42,15 +42,21 @@ export default function PromoListBlock({
       )
     : null;
 
+  const { blockHeader } = slots ?? {};
+
   return (
     <Container
       className={styles.container}
       bgColor={background}
       halfWidthTemplate={width === "HALF"}
     >
-      {!!title && <h3>{title}</h3>}
+      {!!blockHeader?.content && blockHeader?.valid && (
+        <h3>
+          <InlineSlotWrapper content={blockHeader.content} />
+        </h3>
+      )}
       {showHeroImage && <div className={styles.heroImage} />}
-      <List variant="PROMOS" bgColor={background} data={entityList} />
+      <List variant="PROMOS" bgColor={background} items={listItemLayouts} />
       {!!showSeeAllButton && seeAllHref && (
         <SeeAll
           alignment="left"

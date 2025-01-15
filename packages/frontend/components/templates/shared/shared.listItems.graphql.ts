@@ -8,9 +8,20 @@ import {
 
 export const listItemsTemplateFragment = graphql`
   fragment sharedListItemsTemplateFragment on TemplateEntityList {
+    empty
+    count
     listItemLayouts {
       template {
         ...sharedListItemTemplateFragment
+        entityList {
+          empty
+          count
+          listItemLayouts {
+            template {
+              ...sharedListItemTemplateFragment
+            }
+          }
+        }
       }
     }
   }
@@ -19,9 +30,9 @@ export const listItemsTemplateFragment = graphql`
 export const useSharedListItemsTemplateFragment = (
   data?: sharedListItemsTemplateFragment$key | null,
 ) => {
-  const items = useFragment(listItemsTemplateFragment, data);
-  const { listItemLayouts } = items ?? {};
-  return listItemLayouts;
+  const list = useFragment(listItemsTemplateFragment, data);
+  const { listItemLayouts, empty, count } = list ?? {};
+  return { listItemLayouts, empty, count };
 };
 
 export const listItemTemplateFragment = graphql`
@@ -79,10 +90,10 @@ export const listItemTemplateFragment = graphql`
       }
     }
     slots {
-      contextA {
+      contextFull {
         ...sharedInlineSlotFragment
       }
-      contextB {
+      contextAbbr {
         ...sharedInlineSlotFragment
       }
       contextC {
@@ -112,9 +123,8 @@ export const useSharedListItemTemplateFragment = (
 ) => {
   const template = useFragment(listItemTemplateFragment, data);
   const { slots, entity } = template ?? {};
-  const contextA = useSharedInlineFragment(slots?.contextA);
-  const contextB = useSharedInlineFragment(slots?.contextB);
-  const contextC = useSharedInlineFragment(slots?.contextC);
+  const contextAbbr = useSharedInlineFragment(slots?.contextAbbr);
+  const contextFull = useSharedInlineFragment(slots?.contextFull);
   const description = useSharedBlockFragment(slots?.description);
   const header = useSharedInlineFragment(slots?.header);
   const metaA = useSharedInlineFragment(slots?.metaA);
@@ -124,9 +134,8 @@ export const useSharedListItemTemplateFragment = (
   return {
     entity,
     slots: {
-      contextA,
-      contextB,
-      contextC,
+      contextAbbr,
+      contextFull,
       description,
       header,
       metaA,

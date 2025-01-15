@@ -47,7 +47,7 @@
   display: block;
   font-size: var(--font-size-base);
   color: var(--color-lighter);
-  margin-block-start: 0.5rem;
+  margin-block-start: 0.25rem;
   font-style: italic;
 }
 

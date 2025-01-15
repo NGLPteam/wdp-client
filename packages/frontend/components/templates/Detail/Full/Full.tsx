@@ -47,7 +47,9 @@ export default function FullVariant({
             </div>
           )}
           {body?.valid && !!body.content ? (
-            <BlockSlotWrapper content={body.content} />
+            <div className="t-rte">
+              <BlockSlotWrapper content={body.content} />
+            </div>
           ) : (
             t("common.no_content")
           )}

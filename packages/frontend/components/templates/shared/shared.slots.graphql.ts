@@ -15,6 +15,7 @@ export const templateSlotInlineFragment = graphql`
     content
     kind
     valid
+    hidesTemplate
   }
 `;
 

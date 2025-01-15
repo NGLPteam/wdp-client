@@ -65,6 +65,7 @@
   display: block;
   color: var(--color-lighter);
   font-size: var(--font-size-base);
+  font-style: italic;
 }
 
 .inner {

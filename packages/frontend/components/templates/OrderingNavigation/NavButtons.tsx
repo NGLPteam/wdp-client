@@ -74,6 +74,7 @@ export default function NavButtons({
 const fragment = graphql`
   fragment NavButtonsFragment on OrderingTemplateInstance {
     orderingPair {
+      exists
       first
       last
       nextSibling {

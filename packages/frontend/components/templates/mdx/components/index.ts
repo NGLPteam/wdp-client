@@ -5,8 +5,15 @@ import { default as MetadataLabel } from "./MetadataLabel";
 import { default as MetadataValue } from "./MetadataValue";
 import { default as PDFViewer } from "./PDFViewer";
 import { default as CopyLink } from "./CopyLink";
+import { default as DotList } from "./DotList";
+import { default as DotItem } from "./DotItem";
 
-export const inlineSlotComponents = { VariablePrecisionDate, EntityLink };
+export const inlineSlotComponents = {
+  VariablePrecisionDate,
+  EntityLink,
+  DotList,
+  DotItem,
+};
 
 export const blockSlotComponents = {
   VariablePrecisionDate,
@@ -16,4 +23,6 @@ export const blockSlotComponents = {
   MetadataValue,
   PDFViewer,
   CopyLink,
+  DotList,
+  DotItem,
 };

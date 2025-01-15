@@ -10,17 +10,18 @@ import styles from "./Grid.module.css";
 
 export default function GridListItem({
   data,
+  showContributors,
 }: {
   data?: sharedListItemTemplateFragment$key | null;
   hideCover?: boolean;
+  showContributors?: boolean | null;
 }) {
   const { slots, entity } = useSharedListItemTemplateFragment(data);
 
-  const { header, subheader, contextA, contextB, contextC, metaA, metaB } =
+  const { header, subheader, contextFull, contextAbbr, metaA, metaB } =
     slots ?? {};
 
-  const renderMeta =
-    metaA?.valid || metaB?.valid || contextB?.valid || contextC?.valid;
+  const renderMeta = metaA?.valid || metaB?.valid || contextAbbr?.valid;
 
   if (!(entity?.__typename === "Item" || entity?.__typename === "Collection"))
     return null;
@@ -29,9 +30,9 @@ export default function GridListItem({
 
   const showCover = entity?.__typename === "Collection";
 
-  const renderContext = contextA?.valid && !!contextA.content && (
+  const renderContext = contextFull?.valid && !!contextFull.content && (
     <span className={styles.contextOne}>
-      <InlineSlotWrapper content={contextA.content} />
+      <InlineSlotWrapper content={contextFull.content} />
     </span>
   );
 
@@ -53,9 +54,11 @@ export default function GridListItem({
               <InlineSlotWrapper content={subheader.content} />
             </span>
           )}
-          <span className={styles.contributors}>
-            <ContributorsList data={entity?.contributions} noLinks />
-          </span>
+          {showContributors && (
+            <span className={styles.contributors}>
+              <ContributorsList data={entity?.contributions} noLinks />
+            </span>
+          )}
           {renderMeta && (
             <div className={styles.group}>
               {!showCover && renderContext}
@@ -63,11 +66,8 @@ export default function GridListItem({
                 <InlineSlotWrapper content={metaA.content} />
               )}
               {metaB?.valid && <InlineSlotWrapper content={metaB.content} />}
-              {contextB?.valid && !!contextB.content && (
-                <InlineSlotWrapper content={contextB.content} />
-              )}
-              {contextC?.valid && !!contextC.content && (
-                <InlineSlotWrapper content={contextC.content} />
+              {contextAbbr?.valid && !!contextAbbr.content && (
+                <InlineSlotWrapper content={contextAbbr.content} />
               )}
             </div>
           )}

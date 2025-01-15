@@ -14,7 +14,7 @@ export default function CompactListItem({
 }) {
   const { slots, entity } = useSharedListItemTemplateFragment(data);
 
-  const { header, contextA } = slots ?? {};
+  const { header, contextFull } = slots ?? {};
 
   const href =
     entity?.__typename === "Item" || entity?.__typename === "Collection"
@@ -28,9 +28,9 @@ export default function CompactListItem({
         {header?.valid && !!header.content && (
           <InlineSlotWrapper content={header.content} />
         )}
-        {contextA?.valid && !!contextA.content && (
+        {contextFull?.valid && !!contextFull.content && (
           <span className={styles.contextOne}>
-            <InlineSlotWrapper content={contextA.content} />
+            <InlineSlotWrapper content={contextFull.content} />
           </span>
         )}
       </NamedLink>

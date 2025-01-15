@@ -11,7 +11,9 @@ export default function DetailTemplate({
 }) {
   const template = useFragment(fragment, data);
 
-  const { detailDefinition } = template ?? {};
+  const { detailDefinition, hidden } = template ?? {};
+
+  if (hidden) return null;
 
   const { background, variant, showAnnouncements, showHeroImage, width } =
     detailDefinition ?? {};
@@ -34,6 +36,7 @@ export default function DetailTemplate({
 const fragment = graphql`
   fragment DetailTemplateFragment on DetailTemplateInstance {
     __typename
+    hidden
     detailDefinition: definition {
       background
       variant

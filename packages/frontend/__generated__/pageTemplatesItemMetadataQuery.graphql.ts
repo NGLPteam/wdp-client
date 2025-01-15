@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e5ed6ef9623cbc982dc8b6fb2bbbfd4d>>
+ * @generated SignedSource<<bb95b7ee17dd25d6046b2f7d68a75f74>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -51,28 +51,31 @@ v2 = {
   "name": "id",
   "storageKey": null
 },
-v3 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "content",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "kind",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "valid",
-    "storageKey": null
-  }
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "content",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "kind",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "valid",
+  "storageKey": null
+},
+v6 = [
+  (v3/*: any*/),
+  (v4/*: any*/),
+  (v5/*: any*/)
 ];
 return {
   "fragment": {
@@ -206,7 +209,18 @@ return {
                             "kind": "LinkedField",
                             "name": "header",
                             "plural": false,
-                            "selections": (v3/*: any*/),
+                            "selections": [
+                              (v3/*: any*/),
+                              (v4/*: any*/),
+                              (v5/*: any*/),
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "hidesTemplate",
+                                "storageKey": null
+                              }
+                            ],
                             "storageKey": null
                           },
                           {
@@ -216,7 +230,7 @@ return {
                             "kind": "LinkedField",
                             "name": "itemsA",
                             "plural": false,
-                            "selections": (v3/*: any*/),
+                            "selections": (v6/*: any*/),
                             "storageKey": null
                           },
                           {
@@ -226,7 +240,7 @@ return {
                             "kind": "LinkedField",
                             "name": "itemsB",
                             "plural": false,
-                            "selections": (v3/*: any*/),
+                            "selections": (v6/*: any*/),
                             "storageKey": null
                           },
                           {
@@ -236,7 +250,7 @@ return {
                             "kind": "LinkedField",
                             "name": "itemsC",
                             "plural": false,
-                            "selections": (v3/*: any*/),
+                            "selections": (v6/*: any*/),
                             "storageKey": null
                           },
                           {
@@ -246,7 +260,7 @@ return {
                             "kind": "LinkedField",
                             "name": "itemsD",
                             "plural": false,
-                            "selections": (v3/*: any*/),
+                            "selections": (v6/*: any*/),
                             "storageKey": null
                           }
                         ],
@@ -270,12 +284,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "70f2f5bb392e75fa415ca0da2093d554",
+    "cacheID": "67d7430770ffd5e87c51f3e0958f2cb1",
     "id": null,
     "metadata": {},
     "name": "pageTemplatesItemMetadataQuery",
     "operationKind": "query",
-    "text": "query pageTemplatesItemMetadataQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    layouts {\n      metadata {\n        template {\n          ...MetadataTemplateFragment\n          id\n        }\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment MetadataTemplateFragment on MetadataTemplateInstance {\n  definition {\n    background\n    id\n  }\n  slots {\n    header {\n      ...sharedInlineSlotFragment\n    }\n    itemsA {\n      ...sharedBlockSlotFragment\n    }\n    itemsB {\n      ...sharedBlockSlotFragment\n    }\n    itemsC {\n      ...sharedBlockSlotFragment\n    }\n    itemsD {\n      ...sharedBlockSlotFragment\n    }\n  }\n}\n\nfragment sharedBlockSlotFragment on TemplateSlotBlockInstance {\n  content\n  kind\n  valid\n}\n\nfragment sharedInlineSlotFragment on TemplateSlotInlineInstance {\n  content\n  kind\n  valid\n}\n"
+    "text": "query pageTemplatesItemMetadataQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    layouts {\n      metadata {\n        template {\n          ...MetadataTemplateFragment\n          id\n        }\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment MetadataTemplateFragment on MetadataTemplateInstance {\n  definition {\n    background\n    id\n  }\n  slots {\n    header {\n      ...sharedInlineSlotFragment\n    }\n    itemsA {\n      ...sharedBlockSlotFragment\n    }\n    itemsB {\n      ...sharedBlockSlotFragment\n    }\n    itemsC {\n      ...sharedBlockSlotFragment\n    }\n    itemsD {\n      ...sharedBlockSlotFragment\n    }\n  }\n}\n\nfragment sharedBlockSlotFragment on TemplateSlotBlockInstance {\n  content\n  kind\n  valid\n}\n\nfragment sharedInlineSlotFragment on TemplateSlotInlineInstance {\n  content\n  kind\n  valid\n  hidesTemplate\n}\n"
   }
 };
 })();

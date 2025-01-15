@@ -14,15 +14,24 @@ export default function SummaryListItem({
   data,
   hideCover,
   showContext,
+  isNested,
 }: {
   data?: sharedListItemTemplateFragment$key | null;
   hideCover?: boolean;
   showContext?: boolean | null;
+  isNested?: boolean | null;
 }) {
   const { slots, entity } = useSharedListItemTemplateFragment(data);
 
-  const { header, subheader, contextA, contextB, metaA, metaB, description } =
-    slots ?? {};
+  const {
+    header,
+    subheader,
+    contextFull,
+    contextAbbr,
+    metaA,
+    metaB,
+    description,
+  } = slots ?? {};
 
   if (!(entity?.__typename === "Item" || entity?.__typename === "Collection"))
     return null;
@@ -30,7 +39,8 @@ export default function SummaryListItem({
   const href = `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`;
 
   // Currently, we're only using a single line contextA
-  const contextVisible = showContext && contextA?.valid && !!contextA.content;
+  const context = isNested ? contextAbbr : contextFull;
+  const contextVisible = showContext && context?.valid && !!context.content;
 
   const showThumb =
     !hideCover &&
@@ -46,12 +56,7 @@ export default function SummaryListItem({
       <div className={styles.text}>
         {contextVisible && (
           <div className={styles.group}>
-            {contextA?.valid && !!contextA.content && (
-              <InlineSlotWrapper content={contextA.content} />
-            )}
-            {contextB?.valid && !!contextB.content && (
-              <InlineSlotWrapper content={contextB.content} />
-            )}
+            <InlineSlotWrapper content={context.content} />
           </div>
         )}
         <div className={styles.headerGroup}>

@@ -16,15 +16,15 @@ export default function BlurbTemplate({
 }) {
   const template = useFragment(fragment, data);
 
-  const { textDefinition, slots } = template ?? {};
+  const { blurbDefinition, slots, hidden } = template ?? {};
 
-  const { width, background } = textDefinition ?? {};
+  const { width, background } = blurbDefinition ?? {};
 
   const header = useSharedInlineFragment(slots?.header);
   const subheader = useSharedInlineFragment(slots?.subheader);
   const body = useSharedBlockFragment(slots?.body);
 
-  return body?.content ? (
+  return !hidden ? (
     <Container
       className={styles.container}
       bgColor={background}
@@ -54,7 +54,8 @@ export default function BlurbTemplate({
 const fragment = graphql`
   fragment BlurbTemplateFragment on BlurbTemplateInstance {
     __typename
-    textDefinition: definition {
+    hidden
+    blurbDefinition: definition {
       background
       width
     }

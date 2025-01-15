@@ -24,19 +24,19 @@ export default function SummaryListBlock({
   const { linksDefinition, descendantsDefinition, slots, entityList, entity } =
     useSharedListTemplateFragment(data);
 
-  const { empty } = entityList ?? {};
+  const { empty, listItemLayouts } = entityList ?? {};
 
   if (empty) return null;
 
   const {
     background,
-    title,
-    showSeeAllButton,
     seeAllButtonLabel,
     selectionMode,
     width,
     showEntityContext,
     showHeroImage,
+    seeAllOrderingIdentifier,
+    showNestedEntities,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
   const {
@@ -45,7 +45,8 @@ export default function SummaryListBlock({
     dynamicOrderingDefinition,
   } = descendantsDefinition ?? {};
 
-  const { header, headerAside, subtitle, metadata } = slots ?? {};
+  const { blockHeader, header, headerAside, subtitle, metadata, context } =
+    slots ?? {};
 
   const href =
     (entity?.__typename === "Item" || entity?.__typename === "Collection") &&
@@ -54,13 +55,15 @@ export default function SummaryListBlock({
       : null;
 
   const seeAllHref = descendantsDefinition
-    ? getSeeAllHref(
-        basePath,
-        selectionMode,
-        orderingIdentifier,
-        selectionPropertyPath,
-        dynamicOrderingDefinition,
-      )
+    ? showNestedEntities
+      ? href
+      : getSeeAllHref(
+          basePath,
+          selectionMode,
+          seeAllOrderingIdentifier ?? orderingIdentifier,
+          selectionPropertyPath,
+          dynamicOrderingDefinition,
+        )
     : null;
 
   const renderEntity = header?.valid || subtitle?.valid || metadata?.valid;
@@ -73,9 +76,18 @@ export default function SummaryListBlock({
     >
       <div className={styles.grid}>
         <div className={styles.textColumn}>
-          {!!title && <span className={styles.blockTitle}>{title}</span>}
+          {blockHeader?.valid && !!blockHeader?.content && (
+            <div className={classNames(styles.blockTitle, "t-h3")}>
+              <InlineSlotWrapper content={blockHeader.content} />
+            </div>
+          )}
           {renderEntity && (
             <div className={styles.entity}>
+              {context?.valid && !!context.content && (
+                <span className={styles.context}>
+                  <InlineSlotWrapper content={context.content} />
+                </span>
+              )}
               <NamedLink href={href}>
                 {header?.valid && !!header.content && (
                   <h4 className={classNames(styles.title, "t-h3")}>
@@ -89,21 +101,26 @@ export default function SummaryListBlock({
                 )}
               </NamedLink>
               {subtitle?.valid && !!subtitle.content && (
-                <span className={styles.subheader}>{subtitle.content}</span>
+                <span className={styles.subheader}>
+                  <InlineSlotWrapper content={subtitle.content} />
+                </span>
               )}
               {metadata?.valid && !!metadata.content && (
-                <span className={styles.metadata}>{metadata.content}</span>
+                <span className={styles.metadata}>
+                  <InlineSlotWrapper content={metadata.content} />
+                </span>
               )}
             </div>
           )}
           <List
             variant="SUMMARY"
             bgColor={background}
-            data={entityList}
+            items={listItemLayouts}
             hideCovers={!!showHeroImage}
             showContext={showEntityContext}
+            isNested={showNestedEntities}
           />
-          {!!showSeeAllButton && !!seeAllHref && (
+          {!!seeAllOrderingIdentifier && !!seeAllHref && (
             <SeeAll
               alignment="left"
               buttonLabel={seeAllButtonLabel}

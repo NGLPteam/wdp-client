@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7a478825e1a2e39114a7454335629313>>
+ * @generated SignedSource<<95101cdda11e86c91f1c8ce77fbb9c17>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -30,11 +30,14 @@ export type sharedListTemplateFragment$data = {
     } | null | undefined;
     readonly orderingIdentifier: any | null | undefined;
     readonly seeAllButtonLabel: string | null | undefined;
+    readonly seeAllOrderingIdentifier: any | null | undefined;
     readonly selectionLimit: number | null | undefined;
     readonly selectionMode: DescendantListSelectionMode | null | undefined;
     readonly selectionPropertyPath: any | null | undefined;
+    readonly showContributors: boolean | null | undefined;
     readonly showEntityContext: boolean | null | undefined;
     readonly showHeroImage: boolean | null | undefined;
+    readonly showNestedEntities: boolean | null | undefined;
     readonly showSeeAllButton: boolean | null | undefined;
     readonly title: string | null | undefined;
     readonly variant: DescendantListVariant | null | undefined;
@@ -72,16 +75,22 @@ export type sharedListTemplateFragment$data = {
   readonly linksDefinition?: {
     readonly background: LinkListBackground | null | undefined;
     readonly seeAllButtonLabel: string | null | undefined;
+    readonly seeAllOrderingIdentifier: any | null | undefined;
     readonly selectionLimit: number | null | undefined;
     readonly selectionMode: LinkListSelectionMode | null | undefined;
+    readonly showContributors: boolean | null | undefined;
     readonly showEntityContext: boolean | null | undefined;
     readonly showHeroImage: boolean | null | undefined;
+    readonly showNestedEntities: boolean | null | undefined;
     readonly showSeeAllButton: boolean | null | undefined;
     readonly title: string | null | undefined;
     readonly variant: LinkListVariant | null | undefined;
     readonly width: TemplateWidth | null | undefined;
   };
   readonly slots?: {
+    readonly blockHeader: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+    } | null | undefined;
     readonly header: {
       readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
     } | null | undefined;
@@ -107,6 +116,6 @@ const node: ReaderInlineDataFragment = {
   "name": "sharedListTemplateFragment"
 };
 
-(node as any).hash = "91ec2314ac9f7cd8f38aaab0a7f5a051";
+(node as any).hash = "632fcbad91163ce2ddcd7d69fce29ca7";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0ab4a27bbb388564f6fd190078d1728c>>
+ * @generated SignedSource<<ef677a85353fc9550aeef4b4a540cd01>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,8 +11,19 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type sharedListItemsTemplateFragment$data = {
+  readonly count: number;
+  readonly empty: boolean;
   readonly listItemLayouts: ReadonlyArray<{
     readonly template: {
+      readonly entityList: {
+        readonly count: number;
+        readonly empty: boolean;
+        readonly listItemLayouts: ReadonlyArray<{
+          readonly template: {
+            readonly " $fragmentSpreads": FragmentRefs<"sharedListItemTemplateFragment">;
+          } | null | undefined;
+        }>;
+      };
       readonly " $fragmentSpreads": FragmentRefs<"sharedListItemTemplateFragment">;
     } | null | undefined;
   }>;
@@ -23,12 +34,34 @@ export type sharedListItemsTemplateFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"sharedListItemsTemplateFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "empty",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "count",
+  "storageKey": null
+},
+v2 = {
+  "args": null,
+  "kind": "FragmentSpread",
+  "name": "sharedListItemTemplateFragment"
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "sharedListItemsTemplateFragment",
   "selections": [
+    (v0/*: any*/),
+    (v1/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -45,10 +78,42 @@ const node: ReaderFragment = {
           "name": "template",
           "plural": false,
           "selections": [
+            (v2/*: any*/),
             {
+              "alias": null,
               "args": null,
-              "kind": "FragmentSpread",
-              "name": "sharedListItemTemplateFragment"
+              "concreteType": "TemplateEntityList",
+              "kind": "LinkedField",
+              "name": "entityList",
+              "plural": false,
+              "selections": [
+                (v0/*: any*/),
+                (v1/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "ListItemLayoutInstance",
+                  "kind": "LinkedField",
+                  "name": "listItemLayouts",
+                  "plural": true,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "concreteType": "ListItemTemplateInstance",
+                      "kind": "LinkedField",
+                      "name": "template",
+                      "plural": false,
+                      "selections": [
+                        (v2/*: any*/)
+                      ],
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -60,7 +125,8 @@ const node: ReaderFragment = {
   "type": "TemplateEntityList",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "b933c1618102a8906df2cb7457034a78";
+(node as any).hash = "3824498a91a8d3c21f02fb8a3cdceafb";
 
 export default node;
