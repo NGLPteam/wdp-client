@@ -66087,7 +66087,7 @@
           },
           {
             "name": "exists",
-            "description": "Whether or not the ordering / entry actually exists—can be used to skip rendering.\n",
+            "description": "Whether or not the ordering / entry actually exists and has siblings—can be used to skip rendering.\n\nImplies `inOrdering && !only`.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -66104,6 +66104,22 @@
           {
             "name": "first",
             "description": "Whether the source entity is the _first_ entity in the ordering.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "inOrdering",
+            "description": "Whether or not the entity is present in the associated ordering / entry.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -66141,6 +66157,22 @@
               "kind": "OBJECT",
               "name": "OrderingEntry",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "only",
+            "description": "Whether the source entity is the _only_ entity in the ordering.\n\nImplies `first && last`.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
