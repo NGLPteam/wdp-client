@@ -11,17 +11,18 @@ import styles from "./Grid.module.css";
 export default function GridListItem({
   data,
   showContributors,
+  showContext,
 }: {
   data?: sharedListItemTemplateFragment$key | null;
   hideCover?: boolean;
   showContributors?: boolean | null;
+  showContext?: boolean | null;
 }) {
   const { slots, entity } = useSharedListItemTemplateFragment(data);
 
-  const { header, subheader, contextFull, contextAbbr, metaA, metaB } =
-    slots ?? {};
+  const { header, subheader, contextFull, metaA, metaB } = slots ?? {};
 
-  const renderMeta = metaA?.valid || metaB?.valid || contextAbbr?.valid;
+  const renderMeta = metaA?.valid || metaB?.valid;
 
   if (!(entity?.__typename === "Item" || entity?.__typename === "Collection"))
     return null;
@@ -30,11 +31,13 @@ export default function GridListItem({
 
   const showCover = entity?.__typename === "Collection";
 
-  const renderContext = contextFull?.valid && !!contextFull.content && (
-    <span className={styles.contextOne}>
-      <InlineSlotWrapper content={contextFull.content} />
-    </span>
-  );
+  const renderContext = showContext &&
+    contextFull?.valid &&
+    !!contextFull.content && (
+      <span className={styles.contextOne}>
+        <InlineSlotWrapper content={contextFull.content} />
+      </span>
+    );
 
   return (
     <li>
@@ -66,9 +69,6 @@ export default function GridListItem({
                 <InlineSlotWrapper content={metaA.content} />
               )}
               {metaB?.valid && <InlineSlotWrapper content={metaB.content} />}
-              {contextAbbr?.valid && !!contextAbbr.content && (
-                <InlineSlotWrapper content={contextAbbr.content} />
-              )}
             </div>
           )}
         </div>

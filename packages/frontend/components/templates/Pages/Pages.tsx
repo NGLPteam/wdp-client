@@ -10,20 +10,21 @@ export default function PagesListTemplate({
 }) {
   const template = useFragment(fragment, data);
 
-  const { pagesDefinition, entity } = template ?? {};
+  const { pagesDefinition, entity, hidden } = template ?? {};
 
   const { width, background } = pagesDefinition ?? {};
 
-  return (
+  return !hidden ? (
     <Container bgColor={background} halfWidthTemplate={width === "HALF"}>
       <List data={entity} />
     </Container>
-  );
+  ) : null;
 }
 
 const fragment = graphql`
   fragment PagesTemplateFragment on PageListTemplateInstance {
     __typename
+    hidden
     pagesDefinition: definition {
       background
       width

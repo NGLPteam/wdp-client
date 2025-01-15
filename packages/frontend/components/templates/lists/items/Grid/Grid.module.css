@@ -31,6 +31,7 @@
 .contributors {
   display: block;
   margin-block-start: 0.25rem;
+  font-weight: var(--font-weight-medium);
 }
 
 .group {
