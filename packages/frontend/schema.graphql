@@ -13666,7 +13666,9 @@ type TemplateOrderingPair {
   """
   count: Int
   """
-  Whether or not the ordering / entry actually exists—can be used to skip rendering.
+  Whether or not the ordering / entry actually exists and has siblings—can be used to skip rendering.
+  
+  Implies `inOrdering && !only`.
   
   """
   exists: Boolean!
@@ -13675,6 +13677,11 @@ type TemplateOrderingPair {
   
   """
   first: Boolean!
+  """
+  Whether or not the entity is present in the associated ordering / entry.
+  
+  """
+  inOrdering: Boolean!
   """
   Whether the source entity is the _last_ entity in the ordering.
   
@@ -13685,6 +13692,13 @@ type TemplateOrderingPair {
   
   """
   nextSibling: OrderingEntry
+  """
+  Whether the source entity is the _only_ entity in the ordering.
+  
+  Implies `first && last`.
+  
+  """
+  only: Boolean!
   """
   The source entity's (1-based) position in the ordering.
   

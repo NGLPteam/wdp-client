@@ -13603,7 +13603,9 @@ export type TemplateOrderingPair = {
    */
   count?: Maybe<Scalars['Int']['output']>;
   /**
-   * Whether or not the ordering / entry actually exists—can be used to skip rendering.
+   * Whether or not the ordering / entry actually exists and has siblings—can be used to skip rendering.
+   *
+   * Implies `inOrdering && !only`.
    *
    */
   exists: Scalars['Boolean']['output'];
@@ -13612,6 +13614,11 @@ export type TemplateOrderingPair = {
    *
    */
   first: Scalars['Boolean']['output'];
+  /**
+   * Whether or not the entity is present in the associated ordering / entry.
+   *
+   */
+  inOrdering: Scalars['Boolean']['output'];
   /**
    * Whether the source entity is the _last_ entity in the ordering.
    *
@@ -13622,6 +13629,13 @@ export type TemplateOrderingPair = {
    *
    */
   nextSibling?: Maybe<OrderingEntry>;
+  /**
+   * Whether the source entity is the _only_ entity in the ordering.
+   *
+   * Implies `first && last`.
+   *
+   */
+  only: Scalars['Boolean']['output'];
   /**
    * The source entity's (1-based) position in the ordering.
    *
@@ -20674,8 +20688,10 @@ export type TemplateOrderingPairResolvers<ContextType = any, ParentType extends 
   count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   exists?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   first?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  inOrdering?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   last?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   nextSibling?: Resolver<Maybe<ResolversTypes['OrderingEntry']>, ParentType, ContextType>;
+  only?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   position?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   prevSibling?: Resolver<Maybe<ResolversTypes['OrderingEntry']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
