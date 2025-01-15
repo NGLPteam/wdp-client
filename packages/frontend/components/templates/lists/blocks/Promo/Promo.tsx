@@ -23,7 +23,7 @@ export default function PromoListBlock({
 
   const {
     background,
-    showSeeAllButton,
+    seeAllOrderingIdentifier,
     seeAllButtonLabel,
     selectionMode,
     showHeroImage,
@@ -37,7 +37,7 @@ export default function PromoListBlock({
     ? getSeeAllHref(
         basePath,
         selectionMode,
-        orderingIdentifier,
+        seeAllOrderingIdentifier ?? orderingIdentifier,
         selectionPropertyPath,
       )
     : null;
@@ -57,7 +57,7 @@ export default function PromoListBlock({
       )}
       {showHeroImage && <div className={styles.heroImage} />}
       <List variant="PROMOS" bgColor={background} items={listItemLayouts} />
-      {!!showSeeAllButton && seeAllHref && (
+      {!!seeAllOrderingIdentifier && seeAllHref && (
         <SeeAll
           alignment="left"
           buttonLabel={seeAllButtonLabel}

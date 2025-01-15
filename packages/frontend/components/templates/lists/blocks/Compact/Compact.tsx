@@ -23,7 +23,7 @@ export default function CompactListBlock({
 
   const {
     background,
-    showSeeAllButton,
+    seeAllOrderingIdentifier,
     seeAllButtonLabel,
     selectionMode,
     width,
@@ -36,7 +36,7 @@ export default function CompactListBlock({
     ? getSeeAllHref(
         basePath,
         selectionMode,
-        orderingIdentifier,
+        seeAllOrderingIdentifier ?? orderingIdentifier,
         selectionPropertyPath,
       )
     : null;
@@ -67,7 +67,7 @@ export default function CompactListBlock({
           {showHeroImage && <div className={styles.heroImage} />}
           */}
       </div>
-      {!!showSeeAllButton && !!seeAllHref && (
+      {!!seeAllOrderingIdentifier && !!seeAllHref && (
         <SeeAll
           alignment="left"
           buttonLabel={seeAllButtonLabel}

@@ -23,7 +23,7 @@ export default function CardListBlock({
 
   const {
     background,
-    showSeeAllButton,
+    seeAllOrderingIdentifier,
     seeAllButtonLabel,
     selectionMode,
     showHeroImage,
@@ -41,7 +41,7 @@ export default function CardListBlock({
     ? getSeeAllHref(
         basePath,
         selectionMode,
-        orderingIdentifier,
+        seeAllOrderingIdentifier ?? orderingIdentifier,
         selectionPropertyPath,
         dynamicOrderingDefinition,
       )
@@ -51,7 +51,7 @@ export default function CardListBlock({
     <div className={classNames(bgClass, styles.wrapper)}>
       {showHeroImage && <div className={styles.heroImage} />}
       <List variant="CARDS" bgColor={background} items={listItemLayouts} />
-      {!!showSeeAllButton && !!seeAllHref && (
+      {!!seeAllOrderingIdentifier && !!seeAllHref && (
         <SeeAll
           alignment="center"
           buttonLabel={seeAllButtonLabel}

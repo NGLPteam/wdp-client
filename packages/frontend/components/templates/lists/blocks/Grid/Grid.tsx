@@ -23,7 +23,7 @@ export default function GridListBlock({
 
   const {
     background,
-    showSeeAllButton,
+    seeAllOrderingIdentifier,
     seeAllButtonLabel,
     selectionMode,
     showHeroImage,
@@ -39,7 +39,7 @@ export default function GridListBlock({
     ? getSeeAllHref(
         basePath,
         selectionMode,
-        orderingIdentifier,
+        seeAllOrderingIdentifier ?? orderingIdentifier,
         selectionPropertyPath,
       )
     : null;
@@ -65,7 +65,7 @@ export default function GridListBlock({
         showContributors={showContributors}
         showContext={showEntityContext}
       />
-      {!!showSeeAllButton && !!seeAllHref && (
+      {!!seeAllOrderingIdentifier && !!seeAllHref && (
         <SeeAll
           alignment="center"
           buttonLabel={seeAllButtonLabel}
