@@ -4,5 +4,5 @@
  * its sanitization process.
  */
 export default function LineBreak() {
-  return <br/>;
+  return <br />;
 }
