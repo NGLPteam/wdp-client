@@ -7,12 +7,13 @@ export type SeeAllProps = {
   buttonLabel?: string | null;
   href: string;
   alignment: "center" | "left";
+  className?: string;
 };
 
 export default function SeeAll(props: SeeAllProps) {
   return (
     <div
-      className={classNames("see-all-button", styles.seeAll, {
+      className={classNames("see-all-button", props.className, styles.seeAll, {
         [styles["seeAll--left"]]: props.alignment === "left",
       })}
     >

@@ -1,9 +1,5 @@
 .container {
   padding-block: var(--container-padding-xl);
-
-  > * + * {
-    margin-block-start: 3.125rem;
-  }
 }
 
 .heroImage {
@@ -25,18 +21,25 @@
 .grid {
   @mixin l-grid;
 
-  grid-template-areas: ". text text text text . image image image image image image";
+  grid-template-areas:
+    ". text text text text . image image image image image image"
+    ". seeAll seeAll seeAll seeAll seeAll seeAll seeAll seeAll seeAll seeAll seeAll";
+  row-gap: var(--padding-xl);
 
   @mixin respond theme("screens.100") {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     grid-template-areas:
       "text"
+      "seeAll"
       "image";
-    row-gap: var(--padding-xl);
   }
 }
 
 .textColumn {
   grid-area: text;
+}
+
+.seeAll {
+  grid-area: seeAll;
 }
