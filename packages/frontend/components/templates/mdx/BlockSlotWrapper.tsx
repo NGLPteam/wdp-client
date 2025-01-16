@@ -2,6 +2,7 @@
 
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
+import remarkGfm from "remark-gfm";
 import { useEffect, useState } from "react";
 import { blockSlotComponents } from "./components";
 
@@ -15,7 +16,7 @@ export default function BlockSlotWrapper({
   useEffect(() => {
     const renderMDX = async () => {
       if (content) {
-        const mdx = await serialize(content);
+        const mdx = await serialize(content, { mdxOptions: { remarkPlugins: [remarkGfm], }});
         if (mdx) setMdxContent(mdx);
       }
     };
