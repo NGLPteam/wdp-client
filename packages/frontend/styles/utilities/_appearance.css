@@ -39,6 +39,7 @@
   color: var(--color-lighter);
 }
 
+/* This is at the bottom to avoid a bug in NextJS where similar classes are collapsed. */
 .a-bg-custom20 {
   @mixin a-bg-custom20;
 }
