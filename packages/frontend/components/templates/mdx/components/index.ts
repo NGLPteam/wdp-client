@@ -1,6 +1,7 @@
 import { default as SidebarItem } from "./HeroSidebarItem";
 import { default as VariablePrecisionDate } from "./VariablePrecisionDate";
 import { default as EntityLink } from "./EntityLink";
+import { default as LineBreak } from "./LineBreak";
 import { default as MetadataLabel } from "./MetadataLabel";
 import { default as MetadataValue } from "./MetadataValue";
 import { default as MetadataItem } from "./MetadataItem";
@@ -21,6 +22,7 @@ export const blockSlotComponents = {
   VariablePrecisionDate,
   EntityLink,
   SidebarItem,
+  LineBreak,
   MetadataLabel,
   MetadataValue,
   MetadataItem,
