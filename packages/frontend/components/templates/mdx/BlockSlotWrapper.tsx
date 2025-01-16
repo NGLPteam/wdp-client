@@ -16,7 +16,9 @@ export default function BlockSlotWrapper({
   useEffect(() => {
     const renderMDX = async () => {
       if (content) {
-        const mdx = await serialize(content, { mdxOptions: { remarkPlugins: [remarkGfm], }});
+        const mdx = await serialize(content, {
+          mdxOptions: { remarkPlugins: [remarkGfm] },
+        });
         if (mdx) setMdxContent(mdx);
       }
     };
