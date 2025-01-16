@@ -42,6 +42,11 @@ const images = {
       hostname: "localhost",
       port: "10042",
     },
+    {
+      protocol: "http",
+      hostname: "localhost",
+      port: "6224"
+    },
   ],
   deviceSizes: [640, 750, 828, 1080, 1200, 1310, 1920],
   formats: ["image/avif", "image/webp"],
