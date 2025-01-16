@@ -66,14 +66,15 @@ export default function CompactListBlock({
           Need to identify which image to use here
           {showHeroImage && <div className={styles.heroImage} />}
           */}
+        {!!seeAllOrderingIdentifier && !!seeAllHref && (
+          <SeeAll
+            alignment="left"
+            buttonLabel={seeAllButtonLabel}
+            href={seeAllHref}
+            className={styles.seeAll}
+          />
+        )}
       </div>
-      {!!seeAllOrderingIdentifier && !!seeAllHref && (
-        <SeeAll
-          alignment="left"
-          buttonLabel={seeAllButtonLabel}
-          href={seeAllHref}
-        />
-      )}
     </Container>
   );
 }

@@ -12,7 +12,7 @@ type Props = {
 export default function Alert({ color = "red", message, icon, badge }: Props) {
   return (
     <div
-      className={classNames(styles.wrapper, {
+      className={classNames("alert", styles.wrapper, {
         [styles["wrapper--badge"]]: badge,
         [styles["wrapper--blue"]]: color === "blue",
         [styles["wrapper--green"]]: color === "green",
