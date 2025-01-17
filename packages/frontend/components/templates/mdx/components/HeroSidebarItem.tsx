@@ -8,6 +8,7 @@ type Props = PropsWithChildren & {
   icon?: IconKeys | null;
   url?: string | null;
   className?: string | null;
+  display?: "present" | "empty";
 };
 
 export default function HeroSidebarItem({
@@ -15,8 +16,9 @@ export default function HeroSidebarItem({
   url,
   children,
   className,
+  display,
 }: Props) {
-  return (
+  return display === "present" ? (
     <li
       className={`t-label-sm l-flex l-flex--gap l-flex--gap-sm ${className || ""}`}
     >
@@ -29,5 +31,5 @@ export default function HeroSidebarItem({
         <span>{children}</span>
       )}
     </li>
-  );
+  ) : null;
 }
