@@ -7405,6 +7405,22 @@
             "deprecationReason": null
           },
           {
+            "name": "hidden",
+            "description": "Whether this template instance should be hidden based on some logic.\n\nAt present, this only occurs if certain slots are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -19503,6 +19519,22 @@
             "deprecationReason": null
           },
           {
+            "name": "hidden",
+            "description": "Whether this template instance should be hidden based on some logic.\n\nAt present, this only occurs if certain slots are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -25515,6 +25547,18 @@
             "deprecationReason": null
           },
           {
+            "name": "seeAllOrderingIdentifier",
+            "description": "If provided, this will expose an ordering on the template instance that can\nbe used to generate a link to the ordering in the frontend.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "SchemaComponent",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "selectionFallbackMode",
             "description": "The fallback mode to use when rendering a list of entities, when the list from\n`selectionMode` is empty and `useSelectionFallback` has been set to true.\n",
             "args": [],
@@ -25576,7 +25620,7 @@
           },
           {
             "name": "selectionSourceAncestorName",
-            "description": "",
+            "description": "The derived name of the ancestor used for the `selectionSource`.\n\nExposed for introspection only.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -25599,6 +25643,18 @@
             "deprecationReason": null
           },
           {
+            "name": "showContributors",
+            "description": "Show contributors when listing entities.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "showEntityContext",
             "description": "Show additional context about each entity in the selection.\n",
             "args": [],
@@ -25613,6 +25669,18 @@
           {
             "name": "showHeroImage",
             "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showNestedEntities",
+            "description": "Show nested items from the associated listItemLayouts in order to generate\na two-tier list.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -25774,6 +25842,30 @@
         "description": "Slot definitions for the associated template.\n",
         "fields": [
           {
+            "name": "blockHeader",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "blockHeaderFallback",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "header",
             "description": null,
             "args": [],
@@ -25787,6 +25879,30 @@
           },
           {
             "name": "headerAside",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "headerFallback",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "listContext",
             "description": null,
             "args": [],
             "type": {
@@ -25897,6 +26013,22 @@
             "deprecationReason": null
           },
           {
+            "name": "hidden",
+            "description": "Whether this template instance should be hidden based on some logic.\n\nAt present, this only occurs if certain slots are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -25936,6 +26068,18 @@
                 "name": "LayoutKind",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "seeAllOrdering",
+            "description": "The ordering to render for a \"see all\" link.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Ordering",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -26029,6 +26173,11 @@
           },
           {
             "kind": "INTERFACE",
+            "name": "TemplateHasSeeAllOrdering",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
             "name": "TemplateInstance",
             "ofType": null
           }
@@ -26041,6 +26190,30 @@
         "name": "DescendantListTemplateInstanceSlots",
         "description": "Rendered slots for the associated template.\n",
         "fields": [
+          {
+            "name": "blockHeader",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "blockHeaderFallback",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "header",
             "description": null,
@@ -26055,6 +26228,30 @@
           },
           {
             "name": "headerAside",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "headerFallback",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "listContext",
             "description": null,
             "args": [],
             "type": {
@@ -28575,6 +28772,22 @@
               "ofType": {
                 "kind": "UNION",
                 "name": "AnyEntity",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hidden",
+            "description": "Whether this template instance should be hidden based on some logic.\n\nAt present, this only occurs if certain slots are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               }
             },
@@ -35567,6 +35780,22 @@
             "deprecationReason": null
           },
           {
+            "name": "hidden",
+            "description": "Whether this template instance should be hidden based on some logic.\n\nAt present, this only occurs if certain slots are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -42250,6 +42479,18 @@
             "deprecationReason": null
           },
           {
+            "name": "seeAllOrderingIdentifier",
+            "description": "If provided, this will expose an ordering on the template instance that can\nbe used to generate a link to the ordering in the frontend.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "SchemaComponent",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "selectionFallbackMode",
             "description": "The fallback mode to use when rendering a list of entities, when the list from\n`selectionMode` is empty and `useSelectionFallback` has been set to true.\n",
             "args": [],
@@ -42299,7 +42540,7 @@
           },
           {
             "name": "selectionSourceAncestorName",
-            "description": "",
+            "description": "The derived name of the ancestor used for the `selectionSource`.\n\nExposed for introspection only.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -42322,6 +42563,18 @@
             "deprecationReason": null
           },
           {
+            "name": "showContributors",
+            "description": "Show contributors when listing entities.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "showEntityContext",
             "description": "Show additional context about each entity in the selection.\n",
             "args": [],
@@ -42336,6 +42589,18 @@
           {
             "name": "showHeroImage",
             "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "showNestedEntities",
+            "description": "Show nested items from the associated listItemLayouts in order to generate\na two-tier list.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -42497,6 +42762,30 @@
         "description": "Slot definitions for the associated template.\n",
         "fields": [
           {
+            "name": "blockHeader",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "blockHeaderFallback",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "header",
             "description": null,
             "args": [],
@@ -42510,6 +42799,30 @@
           },
           {
             "name": "headerAside",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "headerFallback",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "listContext",
             "description": null,
             "args": [],
             "type": {
@@ -42620,6 +42933,22 @@
             "deprecationReason": null
           },
           {
+            "name": "hidden",
+            "description": "Whether this template instance should be hidden based on some logic.\n\nAt present, this only occurs if certain slots are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -42659,6 +42988,18 @@
                 "name": "LayoutKind",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "seeAllOrdering",
+            "description": "The ordering to render for a \"see all\" link.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Ordering",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -42752,6 +43093,11 @@
           },
           {
             "kind": "INTERFACE",
+            "name": "TemplateHasSeeAllOrdering",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
             "name": "TemplateInstance",
             "ofType": null
           }
@@ -42764,6 +43110,30 @@
         "name": "LinkListTemplateInstanceSlots",
         "description": "Rendered slots for the associated template.\n",
         "fields": [
+          {
+            "name": "blockHeader",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "blockHeaderFallback",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "header",
             "description": null,
@@ -42778,6 +43148,30 @@
           },
           {
             "name": "headerAside",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "headerFallback",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "listContext",
             "description": null,
             "args": [],
             "type": {
@@ -43516,6 +43910,41 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "ListItemSelectionMode",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DYNAMIC",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "MANUAL",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NAMED",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PROPERTY",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "ListItemTemplateDefinition",
         "description": null,
@@ -43532,6 +43961,18 @@
                 "name": "ISO8601DateTime",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dynamicOrderingDefinition",
+            "description": "When `selectionMode` is set to `DYNAMIC`, this uses the same basic structure\nas schemas to define a dynamic ordering that is resolved at runtime and based\non the `selectionSource`.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "OrderingDefinition",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -43564,6 +44005,114 @@
                 "name": "LayoutKind",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "manualListName",
+            "description": "When `selectionMode` is set to `MANUAL`, the purpose of this property\nis to specify a name under which all the manual selections (per entity)\nwill be stored. This allows a layout to have multiple templates of the\nsame type using different lists, that will persist across rearrangements\nof the layout _without_ losing connections between entities.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "SchemaComponent",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "orderingIdentifier",
+            "description": "This can be set to specify the named ordering on the `selectionSource`\nthat should be used to populate the associated entity list.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "SchemaComponent",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionFallbackMode",
+            "description": "The fallback mode to use when rendering a list of entities, when the list from\n`selectionMode` is empty and `useSelectionFallback` has been set to true.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "ListItemSelectionMode",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionLimit",
+            "description": "Regardless of `selectionMode`, this limit will be applied on whatever resulting\nlist of entities are produced, so that only up to that amount of entities are\nrendered in the template proper.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionMode",
+            "description": "The default mode to use when rendering a list of entities.\n\nSee also `selectionFallbackMode` and `useSelectionFallback`.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "ListItemSelectionMode",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionPropertyPath",
+            "description": "When `selectionMode` is set to `PROPERTY`, this should be set to the full path\nfor a given schema property on the associated `selectionSource`\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "SchemaPropertyPath",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionSource",
+            "description": "When selecting entities based on `selectionMode`, this property determines\nwhich entity (relevant to the rendering entity) should be used for lookups.\n\nBy default, it is `self`, which means the rendering entity itself.\n\nIt can also support things like `ancestor.journal`, `ancestor.issue`, etc.,\nin order to render a list of values in its parent.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "TemplateSelectionSource",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionSourceAncestorName",
+            "description": "The derived name of the ancestor used for the `selectionSource`.\n\nExposed for introspection only.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "SchemaComponent",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionSourceMode",
+            "description": "An enum representing what mode `selectionSource` is in. Not directly set,\nit is used internally for lookups.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "SelectionSourceMode",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -43631,6 +44180,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "useSelectionFallback",
+            "description": "Controls whether or not to use `selectionFallbackMode` if the entity list returned\nvia `selectionMode` turns out to be empty at runtime.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -43672,6 +44233,18 @@
             "deprecationReason": null
           },
           {
+            "name": "contextAbbr",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "contextB",
             "description": null,
             "args": [],
@@ -43685,6 +44258,18 @@
           },
           {
             "name": "contextC",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "contextFull",
             "description": null,
             "args": [],
             "type": {
@@ -43808,6 +44393,38 @@
               "ofType": {
                 "kind": "UNION",
                 "name": "AnyEntity",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entityList",
+            "description": "The list of entities to render as part of this template's content.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TemplateEntityList",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hidden",
+            "description": "Whether this template instance should be hidden based on some logic.\n\nAt present, this only occurs if certain slots are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               }
             },
@@ -43942,6 +44559,11 @@
           },
           {
             "kind": "INTERFACE",
+            "name": "TemplateHasEntityList",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
             "name": "TemplateInstance",
             "ofType": null
           }
@@ -43967,6 +44589,18 @@
             "deprecationReason": null
           },
           {
+            "name": "contextAbbr",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "contextB",
             "description": null,
             "args": [],
@@ -43980,6 +44614,18 @@
           },
           {
             "name": "contextC",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "contextFull",
             "description": null,
             "args": [],
             "type": {
@@ -45306,6 +45952,22 @@
               "ofType": {
                 "kind": "UNION",
                 "name": "AnyEntity",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hidden",
+            "description": "Whether this template instance should be hidden based on some logic.\n\nAt present, this only occurs if certain slots are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               }
             },
@@ -48096,6 +48758,22 @@
               "ofType": {
                 "kind": "UNION",
                 "name": "AnyEntity",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hidden",
+            "description": "Whether this template instance should be hidden based on some logic.\n\nAt present, this only occurs if certain slots are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               }
             },
@@ -50898,7 +51576,7 @@
           },
           {
             "name": "selectionSourceAncestorName",
-            "description": "",
+            "description": "The derived name of the ancestor used for the `selectionSource`.\n\nExposed for introspection only.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -51100,6 +51778,22 @@
               "ofType": {
                 "kind": "UNION",
                 "name": "AnyEntity",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hidden",
+            "description": "Whether this template instance should be hidden based on some logic.\n\nAt present, this only occurs if certain slots are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               }
             },
@@ -52653,6 +53347,22 @@
               "ofType": {
                 "kind": "UNION",
                 "name": "AnyEntity",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hidden",
+            "description": "Whether this template instance should be hidden based on some logic.\n\nAt present, this only occurs if certain slots are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               }
             },
@@ -64108,6 +64818,22 @@
             "deprecationReason": null
           },
           {
+            "name": "hidden",
+            "description": "Whether this template instance should be hidden based on some logic.\n\nAt present, this only occurs if certain slots are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -65030,6 +65756,11 @@
             "kind": "OBJECT",
             "name": "LinkListTemplateInstance",
             "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ListItemTemplateInstance",
+            "ofType": null
           }
         ]
       },
@@ -65068,6 +65799,40 @@
       },
       {
         "kind": "INTERFACE",
+        "name": "TemplateHasSeeAllOrdering",
+        "description": "An interface for a template instance that exposes an `Ordering`\nin order to to link to see all associated records.\n",
+        "fields": [
+          {
+            "name": "seeAllOrdering",
+            "description": "The ordering to render for a \"see all\" link.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Ordering",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "DescendantListTemplateInstance",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "LinkListTemplateInstance",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
         "name": "TemplateInstance",
         "description": "An interface describing an instance type that can be rendered for a given entity.\n",
         "fields": [
@@ -65081,6 +65846,22 @@
               "ofType": {
                 "kind": "UNION",
                 "name": "AnyEntity",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hidden",
+            "description": "Whether this template instance should be hidden based on some logic.\n\nAt present, this only occurs if certain slots are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               }
             },
@@ -65306,7 +66087,7 @@
           },
           {
             "name": "exists",
-            "description": "Whether or not the ordering / entry actually exists—can be used to skip rendering.\n",
+            "description": "Whether or not the ordering / entry actually exists and has siblings—can be used to skip rendering.\n\nImplies `inOrdering && !only`.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -65323,6 +66104,22 @@
           {
             "name": "first",
             "description": "Whether the source entity is the _first_ entity in the ordering.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "inOrdering",
+            "description": "Whether or not the entity is present in the associated ordering / entry.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -65360,6 +66157,22 @@
               "kind": "OBJECT",
               "name": "OrderingEntry",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "only",
+            "description": "Whether the source entity is the _only_ entity in the ordering.\n\nImplies `first && last`.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -65409,6 +66222,22 @@
         "name": "TemplateSlotBlockDefinition",
         "description": "A definition for a block-type template slot.\n\nIts `kind` will always be `BLOCK`.\n",
         "fields": [
+          {
+            "name": "hideWhenEmpty",
+            "description": "Whether this slot should cause its parent template to be marked as `hidden`\nif it ends up rendering empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "kind",
             "description": "The kind of slot instance this is.\n",
@@ -65487,6 +66316,22 @@
             "deprecationReason": null
           },
           {
+            "name": "hidesTemplate",
+            "description": "Whether this slot should cause its parent template to hide.\n\n**Note**: This is exposed for introspection, but does not need\nto be checked on the frontend. Defer to `TemplateInstance.hidden`.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "kind",
             "description": "The kind of slot instance this is.\n",
             "args": [],
@@ -65535,6 +66380,22 @@
         "name": "TemplateSlotDefinition",
         "description": "A slot definition describes how the slot should be rendered with a template.\n",
         "fields": [
+          {
+            "name": "hideWhenEmpty",
+            "description": "Whether this slot should cause its parent template to be marked as `hidden`\nif it ends up rendering empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "kind",
             "description": "The kind of slot instance this is.\n",
@@ -65637,6 +66498,22 @@
         "description": "A definition for an inline-type template slot.\n\nIts `kind` will always be `INLINE`.\n",
         "fields": [
           {
+            "name": "hideWhenEmpty",
+            "description": "Whether this slot should cause its parent template to be marked as `hidden`\nif it ends up rendering empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "kind",
             "description": "The kind of slot instance this is.\n",
             "args": [],
@@ -65708,6 +66585,22 @@
                   "name": "TemplateSlotError",
                   "ofType": null
                 }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hidesTemplate",
+            "description": "Whether this slot should cause its parent template to hide.\n\n**Note**: This is exposed for introspection, but does not need\nto be checked on the frontend. Defer to `TemplateInstance.hidden`.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
               }
             },
             "isDeprecated": false,
@@ -65789,6 +66682,22 @@
                   "name": "TemplateSlotError",
                   "ofType": null
                 }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hidesTemplate",
+            "description": "Whether this slot should cause its parent template to hide.\n\n**Note**: This is exposed for introspection, but does not need\nto be checked on the frontend. Defer to `TemplateInstance.hidden`.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
               }
             },
             "isDeprecated": false,

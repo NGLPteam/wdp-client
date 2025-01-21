@@ -1380,6 +1380,13 @@ type BlurbTemplateInstance implements Node & Renderable & Sluggable & TemplateIn
   
   """
   entity: AnyEntity!
+  """
+  Whether this template instance should be hidden based on some logic.
+  
+  At present, this only occurs if certain slots are empty.
+  
+  """
+  hidden: Boolean!
   id: ID!
   """
   The time this object was last rendered.
@@ -3638,6 +3645,13 @@ type ContributorListTemplateInstance implements Node & Renderable & Sluggable & 
   
   """
   entity: AnyEntity!
+  """
+  Whether this template instance should be hidden based on some logic.
+  
+  At present, this only occurs if certain slots are empty.
+  
+  """
+  hidden: Boolean!
   id: ID!
   """
   The time this object was last rendered.
@@ -5022,6 +5036,12 @@ type DescendantListTemplateDefinition implements Node & Sluggable & TemplateDefi
   orderingIdentifier: SchemaComponent
   seeAllButtonLabel: String
   """
+  If provided, this will expose an ordering on the template instance that can
+  be used to generate a link to the ordering in the frontend.
+  
+  """
+  seeAllOrderingIdentifier: SchemaComponent
+  """
   The fallback mode to use when rendering a list of entities, when the list from
   `selectionMode` is empty and `useSelectionFallback` has been set to true.
   
@@ -5058,6 +5078,12 @@ type DescendantListTemplateDefinition implements Node & Sluggable & TemplateDefi
   
   """
   selectionSource: TemplateSelectionSource
+  """
+  The derived name of the ancestor used for the `selectionSource`.
+  
+  Exposed for introspection only.
+  
+  """
   selectionSourceAncestorName: SchemaComponent
   """
   An enum representing what mode `selectionSource` is in. Not directly set,
@@ -5066,11 +5092,22 @@ type DescendantListTemplateDefinition implements Node & Sluggable & TemplateDefi
   """
   selectionSourceMode: SelectionSourceMode
   """
+  Show contributors when listing entities.
+  
+  """
+  showContributors: Boolean
+  """
   Show additional context about each entity in the selection.
   
   """
   showEntityContext: Boolean
   showHeroImage: Boolean
+  """
+  Show nested items from the associated listItemLayouts in order to generate
+  a two-tier list.
+  
+  """
+  showNestedEntities: Boolean
   showSeeAllButton: Boolean
   """
   Slot definitions for this template.
@@ -5107,13 +5144,17 @@ Slot definitions for the associated template.
 
 """
 type DescendantListTemplateDefinitionSlots {
+  blockHeader: TemplateSlotInlineDefinition
+  blockHeaderFallback: TemplateSlotInlineDefinition
   header: TemplateSlotInlineDefinition
   headerAside: TemplateSlotInlineDefinition
+  headerFallback: TemplateSlotInlineDefinition
+  listContext: TemplateSlotInlineDefinition
   metadata: TemplateSlotInlineDefinition
   subtitle: TemplateSlotInlineDefinition
 }
 
-type DescendantListTemplateInstance implements Node & Renderable & Sluggable & TemplateHasEntityList & TemplateInstance {
+type DescendantListTemplateInstance implements Node & Renderable & Sluggable & TemplateHasEntityList & TemplateHasSeeAllOrdering & TemplateInstance {
   createdAt: ISO8601DateTime!
   """
   Load the associated definition for this template.
@@ -5130,6 +5171,13 @@ type DescendantListTemplateInstance implements Node & Renderable & Sluggable & T
   
   """
   entityList: TemplateEntityList!
+  """
+  Whether this template instance should be hidden based on some logic.
+  
+  At present, this only occurs if certain slots are empty.
+  
+  """
+  hidden: Boolean!
   id: ID!
   """
   The time this object was last rendered.
@@ -5137,6 +5185,11 @@ type DescendantListTemplateInstance implements Node & Renderable & Sluggable & T
   """
   lastRenderedAt: ISO8601DateTime
   layoutKind: LayoutKind!
+  """
+  The ordering to render for a "see all" link.
+  
+  """
+  seeAllOrdering: Ordering
   """
   Rendered slots for this template.
   
@@ -5152,8 +5205,12 @@ Rendered slots for the associated template.
 
 """
 type DescendantListTemplateInstanceSlots {
+  blockHeader: TemplateSlotInlineInstance
+  blockHeaderFallback: TemplateSlotInlineInstance
   header: TemplateSlotInlineInstance
   headerAside: TemplateSlotInlineInstance
+  headerFallback: TemplateSlotInlineInstance
+  listContext: TemplateSlotInlineInstance
   metadata: TemplateSlotInlineInstance
   subtitle: TemplateSlotInlineInstance
 }
@@ -5554,6 +5611,13 @@ type DetailTemplateInstance implements Node & Renderable & Sluggable & TemplateI
   
   """
   entity: AnyEntity!
+  """
+  Whether this template instance should be hidden based on some logic.
+  
+  At present, this only occurs if certain slots are empty.
+  
+  """
+  hidden: Boolean!
   id: ID!
   """
   The time this object was last rendered.
@@ -7124,6 +7188,13 @@ type HeroTemplateInstance implements Node & Renderable & Sluggable & TemplateIns
   
   """
   entity: AnyEntity!
+  """
+  Whether this template instance should be hidden based on some logic.
+  
+  At present, this only occurs if certain slots are empty.
+  
+  """
+  hidden: Boolean!
   id: ID!
   """
   The time this object was last rendered.
@@ -8513,6 +8584,12 @@ type LinkListTemplateDefinition implements Node & Sluggable & TemplateDefinition
   manualListName: SchemaComponent
   seeAllButtonLabel: String
   """
+  If provided, this will expose an ordering on the template instance that can
+  be used to generate a link to the ordering in the frontend.
+  
+  """
+  seeAllOrderingIdentifier: SchemaComponent
+  """
   The fallback mode to use when rendering a list of entities, when the list from
   `selectionMode` is empty and `useSelectionFallback` has been set to true.
   
@@ -8543,6 +8620,12 @@ type LinkListTemplateDefinition implements Node & Sluggable & TemplateDefinition
   
   """
   selectionSource: TemplateSelectionSource
+  """
+  The derived name of the ancestor used for the `selectionSource`.
+  
+  Exposed for introspection only.
+  
+  """
   selectionSourceAncestorName: SchemaComponent
   """
   An enum representing what mode `selectionSource` is in. Not directly set,
@@ -8551,11 +8634,22 @@ type LinkListTemplateDefinition implements Node & Sluggable & TemplateDefinition
   """
   selectionSourceMode: SelectionSourceMode
   """
+  Show contributors when listing entities.
+  
+  """
+  showContributors: Boolean
+  """
   Show additional context about each entity in the selection.
   
   """
   showEntityContext: Boolean
   showHeroImage: Boolean
+  """
+  Show nested items from the associated listItemLayouts in order to generate
+  a two-tier list.
+  
+  """
+  showNestedEntities: Boolean
   showSeeAllButton: Boolean
   """
   Slot definitions for this template.
@@ -8592,13 +8686,17 @@ Slot definitions for the associated template.
 
 """
 type LinkListTemplateDefinitionSlots {
+  blockHeader: TemplateSlotInlineDefinition
+  blockHeaderFallback: TemplateSlotInlineDefinition
   header: TemplateSlotInlineDefinition
   headerAside: TemplateSlotInlineDefinition
+  headerFallback: TemplateSlotInlineDefinition
+  listContext: TemplateSlotInlineDefinition
   metadata: TemplateSlotInlineDefinition
   subtitle: TemplateSlotInlineDefinition
 }
 
-type LinkListTemplateInstance implements Node & Renderable & Sluggable & TemplateHasEntityList & TemplateInstance {
+type LinkListTemplateInstance implements Node & Renderable & Sluggable & TemplateHasEntityList & TemplateHasSeeAllOrdering & TemplateInstance {
   createdAt: ISO8601DateTime!
   """
   Load the associated definition for this template.
@@ -8615,6 +8713,13 @@ type LinkListTemplateInstance implements Node & Renderable & Sluggable & Templat
   
   """
   entityList: TemplateEntityList!
+  """
+  Whether this template instance should be hidden based on some logic.
+  
+  At present, this only occurs if certain slots are empty.
+  
+  """
+  hidden: Boolean!
   id: ID!
   """
   The time this object was last rendered.
@@ -8622,6 +8727,11 @@ type LinkListTemplateInstance implements Node & Renderable & Sluggable & Templat
   """
   lastRenderedAt: ISO8601DateTime
   layoutKind: LayoutKind!
+  """
+  The ordering to render for a "see all" link.
+  
+  """
+  seeAllOrdering: Ordering
   """
   Rendered slots for this template.
   
@@ -8637,8 +8747,12 @@ Rendered slots for the associated template.
 
 """
 type LinkListTemplateInstanceSlots {
+  blockHeader: TemplateSlotInlineInstance
+  blockHeaderFallback: TemplateSlotInlineInstance
   header: TemplateSlotInlineInstance
   headerAside: TemplateSlotInlineInstance
+  headerFallback: TemplateSlotInlineInstance
+  listContext: TemplateSlotInlineInstance
   metadata: TemplateSlotInlineInstance
   subtitle: TemplateSlotInlineInstance
 }
@@ -8776,10 +8890,93 @@ type ListItemLayoutInstance implements LayoutInstance & Node & Renderable & Slug
   updatedAt: ISO8601DateTime!
 }
 
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum ListItemSelectionMode {
+  DYNAMIC
+  MANUAL
+  NAMED
+  PROPERTY
+}
+
 type ListItemTemplateDefinition implements Node & Sluggable & TemplateDefinition {
   createdAt: ISO8601DateTime!
+  """
+  When `selectionMode` is set to `DYNAMIC`, this uses the same basic structure
+  as schemas to define a dynamic ordering that is resolved at runtime and based
+  on the `selectionSource`.
+  
+  """
+  dynamicOrderingDefinition: OrderingDefinition
   id: ID!
   layoutKind: LayoutKind!
+  """
+  When `selectionMode` is set to `MANUAL`, the purpose of this property
+  is to specify a name under which all the manual selections (per entity)
+  will be stored. This allows a layout to have multiple templates of the
+  same type using different lists, that will persist across rearrangements
+  of the layout _without_ losing connections between entities.
+  
+  """
+  manualListName: SchemaComponent
+  """
+  This can be set to specify the named ordering on the `selectionSource`
+  that should be used to populate the associated entity list.
+  
+  """
+  orderingIdentifier: SchemaComponent
+  """
+  The fallback mode to use when rendering a list of entities, when the list from
+  `selectionMode` is empty and `useSelectionFallback` has been set to true.
+  
+  """
+  selectionFallbackMode: ListItemSelectionMode
+  """
+  Regardless of `selectionMode`, this limit will be applied on whatever resulting
+  list of entities are produced, so that only up to that amount of entities are
+  rendered in the template proper.
+  
+  """
+  selectionLimit: Int
+  """
+  The default mode to use when rendering a list of entities.
+  
+  See also `selectionFallbackMode` and `useSelectionFallback`.
+  
+  """
+  selectionMode: ListItemSelectionMode
+  """
+  When `selectionMode` is set to `PROPERTY`, this should be set to the full path
+  for a given schema property on the associated `selectionSource`
+  
+  """
+  selectionPropertyPath: SchemaPropertyPath
+  """
+  When selecting entities based on `selectionMode`, this property determines
+  which entity (relevant to the rendering entity) should be used for lookups.
+  
+  By default, it is `self`, which means the rendering entity itself.
+  
+  It can also support things like `ancestor.journal`, `ancestor.issue`, etc.,
+  in order to render a list of values in its parent.
+  
+  """
+  selectionSource: TemplateSelectionSource
+  """
+  The derived name of the ancestor used for the `selectionSource`.
+  
+  Exposed for introspection only.
+  
+  """
+  selectionSourceAncestorName: SchemaComponent
+  """
+  An enum representing what mode `selectionSource` is in. Not directly set,
+  it is used internally for lookups.
+  
+  """
+  selectionSourceMode: SelectionSourceMode
   """
   Slot definitions for this template.
   
@@ -8788,6 +8985,12 @@ type ListItemTemplateDefinition implements Node & Sluggable & TemplateDefinition
   slug: Slug!
   templateKind: TemplateKind!
   updatedAt: ISO8601DateTime!
+  """
+  Controls whether or not to use `selectionFallbackMode` if the entity list returned
+  via `selectionMode` turns out to be empty at runtime.
+  
+  """
+  useSelectionFallback: Boolean
 }
 
 """
@@ -8796,8 +8999,10 @@ Slot definitions for the associated template.
 """
 type ListItemTemplateDefinitionSlots {
   contextA: TemplateSlotInlineDefinition
+  contextAbbr: TemplateSlotInlineDefinition
   contextB: TemplateSlotInlineDefinition
   contextC: TemplateSlotInlineDefinition
+  contextFull: TemplateSlotInlineDefinition
   description: TemplateSlotBlockDefinition
   header: TemplateSlotInlineDefinition
   metaA: TemplateSlotInlineDefinition
@@ -8805,7 +9010,7 @@ type ListItemTemplateDefinitionSlots {
   subheader: TemplateSlotInlineDefinition
 }
 
-type ListItemTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
+type ListItemTemplateInstance implements Node & Renderable & Sluggable & TemplateHasEntityList & TemplateInstance {
   createdAt: ISO8601DateTime!
   """
   Load the associated definition for this template.
@@ -8817,6 +9022,18 @@ type ListItemTemplateInstance implements Node & Renderable & Sluggable & Templat
   
   """
   entity: AnyEntity!
+  """
+  The list of entities to render as part of this template's content.
+  
+  """
+  entityList: TemplateEntityList!
+  """
+  Whether this template instance should be hidden based on some logic.
+  
+  At present, this only occurs if certain slots are empty.
+  
+  """
+  hidden: Boolean!
   id: ID!
   """
   The time this object was last rendered.
@@ -8840,8 +9057,10 @@ Rendered slots for the associated template.
 """
 type ListItemTemplateInstanceSlots {
   contextA: TemplateSlotInlineInstance
+  contextAbbr: TemplateSlotInlineInstance
   contextB: TemplateSlotInlineInstance
   contextC: TemplateSlotInlineInstance
+  contextFull: TemplateSlotInlineInstance
   description: TemplateSlotBlockInstance
   header: TemplateSlotInlineInstance
   metaA: TemplateSlotInlineInstance
@@ -9095,6 +9314,13 @@ type MetadataTemplateInstance implements Node & Renderable & Sluggable & Templat
   
   """
   entity: AnyEntity!
+  """
+  Whether this template instance should be hidden based on some logic.
+  
+  At present, this only occurs if certain slots are empty.
+  
+  """
+  hidden: Boolean!
   id: ID!
   """
   The time this object was last rendered.
@@ -9732,6 +9958,13 @@ type NavigationTemplateInstance implements Node & Renderable & Sluggable & Templ
   
   """
   entity: AnyEntity!
+  """
+  Whether this template instance should be hidden based on some logic.
+  
+  At present, this only occurs if certain slots are empty.
+  
+  """
+  hidden: Boolean!
   id: ID!
   """
   The time this object was last rendered.
@@ -10366,6 +10599,12 @@ type OrderingTemplateDefinition implements Node & Sluggable & TemplateDefinition
   
   """
   selectionSource: TemplateSelectionSource
+  """
+  The derived name of the ancestor used for the `selectionSource`.
+  
+  Exposed for introspection only.
+  
+  """
   selectionSourceAncestorName: SchemaComponent
   """
   An enum representing what mode `selectionSource` is in. Not directly set,
@@ -10412,6 +10651,13 @@ type OrderingTemplateInstance implements Node & Renderable & Sluggable & Templat
   
   """
   entity: AnyEntity!
+  """
+  Whether this template instance should be hidden based on some logic.
+  
+  At present, this only occurs if certain slots are empty.
+  
+  """
+  hidden: Boolean!
   id: ID!
   """
   The time this object was last rendered.
@@ -10711,6 +10957,13 @@ type PageListTemplateInstance implements Node & Renderable & Sluggable & Templat
   
   """
   entity: AnyEntity!
+  """
+  Whether this template instance should be hidden based on some logic.
+  
+  At present, this only occurs if certain slots are empty.
+  
+  """
+  hidden: Boolean!
   id: ID!
   """
   The time this object was last rendered.
@@ -12978,6 +13231,13 @@ type SupplementaryTemplateInstance implements Node & Renderable & Sluggable & Te
   
   """
   entity: AnyEntity!
+  """
+  Whether this template instance should be hidden based on some logic.
+  
+  At present, this only occurs if certain slots are empty.
+  
+  """
+  hidden: Boolean!
   id: ID!
   """
   The time this object was last rendered.
@@ -13259,6 +13519,19 @@ interface TemplateHasOrderingPair {
 }
 
 """
+An interface for a template instance that exposes an `Ordering`
+in order to to link to see all associated records.
+
+"""
+interface TemplateHasSeeAllOrdering {
+  """
+  The ordering to render for a "see all" link.
+  
+  """
+  seeAllOrdering: Ordering
+}
+
+"""
 An interface describing an instance type that can be rendered for a given entity.
 
 """
@@ -13268,6 +13541,13 @@ interface TemplateInstance implements Renderable {
   
   """
   entity: AnyEntity!
+  """
+  Whether this template instance should be hidden based on some logic.
+  
+  At present, this only occurs if certain slots are empty.
+  
+  """
+  hidden: Boolean!
   """
   The time this object was last rendered.
   
@@ -13386,7 +13666,9 @@ type TemplateOrderingPair {
   """
   count: Int
   """
-  Whether or not the ordering / entry actually exists—can be used to skip rendering.
+  Whether or not the ordering / entry actually exists and has siblings—can be used to skip rendering.
+  
+  Implies `inOrdering && !only`.
   
   """
   exists: Boolean!
@@ -13395,6 +13677,11 @@ type TemplateOrderingPair {
   
   """
   first: Boolean!
+  """
+  Whether or not the entity is present in the associated ordering / entry.
+  
+  """
+  inOrdering: Boolean!
   """
   Whether the source entity is the _last_ entity in the ordering.
   
@@ -13405,6 +13692,13 @@ type TemplateOrderingPair {
   
   """
   nextSibling: OrderingEntry
+  """
+  Whether the source entity is the _only_ entity in the ordering.
+  
+  Implies `first && last`.
+  
+  """
+  only: Boolean!
   """
   The source entity's (1-based) position in the ordering.
   
@@ -13451,6 +13745,12 @@ Its `kind` will always be `BLOCK`.
 """
 type TemplateSlotBlockDefinition implements TemplateSlotDefinition {
   """
+  Whether this slot should cause its parent template to be marked as `hidden`
+  if it ends up rendering empty.
+  
+  """
+  hideWhenEmpty: Boolean!
+  """
   The kind of slot instance this is.
   
   """
@@ -13480,6 +13780,14 @@ type TemplateSlotBlockInstance implements TemplateSlotInstance {
   """
   errors: [TemplateSlotError!]
   """
+  Whether this slot should cause its parent template to hide.
+  
+  **Note**: This is exposed for introspection, but does not need
+  to be checked on the frontend. Defer to `TemplateInstance.hidden`.
+  
+  """
+  hidesTemplate: Boolean!
+  """
   The kind of slot instance this is.
   
   """
@@ -13496,6 +13804,12 @@ A slot definition describes how the slot should be rendered with a template.
 
 """
 interface TemplateSlotDefinition {
+  """
+  Whether this slot should cause its parent template to be marked as `hidden`
+  if it ends up rendering empty.
+  
+  """
+  hideWhenEmpty: Boolean!
   """
   The kind of slot instance this is.
   
@@ -13540,6 +13854,12 @@ Its `kind` will always be `INLINE`.
 """
 type TemplateSlotInlineDefinition implements TemplateSlotDefinition {
   """
+  Whether this slot should cause its parent template to be marked as `hidden`
+  if it ends up rendering empty.
+  
+  """
+  hideWhenEmpty: Boolean!
+  """
   The kind of slot instance this is.
   
   """
@@ -13569,6 +13889,14 @@ type TemplateSlotInlineInstance implements TemplateSlotInstance {
   """
   errors: [TemplateSlotError!]
   """
+  Whether this slot should cause its parent template to hide.
+  
+  **Note**: This is exposed for introspection, but does not need
+  to be checked on the frontend. Defer to `TemplateInstance.hidden`.
+  
+  """
+  hidesTemplate: Boolean!
+  """
   The kind of slot instance this is.
   
   """
@@ -13596,6 +13924,14 @@ interface TemplateSlotInstance {
   
   """
   errors: [TemplateSlotError!]
+  """
+  Whether this slot should cause its parent template to hide.
+  
+  **Note**: This is exposed for introspection, but does not need
+  to be checked on the frontend. Defer to `TemplateInstance.hidden`.
+  
+  """
+  hidesTemplate: Boolean!
   """
   The kind of slot instance this is.
   
