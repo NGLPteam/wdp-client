@@ -41,3 +41,18 @@ jobs:
         run: |
           yarn lint
         working-directory: ./
+
+  build:
+    runs-on: ubuntu-latest
+    name: "Ensure build completes"
+    steps:
+      - uses: actions/checkout@v4
+      - run: corepack enable
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: "package.json"
+          cache: "yarn"
+      - run: yarn install
+      - env:
+          NODE_ENV: development
+        run: yarn build:ci

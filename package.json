@@ -33,6 +33,7 @@
     "dev:frontend": "yarn workspace @wdp/frontend run dev",
     "dev:admin": "yarn workspace @wdp/admin run dev",
     "build": "scripts/do.sh build",
+    "build:ci": "concurrently -c yarn:build:frontend yarn:build:admin",
     "build:frontend": "yarn workspace @wdp/frontend run build",
     "build:admin": "yarn workspace @wdp/admin run build",
     "start": "scripts/do.sh start",
