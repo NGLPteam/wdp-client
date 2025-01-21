@@ -23,7 +23,7 @@ const SchemaSelector = ({
   schemaData,
   schemaKind,
   schemaSlugs,
-  title,
+  title = "forms.schema.label",
   showHeader,
 }: Props) => {
   const data = useMaybeFragment(fragment as GraphQLTaggedNode, schemaData);
@@ -85,7 +85,7 @@ interface Props extends Pick<SelectProps, "defaultValue"> {
   schemaKind: "COLLECTION" | "ITEM" | "COMMUNITY";
   // Filter by these schema slugs
   schemaSlugs?: string[];
-  title: string;
+  title?: string;
   showHeader?: boolean;
 }
 
