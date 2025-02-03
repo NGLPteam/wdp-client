@@ -28,7 +28,7 @@
 }
 
 .right {
-  flex-basis: calc(33% - 0.5rem);
+  flex-basis: calc(25% - 0.5rem);
   flex-grow: 0;
   flex-shrink: 1;
   display: flex;
