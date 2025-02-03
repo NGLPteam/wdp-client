@@ -100,7 +100,6 @@
 }
 
 .sidebar {
-  text-align: right;
   justify-self: end;
 
   > li + li {
