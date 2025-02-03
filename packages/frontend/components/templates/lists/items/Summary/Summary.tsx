@@ -6,7 +6,6 @@ import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import ContributorsList from "@/components/composed/contributor/ContributorsList";
 import NamedLink from "@/components/atomic/links/NamedLink";
-import ReadMoreLink from "@/components/atomic/links/Link/patterns/ReadMoreLink";
 import { getRouteByEntityType } from "@/helpers/routes";
 import styles from "./Summary.module.css";
 
@@ -87,11 +86,6 @@ export default function SummaryListItem({
           <div className={classNames(styles.summary, "line-clamp-5")}>
             <BlockSlotWrapper content={description.content} />
           </div>
-        )}
-        {href && (
-          <NamedLink href={href}>
-            <ReadMoreLink className={styles.readMore} />
-          </NamedLink>
         )}
       </div>
     </li>
