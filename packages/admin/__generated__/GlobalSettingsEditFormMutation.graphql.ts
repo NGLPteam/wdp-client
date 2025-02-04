@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ea67900444e9901e8ed966ed45753cd1>>
+ * @generated SignedSource<<a0cf1a40c8eb7c7db48e91f4ac933018>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -71,16 +71,9 @@ export type GlobalSettingsEditFormMutation$data = {
       readonly contributionRoles: {
         readonly controlledVocabulary: {
           readonly id: string;
-          readonly items: ReadonlyArray<{
-            readonly id: string;
-            readonly label: string;
-            readonly unselectable: boolean;
-          }>;
-          readonly name: string;
         };
         readonly defaultItem: {
           readonly id: string;
-          readonly label: string;
         };
       };
       readonly entities: {
@@ -238,13 +231,9 @@ v5 = {
   "name": "id",
   "storageKey": null
 },
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "label",
-  "storageKey": null
-},
+v6 = [
+  (v5/*: any*/)
+],
 v7 = {
   "alias": null,
   "args": null,
@@ -252,36 +241,7 @@ v7 = {
   "kind": "LinkedField",
   "name": "controlledVocabulary",
   "plural": false,
-  "selections": [
-    (v5/*: any*/),
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "name",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ControlledVocabularyItem",
-      "kind": "LinkedField",
-      "name": "items",
-      "plural": true,
-      "selections": [
-        (v5/*: any*/),
-        (v6/*: any*/),
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "unselectable",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
-  ],
+  "selections": (v6/*: any*/),
   "storageKey": null
 },
 v8 = {
@@ -291,10 +251,7 @@ v8 = {
   "kind": "LinkedField",
   "name": "defaultItem",
   "plural": false,
-  "selections": [
-    (v5/*: any*/),
-    (v6/*: any*/)
-  ],
+  "selections": (v6/*: any*/),
   "storageKey": null
 },
 v9 = {
@@ -462,16 +419,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "33ec0adb0568e2a7c2561256051d45ef",
+    "cacheID": "7f985d39cbb85438551793738747bf6d",
     "id": null,
     "metadata": {},
     "name": "GlobalSettingsEditFormMutation",
     "operationKind": "mutation",
-    "text": "mutation GlobalSettingsEditFormMutation(\n  $input: UpdateGlobalConfigurationInput!\n) {\n  updateGlobalConfiguration(input: $input) {\n    globalConfiguration {\n      site {\n        providerName\n        installationName\n        installationHomePageCopy\n        footer {\n          description\n          copyrightStatement\n        }\n        logoMode\n      }\n      theme {\n        color\n        font\n      }\n      entities {\n        suppressExternalLinks\n      }\n      contributionRoles {\n        controlledVocabulary {\n          id\n          name\n          items {\n            id\n            label\n            unselectable\n          }\n        }\n        defaultItem {\n          id\n          label\n        }\n        id\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
+    "text": "mutation GlobalSettingsEditFormMutation(\n  $input: UpdateGlobalConfigurationInput!\n) {\n  updateGlobalConfiguration(input: $input) {\n    globalConfiguration {\n      site {\n        providerName\n        installationName\n        installationHomePageCopy\n        footer {\n          description\n          copyrightStatement\n        }\n        logoMode\n      }\n      theme {\n        color\n        font\n      }\n      entities {\n        suppressExternalLinks\n      }\n      contributionRoles {\n        controlledVocabulary {\n          id\n        }\n        defaultItem {\n          id\n        }\n        id\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "732fcec26f8cf2f15251c269c29545df";
+(node as any).hash = "60811acbb3278bd741b4665fca735378";
 
 export default node;

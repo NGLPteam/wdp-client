@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6d2dc0813b6c7a498bb4ea231668771d>>
+ * @generated SignedSource<<d4dfdfbfd47989e5a0834f9eb28559fd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,16 +15,9 @@ export type GlobalSettingsEditFormFragment$data = {
   readonly contributionRoles: {
     readonly controlledVocabulary: {
       readonly id: string;
-      readonly items: ReadonlyArray<{
-        readonly id: string;
-        readonly label: string;
-        readonly unselectable: boolean;
-      }>;
-      readonly name: string;
     };
     readonly defaultItem: {
       readonly id: string;
-      readonly label: string;
     };
   };
   readonly entities: {
@@ -55,20 +48,15 @@ export type GlobalSettingsEditFormFragment$key = {
 };
 
 const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "label",
-  "storageKey": null
-};
+var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "id",
+    "storageKey": null
+  }
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -213,36 +201,7 @@ return {
           "kind": "LinkedField",
           "name": "controlledVocabulary",
           "plural": false,
-          "selections": [
-            (v0/*: any*/),
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "name",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "ControlledVocabularyItem",
-              "kind": "LinkedField",
-              "name": "items",
-              "plural": true,
-              "selections": [
-                (v0/*: any*/),
-                (v1/*: any*/),
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "unselectable",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ],
+          "selections": (v0/*: any*/),
           "storageKey": null
         },
         {
@@ -252,10 +211,7 @@ return {
           "kind": "LinkedField",
           "name": "defaultItem",
           "plural": false,
-          "selections": [
-            (v0/*: any*/),
-            (v1/*: any*/)
-          ],
+          "selections": (v0/*: any*/),
           "storageKey": null
         }
       ],
@@ -267,6 +223,6 @@ return {
 };
 })();
 
-(node as any).hash = "7a003328f24c0057693d62cd90f20424";
+(node as any).hash = "d2ff15738bd7644866308a7d5cafb2eb";
 
 export default node;
