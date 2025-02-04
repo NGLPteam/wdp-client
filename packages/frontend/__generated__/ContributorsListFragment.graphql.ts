@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6d33cae169e704b3550349172ddbe9a0>>
+ * @generated SignedSource<<aa6caf2760889ebc8fcff995af194955>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,12 +13,12 @@ import { FragmentRefs } from "relay-runtime";
 export type ContributorsListFragment$data = {
   readonly attributions?: ReadonlyArray<{
     readonly contributor: {
+      readonly slug: string;
       readonly " $fragmentSpreads": FragmentRefs<"ContributorNameFragment">;
     };
     readonly roles: ReadonlyArray<{
       readonly label: string;
     }>;
-    readonly slug: string;
   }>;
   readonly " $fragmentType": "ContributorsListFragment";
 };
@@ -29,13 +29,6 @@ export type ContributorsListFragment$key = {
 
 const node: ReaderFragment = (function(){
 var v0 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "slug",
-    "storageKey": null
-  },
   {
     "alias": null,
     "args": null,
@@ -62,6 +55,13 @@ var v0 = [
     "name": "contributor",
     "plural": false,
     "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "slug",
+        "storageKey": null
+      },
       {
         "args": null,
         "kind": "FragmentSpread",
@@ -117,6 +117,6 @@ return {
 };
 })();
 
-(node as any).hash = "dd90b22f092cc226bd14721282ef3928";
+(node as any).hash = "7fc6b8c601186a86643041c6d1ea1b68";
 
 export default node;

@@ -39,17 +39,15 @@ export default function ContributorsList({
   return filtered?.length ? (
     <span className={className}>
       {filtered.slice(0, limit).map(({ contributor }, i: number) => {
-        const _params = new URLSearchParams({
+        const params = new URLSearchParams({
           ...(itemSlug && { item: itemSlug }),
           ...(collectionSlug && {
             collection: collectionSlug,
           }),
         });
-        // const href = contributor.slug
-        //   ? `/contributors/${contributor.slug}?${params.toString()}`
-        //   : "#";
-
-        const href = "#";
+        const href = contributor.slug
+          ? `/contributors/${contributor.slug}?${params.toString()}`
+          : "#";
 
         return (
           <span className={styles.item} key={i}>
@@ -91,22 +89,22 @@ const fragment = graphql`
   fragment ContributorsListFragment on AnyEntity {
     ... on Item {
       attributions {
-        slug
         roles {
           label
         }
         contributor {
+          slug
           ...ContributorNameFragment
         }
       }
     }
     ... on Collection {
       attributions {
-        slug
         roles {
           label
         }
         contributor {
+          slug
           ...ContributorNameFragment
         }
       }
