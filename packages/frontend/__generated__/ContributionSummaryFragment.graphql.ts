@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<470704d0af7cdab1957e980bd44d5328>>
+ * @generated SignedSource<<c0a9ead88ac90c0e32f96380c999edf5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,14 +11,13 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ContributionSummaryFragment$data = {
-  readonly contributionRole?: {
-    readonly label: string;
-  };
   readonly entity?: {
     readonly " $fragmentSpreads": FragmentRefs<"ContributionSummaryEntityFragment">;
   };
-  readonly role?: string | null | undefined;
-  readonly roleLabel?: string | null | undefined;
+  readonly roles?: ReadonlyArray<{
+    readonly identifier: string;
+    readonly label: string;
+  }>;
   readonly " $fragmentType": "ContributionSummaryFragment";
 };
 export type ContributionSummaryFragment$key = {
@@ -27,7 +26,32 @@ export type ContributionSummaryFragment$key = {
 };
 
 const node: ReaderFragment = (function(){
-var v0 = [
+var v0 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "ControlledVocabularyItem",
+  "kind": "LinkedField",
+  "name": "roles",
+  "plural": true,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "identifier",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "label",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v1 = [
   {
     "args": null,
     "kind": "FragmentSpread",
@@ -43,62 +67,7 @@ return {
     {
       "kind": "InlineFragment",
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "role",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "roleLabel",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "ControlledVocabularyItem",
-          "kind": "LinkedField",
-          "name": "contributionRole",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "label",
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        }
-      ],
-      "type": "Contribution",
-      "abstractKey": "__isContribution"
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": "entity",
-          "args": null,
-          "concreteType": "Collection",
-          "kind": "LinkedField",
-          "name": "collection",
-          "plural": false,
-          "selections": (v0/*: any*/),
-          "storageKey": null
-        }
-      ],
-      "type": "CollectionContribution",
-      "abstractKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
+        (v0/*: any*/),
         {
           "alias": "entity",
           "args": null,
@@ -106,19 +75,37 @@ return {
           "kind": "LinkedField",
           "name": "item",
           "plural": false,
-          "selections": (v0/*: any*/),
+          "selections": (v1/*: any*/),
           "storageKey": null
         }
       ],
-      "type": "ItemContribution",
+      "type": "ContributorItemAttribution",
+      "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        (v0/*: any*/),
+        {
+          "alias": "entity",
+          "args": null,
+          "concreteType": "Collection",
+          "kind": "LinkedField",
+          "name": "collection",
+          "plural": false,
+          "selections": (v1/*: any*/),
+          "storageKey": null
+        }
+      ],
+      "type": "ContributorCollectionAttribution",
       "abstractKey": null
     }
   ],
-  "type": "AnyContribution",
-  "abstractKey": "__isAnyContribution"
+  "type": "AnyContributorAttribution",
+  "abstractKey": "__isAnyContributorAttribution"
 };
 })();
 
-(node as any).hash = "70c62d423777f95202a44aa064f7f89e";
+(node as any).hash = "a077c2ff7db1b41ac9d7c9b5c95b4440";
 
 export default node;

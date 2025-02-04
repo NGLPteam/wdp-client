@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { NamedLink, ReadMoreLink, Markdown } from "components/atomic";
+import { NamedLink, Markdown } from "components/atomic";
 import styles from "./Summary.module.css";
 
 export default function Summary({
@@ -10,7 +10,6 @@ export default function Summary({
   thumbnail,
   thumbnailRight,
   href,
-  showReadMore,
 }: Props) {
   return (
     <div
@@ -58,11 +57,6 @@ export default function Summary({
             {summary}
           </Markdown.Summary>
         )}
-        {showReadMore && href && (
-          <NamedLink href={href}>
-            <ReadMoreLink className={styles.readMore} />
-          </NamedLink>
-        )}
       </div>
     </div>
   );
@@ -81,7 +75,5 @@ interface Props {
   thumbnail?: React.ReactNode;
   /** Position the thumbnail on the right */
   thumbnailRight?: boolean;
-  /** Show read more link */
-  showReadMore?: boolean;
   href?: string;
 }

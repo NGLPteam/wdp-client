@@ -1,7 +1,5 @@
 import { useMemo } from "react";
-import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import capitalize from "lodash/capitalize";
+import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { DotList, PrecisionDate, SquareThumbnail } from "components/atomic";
 import { getRouteByEntityType } from "helpers";
@@ -9,12 +7,12 @@ import Summary from "components/layout/Summary";
 import { ContributionSummaryFragment$key } from "@/relay/ContributionSummaryFragment.graphql";
 import { ContributionSummaryEntityFragment$key } from "@/relay/ContributionSummaryEntityFragment.graphql";
 
-export default function ContributionSummary({ data, showReadMore }: Props) {
-  const contribution = useMaybeFragment(fragment, data);
+export default function ContributionSummary({ data }: Props) {
+  const contribution = useFragment(fragment, data);
 
   const { t } = useTranslation();
 
-  const entity = useMaybeFragment<ContributionSummaryEntityFragment$key>(
+  const entity = useFragment<ContributionSummaryEntityFragment$key>(
     entityFragment,
     contribution?.entity,
   );
@@ -23,53 +21,62 @@ export default function ContributionSummary({ data, showReadMore }: Props) {
     return entity?.__typename ? getRouteByEntityType(entity.__typename) : null;
   }, [entity]);
 
-  return contribution && entity && route && entity.slug ? (
+  if (!contribution || !entity) return null;
+
+  const roles = contribution.roles;
+
+  const metadata = (
+    <>
+      {!!roles && (
+        <DotList className="t-copy-sm mb-1">
+          {roles.map((r) => (
+            <li key={r.identifier}>{r.label}</li>
+          ))}
+        </DotList>
+      )}
+      {entity.published?.value && (
+        <span className="t-copy-sm t-copy-lighter block">
+          {t("date.published")} <PrecisionDate data={entity.published} />
+        </span>
+      )}
+    </>
+  );
+
+  return (
     <Summary
       title={entity.title}
       subtitle={entity.subtitle}
       href={`/${route}/${entity.slug}`}
-      metadata={
-        <DotList className="t-copy-sm t-copy-lighter">
-          {contribution.roleLabel && (
-            <li>{capitalize(contribution.roleLabel)}</li>
-          )}
-          {entity.published?.value && (
-            <li>
-              {t("date.published")} <PrecisionDate data={entity.published} />
-            </li>
-          )}
-        </DotList>
-      }
+      metadata={metadata}
       summary={entity.summary}
-      showReadMore={showReadMore}
       thumbnail={
         entity.thumbnail?.storage && <SquareThumbnail data={entity.thumbnail} />
       }
     />
-  ) : null;
+  );
 }
 
 interface Props {
   data?: ContributionSummaryFragment$key | null;
-  showReadMore?: true;
 }
 
 const fragment = graphql`
-  fragment ContributionSummaryFragment on AnyContribution {
-    ... on Contribution {
-      role
-      roleLabel
-      contributionRole {
+  fragment ContributionSummaryFragment on AnyContributorAttribution {
+    ... on ContributorItemAttribution {
+      roles {
+        identifier
         label
       }
-    }
-    ... on CollectionContribution {
-      entity: collection {
+      entity: item {
         ...ContributionSummaryEntityFragment
       }
     }
-    ... on ItemContribution {
-      entity: item {
+    ... on ContributorCollectionAttribution {
+      roles {
+        identifier
+        label
+      }
+      entity: collection {
         ...ContributionSummaryEntityFragment
       }
     }
