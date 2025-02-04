@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import { graphql, useFragment } from "react-relay";
 import { ContributionsBlockFragment$key } from "@/relay/ContributionsBlockFragment.graphql";
 import Contributor from "@/components/templates/Contributors/Contributor";
@@ -14,10 +13,6 @@ type BaseProps = Omit<
 const ContributionsBlock = ({ data, filterRole, ...baseProps }: Props) => {
   const { attributions } = useFragment(fragment, data) ?? {};
 
-  const showAvatars = useMemo(() => {
-    return attributions?.some((node) => node.contributor?.image?.storage);
-  }, [attributions]);
-
   const filtered = attributions?.filter(
     (node) =>
       !filterRole ||
@@ -30,9 +25,7 @@ const ContributionsBlock = ({ data, filterRole, ...baseProps }: Props) => {
   return (
     <BaseContributionsBlock {...baseProps}>
       {filtered?.length
-        ? filtered.map((node) => (
-            <Contributor data={node} key={node.slug} showAvatar={showAvatars} />
-          ))
+        ? filtered.map((node) => <Contributor data={node} key={node.slug} />)
         : null}
     </BaseContributionsBlock>
   );

@@ -9,11 +9,9 @@ import styles from "./Contributor.module.css";
 
 export default function Contributor({
   data,
-  showAvatar = true,
   backParams,
 }: {
   data?: ContributorFragment$key | null;
-  showAvatar?: boolean;
   backParams?: URLSearchParams;
   slug?: string | null;
 }) {
@@ -29,11 +27,9 @@ export default function Contributor({
 
   return (
     <li className={styles.item}>
-      {showAvatar && (
-        <span>
-          <ContributorAvatar data={contributor.image} />
-        </span>
-      )}
+      <span>
+        <ContributorAvatar data={contributor.image} />
+      </span>
       <div>
         <NamedLink href={href} className="default-link-styles">
           <strong>
