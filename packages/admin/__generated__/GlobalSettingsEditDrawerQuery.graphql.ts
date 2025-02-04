@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<709975db03e1dafda2b2e6237b3f1dbd>>
+ * @generated SignedSource<<cf74e9d891c93ba4ce0432c23c1b9789>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -29,13 +29,9 @@ var v0 = {
   "name": "id",
   "storageKey": null
 },
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "label",
-  "storageKey": null
-};
+v1 = [
+  (v0/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": [],
@@ -249,36 +245,7 @@ return {
                 "kind": "LinkedField",
                 "name": "controlledVocabulary",
                 "plural": false,
-                "selections": [
-                  (v0/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "name",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "ControlledVocabularyItem",
-                    "kind": "LinkedField",
-                    "name": "items",
-                    "plural": true,
-                    "selections": [
-                      (v0/*: any*/),
-                      (v1/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "unselectable",
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
-                  }
-                ],
+                "selections": (v1/*: any*/),
                 "storageKey": null
               },
               {
@@ -288,10 +255,7 @@ return {
                 "kind": "LinkedField",
                 "name": "defaultItem",
                 "plural": false,
-                "selections": [
-                  (v0/*: any*/),
-                  (v1/*: any*/)
-                ],
+                "selections": (v1/*: any*/),
                 "storageKey": null
               },
               (v0/*: any*/)
@@ -305,12 +269,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5ac62e11d99ac8a6bf888f42c12aa7f4",
+    "cacheID": "623f1afc04dd7ce7f837ae455691e0f7",
     "id": null,
     "metadata": {},
     "name": "GlobalSettingsEditDrawerQuery",
     "operationKind": "query",
-    "text": "query GlobalSettingsEditDrawerQuery {\n  globalConfiguration {\n    ...GlobalSettingsEditFormFragment\n    id\n  }\n}\n\nfragment GlobalSettingsEditFormFragment on GlobalConfiguration {\n  site {\n    providerName\n    installationName\n    installationHomePageCopy\n    footer {\n      description\n      copyrightStatement\n    }\n    logoMode\n  }\n  theme {\n    color\n    font\n  }\n  entities {\n    suppressExternalLinks\n  }\n  logo {\n    ...SiteLogoUploadFragment\n  }\n  contributionRoles {\n    controlledVocabulary {\n      id\n      name\n      items {\n        id\n        label\n        unselectable\n      }\n    }\n    defaultItem {\n      id\n      label\n    }\n    id\n  }\n}\n\nfragment SiteLogoUploadFragment on SiteLogoAttachment {\n  originalFilename\n  storage\n  original {\n    url\n    alt\n  }\n}\n"
+    "text": "query GlobalSettingsEditDrawerQuery {\n  globalConfiguration {\n    ...GlobalSettingsEditFormFragment\n    id\n  }\n}\n\nfragment GlobalSettingsEditFormFragment on GlobalConfiguration {\n  site {\n    providerName\n    installationName\n    installationHomePageCopy\n    footer {\n      description\n      copyrightStatement\n    }\n    logoMode\n  }\n  theme {\n    color\n    font\n  }\n  entities {\n    suppressExternalLinks\n  }\n  logo {\n    ...SiteLogoUploadFragment\n  }\n  contributionRoles {\n    controlledVocabulary {\n      id\n    }\n    defaultItem {\n      id\n    }\n    id\n  }\n}\n\nfragment SiteLogoUploadFragment on SiteLogoAttachment {\n  originalFilename\n  storage\n  original {\n    url\n    alt\n  }\n}\n"
   }
 };
 })();

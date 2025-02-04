@@ -5,7 +5,6 @@ import MutationForm, {
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
-
 import type {
   GlobalSettingsEditFormMutation,
   UpdateGlobalConfigurationInput,
@@ -17,12 +16,13 @@ export default function GlobalSettingsEditForm({
   onSuccess,
   onCancel,
 }: Props) {
-  const { logo, contributionRoles, ...settings } =
-    useFragment<GlobalSettingsEditFormFragment$key>(fragment, data);
+  const { logo, contributionRoles, ...settings } = useFragment<
+    GlobalSettingsEditFormFragment$key
+  >(fragment, data);
 
   const toVariables = useToVariables<GlobalSettingsEditFormMutation, Fields>(
     (data) => ({ input: { ...data } }),
-    [],
+    []
   );
 
   const defaultValues = {
@@ -129,7 +129,7 @@ export default function GlobalSettingsEditForm({
         </Forms.Fieldset>
       </Forms.Grid>
     ),
-    [],
+    []
   );
 
   return (
@@ -181,16 +181,9 @@ const fragment = graphql`
     contributionRoles {
       controlledVocabulary {
         id
-        name
-        items {
-          id
-          label
-          unselectable
-        }
       }
       defaultItem {
         id
-        label
       }
     }
   }
@@ -222,16 +215,9 @@ const mutation = graphql`
         contributionRoles {
           controlledVocabulary {
             id
-            name
-            items {
-              id
-              label
-              unselectable
-            }
           }
           defaultItem {
             id
-            label
           }
         }
       }
