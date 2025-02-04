@@ -14,11 +14,13 @@ export default function SummaryListItem({
   hideCover,
   showContext,
   isNested,
+  className,
 }: {
   data?: sharedListItemTemplateFragment$key | null;
   hideCover?: boolean;
   showContext?: boolean | null;
   isNested?: boolean | null;
+  className?: string;
 }) {
   const { slots, entity } = useSharedListItemTemplateFragment(data);
 
@@ -44,10 +46,8 @@ export default function SummaryListItem({
     !hideCover &&
     (entity.__typename !== "Item" || !!entity?.thumbnail?.image.webp.url);
 
-  const renderContributors = !!entity.contributors?.pageInfo.totalCount;
-
   return (
-    <li className={styles.item}>
+    <li className={classNames(styles.item, className)}>
       {showThumb && (
         <NamedLink href={href} className={styles.coverImage}>
           <CoverImage {...entity} maxWidth={120} maxHeight={160} />
@@ -73,7 +73,7 @@ export default function SummaryListItem({
             </span>
           )}
         </div>
-        {renderContributors && (
+        {!!entity?.attributions.length && (
           <span className={styles.contributors}>
             <ContributorsList data={entity} />
           </span>

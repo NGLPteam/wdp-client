@@ -31,8 +31,7 @@ export default function GridListItem({
 
   const showCover = entity?.__typename === "Collection";
 
-  const renderContributors =
-    showContributors && !!entity.contributors?.pageInfo.totalCount;
+  const renderContributors = showContributors && !!entity?.attributions.length;
 
   const renderContext = showContext &&
     contextFull?.valid &&

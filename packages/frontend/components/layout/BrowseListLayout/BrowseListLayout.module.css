@@ -20,8 +20,8 @@
 }
 
 .item {
-  padding-block-start: 1.75rem;
-  padding-block-end: 1.875rem;
+  padding-block-start: 1.75rem !important;
+  padding-block-end: 1.875rem !important;
   margin-block-end: 3px;
 
   & + & {

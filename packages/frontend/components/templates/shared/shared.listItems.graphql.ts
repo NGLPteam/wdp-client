@@ -51,10 +51,8 @@ export const listItemTemplateFragment = graphql`
           }
           ...CoverImageFragment
         }
-        contributors {
-          pageInfo {
-            totalCount
-          }
+        attributions {
+          id
         }
         ...ContributorsListFragment
         heroImage {
@@ -79,10 +77,8 @@ export const listItemTemplateFragment = graphql`
           }
           ...CoverImageFragment
         }
-        contributors {
-          pageInfo {
-            totalCount
-          }
+        attributions {
+          id
         }
         ...ContributorsListFragment
         heroImage {

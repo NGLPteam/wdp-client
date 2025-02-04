@@ -1,8 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { graphql, useFragment } from "react-relay";
 import BrowseListLayout from "components/layout/BrowseListLayout";
 import BrowseTreeLayout from "components/layout/BrowseTreeLayout";
 import { NoContent } from "components/layout";
@@ -11,9 +10,10 @@ import {
   EntityOrderingLayoutFragment$data,
   EntityOrderingLayoutFragment$key,
 } from "@/relay/EntityOrderingLayoutFragment.graphql";
+import styles from "@/components/layout/BrowseListLayout/BrowseListLayout.module.css";
 
 export default function EntityOrderingLayout({ data }: Props) {
-  const ordering = useMaybeFragment(fragment, data);
+  const ordering = useFragment(fragment, data);
 
   const pageInfo = useMemo(() => ordering?.children.pageInfo, [ordering]);
 
@@ -29,7 +29,11 @@ export default function EntityOrderingLayout({ data }: Props) {
         data={pageInfo}
         header={ordering.header || ordering.name}
         items={ordering.children.edges.map(({ node: { entry } }: Node) => (
-          <EntitySummary key={entry.slug} data={entry} />
+          <EntitySummary
+            key={entry.slug}
+            data={entry}
+            className={styles.item}
+          />
         ))}
       />
     )

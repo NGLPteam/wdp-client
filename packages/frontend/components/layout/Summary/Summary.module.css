@@ -5,8 +5,12 @@
     / 1fr;
   gap: var(--padding-lg);
 
+  padding-block-start: 1.75rem !important;
+  padding-block-end: 1.875rem !important;
+  margin-block-end: 3px;
+
   & + & {
-    padding-block-start: var(--padding-xl);
+    border-top: 1px solid var(--color-base-neutral40);
   }
 
   &--has-thumbnail {
