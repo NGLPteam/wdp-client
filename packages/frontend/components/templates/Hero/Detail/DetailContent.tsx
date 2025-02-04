@@ -39,11 +39,6 @@ export default function Content({ data }: DetailContentProps) {
           )}
         </h2>
       )}
-      {metadata?.valid && !!metadata?.content && (
-        <span className={styles.metadata}>
-          <InlineSlotWrapper content={metadata.content} />
-        </span>
-      )}
       <div className={styles.contributors}>
         {definition?.listContributors && (
           <ContributorsList
@@ -54,6 +49,11 @@ export default function Content({ data }: DetailContentProps) {
           />
         )}
       </div>
+      {metadata?.valid && !!metadata?.content && (
+        <span className={styles.metadata}>
+          <InlineSlotWrapper content={metadata.content} />
+        </span>
+      )}
       {summary?.valid && !!summary?.content && (
         <div className={styles.summary}>
           <BlockSlotWrapper content={summary.content} />
