@@ -19,7 +19,7 @@ export default async function ContributorPage({
   const {
     item: itemSlug,
     collection: collectionSlug,
-    page = 1,
+    page = "1",
   } = searchParams ?? {};
 
   const query = itemSlug
@@ -30,7 +30,12 @@ export default async function ContributorPage({
 
   const { data, records } = await fetchQuery<
     DetailQuery | ItemQuery | CollectionQuery
-  >(query, { slug, item: itemSlug, collection: collectionSlug, page });
+  >(query, {
+    slug,
+    item: itemSlug,
+    collection: collectionSlug,
+    page: parseInt(page),
+  });
 
   const contributor = data?.contributor;
 
