@@ -30,7 +30,9 @@ export default function EntityHeroHeader({
   const hidden = !!(entity?.visibility === "HIDDEN" || entity?.currentlyHidden);
 
   const hiddenAlert = hidden
-    ? t("messages.hidden", { schema: entity?.schemaDefinition?.identifier })
+    ? t("messages.hidden", {
+        schema: entity?.schemaDefinition?.identifier.replaceAll("_", " "),
+      })
     : undefined;
 
   const renderBreadcrumbs = !!(showBreadcrumbs || showSharingLink);
