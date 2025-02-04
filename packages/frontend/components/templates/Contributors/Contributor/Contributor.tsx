@@ -1,35 +1,30 @@
 import { graphql, useFragment } from "react-relay";
-import startCase from "lodash/startCase";
 import classNames from "classnames";
 import NamedLink from "@/components/atomic/links/NamedLink";
 import { ContributorFragment$key } from "@/relay/ContributorFragment.graphql";
 import ContributorName from "@/components/composed/contributor/ContributorName";
 import ContributorAvatar from "@/components/composed/contributor/ContributorAvatar";
+import DotList from "@/components/atomic/DotList";
 import styles from "./Contributor.module.css";
 
 export default function Contributor({
   data,
   showAvatar = true,
+  backParams,
 }: {
   data?: ContributorFragment$key | null;
   showAvatar?: boolean;
+  backParams?: URLSearchParams;
+  slug?: string | null;
 }) {
-  const contribution = useFragment(fragment, data);
+  const attribution = useFragment(fragment, data);
 
-  if (!contribution) return null;
+  const { roles, contributor } = attribution ?? {};
 
-  const { item, collection, contributor } = contribution;
-
-  const entity = item ?? collection;
-
-  const params = new URLSearchParams({
-    ...(entity?.slug && {
-      [entity.__typename.toLowerCase()]: entity.slug,
-    }),
-  });
+  if (!roles || !contributor) return null;
 
   const href = contributor.slug
-    ? `/contributors/${contributor.slug}?${params.toString()}`
+    ? `/contributors/${contributor.slug}?${backParams?.toString()}`
     : "#";
 
   return (
@@ -42,18 +37,20 @@ export default function Contributor({
       <div>
         <NamedLink href={href} className="default-link-styles">
           <strong>
-            <ContributorName data={contribution.contributor} />
+            <ContributorName data={contributor} />
           </strong>
         </NamedLink>
         <div
           className={classNames("t-copy-lighter t-copy-sm", styles.metadata)}
         >
-          {contribution.role && (
-            <p>{startCase(contribution.role.replaceAll("_", " "))}</p>
+          {!!roles.length && (
+            <DotList>
+              {roles.map((r) => (
+                <li key={r.identifier}>{r.label}</li>
+              ))}
+            </DotList>
           )}
-          {(contribution.affiliation || contributor.affiliation) && (
-            <p>{contribution.affiliation || contributor.affiliation}</p>
-          )}
+          {contributor.affiliation && <p>{contributor.affiliation}</p>}
           {contributor.title && <p>{contributor.title}</p>}
         </div>
       </div>
@@ -62,37 +59,19 @@ export default function Contributor({
 }
 
 const fragment = graphql`
-  fragment ContributorFragment on Contribution {
-    affiliation
-    role
+  fragment ContributorFragment on Attribution {
+    roles {
+      identifier
+      label
+    }
     contributor {
-      ... on Sluggable {
-        slug
-      }
-      ... on Contributor {
-        image {
-          ...ContributorAvatarFragment
-        }
-      }
-      ... on PersonContributor {
-        affiliation
-        title
+      title
+      affiliation
+      slug
+      image {
+        ...ContributorAvatarFragment
       }
       ...ContributorNameFragment
-    }
-
-    ... on ItemContribution {
-      item {
-        __typename
-        slug
-      }
-    }
-
-    ... on CollectionContribution {
-      collection {
-        __typename
-        slug
-      }
     }
   }
 `;
