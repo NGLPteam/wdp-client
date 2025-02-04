@@ -9,7 +9,8 @@
     "dev": "next dev -p 3000",
     "build": "next build",
     "relay": "relay-compiler",
-    "schema": "graphql-codegen",
+    "fetch-cv-types": "node --env-file .env ./scripts/fetch-cv-types.mjs",
+    "schema": "graphql-codegen && yarn fetch-cv-types",
     "lint": "eslint --cache \"**/*.{js,ts,tsx}\"",
     "fix": "eslint --cache --fix \"**/*.{js,ts,tsx}\"",
     "types": "npx tsc --strict -w",
@@ -82,6 +83,7 @@
     "@types/relay-test-utils": "^14.1.4",
     "@types/styled-components": "^5.1.34",
     "depcheck": "^1.4.7",
+    "prettier": "^3.4.2",
     "typescript": "^5.3.3"
   }
 }

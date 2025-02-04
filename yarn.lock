@@ -3315,6 +3315,7 @@ __metadata:
     lodash: "npm:^4.17.21"
     next: "npm:^14.1.0"
     next-i18next: "npm:^8.5.1"
+    prettier: "npm:^3.4.2"
     react: "npm:^18.2.0"
     react-beautiful-dnd: "npm:^13.1.0"
     react-confirm: "npm:^0.3.0-7"
@@ -10447,6 +10448,15 @@ __metadata:
   bin:
     prettier: bin/prettier.cjs
   checksum: 10c0/ea327f37a7d46f2324a34ad35292af2ad4c4c3c3355da07313339d7e554320f66f65f91e856add8530157a733c6c4a897dc41b577056be5c24c40f739f5ee8c6
+  languageName: node
+  linkType: hard
+
+"prettier@npm:^3.4.2":
+  version: 3.4.2
+  resolution: "prettier@npm:3.4.2"
+  bin:
+    prettier: bin/prettier.cjs
+  checksum: 10c0/99e076a26ed0aba4ebc043880d0f08bbb8c59a4c6641cdee6cdadf2205bdd87aa1d7823f50c3aea41e015e99878d37c58d7b5f0e663bba0ef047f94e36b96446
   languageName: node
   linkType: hard
 
