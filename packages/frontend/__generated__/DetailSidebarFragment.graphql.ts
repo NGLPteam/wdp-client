@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7b80bf644a62b536a067653380ad11f7>>
+ * @generated SignedSource<<1ea719ed1709c9e89d48268f3435e71a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,8 +13,6 @@ import { FragmentRefs } from "relay-runtime";
 export type DetailSidebarFragment$data = {
   readonly definition: {
     readonly showBasicViewMetrics: boolean | null | undefined;
-    readonly showDOI: boolean | null | undefined;
-    readonly showISSN: boolean | null | undefined;
   };
   readonly entity: {
     readonly assetDownloads?: {
@@ -23,7 +21,6 @@ export type DetailSidebarFragment$data = {
     readonly entityViews?: {
       readonly " $fragmentSpreads": FragmentRefs<"ViewCountFragment">;
     };
-    readonly " $fragmentSpreads": FragmentRefs<"DOIFragment" | "ISSNFragment">;
   };
   readonly slots: {
     readonly sidebar: {
@@ -87,16 +84,6 @@ return {
       "plural": false,
       "selections": [
         {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "DOIFragment"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "ISSNFragment"
-        },
-        {
           "kind": "InlineFragment",
           "selections": (v0/*: any*/),
           "type": "Item",
@@ -119,20 +106,6 @@ return {
       "name": "definition",
       "plural": false,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "showDOI",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "showISSN",
-          "storageKey": null
-        },
         {
           "alias": null,
           "args": null,
@@ -176,6 +149,6 @@ return {
 };
 })();
 
-(node as any).hash = "6a3d98bffa20be36b2081ce6dad05d1f";
+(node as any).hash = "647d60137461dbeb387c1724235e1534";
 
 export default node;

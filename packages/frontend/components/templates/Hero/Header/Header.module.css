@@ -103,6 +103,6 @@
   justify-self: end;
 
   > li + li {
-    margin-block-start: var(--padding-rg);
+    margin-block-start: 0.6875rem;
   }
 }
