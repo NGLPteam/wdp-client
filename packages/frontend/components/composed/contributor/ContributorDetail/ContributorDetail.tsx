@@ -4,9 +4,8 @@ import { useMemo } from "react";
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import classNames from "classnames";
-import get from "lodash/get";
 import { ExternalLink, Markdown, ORCIDLink } from "components/atomic";
-import { BackToTopBlock } from "components/layout";
+import BrowseListLayout from "components/layout/BrowseListLayout";
 import ContributionSummary from "@/components/composed/contribution/ContributionSummary";
 import { ContributorDetailFragment$key } from "@/relay/ContributorDetailFragment.graphql";
 import ContributorName from "../ContributorName";
@@ -17,19 +16,14 @@ export default function ContributorDetail({ data }: Props) {
   const contributor = useFragment(fragment, data);
   const { t } = useTranslation();
 
-  const contributionCount = useMemo(
-    () =>
-      get(contributor, "collectionContributions.nodes", []).length +
-      get(contributor, "itemContributions.nodes", []).length,
-    [contributor],
-  );
+  const attributions = contributor?.attributions;
+
+  const hasAttributions = !!attributions?.pageInfo?.totalCount;
 
   const hasLinks = useMemo(
     () => contributor && contributor.links && contributor.links.length > 0,
     [contributor],
   );
-
-  const ContributionsComponent = contributionCount > 6 ? BackToTopBlock : "div";
 
   return contributor ? (
     <>
@@ -75,26 +69,14 @@ export default function ContributorDetail({ data }: Props) {
           )}
         </div>
       </section>
-      {contributionCount > 0 && (
-        <section className="l-container-wide">
-          <ContributionsComponent className={styles["contributions__wrapper"]}>
-            <h2 className={classNames("t-h3", styles["contributions__header"])}>
-              {t("layouts.contributions_header")}
-            </h2>
-            <ul className={styles["contributions__list"]}>
-              {contributor.collectionContributions.nodes.map((node, i) => (
-                <li className={styles["contributions__item"]} key={i}>
-                  <ContributionSummary data={node} />
-                </li>
-              ))}
-              {contributor.itemContributions.nodes.map((node, i) => (
-                <li className={styles["contributions__item"]} key={i}>
-                  <ContributionSummary data={node} />
-                </li>
-              ))}
-            </ul>
-          </ContributionsComponent>
-        </section>
+      {hasAttributions && (
+        <BrowseListLayout
+          data={attributions.pageInfo}
+          header={t("layouts.contributions_header")}
+          items={attributions.nodes.map((node) => (
+            <ContributionSummary key={node.id} data={node} />
+          ))}
+        />
       )}
     </>
   ) : null;
@@ -112,14 +94,19 @@ const fragment = graphql`
     ... on Contributor {
       bio
       orcid
-      collectionContributions {
+      attributions(page: $page, perPage: 25) {
         nodes {
+          ... on ContributorItemAttribution {
+            id
+          }
+          ... on ContributorCollectionAttribution {
+            id
+          }
           ...ContributionSummaryFragment
         }
-      }
-      itemContributions {
-        nodes {
-          ...ContributionSummaryFragment
+        pageInfo {
+          totalCount
+          ...BrowseListLayoutFragment
         }
       }
       image {

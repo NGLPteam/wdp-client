@@ -16,7 +16,11 @@ export default async function ContributorPage({
   searchParams,
 }: BasePageParams & { searchParams: Record<string, string> }) {
   const { slug } = params;
-  const { item: itemSlug, collection: collectionSlug } = searchParams ?? {};
+  const {
+    item: itemSlug,
+    collection: collectionSlug,
+    page = 1,
+  } = searchParams ?? {};
 
   const query = itemSlug
     ? itemQuery
@@ -26,7 +30,7 @@ export default async function ContributorPage({
 
   const { data, records } = await fetchQuery<
     DetailQuery | ItemQuery | CollectionQuery
-  >(query, { slug, item: itemSlug, collection: collectionSlug });
+  >(query, { slug, item: itemSlug, collection: collectionSlug, page });
 
   const contributor = data?.contributor;
 
@@ -55,7 +59,7 @@ export default async function ContributorPage({
 }
 
 const detailQuery = graphql`
-  query pageContributorDetailQuery($slug: Slug!) {
+  query pageContributorDetailQuery($slug: Slug!, $page: Int) {
     contributor(slug: $slug) {
       ...ContributorDetailFragment
     }
@@ -64,7 +68,7 @@ const detailQuery = graphql`
 `;
 
 const itemQuery = graphql`
-  query pageContributorItemDetailQuery($slug: Slug!, $item: Slug!) {
+  query pageContributorItemDetailQuery($slug: Slug!, $item: Slug!, $page: Int) {
     contributor(slug: $slug) {
       ...ContributorDetailFragment
     }
@@ -82,7 +86,11 @@ const itemQuery = graphql`
 `;
 
 const collectionQuery = graphql`
-  query pageContributorCollectionLayoutQuery($slug: Slug!, $collection: Slug!) {
+  query pageContributorCollectionLayoutQuery(
+    $slug: Slug!
+    $collection: Slug!
+    $page: Int
+  ) {
     contributor(slug: $slug) {
       ...ContributorDetailFragment
     }

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<beaa943dfbbe1d7e591ac8e3a5eb7657>>
+ * @generated SignedSource<<3429ada70b1d53ca73051818b21a3800>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,20 +13,20 @@ export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "
 import { FragmentRefs } from "relay-runtime";
 export type ContributorDetailFragment$data = {
   readonly affiliation?: string | null | undefined;
-  readonly bio: string | null | undefined;
-  readonly collectionContributions: {
+  readonly attributions: {
     readonly nodes: ReadonlyArray<{
+      readonly id?: string;
       readonly " $fragmentSpreads": FragmentRefs<"ContributionSummaryFragment">;
     }>;
+    readonly pageInfo: {
+      readonly totalCount: number;
+      readonly " $fragmentSpreads": FragmentRefs<"BrowseListLayoutFragment">;
+    };
   };
+  readonly bio: string | null | undefined;
   readonly image: {
     readonly storage: AttachmentStorage | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"ContributorAvatarFragment">;
-  };
-  readonly itemContributions: {
-    readonly nodes: ReadonlyArray<{
-      readonly " $fragmentSpreads": FragmentRefs<"ContributionSummaryFragment">;
-    }>;
   };
   readonly links: ReadonlyArray<{
     readonly title: string;
@@ -45,9 +45,11 @@ export type ContributorDetailFragment$key = {
 const node: ReaderFragment = (function(){
 var v0 = [
   {
+    "alias": null,
     "args": null,
-    "kind": "FragmentSpread",
-    "name": "ContributionSummaryFragment"
+    "kind": "ScalarField",
+    "name": "id",
+    "storageKey": null
   }
 ],
 v1 = {
@@ -58,7 +60,12 @@ v1 = {
   "storageKey": null
 };
 return {
-  "argumentDefinitions": [],
+  "argumentDefinitions": [
+    {
+      "kind": "RootArgument",
+      "name": "page"
+    }
+  ],
   "kind": "Fragment",
   "metadata": null,
   "name": "ContributorDetailFragment",
@@ -84,41 +91,72 @@ return {
     },
     {
       "alias": null,
-      "args": null,
-      "concreteType": "CollectionContributionConnection",
-      "kind": "LinkedField",
-      "name": "collectionContributions",
-      "plural": false,
-      "selections": [
+      "args": [
         {
-          "alias": null,
-          "args": null,
-          "concreteType": "CollectionContribution",
-          "kind": "LinkedField",
-          "name": "nodes",
-          "plural": true,
-          "selections": (v0/*: any*/),
-          "storageKey": null
+          "kind": "Variable",
+          "name": "page",
+          "variableName": "page"
+        },
+        {
+          "kind": "Literal",
+          "name": "perPage",
+          "value": 25
         }
       ],
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ItemContributionConnection",
+      "concreteType": "ContributorAttributionConnection",
       "kind": "LinkedField",
-      "name": "itemContributions",
+      "name": "attributions",
       "plural": false,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "concreteType": "ItemContribution",
+          "concreteType": null,
           "kind": "LinkedField",
           "name": "nodes",
           "plural": true,
-          "selections": (v0/*: any*/),
+          "selections": [
+            {
+              "kind": "InlineFragment",
+              "selections": (v0/*: any*/),
+              "type": "ContributorItemAttribution",
+              "abstractKey": null
+            },
+            {
+              "kind": "InlineFragment",
+              "selections": (v0/*: any*/),
+              "type": "ContributorCollectionAttribution",
+              "abstractKey": null
+            },
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "ContributionSummaryFragment"
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PageInfo",
+          "kind": "LinkedField",
+          "name": "pageInfo",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "totalCount",
+              "storageKey": null
+            },
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "BrowseListLayoutFragment"
+            }
+          ],
           "storageKey": null
         }
       ],
@@ -187,6 +225,6 @@ return {
 };
 })();
 
-(node as any).hash = "6f7ffe15cc20c4088a77520084f0bc56";
+(node as any).hash = "d5d0d033c9085e5a15b1867c2eb129dc";
 
 export default node;
