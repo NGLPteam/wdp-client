@@ -60,7 +60,7 @@ export default function Content({ data }: DetailContentProps) {
         </div>
       )}
       {cta?.valid && !!cta?.content && (
-        <InlineSlotWrapper content={cta.content} />
+        <BlockSlotWrapper content={cta.content} assetAsButton />
       )}
     </div>
   );
