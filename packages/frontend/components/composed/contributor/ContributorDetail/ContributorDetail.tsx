@@ -84,12 +84,12 @@ export default function ContributorDetail({ data }: Props) {
             <ul className={styles["contributions__list"]}>
               {contributor.collectionContributions.nodes.map((node, i) => (
                 <li className={styles["contributions__item"]} key={i}>
-                  <ContributionSummary data={node} showReadMore />
+                  <ContributionSummary data={node} />
                 </li>
               ))}
               {contributor.itemContributions.nodes.map((node, i) => (
                 <li className={styles["contributions__item"]} key={i}>
-                  <ContributionSummary data={node} showReadMore />
+                  <ContributionSummary data={node} />
                 </li>
               ))}
             </ul>
