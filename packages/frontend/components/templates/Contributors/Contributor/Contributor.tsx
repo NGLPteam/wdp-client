@@ -5,7 +5,6 @@ import NamedLink from "@/components/atomic/links/NamedLink";
 import { ContributorFragment$key } from "@/relay/ContributorFragment.graphql";
 import ContributorName from "@/components/composed/contributor/ContributorName";
 import ContributorAvatar from "@/components/composed/contributor/ContributorAvatar";
-import ORCIDLink from "@/components/atomic/links/Link/patterns/ORCIDLink";
 import styles from "./Contributor.module.css";
 
 export default function Contributor({
@@ -55,11 +54,7 @@ export default function Contributor({
           {(contribution.affiliation || contributor.affiliation) && (
             <p>{contribution.affiliation || contributor.affiliation}</p>
           )}
-          {contributor.orcid && (
-            <ORCIDLink className={styles.orcid} href={contributor.orcid}>
-              {contributor.orcid}
-            </ORCIDLink>
-          )}
+          {contributor.title && <p>{contributor.title}</p>}
         </div>
       </div>
     </li>
@@ -81,7 +76,7 @@ const fragment = graphql`
       }
       ... on PersonContributor {
         affiliation
-        orcid
+        title
       }
       ...ContributorNameFragment
     }

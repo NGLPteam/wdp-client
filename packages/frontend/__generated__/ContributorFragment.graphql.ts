@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<90d0484f6e2bcc3a0fedfb9467e4517b>>
+ * @generated SignedSource<<a3a40f4972d735ef7ae14c413908e697>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,8 +21,8 @@ export type ContributorFragment$data = {
     readonly image?: {
       readonly " $fragmentSpreads": FragmentRefs<"ContributorAvatarFragment">;
     };
-    readonly orcid?: string | null | undefined;
     readonly slug?: string;
+    readonly title?: string | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"ContributorNameFragment">;
   };
   readonly item?: {
@@ -123,7 +123,7 @@ return {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "orcid",
+              "name": "title",
               "storageKey": null
             }
           ],
@@ -178,6 +178,6 @@ return {
 };
 })();
 
-(node as any).hash = "babff048c31a094e8a15690669211260";
+(node as any).hash = "54b306ecc016f2d8b8cfa8abf7fea82e";
 
 export default node;
