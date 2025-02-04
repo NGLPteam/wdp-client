@@ -77,7 +77,12 @@ export default function SummaryListBlock({
       <div className={styles.grid}>
         <div className={styles.textColumn}>
           {blockHeader?.valid && !!blockHeader?.content && (
-            <div className={classNames(styles.blockTitle, "t-h3")}>
+            <div
+              className={classNames(styles.blockTitle, {
+                "t-h4": showNestedEntities,
+                "t-h3": !showNestedEntities,
+              })}
+            >
               <InlineSlotWrapper content={blockHeader.content} />
             </div>
           )}
