@@ -10,6 +10,7 @@ import {
   EntityDescendantsLayoutFragment$data,
   EntityDescendantsLayoutFragment$key,
 } from "@/relay/EntityDescendantsLayoutFragment.graphql";
+import styles from "@/components/layout/BrowseListLayout/BrowseListLayout.module.css";
 import EntityDescendantOrderSelect from "../EntityDescendantOrderSelect";
 
 interface Props {
@@ -30,7 +31,11 @@ export default function EntityDescendantsLayout({ data, schema }: Props) {
       header={getSchemaPluralName(schema, schemaName, t)}
       orderComponent={<EntityDescendantOrderSelect />}
       items={decendants.edges.map(({ node: { descendant } }: Node) => (
-        <EntitySummary key={descendant.slug} data={descendant} />
+        <EntitySummary
+          key={descendant.slug}
+          data={descendant}
+          className={styles.item}
+        />
       ))}
     />
   ) : (

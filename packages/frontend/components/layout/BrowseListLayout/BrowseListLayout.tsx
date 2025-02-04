@@ -1,8 +1,7 @@
 "use client";
 
-import { graphql } from "react-relay";
+import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { PageCount, Pagination } from "components/atomic";
 import { BrowseListLayoutFragment$key } from "@/relay/BrowseListLayoutFragment.graphql";
 import NoContent from "../messages/NoContent";
@@ -14,7 +13,7 @@ export default function BrowseListLayout({
   orderComponent,
   items,
 }: Props) {
-  const pageInfo = useMaybeFragment(fragment, data);
+  const pageInfo = useFragment(fragment, data);
 
   const { t } = useTranslation();
 
@@ -35,13 +34,7 @@ export default function BrowseListLayout({
           </div>
         </header>
         {items && items.length > 0 ? (
-          <ul className="t-unstyled-list">
-            {items.map((item, i) => (
-              <li className={styles.item} key={i}>
-                {item}
-              </li>
-            ))}
-          </ul>
+          <ul className="t-unstyled-list">{items}</ul>
         ) : (
           <NoContent />
         )}

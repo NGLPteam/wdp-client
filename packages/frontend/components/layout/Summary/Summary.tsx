@@ -41,7 +41,7 @@ export default function Summary({
             )}
           </h4>
           {subtitle && (
-            <h5 className="t-copy-italic t-copy-light">
+            <h5 className="t-copy t-copy-italic t-copy-light">
               <Markdown.Title>{subtitle}</Markdown.Title>
             </h5>
           )}
