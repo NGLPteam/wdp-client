@@ -68,6 +68,8 @@ export default function SummaryListBlock({
 
   const renderEntity = header?.valid || subtitle?.valid || metadata?.valid;
 
+  const browseStyle = !showHeroImage && background === "NONE";
+
   return (
     <Container
       className={styles.container}
@@ -77,14 +79,15 @@ export default function SummaryListBlock({
       <div className={styles.grid}>
         <div className={styles.textColumn}>
           {blockHeader?.valid && !!blockHeader?.content && (
-            <div
+            <h2
               className={classNames(styles.blockTitle, {
                 "t-h4": showNestedEntities,
                 "t-h3": !showNestedEntities,
+                [styles["blockTitle--browse"]]: browseStyle,
               })}
             >
               <InlineSlotWrapper content={blockHeader.content} />
-            </div>
+            </h2>
           )}
           {renderEntity && (
             <div className={styles.entity}>
@@ -95,14 +98,14 @@ export default function SummaryListBlock({
               )}
               <NamedLink href={href}>
                 {header?.valid && !!header.content && (
-                  <h4 className={classNames(styles.title, "t-h3")}>
+                  <h3 className={classNames(styles.title, "t-h3")}>
                     {headerAside?.valid && !!headerAside.content && (
                       <span>
                         <InlineSlotWrapper content={headerAside.content} />,{" "}
                       </span>
                     )}
                     <InlineSlotWrapper content={header.content} />
-                  </h4>
+                  </h3>
                 )}
               </NamedLink>
               {subtitle?.valid && !!subtitle.content && (
@@ -124,6 +127,7 @@ export default function SummaryListBlock({
             hideCovers={!!showHeroImage}
             showContext={showEntityContext}
             isNested={showNestedEntities}
+            browseStyle={browseStyle}
           />
           {!!seeAllOrderingIdentifier && !!seeAllHref && (
             <SeeAll

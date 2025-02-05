@@ -10,9 +10,8 @@ import {
   EntityOrderingLayoutFragment$data,
   EntityOrderingLayoutFragment$key,
 } from "@/relay/EntityOrderingLayoutFragment.graphql";
-import styles from "@/components/layout/BrowseListLayout/BrowseListLayout.module.css";
 
-export default function EntityOrderingLayout({ data }: Props) {
+export default function EntityOrderingLayout({ data, showContext }: Props) {
   const ordering = useFragment(fragment, data);
 
   const pageInfo = useMemo(() => ordering?.children.pageInfo, [ordering]);
@@ -32,7 +31,8 @@ export default function EntityOrderingLayout({ data }: Props) {
           <EntitySummary
             key={entry.slug}
             data={entry}
-            className={styles.item}
+            showContext={showContext}
+            browseStyle
           />
         ))}
       />
@@ -46,6 +46,7 @@ export default function EntityOrderingLayout({ data }: Props) {
 
 interface Props {
   data?: EntityOrderingLayoutFragment$key | null;
+  showContext?: "full" | "abbr" | "none";
 }
 
 type Node = EntityOrderingLayoutFragment$data["children"]["edges"][number];

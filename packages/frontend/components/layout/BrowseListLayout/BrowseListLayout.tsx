@@ -4,6 +4,7 @@ import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { PageCount, Pagination } from "components/atomic";
 import { BrowseListLayoutFragment$key } from "@/relay/BrowseListLayoutFragment.graphql";
+import Container from "@/components/layout/Container";
 import NoContent from "../messages/NoContent";
 import styles from "./BrowseListLayout.module.css";
 
@@ -24,15 +25,15 @@ export default function BrowseListLayout({
       : t(headerProp));
 
   return pageInfo ? (
-    <section className="a-bg-neutral00">
-      <div className="l-container-wide">
-        <header className={styles.header}>
-          {header && <h3 className="t-capitalize">{header}</h3>}
-          <div className={styles.pageCount}>
-            <PageCount data={pageInfo} className="t-label-lg" />
-            {orderComponent}
-          </div>
-        </header>
+    <Container width="wide" bgColor="NONE" className={styles.grid}>
+      <header className={styles.header}>
+        {header && <h2 className="t-capitalize t-h3">{header}</h2>}
+        <div className={styles.pageCount}>
+          <PageCount data={pageInfo} className="t-label-lg" />
+          {orderComponent}
+        </div>
+      </header>
+      <div className={styles.listColumn}>
         {items && items.length > 0 ? (
           <ul className="t-unstyled-list">{items}</ul>
         ) : (
@@ -42,7 +43,7 @@ export default function BrowseListLayout({
           <Pagination data={pageInfo} />
         </div>
       </div>
-    </section>
+    </Container>
   ) : null;
 }
 

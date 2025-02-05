@@ -38,6 +38,10 @@
 .summaryList {
   border-bottom: 1px solid var(--border-color);
   padding-block-end: var(--padding-xl);
+
+  &--browse {
+    border-bottom: none;
+  }
 }
 
 .promoList {

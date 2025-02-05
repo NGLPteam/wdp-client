@@ -10,15 +10,19 @@ import {
   EntityDescendantsLayoutFragment$data,
   EntityDescendantsLayoutFragment$key,
 } from "@/relay/EntityDescendantsLayoutFragment.graphql";
-import styles from "@/components/layout/BrowseListLayout/BrowseListLayout.module.css";
 import EntityDescendantOrderSelect from "../EntityDescendantOrderSelect";
 
 interface Props {
   data: EntityDescendantsLayoutFragment$key | null;
   schema: string;
+  showContext?: "full" | "abbr" | "none";
 }
 
-export default function EntityDescendantsLayout({ data, schema }: Props) {
+export default function EntityDescendantsLayout({
+  data,
+  schema,
+  showContext,
+}: Props) {
   const { t } = useTranslation();
   const decendants = readInlineData(fragment, data);
   const schemaName = decendants
@@ -34,7 +38,8 @@ export default function EntityDescendantsLayout({ data, schema }: Props) {
         <EntitySummary
           key={descendant.slug}
           data={descendant}
-          className={styles.item}
+          showContext={showContext}
+          browseStyle
         />
       ))}
     />
