@@ -26993,6 +26993,18 @@
             "deprecationReason": null
           },
           {
+            "name": "browseStyle",
+            "description": "A boolean used to describe list templates that should match browse style as close as possible.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -27015,6 +27027,18 @@
             "type": {
               "kind": "OBJECT",
               "name": "OrderingDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entityContext",
+            "description": "Enumerate how much context to show when listing entities.\n\nReplaces `showEntityContext`.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "ListEntityContext",
               "ofType": null
             },
             "isDeprecated": false,
@@ -27205,8 +27229,8 @@
               "name": "Boolean",
               "ofType": null
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use entity_context enum instead"
           },
           {
             "name": "showHeroImage",
@@ -36624,6 +36648,22 @@
         "description": null,
         "fields": [
           {
+            "name": "allHidden",
+            "description": "Whether all templates in this instance are hidden.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -43770,6 +43810,22 @@
         "description": "An interface describing an instance type that can be rendered for a given entity.\n",
         "fields": [
           {
+            "name": "allHidden",
+            "description": "Whether all templates in this instance are hidden.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "entity",
             "description": "The associated entity for this layout instance.\n",
             "args": [],
@@ -44169,6 +44225,18 @@
             "deprecationReason": null
           },
           {
+            "name": "browseStyle",
+            "description": "A boolean used to describe list templates that should match browse style as close as possible.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -44191,6 +44259,18 @@
             "type": {
               "kind": "OBJECT",
               "name": "OrderingDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "entityContext",
+            "description": "Enumerate how much context to show when listing entities.\n\nReplaces `showEntityContext`.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "ListEntityContext",
               "ofType": null
             },
             "isDeprecated": false,
@@ -44357,8 +44437,8 @@
               "name": "Boolean",
               "ofType": null
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use entity_context enum instead"
           },
           {
             "name": "showHeroImage",
@@ -45349,6 +45429,35 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "ListEntityContext",
+        "description": "An enumerated value associated with the templating subsystem.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "ABBR",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "FULL",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "NONE",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "OBJECT",
         "name": "ListItemLayoutDefinition",
         "description": null,
@@ -45496,6 +45605,22 @@
         "name": "ListItemLayoutInstance",
         "description": null,
         "fields": [
+          {
+            "name": "allHidden",
+            "description": "Whether all templates in this instance are hidden.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,
@@ -46103,6 +46228,54 @@
             "deprecationReason": null
           },
           {
+            "name": "nestedContext",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nestedHeader",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nestedMetadata",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nestedSubheader",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "subheader",
             "description": null,
             "args": [],
@@ -46459,6 +46632,54 @@
             "deprecationReason": null
           },
           {
+            "name": "nestedContext",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nestedHeader",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nestedMetadata",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nestedSubheader",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "subheader",
             "description": null,
             "args": [],
@@ -46612,6 +46833,22 @@
         "name": "MainLayoutInstance",
         "description": null,
         "fields": [
+          {
+            "name": "allHidden",
+            "description": "Whether all templates in this instance are hidden.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,
@@ -47270,6 +47507,22 @@
         "name": "MetadataLayoutInstance",
         "description": null,
         "fields": [
+          {
+            "name": "allHidden",
+            "description": "Whether all templates in this instance are hidden.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,
@@ -50124,6 +50377,22 @@
         "name": "NavigationLayoutInstance",
         "description": null,
         "fields": [
+          {
+            "name": "allHidden",
+            "description": "Whether all templates in this instance are hidden.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,
@@ -66475,6 +66744,22 @@
         "name": "SupplementaryLayoutInstance",
         "description": null,
         "fields": [
+          {
+            "name": "allHidden",
+            "description": "Whether all templates in this instance are hidden.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,

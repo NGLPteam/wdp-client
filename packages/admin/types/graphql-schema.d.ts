@@ -5112,6 +5112,11 @@ export type DescendantListTemplateDefinition = Node & Sluggable & TemplateDefini
    *
    */
   background?: Maybe<DescendantListBackground>;
+  /**
+   * A boolean used to describe list templates that should match browse style as close as possible.
+   *
+   */
+  browseStyle?: Maybe<Scalars['Boolean']['output']>;
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * When `selectionMode` is set to `DYNAMIC`, this uses the same basic structure
@@ -5120,6 +5125,13 @@ export type DescendantListTemplateDefinition = Node & Sluggable & TemplateDefini
    *
    */
   dynamicOrderingDefinition?: Maybe<OrderingDefinition>;
+  /**
+   * Enumerate how much context to show when listing entities.
+   *
+   * Replaces `showEntityContext`.
+   *
+   */
+  entityContext?: Maybe<ListEntityContext>;
   id: Scalars['ID']['output'];
   layoutKind: LayoutKind;
   /**
@@ -5202,6 +5214,7 @@ export type DescendantListTemplateDefinition = Node & Sluggable & TemplateDefini
   /**
    * Show additional context about each entity in the selection.
    *
+   * @deprecated Use entity_context enum instead
    */
   showEntityContext?: Maybe<Scalars['Boolean']['output']>;
   showHeroImage?: Maybe<Scalars['Boolean']['output']>;
@@ -7138,6 +7151,11 @@ export type HeroLayoutDefinition = LayoutDefinition & Node & Sluggable & {
 
 export type HeroLayoutInstance = LayoutInstance & Node & Renderable & Sluggable & {
   __typename?: 'HeroLayoutInstance';
+  /**
+   * Whether all templates in this instance are hidden.
+   *
+   */
+  allHidden: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * The associated entity for this layout instance.
@@ -8399,6 +8417,11 @@ export type LayoutDefinition = {
  */
 export type LayoutInstance = {
   /**
+   * Whether all templates in this instance are hidden.
+   *
+   */
+  allHidden: Scalars['Boolean']['output'];
+  /**
    * The associated entity for this layout instance.
    *
    */
@@ -8523,6 +8546,11 @@ export type LinkListTemplateDefinition = Node & Sluggable & TemplateDefinition &
    *
    */
   background?: Maybe<LinkListBackground>;
+  /**
+   * A boolean used to describe list templates that should match browse style as close as possible.
+   *
+   */
+  browseStyle?: Maybe<Scalars['Boolean']['output']>;
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * When `selectionMode` is set to `DYNAMIC`, this uses the same basic structure
@@ -8531,6 +8559,13 @@ export type LinkListTemplateDefinition = Node & Sluggable & TemplateDefinition &
    *
    */
   dynamicOrderingDefinition?: Maybe<OrderingDefinition>;
+  /**
+   * Enumerate how much context to show when listing entities.
+   *
+   * Replaces `showEntityContext`.
+   *
+   */
+  entityContext?: Maybe<ListEntityContext>;
   id: Scalars['ID']['output'];
   layoutKind: LayoutKind;
   /**
@@ -8601,6 +8636,7 @@ export type LinkListTemplateDefinition = Node & Sluggable & TemplateDefinition &
   /**
    * Show additional context about each entity in the selection.
    *
+   * @deprecated Use entity_context enum instead
    */
   showEntityContext?: Maybe<Scalars['Boolean']['output']>;
   showHeroImage?: Maybe<Scalars['Boolean']['output']>;
@@ -8805,6 +8841,16 @@ export type LinkTargetCandidateKind =
   | 'ITEM'
   | '%future added value';
 
+/**
+ * An enumerated value associated with the templating subsystem.
+ *
+ */
+export type ListEntityContext =
+  | 'ABBR'
+  | 'FULL'
+  | 'NONE'
+  | '%future added value';
+
 export type ListItemLayoutDefinition = LayoutDefinition & Node & Sluggable & {
   __typename?: 'ListItemLayoutDefinition';
   createdAt: Scalars['ISO8601DateTime']['output'];
@@ -8826,6 +8872,11 @@ export type ListItemLayoutDefinition = LayoutDefinition & Node & Sluggable & {
 
 export type ListItemLayoutInstance = LayoutInstance & Node & Renderable & Sluggable & {
   __typename?: 'ListItemLayoutInstance';
+  /**
+   * Whether all templates in this instance are hidden.
+   *
+   */
+  allHidden: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * The associated entity for this layout instance.
@@ -8977,6 +9028,10 @@ export type ListItemTemplateDefinitionSlots = {
   header?: Maybe<TemplateSlotInlineDefinition>;
   metaA?: Maybe<TemplateSlotInlineDefinition>;
   metaB?: Maybe<TemplateSlotInlineDefinition>;
+  nestedContext?: Maybe<TemplateSlotInlineDefinition>;
+  nestedHeader?: Maybe<TemplateSlotInlineDefinition>;
+  nestedMetadata?: Maybe<TemplateSlotInlineDefinition>;
+  nestedSubheader?: Maybe<TemplateSlotInlineDefinition>;
   subheader?: Maybe<TemplateSlotInlineDefinition>;
 };
 
@@ -9037,6 +9092,10 @@ export type ListItemTemplateInstanceSlots = {
   header?: Maybe<TemplateSlotInlineInstance>;
   metaA?: Maybe<TemplateSlotInlineInstance>;
   metaB?: Maybe<TemplateSlotInlineInstance>;
+  nestedContext?: Maybe<TemplateSlotInlineInstance>;
+  nestedHeader?: Maybe<TemplateSlotInlineInstance>;
+  nestedMetadata?: Maybe<TemplateSlotInlineInstance>;
+  nestedSubheader?: Maybe<TemplateSlotInlineInstance>;
   subheader?: Maybe<TemplateSlotInlineInstance>;
 };
 
@@ -9056,6 +9115,11 @@ export type MainLayoutDefinition = LayoutDefinition & Node & Sluggable & {
 
 export type MainLayoutInstance = LayoutInstance & Node & Renderable & Sluggable & {
   __typename?: 'MainLayoutInstance';
+  /**
+   * Whether all templates in this instance are hidden.
+   *
+   */
+  allHidden: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * The associated entity for this layout instance.
@@ -9216,6 +9280,11 @@ export type MetadataLayoutDefinition = LayoutDefinition & Node & Sluggable & {
 
 export type MetadataLayoutInstance = LayoutInstance & Node & Renderable & Sluggable & {
   __typename?: 'MetadataLayoutInstance';
+  /**
+   * Whether all templates in this instance are hidden.
+   *
+   */
+  allHidden: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * The associated entity for this layout instance.
@@ -10174,6 +10243,11 @@ export type NavigationLayoutDefinition = LayoutDefinition & Node & Sluggable & {
 
 export type NavigationLayoutInstance = LayoutInstance & Node & Renderable & Sluggable & {
   __typename?: 'NavigationLayoutInstance';
+  /**
+   * Whether all templates in this instance are hidden.
+   *
+   */
+  allHidden: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * The associated entity for this layout instance.
@@ -13467,6 +13541,11 @@ export type SupplementaryLayoutDefinition = LayoutDefinition & Node & Sluggable 
 
 export type SupplementaryLayoutInstance = LayoutInstance & Node & Renderable & Sluggable & {
   __typename?: 'SupplementaryLayoutInstance';
+  /**
+   * Whether all templates in this instance are hidden.
+   *
+   */
+  allHidden: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * The associated entity for this layout instance.
@@ -16600,6 +16679,7 @@ export type ResolversTypes = {
   LinkTargetCandidateEdge: ResolverTypeWrapper<LinkTargetCandidateEdge>;
   LinkTargetCandidateFilter: LinkTargetCandidateFilter;
   LinkTargetCandidateKind: LinkTargetCandidateKind;
+  ListEntityContext: ListEntityContext;
   ListItemLayoutDefinition: ResolverTypeWrapper<Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<ResolversTypes['AnyListItemTemplateDefinition']> }>;
   ListItemLayoutInstance: ResolverTypeWrapper<Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: ResolversTypes['AnyEntity'], templates: Array<ResolversTypes['AnyListItemTemplateInstance']> }>;
   ListItemSelectionMode: ListItemSelectionMode;
@@ -18817,8 +18897,10 @@ export type DatePropertyResolvers<ContextType = any, ParentType extends Resolver
 
 export type DescendantListTemplateDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['DescendantListTemplateDefinition'] = ResolversParentTypes['DescendantListTemplateDefinition']> = {
   background?: Resolver<Maybe<ResolversTypes['DescendantListBackground']>, ParentType, ContextType>;
+  browseStyle?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   dynamicOrderingDefinition?: Resolver<Maybe<ResolversTypes['OrderingDefinition']>, ParentType, ContextType>;
+  entityContext?: Resolver<Maybe<ResolversTypes['ListEntityContext']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
   manualListName?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
@@ -19420,6 +19502,7 @@ export type HeroLayoutDefinitionResolvers<ContextType = any, ParentType extends 
 };
 
 export type HeroLayoutInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['HeroLayoutInstance'] = ResolversParentTypes['HeroLayoutInstance']> = {
+  allHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -19805,6 +19888,7 @@ export type LayoutDefinitionResolvers<ContextType = any, ParentType extends Reso
 
 export type LayoutInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['LayoutInstance'] = ResolversParentTypes['LayoutInstance']> = {
   __resolveType: TypeResolveFn<'HeroLayoutInstance' | 'ListItemLayoutInstance' | 'MainLayoutInstance' | 'MetadataLayoutInstance' | 'NavigationLayoutInstance' | 'SupplementaryLayoutInstance', ParentType, ContextType>;
+  allHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -19822,8 +19906,10 @@ export type LinkEntityPayloadResolvers<ContextType = any, ParentType extends Res
 
 export type LinkListTemplateDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['LinkListTemplateDefinition'] = ResolversParentTypes['LinkListTemplateDefinition']> = {
   background?: Resolver<Maybe<ResolversTypes['LinkListBackground']>, ParentType, ContextType>;
+  browseStyle?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   dynamicOrderingDefinition?: Resolver<Maybe<ResolversTypes['OrderingDefinition']>, ParentType, ContextType>;
+  entityContext?: Resolver<Maybe<ResolversTypes['ListEntityContext']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
   manualListName?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
@@ -19929,6 +20015,7 @@ export type ListItemLayoutDefinitionResolvers<ContextType = any, ParentType exte
 };
 
 export type ListItemLayoutInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['ListItemLayoutInstance'] = ResolversParentTypes['ListItemLayoutInstance']> = {
+  allHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -19974,6 +20061,10 @@ export type ListItemTemplateDefinitionSlotsResolvers<ContextType = any, ParentTy
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   metaA?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   metaB?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  nestedContext?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  nestedHeader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  nestedMetadata?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  nestedSubheader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   subheader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -20004,6 +20095,10 @@ export type ListItemTemplateInstanceSlotsResolvers<ContextType = any, ParentType
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   metaA?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   metaB?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  nestedContext?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  nestedHeader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  nestedMetadata?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  nestedSubheader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   subheader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -20019,6 +20114,7 @@ export type MainLayoutDefinitionResolvers<ContextType = any, ParentType extends 
 };
 
 export type MainLayoutInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['MainLayoutInstance'] = ResolversParentTypes['MainLayoutInstance']> = {
+  allHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -20062,6 +20158,7 @@ export type MetadataLayoutDefinitionResolvers<ContextType = any, ParentType exte
 };
 
 export type MetadataLayoutInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['MetadataLayoutInstance'] = ResolversParentTypes['MetadataLayoutInstance']> = {
+  allHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -20227,6 +20324,7 @@ export type NavigationLayoutDefinitionResolvers<ContextType = any, ParentType ex
 };
 
 export type NavigationLayoutInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['NavigationLayoutInstance'] = ResolversParentTypes['NavigationLayoutInstance']> = {
+  allHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -21124,6 +21222,7 @@ export type SupplementaryLayoutDefinitionResolvers<ContextType = any, ParentType
 };
 
 export type SupplementaryLayoutInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['SupplementaryLayoutInstance'] = ResolversParentTypes['SupplementaryLayoutInstance']> = {
+  allHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;

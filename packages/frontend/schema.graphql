@@ -5316,6 +5316,11 @@ type DescendantListTemplateDefinition implements Node & Sluggable & TemplateDefi
   
   """
   background: DescendantListBackground
+  """
+  A boolean used to describe list templates that should match browse style as close as possible.
+  
+  """
+  browseStyle: Boolean
   createdAt: ISO8601DateTime!
   """
   When `selectionMode` is set to `DYNAMIC`, this uses the same basic structure
@@ -5324,6 +5329,13 @@ type DescendantListTemplateDefinition implements Node & Sluggable & TemplateDefi
   
   """
   dynamicOrderingDefinition: OrderingDefinition
+  """
+  Enumerate how much context to show when listing entities.
+  
+  Replaces `showEntityContext`.
+  
+  """
+  entityContext: ListEntityContext
   id: ID!
   layoutKind: LayoutKind!
   """
@@ -5407,7 +5419,7 @@ type DescendantListTemplateDefinition implements Node & Sluggable & TemplateDefi
   Show additional context about each entity in the selection.
   
   """
-  showEntityContext: Boolean
+  showEntityContext: Boolean @deprecated(reason: "Use entity_context enum instead")
   showHeroImage: Boolean
   """
   Show nested items from the associated listItemLayouts in order to generate
@@ -7404,6 +7416,11 @@ type HeroLayoutDefinition implements LayoutDefinition & Node & Sluggable {
 }
 
 type HeroLayoutInstance implements LayoutInstance & Node & Renderable & Sluggable {
+  """
+  Whether all templates in this instance are hidden.
+  
+  """
+  allHidden: Boolean!
   createdAt: ISO8601DateTime!
   """
   The associated entity for this layout instance.
@@ -8784,6 +8801,11 @@ An interface describing an instance type that can be rendered for a given entity
 """
 interface LayoutInstance implements Renderable {
   """
+  Whether all templates in this instance are hidden.
+  
+  """
+  allHidden: Boolean!
+  """
   The associated entity for this layout instance.
   
   """
@@ -8905,6 +8927,11 @@ type LinkListTemplateDefinition implements Node & Sluggable & TemplateDefinition
   
   """
   background: LinkListBackground
+  """
+  A boolean used to describe list templates that should match browse style as close as possible.
+  
+  """
+  browseStyle: Boolean
   createdAt: ISO8601DateTime!
   """
   When `selectionMode` is set to `DYNAMIC`, this uses the same basic structure
@@ -8913,6 +8940,13 @@ type LinkListTemplateDefinition implements Node & Sluggable & TemplateDefinition
   
   """
   dynamicOrderingDefinition: OrderingDefinition
+  """
+  Enumerate how much context to show when listing entities.
+  
+  Replaces `showEntityContext`.
+  
+  """
+  entityContext: ListEntityContext
   id: ID!
   layoutKind: LayoutKind!
   """
@@ -8984,7 +9018,7 @@ type LinkListTemplateDefinition implements Node & Sluggable & TemplateDefinition
   Show additional context about each entity in the selection.
   
   """
-  showEntityContext: Boolean
+  showEntityContext: Boolean @deprecated(reason: "Use entity_context enum instead")
   showHeroImage: Boolean
   """
   Show nested items from the associated listItemLayouts in order to generate
@@ -9181,6 +9215,16 @@ enum LinkTargetCandidateKind {
   ITEM
 }
 
+"""
+An enumerated value associated with the templating subsystem.
+
+"""
+enum ListEntityContext {
+  ABBR
+  FULL
+  NONE
+}
+
 type ListItemLayoutDefinition implements LayoutDefinition & Node & Sluggable {
   createdAt: ISO8601DateTime!
   id: ID!
@@ -9200,6 +9244,11 @@ type ListItemLayoutDefinition implements LayoutDefinition & Node & Sluggable {
 }
 
 type ListItemLayoutInstance implements LayoutInstance & Node & Renderable & Sluggable {
+  """
+  Whether all templates in this instance are hidden.
+  
+  """
+  allHidden: Boolean!
   createdAt: ISO8601DateTime!
   """
   The associated entity for this layout instance.
@@ -9349,6 +9398,10 @@ type ListItemTemplateDefinitionSlots {
   header: TemplateSlotInlineDefinition
   metaA: TemplateSlotInlineDefinition
   metaB: TemplateSlotInlineDefinition
+  nestedContext: TemplateSlotInlineDefinition
+  nestedHeader: TemplateSlotInlineDefinition
+  nestedMetadata: TemplateSlotInlineDefinition
+  nestedSubheader: TemplateSlotInlineDefinition
   subheader: TemplateSlotInlineDefinition
 }
 
@@ -9407,6 +9460,10 @@ type ListItemTemplateInstanceSlots {
   header: TemplateSlotInlineInstance
   metaA: TemplateSlotInlineInstance
   metaB: TemplateSlotInlineInstance
+  nestedContext: TemplateSlotInlineInstance
+  nestedHeader: TemplateSlotInlineInstance
+  nestedMetadata: TemplateSlotInlineInstance
+  nestedSubheader: TemplateSlotInlineInstance
   subheader: TemplateSlotInlineInstance
 }
 
@@ -9424,6 +9481,11 @@ type MainLayoutDefinition implements LayoutDefinition & Node & Sluggable {
 }
 
 type MainLayoutInstance implements LayoutInstance & Node & Renderable & Sluggable {
+  """
+  Whether all templates in this instance are hidden.
+  
+  """
+  allHidden: Boolean!
   createdAt: ISO8601DateTime!
   """
   The associated entity for this layout instance.
@@ -9581,6 +9643,11 @@ type MetadataLayoutDefinition implements LayoutDefinition & Node & Sluggable {
 }
 
 type MetadataLayoutInstance implements LayoutInstance & Node & Renderable & Sluggable {
+  """
+  Whether all templates in this instance are hidden.
+  
+  """
+  allHidden: Boolean!
   createdAt: ISO8601DateTime!
   """
   The associated entity for this layout instance.
@@ -10234,6 +10301,11 @@ type NavigationLayoutDefinition implements LayoutDefinition & Node & Sluggable {
 }
 
 type NavigationLayoutInstance implements LayoutInstance & Node & Renderable & Sluggable {
+  """
+  Whether all templates in this instance are hidden.
+  
+  """
+  allHidden: Boolean!
   createdAt: ISO8601DateTime!
   """
   The associated entity for this layout instance.
@@ -13551,6 +13623,11 @@ type SupplementaryLayoutDefinition implements LayoutDefinition & Node & Sluggabl
 }
 
 type SupplementaryLayoutInstance implements LayoutInstance & Node & Renderable & Sluggable {
+  """
+  Whether all templates in this instance are hidden.
+  
+  """
+  allHidden: Boolean!
   createdAt: ISO8601DateTime!
   """
   The associated entity for this layout instance.
