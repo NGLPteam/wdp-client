@@ -42,3 +42,7 @@
 .image {
   margin-block-end: var(--padding-lg);
 }
+
+.noContent {
+  grid-column: 1 / span 12;
+}
