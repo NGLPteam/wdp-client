@@ -35,7 +35,7 @@
   margin-left: auto;
 
   @mixin respond theme("screens.100") {
-    flex-basis: 375px;
+    flex-basis: 30%;
   }
   @mixin respond theme("screens.60") {
     flex-basis: 100%;

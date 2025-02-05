@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { graphql } from "react-relay";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { graphql, useFragment } from "react-relay";
 import { useParams, usePathname } from "next/navigation";
 import { Dropdown, NamedLink, NavMenuLink, Button } from "components/atomic";
 import { getRouteByEntityType } from "helpers";
@@ -14,7 +13,7 @@ export default function EntityNavList({ data }: Props) {
   const { t } = useTranslation();
   const { slug } = useParams();
   const pathname = usePathname();
-  const entity = useMaybeFragment(fragment, data);
+  const entity = useFragment(fragment, data);
 
   function getDisclosure(label: string) {
     return (
@@ -34,25 +33,42 @@ export default function EntityNavList({ data }: Props) {
 
   const orderings = entity?.orderings?.nodes || [];
 
+  const hideOnlyOrdering = pathname.includes("browse");
+
+  const schemaNameParts = entity?.schemaVersion?.name.split(" ");
+  const backSchemaLabel =
+    !!schemaNameParts && schemaNameParts.length > 1
+      ? schemaNameParts[1]
+      : entity?.schemaVersion?.name;
+
   const dropdownLinks = slug
-    ? orderings.length === 1
-      ? orderings.map(({ identifier, name }: Node) => (
-          <NamedLink
-            key={identifier}
-            href={`/${typeRoute}/${slug}/browse/${identifier}`}
-          >
-            <Button size="sm" secondary>
-              {t("nav.browse_schema", { schema: name })}
-            </Button>
-          </NamedLink>
-        ))
-      : orderings.map(({ identifier, name, count }: Node) => (
+    ? orderings.length > 1
+      ? orderings.map(({ identifier, name, count }: Node) => (
           <Dropdown.Link
             key={identifier}
             href={`/${typeRoute}/${slug}/browse/${identifier}`}
             label={`${name} (${count})`}
           />
         ))
+      : !hideOnlyOrdering
+        ? orderings.map(({ identifier, name }: Node) => (
+            <NamedLink
+              key={identifier}
+              href={`/${typeRoute}/${slug}/browse/${identifier}`}
+            >
+              <Button size="sm" secondary>
+                {t("nav.browse_schema", { schema: name })}
+              </Button>
+            </NamedLink>
+          ))
+        : [
+            /* eslint-disable-next-line react/jsx-key */
+            <NamedLink href={`/${typeRoute}/${slug}`}>
+              <Button size="sm" secondary icon="arrowLeft" iconLeft>
+                {t("nav.back_to_entity", { schema: backSchemaLabel })}
+              </Button>
+            </NamedLink>,
+          ]
     : [];
 
   return (
@@ -99,6 +115,9 @@ type Node = EntityNavListFragment$data["orderings"]["nodes"][number];
 const fragment = graphql`
   fragment EntityNavListFragment on Entity {
     __typename
+    schemaVersion {
+      name
+    }
     orderings(availability: ENABLED) {
       nodes {
         name
