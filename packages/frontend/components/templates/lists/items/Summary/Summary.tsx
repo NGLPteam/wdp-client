@@ -14,13 +14,13 @@ export default function SummaryListItem({
   hideCover,
   showContext,
   isNested,
-  className,
+  browseStyle,
 }: {
   data?: sharedListItemTemplateFragment$key | null;
   hideCover?: boolean;
-  showContext?: boolean | null;
+  showContext?: "full" | "abbr" | "none" | boolean | null;
   isNested?: boolean | null;
-  className?: string;
+  browseStyle?: boolean | null;
 }) {
   const { slots, entity } = useSharedListItemTemplateFragment(data);
 
@@ -39,15 +39,24 @@ export default function SummaryListItem({
 
   const href = `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`;
 
-  const context = isNested ? contextAbbr : contextFull;
-  const contextVisible = showContext && context?.valid && !!context.content;
+  const context =
+    isNested || showContext === "abbr" ? contextAbbr : contextFull;
+  const contextVisible =
+    !!showContext &&
+    showContext !== "none" &&
+    context?.valid &&
+    !!context.content;
 
   const showThumb =
     !hideCover &&
     (entity.__typename !== "Item" || !!entity?.thumbnail?.image.webp.url);
 
   return (
-    <li className={classNames(styles.item, className)}>
+    <li
+      className={classNames(styles.item, {
+        [styles["item--browse"]]: browseStyle,
+      })}
+    >
       {showThumb && (
         <NamedLink href={href} className={styles.coverImage}>
           <CoverImage {...entity} maxWidth={120} maxHeight={160} />

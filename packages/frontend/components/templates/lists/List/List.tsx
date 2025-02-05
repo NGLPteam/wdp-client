@@ -19,6 +19,7 @@ export type Props = {
   showContext?: boolean | null;
   isNested?: boolean | null;
   showContributors?: boolean | null;
+  browseStyle?: boolean | null;
   items:
     | readonly { template?: sharedListItemTemplateFragment$key | null }[]
     | null
@@ -49,6 +50,7 @@ export default function List({
   isNested,
   items,
   showContributors,
+  browseStyle,
 }: Props) {
   if (!variant || !items) return null;
 
@@ -59,7 +61,11 @@ export default function List({
 
   return (
     <div className={styles.bgPositioner}>
-      <ul className={classNames(bgClass, listClass)}>
+      <ul
+        className={classNames(bgClass, listClass, {
+          [styles["summaryList--browse"]]: browseStyle && variant === "SUMMARY",
+        })}
+      >
         {items.map((item, i) => (
           <Item
             data={item.template}
@@ -68,6 +74,7 @@ export default function List({
             showContext={showContext}
             isNested={isNested}
             showContributors={showContributors}
+            browseStyle={browseStyle}
           />
         ))}
       </ul>

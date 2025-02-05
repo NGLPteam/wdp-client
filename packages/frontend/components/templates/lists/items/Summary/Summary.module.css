@@ -5,13 +5,23 @@
     flex-direction: column;
   }
 
-  section:not(:global(.a-bg-neutral90)) &:not(:last-child) {
-    border-bottom: 0px solid;
+  section:not(:global(.a-bg-neutral90)) &:not(:last-child):not(&--browse) {
+    border-bottom: none;
     padding-block-end: var(--padding-md);
   }
 
-  & + & {
+  &:not(&--browse) + &:not(&--browse) {
     padding-block-start: var(--padding-md);
+  }
+
+  &--browse {
+    padding-block-start: 1.75rem;
+    padding-block-end: 1.875rem;
+    margin-block-end: 3px;
+
+    & + & {
+      border-top: 1px solid var(--color-base-neutral40);
+    }
   }
 }
 

@@ -12,6 +12,11 @@
   margin-block-end: var(--padding-rg);
   border-bottom: 1px solid;
   padding-block-end: var(--padding-xs);
+
+  &--browse {
+    border-bottom: none;
+    padding-block-end: 1.5rem;
+  }
 }
 
 .title {
@@ -30,6 +35,10 @@
   @mixin l-grid;
 
   grid-template-areas: "image image image . text text text text text text text text";
+
+  @mixin respond theme("screens.80") {
+    grid-template-areas: "image image image image . text text text text text text text";
+  }
 
   @mixin respond theme("screens.70") {
     grid-template-columns: 1fr;

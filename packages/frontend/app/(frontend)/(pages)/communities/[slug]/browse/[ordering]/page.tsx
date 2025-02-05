@@ -37,7 +37,11 @@ export default async function CommunityBrowsePage({
   const descendants = (
     <UpdateClientEnvironment records={records}>
       <Suspense fallback={<LoadingBlock />}>
-        <EntityDescendantsLayout data={community.descendants} schema={schema} />
+        <EntityDescendantsLayout
+          data={community.descendants}
+          schema={schema}
+          showContext="full"
+        />
       </Suspense>
     </UpdateClientEnvironment>
   );
@@ -58,7 +62,10 @@ export default async function CommunityBrowsePage({
   return (
     <UpdateClientEnvironment records={orderingRecords}>
       <Suspense fallback={<LoadingBlock />}>
-        <EntityOrderingLayout data={orderingData.community.ordering} />
+        <EntityOrderingLayout
+          data={orderingData.community.ordering}
+          showContext="full"
+        />
       </Suspense>
     </UpdateClientEnvironment>
   );

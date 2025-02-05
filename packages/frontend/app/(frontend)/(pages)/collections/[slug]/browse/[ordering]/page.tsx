@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, ComponentProps } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToString";
@@ -9,18 +9,24 @@ import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageTemplatesBrowseCollectionQuery as Query } from "@/relay/pageTemplatesBrowseCollectionQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
+type ContextType = ComponentProps<typeof EntityOrderingLayout>["showContext"];
+
 export default async function CollectionBrowsePage({
   params,
 }: {
   params: BasePageParams["params"] & {
     ordering: string | string[];
     page?: string | string[];
+    context?: string | string[];
   };
 }) {
   const identifier =
     decodeURIComponent(routeQueryArrayToString(params.ordering)) ?? "";
 
   const page = parseInt(routeQueryArrayToString(params.page)) || 1;
+
+  const context = (routeQueryArrayToString(params.context) ||
+    "abbr") as ContextType;
 
   const { data, records } = await fetchQuery<Query>(query, {
     identifier,
@@ -35,7 +41,10 @@ export default async function CollectionBrowsePage({
   return (
     <UpdateClientEnvironment records={records}>
       <Suspense fallback={<LoadingBlock />}>
-        <EntityOrderingLayout data={collection.ordering} />
+        <EntityOrderingLayout
+          data={collection.ordering}
+          showContext={context}
+        />
       </Suspense>
     </UpdateClientEnvironment>
   );
