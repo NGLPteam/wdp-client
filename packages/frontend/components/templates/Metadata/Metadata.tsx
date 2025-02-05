@@ -11,6 +11,7 @@ import {
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import Container from "@/components/layout/Container";
+import NoContent from "@/components/layout/messages/NoContent";
 import styles from "./Metadata.module.css";
 
 export default function MetadataTemplate({
@@ -29,11 +30,10 @@ export default function MetadataTemplate({
   const itemsD = useSharedBlockFragment(slots?.itemsD);
 
   const canRender =
-    header?.valid ||
-    itemsA?.valid ||
-    itemsB?.valid ||
-    itemsC?.valid ||
-    itemsD?.valid;
+    !!itemsA?.content ||
+    !!itemsB?.content ||
+    !!itemsC?.content ||
+    !!itemsD?.content;
 
   return canRender ? (
     <Container className={styles.container} bgColor={definition?.background}>
@@ -53,7 +53,7 @@ export default function MetadataTemplate({
     </Container>
   ) : (
     <Container bgColor="NONE" className={styles.noContent}>
-      {t("common.no_content")}
+      <NoContent />
     </Container>
   );
 }

@@ -1,7 +1,6 @@
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import TemplateFactory from "@/components/templates/Factory";
-import MainLayoutGrid from "@/components/templates/MainGrid";
+import MainLayout from "@/components/templates/MainLayout";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageTemplateQuery as Query } from "@/relay/pageTemplateQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
@@ -21,14 +20,9 @@ export default async function TemplatePage({
 
   const { main } = community.layouts;
 
-  const { templates } = main ?? {};
-
   return (
     <UpdateClientEnvironment records={records}>
-      <MainLayoutGrid>
-        {!!templates?.length &&
-          templates.map((t, i) => <TemplateFactory key={i} data={t} />)}
-      </MainLayoutGrid>
+      <MainLayout data={main} />
     </UpdateClientEnvironment>
   );
 }
@@ -38,9 +32,7 @@ const query = graphql`
     community(slug: $slug) {
       layouts {
         main {
-          templates {
-            ...FactoryTemplatesFragment
-          }
+          ...MainLayoutFragment
         }
       }
     }
