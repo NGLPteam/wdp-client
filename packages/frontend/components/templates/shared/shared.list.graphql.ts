@@ -108,7 +108,7 @@ export const listTemplateFragment = graphql`
           }
         }
         selectionLimit
-        showEntityContext
+        entityContext
         title
         variant
         showHeroImage
@@ -168,10 +168,10 @@ export const useSharedListTemplateFragment = (
 
   if (showNestedEntities) {
     const { slots: childSlots, entity: childEntity } = child ?? {};
-    const childHeader = childSlots?.header;
-    const childMetadata = childSlots?.metaA;
-    const childSubtitle = childSlots?.subheader;
-    const childContext = childSlots?.contextFull;
+    const childHeader = childSlots?.nestedHeader;
+    const childMetadata = childSlots?.nestedMetadata;
+    const childSubtitle = childSlots?.nestedSubheader;
+    const childContext = childSlots?.nestedContext;
     const { entityList: nestedEntityList } = childTemplate ?? {};
 
     return {

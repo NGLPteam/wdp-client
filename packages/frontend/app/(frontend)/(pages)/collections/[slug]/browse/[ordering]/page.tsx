@@ -25,8 +25,7 @@ export default async function CollectionBrowsePage({
 
   const page = parseInt(routeQueryArrayToString(params.page)) || 1;
 
-  const context = (routeQueryArrayToString(params.context) ||
-    "abbr") as ContextType;
+  const context = routeQueryArrayToString(params.context) as ContextType;
 
   const { data, records } = await fetchQuery<Query>(query, {
     identifier,

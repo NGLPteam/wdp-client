@@ -6,6 +6,7 @@ import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import ContributorsList from "@/components/composed/contributor/ContributorsList";
 import NamedLink from "@/components/atomic/links/NamedLink";
 import { getRouteByEntityType } from "@/helpers/routes";
+import type { ListEntityContext } from "@/types/graphql-schema";
 import styles from "./Grid.module.css";
 
 export default function GridListItem({
@@ -16,7 +17,7 @@ export default function GridListItem({
   data?: sharedListItemTemplateFragment$key | null;
   hideCover?: boolean;
   showContributors?: boolean | null;
-  showContext?: boolean | null;
+  showContext?: ListEntityContext | null;
 }) {
   const { slots, entity } = useSharedListItemTemplateFragment(data);
 

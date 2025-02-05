@@ -10,12 +10,13 @@ import {
   EntityDescendantsLayoutFragment$data,
   EntityDescendantsLayoutFragment$key,
 } from "@/relay/EntityDescendantsLayoutFragment.graphql";
+import type { ListEntityContext } from "@/types/graphql-schema";
 import EntityDescendantOrderSelect from "../EntityDescendantOrderSelect";
 
 interface Props {
   data: EntityDescendantsLayoutFragment$key | null;
   schema: string;
-  showContext?: "full" | "abbr" | "none";
+  showContext?: ListEntityContext;
 }
 
 export default function EntityDescendantsLayout({

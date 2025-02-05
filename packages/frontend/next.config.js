@@ -37,6 +37,11 @@ const images = {
     {
       protocol: "http",
       hostname: "localhost",
+      port: "6224",
+    },
+    {
+      protocol: "http",
+      hostname: "localhost",
       port: "3001",
     },
     {

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<84be3484a4d74d00e976096cb962ce99>>
+ * @generated SignedSource<<d067f7b1ae6289649f3563ea960c7b6c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -86,6 +86,18 @@ export type sharedListItemTemplateFragment$data = {
       readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
     } | null | undefined;
     readonly metaB: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+    } | null | undefined;
+    readonly nestedContext: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+    } | null | undefined;
+    readonly nestedHeader: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+    } | null | undefined;
+    readonly nestedMetadata: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+    } | null | undefined;
+    readonly nestedSubheader: {
       readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
     } | null | undefined;
     readonly subheader: {
@@ -388,6 +400,46 @@ return {
           "plural": false,
           "selections": (v9/*: any*/),
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "TemplateSlotInlineInstance",
+          "kind": "LinkedField",
+          "name": "nestedHeader",
+          "plural": false,
+          "selections": (v9/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "TemplateSlotInlineInstance",
+          "kind": "LinkedField",
+          "name": "nestedSubheader",
+          "plural": false,
+          "selections": (v9/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "TemplateSlotInlineInstance",
+          "kind": "LinkedField",
+          "name": "nestedContext",
+          "plural": false,
+          "selections": (v9/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "TemplateSlotInlineInstance",
+          "kind": "LinkedField",
+          "name": "nestedMetadata",
+          "plural": false,
+          "selections": (v9/*: any*/),
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -398,6 +450,6 @@ return {
 };
 })();
 
-(node as any).hash = "45932d9070c6da9a839f59abed0470ff";
+(node as any).hash = "7c47c07a2b921a8098565bc669a30f4a";
 
 export default node;

@@ -116,6 +116,18 @@ export const listItemTemplateFragment = graphql`
       subheader {
         ...sharedInlineSlotFragment
       }
+      nestedHeader {
+        ...sharedInlineSlotFragment
+      }
+      nestedSubheader {
+        ...sharedInlineSlotFragment
+      }
+      nestedContext {
+        ...sharedInlineSlotFragment
+      }
+      nestedMetadata {
+        ...sharedInlineSlotFragment
+      }
     }
   }
 `;
@@ -132,6 +144,10 @@ export const useSharedListItemTemplateFragment = (
   const metaA = useSharedInlineFragment(slots?.metaA);
   const metaB = useSharedInlineFragment(slots?.metaB);
   const subheader = useSharedInlineFragment(slots?.subheader);
+  const nestedHeader = useSharedInlineFragment(slots?.nestedHeader);
+  const nestedSubheader = useSharedInlineFragment(slots?.nestedSubheader);
+  const nestedContext = useSharedInlineFragment(slots?.nestedContext);
+  const nestedMetadata = useSharedInlineFragment(slots?.nestedMetadata);
 
   return {
     entity,
@@ -143,6 +159,10 @@ export const useSharedListItemTemplateFragment = (
       metaA,
       metaB,
       subheader,
+      nestedHeader,
+      nestedSubheader,
+      nestedContext,
+      nestedMetadata,
     },
   };
 };

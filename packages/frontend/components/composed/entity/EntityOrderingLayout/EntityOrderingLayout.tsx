@@ -10,6 +10,7 @@ import {
   EntityOrderingLayoutFragment$data,
   EntityOrderingLayoutFragment$key,
 } from "@/relay/EntityOrderingLayoutFragment.graphql";
+import type { ListEntityContext } from "@/types/graphql-schema";
 
 export default function EntityOrderingLayout({ data, showContext }: Props) {
   const ordering = useFragment(fragment, data);
@@ -46,7 +47,7 @@ export default function EntityOrderingLayout({ data, showContext }: Props) {
 
 interface Props {
   data?: EntityOrderingLayoutFragment$key | null;
-  showContext?: "full" | "abbr" | "none";
+  showContext?: ListEntityContext;
 }
 
 type Node = EntityOrderingLayoutFragment$data["children"]["edges"][number];

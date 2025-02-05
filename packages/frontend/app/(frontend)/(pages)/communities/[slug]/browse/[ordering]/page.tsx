@@ -40,7 +40,7 @@ export default async function CommunityBrowsePage({
         <EntityDescendantsLayout
           data={community.descendants}
           schema={schema}
-          showContext="full"
+          showContext="FULL"
         />
       </Suspense>
     </UpdateClientEnvironment>
@@ -64,7 +64,7 @@ export default async function CommunityBrowsePage({
       <Suspense fallback={<LoadingBlock />}>
         <EntityOrderingLayout
           data={orderingData.community.ordering}
-          showContext="full"
+          showContext="FULL"
         />
       </Suspense>
     </UpdateClientEnvironment>

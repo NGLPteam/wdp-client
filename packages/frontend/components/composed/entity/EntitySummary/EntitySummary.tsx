@@ -1,11 +1,12 @@
 import { graphql, useFragment } from "react-relay";
 import SummaryListItem from "@/components/templates/lists/items/Summary";
 import { EntitySummaryFragment$key } from "@/relay/EntitySummaryFragment.graphql";
+import type { ListEntityContext } from "@/types/graphql-schema";
 
 export default function EntitySummary({
   data,
   browseStyle,
-  showContext = "full",
+  showContext = "FULL",
 }: Props) {
   const entity = useFragment(fragment, data);
 
@@ -21,7 +22,7 @@ export default function EntitySummary({
 interface Props {
   data: EntitySummaryFragment$key | null;
   browseStyle?: boolean;
-  showContext?: "full" | "abbr" | "none";
+  showContext?: ListEntityContext;
 }
 
 const fragment = graphql`
