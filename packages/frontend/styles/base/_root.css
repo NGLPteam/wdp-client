@@ -40,8 +40,6 @@
 
   /* base font styles */
   --font-face-header: var(--font-ilisarniq), sans-serif;
-  --font-size-h4: 20px;
-  --line-height-h4: 24px;
   --font-face-base: var(--font-ilisarniq), sans-serif;
   --font-size-base: 16px;
   --line-height-base: 22px;
@@ -74,6 +72,10 @@
   @mixin fluidScalePx --font-size-h3, 28px, 20px, theme("screens.140"),
     theme("screens.50");
   @mixin fluidScalePx --line-height-h3, 36px, 24px, theme("screens.140"),
+    theme("screens.50");
+  @mixin fluidScalePx --font-size-h4, 20px, 18px, theme("screens.140"),
+    theme("screens.50");
+  @mixin fluidScalePx --line-height-h4, 24px, 22px, theme("screens.140"),
     theme("screens.50");
 
   /* font weights */

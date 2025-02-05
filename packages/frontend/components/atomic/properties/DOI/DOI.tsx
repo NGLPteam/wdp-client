@@ -14,8 +14,8 @@ export default function DOI({ data }: Props) {
   const doi = normalizeDoiUrl(entity.doi);
 
   return (
-    <li>
-      {t("metadata.doi")}{" "}
+    <li className="l-flex l-flex--gap-sm">
+      <span>{t("metadata.doi")}</span>
       <a
         target="_blank"
         rel="noreferrer"

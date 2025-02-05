@@ -32,16 +32,10 @@
   }
 
   &--gap {
-    gap: var(--grid-column-gap);
-
-    > * + * {
-      margin-inline-start: var(--grid-column-gap);
-    }
+    gap: 0.75rem;
   }
 
   &--gap-sm {
-    > * + * {
-      margin-inline-start: var(--grid-column-gap-sm);
-    }
+    gap: 0.25rem;
   }
 }
