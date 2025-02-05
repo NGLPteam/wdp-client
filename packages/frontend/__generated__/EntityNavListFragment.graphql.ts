@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ed6a016f8b6eb6902b29a147f47ec2d5>>
+ * @generated SignedSource<<87a402f868a6c9db604603b8edb2fcdd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -28,6 +28,9 @@ export type EntityNavListFragment$data = {
       };
     }>;
   };
+  readonly schemaVersion: {
+    readonly name: string;
+  };
   readonly " $fragmentType": "EntityNavListFragment";
 };
 export type EntityNavListFragment$key = {
@@ -37,6 +40,13 @@ export type EntityNavListFragment$key = {
 
 const node: ReaderFragment = (function(){
 var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -54,6 +64,18 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "__typename",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "SchemaVersion",
+      "kind": "LinkedField",
+      "name": "schemaVersion",
+      "plural": false,
+      "selections": [
+        (v0/*: any*/)
+      ],
       "storageKey": null
     },
     {
@@ -78,14 +100,8 @@ return {
           "name": "nodes",
           "plural": true,
           "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "name",
-              "storageKey": null
-            },
             (v0/*: any*/),
+            (v1/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -137,7 +153,7 @@ return {
                   "name": "title",
                   "storageKey": null
                 },
-                (v0/*: any*/)
+                (v1/*: any*/)
               ],
               "storageKey": null
             }
@@ -153,6 +169,6 @@ return {
 };
 })();
 
-(node as any).hash = "ae90df0610ab9612dfa50d761f07206b";
+(node as any).hash = "d0c1cb178a56404fae9b10ed70178145";
 
 export default node;
