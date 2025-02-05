@@ -84,7 +84,10 @@ const fontSize = {
     fluidScaleRem("28px", "20px", 140, 50),
     fluidScalePx("36px", "24px", 140, 50),
   ],
-  h4: [pxToRem(20), 1.2],
+  h4: [
+    fluidScaleRem("20px", "18px", 140, 50),
+    fluidScalePx("24px", "22px", 140, 50),
+  ],
   base: [pxToRem(16), 1.375],
   baseSm: [pxToRem(14), 1.425],
   labelLg: [pxToRem(14), 1.575],

@@ -5,13 +5,13 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import IconFactory from "@/components/factories/IconFactory";
 import { DownloadCountFragment$key } from "@/relay/DownloadCountFragment.graphql";
 
-export default function DownloadCount({ data, className }: Props) {
+export default function DownloadCount({ data }: Props) {
   const summary = useMaybeFragment(fragment, data);
 
   const { t } = useTranslation();
 
   return summary?.total ? (
-    <li className={`l-flex l-flex--gap l-flex--gap-sm ${className || ""}`}>
+    <li className="l-flex l-flex--gap">
       <IconFactory icon="download" role="presentation" />
       <span>{t("metadata.download_count", { count: summary.total })}</span>
     </li>
@@ -20,7 +20,6 @@ export default function DownloadCount({ data, className }: Props) {
 
 interface Props {
   data?: DownloadCountFragment$key | null;
-  className?: string;
 }
 
 const fragment = graphql`
