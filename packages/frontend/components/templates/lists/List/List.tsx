@@ -3,6 +3,7 @@ import { getBgClass } from "@/components/templates/helpers/bgColor";
 import type {
   LinkListVariant,
   LinkListBackground,
+  ListEntityContext,
 } from "@/types/graphql-schema";
 import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
 import CardItem from "../items/Card";
@@ -16,7 +17,7 @@ export type Props = {
   variant?: Exclude<LinkListVariant, "%future added value"> | null;
   bgColor?: LinkListBackground | null;
   hideCovers?: boolean;
-  showContext?: boolean | null;
+  showContext?: ListEntityContext | null;
   isNested?: boolean | null;
   showContributors?: boolean | null;
   browseStyle?: boolean | null;

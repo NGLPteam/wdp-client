@@ -7,6 +7,7 @@ import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import ContributorsList from "@/components/composed/contributor/ContributorsList";
 import NamedLink from "@/components/atomic/links/NamedLink";
 import { getRouteByEntityType } from "@/helpers/routes";
+import type { ListEntityContext } from "@/types/graphql-schema";
 import styles from "./Summary.module.css";
 
 export default function SummaryListItem({
@@ -18,20 +19,24 @@ export default function SummaryListItem({
 }: {
   data?: sharedListItemTemplateFragment$key | null;
   hideCover?: boolean;
-  showContext?: "full" | "abbr" | "none" | boolean | null;
+  showContext?: ListEntityContext | null;
   isNested?: boolean | null;
   browseStyle?: boolean | null;
 }) {
   const { slots, entity } = useSharedListItemTemplateFragment(data);
 
   const {
-    header,
-    subheader,
+    header: baseHeader,
+    subheader: baseSubheader,
     contextFull,
     contextAbbr,
     metaA,
     metaB,
     description,
+    nestedHeader,
+    nestedSubheader,
+    nestedContext,
+    nestedMetadata,
   } = slots ?? {};
 
   if (!(entity?.__typename === "Item" || entity?.__typename === "Collection"))
@@ -39,13 +44,24 @@ export default function SummaryListItem({
 
   const href = `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`;
 
-  const context =
-    isNested || showContext === "abbr" ? contextAbbr : contextFull;
-  const contextVisible =
-    !!showContext &&
-    showContext !== "none" &&
-    context?.valid &&
-    !!context.content;
+  const renderedSlots = isNested
+    ? {
+        header: nestedHeader,
+        subheader: nestedSubheader,
+        context: showContext !== "NONE" ? nestedContext : null,
+      }
+    : {
+        header: baseHeader,
+        subheader: baseSubheader,
+        context:
+          showContext === "NONE"
+            ? null
+            : showContext === "ABBR"
+              ? contextAbbr
+              : contextFull,
+      };
+
+  const { header, subheader, context } = renderedSlots;
 
   const showThumb =
     !hideCover &&
@@ -63,7 +79,7 @@ export default function SummaryListItem({
         </NamedLink>
       )}
       <div className={styles.text}>
-        {contextVisible && (
+        {context?.valid && !!context.content && (
           <div className={styles.group}>
             <InlineSlotWrapper content={context.content} />
           </div>
@@ -88,10 +104,19 @@ export default function SummaryListItem({
           </span>
         )}
         <div className={styles.group}>
-          {metaA?.valid && !!metaA.content && (
-            <InlineSlotWrapper content={metaA.content} />
+          {isNested ? (
+            nestedMetadata?.valid &&
+            !!nestedMetadata?.content && (
+              <InlineSlotWrapper content={nestedMetadata.content} />
+            )
+          ) : (
+            <>
+              {metaA?.valid && !!metaA.content && (
+                <InlineSlotWrapper content={metaA.content} />
+              )}
+              {metaB?.valid && <InlineSlotWrapper content={metaB.content} />}
+            </>
           )}
-          {metaB?.valid && <InlineSlotWrapper content={metaB.content} />}
         </div>
         {description?.valid && !!description.content && (
           <div className={classNames(styles.summary, "line-clamp-5")}>

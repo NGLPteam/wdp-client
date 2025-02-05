@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<95101cdda11e86c91f1c8ce77fbb9c17>>
+ * @generated SignedSource<<47b0bc009ff326280e37433b3c17f888>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type DescendantListVariant = "CARDS" | "COMPACT" | "GRID" | "PROMOS" | "S
 export type LinkListBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
 export type LinkListSelectionMode = "DYNAMIC" | "MANUAL" | "%future added value";
 export type LinkListVariant = "CARDS" | "COMPACT" | "GRID" | "PROMOS" | "SUMMARY" | "%future added value";
+export type ListEntityContext = "ABBR" | "FULL" | "NONE" | "%future added value";
 export type TemplateWidth = "FULL" | "HALF" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type sharedListTemplateFragment$data = {
@@ -28,6 +29,7 @@ export type sharedListTemplateFragment$data = {
         }>;
       };
     } | null | undefined;
+    readonly entityContext: ListEntityContext | null | undefined;
     readonly orderingIdentifier: any | null | undefined;
     readonly seeAllButtonLabel: string | null | undefined;
     readonly seeAllOrderingIdentifier: any | null | undefined;
@@ -35,7 +37,6 @@ export type sharedListTemplateFragment$data = {
     readonly selectionMode: DescendantListSelectionMode | null | undefined;
     readonly selectionPropertyPath: any | null | undefined;
     readonly showContributors: boolean | null | undefined;
-    readonly showEntityContext: boolean | null | undefined;
     readonly showHeroImage: boolean | null | undefined;
     readonly showNestedEntities: boolean | null | undefined;
     readonly showSeeAllButton: boolean | null | undefined;
@@ -116,6 +117,6 @@ const node: ReaderInlineDataFragment = {
   "name": "sharedListTemplateFragment"
 };
 
-(node as any).hash = "632fcbad91163ce2ddcd7d69fce29ca7";
+(node as any).hash = "808c34280dbfe5f49ace300a17a8a9bf";
 
 export default node;

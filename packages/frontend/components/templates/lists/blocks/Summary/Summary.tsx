@@ -33,16 +33,18 @@ export default function SummaryListBlock({
     seeAllButtonLabel,
     selectionMode,
     width,
-    showEntityContext,
     showHeroImage,
     seeAllOrderingIdentifier,
     showNestedEntities,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
+  const { showEntityContext } = linksDefinition ?? {};
+
   const {
     selectionPropertyPath,
     orderingIdentifier,
     dynamicOrderingDefinition,
+    entityContext,
   } = descendantsDefinition ?? {};
 
   const { blockHeader, header, headerAside, subtitle, metadata, context } =
@@ -70,6 +72,13 @@ export default function SummaryListBlock({
 
   const browseStyle = !showHeroImage && background === "NONE";
 
+  const normalizedContext =
+    !!descendantsDefinition && entityContext
+      ? entityContext
+      : showEntityContext
+        ? "FULL"
+        : "NONE";
+
   return (
     <Container
       className={styles.container}
@@ -91,11 +100,13 @@ export default function SummaryListBlock({
           )}
           {renderEntity && (
             <div className={styles.entity}>
-              {context?.valid && !!context.content && (
-                <span className={styles.context}>
-                  <InlineSlotWrapper content={context.content} />
-                </span>
-              )}
+              {normalizedContext !== "NONE" &&
+                context?.valid &&
+                !!context.content && (
+                  <span className={styles.context}>
+                    <InlineSlotWrapper content={context.content} />
+                  </span>
+                )}
               <NamedLink href={href}>
                 {header?.valid && !!header.content && (
                   <h3 className={classNames(styles.title, "t-h3")}>
@@ -125,7 +136,7 @@ export default function SummaryListBlock({
             bgColor={background}
             items={listItemLayouts}
             hideCovers={!!showHeroImage}
-            showContext={showEntityContext}
+            showContext={normalizedContext}
             isNested={showNestedEntities}
             browseStyle={browseStyle}
           />

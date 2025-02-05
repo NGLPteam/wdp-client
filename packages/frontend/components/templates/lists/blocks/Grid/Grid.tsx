@@ -29,10 +29,11 @@ export default function GridListBlock({
     showHeroImage,
     width,
     showContributors,
-    showEntityContext,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
-  const { selectionPropertyPath, orderingIdentifier } =
+  const { showEntityContext } = linksDefinition ?? {};
+
+  const { selectionPropertyPath, orderingIdentifier, entityContext } =
     descendantsDefinition ?? {};
 
   const seeAllHref = descendantsDefinition
@@ -45,6 +46,13 @@ export default function GridListBlock({
     : null;
 
   const { blockHeader } = slots ?? {};
+
+  const normalizedContext =
+    !!descendantsDefinition && entityContext
+      ? entityContext
+      : showEntityContext
+        ? "FULL"
+        : "NONE";
 
   return (
     <Container
@@ -63,7 +71,7 @@ export default function GridListBlock({
         bgColor={background}
         items={listItemLayouts}
         showContributors={showContributors}
-        showContext={showEntityContext}
+        showContext={normalizedContext}
       />
       {!!seeAllOrderingIdentifier && !!seeAllHref && (
         <SeeAll
