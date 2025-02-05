@@ -16,4 +16,9 @@
     color: var(--color-dark);
     text-decoration: underline;
   }
+
+  p {
+    white-space: pre-wrap;
+    line-height: 1.5;
+  }
 }

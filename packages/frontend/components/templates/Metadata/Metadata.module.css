@@ -40,6 +40,6 @@
 }
 
 .noContent {
-  padding-block-start: var(--container-padding-md);
+  padding-block: var(--container-padding-md);
   min-block-size: 10rem;
 }
