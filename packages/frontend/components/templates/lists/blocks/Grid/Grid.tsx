@@ -25,7 +25,6 @@ export default function GridListBlock({
     background,
     seeAllOrderingIdentifier,
     seeAllButtonLabel,
-    selectionMode,
     showHeroImage,
     width,
     showContributors,
@@ -33,13 +32,15 @@ export default function GridListBlock({
 
   const { showEntityContext } = linksDefinition ?? {};
 
-  const { orderingIdentifier, entityContext } = descendantsDefinition ?? {};
+  const { dynamicOrderingDefinition, entityContext } =
+    descendantsDefinition ?? {};
 
   const seeAllHref = descendantsDefinition
     ? getSeeAllHref(
         basePath,
-        selectionMode,
-        seeAllOrderingIdentifier ?? orderingIdentifier,
+        seeAllOrderingIdentifier,
+        undefined,
+        dynamicOrderingDefinition,
       )
     : null;
 

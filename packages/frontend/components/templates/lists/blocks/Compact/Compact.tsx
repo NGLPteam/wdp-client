@@ -21,21 +21,17 @@ export default function CompactListBlock({
 
   if (empty) return null;
 
-  const {
-    background,
-    seeAllOrderingIdentifier,
-    seeAllButtonLabel,
-    selectionMode,
-    width,
-  } = linksDefinition ?? descendantsDefinition ?? {};
+  const { background, seeAllOrderingIdentifier, seeAllButtonLabel, width } =
+    linksDefinition ?? descendantsDefinition ?? {};
 
-  const { orderingIdentifier } = descendantsDefinition ?? {};
+  const { dynamicOrderingDefinition } = descendantsDefinition ?? {};
 
   const seeAllHref = descendantsDefinition
     ? getSeeAllHref(
         basePath,
-        selectionMode,
-        seeAllOrderingIdentifier ?? orderingIdentifier,
+        seeAllOrderingIdentifier,
+        undefined,
+        dynamicOrderingDefinition,
       )
     : null;
 

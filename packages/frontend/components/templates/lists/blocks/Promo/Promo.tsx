@@ -25,18 +25,18 @@ export default function PromoListBlock({
     background,
     seeAllOrderingIdentifier,
     seeAllButtonLabel,
-    selectionMode,
     showHeroImage,
     width,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
-  const { orderingIdentifier } = descendantsDefinition ?? {};
+  const { dynamicOrderingDefinition } = descendantsDefinition ?? {};
 
   const seeAllHref = descendantsDefinition
     ? getSeeAllHref(
         basePath,
-        selectionMode,
-        seeAllOrderingIdentifier ?? orderingIdentifier,
+        seeAllOrderingIdentifier,
+        undefined,
+        dynamicOrderingDefinition,
       )
     : null;
 

@@ -1,29 +1,31 @@
-import type { DescendantListSelectionMode } from "@/types/graphql-schema";
 import { ListEntityContext } from "@/types/graphql-schema";
 
 export const getSeeAllHref = (
   basePath?: string | null,
-  selectionMode?: DescendantListSelectionMode | null,
   identifier?: string | null,
+  contextParam?: ListEntityContext,
   dynamicOrderingDefinition?: {
     filter: { schemas: readonly { namespace: string; identifier: string }[] };
   } | null,
-  contextParam?: ListEntityContext,
 ) => {
   if (!basePath) return null;
 
-  const queryParam = contextParam ? `?context=${contextParam}` : undefined;
-
-  if (selectionMode === "NAMED" && !!identifier)
-    return `${basePath}/browse/${identifier}/${queryParam}`;
-
-  if (selectionMode === "DYNAMIC") {
+  if (dynamicOrderingDefinition) {
     const schema = dynamicOrderingDefinition?.filter?.schemas[0];
     if (schema)
       return `${basePath}/browse/${encodeURIComponent(
         `${schema.namespace}:${schema.identifier}`,
-      )}/${queryParam}`;
+      )}`;
+    return null;
   }
 
-  return null;
+  if (!identifier) return null;
+
+  const params = new URLSearchParams();
+
+  if (contextParam) params.set("context", contextParam);
+
+  return `${basePath}/browse/${identifier}${
+    contextParam ? `?${params.toString()}` : ""
+  }`;
 };
