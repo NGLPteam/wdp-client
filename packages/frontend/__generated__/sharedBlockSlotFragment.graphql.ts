@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<52fc9fe07b025667896d194f150c332c>>
+ * @generated SignedSource<<cad08973e23c6e7dd7dc8858b2ed362e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ export type TemplateSlotKind = "BLOCK" | "INLINE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type sharedBlockSlotFragment$data = {
   readonly content: string | null | undefined;
+  readonly empty: boolean;
   readonly kind: TemplateSlotKind;
   readonly valid: boolean;
   readonly " $fragmentType": "sharedBlockSlotFragment";
@@ -28,6 +29,13 @@ const node: ReaderFragment = {
   "metadata": null,
   "name": "sharedBlockSlotFragment",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "empty",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -54,6 +62,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "67adbb022fb7f7a2570d6ff2fb3d2944";
+(node as any).hash = "484e7d90e1c773a650224101e1e2277f";
 
 export default node;

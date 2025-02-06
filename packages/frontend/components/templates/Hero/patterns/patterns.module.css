@@ -15,4 +15,12 @@
   @mixin respond theme("screens.60") {
     grid-template-columns: auto;
   }
+
+  &--noImage {
+    min-block-size: auto;
+
+    > div {
+      padding-block-end: 0;
+    }
+  }
 }

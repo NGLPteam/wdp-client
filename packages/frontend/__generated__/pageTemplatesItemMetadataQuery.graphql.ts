@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bb95b7ee17dd25d6046b2f7d68a75f74>>
+ * @generated SignedSource<<687e092f56fc6b583e94219e007f25ef>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -55,27 +55,35 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "content",
+  "name": "empty",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "kind",
+  "name": "content",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "kind",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "valid",
   "storageKey": null
 },
-v6 = [
+v7 = [
   (v3/*: any*/),
   (v4/*: any*/),
-  (v5/*: any*/)
+  (v5/*: any*/),
+  (v6/*: any*/)
 ];
 return {
   "fragment": {
@@ -213,6 +221,7 @@ return {
                               (v3/*: any*/),
                               (v4/*: any*/),
                               (v5/*: any*/),
+                              (v6/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -230,7 +239,7 @@ return {
                             "kind": "LinkedField",
                             "name": "itemsA",
                             "plural": false,
-                            "selections": (v6/*: any*/),
+                            "selections": (v7/*: any*/),
                             "storageKey": null
                           },
                           {
@@ -240,7 +249,7 @@ return {
                             "kind": "LinkedField",
                             "name": "itemsB",
                             "plural": false,
-                            "selections": (v6/*: any*/),
+                            "selections": (v7/*: any*/),
                             "storageKey": null
                           },
                           {
@@ -250,7 +259,7 @@ return {
                             "kind": "LinkedField",
                             "name": "itemsC",
                             "plural": false,
-                            "selections": (v6/*: any*/),
+                            "selections": (v7/*: any*/),
                             "storageKey": null
                           },
                           {
@@ -260,7 +269,7 @@ return {
                             "kind": "LinkedField",
                             "name": "itemsD",
                             "plural": false,
-                            "selections": (v6/*: any*/),
+                            "selections": (v7/*: any*/),
                             "storageKey": null
                           }
                         ],
@@ -284,12 +293,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "67d7430770ffd5e87c51f3e0958f2cb1",
+    "cacheID": "df90b46ef9c296e8847bb1acd0e48a85",
     "id": null,
     "metadata": {},
     "name": "pageTemplatesItemMetadataQuery",
     "operationKind": "query",
-    "text": "query pageTemplatesItemMetadataQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    layouts {\n      metadata {\n        template {\n          ...MetadataTemplateFragment\n          id\n        }\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment MetadataTemplateFragment on MetadataTemplateInstance {\n  definition {\n    background\n    id\n  }\n  slots {\n    header {\n      ...sharedInlineSlotFragment\n    }\n    itemsA {\n      ...sharedBlockSlotFragment\n    }\n    itemsB {\n      ...sharedBlockSlotFragment\n    }\n    itemsC {\n      ...sharedBlockSlotFragment\n    }\n    itemsD {\n      ...sharedBlockSlotFragment\n    }\n  }\n}\n\nfragment sharedBlockSlotFragment on TemplateSlotBlockInstance {\n  content\n  kind\n  valid\n}\n\nfragment sharedInlineSlotFragment on TemplateSlotInlineInstance {\n  content\n  kind\n  valid\n  hidesTemplate\n}\n"
+    "text": "query pageTemplatesItemMetadataQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    layouts {\n      metadata {\n        template {\n          ...MetadataTemplateFragment\n          id\n        }\n        id\n      }\n    }\n    id\n  }\n}\n\nfragment MetadataTemplateFragment on MetadataTemplateInstance {\n  definition {\n    background\n    id\n  }\n  slots {\n    header {\n      ...sharedInlineSlotFragment\n    }\n    itemsA {\n      ...sharedBlockSlotFragment\n    }\n    itemsB {\n      ...sharedBlockSlotFragment\n    }\n    itemsC {\n      ...sharedBlockSlotFragment\n    }\n    itemsD {\n      ...sharedBlockSlotFragment\n    }\n  }\n}\n\nfragment sharedBlockSlotFragment on TemplateSlotBlockInstance {\n  empty\n  content\n  kind\n  valid\n}\n\nfragment sharedInlineSlotFragment on TemplateSlotInlineInstance {\n  empty\n  content\n  kind\n  valid\n  hidesTemplate\n}\n"
   }
 };
 })();
