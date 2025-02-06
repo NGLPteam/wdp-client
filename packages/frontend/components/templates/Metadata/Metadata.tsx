@@ -36,7 +36,11 @@ export default function MetadataTemplate({
     !!itemsD?.content;
 
   return canRender ? (
-    <Container className={styles.container} bgColor={definition?.background}>
+    <Container
+      className={styles.container}
+      bgColor={definition?.background}
+      hideDivider
+    >
       <h3>
         {header?.valid ? (
           <InlineSlotWrapper content={header.content} />
@@ -52,7 +56,7 @@ export default function MetadataTemplate({
       </dl>
     </Container>
   ) : (
-    <Container bgColor="NONE" className={styles.noContent}>
+    <Container bgColor="NONE" className={styles.noContent} hideDivider>
       <NoContent />
     </Container>
   );

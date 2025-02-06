@@ -37,3 +37,7 @@
     grid-row: 2;
   }
 }
+
+.noContent {
+  padding-block: var(--container-padding-md);
+}
