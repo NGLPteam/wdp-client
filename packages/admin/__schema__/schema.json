@@ -7486,6 +7486,22 @@
         "description": null,
         "fields": [
           {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in this template are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -14413,6 +14429,18 @@
             "deprecationReason": null
           },
           {
+            "name": "innerPosition",
+            "description": "An optional sorting discriminator to decide which contribution ranks higher.\n\nApplies _after_ contribution role ranking.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "location",
             "description": "A potentially-overridden value from organization contributors",
             "args": [],
@@ -14441,8 +14469,8 @@
             "deprecationReason": null
           },
           {
-            "name": "position",
-            "description": "An optional sorting discriminator to decide which contribution ranks higher.\n",
+            "name": "outerPosition",
+            "description": "An optional sorting discriminator to decide which contribution ranks higher.\n\nApplies _before_ contribution role ranking, superseding everything else.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -18239,6 +18267,18 @@
             "deprecationReason": null
           },
           {
+            "name": "innerPosition",
+            "description": "An optional sorting discriminator to decide which contribution ranks higher.\n\nApplies _after_ contribution role ranking.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "location",
             "description": "A potentially-overridden value from organization contributors",
             "args": [],
@@ -18267,8 +18307,8 @@
             "deprecationReason": null
           },
           {
-            "name": "position",
-            "description": "An optional sorting discriminator to decide which contribution ranks higher.\n",
+            "name": "outerPosition",
+            "description": "An optional sorting discriminator to decide which contribution ranks higher.\n\nApplies _before_ contribution role ranking, superseding everything else.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -18403,6 +18443,18 @@
             "deprecationReason": null
           },
           {
+            "name": "innerPosition",
+            "description": "An optional sorting discriminator to decide which contribution ranks higher.\n\nApplies _after_ contribution role ranking.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "location",
             "description": "A potentially-overridden value from organization contributors",
             "args": [],
@@ -18431,8 +18483,8 @@
             "deprecationReason": null
           },
           {
-            "name": "position",
-            "description": "An optional sorting discriminator to decide which contribution ranks higher.\n",
+            "name": "outerPosition",
+            "description": "An optional sorting discriminator to decide which contribution ranks higher.\n\nApplies _before_ contribution role ranking, superseding everything else.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -20960,6 +21012,22 @@
         "name": "ContributorListTemplateInstance",
         "description": null,
         "fields": [
+          {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in this template are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "contributionList",
             "description": "The list of contributions to render as part of this template's content.\n",
@@ -27515,6 +27583,22 @@
         "description": null,
         "fields": [
           {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in this template are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -30296,6 +30380,22 @@
         "name": "DetailTemplateInstance",
         "description": null,
         "fields": [
+          {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in this template are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,
@@ -36664,6 +36764,22 @@
             "deprecationReason": null
           },
           {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in all template instances in this layout are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -37329,6 +37445,22 @@
         "name": "HeroTemplateInstance",
         "description": null,
         "fields": [
+          {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in this template are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,
@@ -43398,6 +43530,18 @@
             "deprecationReason": null
           },
           {
+            "name": "innerPosition",
+            "description": "An optional sorting discriminator to decide which contribution ranks higher.\n\nApplies _after_ contribution role ranking.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "item",
             "description": null,
             "args": [],
@@ -43442,8 +43586,8 @@
             "deprecationReason": null
           },
           {
-            "name": "position",
-            "description": "An optional sorting discriminator to decide which contribution ranks higher.\n",
+            "name": "outerPosition",
+            "description": "An optional sorting discriminator to decide which contribution ranks higher.\n\nApplies _before_ contribution role ranking, superseding everything else.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -43812,6 +43956,22 @@
           {
             "name": "allHidden",
             "description": "Whether all templates in this instance are hidden.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in all template instances in this layout are empty.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -44723,6 +44883,22 @@
         "description": null,
         "fields": [
           {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in this template are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -45622,6 +45798,22 @@
             "deprecationReason": null
           },
           {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in all template instances in this layout are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -46299,6 +46491,22 @@
         "description": null,
         "fields": [
           {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in this template are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -46836,6 +47044,22 @@
           {
             "name": "allHidden",
             "description": "Whether all templates in this instance are hidden.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in all template instances in this layout are empty.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -47524,6 +47748,22 @@
             "deprecationReason": null
           },
           {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in all template instances in this layout are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -47937,6 +48177,22 @@
         "name": "MetadataTemplateInstance",
         "description": null,
         "fields": [
+          {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in this template are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,
@@ -50394,6 +50650,22 @@
             "deprecationReason": null
           },
           {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in all template instances in this layout are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -50759,6 +51031,22 @@
         "name": "NavigationTemplateInstance",
         "description": null,
         "fields": [
+          {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in this template are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,
@@ -53805,6 +54093,22 @@
         "description": null,
         "fields": [
           {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in this template are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -55486,6 +55790,22 @@
         "name": "PageListTemplateInstance",
         "description": null,
         "fields": [
+          {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in this template are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,
@@ -66761,6 +67081,22 @@
             "deprecationReason": null
           },
           {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in all template instances in this layout are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -67138,6 +67474,22 @@
         "name": "SupplementaryTemplateInstance",
         "description": null,
         "fields": [
+          {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in this template are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "createdAt",
             "description": null,
@@ -67732,6 +68084,18 @@
             "deprecationReason": null
           },
           {
+            "name": "innerPosition",
+            "description": "An optional sorting discriminator to decide which contribution ranks higher.\n\nApplies _after_ contribution role ranking.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "location",
             "description": "A potentially-overridden value from organization contributors",
             "args": [],
@@ -67760,8 +68124,8 @@
             "deprecationReason": null
           },
           {
-            "name": "position",
-            "description": "An optional sorting discriminator to decide which contribution ranks higher.\n",
+            "name": "outerPosition",
+            "description": "An optional sorting discriminator to decide which contribution ranks higher.\n\nApplies _before_ contribution role ranking, superseding everything else.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -68246,6 +68610,22 @@
         "description": "An interface describing an instance type that can be rendered for a given entity.\n",
         "fields": [
           {
+            "name": "allSlotsEmpty",
+            "description": "Whether all slots in this template are empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "entity",
             "description": "The associated entity for this template instance.\n",
             "args": [],
@@ -68705,6 +69085,22 @@
             "deprecationReason": null
           },
           {
+            "name": "empty",
+            "description": "Whether this slot is empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "errors",
             "description": "Any errors for this slot that occurred during rendering, if applicable.\n",
             "args": [],
@@ -68980,6 +69376,22 @@
             "deprecationReason": null
           },
           {
+            "name": "empty",
+            "description": "Whether this slot is empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "errors",
             "description": "Any errors for this slot that occurred during rendering, if applicable.\n",
             "args": [],
@@ -69072,6 +69484,22 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "empty",
+            "description": "Whether this slot is empty.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -74204,6 +74632,18 @@
             "deprecationReason": null
           },
           {
+            "name": "innerPosition",
+            "description": "\"Inner\" sorting discriminator for the contribution. If not provided, it will keep whatever is there.\n\nIt applies _after_ the contribution role.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "metadata",
             "description": "Metadata for the contribution. If not provided, it will keep whatever is there.\n",
             "type": {
@@ -74216,8 +74656,8 @@
             "deprecationReason": null
           },
           {
-            "name": "position",
-            "description": "Sorting discriminator for the contribution. If not provided, it will keep whatever is there.\n",
+            "name": "outerPosition",
+            "description": "\"Outer\" sorting discriminator for the contribution. If not provided, it will keep whatever is there.\n\nIt applies _before_ the contribution role.\n",
             "type": {
               "kind": "SCALAR",
               "name": "Int",

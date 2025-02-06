@@ -1386,6 +1386,11 @@ type BlurbTemplateDefinitionSlots {
 }
 
 type BlurbTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
+  """
+  Whether all slots in this template are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   createdAt: ISO8601DateTime!
   """
   Load the associated definition for this template.
@@ -2658,14 +2663,23 @@ type CollectionContribution implements Contribution & ContributionBase & Node & 
   """A potentially-overridden display name value for all contributor types"""
   displayName: String!
   id: ID!
+  """
+  An optional sorting discriminator to decide which contribution ranks higher.
+  
+  Applies _after_ contribution role ranking.
+  
+  """
+  innerPosition: Int
   """A potentially-overridden value from organization contributors"""
   location: String
   metadata: ContributionMetadata!
   """
   An optional sorting discriminator to decide which contribution ranks higher.
   
+  Applies _before_ contribution role ranking, superseding everything else.
+  
   """
-  position: Int
+  outerPosition: Int
   """An arbitrary text value describing the role the contributor had"""
   role: String @deprecated(reason: "Use `roleLabel` instead.")
   """An arbitrary text value describing the role the contributor had"""
@@ -3314,14 +3328,23 @@ interface Contribution implements ContributionBase {
   contributorKind: ContributorKind!
   """A potentially-overridden display name value for all contributor types"""
   displayName: String!
+  """
+  An optional sorting discriminator to decide which contribution ranks higher.
+  
+  Applies _after_ contribution role ranking.
+  
+  """
+  innerPosition: Int
   """A potentially-overridden value from organization contributors"""
   location: String
   metadata: ContributionMetadata!
   """
   An optional sorting discriminator to decide which contribution ranks higher.
   
+  Applies _before_ contribution role ranking, superseding everything else.
+  
   """
-  position: Int
+  outerPosition: Int
   """An arbitrary text value describing the role the contributor had"""
   role: String @deprecated(reason: "Use `roleLabel` instead.")
   """An arbitrary text value describing the role the contributor had"""
@@ -3347,14 +3370,23 @@ interface ContributionBase {
   contributorKind: ContributorKind!
   """A potentially-overridden display name value for all contributor types"""
   displayName: String!
+  """
+  An optional sorting discriminator to decide which contribution ranks higher.
+  
+  Applies _after_ contribution role ranking.
+  
+  """
+  innerPosition: Int
   """A potentially-overridden value from organization contributors"""
   location: String
   metadata: ContributionMetadata!
   """
   An optional sorting discriminator to decide which contribution ranks higher.
   
+  Applies _before_ contribution role ranking, superseding everything else.
+  
   """
-  position: Int
+  outerPosition: Int
   """An arbitrary text value describing the role the contributor had"""
   role: String @deprecated(reason: "Use `roleLabel` instead.")
   """An arbitrary text value describing the role the contributor had"""
@@ -3926,6 +3958,11 @@ type ContributorListTemplateDefinitionSlots {
 }
 
 type ContributorListTemplateInstance implements Node & Renderable & Sluggable & TemplateHasContributionList & TemplateInstance {
+  """
+  Whether all slots in this template are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   """
   The list of contributions to render as part of this template's content.
   
@@ -5474,6 +5511,11 @@ type DescendantListTemplateDefinitionSlots {
 }
 
 type DescendantListTemplateInstance implements Node & Renderable & Sluggable & TemplateHasEntityList & TemplateHasSeeAllOrdering & TemplateInstance {
+  """
+  Whether all slots in this template are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   createdAt: ISO8601DateTime!
   """
   Load the associated definition for this template.
@@ -5919,6 +5961,11 @@ type DetailTemplateDefinitionSlots {
 }
 
 type DetailTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
+  """
+  Whether all slots in this template are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   createdAt: ISO8601DateTime!
   """
   Load the associated definition for this template.
@@ -7421,6 +7468,11 @@ type HeroLayoutInstance implements LayoutInstance & Node & Renderable & Sluggabl
   
   """
   allHidden: Boolean!
+  """
+  Whether all slots in all template instances in this layout are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   createdAt: ISO8601DateTime!
   """
   The associated entity for this layout instance.
@@ -7506,6 +7558,11 @@ type HeroTemplateDefinitionSlots {
 }
 
 type HeroTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
+  """
+  Whether all slots in this template are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   createdAt: ISO8601DateTime!
   """
   Load the associated definition for this template.
@@ -8733,6 +8790,13 @@ type ItemContribution implements Contribution & ContributionBase & Node & Slugga
   """A potentially-overridden display name value for all contributor types"""
   displayName: String!
   id: ID!
+  """
+  An optional sorting discriminator to decide which contribution ranks higher.
+  
+  Applies _after_ contribution role ranking.
+  
+  """
+  innerPosition: Int
   item: Item!
   """A potentially-overridden value from organization contributors"""
   location: String
@@ -8740,8 +8804,10 @@ type ItemContribution implements Contribution & ContributionBase & Node & Slugga
   """
   An optional sorting discriminator to decide which contribution ranks higher.
   
+  Applies _before_ contribution role ranking, superseding everything else.
+  
   """
-  position: Int
+  outerPosition: Int
   """An arbitrary text value describing the role the contributor had"""
   role: String @deprecated(reason: "Use `roleLabel` instead.")
   """An arbitrary text value describing the role the contributor had"""
@@ -8805,6 +8871,11 @@ interface LayoutInstance implements Renderable {
   
   """
   allHidden: Boolean!
+  """
+  Whether all slots in all template instances in this layout are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   """
   The associated entity for this layout instance.
   
@@ -9073,6 +9144,11 @@ type LinkListTemplateDefinitionSlots {
 }
 
 type LinkListTemplateInstance implements Node & Renderable & Sluggable & TemplateHasEntityList & TemplateHasSeeAllOrdering & TemplateInstance {
+  """
+  Whether all slots in this template are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   createdAt: ISO8601DateTime!
   """
   Load the associated definition for this template.
@@ -9249,6 +9325,11 @@ type ListItemLayoutInstance implements LayoutInstance & Node & Renderable & Slug
   
   """
   allHidden: Boolean!
+  """
+  Whether all slots in all template instances in this layout are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   createdAt: ISO8601DateTime!
   """
   The associated entity for this layout instance.
@@ -9406,6 +9487,11 @@ type ListItemTemplateDefinitionSlots {
 }
 
 type ListItemTemplateInstance implements Node & Renderable & Sluggable & TemplateHasEntityList & TemplateInstance {
+  """
+  Whether all slots in this template are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   createdAt: ISO8601DateTime!
   """
   Load the associated definition for this template.
@@ -9486,6 +9572,11 @@ type MainLayoutInstance implements LayoutInstance & Node & Renderable & Sluggabl
   
   """
   allHidden: Boolean!
+  """
+  Whether all slots in all template instances in this layout are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   createdAt: ISO8601DateTime!
   """
   The associated entity for this layout instance.
@@ -9648,6 +9739,11 @@ type MetadataLayoutInstance implements LayoutInstance & Node & Renderable & Slug
   
   """
   allHidden: Boolean!
+  """
+  Whether all slots in all template instances in this layout are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   createdAt: ISO8601DateTime!
   """
   The associated entity for this layout instance.
@@ -9712,6 +9808,11 @@ type MetadataTemplateDefinitionSlots {
 }
 
 type MetadataTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
+  """
+  Whether all slots in this template are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   createdAt: ISO8601DateTime!
   """
   Load the associated definition for this template.
@@ -10306,6 +10407,11 @@ type NavigationLayoutInstance implements LayoutInstance & Node & Renderable & Sl
   
   """
   allHidden: Boolean!
+  """
+  Whether all slots in all template instances in this layout are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   createdAt: ISO8601DateTime!
   """
   The associated entity for this layout instance.
@@ -10366,6 +10472,11 @@ type NavigationTemplateDefinitionSlots {
 }
 
 type NavigationTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
+  """
+  Whether all slots in this template are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   createdAt: ISO8601DateTime!
   """
   Load the associated definition for this template.
@@ -11059,6 +11170,11 @@ type OrderingTemplateDefinitionSlots {
 }
 
 type OrderingTemplateInstance implements Node & Renderable & Sluggable & TemplateHasOrderingPair & TemplateInstance {
+  """
+  Whether all slots in this template are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   createdAt: ISO8601DateTime!
   """
   Load the associated definition for this template.
@@ -11384,6 +11500,11 @@ type PageListTemplateDefinitionSlots {
 }
 
 type PageListTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
+  """
+  Whether all slots in this template are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   createdAt: ISO8601DateTime!
   """
   Load the associated definition for this template.
@@ -13628,6 +13749,11 @@ type SupplementaryLayoutInstance implements LayoutInstance & Node & Renderable &
   
   """
   allHidden: Boolean!
+  """
+  Whether all slots in all template instances in this layout are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   createdAt: ISO8601DateTime!
   """
   The associated entity for this layout instance.
@@ -13689,6 +13815,11 @@ type SupplementaryTemplateDefinitionSlots {
 }
 
 type SupplementaryTemplateInstance implements Node & Renderable & Sluggable & TemplateInstance {
+  """
+  Whether all slots in this template are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   createdAt: ISO8601DateTime!
   """
   Load the associated definition for this template.
@@ -13856,14 +13987,23 @@ type TemplateContribution implements ContributionBase {
   contributorKind: ContributorKind!
   """A potentially-overridden display name value for all contributor types"""
   displayName: String!
+  """
+  An optional sorting discriminator to decide which contribution ranks higher.
+  
+  Applies _after_ contribution role ranking.
+  
+  """
+  innerPosition: Int
   """A potentially-overridden value from organization contributors"""
   location: String
   metadata: ContributionMetadata!
   """
   An optional sorting discriminator to decide which contribution ranks higher.
   
+  Applies _before_ contribution role ranking, superseding everything else.
+  
   """
-  position: Int
+  outerPosition: Int
   """An arbitrary text value describing the role the contributor had"""
   role: String @deprecated(reason: "Use `roleLabel` instead.")
   """An arbitrary text value describing the role the contributor had"""
@@ -14014,6 +14154,11 @@ An interface describing an instance type that can be rendered for a given entity
 
 """
 interface TemplateInstance implements Renderable {
+  """
+  Whether all slots in this template are empty.
+  
+  """
+  allSlotsEmpty: Boolean!
   """
   The associated entity for this template instance.
   
@@ -14253,6 +14398,11 @@ type TemplateSlotBlockInstance implements TemplateSlotInstance {
   """
   content: String
   """
+  Whether this slot is empty.
+  
+  """
+  empty: Boolean!
+  """
   Any errors for this slot that occurred during rendering, if applicable.
   
   """
@@ -14362,6 +14512,11 @@ type TemplateSlotInlineInstance implements TemplateSlotInstance {
   """
   content: String
   """
+  Whether this slot is empty.
+  
+  """
+  empty: Boolean!
+  """
   Any errors for this slot that occurred during rendering, if applicable.
   
   """
@@ -14397,6 +14552,11 @@ interface TemplateSlotInstance {
   
   """
   content: String
+  """
+  Whether this slot is empty.
+  
+  """
+  empty: Boolean!
   """
   Any errors for this slot that occurred during rendering, if applicable.
   
@@ -15464,15 +15624,24 @@ input UpsertContributionInput {
   contributableId: ID!
   contributorId: ID!
   """
+  "Inner" sorting discriminator for the contribution. If not provided, it will keep whatever is there.
+  
+  It applies _after_ the contribution role.
+  
+  """
+  innerPosition: Int
+  """
   Metadata for the contribution. If not provided, it will keep whatever is there.
   
   """
   metadata: ContributionMetadataInput
   """
-  Sorting discriminator for the contribution. If not provided, it will keep whatever is there.
+  "Outer" sorting discriminator for the contribution. If not provided, it will keep whatever is there.
+  
+  It applies _before_ the contribution role.
   
   """
-  position: Int
+  outerPosition: Int
   """If not provided, it will use the default role."""
   roleId: ID
 }
