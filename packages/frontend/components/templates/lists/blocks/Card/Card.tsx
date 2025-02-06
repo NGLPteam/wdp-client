@@ -25,19 +25,19 @@ export default function CardListBlock({
     background,
     seeAllOrderingIdentifier,
     seeAllButtonLabel,
-    selectionMode,
     showHeroImage,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
-  const { orderingIdentifier } = descendantsDefinition ?? {};
+  const { dynamicOrderingDefinition } = descendantsDefinition ?? {};
 
   const bgClass = getBgClass(background);
 
   const seeAllHref = descendantsDefinition
     ? getSeeAllHref(
         basePath,
-        selectionMode,
-        seeAllOrderingIdentifier ?? orderingIdentifier,
+        seeAllOrderingIdentifier,
+        undefined,
+        dynamicOrderingDefinition,
       )
     : null;
 

@@ -40,7 +40,6 @@ export default function SummaryListBlock({
   const {
     background,
     seeAllButtonLabel,
-    selectionMode,
     width,
     showHeroImage,
     seeAllOrderingIdentifier,
@@ -50,7 +49,7 @@ export default function SummaryListBlock({
 
   const { showEntityContext } = linksDefinition ?? {};
 
-  const { orderingIdentifier, dynamicOrderingDefinition, entityContext } =
+  const { entityContext, dynamicOrderingDefinition } =
     descendantsDefinition ?? {};
 
   const { blockHeader, header, headerAside, subtitle, metadata, context } =
@@ -78,10 +77,9 @@ export default function SummaryListBlock({
       ? href
       : getSeeAllHref(
           basePath,
-          selectionMode,
-          seeAllOrderingIdentifier ?? orderingIdentifier,
+          seeAllOrderingIdentifier,
+          normalizedContext,
           dynamicOrderingDefinition,
-          browseStyle ? normalizedContext : undefined,
         )
     : null;
 
