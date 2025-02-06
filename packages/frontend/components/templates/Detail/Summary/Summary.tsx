@@ -7,6 +7,7 @@ import {
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import { SummaryDetailFragment$key } from "@/relay/SummaryDetailFragment.graphql";
+import NoContent from "@/components/layout/messages/NoContent";
 import Announcements from "./Announcements";
 import styles from "./Summary.module.css";
 
@@ -25,29 +26,41 @@ export default function Summary({
   const subheader = useSharedInlineFragment(slots?.subheader);
   const summary = useSharedBlockFragment(slots?.summary);
 
-  return (
-    <div className={styles.grid}>
-      <div className={classNames("t-rte", styles.content)}>
-        {header?.valid && !!header.content && (
-          <h3>
-            <InlineSlotWrapper content={header.content} />
-          </h3>
-        )}
-        {subheader?.valid && !!subheader.content && (
-          <h4>
-            <InlineSlotWrapper content={subheader.content} />
-          </h4>
-        )}
-        {summary?.valid && !!summary.content && (
-          <BlockSlotWrapper content={summary.content} />
+  const showNoContent =
+    !showAnnouncements &&
+    (!header || header?.empty) &&
+    (!subheader || subheader?.empty) &&
+    (!summary || summary?.empty);
+
+  return showNoContent ? (
+    <div className={styles.noContent}>
+      <NoContent />
+    </div>
+  ) : (
+    <>
+      <div className={styles.grid}>
+        <div className={classNames("t-rte", styles.content)}>
+          {header?.valid && !!header.content && (
+            <h3>
+              <InlineSlotWrapper content={header.content} />
+            </h3>
+          )}
+          {subheader?.valid && !!subheader.content && (
+            <h4>
+              <InlineSlotWrapper content={subheader.content} />
+            </h4>
+          )}
+          {summary?.valid && !!summary.content && (
+            <BlockSlotWrapper content={summary.content} />
+          )}
+        </div>
+        {showAnnouncements && !!entity?.announcements && (
+          <div className={styles.announcements}>
+            <Announcements data={entity.announcements} />
+          </div>
         )}
       </div>
-      {showAnnouncements && !!entity?.announcements && (
-        <div className={styles.announcements}>
-          <Announcements data={entity.announcements} />
-        </div>
-      )}
-    </div>
+    </>
   );
 }
 
