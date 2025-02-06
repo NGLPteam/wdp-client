@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<784deec49b0dcf84c0ab6addbaee89b6>>
+ * @generated SignedSource<<434c315b605bb0c9779eb315c576e2ac>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -66,7 +66,7 @@ return {
       "name": "page"
     },
     {
-      "defaultValue": 40,
+      "defaultValue": 20,
       "kind": "LocalArgument",
       "name": "perPage"
     }
@@ -221,6 +221,6 @@ return {
 };
 })();
 
-(node as any).hash = "42194ad8013a8c7a7c3c365e4e1146ab";
+(node as any).hash = "a5e7ea950247e53efc73851e81ac12b7";
 
 export default node;

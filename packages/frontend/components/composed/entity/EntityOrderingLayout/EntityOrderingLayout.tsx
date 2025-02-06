@@ -56,7 +56,7 @@ const fragment = graphql`
   fragment EntityOrderingLayoutFragment on Ordering
   @argumentDefinitions(
     page: { type: "Int", defaultValue: 1 }
-    perPage: { type: "Int", defaultValue: 40 }
+    perPage: { type: "Int", defaultValue: 20 }
   ) {
     name
     header

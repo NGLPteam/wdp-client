@@ -252,7 +252,9 @@
       "skip_to_content": "Skip to content",
       "skip_to_pdf_content": "Skip to pdf content",
       "metrics": "Metrics",
-      "back_to_entity": "Back to {{ schema }} Main"
+      "back_to_entity": "Back to {{ schema }} Main",
+      "see_all": "See All",
+      "see_all_count": "See All {{ count }} {{ ordering }}"
     },
     "form": {
       "order_label": "Order:"

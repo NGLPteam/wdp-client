@@ -29,15 +29,13 @@ export default function CompactListBlock({
     width,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
-  const { selectionPropertyPath, orderingIdentifier } =
-    descendantsDefinition ?? {};
+  const { orderingIdentifier } = descendantsDefinition ?? {};
 
   const seeAllHref = descendantsDefinition
     ? getSeeAllHref(
         basePath,
         selectionMode,
         seeAllOrderingIdentifier ?? orderingIdentifier,
-        selectionPropertyPath,
       )
     : null;
 

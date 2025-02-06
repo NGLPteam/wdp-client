@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b7af3bf7f7fe35db4fcd60cbabcd9ce4>>
+ * @generated SignedSource<<9f0e04ad34d7e71f14444fda0ae5e006>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -216,11 +216,18 @@ v18 = [
   }
 ],
 v19 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "count",
+  "storageKey": null
+},
+v20 = {
   "args": null,
   "kind": "FragmentSpread",
   "name": "sharedListItemsTemplateFragment"
 },
-v20 = [
+v21 = [
   (v0/*: any*/),
   {
     "alias": null,
@@ -357,13 +364,7 @@ return {
               "name": "entityList",
               "plural": false,
               "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "count",
-                  "storageKey": null
-                },
+                (v19/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -371,7 +372,7 @@ return {
                   "name": "empty",
                   "storageKey": null
                 },
-                (v19/*: any*/)
+                (v20/*: any*/)
               ],
               "storageKey": null
             }
@@ -385,6 +386,25 @@ return {
             {
               "alias": null,
               "args": null,
+              "concreteType": "Ordering",
+              "kind": "LinkedField",
+              "name": "seeAllOrdering",
+              "plural": false,
+              "selections": [
+                (v19/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "name",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
               "concreteType": null,
               "kind": "LinkedField",
               "name": "entity",
@@ -393,13 +413,13 @@ return {
                 (v3/*: any*/),
                 {
                   "kind": "InlineFragment",
-                  "selections": (v20/*: any*/),
+                  "selections": (v21/*: any*/),
                   "type": "Collection",
                   "abstractKey": null
                 },
                 {
                   "kind": "InlineFragment",
-                  "selections": (v20/*: any*/),
+                  "selections": (v21/*: any*/),
                   "type": "Item",
                   "abstractKey": null
                 }
@@ -515,7 +535,7 @@ return {
               "name": "entityList",
               "plural": false,
               "selections": [
-                (v19/*: any*/)
+                (v20/*: any*/)
               ],
               "storageKey": null
             }

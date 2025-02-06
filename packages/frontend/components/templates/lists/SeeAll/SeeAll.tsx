@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 import Button from "@/components/atomic/Button";
 import NamedLink from "@/components/atomic/links/NamedLink";
 import styles from "./SeeAll.module.css";
@@ -11,6 +12,8 @@ export type SeeAllProps = {
 };
 
 export default function SeeAll(props: SeeAllProps) {
+  const { t } = useTranslation();
+
   return (
     <div
       className={classNames("see-all-button", props.className, styles.seeAll, {
@@ -19,7 +22,9 @@ export default function SeeAll(props: SeeAllProps) {
     >
       <NamedLink href={props.href}>
         <Button as="div">
-          <span className="t-capitalize">{props.buttonLabel ?? "See All"}</span>
+          <span className="t-capitalize">
+            {props.buttonLabel ?? t("nav.see_all")}
+          </span>
         </Button>
       </NamedLink>
     </div>

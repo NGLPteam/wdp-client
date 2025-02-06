@@ -33,15 +33,13 @@ export default function GridListBlock({
 
   const { showEntityContext } = linksDefinition ?? {};
 
-  const { selectionPropertyPath, orderingIdentifier, entityContext } =
-    descendantsDefinition ?? {};
+  const { orderingIdentifier, entityContext } = descendantsDefinition ?? {};
 
   const seeAllHref = descendantsDefinition
     ? getSeeAllHref(
         basePath,
         selectionMode,
         seeAllOrderingIdentifier ?? orderingIdentifier,
-        selectionPropertyPath,
       )
     : null;
 

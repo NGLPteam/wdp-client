@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<87a402f868a6c9db604603b8edb2fcdd>>
+ * @generated SignedSource<<6d38f23b643321b466cb3b0c868afd3c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -29,6 +29,7 @@ export type EntityNavListFragment$data = {
     }>;
   };
   readonly schemaVersion: {
+    readonly identifier: string;
     readonly name: string;
   };
   readonly " $fragmentType": "EntityNavListFragment";
@@ -47,6 +48,13 @@ var v0 = {
   "storageKey": null
 },
 v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "identifier",
+  "storageKey": null
+},
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -74,7 +82,8 @@ return {
       "name": "schemaVersion",
       "plural": false,
       "selections": [
-        (v0/*: any*/)
+        (v0/*: any*/),
+        (v1/*: any*/)
       ],
       "storageKey": null
     },
@@ -101,14 +110,8 @@ return {
           "plural": true,
           "selections": [
             (v0/*: any*/),
+            (v2/*: any*/),
             (v1/*: any*/),
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "identifier",
-              "storageKey": null
-            },
             {
               "alias": null,
               "args": null,
@@ -153,7 +156,7 @@ return {
                   "name": "title",
                   "storageKey": null
                 },
-                (v1/*: any*/)
+                (v2/*: any*/)
               ],
               "storageKey": null
             }
@@ -169,6 +172,6 @@ return {
 };
 })();
 
-(node as any).hash = "d0c1cb178a56404fae9b10ed70178145";
+(node as any).hash = "a205f51cb3bd12037dcce3012d96e23d";
 
 export default node;
