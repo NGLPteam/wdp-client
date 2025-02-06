@@ -17,17 +17,16 @@ export default async function CollectionBrowsePage({
 }: {
   params: BasePageParams["params"] & {
     ordering: string | string[];
-    page?: string | string[];
     context?: string | string[];
   };
-  searchParams: { context: ContextType };
+  searchParams: { context: ContextType; page: string };
 }) {
   const identifier =
     decodeURIComponent(routeQueryArrayToString(params.ordering)) ?? "";
 
-  const page = parseInt(routeQueryArrayToString(params.page)) || 1;
+  const { context, page: pageParam } = searchParams;
 
-  const { context } = searchParams;
+  const page = parseInt(pageParam) ?? 1;
 
   const { data, records } = await fetchQuery<Query>(query, {
     identifier,
