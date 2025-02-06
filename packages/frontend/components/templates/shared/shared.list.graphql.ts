@@ -68,6 +68,10 @@ export const listTemplateFragment = graphql`
       }
     }
     ... on DescendantListTemplateInstance {
+      seeAllOrdering {
+        count
+        name
+      }
       entity {
         ... on Community {
           __typename
@@ -151,6 +155,7 @@ export const useSharedListTemplateFragment = (
     linksDefinition,
     descendantsDefinition,
     entity,
+    seeAllOrdering,
   } = template ?? {};
   const entityList = useSharedListItemsTemplateFragment(entityListFragment);
   const blockHeader = useSharedInlineFragment(slots?.blockHeader);
@@ -195,5 +200,6 @@ export const useSharedListTemplateFragment = (
     linksDefinition,
     descendantsDefinition,
     slots: { blockHeader, header, headerAside, metadata, subtitle },
+    seeAllOrdering,
   };
 };

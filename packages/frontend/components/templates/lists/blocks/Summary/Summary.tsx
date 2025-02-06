@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { useParams } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { useSharedListTemplateFragment } from "@/components/templates/shared/shared.list.graphql";
 import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
 import NamedLink from "@/components/atomic/links/NamedLink";
@@ -19,10 +20,18 @@ export default function SummaryListBlock({
   data?: sharedListTemplateFragment$key | null;
   basePath?: string | null;
 }) {
+  const { t } = useTranslation();
+
   const { slug } = useParams();
 
-  const { linksDefinition, descendantsDefinition, slots, entityList, entity } =
-    useSharedListTemplateFragment(data);
+  const {
+    linksDefinition,
+    descendantsDefinition,
+    slots,
+    entityList,
+    entity,
+    seeAllOrdering,
+  } = useSharedListTemplateFragment(data);
 
   const { empty, listItemLayouts } = entityList ?? {};
 
@@ -36,16 +45,13 @@ export default function SummaryListBlock({
     showHeroImage,
     seeAllOrderingIdentifier,
     showNestedEntities,
+    selectionLimit,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
   const { showEntityContext } = linksDefinition ?? {};
 
-  const {
-    selectionPropertyPath,
-    orderingIdentifier,
-    dynamicOrderingDefinition,
-    entityContext,
-  } = descendantsDefinition ?? {};
+  const { orderingIdentifier, dynamicOrderingDefinition, entityContext } =
+    descendantsDefinition ?? {};
 
   const { blockHeader, header, headerAside, subtitle, metadata, context } =
     slots ?? {};
@@ -55,18 +61,6 @@ export default function SummaryListBlock({
     entity?.slug !== slug
       ? `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`
       : null;
-
-  const seeAllHref = descendantsDefinition
-    ? showNestedEntities
-      ? href
-      : getSeeAllHref(
-          basePath,
-          selectionMode,
-          seeAllOrderingIdentifier ?? orderingIdentifier,
-          selectionPropertyPath,
-          dynamicOrderingDefinition,
-        )
-    : null;
 
   const renderEntity = header?.valid || subtitle?.valid || metadata?.valid;
 
@@ -78,6 +72,33 @@ export default function SummaryListBlock({
       : showEntityContext
         ? "FULL"
         : "NONE";
+
+  const seeAllHref = descendantsDefinition
+    ? showNestedEntities
+      ? href
+      : getSeeAllHref(
+          basePath,
+          selectionMode,
+          seeAllOrderingIdentifier ?? orderingIdentifier,
+          dynamicOrderingDefinition,
+          browseStyle ? normalizedContext : undefined,
+        )
+    : null;
+
+  const renderSeeAll =
+    !!seeAllOrderingIdentifier && !!seeAllHref
+      ? seeAllOrdering?.count && selectionLimit
+        ? seeAllOrdering.count > selectionLimit
+        : true
+      : false;
+
+  const seeAllLabel =
+    browseStyle && seeAllOrdering?.count
+      ? t("nav.see_all_count", {
+          count: seeAllOrdering.count,
+          ordering: seeAllOrdering.name,
+        })
+      : seeAllButtonLabel;
 
   return (
     <Container
@@ -140,10 +161,10 @@ export default function SummaryListBlock({
             isNested={showNestedEntities}
             browseStyle={browseStyle}
           />
-          {!!seeAllOrderingIdentifier && !!seeAllHref && (
+          {renderSeeAll && !!seeAllHref && (
             <SeeAll
               alignment="left"
-              buttonLabel={seeAllButtonLabel}
+              buttonLabel={seeAllLabel}
               href={seeAllHref}
             />
           )}

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<47b0bc009ff326280e37433b3c17f888>>
+ * @generated SignedSource<<f70e851f4606cb43d888b27b0cf7f1e5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -88,6 +88,10 @@ export type sharedListTemplateFragment$data = {
     readonly variant: LinkListVariant | null | undefined;
     readonly width: TemplateWidth | null | undefined;
   };
+  readonly seeAllOrdering?: {
+    readonly count: number;
+    readonly name: string | null | undefined;
+  } | null | undefined;
   readonly slots?: {
     readonly blockHeader: {
       readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
@@ -117,6 +121,6 @@ const node: ReaderInlineDataFragment = {
   "name": "sharedListTemplateFragment"
 };
 
-(node as any).hash = "808c34280dbfe5f49ace300a17a8a9bf";
+(node as any).hash = "c1bc3808839658c6c0ac55ad51b99074";
 
 export default node;

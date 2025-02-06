@@ -1,41 +1,28 @@
 import type { DescendantListSelectionMode } from "@/types/graphql-schema";
-
-const FEATURED_PATHS = {
-  journals: "browse/nglp:journal",
-  issues: "browse/issues",
-  articles: "browse/articles",
-};
+import { ListEntityContext } from "@/types/graphql-schema";
 
 export const getSeeAllHref = (
   basePath?: string | null,
   selectionMode?: DescendantListSelectionMode | null,
   identifier?: string | null,
-  propertyPath?: string | null,
   dynamicOrderingDefinition?: {
     filter: { schemas: readonly { namespace: string; identifier: string }[] };
   } | null,
+  contextParam?: ListEntityContext,
 ) => {
   if (!basePath) return null;
 
+  const queryParam = contextParam ? `?context=${contextParam}` : undefined;
+
   if (selectionMode === "NAMED" && !!identifier)
-    return `${basePath}/browse/${identifier}`;
+    return `${basePath}/browse/${identifier}/${queryParam}`;
 
   if (selectionMode === "DYNAMIC") {
     const schema = dynamicOrderingDefinition?.filter?.schemas[0];
     if (schema)
       return `${basePath}/browse/${encodeURIComponent(
         `${schema.namespace}:${schema.identifier}`,
-      )}`;
-  }
-
-  if (
-    selectionMode === "PROPERTY" &&
-    propertyPath &&
-    (propertyPath.includes("featured") || propertyPath.includes("recent"))
-  ) {
-    const entity = propertyPath.split(".")[1] ?? propertyPath.split("_")[1];
-    const pathname = FEATURED_PATHS[entity as keyof typeof FEATURED_PATHS];
-    return pathname ? `${basePath}/${pathname}` : null;
+      )}/${queryParam}`;
   }
 
   return null;

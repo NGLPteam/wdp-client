@@ -13,19 +13,21 @@ type ContextType = ComponentProps<typeof EntityOrderingLayout>["showContext"];
 
 export default async function CollectionBrowsePage({
   params,
+  searchParams,
 }: {
   params: BasePageParams["params"] & {
     ordering: string | string[];
     page?: string | string[];
     context?: string | string[];
   };
+  searchParams: { context: ContextType };
 }) {
   const identifier =
     decodeURIComponent(routeQueryArrayToString(params.ordering)) ?? "";
 
   const page = parseInt(routeQueryArrayToString(params.page)) || 1;
 
-  const context = routeQueryArrayToString(params.context) as ContextType;
+  const { context } = searchParams;
 
   const { data, records } = await fetchQuery<Query>(query, {
     identifier,

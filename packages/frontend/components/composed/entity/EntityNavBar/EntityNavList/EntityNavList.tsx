@@ -15,6 +15,8 @@ export default function EntityNavList({ data }: Props) {
   const pathname = usePathname();
   const entity = useFragment(fragment, data);
 
+  if (!entity || !slug) return null;
+
   function getDisclosure(label: string) {
     return (
       <Button
@@ -29,51 +31,52 @@ export default function EntityNavList({ data }: Props) {
     );
   }
 
-  const typeRoute = getRouteByEntityType(entity?.__typename);
+  const typeRoute = getRouteByEntityType(entity.__typename);
 
-  const orderings = entity?.orderings?.nodes || [];
+  const orderings = entity.orderings?.nodes || [];
 
-  const hideOnlyOrdering = pathname.includes("browse");
+  const isBrowse = pathname.includes("browse");
+  const showOnlyOrdering =
+    orderings.length === 1 &&
+    entity.schemaVersion.identifier !== "journal_issue" &&
+    entity.schemaVersion.identifier !== "journal_volume";
 
-  const schemaNameParts = entity?.schemaVersion?.name.split(" ");
-  const backSchemaLabel =
-    !!schemaNameParts && schemaNameParts.length > 1
-      ? schemaNameParts[1]
-      : entity?.schemaVersion?.name;
+  const schemaName = entity?.schemaVersion?.name;
+  const backSchemaLabel = schemaName.replace("Journal ", "");
 
-  const dropdownLinks = slug
-    ? orderings.length > 1
+  const dropdownLinks =
+    orderings.length > 1
       ? orderings.map(({ identifier, name, count }: Node) => (
           <Dropdown.Link
             key={identifier}
-            href={`/${typeRoute}/${slug}/browse/${identifier}`}
+            href={`/${typeRoute}/${slug}/browse/${identifier}?context=NONE`}
             label={`${name} (${count})`}
           />
         ))
-      : !hideOnlyOrdering
-        ? orderings.map(({ identifier, name }: Node) => (
-            <NamedLink
-              key={identifier}
-              href={`/${typeRoute}/${slug}/browse/${identifier}`}
-            >
-              <Button size="sm" secondary>
-                {t("nav.browse_schema", { schema: name })}
-              </Button>
-            </NamedLink>
-          ))
-        : [
-            /* eslint-disable-next-line react/jsx-key */
-            <NamedLink href={`/${typeRoute}/${slug}`}>
-              <Button size="sm" secondary icon="arrowLeft" iconLeft>
-                {t("nav.back_to_entity", { schema: backSchemaLabel })}
-              </Button>
-            </NamedLink>,
-          ]
-    : [];
+      : null;
+
+  const button = isBrowse ? (
+    /* eslint-disable-next-line react/jsx-key */
+    <NamedLink href={`/${typeRoute}/${slug}`}>
+      <Button size="sm" secondary icon="arrowLeft" iconLeft>
+        {t("nav.back_to_entity", { schema: backSchemaLabel })}
+      </Button>
+    </NamedLink>
+  ) : showOnlyOrdering ? (
+    <NamedLink
+      key={orderings[0].identifier}
+      href={`/${typeRoute}/${slug}/browse/${orderings[0].identifier}`}
+    >
+      <Button size="sm" secondary>
+        {t("nav.browse_schema", { schema: orderings[0].name })}
+      </Button>
+    </NamedLink>
+  ) : null;
 
   return (
     <ul className={styles.list}>
-      {dropdownLinks.length > 1 && (
+      {button && <li className="t-capitalize">{button}</li>}
+      {!!dropdownLinks?.length && (
         <li className="t-capitalize">
           <Dropdown
             label={t("nav.browse")}
@@ -81,9 +84,6 @@ export default function EntityNavList({ data }: Props) {
             menuItems={[...dropdownLinks]}
           />
         </li>
-      )}
-      {dropdownLinks.length === 1 && (
-        <li className="t-capitalize">{dropdownLinks[0]}</li>
       )}
       {slug &&
         entity?.pages?.edges &&
@@ -117,6 +117,7 @@ const fragment = graphql`
     __typename
     schemaVersion {
       name
+      identifier
     }
     orderings(availability: ENABLED) {
       nodes {
