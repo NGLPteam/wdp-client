@@ -14,8 +14,13 @@ export default function GridListBlock({
   data?: sharedListTemplateFragment$key | null;
   basePath?: string | null;
 }) {
-  const { linksDefinition, descendantsDefinition, entityList, slots } =
-    useSharedListTemplateFragment(data);
+  const {
+    linksDefinition,
+    descendantsDefinition,
+    entityList,
+    slots,
+    seeAllOrdering,
+  } = useSharedListTemplateFragment(data);
 
   const { empty, listItemLayouts } = entityList ?? {};
 
@@ -28,21 +33,23 @@ export default function GridListBlock({
     showHeroImage,
     width,
     showContributors,
+    selectionLimit,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
   const { showEntityContext } = linksDefinition ?? {};
 
-  const { dynamicOrderingDefinition, entityContext } =
-    descendantsDefinition ?? {};
+  const { entityContext } = descendantsDefinition ?? {};
 
   const seeAllHref = descendantsDefinition
-    ? getSeeAllHref(
-        basePath,
-        seeAllOrderingIdentifier,
-        undefined,
-        dynamicOrderingDefinition,
-      )
+    ? getSeeAllHref(basePath, seeAllOrderingIdentifier, undefined)
     : null;
+
+  const renderSeeAll =
+    !!seeAllOrderingIdentifier && !!seeAllHref
+      ? seeAllOrdering?.count && selectionLimit
+        ? seeAllOrdering.count > selectionLimit
+        : true
+      : false;
 
   const { blockHeader } = slots ?? {};
 
@@ -72,7 +79,7 @@ export default function GridListBlock({
         showContributors={showContributors}
         showContext={normalizedContext}
       />
-      {!!seeAllOrderingIdentifier && !!seeAllHref && (
+      {!!renderSeeAll && !!seeAllHref && (
         <SeeAll
           alignment="center"
           buttonLabel={seeAllButtonLabel}

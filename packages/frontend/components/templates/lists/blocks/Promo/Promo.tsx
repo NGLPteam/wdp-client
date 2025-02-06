@@ -14,8 +14,13 @@ export default function PromoListBlock({
   data?: sharedListTemplateFragment$key | null;
   basePath?: string | null;
 }) {
-  const { linksDefinition, descendantsDefinition, entityList, slots } =
-    useSharedListTemplateFragment(data);
+  const {
+    linksDefinition,
+    descendantsDefinition,
+    entityList,
+    slots,
+    seeAllOrdering,
+  } = useSharedListTemplateFragment(data);
 
   const { empty, listItemLayouts } = entityList ?? {};
 
@@ -27,18 +32,19 @@ export default function PromoListBlock({
     seeAllButtonLabel,
     showHeroImage,
     width,
+    selectionLimit,
   } = linksDefinition ?? descendantsDefinition ?? {};
 
-  const { dynamicOrderingDefinition } = descendantsDefinition ?? {};
-
   const seeAllHref = descendantsDefinition
-    ? getSeeAllHref(
-        basePath,
-        seeAllOrderingIdentifier,
-        undefined,
-        dynamicOrderingDefinition,
-      )
+    ? getSeeAllHref(basePath, seeAllOrderingIdentifier, undefined)
     : null;
+
+  const renderSeeAll =
+    !!seeAllOrderingIdentifier && !!seeAllHref
+      ? seeAllOrdering?.count && selectionLimit
+        ? seeAllOrdering.count > selectionLimit
+        : true
+      : false;
 
   const { blockHeader } = slots ?? {};
 
@@ -55,7 +61,7 @@ export default function PromoListBlock({
       )}
       {showHeroImage && <div className={styles.heroImage} />}
       <List variant="PROMOS" bgColor={background} items={listItemLayouts} />
-      {!!seeAllOrderingIdentifier && seeAllHref && (
+      {!!renderSeeAll && seeAllHref && (
         <SeeAll
           alignment="left"
           buttonLabel={seeAllButtonLabel}

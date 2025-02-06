@@ -14,7 +14,7 @@ export default function CardListBlock({
   data?: sharedListTemplateFragment$key;
   basePath?: string | null;
 }) {
-  const { linksDefinition, descendantsDefinition, entityList } =
+  const { linksDefinition, descendantsDefinition, entityList, seeAllOrdering } =
     useSharedListTemplateFragment(data);
 
   const { empty, listItemLayouts } = entityList ?? {};
@@ -26,26 +26,27 @@ export default function CardListBlock({
     seeAllOrderingIdentifier,
     seeAllButtonLabel,
     showHeroImage,
+    selectionLimit,
   } = linksDefinition ?? descendantsDefinition ?? {};
-
-  const { dynamicOrderingDefinition } = descendantsDefinition ?? {};
 
   const bgClass = getBgClass(background);
 
   const seeAllHref = descendantsDefinition
-    ? getSeeAllHref(
-        basePath,
-        seeAllOrderingIdentifier,
-        undefined,
-        dynamicOrderingDefinition,
-      )
+    ? getSeeAllHref(basePath, seeAllOrderingIdentifier, undefined)
     : null;
+
+  const renderSeeAll =
+    !!seeAllOrderingIdentifier && !!seeAllHref
+      ? seeAllOrdering?.count && selectionLimit
+        ? seeAllOrdering.count > selectionLimit
+        : true
+      : false;
 
   return (
     <div className={classNames(bgClass, styles.wrapper)}>
       {showHeroImage && <div className={styles.heroImage} />}
       <List variant="CARDS" bgColor={background} items={listItemLayouts} />
-      {!!seeAllOrderingIdentifier && !!seeAllHref && (
+      {!!renderSeeAll && !!seeAllHref && (
         <SeeAll
           alignment="center"
           buttonLabel={seeAllButtonLabel}

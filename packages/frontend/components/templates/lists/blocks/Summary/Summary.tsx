@@ -49,8 +49,7 @@ export default function SummaryListBlock({
 
   const { showEntityContext } = linksDefinition ?? {};
 
-  const { entityContext, dynamicOrderingDefinition } =
-    descendantsDefinition ?? {};
+  const { entityContext } = descendantsDefinition ?? {};
 
   const { blockHeader, header, headerAside, subtitle, metadata, context } =
     slots ?? {};
@@ -75,12 +74,7 @@ export default function SummaryListBlock({
   const seeAllHref = descendantsDefinition
     ? showNestedEntities
       ? href
-      : getSeeAllHref(
-          basePath,
-          seeAllOrderingIdentifier,
-          normalizedContext,
-          dynamicOrderingDefinition,
-        )
+      : getSeeAllHref(basePath, seeAllOrderingIdentifier, normalizedContext)
     : null;
 
   const renderSeeAll =
