@@ -1,12 +1,15 @@
-export function normalizeDoiUrl(doi: string): {
+export function normalizeDoiUrl(
+  doi: string
+): {
   url: string;
   displayUrl: string;
 } {
   // Normalize the URL and display text
-  if (doi.startsWith("https://doi.org/")) {
+  if (doi.match(/^https?:\/\//i)) {
+    const url = new URL(doi);
     return {
-      url: doi,
-      displayUrl: doi.replace("https://doi.org/", ""),
+      url: url.toString(),
+      displayUrl: url.pathname,
     };
   } else {
     return {
