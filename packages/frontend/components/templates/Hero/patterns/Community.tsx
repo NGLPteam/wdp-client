@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { graphql, useFragment } from "react-relay";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
@@ -26,26 +27,47 @@ export default function CommunityHeroHeader({
 
   const { heroImageLayout } = entity ?? {};
 
-  const { showHeroImage, showBigSearchPrompt } = template?.definition ?? {};
+  const { definition, slots } = template ?? {};
+
+  const { showHeroImage, showBigSearchPrompt } = definition ?? {};
 
   const bigSearchPrompt = useSharedInlineFragment(
     template?.slots?.bigSearchPrompt,
   ) ?? { content: t("search.community_placeholder") };
 
+  const hasTextContent =
+    slots &&
+    slots.header &&
+    !slots.header.empty &&
+    slots.headerSummary &&
+    !slots.headerSummary.empty;
+
+  const hasHeroImage = !!entity?.heroImage;
+
+  const bgClass = hasHeroImage
+    ? showHeroImage && heroImageLayout === "ONE_COLUMN"
+      ? "a-bg-neutral90"
+      : "a-bg-custom20"
+    : "a-bg-custom10";
+
   return isMain ? (
     <>
-      <section
-        className={
-          heroImageLayout === "ONE_COLUMN" ? "a-bg-neutral90" : "a-bg-custom20"
-        }
-      >
-        <div className={styles.grid}>
-          <HeroHeader data={template} layout={heroImageLayout} />
-          {showHeroImage && entity?.heroImage && (
-            <HeroImage data={entity?.heroImage} layout={heroImageLayout} />
-          )}
-        </div>
-      </section>
+      {(hasTextContent || hasHeroImage) && (
+        <section className={bgClass}>
+          <div
+            className={classNames(styles.grid, {
+              [styles["grid--noImage"]]: !hasHeroImage,
+            })}
+          >
+            {hasTextContent && (
+              <HeroHeader data={template} layout={heroImageLayout} />
+            )}
+            {showHeroImage && hasHeroImage && (
+              <HeroImage data={entity?.heroImage} layout={heroImageLayout} />
+            )}
+          </div>
+        </section>
+      )}
       {showBigSearchPrompt && <SearchHero prompt={bigSearchPrompt?.content} />}
     </>
   ) : null;
@@ -69,6 +91,12 @@ const fragment = graphql`
       slots {
         bigSearchPrompt {
           ...sharedInlineSlotFragment
+        }
+        header {
+          empty
+        }
+        headerSummary {
+          empty
         }
       }
       ...HeaderHeroFragment

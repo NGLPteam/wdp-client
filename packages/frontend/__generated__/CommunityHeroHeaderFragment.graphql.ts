@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e40a9a1462cca8c579805c855a32b434>>
+ * @generated SignedSource<<9e067f22785787cee92e86d75cf3656c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -27,6 +27,12 @@ export type CommunityHeroHeaderFragment$data = {
       readonly bigSearchPrompt: {
         readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
       } | null | undefined;
+      readonly header: {
+        readonly empty: boolean;
+      } | null | undefined;
+      readonly headerSummary: {
+        readonly empty: boolean;
+      } | null | undefined;
     };
     readonly " $fragmentSpreads": FragmentRefs<"HeaderHeroFragment">;
   } | null | undefined;
@@ -37,7 +43,17 @@ export type CommunityHeroHeaderFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"CommunityHeroHeaderFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "empty",
+    "storageKey": null
+  }
+];
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -140,6 +156,26 @@ const node: ReaderFragment = {
                 }
               ],
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "TemplateSlotInlineInstance",
+              "kind": "LinkedField",
+              "name": "header",
+              "plural": false,
+              "selections": (v0/*: any*/),
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "TemplateSlotBlockInstance",
+              "kind": "LinkedField",
+              "name": "headerSummary",
+              "plural": false,
+              "selections": (v0/*: any*/),
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -156,7 +192,8 @@ const node: ReaderFragment = {
   "type": "HeroLayoutInstance",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "b353da1c2c40ef04cabc2edc023db87b";
+(node as any).hash = "1116880b902a4675e9d9620fd45d5bba";
 
 export default node;

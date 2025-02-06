@@ -4,6 +4,7 @@ import { sharedInlineSlotFragment$key } from "@/relay/sharedInlineSlotFragment.g
 
 export const templateSlotBlockFragment = graphql`
   fragment sharedBlockSlotFragment on TemplateSlotBlockInstance {
+    empty
     content
     kind
     valid
@@ -12,6 +13,7 @@ export const templateSlotBlockFragment = graphql`
 
 export const templateSlotInlineFragment = graphql`
   fragment sharedInlineSlotFragment on TemplateSlotInlineInstance {
+    empty
     content
     kind
     valid
