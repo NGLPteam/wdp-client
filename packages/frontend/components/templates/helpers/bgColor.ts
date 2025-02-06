@@ -1,7 +1,7 @@
 import type { HeroBackground } from "@/types/graphql-schema";
 
 const BG_COLOR_MAP = {
-  NONE: "a-bg-custom00",
+  NONE: "a-bg-neutral00",
   LIGHT: "a-bg-custom10",
   DARK: "a-bg-neutral90",
 };

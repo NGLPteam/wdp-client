@@ -24,10 +24,10 @@
 }
 
 .divider {
-  *:global(.a-bg-neutral00) + :global(.a-bg-neutral00) > &,
-  *:global(.a-bg-custom10) + :global(.a-bg-custom10) > &,
-  *:global(.a-bg-custom20) + :global(.a-bg-custom20) > &,
-  *:global(.a-bg-neutral90) + :global(.a-bg-neutral90) > & {
+  :global(.a-bg-neutral00) + :global(.a-bg-neutral00) > &,
+  :global(.a-bg-custom10) + :global(.a-bg-custom10) > &,
+  :global(.a-bg-custom20) + :global(.a-bg-custom20) > &,
+  :global(.a-bg-neutral90) + :global(.a-bg-neutral90) > & {
     border-top: 1px solid;
   }
 }
