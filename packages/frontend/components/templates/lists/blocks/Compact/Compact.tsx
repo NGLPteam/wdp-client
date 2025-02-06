@@ -14,26 +14,36 @@ export default function CompactListBlock({
   data?: sharedListTemplateFragment$key | null;
   basePath?: string | null;
 }) {
-  const { linksDefinition, descendantsDefinition, entityList, slots } =
-    useSharedListTemplateFragment(data);
+  const {
+    linksDefinition,
+    descendantsDefinition,
+    entityList,
+    slots,
+    seeAllOrdering,
+  } = useSharedListTemplateFragment(data);
 
   const { empty, listItemLayouts } = entityList ?? {};
 
   if (empty) return null;
 
-  const { background, seeAllOrderingIdentifier, seeAllButtonLabel, width } =
-    linksDefinition ?? descendantsDefinition ?? {};
-
-  const { dynamicOrderingDefinition } = descendantsDefinition ?? {};
+  const {
+    background,
+    seeAllOrderingIdentifier,
+    seeAllButtonLabel,
+    width,
+    selectionLimit,
+  } = linksDefinition ?? descendantsDefinition ?? {};
 
   const seeAllHref = descendantsDefinition
-    ? getSeeAllHref(
-        basePath,
-        seeAllOrderingIdentifier,
-        undefined,
-        dynamicOrderingDefinition,
-      )
+    ? getSeeAllHref(basePath, seeAllOrderingIdentifier, undefined)
     : null;
+
+  const renderSeeAll =
+    !!seeAllOrderingIdentifier && !!seeAllHref
+      ? seeAllOrdering?.count && selectionLimit
+        ? seeAllOrdering.count > selectionLimit
+        : true
+      : false;
 
   const { blockHeader } = slots ?? {};
 
@@ -60,7 +70,7 @@ export default function CompactListBlock({
           Need to identify which image to use here
           {showHeroImage && <div className={styles.heroImage} />}
           */}
-        {!!seeAllOrderingIdentifier && !!seeAllHref && (
+        {!!renderSeeAll && !!seeAllHref && (
           <SeeAll
             alignment="left"
             buttonLabel={seeAllButtonLabel}

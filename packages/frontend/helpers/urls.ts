@@ -1,6 +1,4 @@
-export function normalizeDoiUrl(
-  doi: string
-): {
+export function normalizeDoiUrl(doi: string): {
   url: string;
   displayUrl: string;
 } {
