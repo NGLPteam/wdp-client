@@ -37,10 +37,8 @@ export default function CommunityHeroHeader({
 
   const hasTextContent =
     slots &&
-    slots.header &&
-    !slots.header.empty &&
-    slots.headerSummary &&
-    !slots.headerSummary.empty;
+    ((slots.header && !slots.header.empty) ||
+      (slots.headerSummary && !slots.headerSummary.empty));
 
   const hasHeroImage = !!entity?.heroImage;
 
