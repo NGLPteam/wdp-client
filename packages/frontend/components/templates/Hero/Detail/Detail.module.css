@@ -1,5 +1,6 @@
 .columns {
   --grid-row-gap: var(--padding-xl);
+  --grid-column-gap: 0;
 
   @mixin l-grid;
 

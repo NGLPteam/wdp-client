@@ -1,4 +1,6 @@
 .inner {
+  --grid-column-gap: 0;
+
   @mixin l-grid;
   grid-template-areas: "left left left left left left left left . right right right";
   @mixin fluidScalePx padding-block-start, 60px, 50px;
