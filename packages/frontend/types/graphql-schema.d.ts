@@ -1311,6 +1311,11 @@ export type BlurbTemplateDefinitionSlots = {
 
 export type BlurbTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'BlurbTemplateInstance';
+  /**
+   * Whether all slots in this template are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * Load the associated definition for this template.
@@ -2535,14 +2540,23 @@ export type CollectionContribution = Contribution & ContributionBase & Node & Sl
   /** A potentially-overridden display name value for all contributor types */
   displayName: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  /**
+   * An optional sorting discriminator to decide which contribution ranks higher.
+   *
+   * Applies _after_ contribution role ranking.
+   *
+   */
+  innerPosition?: Maybe<Scalars['Int']['output']>;
   /** A potentially-overridden value from organization contributors */
   location?: Maybe<Scalars['String']['output']>;
   metadata: ContributionMetadata;
   /**
    * An optional sorting discriminator to decide which contribution ranks higher.
    *
+   * Applies _before_ contribution role ranking, superseding everything else.
+   *
    */
-  position?: Maybe<Scalars['Int']['output']>;
+  outerPosition?: Maybe<Scalars['Int']['output']>;
   /**
    * An arbitrary text value describing the role the contributor had
    * @deprecated Use `roleLabel` instead.
@@ -3093,14 +3107,23 @@ export type Contribution = {
   contributorKind: ContributorKind;
   /** A potentially-overridden display name value for all contributor types */
   displayName: Scalars['String']['output'];
+  /**
+   * An optional sorting discriminator to decide which contribution ranks higher.
+   *
+   * Applies _after_ contribution role ranking.
+   *
+   */
+  innerPosition?: Maybe<Scalars['Int']['output']>;
   /** A potentially-overridden value from organization contributors */
   location?: Maybe<Scalars['String']['output']>;
   metadata: ContributionMetadata;
   /**
    * An optional sorting discriminator to decide which contribution ranks higher.
    *
+   * Applies _before_ contribution role ranking, superseding everything else.
+   *
    */
-  position?: Maybe<Scalars['Int']['output']>;
+  outerPosition?: Maybe<Scalars['Int']['output']>;
   /**
    * An arbitrary text value describing the role the contributor had
    * @deprecated Use `roleLabel` instead.
@@ -3129,14 +3152,23 @@ export type ContributionBase = {
   contributorKind: ContributorKind;
   /** A potentially-overridden display name value for all contributor types */
   displayName: Scalars['String']['output'];
+  /**
+   * An optional sorting discriminator to decide which contribution ranks higher.
+   *
+   * Applies _after_ contribution role ranking.
+   *
+   */
+  innerPosition?: Maybe<Scalars['Int']['output']>;
   /** A potentially-overridden value from organization contributors */
   location?: Maybe<Scalars['String']['output']>;
   metadata: ContributionMetadata;
   /**
    * An optional sorting discriminator to decide which contribution ranks higher.
    *
+   * Applies _before_ contribution role ranking, superseding everything else.
+   *
    */
-  position?: Maybe<Scalars['Int']['output']>;
+  outerPosition?: Maybe<Scalars['Int']['output']>;
   /**
    * An arbitrary text value describing the role the contributor had
    * @deprecated Use `roleLabel` instead.
@@ -3700,6 +3732,11 @@ export type ContributorListTemplateDefinitionSlots = {
 
 export type ContributorListTemplateInstance = Node & Renderable & Sluggable & TemplateHasContributionList & TemplateInstance & {
   __typename?: 'ContributorListTemplateInstance';
+  /**
+   * Whether all slots in this template are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   /**
    * The list of contributions to render as part of this template's content.
    *
@@ -5273,6 +5310,11 @@ export type DescendantListTemplateDefinitionSlots = {
 
 export type DescendantListTemplateInstance = Node & Renderable & Sluggable & TemplateHasEntityList & TemplateHasSeeAllOrdering & TemplateInstance & {
   __typename?: 'DescendantListTemplateInstance';
+  /**
+   * Whether all slots in this template are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * Load the associated definition for this template.
@@ -5719,6 +5761,11 @@ export type DetailTemplateDefinitionSlots = {
 
 export type DetailTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'DetailTemplateInstance';
+  /**
+   * Whether all slots in this template are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * Load the associated definition for this template.
@@ -7156,6 +7203,11 @@ export type HeroLayoutInstance = LayoutInstance & Node & Renderable & Sluggable 
    *
    */
   allHidden: Scalars['Boolean']['output'];
+  /**
+   * Whether all slots in all template instances in this layout are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * The associated entity for this layout instance.
@@ -7245,6 +7297,11 @@ export type HeroTemplateDefinitionSlots = {
 
 export type HeroTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'HeroTemplateInstance';
+  /**
+   * Whether all slots in this template are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * Load the associated definition for this template.
@@ -8346,6 +8403,13 @@ export type ItemContribution = Contribution & ContributionBase & Node & Sluggabl
   /** A potentially-overridden display name value for all contributor types */
   displayName: Scalars['String']['output'];
   id: Scalars['ID']['output'];
+  /**
+   * An optional sorting discriminator to decide which contribution ranks higher.
+   *
+   * Applies _after_ contribution role ranking.
+   *
+   */
+  innerPosition?: Maybe<Scalars['Int']['output']>;
   item: Item;
   /** A potentially-overridden value from organization contributors */
   location?: Maybe<Scalars['String']['output']>;
@@ -8353,8 +8417,10 @@ export type ItemContribution = Contribution & ContributionBase & Node & Sluggabl
   /**
    * An optional sorting discriminator to decide which contribution ranks higher.
    *
+   * Applies _before_ contribution role ranking, superseding everything else.
+   *
    */
-  position?: Maybe<Scalars['Int']['output']>;
+  outerPosition?: Maybe<Scalars['Int']['output']>;
   /**
    * An arbitrary text value describing the role the contributor had
    * @deprecated Use `roleLabel` instead.
@@ -8421,6 +8487,11 @@ export type LayoutInstance = {
    *
    */
   allHidden: Scalars['Boolean']['output'];
+  /**
+   * Whether all slots in all template instances in this layout are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   /**
    * The associated entity for this layout instance.
    *
@@ -8695,6 +8766,11 @@ export type LinkListTemplateDefinitionSlots = {
 
 export type LinkListTemplateInstance = Node & Renderable & Sluggable & TemplateHasEntityList & TemplateHasSeeAllOrdering & TemplateInstance & {
   __typename?: 'LinkListTemplateInstance';
+  /**
+   * Whether all slots in this template are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * Load the associated definition for this template.
@@ -8877,6 +8953,11 @@ export type ListItemLayoutInstance = LayoutInstance & Node & Renderable & Slugga
    *
    */
   allHidden: Scalars['Boolean']['output'];
+  /**
+   * Whether all slots in all template instances in this layout are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * The associated entity for this layout instance.
@@ -9037,6 +9118,11 @@ export type ListItemTemplateDefinitionSlots = {
 
 export type ListItemTemplateInstance = Node & Renderable & Sluggable & TemplateHasEntityList & TemplateInstance & {
   __typename?: 'ListItemTemplateInstance';
+  /**
+   * Whether all slots in this template are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * Load the associated definition for this template.
@@ -9120,6 +9206,11 @@ export type MainLayoutInstance = LayoutInstance & Node & Renderable & Sluggable 
    *
    */
   allHidden: Scalars['Boolean']['output'];
+  /**
+   * Whether all slots in all template instances in this layout are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * The associated entity for this layout instance.
@@ -9285,6 +9376,11 @@ export type MetadataLayoutInstance = LayoutInstance & Node & Renderable & Slugga
    *
    */
   allHidden: Scalars['Boolean']['output'];
+  /**
+   * Whether all slots in all template instances in this layout are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * The associated entity for this layout instance.
@@ -9352,6 +9448,11 @@ export type MetadataTemplateDefinitionSlots = {
 
 export type MetadataTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'MetadataTemplateInstance';
+  /**
+   * Whether all slots in this template are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * Load the associated definition for this template.
@@ -10248,6 +10349,11 @@ export type NavigationLayoutInstance = LayoutInstance & Node & Renderable & Slug
    *
    */
   allHidden: Scalars['Boolean']['output'];
+  /**
+   * Whether all slots in all template instances in this layout are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * The associated entity for this layout instance.
@@ -10311,6 +10417,11 @@ export type NavigationTemplateDefinitionSlots = {
 
 export type NavigationTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'NavigationTemplateInstance';
+  /**
+   * Whether all slots in this template are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * Load the associated definition for this template.
@@ -10983,6 +11094,11 @@ export type OrderingTemplateDefinitionSlots = {
 
 export type OrderingTemplateInstance = Node & Renderable & Sluggable & TemplateHasOrderingPair & TemplateInstance & {
   __typename?: 'OrderingTemplateInstance';
+  /**
+   * Whether all slots in this template are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * Load the associated definition for this template.
@@ -11299,6 +11415,11 @@ export type PageListTemplateDefinitionSlots = {
 
 export type PageListTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'PageListTemplateInstance';
+  /**
+   * Whether all slots in this template are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * Load the associated definition for this template.
@@ -13546,6 +13667,11 @@ export type SupplementaryLayoutInstance = LayoutInstance & Node & Renderable & S
    *
    */
   allHidden: Scalars['Boolean']['output'];
+  /**
+   * Whether all slots in all template instances in this layout are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * The associated entity for this layout instance.
@@ -13610,6 +13736,11 @@ export type SupplementaryTemplateDefinitionSlots = {
 
 export type SupplementaryTemplateInstance = Node & Renderable & Sluggable & TemplateInstance & {
   __typename?: 'SupplementaryTemplateInstance';
+  /**
+   * Whether all slots in this template are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * Load the associated definition for this template.
@@ -13786,14 +13917,23 @@ export type TemplateContribution = ContributionBase & {
   contributorKind: ContributorKind;
   /** A potentially-overridden display name value for all contributor types */
   displayName: Scalars['String']['output'];
+  /**
+   * An optional sorting discriminator to decide which contribution ranks higher.
+   *
+   * Applies _after_ contribution role ranking.
+   *
+   */
+  innerPosition?: Maybe<Scalars['Int']['output']>;
   /** A potentially-overridden value from organization contributors */
   location?: Maybe<Scalars['String']['output']>;
   metadata: ContributionMetadata;
   /**
    * An optional sorting discriminator to decide which contribution ranks higher.
    *
+   * Applies _before_ contribution role ranking, superseding everything else.
+   *
    */
-  position?: Maybe<Scalars['Int']['output']>;
+  outerPosition?: Maybe<Scalars['Int']['output']>;
   /**
    * An arbitrary text value describing the role the contributor had
    * @deprecated Use `roleLabel` instead.
@@ -13949,6 +14089,11 @@ export type TemplateHasSeeAllOrdering = {
  *
  */
 export type TemplateInstance = {
+  /**
+   * Whether all slots in this template are empty.
+   *
+   */
+  allSlotsEmpty: Scalars['Boolean']['output'];
   /**
    * The associated entity for this template instance.
    *
@@ -14165,6 +14310,11 @@ export type TemplateSlotBlockInstance = TemplateSlotInstance & {
    */
   content?: Maybe<Scalars['String']['output']>;
   /**
+   * Whether this slot is empty.
+   *
+   */
+  empty: Scalars['Boolean']['output'];
+  /**
    * Any errors for this slot that occurred during rendering, if applicable.
    *
    */
@@ -14277,6 +14427,11 @@ export type TemplateSlotInlineInstance = TemplateSlotInstance & {
    */
   content?: Maybe<Scalars['String']['output']>;
   /**
+   * Whether this slot is empty.
+   *
+   */
+  empty: Scalars['Boolean']['output'];
+  /**
    * Any errors for this slot that occurred during rendering, if applicable.
    *
    */
@@ -14312,6 +14467,11 @@ export type TemplateSlotInstance = {
    *
    */
   content?: Maybe<Scalars['String']['output']>;
+  /**
+   * Whether this slot is empty.
+   *
+   */
+  empty: Scalars['Boolean']['output'];
   /**
    * Any errors for this slot that occurred during rendering, if applicable.
    *
@@ -15399,15 +15559,24 @@ export type UpsertContributionInput = {
   contributableId: Scalars['ID']['input'];
   contributorId: Scalars['ID']['input'];
   /**
+   * "Inner" sorting discriminator for the contribution. If not provided, it will keep whatever is there.
+   *
+   * It applies _after_ the contribution role.
+   *
+   */
+  innerPosition?: InputMaybe<Scalars['Int']['input']>;
+  /**
    * Metadata for the contribution. If not provided, it will keep whatever is there.
    *
    */
   metadata?: InputMaybe<ContributionMetadataInput>;
   /**
-   * Sorting discriminator for the contribution. If not provided, it will keep whatever is there.
+   * "Outer" sorting discriminator for the contribution. If not provided, it will keep whatever is there.
+   *
+   * It applies _before_ the contribution role.
    *
    */
-  position?: InputMaybe<Scalars['Int']['input']>;
+  outerPosition?: InputMaybe<Scalars['Int']['input']>;
   /** If not provided, it will use the default role. */
   roleId?: InputMaybe<Scalars['ID']['input']>;
 };
@@ -18021,6 +18190,7 @@ export type BlurbTemplateDefinitionSlotsResolvers<ContextType = any, ParentType 
 };
 
 export type BlurbTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['BlurbTemplateInstance'] = ResolversParentTypes['BlurbTemplateInstance']> = {
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['BlurbTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
@@ -18253,9 +18423,10 @@ export type CollectionContributionResolvers<ContextType = any, ParentType extend
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   displayName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  innerPosition?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   metadata?: Resolver<ResolversTypes['ContributionMetadata'], ParentType, ContextType>;
-  position?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  outerPosition?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   role?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   roleLabel?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
@@ -18402,9 +18573,10 @@ export type ContributionResolvers<ContextType = any, ParentType extends Resolver
   contributor?: Resolver<ResolversTypes['AnyContributor'], ParentType, ContextType>;
   contributorKind?: Resolver<ResolversTypes['ContributorKind'], ParentType, ContextType>;
   displayName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  innerPosition?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   metadata?: Resolver<ResolversTypes['ContributionMetadata'], ParentType, ContextType>;
-  position?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  outerPosition?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   role?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   roleLabel?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -18416,9 +18588,10 @@ export type ContributionBaseResolvers<ContextType = any, ParentType extends Reso
   contributionRole?: Resolver<ResolversTypes['ControlledVocabularyItem'], ParentType, ContextType>;
   contributorKind?: Resolver<ResolversTypes['ContributorKind'], ParentType, ContextType>;
   displayName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  innerPosition?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   metadata?: Resolver<ResolversTypes['ContributionMetadata'], ParentType, ContextType>;
-  position?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  outerPosition?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   role?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   roleLabel?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -18578,6 +18751,7 @@ export type ContributorListTemplateDefinitionSlotsResolvers<ContextType = any, P
 };
 
 export type ContributorListTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['ContributorListTemplateInstance'] = ResolversParentTypes['ContributorListTemplateInstance']> = {
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   contributionList?: Resolver<ResolversTypes['TemplateContributionList'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['ContributorListTemplateDefinition'], ParentType, ContextType>;
@@ -18943,6 +19117,7 @@ export type DescendantListTemplateDefinitionSlotsResolvers<ContextType = any, Pa
 };
 
 export type DescendantListTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['DescendantListTemplateInstance'] = ResolversParentTypes['DescendantListTemplateInstance']> = {
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['DescendantListTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
@@ -19126,6 +19301,7 @@ export type DetailTemplateDefinitionSlotsResolvers<ContextType = any, ParentType
 };
 
 export type DetailTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['DetailTemplateInstance'] = ResolversParentTypes['DetailTemplateInstance']> = {
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['DetailTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
@@ -19503,6 +19679,7 @@ export type HeroLayoutDefinitionResolvers<ContextType = any, ParentType extends 
 
 export type HeroLayoutInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['HeroLayoutInstance'] = ResolversParentTypes['HeroLayoutInstance']> = {
   allHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -19559,6 +19736,7 @@ export type HeroTemplateDefinitionSlotsResolvers<ContextType = any, ParentType e
 };
 
 export type HeroTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['HeroTemplateInstance'] = ResolversParentTypes['HeroTemplateInstance']> = {
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['HeroTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
@@ -19842,10 +20020,11 @@ export type ItemContributionResolvers<ContextType = any, ParentType extends Reso
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   displayName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  innerPosition?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   item?: Resolver<ResolversTypes['Item'], ParentType, ContextType>;
   location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   metadata?: Resolver<ResolversTypes['ContributionMetadata'], ParentType, ContextType>;
-  position?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  outerPosition?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   role?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   roleLabel?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
@@ -19889,6 +20068,7 @@ export type LayoutDefinitionResolvers<ContextType = any, ParentType extends Reso
 export type LayoutInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['LayoutInstance'] = ResolversParentTypes['LayoutInstance']> = {
   __resolveType: TypeResolveFn<'HeroLayoutInstance' | 'ListItemLayoutInstance' | 'MainLayoutInstance' | 'MetadataLayoutInstance' | 'NavigationLayoutInstance' | 'SupplementaryLayoutInstance', ParentType, ContextType>;
   allHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
@@ -19950,6 +20130,7 @@ export type LinkListTemplateDefinitionSlotsResolvers<ContextType = any, ParentTy
 };
 
 export type LinkListTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['LinkListTemplateInstance'] = ResolversParentTypes['LinkListTemplateInstance']> = {
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['LinkListTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
@@ -20016,6 +20197,7 @@ export type ListItemLayoutDefinitionResolvers<ContextType = any, ParentType exte
 
 export type ListItemLayoutInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['ListItemLayoutInstance'] = ResolversParentTypes['ListItemLayoutInstance']> = {
   allHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -20070,6 +20252,7 @@ export type ListItemTemplateDefinitionSlotsResolvers<ContextType = any, ParentTy
 };
 
 export type ListItemTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['ListItemTemplateInstance'] = ResolversParentTypes['ListItemTemplateInstance']> = {
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['ListItemTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
@@ -20115,6 +20298,7 @@ export type MainLayoutDefinitionResolvers<ContextType = any, ParentType extends 
 
 export type MainLayoutInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['MainLayoutInstance'] = ResolversParentTypes['MainLayoutInstance']> = {
   allHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -20159,6 +20343,7 @@ export type MetadataLayoutDefinitionResolvers<ContextType = any, ParentType exte
 
 export type MetadataLayoutInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['MetadataLayoutInstance'] = ResolversParentTypes['MetadataLayoutInstance']> = {
   allHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -20194,6 +20379,7 @@ export type MetadataTemplateDefinitionSlotsResolvers<ContextType = any, ParentTy
 };
 
 export type MetadataTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['MetadataTemplateInstance'] = ResolversParentTypes['MetadataTemplateInstance']> = {
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['MetadataTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
@@ -20325,6 +20511,7 @@ export type NavigationLayoutDefinitionResolvers<ContextType = any, ParentType ex
 
 export type NavigationLayoutInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['NavigationLayoutInstance'] = ResolversParentTypes['NavigationLayoutInstance']> = {
   allHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -20356,6 +20543,7 @@ export type NavigationTemplateDefinitionSlotsResolvers<ContextType = any, Parent
 };
 
 export type NavigationTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['NavigationTemplateInstance'] = ResolversParentTypes['NavigationTemplateInstance']> = {
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['NavigationTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
@@ -20542,6 +20730,7 @@ export type OrderingTemplateDefinitionSlotsResolvers<ContextType = any, ParentTy
 };
 
 export type OrderingTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['OrderingTemplateInstance'] = ResolversParentTypes['OrderingTemplateInstance']> = {
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['OrderingTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
@@ -20654,6 +20843,7 @@ export type PageListTemplateDefinitionSlotsResolvers<ContextType = any, ParentTy
 };
 
 export type PageListTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['PageListTemplateInstance'] = ResolversParentTypes['PageListTemplateInstance']> = {
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['PageListTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
@@ -21223,6 +21413,7 @@ export type SupplementaryLayoutDefinitionResolvers<ContextType = any, ParentType
 
 export type SupplementaryLayoutInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['SupplementaryLayoutInstance'] = ResolversParentTypes['SupplementaryLayoutInstance']> = {
   allHidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -21255,6 +21446,7 @@ export type SupplementaryTemplateDefinitionSlotsResolvers<ContextType = any, Par
 };
 
 export type SupplementaryTemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['SupplementaryTemplateInstance'] = ResolversParentTypes['SupplementaryTemplateInstance']> = {
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   definition?: Resolver<ResolversTypes['SupplementaryTemplateDefinition'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
@@ -21302,9 +21494,10 @@ export type TemplateContributionResolvers<ContextType = any, ParentType extends 
   contributor?: Resolver<ResolversTypes['ContributorBase'], ParentType, ContextType>;
   contributorKind?: Resolver<ResolversTypes['ContributorKind'], ParentType, ContextType>;
   displayName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  innerPosition?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   location?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   metadata?: Resolver<ResolversTypes['ContributionMetadata'], ParentType, ContextType>;
-  position?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  outerPosition?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   role?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   roleLabel?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -21355,6 +21548,7 @@ export type TemplateHasSeeAllOrderingResolvers<ContextType = any, ParentType ext
 
 export type TemplateInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateInstance'] = ResolversParentTypes['TemplateInstance']> = {
   __resolveType: TypeResolveFn<'BlurbTemplateInstance' | 'ContributorListTemplateInstance' | 'DescendantListTemplateInstance' | 'DetailTemplateInstance' | 'HeroTemplateInstance' | 'LinkListTemplateInstance' | 'ListItemTemplateInstance' | 'MetadataTemplateInstance' | 'NavigationTemplateInstance' | 'OrderingTemplateInstance' | 'PageListTemplateInstance' | 'SupplementaryTemplateInstance', ParentType, ContextType>;
+  allSlotsEmpty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   entity?: Resolver<ResolversTypes['AnyEntity'], ParentType, ContextType>;
   hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
@@ -21388,6 +21582,7 @@ export type TemplateSlotBlockDefinitionResolvers<ContextType = any, ParentType e
 
 export type TemplateSlotBlockInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateSlotBlockInstance'] = ResolversParentTypes['TemplateSlotBlockInstance']> = {
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  empty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   errors?: Resolver<Maybe<Array<ResolversTypes['TemplateSlotError']>>, ParentType, ContextType>;
   hidesTemplate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['TemplateSlotKind'], ParentType, ContextType>;
@@ -21418,6 +21613,7 @@ export type TemplateSlotInlineDefinitionResolvers<ContextType = any, ParentType 
 
 export type TemplateSlotInlineInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateSlotInlineInstance'] = ResolversParentTypes['TemplateSlotInlineInstance']> = {
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  empty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   errors?: Resolver<Maybe<Array<ResolversTypes['TemplateSlotError']>>, ParentType, ContextType>;
   hidesTemplate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['TemplateSlotKind'], ParentType, ContextType>;
@@ -21428,6 +21624,7 @@ export type TemplateSlotInlineInstanceResolvers<ContextType = any, ParentType ex
 export type TemplateSlotInstanceResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateSlotInstance'] = ResolversParentTypes['TemplateSlotInstance']> = {
   __resolveType: TypeResolveFn<'TemplateSlotBlockInstance' | 'TemplateSlotInlineInstance', ParentType, ContextType>;
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  empty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   errors?: Resolver<Maybe<Array<ResolversTypes['TemplateSlotError']>>, ParentType, ContextType>;
   hidesTemplate?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['TemplateSlotKind'], ParentType, ContextType>;
