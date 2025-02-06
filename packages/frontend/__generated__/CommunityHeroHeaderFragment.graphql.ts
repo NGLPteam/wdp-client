@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9e067f22785787cee92e86d75cf3656c>>
+ * @generated SignedSource<<a841575bf3cb13510a6ed97dfb0eb769>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,11 @@ import { FragmentRefs } from "relay-runtime";
 export type CommunityHeroHeaderFragment$data = {
   readonly entity: {
     readonly heroImage?: {
+      readonly hero: {
+        readonly webp: {
+          readonly url: string | null | undefined;
+        };
+      };
       readonly " $fragmentSpreads": FragmentRefs<"ImageHeroTemplateFragment">;
     };
     readonly heroImageLayout?: HeroImageLayout;
@@ -82,6 +87,35 @@ return {
                   "args": null,
                   "kind": "FragmentSpread",
                   "name": "ImageHeroTemplateFragment"
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "ImageSize",
+                  "kind": "LinkedField",
+                  "name": "hero",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "concreteType": "ImageDerivative",
+                      "kind": "LinkedField",
+                      "name": "webp",
+                      "plural": false,
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "kind": "ScalarField",
+                          "name": "url",
+                          "storageKey": null
+                        }
+                      ],
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
                 }
               ],
               "storageKey": null
@@ -194,6 +228,6 @@ return {
 };
 })();
 
-(node as any).hash = "1116880b902a4675e9d9620fd45d5bba";
+(node as any).hash = "e99eb1406e23e44eccc064ae109680f5";
 
 export default node;

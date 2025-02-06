@@ -40,7 +40,7 @@ export default function CommunityHeroHeader({
     ((slots.header && !slots.header.empty) ||
       (slots.headerSummary && !slots.headerSummary.empty));
 
-  const hasHeroImage = !!entity?.heroImage;
+  const hasHeroImage = !!entity?.heroImage?.hero?.webp?.url;
 
   const bgClass = hasHeroImage
     ? showHeroImage && heroImageLayout === "ONE_COLUMN"
@@ -77,6 +77,11 @@ const fragment = graphql`
       ... on Community {
         heroImage {
           ...ImageHeroTemplateFragment
+          hero {
+            webp {
+              url
+            }
+          }
         }
         heroImageLayout
       }
