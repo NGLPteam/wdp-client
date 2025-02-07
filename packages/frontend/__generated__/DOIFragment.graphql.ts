@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c2e34a012f97d3a214559fbb6faf3964>>
+ * @generated SignedSource<<b9799b1cec30def1645ee5a1930d65ec>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,10 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type DOIFragment$data = {
-  readonly doi: string | null | undefined;
+  readonly doiData: {
+    readonly doi: string | null | undefined;
+    readonly url: string | null | undefined;
+  };
   readonly " $fragmentType": "DOIFragment";
 };
 export type DOIFragment$key = {
@@ -28,8 +31,26 @@ const node: ReaderFragment = {
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "doi",
+      "concreteType": "DOIData",
+      "kind": "LinkedField",
+      "name": "doiData",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "doi",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "url",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],
@@ -37,6 +58,6 @@ const node: ReaderFragment = {
   "abstractKey": "__isHasDOI"
 };
 
-(node as any).hash = "586c0e3d3461b608c941d3acf6b5f731";
+(node as any).hash = "f940e9049e4eaa7f821c94b971c2179f";
 
 export default node;
