@@ -1514,6 +1514,17 @@ export type ChildEntity = {
    *
    */
   doi?: Maybe<Scalars['String']['output']>;
+  /**
+   * The data sanitized from `rawDOI`, including things like the URL and host.
+   *
+   */
+  doiData: DoiData;
+  /**
+   * For use in the admin, something to signify that data has been set on `rawDOI`
+   * that could not be properly assigned to `doi`.
+   *
+   */
+  hasWeirdDOI: Scalars['Boolean']['output'];
   /** A hero image for the entity, suitable for displaying in page headers */
   heroImage: ImageAttachment;
   /** Configurable metadata for the hero_image attachment */
@@ -1579,6 +1590,12 @@ export type ChildEntity = {
   permissions: Array<PermissionGrant>;
   /** The date this entity was published */
   published: VariablePrecisionDate;
+  /**
+   * The value that was set on the entity. It will be validated and sanitized
+   * and be set on `doi` if possible.
+   *
+   */
+  rawDOI?: Maybe<Scalars['String']['output']>;
   root: Scalars['Boolean']['output'];
   schemaDefinition: SchemaDefinition;
   /** A list of schema properties associated with this instance or version. */
@@ -2004,6 +2021,11 @@ export type Collection = Accessible & Attachable & Attributable & ChildEntity & 
    *
    */
   doi?: Maybe<Scalars['String']['output']>;
+  /**
+   * The data sanitized from `rawDOI`, including things like the URL and host.
+   *
+   */
+  doiData: DoiData;
   entityViews: AnalyticsEventCountSummary;
   entityViewsByRegion: AnalyticsRegionCountSummary;
   /** Retrieve the first matching collection beneath this collection. */
@@ -2014,6 +2036,12 @@ export type Collection = Accessible & Attachable & Attributable & ChildEntity & 
   hasCollections: Scalars['Boolean']['output'];
   /** Whether this collection has any child items */
   hasItems: Scalars['Boolean']['output'];
+  /**
+   * For use in the admin, something to signify that data has been set on `rawDOI`
+   * that could not be properly assigned to `doi`.
+   *
+   */
+  hasWeirdDOI: Scalars['Boolean']['output'];
   /** A hero image for the entity, suitable for displaying in page headers */
   heroImage: ImageAttachment;
   /** Configurable metadata for the hero_image attachment */
@@ -2082,6 +2110,12 @@ export type Collection = Accessible & Attachable & Attributable & ChildEntity & 
   permissions: Array<PermissionGrant>;
   /** The date this entity was published */
   published: VariablePrecisionDate;
+  /**
+   * The value that was set on the entity. It will be validated and sanitized
+   * and be set on `doi` if possible.
+   *
+   */
+  rawDOI?: Maybe<Scalars['String']['output']>;
   /** Retrieve linked collections of the same schema type */
   relatedCollections: CollectionConnection;
   root: Scalars['Boolean']['output'];
@@ -4576,7 +4610,12 @@ export type CreateAssetPayload = StandardMutationPayload & {
 export type CreateCollectionInput = {
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
-  /** Digital Object Identifier (see: https://doi.org) */
+  /**
+   * Digital Object Identifier (see: https://doi.org)
+   *
+   * **Note**: This actually gets assigned to the entity's `rawDOI`, and will be sanitized to get set on `DOI`.
+   *
+   */
   doi?: InputMaybe<Scalars['String']['input']>;
   /**
    * A reference to an uploaded image in Tus.
@@ -4702,7 +4741,12 @@ export type CreateCommunityPayload = StandardMutationPayload & {
 export type CreateItemInput = {
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
-  /** Digital Object Identifier (see: https://doi.org) */
+  /**
+   * Digital Object Identifier (see: https://doi.org)
+   *
+   * **Note**: This actually gets assigned to the entity's `rawDOI`, and will be sanitized to get set on `DOI`.
+   *
+   */
   doi?: InputMaybe<Scalars['String']['input']>;
   /**
    * A reference to an uploaded image in Tus.
@@ -4950,6 +4994,34 @@ export type CreateRolePayload = StandardMutationPayload & {
   /** Not presently used */
   haltCode?: Maybe<Scalars['String']['output']>;
   role?: Maybe<Role>;
+};
+
+/**
+ * Validated and sanitized DOI information for an entity.
+ *
+ */
+export type DoiData = {
+  __typename?: 'DOIData';
+  /**
+   * A pristine, validated DOI value, absent any URL information.
+   *
+   */
+  doi?: Maybe<Scalars['String']['output']>;
+  /**
+   * The host that this DOI uses. Will be `"doi.org"` in most cases.
+   *
+   */
+  host?: Maybe<Scalars['String']['output']>;
+  /**
+   * Whether the DOI is ok and valid.
+   *
+   */
+  ok: Scalars['Boolean']['output'];
+  /**
+   * The full URL for the DOI.
+   *
+   */
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 /**
@@ -7079,6 +7151,23 @@ export type HasDoi = {
    *
    */
   doi?: Maybe<Scalars['String']['output']>;
+  /**
+   * The data sanitized from `rawDOI`, including things like the URL and host.
+   *
+   */
+  doiData: DoiData;
+  /**
+   * For use in the admin, something to signify that data has been set on `rawDOI`
+   * that could not be properly assigned to `doi`.
+   *
+   */
+  hasWeirdDOI: Scalars['Boolean']['output'];
+  /**
+   * The value that was set on the entity. It will be validated and sanitized
+   * and be set on `doi` if possible.
+   *
+   */
+  rawDOI?: Maybe<Scalars['String']['output']>;
 };
 
 /**
@@ -7894,12 +7983,23 @@ export type Item = Accessible & Attachable & Attributable & ChildEntity & Contri
    *
    */
   doi?: Maybe<Scalars['String']['output']>;
+  /**
+   * The data sanitized from `rawDOI`, including things like the URL and host.
+   *
+   */
+  doiData: DoiData;
   entityViews: AnalyticsEventCountSummary;
   entityViewsByRegion: AnalyticsRegionCountSummary;
   /** Retrieve the first matching item beneath this item. */
   firstItem?: Maybe<Item>;
   /** Whether this item has any child items */
   hasItems: Scalars['Boolean']['output'];
+  /**
+   * For use in the admin, something to signify that data has been set on `rawDOI`
+   * that could not be properly assigned to `doi`.
+   *
+   */
+  hasWeirdDOI: Scalars['Boolean']['output'];
   /** A hero image for the entity, suitable for displaying in page headers */
   heroImage: ImageAttachment;
   /** Configurable metadata for the hero_image attachment */
@@ -7969,6 +8069,12 @@ export type Item = Accessible & Attachable & Attributable & ChildEntity & Contri
   permissions: Array<PermissionGrant>;
   /** The date this entity was published */
   published: VariablePrecisionDate;
+  /**
+   * The value that was set on the entity. It will be validated and sanitized
+   * and be set on `doi` if possible.
+   *
+   */
+  rawDOI?: Maybe<Scalars['String']['output']>;
   /** Retrieve linked items of the same schema type */
   relatedItems: ItemConnection;
   root: Scalars['Boolean']['output'];
@@ -10534,7 +10640,7 @@ export type OrderDefinitionInput = {
 };
 
 /** An ordering that belongs to an entity and arranges its children in a pre-configured way */
-export type Ordering = Node & Sluggable & {
+export type Ordering = Node & Searchable & Sluggable & {
   __typename?: 'Ordering';
   children: OrderingEntryConnection;
   /** A constant ordering should be treated as not being able to invert itself. */
@@ -10582,6 +10688,8 @@ export type Ordering = Node & Sluggable & {
    *
    */
   render: OrderingRenderDefinition;
+  /** Search from this level of the API using it as the origin */
+  search: SearchScope;
   select: OrderingSelectDefinition;
   slug: Scalars['Slug']['output'];
   /**
@@ -10607,6 +10715,13 @@ export type OrderingChildrenArgs = {
   page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: InputMaybe<PageDirection>;
   perPage?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** An ordering that belongs to an entity and arranges its children in a pre-configured way */
+export type OrderingSearchArgs = {
+  maxDepth?: InputMaybe<Scalars['Int']['input']>;
+  visibility?: InputMaybe<EntityVisibilityFilter>;
 };
 
 /**
@@ -13130,6 +13245,7 @@ export type SearchOperator =
 export type SearchOriginType =
   | 'ENTITY'
   | 'GLOBAL'
+  | 'ORDERING'
   | 'SCHEMA'
   | '%future added value';
 
@@ -13169,11 +13285,35 @@ export type SearchPredicateInput = {
  */
 export type SearchResult = {
   __typename?: 'SearchResult';
+  /**
+   * A reference to the actual entity returned by the search query.
+   *
+   */
   entity: AnyEntity;
+  /**
+   * The encoded ID for the entity itself, not a special ID for the search result record.
+   *
+   */
   id: Scalars['ID']['output'];
+  /**
+   * The kind of entity returned by the search results.
+   *
+   */
   kind: EntityKind;
+  /**
+   * The schema version of the returned entity.
+   *
+   */
   schemaVersion: SchemaVersion;
+  /**
+   * The slug for the entity.
+   *
+   */
   slug: Scalars['Slug']['output'];
+  /**
+   * The title for the entity.
+   *
+   */
   title: Scalars['String']['output'];
 };
 
@@ -14928,7 +15068,12 @@ export type UpdateCollectionInput = {
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   collectionId: Scalars['ID']['input'];
-  /** Digital Object Identifier (see: https://doi.org) */
+  /**
+   * Digital Object Identifier (see: https://doi.org)
+   *
+   * **Note**: This actually gets assigned to the entity's `rawDOI`, and will be sanitized to get set on `DOI`.
+   *
+   */
   doi?: InputMaybe<Scalars['String']['input']>;
   /**
    * A reference to an uploaded image in Tus.
@@ -15170,7 +15315,12 @@ export type UpdateItemInput = {
   clearThumbnail?: InputMaybe<Scalars['Boolean']['input']>;
   /** A unique identifier for the client performing the mutation. */
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
-  /** Digital Object Identifier (see: https://doi.org) */
+  /**
+   * Digital Object Identifier (see: https://doi.org)
+   *
+   * **Note**: This actually gets assigned to the entity's `rawDOI`, and will be sanitized to get set on `DOI`.
+   *
+   */
   doi?: InputMaybe<Scalars['String']['input']>;
   /**
    * A reference to an uploaded image in Tus.
@@ -16504,7 +16654,7 @@ export type ResolversInterfaceTypes<RefType extends Record<string, unknown>> = {
   ScalarProperty: ( Omit<AssetProperty, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( Omit<AssetsProperty, 'assets'> & { assets: Array<RefType['AnyAsset']> } ) | ( BooleanProperty ) | ( Omit<ContributorProperty, 'contributor'> & { contributor?: Maybe<RefType['AnyContributor']> } ) | ( Omit<ContributorsProperty, 'contributors'> & { contributors: Array<RefType['AnyContributor']> } ) | ( ControlledVocabulariesProperty ) | ( ControlledVocabularyProperty ) | ( DateProperty ) | ( EmailProperty ) | ( Omit<EntitiesProperty, 'entities'> & { entities: Array<RefType['AnyEntity']> } ) | ( Omit<EntityProperty, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( FloatProperty ) | ( FullTextProperty ) | ( IntegerProperty ) | ( MarkdownProperty ) | ( MultiselectProperty ) | ( SelectProperty ) | ( StringProperty ) | ( TagsProperty ) | ( TimestampProperty ) | ( UrlProperty ) | ( UnknownProperty ) | ( VariableDateProperty );
   SchemaInstance: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
   SchemaProperty: ( Omit<AssetProperty, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( Omit<AssetsProperty, 'assets'> & { assets: Array<RefType['AnyAsset']> } ) | ( BooleanProperty ) | ( Omit<ContributorProperty, 'contributor'> & { contributor?: Maybe<RefType['AnyContributor']> } ) | ( Omit<ContributorsProperty, 'contributors'> & { contributors: Array<RefType['AnyContributor']> } ) | ( ControlledVocabulariesProperty ) | ( ControlledVocabularyProperty ) | ( DateProperty ) | ( EmailProperty ) | ( Omit<EntitiesProperty, 'entities'> & { entities: Array<RefType['AnyEntity']> } ) | ( Omit<EntityProperty, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( FloatProperty ) | ( FullTextProperty ) | ( Omit<GroupProperty, 'properties'> & { properties: Array<RefType['AnyScalarProperty']> } ) | ( IntegerProperty ) | ( MarkdownProperty ) | ( MultiselectProperty ) | ( SelectProperty ) | ( StringProperty ) | ( TagsProperty ) | ( TimestampProperty ) | ( UrlProperty ) | ( UnknownProperty ) | ( VariableDateProperty );
-  Searchable: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Query, 'asset' | 'contributor' | 'contributorLookup' | 'orderingPaths'> & { asset?: Maybe<RefType['AnyAsset']>, contributor?: Maybe<RefType['AnyContributor']>, contributorLookup?: Maybe<RefType['AnyContributor']>, orderingPaths: Array<RefType['AnyOrderingPath']> } ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } );
+  Searchable: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Query, 'asset' | 'contributor' | 'contributorLookup' | 'orderingPaths'> & { asset?: Maybe<RefType['AnyAsset']>, contributor?: Maybe<RefType['AnyContributor']>, contributorLookup?: Maybe<RefType['AnyContributor']>, orderingPaths: Array<RefType['AnyOrderingPath']> } ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } );
   SearchableProperty: ( BooleanProperty ) | ( DateProperty ) | ( FloatProperty ) | ( FullTextProperty ) | ( IntegerProperty ) | ( MarkdownProperty ) | ( MultiselectProperty ) | ( SearchableCoreProperty ) | ( SelectProperty ) | ( StringProperty ) | ( TimestampProperty ) | ( VariableDateProperty );
   Sluggable: ( Omit<Announcement, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( BlurbTemplateDefinition ) | ( Omit<BlurbTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( CollectionAttribution ) | ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<RefType['AnyUserAccessGrant']> } ) | ( ContributionRoleConfiguration ) | ( ContributorCollectionAttribution ) | ( ContributorItemAttribution ) | ( ContributorListTemplateDefinition ) | ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( ControlledVocabulary ) | ( ControlledVocabularyItem ) | ( ControlledVocabularySource ) | ( DescendantListTemplateDefinition ) | ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( DetailTemplateDefinition ) | ( Omit<DetailTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<EntityLink, 'source' | 'target'> & { source: RefType['AnyEntity'], target: RefType['AnyEntity'] } ) | ( Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyHeroTemplateDefinition']> } ) | ( Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyHeroTemplateInstance']> } ) | ( HeroTemplateDefinition ) | ( Omit<HeroTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( ItemAttribution ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( LinkListTemplateDefinition ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyListItemTemplateDefinition']> } ) | ( Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyListItemTemplateInstance']> } ) | ( ListItemTemplateDefinition ) | ( Omit<ListItemTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<MainLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMainTemplateDefinition']> } ) | ( Omit<MainLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMainTemplateInstance']> } ) | ( Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMetadataTemplateDefinition']> } ) | ( Omit<MetadataLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMetadataTemplateInstance']> } ) | ( MetadataTemplateDefinition ) | ( Omit<MetadataTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyNavigationTemplateDefinition']> } ) | ( Omit<NavigationLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyNavigationTemplateInstance']> } ) | ( NavigationTemplateDefinition ) | ( Omit<NavigationTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingEntry, 'entry'> & { entry: RefType['AnyOrderingEntry'] } ) | ( OrderingTemplateDefinition ) | ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( OrganizationContributor ) | ( PageListTemplateDefinition ) | ( Omit<PageListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PersonContributor ) | ( Role ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } ) | ( Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<RefType['AnySupplementaryTemplateDefinition']> } ) | ( Omit<SupplementaryLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnySupplementaryTemplateInstance']> } ) | ( SupplementaryTemplateDefinition ) | ( Omit<SupplementaryTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( User ) | ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( UserGroup ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
   StandardMutationPayload: ( Omit<AlterSchemaVersionPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ApplySchemaPropertiesPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ClearInitialOrderingPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( ControlledVocabularyDestroyPayload ) | ( ControlledVocabularySourceUpdatePayload ) | ( ControlledVocabularyUpsertPayload ) | ( CreateAnnouncementPayload ) | ( Omit<CreateAssetPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( CreateCollectionPayload ) | ( CreateCommunityPayload ) | ( CreateItemPayload ) | ( CreateOrderingPayload ) | ( CreateOrganizationContributorPayload ) | ( CreatePagePayload ) | ( CreatePersonContributorPayload ) | ( CreateRolePayload ) | ( DestroyAnnouncementPayload ) | ( DestroyAssetPayload ) | ( DestroyCollectionPayload ) | ( DestroyCommunityPayload ) | ( DestroyContributionPayload ) | ( DestroyContributorPayload ) | ( DestroyEntityLinkPayload ) | ( DestroyItemPayload ) | ( DestroyOrderingPayload ) | ( DestroyPagePayload ) | ( Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( LinkEntityPayload ) | ( PreviewSlotPayload ) | ( Omit<RenderLayoutsPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ReparentEntityPayload, 'child'> & { child?: Maybe<RefType['AnyChildEntity']> } ) | ( ResetOrderingPayload ) | ( Omit<RevokeAccessPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<SelectInitialOrderingPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( UpdateAnnouncementPayload ) | ( Omit<UpdateAssetAttachmentPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( Omit<UpdateAssetPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( UpdateCollectionPayload ) | ( UpdateCommunityPayload ) | ( Omit<UpdateContributionPayload, 'contribution'> & { contribution?: Maybe<RefType['AnyContribution']> } ) | ( UpdateGlobalConfigurationPayload ) | ( UpdateItemPayload ) | ( UpdateOrderingPayload ) | ( UpdateOrganizationContributorPayload ) | ( UpdatePagePayload ) | ( UpdatePersonContributorPayload ) | ( UpdateRolePayload ) | ( UpdateUserPayload ) | ( UpdateViewerSettingsPayload ) | ( Omit<UpsertContributionPayload, 'contribution'> & { contribution?: Maybe<RefType['AnyContribution']> } );
@@ -16702,6 +16852,7 @@ export type ResolversTypes = {
   CreatePersonContributorPayload: ResolverTypeWrapper<CreatePersonContributorPayload>;
   CreateRoleInput: CreateRoleInput;
   CreateRolePayload: ResolverTypeWrapper<CreateRolePayload>;
+  DOIData: ResolverTypeWrapper<DoiData>;
   DateEqualsOperatorInput: DateEqualsOperatorInput;
   DateFilterInput: DateFilterInput;
   DateGTEOperatorInput: DateGteOperatorInput;
@@ -17278,6 +17429,7 @@ export type ResolversParentTypes = {
   CreatePersonContributorPayload: CreatePersonContributorPayload;
   CreateRoleInput: CreateRoleInput;
   CreateRolePayload: CreateRolePayload;
+  DOIData: DoiData;
   DateEqualsOperatorInput: DateEqualsOperatorInput;
   DateFilterInput: DateFilterInput;
   DateGTEOperatorInput: DateGteOperatorInput;
@@ -18260,6 +18412,8 @@ export type ChildEntityResolvers<ContextType = any, ParentType extends Resolvers
   currentlyVisible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<ChildEntityDescendantsArgs, 'order' | 'pageDirection' | 'scope'>>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  doiData?: Resolver<ResolversTypes['DOIData'], ParentType, ContextType>;
+  hasWeirdDOI?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -18282,6 +18436,7 @@ export type ChildEntityResolvers<ContextType = any, ParentType extends Resolvers
   pages?: Resolver<ResolversTypes['PageConnection'], ParentType, ContextType, RequireFields<ChildEntityPagesArgs, 'pageDirection'>>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
   published?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
+  rawDOI?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   root?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
   schemaProperties?: Resolver<Array<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType>;
@@ -18340,12 +18495,14 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   currentlyVisible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<CollectionDescendantsArgs, 'order' | 'pageDirection' | 'scope'>>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  doiData?: Resolver<ResolversTypes['DOIData'], ParentType, ContextType>;
   entityViews?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<CollectionEntityViewsArgs, 'dateFilter' | 'precision'>>;
   entityViewsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<CollectionEntityViewsByRegionArgs, 'dateFilter' | 'usOnly'>>;
   firstCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<CollectionFirstCollectionArgs, 'nodeFilter' | 'order'>>;
   firstItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<CollectionFirstItemArgs, 'nodeFilter' | 'order'>>;
   hasCollections?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   hasItems?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasWeirdDOI?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -18371,6 +18528,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   parent?: Resolver<Maybe<ResolversTypes['CollectionParent']>, ParentType, ContextType>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
   published?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
+  rawDOI?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   relatedCollections?: Resolver<ResolversTypes['CollectionConnection'], ParentType, ContextType, RequireFields<CollectionRelatedCollectionsArgs, 'order' | 'pageDirection'>>;
   root?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
@@ -19050,6 +19208,14 @@ export type CreateRolePayloadResolvers<ContextType = any, ParentType extends Res
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type DoiDataResolvers<ContextType = any, ParentType extends ResolversParentTypes['DOIData'] = ResolversParentTypes['DOIData']> = {
+  doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  host?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type DatePropertyResolvers<ContextType = any, ParentType extends ResolversParentTypes['DateProperty'] = ResolversParentTypes['DateProperty']> = {
   array?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   date?: Resolver<Maybe<ResolversTypes['ISO8601Date']>, ParentType, ContextType>;
@@ -19635,6 +19801,9 @@ export type HasControlledVocabularyResolvers<ContextType = any, ParentType exten
 export type HasDoiResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasDOI'] = ResolversParentTypes['HasDOI']> = {
   __resolveType: TypeResolveFn<'Collection' | 'Item', ParentType, ContextType>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  doiData?: Resolver<ResolversTypes['DOIData'], ParentType, ContextType>;
+  hasWeirdDOI?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  rawDOI?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 };
 
 export type HasDefaultTimestampsResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasDefaultTimestamps'] = ResolversParentTypes['HasDefaultTimestamps']> = {
@@ -19940,10 +20109,12 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   currentlyVisible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<ItemDescendantsArgs, 'order' | 'pageDirection' | 'scope'>>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  doiData?: Resolver<ResolversTypes['DOIData'], ParentType, ContextType>;
   entityViews?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<ItemEntityViewsArgs, 'dateFilter' | 'precision'>>;
   entityViewsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<ItemEntityViewsByRegionArgs, 'dateFilter' | 'usOnly'>>;
   firstItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<ItemFirstItemArgs, 'nodeFilter' | 'order'>>;
   hasItems?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hasWeirdDOI?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
   hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -19969,6 +20140,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   parent?: Resolver<Maybe<ResolversTypes['ItemParent']>, ParentType, ContextType>;
   permissions?: Resolver<Array<ResolversTypes['PermissionGrant']>, ParentType, ContextType>;
   published?: Resolver<ResolversTypes['VariablePrecisionDate'], ParentType, ContextType>;
+  rawDOI?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   relatedItems?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemRelatedItemsArgs, 'order' | 'pageDirection'>>;
   root?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   schemaDefinition?: Resolver<ResolversTypes['SchemaDefinition'], ParentType, ContextType>;
@@ -20600,6 +20772,7 @@ export type OrderingResolvers<ContextType = any, ParentType extends ResolversPar
   order?: Resolver<Array<ResolversTypes['OrderDefinition']>, ParentType, ContextType>;
   pristine?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   render?: Resolver<ResolversTypes['OrderingRenderDefinition'], ParentType, ContextType>;
+  search?: Resolver<ResolversTypes['SearchScope'], ParentType, ContextType, RequireFields<OrderingSearchArgs, 'visibility'>>;
   select?: Resolver<ResolversTypes['OrderingSelectDefinition'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   tree?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -21270,7 +21443,7 @@ export type SearchScopeResolvers<ContextType = any, ParentType extends Resolvers
 };
 
 export type SearchableResolvers<ContextType = any, ParentType extends ResolversParentTypes['Searchable'] = ResolversParentTypes['Searchable']> = {
-  __resolveType: TypeResolveFn<'Collection' | 'Community' | 'Item' | 'Query' | 'SchemaVersion', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'Collection' | 'Community' | 'Item' | 'Ordering' | 'Query' | 'SchemaVersion', ParentType, ContextType>;
   search?: Resolver<ResolversTypes['SearchScope'], ParentType, ContextType, RequireFields<SearchableSearchArgs, 'visibility'>>;
 };
 
@@ -22273,6 +22446,7 @@ export type Resolvers<ContextType = any> = {
   CreatePagePayload?: CreatePagePayloadResolvers<ContextType>;
   CreatePersonContributorPayload?: CreatePersonContributorPayloadResolvers<ContextType>;
   CreateRolePayload?: CreateRolePayloadResolvers<ContextType>;
+  DOIData?: DoiDataResolvers<ContextType>;
   DateProperty?: DatePropertyResolvers<ContextType>;
   DescendantListTemplateDefinition?: DescendantListTemplateDefinitionResolvers<ContextType>;
   DescendantListTemplateDefinitionSlots?: DescendantListTemplateDefinitionSlotsResolvers<ContextType>;

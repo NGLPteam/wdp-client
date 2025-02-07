@@ -8954,6 +8954,38 @@
             "deprecationReason": null
           },
           {
+            "name": "doiData",
+            "description": "The data sanitized from `rawDOI`, including things like the URL and host.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DOIData",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hasWeirdDOI",
+            "description": "For use in the admin, something to signify that data has been set on `rawDOI`\nthat could not be properly assigned to `doi`.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "heroImage",
             "description": "A hero image for the entity, suitable for displaying in page headers",
             "args": [],
@@ -9778,6 +9810,18 @@
                 "name": "VariablePrecisionDate",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "rawDOI",
+            "description": "The value that was set on the entity. It will be validated and sanitized\nand be set on `doi` if possible.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -12050,6 +12094,22 @@
             "deprecationReason": null
           },
           {
+            "name": "doiData",
+            "description": "The data sanitized from `rawDOI`, including things like the URL and host.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DOIData",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "entityViews",
             "description": null,
             "args": [
@@ -12264,6 +12324,22 @@
           {
             "name": "hasItems",
             "description": "Whether this collection has any child items",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hasWeirdDOI",
+            "description": "For use in the admin, something to signify that data has been set on `rawDOI`\nthat could not be properly assigned to `doi`.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -13275,6 +13351,18 @@
                 "name": "VariablePrecisionDate",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "rawDOI",
+            "description": "The value that was set on the entity. It will be validated and sanitized\nand be set on `doi` if possible.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -24277,7 +24365,7 @@
           },
           {
             "name": "doi",
-            "description": "Digital Object Identifier (see: https://doi.org)",
+            "description": "Digital Object Identifier (see: https://doi.org)\n\n**Note**: This actually gets assigned to the entity's `rawDOI`, and will be sanitized to get set on `DOI`.\n",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -24929,7 +25017,7 @@
           },
           {
             "name": "doi",
-            "description": "Digital Object Identifier (see: https://doi.org)",
+            "description": "Digital Object Identifier (see: https://doi.org)\n\n**Note**: This actually gets assigned to the entity's `rawDOI`, and will be sanitized to get set on `DOI`.\n",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -26502,6 +26590,69 @@
             "ofType": null
           }
         ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DOIData",
+        "description": "Validated and sanitized DOI information for an entity.\n",
+        "fields": [
+          {
+            "name": "doi",
+            "description": "A pristine, validated DOI value, absent any URL information.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "host",
+            "description": "The host that this DOI uses. Will be `\"doi.org\"` in most cases.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ok",
+            "description": "Whether the DOI is ok and valid.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "url",
+            "description": "The full URL for the DOI.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -36098,6 +36249,50 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "doiData",
+            "description": "The data sanitized from `rawDOI`, including things like the URL and host.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DOIData",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hasWeirdDOI",
+            "description": "For use in the admin, something to signify that data has been set on `rawDOI`\nthat could not be properly assigned to `doi`.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "rawDOI",
+            "description": "The value that was set on the entity. It will be validated and sanitized\nand be set on `doi` if possible.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -41240,6 +41435,22 @@
             "deprecationReason": null
           },
           {
+            "name": "doiData",
+            "description": "The data sanitized from `rawDOI`, including things like the URL and host.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "DOIData",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "entityViews",
             "description": null,
             "args": [
@@ -41381,6 +41592,22 @@
           {
             "name": "hasItems",
             "description": "Whether this item has any child items",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hasWeirdDOI",
+            "description": "For use in the admin, something to signify that data has been set on `rawDOI`\nthat could not be properly assigned to `doi`.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -42392,6 +42619,18 @@
                 "name": "VariablePrecisionDate",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "rawDOI",
+            "description": "The value that was set on the entity. It will be validated and sanitized\nand be set on `doi` if possible.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -52399,6 +52638,47 @@
             "deprecationReason": null
           },
           {
+            "name": "search",
+            "description": "Search from this level of the API using it as the origin",
+            "args": [
+              {
+                "name": "maxDepth",
+                "description": "When searching from a scoped entity, sometimes you want to limit the depth of the search.\n\n`maxDepth: 1` will restrict to just the entity's direct children (or direct links).\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "visibility",
+                "description": "Restrict the results by a certain level of visibility. This requires an authenticated user\nfor anything but `VISIBLE`: any other option will be silently discarded when anonymous.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityVisibilityFilter",
+                  "ofType": null
+                },
+                "defaultValue": "VISIBLE",
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SearchScope",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "select",
             "description": null,
             "args": [],
@@ -52468,6 +52748,11 @@
           {
             "kind": "INTERFACE",
             "name": "Node",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "Searchable",
             "ofType": null
           },
           {
@@ -63802,6 +64087,12 @@
             "deprecationReason": null
           },
           {
+            "name": "ORDERING",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "SCHEMA",
             "description": null,
             "isDeprecated": false,
@@ -63948,7 +64239,7 @@
         "fields": [
           {
             "name": "entity",
-            "description": null,
+            "description": "A reference to the actual entity returned by the search query.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -63964,7 +64255,7 @@
           },
           {
             "name": "id",
-            "description": null,
+            "description": "The encoded ID for the entity itself, not a special ID for the search result record.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -63980,7 +64271,7 @@
           },
           {
             "name": "kind",
-            "description": null,
+            "description": "The kind of entity returned by the search results.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -63996,7 +64287,7 @@
           },
           {
             "name": "schemaVersion",
-            "description": null,
+            "description": "The schema version of the returned entity.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -64012,7 +64303,7 @@
           },
           {
             "name": "slug",
-            "description": null,
+            "description": "The slug for the entity.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -64028,7 +64319,7 @@
           },
           {
             "name": "title",
-            "description": null,
+            "description": "The title for the entity.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -64516,6 +64807,11 @@
           {
             "kind": "OBJECT",
             "name": "Item",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "Ordering",
             "ofType": null
           },
           {
@@ -71180,7 +71476,7 @@
           },
           {
             "name": "doi",
-            "description": "Digital Object Identifier (see: https://doi.org)",
+            "description": "Digital Object Identifier (see: https://doi.org)\n\n**Note**: This actually gets assigned to the entity's `rawDOI`, and will be sanitized to get set on `DOI`.\n",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -72372,7 +72668,7 @@
           },
           {
             "name": "doi",
-            "description": "Digital Object Identifier (see: https://doi.org)",
+            "description": "Digital Object Identifier (see: https://doi.org)\n\n**Note**: This actually gets assigned to the entity's `rawDOI`, and will be sanitized to get set on `DOI`.\n",
             "type": {
               "kind": "SCALAR",
               "name": "String",
