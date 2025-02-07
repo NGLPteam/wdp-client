@@ -24,10 +24,10 @@ export default function Sidebar({
     definition ?? {};
 
   const shouldRender =
-    (showDOI && !!entity?.doi) ||
+    (showDOI && !!entity?.doiData?.doi) ||
     (showISSN && !!entity?.issn) ||
     showBasicViewMetrics ||
-    slot?.valid;
+    (slot?.valid && !slot?.empty);
 
   return shouldRender ? (
     <div
@@ -56,7 +56,9 @@ const fragment = graphql`
   fragment HeaderSidebarFragment on HeroTemplateInstance {
     entity {
       ... on HasDOI {
-        doi
+        doiData {
+          doi
+        }
       }
       ...DOIFragment
       ... on HasISSN {

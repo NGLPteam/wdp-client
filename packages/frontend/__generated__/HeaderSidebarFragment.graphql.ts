@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d188c1eb5dc1b69eb3f09afec1a23c37>>
+ * @generated SignedSource<<f320ba2de61128a7f9cbf58913ad0e31>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,7 +21,9 @@ export type HeaderSidebarFragment$data = {
     readonly assetDownloads?: {
       readonly " $fragmentSpreads": FragmentRefs<"DownloadCountFragment">;
     };
-    readonly doi?: string | null | undefined;
+    readonly doiData?: {
+      readonly doi: string | null | undefined;
+    };
     readonly entityViews?: {
       readonly " $fragmentSpreads": FragmentRefs<"ViewCountFragment">;
     };
@@ -95,8 +97,19 @@ return {
             {
               "alias": null,
               "args": null,
-              "kind": "ScalarField",
-              "name": "doi",
+              "concreteType": "DOIData",
+              "kind": "LinkedField",
+              "name": "doiData",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "doi",
+                  "storageKey": null
+                }
+              ],
               "storageKey": null
             }
           ],
@@ -214,6 +227,6 @@ return {
 };
 })();
 
-(node as any).hash = "246dcd1ae188d8b8fc0ed8f49679324e";
+(node as any).hash = "2f8b66b8821b0b5597b35a2c89fda6d3";
 
 export default node;
