@@ -1678,6 +1678,17 @@ interface ChildEntity implements Accessible & Entity & ExposesPermissions & HasD
   
   """
   doi: String
+  """
+  The data sanitized from `rawDOI`, including things like the URL and host.
+  
+  """
+  doiData: DOIData!
+  """
+  For use in the admin, something to signify that data has been set on `rawDOI`
+  that could not be properly assigned to `doi`.
+  
+  """
+  hasWeirdDOI: Boolean!
   """A hero image for the entity, suitable for displaying in page headers"""
   heroImage: ImageAttachment!
   """Configurable metadata for the hero_image attachment"""
@@ -1845,6 +1856,12 @@ interface ChildEntity implements Accessible & Entity & ExposesPermissions & HasD
   permissions: [PermissionGrant!]!
   """The date this entity was published"""
   published: VariablePrecisionDate!
+  """
+  The value that was set on the entity. It will be validated and sanitized
+  and be set on `doi` if possible.
+  
+  """
+  rawDOI: String
   root: Boolean!
   schemaDefinition: SchemaDefinition!
   """A list of schema properties associated with this instance or version."""
@@ -2250,6 +2267,11 @@ type Collection implements Accessible & Attachable & Attributable & ChildEntity 
   
   """
   doi: String
+  """
+  The data sanitized from `rawDOI`, including things like the URL and host.
+  
+  """
+  doiData: DOIData!
   entityViews(
     """
     An optional date filter to apply.
@@ -2294,6 +2316,12 @@ type Collection implements Accessible & Attachable & Attributable & ChildEntity 
   hasCollections: Boolean!
   """Whether this collection has any child items"""
   hasItems: Boolean!
+  """
+  For use in the admin, something to signify that data has been set on `rawDOI`
+  that could not be properly assigned to `doi`.
+  
+  """
+  hasWeirdDOI: Boolean!
   """A hero image for the entity, suitable for displaying in page headers"""
   heroImage: ImageAttachment!
   """Configurable metadata for the hero_image attachment"""
@@ -2488,6 +2516,12 @@ type Collection implements Accessible & Attachable & Attributable & ChildEntity 
   permissions: [PermissionGrant!]!
   """The date this entity was published"""
   published: VariablePrecisionDate!
+  """
+  The value that was set on the entity. It will be validated and sanitized
+  and be set on `doi` if possible.
+  
+  """
+  rawDOI: String
   """Retrieve linked collections of the same schema type"""
   relatedCollections(
     """Returns the elements in the list that come after the specified cursor."""
@@ -4794,7 +4828,12 @@ type CreateAssetPayload implements StandardMutationPayload {
 input CreateCollectionInput {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  """Digital Object Identifier (see: https://doi.org)"""
+  """
+  Digital Object Identifier (see: https://doi.org)
+  
+  **Note**: This actually gets assigned to the entity's `rawDOI`, and will be sanitized to get set on `DOI`.
+  
+  """
   doi: String
   """
   A reference to an uploaded image in Tus.
@@ -4916,7 +4955,12 @@ type CreateCommunityPayload implements StandardMutationPayload {
 input CreateItemInput {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  """Digital Object Identifier (see: https://doi.org)"""
+  """
+  Digital Object Identifier (see: https://doi.org)
+  
+  **Note**: This actually gets assigned to the entity's `rawDOI`, and will be sanitized to get set on `DOI`.
+  
+  """
   doi: String
   """
   A reference to an uploaded image in Tus.
@@ -5154,6 +5198,33 @@ type CreateRolePayload implements StandardMutationPayload {
   """Not presently used"""
   haltCode: String
   role: Role
+}
+
+"""
+Validated and sanitized DOI information for an entity.
+
+"""
+type DOIData {
+  """
+  A pristine, validated DOI value, absent any URL information.
+  
+  """
+  doi: String
+  """
+  The host that this DOI uses. Will be `"doi.org"` in most cases.
+  
+  """
+  host: String
+  """
+  Whether the DOI is ok and valid.
+  
+  """
+  ok: Boolean!
+  """
+  The full URL for the DOI.
+  
+  """
+  url: String
 }
 
 """
@@ -7316,6 +7387,23 @@ interface HasDOI {
   
   """
   doi: String
+  """
+  The data sanitized from `rawDOI`, including things like the URL and host.
+  
+  """
+  doiData: DOIData!
+  """
+  For use in the admin, something to signify that data has been set on `rawDOI`
+  that could not be properly assigned to `doi`.
+  
+  """
+  hasWeirdDOI: Boolean!
+  """
+  The value that was set on the entity. It will be validated and sanitized
+  and be set on `doi` if possible.
+  
+  """
+  rawDOI: String
 }
 
 """
@@ -8389,6 +8477,11 @@ type Item implements Accessible & Attachable & Attributable & ChildEntity & Cont
   
   """
   doi: String
+  """
+  The data sanitized from `rawDOI`, including things like the URL and host.
+  
+  """
+  doiData: DOIData!
   entityViews(
     """
     An optional date filter to apply.
@@ -8423,6 +8516,12 @@ type Item implements Accessible & Attachable & Attributable & ChildEntity & Cont
   ): Item
   """Whether this item has any child items"""
   hasItems: Boolean!
+  """
+  For use in the admin, something to signify that data has been set on `rawDOI`
+  that could not be properly assigned to `doi`.
+  
+  """
+  hasWeirdDOI: Boolean!
   """A hero image for the entity, suitable for displaying in page headers"""
   heroImage: ImageAttachment!
   """Configurable metadata for the hero_image attachment"""
@@ -8616,6 +8715,12 @@ type Item implements Accessible & Attachable & Attributable & ChildEntity & Cont
   permissions: [PermissionGrant!]!
   """The date this entity was published"""
   published: VariablePrecisionDate!
+  """
+  The value that was set on the entity. It will be validated and sanitized
+  and be set on `doi` if possible.
+  
+  """
+  rawDOI: String
   """Retrieve linked items of the same schema type"""
   relatedItems(
     """Returns the elements in the list that come after the specified cursor."""
@@ -10589,7 +10694,7 @@ input OrderDefinitionInput {
 """
 An ordering that belongs to an entity and arranges its children in a pre-configured way
 """
-type Ordering implements Node & Sluggable {
+type Ordering implements Node & Searchable & Sluggable {
   children(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -10667,6 +10772,22 @@ type Ordering implements Node & Sluggable {
   
   """
   render: OrderingRenderDefinition!
+  """Search from this level of the API using it as the origin"""
+  search(
+    """
+    When searching from a scoped entity, sometimes you want to limit the depth of the search.
+    
+    `maxDepth: 1` will restrict to just the entity's direct children (or direct links).
+    
+    """
+    maxDepth: Int
+    """
+    Restrict the results by a certain level of visibility. This requires an authenticated user
+    for anything but `VISIBLE`: any other option will be silently discarded when anonymous.
+    
+    """
+    visibility: EntityVisibilityFilter = VISIBLE
+  ): SearchScope!
   select: OrderingSelectDefinition!
   slug: Slug!
   """
@@ -13177,6 +13298,7 @@ The type of origin for this search scope.
 enum SearchOriginType {
   ENTITY
   GLOBAL
+  ORDERING
   SCHEMA
 }
 
@@ -13215,11 +13337,35 @@ An entity that's the result of a search.
 
 """
 type SearchResult {
+  """
+  A reference to the actual entity returned by the search query.
+  
+  """
   entity: AnyEntity!
+  """
+  The encoded ID for the entity itself, not a special ID for the search result record.
+  
+  """
   id: ID!
+  """
+  The kind of entity returned by the search results.
+  
+  """
   kind: EntityKind!
+  """
+  The schema version of the returned entity.
+  
+  """
   schemaVersion: SchemaVersion!
+  """
+  The slug for the entity.
+  
+  """
   slug: Slug!
+  """
+  The title for the entity.
+  
+  """
   title: String!
 }
 
@@ -15008,7 +15154,12 @@ input UpdateCollectionInput {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
   collectionId: ID!
-  """Digital Object Identifier (see: https://doi.org)"""
+  """
+  Digital Object Identifier (see: https://doi.org)
+  
+  **Note**: This actually gets assigned to the entity's `rawDOI`, and will be sanitized to get set on `DOI`.
+  
+  """
   doi: String
   """
   A reference to an uploaded image in Tus.
@@ -15244,7 +15395,12 @@ input UpdateItemInput {
   clearThumbnail: Boolean = false
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
-  """Digital Object Identifier (see: https://doi.org)"""
+  """
+  Digital Object Identifier (see: https://doi.org)
+  
+  **Note**: This actually gets assigned to the entity's `rawDOI`, and will be sanitized to get set on `DOI`.
+  
+  """
   doi: String
   """
   A reference to an uploaded image in Tus.
