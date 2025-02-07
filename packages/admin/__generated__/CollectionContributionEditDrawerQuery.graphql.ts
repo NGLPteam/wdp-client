@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a004db5f945e613fcd44bc6b012ed6a2>>
+ * @generated SignedSource<<c4b59410fdfa0fb1d35645a0fb194e99>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -162,7 +162,14 @@ v10 = [
     "alias": null,
     "args": null,
     "kind": "ScalarField",
-    "name": "position",
+    "name": "innerPosition",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "outerPosition",
     "storageKey": null
   }
 ],
@@ -297,12 +304,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a24cc0c80adc5b43dbb036de908b81b3",
+    "cacheID": "992eb18faa2bcd3c1c80558b52ca1722",
     "id": null,
     "metadata": {},
     "name": "CollectionContributionEditDrawerQuery",
     "operationKind": "query",
-    "text": "query CollectionContributionEditDrawerQuery(\n  $collectionContributionSlug: Slug!\n) {\n  collectionContribution(slug: $collectionContributionSlug) {\n    ...ContributionUpdateFormFragment\n    id\n    collection {\n      title\n      id\n    }\n  }\n}\n\nfragment ContributionUpdateFormFieldsFragment on AnyContribution {\n  __isAnyContribution: __typename\n  ... on CollectionContribution {\n    position\n  }\n  ... on ItemContribution {\n    position\n  }\n}\n\nfragment ContributionUpdateFormFragment on AnyContribution {\n  __isAnyContribution: __typename\n  __typename\n  ... on CollectionContribution {\n    contributionId: id\n    contributor {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        legalName\n      }\n      ... on PersonContributor {\n        slug\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    collection {\n      title\n      id\n    }\n    contributionRole {\n      id\n      label\n    }\n    ...ContributionUpdateFormFieldsFragment\n  }\n  ... on ItemContribution {\n    contributionId: id\n    contributor {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        legalName\n      }\n      ... on PersonContributor {\n        slug\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    item {\n      title\n      id\n    }\n    title\n    contributionRole {\n      id\n      label\n    }\n    ...ContributionUpdateFormFieldsFragment\n  }\n}\n"
+    "text": "query CollectionContributionEditDrawerQuery(\n  $collectionContributionSlug: Slug!\n) {\n  collectionContribution(slug: $collectionContributionSlug) {\n    ...ContributionUpdateFormFragment\n    id\n    collection {\n      title\n      id\n    }\n  }\n}\n\nfragment ContributionUpdateFormFieldsFragment on AnyContribution {\n  __isAnyContribution: __typename\n  ... on CollectionContribution {\n    innerPosition\n    outerPosition\n  }\n  ... on ItemContribution {\n    innerPosition\n    outerPosition\n  }\n}\n\nfragment ContributionUpdateFormFragment on AnyContribution {\n  __isAnyContribution: __typename\n  __typename\n  ... on CollectionContribution {\n    contributionId: id\n    contributor {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        legalName\n      }\n      ... on PersonContributor {\n        slug\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    collection {\n      title\n      id\n    }\n    contributionRole {\n      id\n      label\n    }\n    ...ContributionUpdateFormFieldsFragment\n  }\n  ... on ItemContribution {\n    contributionId: id\n    contributor {\n      __typename\n      ... on OrganizationContributor {\n        slug\n        legalName\n      }\n      ... on PersonContributor {\n        slug\n        givenName\n        familyName\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    item {\n      title\n      id\n    }\n    title\n    contributionRole {\n      id\n      label\n    }\n    ...ContributionUpdateFormFieldsFragment\n  }\n}\n"
   }
 };
 })();

@@ -75,8 +75,14 @@ function CollectionContributionList({
       header: () => <>{t("lists.role_column")}</>,
       id: "contributionRole.label",
     }),
-    ModelColumns.PositionColumn<CollectionContributionNode>(),
-    ModelColumns.CreatedAtColumn<CollectionContributionNode>(),
+    ModelColumns.PositionColumn<CollectionContributionNode>({
+      header: t("forms.fields.inner_position"),
+      id: "innerPosition",
+    }),
+    ModelColumns.PositionColumn<CollectionContributionNode>({
+      header: t("forms.fields.outer_position"),
+      id: "outerPosition",
+    }),
   ];
 
   const actions = {
@@ -137,7 +143,8 @@ const fragment = graphql`
       slug
       createdAt
       updatedAt
-      position
+      innerPosition
+      outerPosition
       contributionRole {
         label
       }

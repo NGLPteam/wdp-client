@@ -1,28 +1,34 @@
 import get from "lodash/get";
+import { useTranslation } from "react-i18next";
 import { PartialColumnish, Node } from "./types";
 import { getAccessorProps } from "./helpers";
 import type { ColumnDef } from "@tanstack/react-table";
 
 type Props<T extends Node> = PartialColumnish<T> & {
-  Header: string | React.ReactNode;
+  Header?: string;
+  id?: string;
 };
 
-const PositionColumn = <T extends Node>(
-  { Header: _header, ...props }: Props<T> = {
-    Header: "Position",
-  },
-): ColumnDef<T> => {
+const PositionColumn = <T extends Node>({
+  Header: header,
+  id,
+  ...props
+}: Props<T>): ColumnDef<T> => {
   const { accessorKey } = getAccessorProps<T>(props);
 
+  const { t } = useTranslation();
+
+  const property = id ?? "position";
+
   return {
-    id: "position",
-    header: "Position",
+    id: property,
+    header: header ?? t("forms.fields.position"),
     meta: {
-      className: "t-column-indent",
+      cellType: "position",
     },
     ...(accessorKey
       ? { accessorKey }
-      : { accessorFn: (originalRow: T) => get(originalRow, "position") }),
+      : { accessorFn: (originalRow: T) => get(originalRow, property) }),
     ...props,
   };
 };

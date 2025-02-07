@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8176b81d4949daa647efa199caec00cc>>
+ * @generated SignedSource<<e9746639c298508dd19225b10a7b5230>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -29,7 +29,8 @@ export type CollectionContributionListFragment$data = {
     };
     readonly createdAt: string;
     readonly id: string;
-    readonly position: number | null | undefined;
+    readonly innerPosition: number | null | undefined;
+    readonly outerPosition: number | null | undefined;
     readonly slug: string;
     readonly updatedAt: string;
   }>;
@@ -117,7 +118,14 @@ return {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
-          "name": "position",
+          "name": "innerPosition",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "outerPosition",
           "storageKey": null
         },
         {
@@ -259,6 +267,6 @@ return {
 };
 })();
 
-(node as any).hash = "8c8881f6f98d99e6c7f5597deeaeed6f";
+(node as any).hash = "2f22d3dbace1e967e54ffa916e007f69";
 
 export default node;

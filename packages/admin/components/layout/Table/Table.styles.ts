@@ -92,6 +92,10 @@ export const Cell = styled.td`
     width: 35%;
   }
 
+  &[data-cell-type="position"] {
+    text-align: center;
+  }
+
   &[data-cell-type="thumbnail"] {
     padding-block-start: ${pxToRem(8)};
     padding-block-end: ${pxToRem(8)};

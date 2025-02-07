@@ -86,12 +86,23 @@ export default function ContributionCreateForm({
             label="forms.fields.role"
             {...register("roleId")}
           />
-          <Forms.Input
-            type="number"
-            label="forms.fields.position"
-            description="forms.fields.position_description"
-            {...register("position", { valueAsNumber: true })}
-          />
+          <Forms.Fieldset
+            label={t("forms.fields.position")}
+            description={t("forms.fields.order_description")}
+          >
+            <Forms.Input
+              type="number"
+              label="forms.fields.inner_position"
+              description="forms.fields.inner_position_description"
+              {...register("innerPosition", { valueAsNumber: true })}
+            />
+            <Forms.Input
+              type="number"
+              label="forms.fields.outer_position"
+              description="forms.fields.outer_position_description"
+              {...register("outerPosition", { valueAsNumber: true })}
+            />
+          </Forms.Fieldset>
         </Forms.Grid>
       );
     },
