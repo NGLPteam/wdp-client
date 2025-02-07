@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<70183ca42f77960d2d822422df7a16ce>>
+ * @generated SignedSource<<e14bb7be29fd1e01e4002aa50144b7fa>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -115,7 +115,14 @@ v3 = [
     "alias": null,
     "args": null,
     "kind": "ScalarField",
-    "name": "position",
+    "name": "innerPosition",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "outerPosition",
     "storageKey": null
   }
 ];
@@ -235,12 +242,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a6245bed860e5b6f177595ca16e9ff68",
+    "cacheID": "81d89cded750d0866b0d0b4c756f758f",
     "id": null,
     "metadata": {},
     "name": "ContributionUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ContributionUpdateFormMutation(\n  $input: UpdateContributionInput!\n) {\n  updateContribution(input: $input) {\n    contribution {\n      __typename\n      ...ContributionUpdateFormFieldsFragment\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ContributionUpdateFormFieldsFragment on AnyContribution {\n  __isAnyContribution: __typename\n  ... on CollectionContribution {\n    position\n  }\n  ... on ItemContribution {\n    position\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
+    "text": "mutation ContributionUpdateFormMutation(\n  $input: UpdateContributionInput!\n) {\n  updateContribution(input: $input) {\n    contribution {\n      __typename\n      ...ContributionUpdateFormFieldsFragment\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ContributionUpdateFormFieldsFragment on AnyContribution {\n  __isAnyContribution: __typename\n  ... on CollectionContribution {\n    innerPosition\n    outerPosition\n  }\n  ... on ItemContribution {\n    innerPosition\n    outerPosition\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

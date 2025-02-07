@@ -1,10 +1,10 @@
 import { graphql, useFragment } from "react-relay";
+import { useTranslation } from "react-i18next";
 import MutationForm, {
   useRenderForm,
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
-import { useMaybeFragment } from "hooks";
 import { getContributorDisplayName } from "components/composed/contributor/ContributorDisplayName/ContributorDisplayName";
 
 import type {
@@ -19,6 +19,8 @@ export default function ContributionUpdateForm({
   onSuccess,
   onCancel,
 }: Props) {
+  const { t } = useTranslation();
+
   const maybeContribution = useFragment<ContributionUpdateFormFragment$key>(
     fragment,
     data,
@@ -43,11 +45,10 @@ export default function ContributionUpdateForm({
       : "";
 
   /* eslint-disable max-len */
-  const defaultValues =
-    useMaybeFragment<ContributionUpdateFormFieldsFragment$key>(
-      fieldsFragment,
-      maybeContribution.__typename !== "%other" ? maybeContribution : null,
-    );
+  const defaultValues = useFragment<ContributionUpdateFormFieldsFragment$key>(
+    fieldsFragment,
+    maybeContribution.__typename !== "%other" ? maybeContribution : null,
+  );
   /* eslint-enable max-len */
 
   const toVariables = useToVariables<ContributionUpdateFormMutation, Fields>(
@@ -86,12 +87,23 @@ export default function ContributionUpdateForm({
           disabled
           defaultValue={role}
         />
-        <Forms.Input
-          type="number"
-          label="forms.fields.position"
-          description="forms.fields.position_description"
-          {...register("position", { valueAsNumber: true })}
-        />
+        <Forms.Fieldset
+          label={t("forms.fields.position")}
+          description={t("forms.fields.order_description")}
+        >
+          <Forms.Input
+            type="number"
+            label="forms.fields.inner_position"
+            description="forms.fields.inner_position_description"
+            {...register("innerPosition", { valueAsNumber: true })}
+          />
+          <Forms.Input
+            type="number"
+            label="forms.fields.outer_position"
+            description="forms.fields.outer_position_description"
+            {...register("outerPosition", { valueAsNumber: true })}
+          />
+        </Forms.Fieldset>
       </Forms.Grid>
     ),
     [],
@@ -125,10 +137,12 @@ type Fields = Omit<UpdateContributionInput, "contributionId">;
 const fieldsFragment = graphql`
   fragment ContributionUpdateFormFieldsFragment on AnyContribution {
     ... on CollectionContribution {
-      position
+      innerPosition
+      outerPosition
     }
     ... on ItemContribution {
-      position
+      innerPosition
+      outerPosition
     }
   }
 `;
