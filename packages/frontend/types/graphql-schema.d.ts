@@ -1342,6 +1342,20 @@ export type BlurbTemplateInstance = Node & Renderable & Sluggable & TemplateInst
   lastRenderedAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   layoutKind: LayoutKind;
   /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 4 and 5 in that order.
+   *
+   */
+  nextSiblings: Array<TemplateInstanceSibling>;
+  /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 2 and 1 in that order.
+   *
+   */
+  prevSiblings: Array<TemplateInstanceSibling>;
+  /**
    * Rendered slots for this template.
    *
    */
@@ -3802,6 +3816,20 @@ export type ContributorListTemplateInstance = Node & Renderable & Sluggable & Te
   lastRenderedAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   layoutKind: LayoutKind;
   /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 4 and 5 in that order.
+   *
+   */
+  nextSiblings: Array<TemplateInstanceSibling>;
+  /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 2 and 1 in that order.
+   *
+   */
+  prevSiblings: Array<TemplateInstanceSibling>;
+  /**
    * Rendered slots for this template.
    *
    */
@@ -5418,6 +5446,20 @@ export type DescendantListTemplateInstance = Node & Renderable & Sluggable & Tem
   lastRenderedAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   layoutKind: LayoutKind;
   /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 4 and 5 in that order.
+   *
+   */
+  nextSiblings: Array<TemplateInstanceSibling>;
+  /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 2 and 1 in that order.
+   *
+   */
+  prevSiblings: Array<TemplateInstanceSibling>;
+  /**
    * The ordering to render for a "see all" link.
    *
    */
@@ -5863,6 +5905,20 @@ export type DetailTemplateInstance = Node & Renderable & Sluggable & TemplateIns
    */
   lastRenderedAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   layoutKind: LayoutKind;
+  /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 4 and 5 in that order.
+   *
+   */
+  nextSiblings: Array<TemplateInstanceSibling>;
+  /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 2 and 1 in that order.
+   *
+   */
+  prevSiblings: Array<TemplateInstanceSibling>;
   /**
    * Rendered slots for this template.
    *
@@ -7417,6 +7473,20 @@ export type HeroTemplateInstance = Node & Renderable & Sluggable & TemplateInsta
   lastRenderedAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   layoutKind: LayoutKind;
   /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 4 and 5 in that order.
+   *
+   */
+  nextSiblings: Array<TemplateInstanceSibling>;
+  /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 2 and 1 in that order.
+   *
+   */
+  prevSiblings: Array<TemplateInstanceSibling>;
+  /**
    * Rendered slots for this template.
    *
    */
@@ -8908,6 +8978,20 @@ export type LinkListTemplateInstance = Node & Renderable & Sluggable & TemplateH
   lastRenderedAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   layoutKind: LayoutKind;
   /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 4 and 5 in that order.
+   *
+   */
+  nextSiblings: Array<TemplateInstanceSibling>;
+  /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 2 and 1 in that order.
+   *
+   */
+  prevSiblings: Array<TemplateInstanceSibling>;
+  /**
    * The ordering to render for a "see all" link.
    *
    */
@@ -9260,6 +9344,20 @@ export type ListItemTemplateInstance = Node & Renderable & Sluggable & TemplateH
   lastRenderedAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   layoutKind: LayoutKind;
   /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 4 and 5 in that order.
+   *
+   */
+  nextSiblings: Array<TemplateInstanceSibling>;
+  /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 2 and 1 in that order.
+   *
+   */
+  prevSiblings: Array<TemplateInstanceSibling>;
+  /**
    * Rendered slots for this template.
    *
    */
@@ -9584,6 +9682,20 @@ export type MetadataTemplateInstance = Node & Renderable & Sluggable & TemplateI
    */
   lastRenderedAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   layoutKind: LayoutKind;
+  /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 4 and 5 in that order.
+   *
+   */
+  nextSiblings: Array<TemplateInstanceSibling>;
+  /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 2 and 1 in that order.
+   *
+   */
+  prevSiblings: Array<TemplateInstanceSibling>;
   /**
    * Rendered slots for this template.
    *
@@ -10554,6 +10666,20 @@ export type NavigationTemplateInstance = Node & Renderable & Sluggable & Templat
   lastRenderedAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   layoutKind: LayoutKind;
   /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 4 and 5 in that order.
+   *
+   */
+  nextSiblings: Array<TemplateInstanceSibling>;
+  /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 2 and 1 in that order.
+   *
+   */
+  prevSiblings: Array<TemplateInstanceSibling>;
+  /**
    * Rendered slots for this template.
    *
    */
@@ -11240,10 +11366,24 @@ export type OrderingTemplateInstance = Node & Renderable & Sluggable & TemplateH
   lastRenderedAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   layoutKind: LayoutKind;
   /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 4 and 5 in that order.
+   *
+   */
+  nextSiblings: Array<TemplateInstanceSibling>;
+  /**
    * Access the prev/next siblings within the template's specified ordering.
    *
    */
   orderingPair: TemplateOrderingPair;
+  /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 2 and 1 in that order.
+   *
+   */
+  prevSiblings: Array<TemplateInstanceSibling>;
   /**
    * Rendered slots for this template.
    *
@@ -11560,6 +11700,20 @@ export type PageListTemplateInstance = Node & Renderable & Sluggable & TemplateI
    */
   lastRenderedAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   layoutKind: LayoutKind;
+  /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 4 and 5 in that order.
+   *
+   */
+  nextSiblings: Array<TemplateInstanceSibling>;
+  /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 2 and 1 in that order.
+   *
+   */
+  prevSiblings: Array<TemplateInstanceSibling>;
   /**
    * Rendered slots for this template.
    *
@@ -13535,6 +13689,23 @@ export type SelectionSourceMode =
   | 'SELF'
   | '%future added value';
 
+/**
+ * The directionality of a sibling relationship, relative to a specific record (referred to as the 'source').
+ *
+ */
+export type SiblingKind =
+  /**
+   * This sibling comes after the source record.
+   *
+   */
+  | 'NEXT'
+  /**
+   * This sibling comes before the source record.
+   *
+   */
+  | 'PREV'
+  | '%future added value';
+
 /** A generic enum for sorting models that don't have anything more specific implemented */
 export type SimpleOrder =
   /** Sort models by oldest created date */
@@ -13907,6 +14078,20 @@ export type SupplementaryTemplateInstance = Node & Renderable & Sluggable & Temp
   lastRenderedAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   layoutKind: LayoutKind;
   /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 4 and 5 in that order.
+   *
+   */
+  nextSiblings: Array<TemplateInstanceSibling>;
+  /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 2 and 1 in that order.
+   *
+   */
+  prevSiblings: Array<TemplateInstanceSibling>;
+  /**
    * Rendered slots for this template.
    *
    */
@@ -14252,7 +14437,76 @@ export type TemplateInstance = {
    */
   lastRenderedAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   layoutKind: LayoutKind;
+  /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 4 and 5 in that order.
+   *
+   */
+  nextSiblings: Array<TemplateInstanceSibling>;
+  /**
+   * Return all preceding siblings to the current template in order of proximity.
+   *
+   * If a template is at position 3 of 5, then this field will return position 2 and 1 in that order.
+   *
+   */
+  prevSiblings: Array<TemplateInstanceSibling>;
   templateKind: TemplateKind;
+};
+
+/**
+ * A brief detail about a template instance's siblings, to help with finessing certain style concerns.
+ *
+ * For `PREV` siblings, the positions are returned in descending order. If a template is at position
+ * 3 of 5, then these will be returned at position 2 and 1 in that order.
+ *
+ * For `NEXT` siblings, the positions are returned in ascending order. If a template is at position
+ * 3 of 5, then these will be returned at position 4 and 5 in that order.
+ *
+ */
+export type TemplateInstanceSibling = Node & Sluggable & {
+  __typename?: 'TemplateInstanceSibling';
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Whether the sibling has a `DARK` background.
+   *
+   */
+  dark: Scalars['Boolean']['output'];
+  /**
+   * Whether this sibling is hidden for whatever reason (empty slots, empty entity list, etc).
+   *
+   */
+  hidden: Scalars['Boolean']['output'];
+  id: Scalars['ID']['output'];
+  /**
+   * Whether this is `NEXT` or `PREV`. No functional difference, just illustrative.
+   *
+   */
+  kind: SiblingKind;
+  /**
+   * The layout this sibling is in. As of now, this should always be `MAIN`,
+   * since only `MAIN` layout templates can be stacked.
+   *
+   */
+  layoutKind: LayoutKind;
+  /**
+   * The position of this sibling within the layout instance.
+   *
+   */
+  position: Scalars['Int']['output'];
+  slug: Scalars['Slug']['output'];
+  /**
+   * The template this sibling is. As of now, this should always be templates within the `MAIN` layout category,
+   * since only `MAIN` layout templates can be stacked.
+   *
+   */
+  templateKind: TemplateKind;
+  updatedAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * The width of the sibling (if available).
+   *
+   */
+  width?: Maybe<TemplateWidth>;
 };
 
 /**
@@ -15225,15 +15479,24 @@ export type UpdateContributionInput = {
   clientMutationId?: InputMaybe<Scalars['String']['input']>;
   contributionId: Scalars['ID']['input'];
   /**
+   * "Inner" sorting discriminator for the contribution. If not provided, it will keep whatever is there.
+   *
+   * It applies _after_ the contribution role.
+   *
+   */
+  innerPosition?: InputMaybe<Scalars['Int']['input']>;
+  /**
    * Metadata for the contribution. If not provided, it will keep whatever is there.
    *
    */
   metadata?: InputMaybe<ContributionMetadataInput>;
   /**
-   * Sorting discriminator for the contribution. If not provided, it will keep whatever is there.
+   * "Outer" sorting discriminator for the contribution. If not provided, it will keep whatever is there.
+   *
+   * It applies _before_ the contribution role.
    *
    */
-  position?: InputMaybe<Scalars['Int']['input']>;
+  outerPosition?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** Autogenerated return type of UpdateContribution. */
@@ -16641,7 +16904,7 @@ export type ResolversInterfaceTypes<RefType extends Record<string, unknown>> = {
   ImageIdentification: ( ImageAttachment ) | ( ImageDerivative ) | ( ImageOriginal ) | ( ImageSize ) | ( SiteLogoAttachment );
   LayoutDefinition: ( Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyHeroTemplateDefinition']> } ) | ( Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyListItemTemplateDefinition']> } ) | ( Omit<MainLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMainTemplateDefinition']> } ) | ( Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMetadataTemplateDefinition']> } ) | ( Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyNavigationTemplateDefinition']> } ) | ( Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<RefType['AnySupplementaryTemplateDefinition']> } );
   LayoutInstance: ( Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyHeroTemplateInstance']> } ) | ( Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyListItemTemplateInstance']> } ) | ( Omit<MainLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMainTemplateInstance']> } ) | ( Omit<MetadataLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMetadataTemplateInstance']> } ) | ( Omit<NavigationLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyNavigationTemplateInstance']> } ) | ( Omit<SupplementaryLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnySupplementaryTemplateInstance']> } );
-  Node: ( Omit<Announcement, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( BlurbTemplateDefinition ) | ( Omit<BlurbTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( CollectionAttribution ) | ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<RefType['AnyUserAccessGrant']> } ) | ( ContributionRoleConfiguration ) | ( ContributorCollectionAttribution ) | ( ContributorItemAttribution ) | ( ContributorListTemplateDefinition ) | ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( ControlledVocabulary ) | ( ControlledVocabularyItem ) | ( ControlledVocabularySource ) | ( DescendantListTemplateDefinition ) | ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( DetailTemplateDefinition ) | ( Omit<DetailTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<EntityBreadcrumb, 'crumb'> & { crumb: RefType['AnyEntity'] } ) | ( Omit<EntityLink, 'source' | 'target'> & { source: RefType['AnyEntity'], target: RefType['AnyEntity'] } ) | ( GlobalConfiguration ) | ( Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyHeroTemplateDefinition']> } ) | ( Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyHeroTemplateInstance']> } ) | ( HeroTemplateDefinition ) | ( Omit<HeroTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( HierarchicalSchemaRank ) | ( HierarchicalSchemaVersionRank ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( ItemAttribution ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( LinkListTemplateDefinition ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<LinkTargetCandidate, 'target'> & { target: RefType['AnyLinkTarget'] } ) | ( Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyListItemTemplateDefinition']> } ) | ( Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyListItemTemplateInstance']> } ) | ( ListItemTemplateDefinition ) | ( Omit<ListItemTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<MainLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMainTemplateDefinition']> } ) | ( Omit<MainLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMainTemplateInstance']> } ) | ( Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMetadataTemplateDefinition']> } ) | ( Omit<MetadataLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMetadataTemplateInstance']> } ) | ( MetadataTemplateDefinition ) | ( Omit<MetadataTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyNavigationTemplateDefinition']> } ) | ( Omit<NavigationLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyNavigationTemplateInstance']> } ) | ( NavigationTemplateDefinition ) | ( Omit<NavigationTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingEntry, 'entry'> & { entry: RefType['AnyOrderingEntry'] } ) | ( OrderingTemplateDefinition ) | ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( OrganizationContributor ) | ( Omit<Page, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PageListTemplateDefinition ) | ( Omit<PageListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PersonContributor ) | ( Role ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } ) | ( Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<RefType['AnySupplementaryTemplateDefinition']> } ) | ( Omit<SupplementaryLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnySupplementaryTemplateInstance']> } ) | ( SupplementaryTemplateDefinition ) | ( Omit<SupplementaryTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( User ) | ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( UserGroup ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
+  Node: ( Omit<Announcement, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( BlurbTemplateDefinition ) | ( Omit<BlurbTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( CollectionAttribution ) | ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<RefType['AnyUserAccessGrant']> } ) | ( ContributionRoleConfiguration ) | ( ContributorCollectionAttribution ) | ( ContributorItemAttribution ) | ( ContributorListTemplateDefinition ) | ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( ControlledVocabulary ) | ( ControlledVocabularyItem ) | ( ControlledVocabularySource ) | ( DescendantListTemplateDefinition ) | ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( DetailTemplateDefinition ) | ( Omit<DetailTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<EntityBreadcrumb, 'crumb'> & { crumb: RefType['AnyEntity'] } ) | ( Omit<EntityLink, 'source' | 'target'> & { source: RefType['AnyEntity'], target: RefType['AnyEntity'] } ) | ( GlobalConfiguration ) | ( Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyHeroTemplateDefinition']> } ) | ( Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyHeroTemplateInstance']> } ) | ( HeroTemplateDefinition ) | ( Omit<HeroTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( HierarchicalSchemaRank ) | ( HierarchicalSchemaVersionRank ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( ItemAttribution ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( LinkListTemplateDefinition ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<LinkTargetCandidate, 'target'> & { target: RefType['AnyLinkTarget'] } ) | ( Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyListItemTemplateDefinition']> } ) | ( Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyListItemTemplateInstance']> } ) | ( ListItemTemplateDefinition ) | ( Omit<ListItemTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<MainLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMainTemplateDefinition']> } ) | ( Omit<MainLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMainTemplateInstance']> } ) | ( Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMetadataTemplateDefinition']> } ) | ( Omit<MetadataLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMetadataTemplateInstance']> } ) | ( MetadataTemplateDefinition ) | ( Omit<MetadataTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyNavigationTemplateDefinition']> } ) | ( Omit<NavigationLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyNavigationTemplateInstance']> } ) | ( NavigationTemplateDefinition ) | ( Omit<NavigationTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingEntry, 'entry'> & { entry: RefType['AnyOrderingEntry'] } ) | ( OrderingTemplateDefinition ) | ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( OrganizationContributor ) | ( Omit<Page, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PageListTemplateDefinition ) | ( Omit<PageListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PersonContributor ) | ( Role ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } ) | ( Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<RefType['AnySupplementaryTemplateDefinition']> } ) | ( Omit<SupplementaryLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnySupplementaryTemplateInstance']> } ) | ( SupplementaryTemplateDefinition ) | ( Omit<SupplementaryTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( TemplateInstanceSibling ) | ( User ) | ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( UserGroup ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
   OptionableProperty: ( MultiselectProperty ) | ( SelectProperty );
   OrderingPath: ( SchemaOrderingPath ) | ( StaticOrderingPath );
   Paginated: ( AnnouncementConnection ) | ( Omit<AnyAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyAccessGrant']> } ) | ( Omit<AnyAssetConnection, 'nodes'> & { nodes: Array<RefType['AnyAsset']> } ) | ( Omit<AnyCollectionAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyCollectionAccessGrant']> } ) | ( Omit<AnyCommunityAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyCommunityAccessGrant']> } ) | ( Omit<AnyContributorConnection, 'nodes'> & { nodes: Array<RefType['AnyContributor']> } ) | ( Omit<AnyUserAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyUserAccessGrant']> } ) | ( Omit<AnyUserGroupAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyUserGroupAccessGrant']> } ) | ( CollectionConnection ) | ( CollectionContributionConnection ) | ( CommunityConnection ) | ( ContextualPermissionConnection ) | ( Omit<ContributorAttributionConnection, 'nodes'> & { nodes: Array<RefType['AnyContributorAttribution']> } ) | ( ControlledVocabularyConnection ) | ( ControlledVocabularySourceConnection ) | ( EntityDescendantConnection ) | ( EntityLinkConnection ) | ( ItemConnection ) | ( ItemContributionConnection ) | ( LinkTargetCandidateConnection ) | ( OrderingConnection ) | ( OrderingEntryConnection ) | ( PageConnection ) | ( RoleConnection ) | ( SchemaDefinitionConnection ) | ( SchemaVersionConnection ) | ( SearchResultConnection ) | ( UserCollectionAccessGrantConnection ) | ( UserCommunityAccessGrantConnection ) | ( UserConnection ) | ( UserGroupCollectionAccessGrantConnection ) | ( UserGroupCommunityAccessGrantConnection ) | ( UserGroupItemAccessGrantConnection ) | ( UserItemAccessGrantConnection );
@@ -16656,7 +16919,7 @@ export type ResolversInterfaceTypes<RefType extends Record<string, unknown>> = {
   SchemaProperty: ( Omit<AssetProperty, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( Omit<AssetsProperty, 'assets'> & { assets: Array<RefType['AnyAsset']> } ) | ( BooleanProperty ) | ( Omit<ContributorProperty, 'contributor'> & { contributor?: Maybe<RefType['AnyContributor']> } ) | ( Omit<ContributorsProperty, 'contributors'> & { contributors: Array<RefType['AnyContributor']> } ) | ( ControlledVocabulariesProperty ) | ( ControlledVocabularyProperty ) | ( DateProperty ) | ( EmailProperty ) | ( Omit<EntitiesProperty, 'entities'> & { entities: Array<RefType['AnyEntity']> } ) | ( Omit<EntityProperty, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( FloatProperty ) | ( FullTextProperty ) | ( Omit<GroupProperty, 'properties'> & { properties: Array<RefType['AnyScalarProperty']> } ) | ( IntegerProperty ) | ( MarkdownProperty ) | ( MultiselectProperty ) | ( SelectProperty ) | ( StringProperty ) | ( TagsProperty ) | ( TimestampProperty ) | ( UrlProperty ) | ( UnknownProperty ) | ( VariableDateProperty );
   Searchable: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Query, 'asset' | 'contributor' | 'contributorLookup' | 'orderingPaths'> & { asset?: Maybe<RefType['AnyAsset']>, contributor?: Maybe<RefType['AnyContributor']>, contributorLookup?: Maybe<RefType['AnyContributor']>, orderingPaths: Array<RefType['AnyOrderingPath']> } ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } );
   SearchableProperty: ( BooleanProperty ) | ( DateProperty ) | ( FloatProperty ) | ( FullTextProperty ) | ( IntegerProperty ) | ( MarkdownProperty ) | ( MultiselectProperty ) | ( SearchableCoreProperty ) | ( SelectProperty ) | ( StringProperty ) | ( TimestampProperty ) | ( VariableDateProperty );
-  Sluggable: ( Omit<Announcement, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( BlurbTemplateDefinition ) | ( Omit<BlurbTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( CollectionAttribution ) | ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<RefType['AnyUserAccessGrant']> } ) | ( ContributionRoleConfiguration ) | ( ContributorCollectionAttribution ) | ( ContributorItemAttribution ) | ( ContributorListTemplateDefinition ) | ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( ControlledVocabulary ) | ( ControlledVocabularyItem ) | ( ControlledVocabularySource ) | ( DescendantListTemplateDefinition ) | ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( DetailTemplateDefinition ) | ( Omit<DetailTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<EntityLink, 'source' | 'target'> & { source: RefType['AnyEntity'], target: RefType['AnyEntity'] } ) | ( Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyHeroTemplateDefinition']> } ) | ( Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyHeroTemplateInstance']> } ) | ( HeroTemplateDefinition ) | ( Omit<HeroTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( ItemAttribution ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( LinkListTemplateDefinition ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyListItemTemplateDefinition']> } ) | ( Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyListItemTemplateInstance']> } ) | ( ListItemTemplateDefinition ) | ( Omit<ListItemTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<MainLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMainTemplateDefinition']> } ) | ( Omit<MainLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMainTemplateInstance']> } ) | ( Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMetadataTemplateDefinition']> } ) | ( Omit<MetadataLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMetadataTemplateInstance']> } ) | ( MetadataTemplateDefinition ) | ( Omit<MetadataTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyNavigationTemplateDefinition']> } ) | ( Omit<NavigationLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyNavigationTemplateInstance']> } ) | ( NavigationTemplateDefinition ) | ( Omit<NavigationTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingEntry, 'entry'> & { entry: RefType['AnyOrderingEntry'] } ) | ( OrderingTemplateDefinition ) | ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( OrganizationContributor ) | ( PageListTemplateDefinition ) | ( Omit<PageListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PersonContributor ) | ( Role ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } ) | ( Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<RefType['AnySupplementaryTemplateDefinition']> } ) | ( Omit<SupplementaryLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnySupplementaryTemplateInstance']> } ) | ( SupplementaryTemplateDefinition ) | ( Omit<SupplementaryTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( User ) | ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( UserGroup ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
+  Sluggable: ( Omit<Announcement, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( BlurbTemplateDefinition ) | ( Omit<BlurbTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( CollectionAttribution ) | ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<RefType['AnyUserAccessGrant']> } ) | ( ContributionRoleConfiguration ) | ( ContributorCollectionAttribution ) | ( ContributorItemAttribution ) | ( ContributorListTemplateDefinition ) | ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( ControlledVocabulary ) | ( ControlledVocabularyItem ) | ( ControlledVocabularySource ) | ( DescendantListTemplateDefinition ) | ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( DetailTemplateDefinition ) | ( Omit<DetailTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<EntityLink, 'source' | 'target'> & { source: RefType['AnyEntity'], target: RefType['AnyEntity'] } ) | ( Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyHeroTemplateDefinition']> } ) | ( Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyHeroTemplateInstance']> } ) | ( HeroTemplateDefinition ) | ( Omit<HeroTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( ItemAttribution ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( LinkListTemplateDefinition ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyListItemTemplateDefinition']> } ) | ( Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyListItemTemplateInstance']> } ) | ( ListItemTemplateDefinition ) | ( Omit<ListItemTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<MainLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMainTemplateDefinition']> } ) | ( Omit<MainLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMainTemplateInstance']> } ) | ( Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMetadataTemplateDefinition']> } ) | ( Omit<MetadataLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMetadataTemplateInstance']> } ) | ( MetadataTemplateDefinition ) | ( Omit<MetadataTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyNavigationTemplateDefinition']> } ) | ( Omit<NavigationLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyNavigationTemplateInstance']> } ) | ( NavigationTemplateDefinition ) | ( Omit<NavigationTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingEntry, 'entry'> & { entry: RefType['AnyOrderingEntry'] } ) | ( OrderingTemplateDefinition ) | ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( OrganizationContributor ) | ( PageListTemplateDefinition ) | ( Omit<PageListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PersonContributor ) | ( Role ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } ) | ( Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<RefType['AnySupplementaryTemplateDefinition']> } ) | ( Omit<SupplementaryLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnySupplementaryTemplateInstance']> } ) | ( SupplementaryTemplateDefinition ) | ( Omit<SupplementaryTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( TemplateInstanceSibling ) | ( User ) | ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( UserGroup ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
   StandardMutationPayload: ( Omit<AlterSchemaVersionPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ApplySchemaPropertiesPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ClearInitialOrderingPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( ControlledVocabularyDestroyPayload ) | ( ControlledVocabularySourceUpdatePayload ) | ( ControlledVocabularyUpsertPayload ) | ( CreateAnnouncementPayload ) | ( Omit<CreateAssetPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( CreateCollectionPayload ) | ( CreateCommunityPayload ) | ( CreateItemPayload ) | ( CreateOrderingPayload ) | ( CreateOrganizationContributorPayload ) | ( CreatePagePayload ) | ( CreatePersonContributorPayload ) | ( CreateRolePayload ) | ( DestroyAnnouncementPayload ) | ( DestroyAssetPayload ) | ( DestroyCollectionPayload ) | ( DestroyCommunityPayload ) | ( DestroyContributionPayload ) | ( DestroyContributorPayload ) | ( DestroyEntityLinkPayload ) | ( DestroyItemPayload ) | ( DestroyOrderingPayload ) | ( DestroyPagePayload ) | ( Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( LinkEntityPayload ) | ( PreviewSlotPayload ) | ( Omit<RenderLayoutsPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ReparentEntityPayload, 'child'> & { child?: Maybe<RefType['AnyChildEntity']> } ) | ( ResetOrderingPayload ) | ( Omit<RevokeAccessPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<SelectInitialOrderingPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( UpdateAnnouncementPayload ) | ( Omit<UpdateAssetAttachmentPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( Omit<UpdateAssetPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( UpdateCollectionPayload ) | ( UpdateCommunityPayload ) | ( Omit<UpdateContributionPayload, 'contribution'> & { contribution?: Maybe<RefType['AnyContribution']> } ) | ( UpdateGlobalConfigurationPayload ) | ( UpdateItemPayload ) | ( UpdateOrderingPayload ) | ( UpdateOrganizationContributorPayload ) | ( UpdatePagePayload ) | ( UpdatePersonContributorPayload ) | ( UpdateRolePayload ) | ( UpdateUserPayload ) | ( UpdateViewerSettingsPayload ) | ( Omit<UpsertContributionPayload, 'contribution'> & { contribution?: Maybe<RefType['AnyContribution']> } );
   TemplateDefinition: ( BlurbTemplateDefinition ) | ( ContributorListTemplateDefinition ) | ( DescendantListTemplateDefinition ) | ( DetailTemplateDefinition ) | ( HeroTemplateDefinition ) | ( LinkListTemplateDefinition ) | ( ListItemTemplateDefinition ) | ( MetadataTemplateDefinition ) | ( NavigationTemplateDefinition ) | ( OrderingTemplateDefinition ) | ( PageListTemplateDefinition ) | ( SupplementaryTemplateDefinition );
   TemplateHasContributionList: ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } );
@@ -17147,6 +17410,7 @@ export type ResolversTypes = {
   SelectOption: ResolverTypeWrapper<SelectOption>;
   SelectProperty: ResolverTypeWrapper<SelectProperty>;
   SelectionSourceMode: SelectionSourceMode;
+  SiblingKind: SiblingKind;
   SimpleOrder: SimpleOrder;
   SiteFooter: ResolverTypeWrapper<SiteFooter>;
   SiteFooterInput: SiteFooterInput;
@@ -17179,6 +17443,7 @@ export type ResolversTypes = {
   TemplateHasOrderingPair: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['TemplateHasOrderingPair']>;
   TemplateHasSeeAllOrdering: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['TemplateHasSeeAllOrdering']>;
   TemplateInstance: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['TemplateInstance']>;
+  TemplateInstanceSibling: ResolverTypeWrapper<TemplateInstanceSibling>;
   TemplateKind: TemplateKind;
   TemplateOrderingPair: ResolverTypeWrapper<TemplateOrderingPair>;
   TemplateSelectionSource: ResolverTypeWrapper<Scalars['TemplateSelectionSource']['output']>;
@@ -17693,6 +17958,7 @@ export type ResolversParentTypes = {
   TemplateHasOrderingPair: ResolversInterfaceTypes<ResolversParentTypes>['TemplateHasOrderingPair'];
   TemplateHasSeeAllOrdering: ResolversInterfaceTypes<ResolversParentTypes>['TemplateHasSeeAllOrdering'];
   TemplateInstance: ResolversInterfaceTypes<ResolversParentTypes>['TemplateInstance'];
+  TemplateInstanceSibling: TemplateInstanceSibling;
   TemplateOrderingPair: TemplateOrderingPair;
   TemplateSelectionSource: Scalars['TemplateSelectionSource']['output'];
   TemplateSlotBlockDefinition: TemplateSlotBlockDefinition;
@@ -18350,6 +18616,8 @@ export type BlurbTemplateInstanceResolvers<ContextType = any, ParentType extends
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  nextSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
+  prevSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['BlurbTemplateInstanceSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
@@ -18918,6 +19186,8 @@ export type ContributorListTemplateInstanceResolvers<ContextType = any, ParentTy
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  nextSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
+  prevSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['ContributorListTemplateInstanceSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
@@ -19292,6 +19562,8 @@ export type DescendantListTemplateInstanceResolvers<ContextType = any, ParentTyp
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  nextSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
+  prevSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
   seeAllOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['DescendantListTemplateInstanceSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
@@ -19475,6 +19747,8 @@ export type DetailTemplateInstanceResolvers<ContextType = any, ParentType extend
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  nextSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
+  prevSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['DetailTemplateInstanceSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
@@ -19913,6 +20187,8 @@ export type HeroTemplateInstanceResolvers<ContextType = any, ParentType extends 
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  nextSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
+  prevSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['HeroTemplateInstanceSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
@@ -20311,6 +20587,8 @@ export type LinkListTemplateInstanceResolvers<ContextType = any, ParentType exte
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  nextSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
+  prevSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
   seeAllOrdering?: Resolver<Maybe<ResolversTypes['Ordering']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['LinkListTemplateInstanceSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
@@ -20433,6 +20711,8 @@ export type ListItemTemplateInstanceResolvers<ContextType = any, ParentType exte
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  nextSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
+  prevSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['ListItemTemplateInstanceSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
@@ -20559,6 +20839,8 @@ export type MetadataTemplateInstanceResolvers<ContextType = any, ParentType exte
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  nextSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
+  prevSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['MetadataTemplateInstanceSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
@@ -20723,6 +21005,8 @@ export type NavigationTemplateInstanceResolvers<ContextType = any, ParentType ex
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  nextSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
+  prevSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['NavigationTemplateInstanceSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
@@ -20736,7 +21020,7 @@ export type NavigationTemplateInstanceSlotsResolvers<ContextType = any, ParentTy
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
-  __resolveType: TypeResolveFn<'Announcement' | 'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo' | 'BlurbTemplateDefinition' | 'BlurbTemplateInstance' | 'Collection' | 'CollectionAttribution' | 'CollectionContribution' | 'Community' | 'ContextualPermission' | 'ContributionRoleConfiguration' | 'ContributorCollectionAttribution' | 'ContributorItemAttribution' | 'ContributorListTemplateDefinition' | 'ContributorListTemplateInstance' | 'ControlledVocabulary' | 'ControlledVocabularyItem' | 'ControlledVocabularySource' | 'DescendantListTemplateDefinition' | 'DescendantListTemplateInstance' | 'DetailTemplateDefinition' | 'DetailTemplateInstance' | 'EntityBreadcrumb' | 'EntityLink' | 'GlobalConfiguration' | 'HeroLayoutDefinition' | 'HeroLayoutInstance' | 'HeroTemplateDefinition' | 'HeroTemplateInstance' | 'HierarchicalSchemaRank' | 'HierarchicalSchemaVersionRank' | 'Item' | 'ItemAttribution' | 'ItemContribution' | 'LinkListTemplateDefinition' | 'LinkListTemplateInstance' | 'LinkTargetCandidate' | 'ListItemLayoutDefinition' | 'ListItemLayoutInstance' | 'ListItemTemplateDefinition' | 'ListItemTemplateInstance' | 'MainLayoutDefinition' | 'MainLayoutInstance' | 'MetadataLayoutDefinition' | 'MetadataLayoutInstance' | 'MetadataTemplateDefinition' | 'MetadataTemplateInstance' | 'NavigationLayoutDefinition' | 'NavigationLayoutInstance' | 'NavigationTemplateDefinition' | 'NavigationTemplateInstance' | 'Ordering' | 'OrderingEntry' | 'OrderingTemplateDefinition' | 'OrderingTemplateInstance' | 'OrganizationContributor' | 'Page' | 'PageListTemplateDefinition' | 'PageListTemplateInstance' | 'PersonContributor' | 'Role' | 'SchemaDefinition' | 'SchemaVersion' | 'SupplementaryLayoutDefinition' | 'SupplementaryLayoutInstance' | 'SupplementaryTemplateDefinition' | 'SupplementaryTemplateInstance' | 'User' | 'UserCollectionAccessGrant' | 'UserCommunityAccessGrant' | 'UserGroup' | 'UserGroupCollectionAccessGrant' | 'UserGroupCommunityAccessGrant' | 'UserGroupItemAccessGrant' | 'UserItemAccessGrant', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'Announcement' | 'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo' | 'BlurbTemplateDefinition' | 'BlurbTemplateInstance' | 'Collection' | 'CollectionAttribution' | 'CollectionContribution' | 'Community' | 'ContextualPermission' | 'ContributionRoleConfiguration' | 'ContributorCollectionAttribution' | 'ContributorItemAttribution' | 'ContributorListTemplateDefinition' | 'ContributorListTemplateInstance' | 'ControlledVocabulary' | 'ControlledVocabularyItem' | 'ControlledVocabularySource' | 'DescendantListTemplateDefinition' | 'DescendantListTemplateInstance' | 'DetailTemplateDefinition' | 'DetailTemplateInstance' | 'EntityBreadcrumb' | 'EntityLink' | 'GlobalConfiguration' | 'HeroLayoutDefinition' | 'HeroLayoutInstance' | 'HeroTemplateDefinition' | 'HeroTemplateInstance' | 'HierarchicalSchemaRank' | 'HierarchicalSchemaVersionRank' | 'Item' | 'ItemAttribution' | 'ItemContribution' | 'LinkListTemplateDefinition' | 'LinkListTemplateInstance' | 'LinkTargetCandidate' | 'ListItemLayoutDefinition' | 'ListItemLayoutInstance' | 'ListItemTemplateDefinition' | 'ListItemTemplateInstance' | 'MainLayoutDefinition' | 'MainLayoutInstance' | 'MetadataLayoutDefinition' | 'MetadataLayoutInstance' | 'MetadataTemplateDefinition' | 'MetadataTemplateInstance' | 'NavigationLayoutDefinition' | 'NavigationLayoutInstance' | 'NavigationTemplateDefinition' | 'NavigationTemplateInstance' | 'Ordering' | 'OrderingEntry' | 'OrderingTemplateDefinition' | 'OrderingTemplateInstance' | 'OrganizationContributor' | 'Page' | 'PageListTemplateDefinition' | 'PageListTemplateInstance' | 'PersonContributor' | 'Role' | 'SchemaDefinition' | 'SchemaVersion' | 'SupplementaryLayoutDefinition' | 'SupplementaryLayoutInstance' | 'SupplementaryTemplateDefinition' | 'SupplementaryTemplateInstance' | 'TemplateInstanceSibling' | 'User' | 'UserCollectionAccessGrant' | 'UserCommunityAccessGrant' | 'UserGroup' | 'UserGroupCollectionAccessGrant' | 'UserGroupCommunityAccessGrant' | 'UserGroupItemAccessGrant' | 'UserItemAccessGrant', ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
 };
 
@@ -20911,7 +21195,9 @@ export type OrderingTemplateInstanceResolvers<ContextType = any, ParentType exte
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  nextSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
   orderingPair?: Resolver<ResolversTypes['TemplateOrderingPair'], ParentType, ContextType>;
+  prevSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['OrderingTemplateInstanceSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
@@ -21024,6 +21310,8 @@ export type PageListTemplateInstanceResolvers<ContextType = any, ParentType exte
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  nextSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
+  prevSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['PageListTemplateInstanceSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
@@ -21532,7 +21820,7 @@ export interface SlugScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 }
 
 export type SluggableResolvers<ContextType = any, ParentType extends ResolversParentTypes['Sluggable'] = ResolversParentTypes['Sluggable']> = {
-  __resolveType: TypeResolveFn<'Announcement' | 'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo' | 'BlurbTemplateDefinition' | 'BlurbTemplateInstance' | 'Collection' | 'CollectionAttribution' | 'CollectionContribution' | 'Community' | 'ContextualPermission' | 'ContributionRoleConfiguration' | 'ContributorCollectionAttribution' | 'ContributorItemAttribution' | 'ContributorListTemplateDefinition' | 'ContributorListTemplateInstance' | 'ControlledVocabulary' | 'ControlledVocabularyItem' | 'ControlledVocabularySource' | 'DescendantListTemplateDefinition' | 'DescendantListTemplateInstance' | 'DetailTemplateDefinition' | 'DetailTemplateInstance' | 'EntityLink' | 'HeroLayoutDefinition' | 'HeroLayoutInstance' | 'HeroTemplateDefinition' | 'HeroTemplateInstance' | 'Item' | 'ItemAttribution' | 'ItemContribution' | 'LinkListTemplateDefinition' | 'LinkListTemplateInstance' | 'ListItemLayoutDefinition' | 'ListItemLayoutInstance' | 'ListItemTemplateDefinition' | 'ListItemTemplateInstance' | 'MainLayoutDefinition' | 'MainLayoutInstance' | 'MetadataLayoutDefinition' | 'MetadataLayoutInstance' | 'MetadataTemplateDefinition' | 'MetadataTemplateInstance' | 'NavigationLayoutDefinition' | 'NavigationLayoutInstance' | 'NavigationTemplateDefinition' | 'NavigationTemplateInstance' | 'Ordering' | 'OrderingEntry' | 'OrderingTemplateDefinition' | 'OrderingTemplateInstance' | 'OrganizationContributor' | 'PageListTemplateDefinition' | 'PageListTemplateInstance' | 'PersonContributor' | 'Role' | 'SchemaDefinition' | 'SchemaVersion' | 'SupplementaryLayoutDefinition' | 'SupplementaryLayoutInstance' | 'SupplementaryTemplateDefinition' | 'SupplementaryTemplateInstance' | 'User' | 'UserCollectionAccessGrant' | 'UserCommunityAccessGrant' | 'UserGroup' | 'UserGroupCollectionAccessGrant' | 'UserGroupCommunityAccessGrant' | 'UserGroupItemAccessGrant' | 'UserItemAccessGrant', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'Announcement' | 'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo' | 'BlurbTemplateDefinition' | 'BlurbTemplateInstance' | 'Collection' | 'CollectionAttribution' | 'CollectionContribution' | 'Community' | 'ContextualPermission' | 'ContributionRoleConfiguration' | 'ContributorCollectionAttribution' | 'ContributorItemAttribution' | 'ContributorListTemplateDefinition' | 'ContributorListTemplateInstance' | 'ControlledVocabulary' | 'ControlledVocabularyItem' | 'ControlledVocabularySource' | 'DescendantListTemplateDefinition' | 'DescendantListTemplateInstance' | 'DetailTemplateDefinition' | 'DetailTemplateInstance' | 'EntityLink' | 'HeroLayoutDefinition' | 'HeroLayoutInstance' | 'HeroTemplateDefinition' | 'HeroTemplateInstance' | 'Item' | 'ItemAttribution' | 'ItemContribution' | 'LinkListTemplateDefinition' | 'LinkListTemplateInstance' | 'ListItemLayoutDefinition' | 'ListItemLayoutInstance' | 'ListItemTemplateDefinition' | 'ListItemTemplateInstance' | 'MainLayoutDefinition' | 'MainLayoutInstance' | 'MetadataLayoutDefinition' | 'MetadataLayoutInstance' | 'MetadataTemplateDefinition' | 'MetadataTemplateInstance' | 'NavigationLayoutDefinition' | 'NavigationLayoutInstance' | 'NavigationTemplateDefinition' | 'NavigationTemplateInstance' | 'Ordering' | 'OrderingEntry' | 'OrderingTemplateDefinition' | 'OrderingTemplateInstance' | 'OrganizationContributor' | 'PageListTemplateDefinition' | 'PageListTemplateInstance' | 'PersonContributor' | 'Role' | 'SchemaDefinition' | 'SchemaVersion' | 'SupplementaryLayoutDefinition' | 'SupplementaryLayoutInstance' | 'SupplementaryTemplateDefinition' | 'SupplementaryTemplateInstance' | 'TemplateInstanceSibling' | 'User' | 'UserCollectionAccessGrant' | 'UserCommunityAccessGrant' | 'UserGroup' | 'UserGroupCollectionAccessGrant' | 'UserGroupCommunityAccessGrant' | 'UserGroupItemAccessGrant' | 'UserItemAccessGrant', ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
 };
 
@@ -21627,6 +21915,8 @@ export type SupplementaryTemplateInstanceResolvers<ContextType = any, ParentType
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  nextSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
+  prevSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['SupplementaryTemplateInstanceSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
@@ -21726,7 +22016,24 @@ export type TemplateInstanceResolvers<ContextType = any, ParentType extends Reso
   hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   lastRenderedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  nextSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
+  prevSiblings?: Resolver<Array<ResolversTypes['TemplateInstanceSibling']>, ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
+};
+
+export type TemplateInstanceSiblingResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateInstanceSibling'] = ResolversParentTypes['TemplateInstanceSibling']> = {
+  createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  dark?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  hidden?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  kind?: Resolver<ResolversTypes['SiblingKind'], ParentType, ContextType>;
+  layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
+  position?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
+  templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  width?: Resolver<Maybe<ResolversTypes['TemplateWidth']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type TemplateOrderingPairResolvers<ContextType = any, ParentType extends ResolversParentTypes['TemplateOrderingPair'] = ResolversParentTypes['TemplateOrderingPair']> = {
@@ -22666,6 +22973,7 @@ export type Resolvers<ContextType = any> = {
   TemplateHasOrderingPair?: TemplateHasOrderingPairResolvers<ContextType>;
   TemplateHasSeeAllOrdering?: TemplateHasSeeAllOrderingResolvers<ContextType>;
   TemplateInstance?: TemplateInstanceResolvers<ContextType>;
+  TemplateInstanceSibling?: TemplateInstanceSiblingResolvers<ContextType>;
   TemplateOrderingPair?: TemplateOrderingPairResolvers<ContextType>;
   TemplateSelectionSource?: GraphQLScalarType;
   TemplateSlotBlockDefinition?: TemplateSlotBlockDefinitionResolvers<ContextType>;

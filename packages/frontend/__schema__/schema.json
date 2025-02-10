@@ -7610,6 +7610,54 @@
             "deprecationReason": null
           },
           {
+            "name": "nextSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 4 and 5 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "prevSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 2 and 1 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "slots",
             "description": "Rendered slots for this template.\n",
             "args": [],
@@ -21241,6 +21289,54 @@
             "deprecationReason": null
           },
           {
+            "name": "nextSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 4 and 5 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "prevSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 2 and 1 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "slots",
             "description": "Rendered slots for this template.\n",
             "args": [],
@@ -27874,6 +27970,54 @@
             "deprecationReason": null
           },
           {
+            "name": "nextSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 4 and 5 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "prevSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 2 and 1 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "seeAllOrdering",
             "description": "The ordering to render for a \"see all\" link.\n",
             "args": [],
@@ -30650,6 +30794,54 @@
                 "kind": "ENUM",
                 "name": "LayoutKind",
                 "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nextSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 4 and 5 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "prevSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 2 and 1 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -37759,6 +37951,54 @@
                 "kind": "ENUM",
                 "name": "LayoutKind",
                 "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nextSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 4 and 5 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "prevSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 2 and 1 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -45262,6 +45502,54 @@
             "deprecationReason": null
           },
           {
+            "name": "nextSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 4 and 5 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "prevSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 2 and 1 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "seeAllOrdering",
             "description": "The ordering to render for a \"see all\" link.\n",
             "args": [],
@@ -46864,6 +47152,54 @@
                 "kind": "ENUM",
                 "name": "LayoutKind",
                 "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nextSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 4 and 5 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "prevSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 2 and 1 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -48535,6 +48871,54 @@
                 "kind": "ENUM",
                 "name": "LayoutKind",
                 "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nextSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 4 and 5 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "prevSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 2 and 1 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -51395,6 +51779,54 @@
             "deprecationReason": null
           },
           {
+            "name": "nextSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 4 and 5 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "prevSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 2 and 1 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "slots",
             "description": "Rendered slots for this template.\n",
             "args": [],
@@ -51887,6 +52319,11 @@
           {
             "kind": "OBJECT",
             "name": "SupplementaryTemplateInstance",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "TemplateInstanceSibling",
             "ofType": null
           },
           {
@@ -54502,6 +54939,30 @@
             "deprecationReason": null
           },
           {
+            "name": "nextSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 4 and 5 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "orderingPair",
             "description": "Access the prev/next siblings within the template's specified ordering.\n",
             "args": [],
@@ -54512,6 +54973,30 @@
                 "kind": "OBJECT",
                 "name": "TemplateOrderingPair",
                 "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "prevSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 2 and 1 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -56194,6 +56679,54 @@
                 "kind": "ENUM",
                 "name": "LayoutKind",
                 "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nextSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 4 and 5 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "prevSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 2 and 1 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
               }
             },
             "isDeprecated": false,
@@ -65609,6 +66142,29 @@
       },
       {
         "kind": "ENUM",
+        "name": "SiblingKind",
+        "description": "The directionality of a sibling relationship, relative to a specific record (referred to as the 'source').\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "NEXT",
+            "description": "This sibling comes after the source record.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PREV",
+            "description": "This sibling comes before the source record.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
         "name": "SimpleOrder",
         "description": "A generic enum for sorting models that don't have anything more specific implemented",
         "fields": null,
@@ -66392,6 +66948,11 @@
           {
             "kind": "OBJECT",
             "name": "SupplementaryTemplateInstance",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "TemplateInstanceSibling",
             "ofType": null
           },
           {
@@ -67895,6 +68456,54 @@
             "deprecationReason": null
           },
           {
+            "name": "nextSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 4 and 5 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "prevSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 2 and 1 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "slots",
             "description": "Rendered slots for this template.\n",
             "args": [],
@@ -68982,6 +69591,54 @@
             "deprecationReason": null
           },
           {
+            "name": "nextSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 4 and 5 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "prevSiblings",
+            "description": "Return all preceding siblings to the current template in order of proximity.\n\nIf a template is at position 3 of 5, then this field will return position 2 and 1 in that order.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "TemplateInstanceSibling",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "templateKind",
             "description": null,
             "args": [],
@@ -69069,6 +69726,200 @@
             "ofType": null
           }
         ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TemplateInstanceSibling",
+        "description": "A brief detail about a template instance's siblings, to help with finessing certain style concerns.\n\nFor `PREV` siblings, the positions are returned in descending order. If a template is at position\n3 of 5, then these will be returned at position 2 and 1 in that order.\n\nFor `NEXT` siblings, the positions are returned in ascending order. If a template is at position\n3 of 5, then these will be returned at position 4 and 5 in that order.\n",
+        "fields": [
+          {
+            "name": "createdAt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "dark",
+            "description": "Whether the sibling has a `DARK` background.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hidden",
+            "description": "Whether this sibling is hidden for whatever reason (empty slots, empty entity list, etc).\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "kind",
+            "description": "Whether this is `NEXT` or `PREV`. No functional difference, just illustrative.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SiblingKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "layoutKind",
+            "description": "The layout this sibling is in. As of now, this should always be `MAIN`,\nsince only `MAIN` layout templates can be stacked.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "LayoutKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "position",
+            "description": "The position of this sibling within the layout instance.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "slug",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Slug",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "templateKind",
+            "description": "The template this sibling is. As of now, this should always be templates within the `MAIN` layout category,\nsince only `MAIN` layout templates can be stacked.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "TemplateKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updatedAt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "width",
+            "description": "The width of the sibling (if available).\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "TemplateWidth",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "Sluggable",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
       },
       {
         "kind": "ENUM",
@@ -72227,6 +73078,18 @@
             "deprecationReason": null
           },
           {
+            "name": "innerPosition",
+            "description": "\"Inner\" sorting discriminator for the contribution. If not provided, it will keep whatever is there.\n\nIt applies _after_ the contribution role.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "metadata",
             "description": "Metadata for the contribution. If not provided, it will keep whatever is there.\n",
             "type": {
@@ -72239,8 +73102,8 @@
             "deprecationReason": null
           },
           {
-            "name": "position",
-            "description": "Sorting discriminator for the contribution. If not provided, it will keep whatever is there.\n",
+            "name": "outerPosition",
+            "description": "\"Outer\" sorting discriminator for the contribution. If not provided, it will keep whatever is there.\n\nIt applies _before_ the contribution role.\n",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
