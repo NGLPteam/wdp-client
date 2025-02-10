@@ -1,5 +1,6 @@
 import { GraphQLTaggedNode, readInlineData } from "relay-runtime";
 import { useFragment, graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
 import { getDateOnly } from "@wdp/lib/helpers";
 import pick from "lodash/pick";
 import MutationForm, {
@@ -36,6 +37,8 @@ export default function CollectionUpdateForm({
   onSaveAndClose,
   onCancel,
 }: Props) {
+  const { t } = useTranslation();
+
   const collection = useFragment<CollectionUpdateFormFragment$key>(
     fragment,
     data,
@@ -48,6 +51,8 @@ export default function CollectionUpdateForm({
     visibleAfterAt,
     visibleUntilAt,
     published,
+    doiData,
+    rawDOI,
     ...values
   } = useFragment<CollectionUpdateFormFieldsFragment$key>(
     fieldsFragment,
@@ -56,11 +61,10 @@ export default function CollectionUpdateForm({
 
   const mutationName = "updateCollection";
 
-  // eslint-disable-next-line prettier/prettier
-  const {
-    fieldValues: schemaFieldValues,
-    defaultValues: schemaDefaultValues,
-  } = useSchemaContext(fieldsData.context);
+  // eslint-disable prettier/prettier
+  const { fieldValues: schemaFieldValues, defaultValues: schemaDefaultValues } =
+    useSchemaContext(fieldsData.context);
+  // eslint-enable prettier/prettier
 
   const schemaProperties = useSchemaProperties(fieldsData);
 
@@ -101,6 +105,7 @@ export default function CollectionUpdateForm({
     title: values.title || undefined,
     visibleAfterAt: getDateOnly(visibleAfterAt),
     visibleUntilAt: getDateOnly(visibleUntilAt),
+    doi: rawDOI,
     ...schemaDefaultValues,
     ...schemaFieldValues,
   };
@@ -139,49 +144,61 @@ export default function CollectionUpdateForm({
   );
 
   const renderForm = useRenderForm<Fields>(
-    ({ form: { register } }) => (
-      <>
-        <Forms.Grid>
-          <Forms.Input
-            label="forms.fields.title"
-            isWide
-            {...register("title")}
-          />
-          <Forms.Input
-            label="forms.fields.subtitle"
-            isWide
-            {...register("subtitle")}
-          />
-          <Forms.VisibilityFields />
-          <Forms.Input label="forms.fields.doi" {...register("doi")} />
-          <Forms.Input label="forms.fields.issn" {...register("issn")} />
-          <Forms.FileImageUpload
-            data={thumbnail}
-            label="forms.fields.thumbnail"
-            name="thumbnail"
-            clearName="clearThumbnail"
-          />
-          <Forms.FileImageUpload
-            data={heroImage}
-            label="forms.fields.hero_image"
-            name="heroImage"
-            clearName="clearHeroImage"
-          />
-          <Forms.Textarea
-            label="forms.fields.summary"
-            isWide
-            {...register("summary")}
-          />
-          <Forms.VariablePrecisionDateControl
-            name="published"
-            data={published}
-            label="forms.fields.published"
-            isWide
-          />
-        </Forms.Grid>
-        <SchemaFormFields data={fieldsData} schemaKind="COLLECTION" />
-      </>
-    ),
+    ({ form: { register, setError } }) => {
+      if (!!rawDOI && !doiData?.doi)
+        setError(
+          "doi",
+          {
+            type: "custom",
+            message: t("forms.fields.doi_invalid"),
+          },
+          { shouldFocus: false },
+        );
+
+      return (
+        <>
+          <Forms.Grid>
+            <Forms.Input
+              label="forms.fields.title"
+              isWide
+              {...register("title")}
+            />
+            <Forms.Input
+              label="forms.fields.subtitle"
+              isWide
+              {...register("subtitle")}
+            />
+            <Forms.VisibilityFields />
+            <Forms.Input label="forms.fields.doi" {...register("doi")} />
+            <Forms.Input label="forms.fields.issn" {...register("issn")} />
+            <Forms.FileImageUpload
+              data={thumbnail}
+              label="forms.fields.thumbnail"
+              name="thumbnail"
+              clearName="clearThumbnail"
+            />
+            <Forms.FileImageUpload
+              data={heroImage}
+              label="forms.fields.hero_image"
+              name="heroImage"
+              clearName="clearHeroImage"
+            />
+            <Forms.Textarea
+              label="forms.fields.summary"
+              isWide
+              {...register("summary")}
+            />
+            <Forms.VariablePrecisionDateControl
+              name="published"
+              data={published}
+              label="forms.fields.published"
+              isWide
+            />
+          </Forms.Grid>
+          <SchemaFormFields data={fieldsData} schemaKind="COLLECTION" />
+        </>
+      );
+    },
     [fieldsData],
   );
 
@@ -224,7 +241,10 @@ const fieldsFragment = graphql`
   fragment CollectionUpdateFormFieldsFragment on Collection {
     title
     subtitle
-    doi
+    doiData {
+      doi
+    }
+    rawDOI
     issn
     visibility
     summary

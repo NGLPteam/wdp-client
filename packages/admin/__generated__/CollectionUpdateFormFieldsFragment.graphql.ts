@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0605ad4e07084c6a253ebad03a688075>>
+ * @generated SignedSource<<0ba14f47594ea2eca8a7240bf17ad850>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,9 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type CollectionUpdateFormFieldsFragment$data = {
-  readonly doi: string | null | undefined;
+  readonly doiData: {
+    readonly doi: string | null | undefined;
+  };
   readonly heroImage: {
     readonly " $fragmentSpreads": FragmentRefs<"FileUploadFragment">;
   };
@@ -20,6 +22,7 @@ export type CollectionUpdateFormFieldsFragment$data = {
   readonly published: {
     readonly " $fragmentSpreads": FragmentRefs<"VariablePrecisionDateControlFragment">;
   };
+  readonly rawDOI: string | null | undefined;
   readonly subtitle: string | null | undefined;
   readonly summary: string | null | undefined;
   readonly thumbnail: {
@@ -67,8 +70,26 @@ return {
     {
       "alias": null,
       "args": null,
+      "concreteType": "DOIData",
+      "kind": "LinkedField",
+      "name": "doiData",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "doi",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "kind": "ScalarField",
-      "name": "doi",
+      "name": "rawDOI",
       "storageKey": null
     },
     {
@@ -148,6 +169,6 @@ return {
 };
 })();
 
-(node as any).hash = "7805ff0459464511c3bbf2c8abf733d4";
+(node as any).hash = "29d206b010da567e888e07fc12f5f734";
 
 export default node;
