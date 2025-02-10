@@ -348,6 +348,7 @@
         "avatar": "Avatar",
         "published": "Published",
         "doi": "DOI",
+        "doi_invalid": "Invalid value— will be hidden in frontend.",
         "parent": "Parent Collection or Item",
         "year": "Year",
         "month": "Month",
