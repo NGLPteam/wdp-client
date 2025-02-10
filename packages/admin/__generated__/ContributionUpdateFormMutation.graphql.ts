@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e14bb7be29fd1e01e4002aa50144b7fa>>
+ * @generated SignedSource<<85d9cfdb85c66763d87b0549d3532626>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,8 +13,9 @@ import { FragmentRefs } from "relay-runtime";
 export type UpdateContributionInput = {
   clientMutationId?: string | null | undefined;
   contributionId: string;
+  innerPosition?: number | null | undefined;
   metadata?: ContributionMetadataInput | null | undefined;
-  position?: number | null | undefined;
+  outerPosition?: number | null | undefined;
 };
 export type ContributionMetadataInput = {
   affiliation?: string | null | undefined;
