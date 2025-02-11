@@ -5,6 +5,7 @@ import { ContributorsTemplateFragment$key } from "@/relay/ContributorsTemplateFr
 import { useSharedInlineFragment } from "@/components/templates/shared/shared.slots.graphql";
 import InlineSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import Container from "@/components/layout/Container";
+import type { HeroBackground } from "@/types/graphql-schema";
 import Contributor from "./Contributor";
 import styles from "./Contributors.module.css";
 
@@ -12,6 +13,7 @@ export default function ContributorsTemplate({
   data,
 }: {
   data?: ContributorsTemplateFragment$key | null;
+  bgOverride?: HeroBackground | null;
 }) {
   const { t } = useTranslation();
 

@@ -2,6 +2,7 @@
 
 import { graphql, useFragment } from "react-relay";
 import { FactoryTemplatesFragment$key } from "@/relay/FactoryTemplatesFragment.graphql";
+import { HeroBackground } from "@/types/graphql-schema";
 import Descendants from "../Descendants";
 import Detail from "../Detail";
 import Contributors from "../Contributors";
@@ -27,8 +28,10 @@ const TEMPLATE_COMPONENT_MAP = {
 
 export default function TemplateFactory({
   data,
+  bgOverride,
 }: {
   data: FactoryTemplatesFragment$key | null;
+  bgOverride?: HeroBackground | null;
 }) {
   const template = useFragment(fragment, data);
 
@@ -49,7 +52,7 @@ export default function TemplateFactory({
     return null;
   }
 
-  return Template ? <Template data={template} /> : null;
+  return Template ? <Template data={template} bgOverride={bgOverride} /> : null;
 }
 
 const fragment = graphql`
@@ -70,6 +73,11 @@ const fragment = graphql`
       ...PagesTemplateFragment
     }
     ... on DescendantListTemplateInstance {
+      slots {
+        blockHeader {
+          content
+        }
+      }
       entityList {
         empty
       }

@@ -1,13 +1,16 @@
 import { graphql, useFragment } from "react-relay";
 import Container from "@/components/layout/Container";
 import { DetailTemplateFragment$key } from "@/relay/DetailTemplateFragment.graphql";
+import type { HeroBackground } from "@/types/graphql-schema";
 import Summary from "./Summary";
 import Full from "./Full";
 
 export default function DetailTemplate({
   data,
+  bgOverride,
 }: {
   data?: DetailTemplateFragment$key | null;
+  bgOverride?: HeroBackground | null;
 }) {
   const template = useFragment(fragment, data);
 
@@ -21,7 +24,7 @@ export default function DetailTemplate({
   return (
     <Container
       width="wide"
-      bgColor={background}
+      bgColor={bgOverride ?? background}
       halfWidthTemplate={width === "HALF"}
     >
       {variant === "SUMMARY" ? (

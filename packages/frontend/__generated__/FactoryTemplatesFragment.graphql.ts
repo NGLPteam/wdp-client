@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<91077cd823005c38dc70218f752ed8b2>>
+ * @generated SignedSource<<7e71022eb41929362448ea84e68d1fd6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,11 @@ export type FactoryTemplatesFragment$data = {
   readonly entityList?: {
     readonly empty: boolean;
   };
+  readonly slots?: {
+    readonly blockHeader: {
+      readonly content: string | null | undefined;
+    } | null | undefined;
+  };
   readonly templateKind?: TemplateKind;
   readonly " $fragmentSpreads": FragmentRefs<"BlurbTemplateFragment" | "ContributorsTemplateFragment" | "DescendantsTemplateFragment" | "DetailTemplateFragment" | "LinksTemplateFragment" | "OrderingNavigationTemplateFragment" | "PagesTemplateFragment">;
   readonly " $fragmentType": "FactoryTemplatesFragment";
@@ -25,26 +30,24 @@ export type FactoryTemplatesFragment$key = {
 };
 
 const node: ReaderFragment = (function(){
-var v0 = [
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "TemplateEntityList",
-    "kind": "LinkedField",
-    "name": "entityList",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "empty",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
-  }
-];
+var v0 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "TemplateEntityList",
+  "kind": "LinkedField",
+  "name": "entityList",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "empty",
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+};
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -115,13 +118,46 @@ return {
     },
     {
       "kind": "InlineFragment",
-      "selections": (v0/*: any*/),
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "DescendantListTemplateInstanceSlots",
+          "kind": "LinkedField",
+          "name": "slots",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "TemplateSlotInlineInstance",
+              "kind": "LinkedField",
+              "name": "blockHeader",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "content",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        (v0/*: any*/)
+      ],
       "type": "DescendantListTemplateInstance",
       "abstractKey": null
     },
     {
       "kind": "InlineFragment",
-      "selections": (v0/*: any*/),
+      "selections": [
+        (v0/*: any*/)
+      ],
       "type": "LinkListTemplateInstance",
       "abstractKey": null
     },
@@ -153,6 +189,6 @@ return {
 };
 })();
 
-(node as any).hash = "6334abacdc1023b3326f45711efdd3ed";
+(node as any).hash = "c0b5e43bd59c59dfb63a9ee9e797fc17";
 
 export default node;

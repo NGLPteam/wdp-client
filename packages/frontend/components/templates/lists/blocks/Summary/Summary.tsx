@@ -8,6 +8,7 @@ import CoverImage from "@/components/atomic/images/CoverImage";
 import Container from "@/components/layout/Container";
 import { getRouteByEntityType } from "@/helpers/routes";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
+import type { HeroBackground } from "@/types/graphql-schema";
 import SeeAll from "../../SeeAll";
 import { getSeeAllHref } from "../../SeeAll/helpers";
 import List from "../../List/";
@@ -16,9 +17,11 @@ import styles from "./Summary.module.css";
 export default function SummaryListBlock({
   data,
   basePath,
+  bgOverride,
 }: {
   data?: sharedListTemplateFragment$key | null;
   basePath?: string | null;
+  bgOverride?: HeroBackground | null;
 }) {
   const { t } = useTranslation();
 
@@ -95,7 +98,7 @@ export default function SummaryListBlock({
   return (
     <Container
       className={styles.container}
-      bgColor={background}
+      bgColor={bgOverride ?? background}
       halfWidthTemplate={width === "HALF"}
     >
       <div className={styles.grid}>

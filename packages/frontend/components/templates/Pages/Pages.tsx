@@ -1,12 +1,14 @@
 import { graphql, useFragment } from "react-relay";
 import { PagesTemplateFragment$key } from "@/relay/PagesTemplateFragment.graphql";
 import Container from "@/components/layout/Container";
+import type { HeroBackground } from "@/types/graphql-schema";
 import List from "./List";
 
 export default function PagesListTemplate({
   data,
 }: {
   data?: PagesTemplateFragment$key | null;
+  bgOverride?: HeroBackground | null;
 }) {
   const template = useFragment(fragment, data);
 

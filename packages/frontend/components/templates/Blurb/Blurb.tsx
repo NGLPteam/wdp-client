@@ -7,12 +7,14 @@ import {
 } from "@/components/templates/shared/shared.slots.graphql";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
+import type { HeroBackground } from "@/types/graphql-schema";
 import styles from "./Blurb.module.css";
 
 export default function BlurbTemplate({
   data,
 }: {
   data?: BlurbTemplateFragment$key | null;
+  bgOverride?: HeroBackground | null;
 }) {
   const template = useFragment(fragment, data);
 

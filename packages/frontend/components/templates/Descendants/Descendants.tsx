@@ -1,6 +1,7 @@
 import { graphql, useFragment } from "react-relay";
 import { DescendantsTemplateFragment$key } from "@/relay/DescendantsTemplateFragment.graphql";
 import { getRouteByEntityType } from "@/helpers/routes";
+import type { HeroBackground } from "@/types/graphql-schema";
 import {
   CompactListBlock,
   GridListBlock,
@@ -19,8 +20,10 @@ const VARIANT_TO_COMPONENT = {
 
 export default function Descendants({
   data,
+  bgOverride,
 }: {
   data: DescendantsTemplateFragment$key;
+  bgOverride?: HeroBackground | null;
 }) {
   const template = useFragment(fragment, data);
 
@@ -38,7 +41,13 @@ export default function Descendants({
       : null;
 
   return (
-    BlockComponent && <BlockComponent data={template} basePath={basePath} />
+    BlockComponent && (
+      <BlockComponent
+        data={template}
+        basePath={basePath}
+        bgOverride={bgOverride}
+      />
+    )
   );
 }
 
