@@ -22,7 +22,7 @@ export default async function TemplatePage({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <MainLayout data={main} />
+      <MainLayout data={main} computedBgStart="NONE" />
     </UpdateClientEnvironment>
   );
 }

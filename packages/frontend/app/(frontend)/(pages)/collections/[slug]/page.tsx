@@ -20,9 +20,12 @@ export default async function TemplatePage({
 
   const { main } = collection.layouts;
 
+  const computedBgStart =
+    main?.templates?.[0]?.templateKind === "DETAIL" ? "LIGHT" : undefined;
+
   return (
     <UpdateClientEnvironment records={records}>
-      <MainLayout data={main} />
+      <MainLayout data={main} computedBgStart={computedBgStart} />
     </UpdateClientEnvironment>
   );
 }
@@ -33,6 +36,11 @@ const query = graphql`
       layouts {
         main {
           ...MainLayoutFragment
+          templates {
+            ... on TemplateInstance {
+              templateKind
+            }
+          }
         }
       }
     }

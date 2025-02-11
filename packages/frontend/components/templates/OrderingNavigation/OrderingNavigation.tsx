@@ -1,12 +1,14 @@
 import { graphql, useFragment } from "react-relay";
 import Container from "@/components/layout/Container";
 import { OrderingNavigationTemplateFragment$key } from "@/relay/OrderingNavigationTemplateFragment.graphql";
+import type { HeroBackground } from "@/types/graphql-schema";
 import NavButtons from "./NavButtons";
 
 export default function OrderingNavigationTemplate({
   data,
 }: {
   data?: OrderingNavigationTemplateFragment$key | null;
+  bgOverride?: HeroBackground | null;
 }) {
   const template = useFragment(fragment, data);
 

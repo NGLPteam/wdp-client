@@ -2,6 +2,7 @@ import { useSharedListTemplateFragment } from "@/components/templates/shared/sha
 import { sharedListTemplateFragment$key } from "@/relay/sharedListTemplateFragment.graphql";
 import Container from "@/components/layout/Container";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
+import type { HeroBackground } from "@/types/graphql-schema";
 import List from "../../List/";
 import SeeAll from "../../SeeAll";
 import { getSeeAllHref } from "../../SeeAll/helpers";
@@ -10,9 +11,11 @@ import styles from "./Grid.module.css";
 export default function GridListBlock({
   data,
   basePath,
+  bgOverride,
 }: {
   data?: sharedListTemplateFragment$key | null;
   basePath?: string | null;
+  bgOverride?: HeroBackground | null;
 }) {
   const {
     linksDefinition,
@@ -63,7 +66,7 @@ export default function GridListBlock({
   return (
     <Container
       className={styles.container}
-      bgColor={background}
+      bgColor={bgOverride ?? background}
       halfWidthTemplate={width === "HALF"}
     >
       {showHeroImage && <div className={styles.heroImage} />}
