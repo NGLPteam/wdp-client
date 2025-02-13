@@ -78,12 +78,7 @@ function ItemList({ items, search, headerStyle, hideHeader }: ItemListProps) {
       modelName="item"
       actions={actions}
       columns={columns}
-      data={
-        searchQuery.query ||
-        (searchQuery.predicates && searchQuery.predicates.length > 0)
-          ? memoizedSearch?.results
-          : memoizedData
-      }
+      data={searchQuery.hasQuery ? memoizedSearch?.results : memoizedData}
       searchData={memoizedSearch}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
