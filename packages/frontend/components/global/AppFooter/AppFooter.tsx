@@ -1,15 +1,12 @@
-import { graphql } from "react-relay";
+import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
 import classNames from "classnames";
-import { useDialogState, DialogDisclosure } from "reakit/Dialog";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import InstallationName from "components/composed/instance/InstallationName";
 import { Search } from "components/forms";
 import CommunityPicker from "components/composed/instance/CommunityPicker";
 import CommunityName from "components/composed/community/CommunityName";
-import AnnouncementModal from "components/layout/AnnouncementModal";
-import { Link as LinkStyle, NamedLink } from "components/atomic";
+import { NamedLink } from "components/atomic";
 import { useGlobalStaticContext } from "contexts/GlobalStaticContext";
 import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
 import { CommunityPickerCommunityNameFragment$key } from "@/relay/CommunityPickerCommunityNameFragment.graphql";
@@ -25,13 +22,11 @@ export default function AppFooter({ data, communityData }: Props) {
 
   const footer = staticData?.globalConfiguration?.site?.footer;
 
-  const app = useMaybeFragment(fragment, data);
+  const app = useFragment(fragment, data);
 
   const communityCount = app?.communities?.pageInfo?.totalCount || 0;
 
   const { t } = useTranslation();
-
-  const dialog = useDialogState({ modal: true });
 
   function renderRoute(href: string, label: string) {
     return (
@@ -42,19 +37,6 @@ export default function AppFooter({ data, communityData }: Props) {
         <NamedLink href={href}>
           <span>{startCase(t(label))}</span>
         </NamedLink>
-      </li>
-    );
-  }
-
-  function renderPlaceholderRoute(label: string) {
-    return (
-      <li
-        key={label}
-        className={classNames("t-copy-sm t-copy-light", styles.navItem)}
-      >
-        <DialogDisclosure {...dialog}>
-          <LinkStyle as="span">{t(label)}</LinkStyle>
-        </DialogDisclosure>
       </li>
     );
   }
@@ -99,11 +81,6 @@ export default function AppFooter({ data, communityData }: Props) {
           <h5 className="t-label-lg">{t("nav.explore")}</h5>
           <ul className={classNames("t-unstyled-list", styles.navList)}>
             {renderRoute("/", "nav.home")}
-            {renderPlaceholderRoute("nav.about")}
-            {renderPlaceholderRoute("nav.contact")}
-            {renderPlaceholderRoute("nav.privacy")}
-            {renderPlaceholderRoute("nav.terms")}
-            {renderPlaceholderRoute("nav.accessibility")}
             {process.env.NEXT_PUBLIC_ADMIN_URL &&
               renderRoute(process.env.NEXT_PUBLIC_ADMIN_URL, "nav.admin")}
           </ul>
@@ -114,9 +91,6 @@ export default function AppFooter({ data, communityData }: Props) {
           </p>
         )}
       </div>
-      <AnnouncementModal dialog={dialog}>
-        <p>{t("app.placeholder_page_text")}</p>
-      </AnnouncementModal>
     </footer>
   );
 }
