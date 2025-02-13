@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { useFragment, graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import MutationForm, {
@@ -6,7 +5,6 @@ import MutationForm, {
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
-import { FormFieldSkeleton } from "components/atomic/loading";
 import LinkTargetTypeahead from "components/forms/LinkTargetTypeahead";
 import type {
   EntityLinksAddFormMutation,
@@ -34,15 +32,13 @@ export default function EntityLinksAddForm({
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
       <Forms.Grid>
-        <Suspense fallback={<FormFieldSkeleton />}>
-          <LinkTargetTypeahead<Fields>
-            control={control}
-            name="targetId"
-            label="forms.fields.link_target"
-            slug={sourceEntity?.slug || ""}
-            required
-          />
-        </Suspense>
+        <LinkTargetTypeahead<Fields>
+          control={control}
+          name="targetId"
+          label="forms.fields.link_target"
+          slug={sourceEntity?.slug || ""}
+          required
+        />
         <Forms.Select
           label="forms.fields.link_type"
           options={[

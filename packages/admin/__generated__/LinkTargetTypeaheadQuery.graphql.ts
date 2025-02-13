@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c71215901269a77a9412a7eaf8e39673>>
+ * @generated SignedSource<<469aacd2ae714b9950629dd04fb11672>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -58,24 +58,13 @@ v2 = [
     "variableName": "title"
   }
 ],
-v3 = [
-  {
-    "alias": null,
-    "args": (v2/*: any*/),
-    "concreteType": "LinkTargetCandidateConnection",
-    "kind": "LinkedField",
-    "name": "linkTargetCandidates",
-    "plural": false,
-    "selections": [
-      {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "LinkTargetTypeaheadFragment"
-      }
-    ],
-    "storageKey": null
-  }
-],
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "targetId",
+  "storageKey": null
+},
 v4 = {
   "alias": null,
   "args": null,
@@ -94,16 +83,16 @@ v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "identifier",
   "storageKey": null
 },
 v7 = {
   "kind": "InlineFragment",
   "selections": [
-    (v6/*: any*/)
+    (v5/*: any*/)
   ],
-  "type": "Node",
-  "abstractKey": "__isNode"
+  "type": "Entity",
+  "abstractKey": "__isEntity"
 },
 v8 = [
   {
@@ -122,15 +111,6 @@ v8 = [
         "name": "ancestor",
         "plural": false,
         "selections": [
-          (v4/*: any*/),
-          {
-            "kind": "InlineFragment",
-            "selections": [
-              (v5/*: any*/)
-            ],
-            "type": "Entity",
-            "abstractKey": "__isEntity"
-          },
           (v7/*: any*/)
         ],
         "storageKey": null
@@ -140,6 +120,144 @@ v8 = [
   }
 ],
 v9 = [
+  {
+    "alias": null,
+    "args": (v2/*: any*/),
+    "concreteType": "LinkTargetCandidateConnection",
+    "kind": "LinkedField",
+    "name": "linkTargetCandidates",
+    "plural": false,
+    "selections": [
+      {
+        "kind": "InlineDataFragmentSpread",
+        "name": "LinkTargetTypeaheadFragment",
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "LinkTargetCandidateEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "LinkTargetCandidate",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v3/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "target",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "kind": "InlineDataFragmentSpread",
+                        "name": "getEntityTitleFragment",
+                        "selections": [
+                          {
+                            "kind": "InlineFragment",
+                            "selections": [
+                              (v4/*: any*/),
+                              (v5/*: any*/),
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "SchemaVersion",
+                                "kind": "LinkedField",
+                                "name": "schemaVersion",
+                                "plural": false,
+                                "selections": [
+                                  (v6/*: any*/)
+                                ],
+                                "storageKey": null
+                              },
+                              {
+                                "kind": "InlineFragment",
+                                "selections": (v8/*: any*/),
+                                "type": "Collection",
+                                "abstractKey": null
+                              },
+                              {
+                                "kind": "InlineFragment",
+                                "selections": (v8/*: any*/),
+                                "type": "Item",
+                                "abstractKey": null
+                              }
+                            ],
+                            "type": "Entity",
+                            "abstractKey": "__isEntity"
+                          }
+                        ],
+                        "args": null,
+                        "argumentDefinitions": ([]/*: any*/)
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "args": null,
+        "argumentDefinitions": ([]/*: any*/)
+      }
+    ],
+    "storageKey": null
+  }
+],
+v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v11 = {
+  "kind": "InlineFragment",
+  "selections": [
+    (v10/*: any*/)
+  ],
+  "type": "Node",
+  "abstractKey": "__isNode"
+},
+v12 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "NamedAncestor",
+    "kind": "LinkedField",
+    "name": "namedAncestors",
+    "plural": true,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "ancestor",
+        "plural": false,
+        "selections": [
+          (v4/*: any*/),
+          (v7/*: any*/),
+          (v11/*: any*/)
+        ],
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
+  }
+],
+v13 = [
   {
     "alias": null,
     "args": (v2/*: any*/),
@@ -164,13 +282,7 @@ v9 = [
             "name": "node",
             "plural": false,
             "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "targetId",
-                "storageKey": null
-              },
+              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -192,26 +304,20 @@ v9 = [
                         "name": "schemaVersion",
                         "plural": false,
                         "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "identifier",
-                            "storageKey": null
-                          },
-                          (v6/*: any*/)
+                          (v6/*: any*/),
+                          (v10/*: any*/)
                         ],
                         "storageKey": null
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v8/*: any*/),
+                        "selections": (v12/*: any*/),
                         "type": "Collection",
                         "abstractKey": null
                       },
                       {
                         "kind": "InlineFragment",
-                        "selections": (v8/*: any*/),
+                        "selections": (v12/*: any*/),
                         "type": "Item",
                         "abstractKey": null
                       }
@@ -219,11 +325,11 @@ v9 = [
                     "type": "Entity",
                     "abstractKey": "__isEntity"
                   },
-                  (v7/*: any*/)
+                  (v11/*: any*/)
                 ],
                 "storageKey": null
               },
-              (v6/*: any*/)
+              (v10/*: any*/)
             ],
             "storageKey": null
           }
@@ -233,7 +339,7 @@ v9 = [
     ],
     "storageKey": null
   },
-  (v6/*: any*/)
+  (v10/*: any*/)
 ];
 return {
   "fragment": {
@@ -249,7 +355,7 @@ return {
         "kind": "LinkedField",
         "name": "collection",
         "plural": false,
-        "selections": (v3/*: any*/),
+        "selections": (v9/*: any*/),
         "storageKey": null
       },
       {
@@ -259,7 +365,7 @@ return {
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
-        "selections": (v3/*: any*/),
+        "selections": (v9/*: any*/),
         "storageKey": null
       }
     ],
@@ -279,7 +385,7 @@ return {
         "kind": "LinkedField",
         "name": "collection",
         "plural": false,
-        "selections": (v9/*: any*/),
+        "selections": (v13/*: any*/),
         "storageKey": null
       },
       {
@@ -289,7 +395,7 @@ return {
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
-        "selections": (v9/*: any*/),
+        "selections": (v13/*: any*/),
         "storageKey": null
       }
     ]
