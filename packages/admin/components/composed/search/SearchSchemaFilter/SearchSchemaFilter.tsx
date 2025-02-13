@@ -13,7 +13,7 @@ import * as Styled from "./SearchSchemaFilter.styles";
 
 type SearchSchemas = SearchSchemaFilterFragment$data["schemas"];
 
-export default function SearchSchemaFilter({ data }: Props) {
+export default function SearchSchemaFilter({ data, kindFilter }: Props) {
   const { control } = useFormContext();
 
   const schemaData = useFragment<SearchSchemaFilterFragment$key>(
@@ -28,8 +28,11 @@ export default function SearchSchemaFilter({ data }: Props) {
     name: "schema",
   });
 
-  const initialVisible = schemaData?.schemas?.slice(0, 6);
-  const showOnExpand = schemaData?.schemas?.slice(6);
+  const filtered = kindFilter
+    ? schemaData?.schemas?.filter((s) => s.kind === kindFilter)
+    : schemaData.schemas;
+  const initialVisible = filtered?.slice(0, 6);
+  const showOnExpand = filtered?.slice(6);
 
   const [expanded, setExpanded] = useState(false);
 
@@ -90,14 +93,14 @@ export default function SearchSchemaFilter({ data }: Props) {
 
 interface Props {
   data: SearchSchemaFilterFragment$key;
+  kindFilter?: "ITEM" | "COLLECTION";
 }
-
-// // TODO: Scope this query to the search, e.g. collection schemas on the Collection List page
 
 const fragment = graphql`
   fragment SearchSchemaFilterFragment on SearchScope {
     schemas: availableSchemaVersions {
       name
+      kind
       schemaDefinition {
         slug
       }

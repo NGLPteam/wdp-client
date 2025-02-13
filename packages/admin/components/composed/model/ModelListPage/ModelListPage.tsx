@@ -90,7 +90,9 @@ function ModelListPage<
           hideFilters ? (
             <Search />
           ) : (
-            showSearch && <SearchWithFilters data={searchScope} />
+            showSearch && (
+              <SearchWithFilters data={searchScope} routeName={modelName} />
+            )
           )
         }
       />
