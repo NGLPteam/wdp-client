@@ -58,7 +58,7 @@ export const AvatarLink = styled(NavLink)<{ $active?: boolean }>`
   margin-block-start: ${pxToRem(5)};
   border-radius: 50%;
 
-  &[data-focus-visible-added] {
+  &:focus-visible {
     outline: 0;
     ${aGlow("darkMode")}
   }

@@ -99,7 +99,7 @@ export function aBaseInput() {
       border-color: var(--input-border-hover-color);
     }
 
-    &[data-focus-visible-added] {
+    &:focus-visible {
       ${aGlow("lightMode")}
       background-color: var(--input-focus-background);
     }
@@ -170,7 +170,7 @@ export function aButton(secondary?: boolean) {
       opacity: var(--button-disabled-opacity);
     }
 
-    &[data-focus-visible-added]:not(:hover) {
+    &:focus-visible:not(:hover) {
       --button-background-color: var(--button-focus-color);
       border-color: var(--button-focus-border);
     }

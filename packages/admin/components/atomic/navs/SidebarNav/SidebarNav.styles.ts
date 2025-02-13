@@ -36,7 +36,7 @@ export const Link = styled.a<{ $active: LinkProps["active"] }>`
       `}
   }
 
-  &[data-focus-visible-added] {
+  &:focus-visible {
     outline: 0;
     box-shadow: inset 0 -1px 0 var(--brand50);
     color: var(--brand50);

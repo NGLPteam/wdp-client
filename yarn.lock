@@ -3306,7 +3306,6 @@ __metadata:
     depcheck: "npm:^1.4.7"
     downshift: "npm:^8.3.2"
     eslint: "npm:^8.57.0"
-    focus-visible: "npm:^5.2.0"
     graphql: "npm:^16.8.1"
     i18next: "npm:^23.10.0"
     i18next-browser-languagedetector: "npm:^7.2.0"
@@ -6335,13 +6334,6 @@ __metadata:
   dependencies:
     tabbable: "npm:^5.2.1"
   checksum: 10c0/4c3c66ab2cabc0cde474731ba361b8a66d5f95200f2fc657ad51ce66026779aa673d1e7cfb0c3f176aec747fcc999594a6b3726c4b86ac22a388cce7396a14bb
-  languageName: node
-  linkType: hard
-
-"focus-visible@npm:^5.2.0":
-  version: 5.2.0
-  resolution: "focus-visible@npm:5.2.0"
-  checksum: 10c0/bc746775e4c17d05faf7219a91fd5ae6fec320b87f20cde5402eff17fab148b6253f25748f0235b3110528a1335ee0c6d4dc3692cc6b6174d0ebd253dd28a50d
   languageName: node
   linkType: hard
 
