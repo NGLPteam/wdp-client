@@ -87,7 +87,7 @@ export const SubmitButton = styled.button`
   border-bottom-right-radius: var(--border-radius-xlg);
 
   &:hover,
-  &[data-focus-visible-added] {
+  &:focus-visible {
     background-color: var(--brand30);
     color: var(--color-base);
   }
@@ -111,7 +111,7 @@ export const ClearButton = styled.button`
 
 export const ClearIcon = styled(IconFactory)`
   &:hover,
-  &[data-focus-visible-added] {
+  &:focus-visible {
     ${aGlow("lightMode")}
   }
 `;

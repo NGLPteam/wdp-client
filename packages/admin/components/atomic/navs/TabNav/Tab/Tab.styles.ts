@@ -40,7 +40,7 @@ export const Tab = styled.a<{
     color: var(--tab-hover-color);
   }
 
-  &[data-focus-visible-added] {
+  &:focus-visible {
     outline: 0;
     color: var(--accent-light);
     ${aTextGlow("lightMode")}

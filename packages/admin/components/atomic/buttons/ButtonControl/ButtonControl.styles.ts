@@ -50,7 +50,7 @@ export const ButtonControl = styled.button<{
     pointer-events: none;
   }
 
-  &[data-focus-visible-added]:not(:hover) {
+  &:focus-visible:not(:hover) {
     background-color: var(--brand20);
     border-color: var(--brand100);
     ${aGlow("lightMode")}

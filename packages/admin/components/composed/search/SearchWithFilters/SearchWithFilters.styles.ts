@@ -84,7 +84,7 @@ export const FiltersButton = styled.button`
     color var(--base-duration) var(--base-timing);
 
   &:hover,
-  &[data-focus-visible-added] {
+  &:focus-visible {
     background-color: var(--brand30);
     color: var(--color-base);
   }

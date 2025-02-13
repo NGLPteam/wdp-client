@@ -64,7 +64,7 @@ export const Item = styled(MenuItem)`
   }
 
   &:hover,
-  &[data-focus-visible-added]:not(:hover) {
+  &:focus-visible:not(:hover) {
     color: var(--neutral00);
     border-bottom: var(--menu-item-hover-border, 0);
     background: var(--menu-item-hover-background, none);

@@ -5,5 +5,5 @@ export const Select = styled(BaseSelect)`
   --input-min-height: 2rem;
   background: var(--background-light);
   border-radius: var(--border-radius-xlg);
-  border: none;
+  border-color: transparent;
 `;
