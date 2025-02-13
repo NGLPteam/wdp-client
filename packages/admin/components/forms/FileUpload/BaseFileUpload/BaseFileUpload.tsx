@@ -71,12 +71,23 @@ export default function BaseFileUpload<T extends FieldValues = FieldValues>({
 
   const { t } = useTranslation();
 
-  const { uploadRef, uploaded } = useWaitForUpload<T>(name, { required });
+  const {
+    control,
+    register,
+    setValue,
+    trigger,
+    formState: { isSubmitting },
+  } = useFormContext<T>();
 
-  const { control, register, setValue, trigger } = useFormContext<T>();
+  const { uploadRef, uploaded } = useWaitForUpload<T>(name, {
+    required,
+    isSubmitting,
+  });
 
   // Needed in order to make this register with its parent form
   register(name);
+
+  console.log({ uploaded });
 
   const { field } = useController<T, typeof name>({
     control,
@@ -276,7 +287,12 @@ function useValidateUpload<T extends FieldValues>(
 
         if (failed.length) {
           return `Upload Failed (check console for now)`;
-        } else if (options.required && successful.length === 0 && !value) {
+        } else if (
+          options.required &&
+          options.isSubmitting &&
+          successful.length === 0 &&
+          !value
+        ) {
           return `Please specify a file`;
         }
       } catch (err) {
@@ -288,10 +304,11 @@ function useValidateUpload<T extends FieldValues>(
       // We're valid
       return true;
     },
-    [options.required]
+    [options]
   );
 }
 
 interface ValidationOptions {
   required?: boolean;
+  isSubmitting?: boolean;
 }
