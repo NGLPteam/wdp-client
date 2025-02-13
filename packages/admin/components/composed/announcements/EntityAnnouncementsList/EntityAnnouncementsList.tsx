@@ -47,7 +47,7 @@ function EntityAnnouncementsList({
       id: "publishedOn",
       accessorFn: (originalRow: Node) => {
         if (!originalRow.publishedOn) return null;
-        return formatDate(originalRow.publishedOn);
+        return formatDate(originalRow.publishedOn, "PP");
       },
     }),
   ];
