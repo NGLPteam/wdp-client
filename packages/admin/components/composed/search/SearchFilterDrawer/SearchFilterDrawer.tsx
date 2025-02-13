@@ -4,14 +4,20 @@ import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { Drawer } from "components/layout";
 import { SearchFilterDrawerFragment$key } from "@/relay/SearchFilterDrawerFragment.graphql";
 import SearchFilterForm from "../SearchFilterForm";
+import SearchSchemaFilter from "../SearchSchemaFilter";
 import type { DialogProps } from "reakit/Dialog";
 
 interface Props {
   dialog: DialogProps;
   data?: SearchFilterDrawerFragment$key | null;
+  kindFilter?: React.ComponentProps<typeof SearchSchemaFilter>["kindFilter"];
 }
 
-export default function SearchFilterDrawer({ dialog, data }: Props) {
+export default function SearchFilterDrawer({
+  dialog,
+  data,
+  kindFilter,
+}: Props) {
   const searchScope = useMaybeFragment(fragment, data);
 
   const { t } = useTranslation();
@@ -27,6 +33,7 @@ export default function SearchFilterDrawer({ dialog, data }: Props) {
           data={searchScope}
           onSuccess={dialog.hide}
           onCancel={dialog.hide}
+          kindFilter={kindFilter}
         />
       )}
     </Drawer>

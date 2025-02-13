@@ -19,7 +19,12 @@ import SearchFilter from "../SearchFilter";
 import SearchSchemaFilter from "../SearchSchemaFilter";
 import * as Styled from "./SearchFilterForm.styles";
 
-export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
+export default function SearchFilterForm({
+  data,
+  onSuccess,
+  onCancel,
+  kindFilter,
+}: Props) {
   const searchData = useMaybeFragment(fragment, data);
 
   const router = useRouter();
@@ -34,7 +39,7 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
   const onSubmit = (data: Record<string, string>) => {
     removeEmptyKeys(data);
 
-    const cleanedQuery = omitBy(router.query, (value, key) => {
+    const cleanedQuery = omitBy(router.query, (_value, key) => {
       return key && typeof key === "string" && key.startsWith("drawer");
     });
 
@@ -122,7 +127,12 @@ export default function SearchFilterForm({ data, onSuccess, onCancel }: Props) {
                 {t("search.schema_filters")}
               </Styled.GroupLabel>
               <Styled.FieldsWrapper>
-                {searchData && <SearchSchemaFilter data={searchData} />}
+                {searchData && (
+                  <SearchSchemaFilter
+                    data={searchData}
+                    kindFilter={kindFilter}
+                  />
+                )}
               </Styled.FieldsWrapper>
             </Styled.FilterGroup>
           </Grid>
@@ -136,6 +146,7 @@ type Props = {
   data?: SearchFilterFormFragment$key | null;
   onSuccess?: () => void;
   onCancel?: () => void;
+  kindFilter?: React.ComponentProps<typeof SearchSchemaFilter>["kindFilter"];
 };
 
 type Node = SearchFilterFormFragment$data["coreProperties"][number];

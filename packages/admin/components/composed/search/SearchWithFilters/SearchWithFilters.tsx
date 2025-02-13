@@ -14,6 +14,13 @@ function SearchWithFilters({ data, className, routeName, darkTheme }: Props) {
 
   const dialog = useDialogState({ animated: true });
 
+  const kindFilter =
+    routeName === "item"
+      ? ("ITEM" as const)
+      : routeName === "collection"
+        ? ("COLLECTION" as const)
+        : undefined;
+
   return (
     <>
       <Search
@@ -26,7 +33,11 @@ function SearchWithFilters({ data, className, routeName, darkTheme }: Props) {
           </DialogDisclosure>
         }
       />
-      <SearchFilterDrawer dialog={dialog} data={searchScope} />
+      <SearchFilterDrawer
+        dialog={dialog}
+        data={searchScope}
+        kindFilter={kindFilter}
+      />
     </>
   );
 }
