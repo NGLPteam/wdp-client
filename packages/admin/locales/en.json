@@ -355,6 +355,7 @@
         "day": "Day",
         "slug": "Slug",
         "slug_description": "Slug must be lower case, no special characters or spaces.",
+        "page_slug_description": "Optional custom slug. If left blank, one will be assigned based on title.",
         "body": "Body",
         "body_description": "This field accepts markdown. Note that h1 (#) items will be treated as h2 to ensure semantic page headings.",
         "hero_image": "Hero Image",
