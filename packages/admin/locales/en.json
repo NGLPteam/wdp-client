@@ -101,8 +101,11 @@
       "showing_count": "Showing <0>{{start}} - {{end}}</0> of <0>{{total}}</0>",
       "sort": {
         "label": "Sort",
+        "aria_label": "Sort results",
         "ascending": "Sort ascending",
-        "descending": "Sort descending"
+        "descending": "Sort descending",
+        "newest": "Newest",
+        "oldest": "Oldest"
       },
       "initial_ordering_column": "Initial"
     },

@@ -13,4 +13,6 @@ export const Count = styled.div`
   padding-inline-end: ${pxToRem(12)};
 `;
 
-export const Actions = styled.div``;
+export const Actions = styled.div`
+  margin-inline-start: auto;
+`;
