@@ -33,8 +33,6 @@ const getLayout: GetLayout<Props> = (props) => {
   const communitySlug = useRouteSlug();
   if (!communitySlug) return <ErrorPage statusCode={404} />;
 
-  console.debug({ searchQueryVars });
-
   const { PageComponent, pageComponentProps } = props;
 
   return (
