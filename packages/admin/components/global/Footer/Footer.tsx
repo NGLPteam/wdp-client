@@ -1,7 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import Link from "next/link";
 import appData from "fixtures/app.data";
 import { InstallationLogo } from "components/global";
 import { renderNavLink } from "helpers";
@@ -43,9 +42,9 @@ function Footer() {
           }`}
         >
           <InstallationLogo />
-          <Link href="/" passHref className="a-link">
+          <Styled.PoweredBy className="">
             {t("app.powered_by")}
-          </Link>
+          </Styled.PoweredBy>
         </div>
         {footerData.navigation.map((nav, i) => (
           <Authorize key={i} actions={nav.actions}>
