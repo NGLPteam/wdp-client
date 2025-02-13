@@ -1,13 +1,20 @@
-import React, { useMemo, useState, useDeferredValue } from "react";
-import { GraphQLTaggedNode, graphql } from "react-relay";
+import { useState, useEffect } from "react";
+import {
+  readInlineData,
+  GraphQLTaggedNode,
+  fetchQuery,
+  graphql,
+} from "relay-runtime";
 import { debounce } from "lodash";
 import { Controller } from "react-hook-form";
-import useAuthenticatedQuery from "@wdp/lib/api/hooks/useAuthenticatedQuery";
 import { useTranslation } from "react-i18next";
-import { useMaybeFragment } from "hooks";
 import BaseTypeahead from "components/forms/BaseTypeahead";
 import { getEntityTitle } from "components/factories/EntityTitleFactory";
-import { LinkTargetTypeaheadQuery as Query } from "@/relay/LinkTargetTypeaheadQuery.graphql";
+import { default as getRelayEnvironment } from "@wdp/lib/app/buildEnvironment";
+import {
+  LinkTargetTypeaheadQuery as Query,
+  LinkTargetTypeaheadQuery$data as Response,
+} from "@/relay/LinkTargetTypeaheadQuery.graphql";
 import {
   LinkTargetTypeaheadFragment$data,
   LinkTargetTypeaheadFragment$key,
@@ -25,53 +32,82 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
   disabled,
   required,
 }: Props<T>) => {
-  const [variables, setVariables] = useState({ slug, title: "" });
-  const data = useAuthenticatedQuery<Query>(query, variables);
-  const deferred = useDeferredValue(data);
+  const { t } = useTranslation();
 
-  const optionsData = useMaybeFragment<LinkTargetTypeaheadFragment$key>(
-    fragment as GraphQLTaggedNode,
-    deferred?.collection?.linkTargetCandidates ||
-      deferred?.item?.linkTargetCandidates,
-  );
+  const [q, setQ] = useState("a");
+  const [data, setData] = useState<Response | undefined>();
 
-  const options = useMemo(() => {
+  const debouncedOnChange = debounce((value) => setQ(value), 300);
+
+  const formatOptions = (data: Response) => {
+    const { linkTargetCandidates } = data.collection ?? data.item ?? {};
+
+    if (!linkTargetCandidates) return [];
+
+    const optionsData = readInlineData<LinkTargetTypeaheadFragment$key>(
+      fragment as GraphQLTaggedNode,
+      linkTargetCandidates,
+    );
+
     const options = optionsData?.edges?.map((edge: Edge) => ({
       label: getEntityTitle(edge.node.target),
       value: edge.node.targetId,
     }));
 
     return options;
-  }, [optionsData]);
+  };
 
-  const handleChange = debounce((value) => {
-    setVariables({ ...variables, title: value });
-  }, 300);
+  useEffect(() => {
+    const fetchOptions = async () => {
+      const env = getRelayEnvironment();
 
-  const { t } = useTranslation();
+      let data;
+
+      try {
+        data = await fetchQuery<Query>(
+          env,
+          query,
+          { slug, title: q },
+          {
+            networkCacheConfig: { force: false },
+          },
+        )
+          .toPromise()
+          .then((result) => {
+            return result;
+          });
+      } catch (error) {
+        /* eslint-disable-next-line no-console */
+        console.log(error);
+      }
+
+      setData(data);
+    };
+
+    fetchOptions();
+  }, [q, slug]);
 
   return (
-    <>
-      <Controller<T>
-        name={name}
-        control={control}
-        rules={{
-          validate: (value) => {
-            return !!value || (t("forms.validation.link_target") as string);
-          },
-        }}
-        render={({ field }) => (
-          <BaseTypeahead
-            label={label}
-            options={options}
-            disabled={disabled}
-            onInputChange={handleChange}
-            required={required}
-            {...field}
-          />
-        )}
-      />
-    </>
+    <Controller<T>
+      name={name}
+      control={control}
+      rules={{
+        validate: (value) => {
+          return !!value || (t("forms.validation.link_target") as string);
+        },
+      }}
+      render={({ field }) => (
+        <BaseTypeahead
+          label={label}
+          options={data ? formatOptions(data) : []}
+          onInputChange={debouncedOnChange}
+          disabled={disabled}
+          required={required}
+          defaultValue={q}
+          {...field}
+        />
+      )}
+    />
   );
 };
 
@@ -101,7 +137,8 @@ const query = graphql`
 `;
 
 const fragment = graphql`
-  fragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection {
+  fragment LinkTargetTypeaheadFragment on LinkTargetCandidateConnection
+  @inline {
     edges {
       node {
         targetId
