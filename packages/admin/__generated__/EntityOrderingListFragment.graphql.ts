@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6fa9a8c6c0fa415465a46b99904eba8f>>
+ * @generated SignedSource<<d175d0802400a73aaeeeb543b19d3f57>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,6 @@ export type EntityOrderingListFragment$data = {
     readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingListDataFragment">;
   };
   readonly slug?: string;
-  readonly " $fragmentSpreads": FragmentRefs<"SetIntitialOrderingButtonFragment">;
   readonly " $fragmentType": "EntityOrderingListFragment";
 };
 export type EntityOrderingListFragment$key = {
@@ -77,11 +76,6 @@ return {
       "selections": (v0/*: any*/),
       "type": "Collection",
       "abstractKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "SetIntitialOrderingButtonFragment"
     }
   ],
   "type": "AnyEntity",
@@ -89,6 +83,6 @@ return {
 };
 })();
 
-(node as any).hash = "46e39c5673f6726ab99d9fa390492ac8";
+(node as any).hash = "8af1724791b39b3c39573c748a33e425";
 
 export default node;

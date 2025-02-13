@@ -12,7 +12,6 @@ import {
   EntityOrderingListDataFragment$key,
 } from "@/relay/EntityOrderingListDataFragment.graphql";
 import { EntityOrderingListFragment$key } from "@/relay/EntityOrderingListFragment.graphql";
-import SetIntitialOrderingButton from "../SetIntitialOrderingButton";
 import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
@@ -51,10 +50,6 @@ function EntityOrderingList({ data, headerStyle, hideHeader }: Props) {
     ModelColumns.BooleanColumn<EntityOrderingNode>({
       header: () => <>{t("lists.disabled_column")}</>,
       id: "disabled",
-    }),
-    ModelColumns.BooleanColumn<EntityOrderingNode>({
-      header: () => <>{t("lists.initial_ordering_column")}</>,
-      id: "initial",
     }),
     ModelColumns.CreatedAtColumn<EntityOrderingNode>({
       enableSorting: false,
@@ -96,7 +91,6 @@ function EntityOrderingList({ data, headerStyle, hideHeader }: Props) {
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
-      <SetIntitialOrderingButton data={sourceEntity} />
       <ButtonControlDrawer
         drawer="addOrdering"
         drawerQuery={{
@@ -143,7 +137,6 @@ const orderingsfragment = graphql`
         disabled
         createdAt
         identifier
-        initial
       }
     }
     ...ModelListPageFragment
@@ -164,6 +157,5 @@ const fragment = graphql`
         ...EntityOrderingListDataFragment
       }
     }
-    ...SetIntitialOrderingButtonFragment
   }
 `;

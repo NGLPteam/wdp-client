@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<575c42e73dfaeec4b4935201f54ba616>>
+ * @generated SignedSource<<8bc14f7f3b9cebc3d3a2138f0438c652>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,7 +18,6 @@ export type EntityOrderingListDataFragment$data = {
       readonly id: string;
       readonly identifier: string;
       readonly inheritedFromSchema: boolean;
-      readonly initial: boolean;
       readonly name: string | null | undefined;
       readonly slug: string;
     };
@@ -101,13 +100,6 @@ const node: ReaderFragment = {
               "kind": "ScalarField",
               "name": "identifier",
               "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "initial",
-              "storageKey": null
             }
           ],
           "storageKey": null
@@ -125,6 +117,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "8a7516b7389ebbda1e096896682c16a8";
+(node as any).hash = "7af65964d63d9ac57c6832533facf3da";
 
 export default node;
