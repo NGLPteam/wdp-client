@@ -49,3 +49,7 @@ export const Copyright = styled.div`
   margin: 0 auto;
   max-width: var(--container-max);
 `;
+
+export const PoweredBy = styled.span`
+  color: var(--accent-color);
+`;
