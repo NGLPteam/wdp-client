@@ -11,6 +11,7 @@ import { ViewOptions } from "utils/view-options";
 import CurrentSearchFilters from "components/composed/search/CurrentSearchFilters";
 import SearchWithFilters from "components/composed/search/SearchWithFilters";
 import Search from "components/composed/search/Search";
+import OrderSelect from "components/forms/OrderSelect";
 import { ModelListPageFragment$key } from "@/relay/ModelListPageFragment.graphql";
 import { ModelListPageSearchFragment$key } from "@/relay/ModelListPageSearchFragment.graphql";
 import ModelPagination from "../ModelPagination";
@@ -73,6 +74,9 @@ function ModelListPage<
     ? startCase(t(`glossary.${modelName}`, { count: 2 }))
     : "";
 
+  const pageCountActions =
+    selectedView === "grid" ? <OrderSelect /> : undefined;
+
   return (
     <section>
       <PageHeader
@@ -97,7 +101,7 @@ function ModelListPage<
         }
       />
       {searchScope && <CurrentSearchFilters data={searchScope} />}
-      <ModelPageCountActions data={instance} />
+      <ModelPageCountActions data={instance} actions={pageCountActions} />
       <ModelList<U, V>
         {...modelListProps}
         data={data}

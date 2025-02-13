@@ -10,7 +10,7 @@ import * as Styled from "./PageCountActions.styles";
 const PageCountActions = ({
   pageInfo,
   selectedCount = 0,
-  multiselectActions,
+  actions,
   loading,
 }: Props) => {
   const { t } = useTranslation();
@@ -50,9 +50,7 @@ const PageCountActions = ({
           />
         )}
       </Styled.Count>
-      {multiselectActions && selectedCount ? (
-        <Styled.Actions>{multiselectActions}</Styled.Actions>
-      ) : null}
+      {actions ? <Styled.Actions>{actions}</Styled.Actions> : null}
     </Styled.Wrapper>
   );
 };
@@ -62,8 +60,8 @@ interface Props {
   pageInfo?: Partial<PageInfo>;
   /** Number of selected items */
   selectedCount?: number;
-  /** Multiselect multiselectActions, an array of buttons */
-  multiselectActions?: React.JSX.Element | React.JSX.Element[];
+  /** Actions, an array of buttons or form controls */
+  actions?: React.JSX.Element | React.JSX.Element[];
   /** Loading state */
   loading?: boolean;
 }
