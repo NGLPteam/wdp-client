@@ -91,7 +91,7 @@
 }
 
 .navList {
-  columns: 2;
+  columns: 1;
   margin-top: 8px;
 
   @mixin respond theme("screens.100") {
