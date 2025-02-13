@@ -13,7 +13,10 @@ export default function SchemaFormFields({
 }: Props) {
   const instance = useFragment(fragment, data);
 
-  const showForm = instance.properties && instance.properties.length > 0;
+  const { featured, properties } = instance;
+
+  const showForm =
+    properties.length > 1 || (properties.length === 1 && !featured);
 
   return (
     <SchemaFormFieldsContextProvider data={instance}>
@@ -47,6 +50,11 @@ const fragment = graphql`
   fragment SchemaFormFieldsFragment on SchemaInstance {
     properties: schemaProperties {
       ...SchemaInstancePropertyFragment
+    }
+    featured: schemaProperty(fullPath: "featured") {
+      ... on GroupProperty {
+        legend
+      }
     }
 
     ...SchemaSelectorDataFragment

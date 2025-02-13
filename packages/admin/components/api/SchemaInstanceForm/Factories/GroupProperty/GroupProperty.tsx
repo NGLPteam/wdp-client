@@ -9,6 +9,9 @@ export default function GroupProperty(props: Props) {
   const group = useFragment<GroupPropertyFragment$key>(fragment, props.group);
   const { t } = useTranslation();
 
+  // Temp fix until these properties are removed
+  if (group.path === "featured") return null;
+
   // Schema property inputs should be laid out in a grid,
   // same as the global properties
   return group.legend ? (
