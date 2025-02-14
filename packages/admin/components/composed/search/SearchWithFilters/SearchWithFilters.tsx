@@ -9,17 +9,16 @@ import * as Styled from "./SearchWithFilters.styles";
 
 type SearchProps = React.ComponentProps<typeof Search>;
 
-function SearchWithFilters({ data, className, routeName, darkTheme }: Props) {
+function SearchWithFilters({
+  data,
+  className,
+  routeName,
+  darkTheme,
+  kindFilter,
+}: Props) {
   const searchScope = useMaybeFragment(fragment, data);
 
   const dialog = useDialogState({ animated: true });
-
-  const kindFilter =
-    routeName === "item"
-      ? ("ITEM" as const)
-      : routeName === "collection"
-        ? ("COLLECTION" as const)
-        : undefined;
 
   return (
     <>
@@ -44,6 +43,7 @@ function SearchWithFilters({ data, className, routeName, darkTheme }: Props) {
 
 interface Props extends SearchProps {
   data?: SearchWithFiltersFragment$key | null;
+  kindFilter?: React.ComponentProps<typeof SearchFilterDrawer>["kindFilter"];
 }
 
 export default SearchWithFilters;

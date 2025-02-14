@@ -25,7 +25,7 @@ export type PaginatedConnectionish = Connectionish & ModelListPageFragment$key;
 
 type ModelListPageProps<
   U extends PaginatedConnectionish,
-  V extends Record<string, unknown> = Record<string, unknown>,
+  V extends Record<string, unknown> = Record<string, unknown>
 > = Omit<ModelListProps<U, V>, "view"> &
   Pick<ModelListActionsProps, "viewOptions"> &
   Pick<HeaderProps, "headerStyle" | "hideHeader"> & {
@@ -38,7 +38,7 @@ type ModelListPageProps<
 
 function ModelListPage<
   U extends PaginatedConnectionish,
-  V extends Record<string, unknown>,
+  V extends Record<string, unknown>
 >({
   modelName,
   buttons,
@@ -59,7 +59,7 @@ function ModelListPage<
   const searchScope = useMaybeFragment(searchFragment, searchData);
 
   const [selectedView, setView] = useViewPreference(
-    `nglp::${modelName}.listView`,
+    `nglp::${modelName}.listView`
   );
 
   const isMobile = useIsMobile();
@@ -76,6 +76,13 @@ function ModelListPage<
 
   const pageCountActions =
     selectedView === "grid" ? <OrderSelect /> : undefined;
+
+  const kindFilter =
+    modelName === "item"
+      ? ("ITEM" as const)
+      : modelName === "collection"
+      ? ("COLLECTION" as const)
+      : undefined;
 
   return (
     <section>
@@ -95,7 +102,7 @@ function ModelListPage<
             <Search />
           ) : (
             showSearch && (
-              <SearchWithFilters data={searchScope} routeName={modelName} />
+              <SearchWithFilters data={searchScope} kindFilter={kindFilter} />
             )
           )
         }

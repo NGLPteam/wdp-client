@@ -27,7 +27,7 @@ export default function OrderSelect() {
         undefined,
         {
           shallow: true,
-        },
+        }
       );
     }
   };
