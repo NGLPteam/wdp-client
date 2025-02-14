@@ -87,8 +87,6 @@ export default function BaseFileUpload<T extends FieldValues = FieldValues>({
   // Needed in order to make this register with its parent form
   register(name);
 
-  console.log({ uploaded });
-
   const { field } = useController<T, typeof name>({
     control,
     name,

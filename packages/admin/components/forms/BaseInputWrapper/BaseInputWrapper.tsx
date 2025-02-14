@@ -31,7 +31,7 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
 
   return (
     <Styled.Wrapper css={css} role={role}>
-      <BaseInputLabel htmlFor={uid} hideLabel={hideLabel} {...labelProps}>
+      <BaseInputLabel htmlFor={uid} $hideLabel={hideLabel} {...labelProps}>
         {t(label)}{" "}
         {required && (
           <span className="a-required">
