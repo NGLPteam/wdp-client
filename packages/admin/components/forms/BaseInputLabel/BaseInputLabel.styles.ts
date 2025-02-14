@@ -4,8 +4,8 @@ import { pxToRem } from "theme/mixins/functions";
 import { tLabel } from "theme/mixins/typography";
 
 export const Label = styled.label<Props>`
-  ${({ hideLabel }) =>
-    hideLabel
+  ${({ $hideLabel }) =>
+    $hideLabel
       ? aHidden
       : css`
           ${tLabel("sm")};
@@ -16,5 +16,5 @@ export const Label = styled.label<Props>`
 `;
 
 interface Props {
-  hideLabel?: boolean;
+  $hideLabel?: boolean;
 }
