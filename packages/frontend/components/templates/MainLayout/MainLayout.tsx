@@ -78,15 +78,14 @@ const generateBgMap = (
   firstTemplate: Template,
   secondTemplate: Template,
 ) => {
-  const { nextSiblings } = firstTemplate ?? {};
-
   const firstSibling = secondTemplate?.prevSiblings?.[0];
 
-  if (!firstSibling) return null;
+  const { nextSiblings } = firstTemplate ?? {};
 
-  const allSiblings = nextSiblings?.length
-    ? [firstSibling].concat(nextSiblings)
-    : [firstSibling];
+  // if 0 or 1 templates don't adjust bg colors
+  if (!firstSibling || !nextSiblings?.length) return null;
+
+  const allSiblings = [firstSibling].concat(nextSiblings);
 
   return allSiblings?.reduce(
     (map, sib) => mapSiblingBgs(map, sib, startColor),
