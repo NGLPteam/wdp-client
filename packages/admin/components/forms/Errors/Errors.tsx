@@ -7,15 +7,17 @@ interface Props {
   /* eslint-disable-next-line */
   name: Path<any>;
   label?: string;
+  /* eslint-disable-next-line */
+  errorPath?: Path<any>;
 }
 
-export default function Errors({ name, label }: Props) {
+export default function Errors({ name, label, errorPath }: Props) {
   const errors = useFormErrors();
 
   return (
     <ErrorMessage
       errors={errors}
-      name={name}
+      name={errorPath ?? name}
       render={({ message, messages }) => (
         <MessageList
           messages={messages}

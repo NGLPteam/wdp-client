@@ -39,6 +39,7 @@ const SchemaSelect = forwardRef(
         ref={ref}
         {...inputProps}
         label="forms.schema.label"
+        errorPath="root.parent"
       />
     );
   },

@@ -26,19 +26,13 @@ export default function MessageList({
     ) : null;
   }
 
-  if (!messages) {
-    if (inlineMessage) {
-      return <Message result={inlineMessage} />;
-    }
-
-    return null;
-  }
-
   return (
     <>
-      {Object.entries(messages).map(([type, result]) =>
-        renderMessage(type, result),
-      )}
+      {inlineMessage && <Message result={inlineMessage} />}
+      {messages &&
+        Object.entries(messages).map(([type, result]) =>
+          renderMessage(type, result),
+        )}
     </>
   );
 }
