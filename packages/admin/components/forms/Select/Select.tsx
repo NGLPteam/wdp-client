@@ -14,6 +14,7 @@ const Select = forwardRef(
       options,
       multiple,
       isWide,
+      errorPath,
       ...inputProps
     }: Props,
     ref: Ref<HTMLSelectElement>,
@@ -26,6 +27,7 @@ const Select = forwardRef(
         required={inputProps.required}
         isWide={isWide}
         description={description}
+        errorPath={errorPath}
       >
         {({ uid }) => (
           <BaseSelect
@@ -44,6 +46,7 @@ const Select = forwardRef(
 
 type Props = React.ComponentProps<typeof BaseSelect> & {
   label: InputProps["label"];
+  errorPath?: string;
 };
 
 export default Select;

@@ -20,6 +20,7 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
   required,
   isWide,
   role,
+  errorPath,
 }: Props<T>) => {
   const { t } = useTranslation();
   const uid = useId();
@@ -52,7 +53,11 @@ const BaseInputWrapper = <T extends FieldValues = FieldValues>({
           {typeof description === "string" ? t(description) : description}
         </Styled.Description>
       )}
-      <Errors name={name} label={label ? t(label) : undefined} />
+      <Errors
+        name={name}
+        errorPath={errorPath}
+        label={label ? t(label) : undefined}
+      />
     </Styled.Wrapper>
   );
 };
@@ -67,6 +72,7 @@ interface Props<T extends FieldValues = FieldValues>
   labelProps?: typeof HTMLLabelElement;
   role?: string;
   descriptionTop?: boolean;
+  errorPath?: string;
 }
 
 export default BaseInputWrapper;
