@@ -63,7 +63,11 @@ export default function PromoListBlock({
         </h3>
       )}
       {showHeroImage && <div className={styles.heroImage} />}
-      <List variant="PROMOS" bgColor={background} items={listItemLayouts} />
+      <List
+        variant="PROMOS"
+        bgColor={bgOverride ?? background}
+        items={listItemLayouts}
+      />
       {!!renderSeeAll && seeAllHref && (
         <SeeAll
           alignment="left"

@@ -149,7 +149,7 @@ export default function SummaryListBlock({
           )}
           <List
             variant="SUMMARY"
-            bgColor={background}
+            bgColor={bgOverride ?? background}
             items={listItemLayouts}
             hideCovers={!!showHeroImage}
             showContext={normalizedContext}

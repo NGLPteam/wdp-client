@@ -77,7 +77,7 @@ export default function GridListBlock({
       )}
       <List
         variant="GRID"
-        bgColor={background}
+        bgColor={bgOverride ?? background}
         items={listItemLayouts}
         showContributors={showContributors}
         showContext={normalizedContext}
