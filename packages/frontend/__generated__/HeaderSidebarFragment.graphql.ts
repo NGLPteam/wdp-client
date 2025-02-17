@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f320ba2de61128a7f9cbf58913ad0e31>>
+ * @generated SignedSource<<6c0f010e605374b386cea9c45bfd3015>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -27,8 +27,7 @@ export type HeaderSidebarFragment$data = {
     readonly entityViews?: {
       readonly " $fragmentSpreads": FragmentRefs<"ViewCountFragment">;
     };
-    readonly issn?: string | null | undefined;
-    readonly " $fragmentSpreads": FragmentRefs<"DOIFragment" | "ISSNFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"DOIFragment">;
   };
   readonly slots: {
     readonly headerSidebar: {
@@ -123,25 +122,6 @@ return {
         },
         {
           "kind": "InlineFragment",
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "issn",
-              "storageKey": null
-            }
-          ],
-          "type": "HasISSN",
-          "abstractKey": "__isHasISSN"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "ISSNFragment"
-        },
-        {
-          "kind": "InlineFragment",
           "selections": (v0/*: any*/),
           "type": "Item",
           "abstractKey": null
@@ -227,6 +207,6 @@ return {
 };
 })();
 
-(node as any).hash = "2f8b66b8821b0b5597b35a2c89fda6d3";
+(node as any).hash = "be3f4cbcf34a9a24b0b8f62a1098983d";
 
 export default node;

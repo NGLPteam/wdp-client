@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5ddfd0f6e1d00730abbbb3bd2c1183d8>>
+ * @generated SignedSource<<25ecbd8cca8e8000f54fc13c08cdb1c8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -42,24 +42,17 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "issn",
+  "name": "title",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "identifier",
   "storageKey": null
 },
-v5 = {
+v4 = {
   "alias": null,
   "args": null,
   "concreteType": "VariablePrecisionDate",
@@ -84,14 +77,14 @@ v5 = {
   ],
   "storageKey": null
 },
-v6 = [
+v5 = [
   {
     "kind": "Literal",
     "name": "fullPath",
     "value": "pdf_version"
   }
 ],
-v7 = {
+v6 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -105,52 +98,52 @@ v7 = {
   "type": "AssetPDF",
   "abstractKey": null
 },
-v8 = [
-  (v3/*: any*/)
+v7 = [
+  (v2/*: any*/)
 ],
-v9 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "role",
   "storageKey": null
 },
-v10 = {
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "__typename",
   "storageKey": null
 },
-v11 = {
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "familyName",
   "storageKey": null
 },
-v12 = {
+v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "givenName",
   "storageKey": null
 },
-v13 = {
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "legalName",
   "storageKey": null
 },
-v14 = [
+v13 = [
   {
     "kind": "Literal",
     "name": "fullPath",
     "value": "issue.number"
   }
 ],
-v15 = {
+v14 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -164,24 +157,24 @@ v15 = {
   "type": "StringProperty",
   "abstractKey": null
 },
-v16 = [
-  (v15/*: any*/)
+v15 = [
+  (v14/*: any*/)
 ],
-v17 = [
+v16 = [
   {
     "kind": "Literal",
     "name": "fullPath",
     "value": "volume.id"
   }
 ],
-v18 = [
+v17 = [
   {
     "kind": "Literal",
     "name": "fullPath",
     "value": "issue.fpage"
   }
 ],
-v19 = {
+v18 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -195,62 +188,62 @@ v19 = {
   "type": "IntegerProperty",
   "abstractKey": null
 },
-v20 = [
-  (v19/*: any*/)
+v19 = [
+  (v18/*: any*/)
 ],
-v21 = [
+v20 = [
   {
     "kind": "Literal",
     "name": "fullPath",
     "value": "issue.lpage"
   }
 ],
-v22 = [
+v21 = [
   {
     "kind": "Literal",
     "name": "fullPath",
     "value": "degree.grantor"
   }
 ],
-v23 = [
+v22 = [
   {
     "kind": "Literal",
     "name": "schema",
     "value": "nglp:journal"
   }
 ],
-v24 = {
+v23 = {
   "kind": "InlineFragment",
-  "selections": (v8/*: any*/),
+  "selections": (v7/*: any*/),
   "type": "Collection",
   "abstractKey": null
 },
-v25 = [
+v24 = [
   {
     "kind": "Literal",
     "name": "schema",
     "value": "nglp:journal_volume"
   }
 ],
-v26 = [
+v25 = [
   {
     "kind": "Literal",
     "name": "fullPath",
     "value": "number"
   }
 ],
-v27 = [
+v26 = [
   {
     "kind": "InlineFragment",
     "selections": [
       {
         "alias": "number",
-        "args": (v26/*: any*/),
+        "args": (v25/*: any*/),
         "concreteType": null,
         "kind": "LinkedField",
         "name": "schemaProperty",
         "plural": false,
-        "selections": (v16/*: any*/),
+        "selections": (v15/*: any*/),
         "storageKey": "schemaProperty(fullPath:\"number\")"
       }
     ],
@@ -258,56 +251,56 @@ v27 = [
     "abstractKey": null
   }
 ],
-v28 = [
+v27 = [
   {
     "kind": "Literal",
     "name": "schema",
     "value": "nglp:journal_issue"
   }
 ],
-v29 = {
+v28 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v30 = {
+v29 = {
   "kind": "InlineFragment",
   "selections": [
-    (v29/*: any*/)
+    (v28/*: any*/)
   ],
   "type": "Node",
   "abstractKey": "__isNode"
 },
+v30 = [
+  (v9/*: any*/),
+  (v14/*: any*/)
+],
 v31 = [
-  (v10/*: any*/),
-  (v15/*: any*/)
+  (v9/*: any*/),
+  (v18/*: any*/)
 ],
 v32 = [
-  (v10/*: any*/),
-  (v19/*: any*/)
-],
-v33 = [
-  (v10/*: any*/),
+  (v9/*: any*/),
   {
     "kind": "InlineFragment",
     "selections": [
       {
         "alias": "number",
-        "args": (v26/*: any*/),
+        "args": (v25/*: any*/),
         "concreteType": null,
         "kind": "LinkedField",
         "name": "schemaProperty",
         "plural": false,
-        "selections": (v31/*: any*/),
+        "selections": (v30/*: any*/),
         "storageKey": "schemaProperty(fullPath:\"number\")"
       }
     ],
     "type": "Collection",
     "abstractKey": null
   },
-  (v30/*: any*/)
+  (v29/*: any*/)
 ];
 return {
   "fragment": {
@@ -335,7 +328,6 @@ return {
                     "kind": "InlineFragment",
                     "selections": [
                       (v2/*: any*/),
-                      (v3/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -344,14 +336,14 @@ return {
                         "name": "schemaDefinition",
                         "plural": false,
                         "selections": [
-                          (v4/*: any*/)
+                          (v3/*: any*/)
                         ],
                         "storageKey": null
                       },
-                      (v5/*: any*/),
+                      (v4/*: any*/),
                       {
                         "alias": "pdf",
-                        "args": (v6/*: any*/),
+                        "args": (v5/*: any*/),
                         "concreteType": null,
                         "kind": "LinkedField",
                         "name": "schemaProperty",
@@ -368,7 +360,7 @@ return {
                                 "name": "asset",
                                 "plural": false,
                                 "selections": [
-                                  (v7/*: any*/)
+                                  (v6/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -386,7 +378,7 @@ return {
                         "kind": "LinkedField",
                         "name": "community",
                         "plural": false,
-                        "selections": (v8/*: any*/),
+                        "selections": (v7/*: any*/),
                         "storageKey": null
                       },
                       {
@@ -405,7 +397,7 @@ return {
                             "name": "nodes",
                             "plural": true,
                             "selections": [
-                              (v9/*: any*/),
+                              (v8/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -417,9 +409,9 @@ return {
                                   {
                                     "kind": "InlineFragment",
                                     "selections": [
+                                      (v9/*: any*/),
                                       (v10/*: any*/),
-                                      (v11/*: any*/),
-                                      (v12/*: any*/)
+                                      (v11/*: any*/)
                                     ],
                                     "type": "PersonContributor",
                                     "abstractKey": null
@@ -427,8 +419,8 @@ return {
                                   {
                                     "kind": "InlineFragment",
                                     "selections": [
-                                      (v10/*: any*/),
-                                      (v13/*: any*/)
+                                      (v9/*: any*/),
+                                      (v12/*: any*/)
                                     ],
                                     "type": "OrganizationContributor",
                                     "abstractKey": null
@@ -444,84 +436,84 @@ return {
                       },
                       {
                         "alias": "issueNumber",
-                        "args": (v14/*: any*/),
+                        "args": (v13/*: any*/),
                         "concreteType": null,
                         "kind": "LinkedField",
                         "name": "schemaProperty",
                         "plural": false,
-                        "selections": (v16/*: any*/),
+                        "selections": (v15/*: any*/),
                         "storageKey": "schemaProperty(fullPath:\"issue.number\")"
                       },
                       {
                         "alias": "volumeNumber",
+                        "args": (v16/*: any*/),
+                        "concreteType": null,
+                        "kind": "LinkedField",
+                        "name": "schemaProperty",
+                        "plural": false,
+                        "selections": (v15/*: any*/),
+                        "storageKey": "schemaProperty(fullPath:\"volume.id\")"
+                      },
+                      {
+                        "alias": "startPage",
                         "args": (v17/*: any*/),
                         "concreteType": null,
                         "kind": "LinkedField",
                         "name": "schemaProperty",
                         "plural": false,
-                        "selections": (v16/*: any*/),
-                        "storageKey": "schemaProperty(fullPath:\"volume.id\")"
-                      },
-                      {
-                        "alias": "startPage",
-                        "args": (v18/*: any*/),
-                        "concreteType": null,
-                        "kind": "LinkedField",
-                        "name": "schemaProperty",
-                        "plural": false,
-                        "selections": (v20/*: any*/),
+                        "selections": (v19/*: any*/),
                         "storageKey": "schemaProperty(fullPath:\"issue.fpage\")"
                       },
                       {
                         "alias": "endPage",
+                        "args": (v20/*: any*/),
+                        "concreteType": null,
+                        "kind": "LinkedField",
+                        "name": "schemaProperty",
+                        "plural": false,
+                        "selections": (v19/*: any*/),
+                        "storageKey": "schemaProperty(fullPath:\"issue.lpage\")"
+                      },
+                      {
+                        "alias": "institution",
                         "args": (v21/*: any*/),
                         "concreteType": null,
                         "kind": "LinkedField",
                         "name": "schemaProperty",
                         "plural": false,
-                        "selections": (v20/*: any*/),
-                        "storageKey": "schemaProperty(fullPath:\"issue.lpage\")"
-                      },
-                      {
-                        "alias": "institution",
-                        "args": (v22/*: any*/),
-                        "concreteType": null,
-                        "kind": "LinkedField",
-                        "name": "schemaProperty",
-                        "plural": false,
-                        "selections": (v16/*: any*/),
+                        "selections": (v15/*: any*/),
                         "storageKey": "schemaProperty(fullPath:\"degree.grantor\")"
                       },
                       {
                         "alias": "journal",
-                        "args": (v23/*: any*/),
+                        "args": (v22/*: any*/),
                         "concreteType": null,
                         "kind": "LinkedField",
                         "name": "ancestorOfType",
                         "plural": false,
                         "selections": [
-                          (v24/*: any*/)
+                          (v23/*: any*/)
                         ],
                         "storageKey": "ancestorOfType(schema:\"nglp:journal\")"
                       },
                       {
                         "alias": "volume",
-                        "args": (v25/*: any*/),
+                        "args": (v24/*: any*/),
                         "concreteType": null,
                         "kind": "LinkedField",
                         "name": "ancestorOfType",
                         "plural": false,
-                        "selections": (v27/*: any*/),
+                        "selections": (v26/*: any*/),
                         "storageKey": "ancestorOfType(schema:\"nglp:journal_volume\")"
                       },
                       {
                         "alias": "issue",
-                        "args": (v28/*: any*/),
+                        "args": (v27/*: any*/),
                         "concreteType": null,
                         "kind": "LinkedField",
                         "name": "ancestorOfType",
                         "plural": false,
-                        "selections": (v27/*: any*/),
+                        "selections": (v26/*: any*/),
                         "storageKey": "ancestorOfType(schema:\"nglp:journal_issue\")"
                       }
                     ],
@@ -557,7 +549,7 @@ return {
         "name": "item",
         "plural": false,
         "selections": [
-          (v29/*: any*/),
+          (v28/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
@@ -565,7 +557,6 @@ return {
                 "kind": "InlineFragment",
                 "selections": [
                   (v2/*: any*/),
-                  (v3/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -574,21 +565,21 @@ return {
                     "name": "schemaDefinition",
                     "plural": false,
                     "selections": [
-                      (v4/*: any*/),
-                      (v29/*: any*/)
+                      (v3/*: any*/),
+                      (v28/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v5/*: any*/),
+                  (v4/*: any*/),
                   {
                     "alias": "pdf",
-                    "args": (v6/*: any*/),
+                    "args": (v5/*: any*/),
                     "concreteType": null,
                     "kind": "LinkedField",
                     "name": "schemaProperty",
                     "plural": false,
                     "selections": [
-                      (v10/*: any*/),
+                      (v9/*: any*/),
                       {
                         "kind": "InlineFragment",
                         "selections": [
@@ -600,9 +591,9 @@ return {
                             "name": "asset",
                             "plural": false,
                             "selections": [
-                              (v10/*: any*/),
-                              (v7/*: any*/),
-                              (v30/*: any*/)
+                              (v9/*: any*/),
+                              (v6/*: any*/),
+                              (v29/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -621,8 +612,8 @@ return {
                     "name": "community",
                     "plural": false,
                     "selections": [
-                      (v3/*: any*/),
-                      (v29/*: any*/)
+                      (v2/*: any*/),
+                      (v28/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -642,7 +633,7 @@ return {
                         "name": "nodes",
                         "plural": true,
                         "selections": [
-                          (v9/*: any*/),
+                          (v8/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -651,12 +642,12 @@ return {
                             "name": "contributor",
                             "plural": false,
                             "selections": [
-                              (v10/*: any*/),
+                              (v9/*: any*/),
                               {
                                 "kind": "InlineFragment",
                                 "selections": [
-                                  (v11/*: any*/),
-                                  (v12/*: any*/)
+                                  (v10/*: any*/),
+                                  (v11/*: any*/)
                                 ],
                                 "type": "PersonContributor",
                                 "abstractKey": null
@@ -664,16 +655,16 @@ return {
                               {
                                 "kind": "InlineFragment",
                                 "selections": [
-                                  (v13/*: any*/)
+                                  (v12/*: any*/)
                                 ],
                                 "type": "OrganizationContributor",
                                 "abstractKey": null
                               },
-                              (v30/*: any*/)
+                              (v29/*: any*/)
                             ],
                             "storageKey": null
                           },
-                          (v29/*: any*/)
+                          (v28/*: any*/)
                         ],
                         "storageKey": null
                       }
@@ -682,86 +673,86 @@ return {
                   },
                   {
                     "alias": "issueNumber",
-                    "args": (v14/*: any*/),
+                    "args": (v13/*: any*/),
                     "concreteType": null,
                     "kind": "LinkedField",
                     "name": "schemaProperty",
                     "plural": false,
-                    "selections": (v31/*: any*/),
+                    "selections": (v30/*: any*/),
                     "storageKey": "schemaProperty(fullPath:\"issue.number\")"
                   },
                   {
                     "alias": "volumeNumber",
+                    "args": (v16/*: any*/),
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "schemaProperty",
+                    "plural": false,
+                    "selections": (v30/*: any*/),
+                    "storageKey": "schemaProperty(fullPath:\"volume.id\")"
+                  },
+                  {
+                    "alias": "startPage",
                     "args": (v17/*: any*/),
                     "concreteType": null,
                     "kind": "LinkedField",
                     "name": "schemaProperty",
                     "plural": false,
                     "selections": (v31/*: any*/),
-                    "storageKey": "schemaProperty(fullPath:\"volume.id\")"
-                  },
-                  {
-                    "alias": "startPage",
-                    "args": (v18/*: any*/),
-                    "concreteType": null,
-                    "kind": "LinkedField",
-                    "name": "schemaProperty",
-                    "plural": false,
-                    "selections": (v32/*: any*/),
                     "storageKey": "schemaProperty(fullPath:\"issue.fpage\")"
                   },
                   {
                     "alias": "endPage",
-                    "args": (v21/*: any*/),
-                    "concreteType": null,
-                    "kind": "LinkedField",
-                    "name": "schemaProperty",
-                    "plural": false,
-                    "selections": (v32/*: any*/),
-                    "storageKey": "schemaProperty(fullPath:\"issue.lpage\")"
-                  },
-                  {
-                    "alias": "institution",
-                    "args": (v22/*: any*/),
+                    "args": (v20/*: any*/),
                     "concreteType": null,
                     "kind": "LinkedField",
                     "name": "schemaProperty",
                     "plural": false,
                     "selections": (v31/*: any*/),
+                    "storageKey": "schemaProperty(fullPath:\"issue.lpage\")"
+                  },
+                  {
+                    "alias": "institution",
+                    "args": (v21/*: any*/),
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "schemaProperty",
+                    "plural": false,
+                    "selections": (v30/*: any*/),
                     "storageKey": "schemaProperty(fullPath:\"degree.grantor\")"
                   },
                   {
                     "alias": "journal",
-                    "args": (v23/*: any*/),
+                    "args": (v22/*: any*/),
                     "concreteType": null,
                     "kind": "LinkedField",
                     "name": "ancestorOfType",
                     "plural": false,
                     "selections": [
-                      (v10/*: any*/),
-                      (v24/*: any*/),
-                      (v30/*: any*/)
+                      (v9/*: any*/),
+                      (v23/*: any*/),
+                      (v29/*: any*/)
                     ],
                     "storageKey": "ancestorOfType(schema:\"nglp:journal\")"
                   },
                   {
                     "alias": "volume",
-                    "args": (v25/*: any*/),
+                    "args": (v24/*: any*/),
                     "concreteType": null,
                     "kind": "LinkedField",
                     "name": "ancestorOfType",
                     "plural": false,
-                    "selections": (v33/*: any*/),
+                    "selections": (v32/*: any*/),
                     "storageKey": "ancestorOfType(schema:\"nglp:journal_volume\")"
                   },
                   {
                     "alias": "issue",
-                    "args": (v28/*: any*/),
+                    "args": (v27/*: any*/),
                     "concreteType": null,
                     "kind": "LinkedField",
                     "name": "ancestorOfType",
                     "plural": false,
-                    "selections": (v33/*: any*/),
+                    "selections": (v32/*: any*/),
                     "storageKey": "ancestorOfType(schema:\"nglp:journal_issue\")"
                   }
                 ],
@@ -778,12 +769,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a233717b315337f9dd3294c6fce97fbf",
+    "cacheID": "96b8646b59f9417b32f701e1028ded0a",
     "id": null,
     "metadata": {},
     "name": "getStaticGoogleScholarDataQuery",
     "operationKind": "query",
-    "text": "query getStaticGoogleScholarDataQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    ...getStaticGoogleScholarDataFragment\n    id\n  }\n}\n\nfragment getStaticGoogleScholarDataFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    issn\n    title\n    schemaDefinition {\n      identifier\n      id\n    }\n    published {\n      precision\n      value\n    }\n    pdf: schemaProperty(fullPath: \"pdf_version\") {\n      __typename\n      ... on AssetProperty {\n        asset {\n          __typename\n          ... on AssetPDF {\n            downloadUrl\n          }\n          ... on Node {\n            __isNode: __typename\n            id\n          }\n        }\n      }\n    }\n    community {\n      title\n      id\n    }\n    contributions {\n      nodes {\n        role\n        contributor {\n          __typename\n          ... on PersonContributor {\n            __typename\n            familyName\n            givenName\n          }\n          ... on OrganizationContributor {\n            __typename\n            legalName\n          }\n          ... on Node {\n            __isNode: __typename\n            id\n          }\n        }\n        id\n      }\n    }\n    issueNumber: schemaProperty(fullPath: \"issue.number\") {\n      __typename\n      ... on StringProperty {\n        value: content\n      }\n    }\n    volumeNumber: schemaProperty(fullPath: \"volume.id\") {\n      __typename\n      ... on StringProperty {\n        value: content\n      }\n    }\n    startPage: schemaProperty(fullPath: \"issue.fpage\") {\n      __typename\n      ... on IntegerProperty {\n        value: integerValue\n      }\n    }\n    endPage: schemaProperty(fullPath: \"issue.lpage\") {\n      __typename\n      ... on IntegerProperty {\n        value: integerValue\n      }\n    }\n    institution: schemaProperty(fullPath: \"degree.grantor\") {\n      __typename\n      ... on StringProperty {\n        value: content\n      }\n    }\n    journal: ancestorOfType(schema: \"nglp:journal\") {\n      __typename\n      ... on Collection {\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    volume: ancestorOfType(schema: \"nglp:journal_volume\") {\n      __typename\n      ... on Collection {\n        number: schemaProperty(fullPath: \"number\") {\n          __typename\n          ... on StringProperty {\n            value: content\n          }\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    issue: ancestorOfType(schema: \"nglp:journal_issue\") {\n      __typename\n      ... on Collection {\n        number: schemaProperty(fullPath: \"number\") {\n          __typename\n          ... on StringProperty {\n            value: content\n          }\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query getStaticGoogleScholarDataQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    ...getStaticGoogleScholarDataFragment\n    id\n  }\n}\n\nfragment getStaticGoogleScholarDataFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    title\n    schemaDefinition {\n      identifier\n      id\n    }\n    published {\n      precision\n      value\n    }\n    pdf: schemaProperty(fullPath: \"pdf_version\") {\n      __typename\n      ... on AssetProperty {\n        asset {\n          __typename\n          ... on AssetPDF {\n            downloadUrl\n          }\n          ... on Node {\n            __isNode: __typename\n            id\n          }\n        }\n      }\n    }\n    community {\n      title\n      id\n    }\n    contributions {\n      nodes {\n        role\n        contributor {\n          __typename\n          ... on PersonContributor {\n            __typename\n            familyName\n            givenName\n          }\n          ... on OrganizationContributor {\n            __typename\n            legalName\n          }\n          ... on Node {\n            __isNode: __typename\n            id\n          }\n        }\n        id\n      }\n    }\n    issueNumber: schemaProperty(fullPath: \"issue.number\") {\n      __typename\n      ... on StringProperty {\n        value: content\n      }\n    }\n    volumeNumber: schemaProperty(fullPath: \"volume.id\") {\n      __typename\n      ... on StringProperty {\n        value: content\n      }\n    }\n    startPage: schemaProperty(fullPath: \"issue.fpage\") {\n      __typename\n      ... on IntegerProperty {\n        value: integerValue\n      }\n    }\n    endPage: schemaProperty(fullPath: \"issue.lpage\") {\n      __typename\n      ... on IntegerProperty {\n        value: integerValue\n      }\n    }\n    institution: schemaProperty(fullPath: \"degree.grantor\") {\n      __typename\n      ... on StringProperty {\n        value: content\n      }\n    }\n    journal: ancestorOfType(schema: \"nglp:journal\") {\n      __typename\n      ... on Collection {\n        title\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    volume: ancestorOfType(schema: \"nglp:journal_volume\") {\n      __typename\n      ... on Collection {\n        number: schemaProperty(fullPath: \"number\") {\n          __typename\n          ... on StringProperty {\n            value: content\n          }\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    issue: ancestorOfType(schema: \"nglp:journal_issue\") {\n      __typename\n      ... on Collection {\n        number: schemaProperty(fullPath: \"number\") {\n          __typename\n          ... on StringProperty {\n            value: content\n          }\n        }\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
