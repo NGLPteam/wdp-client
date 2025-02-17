@@ -169,8 +169,8 @@ export default function CollectionUpdateForm({
               {...register("subtitle")}
             />
             <Forms.VisibilityFields />
-            <Forms.Input label="forms.fields.doi" {...register("doi")} />
-            <Forms.Input label="forms.fields.issn" {...register("issn")} />
+            <Forms.Input label="forms.fields.doi" {...register("doi")} isWide />
+            {/*<Forms.Input label="forms.fields.issn" {...register("issn")} />*/}
             <Forms.FileImageUpload
               data={thumbnail}
               label="forms.fields.thumbnail"
@@ -245,7 +245,6 @@ const fieldsFragment = graphql`
       doi
     }
     rawDOI
-    issn
     visibility
     summary
     visibleAfterAt
