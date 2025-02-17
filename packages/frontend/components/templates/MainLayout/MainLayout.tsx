@@ -22,7 +22,7 @@ export default function MainLayout({
 
   const bgMap =
     computedBgStart && templates?.length
-      ? generateBgMap(computedBgStart, templates[0])
+      ? generateBgMap(computedBgStart, templates[0], templates[1])
       : null;
 
   return allHidden || !templates ? (
@@ -32,15 +32,22 @@ export default function MainLayout({
   ) : (
     <div className={styles.grid}>
       {!!templates?.length &&
-        templates.map((t, i) => (
-          <TemplateFactory key={i} data={t} bgOverride={bgMap?.[i]} />
-        ))}
+        templates.map((t, i) => {
+          const bgOverride = bgMap?.[i];
+          return (
+            <TemplateFactory
+              key={i}
+              data={t}
+              bgOverride={bgOverride !== "hidden" ? bgOverride : undefined}
+            />
+          );
+        })}
     </div>
   );
 }
 
-type FirstTemplate = MainLayoutFragment$data["templates"][number];
-type SiblingTemplate = NonNullable<FirstTemplate["nextSiblings"]>[number];
+type Template = MainLayoutFragment$data["templates"][number];
+type SiblingTemplateData = NonNullable<Template["nextSiblings"]>[number];
 
 const fragment = graphql`
   fragment MainLayoutFragment on MainLayoutInstance {
@@ -48,6 +55,12 @@ const fragment = graphql`
     templates {
       ... on TemplateInstance {
         hidden
+        prevSiblings {
+          dark
+          hidden
+          position
+          templateKind
+        }
         nextSiblings {
           dark
           hidden
@@ -62,41 +75,55 @@ const fragment = graphql`
 
 const generateBgMap = (
   startColor: HeroBackground,
-  firstTemplate: FirstTemplate,
+  firstTemplate: Template,
+  secondTemplate: Template,
 ) => {
   const { nextSiblings } = firstTemplate ?? {};
 
-  const initMap = determineFirstBg(startColor, firstTemplate);
+  const firstSibling = secondTemplate?.prevSiblings?.[0];
 
-  return nextSiblings?.reduce((map, sib) => mapSiblingBgs(map, sib), initMap);
+  if (!firstSibling) return null;
+
+  const allSiblings = nextSiblings?.length
+    ? [firstSibling].concat(nextSiblings)
+    : [firstSibling];
+
+  return allSiblings?.reduce(
+    (map, sib) => mapSiblingBgs(map, sib, startColor),
+    [] as (HeroBackground | "hidden")[],
+  );
 };
 
-const determineFirstBg = (
+const getFirstBg = (
   startColor: HeroBackground,
-  template: FirstTemplate,
-): (HeroBackground | null)[] => {
-  if (template.hidden) return [null];
+  template: SiblingTemplateData,
+): (HeroBackground | "hidden")[] => {
+  if (template.hidden) return ["hidden" as const];
+  if (template.dark) return ["DARK"];
   return [startColor];
 };
 
 const mapSiblingBgs = (
-  bgMap: (HeroBackground | null)[],
-  template: SiblingTemplate,
+  bgMap: (HeroBackground | "hidden")[],
+  template: SiblingTemplateData,
+  startColor: HeroBackground,
 ) => {
-  if (template.hidden) return [...bgMap, null];
+  if (template.hidden) return [...bgMap, "hidden" as const];
   if (template.dark) {
     if (bgMap[bgMap.length - 1] !== "DARK") return [...bgMap, "DARK" as const];
   }
+
+  if (!bgMap.length) return getFirstBg(startColor, template);
 
   return [...bgMap, getNextColor(bgMap)];
 };
 
 const getNextColor = (
-  bgMap: (HeroBackground | null)[],
-): HeroBackground | null => {
+  bgMap: (HeroBackground | "hidden")[],
+): HeroBackground | "hidden" => {
   const prevColor = bgMap.pop();
 
-  if (!prevColor) return getNextColor(bgMap);
+  if (prevColor === "hidden") return getNextColor(bgMap);
   if (prevColor === "LIGHT") return "NONE";
   if (prevColor === "NONE") return "LIGHT";
   if (prevColor === "DARK")
@@ -104,5 +131,5 @@ const getNextColor = (
       (c) => c === "LIGHT" || c === "NONE",
     ) as HeroBackground;
 
-  return null;
+  return "hidden";
 };

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b4afa15d13e94d3c0dffcace45181c6e>>
+ * @generated SignedSource<<78bd15302a6a70c0cd86f0e398adfa1e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,6 +21,12 @@ export type MainLayoutFragment$data = {
       readonly position: number;
       readonly templateKind: TemplateKind;
     }>;
+    readonly prevSiblings?: ReadonlyArray<{
+      readonly dark: boolean;
+      readonly hidden: boolean;
+      readonly position: number;
+      readonly templateKind: TemplateKind;
+    }>;
     readonly " $fragmentSpreads": FragmentRefs<"FactoryTemplatesFragment">;
   }>;
   readonly " $fragmentType": "MainLayoutFragment";
@@ -37,7 +43,31 @@ var v0 = {
   "kind": "ScalarField",
   "name": "hidden",
   "storageKey": null
-};
+},
+v1 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "dark",
+    "storageKey": null
+  },
+  (v0/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "position",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "templateKind",
+    "storageKey": null
+  }
+];
 return {
   "argumentDefinitions": [],
   "kind": "Fragment",
@@ -68,32 +98,19 @@ return {
               "args": null,
               "concreteType": "TemplateInstanceSibling",
               "kind": "LinkedField",
+              "name": "prevSiblings",
+              "plural": true,
+              "selections": (v1/*: any*/),
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "TemplateInstanceSibling",
+              "kind": "LinkedField",
               "name": "nextSiblings",
               "plural": true,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "dark",
-                  "storageKey": null
-                },
-                (v0/*: any*/),
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "position",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "templateKind",
-                  "storageKey": null
-                }
-              ],
+              "selections": (v1/*: any*/),
               "storageKey": null
             }
           ],
@@ -114,6 +131,6 @@ return {
 };
 })();
 
-(node as any).hash = "a98b3d804e037a6f3fe3d6bcbd4b390a";
+(node as any).hash = "f3ecd9299e42469c4d6848f31735b4af";
 
 export default node;

@@ -48,7 +48,11 @@ export default function CardListBlock({
   return (
     <div className={classNames(bgClass, styles.wrapper)}>
       {showHeroImage && <div className={styles.heroImage} />}
-      <List variant="CARDS" bgColor={background} items={listItemLayouts} />
+      <List
+        variant="CARDS"
+        bgColor={bgOverride ?? background}
+        items={listItemLayouts}
+      />
       {!!renderSeeAll && !!seeAllHref && (
         <SeeAll
           alignment="center"

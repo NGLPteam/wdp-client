@@ -65,7 +65,7 @@ export default function CompactListBlock({
           )}
           <List
             variant="COMPACT"
-            bgColor={background}
+            bgColor={bgOverride ?? background}
             items={listItemLayouts}
           />
         </div>
