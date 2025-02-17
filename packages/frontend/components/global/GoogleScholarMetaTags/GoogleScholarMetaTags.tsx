@@ -49,7 +49,7 @@ export default function GoogleScholarHtmlHead({
               content={getContributorDisplayName(contributor, true)}
             />
           ))}
-          {entity.issn && <meta name="citation_issn" content={entity.issn} />}
+          {/*{entity.issn && <meta name="citation_issn" content={entity.issn} />}*/}
           {published && (
             <meta name="citation_publication_date" content={published} />
           )}

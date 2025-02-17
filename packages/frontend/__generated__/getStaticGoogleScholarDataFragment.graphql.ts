@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<125b53505ba26dc7cf6ef900b3fa0ef2>>
+ * @generated SignedSource<<2bbc48e85c4e69ef9f4109609f875180>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -38,7 +38,6 @@ export type getStaticGoogleScholarDataFragment$data = {
   readonly institution?: {
     readonly value?: string | null | undefined;
   } | null | undefined;
-  readonly issn?: string | null | undefined;
   readonly issue?: {
     readonly number?: {
       readonly value?: string | null | undefined;
@@ -86,6 +85,6 @@ const node: ReaderInlineDataFragment = {
   "name": "getStaticGoogleScholarDataFragment"
 };
 
-(node as any).hash = "ad5f35b1b75fbcde2072f22393ecdab2";
+(node as any).hash = "190e2c17c4184792a1d2cda27b293c22";
 
 export default node;

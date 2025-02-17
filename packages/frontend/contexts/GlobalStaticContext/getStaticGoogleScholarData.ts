@@ -31,7 +31,6 @@ const query = graphql`
 const fragment = graphql`
   fragment getStaticGoogleScholarDataFragment on AnyEntity @inline {
     ... on Item {
-      issn
       title
 
       schemaDefinition {

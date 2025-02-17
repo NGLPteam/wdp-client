@@ -4,7 +4,7 @@ import { useSharedBlockFragment } from "@/components/templates/shared/shared.slo
 import { HeaderSidebarFragment$key } from "@/relay/HeaderSidebarFragment.graphql";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import DOI from "@/components/atomic/properties/DOI";
-import ISSN from "@/components/atomic/properties/ISSN";
+// import ISSN from "@/components/atomic/properties/ISSN";
 import DownloadCount from "@/components/atomic/properties/DownloadCount";
 import ViewCount from "@/components/atomic/properties/ViewCount";
 import styles from "./Header.module.css";
@@ -25,7 +25,7 @@ export default function Sidebar({
 
   const shouldRender =
     (showDOI && !!entity?.doiData?.doi) ||
-    (showISSN && !!entity?.issn) ||
+    (showISSN && false) ||
     showBasicViewMetrics ||
     (slot?.valid && !slot?.empty);
 
@@ -37,7 +37,7 @@ export default function Sidebar({
     >
       <ul className={classNames("t-label-sm", styles.sidebar)}>
         {showDOI && <DOI data={entity} />}
-        {showISSN && <ISSN data={entity} />}
+        {/*{showISSN && <ISSN data={entity} />}*/}
         {slot?.valid && !!slot.content && (
           <BlockSlotWrapper content={slot.content} />
         )}
@@ -61,10 +61,6 @@ const fragment = graphql`
         }
       }
       ...DOIFragment
-      ... on HasISSN {
-        issn
-      }
-      ...ISSNFragment
       ... on Item {
         entityViews {
           ...ViewCountFragment
