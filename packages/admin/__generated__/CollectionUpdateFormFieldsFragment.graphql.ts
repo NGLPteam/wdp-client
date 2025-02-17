@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0ba14f47594ea2eca8a7240bf17ad850>>
+ * @generated SignedSource<<2e2b32e588233f0d12f7ec9ae6d7e2e2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,7 +18,6 @@ export type CollectionUpdateFormFieldsFragment$data = {
   readonly heroImage: {
     readonly " $fragmentSpreads": FragmentRefs<"FileUploadFragment">;
   };
-  readonly issn: string | null | undefined;
   readonly published: {
     readonly " $fragmentSpreads": FragmentRefs<"VariablePrecisionDateControlFragment">;
   };
@@ -96,13 +95,6 @@ return {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "issn",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
       "name": "visibility",
       "storageKey": null
     },
@@ -169,6 +161,6 @@ return {
 };
 })();
 
-(node as any).hash = "29d206b010da567e888e07fc12f5f734";
+(node as any).hash = "14045ad35a07263cad6b8da5c091adc3";
 
 export default node;
