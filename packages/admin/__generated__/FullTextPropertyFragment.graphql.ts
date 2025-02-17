@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c3b054b890986f55280f268254c2f7bd>>
+ * @generated SignedSource<<0b474a5a8c726639b7fcfcf091d1ce01>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,7 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 export type FullTextKind = "HTML" | "MARKDOWN" | "TEXT" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type FullTextPropertyFragment$data = {
+  readonly description: string | null | undefined;
   readonly fullText: {
     readonly content: string | null | undefined;
     readonly kind: FullTextKind | null | undefined;
@@ -35,6 +36,13 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "ScalarPropertyFragment"
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "description",
+      "storageKey": null
     },
     {
       "alias": null,
@@ -73,6 +81,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "6a4a8e3c18e685a1f46ce070c4d30d09";
+(node as any).hash = "a4620cb11debe629e853be5f2faecba5";
 
 export default node;
