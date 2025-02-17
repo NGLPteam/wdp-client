@@ -41,6 +41,7 @@ const fragment = graphql`
   fragment FullTextPropertyFragment on FullTextProperty {
     ...ScalarPropertyFragment
 
+    description
     fullText {
       content
       kind

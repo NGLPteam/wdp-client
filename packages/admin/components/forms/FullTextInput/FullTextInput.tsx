@@ -9,7 +9,15 @@ import type InputProps from "components/forms/inputType";
 
 const FullTextInput = forwardRef(
   (
-    { label, name: _name, defaultValue, value, onChange, ...props }: Props,
+    {
+      label,
+      name: _name,
+      defaultValue,
+      value,
+      onChange,
+      description,
+      ...props
+    }: Props,
     // The ref is passed in from Control, but isn't needed for this input
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     ref: Ref<HTMLInputElement>,
@@ -45,7 +53,7 @@ const FullTextInput = forwardRef(
     ];
 
     return (
-      <Fieldset label={t(label)}>
+      <Fieldset label={t(label)} description={description}>
         <FormGrid>
           <Select
             name="kind"
@@ -90,6 +98,7 @@ interface Props
   onChange?: (value: Value) => void;
   /** Default value */
   value?: Value;
+  description?: string;
 }
 
 export default FullTextInput;
