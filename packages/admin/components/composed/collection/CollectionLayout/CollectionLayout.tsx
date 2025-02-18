@@ -58,10 +58,17 @@ export default function CollectionLayout({
     [memoizedCollection, breadcrumbs, destroy, router],
   );
 
+  const allowsChildItems =
+    !!memoizedCollection?.schemaVersion?.enforcedChildKinds.includes("ITEM");
+  const allowsChildCollections =
+    !!memoizedCollection?.schemaVersion?.enforcedChildKinds.includes(
+      "COLLECTION",
+    );
+
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
-      <ItemCreateButton parentSlug={slug} />
-      <CollectionCreateButton parentSlug={slug} />
+      {allowsChildItems && <ItemCreateButton parentSlug={slug} />}
+      {allowsChildCollections && <CollectionCreateButton parentSlug={slug} />}
       <ButtonControlView
         href={`${process.env.NEXT_PUBLIC_FE_URL}/collections/${slug}`}
       >
@@ -110,6 +117,9 @@ const fragment = graphql`
     title
     slug
     id
+    schemaVersion {
+      enforcedChildKinds
+    }
     ...useBreadcrumbsFragment
     ...useChildRouteLinksFragment
   }
