@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5e47c27121f2aef890c1b5792864c962>>
+ * @generated SignedSource<<4ef53ba3b502cbb24348ff25d0fc9987>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,14 +11,14 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type HeaderTitleBlockFragment$data = {
-  readonly definition: {
-    readonly showSplitDisplay: boolean | null | undefined;
-  };
   readonly slots: {
     readonly header: {
       readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
     } | null | undefined;
     readonly headerAside: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+    } | null | undefined;
+    readonly headerSubtitle: {
       readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
     } | null | undefined;
     readonly headerSummary: {
@@ -49,24 +49,6 @@ return {
     {
       "alias": null,
       "args": null,
-      "concreteType": "HeroTemplateDefinition",
-      "kind": "LinkedField",
-      "name": "definition",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "showSplitDisplay",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
       "concreteType": "HeroTemplateInstanceSlots",
       "kind": "LinkedField",
       "name": "slots",
@@ -78,6 +60,16 @@ return {
           "concreteType": "TemplateSlotInlineInstance",
           "kind": "LinkedField",
           "name": "header",
+          "plural": false,
+          "selections": (v0/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "TemplateSlotInlineInstance",
+          "kind": "LinkedField",
+          "name": "headerSubtitle",
           "plural": false,
           "selections": (v0/*: any*/),
           "storageKey": null
@@ -117,6 +109,6 @@ return {
 };
 })();
 
-(node as any).hash = "aebfd1035d67e02bf051d32b5b0da363";
+(node as any).hash = "4b4eb5ee2c08768f797d3061cd3d8c9c";
 
 export default node;

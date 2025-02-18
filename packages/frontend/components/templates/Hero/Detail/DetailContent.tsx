@@ -20,6 +20,7 @@ export default function Content({ data }: DetailContentProps) {
   const { entity, slots, definition } = template ?? {};
 
   const subheader = useSharedInlineFragment(slots?.subheader);
+  const subheaderSubtitle = useSharedInlineFragment(slots?.subheaderSubtitle);
   const subheaderAside = useSharedInlineFragment(slots?.subheaderAside);
   const metadata = useSharedInlineFragment(slots?.metadata);
   const summary = useSharedBlockFragment(slots?.subheaderSummary);
@@ -27,18 +28,25 @@ export default function Content({ data }: DetailContentProps) {
 
   return (
     <div>
-      {(subheader?.valid || subheaderAside?.valid) && (
-        <h2 className={classNames("t-h3", styles.subheader)}>
-          {!!subheader?.content && (
-            <InlineSlotWrapper content={subheader.content} />
-          )}
-          {!!subheaderAside?.content && (
-            <span className={styles["subheader__aside"]}>
-              <InlineSlotWrapper content={subheaderAside.content} />
-            </span>
-          )}
-        </h2>
-      )}
+      <div className={styles.titleWrapper}>
+        {(subheader?.valid || subheaderAside?.valid) && (
+          <h2 className={classNames("t-h3", styles.subheader)}>
+            {!!subheader?.content && (
+              <InlineSlotWrapper content={subheader.content} />
+            )}
+            {!!subheaderAside?.content && (
+              <span className={styles["subheader__aside"]}>
+                <InlineSlotWrapper content={subheaderAside.content} />
+              </span>
+            )}
+          </h2>
+        )}
+        {!!subheaderSubtitle?.content && subheaderSubtitle.valid && (
+          <span className={styles.subtitle}>
+            <InlineSlotWrapper content={subheaderSubtitle.content} />
+          </span>
+        )}
+      </div>
       <div className={styles.contributors}>
         {definition?.listContributors && (
           <ContributorsList
@@ -79,6 +87,9 @@ const fragment = graphql`
     }
     slots {
       subheader {
+        ...sharedInlineSlotFragment
+      }
+      subheaderSubtitle {
         ...sharedInlineSlotFragment
       }
       subheaderAside {

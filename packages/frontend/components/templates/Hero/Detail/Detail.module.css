@@ -17,8 +17,12 @@
 }
 
 .left {
-  grid-column: 1 / 9;
+  grid-column: 1 / 8;
   display: flex;
+
+  &--wide {
+    grid-column: 1 / 9;
+  }
 
   @mixin respond theme("screens.100") {
     grid-column: 1 / -1;
@@ -64,9 +68,12 @@
   }
 }
 
+.titleWrapper {
+  margin-block-end: 1.5rem;
+}
+
 .subheader {
   padding-inline-end: var(--padding-md);
-  margin-block-end: 1.5rem;
 
   > * + * {
     margin-inline-start: 0.75rem;
@@ -93,4 +100,9 @@
 
 .contributors {
   margin-block-end: 0.325rem;
+}
+
+.subtitle {
+  display: block;
+  margin-block-start: 0.25rem;
 }

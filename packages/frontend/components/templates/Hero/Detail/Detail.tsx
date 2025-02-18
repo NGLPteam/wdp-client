@@ -1,4 +1,5 @@
 import { graphql, useFragment } from "react-relay";
+import classNames from "classnames";
 import { DetailHeroFragment$key } from "@/relay/DetailHeroFragment.graphql";
 import CoverImage from "./DetailCoverImage";
 import Content from "./DetailContent";
@@ -16,7 +17,11 @@ export default function HeroDetail({ data }: HeroDetailProps) {
 
   return (
     <div className={styles.columns}>
-      <div className={styles.left}>
+      <div
+        className={classNames(styles.left, {
+          [styles["left--wide"]]: !!definition?.showThumbnailImage,
+        })}
+      >
         {definition?.showThumbnailImage && (
           <div className={styles.thumbnail}>
             <CoverImage data={entity} />
