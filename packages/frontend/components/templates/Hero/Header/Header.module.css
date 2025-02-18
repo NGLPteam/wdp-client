@@ -36,7 +36,7 @@
   grid-area: left;
 
   > * + * {
-    margin-block-start: var(--padding-rg);
+    margin-block-start: var(--padding-md);
   }
 }
 
@@ -107,4 +107,9 @@
   > li + li {
     margin-block-start: 0.6875rem;
   }
+}
+
+.subtitle {
+  display: block;
+  margin-block-start: 0.75rem;
 }
