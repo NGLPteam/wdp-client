@@ -31,12 +31,12 @@ export function useChildRouteLinks(
   const links = useMemo(() => {
     const filteredRoutes = childRoutes.filter((route) => {
       if (route.childKinds) {
-        const test = route.childKinds.every((kind) =>
+        const allowed = route.childKinds.every((kind) =>
           memoizedEntity?.current?.schemaVersion?.enforcedChildKinds.includes(
             kind,
           ),
         );
-        if (!test) return false;
+        if (!allowed) return false;
       }
       // If no actions are defined, we assume this route is accessible.
       if (!route.actions || route.actions.length === 0) return true;
