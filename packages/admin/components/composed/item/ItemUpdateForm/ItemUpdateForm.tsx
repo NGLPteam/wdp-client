@@ -111,7 +111,6 @@ export default function ItemUpdateForm({
         "title",
         "subtitle",
         "doi",
-        "issn",
         "thumbnail",
         "clearThumbnail",
         "heroImage",
@@ -168,7 +167,6 @@ export default function ItemUpdateForm({
             />
             <Forms.VisibilityFields />
             <Forms.Input label="forms.fields.doi" {...register("doi")} isWide />
-            {/*<Forms.Input label="forms.fields.issn" {...register("issn")} />*/}
             <Forms.FileImageUpload
               label="forms.fields.thumbnail"
               name="thumbnail"

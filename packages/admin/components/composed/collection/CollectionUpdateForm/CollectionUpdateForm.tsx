@@ -116,7 +116,6 @@ export default function CollectionUpdateForm({
         "title",
         "subtitle",
         "doi",
-        "issn",
         "thumbnail",
         "heroImage",
         "summary",
@@ -170,7 +169,6 @@ export default function CollectionUpdateForm({
             />
             <Forms.VisibilityFields />
             <Forms.Input label="forms.fields.doi" {...register("doi")} isWide />
-            {/*<Forms.Input label="forms.fields.issn" {...register("issn")} />*/}
             <Forms.FileImageUpload
               data={thumbnail}
               label="forms.fields.thumbnail"
