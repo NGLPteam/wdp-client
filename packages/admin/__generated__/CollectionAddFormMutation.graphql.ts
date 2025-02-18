@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6ada2117a66401013f0c4b514b523a56>>
+ * @generated SignedSource<<c7e1f2b73932b498b07f2627e244f9df>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,7 +18,6 @@ export type CreateCollectionInput = {
   doi?: string | null | undefined;
   heroImage?: UploadedFileInput | null | undefined;
   heroImageMetadata?: ImageMetadataInput | null | undefined;
-  issn?: string | null | undefined;
   parentId: string;
   published?: VariablePrecisionDateInput | null | undefined;
   schemaVersionSlug?: string | null | undefined;

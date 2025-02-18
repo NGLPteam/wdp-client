@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d491822accd6f4e99cd7a18009435edf>>
+ * @generated SignedSource<<3869443ce791054a95c673c8fb4fed1d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,7 +20,6 @@ export type UpdateItemInput = {
   doi?: string | null | undefined;
   heroImage?: UploadedFileInput | null | undefined;
   heroImageMetadata?: ImageMetadataInput | null | undefined;
-  issn?: string | null | undefined;
   itemId: string;
   published?: VariablePrecisionDateInput | null | undefined;
   schemaProperties?: any | null | undefined;
