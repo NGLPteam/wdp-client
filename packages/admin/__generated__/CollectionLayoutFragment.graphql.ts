@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a66b181d85adddeb804ff6436115d9a1>>
+ * @generated SignedSource<<4c07166b28906c5c59918eeb534225bc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,9 +9,13 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type ChildEntityKind = "COLLECTION" | "ITEM" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type CollectionLayoutFragment$data = {
   readonly id: string;
+  readonly schemaVersion: {
+    readonly enforcedChildKinds: ReadonlyArray<ChildEntityKind>;
+  };
   readonly slug: string;
   readonly title: string;
   readonly " $fragmentSpreads": FragmentRefs<"useBreadcrumbsFragment" | "useChildRouteLinksFragment">;
@@ -50,6 +54,24 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
+      "concreteType": "SchemaVersion",
+      "kind": "LinkedField",
+      "name": "schemaVersion",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "enforcedChildKinds",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "useBreadcrumbsFragment"
@@ -64,6 +86,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "050dd3e39b47be4f5038e6ead083c61c";
+(node as any).hash = "404e65abe3a77c9a221c2faa876432cd";
 
 export default node;

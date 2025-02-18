@@ -5,6 +5,7 @@ import {
   Dropdown,
 } from "components/atomic";
 import * as Styled from "./ButtonControlGroup.styles";
+import type { PropsWithChildren } from "react";
 
 type ButtonProps =
   | React.ComponentProps<typeof ButtonControl>
@@ -17,7 +18,7 @@ function ButtonControlGroup({
   menuLabel,
   toggleText,
   toggleLabel,
-}: Props) {
+}: Props & PropsWithChildren) {
   return (
     <>
       <Styled.ButtonWrapper $breakpoint={breakpoint}>
@@ -45,7 +46,6 @@ interface BaseProps {
   toggleLabel?: string;
   toggleText?: string;
   $closeDropdown?: () => void;
-  children: React.ReactElement<ButtonProps> | React.ReactElement<ButtonProps>[];
 }
 
 interface PropsWithLabel extends BaseProps {
