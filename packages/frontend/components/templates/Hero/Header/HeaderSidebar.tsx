@@ -4,7 +4,6 @@ import { useSharedBlockFragment } from "@/components/templates/shared/shared.slo
 import { HeaderSidebarFragment$key } from "@/relay/HeaderSidebarFragment.graphql";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import DOI from "@/components/atomic/properties/DOI";
-// import ISSN from "@/components/atomic/properties/ISSN";
 import DownloadCount from "@/components/atomic/properties/DownloadCount";
 import ViewCount from "@/components/atomic/properties/ViewCount";
 import styles from "./Header.module.css";
@@ -20,12 +19,10 @@ export default function Sidebar({
 
   const slot = useSharedBlockFragment(slots?.headerSidebar);
 
-  const { showDOI, showISSN, showBasicViewMetrics, showSplitDisplay } =
-    definition ?? {};
+  const { showDOI, showBasicViewMetrics, showSplitDisplay } = definition ?? {};
 
   const shouldRender =
     (showDOI && !!entity?.doiData?.doi) ||
-    (showISSN && false) ||
     showBasicViewMetrics ||
     (slot?.valid && !slot?.empty);
 
@@ -37,7 +34,6 @@ export default function Sidebar({
     >
       <ul className={classNames("t-label-sm", styles.sidebar)}>
         {showDOI && <DOI data={entity} />}
-        {/*{showISSN && <ISSN data={entity} />}*/}
         {slot?.valid && !!slot.content && (
           <BlockSlotWrapper content={slot.content} />
         )}
@@ -80,7 +76,6 @@ const fragment = graphql`
     }
     definition {
       showDOI
-      showISSN
       showBasicViewMetrics
       showSplitDisplay
     }

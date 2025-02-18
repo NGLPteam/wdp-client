@@ -9180,18 +9180,6 @@
             "deprecationReason": null
           },
           {
-            "name": "issn",
-            "description": "The International Standard Serial Number for this entity. See https://issn.org\n",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "layouts",
             "description": "Access layouts for this entity.\n",
             "args": [],
@@ -10220,11 +10208,6 @@
           {
             "kind": "INTERFACE",
             "name": "HasEntityBreadcrumbs",
-            "ofType": null
-          },
-          {
-            "kind": "INTERFACE",
-            "name": "HasISSN",
             "ofType": null
           },
           {
@@ -12430,18 +12413,6 @@
             "deprecationReason": null
           },
           {
-            "name": "issn",
-            "description": "The International Standard Serial Number for this entity. See https://issn.org\n",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "items",
             "description": null,
             "args": [
@@ -14041,11 +14012,6 @@
           {
             "kind": "INTERFACE",
             "name": "HasEntityBreadcrumbs",
-            "ofType": null
-          },
-          {
-            "kind": "INTERFACE",
-            "name": "HasISSN",
             "ofType": null
           },
           {
@@ -24374,18 +24340,6 @@
             "deprecationReason": null
           },
           {
-            "name": "issn",
-            "description": "International Standard Serial Number (see: https://issn.org)",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "parentId",
             "description": "The parent of the new collection. This can be the encoded ID of a community or another collection.\n",
             "type": {
@@ -25019,18 +24973,6 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "ImageMetadataInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "issn",
-            "description": "International Standard Serial Number (see: https://issn.org)",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -41863,40 +41805,6 @@
       },
       {
         "kind": "INTERFACE",
-        "name": "HasISSN",
-        "description": "An entity that has an ISSN",
-        "fields": [
-          {
-            "name": "issn",
-            "description": "The International Standard Serial Number for this entity. See https://issn.org\n",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": [
-          {
-            "kind": "OBJECT",
-            "name": "Collection",
-            "ofType": null
-          },
-          {
-            "kind": "OBJECT",
-            "name": "Item",
-            "ofType": null
-          }
-        ]
-      },
-      {
-        "kind": "INTERFACE",
         "name": "HasSchemaProperties",
         "description": null,
         "fields": [
@@ -42533,18 +42441,6 @@
           },
           {
             "name": "showHeroImage",
-            "description": "",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "showISSN",
             "description": "",
             "args": [],
             "type": {
@@ -47121,18 +47017,6 @@
             "deprecationReason": null
           },
           {
-            "name": "issn",
-            "description": "The International Standard Serial Number for this entity. See https://issn.org\n",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "items",
             "description": "Retrieve the items beneath this item",
             "args": [
@@ -48727,11 +48611,6 @@
           {
             "kind": "INTERFACE",
             "name": "HasEntityBreadcrumbs",
-            "ofType": null
-          },
-          {
-            "kind": "INTERFACE",
-            "name": "HasISSN",
             "ofType": null
           },
           {
@@ -70061,65 +69940,6 @@
       },
       {
         "kind": "OBJECT",
-        "name": "SchemaCoreDefinition",
-        "description": "Configuration for controlling how instances handle specific optional core properties.\n",
-        "fields": [
-          {
-            "name": "doi",
-            "description": "Whether to expose or hide an entity's DOI",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "issn",
-            "description": "Whether to expose or hide an entity's ISSN",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "subtitle",
-            "description": "Whether to expose or hide an entity's subtitle",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          }
-        ],
-        "inputFields": null,
-        "interfaces": [],
-        "enumValues": null,
-        "possibleTypes": null
-      },
-      {
-        "kind": "OBJECT",
         "name": "SchemaDefinition",
         "description": "A schema definition is a logical grouping of `SchemaVersion`s that identifies\nonly the shared kind, namespace, and identifier. The name is also most likely\nshared, although it can change between schema versions, and the value on the\ndefinition will default to whatever the most recent version uses.\n",
         "fields": [
@@ -71532,22 +71352,6 @@
         "description": "A specific version of a `SchemaDefinition`.\n",
         "fields": [
           {
-            "name": "core",
-            "description": "Configuration for controlling how instances of a schema handle certain optional core properties.",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "OBJECT",
-                "name": "SchemaCoreDefinition",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "createdAt",
             "description": null,
             "args": [],
@@ -71837,7 +71641,7 @@
           },
           {
             "name": "number",
-            "description": "A semantic version for the schema",
+            "description": "A semantic version for the schema\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -71853,7 +71657,7 @@
           },
           {
             "name": "render",
-            "description": "Configuration for rendering schema instances outside of orderings",
+            "description": "Configuration for rendering schema instances outside of orderings.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -71869,7 +71673,7 @@
           },
           {
             "name": "schemaDefinition",
-            "description": "The shared schema definition for all versions of this namespace and identifier",
+            "description": "The shared schema definition for all versions of this namespace and identifier.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -71950,7 +71754,7 @@
           },
           {
             "name": "searchableProperties",
-            "description": "A subset of properties that can be searched for this schema.",
+            "description": "A subset of properties that can be searched for this schema.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -80045,18 +79849,6 @@
             "deprecationReason": null
           },
           {
-            "name": "issn",
-            "description": "International Standard Serial Number (see: https://issn.org)",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "published",
             "description": "The date this entity was published",
             "type": {
@@ -81242,18 +81034,6 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "ImageMetadataInput",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "issn",
-            "description": "International Standard Serial Number (see: https://issn.org)",
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
               "ofType": null
             },
             "defaultValue": null,

@@ -1543,7 +1543,7 @@ in a tree structure.
 In practice, this means a `Collection` or an `Item`, not a `Community`.
 
 """
-interface ChildEntity implements Accessible & Entity & EntityBase & ExposesPermissions & HasDOI & HasDefaultTimestamps & HasEntityBreadcrumbs & HasISSN & HasSchemaProperties & ReferencesEntityVisibility & ReferencesGlobalEntityDates & Searchable & Sluggable {
+interface ChildEntity implements Accessible & Entity & EntityBase & ExposesPermissions & HasDOI & HasDefaultTimestamps & HasEntityBreadcrumbs & HasSchemaProperties & ReferencesEntityVisibility & ReferencesGlobalEntityDates & Searchable & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   """A polymorphic connection for access grants from an entity"""
@@ -1733,11 +1733,6 @@ interface ChildEntity implements Accessible & Entity & EntityBase & ExposesPermi
     """
     identifier: String!
   ): OrderingEntry
-  """
-  The International Standard Serial Number for this entity. See https://issn.org
-  
-  """
-  issn: String
   """
   Access layouts for this entity.
   
@@ -1945,7 +1940,7 @@ enum ChildEntityKind {
 }
 
 """A collection of items"""
-type Collection implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasISSN & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
+type Collection implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -2358,11 +2353,6 @@ type Collection implements Accessible & Attachable & Attributable & ChildEntity 
     """
     identifier: String!
   ): OrderingEntry
-  """
-  The International Standard Serial Number for this entity. See https://issn.org
-  
-  """
-  issn: String
   items(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -4871,8 +4861,6 @@ input CreateCollectionInput {
   
   """
   heroImageMetadata: ImageMetadataInput
-  """International Standard Serial Number (see: https://issn.org)"""
-  issn: String
   """
   The parent of the new collection. This can be the encoded ID of a community or another collection.
   
@@ -4998,8 +4986,6 @@ input CreateItemInput {
   
   """
   heroImageMetadata: ImageMetadataInput
-  """International Standard Serial Number (see: https://issn.org)"""
-  issn: String
   """
   The parent of the item. This can be the encoded ID of a collection or another item.
   
@@ -8828,15 +8814,6 @@ interface HasHarvestOptions {
   readOptions: HarvestOptionsRead!
 }
 
-"""An entity that has an ISSN"""
-interface HasISSN {
-  """
-  The International Standard Serial Number for this entity. See https://issn.org
-  
-  """
-  issn: String
-}
-
 interface HasSchemaProperties {
   """A list of schema properties associated with this instance or version."""
   schemaProperties: [AnySchemaProperty!]!
@@ -8949,7 +8926,6 @@ type HeroTemplateDefinition implements Node & Sluggable & TemplateDefinition {
   showBreadcrumbs: Boolean
   showDOI: Boolean
   showHeroImage: Boolean
-  showISSN: Boolean
   showSharingLink: Boolean
   showSplitDisplay: Boolean
   showThumbnailImage: Boolean
@@ -9570,7 +9546,7 @@ type IntegerProperty implements ScalarProperty & SchemaProperty & SearchableProp
 }
 
 """An item that belongs to a collection"""
-type Item implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasISSN & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
+type Item implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -9945,11 +9921,6 @@ type Item implements Accessible & Attachable & Attributable & ChildEntity & Cont
     """
     identifier: String!
   ): OrderingEntry
-  """
-  The International Standard Serial Number for this entity. See https://issn.org
-  
-  """
-  issn: String
   """Retrieve the items beneath this item"""
   items(
     """Returns the elements in the list that come after the specified cursor."""
@@ -14759,19 +14730,6 @@ It corresponds to the regular expression `(?-mix:\A[a-z][a-z0-9_]*?[a-z0-9]\z)`.
 scalar SchemaComponent
 
 """
-Configuration for controlling how instances handle specific optional core properties.
-
-"""
-type SchemaCoreDefinition {
-  """Whether to expose or hide an entity's DOI"""
-  doi: Boolean!
-  """Whether to expose or hide an entity's ISSN"""
-  issn: Boolean!
-  """Whether to expose or hide an entity's subtitle"""
-  subtitle: Boolean!
-}
-
-"""
 A schema definition is a logical grouping of `SchemaVersion`s that identifies
 only the shared kind, namespace, and identifier. The name is also most likely
 shared, although it can change between schema versions, and the value on the
@@ -15158,10 +15116,6 @@ A specific version of a `SchemaDefinition`.
 
 """
 type SchemaVersion implements DescribesSchema & HasSchemaProperties & Node & Searchable & Sluggable {
-  """
-  Configuration for controlling how instances of a schema handle certain optional core properties.
-  """
-  core: SchemaCoreDefinition!
   createdAt: ISO8601DateTime!
   """
   The full declaration for this schema, including namespace, identifier, and version (if available).
@@ -15227,12 +15181,19 @@ type SchemaVersion implements DescribesSchema & HasSchemaProperties & Node & Sea
   
   """
   namespace: String!
-  """A semantic version for the schema"""
+  """
+  A semantic version for the schema
+  
+  """
   number: String!
-  """Configuration for rendering schema instances outside of orderings"""
+  """
+  Configuration for rendering schema instances outside of orderings.
+  
+  """
   render: SchemaRenderDefinition!
   """
-  The shared schema definition for all versions of this namespace and identifier
+  The shared schema definition for all versions of this namespace and identifier.
+  
   """
   schemaDefinition: SchemaDefinition!
   """A list of schema properties associated with this instance or version."""
@@ -15253,7 +15214,10 @@ type SchemaVersion implements DescribesSchema & HasSchemaProperties & Node & Sea
     """
     visibility: EntityVisibilityFilter = VISIBLE
   ): SearchScope!
-  """A subset of properties that can be searched for this schema."""
+  """
+  A subset of properties that can be searched for this schema.
+  
+  """
   searchableProperties: [AnySearchableProperty!]!
   slug: Slug!
   updatedAt: ISO8601DateTime!
@@ -17283,8 +17247,6 @@ input UpdateCollectionInput {
   
   """
   heroImageMetadata: ImageMetadataInput
-  """International Standard Serial Number (see: https://issn.org)"""
-  issn: String
   """The date this entity was published"""
   published: VariablePrecisionDateInput
   """
@@ -17533,8 +17495,6 @@ input UpdateItemInput {
   
   """
   heroImageMetadata: ImageMetadataInput
-  """International Standard Serial Number (see: https://issn.org)"""
-  issn: String
   """The item to update"""
   itemId: ID!
   """The date this entity was published"""

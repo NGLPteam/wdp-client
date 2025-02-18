@@ -1555,11 +1555,6 @@ export type ChildEntity = {
   identifier: Scalars['String']['output'];
   inCommunityOrdering?: Maybe<OrderingEntry>;
   /**
-   * The International Standard Serial Number for this entity. See https://issn.org
-   *
-   */
-  issn?: Maybe<Scalars['String']['output']>;
-  /**
    * Access layouts for this entity.
    *
    */
@@ -1936,7 +1931,7 @@ export type ChildEntityKind =
   | '%future added value';
 
 /** A collection of items */
-export type Collection = Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasDoi & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasIssn & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable & {
+export type Collection = Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasDoi & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable & {
   __typename?: 'Collection';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -2061,11 +2056,6 @@ export type Collection = Accessible & Attachable & Attributable & ChildEntity & 
   /** A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers. */
   identifier: Scalars['String']['output'];
   inCommunityOrdering?: Maybe<OrderingEntry>;
-  /**
-   * The International Standard Serial Number for this entity. See https://issn.org
-   *
-   */
-  issn?: Maybe<Scalars['String']['output']>;
   items: ItemConnection;
   /**
    * Access layouts for this entity.
@@ -4651,8 +4641,6 @@ export type CreateCollectionInput = {
    *
    */
   heroImageMetadata?: InputMaybe<ImageMetadataInput>;
-  /** International Standard Serial Number (see: https://issn.org) */
-  issn?: InputMaybe<Scalars['String']['input']>;
   /**
    * The parent of the new collection. This can be the encoded ID of a community or another collection.
    *
@@ -4782,8 +4770,6 @@ export type CreateItemInput = {
    *
    */
   heroImageMetadata?: InputMaybe<ImageMetadataInput>;
-  /** International Standard Serial Number (see: https://issn.org) */
-  issn?: InputMaybe<Scalars['String']['input']>;
   /**
    * The parent of the item. This can be the encoded ID of a collection or another item.
    *
@@ -8579,15 +8565,6 @@ export type HasHarvestOptions = {
   readOptions: HarvestOptionsRead;
 };
 
-/** An entity that has an ISSN */
-export type HasIssn = {
-  /**
-   * The International Standard Serial Number for this entity. See https://issn.org
-   *
-   */
-  issn?: Maybe<Scalars['String']['output']>;
-};
-
 export type HasSchemaProperties = {
   /** A list of schema properties associated with this instance or version. */
   schemaProperties: Array<AnySchemaProperty>;
@@ -8704,7 +8681,6 @@ export type HeroTemplateDefinition = Node & Sluggable & TemplateDefinition & {
   showBreadcrumbs?: Maybe<Scalars['Boolean']['output']>;
   showDOI?: Maybe<Scalars['Boolean']['output']>;
   showHeroImage?: Maybe<Scalars['Boolean']['output']>;
-  showISSN?: Maybe<Scalars['Boolean']['output']>;
   showSharingLink?: Maybe<Scalars['Boolean']['output']>;
   showSplitDisplay?: Maybe<Scalars['Boolean']['output']>;
   showThumbnailImage?: Maybe<Scalars['Boolean']['output']>;
@@ -9314,7 +9290,7 @@ export type IntegerProperty = ScalarProperty & SchemaProperty & SearchableProper
 };
 
 /** An item that belongs to a collection */
-export type Item = Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HasDoi & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasIssn & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable & {
+export type Item = Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HasDoi & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable & {
   __typename?: 'Item';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -9429,11 +9405,6 @@ export type Item = Accessible & Attachable & Attributable & ChildEntity & Contri
   /** A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers. */
   identifier: Scalars['String']['output'];
   inCommunityOrdering?: Maybe<OrderingEntry>;
-  /**
-   * The International Standard Serial Number for this entity. See https://issn.org
-   *
-   */
-  issn?: Maybe<Scalars['String']['output']>;
   /** Retrieve the items beneath this item */
   items: ItemConnection;
   /**
@@ -14873,20 +14844,6 @@ export type ScalarProperty = {
 };
 
 /**
- * Configuration for controlling how instances handle specific optional core properties.
- *
- */
-export type SchemaCoreDefinition = {
-  __typename?: 'SchemaCoreDefinition';
-  /** Whether to expose or hide an entity's DOI */
-  doi: Scalars['Boolean']['output'];
-  /** Whether to expose or hide an entity's ISSN */
-  issn: Scalars['Boolean']['output'];
-  /** Whether to expose or hide an entity's subtitle */
-  subtitle: Scalars['Boolean']['output'];
-};
-
-/**
  * A schema definition is a logical grouping of `SchemaVersion`s that identifies
  * only the shared kind, namespace, and identifier. The name is also most likely
  * shared, although it can change between schema versions, and the value on the
@@ -15270,8 +15227,6 @@ export type SchemaValueError = {
  */
 export type SchemaVersion = DescribesSchema & HasSchemaProperties & Node & Searchable & Sluggable & {
   __typename?: 'SchemaVersion';
-  /** Configuration for controlling how instances of a schema handle certain optional core properties. */
-  core: SchemaCoreDefinition;
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
    * The full declaration for this schema, including namespace, identifier, and version (if available).
@@ -15337,17 +15292,29 @@ export type SchemaVersion = DescribesSchema & HasSchemaProperties & Node & Searc
    *
    */
   namespace: Scalars['String']['output'];
-  /** A semantic version for the schema */
+  /**
+   * A semantic version for the schema
+   *
+   */
   number: Scalars['String']['output'];
-  /** Configuration for rendering schema instances outside of orderings */
+  /**
+   * Configuration for rendering schema instances outside of orderings.
+   *
+   */
   render: SchemaRenderDefinition;
-  /** The shared schema definition for all versions of this namespace and identifier */
+  /**
+   * The shared schema definition for all versions of this namespace and identifier.
+   *
+   */
   schemaDefinition: SchemaDefinition;
   /** A list of schema properties associated with this instance or version. */
   schemaProperties: Array<AnySchemaProperty>;
   /** Search from this level of the API using it as the origin */
   search: SearchScope;
-  /** A subset of properties that can be searched for this schema. */
+  /**
+   * A subset of properties that can be searched for this schema.
+   *
+   */
   searchableProperties: Array<AnySearchableProperty>;
   slug: Scalars['Slug']['output'];
   updatedAt: Scalars['ISO8601DateTime']['output'];
@@ -17356,8 +17323,6 @@ export type UpdateCollectionInput = {
    *
    */
   heroImageMetadata?: InputMaybe<ImageMetadataInput>;
-  /** International Standard Serial Number (see: https://issn.org) */
-  issn?: InputMaybe<Scalars['String']['input']>;
   /** The date this entity was published */
   published?: InputMaybe<VariablePrecisionDateInput>;
   /**
@@ -17612,8 +17577,6 @@ export type UpdateItemInput = {
    *
    */
   heroImageMetadata?: InputMaybe<ImageMetadataInput>;
-  /** International Standard Serial Number (see: https://issn.org) */
-  issn?: InputMaybe<Scalars['String']['input']>;
   /** The item to update */
   itemId: Scalars['ID']['input'];
   /** The date this entity was published */
@@ -18921,7 +18884,6 @@ export type ResolversInterfaceTypes<RefType extends Record<string, unknown>> = {
   HasHarvestErrors: ( HarvestAttempt ) | ( HarvestRecord );
   HasHarvestMetadataFormat: ( HarvestAttempt ) | ( HarvestMapping ) | ( HarvestRecord ) | ( HarvestSource );
   HasHarvestOptions: ( HarvestMapping ) | ( HarvestSource );
-  HasISSN: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
   HasSchemaProperties: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } );
   Image: ( ImageDerivative ) | ( ImageOriginal );
   ImageIdentification: ( ImageAttachment ) | ( ImageDerivative ) | ( ImageOriginal ) | ( ImageSize ) | ( SiteLogoAttachment );
@@ -19284,7 +19246,6 @@ export type ResolversTypes = {
   HasHarvestErrors: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasHarvestErrors']>;
   HasHarvestMetadataFormat: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasHarvestMetadataFormat']>;
   HasHarvestOptions: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasHarvestOptions']>;
-  HasISSN: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasISSN']>;
   HasSchemaProperties: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasSchemaProperties']>;
   HeroBackground: HeroBackground;
   HeroImageLayout: HeroImageLayout;
@@ -19461,7 +19422,6 @@ export type ResolversTypes = {
   RoleSystemIdentifier: RoleSystemIdentifier;
   ScalarProperty: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['ScalarProperty']>;
   SchemaComponent: ResolverTypeWrapper<Scalars['SchemaComponent']['output']>;
-  SchemaCoreDefinition: ResolverTypeWrapper<SchemaCoreDefinition>;
   SchemaDefinition: ResolverTypeWrapper<SchemaDefinition>;
   SchemaDefinitionConnection: ResolverTypeWrapper<SchemaDefinitionConnection>;
   SchemaDefinitionEdge: ResolverTypeWrapper<SchemaDefinitionEdge>;
@@ -19892,7 +19852,6 @@ export type ResolversParentTypes = {
   HasHarvestErrors: ResolversInterfaceTypes<ResolversParentTypes>['HasHarvestErrors'];
   HasHarvestMetadataFormat: ResolversInterfaceTypes<ResolversParentTypes>['HasHarvestMetadataFormat'];
   HasHarvestOptions: ResolversInterfaceTypes<ResolversParentTypes>['HasHarvestOptions'];
-  HasISSN: ResolversInterfaceTypes<ResolversParentTypes>['HasISSN'];
   HasSchemaProperties: ResolversInterfaceTypes<ResolversParentTypes>['HasSchemaProperties'];
   HeroLayoutDefinition: Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<ResolversParentTypes['AnyHeroTemplateDefinition']> };
   HeroLayoutInstance: Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: ResolversParentTypes['AnyEntity'], templates: Array<ResolversParentTypes['AnyHeroTemplateInstance']> };
@@ -20037,7 +19996,6 @@ export type ResolversParentTypes = {
   RoleEdge: RoleEdge;
   ScalarProperty: ResolversInterfaceTypes<ResolversParentTypes>['ScalarProperty'];
   SchemaComponent: Scalars['SchemaComponent']['output'];
-  SchemaCoreDefinition: SchemaCoreDefinition;
   SchemaDefinition: SchemaDefinition;
   SchemaDefinitionConnection: SchemaDefinitionConnection;
   SchemaDefinitionEdge: SchemaDefinitionEdge;
@@ -20823,7 +20781,6 @@ export type ChildEntityResolvers<ContextType = any, ParentType extends Resolvers
   hierarchicalDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   inCommunityOrdering?: Resolver<Maybe<ResolversTypes['OrderingEntry']>, ParentType, ContextType, RequireFields<ChildEntityInCommunityOrderingArgs, 'identifier'>>;
-  issn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   layouts?: Resolver<ResolversTypes['EntityLayouts'], ParentType, ContextType>;
   leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   linkTargetCandidates?: Resolver<ResolversTypes['LinkTargetCandidateConnection'], ParentType, ContextType, RequireFields<ChildEntityLinkTargetCandidatesArgs, 'kind' | 'pageDirection' | 'title'>>;
@@ -20904,7 +20861,6 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   inCommunityOrdering?: Resolver<Maybe<ResolversTypes['OrderingEntry']>, ParentType, ContextType, RequireFields<CollectionInCommunityOrderingArgs, 'identifier'>>;
-  issn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<CollectionItemsArgs, 'nodeFilter' | 'order' | 'pageDirection'>>;
   layouts?: Resolver<ResolversTypes['EntityLayouts'], ParentType, ContextType>;
   leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -22516,11 +22472,6 @@ export type HasHarvestOptionsResolvers<ContextType = any, ParentType extends Res
   readOptions?: Resolver<ResolversTypes['HarvestOptionsRead'], ParentType, ContextType>;
 };
 
-export type HasIssnResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasISSN'] = ResolversParentTypes['HasISSN']> = {
-  __resolveType: TypeResolveFn<'Collection' | 'Item', ParentType, ContextType>;
-  issn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-};
-
 export type HasSchemaPropertiesResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasSchemaProperties'] = ResolversParentTypes['HasSchemaProperties']> = {
   __resolveType: TypeResolveFn<'Collection' | 'Community' | 'Item' | 'SchemaVersion', ParentType, ContextType>;
   schemaProperties?: Resolver<Array<ResolversTypes['AnySchemaProperty']>, ParentType, ContextType>;
@@ -22567,7 +22518,6 @@ export type HeroTemplateDefinitionResolvers<ContextType = any, ParentType extend
   showBreadcrumbs?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showDOI?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showHeroImage?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  showISSN?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showSharingLink?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showSplitDisplay?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showThumbnailImage?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
@@ -22823,7 +22773,6 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   inCommunityOrdering?: Resolver<Maybe<ResolversTypes['OrderingEntry']>, ParentType, ContextType, RequireFields<ItemInCommunityOrderingArgs, 'identifier'>>;
-  issn?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   items?: Resolver<ResolversTypes['ItemConnection'], ParentType, ContextType, RequireFields<ItemItemsArgs, 'nodeFilter' | 'order' | 'pageDirection'>>;
   layouts?: Resolver<ResolversTypes['EntityLayouts'], ParentType, ContextType>;
   leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -24052,13 +24001,6 @@ export interface SchemaComponentScalarConfig extends GraphQLScalarTypeConfig<Res
   name: 'SchemaComponent';
 }
 
-export type SchemaCoreDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaCoreDefinition'] = ResolversParentTypes['SchemaCoreDefinition']> = {
-  doi?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  issn?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  subtitle?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type SchemaDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaDefinition'] = ResolversParentTypes['SchemaDefinition']> = {
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   declaration?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -24152,7 +24094,6 @@ export type SchemaValueErrorResolvers<ContextType = any, ParentType extends Reso
 };
 
 export type SchemaVersionResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaVersion'] = ResolversParentTypes['SchemaVersion']> = {
-  core?: Resolver<ResolversTypes['SchemaCoreDefinition'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   declaration?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   enforcedChildDeclarations?: Resolver<Array<ResolversTypes['Slug']>, ParentType, ContextType>;
@@ -25332,7 +25273,6 @@ export type Resolvers<ContextType = any> = {
   HasHarvestErrors?: HasHarvestErrorsResolvers<ContextType>;
   HasHarvestMetadataFormat?: HasHarvestMetadataFormatResolvers<ContextType>;
   HasHarvestOptions?: HasHarvestOptionsResolvers<ContextType>;
-  HasISSN?: HasIssnResolvers<ContextType>;
   HasSchemaProperties?: HasSchemaPropertiesResolvers<ContextType>;
   HeroLayoutDefinition?: HeroLayoutDefinitionResolvers<ContextType>;
   HeroLayoutInstance?: HeroLayoutInstanceResolvers<ContextType>;
@@ -25456,7 +25396,6 @@ export type Resolvers<ContextType = any> = {
   RoleEdge?: RoleEdgeResolvers<ContextType>;
   ScalarProperty?: ScalarPropertyResolvers<ContextType>;
   SchemaComponent?: GraphQLScalarType;
-  SchemaCoreDefinition?: SchemaCoreDefinitionResolvers<ContextType>;
   SchemaDefinition?: SchemaDefinitionResolvers<ContextType>;
   SchemaDefinitionConnection?: SchemaDefinitionConnectionResolvers<ContextType>;
   SchemaDefinitionEdge?: SchemaDefinitionEdgeResolvers<ContextType>;
