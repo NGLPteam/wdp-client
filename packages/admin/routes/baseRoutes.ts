@@ -23,11 +23,13 @@ export const baseRoutes: BaseRoute[] = [
             name: "collection.child.collections",
             path: "/collections/[slug]/collections",
             label: "glossary.collection_other",
+            childKinds: ["COLLECTION"],
           },
           {
             name: "collection.child.items",
             path: "/collections/[slug]/items",
             label: "glossary.item_other",
+            childKinds: ["ITEM"],
           },
           {
             name: "collection.manage",
@@ -104,6 +106,7 @@ export const baseRoutes: BaseRoute[] = [
             name: "item.child.items",
             path: "/items/[slug]/items",
             label: "glossary.item_other",
+            childKinds: ["ITEM"],
           },
           {
             name: "item.manage",
@@ -181,6 +184,7 @@ export const baseRoutes: BaseRoute[] = [
             name: "community.child.collections",
             path: "/communities/[slug]/collections",
             label: "glossary.collection_other",
+            childKinds: ["COLLECTION"],
           },
           {
             name: "community.manage",

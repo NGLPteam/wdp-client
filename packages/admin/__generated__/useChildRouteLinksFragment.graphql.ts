@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e64ede45c50482f786501bdec3ece2af>>
+ * @generated SignedSource<<158bce4264039da0077d877a825708bd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,9 +9,13 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type ChildEntityKind = "COLLECTION" | "ITEM" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type useChildRouteLinksFragment$data = {
   readonly allowedActions: ReadonlyArray<string>;
+  readonly schemaVersion: {
+    readonly enforcedChildKinds: ReadonlyArray<ChildEntityKind>;
+  };
   readonly " $fragmentType": "useChildRouteLinksFragment";
 };
 export type useChildRouteLinksFragment$key = {
@@ -31,12 +35,30 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "allowedActions",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "SchemaVersion",
+      "kind": "LinkedField",
+      "name": "schemaVersion",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "enforcedChildKinds",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
     }
   ],
   "type": "Entity",
   "abstractKey": "__isEntity"
 };
 
-(node as any).hash = "a6750f30478df340431ae2f3d7be0982";
+(node as any).hash = "049776ad9ff7b2d7f816cfd643536443";
 
 export default node;

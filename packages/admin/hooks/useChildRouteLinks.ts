@@ -30,6 +30,14 @@ export function useChildRouteLinks(
 
   const links = useMemo(() => {
     const filteredRoutes = childRoutes.filter((route) => {
+      if (route.childKinds) {
+        const test = route.childKinds.every((kind) =>
+          memoizedEntity?.current?.schemaVersion?.enforcedChildKinds.includes(
+            kind,
+          ),
+        );
+        if (!test) return false;
+      }
       // If no actions are defined, we assume this route is accessible.
       if (!route.actions || route.actions.length === 0) return true;
 
@@ -55,5 +63,8 @@ export default useChildRouteLinks;
 const fragment = graphql`
   fragment useChildRouteLinksFragment on Entity {
     allowedActions
+    schemaVersion {
+      enforcedChildKinds
+    }
   }
 `;

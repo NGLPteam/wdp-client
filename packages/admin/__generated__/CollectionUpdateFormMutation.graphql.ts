@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<99588801fa9a321e9e6bd2e94ab3c233>>
+ * @generated SignedSource<<a93828a7663ce6967f468d30e476b456>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,7 +21,6 @@ export type UpdateCollectionInput = {
   doi?: string | null | undefined;
   heroImage?: UploadedFileInput | null | undefined;
   heroImageMetadata?: ImageMetadataInput | null | undefined;
-  issn?: string | null | undefined;
   published?: VariablePrecisionDateInput | null | undefined;
   schemaProperties?: any | null | undefined;
   subtitle?: string | null | undefined;
