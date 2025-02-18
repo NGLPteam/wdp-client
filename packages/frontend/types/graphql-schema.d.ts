@@ -5524,13 +5524,30 @@ export type DescendantListVariant =
  *
  */
 export type DescribesSchema = {
-  /** A unique (per-namespace) value that names the schema within the system. */
+  /**
+   * The full declaration for this schema, including namespace, identifier, and version (if available).
+   *
+   */
+  declaration: Scalars['String']['output'];
+  /**
+   * A unique (per-namespace) value that names the schema within the system.
+   *
+   */
   identifier: Scalars['String']['output'];
-  /** The kind of entity this schema applies to */
+  /**
+   * The kind of entity this schema applies to.
+   *
+   */
   kind: SchemaKind;
-  /** A human-readable name for the schema */
+  /**
+   * A human-readable name for the schema.
+   *
+   */
   name: Scalars['String']['output'];
-  /** A unique namespace the schema lives in */
+  /**
+   * A unique namespace the schema lives in.
+   *
+   */
   namespace: Scalars['String']['output'];
 };
 
@@ -8713,11 +8730,13 @@ export type HeroTemplateDefinitionSlots = {
   header?: Maybe<TemplateSlotInlineDefinition>;
   headerAside?: Maybe<TemplateSlotInlineDefinition>;
   headerSidebar?: Maybe<TemplateSlotBlockDefinition>;
+  headerSubtitle?: Maybe<TemplateSlotInlineDefinition>;
   headerSummary?: Maybe<TemplateSlotBlockDefinition>;
   metadata?: Maybe<TemplateSlotInlineDefinition>;
   sidebar?: Maybe<TemplateSlotBlockDefinition>;
   subheader?: Maybe<TemplateSlotInlineDefinition>;
   subheaderAside?: Maybe<TemplateSlotInlineDefinition>;
+  subheaderSubtitle?: Maybe<TemplateSlotInlineDefinition>;
   subheaderSummary?: Maybe<TemplateSlotBlockDefinition>;
   summary?: Maybe<TemplateSlotBlockDefinition>;
 };
@@ -8790,11 +8809,13 @@ export type HeroTemplateInstanceSlots = {
   header?: Maybe<TemplateSlotInlineInstance>;
   headerAside?: Maybe<TemplateSlotInlineInstance>;
   headerSidebar?: Maybe<TemplateSlotBlockInstance>;
+  headerSubtitle?: Maybe<TemplateSlotInlineInstance>;
   headerSummary?: Maybe<TemplateSlotBlockInstance>;
   metadata?: Maybe<TemplateSlotInlineInstance>;
   sidebar?: Maybe<TemplateSlotBlockInstance>;
   subheader?: Maybe<TemplateSlotInlineInstance>;
   subheaderAside?: Maybe<TemplateSlotInlineInstance>;
+  subheaderSubtitle?: Maybe<TemplateSlotInlineInstance>;
   subheaderSummary?: Maybe<TemplateSlotBlockInstance>;
   summary?: Maybe<TemplateSlotBlockInstance>;
 };
@@ -8808,16 +8829,33 @@ export type HierarchicalSchemaRank = DescribesSchema & Node & {
   __typename?: 'HierarchicalSchemaRank';
   /** The number of entities that implement this schema from this point in the hierarchy. */
   count: Scalars['Int']['output'];
+  /**
+   * The full declaration for this schema, including namespace, identifier, and version (if available).
+   *
+   */
+  declaration: Scalars['String']['output'];
   /** A count of distinct versions of this specific schema type from this point of the hierarchy. */
   distinctVersionCount: Scalars['Int']['output'];
   id: Scalars['ID']['output'];
-  /** A unique (per-namespace) value that names the schema within the system. */
+  /**
+   * A unique (per-namespace) value that names the schema within the system.
+   *
+   */
   identifier: Scalars['String']['output'];
-  /** The kind of entity this schema applies to */
+  /**
+   * The kind of entity this schema applies to.
+   *
+   */
   kind: SchemaKind;
-  /** A human-readable name for the schema */
+  /**
+   * A human-readable name for the schema.
+   *
+   */
   name: Scalars['String']['output'];
-  /** A unique namespace the schema lives in */
+  /**
+   * A unique namespace the schema lives in.
+   *
+   */
   namespace: Scalars['String']['output'];
   /** The rank of this schema at this point in the hierarchy, based on the statistical mode of its depth relative to the parent. */
   rank: Scalars['Int']['output'];
@@ -8838,14 +8876,31 @@ export type HierarchicalSchemaVersionRank = DescribesSchema & Node & {
   __typename?: 'HierarchicalSchemaVersionRank';
   /** The number of entities that implement this schema from this point in the hierarchy. */
   count: Scalars['Int']['output'];
+  /**
+   * The full declaration for this schema, including namespace, identifier, and version (if available).
+   *
+   */
+  declaration: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  /** A unique (per-namespace) value that names the schema within the system. */
+  /**
+   * A unique (per-namespace) value that names the schema within the system.
+   *
+   */
   identifier: Scalars['String']['output'];
-  /** The kind of entity this schema applies to */
+  /**
+   * The kind of entity this schema applies to.
+   *
+   */
   kind: SchemaKind;
-  /** A human-readable name for the schema */
+  /**
+   * A human-readable name for the schema.
+   *
+   */
   name: Scalars['String']['output'];
-  /** A unique namespace the schema lives in */
+  /**
+   * A unique namespace the schema lives in.
+   *
+   */
   namespace: Scalars['String']['output'];
   /** The rank of this schema at this point in the hierarchy, based on the statistical mode of its depth relative to the parent. */
   rank: Scalars['Int']['output'];
@@ -14841,14 +14896,31 @@ export type SchemaCoreDefinition = {
 export type SchemaDefinition = DescribesSchema & Node & Sluggable & {
   __typename?: 'SchemaDefinition';
   createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * The full declaration for this schema, including namespace, identifier, and version (if available).
+   *
+   */
+  declaration: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  /** A unique (per-namespace) value that names the schema within the system. */
+  /**
+   * A unique (per-namespace) value that names the schema within the system.
+   *
+   */
   identifier: Scalars['String']['output'];
-  /** The kind of entity this schema applies to */
+  /**
+   * The kind of entity this schema applies to.
+   *
+   */
   kind: SchemaKind;
-  /** A human-readable name for the schema */
+  /**
+   * A human-readable name for the schema.
+   *
+   */
   name: Scalars['String']['output'];
-  /** A unique namespace the schema lives in */
+  /**
+   * A unique namespace the schema lives in.
+   *
+   */
   namespace: Scalars['String']['output'];
   slug: Scalars['Slug']['output'];
   updatedAt: Scalars['ISO8601DateTime']['output'];
@@ -15202,10 +15274,20 @@ export type SchemaVersion = DescribesSchema & HasSchemaProperties & Node & Searc
   core: SchemaCoreDefinition;
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
+   * The full declaration for this schema, including namespace, identifier, and version (if available).
+   *
+   */
+  declaration: Scalars['String']['output'];
+  /**
    * Declarations / slugs for `enforcedChildVersions`.
    *
    */
   enforcedChildDeclarations: Array<Scalars['Slug']['output']>;
+  /**
+   * A list of entity kinds that make acceptable children for this schema.
+   *
+   */
+  enforcedChildKinds: Array<ChildEntityKind>;
   /**
    * The versions that this schema accepts as a child.
    *
@@ -15219,6 +15301,11 @@ export type SchemaVersion = DescribesSchema & HasSchemaProperties & Node & Searc
    */
   enforcedParentDeclarations: Array<Scalars['Slug']['output']>;
   /**
+   * A list of entity kinds that make acceptable parents for this schema.
+   *
+   */
+  enforcedParentKinds: Array<SchemaKind>;
+  /**
    * The versions that are allowed to parent this schema.
    *
    * If there are no schemas, then this schema does not enforce its parentage.
@@ -15230,13 +15317,25 @@ export type SchemaVersion = DescribesSchema & HasSchemaProperties & Node & Searc
   /** A boolean for the logic on `enforcedParentVersions`. */
   enforcesParent: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
-  /** A unique (per-namespace) value that names the schema within the system. */
+  /**
+   * A unique (per-namespace) value that names the schema within the system.
+   *
+   */
   identifier: Scalars['String']['output'];
-  /** The kind of entity this schema applies to */
+  /**
+   * The kind of entity this schema applies to.
+   *
+   */
   kind: SchemaKind;
-  /** A human-readable name for the schema */
+  /**
+   * A human-readable name for the schema.
+   *
+   */
   name: Scalars['String']['output'];
-  /** A unique namespace the schema lives in */
+  /**
+   * A unique namespace the schema lives in.
+   *
+   */
   namespace: Scalars['String']['output'];
   /** A semantic version for the schema */
   number: Scalars['String']['output'];
@@ -21610,6 +21709,7 @@ export type DescendantListTemplateInstanceSlotsResolvers<ContextType = any, Pare
 
 export type DescribesSchemaResolvers<ContextType = any, ParentType extends ResolversParentTypes['DescribesSchema'] = ResolversParentTypes['DescribesSchema']> = {
   __resolveType: TypeResolveFn<'HierarchicalSchemaRank' | 'HierarchicalSchemaVersionRank' | 'SchemaDefinition' | 'SchemaVersion', ParentType, ContextType>;
+  declaration?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['SchemaKind'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -22485,11 +22585,13 @@ export type HeroTemplateDefinitionSlotsResolvers<ContextType = any, ParentType e
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   headerAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   headerSidebar?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
+  headerSubtitle?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   headerSummary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
   metadata?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   sidebar?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
   subheader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   subheaderAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  subheaderSubtitle?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   subheaderSummary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -22520,11 +22622,13 @@ export type HeroTemplateInstanceSlotsResolvers<ContextType = any, ParentType ext
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   headerAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   headerSidebar?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
+  headerSubtitle?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   headerSummary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
   metadata?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   sidebar?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
   subheader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   subheaderAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  subheaderSubtitle?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   subheaderSummary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -22532,6 +22636,7 @@ export type HeroTemplateInstanceSlotsResolvers<ContextType = any, ParentType ext
 
 export type HierarchicalSchemaRankResolvers<ContextType = any, ParentType extends ResolversParentTypes['HierarchicalSchemaRank'] = ResolversParentTypes['HierarchicalSchemaRank']> = {
   count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  declaration?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   distinctVersionCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -22547,6 +22652,7 @@ export type HierarchicalSchemaRankResolvers<ContextType = any, ParentType extend
 
 export type HierarchicalSchemaVersionRankResolvers<ContextType = any, ParentType extends ResolversParentTypes['HierarchicalSchemaVersionRank'] = ResolversParentTypes['HierarchicalSchemaVersionRank']> = {
   count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  declaration?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['SchemaKind'], ParentType, ContextType>;
@@ -23955,6 +24061,7 @@ export type SchemaCoreDefinitionResolvers<ContextType = any, ParentType extends 
 
 export type SchemaDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaDefinition'] = ResolversParentTypes['SchemaDefinition']> = {
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  declaration?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   kind?: Resolver<ResolversTypes['SchemaKind'], ParentType, ContextType>;
@@ -24047,9 +24154,12 @@ export type SchemaValueErrorResolvers<ContextType = any, ParentType extends Reso
 export type SchemaVersionResolvers<ContextType = any, ParentType extends ResolversParentTypes['SchemaVersion'] = ResolversParentTypes['SchemaVersion']> = {
   core?: Resolver<ResolversTypes['SchemaCoreDefinition'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  declaration?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   enforcedChildDeclarations?: Resolver<Array<ResolversTypes['Slug']>, ParentType, ContextType>;
+  enforcedChildKinds?: Resolver<Array<ResolversTypes['ChildEntityKind']>, ParentType, ContextType>;
   enforcedChildVersions?: Resolver<Array<ResolversTypes['SchemaVersion']>, ParentType, ContextType>;
   enforcedParentDeclarations?: Resolver<Array<ResolversTypes['Slug']>, ParentType, ContextType>;
+  enforcedParentKinds?: Resolver<Array<ResolversTypes['SchemaKind']>, ParentType, ContextType>;
   enforcedParentVersions?: Resolver<Array<ResolversTypes['SchemaVersion']>, ParentType, ContextType>;
   enforcesChildren?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   enforcesParent?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
