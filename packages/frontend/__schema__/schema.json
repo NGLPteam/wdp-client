@@ -28162,8 +28162,24 @@
         "description": "The most basic shared properties for a single schema, whether a definition,\na version, or an aggregate based on the former types.\n",
         "fields": [
           {
+            "name": "declaration",
+            "description": "The full declaration for this schema, including namespace, identifier, and version (if available).\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "identifier",
-            "description": "A unique (per-namespace) value that names the schema within the system.",
+            "description": "A unique (per-namespace) value that names the schema within the system.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -28179,7 +28195,7 @@
           },
           {
             "name": "kind",
-            "description": "The kind of entity this schema applies to",
+            "description": "The kind of entity this schema applies to.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -28195,7 +28211,7 @@
           },
           {
             "name": "name",
-            "description": "A human-readable name for the schema",
+            "description": "A human-readable name for the schema.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -28211,7 +28227,7 @@
           },
           {
             "name": "namespace",
-            "description": "A unique namespace the schema lives in",
+            "description": "A unique namespace the schema lives in.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -42739,6 +42755,18 @@
             "deprecationReason": null
           },
           {
+            "name": "headerSubtitle",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "headerSummary",
             "description": null,
             "args": [],
@@ -42788,6 +42816,18 @@
           },
           {
             "name": "subheaderAside",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subheaderSubtitle",
             "description": null,
             "args": [],
             "type": {
@@ -43174,6 +43214,18 @@
             "deprecationReason": null
           },
           {
+            "name": "headerSubtitle",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "headerSummary",
             "description": null,
             "args": [],
@@ -43223,6 +43275,18 @@
           },
           {
             "name": "subheaderAside",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "subheaderSubtitle",
             "description": null,
             "args": [],
             "type": {
@@ -43285,6 +43349,22 @@
             "deprecationReason": null
           },
           {
+            "name": "declaration",
+            "description": "The full declaration for this schema, including namespace, identifier, and version (if available).\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "distinctVersionCount",
             "description": "A count of distinct versions of this specific schema type from this point of the hierarchy.",
             "args": [],
@@ -43318,7 +43398,7 @@
           },
           {
             "name": "identifier",
-            "description": "A unique (per-namespace) value that names the schema within the system.",
+            "description": "A unique (per-namespace) value that names the schema within the system.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -43334,7 +43414,7 @@
           },
           {
             "name": "kind",
-            "description": "The kind of entity this schema applies to",
+            "description": "The kind of entity this schema applies to.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -43350,7 +43430,7 @@
           },
           {
             "name": "name",
-            "description": "A human-readable name for the schema",
+            "description": "A human-readable name for the schema.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -43366,7 +43446,7 @@
           },
           {
             "name": "namespace",
-            "description": "A unique namespace the schema lives in",
+            "description": "A unique namespace the schema lives in.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -43491,6 +43571,22 @@
             "deprecationReason": null
           },
           {
+            "name": "declaration",
+            "description": "The full declaration for this schema, including namespace, identifier, and version (if available).\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -43508,7 +43604,7 @@
           },
           {
             "name": "identifier",
-            "description": "A unique (per-namespace) value that names the schema within the system.",
+            "description": "A unique (per-namespace) value that names the schema within the system.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -43524,7 +43620,7 @@
           },
           {
             "name": "kind",
-            "description": "The kind of entity this schema applies to",
+            "description": "The kind of entity this schema applies to.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -43540,7 +43636,7 @@
           },
           {
             "name": "name",
-            "description": "A human-readable name for the schema",
+            "description": "A human-readable name for the schema.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -43556,7 +43652,7 @@
           },
           {
             "name": "namespace",
-            "description": "A unique namespace the schema lives in",
+            "description": "A unique namespace the schema lives in.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -70044,6 +70140,22 @@
             "deprecationReason": null
           },
           {
+            "name": "declaration",
+            "description": "The full declaration for this schema, including namespace, identifier, and version (if available).\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -70061,7 +70173,7 @@
           },
           {
             "name": "identifier",
-            "description": "A unique (per-namespace) value that names the schema within the system.",
+            "description": "A unique (per-namespace) value that names the schema within the system.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -70077,7 +70189,7 @@
           },
           {
             "name": "kind",
-            "description": "The kind of entity this schema applies to",
+            "description": "The kind of entity this schema applies to.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -70093,7 +70205,7 @@
           },
           {
             "name": "name",
-            "description": "A human-readable name for the schema",
+            "description": "A human-readable name for the schema.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -70109,7 +70221,7 @@
           },
           {
             "name": "namespace",
-            "description": "A unique namespace the schema lives in",
+            "description": "A unique namespace the schema lives in.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -71452,6 +71564,22 @@
             "deprecationReason": null
           },
           {
+            "name": "declaration",
+            "description": "The full declaration for this schema, including namespace, identifier, and version (if available).\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "enforcedChildDeclarations",
             "description": "Declarations / slugs for `enforcedChildVersions`.\n",
             "args": [],
@@ -71467,6 +71595,30 @@
                   "ofType": {
                     "kind": "SCALAR",
                     "name": "Slug",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "enforcedChildKinds",
+            "description": "A list of entity kinds that make acceptable children for this schema.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "ChildEntityKind",
                     "ofType": null
                   }
                 }
@@ -71515,6 +71667,30 @@
                   "ofType": {
                     "kind": "SCALAR",
                     "name": "Slug",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "enforcedParentKinds",
+            "description": "A list of entity kinds that make acceptable parents for this schema.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "ENUM",
+                    "name": "SchemaKind",
                     "ofType": null
                   }
                 }
@@ -71597,7 +71773,7 @@
           },
           {
             "name": "identifier",
-            "description": "A unique (per-namespace) value that names the schema within the system.",
+            "description": "A unique (per-namespace) value that names the schema within the system.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -71613,7 +71789,7 @@
           },
           {
             "name": "kind",
-            "description": "The kind of entity this schema applies to",
+            "description": "The kind of entity this schema applies to.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -71629,7 +71805,7 @@
           },
           {
             "name": "name",
-            "description": "A human-readable name for the schema",
+            "description": "A human-readable name for the schema.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -71645,7 +71821,7 @@
           },
           {
             "name": "namespace",
-            "description": "A unique namespace the schema lives in",
+            "description": "A unique namespace the schema lives in.\n",
             "args": [],
             "type": {
               "kind": "NON_NULL",
