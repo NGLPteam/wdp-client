@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6c0f010e605374b386cea9c45bfd3015>>
+ * @generated SignedSource<<a16b9c34ba005155e7eb2936b684b425>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,6 @@ export type HeaderSidebarFragment$data = {
   readonly definition: {
     readonly showBasicViewMetrics: boolean | null | undefined;
     readonly showDOI: boolean | null | undefined;
-    readonly showISSN: boolean | null | undefined;
     readonly showSplitDisplay: boolean | null | undefined;
   };
   readonly entity: {
@@ -154,13 +153,6 @@ return {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
-          "name": "showISSN",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
           "name": "showBasicViewMetrics",
           "storageKey": null
         },
@@ -207,6 +199,6 @@ return {
 };
 })();
 
-(node as any).hash = "be3f4cbcf34a9a24b0b8f62a1098983d";
+(node as any).hash = "705665d0116bd2d2541cf933873e9204";
 
 export default node;
