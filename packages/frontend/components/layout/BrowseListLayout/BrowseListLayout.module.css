@@ -26,6 +26,10 @@
   > * + * {
     padding-block-start: 2rem;
   }
+
+  &:not(:first-child) {
+    padding-block-start: var(--container-padding-sm);
+  }
 }
 
 .pageCount {

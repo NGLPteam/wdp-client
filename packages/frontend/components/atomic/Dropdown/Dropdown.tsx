@@ -33,7 +33,7 @@ const Dropdown = ({
 };
 
 interface Props extends Omit<BaseProps, "children"> {
-  menuItems: (React.JSX.Element | null)[];
+  menuItems: (React.ReactNode | null)[];
 }
 
 Dropdown.Link = DropdownLink;
