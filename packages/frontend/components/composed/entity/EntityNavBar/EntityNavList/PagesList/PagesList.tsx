@@ -29,11 +29,11 @@ export default function PagesList({
       />
     );
 
-  const links = pages.map((p) => {
+  const renderLink = (p: Page, className?: string) => {
     const href = `${basePath}/page/${p.slug}`;
 
     return (
-      <li key={p.slug} className={styles.desktop}>
+      <li key={p.slug} className={className}>
         <NamedLink href={href}>
           <NavMenuLink
             as="span"
@@ -44,11 +44,13 @@ export default function PagesList({
         </NamedLink>
       </li>
     );
-  });
+  };
+
+  if (count === 1) return renderLink(pages[0]);
 
   return (
     <>
-      {links}
+      {pages.map((p) => renderLink(p, styles.link))}
       {
         <Dropdown<Page>
           label="nav.pages"
@@ -57,7 +59,7 @@ export default function PagesList({
             href: `${basePath}/page/${item.slug}`,
             label: item.title,
           })}
-          className={styles.mobile}
+          className={styles.dropdown}
         />
       }
     </>
