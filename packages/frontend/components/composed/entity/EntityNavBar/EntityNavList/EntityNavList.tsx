@@ -33,10 +33,18 @@ export default function EntityNavList({ data }: Props) {
     <Dropdown<Ordering>
       label="nav.browse"
       items={orderings}
-      getItemProps={(item) => ({
-        href: `${basePath}/browse/${item.identifier}?context=NONE`,
-        label: `${item.name} (${item.count})`,
-      })}
+      getItemProps={(item) => {
+        const context =
+          entity.schemaVersion.identifier === "journal" &&
+          item.identifier === "articles"
+            ? "ABBR"
+            : "NONE";
+
+        return {
+          href: `${basePath}/browse/${item.identifier}?context=${context}`,
+          label: `${item.name} (${item.count})`,
+        };
+      }}
     />
   ) : null;
 
