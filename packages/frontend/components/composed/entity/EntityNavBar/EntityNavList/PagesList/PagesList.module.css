@@ -1,4 +1,4 @@
-.mobile {
+.dropdown {
   display: none;
 
   @mixin respond theme("screens.100") {
@@ -10,7 +10,7 @@
   }
 }
 
-.desktop {
+.link {
   display: block;
 
   @mixin respond theme("screens.100") {
