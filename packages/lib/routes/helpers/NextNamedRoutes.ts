@@ -1,4 +1,5 @@
-import type { ChildEntityKind } from "../../../admin/types/graphql-schema.d.ts";
+type ChildEntityKind = "COLLECTION" | "ITEM";
+
 const nextStylePathComponent = /\[[^/]+\]/g;
 
 export type BaseRoute = {
