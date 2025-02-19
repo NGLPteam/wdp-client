@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6d38f23b643321b466cb3b0c868afd3c>>
+ * @generated SignedSource<<bb29c344e59510a8b5ccb48f03e450d9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,11 +21,9 @@ export type EntityNavListFragment$data = {
     }>;
   };
   readonly pages: {
-    readonly edges: ReadonlyArray<{
-      readonly node: {
-        readonly slug: string;
-        readonly title: string;
-      };
+    readonly nodes: ReadonlyArray<{
+      readonly slug: string;
+      readonly title: string;
     }>;
   };
   readonly schemaVersion: {
@@ -136,30 +134,19 @@ return {
         {
           "alias": null,
           "args": null,
-          "concreteType": "PageEdge",
+          "concreteType": "Page",
           "kind": "LinkedField",
-          "name": "edges",
+          "name": "nodes",
           "plural": true,
           "selections": [
             {
               "alias": null,
               "args": null,
-              "concreteType": "Page",
-              "kind": "LinkedField",
-              "name": "node",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "title",
-                  "storageKey": null
-                },
-                (v2/*: any*/)
-              ],
+              "kind": "ScalarField",
+              "name": "title",
               "storageKey": null
-            }
+            },
+            (v2/*: any*/)
           ],
           "storageKey": null
         }
@@ -172,6 +159,6 @@ return {
 };
 })();
 
-(node as any).hash = "a205f51cb3bd12037dcce3012d96e23d";
+(node as any).hash = "ab5c21c501c9addb6e83ae1f34bd74c1";
 
 export default node;

@@ -254,7 +254,8 @@
       "metrics": "Metrics",
       "back_to_entity": "Back to {{ schema }} Main",
       "see_all": "See All",
-      "see_all_count": "See All {{ count }} {{ ordering }}"
+      "see_all_count": "See All {{ count }} {{ ordering }}",
+      "pages": "Pages"
     },
     "form": {
       "order_label": "Order:"

@@ -27,6 +27,7 @@ export default function EntityOrderingLayout({ data, showContext }: Props) {
     ) : (
       <BrowseListLayout
         data={pageInfo}
+        entityData={ordering.entity}
         header={ordering.header || ordering.name}
         items={ordering.children.edges.map(({ node: { entry } }: Node) => (
           <EntitySummary
@@ -68,6 +69,7 @@ const fragment = graphql`
       ... on Sluggable {
         slug
       }
+      ...BackButtonFragment
     }
     children(page: $page, perPage: $perPage) {
       edges {

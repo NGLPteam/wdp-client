@@ -1,0 +1,5 @@
+.button {
+  width: max-content;
+
+  margin-block-start: var(--container-padding-sm);
+}

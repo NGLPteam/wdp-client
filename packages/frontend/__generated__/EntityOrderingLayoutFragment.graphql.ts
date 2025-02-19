@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<434c315b605bb0c9779eb315c576e2ac>>
+ * @generated SignedSource<<fcf69464767cafb226fa3ad7aee0299d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -30,6 +30,7 @@ export type EntityOrderingLayoutFragment$data = {
   readonly entity: {
     readonly __typename: string;
     readonly slug?: string;
+    readonly " $fragmentSpreads": FragmentRefs<"BackButtonFragment">;
   };
   readonly header: string | null | undefined;
   readonly name: string | null | undefined;
@@ -122,7 +123,12 @@ return {
           "name": "__typename",
           "storageKey": null
         },
-        (v0/*: any*/)
+        (v0/*: any*/),
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "BackButtonFragment"
+        }
       ],
       "storageKey": null
     },
@@ -221,6 +227,6 @@ return {
 };
 })();
 
-(node as any).hash = "a5e7ea950247e53efc73851e81ac12b7";
+(node as any).hash = "68e8cb3b069a0e8c1ba8f0ec053ac6a4";
 
 export default node;

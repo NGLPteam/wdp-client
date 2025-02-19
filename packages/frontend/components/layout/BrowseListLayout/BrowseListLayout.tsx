@@ -4,12 +4,15 @@ import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { PageCount, Pagination } from "components/atomic";
 import { BrowseListLayoutFragment$key } from "@/relay/BrowseListLayoutFragment.graphql";
+import { BackButtonFragment$key } from "@/relay/BackButtonFragment.graphql";
 import Container from "@/components/layout/Container";
 import NoContent from "../messages/NoContent";
+import BackButton from "./BackButton";
 import styles from "./BrowseListLayout.module.css";
 
 export default function BrowseListLayout({
   data,
+  entityData,
   header: headerProp,
   orderComponent,
   items,
@@ -26,6 +29,7 @@ export default function BrowseListLayout({
 
   return pageInfo ? (
     <Container width="wide" bgColor="NONE" className={styles.grid}>
+      {entityData && <BackButton data={entityData} />}
       <header className={styles.header}>
         {header && <h2 className="t-capitalize t-h3">{header}</h2>}
         <div className={styles.pageCount}>
@@ -55,6 +59,7 @@ interface Props {
   data?: BrowseListLayoutFragment$key | null;
   orderComponent?: React.ReactNode;
   items?: React.ReactNode[];
+  entityData?: BackButtonFragment$key | null;
 }
 
 const fragment = graphql`
