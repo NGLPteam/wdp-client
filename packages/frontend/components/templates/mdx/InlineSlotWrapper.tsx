@@ -1,8 +1,11 @@
 "use client";
 
+import { useTranslation } from "react-i18next";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
 import { useEffect, useState } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import Alert from "@/components/atomic/Alert";
 import { inlineSlotComponents } from "./components";
 import type { PropsWithChildren } from "react";
 
@@ -15,13 +18,20 @@ export default function InlineSlotWrapper({
 }: {
   content?: string | null;
 }) {
+  const { t } = useTranslation();
+
   const [mdxContent, setMdxContent] = useState<MDXRemoteSerializeResult>();
 
   useEffect(() => {
     const renderMDX = async () => {
       if (content) {
-        const mdx = await serialize(content);
-        if (mdx) setMdxContent(mdx);
+        try {
+          const mdx = await serialize(content);
+          if (mdx) setMdxContent(mdx);
+        } catch (err) {
+          console.debug(`MDX error: ${err}`);
+          console.debug(`raw content: ${content}`);
+        }
       }
     };
 
@@ -29,9 +39,15 @@ export default function InlineSlotWrapper({
   }, [content]);
 
   return mdxContent ? (
-    <MDXRemote
-      {...mdxContent}
-      components={{ ...inlineSlotComponents, ...overrides }}
-    />
+    <ErrorBoundary
+      fallbackRender={() => (
+        <Alert message={t("messages.invalid_md")} color="red" badge icon />
+      )}
+    >
+      <MDXRemote
+        {...mdxContent}
+        components={{ ...inlineSlotComponents, ...overrides }}
+      />
+    </ErrorBoundary>
   ) : null;
 }
