@@ -36,8 +36,18 @@ export default function ItemUpdateDrawer({
   function renderButtons(data?: Response | null) {
     if (!data) return;
 
+    const filteredRoutes = route?.routes?.filter((route) => {
+      if (route.childKinds) {
+        const allowed = route.childKinds.every((kind) =>
+          data?.item?.schemaVersion?.enforcedChildKinds.includes(kind),
+        );
+        if (!allowed) return false;
+      }
+      return true;
+    });
+
     /* Child routes - Collections, items, manage */
-    const routes = route?.routes?.map((route) => ({
+    const routes = filteredRoutes?.map((route) => ({
       route: route.name,
       label: route.label,
       query: { slug: drawerSlug },
@@ -89,6 +99,9 @@ const query = graphql`
       id
       title
       ...ItemUpdateFormFragment
+      schemaVersion {
+        enforcedChildKinds
+      }
     }
   }
 `;
