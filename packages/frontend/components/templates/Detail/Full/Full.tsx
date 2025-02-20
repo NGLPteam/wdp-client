@@ -40,9 +40,9 @@ export default function FullVariant({
         <TOC textRef={textEl} />
         {body?.valid && !!body.content ? (
           <div className={styles.text} ref={textEl}>
-            {showHeroImage && entity?.thumbnail?.storage && (
+            {showHeroImage && entity?.heroImage?.storage && (
               <div className={styles.image}>
-                <ContentImage data={entity.thumbnail} />
+                <ContentImage data={entity.heroImage} />
               </div>
             )}
             <div className="t-rte">
@@ -63,13 +63,13 @@ const fragment = graphql`
   fragment FullDetailFragment on DetailTemplateInstance {
     entity {
       ... on Item {
-        thumbnail {
+        heroImage {
           storage
           ...ContentImageFragment
         }
       }
       ... on Collection {
-        thumbnail {
+        heroImage {
           storage
           ...ContentImageFragment
         }
