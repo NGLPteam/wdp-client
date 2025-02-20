@@ -11,7 +11,9 @@ export default function BackButton({ data }: { data: BackButtonFragment$key }) {
   const entity = useFragment(fragment, data);
 
   const schemaName = entity?.schemaVersion?.name;
-  const backSchemaLabel = schemaName.replace("Journal ", "");
+  const backSchemaLabel = schemaName
+    .replace("Journal ", "")
+    .replace("Default ", "");
 
   const route = getRouteByEntityType(entity.__typename);
 

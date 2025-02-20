@@ -25,7 +25,7 @@ export const baseRoutes: BaseRoute[] = [
       },
       {
         name: "community.browse.schema",
-        path: "/communities/[slug]/browse/[schema]",
+        path: "/communities/[slug]/browse/[ordering]",
       },
     ],
   },
