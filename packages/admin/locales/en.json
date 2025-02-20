@@ -68,7 +68,10 @@
       "page": "Page",
       "page_other": "Pages",
       "announcement": "Announcement",
-      "announcement_other": "Announcements"
+      "announcement_other": "Announcements",
+      "harvesting": "Harvesting",
+      "harvest_source": "harvest source",
+      "harvest_source_other": "harvest sources"
     },
     "lists": {
       "admin_column": "Admin?",

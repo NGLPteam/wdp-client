@@ -34,7 +34,7 @@ function HeaderNavLinks({ navigation }: Props) {
   const maybeAuthorize = (
     node: AuthorizeProps["children"],
     item: HeaderNavLink | HeaderNavParent,
-    index: number,
+    index: number
   ) => {
     if (!item.actions) return node;
     return (
@@ -93,8 +93,8 @@ function HeaderNavLinks({ navigation }: Props) {
             {item.route && renderLink(item)}
           </Styled.Item>,
           item,
-          i,
-        ),
+          i
+        )
       )}
     </>
   );

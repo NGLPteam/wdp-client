@@ -14,6 +14,7 @@ const MODEL_MAP = {
   ROLE: "role",
   PAGE: "page",
   ANNOUNCEMENT: "announcement",
+  HARVEST_SOURCE: "harvestSource",
 };
 
 export type ModelNames = keyof typeof MODEL_MAP;

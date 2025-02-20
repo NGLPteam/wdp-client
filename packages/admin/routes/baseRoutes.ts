@@ -293,4 +293,10 @@ export const baseRoutes: BaseRoute[] = [
       },
     ],
   },
+  {
+    name: "harvesting",
+    path: "/harvesting",
+    label: "glossary.harvesting",
+    routes: [],
+  },
 ];
