@@ -1,7 +1,6 @@
 import { Suspense, ComponentProps } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToString";
 import EntityOrderingLayout from "@/components/composed/entity/EntityOrderingLayout";
 import LoadingBlock from "@/components/atomic/loading/LoadingBlock";
 import { BasePageParams } from "@/types/page";
@@ -21,17 +20,13 @@ export default async function CollectionBrowsePage({
   };
   searchParams: { context: ContextType; page: string };
 }) {
-  const identifier =
-    decodeURIComponent(routeQueryArrayToString(params.ordering)) ?? "";
-
-  const { context, page: pageParam } = searchParams;
-
-  const page = parseInt(pageParam) ?? 1;
+  const { slug, ordering } = params;
+  const { context, page } = searchParams;
 
   const { data, records } = await fetchQuery<Query>(query, {
-    identifier,
-    page,
-    slug: params.slug,
+    identifier: ordering,
+    page: parseInt(page) || 1,
+    slug,
   });
 
   const { collection } = data ?? {};

@@ -1,15 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { useRoutePageSlug } from "@wdp/lib/routes";
-import {
-  Dropdown,
-  NamedLink,
-  Accordion,
-  NavMenuLink,
-  Link,
-} from "components/atomic";
+import { NamedLink, Accordion, NavMenuLink, Link } from "components/atomic";
 import { graphql, useFragment } from "react-relay";
-import { CommunityNavListContentFragment$key } from "@/__generated__/CommunityNavListContentFragment.graphql";
-import { getSchemaPluralName } from "@/helpers";
+import NavDropdown from "@/components/composed/entity/EntityNavBar/EntityNavList/Dropdown";
+import {
+  CommunityNavListContentFragment$key,
+  CommunityNavListContentFragment$data,
+} from "@/__generated__/CommunityNavListContentFragment.graphql";
 
 interface Props {
   condensed?: boolean;
@@ -30,68 +27,46 @@ export default function CommunityNavList({
 
   const linkClassName = condensed ? "t-label-sm" : "t-label-lg";
 
-  function getDisclosure(label: string) {
-    return (
-      <NavMenuLink as="div" icon="chevronDown">
-        <span className={linkClassName}>{t(label)}</span>
-      </NavMenuLink>
-    );
-  }
-
-  const schemaLinks =
-    community && community.slug
-      ? community.schemaRanks?.map((schema) =>
-          schema
-            ? {
-                href: `/communities/${
-                  community.slug
-                }/browse/${encodeURIComponent(schema.slug)}`,
-                label: getSchemaPluralName(schema.slug, schema.name, t),
-                slug: schema.slug,
-              }
-            : {},
-        )
-      : [];
+  const orderings = community.orderings?.nodes?.filter((o) => !!o.count) || [];
+  const pages = community.pages?.nodes;
 
   const exploreMenu = mobile ? (
     <Accordion
       label={t("nav.explore")}
-      menuItems={schemaLinks?.map((link) => (
-        <NamedLink key={link.slug} href={link.href}>
-          <Link as="span">{link.label}</Link>
+      menuItems={orderings?.map((o) => (
+        <NamedLink
+          key={o.slug}
+          href={`/communities/${community.slug}/browse/${o.identifier}`}
+        >
+          <Link as="span">{`${o.name} (${o.count})`}</Link>
         </NamedLink>
       ))}
     />
   ) : (
-    <Dropdown
-      disclosure={getDisclosure("nav.explore")}
-      label={t("nav.explore")}
-      menuItems={schemaLinks?.map((link) => (
-        <Dropdown.Link
-          key={link.slug}
-          href={link.href}
-          label={link.label ?? ""}
-        />
-      ))}
+    <NavDropdown<Ordering>
+      label="nav.explore"
+      disclosureClassName={linkClassName}
+      disclosureComponent="NavMenuLink"
+      items={orderings}
+      getItemProps={(item) => ({
+        href: `/communities/${community.slug}/browse/${item.identifier}`,
+        label: `${item.name} (${item.count})`,
+      })}
     />
   );
 
-  return community ? (
+  return community && community.slug ? (
     <>
-      {schemaLinks?.length > 0 && (
-        <li className="t-capitalize">{exploreMenu}</li>
-      )}
-      {community.slug &&
-        community.pages?.edges &&
-        community.pages.edges.length > 0 &&
-        community.pages.edges.map(({ node }) => (
-          <li key={node.slug}>
+      {!!orderings.length && <li className="t-capitalize">{exploreMenu}</li>}
+      {!!pages?.length &&
+        pages.map(({ slug, title }) => (
+          <li key={slug}>
             <NamedLink
-              href={`/communities/${community.slug}/page/${node.slug}`}
-              aria-current={page === node.slug ? "page" : undefined}
+              href={`/communities/${community.slug}/page/${slug}`}
+              aria-current={page === slug ? "page" : undefined}
             >
               <NavMenuLink as="span" className={linkClassName}>
-                {node.title}
+                {title}
               </NavMenuLink>
             </NamedLink>
           </li>
@@ -100,21 +75,24 @@ export default function CommunityNavList({
   ) : null;
 }
 
+type Ordering =
+  CommunityNavListContentFragment$data["orderings"]["nodes"][number];
+
 const fragment = graphql`
   fragment CommunityNavListContentFragment on Community {
     slug
-    schemaRanks {
-      slug
-      name
-      count
-      kind
+    orderings(availability: ENABLED) {
+      nodes {
+        name
+        slug
+        identifier
+        count
+      }
     }
     pages {
-      edges {
-        node {
-          slug
-          title
-        }
+      nodes {
+        slug
+        title
       }
     }
   }

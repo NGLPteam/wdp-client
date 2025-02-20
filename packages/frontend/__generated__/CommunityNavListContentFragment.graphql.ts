@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6eced591c757ac2f07402b5a979f815d>>
+ * @generated SignedSource<<b80a6520bba3eed57512699f73af491f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,23 +9,22 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type CommunityNavListContentFragment$data = {
-  readonly pages: {
-    readonly edges: ReadonlyArray<{
-      readonly node: {
-        readonly slug: string;
-        readonly title: string;
-      };
+  readonly orderings: {
+    readonly nodes: ReadonlyArray<{
+      readonly count: number;
+      readonly identifier: string;
+      readonly name: string | null | undefined;
+      readonly slug: string;
     }>;
   };
-  readonly schemaRanks: ReadonlyArray<{
-    readonly count: number;
-    readonly kind: SchemaKind;
-    readonly name: string;
-    readonly slug: string;
-  }>;
+  readonly pages: {
+    readonly nodes: ReadonlyArray<{
+      readonly slug: string;
+      readonly title: string;
+    }>;
+  };
   readonly slug: string;
   readonly " $fragmentType": "CommunityNavListContentFragment";
 };
@@ -51,36 +50,53 @@ return {
     (v0/*: any*/),
     {
       "alias": null,
-      "args": null,
-      "concreteType": "HierarchicalSchemaRank",
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "availability",
+          "value": "ENABLED"
+        }
+      ],
+      "concreteType": "OrderingConnection",
       "kind": "LinkedField",
-      "name": "schemaRanks",
-      "plural": true,
+      "name": "orderings",
+      "plural": false,
       "selections": [
-        (v0/*: any*/),
         {
           "alias": null,
           "args": null,
-          "kind": "ScalarField",
-          "name": "name",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "count",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "kind",
+          "concreteType": "Ordering",
+          "kind": "LinkedField",
+          "name": "nodes",
+          "plural": true,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "name",
+              "storageKey": null
+            },
+            (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "identifier",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "count",
+              "storageKey": null
+            }
+          ],
           "storageKey": null
         }
       ],
-      "storageKey": null
+      "storageKey": "orderings(availability:\"ENABLED\")"
     },
     {
       "alias": null,
@@ -93,28 +109,17 @@ return {
         {
           "alias": null,
           "args": null,
-          "concreteType": "PageEdge",
+          "concreteType": "Page",
           "kind": "LinkedField",
-          "name": "edges",
+          "name": "nodes",
           "plural": true,
           "selections": [
+            (v0/*: any*/),
             {
               "alias": null,
               "args": null,
-              "concreteType": "Page",
-              "kind": "LinkedField",
-              "name": "node",
-              "plural": false,
-              "selections": [
-                (v0/*: any*/),
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "title",
-                  "storageKey": null
-                }
-              ],
+              "kind": "ScalarField",
+              "name": "title",
               "storageKey": null
             }
           ],
@@ -129,6 +134,6 @@ return {
 };
 })();
 
-(node as any).hash = "a5b23e4203cd61b5e6e375160c60c1dd";
+(node as any).hash = "bb36fb54920f78c6cbec3cd8a7c9370c";
 
 export default node;

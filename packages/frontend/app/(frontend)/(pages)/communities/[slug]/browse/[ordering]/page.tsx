@@ -1,12 +1,10 @@
 import { Suspense } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import EntityDescendantsLayout from "components/composed/entity/EntityDescendantsLayout";
 import LoadingBlock from "components/atomic/loading/LoadingBlock";
 import EntityOrderingLayout from "@/components/composed/entity/EntityOrderingLayout";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
-import { pageTemplatesBrowseCommunityQuery as Query } from "@/relay/pageTemplatesBrowseCommunityQuery.graphql";
 import { pageBrowseCommunityOrderingQuery as OrderingQuery } from "@/relay/pageBrowseCommunityOrderingQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
@@ -15,82 +13,28 @@ export default async function CommunityBrowsePage({
   searchParams,
 }: BasePageParams & { searchParams: Record<string, string> }) {
   const { slug, ordering } = params;
-  const { page, order } = searchParams;
+  const { page } = searchParams;
 
-  const schema =
-    typeof ordering === "string" ? decodeURIComponent(ordering) : null;
-
-  if (!schema) return notFound();
-
-  const { data, records } = await fetchQuery<Query>(query, {
+  const { data, records } = await fetchQuery<OrderingQuery>(orderingQuery, {
     slug,
-    page: page ? parseInt(page) : 1,
-    order: order ?? "PUBLISHED_ASCENDING",
-    schema,
-    schemaSlug: schema,
+    page: parseInt(page) || 1,
+    identifier: ordering,
   });
 
   const { community } = data ?? {};
 
   if (!community) return notFound();
 
-  const descendants = (
+  return (
     <UpdateClientEnvironment records={records}>
       <Suspense fallback={<LoadingBlock />}>
-        <EntityDescendantsLayout
-          data={community.descendants}
-          schema={schema}
-          showContext="FULL"
-        />
-      </Suspense>
-    </UpdateClientEnvironment>
-  );
-
-  if (!community.orderingForSchema) {
-    return descendants;
-  }
-
-  const { data: orderingData, records: orderingRecords } =
-    await fetchQuery<OrderingQuery>(orderingQuery, {
-      slug,
-      page: page ? parseInt(page) : 1,
-      identifier: community.orderingForSchema.identifier,
-    });
-
-  if (!orderingData?.community) return descendants;
-
-  return (
-    <UpdateClientEnvironment records={orderingRecords}>
-      <Suspense fallback={<LoadingBlock />}>
-        <EntityOrderingLayout
-          data={orderingData.community.ordering}
-          showContext="FULL"
-        />
+        <EntityOrderingLayout data={community?.ordering} showContext="FULL" />
       </Suspense>
     </UpdateClientEnvironment>
   );
 }
 
 export const dynamic = "force-dynamic";
-
-const query = graphql`
-  query pageTemplatesBrowseCommunityQuery(
-    $slug: Slug!
-    $schema: String!
-    $schemaSlug: Slug!
-    $page: Int
-    $order: EntityDescendantOrder!
-  ) {
-    community(slug: $slug) {
-      orderingForSchema(slug: $schemaSlug) {
-        identifier
-      }
-      descendants(order: $order, schema: [$schema], page: $page) {
-        ...EntityDescendantsLayoutFragment
-      }
-    }
-  }
-`;
 
 const orderingQuery = graphql`
   query pageBrowseCommunityOrderingQuery(
