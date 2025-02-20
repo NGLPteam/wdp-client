@@ -13,7 +13,7 @@
   grid-column: 1 / span 9;
 
   @mixin respond theme("screens.70") {
-    grid-column: 1 / span 12;
+    grid-column: 1;
   }
 }
 
@@ -29,6 +29,10 @@
   &:not(:first-child) {
     padding-block-start: var(--container-padding-sm);
   }
+
+  @mixin respond theme("screens.70") {
+    grid-column: 1;
+  }
 }
 
 .pageCount {
@@ -41,6 +45,10 @@
 .footer {
   padding-block-start: 3.5rem;
   padding-block-end: var(--container-padding-xl);
+
+  &:empty {
+    padding-block-start: 0;
+  }
 }
 
 .item {
