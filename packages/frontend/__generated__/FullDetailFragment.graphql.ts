@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2c8db4b0d44e5aa30b5b2d245156484b>>
+ * @generated SignedSource<<c7553a70e1523325102e18358e9b1ec5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,7 @@ export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "
 import { FragmentRefs } from "relay-runtime";
 export type FullDetailFragment$data = {
   readonly entity: {
-    readonly thumbnail?: {
+    readonly heroImage?: {
       readonly storage: AttachmentStorage | null | undefined;
       readonly " $fragmentSpreads": FragmentRefs<"ContentImageFragment">;
     };
@@ -43,7 +43,7 @@ var v0 = [
     "args": null,
     "concreteType": "ImageAttachment",
     "kind": "LinkedField",
-    "name": "thumbnail",
+    "name": "heroImage",
     "plural": false,
     "selections": [
       {
@@ -151,6 +151,6 @@ return {
 };
 })();
 
-(node as any).hash = "3d000f5f9a5dc57751e32ceea1521b7b";
+(node as any).hash = "c82a4c3e75d7cf07de43a45bfcb8abb1";
 
 export default node;

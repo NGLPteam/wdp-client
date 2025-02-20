@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9d9f664d06300649ba7cd4b8ecf652e7>>
+ * @generated SignedSource<<ba3ba9cfa6870b068b4b2284e6ed0bb1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,7 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 export type EntityVisibility = "HIDDEN" | "LIMITED" | "VISIBLE" | "%future added value";
 export type HeroBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
@@ -17,6 +18,7 @@ export type EntityHeroHeaderFragment$data = {
     readonly __typename: "Collection";
     readonly currentlyHidden?: boolean;
     readonly heroImage?: {
+      readonly storage: AttachmentStorage | null | undefined;
       readonly " $fragmentSpreads": FragmentRefs<"ImageHeroTemplateFragment">;
     };
     readonly schemaDefinition?: {
@@ -73,6 +75,13 @@ var v0 = [
     "name": "heroImage",
     "plural": false,
     "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "storage",
+        "storageKey": null
+      },
       {
         "args": null,
         "kind": "FragmentSpread",
@@ -207,6 +216,6 @@ return {
 };
 })();
 
-(node as any).hash = "dd40b8c4d11356949dc8b3f0bc71648d";
+(node as any).hash = "45f27c4be4afc46c34f2e49301d4a687";
 
 export default node;

@@ -39,6 +39,10 @@ export default function EntityHeroHeader({
 
   const bgClass = getBgClass(background);
 
+  const renderHeroImage =
+    (showHeroImage || entity?.__typename === "Collection") &&
+    entity?.heroImage?.storage;
+
   return (
     <>
       {renderBreadcrumbs && (
@@ -51,14 +55,12 @@ export default function EntityHeroHeader({
       <Container as="header" width="wide" bgColor={background} hideDivider>
         <HeroHeader data={layout?.template} hiddenAlert={hiddenAlert} />
       </Container>
-      {showHeroImage && entity?.heroImage && (
-        <HeroImage data={entity.heroImage} />
-      )}
       {showSplitDisplay && (
         <Container bgColor={background} hideDivider>
           <HeroDetail data={layout?.template} />
         </Container>
       )}
+      {renderHeroImage && <HeroImage data={entity.heroImage} />}
     </>
   );
 }
@@ -71,6 +73,7 @@ const fragment = graphql`
         visibility
         currentlyHidden
         heroImage {
+          storage
           ...ImageHeroTemplateFragment
         }
         schemaDefinition {
@@ -82,6 +85,7 @@ const fragment = graphql`
         visibility
         currentlyHidden
         heroImage {
+          storage
           ...ImageHeroTemplateFragment
         }
         schemaDefinition {
