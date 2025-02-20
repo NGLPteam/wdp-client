@@ -264,6 +264,7 @@ const mutation = graphql`
     updateCollection(input: $input) {
       collection {
         ...CollectionUpdateFormFieldsFragment
+        ...SchemaFormFieldsFragment
       }
       ...MutationForm_mutationErrors
       ...CollectionUpdateForm_schemaErrorsFragment
