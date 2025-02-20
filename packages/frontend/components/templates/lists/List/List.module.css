@@ -12,7 +12,7 @@
   @mixin respond theme("screens.100") {
     flex-wrap: wrap;
   }
-  @mixin respond theme("screens.50") {
+  @mixin respond theme("screens.80") {
     flex-direction: column;
   }
 }
