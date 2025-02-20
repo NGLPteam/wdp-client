@@ -126,12 +126,14 @@ export default function SummaryListBlock({
               <NamedLink href={href}>
                 {header?.valid && !!header.content && (
                   <h3 className={classNames(styles.title, "t-h3")}>
-                    {headerAside?.valid && !!headerAside.content && (
-                      <span>
-                        <InlineSlotWrapper content={headerAside.content} />,{" "}
-                      </span>
-                    )}
-                    <InlineSlotWrapper content={header.content} />
+                    <span>
+                      {headerAside?.valid && !!headerAside.content && (
+                        <span>
+                          <InlineSlotWrapper content={headerAside.content} />,{" "}
+                        </span>
+                      )}
+                      <InlineSlotWrapper content={header.content} />
+                    </span>
                   </h3>
                 )}
               </NamedLink>
