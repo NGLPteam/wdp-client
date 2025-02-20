@@ -22,7 +22,9 @@
 .title {
   a:hover &,
   a:focus-visible & {
-    @mixin a-link-hover-focus;
+    > span {
+      @mixin a-link-hover-focus;
+    }
   }
 }
 
