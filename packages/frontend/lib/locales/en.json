@@ -267,7 +267,9 @@
     "messages": {
       "hidden": "This {{schema}} is hidden",
       "server_error": "A server error occured.",
-      "error": "An error occured."
+      "error": "An error occured.",
+      "content": "There was an error rendering this content.",
+      "admin_content": "There was an error rendering this content: {{error}}"
     },
     "analytics": {
       "regions": {
