@@ -128,8 +128,11 @@ const mutation = graphql`
     updateAnnouncement(input: $input) {
       announcement {
         id
-        header
         slug
+        header
+        publishedOn
+        teaser
+        body
       }
       ...MutationForm_mutationErrors
     }
