@@ -13,8 +13,7 @@
   grid-column: 1 / span 9;
 
   @mixin respond theme("screens.70") {
-    grid-row: 1;
-    grid-column: 1;
+    grid-column: 1 / span 12;
   }
 }
 
