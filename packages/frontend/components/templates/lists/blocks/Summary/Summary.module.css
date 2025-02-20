@@ -20,8 +20,6 @@
 }
 
 .title {
-  width: max-content;
-
   a:hover &,
   a:focus-visible & {
     @mixin a-link-hover-focus;

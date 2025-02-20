@@ -69,6 +69,10 @@
 .summary {
   margin-block-start: 1rem;
   color: var(--color-lighter);
+
+  pre {
+    white-space: pre-wrap;
+  }
 }
 
 .group {
