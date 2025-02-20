@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0b8e4b1baf5e06cb8ba9b20cf139d1fa>>
+ * @generated SignedSource<<54f89a94e7169d0c6835987686535b51>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -24,9 +24,12 @@ export type EntityAnnouncementUpdateFormMutation$variables = {
 export type EntityAnnouncementUpdateFormMutation$data = {
   readonly updateAnnouncement: {
     readonly announcement: {
+      readonly body: string;
       readonly header: string;
       readonly id: string;
+      readonly publishedOn: string;
       readonly slug: string;
+      readonly teaser: string;
     } | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
   } | null | undefined;
@@ -70,6 +73,13 @@ v2 = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
+      "name": "slug",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
       "name": "header",
       "storageKey": null
     },
@@ -77,7 +87,21 @@ v2 = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "slug",
+      "name": "publishedOn",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "teaser",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "body",
       "storageKey": null
     }
   ],
@@ -194,16 +218,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d6dcd091a89a3ab99c6623e904ea2175",
+    "cacheID": "447fc95a3f15a6d030ebccf8d2ffe1d3",
     "id": null,
     "metadata": {},
     "name": "EntityAnnouncementUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation EntityAnnouncementUpdateFormMutation(\n  $input: UpdateAnnouncementInput!\n) {\n  updateAnnouncement(input: $input) {\n    announcement {\n      id\n      header\n      slug\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
+    "text": "mutation EntityAnnouncementUpdateFormMutation(\n  $input: UpdateAnnouncementInput!\n) {\n  updateAnnouncement(input: $input) {\n    announcement {\n      id\n      slug\n      header\n      publishedOn\n      teaser\n      body\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "bff127c2bf54f856585ac815b18014e8";
+(node as any).hash = "0ab2b9bc2dd073e9333c9b00d622d782";
 
 export default node;

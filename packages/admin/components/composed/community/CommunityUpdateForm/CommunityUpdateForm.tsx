@@ -232,6 +232,7 @@ const mutation = graphql`
       community {
         position
         ...CommunityUpdateFormFieldsFragment
+        ...SchemaFormFieldsFragment
       }
       ...MutationForm_mutationErrors
       ...CommunityUpdateFormSchemaErrorsFragment
