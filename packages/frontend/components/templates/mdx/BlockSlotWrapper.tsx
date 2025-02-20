@@ -6,7 +6,8 @@ import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
 import remarkGfm from "remark-gfm";
 import { useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import Alert from "@/components/atomic/Alert";
+import useViewerContext from "contexts/useViewerContext";
+import NoContent from "@/components/layout/messages/NoContent";
 import { blockSlotComponents } from "./components";
 import AssetButton from "./components/AssetButton";
 
@@ -18,6 +19,10 @@ export default function BlockSlotWrapper({
   assetAsButton?: boolean;
 }) {
   const { t } = useTranslation();
+
+  const { allowedActions } = useViewerContext();
+
+  const isAdmin = allowedActions?.includes("admin.access");
 
   const [mdxContent, setMdxContent] = useState<MDXRemoteSerializeResult>();
 
@@ -45,8 +50,15 @@ export default function BlockSlotWrapper({
 
   return mdxContent ? (
     <ErrorBoundary
-      fallbackRender={() => (
-        <Alert message={t("messages.invalid_md")} color="red" badge icon />
+      fallbackRender={({ error }) => (
+        <NoContent
+          inline
+          message={
+            isAdmin
+              ? t("messages.admin_content", { error: error.message })
+              : t("messages.content")
+          }
+        />
       )}
     >
       <MDXRemote {...mdxContent} components={components} />

@@ -5,7 +5,8 @@ import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
 import { useEffect, useState } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import Alert from "@/components/atomic/Alert";
+import useViewerContext from "contexts/useViewerContext";
+import NoContent from "@/components/layout/messages/NoContent";
 import { inlineSlotComponents } from "./components";
 import type { PropsWithChildren } from "react";
 
@@ -19,6 +20,10 @@ export default function InlineSlotWrapper({
   content?: string | null;
 }) {
   const { t } = useTranslation();
+
+  const { allowedActions } = useViewerContext();
+
+  const isAdmin = allowedActions?.includes("admin.access");
 
   const [mdxContent, setMdxContent] = useState<MDXRemoteSerializeResult>();
 
@@ -40,8 +45,15 @@ export default function InlineSlotWrapper({
 
   return mdxContent ? (
     <ErrorBoundary
-      fallbackRender={() => (
-        <Alert message={t("messages.invalid_md")} color="red" badge icon />
+      fallbackRender={({ error }) => (
+        <NoContent
+          inline
+          message={
+            isAdmin
+              ? t("messages.admin_content", { error: error.message })
+              : t("messages.content")
+          }
+        />
       )}
     >
       <MDXRemote

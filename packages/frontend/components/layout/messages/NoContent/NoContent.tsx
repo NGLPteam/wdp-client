@@ -1,13 +1,18 @@
 "use client";
 
+import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import styles from "./NoContent.module.css";
 
-const NoContent = ({ message }: Props) => {
+const NoContent = ({ message, inline }: Props) => {
   const { t } = useTranslation();
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={classNames(styles.wrapper, {
+        [styles["wrapper--inline"]]: inline,
+      })}
+    >
       <p className="t-h4">
         {!message
           ? t("common.no_content")
@@ -22,6 +27,7 @@ const NoContent = ({ message }: Props) => {
 interface Props {
   /** Override the default message */
   message?: string | React.ReactNode;
+  inline?: boolean;
 }
 
 export default NoContent;
