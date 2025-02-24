@@ -1,81 +1,98 @@
-import React, {
-  forwardRef,
-  Ref,
-  useMemo,
-  useRef,
-  useDeferredValue,
-} from "react";
-import { useFragment, GraphQLTaggedNode, graphql } from "react-relay";
-import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
+import { forwardRef, Ref, useMemo, useRef, useEffect, useState } from "react";
+import { readInlineData, graphql, fetchQuery } from "relay-runtime";
 import {
-  OrderDefinition,
   OrderingSchemaFilterInput,
+  OrderDefinition,
 } from "types/graphql-schema";
 import { t } from "i18next";
-import { OrderDefinitionSelectQuery as Query } from "@/relay/OrderDefinitionSelectQuery.graphql";
-import { OrderDefinitionSelectFragment$key } from "@/relay/OrderDefinitionSelectFragment.graphql";
+import { useFormContext } from "react-hook-form";
+import { default as getRelayEnvironment } from "@wdp/lib/app/buildEnvironment";
+import capitalize from "lodash/capitalize";
+import {
+  OrderDefinitionSelectQuery as Query,
+  OrderDefinitionSelectQuery$data,
+} from "@/relay/OrderDefinitionSelectQuery.graphql";
+import { OrderDefinitionSelectOrderingPathFragment$key } from "@/relay/OrderDefinitionSelectOrderingPathFragment.graphql";
 import Select from "../Select";
 import OrderDefinitionSelectedList from "./OrderDefinitionSelectedList";
 import * as Styled from "./OrderDefinitionSelect.styles";
 
-const ORDER_PATHS =
-  process.env.NEXT_PUBLIC_ORDER_PATH_OPTIONS?.split(",") || [];
-const ORDER_PATH_OPTIONS = [
-  "entity.created_at",
-  "entity.published",
-  "entity.title",
-  "entity.updated_at",
-  "props.volume.sortable_number",
-  "props.sortable_number",
-  "props.id",
-  ...ORDER_PATHS,
-];
-
 function OrderDefinitionSelect(
-  { name, data, value = [], onChange }: Props,
+  { name, value = [], onChange }: Props,
   ref: Ref<HTMLSelectElement>,
 ) {
   const selectRef = useRef<HTMLSelectElement | null>(null);
 
-  // Get the entity schema ranks
-  const entity = useFragment<OrderDefinitionSelectFragment$key>(
-    fragment as GraphQLTaggedNode,
-    data,
-  );
+  const { watch } = useFormContext();
 
-  // Get the list of possible orders by schema ranks
-  const orderingData = useAuthenticatedQuery<Query>(query, {
-    schemas: entity.schemaRanks as OrderingSchemaFilterInput[],
-  });
-  const deferred = useDeferredValue(orderingData);
+  const schemasValue = watch("filterSchemas");
 
-  // Get the options from orderingPaths, and format as OrderDefinitionInput
+  const [orderingData, setOrderingData] = useState<
+    OrderDefinitionSelectQuery$data | undefined
+  >();
+
+  useEffect(() => {
+    const fetchOptions = async () => {
+      const env = getRelayEnvironment();
+
+      const schemas = schemasValue
+        ? typeof schemasValue === "string"
+          ? [JSON.parse(schemasValue)]
+          : schemasValue.map((schema: string) => JSON.parse(schema))
+        : [{ namespace: "default", identifier: "collection" }];
+
+      let data;
+
+      try {
+        data = await fetchQuery<Query>(
+          env,
+          query,
+          {
+            schemas: (schemas || []) as OrderingSchemaFilterInput[],
+          },
+          {
+            networkCacheConfig: { force: false },
+          },
+        )
+          .toPromise()
+          .then((result) => {
+            return result;
+          });
+      } catch (error) {
+        /* eslint-disable-next-line no-console */
+        console.log(error);
+      }
+
+      setOrderingData(data);
+    };
+
+    fetchOptions();
+  }, [schemasValue]);
+
   const options = useMemo(() => {
-    return deferred
-      ? deferred.orderingPaths
-          // Filter out repeating paths
-          .filter((o, i, self) => {
-            return (
-              o.path &&
-              i === self.findIndex((t) => t.path === o.path) &&
-              (!ORDER_PATH_OPTIONS || ORDER_PATH_OPTIONS.includes(o.path))
-            );
+    return orderingData
+      ? orderingData.orderingPaths
+          .map((o) => {
+            const orderingPath =
+              readInlineData<OrderDefinitionSelectOrderingPathFragment$key>(
+                fragment,
+                o,
+              );
+            return {
+              label: capitalize(
+                orderingPath.path
+                  .replaceAll(".", " - ")
+                  .replaceAll("_", " ")
+                  .split("#")[0],
+              ),
+              value: orderingPath.path,
+            };
           })
-          // Map to select object
-          .map((o) => ({
-            label: o.labelPrefix
-              ? `${o.labelPrefix}: ${o.label}`
-              : o.label || "",
-            value:
-              o.grouping !== "ENTITY" && o.type
-                ? `${o.path}#${o.type.toLowerCase()}`
-                : o.path || "",
-          }))
           .sort((a, b) => (a.label < b.label ? -1 : 1))
       : [];
-  }, [deferred]);
+  }, [orderingData]);
 
-  // Filter the options by duplicates and the current selected values
+  // Filter the options by current selected values
   const filteredOptions = useMemo(() => {
     if (!value) return options;
 
@@ -93,7 +110,10 @@ function OrderDefinitionSelect(
 
     const newValue = [
       ...value,
-      { path, direction: "ASCENDING" } as OrderDefinition,
+      {
+        path,
+        direction: "ASCENDING" as const,
+      },
     ];
 
     // Reset select value
@@ -132,20 +152,21 @@ function OrderDefinitionSelect(
 
 interface Props {
   name: string;
-  data: OrderDefinitionSelectFragment$key;
   value: OrderDefinition[];
   /** Returns the current value */
-  onChange: (value: OrderDefinition[]) => void;
+  onChange: (value: Omit<OrderDefinition, "nulls">[]) => void;
 }
 
 export default forwardRef(OrderDefinitionSelect);
 
 const fragment = graphql`
-  fragment OrderDefinitionSelectFragment on Entity {
-    schemaRanks {
-      namespace
-      identifier
-    }
+  fragment OrderDefinitionSelectOrderingPathFragment on OrderingPath @inline {
+    path
+    labelPrefix
+    label
+    description
+    grouping
+    type
   }
 `;
 
@@ -153,21 +174,16 @@ const query = graphql`
   query OrderDefinitionSelectQuery($schemas: [OrderingSchemaFilterInput!]) {
     orderingPaths(schemas: $schemas) {
       ... on StaticOrderingPath {
-        path
-        labelPrefix
-        label
-        description
-        grouping
-        type
+        ...OrderDefinitionSelectOrderingPathFragment
       }
-
       ... on SchemaOrderingPath {
-        path
-        labelPrefix
-        label
-        description
-        grouping
-        type
+        ...OrderDefinitionSelectOrderingPathFragment
+      }
+      ... on AncestorStaticOrderingPath {
+        ...OrderDefinitionSelectOrderingPathFragment
+      }
+      ... on AncestorSchemaOrderingPath {
+        ...OrderDefinitionSelectOrderingPathFragment
       }
     }
   }

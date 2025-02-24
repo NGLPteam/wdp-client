@@ -44,6 +44,7 @@ interface Props {
   onRemove: () => void;
   isDragging?: boolean;
   draggableStyles?: React.CSSProperties;
+  className?: string;
 }
 
 export default BaseArrayListItem;

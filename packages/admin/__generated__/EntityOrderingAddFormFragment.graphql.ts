@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8af55673c5f869133e111b909a4c7dd6>>
+ * @generated SignedSource<<23b73e59f3d9e5e92a3eb4404e802aa7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,11 +13,9 @@ import { FragmentRefs } from "relay-runtime";
 export type EntityOrderingAddFormFragment$data = {
   readonly collection: {
     readonly id: string;
-    readonly " $fragmentSpreads": FragmentRefs<"OrderDefinitionSelectControlFragment">;
   } | null | undefined;
   readonly item: {
     readonly id: string;
-    readonly " $fragmentSpreads": FragmentRefs<"OrderDefinitionSelectControlFragment">;
   } | null | undefined;
   readonly " $fragmentSpreads": FragmentRefs<"SchemaCheckboxGroupFragment">;
   readonly " $fragmentType": "EntityOrderingAddFormFragment";
@@ -42,11 +40,6 @@ v1 = [
     "kind": "ScalarField",
     "name": "id",
     "storageKey": null
-  },
-  {
-    "args": null,
-    "kind": "FragmentSpread",
-    "name": "OrderDefinitionSelectControlFragment"
   }
 ];
 return {
@@ -91,6 +84,6 @@ return {
 };
 })();
 
-(node as any).hash = "515738a0c3162d24ff2fc7eed738740e";
+(node as any).hash = "fb2c02e4155707ef5d25f2bdfb4dcbc7";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9f4fe374727fd7279ee965b8b587ce09>>
+ * @generated SignedSource<<08ca23a45d32afd3ed56f88de75c270b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,14 +16,12 @@ export type EntityOrderingEditFormFragment$data = {
     readonly ordering: {
       readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingEditFormFieldsFragment">;
     } | null | undefined;
-    readonly " $fragmentSpreads": FragmentRefs<"OrderDefinitionSelectControlFragment">;
   } | null | undefined;
   readonly item: {
     readonly id: string;
     readonly ordering: {
       readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingEditFormFieldsFragment">;
     } | null | undefined;
-    readonly " $fragmentSpreads": FragmentRefs<"OrderDefinitionSelectControlFragment">;
   } | null | undefined;
   readonly " $fragmentSpreads": FragmentRefs<"SchemaCheckboxGroupFragment">;
   readonly " $fragmentType": "EntityOrderingEditFormFragment";
@@ -70,11 +68,6 @@ v1 = [
       }
     ],
     "storageKey": null
-  },
-  {
-    "args": null,
-    "kind": "FragmentSpread",
-    "name": "OrderDefinitionSelectControlFragment"
   }
 ];
 return {
@@ -123,6 +116,6 @@ return {
 };
 })();
 
-(node as any).hash = "a9791e7de12051b3bcffcd60dfbbcff9";
+(node as any).hash = "974fefba31637c170f43e9ec1f8e9c26";
 
 export default node;

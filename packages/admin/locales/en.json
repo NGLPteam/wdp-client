@@ -368,7 +368,7 @@
         "profile": "Profile",
         "display_name": "Display Name",
         "order_by": "Order By",
-        "order_by_description": "Select up to 7 properties.",
+        "order_by_description": "Select up to 7 properties and sort them by priority, top to bottom. Ascending or descending order can also be set for each property by clicking its arrow.",
         "include_descendants": "Include",
         "include_descendants_description": "Select descendants to be included in the ordering. Use Direct Descendants to include only immediate children, for example journal issues but not their articles.",
         "include_links_description": "In addition, select whether to include linked entities in the ordering and which link types.",

@@ -59,7 +59,7 @@ export const Item = styled.li<{ $isDragging?: boolean }>`
   }
 
   &:hover:not(:disabled):not([aria-disabled="true"]) {
-    background-color: var(--brand100);
+    background-color: var(--Item-hover-color, var(--brand100));
     color: var(--neutral00);
   }
 

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<526f006a447eb83cf02f13fd61ff1bc0>>
+ * @generated SignedSource<<69740e6f05b95f7131447b07e94120ce>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -43,43 +43,8 @@ v2 = {
   "name": "id",
   "storageKey": null
 },
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "namespace",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "identifier",
-  "storageKey": null
-},
-v5 = [
-  (v2/*: any*/),
-  {
-    "kind": "InlineFragment",
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "HierarchicalSchemaRank",
-        "kind": "LinkedField",
-        "name": "schemaRanks",
-        "plural": true,
-        "selections": [
-          (v3/*: any*/),
-          (v4/*: any*/),
-          (v2/*: any*/)
-        ],
-        "storageKey": null
-      }
-    ],
-    "type": "Entity",
-    "abstractKey": "__isEntity"
-  }
+v3 = [
+  (v2/*: any*/)
 ];
 return {
   "fragment": {
@@ -110,7 +75,7 @@ return {
         "kind": "LinkedField",
         "name": "collection",
         "plural": false,
-        "selections": (v5/*: any*/),
+        "selections": (v3/*: any*/),
         "storageKey": null
       },
       {
@@ -120,7 +85,7 @@ return {
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
-        "selections": (v5/*: any*/),
+        "selections": (v3/*: any*/),
         "storageKey": null
       },
       {
@@ -146,8 +111,20 @@ return {
                 "name": "name",
                 "storageKey": null
               },
-              (v3/*: any*/),
-              (v4/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "namespace",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "identifier",
+                "storageKey": null
+              },
               (v2/*: any*/)
             ],
             "storageKey": null
@@ -158,12 +135,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "43da7c929e9f08d0c92c2233f66af747",
+    "cacheID": "2fe29f1764602e7b80b15cf52088b074",
     "id": null,
     "metadata": {},
     "name": "EntityOrderingAddDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityOrderingAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  ...EntityOrderingAddFormFragment\n}\n\nfragment EntityOrderingAddFormFragment on Query {\n  collection(slug: $entitySlug) {\n    id\n    ...OrderDefinitionSelectControlFragment\n  }\n  item(slug: $entitySlug) {\n    id\n    ...OrderDefinitionSelectControlFragment\n  }\n  ...SchemaCheckboxGroupFragment\n}\n\nfragment OrderDefinitionSelectControlFragment on Entity {\n  __isEntity: __typename\n  ...OrderDefinitionSelectFragment\n}\n\nfragment OrderDefinitionSelectFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    namespace\n    identifier\n    id\n  }\n}\n\nfragment SchemaCheckboxGroupFragment on Query {\n  schemaVersions {\n    nodes {\n      name\n      namespace\n      identifier\n      id\n    }\n  }\n}\n"
+    "text": "query EntityOrderingAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  ...EntityOrderingAddFormFragment\n}\n\nfragment EntityOrderingAddFormFragment on Query {\n  collection(slug: $entitySlug) {\n    id\n  }\n  item(slug: $entitySlug) {\n    id\n  }\n  ...SchemaCheckboxGroupFragment\n}\n\nfragment SchemaCheckboxGroupFragment on Query {\n  schemaVersions {\n    nodes {\n      name\n      namespace\n      identifier\n      id\n    }\n  }\n}\n"
   }
 };
 })();

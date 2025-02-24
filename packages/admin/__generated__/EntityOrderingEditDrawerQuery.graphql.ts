@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f01b8039802aef1a0b501ac920e6d685>>
+ * @generated SignedSource<<423427d5a385d8d381a02ea504ec9c7b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -230,27 +230,6 @@ v9 = [
       }
     ],
     "storageKey": null
-  },
-  {
-    "kind": "InlineFragment",
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "HierarchicalSchemaRank",
-        "kind": "LinkedField",
-        "name": "schemaRanks",
-        "plural": true,
-        "selections": [
-          (v7/*: any*/),
-          (v8/*: any*/),
-          (v6/*: any*/)
-        ],
-        "storageKey": null
-      }
-    ],
-    "type": "Entity",
-    "abstractKey": "__isEntity"
   }
 ];
 return {
@@ -350,12 +329,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c897cde2ce320d1c12654a5fae80788e",
+    "cacheID": "4a164151c21f3d18cd1941bb7eaa1f53",
     "id": null,
     "metadata": {},
     "name": "EntityOrderingEditDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityOrderingEditDrawerQuery(\n  $slug: Slug!\n  $identifier: String!\n) {\n  ...EntityOrderingEditFormFragment\n  collection(slug: $slug) {\n    ordering(identifier: $identifier) {\n      name\n      id\n    }\n    id\n  }\n  item(slug: $slug) {\n    ordering(identifier: $identifier) {\n      name\n      id\n    }\n    id\n  }\n}\n\nfragment EntityOrderingEditFormFieldsFragment on Ordering {\n  id\n  name\n  render {\n    mode\n  }\n  order {\n    path\n    direction\n  }\n  select {\n    direct\n    links {\n      contains\n      references\n    }\n  }\n  filter {\n    schemas {\n      namespace\n      identifier\n      version\n    }\n  }\n}\n\nfragment EntityOrderingEditFormFragment on Query {\n  collection(slug: $slug) {\n    id\n    ordering(identifier: $identifier) {\n      ...EntityOrderingEditFormFieldsFragment\n      id\n    }\n    ...OrderDefinitionSelectControlFragment\n  }\n  item(slug: $slug) {\n    id\n    ordering(identifier: $identifier) {\n      ...EntityOrderingEditFormFieldsFragment\n      id\n    }\n    ...OrderDefinitionSelectControlFragment\n  }\n  ...SchemaCheckboxGroupFragment\n}\n\nfragment OrderDefinitionSelectControlFragment on Entity {\n  __isEntity: __typename\n  ...OrderDefinitionSelectFragment\n}\n\nfragment OrderDefinitionSelectFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    namespace\n    identifier\n    id\n  }\n}\n\nfragment SchemaCheckboxGroupFragment on Query {\n  schemaVersions {\n    nodes {\n      name\n      namespace\n      identifier\n      id\n    }\n  }\n}\n"
+    "text": "query EntityOrderingEditDrawerQuery(\n  $slug: Slug!\n  $identifier: String!\n) {\n  ...EntityOrderingEditFormFragment\n  collection(slug: $slug) {\n    ordering(identifier: $identifier) {\n      name\n      id\n    }\n    id\n  }\n  item(slug: $slug) {\n    ordering(identifier: $identifier) {\n      name\n      id\n    }\n    id\n  }\n}\n\nfragment EntityOrderingEditFormFieldsFragment on Ordering {\n  id\n  name\n  render {\n    mode\n  }\n  order {\n    path\n    direction\n  }\n  select {\n    direct\n    links {\n      contains\n      references\n    }\n  }\n  filter {\n    schemas {\n      namespace\n      identifier\n      version\n    }\n  }\n}\n\nfragment EntityOrderingEditFormFragment on Query {\n  collection(slug: $slug) {\n    id\n    ordering(identifier: $identifier) {\n      ...EntityOrderingEditFormFieldsFragment\n      id\n    }\n  }\n  item(slug: $slug) {\n    id\n    ordering(identifier: $identifier) {\n      ...EntityOrderingEditFormFieldsFragment\n      id\n    }\n  }\n  ...SchemaCheckboxGroupFragment\n}\n\nfragment SchemaCheckboxGroupFragment on Query {\n  schemaVersions {\n    nodes {\n      name\n      namespace\n      identifier\n      id\n    }\n  }\n}\n"
   }
 };
 })();
