@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8bc14f7f3b9cebc3d3a2138f0438c652>>
+ * @generated SignedSource<<405f672257ee7ef691aa6b969f21e6fd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ import { FragmentRefs } from "relay-runtime";
 export type EntityOrderingListDataFragment$data = {
   readonly edges: ReadonlyArray<{
     readonly node: {
+      readonly count: number;
       readonly createdAt: string;
       readonly disabled: boolean;
       readonly id: string;
@@ -100,6 +101,13 @@ const node: ReaderFragment = {
               "kind": "ScalarField",
               "name": "identifier",
               "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "count",
+              "storageKey": null
             }
           ],
           "storageKey": null
@@ -117,6 +125,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "7af65964d63d9ac57c6832533facf3da";
+(node as any).hash = "29ea2e3a7b40e92c984fb537ae16af23";
 
 export default node;

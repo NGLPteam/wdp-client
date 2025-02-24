@@ -34,13 +34,13 @@ export default function EntityOrderingEditDrawer({
           >
             {data && data.collection ? (
               <EntityOrderingEditForm
-                data={data.collection}
+                data={data}
                 onSuccess={dialog.hide}
                 onCancel={dialog.hide}
               />
             ) : data && data.item ? (
               <EntityOrderingEditForm
-                data={data.item}
+                data={data}
                 onSuccess={dialog.hide}
                 onCancel={dialog.hide}
               />
@@ -54,14 +54,14 @@ export default function EntityOrderingEditDrawer({
 
 const query = graphql`
   query EntityOrderingEditDrawerQuery($slug: Slug!, $identifier: String!) {
+    ...EntityOrderingEditFormFragment
+
     collection(slug: $slug) {
-      ...EntityOrderingEditFormFragment
       ordering(identifier: $identifier) {
         name
       }
     }
     item(slug: $slug) {
-      ...EntityOrderingEditFormFragment
       ordering(identifier: $identifier) {
         name
       }

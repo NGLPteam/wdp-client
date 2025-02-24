@@ -47,6 +47,10 @@ function EntityOrderingList({ data, headerStyle, hideHeader }: Props) {
       header: () => <>{t("lists.inherited_from_schema_column")}</>,
       id: "inheritedFromSchema",
     }),
+    ModelColumns.StringColumn<EntityOrderingNode>({
+      header: () => <>{t("lists.count_column")}</>,
+      id: "count",
+    }),
     ModelColumns.BooleanColumn<EntityOrderingNode>({
       header: () => <>{t("lists.disabled_column")}</>,
       id: "disabled",
@@ -137,6 +141,7 @@ const orderingsfragment = graphql`
         disabled
         createdAt
         identifier
+        count
       }
     }
     ...ModelListPageFragment

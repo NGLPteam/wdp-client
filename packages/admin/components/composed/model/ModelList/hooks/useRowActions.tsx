@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo, Fragment, cloneElement } from "react";
 import i18next from "i18next";
 import {
   ButtonControlGroup,
@@ -105,7 +105,7 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
   const actionDefinition = availableActions[action];
 
   if (actionConfig?.handleHide && actionConfig?.handleHide({ row }))
-    return <></>;
+    return <Fragment key={action}></Fragment>;
 
   const buttonControl = actionConfig?.modalConfirm ? (
     <ButtonControlConfirm
@@ -155,7 +155,7 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
 
   if (!allowedActions) return buttonControl;
 
-  return React.cloneElement(buttonControl, {
+  return cloneElement(buttonControl, {
     actions: actionDefinition.action,
     allowedActions,
   });

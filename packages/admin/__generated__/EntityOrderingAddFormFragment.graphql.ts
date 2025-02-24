@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<900470fe942356d1f10d84ba759ddce8>>
+ * @generated SignedSource<<8af55673c5f869133e111b909a4c7dd6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,12 +13,13 @@ import { FragmentRefs } from "relay-runtime";
 export type EntityOrderingAddFormFragment$data = {
   readonly collection: {
     readonly id: string;
-    readonly " $fragmentSpreads": FragmentRefs<"OrderDefinitionSelectControlFragment" | "SchemaCheckboxGroupFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"OrderDefinitionSelectControlFragment">;
   } | null | undefined;
   readonly item: {
     readonly id: string;
-    readonly " $fragmentSpreads": FragmentRefs<"OrderDefinitionSelectControlFragment" | "SchemaCheckboxGroupFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"OrderDefinitionSelectControlFragment">;
   } | null | undefined;
+  readonly " $fragmentSpreads": FragmentRefs<"SchemaCheckboxGroupFragment">;
   readonly " $fragmentType": "EntityOrderingAddFormFragment";
 };
 export type EntityOrderingAddFormFragment$key = {
@@ -46,11 +47,6 @@ v1 = [
     "args": null,
     "kind": "FragmentSpread",
     "name": "OrderDefinitionSelectControlFragment"
-  },
-  {
-    "args": null,
-    "kind": "FragmentSpread",
-    "name": "SchemaCheckboxGroupFragment"
   }
 ];
 return {
@@ -83,6 +79,11 @@ return {
       "plural": false,
       "selections": (v1/*: any*/),
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "SchemaCheckboxGroupFragment"
     }
   ],
   "type": "Query",
@@ -90,6 +91,6 @@ return {
 };
 })();
 
-(node as any).hash = "71f210e63d5fe44f542e3eb0ff622852";
+(node as any).hash = "515738a0c3162d24ff2fc7eed738740e";
 
 export default node;

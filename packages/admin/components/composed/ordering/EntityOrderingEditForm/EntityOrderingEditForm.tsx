@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useFragment, graphql } from "react-relay";
 import { MutationForm } from "components/api";
 import {
@@ -14,7 +15,7 @@ import {
   OrderingDirectSelection,
 } from "@/relay/EntityOrderingEditFormMutation.graphql";
 import { EntityOrderingEditFormFragment$key } from "@/relay/EntityOrderingEditFormFragment.graphql";
-
+import { EntityOrderingEditFormFieldsFragment$key } from "@/relay/EntityOrderingEditFormFieldsFragment.graphql";
 type FormProps = Pick<
   React.ComponentProps<typeof MutationForm>,
   "onSuccess" | "onCancel"
@@ -22,6 +23,13 @@ type FormProps = Pick<
 
 type Fields = Omit<UpdateOrderingInput, "clientMutationId" | "filter"> & {
   filterSchemas: string[];
+  include: {
+    descendants: boolean;
+    children: boolean;
+    links: boolean;
+    references: boolean;
+    contains: boolean;
+  };
 };
 
 export default function EntityOrderingEditForm({
@@ -29,18 +37,34 @@ export default function EntityOrderingEditForm({
   onSuccess,
   onCancel,
 }: Props) {
-  const entity = useFragment<EntityOrderingEditFormFragment$key>(
+  const { t } = useTranslation();
+
+  const formData = useFragment<EntityOrderingEditFormFragment$key>(
     fragment,
     data,
   );
 
-  const { ordering } = entity;
+  const entity = formData.item ?? formData.collection;
 
-  // Convert readonly props to expected input
+  const { ordering: orderingData } = entity ?? {};
+
+  const ordering = useFragment<EntityOrderingEditFormFieldsFragment$key>(
+    fieldsFragment,
+    orderingData,
+  );
+
   const defaultValues = useMemo<Partial<Fields> | undefined>(() => {
     if (ordering) {
-      /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-      const { id: _id, order, filter, ...values } = ordering;
+      const { id: _id, order, filter, select, ...values } = ordering;
+
+      const include = {
+        descendants:
+          select.direct === "DESCENDANTS" || select.direct === "CHILDREN",
+        children: select.direct === "CHILDREN",
+        links: select.links.contains || select.links.references,
+        contains: select.links.contains,
+        references: select.links.references,
+      };
 
       return {
         order: order as OrderDefinitionInput[],
@@ -51,19 +75,28 @@ export default function EntityOrderingEditForm({
             identifier: s.identifier,
           }),
         ),
+        include,
         ...values,
       };
     }
   }, [ordering]);
 
-  // Return variable values to mutation
   const toVariables = useToVariables<Mutation, Fields>((data) => {
-    const { filterSchemas, ...values } = data;
+    const { filterSchemas, include, ...values } = data;
 
-    const selectWithTree =
-      data.render?.mode === "TREE"
-        ? { ...data.select, direct: "DESCENDANTS" as OrderingDirectSelection }
-        : data.select;
+    const direct = (
+      !data.include.descendants
+        ? "NONE"
+        : data.include.children
+          ? "CHILDREN"
+          : "DESCENDANTS"
+    ) as OrderingDirectSelection;
+    const links = data.include.links
+      ? {
+          contains: data.include.contains,
+          references: data.include.references,
+        }
+      : { contains: false, references: false };
 
     const input = {
       ...values,
@@ -74,42 +107,33 @@ export default function EntityOrderingEditForm({
             : data.filterSchemas.map((schema) => JSON.parse(schema)),
       },
       orderingId: ordering?.id || "",
-      select: selectWithTree,
+      select: { direct, links },
     };
 
     return { input };
   }, []);
 
-  // Render the form
   const renderForm = useRenderForm<Fields>(
-    ({ form: { register, watch } }) => {
-      const mode = watch("render.mode");
-      const isTree = mode === "TREE";
+    ({ form: { register } }) => {
+      if (!entity) return <></>;
+
       return (
         <Forms.Grid>
           <Forms.Input
-            label="forms.fields.display_name"
+            label="forms.fields.name"
             required
             {...register("name")}
           />
-          {entity && (
-            <Forms.OrderDefinitionSelectControl name="order" data={entity} />
-          )}
-          <Forms.OrderRenderSelect {...register("render.mode")} />
-          {!isTree && (
-            <Forms.OrderingDirectSelection {...register("select.direct")} />
-          )}
-          <Forms.OrderingLinksSelection
-            contains={register("select.links.contains")}
-            references={register("select.links.references")}
-          />
-          {entity && (
+          <Forms.Fieldset label={t("forms.fields.inclusion_criteria")}>
+            <Forms.OrderingInclude name="include" />
             <Forms.SchemaCheckboxGroup
-              data={entity}
+              data={formData}
               name="filterSchema"
               register={{ ...register("filterSchemas") }}
             />
-          )}
+          </Forms.Fieldset>
+          <Forms.OrderDefinitionSelectControl name="order" data={entity} />
+          <Forms.OrderRenderSelect {...register("render.mode")} />
         </Forms.Grid>
       );
     },
@@ -137,35 +161,51 @@ interface Props extends FormProps {
   data: EntityOrderingEditFormFragment$key;
 }
 
-const fragment = graphql`
-  fragment EntityOrderingEditFormFragment on Entity {
-    ...OrderDefinitionSelectControlFragment
-    ...SchemaCheckboxGroupFragment
-    ordering(identifier: $identifier) {
-      id
-      name
-      render {
-        mode
-      }
-      order {
-        path
-        direction
-      }
-      select {
-        direct
-        links {
-          contains
-          references
-        }
-      }
-      filter {
-        schemas {
-          namespace
-          identifier
-          version
-        }
+const fieldsFragment = graphql`
+  fragment EntityOrderingEditFormFieldsFragment on Ordering {
+    id
+    name
+    render {
+      mode
+    }
+    order {
+      path
+      direction
+    }
+    select {
+      direct
+      links {
+        contains
+        references
       }
     }
+    filter {
+      schemas {
+        namespace
+        identifier
+        version
+      }
+    }
+  }
+`;
+
+const fragment = graphql`
+  fragment EntityOrderingEditFormFragment on Query {
+    collection(slug: $slug) {
+      id
+      ordering(identifier: $identifier) {
+        ...EntityOrderingEditFormFieldsFragment
+      }
+      ...OrderDefinitionSelectControlFragment
+    }
+    item(slug: $slug) {
+      id
+      ordering(identifier: $identifier) {
+        ...EntityOrderingEditFormFieldsFragment
+      }
+      ...OrderDefinitionSelectControlFragment
+    }
+    ...SchemaCheckboxGroupFragment
   }
 `;
 
@@ -173,29 +213,7 @@ const mutation = graphql`
   mutation EntityOrderingEditFormMutation($input: UpdateOrderingInput!) {
     updateOrdering(input: $input) {
       ordering {
-        id
-        name
-        render {
-          mode
-        }
-        order {
-          path
-          direction
-        }
-        select {
-          direct
-          links {
-            contains
-            references
-          }
-        }
-        filter {
-          schemas {
-            namespace
-            identifier
-            version
-          }
-        }
+        ...EntityOrderingEditFormFieldsFragment
       }
       ...MutationForm_mutationErrors
     }

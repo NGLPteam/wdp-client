@@ -1,7 +1,9 @@
 import { useFragment, graphql } from "react-relay";
+import orderBy from "lodash/orderBy";
 import { SchemaCheckboxGroupFragment$key } from "@/relay/SchemaCheckboxGroupFragment.graphql";
 import CheckboxGroup from "../CheckboxGroup";
 import Checkbox from "../Checkbox";
+import * as Styled from "./SchemaCheckboxGroup.styles";
 
 type CheckboxGroupProps = React.ComponentProps<typeof CheckboxGroup>;
 
@@ -10,16 +12,24 @@ type CheckboxProps = React.ComponentProps<typeof Checkbox>;
 type BaseProps = Omit<CheckboxGroupProps, "label" | "children">;
 
 export default function SchemaCheckboxGroup({ data, name, register }: Props) {
-  const entity = useFragment<SchemaCheckboxGroupFragment$key>(fragment, data);
+  const { schemaVersions } = useFragment<SchemaCheckboxGroupFragment$key>(
+    fragment,
+    data,
+  );
 
-  return entity.schemaRanks.length > 0 ? (
-    <CheckboxGroup
+  const options = orderBy(
+    schemaVersions.nodes.filter(({ name }) => !name.includes("Test")),
+    ["name"],
+  );
+
+  return (
+    <Styled.Group
       name={name}
       label="forms.fields.ordering_schemas"
       description="forms.fields.ordering_schemas_description"
     >
       <>
-        {entity.schemaRanks.map(({ name, namespace, identifier }, i) => (
+        {options.map(({ name, namespace, identifier }, i) => (
           <Checkbox
             key={i}
             value={JSON.stringify({ namespace, identifier })}
@@ -29,8 +39,8 @@ export default function SchemaCheckboxGroup({ data, name, register }: Props) {
           </Checkbox>
         ))}
       </>
-    </CheckboxGroup>
-  ) : null;
+    </Styled.Group>
+  );
 }
 
 interface Props extends BaseProps {
@@ -40,11 +50,13 @@ interface Props extends BaseProps {
 }
 
 const fragment = graphql`
-  fragment SchemaCheckboxGroupFragment on Entity {
-    schemaRanks {
-      name
-      namespace
-      identifier
+  fragment SchemaCheckboxGroupFragment on Query {
+    schemaVersions {
+      nodes {
+        name
+        namespace
+        identifier
+      }
     }
   }
 `;

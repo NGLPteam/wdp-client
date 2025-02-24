@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c69d5eeb86b6ca09fec610196bb75f90>>
+ * @generated SignedSource<<e92d116c04feffccdaa9c25103dc44f8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -124,6 +124,13 @@ v4 = [
                 "args": null,
                 "kind": "ScalarField",
                 "name": "identifier",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "count",
                 "storageKey": null
               }
             ],
@@ -359,12 +366,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4773840df8d6ac3c6d349593a00d65a8",
+    "cacheID": "3c169fa0fa8a755c5d3d973698574563",
     "id": null,
     "metadata": {},
     "name": "ordersManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query ordersManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    ...EntityOrderingListFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment EntityOrderingListDataFragment on OrderingConnection {\n  edges {\n    node {\n      id\n      name\n      slug\n      inheritedFromSchema\n      disabled\n      createdAt\n      identifier\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityOrderingListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    orderings(page: $page) {\n      ...EntityOrderingListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    orderings(page: $page) {\n      ...EntityOrderingListDataFragment\n    }\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
+    "text": "query ordersManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    ...EntityOrderingListFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment EntityOrderingListDataFragment on OrderingConnection {\n  edges {\n    node {\n      id\n      name\n      slug\n      inheritedFromSchema\n      disabled\n      createdAt\n      identifier\n      count\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityOrderingListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    orderings(page: $page) {\n      ...EntityOrderingListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    orderings(page: $page) {\n      ...EntityOrderingListDataFragment\n    }\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
   }
 };
 })();
