@@ -90,6 +90,10 @@ function EntityOrderingList({ data, headerStyle, hideHeader }: Props) {
     },
     hideEnable: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
       !row.original.inheritedFromSchema || !row.original.disabled,
+    handleView: ({ row }: ModelTableActionProps<EntityOrderingNode>) =>
+      sourceEntity?.slug
+        ? `/collections/${sourceEntity.slug}/browse/${row.original.identifier}`
+        : null,
   };
   /* eslint-enable no-console */
 
