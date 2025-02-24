@@ -485,7 +485,7 @@
         "label": "Display as",
         "option_flat": "List",
         "option_tree": "Tree",
-        "description": "Note: will override \"Children Only\" if checked above"
+        "description": "Note: nested entities will display only if Descendants is selected without Children Only above"
       },
       "ordering_relationships": {
         "legend": "Relationships",
