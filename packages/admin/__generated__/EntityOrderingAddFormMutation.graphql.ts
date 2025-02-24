@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<65f40eaf3307bf9c20c6755542e3839c>>
+ * @generated SignedSource<<8df707e757598d006f6fffaa493511b4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -56,6 +56,7 @@ export type EntityOrderingAddFormMutation$variables = {
 export type EntityOrderingAddFormMutation$data = {
   readonly createOrdering: {
     readonly ordering: {
+      readonly id: string;
       readonly name: string | null | undefined;
     } | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
@@ -84,8 +85,26 @@ v1 = [
 v2 = {
   "alias": null,
   "args": null,
-  "kind": "ScalarField",
-  "name": "name",
+  "concreteType": "Ordering",
+  "kind": "LinkedField",
+  "name": "ordering",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "name",
+      "storageKey": null
+    }
+  ],
   "storageKey": null
 },
 v3 = {
@@ -160,18 +179,7 @@ return {
         "name": "createOrdering",
         "plural": false,
         "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Ordering",
-            "kind": "LinkedField",
-            "name": "ordering",
-            "plural": false,
-            "selections": [
-              (v2/*: any*/)
-            ],
-            "storageKey": null
-          },
+          (v2/*: any*/),
           {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
@@ -202,25 +210,7 @@ return {
         "name": "createOrdering",
         "plural": false,
         "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "Ordering",
-            "kind": "LinkedField",
-            "name": "ordering",
-            "plural": false,
-            "selections": [
-              (v2/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "id",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
+          (v2/*: any*/),
           (v3/*: any*/)
         ],
         "storageKey": null
@@ -228,16 +218,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c25e448b0466df8e8835867ed7dfcfc8",
+    "cacheID": "970897abe3ac3c3876264ff0ef1c0b54",
     "id": null,
     "metadata": {},
     "name": "EntityOrderingAddFormMutation",
     "operationKind": "mutation",
-    "text": "mutation EntityOrderingAddFormMutation(\n  $input: CreateOrderingInput!\n) {\n  createOrdering(input: $input) {\n    ordering {\n      name\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
+    "text": "mutation EntityOrderingAddFormMutation(\n  $input: CreateOrderingInput!\n) {\n  createOrdering(input: $input) {\n    ordering {\n      id\n      name\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "1e20006cf40fa58f5ba66b0eb3b3ee43";
+(node as any).hash = "eb10b7030c1678728931a114dc73de84";
 
 export default node;

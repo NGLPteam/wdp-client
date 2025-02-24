@@ -33,8 +33,9 @@ export default function OrderingLinksSelection({
         {t("forms.fields.include_links_description")}
       </Styled.Description>
       <Styled.Fields>
-        <Checkbox {...contains}>{t("forms.fields.link_contains")}</Checkbox>
-        <Checkbox {...references}>{t("forms.fields.link_references")}</Checkbox>
+        <Checkbox {...contains}>{"All Descendants"}</Checkbox>
+        <Checkbox {...contains}>{"Only children"}</Checkbox>
+        <Checkbox {...references}>{"Linked Entities"}</Checkbox>
       </Styled.Fields>
     </Styled.Fieldset>
   );

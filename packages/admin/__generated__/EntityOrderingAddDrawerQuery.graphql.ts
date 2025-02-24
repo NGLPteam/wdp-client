@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5fb2aa6754a1d06ebf2789bd13eb4538>>
+ * @generated SignedSource<<526f006a447eb83cf02f13fd61ff1bc0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -43,7 +43,21 @@ v2 = {
   "name": "id",
   "storageKey": null
 },
-v3 = [
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "namespace",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "identifier",
+  "storageKey": null
+},
+v5 = [
   (v2/*: any*/),
   {
     "kind": "InlineFragment",
@@ -56,28 +70,9 @@ v3 = [
         "name": "schemaRanks",
         "plural": true,
         "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "namespace",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "identifier",
-            "storageKey": null
-          },
-          (v2/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "name",
-            "storageKey": null
-          }
+          (v3/*: any*/),
+          (v4/*: any*/),
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
@@ -115,7 +110,7 @@ return {
         "kind": "LinkedField",
         "name": "collection",
         "plural": false,
-        "selections": (v3/*: any*/),
+        "selections": (v5/*: any*/),
         "storageKey": null
       },
       {
@@ -125,18 +120,50 @@ return {
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
-        "selections": (v3/*: any*/),
+        "selections": (v5/*: any*/),
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "SchemaVersionConnection",
+        "kind": "LinkedField",
+        "name": "schemaVersions",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "SchemaVersion",
+            "kind": "LinkedField",
+            "name": "nodes",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "name",
+                "storageKey": null
+              },
+              (v3/*: any*/),
+              (v4/*: any*/),
+              (v2/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "dba1bbb5eb0d6f06368cd5cf4da40e6d",
+    "cacheID": "43da7c929e9f08d0c92c2233f66af747",
     "id": null,
     "metadata": {},
     "name": "EntityOrderingAddDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityOrderingAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  ...EntityOrderingAddFormFragment\n}\n\nfragment EntityOrderingAddFormFragment on Query {\n  collection(slug: $entitySlug) {\n    id\n    ...OrderDefinitionSelectControlFragment\n    ...SchemaCheckboxGroupFragment\n  }\n  item(slug: $entitySlug) {\n    id\n    ...OrderDefinitionSelectControlFragment\n    ...SchemaCheckboxGroupFragment\n  }\n}\n\nfragment OrderDefinitionSelectControlFragment on Entity {\n  __isEntity: __typename\n  ...OrderDefinitionSelectFragment\n}\n\nfragment OrderDefinitionSelectFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    namespace\n    identifier\n    id\n  }\n}\n\nfragment SchemaCheckboxGroupFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    name\n    namespace\n    identifier\n    id\n  }\n}\n"
+    "text": "query EntityOrderingAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  ...EntityOrderingAddFormFragment\n}\n\nfragment EntityOrderingAddFormFragment on Query {\n  collection(slug: $entitySlug) {\n    id\n    ...OrderDefinitionSelectControlFragment\n  }\n  item(slug: $entitySlug) {\n    id\n    ...OrderDefinitionSelectControlFragment\n  }\n  ...SchemaCheckboxGroupFragment\n}\n\nfragment OrderDefinitionSelectControlFragment on Entity {\n  __isEntity: __typename\n  ...OrderDefinitionSelectFragment\n}\n\nfragment OrderDefinitionSelectFragment on Entity {\n  __isEntity: __typename\n  schemaRanks {\n    namespace\n    identifier\n    id\n  }\n}\n\nfragment SchemaCheckboxGroupFragment on Query {\n  schemaVersions {\n    nodes {\n      name\n      namespace\n      identifier\n      id\n    }\n  }\n}\n"
   }
 };
 })();

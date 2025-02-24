@@ -7,10 +7,16 @@ type BaseProps = Omit<
   "children"
 >;
 
-function CheckboxGroup({ children, ...props }: BaseProps & PropsWithChildren) {
+function CheckboxGroup({
+  children,
+  className,
+  ...props
+}: BaseProps & PropsWithChildren & { className?: string }) {
   return (
     <BaseInputWrapper role="group" descriptionTop {...props}>
-      <Styled.CheckboxesWrapper>{children}</Styled.CheckboxesWrapper>
+      <Styled.CheckboxesWrapper className={className}>
+        {children}
+      </Styled.CheckboxesWrapper>
     </BaseInputWrapper>
   );
 }

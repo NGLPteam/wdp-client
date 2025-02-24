@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<62d5e850fbb23b6b33fa34c3dede297d>>
+ * @generated SignedSource<<9f4fe374727fd7279ee965b8b587ce09>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,37 +9,23 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type Direction = "ASCENDING" | "DESCENDING" | "%future added value";
-export type OrderingDirectSelection = "CHILDREN" | "DESCENDANTS" | "NONE" | "%future added value";
-export type OrderingRenderMode = "FLAT" | "TREE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type EntityOrderingEditFormFragment$data = {
-  readonly ordering: {
-    readonly filter: {
-      readonly schemas: ReadonlyArray<{
-        readonly identifier: string;
-        readonly namespace: string;
-        readonly version: any | null | undefined;
-      }>;
-    };
+  readonly collection: {
     readonly id: string;
-    readonly name: string | null | undefined;
-    readonly order: ReadonlyArray<{
-      readonly direction: Direction;
-      readonly path: string;
-    }>;
-    readonly render: {
-      readonly mode: OrderingRenderMode;
-    };
-    readonly select: {
-      readonly direct: OrderingDirectSelection;
-      readonly links: {
-        readonly contains: boolean;
-        readonly references: boolean;
-      };
-    };
+    readonly ordering: {
+      readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingEditFormFieldsFragment">;
+    } | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"OrderDefinitionSelectControlFragment">;
   } | null | undefined;
-  readonly " $fragmentSpreads": FragmentRefs<"OrderDefinitionSelectControlFragment" | "SchemaCheckboxGroupFragment">;
+  readonly item: {
+    readonly id: string;
+    readonly ordering: {
+      readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingEditFormFieldsFragment">;
+    } | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"OrderDefinitionSelectControlFragment">;
+  } | null | undefined;
+  readonly " $fragmentSpreads": FragmentRefs<"SchemaCheckboxGroupFragment">;
   readonly " $fragmentType": "EntityOrderingEditFormFragment";
 };
 export type EntityOrderingEditFormFragment$key = {
@@ -47,11 +33,59 @@ export type EntityOrderingEditFormFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"EntityOrderingEditFormFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  {
+    "kind": "Variable",
+    "name": "slug",
+    "variableName": "slug"
+  }
+],
+v1 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "id",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "identifier",
+        "variableName": "identifier"
+      }
+    ],
+    "concreteType": "Ordering",
+    "kind": "LinkedField",
+    "name": "ordering",
+    "plural": false,
+    "selections": [
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "EntityOrderingEditFormFieldsFragment"
+      }
+    ],
+    "storageKey": null
+  },
+  {
+    "args": null,
+    "kind": "FragmentSpread",
+    "name": "OrderDefinitionSelectControlFragment"
+  }
+];
+return {
   "argumentDefinitions": [
     {
       "kind": "RootArgument",
       "name": "identifier"
+    },
+    {
+      "kind": "RootArgument",
+      "name": "slug"
     }
   ],
   "kind": "Fragment",
@@ -59,180 +93,36 @@ const node: ReaderFragment = {
   "name": "EntityOrderingEditFormFragment",
   "selections": [
     {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "OrderDefinitionSelectControlFragment"
+      "alias": null,
+      "args": (v0/*: any*/),
+      "concreteType": "Collection",
+      "kind": "LinkedField",
+      "name": "collection",
+      "plural": false,
+      "selections": (v1/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": (v0/*: any*/),
+      "concreteType": "Item",
+      "kind": "LinkedField",
+      "name": "item",
+      "plural": false,
+      "selections": (v1/*: any*/),
+      "storageKey": null
     },
     {
       "args": null,
       "kind": "FragmentSpread",
       "name": "SchemaCheckboxGroupFragment"
-    },
-    {
-      "alias": null,
-      "args": [
-        {
-          "kind": "Variable",
-          "name": "identifier",
-          "variableName": "identifier"
-        }
-      ],
-      "concreteType": "Ordering",
-      "kind": "LinkedField",
-      "name": "ordering",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "id",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "name",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "OrderingRenderDefinition",
-          "kind": "LinkedField",
-          "name": "render",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "mode",
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "OrderDefinition",
-          "kind": "LinkedField",
-          "name": "order",
-          "plural": true,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "path",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "direction",
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "OrderingSelectDefinition",
-          "kind": "LinkedField",
-          "name": "select",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "direct",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "OrderingSelectLinkDefinition",
-              "kind": "LinkedField",
-              "name": "links",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "contains",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "references",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "OrderingFilterDefinition",
-          "kind": "LinkedField",
-          "name": "filter",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "OrderingSchemaFilter",
-              "kind": "LinkedField",
-              "name": "schemas",
-              "plural": true,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "namespace",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "identifier",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "version",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
     }
   ],
-  "type": "Entity",
-  "abstractKey": "__isEntity"
+  "type": "Query",
+  "abstractKey": null
 };
+})();
 
-(node as any).hash = "c319ce60a9b56f1967b4db795531be7b";
+(node as any).hash = "a9791e7de12051b3bcffcd60dfbbcff9";
 
 export default node;

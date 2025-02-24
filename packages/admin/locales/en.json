@@ -107,7 +107,8 @@
         "newest": "Newest",
         "oldest": "Oldest"
       },
-      "initial_ordering_column": "Initial"
+      "initial_ordering_column": "Initial",
+      "count_column": "Count"
     },
     "nav": {
       "manage_header": "Manage",
@@ -141,6 +142,7 @@
     },
     "messages": {
       "error_message": "Error: {{error}}",
+      "content_error": "There was an issue loading this content. Please try again.",
       "add": {
         "success": "$t({{ name }}) added successfully.",
         "link_success": "Link added successfully.",
@@ -373,7 +375,7 @@
         "issn": "ISSN",
         "schemas": "$t(glossary.schema_other)",
         "ordering_schemas": "$t(glossary.schema_other)",
-        "ordering_schemas_description": "Select the schemas that should be included in this order. If no schemas are selected, all children will be included.",
+        "ordering_schemas_description": "Restrict this ordering to selected schemas. If none are selected, all schemas will be permitted.",
         "header": "Header",
         "teaser": "Teaser",
         "fields": "Fields",
@@ -415,7 +417,8 @@
         "supress_external_links_description": "Hide external links in metadata.",
         "controlled_vocabularies": "Controlled Vocabularies",
         "contribution_roles": "Contribution Roles",
-        "default_contribution_role": "Default Role"
+        "default_contribution_role": "Default Role",
+        "inclusion_criteria": "Inclusion Criteria"
       },
       "validation": {
         "year": "Must be a four digit year",
@@ -480,9 +483,18 @@
       },
       "order_render_select": {
         "label": "Display as",
-        "option_flat": "Flat list",
-        "option_tree": "Tree list",
-        "description": "When \"Tree list\" is selected all descendants are included by default."
+        "option_flat": "List",
+        "option_tree": "Tree",
+        "description": "Note: will override \"Children Only\" if checked above"
+      },
+      "ordering_relationships": {
+        "legend": "Relationships",
+        "description": "Which entities should be included in this ordering?",
+        "descendants_label": "Descendants",
+        "children_label": "Children Only",
+        "links_label": "Links",
+        "contains_label": "Contains Links",
+        "references_label": "References Links"
       }
     },
     "dashboard": {
