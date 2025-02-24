@@ -7,7 +7,8 @@ import {
 } from "react-beautiful-dnd";
 import { OrderDefinition } from "types/graphql-schema";
 import { IconFactory } from "components/factories";
-import BaseArrayList, { BaseArrayListItem } from "../BaseArrayList";
+import capitalize from "lodash/capitalize";
+import BaseArrayList from "../BaseArrayList";
 import * as Styled from "./OrderDefinitionSelect.styles";
 
 export default function OrderDefinitionSelectedList({
@@ -17,7 +18,7 @@ export default function OrderDefinitionSelectedList({
 }: Props) {
   // Remove item from value and pass to form
   function handleRemove(index: number) {
-    const newValue = value.filter((v, i) => i !== index);
+    const newValue = value.filter((_v, i) => i !== index);
     onChange(newValue);
   }
 
@@ -71,12 +72,13 @@ export default function OrderDefinitionSelectedList({
                   index={i}
                 >
                   {(provided, snapshot) => (
-                    <BaseArrayListItem
+                    <Styled.OrderListItem
                       key={i}
                       onRemove={() => handleRemove(i)}
                       ref={provided.innerRef}
                       isDragging={snapshot.isDragging}
                       draggableStyles={provided.draggableProps.style}
+                      $invalid={!options.find((o) => o.value === v.path)}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
@@ -85,8 +87,12 @@ export default function OrderDefinitionSelectedList({
                         onClick={(e) => handleDirection(e, i)}
                       >
                         <span>
-                          {options.find((o) => o.value === v.path)?.label ||
-                            v.path}
+                          {capitalize(
+                            v.path
+                              .replaceAll(".", " - ")
+                              .replaceAll("_", " ")
+                              .split("#")[0],
+                          )}
                         </span>
                         <IconFactory
                           icon="chevron"
@@ -94,7 +100,7 @@ export default function OrderDefinitionSelectedList({
                           title={v.direction.toLowerCase()}
                         />
                       </Styled.DirectionButton>
-                    </BaseArrayListItem>
+                    </Styled.OrderListItem>
                   )}
                 </Draggable>
               ))}
@@ -111,7 +117,7 @@ interface Props {
     label: string;
     value: string;
   }[];
-  value: OrderDefinition[];
+  value: Omit<OrderDefinition, "nulls">[];
   /** Returns the current value */
-  onChange: (value: OrderDefinition[]) => void;
+  onChange: (value: Omit<OrderDefinition, "nulls">[]) => void;
 }

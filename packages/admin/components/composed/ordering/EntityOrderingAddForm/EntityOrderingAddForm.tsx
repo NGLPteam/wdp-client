@@ -51,7 +51,6 @@ export default function EntityOrderingAddForm({
         entityId: entity?.id || "",
         name: data.name,
         identifier: convertToSlug(data.name ?? undefined),
-        order: data.order,
         filter: {
           schemas:
             typeof data.filterSchemas === "string"
@@ -60,6 +59,7 @@ export default function EntityOrderingAddForm({
         },
         render: data.render,
         select: { direct, links },
+        order: data.order,
       };
 
       return { input };
@@ -90,7 +90,7 @@ export default function EntityOrderingAddForm({
               register={{ ...register("filterSchemas") }}
             />
           </Forms.Fieldset>
-          <Forms.OrderDefinitionSelectControl name="order" data={entity} />
+          <Forms.OrderDefinitionSelectControl name="order" />
           <Forms.OrderRenderSelect {...register("render.mode")} />
         </Forms.Grid>
       );
@@ -146,11 +146,9 @@ const fragment = graphql`
   fragment EntityOrderingAddFormFragment on Query {
     collection(slug: $entitySlug) {
       id
-      ...OrderDefinitionSelectControlFragment
     }
     item(slug: $entitySlug) {
       id
-      ...OrderDefinitionSelectControlFragment
     }
     ...SchemaCheckboxGroupFragment
   }

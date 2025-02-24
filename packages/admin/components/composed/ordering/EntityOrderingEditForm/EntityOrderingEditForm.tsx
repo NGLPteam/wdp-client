@@ -132,7 +132,7 @@ export default function EntityOrderingEditForm({
               register={{ ...register("filterSchemas") }}
             />
           </Forms.Fieldset>
-          <Forms.OrderDefinitionSelectControl name="order" data={entity} />
+          <Forms.OrderDefinitionSelectControl name="order" />
           <Forms.OrderRenderSelect {...register("render.mode")} />
         </Forms.Grid>
       );
@@ -196,14 +196,12 @@ const fragment = graphql`
       ordering(identifier: $identifier) {
         ...EntityOrderingEditFormFieldsFragment
       }
-      ...OrderDefinitionSelectControlFragment
     }
     item(slug: $slug) {
       id
       ordering(identifier: $identifier) {
         ...EntityOrderingEditFormFieldsFragment
       }
-      ...OrderDefinitionSelectControlFragment
     }
     ...SchemaCheckboxGroupFragment
   }
