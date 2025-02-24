@@ -3308,7 +3308,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     graphql: "npm:^16.8.1"
     i18next: "npm:^23.10.0"
-    i18next-browser-languagedetector: "npm:^7.2.0"
+    i18next-browser-languagedetector: "npm:^8.0.4"
     i18next-http-backend: "npm:^1.3.1"
     keycloak-js: "npm:^12.0.4"
     lodash: "npm:^4.17.21"
@@ -3423,7 +3423,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     graphql: "npm:^16.8.1"
     i18next: "npm:^23.10.0"
-    i18next-browser-languagedetector: "npm:^7.2.0"
+    i18next-browser-languagedetector: "npm:^8.0.4"
     keycloak-js: "npm:^12.0.4"
     lodash: "npm:^4.17.21"
     markdown-to-txt: "npm:^2.0.1"
@@ -7123,12 +7123,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next-browser-languagedetector@npm:^7.2.0":
-  version: 7.2.0
-  resolution: "i18next-browser-languagedetector@npm:7.2.0"
+"i18next-browser-languagedetector@npm:^8.0.4":
+  version: 8.0.4
+  resolution: "i18next-browser-languagedetector@npm:8.0.4"
   dependencies:
     "@babel/runtime": "npm:^7.23.2"
-  checksum: 10c0/d7676e6c9895d46e659effaeba11f10c39cbe99429560667de7689cb56db6977239d350be850c4caf4279781c19c50a7193cb9cc38bb485f391b8e1893e407ae
+  checksum: 10c0/82fb7333af5afdda6c31679713571a28095635a2120c95446e57d29cc1792afec42c437e2926f770c760ea58c372980c299233245c54756069b2e3fd6a05e53a
   languageName: node
   linkType: hard
 
