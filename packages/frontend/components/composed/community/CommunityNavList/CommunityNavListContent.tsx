@@ -31,17 +31,19 @@ export default function CommunityNavList({
   const pages = community.pages?.nodes;
 
   const exploreMenu = mobile ? (
-    <Accordion
-      label={t("nav.explore")}
-      menuItems={orderings?.map((o) => (
-        <NamedLink
-          key={o.slug}
-          href={`/communities/${community.slug}/browse/${o.identifier}`}
-        >
-          <Link as="span">{`${o.name} (${o.count})`}</Link>
-        </NamedLink>
-      ))}
-    />
+    <li className="t-capitalize">
+      <Accordion
+        label={t("nav.explore")}
+        menuItems={orderings?.map((o) => (
+          <NamedLink
+            key={o.slug}
+            href={`/communities/${community.slug}/browse/${o.identifier}`}
+          >
+            <Link as="span">{`${o.name} (${o.count})`}</Link>
+          </NamedLink>
+        ))}
+      />
+    </li>
   ) : (
     <NavDropdown<Ordering>
       label="nav.explore"
@@ -57,7 +59,7 @@ export default function CommunityNavList({
 
   return community && community.slug ? (
     <>
-      {!!orderings.length && <li className="t-capitalize">{exploreMenu}</li>}
+      {!!orderings.length && exploreMenu}
       {!!pages?.length &&
         pages.map(({ slug, title }) => (
           <li key={slug}>
