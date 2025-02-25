@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import SearchLayout from "components/composed/search/SearchLayout";
 import LoadingBlock from "components/atomic/loading/LoadingBlock";
 import normalizeRouteQueryArray from "@wdp/lib/routes/helpers/normalizeRouteQueryArray";
-import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToString";
+import { getPredicates } from "helpers/search";
 import { pageSearchQuery as Query } from "@/relay/pageSearchQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import fetchQuery from "@/lib/relay/fetchQuery";
@@ -17,9 +17,11 @@ export default async function SearchPage({
 }) {
   const { q, filters, page, order, schema } = searchParams;
 
+  const predicates = filters ? getPredicates(JSON.parse(filters)) : [];
+
   const { data, records } = await fetchQuery<Query>(query, {
     ...(q && { query: q }),
-    predicates: filters ? routeQueryArrayToString(filters) : [],
+    predicates,
     page: page ? parseInt(page) : 1,
     order: order ?? "PUBLISHED_ASCENDING",
     schema: schema ? normalizeRouteQueryArray(schema) : [],
