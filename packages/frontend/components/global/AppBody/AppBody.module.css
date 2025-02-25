@@ -1,0 +1,5 @@
+.content {
+  min-block-size: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
