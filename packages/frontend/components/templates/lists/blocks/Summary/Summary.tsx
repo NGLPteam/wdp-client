@@ -68,16 +68,14 @@ export default function SummaryListBlock({
   const browseStyle = !showHeroImage && background === "NONE";
 
   const normalizedContext =
-    !!descendantsDefinition && entityContext
+    !!descendantsDefinition && entityContext && !showNestedEntities
       ? entityContext
       : showEntityContext
         ? "FULL"
         : "NONE";
 
   const seeAllHref = descendantsDefinition
-    ? showNestedEntities
-      ? href
-      : getSeeAllHref(basePath, seeAllOrderingIdentifier, normalizedContext)
+    ? getSeeAllHref(basePath, seeAllOrderingIdentifier, normalizedContext)
     : null;
 
   const renderSeeAll =

@@ -172,7 +172,11 @@ export const useSharedListTemplateFragment = (
   const child = useSharedListItemTemplateFragment(childTemplate);
 
   if (showNestedEntities) {
-    const { slots: childSlots, entity: childEntity } = child ?? {};
+    const {
+      slots: childSlots,
+      entity: childEntity,
+      definition: childDefinition,
+    } = child ?? {};
     const childHeader = childSlots?.nestedHeader;
     const childMetadata = childSlots?.nestedMetadata;
     const childSubtitle = childSlots?.nestedSubheader;
@@ -190,7 +194,10 @@ export const useSharedListTemplateFragment = (
         context: childContext,
       },
       linksDefinition,
-      descendantsDefinition,
+      descendantsDefinition: {
+        ...descendantsDefinition,
+        seeAllOrderingIdentifier: childDefinition?.seeAllOrderingIdentifier,
+      },
     };
   }
 

@@ -37,6 +37,9 @@ export const useSharedListItemsTemplateFragment = (
 
 export const listItemTemplateFragment = graphql`
   fragment sharedListItemTemplateFragment on ListItemTemplateInstance {
+    definition {
+      seeAllOrderingIdentifier
+    }
     entity {
       ... on Collection {
         __typename
@@ -136,7 +139,7 @@ export const useSharedListItemTemplateFragment = (
   data?: sharedListItemTemplateFragment$key | null,
 ) => {
   const template = useFragment(listItemTemplateFragment, data);
-  const { slots, entity } = template ?? {};
+  const { slots, entity, definition } = template ?? {};
   const contextAbbr = useSharedInlineFragment(slots?.contextAbbr);
   const contextFull = useSharedInlineFragment(slots?.contextFull);
   const description = useSharedBlockFragment(slots?.description);
@@ -151,6 +154,7 @@ export const useSharedListItemTemplateFragment = (
 
   return {
     entity,
+    definition,
     slots: {
       contextAbbr,
       contextFull,
