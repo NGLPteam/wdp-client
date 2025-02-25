@@ -10,7 +10,6 @@
   *:first-child {
     transition: box-shadow theme("transitionDuration.DEFAULT")
       theme("transitionTimingFunction.DEFAULT");
-    box-shadow: theme("boxShadow.popUp");
     border: 1px solid transparent;
 
     a:hover & {
