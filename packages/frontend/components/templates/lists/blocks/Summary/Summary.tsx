@@ -75,7 +75,11 @@ export default function SummaryListBlock({
         : "NONE";
 
   const seeAllHref = descendantsDefinition
-    ? getSeeAllHref(basePath, seeAllOrderingIdentifier, normalizedContext)
+    ? getSeeAllHref(
+        showNestedEntities ? href : basePath,
+        seeAllOrderingIdentifier,
+        normalizedContext,
+      )
     : null;
 
   const renderSeeAll =
