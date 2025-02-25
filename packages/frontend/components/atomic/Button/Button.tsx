@@ -49,8 +49,15 @@ const Button = forwardRef(
       </>
     );
 
+    const linkProps = {
+      href: "href" in props ? props.href : undefined,
+      download: "download" in props ? props.download : undefined,
+    };
+
     return Tag ? (
-      <Tag className={buttonClasses}>{content}</Tag>
+      <Tag className={buttonClasses} {...linkProps}>
+        {content}
+      </Tag>
     ) : (
       <button ref={ref} className={buttonClasses} {...props}>
         {content}

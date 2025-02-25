@@ -30,6 +30,7 @@
 
   @mixin respond theme("screens.50") {
     flex-direction: column;
+    padding-block-end: var(--padding-md);
   }
 }
 
