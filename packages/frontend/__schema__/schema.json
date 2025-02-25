@@ -1509,6 +1509,232 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "AncestorSchemaOrderingPath",
+        "description": "This ordering path represents a schema property and is variably\navailable based on whether matched entities' _ancestor_ schemas\nimplement it.\n",
+        "fields": [
+          {
+            "name": "description",
+            "description": "A helpful description of the path",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "grouping",
+            "description": "A logical grouping for ordering paths",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "OrderingPathGrouping",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "A human-readable label for the path",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "labelPrefix",
+            "description": "Some paths may have a prefix. For instance, schema properties will have the name of the schema.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "path",
+            "description": "The exact path that should be provided to mutation inputs.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "schemaVersion",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SchemaVersion",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "type",
+            "description": "The schema property type",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SchemaPropertyType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "OrderingPath",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AncestorStaticOrderingPath",
+        "description": "This represents an ordering path for core properties on an\nentity's ancestor.\n",
+        "fields": [
+          {
+            "name": "description",
+            "description": "A helpful description of the path",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "grouping",
+            "description": "A logical grouping for ordering paths",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "OrderingPathGrouping",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "label",
+            "description": "A human-readable label for the path",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "labelPrefix",
+            "description": "Some paths may have a prefix. For instance, schema properties will have the name of the schema.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "path",
+            "description": "The exact path that should be provided to mutation inputs.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "type",
+            "description": "The schema property type",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "SchemaPropertyType",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "OrderingPath",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "INPUT_OBJECT",
         "name": "AndOperatorInput",
         "description": "The boolean result of evaluating the left and right predicates. Both must be true.\n\nWhile this is implemented, it is not likely that the first version of the search\nUI will utilize it. It is intended for advanced searching.\n",
@@ -3025,6 +3251,16 @@
         "interfaces": null,
         "enumValues": null,
         "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "AncestorSchemaOrderingPath",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "AncestorStaticOrderingPath",
+            "ofType": null
+          },
           {
             "kind": "OBJECT",
             "name": "SchemaOrderingPath",
@@ -27400,8 +27636,8 @@
               "name": "Boolean",
               "ofType": null
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use seeAllOrdering on the instance instead."
           },
           {
             "name": "slots",
@@ -50081,8 +50317,8 @@
               "name": "Boolean",
               "ofType": null
             },
-            "isDeprecated": false,
-            "deprecationReason": null
+            "isDeprecated": true,
+            "deprecationReason": "Use seeAllOrdering on the instance instead."
           },
           {
             "name": "slots",
@@ -51621,6 +51857,18 @@
             "deprecationReason": null
           },
           {
+            "name": "seeAllOrderingIdentifier",
+            "description": "If provided, this will expose an ordering on the template instance that can\nbe used to generate a link to the ordering in the frontend.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "SchemaComponent",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "selectionFallbackMode",
             "description": "The fallback mode to use when rendering a list of entities, when the list from\n`selectionMode` is empty and `useSelectionFallback` has been set to true.\n",
             "args": [],
@@ -52175,6 +52423,18 @@
             "deprecationReason": null
           },
           {
+            "name": "seeAllOrdering",
+            "description": "The ordering to render for a \"see all\" link.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Ordering",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "slots",
             "description": "Rendered slots for this template.\n",
             "args": [],
@@ -52259,6 +52519,11 @@
           {
             "kind": "INTERFACE",
             "name": "TemplateHasEntityList",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "TemplateHasSeeAllOrdering",
             "ofType": null
           },
           {
@@ -59310,6 +59575,16 @@
         "possibleTypes": [
           {
             "kind": "OBJECT",
+            "name": "AncestorSchemaOrderingPath",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "AncestorStaticOrderingPath",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "SchemaOrderingPath",
             "ofType": null
           },
@@ -59328,6 +59603,18 @@
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
+          {
+            "name": "ANCESTOR_PROPS",
+            "description": "Paths under this type come from _ancestors_ in a schema.\nNot every entity is guaranteed to have one, and in orderings\nwith mixed entities, missing props will be treated as null.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ANCESTOR_STATIC",
+            "description": "Static properties that are directly on an ancestor.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "ENTITY",
             "description": "Static properties that are directly on an entity.\n",
@@ -76992,6 +77279,11 @@
           {
             "kind": "OBJECT",
             "name": "LinkListTemplateInstance",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ListItemTemplateInstance",
             "ofType": null
           }
         ]

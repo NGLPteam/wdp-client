@@ -371,6 +371,54 @@ type AnalyticsRegionCountSummary {
 }
 
 """
+This ordering path represents a schema property and is variably
+available based on whether matched entities' _ancestor_ schemas
+implement it.
+
+"""
+type AncestorSchemaOrderingPath implements OrderingPath {
+  """A helpful description of the path"""
+  description: String
+  """A logical grouping for ordering paths"""
+  grouping: OrderingPathGrouping!
+  """A human-readable label for the path"""
+  label: String!
+  """
+  Some paths may have a prefix. For instance, schema properties will have the name of the schema.
+  
+  """
+  labelPrefix: String
+  """The exact path that should be provided to mutation inputs."""
+  path: String!
+  schemaVersion: SchemaVersion!
+  """The schema property type"""
+  type: SchemaPropertyType!
+}
+
+"""
+This represents an ordering path for core properties on an
+entity's ancestor.
+
+"""
+type AncestorStaticOrderingPath implements OrderingPath {
+  """A helpful description of the path"""
+  description: String
+  """A logical grouping for ordering paths"""
+  grouping: OrderingPathGrouping!
+  """A human-readable label for the path"""
+  label: String!
+  """
+  Some paths may have a prefix. For instance, schema properties will have the name of the schema.
+  
+  """
+  labelPrefix: String
+  """The exact path that should be provided to mutation inputs."""
+  path: String!
+  """The schema property type"""
+  type: SchemaPropertyType!
+}
+
+"""
 The boolean result of evaluating the left and right predicates. Both must be true.
 
 While this is implemented, it is not likely that the first version of the search
@@ -620,7 +668,7 @@ union AnyOrderingEntry = Collection | Community | EntityLink | Item
 All types in this union implement OrderingPath.
 
 """
-union AnyOrderingPath = SchemaOrderingPath | StaticOrderingPath
+union AnyOrderingPath = AncestorSchemaOrderingPath | AncestorStaticOrderingPath | SchemaOrderingPath | StaticOrderingPath
 
 """
 `AnyScalarProperty` represents a collection of known *scalar* properties. In effect,
@@ -5547,7 +5595,7 @@ type DescendantListTemplateDefinition implements Node & Sluggable & TemplateDefi
   
   """
   showNestedEntities: Boolean
-  showSeeAllButton: Boolean
+  showSeeAllButton: Boolean @deprecated(reason: "Use seeAllOrdering on the instance instead.")
   """
   Slot definitions for this template.
   
@@ -10563,7 +10611,7 @@ type LinkListTemplateDefinition implements Node & Sluggable & TemplateDefinition
   
   """
   showNestedEntities: Boolean
-  showSeeAllButton: Boolean
+  showSeeAllButton: Boolean @deprecated(reason: "Use seeAllOrdering on the instance instead.")
   """
   Slot definitions for this template.
   
@@ -10880,6 +10928,12 @@ type ListItemTemplateDefinition implements Node & Sluggable & TemplateDefinition
   """
   orderingIdentifier: SchemaComponent
   """
+  If provided, this will expose an ordering on the template instance that can
+  be used to generate a link to the ordering in the frontend.
+  
+  """
+  seeAllOrderingIdentifier: SchemaComponent
+  """
   The fallback mode to use when rendering a list of entities, when the list from
   `selectionMode` is empty and `useSelectionFallback` has been set to true.
   
@@ -10966,7 +11020,7 @@ type ListItemTemplateDefinitionSlots {
   subheader: TemplateSlotInlineDefinition
 }
 
-type ListItemTemplateInstance implements Node & Renderable & Sluggable & TemplateHasEntityList & TemplateInstance {
+type ListItemTemplateInstance implements Node & Renderable & Sluggable & TemplateHasEntityList & TemplateHasSeeAllOrdering & TemplateInstance {
   """
   Whether all slots in this template are empty.
   
@@ -11016,6 +11070,11 @@ type ListItemTemplateInstance implements Node & Renderable & Sluggable & Templat
   
   """
   prevSiblings: [TemplateInstanceSibling!]!
+  """
+  The ordering to render for a "see all" link.
+  
+  """
+  seeAllOrdering: Ordering
   """
   Rendered slots for this template.
   
@@ -12519,6 +12578,18 @@ interface OrderingPath {
 
 """A logical grouping for ordering paths."""
 enum OrderingPathGrouping {
+  """
+  Paths under this type come from _ancestors_ in a schema.
+  Not every entity is guaranteed to have one, and in orderings
+  with mixed entities, missing props will be treated as null.
+  
+  """
+  ANCESTOR_PROPS
+  """
+  Static properties that are directly on an ancestor.
+  
+  """
+  ANCESTOR_STATIC
   """
   Static properties that are directly on an entity.
   
