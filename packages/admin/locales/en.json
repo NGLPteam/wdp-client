@@ -68,7 +68,14 @@
       "page": "Page",
       "page_other": "Pages",
       "announcement": "Announcement",
-      "announcement_other": "Announcements"
+      "announcement_other": "Announcements",
+      "harvesting": "Harvesting",
+      "harvest_source": "harvest source",
+      "harvest_source_other": "harvest sources",
+      "harvest_set": "harvest set",
+      "harvest_set_other": "harvest sets",
+      "harvest_mapping": "harvest mapping",
+      "harvest_mappings_other": "harvest mappings"
     },
     "lists": {
       "admin_column": "Admin?",
@@ -108,7 +115,8 @@
         "oldest": "Oldest"
       },
       "initial_ordering_column": "Initial",
-      "count_column": "Count"
+      "count_column": "Count",
+      "description_column": "Description"
     },
     "nav": {
       "manage_header": "Manage",
@@ -138,7 +146,9 @@
       "help": "Help",
       "contact": "Contact",
       "edit_profile": "Edit Profile",
-      "global_settings": "Global Settings"
+      "global_settings": "Global Settings",
+      "harvest_sets": "Harvest Sets",
+      "harvest_mappings": "Mappings"
     },
     "messages": {
       "unauthorized": "Unauthorized",
@@ -249,7 +259,9 @@
         "announcement_header": "Add New Announcement",
         "contributor": "Add Contributor",
         "file": "Add File",
-        "file_header": "Add New File"
+        "file_header": "Add New File",
+        "harvest_source": "Harvest Source",
+        "harvest_source_header": "Add Harvest Source"
       },
       "create": {
         "contributor_person": "Create Person",
@@ -288,7 +300,8 @@
         "ordering": "Edit Ordering",
         "ordering_header": "Edit {{ name }} Ordering",
         "file": "Edit File",
-        "file_header": "Edit File \"{{ name }}\""
+        "file_header": "Edit File \"{{ name }}\"",
+        "harvest_source": "Edit Harvest Source"
       },
       "hide": {
         "inherited_roles": "Hide Inherited Roles"
