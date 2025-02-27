@@ -33,6 +33,13 @@ const CONTRIBUTORS_LINK = {
   model: "contributors",
 };
 
+const HARVESTING_LINK = {
+  label: "glossary.harvesting",
+  route: "harvesting",
+  actions: "settings.update",
+  model: "harvestSource",
+};
+
 /**
  * App data
  */
@@ -50,7 +57,7 @@ const appData = {
       {
         label: "nav.manage_header",
         actions: ["users.update", "contributors.update"],
-        children: [USERS_LINK, CONTRIBUTORS_LINK],
+        children: [USERS_LINK, CONTRIBUTORS_LINK, HARVESTING_LINK],
       },
     ],
     account: {
