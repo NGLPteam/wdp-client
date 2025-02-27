@@ -294,4 +294,34 @@ export const baseRoutes: BaseRoute[] = [
       },
     ],
   },
+  {
+    name: "harvesting",
+    path: "/harvesting",
+    label: "glossary.harvesting",
+    routes: [
+      {
+        name: "harvestSource",
+        path: "/harvesting/[slug]",
+        redirect: "/harvesting/[slug]/details",
+        label: "glossary.harvest_source_other",
+        routes: [
+          {
+            name: "harvestSource.details",
+            path: "/harvesting/[slug]/details",
+            label: "nav.details",
+          },
+          {
+            name: "harvestSource.harvestSets",
+            path: "/harvesting/[slug]/sets",
+            label: "nav.harvest_sets",
+          },
+          {
+            name: "harvestSource.mappings",
+            path: "/harvesting/[slug]/mappings",
+            label: "nav.harvest_mappings",
+          },
+        ],
+      },
+    ],
+  },
 ];

@@ -1,0 +1,120 @@
+import { graphql, useFragment } from "react-relay";
+import { useTranslation } from "react-i18next";
+import { useDrawerHelper, useDestroyer } from "hooks";
+import ModelListPage from "components/composed/model/ModelListPage";
+import ModelColumns from "components/composed/model/ModelColumns";
+import PageHeader from "components/layout/PageHeader";
+import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
+import type {
+  HarvestSourcesListFragment$data,
+  HarvestSourcesListFragment$key,
+} from "@/relay/HarvestSourcesListFragment.graphql";
+import type { ModelTableActionProps } from "@tanstack/react-table";
+
+type HeaderProps = React.ComponentProps<typeof PageHeader>;
+
+type Props = Pick<HeaderProps, "headerStyle" | "hideHeader"> & {
+  data?: HarvestSourcesListFragment$key;
+};
+
+type HarvestSourceNode =
+  HarvestSourcesListFragment$data["harvestSources"]["nodes"][number];
+
+function HarvestSourcesList({ data, headerStyle, hideHeader }: Props) {
+  const { harvestSources } =
+    useFragment<HarvestSourcesListFragment$key>(fragment, data) ?? {};
+
+  const { t } = useTranslation();
+  const drawerHelper = useDrawerHelper();
+  const destroy = useDestroyer();
+
+  const columns = [
+    ModelColumns.NameColumn<HarvestSourceNode>({
+      accessor: "name",
+      header: () => "Name",
+      enableSorting: true,
+      route: "harvestSource",
+    }),
+    ModelColumns.StringColumn<HarvestSourceNode>({
+      id: "harvestSets.pageInfo.totalCount",
+      header: () => "Harvest Sets",
+    }),
+    ModelColumns.StringColumn<HarvestSourceNode>({
+      id: "harvestRecords.pageInfo.totalCount",
+      header: () => "Harvest Records",
+    }),
+    ModelColumns.StringColumn<HarvestSourceNode>({
+      id: "metadataFormat",
+      header: () => "Format",
+    }),
+    ModelColumns.StringColumn<HarvestSourceNode>({
+      id: "baseURL",
+      header: () => "URL",
+      meta: { cellType: "url" },
+    }),
+  ];
+
+  const actions = {
+    handleEdit: ({ row }: ModelTableActionProps<HarvestSourceNode>) => {
+      drawerHelper.open("editHarvestSource", { drawerSlug: row.original.slug });
+    },
+    handleDelete: ({ row }: ModelTableActionProps<HarvestSourceNode>) => {
+      destroy.harvestSource(
+        { harvestSourceId: row.original.id || "" },
+        row.original.name,
+      );
+    },
+  };
+
+  const buttons = (
+    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      <ButtonControlDrawer drawer="addHarvestSource" icon="plus">
+        {t("actions.add.harvest_source")}
+      </ButtonControlDrawer>
+    </ButtonControlGroup>
+  );
+
+  return (
+    <ModelListPage<
+      HarvestSourcesListFragment$data["harvestSources"],
+      HarvestSourceNode
+    >
+      modelName="harvest_source"
+      columns={columns}
+      buttons={buttons}
+      data={harvestSources}
+      headerStyle={headerStyle}
+      hideHeader={hideHeader}
+      actions={actions}
+    />
+  );
+}
+
+const fragment = graphql`
+  fragment HarvestSourcesListFragment on Query {
+    harvestSources(order: $order, page: $page, perPage: 20) {
+      nodes {
+        id
+        name
+        identifier
+        slug
+        metadataFormat
+        baseURL
+        harvestSets {
+          pageInfo {
+            totalCount
+          }
+        }
+        harvestRecords {
+          pageInfo {
+            totalCount
+          }
+        }
+        description
+      }
+      ...ModelListPageFragment
+    }
+  }
+`;
+
+export default HarvestSourcesList;
