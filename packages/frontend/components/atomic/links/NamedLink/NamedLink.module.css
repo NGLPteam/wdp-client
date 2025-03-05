@@ -11,8 +11,4 @@
       @mixin a-link-hover-focus;
     }
   }
-
-  &[aria-current] {
-    pointer-events: none;
-  }
 }

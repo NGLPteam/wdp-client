@@ -1,5 +1,11 @@
 .list {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto auto minmax(0, 1fr);
+  max-width: 85%;
+
+  @mixin respond theme("screens.100") {
+    max-width: 80%;
+  }
 
   @mixin respond theme("screens.60") {
     display: none;
@@ -29,11 +35,8 @@
   @mixin t-truncate;
 
   display: inline-block;
-  max-width: 270px;
-
-  @mixin respond theme("screens.100") {
-    max-width: 20vw;
-  }
+  max-width: 100%;
+  min-width: 0;
 
   @mixin respond theme("screens.60") {
     max-width: 60vw;
