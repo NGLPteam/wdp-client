@@ -57,7 +57,7 @@ interface Link extends NamedLinkProps {
 
 interface Props extends Pick<ContentHeaderProps, "headerStyle"> {
   /** Page title */
-  title?: React.ReactNode;
+  title?: string | null;
   /** Breadcrumb props to be passed down to Breadcrumbs component */
   breadcrumbsProps?: BreadcrumbProps;
   /** Child tabs (TabNav) */

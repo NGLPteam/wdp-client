@@ -1,5 +1,5 @@
 import { graphql } from "react-relay";
-import { Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { useMaybeFragment, useDrawerHelper, useSearchQueryVars } from "hooks";
 import { ALL_VIEW_OPTIONS } from "utils/view-options";
 import ModelListPage from "components/composed/model/ModelListPage";
@@ -19,6 +19,7 @@ function SearchResultList({
   headerStyle,
   hideHeader,
 }: SearchResultListProps) {
+  const { t } = useTranslation();
   const searchQuery = useSearchQueryVars();
 
   const searchScope = useMaybeFragment<SearchResultListFragment$key>(
@@ -90,14 +91,9 @@ function SearchResultList({
   return (
     <ModelListPage<SearchResultListFragment$data["results"], Node>
       modelName="item"
-      header={
-        <Trans
-          i18nKey={resultsI18nKey}
-          values={{
-            name: searchQuery.query,
-          }}
-        />
-      }
+      header={t(resultsI18nKey, {
+        name: searchQuery.query,
+      })}
       actions={actions}
       columns={columns}
       data={searchScope?.results}

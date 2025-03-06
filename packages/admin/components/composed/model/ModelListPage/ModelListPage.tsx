@@ -30,7 +30,7 @@ type ModelListPageProps<
   Pick<ModelListActionsProps, "viewOptions"> &
   Pick<HeaderProps, "headerStyle" | "hideHeader"> & {
     buttons?: React.ReactNode;
-    header?: React.ReactNode;
+    header?: string | null;
     showSearch?: boolean;
     hideFilters?: boolean;
     searchData?: ModelListPageSearchFragment$key | null;
