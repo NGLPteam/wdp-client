@@ -1,5 +1,4 @@
-import startCase from "lodash/startCase";
-import { LoadingSkeleton } from "components/atomic";
+import { LoadingSkeleton, Markdown } from "components/atomic";
 import * as Styled from "./ContentHeader.styles";
 
 /**
@@ -14,7 +13,7 @@ const ContentHeader = ({
     <Styled.Wrapper>
       {title ? (
         <Styled.Title as={headerStyle === "primary" ? "h1" : "h2"}>
-          {typeof title === "string" ? startCase(title) : title}
+          <Markdown.Title>{title}</Markdown.Title>
         </Styled.Title>
       ) : (
         <div style={{ height: "36px", width: "400px" }}>
@@ -27,8 +26,8 @@ const ContentHeader = ({
 };
 
 interface Props {
-  /** Content title, can be a string or node */
-  title: string | React.ReactNode;
+  /** Content title */
+  title?: string | null;
   /** Header style, default "primary" (h1) */
   headerStyle?: "primary" | "secondary";
   /** Optional right side content node. Can be a single button, multiple buttons, dropdown, etc. */

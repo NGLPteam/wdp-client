@@ -15,7 +15,7 @@ import {
   BackToAll,
 } from "components/layout";
 import type { ContributorLayoutFragment$key } from "@/relay/ContributorLayoutFragment.graphql";
-import ContributorDisplayName from "../ContributorDisplayName";
+import { getContributorDisplayName } from "../ContributorDisplayName";
 
 export default function ContributorLayout({
   children,
@@ -37,7 +37,7 @@ export default function ContributorLayout({
     <section>
       <BackToAll route="contributors" />
       <PageHeader
-        title={<ContributorDisplayName contributor={memoizedContributor} />}
+        title={getContributorDisplayName(memoizedContributor)}
         sidebarLinks={manageRoutes}
       />
       <ContentSidebar sidebarLinks={manageRoutes}>
