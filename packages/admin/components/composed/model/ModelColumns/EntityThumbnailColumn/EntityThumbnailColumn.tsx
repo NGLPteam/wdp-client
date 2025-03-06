@@ -19,7 +19,9 @@ const EntityThumbnailColumn = <T extends Node>(
   const { accessorKey } = getAccessorProps<T>(props);
 
   return {
-    header: () => <span className="a-hidden">{t("lists.thumbnail")}</span>,
+    header: () => (
+      <span className="a-hidden">{t("lists.thumbnail_column")}</span>
+    ),
     id: "thumbnail",
     // By default, the thumbnail fragment should be on the row root
     ...(accessorKey
