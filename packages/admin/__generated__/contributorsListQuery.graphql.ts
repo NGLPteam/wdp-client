@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a14296dde25eda840e683e55c3043f9b>>
+ * @generated SignedSource<<6b284c06468ec62c4d4311a65ae4046b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -95,6 +95,20 @@ v4 = {
           "plural": false,
           "selections": [
             {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "width",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "height",
+              "storageKey": null
+            },
+            {
               "kind": "InlineFragment",
               "selections": [
                 {
@@ -109,20 +123,6 @@ v4 = {
                   "args": null,
                   "kind": "ScalarField",
                   "name": "url",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "width",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "height",
                   "storageKey": null
                 }
               ],
@@ -382,12 +382,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "54933aefd0b08b919fcdb8331f3cce4b",
+    "cacheID": "f884a06b05478967a8e01e9ea6aafb2b",
     "id": null,
     "metadata": {},
     "name": "contributorsListQuery",
     "operationKind": "query",
-    "text": "query contributorsListQuery(\n  $order: ContributorOrder\n  $page: Int!\n  $query: String\n) {\n  ...ContributorListFragment\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment ContributorAffiliationColumnFragment on Contributor {\n  __isContributor: __typename\n  ... on PersonContributor {\n    affiliation\n  }\n}\n\nfragment ContributorContributionsColumnFragment on Contributor {\n  __isContributor: __typename\n  contributionCount\n}\n\nfragment ContributorListFragment on Query {\n  contributors(order: $order, page: $page, perPage: 20, prefix: $query) {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        id\n        slug\n        legalName\n        createdAt\n        ...ContributorNameColumnFragment\n      }\n      ... on PersonContributor {\n        id\n        slug\n        givenName\n        familyName\n        createdAt\n      }\n      ...ContributorNameColumnFragment\n      ...ContributorAffiliationColumnFragment\n      ...ContributorContributionsColumnFragment\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...ModelListPageFragment\n  }\n}\n\nfragment ContributorNameColumnFragment on Contributor {\n  __isContributor: __typename\n  __typename\n  image {\n    ...AvatarFragment\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on OrganizationContributor {\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query contributorsListQuery(\n  $order: ContributorOrder\n  $page: Int!\n  $query: String\n) {\n  ...ContributorListFragment\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n      width\n      height\n    }\n  }\n}\n\nfragment ContributorAffiliationColumnFragment on Contributor {\n  __isContributor: __typename\n  ... on PersonContributor {\n    affiliation\n  }\n}\n\nfragment ContributorContributionsColumnFragment on Contributor {\n  __isContributor: __typename\n  contributionCount\n}\n\nfragment ContributorListFragment on Query {\n  contributors(order: $order, page: $page, perPage: 20, prefix: $query) {\n    nodes {\n      __typename\n      ... on OrganizationContributor {\n        id\n        slug\n        legalName\n        createdAt\n        ...ContributorNameColumnFragment\n      }\n      ... on PersonContributor {\n        id\n        slug\n        givenName\n        familyName\n        createdAt\n      }\n      ...ContributorNameColumnFragment\n      ...ContributorAffiliationColumnFragment\n      ...ContributorContributionsColumnFragment\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...ModelListPageFragment\n  }\n}\n\nfragment ContributorNameColumnFragment on Contributor {\n  __isContributor: __typename\n  __typename\n  image {\n    ...AvatarFragment\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on OrganizationContributor {\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();

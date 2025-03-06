@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9c0df327ffd6b738f64ddc798124c747>>
+ * @generated SignedSource<<1182c0bff57fb25979513a7afb7fe68a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -188,6 +188,20 @@ return {
                             "plural": false,
                             "selections": [
                               {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "width",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "height",
+                                "storageKey": null
+                              },
+                              {
                                 "kind": "InlineFragment",
                                 "selections": [
                                   {
@@ -202,20 +216,6 @@ return {
                                     "args": null,
                                     "kind": "ScalarField",
                                     "name": "url",
-                                    "storageKey": null
-                                  },
-                                  {
-                                    "alias": null,
-                                    "args": null,
-                                    "kind": "ScalarField",
-                                    "name": "width",
-                                    "storageKey": null
-                                  },
-                                  {
-                                    "alias": null,
-                                    "args": null,
-                                    "kind": "ScalarField",
-                                    "name": "height",
                                     "storageKey": null
                                   }
                                 ],
@@ -243,12 +243,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "1e9c2f54b4faafd6e6d3e9d716ca322d",
+    "cacheID": "97c332e6a47edc5f628f1fe64f906898",
     "id": null,
     "metadata": {},
     "name": "UserTypeaheadQuery",
     "operationKind": "query",
-    "text": "query UserTypeaheadQuery(\n  $query: String!\n) {\n  users(prefix: $query, page: 1, perPage: 50, order: NAME_ASCENDING) {\n    edges {\n      node {\n        id\n        name\n        ...UserAvatarFragment\n      }\n    }\n  }\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    ...AvatarFragment\n  }\n}\n"
+    "text": "query UserTypeaheadQuery(\n  $query: String!\n) {\n  users(prefix: $query, page: 1, perPage: 50, order: NAME_ASCENDING) {\n    edges {\n      node {\n        id\n        name\n        ...UserAvatarFragment\n      }\n    }\n  }\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n      width\n      height\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    ...AvatarFragment\n  }\n}\n"
   }
 };
 })();

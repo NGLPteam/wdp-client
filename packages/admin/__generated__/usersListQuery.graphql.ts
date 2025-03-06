@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6e88a1d8fda49eb12300966adab6b730>>
+ * @generated SignedSource<<e8a531356f82ec9852644a696cad3686>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -164,6 +164,20 @@ return {
                         "plural": false,
                         "selections": [
                           {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "width",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "height",
+                            "storageKey": null
+                          },
+                          {
                             "kind": "InlineFragment",
                             "selections": [
                               {
@@ -178,20 +192,6 @@ return {
                                 "args": null,
                                 "kind": "ScalarField",
                                 "name": "url",
-                                "storageKey": null
-                              },
-                              {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "width",
-                                "storageKey": null
-                              },
-                              {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "height",
                                 "storageKey": null
                               }
                             ],
@@ -283,12 +283,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "00c10ae551ba8befa03e556455b05b25",
+    "cacheID": "1863ad832212aaf386b6d8d1db8b19f7",
     "id": null,
     "metadata": {},
     "name": "usersListQuery",
     "operationKind": "query",
-    "text": "query usersListQuery(\n  $order: UserOrder\n  $page: Int!\n) {\n  ...UserListFragment\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    ...AvatarFragment\n  }\n}\n\nfragment UserListFragment on Query {\n  users(order: $order, page: $page, perPage: 20) {\n    nodes {\n      email\n      globalAdmin\n      name\n      slug\n      createdAt\n      updatedAt\n      ...UserNameColumnFragment\n      id\n    }\n    ...ModelListPageFragment\n  }\n}\n\nfragment UserNameColumnCellFragment on User {\n  name\n  slug\n  ...UserAvatarFragment\n}\n\nfragment UserNameColumnFragment on User {\n  ...UserNameColumnCellFragment\n}\n"
+    "text": "query usersListQuery(\n  $order: UserOrder\n  $page: Int!\n) {\n  ...UserListFragment\n}\n\nfragment AvatarFragment on ImageAttachment {\n  storage\n  small {\n    webp {\n      ...ImageFragment\n      width\n      height\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserAvatarFragment on User {\n  avatar {\n    ...AvatarFragment\n  }\n}\n\nfragment UserListFragment on Query {\n  users(order: $order, page: $page, perPage: 20) {\n    nodes {\n      email\n      globalAdmin\n      name\n      slug\n      createdAt\n      updatedAt\n      ...UserNameColumnFragment\n      id\n    }\n    ...ModelListPageFragment\n  }\n}\n\nfragment UserNameColumnCellFragment on User {\n  name\n  slug\n  ...UserAvatarFragment\n}\n\nfragment UserNameColumnFragment on User {\n  ...UserNameColumnCellFragment\n}\n"
   }
 };
 })();
