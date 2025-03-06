@@ -8,9 +8,13 @@ import * as Styled from "./Avatar.styles";
 const Avatar = ({ data, size = 32, placeholder }: Props) => {
   const avatar = useMaybeFragment(fragment, data);
 
+  const imageData = avatar?.small?.webp;
+
+  const { width, height } = imageData ?? {};
+
   return avatar?.storage ? (
     <Styled.Wrapper $size={size}>
-      <Image data={avatar?.small?.webp} width={size} height={size} />
+      <Image data={imageData} width={width ?? size} height={height ?? size} />
     </Styled.Wrapper>
   ) : placeholder ? (
     <Styled.IconWrapper $size={size}>
@@ -33,6 +37,8 @@ const fragment = graphql`
     small {
       webp {
         ...ImageFragment
+        width
+        height
       }
     }
   }
