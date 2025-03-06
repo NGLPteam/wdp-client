@@ -422,6 +422,8 @@
       },
       "validation": {
         "year": "Must be a four digit year",
+        "month": "Must be between 1 and 12",
+        "day": "Invalid day",
         "required": "This field is required",
         "collection": "Please select a collection. If the collection is not listed, you may need to create the collection first.",
         "contributor": "Please select a contributor. If the contributor is not listed, you may need to create the contributor first.",

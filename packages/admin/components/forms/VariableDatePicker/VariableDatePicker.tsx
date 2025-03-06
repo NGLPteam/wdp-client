@@ -75,13 +75,39 @@ const VariableDatePicker = forwardRef(
       return getDaysInMonth(parseInt(month, 10), parseInt(year, 10));
     }
 
-    function onYearInvalid({ target }: { target: HTMLFormElement }) {
+    const validateInput = (
+      key: "year" | "month" | "day",
+      min?: number,
+      max?: number,
+    ) => {
+      const values = getValues();
+      const value = values?.[key];
+      if (!value) return;
+
+      const REF_MAP = {
+        year: yearRef,
+        month: monthRef,
+        day: dayRef,
+      };
+
+      if ((max && value > max) || (min && value < min))
+        return onInputInvalid({ target: REF_MAP[key].current, key });
+    };
+
+    function onInputInvalid({
+      target,
+      key,
+    }: {
+      target: HTMLInputElement | null;
+      key: "year" | "month" | "day";
+    }) {
       if (!target) return;
 
-      target.setCustomValidity(t("forms.validation.year"));
+      target.setCustomValidity(t(`forms.validation.${key}`));
+      target.reportValidity();
     }
 
-    function resetYearInvalid({ target }: { target: HTMLFormElement }) {
+    function resetInputInvalid({ target }: { target: HTMLInputElement }) {
       if (!target) return;
 
       target.setCustomValidity("");
@@ -100,8 +126,8 @@ const VariableDatePicker = forwardRef(
             required={required}
             min="1000"
             max="9999"
-            onInvalid={onYearInvalid}
-            onInput={resetYearInvalid}
+            onInput={resetInputInvalid}
+            onBlur={() => validateInput("year", 1000, 9999)}
           />
           <Input
             name="month"
@@ -115,6 +141,8 @@ const VariableDatePicker = forwardRef(
             defaultValue={
               defaultPrecision !== "YEAR" ? getMonth(defaultDate) : undefined
             }
+            onInput={resetInputInvalid}
+            onBlur={() => validateInput("month", 1, 12)}
           />
           <Input
             name="day"
@@ -123,13 +151,15 @@ const VariableDatePicker = forwardRef(
             onChange={handleOnChange}
             ref={dayRef}
             min="1"
-            max={`${maxDays()}`}
+            max={maxDays()}
             disabled={!monthRef?.current?.value}
             defaultValue={
               defaultPrecision !== "YEAR" && defaultPrecision !== "MONTH"
                 ? getDay(defaultDate)
                 : undefined
             }
+            onInput={resetInputInvalid}
+            onBlur={() => validateInput("day", 1, maxDays())}
           />
         </Styled.Wrapper>
       </Fieldset>
