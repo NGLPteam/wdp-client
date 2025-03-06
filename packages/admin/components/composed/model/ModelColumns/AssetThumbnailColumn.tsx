@@ -18,7 +18,9 @@ const AssetThumbnailColumn = <T extends Row>(
   const { accessorKey } = getAccessorProps<T>(props);
 
   return {
-    header: () => <span className="a-hidden">{t("lists.thumbnail")}</span>,
+    header: () => (
+      <span className="a-hidden">{t("lists.thumbnail_column")}</span>
+    ),
     id: "thumbnail",
     ...(accessorKey
       ? { accessorKey }
