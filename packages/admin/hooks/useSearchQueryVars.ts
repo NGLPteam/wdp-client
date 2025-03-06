@@ -11,7 +11,7 @@ const DEFAULTS = {
   query: "",
   predicates: [],
   page: 1,
-  order: "PUBLISHED_ASCENDING" as EntityOrder,
+  order: "PUBLISHED_DESCENDING" as EntityOrder,
   hasQuery: false,
 };
 
