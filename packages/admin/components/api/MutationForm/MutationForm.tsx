@@ -225,10 +225,13 @@ export default function MutationForm<
         variables,
         onCompleted: (response) =>
           handleResponse(response, variables, values, event),
-        onError: (err) => dispatch({ type: "error", serverError: err }),
+        onError: (err) => {
+          notify.error(err.message);
+          dispatch({ type: "error", serverError: err });
+        },
       });
     },
-    [castVariables, dispatch, handleResponse, mutate],
+    [castVariables, dispatch, handleResponse, mutate, notify],
   );
 
   const handleSubmitWithoutPropagation = (
