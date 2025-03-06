@@ -74,7 +74,6 @@ export function aBgLight(bgColor = "neutral00") {
 export function aBaseInput() {
   return css`
     appearance: none;
-    cursor: pointer;
     min-height: var(--input-min-height);
     background-color: var(--input-background-color);
     border: 1px solid var(--input-border-color);
