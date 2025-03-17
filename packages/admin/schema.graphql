@@ -1591,7 +1591,7 @@ in a tree structure.
 In practice, this means a `Collection` or an `Item`, not a `Community`.
 
 """
-interface ChildEntity implements Accessible & Entity & EntityBase & ExposesPermissions & HasDOI & HasDefaultTimestamps & HasEntityBreadcrumbs & HasSchemaProperties & ReferencesEntityVisibility & ReferencesGlobalEntityDates & Searchable & Sluggable {
+interface ChildEntity implements Accessible & Entity & EntityBase & ExposesPermissions & HasDOI & HasDefaultTimestamps & HasEntityBreadcrumbs & HasHarvestModificationStatus & HasSchemaProperties & ReferencesEntityVisibility & ReferencesGlobalEntityDates & Searchable & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   """A polymorphic connection for access grants from an entity"""
@@ -1739,6 +1739,12 @@ interface ChildEntity implements Accessible & Entity & EntityBase & ExposesPermi
   
   """
   doiData: DOIData!
+  """
+  The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+  no effect on this record.
+  
+  """
+  harvestModificationStatus: HarvestModificationStatus!
   """
   For use in the admin, something to signify that data has been set on `rawDOI`
   that could not be properly assigned to `doi`.
@@ -1988,7 +1994,7 @@ enum ChildEntityKind {
 }
 
 """A collection of items"""
-type Collection implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
+type Collection implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasHarvestModificationStatus & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -2349,6 +2355,12 @@ type Collection implements Accessible & Attachable & Attributable & ChildEntity 
     """Filter by a namespace.name schema identifier"""
     schema: [String!]
   ): Item
+  """
+  The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+  no effect on this record.
+  
+  """
+  harvestModificationStatus: HarvestModificationStatus!
   """
   Whether this is a collection or a community.
   
@@ -3570,7 +3582,7 @@ input ContributionRoleConfigurationInput {
 """
 Objects have a serialized slug for looking them up in the system and generating links without UUIDs
 """
-interface Contributor implements ContributorBase & Sluggable {
+interface Contributor implements ContributorBase & HasHarvestModificationStatus & Sluggable {
   """
   Only applicable when `kind` = `PERSON`.
   
@@ -3636,6 +3648,12 @@ interface Contributor implements ContributorBase & Sluggable {
   
   """
   givenName: String
+  """
+  The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+  no effect on this record.
+  
+  """
+  harvestModificationStatus: HarvestModificationStatus!
   identifier: String!
   """An optional image associated with the contributor."""
   image: ImageAttachment!
@@ -3777,7 +3795,7 @@ enum ContributorAttributionOrder {
 """
 Objects have a serialized slug for looking them up in the system and generating links without UUIDs
 """
-interface ContributorBase implements Sluggable {
+interface ContributorBase implements HasHarvestModificationStatus & Sluggable {
   """
   Only applicable when `kind` = `PERSON`.
   
@@ -3805,6 +3823,12 @@ interface ContributorBase implements Sluggable {
   
   """
   givenName: String
+  """
+  The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+  no effect on this record.
+  
+  """
+  harvestModificationStatus: HarvestModificationStatus!
   identifier: String!
   """An optional image associated with the contributor."""
   image: ImageAttachment!
@@ -7478,7 +7502,7 @@ type GroupProperty implements SchemaProperty {
 A record of a single attempt at harvesting.
 
 """
-type HarvestAttempt implements HasHarvestErrors & HasHarvestMetadataFormat & Node & Sluggable {
+type HarvestAttempt implements HasHarvestErrors & HasHarvestMetadataFormat & Node & QueriesHarvestMessage & Sluggable {
   """
   The time the attempt began.
   
@@ -7500,6 +7524,37 @@ type HarvestAttempt implements HasHarvestErrors & HasHarvestMetadataFormat & Nod
   
   """
   harvestMapping: HarvestMapping
+  harvestMessages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """
+    Filters that **must** match.
+    
+    """
+    filters: HarvestMessageFilterInput = null
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """
+    An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,
+    though a UI could be built.
+    
+    **Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.
+    
+    """
+    orFilters: [HarvestMessageFilterInput!] = []
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestMessageConnection!
   """
   Records associated with this attempt specifically.
   
@@ -7707,13 +7762,44 @@ can then be associated to an actual entity by the
 harvesting process.
 
 """
-type HarvestEntity implements Node & Sluggable {
+type HarvestEntity implements Node & QueriesHarvestMessage & Sluggable {
   createdAt: ISO8601DateTime!
   """
   The real entity this is associated with (if available).
   
   """
   entity: Entity
+  harvestMessages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """
+    Filters that **must** match.
+    
+    """
+    filters: HarvestMessageFilterInput = null
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """
+    An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,
+    though a UI could be built.
+    
+    **Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.
+    
+    """
+    orFilters: [HarvestMessageFilterInput!] = []
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestMessageConnection!
   id: ID!
   """
   A unique identifier for the staged entity within the context of its `HarvestRecord`.
@@ -7725,14 +7811,6 @@ type HarvestEntity implements Node & Sluggable {
   
   """
   leaf: Boolean!
-  """
-  An internal identifier used to track what "kind" of entity this might produce,
-  based on the extracted metadata.
-  
-  May roughly correspond to schemas, but not always.
-  
-  """
-  metadataKind: String
   """
   The parent staged entity (if applicable).
   
@@ -7784,6 +7862,69 @@ type HarvestError implements Node & Sluggable {
 }
 
 """
+An example of various harvesting configurations, particularly extraction mapping templates.
+
+"""
+type HarvestExample {
+  """
+  Whether this should be considered a "default" example
+  for a given metadata / protocol combination.
+  
+  """
+  default: Boolean!
+  """
+  A description about the example, if available.
+  
+  """
+  description: String
+  """
+  The example's extraction mapping template which can be applied to harvest sources, mappings, and attempts.
+  
+  """
+  extractionMappingTemplate: String!
+  """
+  Whether this is a generic example that is not tied
+  to any specific protocol nor metadata format.
+  
+  """
+  generic: Boolean!
+  """
+  The ID for the example.
+  
+  """
+  id: ID!
+  """
+  The metadata format this example applies to.
+  
+  It can be blank if the example is not metadata-specific.
+  
+  """
+  metadataFormatName: HarvestMetadataFormat
+  """
+  The human-readable name for the example.
+  
+  """
+  name: String!
+  """
+  The protocol this example applies to.
+  
+  It can be blank if the example is not protocol-specific.
+  
+  """
+  protocolName: HarvestProtocol
+  """
+  A list of schema declarations that the mapping template can generate.
+  
+  """
+  schemaDeclarations: [String!]!
+  """
+  A list of schema versions that the mapping template can generate.
+  
+  """
+  schemaVersions: [SchemaVersion!]!
+}
+
+"""
 A specific mapping to be used by a `HarvestSource`,
 possibly an optional `HarvestSet`, and other options
 in order to harvest records from the source and produce
@@ -7792,7 +7933,7 @@ entities.
 It can produce a `HarvestAttempt`.
 
 """
-type HarvestMapping implements HarvestAttemptable & HasHarvestMetadataFormat & HasHarvestOptions & Node & Sluggable {
+type HarvestMapping implements HarvestAttemptable & HasHarvestMetadataFormat & HasHarvestOptions & Node & QueriesHarvestMessage & Sluggable {
   createdAt: ISO8601DateTime!
   """
   Attempts produced by this mapping.
@@ -7817,6 +7958,37 @@ type HarvestMapping implements HarvestAttemptable & HasHarvestMetadataFormat & H
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): HarvestAttemptConnection!
+  harvestMessages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """
+    Filters that **must** match.
+    
+    """
+    filters: HarvestMessageFilterInput = null
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """
+    An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,
+    though a UI could be built.
+    
+    **Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.
+    
+    """
+    orFilters: [HarvestMessageFilterInput!] = []
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestMessageConnection!
   """
   Records associated with this mapping.
   
@@ -8005,6 +8177,137 @@ type HarvestMappingUpdatePayload implements StandardMutationPayload {
 }
 
 """
+A single log message recorded during some aspect of harvesting.
+
+"""
+type HarvestMessage implements Node & Sluggable {
+  """
+  The time the message occurred. This field should be favored at
+  for display over the model's default `createdAt` field.
+  
+  """
+  at: ISO8601DateTime!
+  createdAt: ISO8601DateTime!
+  """
+  The harvest attempt associatd with the message, if available.
+  
+  """
+  harvestAttempt: HarvestAttempt
+  """
+  The harvest entity associatd with the message, if available.
+  
+  """
+  harvestEntity: HarvestEntity
+  """
+  The harvest mapping associatd with the message, if available.
+  
+  """
+  harvestMapping: HarvestMapping
+  """
+  The harvest record associatd with the message, if available.
+  
+  """
+  harvestRecord: HarvestRecord
+  """
+  The harvest source associated with the message.
+  
+  """
+  harvestSource: HarvestSource
+  id: ID!
+  """
+  The level of severity of the message.
+  
+  """
+  level: HarvestMessageLevel!
+  """
+  The message itself.
+  
+  """
+  message: String!
+  slug: Slug!
+  """
+  Tags associated with the message. This may describe what section
+  of the harvesting system triggered the message, and may support
+  querying in the future.
+  
+  """
+  tags: [String!]!
+  updatedAt: ISO8601DateTime!
+}
+
+"""The connection type for HarvestMessage."""
+type HarvestMessageConnection implements Paginated {
+  """A list of edges."""
+  edges: [HarvestMessageEdge!]!
+  """A list of nodes."""
+  nodes: [HarvestMessage!]!
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""An edge in a connection."""
+type HarvestMessageEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+  """The item at the end of the edge."""
+  node: HarvestMessage!
+}
+
+"""
+Filters for HarvestMessage.
+
+"""
+input HarvestMessageFilterInput {
+  severity: HarvestMessageLevel
+}
+
+"""
+Levels of severity associated with `HarvestMessage`s.
+
+`FATAL` is the most severe, `TRACE` is the least.
+
+"""
+enum HarvestMessageLevel {
+  """
+  Debug information about the harvesting system.
+  
+  May be hidden by default when displaying.
+  
+  """
+  DEBUG
+  """
+  An error that may or may not have interrupted a harvesting operation,
+  but could, for instance, just indicate that a single record failed.
+  
+  """
+  ERROR
+  """
+  A fatal error which likely caused an entire harvesting operation to stop.
+  
+  """
+  FATAL
+  """
+  Informational messages that are higher priority than debug messages.
+  
+  """
+  INFO
+  """
+  Very low-level trace messages that may be used in the future
+  to narrow down specific / performance issues with harvesting,
+  but at present likely won't appear.
+  
+  Should be hidden by default when displaying.
+  
+  """
+  TRACE
+  """
+  Warnings about validation failures and similar things.
+  
+  """
+  WARN
+}
+
+"""
 Supported metadata formats for harvesting.
 
 `HarvestProtocol` describes the transport method for individual records to be harvested,
@@ -8032,6 +8335,38 @@ enum HarvestMetadataFormat {
   
   """
   OAIDC
+}
+
+"""
+An enum which describes how harvesting actions will affect
+a given record.
+
+"""
+enum HarvestModificationStatus {
+  """
+  This record was created through harvesting actions and **has**
+  been modified in the admin section. Harvest
+  
+  Harvesting actions will leave this record alone.
+  
+  """
+  MODIFIED
+  """
+  This record was created through harvesting actions and **has not**
+  been modified in the admin section.
+  
+  Harvesting actions will overwrite any data if they encounter this record again.
+  
+  """
+  PRISTINE
+  """
+  This record was not created through harvesting actions.
+  
+  Should harvesting actions end up matching an unharvested record,
+  it will change this value to `MODIFIED` and treat it as such.
+  
+  """
+  UNHARVESTED
 }
 
 """
@@ -8140,7 +8475,7 @@ An object representing a single record in the `HarvestSource`.
 It can produce one or more harvest entities.
 
 """
-type HarvestRecord implements HasHarvestErrors & HasHarvestMetadataFormat & Node & Sluggable {
+type HarvestRecord implements HasHarvestErrors & HasHarvestMetadataFormat & Node & QueriesHarvestMessage & Sluggable {
   createdAt: ISO8601DateTime!
   """
   The number of entities this record can/will produce (if available).
@@ -8157,6 +8492,37 @@ type HarvestRecord implements HasHarvestErrors & HasHarvestMetadataFormat & Node
   
   """
   harvestErrors: [HarvestError!]!
+  harvestMessages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """
+    Filters that **must** match.
+    
+    """
+    filters: HarvestMessageFilterInput = null
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """
+    An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,
+    though a UI could be built.
+    
+    **Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.
+    
+    """
+    orFilters: [HarvestMessageFilterInput!] = []
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestMessageConnection!
   id: ID!
   """
   A unique identifier for the record within the `HarvestSource`.
@@ -8171,7 +8537,7 @@ type HarvestRecord implements HasHarvestErrors & HasHarvestMetadataFormat & Node
   """
   metadataFormat: HarvestMetadataFormat!
   """
-  The raw medata extracted from `rawSource`, with minimal processing applied.
+  The raw metadata extracted from `rawSource`, with minimal processing applied.
   
   When rendering in the frontend, this should be in some sort of fixed-width font / code view,
   as it will be JSON, XML, or similar types of data.
@@ -8187,6 +8553,11 @@ type HarvestRecord implements HasHarvestErrors & HasHarvestMetadataFormat & Node
   """
   rawSource: String
   slug: Slug!
+  """
+  The status of the record.
+  
+  """
+  status: HarvestRecordStatus!
   updatedAt: ISO8601DateTime!
 }
 
@@ -8219,6 +8590,33 @@ enum HarvestRecordOrder {
   OLDEST
   """Sort harvest records by newest created date."""
   RECENT
+}
+
+"""
+A harvested record can exist in a number of statuses.
+
+"""
+enum HarvestRecordStatus {
+  """
+  An record that is considered active and ready to be extracted into entities.
+  
+  """
+  ACTIVE
+  """
+  A record that was deleted in the upstream harvest source.
+  
+  """
+  DELETED
+  """
+  A brand new record that hasn't been processed yet.
+  
+  """
+  PENDING
+  """
+  A record that was skipped over for some validation reason.
+  
+  """
+  SKIPPED
 }
 
 """
@@ -8300,7 +8698,7 @@ A source from which to harvest entities.
 It can produce a `HarvestAttempt`.
 
 """
-type HarvestSource implements HarvestAttemptable & HasHarvestMetadataFormat & HasHarvestOptions & Node & Sluggable {
+type HarvestSource implements HarvestAttemptable & HasHarvestMetadataFormat & HasHarvestOptions & Node & QueriesHarvestMessage & Sluggable {
   """
   The URL to fetch from. It should be just the base URL, without any OAI verbs or similar.
   
@@ -8341,6 +8739,37 @@ type HarvestSource implements HarvestAttemptable & HasHarvestMetadataFormat & Ha
   
   """
   harvestMappings: [HarvestMapping!]!
+  harvestMessages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """
+    Filters that **must** match.
+    
+    """
+    filters: HarvestMessageFilterInput = null
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """
+    An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,
+    though a UI could be built.
+    
+    **Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.
+    
+    """
+    orFilters: [HarvestMessageFilterInput!] = []
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestMessageConnection!
   """
   Records associated with this source.
   
@@ -8447,6 +8876,11 @@ type HarvestSource implements HarvestAttemptable & HasHarvestMetadataFormat & Ha
   """
   readOptions: HarvestOptionsRead!
   slug: Slug!
+  """
+  An enum that describes the functional state for harvest sources.
+  
+  """
+  status: HarvestSourceStatus!
   updatedAt: ISO8601DateTime!
 }
 
@@ -8582,6 +9016,28 @@ enum HarvestSourceOrder {
   OLDEST
   """Sort harvest sources by newest created date."""
   RECENT
+}
+
+"""
+An enum that describes the functional state for harvest sources.
+
+Harvest sources are checked on a regular basis and can also be
+manually rechecked with harvestSourceCheck
+
+"""
+enum HarvestSourceStatus {
+  """
+  An active harvest source has been recently validated as working
+  and thus can be used for harvesting.
+  
+  """
+  ACTIVE
+  """
+  An inactive harvest source has been recently validated as not working
+  and cannot be used for harvesting.
+  
+  """
+  INACTIVE
 }
 
 """Autogenerated input type of HarvestSourceUpdate"""
@@ -8847,6 +9303,21 @@ interface HasHarvestMetadataFormat {
   
   """
   metadataFormat: HarvestMetadataFormat!
+}
+
+"""
+An interface for records which can be created/updated through Harvesting
+that includes an enum which can prevent harvesting actions from overwriting
+any data that has been manually corrected.
+
+"""
+interface HasHarvestModificationStatus {
+  """
+  The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+  no effect on this record.
+  
+  """
+  harvestModificationStatus: HarvestModificationStatus!
 }
 
 interface HasHarvestOptions {
@@ -9594,7 +10065,7 @@ type IntegerProperty implements ScalarProperty & SchemaProperty & SearchableProp
 }
 
 """An item that belongs to a collection"""
-type Item implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
+type Item implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasHarvestModificationStatus & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -9924,6 +10395,12 @@ type Item implements Accessible & Attachable & Attributable & ChildEntity & Cont
     """Filter by a namespace.name schema identifier"""
     schema: [String!]
   ): Item
+  """
+  The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+  no effect on this record.
+  
+  """
+  harvestModificationStatus: HarvestModificationStatus!
   """Whether this item has any child items"""
   hasItems: Boolean!
   """
@@ -12902,7 +13379,7 @@ enum OrderingVisibilityFilter {
 An organization that has made contributions.
 
 """
-type OrganizationContributor implements Contributor & ContributorBase & Node & Sluggable {
+type OrganizationContributor implements Contributor & ContributorBase & HasHarvestModificationStatus & Node & Sluggable {
   """
   Only applicable when `kind` = `PERSON`.
   
@@ -12969,6 +13446,12 @@ type OrganizationContributor implements Contributor & ContributorBase & Node & S
   
   """
   givenName: String
+  """
+  The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+  no effect on this record.
+  
+  """
+  harvestModificationStatus: HarvestModificationStatus!
   id: ID!
   identifier: String!
   """An optional image associated with the contributor."""
@@ -13259,7 +13742,7 @@ interface PermissionGrid implements ExposesPermissions {
 A person that has made contributions.
 
 """
-type PersonContributor implements Contributor & ContributorBase & Node & Sluggable {
+type PersonContributor implements Contributor & ContributorBase & HasHarvestModificationStatus & Node & Sluggable {
   """
   Only applicable when `kind` = `PERSON`.
   
@@ -13326,6 +13809,12 @@ type PersonContributor implements Contributor & ContributorBase & Node & Sluggab
   
   """
   givenName: String
+  """
+  The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+  no effect on this record.
+  
+  """
+  harvestModificationStatus: HarvestModificationStatus!
   id: ID!
   identifier: String!
   """An optional image associated with the contributor."""
@@ -13737,6 +14226,73 @@ interface QueriesHarvestAttempt {
 }
 
 """
+An interface for querying `HarvestExample` records.
+
+"""
+interface QueriesHarvestExample {
+  """
+  Retrieve harvest examples for the system.
+  
+  """
+  harvestExamples(
+    """
+    Whether to look for "generic" harvesting examples which are not associated
+    with any protocol or metadata.
+    
+    """
+    generic: Boolean! = false
+    """
+    The metadata format to filter by.
+    
+    """
+    metadataFormat: HarvestMetadataFormat
+    """
+    The protocol to filter by.
+    
+    """
+    protocol: HarvestProtocol
+  ): [HarvestExample!]!
+}
+
+"""
+An interface for querying `HarvestMessage` records.
+
+"""
+interface QueriesHarvestMessage {
+  harvestMessages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """
+    Filters that **must** match.
+    
+    """
+    filters: HarvestMessageFilterInput = null
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """
+    An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,
+    though a UI could be built.
+    
+    **Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.
+    
+    """
+    orFilters: [HarvestMessageFilterInput!] = []
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestMessageConnection!
+}
+
+"""
 An interface for querying `HarvestSet` records.
 
 To query a collection of harvest sets, you must check from the Harvest Source.
@@ -13939,7 +14495,7 @@ interface QueriesUser {
 The entry point for retrieving data from within the Meru API.
 
 """
-type Query implements QueriesAccessAndRoles & QueriesContrib & QueriesControlledVocabulary & QueriesControlledVocabularySource & QueriesEntities & QueriesHarvestAttempt & QueriesHarvestSet & QueriesHarvestSource & QueriesSchemas & QueriesSystem & QueriesUser & Searchable {
+type Query implements QueriesAccessAndRoles & QueriesContrib & QueriesControlledVocabulary & QueriesControlledVocabularySource & QueriesEntities & QueriesHarvestAttempt & QueriesHarvestExample & QueriesHarvestMessage & QueriesHarvestSet & QueriesHarvestSource & QueriesSchemas & QueriesSystem & QueriesUser & Searchable {
   """
   Retrieve all access grants.
   
@@ -14178,6 +14734,59 @@ type Query implements QueriesAccessAndRoles & QueriesContrib & QueriesControlled
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): HarvestAttemptConnection!
+  """
+  Retrieve harvest examples for the system.
+  
+  """
+  harvestExamples(
+    """
+    Whether to look for "generic" harvesting examples which are not associated
+    with any protocol or metadata.
+    
+    """
+    generic: Boolean! = false
+    """
+    The metadata format to filter by.
+    
+    """
+    metadataFormat: HarvestMetadataFormat
+    """
+    The protocol to filter by.
+    
+    """
+    protocol: HarvestProtocol
+  ): [HarvestExample!]!
+  harvestMessages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """
+    Filters that **must** match.
+    
+    """
+    filters: HarvestMessageFilterInput = null
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """
+    An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,
+    though a UI could be built.
+    
+    **Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.
+    
+    """
+    orFilters: [HarvestMessageFilterInput!] = []
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestMessageConnection!
   """
   Retrieve a single `HarvestSet` by slug.
   

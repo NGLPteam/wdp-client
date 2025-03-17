@@ -1578,6 +1578,12 @@ export type ChildEntity = {
    */
   doiData: DoiData;
   /**
+   * The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+   * no effect on this record.
+   *
+   */
+  harvestModificationStatus: HarvestModificationStatus;
+  /**
    * For use in the admin, something to signify that data has been set on `rawDOI`
    * that could not be properly assigned to `doi`.
    *
@@ -1981,7 +1987,7 @@ export type ChildEntityKind =
   | '%future added value';
 
 /** A collection of items */
-export type Collection = Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasDoi & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable & {
+export type Collection = Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasDoi & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasHarvestModificationStatus & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable & {
   __typename?: 'Collection';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -2069,6 +2075,12 @@ export type Collection = Accessible & Attachable & Attributable & ChildEntity & 
   firstCollection?: Maybe<Collection>;
   /** Retrieve the first matching item beneath this item. */
   firstItem?: Maybe<Item>;
+  /**
+   * The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+   * no effect on this record.
+   *
+   */
+  harvestModificationStatus: HarvestModificationStatus;
   /**
    * Whether this is a collection or a community.
    *
@@ -3383,6 +3395,12 @@ export type Contributor = {
    *
    */
   givenName?: Maybe<Scalars['String']['output']>;
+  /**
+   * The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+   * no effect on this record.
+   *
+   */
+  harvestModificationStatus: HarvestModificationStatus;
   identifier: Scalars['String']['output'];
   /** An optional image associated with the contributor. */
   image: ImageAttachment;
@@ -3573,6 +3591,12 @@ export type ContributorBase = {
    *
    */
   givenName?: Maybe<Scalars['String']['output']>;
+  /**
+   * The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+   * no effect on this record.
+   *
+   */
+  harvestModificationStatus: HarvestModificationStatus;
   identifier: Scalars['String']['output'];
   /** An optional image associated with the contributor. */
   image: ImageAttachment;
@@ -7245,7 +7269,7 @@ export type GroupProperty = SchemaProperty & {
  * A record of a single attempt at harvesting.
  *
  */
-export type HarvestAttempt = HasHarvestErrors & HasHarvestMetadataFormat & Node & Sluggable & {
+export type HarvestAttempt = HasHarvestErrors & HasHarvestMetadataFormat & Node & QueriesHarvestMessage & Sluggable & {
   __typename?: 'HarvestAttempt';
   /**
    * The time the attempt began.
@@ -7268,6 +7292,7 @@ export type HarvestAttempt = HasHarvestErrors & HasHarvestMetadataFormat & Node 
    *
    */
   harvestMapping?: Maybe<HarvestMapping>;
+  harvestMessages: HarvestMessageConnection;
   /**
    * Records associated with this attempt specifically.
    *
@@ -7308,6 +7333,23 @@ export type HarvestAttempt = HasHarvestErrors & HasHarvestMetadataFormat & Node 
    */
   targetEntity: HarvestTarget;
   updatedAt: Scalars['ISO8601DateTime']['output'];
+};
+
+
+/**
+ * A record of a single attempt at harvesting.
+ *
+ */
+export type HarvestAttemptHarvestMessagesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  filters?: InputMaybe<HarvestMessageFilterInput>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  orFilters?: InputMaybe<Array<HarvestMessageFilterInput>>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageDirection?: InputMaybe<PageDirection>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -7478,7 +7520,7 @@ export type HarvestAttemptableHarvestAttemptsArgs = {
  * harvesting process.
  *
  */
-export type HarvestEntity = Node & Sluggable & {
+export type HarvestEntity = Node & QueriesHarvestMessage & Sluggable & {
   __typename?: 'HarvestEntity';
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
@@ -7486,6 +7528,7 @@ export type HarvestEntity = Node & Sluggable & {
    *
    */
   entity?: Maybe<Entity>;
+  harvestMessages: HarvestMessageConnection;
   id: Scalars['ID']['output'];
   /**
    * A unique identifier for the staged entity within the context of its `HarvestRecord`.
@@ -7497,14 +7540,6 @@ export type HarvestEntity = Node & Sluggable & {
    *
    */
   leaf: Scalars['Boolean']['output'];
-  /**
-   * An internal identifier used to track what "kind" of entity this might produce,
-   * based on the extracted metadata.
-   *
-   * May roughly correspond to schemas, but not always.
-   *
-   */
-  metadataKind?: Maybe<Scalars['String']['output']>;
   /**
    * The parent staged entity (if applicable).
    *
@@ -7527,6 +7562,25 @@ export type HarvestEntity = Node & Sluggable & {
   schemaVersion?: Maybe<SchemaVersion>;
   slug: Scalars['Slug']['output'];
   updatedAt: Scalars['ISO8601DateTime']['output'];
+};
+
+
+/**
+ * A staged entity extracted from a `HarvestRecord`, that
+ * can then be associated to an actual entity by the
+ * harvesting process.
+ *
+ */
+export type HarvestEntityHarvestMessagesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  filters?: InputMaybe<HarvestMessageFilterInput>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  orFilters?: InputMaybe<Array<HarvestMessageFilterInput>>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageDirection?: InputMaybe<PageDirection>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /**
@@ -7557,6 +7611,70 @@ export type HarvestError = Node & Sluggable & {
 };
 
 /**
+ * An example of various harvesting configurations, particularly extraction mapping templates.
+ *
+ */
+export type HarvestExample = {
+  __typename?: 'HarvestExample';
+  /**
+   * Whether this should be considered a "default" example
+   * for a given metadata / protocol combination.
+   *
+   */
+  default: Scalars['Boolean']['output'];
+  /**
+   * A description about the example, if available.
+   *
+   */
+  description?: Maybe<Scalars['String']['output']>;
+  /**
+   * The example's extraction mapping template which can be applied to harvest sources, mappings, and attempts.
+   *
+   */
+  extractionMappingTemplate: Scalars['String']['output'];
+  /**
+   * Whether this is a generic example that is not tied
+   * to any specific protocol nor metadata format.
+   *
+   */
+  generic: Scalars['Boolean']['output'];
+  /**
+   * The ID for the example.
+   *
+   */
+  id: Scalars['ID']['output'];
+  /**
+   * The metadata format this example applies to.
+   *
+   * It can be blank if the example is not metadata-specific.
+   *
+   */
+  metadataFormatName?: Maybe<HarvestMetadataFormat>;
+  /**
+   * The human-readable name for the example.
+   *
+   */
+  name: Scalars['String']['output'];
+  /**
+   * The protocol this example applies to.
+   *
+   * It can be blank if the example is not protocol-specific.
+   *
+   */
+  protocolName?: Maybe<HarvestProtocol>;
+  /**
+   * A list of schema declarations that the mapping template can generate.
+   *
+   */
+  schemaDeclarations: Array<Scalars['String']['output']>;
+  /**
+   * A list of schema versions that the mapping template can generate.
+   *
+   */
+  schemaVersions: Array<SchemaVersion>;
+};
+
+/**
  * A specific mapping to be used by a `HarvestSource`,
  * possibly an optional `HarvestSet`, and other options
  * in order to harvest records from the source and produce
@@ -7565,7 +7683,7 @@ export type HarvestError = Node & Sluggable & {
  * It can produce a `HarvestAttempt`.
  *
  */
-export type HarvestMapping = HarvestAttemptable & HasHarvestMetadataFormat & HasHarvestOptions & Node & Sluggable & {
+export type HarvestMapping = HarvestAttemptable & HasHarvestMetadataFormat & HasHarvestOptions & Node & QueriesHarvestMessage & Sluggable & {
   __typename?: 'HarvestMapping';
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
@@ -7573,6 +7691,7 @@ export type HarvestMapping = HarvestAttemptable & HasHarvestMetadataFormat & Has
    *
    */
   harvestAttempts: HarvestAttemptConnection;
+  harvestMessages: HarvestMessageConnection;
   /**
    * Records associated with this mapping.
    *
@@ -7626,6 +7745,28 @@ export type HarvestMappingHarvestAttemptsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   order?: InputMaybe<HarvestAttemptOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageDirection?: InputMaybe<PageDirection>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/**
+ * A specific mapping to be used by a `HarvestSource`,
+ * possibly an optional `HarvestSet`, and other options
+ * in order to harvest records from the source and produce
+ * entities.
+ *
+ * It can produce a `HarvestAttempt`.
+ *
+ */
+export type HarvestMappingHarvestMessagesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  filters?: InputMaybe<HarvestMessageFilterInput>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  orFilters?: InputMaybe<Array<HarvestMessageFilterInput>>;
   page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: InputMaybe<PageDirection>;
   perPage?: InputMaybe<Scalars['Int']['input']>;
@@ -7789,6 +7930,140 @@ export type HarvestMappingUpdatePayload = StandardMutationPayload & {
 };
 
 /**
+ * A single log message recorded during some aspect of harvesting.
+ *
+ */
+export type HarvestMessage = Node & Sluggable & {
+  __typename?: 'HarvestMessage';
+  /**
+   * The time the message occurred. This field should be favored at
+   * for display over the model's default `createdAt` field.
+   *
+   */
+  at: Scalars['ISO8601DateTime']['output'];
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * The harvest attempt associatd with the message, if available.
+   *
+   */
+  harvestAttempt?: Maybe<HarvestAttempt>;
+  /**
+   * The harvest entity associatd with the message, if available.
+   *
+   */
+  harvestEntity?: Maybe<HarvestEntity>;
+  /**
+   * The harvest mapping associatd with the message, if available.
+   *
+   */
+  harvestMapping?: Maybe<HarvestMapping>;
+  /**
+   * The harvest record associatd with the message, if available.
+   *
+   */
+  harvestRecord?: Maybe<HarvestRecord>;
+  /**
+   * The harvest source associated with the message.
+   *
+   */
+  harvestSource?: Maybe<HarvestSource>;
+  id: Scalars['ID']['output'];
+  /**
+   * The level of severity of the message.
+   *
+   */
+  level: HarvestMessageLevel;
+  /**
+   * The message itself.
+   *
+   */
+  message: Scalars['String']['output'];
+  slug: Scalars['Slug']['output'];
+  /**
+   * Tags associated with the message. This may describe what section
+   * of the harvesting system triggered the message, and may support
+   * querying in the future.
+   *
+   */
+  tags: Array<Scalars['String']['output']>;
+  updatedAt: Scalars['ISO8601DateTime']['output'];
+};
+
+/** The connection type for HarvestMessage. */
+export type HarvestMessageConnection = Paginated & {
+  __typename?: 'HarvestMessageConnection';
+  /** A list of edges. */
+  edges: Array<HarvestMessageEdge>;
+  /** A list of nodes. */
+  nodes: Array<HarvestMessage>;
+  /** Information to aid in pagination. */
+  pageInfo: PageInfo;
+};
+
+/** An edge in a connection. */
+export type HarvestMessageEdge = {
+  __typename?: 'HarvestMessageEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String']['output'];
+  /** The item at the end of the edge. */
+  node: HarvestMessage;
+};
+
+/**
+ * Filters for HarvestMessage.
+ *
+ */
+export type HarvestMessageFilterInput = {
+  severity?: InputMaybe<HarvestMessageLevel>;
+};
+
+/**
+ * Levels of severity associated with `HarvestMessage`s.
+ *
+ * `FATAL` is the most severe, `TRACE` is the least.
+ *
+ */
+export type HarvestMessageLevel =
+  /**
+   * Debug information about the harvesting system.
+   *
+   * May be hidden by default when displaying.
+   *
+   */
+  | 'DEBUG'
+  /**
+   * An error that may or may not have interrupted a harvesting operation,
+   * but could, for instance, just indicate that a single record failed.
+   *
+   */
+  | 'ERROR'
+  /**
+   * A fatal error which likely caused an entire harvesting operation to stop.
+   *
+   */
+  | 'FATAL'
+  /**
+   * Informational messages that are higher priority than debug messages.
+   *
+   */
+  | 'INFO'
+  /**
+   * Very low-level trace messages that may be used in the future
+   * to narrow down specific / performance issues with harvesting,
+   * but at present likely won't appear.
+   *
+   * Should be hidden by default when displaying.
+   *
+   */
+  | 'TRACE'
+  /**
+   * Warnings about validation failures and similar things.
+   *
+   */
+  | 'WARN'
+  | '%future added value';
+
+/**
  * Supported metadata formats for harvesting.
  *
  * `HarvestProtocol` describes the transport method for individual records to be harvested,
@@ -7816,6 +8091,38 @@ export type HarvestMetadataFormat =
    *
    */
   | 'OAIDC'
+  | '%future added value';
+
+/**
+ * An enum which describes how harvesting actions will affect
+ * a given record.
+ *
+ */
+export type HarvestModificationStatus =
+  /**
+   * This record was created through harvesting actions and **has**
+   * been modified in the admin section. Harvest
+   *
+   * Harvesting actions will leave this record alone.
+   *
+   */
+  | 'MODIFIED'
+  /**
+   * This record was created through harvesting actions and **has not**
+   * been modified in the admin section.
+   *
+   * Harvesting actions will overwrite any data if they encounter this record again.
+   *
+   */
+  | 'PRISTINE'
+  /**
+   * This record was not created through harvesting actions.
+   *
+   * Should harvesting actions end up matching an unharvested record,
+   * it will change this value to `MODIFIED` and treat it as such.
+   *
+   */
+  | 'UNHARVESTED'
   | '%future added value';
 
 /**
@@ -7926,7 +8233,7 @@ export type HarvestProtocol =
  * It can produce one or more harvest entities.
  *
  */
-export type HarvestRecord = HasHarvestErrors & HasHarvestMetadataFormat & Node & Sluggable & {
+export type HarvestRecord = HasHarvestErrors & HasHarvestMetadataFormat & Node & QueriesHarvestMessage & Sluggable & {
   __typename?: 'HarvestRecord';
   createdAt: Scalars['ISO8601DateTime']['output'];
   /**
@@ -7944,6 +8251,7 @@ export type HarvestRecord = HasHarvestErrors & HasHarvestMetadataFormat & Node &
    *
    */
   harvestErrors: Array<HarvestError>;
+  harvestMessages: HarvestMessageConnection;
   id: Scalars['ID']['output'];
   /**
    * A unique identifier for the record within the `HarvestSource`.
@@ -7958,7 +8266,7 @@ export type HarvestRecord = HasHarvestErrors & HasHarvestMetadataFormat & Node &
    */
   metadataFormat: HarvestMetadataFormat;
   /**
-   * The raw medata extracted from `rawSource`, with minimal processing applied.
+   * The raw metadata extracted from `rawSource`, with minimal processing applied.
    *
    * When rendering in the frontend, this should be in some sort of fixed-width font / code view,
    * as it will be JSON, XML, or similar types of data.
@@ -7974,7 +8282,30 @@ export type HarvestRecord = HasHarvestErrors & HasHarvestMetadataFormat & Node &
    */
   rawSource?: Maybe<Scalars['String']['output']>;
   slug: Scalars['Slug']['output'];
+  /**
+   * The status of the record.
+   *
+   */
+  status: HarvestRecordStatus;
   updatedAt: Scalars['ISO8601DateTime']['output'];
+};
+
+
+/**
+ * An object representing a single record in the `HarvestSource`.
+ * It can produce one or more harvest entities.
+ *
+ */
+export type HarvestRecordHarvestMessagesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  filters?: InputMaybe<HarvestMessageFilterInput>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  orFilters?: InputMaybe<Array<HarvestMessageFilterInput>>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageDirection?: InputMaybe<PageDirection>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** The connection type for HarvestRecord. */
@@ -8008,6 +8339,33 @@ export type HarvestRecordOrder =
   | 'OLDEST'
   /** Sort harvest records by newest created date. */
   | 'RECENT'
+  | '%future added value';
+
+/**
+ * A harvested record can exist in a number of statuses.
+ *
+ */
+export type HarvestRecordStatus =
+  /**
+   * An record that is considered active and ready to be extracted into entities.
+   *
+   */
+  | 'ACTIVE'
+  /**
+   * A record that was deleted in the upstream harvest source.
+   *
+   */
+  | 'DELETED'
+  /**
+   * A brand new record that hasn't been processed yet.
+   *
+   */
+  | 'PENDING'
+  /**
+   * A record that was skipped over for some validation reason.
+   *
+   */
+  | 'SKIPPED'
   | '%future added value';
 
 /**
@@ -8092,7 +8450,7 @@ export type HarvestSetOrder =
  * It can produce a `HarvestAttempt`.
  *
  */
-export type HarvestSource = HarvestAttemptable & HasHarvestMetadataFormat & HasHarvestOptions & Node & Sluggable & {
+export type HarvestSource = HarvestAttemptable & HasHarvestMetadataFormat & HasHarvestOptions & Node & QueriesHarvestMessage & Sluggable & {
   __typename?: 'HarvestSource';
   /**
    * The URL to fetch from. It should be just the base URL, without any OAI verbs or similar.
@@ -8116,6 +8474,7 @@ export type HarvestSource = HarvestAttemptable & HasHarvestMetadataFormat & HasH
    *
    */
   harvestMappings: Array<HarvestMapping>;
+  harvestMessages: HarvestMessageConnection;
   /**
    * Records associated with this source.
    *
@@ -8173,6 +8532,11 @@ export type HarvestSource = HarvestAttemptable & HasHarvestMetadataFormat & HasH
    */
   readOptions: HarvestOptionsRead;
   slug: Scalars['Slug']['output'];
+  /**
+   * An enum that describes the functional state for harvest sources.
+   *
+   */
+  status: HarvestSourceStatus;
   updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
@@ -8189,6 +8553,25 @@ export type HarvestSourceHarvestAttemptsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   order?: InputMaybe<HarvestAttemptOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageDirection?: InputMaybe<PageDirection>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/**
+ * A source from which to harvest entities.
+ *
+ * It can produce a `HarvestAttempt`.
+ *
+ */
+export type HarvestSourceHarvestMessagesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  filters?: InputMaybe<HarvestMessageFilterInput>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  orFilters?: InputMaybe<Array<HarvestMessageFilterInput>>;
   page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: InputMaybe<PageDirection>;
   perPage?: InputMaybe<Scalars['Int']['input']>;
@@ -8368,6 +8751,28 @@ export type HarvestSourceOrder =
   | 'OLDEST'
   /** Sort harvest sources by newest created date. */
   | 'RECENT'
+  | '%future added value';
+
+/**
+ * An enum that describes the functional state for harvest sources.
+ *
+ * Harvest sources are checked on a regular basis and can also be
+ * manually rechecked with harvestSourceCheck
+ *
+ */
+export type HarvestSourceStatus =
+  /**
+   * An active harvest source has been recently validated as working
+   * and thus can be used for harvesting.
+   *
+   */
+  | 'ACTIVE'
+  /**
+   * An inactive harvest source has been recently validated as not working
+   * and cannot be used for harvesting.
+   *
+   */
+  | 'INACTIVE'
   | '%future added value';
 
 /** Autogenerated input type of HarvestSourceUpdate */
@@ -8601,6 +9006,21 @@ export type HasHarvestMetadataFormat = {
    *
    */
   metadataFormat: HarvestMetadataFormat;
+};
+
+/**
+ * An interface for records which can be created/updated through Harvesting
+ * that includes an enum which can prevent harvesting actions from overwriting
+ * any data that has been manually corrected.
+ *
+ */
+export type HasHarvestModificationStatus = {
+  /**
+   * The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+   * no effect on this record.
+   *
+   */
+  harvestModificationStatus: HarvestModificationStatus;
 };
 
 export type HasHarvestOptions = {
@@ -9341,7 +9761,7 @@ export type IntegerProperty = ScalarProperty & SchemaProperty & SearchableProper
 };
 
 /** An item that belongs to a collection */
-export type Item = Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HasDoi & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable & {
+export type Item = Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HasDoi & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasHarvestModificationStatus & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable & {
   __typename?: 'Item';
   /** Derived access control list */
   accessControlList?: Maybe<AccessControlList>;
@@ -9426,6 +9846,12 @@ export type Item = Accessible & Attachable & Attributable & ChildEntity & Contri
   entityViewsByRegion: AnalyticsRegionCountSummary;
   /** Retrieve the first matching item beneath this item. */
   firstItem?: Maybe<Item>;
+  /**
+   * The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+   * no effect on this record.
+   *
+   */
+  harvestModificationStatus: HarvestModificationStatus;
   /** Whether this item has any child items */
   hasItems: Scalars['Boolean']['output'];
   /**
@@ -12882,7 +13308,7 @@ export type OrderingVisibilityFilter =
  * An organization that has made contributions.
  *
  */
-export type OrganizationContributor = Contributor & ContributorBase & Node & Sluggable & {
+export type OrganizationContributor = Contributor & ContributorBase & HasHarvestModificationStatus & Node & Sluggable & {
   __typename?: 'OrganizationContributor';
   /**
    * Only applicable when `kind` = `PERSON`.
@@ -12914,6 +13340,12 @@ export type OrganizationContributor = Contributor & ContributorBase & Node & Slu
    *
    */
   givenName?: Maybe<Scalars['String']['output']>;
+  /**
+   * The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+   * no effect on this record.
+   *
+   */
+  harvestModificationStatus: HarvestModificationStatus;
   id: Scalars['ID']['output'];
   identifier: Scalars['String']['output'];
   /** An optional image associated with the contributor. */
@@ -13229,7 +13661,7 @@ export type PermissionGrid = {
  * A person that has made contributions.
  *
  */
-export type PersonContributor = Contributor & ContributorBase & Node & Sluggable & {
+export type PersonContributor = Contributor & ContributorBase & HasHarvestModificationStatus & Node & Sluggable & {
   __typename?: 'PersonContributor';
   /**
    * Only applicable when `kind` = `PERSON`.
@@ -13261,6 +13693,12 @@ export type PersonContributor = Contributor & ContributorBase & Node & Sluggable
    *
    */
   givenName?: Maybe<Scalars['String']['output']>;
+  /**
+   * The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+   * no effect on this record.
+   *
+   */
+  harvestModificationStatus: HarvestModificationStatus;
   id: Scalars['ID']['output'];
   identifier: Scalars['String']['output'];
   /** An optional image associated with the contributor. */
@@ -13740,6 +14178,54 @@ export type QueriesHarvestAttemptHarvestAttemptsArgs = {
 };
 
 /**
+ * An interface for querying `HarvestExample` records.
+ *
+ */
+export type QueriesHarvestExample = {
+  /**
+   * Retrieve harvest examples for the system.
+   *
+   */
+  harvestExamples: Array<HarvestExample>;
+};
+
+
+/**
+ * An interface for querying `HarvestExample` records.
+ *
+ */
+export type QueriesHarvestExampleHarvestExamplesArgs = {
+  generic?: Scalars['Boolean']['input'];
+  metadataFormat?: InputMaybe<HarvestMetadataFormat>;
+  protocol?: InputMaybe<HarvestProtocol>;
+};
+
+/**
+ * An interface for querying `HarvestMessage` records.
+ *
+ */
+export type QueriesHarvestMessage = {
+  harvestMessages: HarvestMessageConnection;
+};
+
+
+/**
+ * An interface for querying `HarvestMessage` records.
+ *
+ */
+export type QueriesHarvestMessageHarvestMessagesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  filters?: InputMaybe<HarvestMessageFilterInput>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  orFilters?: InputMaybe<Array<HarvestMessageFilterInput>>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageDirection?: InputMaybe<PageDirection>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/**
  * An interface for querying `HarvestSet` records.
  *
  * To query a collection of harvest sets, you must check from the Harvest Source.
@@ -13974,7 +14460,7 @@ export type QueriesUserUsersArgs = {
  * The entry point for retrieving data from within the Meru API.
  *
  */
-export type Query = QueriesAccessAndRoles & QueriesContrib & QueriesControlledVocabulary & QueriesControlledVocabularySource & QueriesEntities & QueriesHarvestAttempt & QueriesHarvestSet & QueriesHarvestSource & QueriesSchemas & QueriesSystem & QueriesUser & Searchable & {
+export type Query = QueriesAccessAndRoles & QueriesContrib & QueriesControlledVocabulary & QueriesControlledVocabularySource & QueriesEntities & QueriesHarvestAttempt & QueriesHarvestExample & QueriesHarvestMessage & QueriesHarvestSet & QueriesHarvestSource & QueriesSchemas & QueriesSystem & QueriesUser & Searchable & {
   __typename?: 'Query';
   /**
    * Retrieve all access grants.
@@ -14030,6 +14516,12 @@ export type Query = QueriesAccessAndRoles & QueriesContrib & QueriesControlledVo
    *
    */
   harvestAttempts: HarvestAttemptConnection;
+  /**
+   * Retrieve harvest examples for the system.
+   *
+   */
+  harvestExamples: Array<HarvestExample>;
+  harvestMessages: HarvestMessageConnection;
   /**
    * Retrieve a single `HarvestSet` by slug.
    *
@@ -14281,6 +14773,34 @@ export type QueryHarvestAttemptsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   order?: InputMaybe<HarvestAttemptOrder>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  pageDirection?: InputMaybe<PageDirection>;
+  perPage?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/**
+ * The entry point for retrieving data from within the Meru API.
+ *
+ */
+export type QueryHarvestExamplesArgs = {
+  generic?: Scalars['Boolean']['input'];
+  metadataFormat?: InputMaybe<HarvestMetadataFormat>;
+  protocol?: InputMaybe<HarvestProtocol>;
+};
+
+
+/**
+ * The entry point for retrieving data from within the Meru API.
+ *
+ */
+export type QueryHarvestMessagesArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  filters?: InputMaybe<HarvestMessageFilterInput>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  orFilters?: InputMaybe<Array<HarvestMessageFilterInput>>;
   page?: InputMaybe<Scalars['Int']['input']>;
   pageDirection?: InputMaybe<PageDirection>;
   perPage?: InputMaybe<Scalars['Int']['input']>;
@@ -18958,16 +19478,17 @@ export type ResolversInterfaceTypes<RefType extends Record<string, unknown>> = {
   HasEntityBreadcrumbs: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<EntitySelectOption, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } );
   HasHarvestErrors: ( HarvestAttempt ) | ( HarvestRecord );
   HasHarvestMetadataFormat: ( HarvestAttempt ) | ( HarvestMapping ) | ( HarvestRecord ) | ( HarvestSource );
+  HasHarvestModificationStatus: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( OrganizationContributor ) | ( PersonContributor );
   HasHarvestOptions: ( HarvestMapping ) | ( HarvestSource );
   HasSchemaProperties: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } );
   Image: ( ImageDerivative ) | ( ImageOriginal );
   ImageIdentification: ( ImageAttachment ) | ( ImageDerivative ) | ( ImageOriginal ) | ( ImageSize ) | ( SiteLogoAttachment );
   LayoutDefinition: ( Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyHeroTemplateDefinition']> } ) | ( Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyListItemTemplateDefinition']> } ) | ( Omit<MainLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMainTemplateDefinition']> } ) | ( Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMetadataTemplateDefinition']> } ) | ( Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyNavigationTemplateDefinition']> } ) | ( Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<RefType['AnySupplementaryTemplateDefinition']> } );
   LayoutInstance: ( Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyHeroTemplateInstance']> } ) | ( Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyListItemTemplateInstance']> } ) | ( Omit<MainLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMainTemplateInstance']> } ) | ( Omit<MetadataLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMetadataTemplateInstance']> } ) | ( Omit<NavigationLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyNavigationTemplateInstance']> } ) | ( Omit<SupplementaryLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnySupplementaryTemplateInstance']> } );
-  Node: ( Omit<Announcement, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( BlurbTemplateDefinition ) | ( Omit<BlurbTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( CollectionAttribution ) | ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<RefType['AnyUserAccessGrant']> } ) | ( ContributionRoleConfiguration ) | ( ContributorCollectionAttribution ) | ( ContributorItemAttribution ) | ( ContributorListTemplateDefinition ) | ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( ControlledVocabulary ) | ( ControlledVocabularyItem ) | ( ControlledVocabularySource ) | ( DescendantListTemplateDefinition ) | ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( DetailTemplateDefinition ) | ( Omit<DetailTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<EntityBreadcrumb, 'crumb'> & { crumb: RefType['AnyEntity'] } ) | ( Omit<EntityLink, 'source' | 'target'> & { source: RefType['AnyEntity'], target: RefType['AnyEntity'] } ) | ( GlobalConfiguration ) | ( HarvestAttempt ) | ( HarvestEntity ) | ( HarvestError ) | ( HarvestMapping ) | ( HarvestRecord ) | ( HarvestSet ) | ( HarvestSource ) | ( Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyHeroTemplateDefinition']> } ) | ( Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyHeroTemplateInstance']> } ) | ( HeroTemplateDefinition ) | ( Omit<HeroTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( HierarchicalSchemaRank ) | ( HierarchicalSchemaVersionRank ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( ItemAttribution ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( LinkListTemplateDefinition ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<LinkTargetCandidate, 'target'> & { target: RefType['AnyLinkTarget'] } ) | ( Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyListItemTemplateDefinition']> } ) | ( Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyListItemTemplateInstance']> } ) | ( ListItemTemplateDefinition ) | ( Omit<ListItemTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<MainLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMainTemplateDefinition']> } ) | ( Omit<MainLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMainTemplateInstance']> } ) | ( Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMetadataTemplateDefinition']> } ) | ( Omit<MetadataLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMetadataTemplateInstance']> } ) | ( MetadataTemplateDefinition ) | ( Omit<MetadataTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyNavigationTemplateDefinition']> } ) | ( Omit<NavigationLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyNavigationTemplateInstance']> } ) | ( NavigationTemplateDefinition ) | ( Omit<NavigationTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingEntry, 'entry'> & { entry: RefType['AnyOrderingEntry'] } ) | ( OrderingTemplateDefinition ) | ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( OrganizationContributor ) | ( Omit<Page, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PageListTemplateDefinition ) | ( Omit<PageListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PersonContributor ) | ( Role ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } ) | ( Omit<SearchResult, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<RefType['AnySupplementaryTemplateDefinition']> } ) | ( Omit<SupplementaryLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnySupplementaryTemplateInstance']> } ) | ( SupplementaryTemplateDefinition ) | ( Omit<SupplementaryTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( TemplateInstanceSibling ) | ( User ) | ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( UserGroup ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
+  Node: ( Omit<Announcement, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( BlurbTemplateDefinition ) | ( Omit<BlurbTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( CollectionAttribution ) | ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<RefType['AnyUserAccessGrant']> } ) | ( ContributionRoleConfiguration ) | ( ContributorCollectionAttribution ) | ( ContributorItemAttribution ) | ( ContributorListTemplateDefinition ) | ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( ControlledVocabulary ) | ( ControlledVocabularyItem ) | ( ControlledVocabularySource ) | ( DescendantListTemplateDefinition ) | ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( DetailTemplateDefinition ) | ( Omit<DetailTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<EntityBreadcrumb, 'crumb'> & { crumb: RefType['AnyEntity'] } ) | ( Omit<EntityLink, 'source' | 'target'> & { source: RefType['AnyEntity'], target: RefType['AnyEntity'] } ) | ( GlobalConfiguration ) | ( HarvestAttempt ) | ( HarvestEntity ) | ( HarvestError ) | ( HarvestMapping ) | ( HarvestMessage ) | ( HarvestRecord ) | ( HarvestSet ) | ( HarvestSource ) | ( Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyHeroTemplateDefinition']> } ) | ( Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyHeroTemplateInstance']> } ) | ( HeroTemplateDefinition ) | ( Omit<HeroTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( HierarchicalSchemaRank ) | ( HierarchicalSchemaVersionRank ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( ItemAttribution ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( LinkListTemplateDefinition ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<LinkTargetCandidate, 'target'> & { target: RefType['AnyLinkTarget'] } ) | ( Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyListItemTemplateDefinition']> } ) | ( Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyListItemTemplateInstance']> } ) | ( ListItemTemplateDefinition ) | ( Omit<ListItemTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<MainLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMainTemplateDefinition']> } ) | ( Omit<MainLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMainTemplateInstance']> } ) | ( Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMetadataTemplateDefinition']> } ) | ( Omit<MetadataLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMetadataTemplateInstance']> } ) | ( MetadataTemplateDefinition ) | ( Omit<MetadataTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyNavigationTemplateDefinition']> } ) | ( Omit<NavigationLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyNavigationTemplateInstance']> } ) | ( NavigationTemplateDefinition ) | ( Omit<NavigationTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingEntry, 'entry'> & { entry: RefType['AnyOrderingEntry'] } ) | ( OrderingTemplateDefinition ) | ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( OrganizationContributor ) | ( Omit<Page, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PageListTemplateDefinition ) | ( Omit<PageListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PersonContributor ) | ( Role ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } ) | ( Omit<SearchResult, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<RefType['AnySupplementaryTemplateDefinition']> } ) | ( Omit<SupplementaryLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnySupplementaryTemplateInstance']> } ) | ( SupplementaryTemplateDefinition ) | ( Omit<SupplementaryTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( TemplateInstanceSibling ) | ( User ) | ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( UserGroup ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
   OptionableProperty: ( MultiselectProperty ) | ( SelectProperty );
   OrderingPath: ( AncestorSchemaOrderingPath ) | ( AncestorStaticOrderingPath ) | ( SchemaOrderingPath ) | ( StaticOrderingPath );
-  Paginated: ( AnnouncementConnection ) | ( Omit<AnyAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyAccessGrant']> } ) | ( Omit<AnyAssetConnection, 'nodes'> & { nodes: Array<RefType['AnyAsset']> } ) | ( Omit<AnyCollectionAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyCollectionAccessGrant']> } ) | ( Omit<AnyCommunityAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyCommunityAccessGrant']> } ) | ( Omit<AnyContributorConnection, 'nodes'> & { nodes: Array<RefType['AnyContributor']> } ) | ( Omit<AnyUserAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyUserAccessGrant']> } ) | ( Omit<AnyUserGroupAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyUserGroupAccessGrant']> } ) | ( CollectionConnection ) | ( CollectionContributionConnection ) | ( CommunityConnection ) | ( ContextualPermissionConnection ) | ( Omit<ContributorAttributionConnection, 'nodes'> & { nodes: Array<RefType['AnyContributorAttribution']> } ) | ( ControlledVocabularyConnection ) | ( ControlledVocabularySourceConnection ) | ( EntityDescendantConnection ) | ( EntityLinkConnection ) | ( HarvestAttemptConnection ) | ( HarvestRecordConnection ) | ( HarvestSetConnection ) | ( HarvestSourceConnection ) | ( ItemConnection ) | ( ItemContributionConnection ) | ( LinkTargetCandidateConnection ) | ( OrderingConnection ) | ( OrderingEntryConnection ) | ( PageConnection ) | ( RoleConnection ) | ( SchemaDefinitionConnection ) | ( SchemaVersionConnection ) | ( SearchResultConnection ) | ( UserCollectionAccessGrantConnection ) | ( UserCommunityAccessGrantConnection ) | ( UserConnection ) | ( UserGroupCollectionAccessGrantConnection ) | ( UserGroupCommunityAccessGrantConnection ) | ( UserGroupItemAccessGrantConnection ) | ( UserItemAccessGrantConnection );
+  Paginated: ( AnnouncementConnection ) | ( Omit<AnyAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyAccessGrant']> } ) | ( Omit<AnyAssetConnection, 'nodes'> & { nodes: Array<RefType['AnyAsset']> } ) | ( Omit<AnyCollectionAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyCollectionAccessGrant']> } ) | ( Omit<AnyCommunityAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyCommunityAccessGrant']> } ) | ( Omit<AnyContributorConnection, 'nodes'> & { nodes: Array<RefType['AnyContributor']> } ) | ( Omit<AnyUserAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyUserAccessGrant']> } ) | ( Omit<AnyUserGroupAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyUserGroupAccessGrant']> } ) | ( CollectionConnection ) | ( CollectionContributionConnection ) | ( CommunityConnection ) | ( ContextualPermissionConnection ) | ( Omit<ContributorAttributionConnection, 'nodes'> & { nodes: Array<RefType['AnyContributorAttribution']> } ) | ( ControlledVocabularyConnection ) | ( ControlledVocabularySourceConnection ) | ( EntityDescendantConnection ) | ( EntityLinkConnection ) | ( HarvestAttemptConnection ) | ( HarvestMessageConnection ) | ( HarvestRecordConnection ) | ( HarvestSetConnection ) | ( HarvestSourceConnection ) | ( ItemConnection ) | ( ItemContributionConnection ) | ( LinkTargetCandidateConnection ) | ( OrderingConnection ) | ( OrderingEntryConnection ) | ( PageConnection ) | ( RoleConnection ) | ( SchemaDefinitionConnection ) | ( SchemaVersionConnection ) | ( SearchResultConnection ) | ( UserCollectionAccessGrantConnection ) | ( UserCommunityAccessGrantConnection ) | ( UserConnection ) | ( UserGroupCollectionAccessGrantConnection ) | ( UserGroupCommunityAccessGrantConnection ) | ( UserGroupItemAccessGrantConnection ) | ( UserItemAccessGrantConnection );
   PermissionGrid: ( AssetPermissionGrid ) | ( EntityPermissionGrid );
   QueriesAccessAndRoles: ( Omit<Query, 'asset' | 'contributor' | 'contributorLookup' | 'orderingPaths'> & { asset?: Maybe<RefType['AnyAsset']>, contributor?: Maybe<RefType['AnyContributor']>, contributorLookup?: Maybe<RefType['AnyContributor']>, orderingPaths: Array<RefType['AnyOrderingPath']> } );
   QueriesContrib: ( Omit<Query, 'asset' | 'contributor' | 'contributorLookup' | 'orderingPaths'> & { asset?: Maybe<RefType['AnyAsset']>, contributor?: Maybe<RefType['AnyContributor']>, contributorLookup?: Maybe<RefType['AnyContributor']>, orderingPaths: Array<RefType['AnyOrderingPath']> } );
@@ -18975,6 +19496,8 @@ export type ResolversInterfaceTypes<RefType extends Record<string, unknown>> = {
   QueriesControlledVocabularySource: ( Omit<Query, 'asset' | 'contributor' | 'contributorLookup' | 'orderingPaths'> & { asset?: Maybe<RefType['AnyAsset']>, contributor?: Maybe<RefType['AnyContributor']>, contributorLookup?: Maybe<RefType['AnyContributor']>, orderingPaths: Array<RefType['AnyOrderingPath']> } );
   QueriesEntities: ( Omit<Query, 'asset' | 'contributor' | 'contributorLookup' | 'orderingPaths'> & { asset?: Maybe<RefType['AnyAsset']>, contributor?: Maybe<RefType['AnyContributor']>, contributorLookup?: Maybe<RefType['AnyContributor']>, orderingPaths: Array<RefType['AnyOrderingPath']> } );
   QueriesHarvestAttempt: ( Omit<Query, 'asset' | 'contributor' | 'contributorLookup' | 'orderingPaths'> & { asset?: Maybe<RefType['AnyAsset']>, contributor?: Maybe<RefType['AnyContributor']>, contributorLookup?: Maybe<RefType['AnyContributor']>, orderingPaths: Array<RefType['AnyOrderingPath']> } );
+  QueriesHarvestExample: ( Omit<Query, 'asset' | 'contributor' | 'contributorLookup' | 'orderingPaths'> & { asset?: Maybe<RefType['AnyAsset']>, contributor?: Maybe<RefType['AnyContributor']>, contributorLookup?: Maybe<RefType['AnyContributor']>, orderingPaths: Array<RefType['AnyOrderingPath']> } );
+  QueriesHarvestMessage: ( HarvestAttempt ) | ( HarvestEntity ) | ( HarvestMapping ) | ( HarvestRecord ) | ( HarvestSource ) | ( Omit<Query, 'asset' | 'contributor' | 'contributorLookup' | 'orderingPaths'> & { asset?: Maybe<RefType['AnyAsset']>, contributor?: Maybe<RefType['AnyContributor']>, contributorLookup?: Maybe<RefType['AnyContributor']>, orderingPaths: Array<RefType['AnyOrderingPath']> } );
   QueriesHarvestSet: ( Omit<Query, 'asset' | 'contributor' | 'contributorLookup' | 'orderingPaths'> & { asset?: Maybe<RefType['AnyAsset']>, contributor?: Maybe<RefType['AnyContributor']>, contributorLookup?: Maybe<RefType['AnyContributor']>, orderingPaths: Array<RefType['AnyOrderingPath']> } );
   QueriesHarvestSource: ( Omit<Query, 'asset' | 'contributor' | 'contributorLookup' | 'orderingPaths'> & { asset?: Maybe<RefType['AnyAsset']>, contributor?: Maybe<RefType['AnyContributor']>, contributorLookup?: Maybe<RefType['AnyContributor']>, orderingPaths: Array<RefType['AnyOrderingPath']> } );
   QueriesSchemas: ( Omit<Query, 'asset' | 'contributor' | 'contributorLookup' | 'orderingPaths'> & { asset?: Maybe<RefType['AnyAsset']>, contributor?: Maybe<RefType['AnyContributor']>, contributorLookup?: Maybe<RefType['AnyContributor']>, orderingPaths: Array<RefType['AnyOrderingPath']> } );
@@ -18988,7 +19511,7 @@ export type ResolversInterfaceTypes<RefType extends Record<string, unknown>> = {
   SchemaProperty: ( Omit<AssetProperty, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( Omit<AssetsProperty, 'assets'> & { assets: Array<RefType['AnyAsset']> } ) | ( BooleanProperty ) | ( Omit<ContributorProperty, 'contributor'> & { contributor?: Maybe<RefType['AnyContributor']> } ) | ( Omit<ContributorsProperty, 'contributors'> & { contributors: Array<RefType['AnyContributor']> } ) | ( ControlledVocabulariesProperty ) | ( ControlledVocabularyProperty ) | ( DateProperty ) | ( EmailProperty ) | ( Omit<EntitiesProperty, 'entities'> & { entities: Array<RefType['AnyEntity']> } ) | ( Omit<EntityProperty, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( FloatProperty ) | ( FullTextProperty ) | ( Omit<GroupProperty, 'properties'> & { properties: Array<RefType['AnyScalarProperty']> } ) | ( IntegerProperty ) | ( MarkdownProperty ) | ( MultiselectProperty ) | ( SelectProperty ) | ( StringProperty ) | ( TagsProperty ) | ( TimestampProperty ) | ( UrlProperty ) | ( UnknownProperty ) | ( VariableDateProperty );
   Searchable: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Query, 'asset' | 'contributor' | 'contributorLookup' | 'orderingPaths'> & { asset?: Maybe<RefType['AnyAsset']>, contributor?: Maybe<RefType['AnyContributor']>, contributorLookup?: Maybe<RefType['AnyContributor']>, orderingPaths: Array<RefType['AnyOrderingPath']> } ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } );
   SearchableProperty: ( BooleanProperty ) | ( DateProperty ) | ( FloatProperty ) | ( FullTextProperty ) | ( IntegerProperty ) | ( MarkdownProperty ) | ( MultiselectProperty ) | ( SearchableCoreProperty ) | ( SelectProperty ) | ( StringProperty ) | ( TimestampProperty ) | ( VariableDateProperty );
-  Sluggable: ( Omit<Announcement, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( BlurbTemplateDefinition ) | ( Omit<BlurbTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( CollectionAttribution ) | ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<RefType['AnyUserAccessGrant']> } ) | ( ContributionRoleConfiguration ) | ( ContributorCollectionAttribution ) | ( ContributorItemAttribution ) | ( ContributorListTemplateDefinition ) | ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( ControlledVocabulary ) | ( ControlledVocabularyItem ) | ( ControlledVocabularySource ) | ( DescendantListTemplateDefinition ) | ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( DetailTemplateDefinition ) | ( Omit<DetailTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<EntityLink, 'source' | 'target'> & { source: RefType['AnyEntity'], target: RefType['AnyEntity'] } ) | ( HarvestAttempt ) | ( HarvestEntity ) | ( HarvestError ) | ( HarvestMapping ) | ( HarvestRecord ) | ( HarvestSet ) | ( HarvestSource ) | ( Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyHeroTemplateDefinition']> } ) | ( Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyHeroTemplateInstance']> } ) | ( HeroTemplateDefinition ) | ( Omit<HeroTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( ItemAttribution ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( LinkListTemplateDefinition ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyListItemTemplateDefinition']> } ) | ( Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyListItemTemplateInstance']> } ) | ( ListItemTemplateDefinition ) | ( Omit<ListItemTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<MainLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMainTemplateDefinition']> } ) | ( Omit<MainLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMainTemplateInstance']> } ) | ( Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMetadataTemplateDefinition']> } ) | ( Omit<MetadataLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMetadataTemplateInstance']> } ) | ( MetadataTemplateDefinition ) | ( Omit<MetadataTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyNavigationTemplateDefinition']> } ) | ( Omit<NavigationLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyNavigationTemplateInstance']> } ) | ( NavigationTemplateDefinition ) | ( Omit<NavigationTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingEntry, 'entry'> & { entry: RefType['AnyOrderingEntry'] } ) | ( OrderingTemplateDefinition ) | ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( OrganizationContributor ) | ( PageListTemplateDefinition ) | ( Omit<PageListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PersonContributor ) | ( Role ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } ) | ( Omit<SearchResult, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<RefType['AnySupplementaryTemplateDefinition']> } ) | ( Omit<SupplementaryLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnySupplementaryTemplateInstance']> } ) | ( SupplementaryTemplateDefinition ) | ( Omit<SupplementaryTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( TemplateInstanceSibling ) | ( User ) | ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( UserGroup ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
+  Sluggable: ( Omit<Announcement, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( BlurbTemplateDefinition ) | ( Omit<BlurbTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( CollectionAttribution ) | ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<RefType['AnyUserAccessGrant']> } ) | ( ContributionRoleConfiguration ) | ( ContributorCollectionAttribution ) | ( ContributorItemAttribution ) | ( ContributorListTemplateDefinition ) | ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( ControlledVocabulary ) | ( ControlledVocabularyItem ) | ( ControlledVocabularySource ) | ( DescendantListTemplateDefinition ) | ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( DetailTemplateDefinition ) | ( Omit<DetailTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<EntityLink, 'source' | 'target'> & { source: RefType['AnyEntity'], target: RefType['AnyEntity'] } ) | ( HarvestAttempt ) | ( HarvestEntity ) | ( HarvestError ) | ( HarvestMapping ) | ( HarvestMessage ) | ( HarvestRecord ) | ( HarvestSet ) | ( HarvestSource ) | ( Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyHeroTemplateDefinition']> } ) | ( Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyHeroTemplateInstance']> } ) | ( HeroTemplateDefinition ) | ( Omit<HeroTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( ItemAttribution ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( LinkListTemplateDefinition ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyListItemTemplateDefinition']> } ) | ( Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyListItemTemplateInstance']> } ) | ( ListItemTemplateDefinition ) | ( Omit<ListItemTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<MainLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMainTemplateDefinition']> } ) | ( Omit<MainLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMainTemplateInstance']> } ) | ( Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMetadataTemplateDefinition']> } ) | ( Omit<MetadataLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMetadataTemplateInstance']> } ) | ( MetadataTemplateDefinition ) | ( Omit<MetadataTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyNavigationTemplateDefinition']> } ) | ( Omit<NavigationLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyNavigationTemplateInstance']> } ) | ( NavigationTemplateDefinition ) | ( Omit<NavigationTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingEntry, 'entry'> & { entry: RefType['AnyOrderingEntry'] } ) | ( OrderingTemplateDefinition ) | ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( OrganizationContributor ) | ( PageListTemplateDefinition ) | ( Omit<PageListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PersonContributor ) | ( Role ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } ) | ( Omit<SearchResult, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<RefType['AnySupplementaryTemplateDefinition']> } ) | ( Omit<SupplementaryLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnySupplementaryTemplateInstance']> } ) | ( SupplementaryTemplateDefinition ) | ( Omit<SupplementaryTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( TemplateInstanceSibling ) | ( User ) | ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( UserGroup ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
   StandardMutationPayload: ( Omit<AlterSchemaVersionPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ApplySchemaPropertiesPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( ControlledVocabularyDestroyPayload ) | ( ControlledVocabularySourceUpdatePayload ) | ( ControlledVocabularyUpsertPayload ) | ( CreateAnnouncementPayload ) | ( Omit<CreateAssetPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( CreateCollectionPayload ) | ( CreateCommunityPayload ) | ( CreateItemPayload ) | ( CreateOrderingPayload ) | ( CreateOrganizationContributorPayload ) | ( CreatePagePayload ) | ( CreatePersonContributorPayload ) | ( CreateRolePayload ) | ( DestroyAnnouncementPayload ) | ( DestroyAssetPayload ) | ( DestroyCollectionPayload ) | ( DestroyCommunityPayload ) | ( DestroyContributionPayload ) | ( DestroyContributorPayload ) | ( DestroyEntityLinkPayload ) | ( DestroyItemPayload ) | ( DestroyOrderingPayload ) | ( DestroyPagePayload ) | ( Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( HarvestAttemptFromMappingPayload ) | ( HarvestAttemptFromSourcePayload ) | ( HarvestMappingCreatePayload ) | ( HarvestMappingDestroyPayload ) | ( HarvestMappingUpdatePayload ) | ( HarvestSourceCreatePayload ) | ( HarvestSourceDestroyPayload ) | ( HarvestSourceUpdatePayload ) | ( LinkEntityPayload ) | ( PreviewSlotPayload ) | ( Omit<RenderLayoutsPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ReparentEntityPayload, 'child'> & { child?: Maybe<RefType['AnyChildEntity']> } ) | ( ResetOrderingPayload ) | ( Omit<RevokeAccessPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( UpdateAnnouncementPayload ) | ( Omit<UpdateAssetAttachmentPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( Omit<UpdateAssetPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( UpdateCollectionPayload ) | ( UpdateCommunityPayload ) | ( Omit<UpdateContributionPayload, 'contribution'> & { contribution?: Maybe<RefType['AnyContribution']> } ) | ( UpdateGlobalConfigurationPayload ) | ( UpdateItemPayload ) | ( UpdateOrderingPayload ) | ( UpdateOrganizationContributorPayload ) | ( UpdatePagePayload ) | ( UpdatePersonContributorPayload ) | ( UpdateRolePayload ) | ( UpdateUserPayload ) | ( UpdateViewerSettingsPayload ) | ( Omit<UpsertContributionPayload, 'contribution'> & { contribution?: Maybe<RefType['AnyContribution']> } );
   TemplateDefinition: ( BlurbTemplateDefinition ) | ( ContributorListTemplateDefinition ) | ( DescendantListTemplateDefinition ) | ( DetailTemplateDefinition ) | ( HeroTemplateDefinition ) | ( LinkListTemplateDefinition ) | ( ListItemTemplateDefinition ) | ( MetadataTemplateDefinition ) | ( NavigationTemplateDefinition ) | ( OrderingTemplateDefinition ) | ( PageListTemplateDefinition ) | ( SupplementaryTemplateDefinition );
   TemplateHasContributionList: ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } );
@@ -19279,6 +19802,7 @@ export type ResolversTypes = {
   HarvestAttemptable: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HarvestAttemptable']>;
   HarvestEntity: ResolverTypeWrapper<HarvestEntity>;
   HarvestError: ResolverTypeWrapper<HarvestError>;
+  HarvestExample: ResolverTypeWrapper<HarvestExample>;
   HarvestMapping: ResolverTypeWrapper<HarvestMapping>;
   HarvestMappingCreateInput: HarvestMappingCreateInput;
   HarvestMappingCreatePayload: ResolverTypeWrapper<HarvestMappingCreatePayload>;
@@ -19286,7 +19810,13 @@ export type ResolversTypes = {
   HarvestMappingDestroyPayload: ResolverTypeWrapper<HarvestMappingDestroyPayload>;
   HarvestMappingUpdateInput: HarvestMappingUpdateInput;
   HarvestMappingUpdatePayload: ResolverTypeWrapper<HarvestMappingUpdatePayload>;
+  HarvestMessage: ResolverTypeWrapper<HarvestMessage>;
+  HarvestMessageConnection: ResolverTypeWrapper<HarvestMessageConnection>;
+  HarvestMessageEdge: ResolverTypeWrapper<HarvestMessageEdge>;
+  HarvestMessageFilterInput: HarvestMessageFilterInput;
+  HarvestMessageLevel: HarvestMessageLevel;
   HarvestMetadataFormat: HarvestMetadataFormat;
+  HarvestModificationStatus: HarvestModificationStatus;
   HarvestOptionsMapping: ResolverTypeWrapper<HarvestOptionsMapping>;
   HarvestOptionsMappingInput: HarvestOptionsMappingInput;
   HarvestOptionsRead: ResolverTypeWrapper<HarvestOptionsRead>;
@@ -19296,6 +19826,7 @@ export type ResolversTypes = {
   HarvestRecordConnection: ResolverTypeWrapper<HarvestRecordConnection>;
   HarvestRecordEdge: ResolverTypeWrapper<HarvestRecordEdge>;
   HarvestRecordOrder: HarvestRecordOrder;
+  HarvestRecordStatus: HarvestRecordStatus;
   HarvestSet: ResolverTypeWrapper<HarvestSet>;
   HarvestSetConnection: ResolverTypeWrapper<HarvestSetConnection>;
   HarvestSetEdge: ResolverTypeWrapper<HarvestSetEdge>;
@@ -19309,6 +19840,7 @@ export type ResolversTypes = {
   HarvestSourceDestroyPayload: ResolverTypeWrapper<HarvestSourceDestroyPayload>;
   HarvestSourceEdge: ResolverTypeWrapper<HarvestSourceEdge>;
   HarvestSourceOrder: HarvestSourceOrder;
+  HarvestSourceStatus: HarvestSourceStatus;
   HarvestSourceUpdateInput: HarvestSourceUpdateInput;
   HarvestSourceUpdatePayload: ResolverTypeWrapper<HarvestSourceUpdatePayload>;
   HarvestTarget: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HarvestTarget']>;
@@ -19322,6 +19854,7 @@ export type ResolversTypes = {
   HasEntityBreadcrumbs: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasEntityBreadcrumbs']>;
   HasHarvestErrors: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasHarvestErrors']>;
   HasHarvestMetadataFormat: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasHarvestMetadataFormat']>;
+  HasHarvestModificationStatus: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasHarvestModificationStatus']>;
   HasHarvestOptions: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasHarvestOptions']>;
   HasSchemaProperties: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HasSchemaProperties']>;
   HeroBackground: HeroBackground;
@@ -19473,6 +20006,8 @@ export type ResolversTypes = {
   QueriesControlledVocabularySource: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['QueriesControlledVocabularySource']>;
   QueriesEntities: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['QueriesEntities']>;
   QueriesHarvestAttempt: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['QueriesHarvestAttempt']>;
+  QueriesHarvestExample: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['QueriesHarvestExample']>;
+  QueriesHarvestMessage: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['QueriesHarvestMessage']>;
   QueriesHarvestSet: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['QueriesHarvestSet']>;
   QueriesHarvestSource: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['QueriesHarvestSource']>;
   QueriesSchemas: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['QueriesSchemas']>;
@@ -19893,6 +20428,7 @@ export type ResolversParentTypes = {
   HarvestAttemptable: ResolversInterfaceTypes<ResolversParentTypes>['HarvestAttemptable'];
   HarvestEntity: HarvestEntity;
   HarvestError: HarvestError;
+  HarvestExample: HarvestExample;
   HarvestMapping: HarvestMapping;
   HarvestMappingCreateInput: HarvestMappingCreateInput;
   HarvestMappingCreatePayload: HarvestMappingCreatePayload;
@@ -19900,6 +20436,10 @@ export type ResolversParentTypes = {
   HarvestMappingDestroyPayload: HarvestMappingDestroyPayload;
   HarvestMappingUpdateInput: HarvestMappingUpdateInput;
   HarvestMappingUpdatePayload: HarvestMappingUpdatePayload;
+  HarvestMessage: HarvestMessage;
+  HarvestMessageConnection: HarvestMessageConnection;
+  HarvestMessageEdge: HarvestMessageEdge;
+  HarvestMessageFilterInput: HarvestMessageFilterInput;
   HarvestOptionsMapping: HarvestOptionsMapping;
   HarvestOptionsMappingInput: HarvestOptionsMappingInput;
   HarvestOptionsRead: HarvestOptionsRead;
@@ -19930,6 +20470,7 @@ export type ResolversParentTypes = {
   HasEntityBreadcrumbs: ResolversInterfaceTypes<ResolversParentTypes>['HasEntityBreadcrumbs'];
   HasHarvestErrors: ResolversInterfaceTypes<ResolversParentTypes>['HasHarvestErrors'];
   HasHarvestMetadataFormat: ResolversInterfaceTypes<ResolversParentTypes>['HasHarvestMetadataFormat'];
+  HasHarvestModificationStatus: ResolversInterfaceTypes<ResolversParentTypes>['HasHarvestModificationStatus'];
   HasHarvestOptions: ResolversInterfaceTypes<ResolversParentTypes>['HasHarvestOptions'];
   HasSchemaProperties: ResolversInterfaceTypes<ResolversParentTypes>['HasSchemaProperties'];
   HeroLayoutDefinition: Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<ResolversParentTypes['AnyHeroTemplateDefinition']> };
@@ -20053,6 +20594,8 @@ export type ResolversParentTypes = {
   QueriesControlledVocabularySource: ResolversInterfaceTypes<ResolversParentTypes>['QueriesControlledVocabularySource'];
   QueriesEntities: ResolversInterfaceTypes<ResolversParentTypes>['QueriesEntities'];
   QueriesHarvestAttempt: ResolversInterfaceTypes<ResolversParentTypes>['QueriesHarvestAttempt'];
+  QueriesHarvestExample: ResolversInterfaceTypes<ResolversParentTypes>['QueriesHarvestExample'];
+  QueriesHarvestMessage: ResolversInterfaceTypes<ResolversParentTypes>['QueriesHarvestMessage'];
   QueriesHarvestSet: ResolversInterfaceTypes<ResolversParentTypes>['QueriesHarvestSet'];
   QueriesHarvestSource: ResolversInterfaceTypes<ResolversParentTypes>['QueriesHarvestSource'];
   QueriesSchemas: ResolversInterfaceTypes<ResolversParentTypes>['QueriesSchemas'];
@@ -20872,6 +21415,7 @@ export type ChildEntityResolvers<ContextType = any, ParentType extends Resolvers
   descendants?: Resolver<ResolversTypes['EntityDescendantConnection'], ParentType, ContextType, RequireFields<ChildEntityDescendantsArgs, 'order' | 'pageDirection' | 'scope'>>;
   doi?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   doiData?: Resolver<ResolversTypes['DOIData'], ParentType, ContextType>;
+  harvestModificationStatus?: Resolver<ResolversTypes['HarvestModificationStatus'], ParentType, ContextType>;
   hasWeirdDOI?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   heroImageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
@@ -20948,6 +21492,7 @@ export type CollectionResolvers<ContextType = any, ParentType extends ResolversP
   entityViewsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<CollectionEntityViewsByRegionArgs, 'dateFilter' | 'usOnly'>>;
   firstCollection?: Resolver<Maybe<ResolversTypes['Collection']>, ParentType, ContextType, RequireFields<CollectionFirstCollectionArgs, 'nodeFilter' | 'order'>>;
   firstItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<CollectionFirstItemArgs, 'nodeFilter' | 'order'>>;
+  harvestModificationStatus?: Resolver<ResolversTypes['HarvestModificationStatus'], ParentType, ContextType>;
   harvestTargetKind?: Resolver<ResolversTypes['HarvestTargetKind'], ParentType, ContextType>;
   hasCollections?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   hasItems?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -21232,6 +21777,7 @@ export type ContributorResolvers<ContextType = any, ParentType extends Resolvers
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   familyName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   givenName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  harvestModificationStatus?: Resolver<ResolversTypes['HarvestModificationStatus'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   image?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   imageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
@@ -21282,6 +21828,7 @@ export type ContributorBaseResolvers<ContextType = any, ParentType extends Resol
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   familyName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   givenName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  harvestModificationStatus?: Resolver<ResolversTypes['HarvestModificationStatus'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   image?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
   imageMetadata?: Resolver<Maybe<ResolversTypes['ImageMetadata']>, ParentType, ContextType>;
@@ -22250,6 +22797,7 @@ export type HarvestAttemptResolvers<ContextType = any, ParentType extends Resolv
   endedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   harvestErrors?: Resolver<Array<ResolversTypes['HarvestError']>, ParentType, ContextType>;
   harvestMapping?: Resolver<Maybe<ResolversTypes['HarvestMapping']>, ParentType, ContextType>;
+  harvestMessages?: Resolver<ResolversTypes['HarvestMessageConnection'], ParentType, ContextType, RequireFields<HarvestAttemptHarvestMessagesArgs, 'filters' | 'orFilters' | 'pageDirection'>>;
   harvestRecords?: Resolver<ResolversTypes['HarvestRecordConnection'], ParentType, ContextType, RequireFields<HarvestAttemptHarvestRecordsArgs, 'order' | 'pageDirection'>>;
   harvestSet?: Resolver<Maybe<ResolversTypes['HarvestSet']>, ParentType, ContextType>;
   harvestSource?: Resolver<ResolversTypes['HarvestSource'], ParentType, ContextType>;
@@ -22305,10 +22853,10 @@ export type HarvestAttemptableResolvers<ContextType = any, ParentType extends Re
 export type HarvestEntityResolvers<ContextType = any, ParentType extends ResolversParentTypes['HarvestEntity'] = ResolversParentTypes['HarvestEntity']> = {
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   entity?: Resolver<Maybe<ResolversTypes['Entity']>, ParentType, ContextType>;
+  harvestMessages?: Resolver<ResolversTypes['HarvestMessageConnection'], ParentType, ContextType, RequireFields<HarvestEntityHarvestMessagesArgs, 'filters' | 'orFilters' | 'pageDirection'>>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   leaf?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
-  metadataKind?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   parent?: Resolver<Maybe<ResolversTypes['HarvestEntity']>, ParentType, ContextType>;
   relativeDepth?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   root?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -22329,9 +22877,24 @@ export type HarvestErrorResolvers<ContextType = any, ParentType extends Resolver
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type HarvestExampleResolvers<ContextType = any, ParentType extends ResolversParentTypes['HarvestExample'] = ResolversParentTypes['HarvestExample']> = {
+  default?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  extractionMappingTemplate?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  generic?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  metadataFormatName?: Resolver<Maybe<ResolversTypes['HarvestMetadataFormat']>, ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  protocolName?: Resolver<Maybe<ResolversTypes['HarvestProtocol']>, ParentType, ContextType>;
+  schemaDeclarations?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  schemaVersions?: Resolver<Array<ResolversTypes['SchemaVersion']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type HarvestMappingResolvers<ContextType = any, ParentType extends ResolversParentTypes['HarvestMapping'] = ResolversParentTypes['HarvestMapping']> = {
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   harvestAttempts?: Resolver<ResolversTypes['HarvestAttemptConnection'], ParentType, ContextType, RequireFields<HarvestMappingHarvestAttemptsArgs, 'order' | 'pageDirection'>>;
+  harvestMessages?: Resolver<ResolversTypes['HarvestMessageConnection'], ParentType, ContextType, RequireFields<HarvestMappingHarvestMessagesArgs, 'filters' | 'orFilters' | 'pageDirection'>>;
   harvestRecords?: Resolver<ResolversTypes['HarvestRecordConnection'], ParentType, ContextType, RequireFields<HarvestMappingHarvestRecordsArgs, 'order' | 'pageDirection'>>;
   harvestSet?: Resolver<Maybe<ResolversTypes['HarvestSet']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -22375,6 +22938,36 @@ export type HarvestMappingUpdatePayloadResolvers<ContextType = any, ParentType e
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type HarvestMessageResolvers<ContextType = any, ParentType extends ResolversParentTypes['HarvestMessage'] = ResolversParentTypes['HarvestMessage']> = {
+  at?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  harvestAttempt?: Resolver<Maybe<ResolversTypes['HarvestAttempt']>, ParentType, ContextType>;
+  harvestEntity?: Resolver<Maybe<ResolversTypes['HarvestEntity']>, ParentType, ContextType>;
+  harvestMapping?: Resolver<Maybe<ResolversTypes['HarvestMapping']>, ParentType, ContextType>;
+  harvestRecord?: Resolver<Maybe<ResolversTypes['HarvestRecord']>, ParentType, ContextType>;
+  harvestSource?: Resolver<Maybe<ResolversTypes['HarvestSource']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  level?: Resolver<ResolversTypes['HarvestMessageLevel'], ParentType, ContextType>;
+  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
+  tags?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HarvestMessageConnectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['HarvestMessageConnection'] = ResolversParentTypes['HarvestMessageConnection']> = {
+  edges?: Resolver<Array<ResolversTypes['HarvestMessageEdge']>, ParentType, ContextType>;
+  nodes?: Resolver<Array<ResolversTypes['HarvestMessage']>, ParentType, ContextType>;
+  pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HarvestMessageEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['HarvestMessageEdge'] = ResolversParentTypes['HarvestMessageEdge']> = {
+  cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  node?: Resolver<ResolversTypes['HarvestMessage'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type HarvestOptionsMappingResolvers<ContextType = any, ParentType extends ResolversParentTypes['HarvestOptionsMapping'] = ResolversParentTypes['HarvestOptionsMapping']> = {
   autoCreateVolumesAndIssues?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   linkIdentifiersGlobally?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -22392,12 +22985,14 @@ export type HarvestRecordResolvers<ContextType = any, ParentType extends Resolve
   entityCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   harvestEntities?: Resolver<Array<ResolversTypes['HarvestEntity']>, ParentType, ContextType>;
   harvestErrors?: Resolver<Array<ResolversTypes['HarvestError']>, ParentType, ContextType>;
+  harvestMessages?: Resolver<ResolversTypes['HarvestMessageConnection'], ParentType, ContextType, RequireFields<HarvestRecordHarvestMessagesArgs, 'filters' | 'orFilters' | 'pageDirection'>>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   metadataFormat?: Resolver<ResolversTypes['HarvestMetadataFormat'], ParentType, ContextType>;
   rawMetadataSource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   rawSource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['HarvestRecordStatus'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -22446,6 +23041,7 @@ export type HarvestSourceResolvers<ContextType = any, ParentType extends Resolve
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   harvestAttempts?: Resolver<ResolversTypes['HarvestAttemptConnection'], ParentType, ContextType, RequireFields<HarvestSourceHarvestAttemptsArgs, 'order' | 'pageDirection'>>;
   harvestMappings?: Resolver<Array<ResolversTypes['HarvestMapping']>, ParentType, ContextType>;
+  harvestMessages?: Resolver<ResolversTypes['HarvestMessageConnection'], ParentType, ContextType, RequireFields<HarvestSourceHarvestMessagesArgs, 'filters' | 'orFilters' | 'pageDirection'>>;
   harvestRecords?: Resolver<ResolversTypes['HarvestRecordConnection'], ParentType, ContextType, RequireFields<HarvestSourceHarvestRecordsArgs, 'order' | 'pageDirection'>>;
   harvestSets?: Resolver<ResolversTypes['HarvestSetConnection'], ParentType, ContextType, RequireFields<HarvestSourceHarvestSetsArgs, 'filters' | 'orFilters' | 'order' | 'pageDirection'>>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -22456,6 +23052,7 @@ export type HarvestSourceResolvers<ContextType = any, ParentType extends Resolve
   protocol?: Resolver<ResolversTypes['HarvestProtocol'], ParentType, ContextType>;
   readOptions?: Resolver<ResolversTypes['HarvestOptionsRead'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['HarvestSourceStatus'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -22564,6 +23161,11 @@ export type HasHarvestErrorsResolvers<ContextType = any, ParentType extends Reso
 export type HasHarvestMetadataFormatResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasHarvestMetadataFormat'] = ResolversParentTypes['HasHarvestMetadataFormat']> = {
   __resolveType: TypeResolveFn<'HarvestAttempt' | 'HarvestMapping' | 'HarvestRecord' | 'HarvestSource', ParentType, ContextType>;
   metadataFormat?: Resolver<ResolversTypes['HarvestMetadataFormat'], ParentType, ContextType>;
+};
+
+export type HasHarvestModificationStatusResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasHarvestModificationStatus'] = ResolversParentTypes['HasHarvestModificationStatus']> = {
+  __resolveType: TypeResolveFn<'Collection' | 'Item' | 'OrganizationContributor' | 'PersonContributor', ParentType, ContextType>;
+  harvestModificationStatus?: Resolver<ResolversTypes['HarvestModificationStatus'], ParentType, ContextType>;
 };
 
 export type HasHarvestOptionsResolvers<ContextType = any, ParentType extends ResolversParentTypes['HasHarvestOptions'] = ResolversParentTypes['HasHarvestOptions']> = {
@@ -22862,6 +23464,7 @@ export type ItemResolvers<ContextType = any, ParentType extends ResolversParentT
   entityViews?: Resolver<ResolversTypes['AnalyticsEventCountSummary'], ParentType, ContextType, RequireFields<ItemEntityViewsArgs, 'dateFilter' | 'precision'>>;
   entityViewsByRegion?: Resolver<ResolversTypes['AnalyticsRegionCountSummary'], ParentType, ContextType, RequireFields<ItemEntityViewsByRegionArgs, 'dateFilter' | 'usOnly'>>;
   firstItem?: Resolver<Maybe<ResolversTypes['Item']>, ParentType, ContextType, RequireFields<ItemFirstItemArgs, 'nodeFilter' | 'order'>>;
+  harvestModificationStatus?: Resolver<ResolversTypes['HarvestModificationStatus'], ParentType, ContextType>;
   hasItems?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   hasWeirdDOI?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   heroImage?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
@@ -23499,7 +24102,7 @@ export type NavigationTemplateInstanceSlotsResolvers<ContextType = any, ParentTy
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
-  __resolveType: TypeResolveFn<'Announcement' | 'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo' | 'BlurbTemplateDefinition' | 'BlurbTemplateInstance' | 'Collection' | 'CollectionAttribution' | 'CollectionContribution' | 'Community' | 'ContextualPermission' | 'ContributionRoleConfiguration' | 'ContributorCollectionAttribution' | 'ContributorItemAttribution' | 'ContributorListTemplateDefinition' | 'ContributorListTemplateInstance' | 'ControlledVocabulary' | 'ControlledVocabularyItem' | 'ControlledVocabularySource' | 'DescendantListTemplateDefinition' | 'DescendantListTemplateInstance' | 'DetailTemplateDefinition' | 'DetailTemplateInstance' | 'EntityBreadcrumb' | 'EntityLink' | 'GlobalConfiguration' | 'HarvestAttempt' | 'HarvestEntity' | 'HarvestError' | 'HarvestMapping' | 'HarvestRecord' | 'HarvestSet' | 'HarvestSource' | 'HeroLayoutDefinition' | 'HeroLayoutInstance' | 'HeroTemplateDefinition' | 'HeroTemplateInstance' | 'HierarchicalSchemaRank' | 'HierarchicalSchemaVersionRank' | 'Item' | 'ItemAttribution' | 'ItemContribution' | 'LinkListTemplateDefinition' | 'LinkListTemplateInstance' | 'LinkTargetCandidate' | 'ListItemLayoutDefinition' | 'ListItemLayoutInstance' | 'ListItemTemplateDefinition' | 'ListItemTemplateInstance' | 'MainLayoutDefinition' | 'MainLayoutInstance' | 'MetadataLayoutDefinition' | 'MetadataLayoutInstance' | 'MetadataTemplateDefinition' | 'MetadataTemplateInstance' | 'NavigationLayoutDefinition' | 'NavigationLayoutInstance' | 'NavigationTemplateDefinition' | 'NavigationTemplateInstance' | 'Ordering' | 'OrderingEntry' | 'OrderingTemplateDefinition' | 'OrderingTemplateInstance' | 'OrganizationContributor' | 'Page' | 'PageListTemplateDefinition' | 'PageListTemplateInstance' | 'PersonContributor' | 'Role' | 'SchemaDefinition' | 'SchemaVersion' | 'SearchResult' | 'SupplementaryLayoutDefinition' | 'SupplementaryLayoutInstance' | 'SupplementaryTemplateDefinition' | 'SupplementaryTemplateInstance' | 'TemplateInstanceSibling' | 'User' | 'UserCollectionAccessGrant' | 'UserCommunityAccessGrant' | 'UserGroup' | 'UserGroupCollectionAccessGrant' | 'UserGroupCommunityAccessGrant' | 'UserGroupItemAccessGrant' | 'UserItemAccessGrant', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'Announcement' | 'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo' | 'BlurbTemplateDefinition' | 'BlurbTemplateInstance' | 'Collection' | 'CollectionAttribution' | 'CollectionContribution' | 'Community' | 'ContextualPermission' | 'ContributionRoleConfiguration' | 'ContributorCollectionAttribution' | 'ContributorItemAttribution' | 'ContributorListTemplateDefinition' | 'ContributorListTemplateInstance' | 'ControlledVocabulary' | 'ControlledVocabularyItem' | 'ControlledVocabularySource' | 'DescendantListTemplateDefinition' | 'DescendantListTemplateInstance' | 'DetailTemplateDefinition' | 'DetailTemplateInstance' | 'EntityBreadcrumb' | 'EntityLink' | 'GlobalConfiguration' | 'HarvestAttempt' | 'HarvestEntity' | 'HarvestError' | 'HarvestMapping' | 'HarvestMessage' | 'HarvestRecord' | 'HarvestSet' | 'HarvestSource' | 'HeroLayoutDefinition' | 'HeroLayoutInstance' | 'HeroTemplateDefinition' | 'HeroTemplateInstance' | 'HierarchicalSchemaRank' | 'HierarchicalSchemaVersionRank' | 'Item' | 'ItemAttribution' | 'ItemContribution' | 'LinkListTemplateDefinition' | 'LinkListTemplateInstance' | 'LinkTargetCandidate' | 'ListItemLayoutDefinition' | 'ListItemLayoutInstance' | 'ListItemTemplateDefinition' | 'ListItemTemplateInstance' | 'MainLayoutDefinition' | 'MainLayoutInstance' | 'MetadataLayoutDefinition' | 'MetadataLayoutInstance' | 'MetadataTemplateDefinition' | 'MetadataTemplateInstance' | 'NavigationLayoutDefinition' | 'NavigationLayoutInstance' | 'NavigationTemplateDefinition' | 'NavigationTemplateInstance' | 'Ordering' | 'OrderingEntry' | 'OrderingTemplateDefinition' | 'OrderingTemplateInstance' | 'OrganizationContributor' | 'Page' | 'PageListTemplateDefinition' | 'PageListTemplateInstance' | 'PersonContributor' | 'Role' | 'SchemaDefinition' | 'SchemaVersion' | 'SearchResult' | 'SupplementaryLayoutDefinition' | 'SupplementaryLayoutInstance' | 'SupplementaryTemplateDefinition' | 'SupplementaryTemplateInstance' | 'TemplateInstanceSibling' | 'User' | 'UserCollectionAccessGrant' | 'UserCommunityAccessGrant' | 'UserGroup' | 'UserGroupCollectionAccessGrant' | 'UserGroupCommunityAccessGrant' | 'UserGroupItemAccessGrant' | 'UserItemAccessGrant', ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
 };
 
@@ -23700,6 +24303,7 @@ export type OrganizationContributorResolvers<ContextType = any, ParentType exten
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   familyName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   givenName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  harvestModificationStatus?: Resolver<ResolversTypes['HarvestModificationStatus'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   image?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
@@ -23803,7 +24407,7 @@ export type PageListTemplateInstanceSlotsResolvers<ContextType = any, ParentType
 };
 
 export type PaginatedResolvers<ContextType = any, ParentType extends ResolversParentTypes['Paginated'] = ResolversParentTypes['Paginated']> = {
-  __resolveType: TypeResolveFn<'AnnouncementConnection' | 'AnyAccessGrantConnection' | 'AnyAssetConnection' | 'AnyCollectionAccessGrantConnection' | 'AnyCommunityAccessGrantConnection' | 'AnyContributorConnection' | 'AnyUserAccessGrantConnection' | 'AnyUserGroupAccessGrantConnection' | 'CollectionConnection' | 'CollectionContributionConnection' | 'CommunityConnection' | 'ContextualPermissionConnection' | 'ContributorAttributionConnection' | 'ControlledVocabularyConnection' | 'ControlledVocabularySourceConnection' | 'EntityDescendantConnection' | 'EntityLinkConnection' | 'HarvestAttemptConnection' | 'HarvestRecordConnection' | 'HarvestSetConnection' | 'HarvestSourceConnection' | 'ItemConnection' | 'ItemContributionConnection' | 'LinkTargetCandidateConnection' | 'OrderingConnection' | 'OrderingEntryConnection' | 'PageConnection' | 'RoleConnection' | 'SchemaDefinitionConnection' | 'SchemaVersionConnection' | 'SearchResultConnection' | 'UserCollectionAccessGrantConnection' | 'UserCommunityAccessGrantConnection' | 'UserConnection' | 'UserGroupCollectionAccessGrantConnection' | 'UserGroupCommunityAccessGrantConnection' | 'UserGroupItemAccessGrantConnection' | 'UserItemAccessGrantConnection', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'AnnouncementConnection' | 'AnyAccessGrantConnection' | 'AnyAssetConnection' | 'AnyCollectionAccessGrantConnection' | 'AnyCommunityAccessGrantConnection' | 'AnyContributorConnection' | 'AnyUserAccessGrantConnection' | 'AnyUserGroupAccessGrantConnection' | 'CollectionConnection' | 'CollectionContributionConnection' | 'CommunityConnection' | 'ContextualPermissionConnection' | 'ContributorAttributionConnection' | 'ControlledVocabularyConnection' | 'ControlledVocabularySourceConnection' | 'EntityDescendantConnection' | 'EntityLinkConnection' | 'HarvestAttemptConnection' | 'HarvestMessageConnection' | 'HarvestRecordConnection' | 'HarvestSetConnection' | 'HarvestSourceConnection' | 'ItemConnection' | 'ItemContributionConnection' | 'LinkTargetCandidateConnection' | 'OrderingConnection' | 'OrderingEntryConnection' | 'PageConnection' | 'RoleConnection' | 'SchemaDefinitionConnection' | 'SchemaVersionConnection' | 'SearchResultConnection' | 'UserCollectionAccessGrantConnection' | 'UserCommunityAccessGrantConnection' | 'UserConnection' | 'UserGroupCollectionAccessGrantConnection' | 'UserGroupCommunityAccessGrantConnection' | 'UserGroupItemAccessGrantConnection' | 'UserItemAccessGrantConnection', ParentType, ContextType>;
   pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
 };
 
@@ -23832,6 +24436,7 @@ export type PersonContributorResolvers<ContextType = any, ParentType extends Res
   email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   familyName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   givenName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  harvestModificationStatus?: Resolver<ResolversTypes['HarvestModificationStatus'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   image?: Resolver<ResolversTypes['ImageAttachment'], ParentType, ContextType>;
@@ -23907,6 +24512,16 @@ export type QueriesHarvestAttemptResolvers<ContextType = any, ParentType extends
   harvestAttempts?: Resolver<ResolversTypes['HarvestAttemptConnection'], ParentType, ContextType, RequireFields<QueriesHarvestAttemptHarvestAttemptsArgs, 'order' | 'pageDirection'>>;
 };
 
+export type QueriesHarvestExampleResolvers<ContextType = any, ParentType extends ResolversParentTypes['QueriesHarvestExample'] = ResolversParentTypes['QueriesHarvestExample']> = {
+  __resolveType: TypeResolveFn<'Query', ParentType, ContextType>;
+  harvestExamples?: Resolver<Array<ResolversTypes['HarvestExample']>, ParentType, ContextType, RequireFields<QueriesHarvestExampleHarvestExamplesArgs, 'generic'>>;
+};
+
+export type QueriesHarvestMessageResolvers<ContextType = any, ParentType extends ResolversParentTypes['QueriesHarvestMessage'] = ResolversParentTypes['QueriesHarvestMessage']> = {
+  __resolveType: TypeResolveFn<'HarvestAttempt' | 'HarvestEntity' | 'HarvestMapping' | 'HarvestRecord' | 'HarvestSource' | 'Query', ParentType, ContextType>;
+  harvestMessages?: Resolver<ResolversTypes['HarvestMessageConnection'], ParentType, ContextType, RequireFields<QueriesHarvestMessageHarvestMessagesArgs, 'filters' | 'orFilters' | 'pageDirection'>>;
+};
+
 export type QueriesHarvestSetResolvers<ContextType = any, ParentType extends ResolversParentTypes['QueriesHarvestSet'] = ResolversParentTypes['QueriesHarvestSet']> = {
   __resolveType: TypeResolveFn<'Query', ParentType, ContextType>;
   harvestSet?: Resolver<Maybe<ResolversTypes['HarvestSet']>, ParentType, ContextType, RequireFields<QueriesHarvestSetHarvestSetArgs, 'slug'>>;
@@ -23965,6 +24580,8 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   globalConfiguration?: Resolver<ResolversTypes['GlobalConfiguration'], ParentType, ContextType>;
   harvestAttempt?: Resolver<Maybe<ResolversTypes['HarvestAttempt']>, ParentType, ContextType, RequireFields<QueryHarvestAttemptArgs, 'slug'>>;
   harvestAttempts?: Resolver<ResolversTypes['HarvestAttemptConnection'], ParentType, ContextType, RequireFields<QueryHarvestAttemptsArgs, 'order' | 'pageDirection'>>;
+  harvestExamples?: Resolver<Array<ResolversTypes['HarvestExample']>, ParentType, ContextType, RequireFields<QueryHarvestExamplesArgs, 'generic'>>;
+  harvestMessages?: Resolver<ResolversTypes['HarvestMessageConnection'], ParentType, ContextType, RequireFields<QueryHarvestMessagesArgs, 'filters' | 'orFilters' | 'pageDirection'>>;
   harvestSet?: Resolver<Maybe<ResolversTypes['HarvestSet']>, ParentType, ContextType, RequireFields<QueryHarvestSetArgs, 'slug'>>;
   harvestSource?: Resolver<Maybe<ResolversTypes['HarvestSource']>, ParentType, ContextType, RequireFields<QueryHarvestSourceArgs, 'slug'>>;
   harvestSources?: Resolver<ResolversTypes['HarvestSourceConnection'], ParentType, ContextType, RequireFields<QueryHarvestSourcesArgs, 'order' | 'pageDirection'>>;
@@ -24358,7 +24975,7 @@ export interface SlugScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 }
 
 export type SluggableResolvers<ContextType = any, ParentType extends ResolversParentTypes['Sluggable'] = ResolversParentTypes['Sluggable']> = {
-  __resolveType: TypeResolveFn<'Announcement' | 'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo' | 'BlurbTemplateDefinition' | 'BlurbTemplateInstance' | 'Collection' | 'CollectionAttribution' | 'CollectionContribution' | 'Community' | 'ContextualPermission' | 'ContributionRoleConfiguration' | 'ContributorCollectionAttribution' | 'ContributorItemAttribution' | 'ContributorListTemplateDefinition' | 'ContributorListTemplateInstance' | 'ControlledVocabulary' | 'ControlledVocabularyItem' | 'ControlledVocabularySource' | 'DescendantListTemplateDefinition' | 'DescendantListTemplateInstance' | 'DetailTemplateDefinition' | 'DetailTemplateInstance' | 'EntityLink' | 'HarvestAttempt' | 'HarvestEntity' | 'HarvestError' | 'HarvestMapping' | 'HarvestRecord' | 'HarvestSet' | 'HarvestSource' | 'HeroLayoutDefinition' | 'HeroLayoutInstance' | 'HeroTemplateDefinition' | 'HeroTemplateInstance' | 'Item' | 'ItemAttribution' | 'ItemContribution' | 'LinkListTemplateDefinition' | 'LinkListTemplateInstance' | 'ListItemLayoutDefinition' | 'ListItemLayoutInstance' | 'ListItemTemplateDefinition' | 'ListItemTemplateInstance' | 'MainLayoutDefinition' | 'MainLayoutInstance' | 'MetadataLayoutDefinition' | 'MetadataLayoutInstance' | 'MetadataTemplateDefinition' | 'MetadataTemplateInstance' | 'NavigationLayoutDefinition' | 'NavigationLayoutInstance' | 'NavigationTemplateDefinition' | 'NavigationTemplateInstance' | 'Ordering' | 'OrderingEntry' | 'OrderingTemplateDefinition' | 'OrderingTemplateInstance' | 'OrganizationContributor' | 'PageListTemplateDefinition' | 'PageListTemplateInstance' | 'PersonContributor' | 'Role' | 'SchemaDefinition' | 'SchemaVersion' | 'SearchResult' | 'SupplementaryLayoutDefinition' | 'SupplementaryLayoutInstance' | 'SupplementaryTemplateDefinition' | 'SupplementaryTemplateInstance' | 'TemplateInstanceSibling' | 'User' | 'UserCollectionAccessGrant' | 'UserCommunityAccessGrant' | 'UserGroup' | 'UserGroupCollectionAccessGrant' | 'UserGroupCommunityAccessGrant' | 'UserGroupItemAccessGrant' | 'UserItemAccessGrant', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'Announcement' | 'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo' | 'BlurbTemplateDefinition' | 'BlurbTemplateInstance' | 'Collection' | 'CollectionAttribution' | 'CollectionContribution' | 'Community' | 'ContextualPermission' | 'ContributionRoleConfiguration' | 'ContributorCollectionAttribution' | 'ContributorItemAttribution' | 'ContributorListTemplateDefinition' | 'ContributorListTemplateInstance' | 'ControlledVocabulary' | 'ControlledVocabularyItem' | 'ControlledVocabularySource' | 'DescendantListTemplateDefinition' | 'DescendantListTemplateInstance' | 'DetailTemplateDefinition' | 'DetailTemplateInstance' | 'EntityLink' | 'HarvestAttempt' | 'HarvestEntity' | 'HarvestError' | 'HarvestMapping' | 'HarvestMessage' | 'HarvestRecord' | 'HarvestSet' | 'HarvestSource' | 'HeroLayoutDefinition' | 'HeroLayoutInstance' | 'HeroTemplateDefinition' | 'HeroTemplateInstance' | 'Item' | 'ItemAttribution' | 'ItemContribution' | 'LinkListTemplateDefinition' | 'LinkListTemplateInstance' | 'ListItemLayoutDefinition' | 'ListItemLayoutInstance' | 'ListItemTemplateDefinition' | 'ListItemTemplateInstance' | 'MainLayoutDefinition' | 'MainLayoutInstance' | 'MetadataLayoutDefinition' | 'MetadataLayoutInstance' | 'MetadataTemplateDefinition' | 'MetadataTemplateInstance' | 'NavigationLayoutDefinition' | 'NavigationLayoutInstance' | 'NavigationTemplateDefinition' | 'NavigationTemplateInstance' | 'Ordering' | 'OrderingEntry' | 'OrderingTemplateDefinition' | 'OrderingTemplateInstance' | 'OrganizationContributor' | 'PageListTemplateDefinition' | 'PageListTemplateInstance' | 'PersonContributor' | 'Role' | 'SchemaDefinition' | 'SchemaVersion' | 'SearchResult' | 'SupplementaryLayoutDefinition' | 'SupplementaryLayoutInstance' | 'SupplementaryTemplateDefinition' | 'SupplementaryTemplateInstance' | 'TemplateInstanceSibling' | 'User' | 'UserCollectionAccessGrant' | 'UserCommunityAccessGrant' | 'UserGroup' | 'UserGroupCollectionAccessGrant' | 'UserGroupCommunityAccessGrant' | 'UserGroupItemAccessGrant' | 'UserItemAccessGrant', ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
 };
 
@@ -25348,10 +25965,14 @@ export type Resolvers<ContextType = any> = {
   HarvestAttemptable?: HarvestAttemptableResolvers<ContextType>;
   HarvestEntity?: HarvestEntityResolvers<ContextType>;
   HarvestError?: HarvestErrorResolvers<ContextType>;
+  HarvestExample?: HarvestExampleResolvers<ContextType>;
   HarvestMapping?: HarvestMappingResolvers<ContextType>;
   HarvestMappingCreatePayload?: HarvestMappingCreatePayloadResolvers<ContextType>;
   HarvestMappingDestroyPayload?: HarvestMappingDestroyPayloadResolvers<ContextType>;
   HarvestMappingUpdatePayload?: HarvestMappingUpdatePayloadResolvers<ContextType>;
+  HarvestMessage?: HarvestMessageResolvers<ContextType>;
+  HarvestMessageConnection?: HarvestMessageConnectionResolvers<ContextType>;
+  HarvestMessageEdge?: HarvestMessageEdgeResolvers<ContextType>;
   HarvestOptionsMapping?: HarvestOptionsMappingResolvers<ContextType>;
   HarvestOptionsRead?: HarvestOptionsReadResolvers<ContextType>;
   HarvestRecord?: HarvestRecordResolvers<ContextType>;
@@ -25376,6 +25997,7 @@ export type Resolvers<ContextType = any> = {
   HasEntityBreadcrumbs?: HasEntityBreadcrumbsResolvers<ContextType>;
   HasHarvestErrors?: HasHarvestErrorsResolvers<ContextType>;
   HasHarvestMetadataFormat?: HasHarvestMetadataFormatResolvers<ContextType>;
+  HasHarvestModificationStatus?: HasHarvestModificationStatusResolvers<ContextType>;
   HasHarvestOptions?: HasHarvestOptionsResolvers<ContextType>;
   HasSchemaProperties?: HasSchemaPropertiesResolvers<ContextType>;
   HeroLayoutDefinition?: HeroLayoutDefinitionResolvers<ContextType>;
@@ -25482,6 +26104,8 @@ export type Resolvers<ContextType = any> = {
   QueriesControlledVocabularySource?: QueriesControlledVocabularySourceResolvers<ContextType>;
   QueriesEntities?: QueriesEntitiesResolvers<ContextType>;
   QueriesHarvestAttempt?: QueriesHarvestAttemptResolvers<ContextType>;
+  QueriesHarvestExample?: QueriesHarvestExampleResolvers<ContextType>;
+  QueriesHarvestMessage?: QueriesHarvestMessageResolvers<ContextType>;
   QueriesHarvestSet?: QueriesHarvestSetResolvers<ContextType>;
   QueriesHarvestSource?: QueriesHarvestSourceResolvers<ContextType>;
   QueriesSchemas?: QueriesSchemasResolvers<ContextType>;
