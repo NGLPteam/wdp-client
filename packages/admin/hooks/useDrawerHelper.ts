@@ -37,6 +37,7 @@ import EntityOrderingEditDrawer from "components/composed/ordering/EntityOrderin
 import SearchFilterDrawer from "components/composed/search/SearchFilterDrawer";
 import HarvestSourceAddDrawer from "components/composed/harvesting/HarvestSourceAddDrawer";
 import HarvestSourceEditDrawer from "components/composed/harvesting/HarvestSourceEditDrawer";
+import HarvestMappingAddDrawer from "components/composed/harvesting/HarvestMappingAddDrawer";
 
 const drawerRegistry = {
   addPerson: ContributorCreatePersonDrawer,
@@ -73,6 +74,7 @@ const drawerRegistry = {
   searchFilters: SearchFilterDrawer,
   addHarvestSource: HarvestSourceAddDrawer,
   editHarvestSource: HarvestSourceEditDrawer,
+  addHarvestMapping: HarvestMappingAddDrawer,
 };
 
 export function useDrawerHelper() {

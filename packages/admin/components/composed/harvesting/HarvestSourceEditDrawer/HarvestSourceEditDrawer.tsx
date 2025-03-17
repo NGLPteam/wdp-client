@@ -24,12 +24,12 @@ export default function HarvestSourceUpdateDrawer({
   const destroy = useDestroyer();
   const detailsRoute = RouteHelper.findRouteByName("harvestSource.details");
 
-  if (!Object.prototype.hasOwnProperty.call(params, "drawerSlug")) {
+  const { drawerSlug } = params ?? {};
+
+  if (!drawerSlug) {
     drawerHelper.close();
     return null;
   }
-
-  const { drawerSlug } = params;
 
   /* Render route and delete buttons */
   function renderButtons(data?: Response | null) {

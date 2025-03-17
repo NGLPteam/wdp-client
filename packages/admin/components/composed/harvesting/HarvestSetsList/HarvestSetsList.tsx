@@ -48,7 +48,7 @@ function HarvestSetsList({ data, headerStyle, hideHeader }: Props) {
   );
 }
 
-const fragment = graphql`
+export const fragment = graphql`
   fragment HarvestSetsListFragment on HarvestSetConnection {
     nodes {
       id
