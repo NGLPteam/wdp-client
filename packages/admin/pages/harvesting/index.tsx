@@ -14,7 +14,7 @@ export default function Harvesting() {
       variables={{ page, order }}
       subscribeIds={["HarvestSource"]}
       loadingFallback={<LoadingPage />}
-      refetchTags={["harvestSource"]}
+      refetchTags={["harvestSources"]}
     >
       {({ queryRef }) =>
         queryRef ? <ListQuery queryRef={queryRef} /> : <HarvestSourcesList />

@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import Drawer from "components/layout/Drawer";
-// import HarvestSourceCreatePersonForm from "../HarvestSourceCreatePersonForm";
+import HarvestSourceCreateForm from "../HarvestSourceCreateForm";
 import type { DialogProps } from "reakit/Dialog";
 
 export default function HarvestSourceCreatePersonDrawer({
@@ -16,7 +16,7 @@ export default function HarvestSourceCreatePersonDrawer({
       dialog={dialog}
       hideOnClickOutside={false}
     >
-      <div>Add form here</div>
+      <HarvestSourceCreateForm onSuccess={dialog.hide} onCancel={dialog.hide} />
     </Drawer>
   );
 }
