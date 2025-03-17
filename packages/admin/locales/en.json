@@ -75,7 +75,7 @@
       "harvest_set": "harvest set",
       "harvest_set_other": "harvest sets",
       "harvest_mapping": "harvest mapping",
-      "harvest_mappings_other": "harvest mappings"
+      "harvest_mapping_other": "harvest mappings"
     },
     "lists": {
       "admin_column": "Admin?",
@@ -262,8 +262,10 @@
         "contributor": "Add Contributor",
         "file": "Add File",
         "file_header": "Add New File",
-        "harvest_source": "Harvest Source",
-        "harvest_source_header": "Add Harvest Source"
+        "harvest_source": "$t(glossary.harvest_source)",
+        "harvest_source_header": "Add Harvest Source",
+        "harvest_mapping": "$t(glossary.harvest_mapping)",
+        "harvest_mapping_header": "Add Harvest Mapping"
       },
       "create": {
         "contributor_person": "Create Person",
@@ -453,7 +455,8 @@
         "metadata_format": "Metadata Format",
         "protocol": "Harvest Protocol",
         "identifier": "identifier",
-        "identifier_description": "Optional custom identifier. If left blank, one will be assigned based on name. Cannot be changed after harvest source is created."
+        "identifier_description": "Optional custom identifier. If left blank, one will be assigned based on name. Cannot be changed after harvest source is created.",
+        "target_entity": "Target Entity"
       },
       "validation": {
         "year": "Must be a four digit year",

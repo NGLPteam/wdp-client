@@ -39,3 +39,4 @@ export { default as FileImageUpload } from "./FileUpload/patterns/FileImageUploa
 export { default as ContributionRoleSelect } from "./ContributionRoleSelect";
 export { default as ControlledVocabularySelect } from "./ControlledVocabularySelect";
 export { default as OrderingInclude } from "./OrderingInclude";
+export { default as HarvestSetTypeahead } from "./HarvestSetTypeahead";
