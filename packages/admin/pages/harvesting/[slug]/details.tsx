@@ -1,6 +1,6 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
-// import HarvestSourceUpdateForm from "components/composed/contributor/HarvestSourceUpdateForm";
+import HarvestSourceUpdateForm from "components/composed/harvesting/HarvestSourceUpdateForm";
 import { LoadingPage } from "components/atomic";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import HarvestSourceLayout from "components/composed/harvesting/HarvestSourceLayout";
@@ -14,7 +14,7 @@ function HarvestSourceDetails({ queryRef, ...layoutProps }: Props) {
 
   return harvestSource ? (
     <HarvestSourceLayout {...layoutProps} data={harvestSource}>
-      <div>details form here</div>
+      <HarvestSourceUpdateForm data={harvestSource} />
     </HarvestSourceLayout>
   ) : null;
 }
@@ -58,6 +58,7 @@ const query = graphql`
   query detailsHarvestSourceQuery($slug: Slug!) {
     harvestSource(slug: $slug) {
       ...HarvestSourceLayoutFragment
+      ...HarvestSourceUpdateFormFragment
     }
   }
 `;

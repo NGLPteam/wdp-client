@@ -440,7 +440,14 @@
         "controlled_vocabularies": "Controlled Vocabularies",
         "contribution_roles": "Contribution Roles",
         "default_contribution_role": "Default Role",
-        "inclusion_criteria": "Inclusion Criteria"
+        "inclusion_criteria": "Inclusion Criteria",
+        "description": "Description",
+        "max_records": "Max Records",
+        "read_options": "Read Options",
+        "mapping_options": "Mapping Options",
+        "auto_create_vol_iss": "Auto create volumes and issues",
+        "link_ids_globally": "Link identifiers globally",
+        "metadata_mappings": "Use metadata mappings"
       },
       "validation": {
         "year": "Must be a four digit year",
