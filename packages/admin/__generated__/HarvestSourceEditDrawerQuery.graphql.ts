@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8d8af575e9e9dd6d128c70a93ea31e0b>>
+ * @generated SignedSource<<4a60b5572260b867d39cc3090b69cd57>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,19 +9,15 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
-export type HarvestMetadataFormat = "JATS" | "METS" | "MODS" | "OAIDC" | "%future added value";
+import { FragmentRefs } from "relay-runtime";
 export type HarvestSourceEditDrawerQuery$variables = {
   slug: string;
 };
 export type HarvestSourceEditDrawerQuery$data = {
   readonly harvestSource: {
-    readonly baseURL: string;
-    readonly description: string | null | undefined;
     readonly id: string;
-    readonly identifier: string;
-    readonly metadataFormat: HarvestMetadataFormat;
     readonly name: string;
-    readonly slug: string;
+    readonly " $fragmentSpreads": FragmentRefs<"HarvestSourceUpdateFormFragment">;
   } | null | undefined;
 };
 export type HarvestSourceEditDrawerQuery = {
@@ -39,79 +35,51 @@ var v0 = [
 ],
 v1 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "slug",
-        "variableName": "slug"
-      }
-    ],
-    "concreteType": "HarvestSource",
-    "kind": "LinkedField",
-    "name": "harvestSource",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "id",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "name",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "identifier",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "slug",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "metadataFormat",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "baseURL",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "description",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
+    "kind": "Variable",
+    "name": "slug",
+    "variableName": "slug"
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "HarvestSourceEditDrawerQuery",
-    "selections": (v1/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "HarvestSource",
+        "kind": "LinkedField",
+        "name": "harvestSource",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "HarvestSourceUpdateFormFragment"
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Query",
     "abstractKey": null
   },
@@ -120,19 +88,118 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "HarvestSourceEditDrawerQuery",
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "HarvestSource",
+        "kind": "LinkedField",
+        "name": "harvestSource",
+        "plural": false,
+        "selections": [
+          (v2/*: any*/),
+          (v3/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "baseURL",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "description",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "identifier",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "protocol",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "metadataFormat",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "HarvestOptionsMapping",
+            "kind": "LinkedField",
+            "name": "mappingOptions",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "autoCreateVolumesAndIssues",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "linkIdentifiersGlobally",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "useMetadataMappings",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "HarvestOptionsRead",
+            "kind": "LinkedField",
+            "name": "readOptions",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "maxRecords",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "803bdaeae83ec527a6c7a1dd7eb242fa",
+    "cacheID": "030e7274db0284b1fdae31eedd859d82",
     "id": null,
     "metadata": {},
     "name": "HarvestSourceEditDrawerQuery",
     "operationKind": "query",
-    "text": "query HarvestSourceEditDrawerQuery(\n  $slug: Slug!\n) {\n  harvestSource(slug: $slug) {\n    id\n    name\n    identifier\n    slug\n    metadataFormat\n    baseURL\n    description\n  }\n}\n"
+    "text": "query HarvestSourceEditDrawerQuery(\n  $slug: Slug!\n) {\n  harvestSource(slug: $slug) {\n    id\n    name\n    ...HarvestSourceUpdateFormFragment\n  }\n}\n\nfragment HarvestSourceUpdateFormFieldsFragment on HarvestSource {\n  name\n  baseURL\n  description\n  identifier\n  protocol\n  metadataFormat\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n}\n\nfragment HarvestSourceUpdateFormFragment on HarvestSource {\n  id\n  ...HarvestSourceUpdateFormFieldsFragment\n}\n"
   }
 };
 })();
 
-(node as any).hash = "8b9ae63741408e3428a1e5aa5582104e";
+(node as any).hash = "56e7a2b60853e552f51419d9ef089962";
 
 export default node;

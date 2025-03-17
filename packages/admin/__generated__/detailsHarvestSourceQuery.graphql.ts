@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f1c689018fcc6af0ea1fd76e10373f2c>>
+ * @generated SignedSource<<b4d1a3283d7577885b83f657538c3175>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,7 @@ export type detailsHarvestSourceQuery$variables = {
 };
 export type detailsHarvestSourceQuery$data = {
   readonly harvestSource: {
-    readonly " $fragmentSpreads": FragmentRefs<"HarvestSourceLayoutFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"HarvestSourceLayoutFragment" | "HarvestSourceUpdateFormFragment">;
   } | null | undefined;
 };
 export type detailsHarvestSourceQuery = {
@@ -57,6 +57,11 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "HarvestSourceLayoutFragment"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "HarvestSourceUpdateFormFragment"
           }
         ],
         "storageKey": null
@@ -106,6 +111,91 @@ return {
             "kind": "ScalarField",
             "name": "id",
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "baseURL",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "description",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "identifier",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "protocol",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "metadataFormat",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "HarvestOptionsMapping",
+            "kind": "LinkedField",
+            "name": "mappingOptions",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "autoCreateVolumesAndIssues",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "linkIdentifiersGlobally",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "useMetadataMappings",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "HarvestOptionsRead",
+            "kind": "LinkedField",
+            "name": "readOptions",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "maxRecords",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -113,16 +203,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "71d79d4d0dd7077774931b04a02b46d2",
+    "cacheID": "dfcee9e44e2d3dec43330dec49c7c98d",
     "id": null,
     "metadata": {},
     "name": "detailsHarvestSourceQuery",
     "operationKind": "query",
-    "text": "query detailsHarvestSourceQuery(\n  $slug: Slug!\n) {\n  harvestSource(slug: $slug) {\n    ...HarvestSourceLayoutFragment\n    id\n  }\n}\n\nfragment HarvestSourceLayoutFragment on HarvestSource {\n  __typename\n  slug\n  name\n}\n"
+    "text": "query detailsHarvestSourceQuery(\n  $slug: Slug!\n) {\n  harvestSource(slug: $slug) {\n    ...HarvestSourceLayoutFragment\n    ...HarvestSourceUpdateFormFragment\n    id\n  }\n}\n\nfragment HarvestSourceLayoutFragment on HarvestSource {\n  __typename\n  slug\n  name\n}\n\nfragment HarvestSourceUpdateFormFieldsFragment on HarvestSource {\n  name\n  baseURL\n  description\n  identifier\n  protocol\n  metadataFormat\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n}\n\nfragment HarvestSourceUpdateFormFragment on HarvestSource {\n  id\n  ...HarvestSourceUpdateFormFieldsFragment\n}\n"
   }
 };
 })();
 
-(node as any).hash = "db66f17b4ca4272f01dc18d5a275dacb";
+(node as any).hash = "c36ee707ca3e3e91a7272c3befd1c12a";
 
 export default node;
