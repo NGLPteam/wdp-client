@@ -1,42 +1,36 @@
-import { useFragment, graphql } from "react-relay";
+import { graphql } from "react-relay";
 import MutationForm, {
   useRenderForm,
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
 import { useTranslation } from "react-i18next";
+import { convertToSlug } from "helpers";
 import type {
-  HarvestSourceUpdateInput,
-  HarvestSourceUpdateFormMutation,
-} from "@/relay/HarvestSourceUpdateFormMutation.graphql";
-import type { HarvestSourceUpdateFormFragment$key } from "@/relay/HarvestSourceUpdateFormFragment.graphql";
-import type { HarvestSourceUpdateFormFieldsFragment$key } from "@/relay/HarvestSourceUpdateFormFieldsFragment.graphql";
-import type {
-  HarvestMetadataFormat,
-  HarvestProtocol,
-} from "types/graphql-schema";
+  HarvestSourceCreateInput,
+  HarvestSourceCreateFormMutation,
+} from "@/relay/HarvestSourceCreateFormMutation.graphql";
 
-export default function HarvestSourceUpdateForm({
-  data,
+export default function HarvestSourceCreateForm({
   onSuccess,
   onCancel,
 }: Props) {
   const { t } = useTranslation();
 
-  const { id, ...fieldsData } =
-    useFragment<HarvestSourceUpdateFormFragment$key>(fragment, data);
-
-  const defaultValues = useFragment<HarvestSourceUpdateFormFieldsFragment$key>(
-    fieldsFragment,
-    fieldsData,
+  const toVariables = useToVariables<
+    HarvestSourceCreateFormMutation,
+    HarvestSourceCreateInput
+  >(
+    (data) => ({
+      input: {
+        ...data,
+        identifier: data.identifier || convertToSlug(data.name),
+      },
+    }),
+    [],
   );
 
-  const toVariables = useToVariables<
-    HarvestSourceUpdateFormMutation,
-    HarvestSourceUpdateInput
-  >((data) => ({ input: { ...data, harvestSourceId: id } }), []);
-
-  const renderForm = useRenderForm<Fields>(
+  const renderForm = useRenderForm<HarvestSourceCreateInput>(
     ({ form: { register } }) => (
       <Forms.Grid>
         <Forms.Input
@@ -44,6 +38,11 @@ export default function HarvestSourceUpdateForm({
           {...register("name")}
           required
           isWide
+        />
+        <Forms.Slug
+          label="forms.fields.identifier"
+          description="forms.fields.identifier_description"
+          {...register("identifier")}
         />
         <Forms.Input
           label="forms.fields.url"
@@ -60,12 +59,10 @@ export default function HarvestSourceUpdateForm({
           label="forms.fields.protocol"
           {...register("protocol")}
           options={[{ label: "OAI-PMH", value: "OAI" }]}
-          disabled
         />
         <Forms.Select
           label="forms.fields.metadata_format"
           {...register("metadataFormat")}
-          disabled
           options={[
             { label: "JATS", value: "JATS" },
             { label: "METS", value: "METS" },
@@ -100,14 +97,13 @@ export default function HarvestSourceUpdateForm({
   );
 
   return (
-    <MutationForm<HarvestSourceUpdateFormMutation, Fields>
-      name="harvestSourceUpdate"
+    <MutationForm<HarvestSourceCreateFormMutation, HarvestSourceCreateInput>
+      name="harvestSourceCreate"
       mutation={mutation}
       onSuccess={onSuccess}
       onCancel={onCancel}
-      successNotification="messages.update.harvest_source_success"
+      successNotification="messages.create.harvest_source_success"
       toVariables={toVariables}
-      defaultValues={defaultValues}
       refetchTags={["harvestSources"]}
     >
       {renderForm}
@@ -119,45 +115,28 @@ interface Props
   extends Pick<
     React.ComponentProps<typeof MutationForm>,
     "onSuccess" | "onCancel"
-  > {
-  data: HarvestSourceUpdateFormFragment$key;
-}
-
-type Fields = HarvestSourceUpdateInput & {
-  protocol: HarvestProtocol;
-  metadataFormat: HarvestMetadataFormat;
-};
-
-const fieldsFragment = graphql`
-  fragment HarvestSourceUpdateFormFieldsFragment on HarvestSource {
-    name
-    baseURL
-    description
-    mappingOptions {
-      autoCreateVolumesAndIssues
-      linkIdentifiersGlobally
-      useMetadataMappings
-    }
-    readOptions {
-      maxRecords
-    }
-  }
-`;
+  > {}
 
 const mutation = graphql`
-  mutation HarvestSourceUpdateFormMutation($input: HarvestSourceUpdateInput!) {
-    harvestSourceUpdate(input: $input) {
+  mutation HarvestSourceCreateFormMutation($input: HarvestSourceCreateInput!) {
+    harvestSourceCreate(input: $input) {
       harvestSource {
-        ...HarvestSourceUpdateFormFieldsFragment
+        name
+        baseURL
+        description
+        identifier
+        protocol
+        metadataFormat
+        mappingOptions {
+          autoCreateVolumesAndIssues
+          linkIdentifiersGlobally
+          useMetadataMappings
+        }
+        readOptions {
+          maxRecords
+        }
       }
       ...MutationForm_mutationErrors
     }
-  }
-`;
-
-const fragment = graphql`
-  fragment HarvestSourceUpdateFormFragment on HarvestSource {
-    id
-    ...HarvestSourceUpdateFormFieldsFragment
   }
 `;

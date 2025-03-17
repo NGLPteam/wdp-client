@@ -14,6 +14,7 @@ interface InputProps<T extends FieldValues = FieldValues> extends FormTypes {
     message: string;
   };
   isWide?: boolean;
+  readOnly?: boolean;
 }
 
 export default InputProps;
