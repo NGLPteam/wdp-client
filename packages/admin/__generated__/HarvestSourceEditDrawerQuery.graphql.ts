@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4a60b5572260b867d39cc3090b69cd57>>
+ * @generated SignedSource<<722f510315362a08dab4599774cfdeff>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -116,27 +116,6 @@ return {
           {
             "alias": null,
             "args": null,
-            "kind": "ScalarField",
-            "name": "identifier",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "protocol",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "metadataFormat",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
             "concreteType": "HarvestOptionsMapping",
             "kind": "LinkedField",
             "name": "mappingOptions",
@@ -190,12 +169,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "030e7274db0284b1fdae31eedd859d82",
+    "cacheID": "9e594ffb81753a39d409b799d42b7255",
     "id": null,
     "metadata": {},
     "name": "HarvestSourceEditDrawerQuery",
     "operationKind": "query",
-    "text": "query HarvestSourceEditDrawerQuery(\n  $slug: Slug!\n) {\n  harvestSource(slug: $slug) {\n    id\n    name\n    ...HarvestSourceUpdateFormFragment\n  }\n}\n\nfragment HarvestSourceUpdateFormFieldsFragment on HarvestSource {\n  name\n  baseURL\n  description\n  identifier\n  protocol\n  metadataFormat\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n}\n\nfragment HarvestSourceUpdateFormFragment on HarvestSource {\n  id\n  ...HarvestSourceUpdateFormFieldsFragment\n}\n"
+    "text": "query HarvestSourceEditDrawerQuery(\n  $slug: Slug!\n) {\n  harvestSource(slug: $slug) {\n    id\n    name\n    ...HarvestSourceUpdateFormFragment\n  }\n}\n\nfragment HarvestSourceUpdateFormFieldsFragment on HarvestSource {\n  name\n  baseURL\n  description\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n}\n\nfragment HarvestSourceUpdateFormFragment on HarvestSource {\n  id\n  ...HarvestSourceUpdateFormFieldsFragment\n}\n"
   }
 };
 })();

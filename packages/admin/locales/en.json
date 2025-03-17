@@ -196,7 +196,8 @@
         "parent_success": "Parent updated successfully.",
         "parent_failure": "Failed to update parent.",
         "initial_ordering_success": "Successfully updated initial ordering.",
-        "initial_ordering_failure": "Failed to update initial ordering."
+        "initial_ordering_failure": "Failed to update initial ordering.",
+        "harvest_source_success": "Harvest source updated successfully."
       },
       "create": {
         "success": "$t({{ name }}) created successfully.",
@@ -205,7 +206,8 @@
         "community_success": "Community created successfully.",
         "contribution_success": "Contribution created successfully.",
         "contribution_failure": "Failed to create contribution.",
-        "contributor_success": "Contributor created successfully."
+        "contributor_success": "Contributor created successfully.",
+        "harvest_source_success": "Harvest source created successfully."
       },
       "delete": {
         "confirm_label": "Confirm Delete",
@@ -447,7 +449,11 @@
         "mapping_options": "Mapping Options",
         "auto_create_vol_iss": "Auto create volumes and issues",
         "link_ids_globally": "Link identifiers globally",
-        "metadata_mappings": "Use metadata mappings"
+        "metadata_mappings": "Use metadata mappings",
+        "metadata_format": "Metadata Format",
+        "protocol": "Harvest Protocol",
+        "identifier": "identifier",
+        "identifier_description": "Optional custom identifier. If left blank, one will be assigned based on name. Cannot be changed after harvest source is created."
       },
       "validation": {
         "year": "Must be a four digit year",
