@@ -3,7 +3,7 @@ import Drawer from "components/layout/Drawer";
 import HarvestSourceCreateForm from "../HarvestSourceCreateForm";
 import type { DialogProps } from "reakit/Dialog";
 
-export default function HarvestSourceCreatePersonDrawer({
+export default function HarvestSourceAddDrawer({
   dialog,
 }: {
   dialog: DialogProps;
