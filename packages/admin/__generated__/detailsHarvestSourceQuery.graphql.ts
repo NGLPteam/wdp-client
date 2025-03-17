@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b4d1a3283d7577885b83f657538c3175>>
+ * @generated SignedSource<<8eb3545cede21ba2ac01c3fad8df2a1e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -129,27 +129,6 @@ return {
           {
             "alias": null,
             "args": null,
-            "kind": "ScalarField",
-            "name": "identifier",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "protocol",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "metadataFormat",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
             "concreteType": "HarvestOptionsMapping",
             "kind": "LinkedField",
             "name": "mappingOptions",
@@ -203,12 +182,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "dfcee9e44e2d3dec43330dec49c7c98d",
+    "cacheID": "e3127524084b7ccfe4ba8db0f2ad752a",
     "id": null,
     "metadata": {},
     "name": "detailsHarvestSourceQuery",
     "operationKind": "query",
-    "text": "query detailsHarvestSourceQuery(\n  $slug: Slug!\n) {\n  harvestSource(slug: $slug) {\n    ...HarvestSourceLayoutFragment\n    ...HarvestSourceUpdateFormFragment\n    id\n  }\n}\n\nfragment HarvestSourceLayoutFragment on HarvestSource {\n  __typename\n  slug\n  name\n}\n\nfragment HarvestSourceUpdateFormFieldsFragment on HarvestSource {\n  name\n  baseURL\n  description\n  identifier\n  protocol\n  metadataFormat\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n}\n\nfragment HarvestSourceUpdateFormFragment on HarvestSource {\n  id\n  ...HarvestSourceUpdateFormFieldsFragment\n}\n"
+    "text": "query detailsHarvestSourceQuery(\n  $slug: Slug!\n) {\n  harvestSource(slug: $slug) {\n    ...HarvestSourceLayoutFragment\n    ...HarvestSourceUpdateFormFragment\n    id\n  }\n}\n\nfragment HarvestSourceLayoutFragment on HarvestSource {\n  __typename\n  slug\n  name\n}\n\nfragment HarvestSourceUpdateFormFieldsFragment on HarvestSource {\n  name\n  baseURL\n  description\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n}\n\nfragment HarvestSourceUpdateFormFragment on HarvestSource {\n  id\n  ...HarvestSourceUpdateFormFieldsFragment\n}\n"
   }
 };
 })();
