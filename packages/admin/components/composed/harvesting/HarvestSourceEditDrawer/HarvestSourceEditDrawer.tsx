@@ -5,7 +5,7 @@ import { RouteHelper } from "routes";
 import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import Drawer from "components/layout/Drawer";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
-// import HarvestSourceUpdateForm from "components/composed/harvestSource/HarvestSourceUpdateForm";
+import HarvestSourceUpdateForm from "components/composed/harvesting/HarvestSourceUpdateForm";
 import type {
   HarvestSourceEditDrawerQuery as Query,
   HarvestSourceEditDrawerQuery$data as Response,
@@ -73,7 +73,13 @@ export default function HarvestSourceUpdateDrawer({
             hideOnClickOutside={false}
             buttons={renderButtons(data)}
           >
-            <div>edit form here</div>
+            {data?.harvestSource && (
+              <HarvestSourceUpdateForm
+                data={data.harvestSource}
+                onSuccess={dialog.hide}
+                onCancel={dialog.hide}
+              />
+            )}
           </Drawer>
         );
       }}
@@ -86,11 +92,7 @@ const query = graphql`
     harvestSource(slug: $slug) {
       id
       name
-      identifier
-      slug
-      metadataFormat
-      baseURL
-      description
+      ...HarvestSourceUpdateFormFragment
     }
   }
 `;
