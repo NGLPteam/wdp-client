@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<722f510315362a08dab4599774cfdeff>>
+ * @generated SignedSource<<0a190987e65f472fcfd9729d3c09d431>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -116,6 +116,13 @@ return {
           {
             "alias": null,
             "args": null,
+            "kind": "ScalarField",
+            "name": "extractionMappingTemplate",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "HarvestOptionsMapping",
             "kind": "LinkedField",
             "name": "mappingOptions",
@@ -169,12 +176,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9e594ffb81753a39d409b799d42b7255",
+    "cacheID": "cd702f621bdcd999cce6ff823cb59ecd",
     "id": null,
     "metadata": {},
     "name": "HarvestSourceEditDrawerQuery",
     "operationKind": "query",
-    "text": "query HarvestSourceEditDrawerQuery(\n  $slug: Slug!\n) {\n  harvestSource(slug: $slug) {\n    id\n    name\n    ...HarvestSourceUpdateFormFragment\n  }\n}\n\nfragment HarvestSourceUpdateFormFieldsFragment on HarvestSource {\n  name\n  baseURL\n  description\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n}\n\nfragment HarvestSourceUpdateFormFragment on HarvestSource {\n  id\n  ...HarvestSourceUpdateFormFieldsFragment\n}\n"
+    "text": "query HarvestSourceEditDrawerQuery(\n  $slug: Slug!\n) {\n  harvestSource(slug: $slug) {\n    id\n    name\n    ...HarvestSourceUpdateFormFragment\n  }\n}\n\nfragment HarvestSourceUpdateFormFieldsFragment on HarvestSource {\n  name\n  baseURL\n  description\n  extractionMappingTemplate\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n}\n\nfragment HarvestSourceUpdateFormFragment on HarvestSource {\n  id\n  ...HarvestSourceUpdateFormFieldsFragment\n}\n"
   }
 };
 })();

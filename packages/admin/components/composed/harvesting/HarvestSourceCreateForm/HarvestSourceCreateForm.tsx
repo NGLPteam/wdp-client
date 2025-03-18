@@ -6,6 +6,8 @@ import MutationForm, {
 } from "components/api/MutationForm";
 import { useTranslation } from "react-i18next";
 import { convertToSlug } from "helpers";
+import ExtractionMappingTemplateInput from "components/forms/ExtractionMappingTemplateInput";
+import { Controller } from "react-hook-form";
 import type {
   HarvestSourceCreateInput,
   HarvestSourceCreateFormMutation,
@@ -31,7 +33,7 @@ export default function HarvestSourceCreateForm({
   );
 
   const renderForm = useRenderForm<HarvestSourceCreateInput>(
-    ({ form: { register } }) => (
+    ({ form: { register, control } }) => (
       <Forms.Grid>
         <Forms.Input
           label="forms.fields.name"
@@ -69,6 +71,16 @@ export default function HarvestSourceCreateForm({
             { label: "MODS", value: "MODS" },
             { label: "OAIDC", value: "OAIDC" },
           ]}
+        />
+        <Controller
+          name="extractionMappingTemplate"
+          control={control}
+          render={({ field }) => (
+            <ExtractionMappingTemplateInput
+              label="Extraction Mapping Template"
+              {...field}
+            />
+          )}
         />
         <Forms.Fieldset label={t("forms.fields.mapping_options")}>
           <Forms.Checkbox
@@ -127,6 +139,7 @@ const mutation = graphql`
         identifier
         protocol
         metadataFormat
+        extractionMappingTemplate
         mappingOptions {
           autoCreateVolumesAndIssues
           linkIdentifiersGlobally
