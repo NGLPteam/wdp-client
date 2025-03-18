@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<68b64b634056aa9fa10942c7d173e442>>
+ * @generated SignedSource<<cba50118dc04b12b12265541adeb5cd9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,12 +10,13 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type HarvestMetadataFormat = "JATS" | "METS" | "MODS" | "OAIDC" | "%future added value";
-export type HarvestProtocol = "OAI" | "%future added value";
+export type HarvestMetadataFormat = "ESPLORO" | "JATS" | "METS" | "MODS" | "OAIDC" | "%future added value";
+export type HarvestProtocol = "OAI" | "UNKNOWN" | "%future added value";
 export type HarvestSourceCreateInput = {
   baseURL: string;
   clientMutationId?: string | null | undefined;
   description?: string | null | undefined;
+  extractionMappingTemplate: string;
   identifier: string;
   mappingOptions?: HarvestOptionsMappingInput | null | undefined;
   metadataFormat: HarvestMetadataFormat;
