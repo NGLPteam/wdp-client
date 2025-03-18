@@ -36,9 +36,8 @@ export default function HarvestMappingUpdateDrawer({
 
     /* Delete button */
     const handleDelete = () => {
-      const id = data.harvestSource?.harvestMappings?.[0]?.id;
-      if (id) {
-        destroy.harvestMapping({ harvestMappingId: id });
+      if (data.harvestMapping?.id) {
+        destroy.harvestMapping({ harvestMappingId: data.harvestMapping?.id });
       }
       if (dialog?.hide) dialog.hide();
     };
@@ -67,10 +66,8 @@ export default function HarvestMappingUpdateDrawer({
 
 const query = graphql`
   query HarvestMappingEditDrawerQuery($slug: Slug!) {
-    harvestSource(slug: $slug) {
-      harvestMappings {
-        id
-      }
+    harvestMapping(slug: $slug) {
+      id
     }
   }
 `;

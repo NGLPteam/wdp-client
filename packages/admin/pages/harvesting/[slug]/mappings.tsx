@@ -11,7 +11,10 @@ function HarvestSourceMappings({ queryRef, ...layoutProps }: Props) {
 
   return harvestSource ? (
     <HarvestSourceLayout {...layoutProps} data={harvestSource}>
-      <HarvestMappingsList data={harvestSource} />
+      <HarvestMappingsList
+        data={harvestSource.harvestMappings}
+        sourceId={harvestSource.id}
+      />
     </HarvestSourceLayout>
   ) : null;
 }
@@ -34,12 +37,15 @@ type Props = {
 const query = graphql`
   query mappingsHarvestSourceQuery(
     $slug: Slug!
-    $order: HarvestSetOrder
+    $order: HarvestMappingOrder
     $page: Int!
   ) {
     harvestSource(slug: $slug) {
+      id
       ...HarvestSourceLayoutFragment
-      ...HarvestMappingsListFragment
+      harvestMappings(order: $order, page: $page, perPage: 20) {
+        ...HarvestMappingsListFragment
+      }
     }
   }
 `;

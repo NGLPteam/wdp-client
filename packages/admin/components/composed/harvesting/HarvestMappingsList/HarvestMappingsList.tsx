@@ -5,33 +5,31 @@ import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
 import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
-import type { HarvestMappingsListFragment$key } from "@/relay/HarvestMappingsListFragment.graphql";
 import type {
-  HarvestMappingsListDataFragment$data,
-  HarvestMappingsListDataFragment$key,
-} from "@/relay/HarvestMappingsListDataFragment.graphql";
+  HarvestMappingsListFragment$key,
+  HarvestMappingsListFragment$data,
+} from "@/relay/HarvestMappingsListFragment.graphql";
 import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 type Props = Pick<HeaderProps, "headerStyle" | "hideHeader"> & {
   data?: HarvestMappingsListFragment$key;
+  sourceId?: string;
 };
 
-type HarvestMappingNode =
-  HarvestMappingsListDataFragment$data["harvestMappings"][number];
+type HarvestMappingNode = HarvestMappingsListFragment$data["nodes"][number];
 
-function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
-  const harvestSource = useFragment<HarvestMappingsListFragment$key>(
+function HarvestMappingsList({
+  data,
+  sourceId,
+  headerStyle,
+  hideHeader,
+}: Props) {
+  const harvestMappings = useFragment<HarvestMappingsListFragment$key>(
     fragment,
     data,
   );
-
-  const { harvestMappings } =
-    useFragment<HarvestMappingsListDataFragment$key>(
-      listFragment,
-      harvestSource,
-    ) ?? {};
 
   const { t } = useTranslation();
   const drawerHelper = useDrawerHelper();
@@ -56,7 +54,7 @@ function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
     handleEdit: ({ row }: ModelTableActionProps<HarvestMappingNode>) => {
       drawerHelper.open("editHarvestMapping", {
         drawerSlug: row.original.slug,
-        drawerSourceId: harvestSource?.id,
+        drawerSourceId: sourceId,
       });
     },
     handleDelete: ({ row }: ModelTableActionProps<HarvestMappingNode>) => {
@@ -68,7 +66,7 @@ function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
       <ButtonControlDrawer
         drawer="addHarvestMapping"
-        drawerQuery={{ drawerSourceId: harvestSource?.id }}
+        drawerQuery={{ drawerSourceId: sourceId }}
         icon="plus"
       >
         {t("actions.add.harvest_mapping")}
@@ -76,27 +74,22 @@ function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
     </ButtonControlGroup>
   );
 
-  const listData = {
-    ...harvestSource?.harvestSets,
-    nodes: harvestMappings ?? [],
-  };
-
-  return harvestSource?.harvestSets ? (
-    <ModelListPage<any, HarvestMappingNode> //eslint-disable-line @typescript-eslint/no-explicit-any
+  return (
+    <ModelListPage<HarvestMappingsListFragment$data, HarvestMappingNode>
       modelName="harvest_mapping"
       columns={columns}
       buttons={buttons}
       actions={actions}
-      data={listData}
+      data={harvestMappings}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
     />
-  ) : null;
+  );
 }
 
-const listFragment = graphql`
-  fragment HarvestMappingsListDataFragment on HarvestSource {
-    harvestMappings {
+const fragment = graphql`
+  fragment HarvestMappingsListFragment on HarvestMappingConnection {
+    nodes {
       id
       slug
       harvestSet {
@@ -111,16 +104,7 @@ const listFragment = graphql`
         }
       }
     }
-  }
-`;
-
-const fragment = graphql`
-  fragment HarvestMappingsListFragment on HarvestSource {
-    id
-    harvestSets(order: $order, page: $page, perPage: 20) {
-      ...ModelListPageFragment
-    }
-    ...HarvestMappingsListDataFragment
+    ...ModelListPageFragment
   }
 `;
 
