@@ -8,6 +8,8 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "next/navigation";
 import EntitySelectorDisclosure from "components/forms/EntitySelector/EntitySelectorDisclosure";
 import HarvestSetTypeahead from "components/forms/HarvestSetTypeahead";
+import ExtractionMappingTemplateInput from "components/forms/ExtractionMappingTemplateInput";
+import { Controller } from "react-hook-form";
 import type {
   HarvestMappingCreateInput,
   HarvestMappingCreateFormMutation,
@@ -53,6 +55,7 @@ export default function HarvestMappingCreateForm({
             onSelect={onSelect}
             label={t("forms.fields.target_entity")}
             selectableTypes={{}}
+            required
           />
           <Forms.Select
             label="forms.fields.metadata_format"
@@ -63,6 +66,18 @@ export default function HarvestMappingCreateForm({
               { label: "MODS", value: "MODS" },
               { label: "OAIDC", value: "OAIDC" },
             ]}
+            required
+          />
+          <Controller
+            name="extractionMappingTemplate"
+            control={control}
+            render={({ field }) => (
+              <ExtractionMappingTemplateInput
+                label="Extraction Mapping Template"
+                sourceSlug={slug as string}
+                {...field}
+              />
+            )}
           />
           <Forms.Fieldset label={t("forms.fields.mapping_options")}>
             <Forms.Checkbox
@@ -128,6 +143,7 @@ const mutation = graphql`
           id
         }
         metadataFormat
+        extractionMappingTemplate
         mappingOptions {
           autoCreateVolumesAndIssues
           linkIdentifiersGlobally
