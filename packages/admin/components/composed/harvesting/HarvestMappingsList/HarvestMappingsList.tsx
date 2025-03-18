@@ -1,5 +1,6 @@
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
+import { useDrawerHelper, useDestroyer } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
@@ -9,6 +10,7 @@ import type {
   HarvestMappingsListDataFragment$data,
   HarvestMappingsListDataFragment$key,
 } from "@/relay/HarvestMappingsListDataFragment.graphql";
+import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -32,21 +34,35 @@ function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
     ) ?? {};
 
   const { t } = useTranslation();
+  const drawerHelper = useDrawerHelper();
+  const destroy = useDestroyer();
 
   const columns = [
+    ModelColumns.StringColumn<HarvestMappingNode>({
+      id: "targetEntity.title",
+      header: () => "Target Entity",
+    }),
     ModelColumns.StringColumn<HarvestMappingNode>({
       id: "harvestSet.name",
       header: () => "Harvest Set",
     }),
     ModelColumns.StringColumn<HarvestMappingNode>({
-      id: "harvestRecords.pageInfo.totalCount",
-      header: () => "Harvest Records",
-    }),
-    ModelColumns.StringColumn<HarvestMappingNode>({
-      id: "targetEntity.title",
-      header: () => "Target Entity",
+      id: "harvestAttempts.pageInfo.totalCount",
+      header: () => "Harvest Attempts Count",
     }),
   ];
+
+  const actions = {
+    handleEdit: ({ row }: ModelTableActionProps<HarvestMappingNode>) => {
+      drawerHelper.open("editHarvestMapping", {
+        drawerSlug: row.original.slug,
+        drawerSourceId: harvestSource?.id,
+      });
+    },
+    handleDelete: ({ row }: ModelTableActionProps<HarvestMappingNode>) => {
+      destroy.harvestMapping({ harvestMappingId: row.original.id || "" });
+    },
+  };
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
@@ -70,6 +86,7 @@ function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
       modelName="harvest_mapping"
       columns={columns}
       buttons={buttons}
+      actions={actions}
       data={listData}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
@@ -81,11 +98,17 @@ const listFragment = graphql`
   fragment HarvestMappingsListDataFragment on HarvestSource {
     harvestMappings {
       id
+      slug
       harvestSet {
         name
       }
       targetEntity {
         title
+      }
+      harvestAttempts {
+        pageInfo {
+          totalCount
+        }
       }
     }
   }

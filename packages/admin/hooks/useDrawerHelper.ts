@@ -38,6 +38,7 @@ import SearchFilterDrawer from "components/composed/search/SearchFilterDrawer";
 import HarvestSourceAddDrawer from "components/composed/harvesting/HarvestSourceAddDrawer";
 import HarvestSourceEditDrawer from "components/composed/harvesting/HarvestSourceEditDrawer";
 import HarvestMappingAddDrawer from "components/composed/harvesting/HarvestMappingAddDrawer";
+import HarvestMappingEditDrawer from "components/composed/harvesting/HarvestMappingEditDrawer";
 
 const drawerRegistry = {
   addPerson: ContributorCreatePersonDrawer,
@@ -75,6 +76,7 @@ const drawerRegistry = {
   addHarvestSource: HarvestSourceAddDrawer,
   editHarvestSource: HarvestSourceEditDrawer,
   addHarvestMapping: HarvestMappingAddDrawer,
+  editHarvestMapping: HarvestMappingEditDrawer,
 };
 
 export function useDrawerHelper() {
