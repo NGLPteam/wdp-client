@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1a194ad3b2c257e88ca2550d707ed897>>
+ * @generated SignedSource<<efa92707fc87635f33aeb01754551638>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -60,14 +60,28 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "slug",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "id",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "totalCount",
   "storageKey": null
 };
 return {
@@ -125,15 +139,9 @@ return {
         "plural": false,
         "selections": [
           (v4/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "slug",
-            "storageKey": null
-          },
           (v5/*: any*/),
           (v6/*: any*/),
+          (v7/*: any*/),
           {
             "alias": null,
             "args": [
@@ -204,13 +212,7 @@ return {
                         "name": "hasPreviousPage",
                         "storageKey": null
                       },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "totalCount",
-                        "storageKey": null
-                      }
+                      (v8/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -229,7 +231,8 @@ return {
             "name": "harvestMappings",
             "plural": true,
             "selections": [
-              (v6/*: any*/),
+              (v7/*: any*/),
+              (v5/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -238,8 +241,8 @@ return {
                 "name": "harvestSet",
                 "plural": false,
                 "selections": [
-                  (v5/*: any*/),
-                  (v6/*: any*/)
+                  (v6/*: any*/),
+                  (v7/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -262,10 +265,33 @@ return {
                   {
                     "kind": "InlineFragment",
                     "selections": [
-                      (v6/*: any*/)
+                      (v7/*: any*/)
                     ],
                     "type": "Node",
                     "abstractKey": "__isNode"
+                  }
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "HarvestAttemptConnection",
+                "kind": "LinkedField",
+                "name": "harvestAttempts",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "PageInfo",
+                    "kind": "LinkedField",
+                    "name": "pageInfo",
+                    "plural": false,
+                    "selections": [
+                      (v8/*: any*/)
+                    ],
+                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -279,12 +305,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b953af15ee1d952bf9f79d5d380452f0",
+    "cacheID": "6126f6fecfb95558f5fc4c3ee70cc56c",
     "id": null,
     "metadata": {},
     "name": "mappingsHarvestSourceQuery",
     "operationKind": "query",
-    "text": "query mappingsHarvestSourceQuery(\n  $slug: Slug!\n  $order: HarvestSetOrder\n  $page: Int!\n) {\n  harvestSource(slug: $slug) {\n    ...HarvestSourceLayoutFragment\n    ...HarvestMappingsListFragment\n    id\n  }\n}\n\nfragment HarvestMappingsListDataFragment on HarvestSource {\n  harvestMappings {\n    id\n    harvestSet {\n      name\n      id\n    }\n    targetEntity {\n      __typename\n      title\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n  }\n}\n\nfragment HarvestMappingsListFragment on HarvestSource {\n  id\n  harvestSets(order: $order, page: $page, perPage: 20) {\n    ...ModelListPageFragment\n  }\n  ...HarvestMappingsListDataFragment\n}\n\nfragment HarvestSourceLayoutFragment on HarvestSource {\n  __typename\n  slug\n  name\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query mappingsHarvestSourceQuery(\n  $slug: Slug!\n  $order: HarvestSetOrder\n  $page: Int!\n) {\n  harvestSource(slug: $slug) {\n    ...HarvestSourceLayoutFragment\n    ...HarvestMappingsListFragment\n    id\n  }\n}\n\nfragment HarvestMappingsListDataFragment on HarvestSource {\n  harvestMappings {\n    id\n    slug\n    harvestSet {\n      name\n      id\n    }\n    targetEntity {\n      __typename\n      title\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    harvestAttempts {\n      pageInfo {\n        totalCount\n      }\n    }\n  }\n}\n\nfragment HarvestMappingsListFragment on HarvestSource {\n  id\n  harvestSets(order: $order, page: $page, perPage: 20) {\n    ...ModelListPageFragment\n  }\n  ...HarvestMappingsListDataFragment\n}\n\nfragment HarvestSourceLayoutFragment on HarvestSource {\n  __typename\n  slug\n  name\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
