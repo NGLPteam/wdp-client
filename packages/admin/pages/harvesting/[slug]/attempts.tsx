@@ -2,10 +2,11 @@ import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import { LoadingPage } from "components/atomic";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
+import HarvestAttemptsList from "components/composed/harvesting/HarvestAttemptsList";
 import HarvestSourceLayout from "components/composed/harvesting/HarvestSourceLayout";
 import ErrorPage from "next/error";
 import { LoadingCircle } from "components/atomic";
-import type { detailsHarvestSourceQuery as Query } from "@/relay/detailsHarvestSourceQuery.graphql";
+import type { attemptsHarvestSourceQuery as Query } from "@/relay/attemptsHarvestSourceQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
 
 function HarvestSourceAttempts({ queryRef, ...layoutProps }: Props) {
@@ -13,7 +14,7 @@ function HarvestSourceAttempts({ queryRef, ...layoutProps }: Props) {
 
   return harvestSource ? (
     <HarvestSourceLayout {...layoutProps} data={harvestSource}>
-      <div>attempts list</div>
+      <HarvestAttemptsList data={harvestSource.harvestAttempts} />
     </HarvestSourceLayout>
   ) : null;
 }
@@ -54,9 +55,16 @@ type Props = {
 };
 
 const query = graphql`
-  query attemptsHarvestSourceQuery($slug: Slug!) {
+  query attemptsHarvestSourceQuery(
+    $slug: Slug!
+    $order: HarvestAttemptOrder
+    $page: Int!
+  ) {
     harvestSource(slug: $slug) {
       ...HarvestSourceLayoutFragment
+      harvestAttempts(order: $order, page: $page, perPage: 20) {
+        ...HarvestAttemptsListFragment
+      }
     }
   }
 `;

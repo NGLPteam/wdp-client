@@ -14,9 +14,11 @@ const MODEL_MAP = {
   ROLE: "role",
   PAGE: "page",
   ANNOUNCEMENT: "announcement",
-  HARVEST_SOURCE: "harvestSource",
-  HARVEST_SET: "harvestSet",
-  HARVEST_MAPPING: "harvestMapping",
+  HARVEST_SOURCE: "harvest source",
+  HARVEST_SET: "harvest set",
+  HARVEST_MAPPING: "harvest mapping",
+  HARVEST_ATTEMPT: "harvest attempt",
+  HARVEST_RECORD: "harvest record",
 };
 
 export type ModelNames = keyof typeof MODEL_MAP;
