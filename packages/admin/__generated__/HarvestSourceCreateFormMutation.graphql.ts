@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cba50118dc04b12b12265541adeb5cd9>>
+ * @generated SignedSource<<cc57db26c440c72cdfdca17b42750b60>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -40,6 +40,7 @@ export type HarvestSourceCreateFormMutation$data = {
     readonly harvestSource: {
       readonly baseURL: string;
       readonly description: string | null | undefined;
+      readonly extractionMappingTemplate: string;
       readonly identifier: string;
       readonly mappingOptions: {
         readonly autoCreateVolumesAndIssues: boolean;
@@ -121,6 +122,13 @@ v7 = {
 v8 = {
   "alias": null,
   "args": null,
+  "kind": "ScalarField",
+  "name": "extractionMappingTemplate",
+  "storageKey": null
+},
+v9 = {
+  "alias": null,
+  "args": null,
   "concreteType": "HarvestOptionsMapping",
   "kind": "LinkedField",
   "name": "mappingOptions",
@@ -150,7 +158,7 @@ v8 = {
   ],
   "storageKey": null
 },
-v9 = {
+v10 = {
   "alias": null,
   "args": null,
   "concreteType": "HarvestOptionsRead",
@@ -168,7 +176,7 @@ v9 = {
   ],
   "storageKey": null
 },
-v10 = {
+v11 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -255,7 +263,8 @@ return {
               (v6/*: any*/),
               (v7/*: any*/),
               (v8/*: any*/),
-              (v9/*: any*/)
+              (v9/*: any*/),
+              (v10/*: any*/)
             ],
             "storageKey": null
           },
@@ -263,7 +272,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v10/*: any*/)
+              (v11/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -305,6 +314,7 @@ return {
               (v7/*: any*/),
               (v8/*: any*/),
               (v9/*: any*/),
+              (v10/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -315,23 +325,23 @@ return {
             ],
             "storageKey": null
           },
-          (v10/*: any*/)
+          (v11/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "173803877e84b7904171dad2e871e118",
+    "cacheID": "1d8693afcf391c3e0480eb8877931f3d",
     "id": null,
     "metadata": {},
     "name": "HarvestSourceCreateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation HarvestSourceCreateFormMutation(\n  $input: HarvestSourceCreateInput!\n) {\n  harvestSourceCreate(input: $input) {\n    harvestSource {\n      name\n      baseURL\n      description\n      identifier\n      protocol\n      metadataFormat\n      mappingOptions {\n        autoCreateVolumesAndIssues\n        linkIdentifiersGlobally\n        useMetadataMappings\n      }\n      readOptions {\n        maxRecords\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
+    "text": "mutation HarvestSourceCreateFormMutation(\n  $input: HarvestSourceCreateInput!\n) {\n  harvestSourceCreate(input: $input) {\n    harvestSource {\n      name\n      baseURL\n      description\n      identifier\n      protocol\n      metadataFormat\n      extractionMappingTemplate\n      mappingOptions {\n        autoCreateVolumesAndIssues\n        linkIdentifiersGlobally\n        useMetadataMappings\n      }\n      readOptions {\n        maxRecords\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "7935a0266fe15d3a32f69b69157c92d9";
+(node as any).hash = "63d80797eb0f1588508f8b28142e27ca";
 
 export default node;
