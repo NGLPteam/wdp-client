@@ -33,6 +33,7 @@ const getLayout: GetLayout<Props> = (props) => {
       query={query}
       variables={{ ...queryVars, slug }}
       loadingFallback={<LoadingPage />}
+      refetchTags={["harvestMappings"]}
     >
       {({ queryRef }) =>
         queryRef ? (

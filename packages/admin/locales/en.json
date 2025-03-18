@@ -305,7 +305,8 @@
         "ordering_header": "Edit {{ name }} Ordering",
         "file": "Edit File",
         "file_header": "Edit File \"{{ name }}\"",
-        "harvest_source": "Edit Harvest Source"
+        "harvest_source": "Edit Harvest Source",
+        "harvest_mapping": "Edit Harvest Mapping"
       },
       "hide": {
         "inherited_roles": "Hide Inherited Roles"
