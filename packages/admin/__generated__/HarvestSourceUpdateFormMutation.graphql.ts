@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5c84544f639b39bd749eb3682d47551f>>
+ * @generated SignedSource<<0352f6118b24938a17597f56bb46aee7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -209,6 +209,13 @@ return {
               {
                 "alias": null,
                 "args": null,
+                "kind": "ScalarField",
+                "name": "extractionMappingTemplate",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
                 "concreteType": "HarvestOptionsMapping",
                 "kind": "LinkedField",
                 "name": "mappingOptions",
@@ -273,12 +280,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "baf5343a8ed9c88fb6e5e48dbb14c29c",
+    "cacheID": "13365ed04e29fd02f6c6467ef9c674e9",
     "id": null,
     "metadata": {},
     "name": "HarvestSourceUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation HarvestSourceUpdateFormMutation(\n  $input: HarvestSourceUpdateInput!\n) {\n  harvestSourceUpdate(input: $input) {\n    harvestSource {\n      ...HarvestSourceUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment HarvestSourceUpdateFormFieldsFragment on HarvestSource {\n  name\n  baseURL\n  description\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
+    "text": "mutation HarvestSourceUpdateFormMutation(\n  $input: HarvestSourceUpdateInput!\n) {\n  harvestSourceUpdate(input: $input) {\n    harvestSource {\n      ...HarvestSourceUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment HarvestSourceUpdateFormFieldsFragment on HarvestSource {\n  name\n  baseURL\n  description\n  extractionMappingTemplate\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();
