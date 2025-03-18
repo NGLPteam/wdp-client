@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0a8a89ea454869dd01aa260f2d30cdd3>>
+ * @generated SignedSource<<5c84544f639b39bd749eb3682d47551f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,7 @@ export type HarvestSourceUpdateInput = {
   baseURL: string;
   clientMutationId?: string | null | undefined;
   description?: string | null | undefined;
+  extractionMappingTemplate: string;
   harvestSourceId: string;
   mappingOptions?: HarvestOptionsMappingInput | null | undefined;
   name: string;
