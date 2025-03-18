@@ -204,7 +204,8 @@
         "parent_failure": "Failed to update parent.",
         "initial_ordering_success": "Successfully updated initial ordering.",
         "initial_ordering_failure": "Failed to update initial ordering.",
-        "harvest_source_success": "Harvest source updated successfully."
+        "harvest_source_success": "Harvest source updated successfully.",
+        "harvest_mapping_success": "Harvest mapping updated successfully."
       },
       "create": {
         "success": "$t({{ name }}) created successfully.",
@@ -214,7 +215,8 @@
         "contribution_success": "Contribution created successfully.",
         "contribution_failure": "Failed to create contribution.",
         "contributor_success": "Contributor created successfully.",
-        "harvest_source_success": "Harvest source created successfully."
+        "harvest_source_success": "Harvest source created successfully.",
+        "harvest_mapping_success": "Harvest mapping created successfully"
       },
       "delete": {
         "confirm_label": "Confirm Delete",
@@ -549,7 +551,9 @@
         "select_label": "Default",
         "select_placeholder": "Select an existing template",
         "textarea_label": "Custom",
-        "reset_label": "Clear"
+        "reset_label": "Clear",
+        "checkbox_label": "Inherit template from Harvest Source",
+        "mapping_description": "Required. If a custom template is entered, it will supercede any inherited template."
       }
     },
     "dashboard": {

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<afc1503cd906533127b2c611f535c377>>
+ * @generated SignedSource<<7843b95012968c2d4cecb12dbea8eaf9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -36,6 +36,7 @@ export type HarvestMappingCreateFormMutation$variables = {
 export type HarvestMappingCreateFormMutation$data = {
   readonly harvestMappingCreate: {
     readonly harvestMapping: {
+      readonly extractionMappingTemplate: string;
       readonly harvestSet: {
         readonly id: string;
       } | null | undefined;
@@ -120,6 +121,13 @@ v7 = {
 v8 = {
   "alias": null,
   "args": null,
+  "kind": "ScalarField",
+  "name": "extractionMappingTemplate",
+  "storageKey": null
+},
+v9 = {
+  "alias": null,
+  "args": null,
   "concreteType": "HarvestOptionsMapping",
   "kind": "LinkedField",
   "name": "mappingOptions",
@@ -149,7 +157,7 @@ v8 = {
   ],
   "storageKey": null
 },
-v9 = {
+v10 = {
   "alias": null,
   "args": null,
   "concreteType": "HarvestOptionsRead",
@@ -167,7 +175,7 @@ v9 = {
   ],
   "storageKey": null
 },
-v10 = {
+v11 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -263,7 +271,8 @@ return {
               (v6/*: any*/),
               (v7/*: any*/),
               (v8/*: any*/),
-              (v9/*: any*/)
+              (v9/*: any*/),
+              (v10/*: any*/)
             ],
             "storageKey": null
           },
@@ -271,7 +280,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v10/*: any*/)
+              (v11/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -335,27 +344,28 @@ return {
               (v7/*: any*/),
               (v8/*: any*/),
               (v9/*: any*/),
+              (v10/*: any*/),
               (v4/*: any*/)
             ],
             "storageKey": null
           },
-          (v10/*: any*/)
+          (v11/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "ad5f5ff87ca857199594085a3800dabd",
+    "cacheID": "6fde5ac9cbefd148c235b22141e98ade",
     "id": null,
     "metadata": {},
     "name": "HarvestMappingCreateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation HarvestMappingCreateFormMutation(\n  $input: HarvestMappingCreateInput!\n) {\n  harvestMappingCreate(input: $input) {\n    harvestMapping {\n      targetEntity {\n        __typename\n        slug\n        title\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      harvestSet {\n        id\n      }\n      metadataFormat\n      mappingOptions {\n        autoCreateVolumesAndIssues\n        linkIdentifiersGlobally\n        useMetadataMappings\n      }\n      readOptions {\n        maxRecords\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
+    "text": "mutation HarvestMappingCreateFormMutation(\n  $input: HarvestMappingCreateInput!\n) {\n  harvestMappingCreate(input: $input) {\n    harvestMapping {\n      targetEntity {\n        __typename\n        slug\n        title\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      harvestSet {\n        id\n      }\n      metadataFormat\n      extractionMappingTemplate\n      mappingOptions {\n        autoCreateVolumesAndIssues\n        linkIdentifiersGlobally\n        useMetadataMappings\n      }\n      readOptions {\n        maxRecords\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "a998e6be9fe89d0cc640a68532e515fc";
+(node as any).hash = "c057f6878e8f5152a10f4aedea8c3ba2";
 
 export default node;
