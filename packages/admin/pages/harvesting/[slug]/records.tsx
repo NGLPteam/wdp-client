@@ -1,11 +1,7 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import { QueryTransitionWrapper } from "@wdp/lib/api/components";
-import { LoadingPage } from "components/atomic";
-import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import HarvestSourceLayout from "components/composed/harvesting/HarvestSourceLayout";
-import ErrorPage from "next/error";
-import { LoadingCircle } from "components/atomic";
 import type { detailsHarvestSourceQuery as Query } from "@/relay/detailsHarvestSourceQuery.graphql";
+import Layout from "./layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
 function HarvestSourceRecords({ queryRef, ...layoutProps }: Props) {
@@ -18,33 +14,10 @@ function HarvestSourceRecords({ queryRef, ...layoutProps }: Props) {
   ) : null;
 }
 
-const getLayout: GetLayout<Props> = (props) => {
-  const queryVars = useBaseListQueryVars();
-  const slug = useRouteSlug();
-  const _searchVars = useSearchQueryVars();
+const getLayout: GetLayout<Props> = (props) => (
+  <Layout query={query} {...props} />
+);
 
-  if (!slug) return <ErrorPage statusCode={404} />;
-
-  const { PageComponent, pageComponentProps } = props;
-
-  return (
-    <QueryTransitionWrapper<Query>
-      query={query}
-      variables={{ ...queryVars, slug }}
-      loadingFallback={<LoadingPage />}
-    >
-      {({ queryRef }) =>
-        queryRef ? (
-          <PageComponent {...pageComponentProps} queryRef={queryRef} />
-        ) : (
-          <HarvestSourceLayout>
-            <LoadingCircle className="l-page-loading" />
-          </HarvestSourceLayout>
-        )
-      }
-    </QueryTransitionWrapper>
-  );
-};
 HarvestSourceRecords.getLayout = getLayout;
 
 export default HarvestSourceRecords;
