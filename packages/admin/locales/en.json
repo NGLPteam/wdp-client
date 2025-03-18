@@ -147,8 +147,10 @@
       "contact": "Contact",
       "edit_profile": "Edit Profile",
       "global_settings": "Global Settings",
-      "harvest_sets": "Harvest Sets",
-      "harvest_mappings": "Mappings"
+      "harvest_sets": "Sets",
+      "harvest_mappings": "Mappings",
+      "harvest_attempts": "Attempts",
+      "harvest_records": "Records"
     },
     "messages": {
       "unauthorized": "Unauthorized",

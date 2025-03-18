@@ -320,6 +320,16 @@ export const baseRoutes: BaseRoute[] = [
             path: "/harvesting/[slug]/mappings",
             label: "nav.harvest_mappings",
           },
+          {
+            name: "harvestSource.harvestAttempts",
+            path: "/harvesting/[slug]/attempts",
+            label: "nav.harvest_attempts",
+          },
+          {
+            name: "harvestSource.harvestRecords",
+            path: "/harvesting/[slug]/records",
+            label: "nav.harvest_records",
+          },
         ],
       },
     ],
