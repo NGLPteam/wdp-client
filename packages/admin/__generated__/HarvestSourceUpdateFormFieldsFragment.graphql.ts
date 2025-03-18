@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f6c544a720a93b02a15d143ffbfd6700>>
+ * @generated SignedSource<<901365c3fd1e5f226cc5f2fa1f5001de>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ import { FragmentRefs } from "relay-runtime";
 export type HarvestSourceUpdateFormFieldsFragment$data = {
   readonly baseURL: string;
   readonly description: string | null | undefined;
+  readonly extractionMappingTemplate: string;
   readonly mappingOptions: {
     readonly autoCreateVolumesAndIssues: boolean;
     readonly linkIdentifiersGlobally: boolean;
@@ -54,6 +55,13 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "description",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "extractionMappingTemplate",
       "storageKey": null
     },
     {
@@ -111,6 +119,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "1900449f71ffca2f4d9cfb80c92530fc";
+(node as any).hash = "c4f91ea4bc09acbeff31a664a8a5502e";
 
 export default node;
