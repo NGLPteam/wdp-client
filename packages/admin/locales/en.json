@@ -543,6 +543,13 @@
         "links_label": "Links",
         "contains_label": "Contains Links",
         "references_label": "References Links"
+      },
+      "extraction_mapping_template": {
+        "description": "Required. Select from existing default templates, or enter a custom template. If a custom template is entered, it will supercede any selection.",
+        "select_label": "Default",
+        "select_placeholder": "Select an existing template",
+        "textarea_label": "Custom",
+        "reset_label": "Clear"
       }
     },
     "dashboard": {
