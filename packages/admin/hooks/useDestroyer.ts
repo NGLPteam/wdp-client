@@ -43,6 +43,10 @@ import type {
   HarvestSourceDestroyInput,
   useDestroyerDestroyHarvestSourceMutation,
 } from "@/relay/useDestroyerDestroyHarvestSourceMutation.graphql";
+import type {
+  HarvestMappingDestroyInput,
+  useDestroyerDestroyHarvestMappingMutation,
+} from "@/relay/useDestroyerDestroyHarvestMappingMutation.graphql";
 import type { useDestroyerFragment$key } from "@/relay/useDestroyerFragment.graphql";
 import { useDestroyerRevokeAccessMutation } from "@/relay/useDestroyerRevokeAccessMutation.graphql";
 import {
@@ -282,6 +286,27 @@ export function useDestroyer() {
     [commitDestroyHarvestSource, handleResponse],
   );
 
+  /* Destroy a harvest mapping */
+  const [commitDestroyHarvestMapping] =
+    useMutation<useDestroyerDestroyHarvestMappingMutation>(
+      destroyHarvestMappingMutation,
+    );
+
+  const harvestMapping = useCallback(
+    async (input: HarvestMappingDestroyInput) => {
+      commitDestroyHarvestMapping({
+        variables: { input },
+        onCompleted: (response) =>
+          handleResponse(
+            response.harvestMappingDestroy,
+            t("glossary.harvest_mapping"),
+            ["harvestMappings"],
+          ),
+      });
+    },
+    [commitDestroyHarvestMapping, handleResponse, t],
+  );
+
   return {
     collection,
     item,
@@ -295,6 +320,7 @@ export function useDestroyer() {
     page,
     announcement,
     harvestSource,
+    harvestMapping,
   };
 }
 export default useDestroyer;
@@ -417,6 +443,17 @@ const destroyHarvestSourceMutation = graphql`
     $input: HarvestSourceDestroyInput!
   ) {
     harvestSourceDestroy(input: $input) {
+      destroyedId @deleteRecord
+      ...useDestroyerFragment
+    }
+  }
+`;
+
+const destroyHarvestMappingMutation = graphql`
+  mutation useDestroyerDestroyHarvestMappingMutation(
+    $input: HarvestMappingDestroyInput!
+  ) {
+    harvestMappingDestroy(input: $input) {
       destroyedId @deleteRecord
       ...useDestroyerFragment
     }

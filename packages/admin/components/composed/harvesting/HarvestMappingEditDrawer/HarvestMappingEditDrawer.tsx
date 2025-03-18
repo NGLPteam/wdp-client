@@ -1,0 +1,76 @@
+import { useTranslation } from "react-i18next";
+import { graphql } from "react-relay";
+import { useDrawerHelper, useDestroyer } from "hooks";
+// import { RouteHelper } from "routes";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
+import Drawer from "components/layout/Drawer";
+import DrawerActions from "components/layout/Drawer/DrawerActions";
+// import HarvestMappingUpdateForm from "components/composed/harvesting/HarvestMappingUpdateForm";
+import type {
+  HarvestMappingEditDrawerQuery as Query,
+  HarvestMappingEditDrawerQuery$data as Response,
+} from "@/relay/HarvestMappingEditDrawerQuery.graphql";
+import type { DialogProps } from "reakit/Dialog";
+
+export default function HarvestMappingUpdateDrawer({
+  dialog,
+  params,
+}: {
+  dialog: DialogProps;
+  params: Record<string, string>;
+}) {
+  const { t } = useTranslation();
+  const drawerHelper = useDrawerHelper();
+  const destroy = useDestroyer();
+
+  const { drawerSlug, drawerSourceId } = params ?? {};
+
+  if (!drawerSlug || !drawerSourceId) {
+    drawerHelper.close();
+    return null;
+  }
+
+  /* Render route and delete buttons */
+  function renderButtons(data?: Response | null) {
+    if (!data) return;
+
+    /* Delete button */
+    const handleDelete = () => {
+      const id = data.harvestSource?.harvestMappings?.[0]?.id;
+      if (id) {
+        destroy.harvestMapping({ harvestMappingId: id });
+      }
+      if (dialog?.hide) dialog.hide();
+    };
+
+    return <DrawerActions handleDelete={handleDelete} />;
+  }
+
+  return (
+    <LazyLoadQueryWrapper<Query> query={query} variables={{ slug: drawerSlug }}>
+      {({ data }) => {
+        return (
+          <Drawer
+            label={t("actions.edit.harvest_mapping")}
+            header={t("actions.edit.harvest_mapping")}
+            dialog={dialog}
+            hideOnClickOutside={false}
+            buttons={renderButtons(data)}
+          >
+            <div>mapping edit form here</div>
+          </Drawer>
+        );
+      }}
+    </LazyLoadQueryWrapper>
+  );
+}
+
+const query = graphql`
+  query HarvestMappingEditDrawerQuery($slug: Slug!) {
+    harvestSource(slug: $slug) {
+      harvestMappings {
+        id
+      }
+    }
+  }
+`;

@@ -99,7 +99,7 @@ export default function HarvestMappingCreateForm({
       onCancel={onCancel}
       successNotification="messages.create.harvest_mapping_success"
       toVariables={toVariables}
-      refetchTags={["harvestSources"]}
+      refetchTags={["harvestMappings"]}
     >
       {renderForm}
     </MutationForm>
