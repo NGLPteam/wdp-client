@@ -13,13 +13,16 @@ const BooleanColumn = <T extends Node>({
   enableSorting = false,
   ...props
 }: Props<T>): ColumnDef<T> => {
-  const { accessorKey } = getAccessorProps<T>(props);
+  const { accessorKey, accessorFn: accessorFnProp } =
+    getAccessorProps<T>(props);
+
+  const accessorFn = accessorFnProp
+    ? accessorFnProp
+    : (originalRow: T) => get(originalRow, id);
 
   return {
     id,
-    ...(accessorKey
-      ? { accessorKey }
-      : { accessorFn: (originalRow: T) => get(originalRow, id) }),
+    ...(accessorKey ? { accessorKey } : { accessorFn }),
     enableSorting,
     cell: ({ getValue }) => (getValue() && getValue() === true ? "Yes" : "No"),
     ...props,
