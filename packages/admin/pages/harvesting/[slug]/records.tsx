@@ -3,18 +3,17 @@ import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import { LoadingPage } from "components/atomic";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import HarvestSourceLayout from "components/composed/harvesting/HarvestSourceLayout";
-import HarvestMappingsList from "components/composed/harvesting/HarvestMappingsList";
 import ErrorPage from "next/error";
 import { LoadingCircle } from "components/atomic";
-import type { mappingsHarvestSourceQuery as Query } from "@/relay/mappingsHarvestSourceQuery.graphql";
+import type { detailsHarvestSourceQuery as Query } from "@/relay/detailsHarvestSourceQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
 
-function HarvestSourceMappings({ queryRef, ...layoutProps }: Props) {
+function HarvestSourceRecords({ queryRef, ...layoutProps }: Props) {
   const { harvestSource } = usePreloadedQuery<Query>(query, queryRef);
 
   return harvestSource ? (
     <HarvestSourceLayout {...layoutProps} data={harvestSource}>
-      <HarvestMappingsList data={harvestSource} />
+      <div>records list</div>
     </HarvestSourceLayout>
   ) : null;
 }
@@ -33,7 +32,6 @@ const getLayout: GetLayout<Props> = (props) => {
       query={query}
       variables={{ ...queryVars, slug }}
       loadingFallback={<LoadingPage />}
-      refetchTags={["harvestMappings"]}
     >
       {({ queryRef }) =>
         queryRef ? (
@@ -47,23 +45,18 @@ const getLayout: GetLayout<Props> = (props) => {
     </QueryTransitionWrapper>
   );
 };
-HarvestSourceMappings.getLayout = getLayout;
+HarvestSourceRecords.getLayout = getLayout;
 
-export default HarvestSourceMappings;
+export default HarvestSourceRecords;
 
 type Props = {
   queryRef: PreloadedQuery<Query>;
 };
 
 const query = graphql`
-  query mappingsHarvestSourceQuery(
-    $slug: Slug!
-    $order: HarvestSetOrder
-    $page: Int!
-  ) {
+  query recordsHarvestSourceQuery($slug: Slug!) {
     harvestSource(slug: $slug) {
       ...HarvestSourceLayoutFragment
-      ...HarvestMappingsListFragment
     }
   }
 `;

@@ -9,7 +9,7 @@ import { LoadingCircle } from "components/atomic";
 import type { setsHarvestSourceQuery as Query } from "@/relay/setsHarvestSourceQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
 
-function HarvestSourceDetails({ queryRef, ...layoutProps }: Props) {
+function HarvestSourceSets({ queryRef, ...layoutProps }: Props) {
   const { harvestSource } = usePreloadedQuery<Query>(query, queryRef);
 
   return harvestSource ? (
@@ -46,9 +46,9 @@ const getLayout: GetLayout<Props> = (props) => {
     </QueryTransitionWrapper>
   );
 };
-HarvestSourceDetails.getLayout = getLayout;
+HarvestSourceSets.getLayout = getLayout;
 
-export default HarvestSourceDetails;
+export default HarvestSourceSets;
 
 type Props = {
   queryRef: PreloadedQuery<Query>;
