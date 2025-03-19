@@ -85,6 +85,7 @@ const appData = {
           ITEMS_LINK,
           USERS_LINK,
           CONTRIBUTORS_LINK,
+          HARVESTING_LINK,
         ],
       },
     ],
