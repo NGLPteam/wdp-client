@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<75893420f7ad502177b00a21092cc272>>
+ * @generated SignedSource<<5bafd8b16ab248f9c4a983132ee6124b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,7 +21,6 @@ export type attemptsHarvestSourceQuery$data = {
     readonly harvestAttempts: {
       readonly " $fragmentSpreads": FragmentRefs<"HarvestAttemptsListFragment">;
     };
-    readonly " $fragmentSpreads": FragmentRefs<"HarvestSourceLayoutFragment">;
   } | null | undefined;
 };
 export type attemptsHarvestSourceQuery = {
@@ -96,11 +95,6 @@ return {
         "plural": false,
         "selections": [
           {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "HarvestSourceLayoutFragment"
-          },
-          {
             "alias": null,
             "args": (v4/*: any*/),
             "concreteType": "HarvestAttemptConnection",
@@ -141,27 +135,6 @@ return {
         "name": "harvestSource",
         "plural": false,
         "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "__typename",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "slug",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "name",
-            "storageKey": null
-          },
           {
             "alias": null,
             "args": (v4/*: any*/),
@@ -311,16 +284,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c7d603816b60534c3fc6bc3223ead1a0",
+    "cacheID": "67e3f3a44d726948b6c34a2af99024fc",
     "id": null,
     "metadata": {},
     "name": "attemptsHarvestSourceQuery",
     "operationKind": "query",
-    "text": "query attemptsHarvestSourceQuery(\n  $slug: Slug!\n  $order: HarvestAttemptOrder\n  $page: Int!\n) {\n  harvestSource(slug: $slug) {\n    ...HarvestSourceLayoutFragment\n    harvestAttempts(order: $order, page: $page, perPage: 20) {\n      ...HarvestAttemptsListFragment\n    }\n    id\n  }\n}\n\nfragment HarvestAttemptsListFragment on HarvestAttemptConnection {\n  nodes {\n    id\n    beganAt\n    endedAt\n    harvestSet {\n      identifier\n      id\n    }\n    recordCount\n    harvestErrors {\n      code\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment HarvestSourceLayoutFragment on HarvestSource {\n  __typename\n  slug\n  name\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query attemptsHarvestSourceQuery(\n  $slug: Slug!\n  $order: HarvestAttemptOrder\n  $page: Int!\n) {\n  harvestSource(slug: $slug) {\n    harvestAttempts(order: $order, page: $page, perPage: 20) {\n      ...HarvestAttemptsListFragment\n    }\n    id\n  }\n}\n\nfragment HarvestAttemptsListFragment on HarvestAttemptConnection {\n  nodes {\n    id\n    beganAt\n    endedAt\n    harvestSet {\n      identifier\n      id\n    }\n    recordCount\n    harvestErrors {\n      code\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "1903b2902ec888442a67bf1088ac65be";
+(node as any).hash = "e608b3cf78940978eda6c6462c18bb8f";
 
 export default node;

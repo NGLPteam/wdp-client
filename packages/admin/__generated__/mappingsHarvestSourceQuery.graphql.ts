@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fbf1211e6876b8bb10e094833895883f>>
+ * @generated SignedSource<<c8fa01fb67cc657ede87daae97764c50>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -22,7 +22,6 @@ export type mappingsHarvestSourceQuery$data = {
       readonly " $fragmentSpreads": FragmentRefs<"HarvestMappingsListFragment">;
     };
     readonly id: string;
-    readonly " $fragmentSpreads": FragmentRefs<"HarvestSourceLayoutFragment">;
   } | null | undefined;
 };
 export type mappingsHarvestSourceQuery = {
@@ -81,24 +80,10 @@ v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "__typename",
-  "storageKey": null
-},
-v7 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
 },
-v8 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v9 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -125,11 +110,6 @@ return {
         "plural": false,
         "selections": [
           (v4/*: any*/),
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "HarvestSourceLayoutFragment"
-          },
           {
             "alias": null,
             "args": (v5/*: any*/),
@@ -172,9 +152,6 @@ return {
         "plural": false,
         "selections": [
           (v4/*: any*/),
-          (v6/*: any*/),
-          (v7/*: any*/),
-          (v8/*: any*/),
           {
             "alias": null,
             "args": (v5/*: any*/),
@@ -192,7 +169,7 @@ return {
                 "plural": true,
                 "selections": [
                   (v4/*: any*/),
-                  (v7/*: any*/),
+                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -201,7 +178,13 @@ return {
                     "name": "harvestSet",
                     "plural": false,
                     "selections": [
-                      (v8/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "name",
+                        "storageKey": null
+                      },
                       (v4/*: any*/)
                     ],
                     "storageKey": null
@@ -214,7 +197,13 @@ return {
                     "name": "targetEntity",
                     "plural": false,
                     "selections": [
-                      (v6/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "__typename",
+                        "storageKey": null
+                      },
                       {
                         "alias": null,
                         "args": null,
@@ -222,7 +211,7 @@ return {
                         "name": "title",
                         "storageKey": null
                       },
-                      (v7/*: any*/),
+                      (v6/*: any*/),
                       {
                         "kind": "InlineFragment",
                         "selections": [
@@ -250,7 +239,7 @@ return {
                         "name": "pageInfo",
                         "plural": false,
                         "selections": [
-                          (v9/*: any*/)
+                          (v7/*: any*/)
                         ],
                         "storageKey": null
                       }
@@ -306,7 +295,7 @@ return {
                         "name": "hasPreviousPage",
                         "storageKey": null
                       },
-                      (v9/*: any*/)
+                      (v7/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -323,16 +312,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "8886e5623781fd011839e00d616f9988",
+    "cacheID": "13ac8a94379ab948d9bede446105875b",
     "id": null,
     "metadata": {},
     "name": "mappingsHarvestSourceQuery",
     "operationKind": "query",
-    "text": "query mappingsHarvestSourceQuery(\n  $slug: Slug!\n  $order: HarvestMappingOrder\n  $page: Int!\n) {\n  harvestSource(slug: $slug) {\n    id\n    ...HarvestSourceLayoutFragment\n    harvestMappings(order: $order, page: $page, perPage: 20) {\n      ...HarvestMappingsListFragment\n    }\n  }\n}\n\nfragment HarvestMappingsListFragment on HarvestMappingConnection {\n  nodes {\n    id\n    slug\n    harvestSet {\n      name\n      id\n    }\n    targetEntity {\n      __typename\n      title\n      slug\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    harvestAttempts {\n      pageInfo {\n        totalCount\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment HarvestSourceLayoutFragment on HarvestSource {\n  __typename\n  slug\n  name\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query mappingsHarvestSourceQuery(\n  $slug: Slug!\n  $order: HarvestMappingOrder\n  $page: Int!\n) {\n  harvestSource(slug: $slug) {\n    id\n    harvestMappings(order: $order, page: $page, perPage: 20) {\n      ...HarvestMappingsListFragment\n    }\n  }\n}\n\nfragment HarvestMappingsListFragment on HarvestMappingConnection {\n  nodes {\n    id\n    slug\n    harvestSet {\n      name\n      id\n    }\n    targetEntity {\n      __typename\n      title\n      slug\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    harvestAttempts {\n      pageInfo {\n        totalCount\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "801d2aebfbba50bb6272d02d2d161e0e";
+(node as any).hash = "705c856dfadf56d737fca7d9afb7ee8b";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d390c3d3fc9a8f64da00eaa2d0e01671>>
+ * @generated SignedSource<<dc935db1fe03a2f2ef8729d650334654>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,7 +21,6 @@ export type recordsHarvestSourceQuery$data = {
     readonly harvestRecords: {
       readonly " $fragmentSpreads": FragmentRefs<"HarvestRecordsListFragment">;
     };
-    readonly " $fragmentSpreads": FragmentRefs<"HarvestSourceLayoutFragment">;
   } | null | undefined;
 };
 export type recordsHarvestSourceQuery = {
@@ -96,11 +95,6 @@ return {
         "plural": false,
         "selections": [
           {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "HarvestSourceLayoutFragment"
-          },
-          {
             "alias": null,
             "args": (v4/*: any*/),
             "concreteType": "HarvestRecordConnection",
@@ -141,27 +135,6 @@ return {
         "name": "harvestSource",
         "plural": false,
         "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "__typename",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "slug",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "name",
-            "storageKey": null
-          },
           {
             "alias": null,
             "args": (v4/*: any*/),
@@ -306,16 +279,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "76ad544f17c70584dc7cd6e971e4994a",
+    "cacheID": "bac2ec5f0237ce06018e97b91c629d58",
     "id": null,
     "metadata": {},
     "name": "recordsHarvestSourceQuery",
     "operationKind": "query",
-    "text": "query recordsHarvestSourceQuery(\n  $slug: Slug!\n  $order: HarvestRecordOrder\n  $page: Int!\n) {\n  harvestSource(slug: $slug) {\n    ...HarvestSourceLayoutFragment\n    harvestRecords(order: $order, page: $page, perPage: 20) {\n      ...HarvestRecordsListFragment\n    }\n    id\n  }\n}\n\nfragment HarvestRecordsListFragment on HarvestRecordConnection {\n  nodes {\n    id\n    createdAt\n    updatedAt\n    entityCount\n    identifier\n    harvestErrors {\n      code\n      id\n    }\n    status\n  }\n  ...ModelListPageFragment\n}\n\nfragment HarvestSourceLayoutFragment on HarvestSource {\n  __typename\n  slug\n  name\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query recordsHarvestSourceQuery(\n  $slug: Slug!\n  $order: HarvestRecordOrder\n  $page: Int!\n) {\n  harvestSource(slug: $slug) {\n    harvestRecords(order: $order, page: $page, perPage: 20) {\n      ...HarvestRecordsListFragment\n    }\n    id\n  }\n}\n\nfragment HarvestRecordsListFragment on HarvestRecordConnection {\n  nodes {\n    id\n    createdAt\n    updatedAt\n    entityCount\n    identifier\n    harvestErrors {\n      code\n      id\n    }\n    status\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "dd4c4cce7b1868947578188bf127d6d5";
+(node as any).hash = "69c4c947918fdcf4c9192d0cba4013c3";
 
 export default node;

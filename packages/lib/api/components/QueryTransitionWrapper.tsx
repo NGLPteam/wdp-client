@@ -58,23 +58,23 @@ export default function QueryLoaderWrapper<T extends OperationType>({
 
   const [isPending, startTransition] = useTransition();
 
-  const varRef = useRef<string | null>(null);
+  const varRef = useRef<string | null>(JSON.stringify(variables));
 
   /** Reload query callback */
   const refetchQuery = useCallback(
     (props?: ReloadQueryProps) => {
       loadQuery(
         { ...variables },
-        { fetchPolicy: "store-and-network", ...props?.options },
+        { fetchPolicy: "store-and-network", ...props?.options }
       );
     },
-    [loadQuery, variables],
+    [loadQuery, variables]
   );
 
   const match = useMemo(() => {
     const {
       default: { operation },
-    } = query as unknown as Module;
+    } = (query as unknown) as Module;
 
     return operation.name === queryRef?.name;
   }, [query, queryRef]);
@@ -130,7 +130,11 @@ export default function QueryLoaderWrapper<T extends OperationType>({
   ]);
 
   const renderChildren = () => {
-    return children({ queryRef, variables, refetchQuery });
+    return children({
+      queryRef,
+      variables,
+      refetchQuery,
+    });
   };
 
   return (
@@ -172,5 +176,5 @@ interface PreloadQueryRenderProps<T extends OperationType> {
 }
 
 export type PreloadQueryRenderer<T extends OperationType> = (
-  props: PreloadQueryRenderProps<T>,
+  props: PreloadQueryRenderProps<T>
 ) => React.JSX.Element | null | undefined;
