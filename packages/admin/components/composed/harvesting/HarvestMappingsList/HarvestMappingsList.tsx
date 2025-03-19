@@ -9,7 +9,7 @@ import type {
   HarvestMappingsListFragment$key,
   HarvestMappingsListFragment$data,
 } from "@/relay/HarvestMappingsListFragment.graphql";
-import type { ModelTableActionProps } from "@tanstack/react-table";
+import type { ModelTableActionProps, Row } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
@@ -36,9 +36,14 @@ function HarvestMappingsList({
   const destroy = useDestroyer();
 
   const columns = [
-    ModelColumns.StringColumn<HarvestMappingNode>({
+    ModelColumns.LinkColumn<HarvestMappingNode>({
       id: "targetEntity.title",
       header: () => "Target Entity",
+      slug: "targetEntity.slug",
+      route: (row: Row<HarvestMappingNode>) =>
+        row.original.targetEntity?.__typename === "COLLECTION"
+          ? "collection"
+          : "community",
     }),
     ModelColumns.StringColumn<HarvestMappingNode>({
       id: "harvestSet.name",
@@ -96,7 +101,9 @@ const fragment = graphql`
         name
       }
       targetEntity {
+        __typename
         title
+        slug
       }
       harvestAttempts {
         pageInfo {

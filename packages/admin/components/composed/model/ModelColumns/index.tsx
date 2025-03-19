@@ -19,6 +19,7 @@ import PublishedDateColumn from "./PublishedDateColumn";
 import PositionColumn from "./PositionColumn";
 import BeganAtColumn from "./BeganAtColumn";
 import EndedAtColumn from "./EndedAtColumn";
+import LinkColumn from "./LinkColumn";
 
 const modelColumns = {
   CreatedAtColumn,
@@ -42,6 +43,7 @@ const modelColumns = {
   PositionColumn,
   BeganAtColumn,
   EndedAtColumn,
+  LinkColumn,
 };
 
 export default modelColumns;
