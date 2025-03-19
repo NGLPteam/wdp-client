@@ -1,7 +1,8 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import HarvestSourceLayout from "components/composed/harvesting/HarvestSourceLayout";
 import { useSearchQueryVars, useBaseListQueryVars } from "hooks";
-import type { detailsHarvestSourceQuery as Query } from "@/relay/detailsHarvestSourceQuery.graphql";
+import HarvestRecordsList from "components/composed/harvesting/HarvestRecordsList";
+import type { recordsHarvestSourceQuery as Query } from "@/relay/recordsHarvestSourceQuery.graphql";
 import Layout from "./layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
@@ -10,7 +11,7 @@ function HarvestSourceRecords({ queryRef, ...layoutProps }: Props) {
 
   return harvestSource ? (
     <HarvestSourceLayout {...layoutProps} data={harvestSource}>
-      <div>records list</div>
+      <HarvestRecordsList data={harvestSource.harvestRecords} />
     </HarvestSourceLayout>
   ) : null;
 }
@@ -31,9 +32,16 @@ type Props = {
 };
 
 const query = graphql`
-  query recordsHarvestSourceQuery($slug: Slug!) {
+  query recordsHarvestSourceQuery(
+    $slug: Slug!
+    $order: HarvestRecordOrder
+    $page: Int!
+  ) {
     harvestSource(slug: $slug) {
       ...HarvestSourceLayoutFragment
+      harvestRecords(order: $order, page: $page, perPage: 20) {
+        ...HarvestRecordsListFragment
+      }
     }
   }
 `;
