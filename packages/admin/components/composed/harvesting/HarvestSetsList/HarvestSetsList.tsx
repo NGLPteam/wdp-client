@@ -25,6 +25,7 @@ function HarvestSetsList({ data, headerStyle, hideHeader }: Props) {
     ModelColumns.StringColumn<HarvestSetNode>({
       id: "identifier",
       header: () => "Identifier",
+      cellType: "url",
     }),
     ModelColumns.NameColumn<HarvestSetNode>({
       accessor: "name",
