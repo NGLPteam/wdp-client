@@ -1,26 +1,21 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import HarvestAttemptsList from "components/composed/harvesting/HarvestAttemptsList";
-import HarvestSourceLayout from "components/composed/harvesting/HarvestSourceLayout";
 import { useSearchQueryVars, useBaseListQueryVars } from "hooks";
 import type { attemptsHarvestSourceQuery as Query } from "@/relay/attemptsHarvestSourceQuery.graphql";
 import Layout from "./layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
-function HarvestSourceAttempts({ queryRef, ...layoutProps }: Props) {
+function HarvestSourceAttempts({ queryRef }: Props) {
   const { harvestSource } = usePreloadedQuery<Query>(query, queryRef);
 
-  return harvestSource ? (
-    <HarvestSourceLayout {...layoutProps} data={harvestSource}>
-      <HarvestAttemptsList data={harvestSource.harvestAttempts} />
-    </HarvestSourceLayout>
-  ) : null;
+  return <HarvestAttemptsList data={harvestSource?.harvestAttempts} />;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
   useBaseListQueryVars();
   useSearchQueryVars();
 
-  return <Layout query={query} {...props} />;
+  return <Layout query={query} modelName="harvest_attempt" {...props} />;
 };
 
 HarvestSourceAttempts.getLayout = getLayout;
@@ -38,7 +33,6 @@ const query = graphql`
     $page: Int!
   ) {
     harvestSource(slug: $slug) {
-      ...HarvestSourceLayoutFragment
       harvestAttempts(order: $order, page: $page, perPage: 20) {
         ...HarvestAttemptsListFragment
       }

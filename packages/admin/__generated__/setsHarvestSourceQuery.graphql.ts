@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b99d8eb6836a5f00605ae9c81778817e>>
+ * @generated SignedSource<<ea19e9428ba25ab9f81bf27cc27376cb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,7 +21,6 @@ export type setsHarvestSourceQuery$data = {
     readonly harvestSets: {
       readonly " $fragmentSpreads": FragmentRefs<"HarvestSetsListFragment">;
     };
-    readonly " $fragmentSpreads": FragmentRefs<"HarvestSourceLayoutFragment">;
   } | null | undefined;
 };
 export type setsHarvestSourceQuery = {
@@ -73,20 +72,6 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
-  "storageKey": null
-},
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v7 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 };
@@ -109,11 +94,6 @@ return {
         "name": "harvestSource",
         "plural": false,
         "selections": [
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "HarvestSourceLayoutFragment"
-          },
           {
             "alias": null,
             "args": (v4/*: any*/),
@@ -157,15 +137,6 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "__typename",
-            "storageKey": null
-          },
-          (v5/*: any*/),
-          (v6/*: any*/),
-          {
-            "alias": null,
             "args": (v4/*: any*/),
             "concreteType": "HarvestSetConnection",
             "kind": "LinkedField",
@@ -180,8 +151,14 @@ return {
                 "name": "nodes",
                 "plural": true,
                 "selections": [
-                  (v7/*: any*/),
-                  (v6/*: any*/),
+                  (v5/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "name",
+                    "storageKey": null
+                  },
                   {
                     "alias": null,
                     "args": null,
@@ -189,7 +166,13 @@ return {
                     "name": "identifier",
                     "storageKey": null
                   },
-                  (v5/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "slug",
+                    "storageKey": null
+                  },
                   {
                     "alias": null,
                     "args": null,
@@ -263,23 +246,23 @@ return {
             ],
             "storageKey": null
           },
-          (v7/*: any*/)
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "e338892fe70f6ad7e46e3b26ec9e428c",
+    "cacheID": "76432aaf0183cb435d53600f795097c6",
     "id": null,
     "metadata": {},
     "name": "setsHarvestSourceQuery",
     "operationKind": "query",
-    "text": "query setsHarvestSourceQuery(\n  $slug: Slug!\n  $order: HarvestSetOrder\n  $page: Int!\n) {\n  harvestSource(slug: $slug) {\n    ...HarvestSourceLayoutFragment\n    harvestSets(order: $order, page: $page, perPage: 20) {\n      ...HarvestSetsListFragment\n    }\n    id\n  }\n}\n\nfragment HarvestSetsListFragment on HarvestSetConnection {\n  nodes {\n    id\n    name\n    identifier\n    slug\n    description\n  }\n  ...ModelListPageFragment\n}\n\nfragment HarvestSourceLayoutFragment on HarvestSource {\n  __typename\n  slug\n  name\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query setsHarvestSourceQuery(\n  $slug: Slug!\n  $order: HarvestSetOrder\n  $page: Int!\n) {\n  harvestSource(slug: $slug) {\n    harvestSets(order: $order, page: $page, perPage: 20) {\n      ...HarvestSetsListFragment\n    }\n    id\n  }\n}\n\nfragment HarvestSetsListFragment on HarvestSetConnection {\n  nodes {\n    id\n    name\n    identifier\n    slug\n    description\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "1578dbc57543a45a8101d3869b6ad12e";
+(node as any).hash = "88fbd527128e6cb28321884da18a8128";
 
 export default node;
