@@ -342,6 +342,11 @@ export const baseRoutes: BaseRoute[] = [
             path: "/harvesting/[slug]/records",
             label: "nav.harvest_records",
           },
+          {
+            name: "harvestSource.harvestMessages",
+            path: "/harvesting/[slug]/messages",
+            label: "nav.harvest_messages",
+          },
         ],
       },
       {
@@ -361,12 +366,12 @@ export const baseRoutes: BaseRoute[] = [
             label: "nav.harvest_attempts",
           },
           {
-            name: "harvestMappings.harvestRecords",
+            name: "harvestMapping.harvestRecords",
             path: "/harvesting/mappings/[slug]/records",
             label: "nav.harvest_records",
           },
           {
-            name: "harvestMappings.harvestMessages",
+            name: "harvestMapping.harvestMessages",
             path: "/harvesting/mappings/[slug]/messages",
             label: "nav.harvest_messages",
           },
