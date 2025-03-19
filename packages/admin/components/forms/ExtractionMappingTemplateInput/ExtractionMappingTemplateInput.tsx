@@ -7,7 +7,7 @@ import {
   type Ref,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { fetchQuery, graphql } from "relay-runtime";
+import { fetchQuery, graphql, useRelayEnvironment } from "react-relay";
 import Fieldset from "components/forms/Fieldset";
 import FormGrid from "components/forms/FormGrid";
 import Textarea from "components/forms/Textarea";
@@ -15,7 +15,6 @@ import Select from "components/forms/Select";
 import Checkbox from "components/forms/Checkbox";
 import Errors from "components/forms/Errors";
 import ButtonControl from "components/atomic/buttons/ButtonControl";
-import { default as getRelayEnvironment } from "@wdp/lib/app/buildEnvironment";
 import type { ExtractionMappingTemplateInputQuery as Query } from "@/relay/ExtractionMappingTemplateInputQuery.graphql";
 import type { ExtractionMappingTemplateInputSourceQuery as SourceQuery } from "@/relay/ExtractionMappingTemplateInputSourceQuery.graphql";
 import type InputProps from "components/forms/inputType";
@@ -62,10 +61,10 @@ const ExtractionMappingTemplateInput = forwardRef(
       }
     }, [checkboxRef, onChange, parentDefault]);
 
+    const env = useRelayEnvironment();
+
     useEffect(() => {
       const fetchOptions = async () => {
-        const env = getRelayEnvironment();
-
         try {
           await fetchQuery<Query>(
             env,
@@ -106,8 +105,6 @@ const ExtractionMappingTemplateInput = forwardRef(
       };
 
       const fetchDefault = async () => {
-        const env = getRelayEnvironment();
-
         if (sourceSlug) {
           try {
             await fetchQuery<SourceQuery>(
@@ -147,6 +144,7 @@ const ExtractionMappingTemplateInput = forwardRef(
       onChange,
       parentDefault,
       sourceSlug,
+      env,
     ]);
 
     const hasCustom = !!textareaRef?.current?.value;

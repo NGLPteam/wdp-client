@@ -1,12 +1,12 @@
 import { forwardRef, Ref, useMemo, useRef, useEffect, useState } from "react";
-import { readInlineData, graphql, fetchQuery } from "relay-runtime";
+import { readInlineData, GraphQLTaggedNode } from "relay-runtime";
+import { graphql, fetchQuery, useRelayEnvironment } from "react-relay";
 import {
   OrderingSchemaFilterInput,
   OrderDefinition,
 } from "types/graphql-schema";
 import { t } from "i18next";
 import { useFormContext } from "react-hook-form";
-import { default as getRelayEnvironment } from "@wdp/lib/app/buildEnvironment";
 import capitalize from "lodash/capitalize";
 import {
   OrderDefinitionSelectQuery as Query,
@@ -31,20 +31,18 @@ function OrderDefinitionSelect(
     OrderDefinitionSelectQuery$data | undefined
   >();
 
+  const env = useRelayEnvironment();
+
   useEffect(() => {
     const fetchOptions = async () => {
-      const env = getRelayEnvironment();
-
       const schemas = schemasValue
         ? typeof schemasValue === "string"
           ? [JSON.parse(schemasValue)]
           : schemasValue.map((schema: string) => JSON.parse(schema))
         : [{ namespace: "default", identifier: "collection" }];
 
-      let data;
-
       try {
-        data = await fetchQuery<Query>(
+        fetchQuery<Query>(
           env,
           query,
           {
@@ -53,21 +51,19 @@ function OrderDefinitionSelect(
           {
             networkCacheConfig: { force: false },
           },
-        )
-          .toPromise()
-          .then((result) => {
-            return result;
-          });
+        ).subscribe({
+          next: (data) => {
+            setOrderingData(data);
+          },
+        });
       } catch (error) {
         /* eslint-disable-next-line no-console */
         console.log(error);
       }
-
-      setOrderingData(data);
     };
 
     fetchOptions();
-  }, [schemasValue]);
+  }, [schemasValue, env]);
 
   const options = useMemo(() => {
     return orderingData
@@ -75,7 +71,7 @@ function OrderDefinitionSelect(
           .map((o) => {
             const orderingPath =
               readInlineData<OrderDefinitionSelectOrderingPathFragment$key>(
-                fragment,
+                fragment as GraphQLTaggedNode,
                 o,
               );
             return {
