@@ -8,14 +8,20 @@ import type { GetLayout } from "@wdp/lib/types/page";
 function HarvestSourceRecords({ queryRef }: Props) {
   const { harvestSource } = usePreloadedQuery<Query>(query, queryRef || null);
 
-  return <HarvestRecordsList data={harvestSource?.harvestRecords} />;
+  return (
+    <HarvestRecordsList
+      data={harvestSource?.harvestRecords}
+      headerStyle="secondary"
+      hideHeader
+    />
+  );
 }
 
 const getLayout: GetLayout<Props> = (props) => {
   useBaseListQueryVars();
   useSearchQueryVars();
 
-  return <Layout query={query} modelName="harvest_record" {...props} />;
+  return <Layout query={query} {...props} />;
 };
 
 HarvestSourceRecords.getLayout = getLayout;

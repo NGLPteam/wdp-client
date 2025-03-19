@@ -19,6 +19,7 @@ const HarvestSetTypeahead = <T extends FieldValues = FieldValues>({
   label,
   disabled,
   required,
+  isWide,
 }: Props<T>) => {
   const [q, setQ] = useState("a");
   const [data, setData] = useState<Response | undefined>();
@@ -81,6 +82,7 @@ const HarvestSetTypeahead = <T extends FieldValues = FieldValues>({
           disabled={disabled}
           required={required}
           defaultValue={q}
+          isWide={isWide}
           {...field}
         />
       )}

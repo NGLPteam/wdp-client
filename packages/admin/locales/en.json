@@ -158,7 +158,8 @@
       "harvest_sets": "Sets",
       "harvest_mappings": "Mappings",
       "harvest_attempts": "Attempts",
-      "harvest_records": "Records"
+      "harvest_records": "Records",
+      "harvest_messages": "Messages"
     },
     "messages": {
       "unauthorized": "Unauthorized",
