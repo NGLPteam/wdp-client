@@ -1,10 +1,10 @@
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { useDrawerHelper, useDestroyer } from "hooks";
+import { useDestroyer } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
-import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
+import { ButtonControlGroup, ButtonControlRoute } from "components/atomic";
 import type {
   HarvestSourcesListFragment$data,
   HarvestSourcesListFragment$key,
@@ -25,7 +25,6 @@ function HarvestSourcesList({ data, headerStyle, hideHeader }: Props) {
     useFragment<HarvestSourcesListFragment$key>(fragment, data) ?? {};
 
   const { t } = useTranslation();
-  const drawerHelper = useDrawerHelper();
   const destroy = useDestroyer();
 
   const columns = [
@@ -55,9 +54,6 @@ function HarvestSourcesList({ data, headerStyle, hideHeader }: Props) {
   ];
 
   const actions = {
-    handleEdit: ({ row }: ModelTableActionProps<HarvestSourceNode>) => {
-      drawerHelper.open("editHarvestSource", { drawerSlug: row.original.slug });
-    },
     handleDelete: ({ row }: ModelTableActionProps<HarvestSourceNode>) => {
       destroy.harvestSource(
         { harvestSourceId: row.original.id || "" },
@@ -68,9 +64,9 @@ function HarvestSourcesList({ data, headerStyle, hideHeader }: Props) {
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
-      <ButtonControlDrawer drawer="addHarvestSource" icon="plus">
+      <ButtonControlRoute route="harvestSource.new" icon="plus">
         {t("actions.add.harvest_source")}
-      </ButtonControlDrawer>
+      </ButtonControlRoute>
     </ButtonControlGroup>
   );
 

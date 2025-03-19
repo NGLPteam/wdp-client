@@ -6,7 +6,7 @@ import * as Styled from "./TabNav.styles";
 
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 
-const TabNav = ({ links }: Props) => {
+const TabNav = ({ links, linksOnly = false }: Props) => {
   const { t } = useTranslation();
 
   const slug = useRouteSlug();
@@ -25,7 +25,9 @@ const TabNav = ({ links }: Props) => {
     const active = isActiveRoute(route);
 
     // Render tab as a dropdown
-    if (routeObj?.routes && routeObj.routes.length > 0 && slug && !active) {
+    const hasValidChildRoutes =
+      routeObj?.routes && !!routeObj.routes.length && !!slug;
+    if (hasValidChildRoutes && !active && !linksOnly) {
       return (
         <Dropdown
           label={t(label || "")}
@@ -34,17 +36,19 @@ const TabNav = ({ links }: Props) => {
               {t(label || "")}
             </Tab>
           }
-          menuItems={routeObj.routes.map(({ name, label }, i) => (
-            <NamedLink
-              key={i}
-              route={name}
-              routeParams={{ slug }}
-              {...props}
-              passHref
-            >
-              <NavLink>{t(label || "")}</NavLink>
-            </NamedLink>
-          ))}
+          menuItems={
+            routeObj.routes?.map(({ name, label }, i) => (
+              <NamedLink
+                key={i}
+                route={name}
+                routeParams={{ slug }}
+                {...props}
+                passHref
+              >
+                <NavLink>{t(label || "")}</NavLink>
+              </NamedLink>
+            )) ?? []
+          }
         />
       );
     }
@@ -75,6 +79,7 @@ interface Link extends NamedLinkProps {
 
 interface Props {
   links?: Link[];
+  linksOnly?: boolean;
 }
 
 export default TabNav;

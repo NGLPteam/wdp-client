@@ -129,6 +129,7 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
       onChange={(val) => handleSelectWithData(val)}
       value={value}
       withBrowse
+      isWide
     />
   );
 };

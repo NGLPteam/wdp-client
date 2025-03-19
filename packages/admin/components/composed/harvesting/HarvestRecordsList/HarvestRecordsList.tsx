@@ -25,8 +25,11 @@ function HarvestRecordsList({ data, headerStyle, hideHeader }: Props) {
   const { t } = useTranslation();
 
   const columns = [
+    ModelColumns.StringColumn<HarvestRecordNode>({
+      id: "identifier",
+      header: () => "Identifier",
+    }),
     ModelColumns.CreatedAtColumn<HarvestRecordNode>({ enableSorting: true }),
-    ModelColumns.UpdatedAtColumn<HarvestRecordNode>({ enableSorting: true }),
     ModelColumns.StringColumn<HarvestRecordNode>({
       id: "entityCount",
       header: () => "Entity Count",

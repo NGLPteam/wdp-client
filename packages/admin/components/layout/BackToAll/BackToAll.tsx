@@ -7,9 +7,11 @@ import * as Styled from "./BackToAll.styles";
 
 interface Props {
   route: string;
+  query?: Record<string, string>;
+  label?: string;
 }
 
-const BackToAll = ({ route }: Props) => {
+const BackToAll = ({ route, query, label }: Props) => {
   const { t } = useTranslation();
   if (!route) return null;
 
@@ -18,10 +20,10 @@ const BackToAll = ({ route }: Props) => {
 
   return (
     <Styled.NavWrapper>
-      <NamedLink route={route} passHref>
+      <NamedLink route={route} query={query} passHref>
         <Styled.LinkWrapper as="a" className="a-link">
           <IconFactory icon="arrow" rotate={270} size="xs" />
-          <span>{startCase(`${t("all")} ${t(name)}`)}</span>
+          <span>{label ?? startCase(`${t("all")} ${t(name)}`)}</span>
         </Styled.LinkWrapper>
       </NamedLink>
     </Styled.NavWrapper>
