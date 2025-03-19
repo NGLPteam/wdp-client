@@ -33,14 +33,12 @@ export default function HarvestMappingEditForm({
 
   const { id, ...fieldsData } = useFragment<HarvestMappingEditFormFragment$key>(
     fragment,
-    data,
+    data
   );
 
-  const { targetEntity, harvestSet, ...defaultValues } =
-    useFragment<HarvestMappingEditFormFieldsFragment$key>(
-      fieldsFragment,
-      fieldsData,
-    );
+  const { targetEntity, harvestSet, ...defaultValues } = useFragment<
+    HarvestMappingEditFormFieldsFragment$key
+  >(fieldsFragment, fieldsData);
 
   const toVariables = useToVariables<HarvestMappingEditFormMutation, Fields>(
     (data) => {
@@ -53,7 +51,7 @@ export default function HarvestMappingEditForm({
         },
       };
     },
-    [targetEntity],
+    [targetEntity]
   );
 
   const renderForm = useRenderForm<Fields>(
@@ -64,7 +62,7 @@ export default function HarvestMappingEditForm({
           <EntitySelectorDisclosure
             {...register("targetEntityId")}
             onSelect={onSelect}
-            startSlug={targetEntity.slug}
+            startSlug={targetEntity?.slug}
             startEntity={targetEntity as EntityOption}
             label={t("forms.fields.target_entity")}
             selectableTypes={{}}
@@ -126,7 +124,7 @@ export default function HarvestMappingEditForm({
         </Forms.Grid>
       );
     },
-    [],
+    []
   );
 
   return (
