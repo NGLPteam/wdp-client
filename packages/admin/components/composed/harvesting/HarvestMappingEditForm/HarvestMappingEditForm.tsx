@@ -61,15 +61,6 @@ export default function HarvestMappingEditForm({
       const onSelect = (id: string) => setValue("targetEntityId", id);
       return (
         <Forms.Grid>
-          {slug && (
-            <HarvestSetTypeahead<Fields>
-              control={control}
-              name="harvestSetId"
-              label="glossary.harvest_set"
-              slug={slug as string}
-              disabled
-            />
-          )}
           <EntitySelectorDisclosure
             {...register("targetEntityId")}
             onSelect={onSelect}
@@ -79,6 +70,15 @@ export default function HarvestMappingEditForm({
             selectableTypes={{}}
             required
           />
+          {slug && (
+            <HarvestSetTypeahead<Fields>
+              control={control}
+              name="harvestSetId"
+              label="glossary.harvest_set"
+              slug={slug as string}
+              disabled
+            />
+          )}
           <Forms.Select
             label="forms.fields.metadata_format"
             {...register("metadataFormat")}

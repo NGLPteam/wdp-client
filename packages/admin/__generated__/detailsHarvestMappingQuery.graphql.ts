@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0a190987e65f472fcfd9729d3c09d431>>
+ * @generated SignedSource<<cfc4a54b187c0cb13893d72818d8feab>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,19 +10,17 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type HarvestSourceEditDrawerQuery$variables = {
+export type detailsHarvestMappingQuery$variables = {
   slug: string;
 };
-export type HarvestSourceEditDrawerQuery$data = {
-  readonly harvestSource: {
-    readonly id: string;
-    readonly name: string;
-    readonly " $fragmentSpreads": FragmentRefs<"HarvestSourceUpdateFormFragment">;
+export type detailsHarvestMappingQuery$data = {
+  readonly harvestMapping: {
+    readonly " $fragmentSpreads": FragmentRefs<"HarvestMappingEditFormFragment">;
   } | null | undefined;
 };
-export type HarvestSourceEditDrawerQuery = {
-  response: HarvestSourceEditDrawerQuery$data;
-  variables: HarvestSourceEditDrawerQuery$variables;
+export type detailsHarvestMappingQuery = {
+  response: detailsHarvestMappingQuery$data;
+  variables: detailsHarvestMappingQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -47,34 +45,28 @@ v2 = {
   "name": "id",
   "storageKey": null
 },
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-};
+v3 = [
+  (v2/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "HarvestSourceEditDrawerQuery",
+    "name": "detailsHarvestMappingQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "HarvestSource",
+        "concreteType": "HarvestMapping",
         "kind": "LinkedField",
-        "name": "harvestSource",
+        "name": "harvestMapping",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "HarvestSourceUpdateFormFragment"
+            "name": "HarvestMappingEditFormFragment"
           }
         ],
         "storageKey": null
@@ -87,30 +79,82 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "HarvestSourceEditDrawerQuery",
+    "name": "detailsHarvestMappingQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "HarvestSource",
+        "concreteType": "HarvestMapping",
         "kind": "LinkedField",
-        "name": "harvestSource",
+        "name": "harvestMapping",
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
-            "kind": "ScalarField",
-            "name": "baseURL",
+            "concreteType": null,
+            "kind": "LinkedField",
+            "name": "targetEntity",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "__typename",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "slug",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "title",
+                "storageKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v3/*: any*/),
+                "type": "Community",
+                "abstractKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v3/*: any*/),
+                "type": "Collection",
+                "abstractKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": (v3/*: any*/),
+                "type": "Node",
+                "abstractKey": "__isNode"
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "HarvestSet",
+            "kind": "LinkedField",
+            "name": "harvestSet",
+            "plural": false,
+            "selections": (v3/*: any*/),
             "storageKey": null
           },
           {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "description",
+            "name": "metadataFormat",
             "storageKey": null
           },
           {
@@ -176,16 +220,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "cd702f621bdcd999cce6ff823cb59ecd",
+    "cacheID": "cc4182abf11c4fed779b98563a1e5fd7",
     "id": null,
     "metadata": {},
-    "name": "HarvestSourceEditDrawerQuery",
+    "name": "detailsHarvestMappingQuery",
     "operationKind": "query",
-    "text": "query HarvestSourceEditDrawerQuery(\n  $slug: Slug!\n) {\n  harvestSource(slug: $slug) {\n    id\n    name\n    ...HarvestSourceUpdateFormFragment\n  }\n}\n\nfragment HarvestSourceUpdateFormFieldsFragment on HarvestSource {\n  name\n  baseURL\n  description\n  extractionMappingTemplate\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n}\n\nfragment HarvestSourceUpdateFormFragment on HarvestSource {\n  id\n  ...HarvestSourceUpdateFormFieldsFragment\n}\n"
+    "text": "query detailsHarvestMappingQuery(\n  $slug: Slug!\n) {\n  harvestMapping(slug: $slug) {\n    ...HarvestMappingEditFormFragment\n    id\n  }\n}\n\nfragment HarvestMappingEditFormFieldsFragment on HarvestMapping {\n  targetEntity {\n    __typename\n    slug\n    title\n    ... on Community {\n      id\n    }\n    ... on Collection {\n      id\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  harvestSet {\n    id\n  }\n  metadataFormat\n  extractionMappingTemplate\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n}\n\nfragment HarvestMappingEditFormFragment on HarvestMapping {\n  id\n  ...HarvestMappingEditFormFieldsFragment\n}\n"
   }
 };
 })();
 
-(node as any).hash = "56e7a2b60853e552f51419d9ef089962";
+(node as any).hash = "824b823b835f79a2e31960e37e3e2b1a";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cc57db26c440c72cdfdca17b42750b60>>
+ * @generated SignedSource<<1e12bffeee759edc2ff0974d27deac66>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -53,6 +53,7 @@ export type HarvestSourceCreateFormMutation$data = {
       readonly readOptions: {
         readonly maxRecords: number;
       };
+      readonly slug: string;
     } | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
   } | null | undefined;
@@ -81,52 +82,59 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "slug",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "baseURL",
+  "name": "name",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "description",
+  "name": "baseURL",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "identifier",
+  "name": "description",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "protocol",
+  "name": "identifier",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "metadataFormat",
+  "name": "protocol",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "extractionMappingTemplate",
+  "name": "metadataFormat",
   "storageKey": null
 },
 v9 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "extractionMappingTemplate",
+  "storageKey": null
+},
+v10 = {
   "alias": null,
   "args": null,
   "concreteType": "HarvestOptionsMapping",
@@ -158,7 +166,7 @@ v9 = {
   ],
   "storageKey": null
 },
-v10 = {
+v11 = {
   "alias": null,
   "args": null,
   "concreteType": "HarvestOptionsRead",
@@ -176,7 +184,7 @@ v10 = {
   ],
   "storageKey": null
 },
-v11 = {
+v12 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -264,7 +272,8 @@ return {
               (v7/*: any*/),
               (v8/*: any*/),
               (v9/*: any*/),
-              (v10/*: any*/)
+              (v10/*: any*/),
+              (v11/*: any*/)
             ],
             "storageKey": null
           },
@@ -272,7 +281,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v11/*: any*/)
+              (v12/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -315,6 +324,7 @@ return {
               (v8/*: any*/),
               (v9/*: any*/),
               (v10/*: any*/),
+              (v11/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -325,23 +335,23 @@ return {
             ],
             "storageKey": null
           },
-          (v11/*: any*/)
+          (v12/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "1d8693afcf391c3e0480eb8877931f3d",
+    "cacheID": "b3d021fdd9fb72a98a1d9937b7555201",
     "id": null,
     "metadata": {},
     "name": "HarvestSourceCreateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation HarvestSourceCreateFormMutation(\n  $input: HarvestSourceCreateInput!\n) {\n  harvestSourceCreate(input: $input) {\n    harvestSource {\n      name\n      baseURL\n      description\n      identifier\n      protocol\n      metadataFormat\n      extractionMappingTemplate\n      mappingOptions {\n        autoCreateVolumesAndIssues\n        linkIdentifiersGlobally\n        useMetadataMappings\n      }\n      readOptions {\n        maxRecords\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
+    "text": "mutation HarvestSourceCreateFormMutation(\n  $input: HarvestSourceCreateInput!\n) {\n  harvestSourceCreate(input: $input) {\n    harvestSource {\n      slug\n      name\n      baseURL\n      description\n      identifier\n      protocol\n      metadataFormat\n      extractionMappingTemplate\n      mappingOptions {\n        autoCreateVolumesAndIssues\n        linkIdentifiersGlobally\n        useMetadataMappings\n      }\n      readOptions {\n        maxRecords\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "63d80797eb0f1588508f8b28142e27ca";
+(node as any).hash = "72294597bacb7e0dbb758a733e98b4ae";
 
 export default node;

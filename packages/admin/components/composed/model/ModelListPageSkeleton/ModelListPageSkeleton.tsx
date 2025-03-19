@@ -6,7 +6,7 @@ type Props = Pick<
   React.ComponentProps<typeof PageHeader>,
   "headerStyle" | "hideHeader"
 > & {
-  modelName: ModelListProps<any, any>["modelName"]; // eslint-disable-line @typescript-eslint/no-explicit-any
+  modelName?: ModelListProps<any, any>["modelName"]; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
 export default function ModelListPageSkeleton({

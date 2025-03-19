@@ -6,20 +6,13 @@ import {
   useRouteSlug,
   useLatestPresentValue,
 } from "hooks";
-import { RouteHelper } from "routes";
-
-import {
-  PageHeader,
-  ContentSidebar,
-  ContentHeader,
-  BackToAll,
-} from "components/layout";
+import { ButtonControlGroup, ButtonControlRoute } from "components/atomic";
+import { PageHeader, BackToAll } from "components/layout";
 import type { HarvestSourceLayoutFragment$key } from "@/relay/HarvestSourceLayoutFragment.graphql";
 
 export default function HarvestSourceLayout({
   children,
   data,
-  useRouteHeader,
 }: {
   children: React.ReactNode;
   data?: HarvestSourceLayoutFragment$key | null;
@@ -27,25 +20,35 @@ export default function HarvestSourceLayout({
 }) {
   const { t } = useTranslation();
   const slug = useRouteSlug() || undefined;
-  const activeRoute = RouteHelper.activeRoute();
   const manageRoutes = useChildRouteLinks("harvestSource", { slug });
   const harvestSource = useMaybeFragment(fragment, data);
   const { current: memoizedHarvestSource } =
     useLatestPresentValue(harvestSource);
+
+  const buttons = (
+    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      {slug && (
+        <ButtonControlRoute
+          route="harvestSource.mappings.new"
+          query={{ slug }}
+          icon="plus"
+        >
+          {t("actions.add.harvest_mapping")}
+        </ButtonControlRoute>
+      )}
+    </ButtonControlGroup>
+  );
 
   return (
     <section>
       <BackToAll route="harvesting" />
       <PageHeader
         title={memoizedHarvestSource?.name}
-        sidebarLinks={manageRoutes}
+        tabRoutes={manageRoutes}
+        tabLinksOnly
+        buttons={buttons}
       />
-      <ContentSidebar sidebarLinks={manageRoutes}>
-        {useRouteHeader && activeRoute && activeRoute.label && (
-          <ContentHeader headerStyle="secondary" title={t(activeRoute.label)} />
-        )}
-        {children}
-      </ContentSidebar>
+      {children}
     </section>
   );
 }

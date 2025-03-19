@@ -6,7 +6,7 @@ import * as Styled from "./TabNav.styles";
 
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 
-const TabNav = ({ links }: Props) => {
+const TabNav = ({ links, linksOnly = false }: Props) => {
   const { t } = useTranslation();
 
   const slug = useRouteSlug();
@@ -25,7 +25,7 @@ const TabNav = ({ links }: Props) => {
     const active = isActiveRoute(route);
 
     // Render tab as a dropdown
-    if (routeObj?.routes && routeObj.routes.length > 0 && slug) {
+    if (!linksOnly && routeObj?.routes && routeObj.routes.length > 0 && slug) {
       return (
         <Dropdown
           label={t(label || "")}
@@ -75,6 +75,7 @@ interface Link extends NamedLinkProps {
 
 interface Props {
   links?: Link[];
+  linksOnly?: boolean;
 }
 
 export default TabNav;

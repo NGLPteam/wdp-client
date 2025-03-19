@@ -168,6 +168,7 @@ const ExtractionMappingTemplateInput = forwardRef(
               ref={selectRef}
               disabled={hasCustom}
               defaultValue={value}
+              isWide
             />
           )}
           {!!parentDefault && (

@@ -299,6 +299,11 @@ export const baseRoutes: BaseRoute[] = [
     label: "glossary.harvesting",
     routes: [
       {
+        name: "harvestSource.new",
+        path: "/harvesting/new",
+        label: "nav.harvest_source_new",
+      },
+      {
         name: "harvestSource",
         path: "/harvesting/[slug]",
         redirect: "/harvesting/[slug]/details",
@@ -318,6 +323,13 @@ export const baseRoutes: BaseRoute[] = [
             name: "harvestSource.mappings",
             path: "/harvesting/[slug]/mappings",
             label: "nav.harvest_mappings",
+            routes: [
+              {
+                name: "harvestSource.mappings.new",
+                path: "/harvesting/[slug]/mappings/new",
+                label: "nav.harvest_mappings_new",
+              },
+            ],
           },
           {
             name: "harvestSource.harvestAttempts",
@@ -328,6 +340,34 @@ export const baseRoutes: BaseRoute[] = [
             name: "harvestSource.harvestRecords",
             path: "/harvesting/[slug]/records",
             label: "nav.harvest_records",
+          },
+        ],
+      },
+      {
+        name: "harvestMapping",
+        path: "/harvesting/mappings/[slug]",
+        redirect: "/harvesting/mappings/[slug]/details",
+        label: "glossary.harvest_mappings_other",
+        routes: [
+          {
+            name: "harvestMapping.details",
+            path: "/harvesting/mappings/[slug]/details",
+            label: "nav.details",
+          },
+          {
+            name: "harvestMapping.harvestAttempts",
+            path: "/harvesting/mappings/[slug]/attempts",
+            label: "nav.harvest_attempts",
+          },
+          {
+            name: "harvestMappings.harvestRecords",
+            path: "/harvesting/mappings/[slug]/records",
+            label: "nav.harvest_records",
+          },
+          {
+            name: "harvestMappings.harvestMessages",
+            path: "/harvesting/mappings/[slug]/messages",
+            label: "nav.harvest_messages",
           },
         ],
       },
