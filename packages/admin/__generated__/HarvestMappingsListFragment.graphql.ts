@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b9b33914f7abcba82c2d70bcb1c84442>>
+ * @generated SignedSource<<c4d729df93c80da1f66d8eb13d1a6fb7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,6 +23,8 @@ export type HarvestMappingsListFragment$data = {
     readonly id: string;
     readonly slug: string;
     readonly targetEntity: {
+      readonly __typename: string;
+      readonly slug: string;
       readonly title: string;
     };
   }>;
@@ -34,7 +36,15 @@ export type HarvestMappingsListFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"HarvestMappingsListFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -55,13 +65,7 @@ const node: ReaderFragment = {
           "name": "id",
           "storageKey": null
         },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "slug",
-          "storageKey": null
-        },
+        (v0/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -92,9 +96,17 @@ const node: ReaderFragment = {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
+              "name": "__typename",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
               "name": "title",
               "storageKey": null
-            }
+            },
+            (v0/*: any*/)
           ],
           "storageKey": null
         },
@@ -139,7 +151,8 @@ const node: ReaderFragment = {
   "type": "HarvestMappingConnection",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "7dd9f5da294f17c28e8de45bbc905438";
+(node as any).hash = "4fa6f01bbe32bbe68d1dee2fb7466e05";
 
 export default node;
