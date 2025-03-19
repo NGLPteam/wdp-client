@@ -5,7 +5,7 @@ import { useDrawerHelper, useDestroyer } from "hooks";
 import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import Drawer from "components/layout/Drawer";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
-// import HarvestMappingUpdateForm from "components/composed/harvesting/HarvestMappingUpdateForm";
+import HarvestMappingEditForm from "components/composed/harvesting/HarvestMappingEditForm";
 import type {
   HarvestMappingEditDrawerQuery as Query,
   HarvestMappingEditDrawerQuery$data as Response,
@@ -23,9 +23,9 @@ export default function HarvestMappingUpdateDrawer({
   const drawerHelper = useDrawerHelper();
   const destroy = useDestroyer();
 
-  const { drawerSlug, drawerSourceId } = params ?? {};
+  const { drawerSlug } = params ?? {};
 
-  if (!drawerSlug || !drawerSourceId) {
+  if (!drawerSlug) {
     drawerHelper.close();
     return null;
   }
@@ -56,7 +56,13 @@ export default function HarvestMappingUpdateDrawer({
             hideOnClickOutside={false}
             buttons={renderButtons(data)}
           >
-            <div>mapping edit form here</div>
+            {data?.harvestMapping && (
+              <HarvestMappingEditForm
+                data={data.harvestMapping}
+                onSuccess={dialog.hide}
+                onCancel={dialog.hide}
+              />
+            )}
           </Drawer>
         );
       }}
@@ -68,6 +74,7 @@ const query = graphql`
   query HarvestMappingEditDrawerQuery($slug: Slug!) {
     harvestMapping(slug: $slug) {
       id
+      ...HarvestMappingEditFormFragment
     }
   }
 `;
