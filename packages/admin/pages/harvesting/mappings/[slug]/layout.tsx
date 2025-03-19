@@ -27,7 +27,14 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
 
   if (!slug || !harvestMapping) return <ErrorPage statusCode={404} />;
 
-  const { PageComponent, pageComponentProps, query, refetchTags } = props;
+  const {
+    PageComponent,
+    pageComponentProps,
+    query,
+    refetchTags,
+    modelName,
+    showLoadingCircle,
+  } = props;
 
   return (
     <HarvestMappingLayout data={harvestMapping} {...pageComponentProps}>
@@ -40,10 +47,10 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
         {({ queryRef }) =>
           queryRef ? (
             <PageComponent {...pageComponentProps} queryRef={queryRef} />
-          ) : "modelName" in props ? (
-            <ModelListPageSkeleton modelName={props.modelName} />
+          ) : showLoadingCircle ? (
+            <LoadingCircle className="l-page-loading" />
           ) : (
-            <LoadingCircle />
+            <ModelListPageSkeleton modelName={modelName} />
           )
         }
       </QueryTransitionWrapper>
@@ -51,22 +58,14 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
   );
 }
 
-type BaseProps<T extends OperationType> = {
+type Props<T extends OperationType> = {
   pageComponentProps: PageProps<T>;
   PageComponent: ComponentType<PageProps<T>>;
   query: GraphQLTaggedNode;
   refetchTags?: string[];
+  showLoadingCircle?: boolean;
+  modelName?: ModelListProps<any, any>["modelName"]; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
-
-type ListProps<T extends OperationType> = BaseProps<T> & {
-  modelName: ModelListProps<any, any>["modelName"]; // eslint-disable-line @typescript-eslint/no-explicit-any
-};
-
-type FormProps<T extends OperationType> = BaseProps<T> & {
-  showLoadingCircle: true;
-};
-
-type Props<T extends OperationType> = ListProps<T> | FormProps<T>;
 
 type PageProps<T extends OperationType> = {
   queryRef: PreloadedQuery<T>;
