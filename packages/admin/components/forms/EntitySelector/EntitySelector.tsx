@@ -15,7 +15,7 @@ interface Props extends Omit<BaseProps, "children">, ControllerProps {
 function EntitySelector(
   { height = "500px", isDisclosure = false, ...props }: Props,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  ref: MaybeRef<HTMLElement>,
+  _ref: MaybeRef<HTMLElement>,
 ) {
   return isDisclosure ? (
     <Styled.DisclosureWrapper>
