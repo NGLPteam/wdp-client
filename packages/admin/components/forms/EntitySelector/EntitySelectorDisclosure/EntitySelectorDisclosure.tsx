@@ -30,14 +30,14 @@ export default function Disclosure(props: Props) {
   } = props;
 
   const [selected, setSelected] = useState<EntityOption | undefined>(
-    startEntity
+    startEntity,
   );
   const internalOnSelect = useCallback(
     (entity: EntityOption | undefined) => {
       setSelected(entity);
       onSelect(entity?.id ?? "");
     },
-    [setSelected, onSelect]
+    [setSelected, onSelect],
   );
 
   const { disclosureProps, contentProps } = useDisclosureState({

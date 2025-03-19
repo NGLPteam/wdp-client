@@ -22,6 +22,10 @@ function HarvestSetsList({ data, headerStyle, hideHeader }: Props) {
   const { t } = useTranslation();
 
   const columns = [
+    ModelColumns.StringColumn<HarvestSetNode>({
+      id: "identifier",
+      header: () => "Identifier",
+    }),
     ModelColumns.NameColumn<HarvestSetNode>({
       accessor: "name",
       header: () => "Name",
@@ -30,10 +34,6 @@ function HarvestSetsList({ data, headerStyle, hideHeader }: Props) {
     ModelColumns.StringColumn<HarvestSetNode>({
       id: "description",
       header: () => t("lists.description_column"),
-    }),
-    ModelColumns.StringColumn<HarvestSetNode>({
-      id: "identifier",
-      header: () => "Identifier",
     }),
   ];
 
