@@ -7854,6 +7854,11 @@ export type HarvestMapping = HarvestAttemptable & HasHarvestExtractionMappingTem
    *
    */
   harvestSet?: Maybe<HarvestSet>;
+  /**
+   * The harvest source this belongs to.
+   *
+   */
+  harvestSource: HarvestSource;
   id: Scalars['ID']['output'];
   /**
    * This timestamp signifies when the harvest mapping last tried to schedule its
@@ -8539,6 +8544,11 @@ export type HarvestRecord = HasHarvestErrors & HasHarvestMetadataFormat & Node &
    */
   harvestErrors: Array<HarvestError>;
   harvestMessages: HarvestMessageConnection;
+  /**
+   * The harvest source this belongs to.
+   *
+   */
+  harvestSource: HarvestSource;
   id: Scalars['ID']['output'];
   /**
    * A unique identifier for the record within the `HarvestSource`.
@@ -23559,6 +23569,7 @@ export type HarvestMappingResolvers<ContextType = any, ParentType extends Resolv
   harvestMessages?: Resolver<ResolversTypes['HarvestMessageConnection'], ParentType, ContextType, RequireFields<HarvestMappingHarvestMessagesArgs, 'filters' | 'orFilters' | 'pageDirection'>>;
   harvestRecords?: Resolver<ResolversTypes['HarvestRecordConnection'], ParentType, ContextType, RequireFields<HarvestMappingHarvestRecordsArgs, 'order' | 'pageDirection'>>;
   harvestSet?: Resolver<Maybe<ResolversTypes['HarvestSet']>, ParentType, ContextType>;
+  harvestSource?: Resolver<ResolversTypes['HarvestSource'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   lastScheduledAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   mappingOptions?: Resolver<ResolversTypes['HarvestOptionsMapping'], ParentType, ContextType>;
@@ -23665,6 +23676,7 @@ export type HarvestRecordResolvers<ContextType = any, ParentType extends Resolve
   harvestEntities?: Resolver<Array<ResolversTypes['HarvestEntity']>, ParentType, ContextType>;
   harvestErrors?: Resolver<Array<ResolversTypes['HarvestError']>, ParentType, ContextType>;
   harvestMessages?: Resolver<ResolversTypes['HarvestMessageConnection'], ParentType, ContextType, RequireFields<HarvestRecordHarvestMessagesArgs, 'filters' | 'orFilters' | 'pageDirection'>>;
+  harvestSource?: Resolver<ResolversTypes['HarvestSource'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   metadataFormat?: Resolver<ResolversTypes['HarvestMetadataFormat'], ParentType, ContextType>;

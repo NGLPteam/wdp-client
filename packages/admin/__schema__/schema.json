@@ -38908,6 +38908,22 @@
             "deprecationReason": null
           },
           {
+            "name": "harvestSource",
+            "description": "The harvest source this belongs to.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestSource",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -40812,6 +40828,22 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "HarvestMessageConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestSource",
+            "description": "The harvest source this belongs to.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestSource",
                 "ofType": null
               }
             },
