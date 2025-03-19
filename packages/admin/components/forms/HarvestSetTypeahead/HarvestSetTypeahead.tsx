@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
-import { fetchQuery, graphql } from "relay-runtime";
+import { useState } from "react";
+import { graphql } from "react-relay";
 import { debounce } from "lodash";
+import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import { Controller } from "react-hook-form";
 import BaseTypeahead from "components/forms/BaseTypeahead";
-import { default as getRelayEnvironment } from "@wdp/lib/app/buildEnvironment";
+import { FormFieldSkeleton } from "components/atomic/loading";
 import {
   HarvestSetTypeaheadQuery as Query,
   HarvestSetTypeaheadQuery$data as Response,
 } from "@/relay/HarvestSetTypeaheadQuery.graphql";
+import * as Styled from "./HarvestSetTypeahead.styles";
 import type { FieldValues, Control, Path } from "react-hook-form";
 
 type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
@@ -21,7 +23,6 @@ const HarvestSetTypeahead = <T extends FieldValues = FieldValues>({
   required,
 }: Props<T>) => {
   const [q, setQ] = useState("");
-  const [data, setData] = useState<Response | undefined>();
 
   const debouncedOnChange = debounce((value) => setQ(value), 300);
 
@@ -33,8 +34,8 @@ const HarvestSetTypeahead = <T extends FieldValues = FieldValues>({
     const options = harvestSets.nodes?.map((node) => ({
       node: (
         <div>
-          <span>{node.identifier}</span>
-          <span style={{ display: "block" }}>{node.name}</span>
+          <Styled.Identifier>{node.identifier}</Styled.Identifier>
+          <Styled.Name>{node.name}</Styled.Name>
         </div>
       ),
       value: node.id,
@@ -44,52 +45,32 @@ const HarvestSetTypeahead = <T extends FieldValues = FieldValues>({
     return options;
   };
 
-  useEffect(() => {
-    const fetchOptions = async () => {
-      const env = getRelayEnvironment();
-
-      let data;
-
-      try {
-        data = await fetchQuery<Query>(
-          env,
-          query,
-          { slug },
-          {
-            networkCacheConfig: { force: false },
-          },
-        )
-          .toPromise()
-          .then((result) => {
-            return result;
-          });
-      } catch (error) {
-        /* eslint-disable-next-line no-console */
-        console.log(error);
-      }
-
-      setData(data);
-    };
-
-    fetchOptions();
-  }, [q, slug]);
-
   return (
-    <Controller<T>
-      name={name}
-      control={control}
-      render={({ field }) => (
-        <BaseTypeahead
-          label={label}
-          options={data ? formatOptions(data) : []}
-          onInputChange={debouncedOnChange}
-          disabled={disabled}
-          required={required}
-          defaultValue={q}
-          {...field}
-        />
-      )}
-    />
+    <LazyLoadQueryWrapper<Query>
+      query={query}
+      variables={{ q, slug }}
+      fallback={<FormFieldSkeleton />}
+    >
+      {({ data }) => {
+        return (
+          <Controller<T>
+            name={name}
+            control={control}
+            render={({ field }) => (
+              <BaseTypeahead
+                label={label}
+                options={data ? formatOptions(data) : []}
+                onInputChange={debouncedOnChange}
+                disabled={disabled}
+                required={required}
+                defaultValue={q}
+                {...field}
+              />
+            )}
+          />
+        );
+      }}
+    </LazyLoadQueryWrapper>
   );
 };
 
@@ -103,10 +84,10 @@ interface Props<T extends FieldValues = FieldValues>
 export default HarvestSetTypeahead;
 
 const query = graphql`
-  query HarvestSetTypeaheadQuery($slug: Slug!) {
+  query HarvestSetTypeaheadQuery($slug: Slug!, $q: String!) {
     harvestSource(slug: $slug) {
       identifier
-      harvestSets {
+      harvestSets(filters: { prefix: $q }, page: 1, perPage: 50) {
         nodes {
           id
           identifier
