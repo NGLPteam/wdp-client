@@ -7,11 +7,13 @@ type Props<T extends Node> = PartialColumnish<T> & {
   header: () => string | React.ReactNode;
   id: string;
   capitalize?: boolean;
+  cellType?: "url" | "name";
 };
 
 const StringColumn = <T extends Node>({
   header,
   id,
+  cellType,
   ...props
 }: Props<T>): ColumnDef<T> => {
   const { accessorKey } = getAccessorProps<T>(props);
@@ -23,6 +25,9 @@ const StringColumn = <T extends Node>({
       ? { accessorKey }
       : { accessorFn: (originalRow: T) => get(originalRow, id) }),
     enableSorting: false,
+    meta: {
+      cellType,
+    },
     ...props,
   };
 };

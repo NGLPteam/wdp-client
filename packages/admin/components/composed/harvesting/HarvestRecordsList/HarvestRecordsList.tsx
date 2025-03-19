@@ -28,6 +28,7 @@ function HarvestRecordsList({ data, headerStyle, hideHeader }: Props) {
     ModelColumns.StringColumn<HarvestRecordNode>({
       id: "identifier",
       header: () => "Identifier",
+      cellType: "url",
     }),
     ModelColumns.CreatedAtColumn<HarvestRecordNode>({ enableSorting: true }),
     ModelColumns.StringColumn<HarvestRecordNode>({
