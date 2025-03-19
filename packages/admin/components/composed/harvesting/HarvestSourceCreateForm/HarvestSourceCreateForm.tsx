@@ -1,11 +1,15 @@
+import { useCallback } from "react";
+import { useRouter } from "next/router";
 import { graphql } from "react-relay";
 import MutationForm, {
   useRenderForm,
   useToVariables,
   Forms,
+  useOnSuccess,
 } from "components/api/MutationForm";
 import { useTranslation } from "react-i18next";
 import { convertToSlug } from "helpers";
+import { RouteHelper } from "routes";
 import ExtractionMappingTemplateInput from "components/forms/ExtractionMappingTemplateInput";
 import { Controller } from "react-hook-form";
 import type {
@@ -13,11 +17,39 @@ import type {
   HarvestSourceCreateFormMutation,
 } from "@/relay/HarvestSourceCreateFormMutation.graphql";
 
-export default function HarvestSourceCreateForm({
-  onSuccess,
-  onCancel,
-}: Props) {
+export default function HarvestSourceCreateForm() {
   const { t } = useTranslation();
+  const router = useRouter();
+
+  const redirect = useCallback(
+    (routeName: string, slug?: string) => {
+      const newRoute = RouteHelper.findRouteByName(routeName);
+
+      router.push({
+        pathname: newRoute?.path,
+        ...(slug ? { query: { slug } } : {}),
+      });
+    },
+    [router],
+  );
+
+  const onSuccess = useOnSuccess<
+    HarvestSourceCreateFormMutation,
+    HarvestSourceCreateInput
+  >(
+    ({
+      response,
+    }: {
+      response: HarvestSourceCreateFormMutation["response"];
+    }) => {
+      if (response?.harvestSourceCreate?.harvestSource)
+        redirect(
+          "harvestSource.details",
+          response.harvestSourceCreate.harvestSource.slug,
+        );
+    },
+    [redirect],
+  );
 
   const toVariables = useToVariables<
     HarvestSourceCreateFormMutation,
@@ -45,6 +77,7 @@ export default function HarvestSourceCreateForm({
           label="forms.fields.identifier"
           description="forms.fields.identifier_description"
           {...register("identifier")}
+          isWide
         />
         <Forms.Input
           label="forms.fields.url"
@@ -113,7 +146,7 @@ export default function HarvestSourceCreateForm({
       name="harvestSourceCreate"
       mutation={mutation}
       onSuccess={onSuccess}
-      onCancel={onCancel}
+      onCancel={() => redirect("harvesting")}
       successNotification="messages.create.harvest_source_success"
       toVariables={toVariables}
       refetchTags={["harvestSources"]}
@@ -123,16 +156,11 @@ export default function HarvestSourceCreateForm({
   );
 }
 
-interface Props
-  extends Pick<
-    React.ComponentProps<typeof MutationForm>,
-    "onSuccess" | "onCancel"
-  > {}
-
 const mutation = graphql`
   mutation HarvestSourceCreateFormMutation($input: HarvestSourceCreateInput!) {
     harvestSourceCreate(input: $input) {
       harvestSource {
+        slug
         name
         baseURL
         description

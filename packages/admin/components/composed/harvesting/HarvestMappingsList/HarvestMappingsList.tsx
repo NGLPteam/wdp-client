@@ -1,10 +1,12 @@
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { useDrawerHelper, useDestroyer } from "hooks";
+import { useRouter } from "next/router";
+import { useDestroyer, useRouteSlug } from "hooks";
+import { RouteHelper } from "routes";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
-import { ButtonControlGroup, ButtonControlDrawer } from "components/atomic";
+import { ButtonControlGroup, ButtonControlRoute } from "components/atomic";
 import type {
   HarvestMappingsListFragment$key,
   HarvestMappingsListFragment$data,
@@ -15,25 +17,21 @@ type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 type Props = Pick<HeaderProps, "headerStyle" | "hideHeader"> & {
   data?: HarvestMappingsListFragment$key;
-  sourceId?: string;
+  sourceSlug?: string;
 };
 
 type HarvestMappingNode = HarvestMappingsListFragment$data["nodes"][number];
 
-function HarvestMappingsList({
-  data,
-  sourceId,
-  headerStyle,
-  hideHeader,
-}: Props) {
+function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
   const harvestMappings = useFragment<HarvestMappingsListFragment$key>(
     fragment,
     data,
   );
 
   const { t } = useTranslation();
-  const drawerHelper = useDrawerHelper();
   const destroy = useDestroyer();
+  const sourceSlug = useRouteSlug();
+  const router = useRouter();
 
   const columns = [
     ModelColumns.LinkColumn<HarvestMappingNode>({
@@ -57,9 +55,9 @@ function HarvestMappingsList({
 
   const actions = {
     handleEdit: ({ row }: ModelTableActionProps<HarvestMappingNode>) => {
-      drawerHelper.open("editHarvestMapping", {
-        drawerSlug: row.original.slug,
-        drawerSourceId: sourceId,
+      router.push({
+        pathname: RouteHelper.findRouteByName("harvestMapping.details")?.path,
+        query: { slug: row.original.slug },
       });
     },
     handleDelete: ({ row }: ModelTableActionProps<HarvestMappingNode>) => {
@@ -69,13 +67,15 @@ function HarvestMappingsList({
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
-      <ButtonControlDrawer
-        drawer="addHarvestMapping"
-        drawerQuery={{ drawerSourceId: sourceId }}
-        icon="plus"
-      >
-        {t("actions.add.harvest_mapping")}
-      </ButtonControlDrawer>
+      {sourceSlug && (
+        <ButtonControlRoute
+          route="harvestSource.mappings.new"
+          query={{ slug: sourceSlug }}
+          icon="plus"
+        >
+          {t("actions.add.harvest_mapping")}
+        </ButtonControlRoute>
+      )}
     </ButtonControlGroup>
   );
 

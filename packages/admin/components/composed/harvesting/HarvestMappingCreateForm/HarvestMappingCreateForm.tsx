@@ -42,6 +42,14 @@ export default function HarvestMappingCreateForm({
       const onSelect = (id: string) => setValue("targetEntityId", id);
       return (
         <Forms.Grid>
+          <EntitySelectorDisclosure
+            {...register("targetEntityId", { required: true })}
+            onSelect={onSelect}
+            label={t("forms.fields.target_entity")}
+            selectableTypes={{}}
+            required
+            isWide
+          />
           {slug && (
             <HarvestSetTypeahead<HarvestMappingCreateInput>
               control={control}
@@ -50,13 +58,6 @@ export default function HarvestMappingCreateForm({
               slug={slug as string}
             />
           )}
-          <EntitySelectorDisclosure
-            {...register("targetEntityId", { required: true })}
-            onSelect={onSelect}
-            label={t("forms.fields.target_entity")}
-            selectableTypes={{}}
-            required
-          />
           <Forms.Select
             label="forms.fields.metadata_format"
             {...register("metadataFormat")}
