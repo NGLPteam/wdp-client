@@ -1,10 +1,8 @@
-import { useState } from "react";
-import { graphql } from "react-relay";
+import { useState, useEffect } from "react";
+import { useRelayEnvironment, fetchQuery, graphql } from "react-relay";
 import { debounce } from "lodash";
-import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import { Controller } from "react-hook-form";
 import BaseTypeahead from "components/forms/BaseTypeahead";
-import { FormFieldSkeleton } from "components/atomic/loading";
 import {
   HarvestSetTypeaheadQuery as Query,
   HarvestSetTypeaheadQuery$data as Response,
@@ -22,7 +20,9 @@ const HarvestSetTypeahead = <T extends FieldValues = FieldValues>({
   disabled,
   required,
 }: Props<T>) => {
-  const [q, setQ] = useState("");
+  const [q, setQ] = useState("a");
+  const [data, setData] = useState<Response | undefined>();
+  const env = useRelayEnvironment();
 
   const debouncedOnChange = debounce((value) => setQ(value), 300);
 
@@ -45,32 +45,46 @@ const HarvestSetTypeahead = <T extends FieldValues = FieldValues>({
     return options;
   };
 
+  useEffect(() => {
+    const fetchOptions = async () => {
+      try {
+        fetchQuery<Query>(
+          env,
+          query,
+          { slug, q },
+          {
+            networkCacheConfig: { force: true },
+          },
+        ).subscribe({
+          next: (data) => {
+            setData(data);
+          },
+        });
+      } catch (error) {
+        /* eslint-disable-next-line no-console */
+        console.log(error);
+      }
+    };
+
+    fetchOptions();
+  }, [q, slug, env]);
+
   return (
-    <LazyLoadQueryWrapper<Query>
-      query={query}
-      variables={{ q, slug }}
-      fallback={<FormFieldSkeleton />}
-    >
-      {({ data }) => {
-        return (
-          <Controller<T>
-            name={name}
-            control={control}
-            render={({ field }) => (
-              <BaseTypeahead
-                label={label}
-                options={data ? formatOptions(data) : []}
-                onInputChange={debouncedOnChange}
-                disabled={disabled}
-                required={required}
-                defaultValue={q}
-                {...field}
-              />
-            )}
-          />
-        );
-      }}
-    </LazyLoadQueryWrapper>
+    <Controller<T>
+      name={name}
+      control={control}
+      render={({ field }) => (
+        <BaseTypeahead
+          label={label}
+          options={data ? formatOptions(data) : []}
+          onInputChange={debouncedOnChange}
+          disabled={disabled}
+          required={required}
+          defaultValue={q}
+          {...field}
+        />
+      )}
+    />
   );
 };
 
