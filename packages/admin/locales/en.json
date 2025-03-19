@@ -77,7 +77,9 @@
       "harvest_mapping": "harvest mapping",
       "harvest_mapping_other": "harvest mappings",
       "harvest_attempt": "harvest attempt",
-      "harvest_attempt_other": "harvest attempts"
+      "harvest_attempt_other": "harvest attempts",
+      "harvest_record": "harvest record",
+      "harvest_record_other": "harvest records"
     },
     "lists": {
       "admin_column": "Admin?",
@@ -120,8 +122,9 @@
       "count_column": "Count",
       "description_column": "Description",
       "record_count_column": "Record count",
-      "began_at_column": "Start",
-      "ended_at_column": "End"
+      "began_at_column": "Started At",
+      "ended_at_column": "Ended At",
+      "status_column": "Status"
     },
     "nav": {
       "manage_header": "Manage",
