@@ -1,29 +1,33 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import HarvestSourceLayout from "components/composed/harvesting/HarvestSourceLayout";
 import HarvestMappingsList from "components/composed/harvesting/HarvestMappingsList";
 import { useSearchQueryVars, useBaseListQueryVars } from "hooks";
 import type { mappingsHarvestSourceQuery as Query } from "@/relay/mappingsHarvestSourceQuery.graphql";
 import Layout from "./layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
-function HarvestSourceMappings({ queryRef, ...layoutProps }: Props) {
+function HarvestSourceMappings({ queryRef }: Props) {
   const { harvestSource } = usePreloadedQuery<Query>(query, queryRef);
 
-  return harvestSource ? (
-    <HarvestSourceLayout {...layoutProps} data={harvestSource}>
-      <HarvestMappingsList
-        data={harvestSource.harvestMappings}
-        sourceId={harvestSource.id}
-      />
-    </HarvestSourceLayout>
-  ) : null;
+  return (
+    <HarvestMappingsList
+      data={harvestSource?.harvestMappings}
+      sourceId={harvestSource?.id}
+    />
+  );
 }
 
 const getLayout: GetLayout<Props> = (props) => {
   useBaseListQueryVars();
   useSearchQueryVars();
 
-  return <Layout query={query} refetchTags={["harvestMappings"]} {...props} />;
+  return (
+    <Layout
+      query={query}
+      modelName="harvest_mapping"
+      refetchTags={["harvestMappings"]}
+      {...props}
+    />
+  );
 };
 
 HarvestSourceMappings.getLayout = getLayout;
@@ -42,7 +46,6 @@ const query = graphql`
   ) {
     harvestSource(slug: $slug) {
       id
-      ...HarvestSourceLayoutFragment
       harvestMappings(order: $order, page: $page, perPage: 20) {
         ...HarvestMappingsListFragment
       }
