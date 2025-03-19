@@ -48,7 +48,7 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
           queryRef ? (
             <PageComponent {...pageComponentProps} queryRef={queryRef} />
           ) : showLoadingCircle ? (
-            <LoadingCircle />
+            <LoadingCircle className="l-page-loading" />
           ) : (
             <ModelListPageSkeleton
               modelName={modelName}
