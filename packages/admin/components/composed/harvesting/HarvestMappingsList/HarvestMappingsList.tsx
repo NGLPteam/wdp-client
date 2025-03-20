@@ -1,8 +1,6 @@
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { useRouter } from "next/router";
 import { useDestroyer, useRouteSlug } from "hooks";
-import { RouteHelper } from "routes";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
@@ -31,9 +29,18 @@ function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
   const { t } = useTranslation();
   const destroy = useDestroyer();
   const sourceSlug = useRouteSlug();
-  const router = useRouter();
 
   const columns = [
+    ModelColumns.NameColumn<HarvestMappingNode>({
+      accessor: () => "[Mapping Id Here]",
+      header: () => "Identifier",
+      enableSorting: true,
+      route: "harvestMapping",
+    }),
+    ModelColumns.StringColumn<HarvestMappingNode>({
+      id: "harvestSet.name",
+      header: () => "Harvest Set",
+    }),
     ModelColumns.LinkColumn<HarvestMappingNode>({
       id: "targetEntity.title",
       header: () => "Target Entity",
@@ -44,22 +51,12 @@ function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
           : "community",
     }),
     ModelColumns.StringColumn<HarvestMappingNode>({
-      id: "harvestSet.name",
-      header: () => "Harvest Set",
-    }),
-    ModelColumns.StringColumn<HarvestMappingNode>({
       id: "harvestAttempts.pageInfo.totalCount",
       header: () => "Harvest Attempts Count",
     }),
   ];
 
   const actions = {
-    handleEdit: ({ row }: ModelTableActionProps<HarvestMappingNode>) => {
-      router.push({
-        pathname: RouteHelper.findRouteByName("harvestMapping.details")?.path,
-        query: { slug: row.original.slug },
-      });
-    },
     handleDelete: ({ row }: ModelTableActionProps<HarvestMappingNode>) => {
       destroy.harvestMapping({ harvestMappingId: row.original.id || "" });
     },

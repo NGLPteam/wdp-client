@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6eb691245e2d7886e10b1f8622c36ea4>>
+ * @generated SignedSource<<e79dfe00bb420e2c2fd6587c387ed9c2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
-export type HarvestMessageLevel = "DEBUG" | "ERROR" | "FATAL" | "INFO" | "TRACE" | "WARN" | "%future added value";
+import { FragmentRefs } from "relay-runtime";
 export type messagesHarvestMappingQuery$variables = {
   page: number;
   slug: string;
@@ -17,11 +17,7 @@ export type messagesHarvestMappingQuery$variables = {
 export type messagesHarvestMappingQuery$data = {
   readonly harvestMapping: {
     readonly harvestMessages: {
-      readonly nodes: ReadonlyArray<{
-        readonly id: string;
-        readonly level: HarvestMessageLevel;
-        readonly message: string;
-      }>;
+      readonly " $fragmentSpreads": FragmentRefs<"HarvestMessagesListFragment">;
     };
   } | null | undefined;
 };
@@ -48,59 +44,23 @@ v2 = [
     "variableName": "slug"
   }
 ],
-v3 = {
+v3 = [
+  {
+    "kind": "Variable",
+    "name": "page",
+    "variableName": "page"
+  },
+  {
+    "kind": "Literal",
+    "name": "perPage",
+    "value": 20
+  }
+],
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": [
-    {
-      "kind": "Variable",
-      "name": "page",
-      "variableName": "page"
-    },
-    {
-      "kind": "Literal",
-      "name": "perPage",
-      "value": 20
-    }
-  ],
-  "concreteType": "HarvestMessageConnection",
-  "kind": "LinkedField",
-  "name": "harvestMessages",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "HarvestMessage",
-      "kind": "LinkedField",
-      "name": "nodes",
-      "plural": true,
-      "selections": [
-        (v3/*: any*/),
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "level",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "message",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
-  ],
   "storageKey": null
 };
 return {
@@ -121,7 +81,22 @@ return {
         "name": "harvestMapping",
         "plural": false,
         "selections": [
-          (v4/*: any*/)
+          {
+            "alias": null,
+            "args": (v3/*: any*/),
+            "concreteType": "HarvestMessageConnection",
+            "kind": "LinkedField",
+            "name": "harvestMessages",
+            "plural": false,
+            "selections": [
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "HarvestMessagesListFragment"
+              }
+            ],
+            "storageKey": null
+          }
         ],
         "storageKey": null
       }
@@ -146,24 +121,134 @@ return {
         "name": "harvestMapping",
         "plural": false,
         "selections": [
-          (v4/*: any*/),
-          (v3/*: any*/)
+          {
+            "alias": null,
+            "args": (v3/*: any*/),
+            "concreteType": "HarvestMessageConnection",
+            "kind": "LinkedField",
+            "name": "harvestMessages",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "HarvestMessage",
+                "kind": "LinkedField",
+                "name": "nodes",
+                "plural": true,
+                "selections": [
+                  (v4/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "level",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "message",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "tags",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "createdAt",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              },
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "PageInfo",
+                    "kind": "LinkedField",
+                    "name": "pageInfo",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "page",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "pageCount",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "perPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "hasNextPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "hasPreviousPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "totalCount",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "type": "Paginated",
+                "abstractKey": "__isPaginated"
+              }
+            ],
+            "storageKey": null
+          },
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "ce230bdc9285e567ae4550c38a5aaad6",
+    "cacheID": "ecbac4d8236be570ee7a336eb9d34ea0",
     "id": null,
     "metadata": {},
     "name": "messagesHarvestMappingQuery",
     "operationKind": "query",
-    "text": "query messagesHarvestMappingQuery(\n  $slug: Slug!\n  $page: Int!\n) {\n  harvestMapping(slug: $slug) {\n    harvestMessages(page: $page, perPage: 20) {\n      nodes {\n        id\n        level\n        message\n      }\n    }\n    id\n  }\n}\n"
+    "text": "query messagesHarvestMappingQuery(\n  $slug: Slug!\n  $page: Int!\n) {\n  harvestMapping(slug: $slug) {\n    harvestMessages(page: $page, perPage: 20) {\n      ...HarvestMessagesListFragment\n    }\n    id\n  }\n}\n\nfragment HarvestMessageFragment on HarvestMessage {\n  id\n  level\n  message\n  tags\n  createdAt\n}\n\nfragment HarvestMessagesListFragment on HarvestMessageConnection {\n  nodes {\n    ...HarvestMessageFragment\n    id\n  }\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "3b3f0bac5c8f972d125d8cceabbac741";
+(node as any).hash = "911923771f133ecf99e2db6d46e1875f";
 
 export default node;
