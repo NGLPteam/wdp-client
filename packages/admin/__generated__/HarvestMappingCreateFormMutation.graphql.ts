@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7843b95012968c2d4cecb12dbea8eaf9>>
+ * @generated SignedSource<<e88b5787b90680b111b3c6d22a0ae30b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -37,6 +37,7 @@ export type HarvestMappingCreateFormMutation$data = {
   readonly harvestMappingCreate: {
     readonly harvestMapping: {
       readonly extractionMappingTemplate: string;
+      readonly frequencyExpression: string | null | undefined;
       readonly harvestSet: {
         readonly id: string;
       } | null | undefined;
@@ -176,6 +177,13 @@ v10 = {
   "storageKey": null
 },
 v11 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "frequencyExpression",
+  "storageKey": null
+},
+v12 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -272,7 +280,8 @@ return {
               (v7/*: any*/),
               (v8/*: any*/),
               (v9/*: any*/),
-              (v10/*: any*/)
+              (v10/*: any*/),
+              (v11/*: any*/)
             ],
             "storageKey": null
           },
@@ -280,7 +289,7 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v11/*: any*/)
+              (v12/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -345,27 +354,28 @@ return {
               (v8/*: any*/),
               (v9/*: any*/),
               (v10/*: any*/),
+              (v11/*: any*/),
               (v4/*: any*/)
             ],
             "storageKey": null
           },
-          (v11/*: any*/)
+          (v12/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "6fde5ac9cbefd148c235b22141e98ade",
+    "cacheID": "0d558e3c366d815cf88ba6123dbe3d33",
     "id": null,
     "metadata": {},
     "name": "HarvestMappingCreateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation HarvestMappingCreateFormMutation(\n  $input: HarvestMappingCreateInput!\n) {\n  harvestMappingCreate(input: $input) {\n    harvestMapping {\n      targetEntity {\n        __typename\n        slug\n        title\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      harvestSet {\n        id\n      }\n      metadataFormat\n      extractionMappingTemplate\n      mappingOptions {\n        autoCreateVolumesAndIssues\n        linkIdentifiersGlobally\n        useMetadataMappings\n      }\n      readOptions {\n        maxRecords\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
+    "text": "mutation HarvestMappingCreateFormMutation(\n  $input: HarvestMappingCreateInput!\n) {\n  harvestMappingCreate(input: $input) {\n    harvestMapping {\n      targetEntity {\n        __typename\n        slug\n        title\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      harvestSet {\n        id\n      }\n      metadataFormat\n      extractionMappingTemplate\n      mappingOptions {\n        autoCreateVolumesAndIssues\n        linkIdentifiersGlobally\n        useMetadataMappings\n      }\n      readOptions {\n        maxRecords\n      }\n      frequencyExpression\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "c057f6878e8f5152a10f4aedea8c3ba2";
+(node as any).hash = "c7413af3cb8c2d453d1ac87b3d51257f";
 
 export default node;

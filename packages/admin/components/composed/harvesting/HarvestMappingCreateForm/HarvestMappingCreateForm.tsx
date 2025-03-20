@@ -101,6 +101,12 @@ export default function HarvestMappingCreateForm({
               {...register("readOptions.maxRecords", { valueAsNumber: true })}
             />
           </Forms.Fieldset>
+          <Forms.Input
+            label="forms.fields.schedule"
+            description="forms.fields.frequency_expression_description"
+            {...register("frequencyExpression")}
+            isWide
+          />
         </Forms.Grid>
       );
     },
@@ -153,6 +159,7 @@ const mutation = graphql`
         readOptions {
           maxRecords
         }
+        frequencyExpression
       }
       ...MutationForm_mutationErrors
     }

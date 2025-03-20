@@ -4,18 +4,21 @@ import MutationForm, {
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
+import { formatDate } from "@wdp/lib/helpers";
 import { useTranslation } from "react-i18next";
 import { useParams } from "next/navigation";
 import EntitySelectorDisclosure from "components/forms/EntitySelector/EntitySelectorDisclosure";
 import HarvestSetTypeahead from "components/forms/HarvestSetTypeahead";
 import ExtractionMappingTemplateInput from "components/forms/ExtractionMappingTemplateInput";
 import { Controller } from "react-hook-form";
+import BaseInputLabel from "components/forms/BaseInputLabel";
 import type {
   HarvestMappingUpdateInput,
   HarvestMappingEditFormMutation,
 } from "@/relay/HarvestMappingEditFormMutation.graphql";
 import type { HarvestMappingEditFormFragment$key } from "@/relay/HarvestMappingEditFormFragment.graphql";
 import type { HarvestMappingEditFormFieldsFragment$key } from "@/relay/HarvestMappingEditFormFieldsFragment.graphql";
+import * as Styled from "./HarvestMappingEditForm.styles";
 import type {
   HarvestMetadataFormat,
   HarvestProtocol,
@@ -33,25 +36,36 @@ export default function HarvestMappingEditForm({
 
   const { id, ...fieldsData } = useFragment<HarvestMappingEditFormFragment$key>(
     fragment,
-    data
+    data,
   );
 
-  const { targetEntity, harvestSet, ...defaultValues } = useFragment<
-    HarvestMappingEditFormFieldsFragment$key
-  >(fieldsFragment, fieldsData);
+  const {
+    targetEntity,
+    harvestSet,
+    lastScheduledAt,
+    scheduleChangedAt,
+    ...defaultValues
+  } = useFragment<HarvestMappingEditFormFieldsFragment$key>(
+    fieldsFragment,
+    fieldsData,
+  );
 
   const toVariables = useToVariables<HarvestMappingEditFormMutation, Fields>(
     (data) => {
-      const { metadataFormat, protocol, ...rest } = data;
+      const { metadataFormat, protocol, frequencyExpression, ...rest } = data;
+      const submitFE =
+        !!frequencyExpression ||
+        (!frequencyExpression && !!defaultValues.frequencyExpression);
       return {
         input: {
           ...rest,
           targetEntityId: data.targetEntityId ?? targetEntity.id,
           harvestMappingId: id,
+          frequencyExpression: submitFE ? frequencyExpression : undefined,
         },
       };
     },
-    [targetEntity]
+    [targetEntity],
   );
 
   const renderForm = useRenderForm<Fields>(
@@ -121,10 +135,45 @@ export default function HarvestMappingEditForm({
               {...register("readOptions.maxRecords", { valueAsNumber: true })}
             />
           </Forms.Fieldset>
+          <Forms.Fieldset label={t("forms.fields.schedule")}>
+            <Styled.ScheduleGroup>
+              <div>
+                <BaseInputLabel>
+                  {t("harvesting.current_schedule")}
+                </BaseInputLabel>
+                <span>
+                  {defaultValues.frequencyExpression ??
+                    t("harvesting.mode_manual")}
+                </span>
+              </div>
+              <div>
+                <BaseInputLabel>
+                  {t("harvesting.last_scheduled")}
+                </BaseInputLabel>
+                <span>
+                  {lastScheduledAt ? formatDate(lastScheduledAt) : "N/A"}
+                </span>
+              </div>
+              <div>
+                <BaseInputLabel>
+                  {t("harvesting.schedule_changed")}
+                </BaseInputLabel>
+                <span>
+                  {scheduleChangedAt ? formatDate(scheduleChangedAt) : "N/A"}
+                </span>
+              </div>
+            </Styled.ScheduleGroup>
+            <Forms.Input
+              label="forms.fields.frequency_expression"
+              description="forms.fields.frequency_expression_description"
+              {...register("frequencyExpression")}
+              isWide
+            />
+          </Forms.Fieldset>
         </Forms.Grid>
       );
     },
-    []
+    [],
   );
 
   return (
@@ -183,6 +232,9 @@ const fieldsFragment = graphql`
     readOptions {
       maxRecords
     }
+    frequencyExpression
+    lastScheduledAt
+    scheduleChangedAt
   }
 `;
 
