@@ -1,5 +1,6 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { useSearchQueryVars, useBaseListQueryVars } from "hooks";
+import HarvestMessagesList from "components/composed/harvesting/HarvestMessagesList";
 import type { messagesHarvestSourceQuery as Query } from "@/relay/messagesHarvestSourceQuery.graphql";
 import Layout from "./layout";
 import type { GetLayout } from "@wdp/lib/types/page";
@@ -8,11 +9,7 @@ function HarvestSourceMessages({ queryRef }: Props) {
   const { harvestSource } = usePreloadedQuery<Query>(query, queryRef);
 
   return harvestSource ? (
-    <div>
-      <pre>
-        <code>{JSON.stringify(harvestSource.harvestMessages)}</code>
-      </pre>
-    </div>
+    <HarvestMessagesList data={harvestSource.harvestMessages} />
   ) : null;
 }
 
@@ -35,11 +32,7 @@ const query = graphql`
   query messagesHarvestSourceQuery($slug: Slug!, $page: Int!) {
     harvestSource(slug: $slug) {
       harvestMessages(page: $page, perPage: 20) {
-        nodes {
-          id
-          level
-          message
-        }
+        ...HarvestMessagesListFragment
       }
     }
   }
