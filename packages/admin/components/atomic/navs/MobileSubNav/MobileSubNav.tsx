@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useId } from "react";
-import { useFocusTrap } from "@castiron/hooks/";
+import useFocusTrap from "@castiron/hooks/useFocusTrap";
 import capitalize from "lodash/capitalize";
 import { RouteHelper } from "routes";
 import { NamedLink, TabLink } from "components/atomic";

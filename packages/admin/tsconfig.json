@@ -6,6 +6,6 @@
       "@/relay/*": ["__generated__/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/forms/ExtractionMappingTemplateInput/ExtractionMappingTemplateWrapper.tsx"],
   "exclude": ["node_modules"]
 }
