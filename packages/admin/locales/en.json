@@ -32,7 +32,8 @@
       "submit": "Submit",
       "reset": "Reset",
       "enable": "Enable",
-      "disable": "Disable"
+      "disable": "Disable",
+      "actions": "Actions"
     },
     "glossary": {
       "community": "community",
@@ -554,7 +555,8 @@
         "references_label": "References Links"
       },
       "extraction_mapping_template": {
-        "description": "Required. Enter a custom template or work from one of the installation's existing examples. See documentation for more information.",
+        "description": "Enter a custom template or work from one of the installation's existing examples. See documentation for more information.",
+        "child_description": "Default template is inherited from parent Harvest Source. Customizations here apply only to this mapping. See documentation for more information.",
         "select_label": "Examples",
         "select_placeholder": "Select an example to insert...",
         "textarea_label": "Custom",
@@ -562,7 +564,7 @@
         "revert_label": "Revert to default",
         "full_screen": "Full screen",
         "checkbox_label": "Inherit template from Harvest Source",
-        "template_label": "XML"
+        "code_editor_label": "XML"
       }
     },
     "dashboard": {

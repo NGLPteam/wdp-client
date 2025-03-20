@@ -25,5 +25,3 @@ export default function Toggle({ children, ...props }: Props) {
     onClick: handleToggleClick,
   });
 }
-
-Toggle.displayName = "Dialog.Toggle";

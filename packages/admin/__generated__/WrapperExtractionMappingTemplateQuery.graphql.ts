@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c02670f9e4692adce8928f71f04a7836>>
+ * @generated SignedSource<<cfd9f08f06595849a4eebc3b30496fba>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,16 +9,16 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
-export type ExtractionMappingTemplateWrapperQuery$variables = Record<PropertyKey, never>;
-export type ExtractionMappingTemplateWrapperQuery$data = {
+export type WrapperExtractionMappingTemplateQuery$variables = Record<PropertyKey, never>;
+export type WrapperExtractionMappingTemplateQuery$data = {
   readonly harvestExamples: ReadonlyArray<{
     readonly extractionMappingTemplate: string;
     readonly name: string;
   }>;
 };
-export type ExtractionMappingTemplateWrapperQuery = {
-  response: ExtractionMappingTemplateWrapperQuery$data;
-  variables: ExtractionMappingTemplateWrapperQuery$variables;
+export type WrapperExtractionMappingTemplateQuery = {
+  response: WrapperExtractionMappingTemplateQuery$data;
+  variables: WrapperExtractionMappingTemplateQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -41,7 +41,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "ExtractionMappingTemplateWrapperQuery",
+    "name": "WrapperExtractionMappingTemplateQuery",
     "selections": [
       {
         "alias": null,
@@ -64,7 +64,7 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "ExtractionMappingTemplateWrapperQuery",
+    "name": "WrapperExtractionMappingTemplateQuery",
     "selections": [
       {
         "alias": null,
@@ -89,16 +89,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0417cea6dcf559943554388f996d3e67",
+    "cacheID": "65386d0fa273f64ba5a1c3f3bf002c00",
     "id": null,
     "metadata": {},
-    "name": "ExtractionMappingTemplateWrapperQuery",
+    "name": "WrapperExtractionMappingTemplateQuery",
     "operationKind": "query",
-    "text": "query ExtractionMappingTemplateWrapperQuery {\n  harvestExamples {\n    name\n    extractionMappingTemplate\n    id\n  }\n}\n"
+    "text": "query WrapperExtractionMappingTemplateQuery {\n  harvestExamples {\n    name\n    extractionMappingTemplate\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "d120436a4d897c05772ddead2b7613ee";
+(node as any).hash = "e73978fbd3dd5541c71afa19d97e8b2e";
 
 export default node;

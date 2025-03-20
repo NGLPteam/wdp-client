@@ -1,5 +1,3 @@
-"use client";
-
 import useDialog from "@castiron/hooks/useDialog";
 import { createContext, useContext } from "react";
 

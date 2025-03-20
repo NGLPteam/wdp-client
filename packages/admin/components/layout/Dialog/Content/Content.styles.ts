@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { respond } from "theme/mixins/base";
 
 export const Dialog = styled.dialog`
   opacity: 0;
@@ -44,9 +45,7 @@ export const ChildrenWrapper = styled.div`
   padding-block-start: 0.5rem;
   padding-block-end: 1rem;
 
-  @media all and (max-width: 500px) {
-    padding-inline: 0.5rem;
-  }
+  ${respond(`padding-inline: 0.5rem;`, 70)}
 
   > * + * {
     margin-block-start: 1.5rem;
@@ -57,15 +56,20 @@ export const ButtonWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  color: var(--color-brand100);
 
   button {
     display: flex;
     gap: 0.75rem;
     align-items: center;
+    color: var(--color-light);
 
     > svg {
       margin-block-start: -2px;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: var(--brand100);
     }
   }
 `;

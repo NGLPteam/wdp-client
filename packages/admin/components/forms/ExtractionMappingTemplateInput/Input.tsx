@@ -1,4 +1,4 @@
-import { useRef, useCallback, useEffect, useState } from "react";
+import { useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import Fieldset from "components/forms/Fieldset";
 import FormGrid from "components/forms/FormGrid";
@@ -8,7 +8,7 @@ import dynamic from "next/dynamic";
 import Dialog from "components/layout/Dialog";
 import { FormFieldSkeleton } from "components/atomic/loading";
 import Buttons from "./Buttons";
-import type { Props as WrapperProps } from "./ExtractionMappingTemplateWrapper";
+import type { Props as WrapperProps } from "./Wrapper";
 
 const CodeEditor = dynamic(() => import("../CodeEditor"), {
   loading: () => <FormFieldSkeleton />,
@@ -31,8 +31,8 @@ export default function ExtractionMappingTemplateInput({
   parentDefault,
 }: Props) {
   const { t } = useTranslation();
+
   const selectRef = useRef<HTMLSelectElement>(null);
-  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   const handleChange = useCallback(() => {
     const example = selectRef.current?.value;
@@ -64,14 +64,12 @@ export default function ExtractionMappingTemplateInput({
     [onChange, parentDefault],
   );
 
-  useEffect(() => {
-    if (typeof window !== "undefined") setIsMounted(true);
-  }, []);
-
   const editor = (isDialog: boolean) => (
     <>
       <CodeEditor
         isWide
+        required
+        label={t("forms.extraction_mapping_template.code_editor_label")}
         value={value ?? ""}
         onChange={handleEditorChange}
         isDialog={isDialog}
@@ -86,12 +84,12 @@ export default function ExtractionMappingTemplateInput({
     </>
   );
 
-  return isMounted ? (
+  return (
     <Fieldset
       label={t(label)}
       description={
         sourceSlug
-          ? undefined
+          ? t("forms.extraction_mapping_template.child_description")
           : t("forms.extraction_mapping_template.description")
       }
     >
@@ -114,10 +112,7 @@ export default function ExtractionMappingTemplateInput({
           <Dialog.Content>{editor(true)}</Dialog.Content>
         </Dialog.Provider>
       </FormGrid>
-      <Errors
-        name="extractionMappingTemplate"
-        label={label ? t(label) : undefined}
-      />
+      <Errors name="extractionMappingTemplate" label={t(label)} />
     </Fieldset>
-  ) : null;
+  );
 }

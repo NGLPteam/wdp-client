@@ -1,1 +1,1 @@
-export { default } from "./ExtractionMappingTemplateWrapper";
+export { default } from "./Wrapper";
