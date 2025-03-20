@@ -1,5 +1,3 @@
-"use client";
-
 import useDialog from "@castiron/hooks/useDialog";
 import DialogContext from "./context";
 
@@ -16,5 +14,3 @@ export default function Provider({
     <DialogContext.Provider value={value}>{children}</DialogContext.Provider>
   );
 }
-
-Provider.displayName = "Dialog.Provider";

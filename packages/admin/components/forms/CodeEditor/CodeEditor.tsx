@@ -2,36 +2,33 @@ import { EditorView } from "@codemirror/view";
 import CodeMirror from "@uiw/react-codemirror";
 import { xml } from "@codemirror/lang-xml";
 import { githubLight } from "@uiw/codemirror-theme-github";
-import { useTranslation } from "react-i18next";
 import BaseInputWrapper from "../BaseInputWrapper";
 import * as Styled from "./CodeEditor.styles";
 import type InputProps from "../inputType";
 
 const CodeEditor = ({
+  label,
   hideLabel,
   description,
-  placeholder,
   isWide,
   value,
   onChange,
   isDialog,
-  ...textareaProps
-}: Omit<InputProps, "label" | "name"> & {
+  required,
+}: Omit<InputProps, "name"> & {
   value: string;
   isDialog: boolean;
 }) => {
-  const { t } = useTranslation();
-
   return (
     <BaseInputWrapper
       name="codeEditor"
-      label={t("forms.extraction_mapping_template.template_label")}
+      label={label}
       hideLabel={hideLabel}
       description={description}
-      required={textareaProps.required}
+      required={required}
       isWide={isWide}
     >
-      <Styled.TextareaInput>
+      <Styled.Wrapper>
         <CodeMirror
           value={value}
           extensions={[xml(), EditorView.lineWrapping]}
@@ -40,7 +37,7 @@ const CodeEditor = ({
           theme={githubLight}
           onChange={onChange}
         />
-      </Styled.TextareaInput>
+      </Styled.Wrapper>
     </BaseInputWrapper>
   );
 };
