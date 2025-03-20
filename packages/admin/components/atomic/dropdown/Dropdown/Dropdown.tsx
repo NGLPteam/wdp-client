@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from "react";
 import { useId } from "react";
-import { useFocusTrap } from "@castiron/hooks/";
+import useFocusTrap from "@castiron/hooks/useFocusTrap";
 import isFunction from "lodash/isFunction";
 import useIsOutOfViewport from "hooks/useIsOutOfViewport";
 import * as Styled from "./Dropdown.styles";

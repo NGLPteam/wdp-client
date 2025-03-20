@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useId } from "react";
-import { useFocusTrap } from "@castiron/hooks/";
+import useFocusTrap from "@castiron/hooks/useFocusTrap";
 
 import { useViewerContext } from "contexts";
 import appData from "fixtures/app.data";
