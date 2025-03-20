@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3bdda661c94f8345ada195418bfb64a1>>
+ * @generated SignedSource<<e074c7bcefa6db8fac3d8d98f225a69a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,9 +13,11 @@ export type HarvestMetadataFormat = "ESPLORO" | "JATS" | "METS" | "MODS" | "OAID
 import { FragmentRefs } from "relay-runtime";
 export type HarvestMappingEditFormFieldsFragment$data = {
   readonly extractionMappingTemplate: string;
+  readonly frequencyExpression: string | null | undefined;
   readonly harvestSet: {
     readonly id: string;
   } | null | undefined;
+  readonly lastScheduledAt: string | null | undefined;
   readonly mappingOptions: {
     readonly autoCreateVolumesAndIssues: boolean;
     readonly linkIdentifiersGlobally: boolean;
@@ -25,6 +27,7 @@ export type HarvestMappingEditFormFieldsFragment$data = {
   readonly readOptions: {
     readonly maxRecords: number;
   };
+  readonly scheduleChangedAt: string | null | undefined;
   readonly targetEntity: {
     readonly id?: string;
     readonly slug: string;
@@ -163,6 +166,27 @@ return {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "frequencyExpression",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "lastScheduledAt",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "scheduleChangedAt",
+      "storageKey": null
     }
   ],
   "type": "HarvestMapping",
@@ -170,6 +194,6 @@ return {
 };
 })();
 
-(node as any).hash = "68518bda9e69ecdad6422fef5da7d19c";
+(node as any).hash = "8d37066c38683f4882814e3aa9211124";
 
 export default node;
