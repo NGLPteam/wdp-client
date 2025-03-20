@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { fetchQuery, graphql, useRelayEnvironment } from "react-relay";
-import type { ExtractionMappingTemplateWrapperQuery as Query } from "@/relay/ExtractionMappingTemplateWrapperQuery.graphql";
-import type { ExtractionMappingTemplateWrapperSourceQuery as SourceQuery } from "@/relay/ExtractionMappingTemplateWrapperSourceQuery.graphql";
-import ExtractionMappingTemplateInput, {
-  type Options,
-} from "./ExtractionMappingTemplateInput";
-import type InputProps from "components/forms/inputType";
+import type { WrapperExtractionMappingTemplateQuery as Query } from "@/relay/WrapperExtractionMappingTemplateQuery.graphql";
+import type { WrapperExtractionMappingTemplateSourceQuery as SourceQuery } from "@/relay/WrapperExtractionMappingTemplateSourceQuery.graphql";
+import ExtractionMappingTemplateInput, { type Options } from "./Input";
 
 export default function ExtractionMappingTemplateWrapper({
   label,
   onChange,
   value,
   sourceSlug,
-  ...props
 }: Props) {
   const { t } = useTranslation();
 
@@ -92,13 +88,12 @@ export default function ExtractionMappingTemplateWrapper({
       sourceSlug={sourceSlug}
       options={options}
       parentDefault={parentDefault}
-      {...props}
     />
   );
 }
 
-export interface Props
-  extends Omit<InputProps, "placeholder" | "description" | "onChange"> {
+export interface Props {
+  label: string;
   onChange: (value?: string) => void;
   value?: string;
   description?: string;
@@ -106,7 +101,7 @@ export interface Props
 }
 
 const query = graphql`
-  query ExtractionMappingTemplateWrapperQuery {
+  query WrapperExtractionMappingTemplateQuery {
     harvestExamples {
       name
       extractionMappingTemplate
@@ -115,7 +110,7 @@ const query = graphql`
 `;
 
 const sourceQuery = graphql`
-  query ExtractionMappingTemplateWrapperSourceQuery($slug: Slug!) {
+  query WrapperExtractionMappingTemplateSourceQuery($slug: Slug!) {
     harvestSource(slug: $slug) {
       extractionMappingTemplate
     }

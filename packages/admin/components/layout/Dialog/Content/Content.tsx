@@ -1,5 +1,3 @@
-"use client";
-
 import { HTMLAttributes, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import IconFactory from "components/factories/IconFactory";
@@ -28,9 +26,7 @@ export default function Dialog({
       <Styled.Pane>
         <Styled.ButtonWrapper>
           <button onClick={handleToggleClick}>
-            <span className="t-label-sm a-color-light">
-              {t("common.close")}
-            </span>
+            <span className="t-label-sm">{t("common.close")}</span>
             <IconFactory icon="close" />
           </button>
         </Styled.ButtonWrapper>
@@ -39,5 +35,3 @@ export default function Dialog({
     </Styled.Dialog>
   );
 }
-
-Dialog.displayName = "Dialog.Dialog";

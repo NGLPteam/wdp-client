@@ -1,36 +1,40 @@
 import { useTranslation } from "react-i18next";
-import { ButtonControl, ButtonControlGroup } from "components/atomic/buttons";
+import { ButtonControl } from "components/atomic/buttons";
 import Dialog from "components/layout/Dialog";
+import * as Styled from "./styles";
 
 type Props = {
   value?: string;
-  handleReset: (e: React.MouseEvent) => void;
   parentDefault?: string;
+  handleReset: (e: React.MouseEvent) => void;
   handleRevert: (e: React.MouseEvent) => void;
   isDialog: boolean;
 };
 
 export default function EditorButtons({
   value,
-  handleReset,
   parentDefault,
+  handleReset,
   handleRevert,
   isDialog,
 }: Props) {
   const { t } = useTranslation();
 
-  const showRevert = !!parentDefault && parentDefault !== value;
-
   return (
-    <ButtonControlGroup toggleLabel={t("actions")} menuLabel={t("actions")}>
-      <ButtonControl onClick={handleReset}>
-        {t("forms.extraction_mapping_template.reset_label")}
-      </ButtonControl>
-      {showRevert && (
-        <ButtonControl onClick={handleRevert}>
-          {t("forms.extraction_mapping_template.revert_label")}
+    <Styled.ButtonGroup>
+      <div>
+        <ButtonControl onClick={handleReset}>
+          {t("forms.extraction_mapping_template.reset_label")}
         </ButtonControl>
-      )}
+        {!!parentDefault && (
+          <ButtonControl
+            onClick={handleRevert}
+            disabled={parentDefault === value}
+          >
+            {t("forms.extraction_mapping_template.revert_label")}
+          </ButtonControl>
+        )}
+      </div>
       {!isDialog && (
         <Dialog.Toggle>
           <ButtonControl icon="linkExternal">
@@ -38,6 +42,6 @@ export default function EditorButtons({
           </ButtonControl>
         </Dialog.Toggle>
       )}
-    </ButtonControlGroup>
+    </Styled.ButtonGroup>
   );
 }
