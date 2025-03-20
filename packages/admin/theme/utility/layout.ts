@@ -101,4 +101,10 @@ export default css`
       min-height: 80px;
     }
   }
+
+  .has-scroll-lock {
+    position: absolute;
+    inline-size: 100%;
+    overflow: hidden;
+  }
 `;

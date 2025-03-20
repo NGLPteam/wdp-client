@@ -1,1 +1,1 @@
-export { default } from "./ExtractionMappingTemplateInput";
+export { default } from "./ExtractionMappingTemplateWrapper";

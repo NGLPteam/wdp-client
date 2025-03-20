@@ -554,13 +554,15 @@
         "references_label": "References Links"
       },
       "extraction_mapping_template": {
-        "description": "Required. Select from existing default templates, or enter a custom template. If a custom template is entered, it will supercede any selection.",
-        "select_label": "Default",
-        "select_placeholder": "Select an existing template",
+        "description": "Required. Enter a custom template or work from one of the installation's existing examples. See documentation for more information.",
+        "select_label": "Examples",
+        "select_placeholder": "Select an example to insert...",
         "textarea_label": "Custom",
-        "reset_label": "Clear",
+        "reset_label": "Clear editor",
+        "revert_label": "Revert to default",
+        "full_screen": "Full screen",
         "checkbox_label": "Inherit template from Harvest Source",
-        "mapping_description": "Required. If a custom template is entered, it will supercede any inherited template."
+        "template_label": "XML"
       }
     },
     "dashboard": {
