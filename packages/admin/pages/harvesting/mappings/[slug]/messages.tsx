@@ -17,7 +17,7 @@ const getLayout: GetLayout<Props> = (props) => {
   useBaseListQueryVars();
   useSearchQueryVars();
 
-  return <Layout query={query} {...props} />;
+  return <Layout query={query} showLoadingCircle {...props} />;
 };
 
 HarvestMappingMessages.getLayout = getLayout;

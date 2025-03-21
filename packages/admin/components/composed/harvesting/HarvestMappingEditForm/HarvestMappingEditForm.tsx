@@ -6,7 +6,6 @@ import MutationForm, {
 } from "components/api/MutationForm";
 import { formatDate } from "@wdp/lib/helpers";
 import { useTranslation } from "react-i18next";
-import { useParams } from "next/navigation";
 import EntitySelectorDisclosure from "components/forms/EntitySelector/EntitySelectorDisclosure";
 import HarvestSetTypeahead from "components/forms/HarvestSetTypeahead";
 import ExtractionMappingTemplateInput from "components/forms/ExtractionMappingTemplateInput";
@@ -32,8 +31,6 @@ export default function HarvestMappingEditForm({
 }: Props) {
   const { t } = useTranslation();
 
-  const { slug } = useParams();
-
   const { id, ...fieldsData } = useFragment<HarvestMappingEditFormFragment$key>(
     fragment,
     data,
@@ -44,6 +41,7 @@ export default function HarvestMappingEditForm({
     harvestSet,
     lastScheduledAt,
     scheduleChangedAt,
+    harvestSource,
     ...defaultValues
   } = useFragment<HarvestMappingEditFormFieldsFragment$key>(
     fieldsFragment,
@@ -82,12 +80,12 @@ export default function HarvestMappingEditForm({
             selectableTypes={{}}
             required
           />
-          {slug && (
+          {harvestSource && (
             <HarvestSetTypeahead<Fields>
               control={control}
               name="harvestSetId"
               label="glossary.harvest_set"
-              slug={slug as string}
+              slug={harvestSource.slug}
               disabled
             />
           )}
@@ -109,7 +107,7 @@ export default function HarvestMappingEditForm({
             render={({ field }) => (
               <ExtractionMappingTemplateInput
                 label="Extraction Mapping Template"
-                sourceSlug={slug as string}
+                sourceSlug={harvestSource.slug}
                 {...field}
               />
             )}
@@ -235,6 +233,9 @@ const fieldsFragment = graphql`
     frequencyExpression
     lastScheduledAt
     scheduleChangedAt
+    harvestSource {
+      slug
+    }
   }
 `;
 

@@ -556,7 +556,7 @@
       },
       "extraction_mapping_template": {
         "description": "Enter a custom template or work from one of the installation's existing examples. See documentation for more information.",
-        "child_description": "Default template is inherited from parent Harvest Source. Customizations here apply only to this mapping. See documentation for more information.",
+        "child_description": "Default template is inherited from parent Harvest Source. Customizations here apply only to this Harvest Mapping. See documentation for more information.",
         "select_label": "Examples",
         "select_placeholder": "Select an example to insert...",
         "textarea_label": "Custom",

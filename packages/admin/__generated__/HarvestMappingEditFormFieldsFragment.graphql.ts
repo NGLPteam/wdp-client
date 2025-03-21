@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e074c7bcefa6db8fac3d8d98f225a69a>>
+ * @generated SignedSource<<d05b5af25fdbf87b2232e719e93ece3d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,6 +17,9 @@ export type HarvestMappingEditFormFieldsFragment$data = {
   readonly harvestSet: {
     readonly id: string;
   } | null | undefined;
+  readonly harvestSource: {
+    readonly slug: string;
+  };
   readonly lastScheduledAt: string | null | undefined;
   readonly mappingOptions: {
     readonly autoCreateVolumesAndIssues: boolean;
@@ -41,7 +44,14 @@ export type HarvestMappingEditFormFieldsFragment$key = {
 };
 
 const node: ReaderFragment = (function(){
-var v0 = [
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+},
+v1 = [
   {
     "alias": null,
     "args": null,
@@ -64,13 +74,7 @@ return {
       "name": "targetEntity",
       "plural": false,
       "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "slug",
-          "storageKey": null
-        },
+        (v0/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -80,13 +84,13 @@ return {
         },
         {
           "kind": "InlineFragment",
-          "selections": (v0/*: any*/),
+          "selections": (v1/*: any*/),
           "type": "Community",
           "abstractKey": null
         },
         {
           "kind": "InlineFragment",
-          "selections": (v0/*: any*/),
+          "selections": (v1/*: any*/),
           "type": "Collection",
           "abstractKey": null
         }
@@ -100,7 +104,7 @@ return {
       "kind": "LinkedField",
       "name": "harvestSet",
       "plural": false,
-      "selections": (v0/*: any*/),
+      "selections": (v1/*: any*/),
       "storageKey": null
     },
     {
@@ -187,6 +191,18 @@ return {
       "kind": "ScalarField",
       "name": "scheduleChangedAt",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "HarvestSource",
+      "kind": "LinkedField",
+      "name": "harvestSource",
+      "plural": false,
+      "selections": [
+        (v0/*: any*/)
+      ],
+      "storageKey": null
     }
   ],
   "type": "HarvestMapping",
@@ -194,6 +210,6 @@ return {
 };
 })();
 
-(node as any).hash = "8d37066c38683f4882814e3aa9211124";
+(node as any).hash = "ef432b7f99a1af28f58f170237370f5c";
 
 export default node;
