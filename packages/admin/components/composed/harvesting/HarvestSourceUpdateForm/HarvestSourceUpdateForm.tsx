@@ -13,6 +13,7 @@ import type {
 } from "@/relay/HarvestSourceUpdateFormMutation.graphql";
 import type { HarvestSourceUpdateFormFragment$key } from "@/relay/HarvestSourceUpdateFormFragment.graphql";
 import type { HarvestSourceUpdateFormFieldsFragment$key } from "@/relay/HarvestSourceUpdateFormFieldsFragment.graphql";
+import { METADATA_FORMAT_OPTS } from "../constants";
 import type {
   HarvestMetadataFormat,
   HarvestProtocol,
@@ -68,12 +69,7 @@ export default function HarvestSourceUpdateForm({
           label="forms.fields.metadata_format"
           {...register("metadataFormat")}
           disabled
-          options={[
-            { label: "JATS", value: "JATS" },
-            { label: "METS", value: "METS" },
-            { label: "MODS", value: "MODS" },
-            { label: "OAIDC", value: "OAIDC" },
-          ]}
+          options={METADATA_FORMAT_OPTS}
         />
         <Controller
           name="extractionMappingTemplate"
