@@ -2,7 +2,7 @@ import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import HarvestMappingEditForm from "components/composed/harvesting/HarvestMappingEditForm";
 import { useSearchQueryVars, useBaseListQueryVars } from "hooks";
 import type { detailsHarvestMappingQuery as Query } from "@/relay/detailsHarvestMappingQuery.graphql";
-import Layout from "./layout";
+import Layout from "./_layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
 function HarvestMappingDetails({ queryRef }: Props) {

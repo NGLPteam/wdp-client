@@ -3,10 +3,19 @@ import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import { useBaseListQueryVars } from "hooks";
 import { LoadingPage } from "components/atomic/loading";
 import HarvestSourcesList from "components/composed/harvesting/HarvestSourcesList";
+import { RouteUnauthorizedMessage } from "components/auth/UnauthorizedMessage";
+import { useViewerContext } from "contexts";
 import { harvestingQuery as Query } from "@/relay/harvestingQuery.graphql";
 
 export default function Harvesting() {
   const { page, order } = useBaseListQueryVars();
+
+  const { globalAdmin } = useViewerContext();
+
+  if (!globalAdmin)
+    return (
+      <RouteUnauthorizedMessage i18nKey="messages.unauthorized_body.harvesting" />
+    );
 
   return (
     <QueryTransitionWrapper<Query>
