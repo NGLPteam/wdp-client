@@ -16,6 +16,7 @@ import type {
   HarvestSourceCreateInput,
   HarvestSourceCreateFormMutation,
 } from "@/relay/HarvestSourceCreateFormMutation.graphql";
+import { METADATA_FORMAT_OPTS } from "../constants";
 
 export default function HarvestSourceCreateForm() {
   const { t } = useTranslation();
@@ -98,12 +99,7 @@ export default function HarvestSourceCreateForm() {
         <Forms.Select
           label="forms.fields.metadata_format"
           {...register("metadataFormat")}
-          options={[
-            { label: "JATS", value: "JATS" },
-            { label: "METS", value: "METS" },
-            { label: "MODS", value: "MODS" },
-            { label: "OAIDC", value: "OAIDC" },
-          ]}
+          options={METADATA_FORMAT_OPTS}
         />
         <Controller
           name="extractionMappingTemplate"

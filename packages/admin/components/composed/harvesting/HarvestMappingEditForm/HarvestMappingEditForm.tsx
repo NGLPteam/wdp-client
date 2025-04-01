@@ -17,6 +17,7 @@ import type {
 } from "@/relay/HarvestMappingEditFormMutation.graphql";
 import type { HarvestMappingEditFormFragment$key } from "@/relay/HarvestMappingEditFormFragment.graphql";
 import type { HarvestMappingEditFormFieldsFragment$key } from "@/relay/HarvestMappingEditFormFieldsFragment.graphql";
+import { METADATA_FORMAT_OPTS } from "../constants";
 import * as Styled from "./HarvestMappingEditForm.styles";
 import type {
   HarvestMetadataFormat,
@@ -93,12 +94,7 @@ export default function HarvestMappingEditForm({
             label="forms.fields.metadata_format"
             {...register("metadataFormat")}
             disabled
-            options={[
-              { label: "JATS", value: "JATS" },
-              { label: "METS", value: "METS" },
-              { label: "MODS", value: "MODS" },
-              { label: "OAIDC", value: "OAIDC" },
-            ]}
+            options={METADATA_FORMAT_OPTS}
             required
           />
           <Controller
