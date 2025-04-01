@@ -2,7 +2,7 @@ import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { useSearchQueryVars, useBaseListQueryVars } from "hooks";
 import HarvestMessagesList from "components/composed/harvesting/HarvestMessagesList";
 import type { messagesHarvestMappingQuery as Query } from "@/relay/messagesHarvestMappingQuery.graphql";
-import Layout from "./layout";
+import Layout from "./_layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
 function HarvestMappingMessages({ queryRef }: Props) {

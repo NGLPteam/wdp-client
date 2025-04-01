@@ -56,7 +56,7 @@ const appData = {
       ITEMS_LINK,
       {
         label: "nav.manage_header",
-        actions: ["users.update", "contributors.update"],
+        actions: ["users.update", "contributors.update", "settings.update"],
         children: [USERS_LINK, CONTRIBUTORS_LINK, HARVESTING_LINK],
       },
     ],

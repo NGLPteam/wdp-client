@@ -13,7 +13,9 @@ import HarvestMappingLayout from "components/composed/harvesting/HarvestMappingL
 import ErrorPage from "next/error";
 import { LoadingCircle } from "components/atomic";
 import ModelListPageSkeleton from "components/composed/model/ModelListPageSkeleton";
-import type { layoutHarvestMappingQuery as LayoutQuery } from "@/relay/layoutHarvestMappingQuery.graphql";
+import { useViewerContext } from "contexts";
+import { RouteUnauthorizedMessage } from "components/auth/UnauthorizedMessage";
+import type { LayoutHarvestMappingQuery as LayoutQuery } from "@/relay/LayoutHarvestMappingQuery.graphql";
 
 export default function Layout<T extends OperationType>(props: Props<T>) {
   const queryVars = useBaseListQueryVars();
@@ -24,6 +26,13 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
     { slug },
     { fetchPolicy: "store-or-network" },
   );
+
+  const { globalAdmin } = useViewerContext();
+
+  if (!globalAdmin)
+    return (
+      <RouteUnauthorizedMessage i18nKey="messages.unauthorized_body.harvesting" />
+    );
 
   if (!slug || !harvestMapping) return <ErrorPage statusCode={404} />;
 
@@ -72,7 +81,7 @@ type PageProps<T extends OperationType> = {
 };
 
 const harvestMappingQuery = graphql`
-  query layoutHarvestMappingQuery($slug: Slug!) {
+  query LayoutHarvestMappingQuery($slug: Slug!) {
     harvestMapping(slug: $slug) {
       ...HarvestMappingLayoutFragment
     }
