@@ -164,6 +164,9 @@
     },
     "messages": {
       "unauthorized": "Unauthorized",
+      "unauthorized_body": {
+        "harvesting": "Your account is not authorized to manage harvesting.<0/>Please check with your account manager if you need access to this content."
+      },
       "error_message": "Error: {{error}}",
       "content_error": "There was an issue loading this content. Please try again.",
       "add": {
