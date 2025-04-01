@@ -8,18 +8,18 @@ import { ViewOptions } from "utils/view-options";
 import ModelColumns from "components/composed/model/ModelColumns";
 import ModelPagination from "components/composed/model/ModelPagination";
 import ModelPageCountActions from "components/composed/model/ModelPageCountActions";
-import { DashboardCollectionsFragment$key } from "@/relay/DashboardCollectionsFragment.graphql";
+import { DashboardItemsFragment$key } from "@/relay/DashboardItemsFragment.graphql";
 import {
-  DashboardCollectionsListFragment$data,
-  DashboardCollectionsListFragment$key,
-} from "@/relay/DashboardCollectionsListFragment.graphql";
+  DashboardItemsListFragment$data,
+  DashboardItemsListFragment$key,
+} from "@/relay/DashboardItemsListFragment.graphql";
 
-export default function DashboardCollections({ data }: Props) {
+export default function DashboardItems({ data }: Props) {
   const queryData = useFragment(fragment, data);
 
-  const collections = useMaybeFragment<DashboardCollectionsListFragment$key>(
+  const items = useMaybeFragment<DashboardItemsListFragment$key>(
     listFragment,
-    queryData.viewer.collections,
+    queryData.viewer.items,
   );
 
   const { t } = useTranslation();
@@ -30,7 +30,7 @@ export default function DashboardCollections({ data }: Props) {
     ModelColumns.NameColumn<Node>({
       id: "title",
       accessorKey: "title",
-      route: "collection",
+      route: "item",
     }),
     ModelColumns.SchemaColumn<Node>(),
   ];
@@ -39,42 +39,42 @@ export default function DashboardCollections({ data }: Props) {
     <section>
       <ContentHeader
         headerStyle="secondary"
-        title={capitalize(t("glossary.collection_other"))}
+        title={capitalize(t("glossary.item_other"))}
       />
-      <ModelPageCountActions data={collections} />
-      <ModelList<DashboardCollectionsListFragment$data, Node>
+      <ModelPageCountActions data={items} />
+      <ModelList<DashboardItemsListFragment$data, Node>
         view={ViewOptions.grid}
         columns={columns}
-        data={collections}
-        modelName="collection"
+        data={items}
+        modelName="item"
       />
-      <ModelPagination data={collections} />
+      <ModelPagination data={items} />
     </section>
   );
 }
 
 interface Props {
-  data: DashboardCollectionsFragment$key;
+  data: DashboardItemsFragment$key;
 }
 
 const fragment = graphql`
-  fragment DashboardCollectionsFragment on Query
+  fragment DashboardItemsFragment on Query
   @argumentDefinitions(
     page: { type: "Int", defaultValue: 1 }
     order: { type: "EntityOrder", defaultValue: RECENT }
   ) {
     viewer {
-      collections(access: UPDATE, page: $page, order: $order, perPage: 10) {
-        ...DashboardCollectionsListFragment
+      items(access: UPDATE, page: $page, order: $order, perPage: 10) {
+        ...DashboardItemsListFragment
       }
     }
   }
 `;
 
-type Node = DashboardCollectionsListFragment$data["nodes"][number];
+type Node = DashboardItemsListFragment$data["nodes"][number];
 
 const listFragment = graphql`
-  fragment DashboardCollectionsListFragment on CollectionConnection {
+  fragment DashboardItemsListFragment on ItemConnection {
     nodes {
       id
       title

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f404ef1b4a71545723b915fbe728c22e>>
+ * @generated SignedSource<<4bfdff8755d51b54409c60bd7c9ae8da>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,17 +10,17 @@
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type DashboardCollectionsFragment$data = {
+export type DashboardItemsFragment$data = {
   readonly viewer: {
-    readonly collections: {
-      readonly " $fragmentSpreads": FragmentRefs<"DashboardCollectionsListFragment">;
+    readonly items: {
+      readonly " $fragmentSpreads": FragmentRefs<"DashboardItemsListFragment">;
     };
   };
-  readonly " $fragmentType": "DashboardCollectionsFragment";
+  readonly " $fragmentType": "DashboardItemsFragment";
 };
-export type DashboardCollectionsFragment$key = {
-  readonly " $data"?: DashboardCollectionsFragment$data;
-  readonly " $fragmentSpreads": FragmentRefs<"DashboardCollectionsFragment">;
+export type DashboardItemsFragment$key = {
+  readonly " $data"?: DashboardItemsFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"DashboardItemsFragment">;
 };
 
 const node: ReaderFragment = {
@@ -38,7 +38,7 @@ const node: ReaderFragment = {
   ],
   "kind": "Fragment",
   "metadata": null,
-  "name": "DashboardCollectionsFragment",
+  "name": "DashboardItemsFragment",
   "selections": [
     {
       "alias": null,
@@ -72,15 +72,15 @@ const node: ReaderFragment = {
               "value": 10
             }
           ],
-          "concreteType": "CollectionConnection",
+          "concreteType": "ItemConnection",
           "kind": "LinkedField",
-          "name": "collections",
+          "name": "items",
           "plural": false,
           "selections": [
             {
               "args": null,
               "kind": "FragmentSpread",
-              "name": "DashboardCollectionsListFragment"
+              "name": "DashboardItemsListFragment"
             }
           ],
           "storageKey": null
@@ -93,6 +93,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "f128c4e34a4551e65352b3dbcd6c4d83";
+(node as any).hash = "7159dd91ca2ab5f4c46b51386790406e";
 
 export default node;

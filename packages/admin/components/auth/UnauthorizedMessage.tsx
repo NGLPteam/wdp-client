@@ -7,8 +7,10 @@ import { UnauthorizedMessageFragment$key } from "@/relay/UnauthorizedMessageFrag
 
 export default function UnauthorizedMessage({
   message,
+  title,
 }: {
   message?: React.JSX.Element;
+  title?: string;
 }) {
   const data = useGlobalContext();
 
@@ -38,7 +40,7 @@ export default function UnauthorizedMessage({
 
   return (
     <section style={{ marginTop: 30 }}>
-      <MessageBlock name={name} message={message ?? content} />
+      <MessageBlock name={title ?? name} message={message ?? content} />
     </section>
   );
 }

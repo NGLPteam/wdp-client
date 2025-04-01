@@ -132,6 +132,7 @@ const query = graphql`
   ) {
     search(visibility: ALL) {
       results(
+        access: UPDATE
         prefix: $query
         page: 1
         perPage: 25

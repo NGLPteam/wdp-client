@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Dropdown, NamedLink, NavLink, DrawerLink } from "components/atomic";
 import { Authorize } from "components/auth";
 import { RouteHelper } from "routes";
-import { useViewerContext } from "contexts";
+import { useIsAuthorized } from "hooks";
 import * as Styled from "./Header.styles";
 type NamedLinkProps = React.ComponentProps<typeof NamedLink>;
 type AuthorizeProps = React.ComponentProps<typeof Authorize>;
@@ -29,7 +29,9 @@ interface Props {
 function HeaderNavLinks({ navigation }: Props) {
   const { t } = useTranslation();
 
-  const { globalAdmin } = useViewerContext();
+  const canUpdateSettings = useIsAuthorized({
+    actions: ["settings.update"],
+  });
 
   const maybeAuthorize = (
     node: AuthorizeProps["children"],
@@ -45,7 +47,7 @@ function HeaderNavLinks({ navigation }: Props) {
   };
 
   const renderGlobalSettings = () =>
-    globalAdmin ? (
+    canUpdateSettings ? (
       <DrawerLink key="settings" drawer="editSettings" passHref>
         <NavLink>{t("nav.global_settings")}</NavLink>
       </DrawerLink>
