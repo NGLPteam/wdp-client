@@ -13,9 +13,6 @@ export default function ScalarProperty(props: Props) {
 
   // If we need to, we could override the label here
 
-  // Temp fix until these properties are removed
-  if (path === "featured_articles") return null;
-
   const childProps: RenderScalarProps = {
     name,
     label,
