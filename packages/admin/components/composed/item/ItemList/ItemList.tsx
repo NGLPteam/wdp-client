@@ -142,6 +142,7 @@ const searchFragment = graphql`
     schema: { type: "[String!]", defaultValue: [] }
   ) {
     results(
+      access: UPDATE
       query: $query
       page: $page
       perPage: 20

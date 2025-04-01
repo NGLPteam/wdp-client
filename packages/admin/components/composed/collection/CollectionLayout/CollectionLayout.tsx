@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
 import { ContentHeader, ContentSidebar, PageHeader } from "components/layout";
 import { ButtonControlGroup, ButtonControlConfirm } from "components/atomic";
+import UnauthorizedMessage from "components/auth/UnauthorizedMessage";
 import { RouteHelper } from "routes";
 import {
   useMaybeFragment,
@@ -11,6 +12,7 @@ import {
   useChildRouteLinks,
   useLatestPresentValue,
   useDestroyer,
+  useIsAuthorized,
 } from "hooks";
 import useBreadcrumbs from "hooks/useBreadcrumbs";
 import ItemCreateButton from "components/composed/item/ItemCreateButton";
@@ -63,6 +65,26 @@ export default function CollectionLayout({
   const allowsChildCollections =
     !!memoizedCollection?.schemaVersion?.enforcedChildKinds.includes(
       "COLLECTION",
+    );
+
+  const isAuthorized = useIsAuthorized({ actions: ["self.update"] });
+
+  const message = (
+    <div className="t-rte">
+      <p>
+        Your account currently does not have access to this collection.
+        <br /> Please check with your account manager if you need access to this
+        content.
+      </p>
+    </div>
+  );
+
+  if (!isAuthorized)
+    return (
+      <UnauthorizedMessage
+        title={t("messages.unauthorized")}
+        message={message}
+      />
     );
 
   const buttons = (

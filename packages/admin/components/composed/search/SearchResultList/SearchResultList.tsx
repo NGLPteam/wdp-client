@@ -125,6 +125,7 @@ const fragment = graphql`
     schema: { type: "[String!]", defaultValue: [] }
   ) {
     results(
+      access: UPDATE
       query: $query
       page: $page
       predicates: $predicates

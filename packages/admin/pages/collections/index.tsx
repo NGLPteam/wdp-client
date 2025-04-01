@@ -45,7 +45,7 @@ export const query = graphql`
     $schema: [String!]
   ) {
     viewer {
-      collections(access: READ_ONLY, order: $order, page: $page, perPage: 20)
+      collections(access: UPDATE, order: $order, page: $page, perPage: 20)
         @skip(if: $hasQuery) {
         ...CollectionListFragment
       }

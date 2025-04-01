@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a310c5a57d098ed0513a2ca2ce3b75ac>>
+ * @generated SignedSource<<176322e4f67e6047a767fb96e548b58a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -62,6 +62,11 @@ v1 = [
   }
 ],
 v2 = [
+  {
+    "kind": "Literal",
+    "name": "access",
+    "value": "UPDATE"
+  },
   {
     "kind": "Literal",
     "name": "order",
@@ -274,16 +279,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6ccb1939a93f0b3dd0ec8c99fae7beb9",
+    "cacheID": "a0f06f1e4db3c9f8f74a98e52be92e22",
     "id": null,
     "metadata": {},
     "name": "EntityTypeaheadQuery",
     "operationKind": "query",
-    "text": "query EntityTypeaheadQuery(\n  $query: String!\n  $schema: [String!]\n  $scope: EntityDescendantScopeFilter!\n) {\n  search(visibility: ALL) {\n    results(prefix: $query, page: 1, perPage: 25, order: TITLE_ASCENDING, schema: $schema, scope: $scope) {\n      edges {\n        node {\n          title\n          slug\n          entity {\n            __typename\n            ... on Node {\n              __isNode: __typename\n              id\n              __typename\n            }\n          }\n          id\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query EntityTypeaheadQuery(\n  $query: String!\n  $schema: [String!]\n  $scope: EntityDescendantScopeFilter!\n) {\n  search(visibility: ALL) {\n    results(access: UPDATE, prefix: $query, page: 1, perPage: 25, order: TITLE_ASCENDING, schema: $schema, scope: $scope) {\n      edges {\n        node {\n          title\n          slug\n          entity {\n            __typename\n            ... on Node {\n              __isNode: __typename\n              id\n              __typename\n            }\n          }\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "5918aa5be458d3f0fc34caa7136e2f0d";
+(node as any).hash = "37a0f64a586be00e4daed1aa4fd83fda";
 
 export default node;

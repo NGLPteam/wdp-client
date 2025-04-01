@@ -71,7 +71,7 @@ type Node = CommunityNode;
 
 const fragment = graphql`
   fragment CommunityListFragment on Query {
-    communities(order: $order, page: $page, perPage: 20) {
+    communities(access: UPDATE, order: $order, page: $page, perPage: 20) {
       edges {
         node {
           slug

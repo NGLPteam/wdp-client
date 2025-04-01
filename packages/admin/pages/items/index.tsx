@@ -43,7 +43,8 @@ export const query = graphql`
     $schema: [String!]
   ) {
     viewer {
-      items(order: $order, page: $page, perPage: 20) @skip(if: $hasQuery) {
+      items(access: UPDATE, order: $order, page: $page, perPage: 20)
+        @skip(if: $hasQuery) {
         ...ItemListFragment
       }
     }

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cd1e1e60620338f56ed0ac1a8ace7faf>>
+ * @generated SignedSource<<1d49626824d1cb16aae87064c63341eb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -61,6 +61,11 @@ return {
       {
         "alias": null,
         "args": [
+          {
+            "kind": "Literal",
+            "name": "access",
+            "value": "UPDATE"
+          },
           {
             "kind": "Variable",
             "name": "order",
@@ -219,12 +224,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5bce90777f65fcb89c02ba9346aafb82",
+    "cacheID": "abdcf0365a93155963b4357e0fbdf726",
     "id": null,
     "metadata": {},
     "name": "communitiesListQuery",
     "operationKind": "query",
-    "text": "query communitiesListQuery(\n  $order: EntityOrder\n  $page: Int!\n) {\n  ...CommunityListFragment\n}\n\nfragment CommunityListFragment on Query {\n  communities(order: $order, page: $page, perPage: 20) {\n    edges {\n      node {\n        slug\n        id\n        createdAt\n        updatedAt\n        name\n        allowedActions\n        position\n        ...CommunityNameColumnFragment\n      }\n    }\n    ...ModelListPageFragment\n  }\n}\n\nfragment CommunityNameColumnFragment on Community {\n  name\n  slug\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query communitiesListQuery(\n  $order: EntityOrder\n  $page: Int!\n) {\n  ...CommunityListFragment\n}\n\nfragment CommunityListFragment on Query {\n  communities(access: UPDATE, order: $order, page: $page, perPage: 20) {\n    edges {\n      node {\n        slug\n        id\n        createdAt\n        updatedAt\n        name\n        allowedActions\n        position\n        ...CommunityNameColumnFragment\n      }\n    }\n    ...ModelListPageFragment\n  }\n}\n\nfragment CommunityNameColumnFragment on Community {\n  name\n  slug\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();

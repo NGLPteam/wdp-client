@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<85903c6bd9a239363114f48168d65224>>
+ * @generated SignedSource<<21700425c43239b9ebbc0e39faa3b21b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -66,6 +66,11 @@ return {
     {
       "alias": null,
       "args": [
+        {
+          "kind": "Literal",
+          "name": "access",
+          "value": "UPDATE"
+        },
         {
           "kind": "Variable",
           "name": "order",
@@ -170,6 +175,6 @@ return {
 };
 })();
 
-(node as any).hash = "3c4ff9283b778e44e5e28542754a4c6d";
+(node as any).hash = "2b24f1dd0310f83b01e3f3cfbcc68439";
 
 export default node;

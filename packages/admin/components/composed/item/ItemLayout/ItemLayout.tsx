@@ -9,12 +9,14 @@ import {
   useChildRouteLinks,
   useLatestPresentValue,
   useDestroyer,
+  useIsAuthorized,
 } from "hooks";
 import useBreadcrumbs from "hooks/useBreadcrumbs";
 import { RouteHelper } from "routes";
 import { ButtonControlGroup, ButtonControlConfirm } from "components/atomic";
 import { ContentSidebar, ContentHeader, PageHeader } from "components/layout";
 import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
+import UnauthorizedMessage from "components/auth/UnauthorizedMessage";
 import ItemCreateButton from "../ItemCreateButton";
 
 export default function ItemLayout({
@@ -52,6 +54,26 @@ export default function ItemLayout({
     },
     [memoizedItem, breadcrumbs, destroy, router],
   );
+
+  const isAuthorized = useIsAuthorized({ actions: ["self.update"] });
+
+  const message = (
+    <div className="t-rte">
+      <p>
+        Your account currently does not have access to this item.
+        <br /> Please check with your account manager if you need access to this
+        content.
+      </p>
+    </div>
+  );
+
+  if (!isAuthorized)
+    return (
+      <UnauthorizedMessage
+        title={t("messages.unauthorized")}
+        message={message}
+      />
+    );
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
