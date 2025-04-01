@@ -5,7 +5,11 @@ import { MessageBlock } from "components/atomic";
 import { useGlobalContext } from "contexts";
 import { UnauthorizedMessageFragment$key } from "@/relay/UnauthorizedMessageFragment.graphql";
 
-export default function UnauthorizedMessage() {
+export default function UnauthorizedMessage({
+  message,
+}: {
+  message?: React.JSX.Element;
+}) {
   const data = useGlobalContext();
 
   const siteData = useMaybeFragment<UnauthorizedMessageFragment$key>(
@@ -34,7 +38,7 @@ export default function UnauthorizedMessage() {
 
   return (
     <section style={{ marginTop: 30 }}>
-      <MessageBlock name={name} message={content} />
+      <MessageBlock name={name} message={message ?? content} />
     </section>
   );
 }

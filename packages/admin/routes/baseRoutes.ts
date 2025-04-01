@@ -232,6 +232,7 @@ export const baseRoutes: BaseRoute[] = [
     name: "users",
     path: "/users",
     label: "glossary.user_other",
+    actions: ["users.update"],
     routes: [
       {
         name: "user",
