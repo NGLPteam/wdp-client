@@ -65,7 +65,12 @@ function HeaderNavLinks({ navigation }: Props) {
             {t(item.label)}
           </NavLink>
         }
-        menuItems={[...item.children.map(renderLink), renderGlobalSettings()]}
+        menuItems={[
+          ...item.children.map(
+            (c, i) => maybeAuthorize(renderLink(c), c, i) as React.JSX.Element,
+          ),
+          renderGlobalSettings(),
+        ]}
       />
     );
   };

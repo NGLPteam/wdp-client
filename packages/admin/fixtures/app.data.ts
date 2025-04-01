@@ -22,14 +22,14 @@ const ITEMS_LINK = {
 const USERS_LINK = {
   label: "glossary.user_other",
   route: "users",
-  actions: "users.read",
+  actions: "users.update",
   model: "users",
 };
 
 const CONTRIBUTORS_LINK = {
   label: "glossary.contributor_other",
   route: "contributors",
-  actions: "contributors.read",
+  actions: "contributors.update",
   model: "contributors",
 };
 
@@ -49,7 +49,7 @@ const appData = {
       ITEMS_LINK,
       {
         label: "nav.manage_header",
-        actions: ["users.read", "contributors.read"],
+        actions: ["users.update", "contributors.update"],
         children: [USERS_LINK, CONTRIBUTORS_LINK],
       },
     ],
