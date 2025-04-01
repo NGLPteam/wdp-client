@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<578c3427864a53e12ad21505885d8da3>>
+ * @generated SignedSource<<a751f62aa3792405e740f68272efa436>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -35,56 +35,63 @@ export type EntitySelectorControllerCommunitiesQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = {
+var v0 = [
+  {
+    "kind": "Literal",
+    "name": "access",
+    "value": "UPDATE"
+  }
+],
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "__typename",
   "storageKey": null
 },
-v1 = {
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v2 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "title",
   "storageKey": null
 },
-v3 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
 },
-v4 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v5 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "kind",
   "storageKey": null
 },
-v6 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "identifier",
   "storageKey": null
 },
-v7 = {
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -100,7 +107,7 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": null,
+        "args": (v0/*: any*/),
         "concreteType": "CommunityConnection",
         "kind": "LinkedField",
         "name": "communities",
@@ -122,10 +129,10 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v0/*: any*/),
                   (v1/*: any*/),
                   (v2/*: any*/),
                   (v3/*: any*/),
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -134,10 +141,10 @@ return {
                     "name": "schemaVersion",
                     "plural": false,
                     "selections": [
-                      (v4/*: any*/),
                       (v5/*: any*/),
                       (v6/*: any*/),
-                      (v7/*: any*/)
+                      (v7/*: any*/),
+                      (v8/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -148,7 +155,7 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": null
+        "storageKey": "communities(access:\"UPDATE\")"
       }
     ],
     "type": "Query",
@@ -162,7 +169,7 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": null,
+        "args": (v0/*: any*/),
         "concreteType": "CommunityConnection",
         "kind": "LinkedField",
         "name": "communities",
@@ -184,10 +191,10 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v0/*: any*/),
                   (v1/*: any*/),
                   (v2/*: any*/),
                   (v3/*: any*/),
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -196,11 +203,11 @@ return {
                     "name": "schemaVersion",
                     "plural": false,
                     "selections": [
-                      (v4/*: any*/),
                       (v5/*: any*/),
                       (v6/*: any*/),
                       (v7/*: any*/),
-                      (v1/*: any*/)
+                      (v8/*: any*/),
+                      (v2/*: any*/)
                     ],
                     "storageKey": null
                   }
@@ -211,21 +218,21 @@ return {
             "storageKey": null
           }
         ],
-        "storageKey": null
+        "storageKey": "communities(access:\"UPDATE\")"
       }
     ]
   },
   "params": {
-    "cacheID": "eeed8a069aac70f6ab127d190ab15bac",
+    "cacheID": "39e8c7878deba94c0d03c62078875653",
     "id": null,
     "metadata": {},
     "name": "EntitySelectorControllerCommunitiesQuery",
     "operationKind": "query",
-    "text": "query EntitySelectorControllerCommunitiesQuery {\n  communities {\n    edges {\n      node {\n        __typename\n        id\n        title\n        slug\n        schemaVersion {\n          name\n          kind\n          identifier\n          namespace\n          id\n        }\n      }\n    }\n  }\n}\n"
+    "text": "query EntitySelectorControllerCommunitiesQuery {\n  communities(access: UPDATE) {\n    edges {\n      node {\n        __typename\n        id\n        title\n        slug\n        schemaVersion {\n          name\n          kind\n          identifier\n          namespace\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "1d2a3af828f943321a990b005eb97c05";
+(node as any).hash = "bb0eae8aefd276d2c4028abe6a34a9f5";
 
 export default node;

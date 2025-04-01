@@ -201,7 +201,7 @@ export default function Controller({
 
 const communitiesQuery = graphql`
   query EntitySelectorControllerCommunitiesQuery {
-    communities {
+    communities(access: UPDATE) {
       edges {
         node {
           __typename
