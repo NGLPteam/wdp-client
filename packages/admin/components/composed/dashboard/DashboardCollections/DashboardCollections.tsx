@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { graphql, useFragment } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import capitalize from "lodash/capitalize";
 import { ContentHeader } from "components/layout";
 import ModelList from "components/composed/model/ModelList";
 import { ViewOptions } from "utils/view-options";
@@ -38,7 +39,7 @@ export default function DashboardCollections({ data }: Props) {
     <section>
       <ContentHeader
         headerStyle="secondary"
-        title={t("glossary.collection_other")}
+        title={capitalize(t("glossary.collection_other"))}
       />
       <ModelPageCountActions data={collections} />
       <ModelList<DashboardCollectionsListFragment$data, Node>
