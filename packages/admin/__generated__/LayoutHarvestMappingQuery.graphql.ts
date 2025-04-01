@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f3fb4c62a37eb7af79eeaf198227ee26>>
+ * @generated SignedSource<<7010c0a4078d68c35875255fda78a212>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,17 +10,17 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type layoutHarvestMappingQuery$variables = {
+export type LayoutHarvestMappingQuery$variables = {
   slug: string;
 };
-export type layoutHarvestMappingQuery$data = {
+export type LayoutHarvestMappingQuery$data = {
   readonly harvestMapping: {
     readonly " $fragmentSpreads": FragmentRefs<"HarvestMappingLayoutFragment">;
   } | null | undefined;
 };
-export type layoutHarvestMappingQuery = {
-  response: layoutHarvestMappingQuery$data;
-  variables: layoutHarvestMappingQuery$variables;
+export type LayoutHarvestMappingQuery = {
+  response: LayoutHarvestMappingQuery$data;
+  variables: LayoutHarvestMappingQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -50,7 +50,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "layoutHarvestMappingQuery",
+    "name": "LayoutHarvestMappingQuery",
     "selections": [
       {
         "alias": null,
@@ -76,7 +76,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "layoutHarvestMappingQuery",
+    "name": "LayoutHarvestMappingQuery",
     "selections": [
       {
         "alias": null,
@@ -119,16 +119,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "273a4458716094a30a4990432eea252c",
+    "cacheID": "43e4fcc2ece44011024932365fa663db",
     "id": null,
     "metadata": {},
-    "name": "layoutHarvestMappingQuery",
+    "name": "LayoutHarvestMappingQuery",
     "operationKind": "query",
-    "text": "query layoutHarvestMappingQuery(\n  $slug: Slug!\n) {\n  harvestMapping(slug: $slug) {\n    ...HarvestMappingLayoutFragment\n    id\n  }\n}\n\nfragment HarvestMappingLayoutFragment on HarvestMapping {\n  harvestSource {\n    slug\n    name\n    id\n  }\n}\n"
+    "text": "query LayoutHarvestMappingQuery(\n  $slug: Slug!\n) {\n  harvestMapping(slug: $slug) {\n    ...HarvestMappingLayoutFragment\n    id\n  }\n}\n\nfragment HarvestMappingLayoutFragment on HarvestMapping {\n  harvestSource {\n    slug\n    name\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "b316397074ee8b7c0d51fee428d39127";
+(node as any).hash = "7ddbc21c667b6e043598621be1969477";
 
 export default node;
