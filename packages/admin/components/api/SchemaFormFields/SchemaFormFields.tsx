@@ -11,25 +11,20 @@ export default function SchemaFormFields({
   schemaKind,
   schemaSlugs,
 }: Props) {
-  const instance = useFragment(fragment, data);
-
-  const { featured, properties } = instance;
-
-  const showForm =
-    properties.length > 1 || (properties.length === 1 && !featured);
+  const { properties, ...schema } = useFragment(fragment, data) ?? {};
 
   return (
-    <SchemaFormFieldsContextProvider data={instance}>
+    <SchemaFormFieldsContextProvider data={schema}>
       <SchemaSelector
-        schemaData={instance}
+        schemaData={schema}
         schemaKind={schemaKind}
         schemaSlugs={schemaSlugs}
         title={title}
-        showHeader={showForm}
+        showHeader={!!properties.length}
       />
-      {showForm && (
+      {!!properties.length && (
         <FormGrid>
-          {instance.properties.map((prop, index) => (
+          {properties.map((prop, index) => (
             <Property property={prop} key={index} schemaKind={schemaKind} />
           ))}
         </FormGrid>
@@ -51,12 +46,6 @@ const fragment = graphql`
     properties: schemaProperties {
       ...SchemaInstancePropertyFragment
     }
-    featured: schemaProperty(fullPath: "featured") {
-      ... on GroupProperty {
-        legend
-      }
-    }
-
     ...SchemaSelectorDataFragment
     ...SchemaFormFieldsContextFragment
   }

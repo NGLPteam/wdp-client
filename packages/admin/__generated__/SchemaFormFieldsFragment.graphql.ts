@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9fb009df864f3d06282bf233ac70c696>>
+ * @generated SignedSource<<0f66300a4e3a568e09debfd9d265e486>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,9 +11,6 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SchemaFormFieldsFragment$data = {
-  readonly featured: {
-    readonly legend?: string | null | undefined;
-  } | null | undefined;
   readonly properties: ReadonlyArray<{
     readonly " $fragmentSpreads": FragmentRefs<"SchemaInstancePropertyFragment">;
   }>;
@@ -48,37 +45,6 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
-      "alias": "featured",
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "fullPath",
-          "value": "featured"
-        }
-      ],
-      "concreteType": null,
-      "kind": "LinkedField",
-      "name": "schemaProperty",
-      "plural": false,
-      "selections": [
-        {
-          "kind": "InlineFragment",
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "legend",
-              "storageKey": null
-            }
-          ],
-          "type": "GroupProperty",
-          "abstractKey": null
-        }
-      ],
-      "storageKey": "schemaProperty(fullPath:\"featured\")"
-    },
-    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "SchemaSelectorDataFragment"
@@ -93,6 +59,6 @@ const node: ReaderFragment = {
   "abstractKey": "__isSchemaInstance"
 };
 
-(node as any).hash = "b42e57c1f981f21834b36c1d52832982";
+(node as any).hash = "4c91bc6d15af2140f890208addefd04d";
 
 export default node;
