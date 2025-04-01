@@ -4,6 +4,7 @@ import CollectionSlugRedirect from "components/composed/collection/CollectionSlu
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import ErrorPage from "next/error";
 import { LoadingPage } from "components/atomic";
+import { AuthContextProvider } from "contexts/AuthContext";
 import CollectionLayout from "components/composed/collection/CollectionLayout";
 import { SlugCollectionsPageQuery as Query } from "@/relay/SlugCollectionsPageQuery.graphql";
 import type { GetLayout } from "@wdp/lib/types/page";
@@ -13,9 +14,11 @@ function CollectionSlug({ queryRef }: Props) {
 
   return (
     collection && (
-      <CollectionLayout data={collection}>
-        <CollectionSlugRedirect data={collection} />
-      </CollectionLayout>
+      <AuthContextProvider data={collection}>
+        <CollectionLayout data={collection}>
+          <CollectionSlugRedirect data={collection} />
+        </CollectionLayout>
+      </AuthContextProvider>
     )
   );
 }
@@ -65,6 +68,7 @@ const query = graphql`
     collection(slug: $collectionSlug) {
       ...CollectionLayoutFragment
       ...CollectionSlugRedirectFragment
+      ...AuthContextFragment
     }
   }
 `;
