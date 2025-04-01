@@ -69,7 +69,7 @@ export default function CommunityLayout({
     </div>
   );
 
-  if (!isAuthorized)
+  if (memoizedCommunity && !isAuthorized)
     return (
       <UnauthorizedMessage
         title={t("messages.unauthorized")}

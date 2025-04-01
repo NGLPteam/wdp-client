@@ -79,7 +79,7 @@ export default function CollectionLayout({
     </div>
   );
 
-  if (!isAuthorized)
+  if (memoizedCollection && !isAuthorized)
     return (
       <UnauthorizedMessage
         title={t("messages.unauthorized")}

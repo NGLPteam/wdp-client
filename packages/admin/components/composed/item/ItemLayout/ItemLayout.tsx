@@ -67,7 +67,7 @@ export default function ItemLayout({
     </div>
   );
 
-  if (!isAuthorized)
+  if (memoizedItem && !isAuthorized)
     return (
       <UnauthorizedMessage
         title={t("messages.unauthorized")}
