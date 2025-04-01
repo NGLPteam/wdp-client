@@ -5,6 +5,7 @@ import ItemSlugRedirect from "components/composed/item/ItemSlugRedirect";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import ErrorPage from "next/error";
 import { LoadingPage } from "components/atomic";
+import { AuthContextProvider } from "contexts/AuthContext";
 import ItemLayout from "components/composed/item/ItemLayout";
 import { SlugItemsPageQuery as Query } from "@/relay/SlugItemsPageQuery.graphql";
 
@@ -13,9 +14,11 @@ function ItemSlug({ queryRef }: Props) {
 
   return (
     item && (
-      <ItemLayout data={item}>
-        <ItemSlugRedirect data={item} />
-      </ItemLayout>
+      <AuthContextProvider data={item}>
+        <ItemLayout data={item}>
+          <ItemSlugRedirect data={item} />
+        </ItemLayout>
+      </AuthContextProvider>
     )
   );
 }
@@ -65,6 +68,7 @@ const query = graphql`
     item(slug: $itemSlug) {
       ...ItemLayoutFragment
       ...ItemSlugRedirectFragment
+      ...AuthContextFragment
     }
   }
 `;

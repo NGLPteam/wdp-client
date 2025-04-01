@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f2a4f37d4ec56099b1dd0b5826e36577>>
+ * @generated SignedSource<<2de2cf7a71136e41b552a3b80f7f1d4f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,7 @@ export type SlugItemsPageQuery$variables = {
 };
 export type SlugItemsPageQuery$data = {
   readonly item: {
-    readonly " $fragmentSpreads": FragmentRefs<"ItemLayoutFragment" | "ItemSlugRedirectFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "ItemLayoutFragment" | "ItemSlugRedirectFragment">;
   } | null | undefined;
 };
 export type SlugItemsPageQuery = {
@@ -76,6 +76,11 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "ItemSlugRedirectFragment"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "AuthContextFragment"
           }
         ],
         "storageKey": null
@@ -220,16 +225,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "938d9a99620f6da5706c472845b6cb65",
+    "cacheID": "f307016143a5e79ee76aea7c8b0df8ec",
     "id": null,
     "metadata": {},
     "name": "SlugItemsPageQuery",
     "operationKind": "query",
-    "text": "query SlugItemsPageQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    ...ItemSlugRedirectFragment\n    id\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ItemSlugRedirectFragment on Item {\n  slug\n  items {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
+    "text": "query SlugItemsPageQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    ...ItemSlugRedirectFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ItemSlugRedirectFragment on Item {\n  slug\n  items {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "8e47a2284c96bb10de83ce38dd4ac3bc";
+(node as any).hash = "0e65b4f69a32f8f0632d27bec0ea8512";
 
 export default node;
