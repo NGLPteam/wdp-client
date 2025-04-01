@@ -10,6 +10,7 @@ import type {
   UseFormSetError,
 } from "react-hook-form";
 import type { MutationParameters } from "relay-runtime";
+import type { UseMutationConfig } from "react-relay";
 
 export interface ErrorMap<T extends FieldValues> {
   attributes: readonly RemappedAttributeError<T>[];
@@ -175,3 +176,7 @@ export type AcceptsToVariables<
 > = { input: T } extends M["variables"]
   ? OptionalToVariables<M, T>
   : RequiresToVariables<M, T>;
+
+export type PayloadErrors<M extends MutationParameters> = NonNullable<
+  Parameters<NonNullable<UseMutationConfig<M>["onCompleted"]>>
+>[1];

@@ -28,6 +28,7 @@ import type {
   PayloadWithFragments,
   RenderForm,
   VariableTransformer,
+  PayloadErrors,
 } from "./types";
 import type { MutationParameters } from "relay-runtime";
 import type {
@@ -134,10 +135,24 @@ export default function MutationForm<
   const handleResponse = useCallback(
     (
       response: M["response"],
+      topLevelErrors: PayloadErrors<M>,
       variables: M["variables"],
       values: T,
       event?: React.BaseSyntheticEvent,
     ) => {
+      if (topLevelErrors?.length) {
+        const message = topLevelErrors.map((e) => e.message).join(",");
+        notify.error(message);
+
+        return dispatch({
+          type: "error",
+          serverError: {
+            name: "Auth Error",
+            ...topLevelErrors[0],
+          },
+        });
+      }
+
       const errorResponse = extractErrorsRef(response);
 
       const errors = extractErrors<T>(errorFragment, errorResponse);
@@ -223,8 +238,9 @@ export default function MutationForm<
 
       mutate({
         variables,
-        onCompleted: (response) =>
-          handleResponse(response, variables, values, event),
+        onCompleted: (response, errors) => {
+          return handleResponse(response, errors, variables, values, event);
+        },
         onError: (err) => {
           notify.error(err.message);
           dispatch({ type: "error", serverError: err });
