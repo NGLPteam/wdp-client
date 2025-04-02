@@ -29,7 +29,7 @@ function HarvestRecordsList({ data, headerStyle, hideHeader }: Props) {
       accessor: "identifier",
       header: () => "Identifier",
       route: "harvestRecord",
-      enableSorting: true,
+      enableSorting: false,
     }),
     ModelColumns.CreatedAtColumn<HarvestRecordNode>({ enableSorting: true }),
     ModelColumns.StringColumn<HarvestRecordNode>({

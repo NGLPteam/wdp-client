@@ -1,7 +1,6 @@
 import { useFragment, graphql } from "react-relay";
 import dynamic from "next/dynamic";
 import { Forms } from "components/api/MutationForm";
-import { useTranslation } from "react-i18next";
 import { formatDate } from "@wdp/lib/helpers";
 import MockInput from "components/forms/MockInput";
 import { FormFieldSkeleton } from "components/atomic/loading";
@@ -17,8 +16,6 @@ export default function HarvestAttemptDetails({
 }: {
   data: HarvestAttemptDetailsFragment$key;
 }) {
-  const { t } = useTranslation();
-
   const fields = useFragment<HarvestAttemptDetailsFragment$key>(fragment, data);
 
   return (
@@ -51,7 +48,6 @@ export default function HarvestAttemptDetails({
         value={() => (
           <CodeEditor
             unwrapped
-            label={t("forms.extraction_mapping_template.code_editor_label")}
             value={fields.extractionMappingTemplate ?? ""}
           />
         )}

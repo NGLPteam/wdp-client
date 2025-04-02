@@ -7,7 +7,6 @@ import * as Styled from "./CodeEditor.styles";
 import type InputProps from "../inputType";
 
 const CodeEditor = ({
-  label,
   hideLabel,
   description,
   isWide,
@@ -15,13 +14,9 @@ const CodeEditor = ({
   onChange,
   isDialog = false,
   required,
-  unwrapped = false,
-}: Omit<InputProps, "name"> & {
-  value: string;
-  isDialog?: boolean;
-  unwrapped?: boolean;
-}) => {
-  const editor = (
+  ...props
+}: WrappedProps | UnwrappedProps) => {
+  const editor = (editable: boolean) => (
     <Styled.Wrapper>
       <CodeMirror
         value={value}
@@ -30,25 +25,38 @@ const CodeEditor = ({
         maxWidth="100%"
         theme={githubLight}
         onChange={onChange}
-        editable={!unwrapped}
+        editable={editable}
       />
     </Styled.Wrapper>
   );
 
-  if (unwrapped) return editor;
+  if ("unwrapped" in props) return editor(false);
 
   return (
     <BaseInputWrapper
       name="codeEditor"
-      label={label}
+      label={props.label}
       hideLabel={hideLabel}
       description={description}
       required={required}
       isWide={isWide}
     >
-      {editor}
+      {editor(true)}
     </BaseInputWrapper>
   );
 };
 
 export default CodeEditor;
+
+type BaseProps = Omit<InputProps, "name" | "label"> & {
+  value: string;
+  isDialog?: boolean;
+};
+
+type WrappedProps = BaseProps & {
+  label: string;
+};
+
+type UnwrappedProps = BaseProps & {
+  unwrapped: true;
+};
