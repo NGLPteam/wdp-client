@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<38dcc3ea7e5da534393f02ef928eea41>>
+ * @generated SignedSource<<f5150f2428a7c878d6cd9e80be009440>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,15 @@ export type HarvestMessageLevel = "DEBUG" | "ERROR" | "FATAL" | "INFO" | "TRACE"
 import { FragmentRefs } from "relay-runtime";
 export type HarvestMessageFragment$data = {
   readonly createdAt: string;
+  readonly harvestAttempt: {
+    readonly slug: string;
+  } | null | undefined;
+  readonly harvestMapping: {
+    readonly slug: string;
+  } | null | undefined;
+  readonly harvestRecord: {
+    readonly slug: string;
+  } | null | undefined;
   readonly id: string;
   readonly level: HarvestMessageLevel;
   readonly message: string;
@@ -24,7 +33,17 @@ export type HarvestMessageFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"HarvestMessageFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "slug",
+    "storageKey": null
+  }
+];
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -64,12 +83,43 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "createdAt",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "HarvestMapping",
+      "kind": "LinkedField",
+      "name": "harvestMapping",
+      "plural": false,
+      "selections": (v0/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "HarvestRecord",
+      "kind": "LinkedField",
+      "name": "harvestRecord",
+      "plural": false,
+      "selections": (v0/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "HarvestAttempt",
+      "kind": "LinkedField",
+      "name": "harvestAttempt",
+      "plural": false,
+      "selections": (v0/*: any*/),
+      "storageKey": null
     }
   ],
   "type": "HarvestMessage",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "10ff49c6fc4b03eef3647488243046f8";
+(node as any).hash = "0b8d8244f7e9d2ea58daa10302394e97";
 
 export default node;
