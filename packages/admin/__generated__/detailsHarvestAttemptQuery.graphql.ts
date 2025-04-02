@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8af87933b03ccbcd92bb75ed63986444>>
+ * @generated SignedSource<<00335254a2936788dae633d341c785c5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,12 +9,13 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
+import { FragmentRefs } from "relay-runtime";
 export type detailsHarvestAttemptQuery$variables = {
   slug: string;
 };
 export type detailsHarvestAttemptQuery$data = {
   readonly harvestAttempt: {
-    readonly id: string;
+    readonly " $fragmentSpreads": FragmentRefs<"HarvestAttemptDetailsFragment">;
   } | null | undefined;
 };
 export type detailsHarvestAttemptQuery = {
@@ -32,28 +33,9 @@ var v0 = [
 ],
 v1 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "slug",
-        "variableName": "slug"
-      }
-    ],
-    "concreteType": "HarvestAttempt",
-    "kind": "LinkedField",
-    "name": "harvestAttempt",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "id",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
+    "kind": "Variable",
+    "name": "slug",
+    "variableName": "slug"
   }
 ];
 return {
@@ -62,7 +44,24 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "detailsHarvestAttemptQuery",
-    "selections": (v1/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "HarvestAttempt",
+        "kind": "LinkedField",
+        "name": "harvestAttempt",
+        "plural": false,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "HarvestAttemptDetailsFragment"
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Query",
     "abstractKey": null
   },
@@ -71,19 +70,101 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "detailsHarvestAttemptQuery",
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "HarvestAttempt",
+        "kind": "LinkedField",
+        "name": "harvestAttempt",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "id",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "currentState",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "metadataFormat",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "beganAt",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "endedAt",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "mode",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "scheduledAt",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "recordCount",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "note",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "extractionMappingTemplate",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "c4e5e323e0008792fcad811fa0a3c2e6",
+    "cacheID": "133fe0f9fbbc31b36934747792babbbf",
     "id": null,
     "metadata": {},
     "name": "detailsHarvestAttemptQuery",
     "operationKind": "query",
-    "text": "query detailsHarvestAttemptQuery(\n  $slug: Slug!\n) {\n  harvestAttempt(slug: $slug) {\n    id\n  }\n}\n"
+    "text": "query detailsHarvestAttemptQuery(\n  $slug: Slug!\n) {\n  harvestAttempt(slug: $slug) {\n    ...HarvestAttemptDetailsFragment\n    id\n  }\n}\n\nfragment HarvestAttemptDetailsFragment on HarvestAttempt {\n  id\n  currentState\n  metadataFormat\n  beganAt\n  endedAt\n  mode\n  scheduledAt\n  recordCount\n  note\n  extractionMappingTemplate\n}\n"
   }
 };
 })();
 
-(node as any).hash = "828b61064d9875886fc47adca8a9a415";
+(node as any).hash = "40b169d7c4dee1df29991ffba5b6c78f";
 
 export default node;

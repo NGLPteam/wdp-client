@@ -13,12 +13,30 @@ const CodeEditor = ({
   isWide,
   value,
   onChange,
-  isDialog,
+  isDialog = false,
   required,
+  unwrapped = false,
 }: Omit<InputProps, "name"> & {
   value: string;
-  isDialog: boolean;
+  isDialog?: boolean;
+  unwrapped?: boolean;
 }) => {
+  const editor = (
+    <Styled.Wrapper>
+      <CodeMirror
+        value={value}
+        extensions={[xml(), EditorView.lineWrapping]}
+        height={isDialog ? "70dvh" : "25rem"}
+        maxWidth="100%"
+        theme={githubLight}
+        onChange={onChange}
+        editable={!unwrapped}
+      />
+    </Styled.Wrapper>
+  );
+
+  if (unwrapped) return editor;
+
   return (
     <BaseInputWrapper
       name="codeEditor"
@@ -28,16 +46,7 @@ const CodeEditor = ({
       required={required}
       isWide={isWide}
     >
-      <Styled.Wrapper>
-        <CodeMirror
-          value={value}
-          extensions={[xml(), EditorView.lineWrapping]}
-          height={isDialog ? "70dvh" : "25rem"}
-          maxWidth="100%"
-          theme={githubLight}
-          onChange={onChange}
-        />
-      </Styled.Wrapper>
+      {editor}
     </BaseInputWrapper>
   );
 };

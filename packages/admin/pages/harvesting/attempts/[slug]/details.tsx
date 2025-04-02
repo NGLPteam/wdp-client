@@ -1,5 +1,6 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { useSearchQueryVars, useBaseListQueryVars } from "hooks";
+import DetailsContent from "components/composed/harvesting/HarvestAttemptDetails";
 import type { detailsHarvestAttemptQuery as Query } from "@/relay/detailsHarvestAttemptQuery.graphql";
 import Layout from "./_layout";
 import type { GetLayout } from "@wdp/lib/types/page";
@@ -7,7 +8,7 @@ import type { GetLayout } from "@wdp/lib/types/page";
 function HarvestAttemptDetails({ queryRef }: Props) {
   const { harvestAttempt } = usePreloadedQuery<Query>(query, queryRef);
 
-  return harvestAttempt ? <div>details here</div> : null;
+  return harvestAttempt ? <DetailsContent data={harvestAttempt} /> : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => {
@@ -28,7 +29,7 @@ type Props = {
 const query = graphql`
   query detailsHarvestAttemptQuery($slug: Slug!) {
     harvestAttempt(slug: $slug) {
-      id
+      ...HarvestAttemptDetailsFragment
     }
   }
 `;
