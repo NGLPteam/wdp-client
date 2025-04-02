@@ -594,7 +594,13 @@
       "mode_manual": "Manual",
       "current_schedule": "Current Schedule",
       "last_scheduled": "Last Scheduled At",
-      "schedule_changed": "Schedule Changed At"
+      "schedule_changed": "Schedule Changed At",
+      "messages": {
+        "mapping_link": "Link to Mapping",
+        "attempt_link": "Link to Attempt",
+        "record_link": "Link to Record",
+        "tags": "Tags:"
+      }
     }
   }
 }

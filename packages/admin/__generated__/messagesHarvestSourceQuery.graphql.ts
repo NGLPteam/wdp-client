@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<20ff45779ef51faed0d2f5e78a2c9631>>
+ * @generated SignedSource<<0365840a76dda304ea8748d8c76b67d7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -62,7 +62,17 @@ v4 = {
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
-};
+},
+v5 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "slug",
+    "storageKey": null
+  },
+  (v4/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -165,6 +175,36 @@ return {
                     "kind": "ScalarField",
                     "name": "createdAt",
                     "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "HarvestMapping",
+                    "kind": "LinkedField",
+                    "name": "harvestMapping",
+                    "plural": false,
+                    "selections": (v5/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "HarvestRecord",
+                    "kind": "LinkedField",
+                    "name": "harvestRecord",
+                    "plural": false,
+                    "selections": (v5/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "HarvestAttempt",
+                    "kind": "LinkedField",
+                    "name": "harvestAttempt",
+                    "plural": false,
+                    "selections": (v5/*: any*/),
+                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -239,12 +279,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2a8617517df609d27350a59a73ab2a36",
+    "cacheID": "d67191471738fe7d83342141f410ac17",
     "id": null,
     "metadata": {},
     "name": "messagesHarvestSourceQuery",
     "operationKind": "query",
-    "text": "query messagesHarvestSourceQuery(\n  $slug: Slug!\n  $page: Int!\n) {\n  harvestSource(slug: $slug) {\n    harvestMessages(page: $page, perPage: 20) {\n      ...HarvestMessagesListFragment\n    }\n    id\n  }\n}\n\nfragment HarvestMessageFragment on HarvestMessage {\n  id\n  level\n  message\n  tags\n  createdAt\n}\n\nfragment HarvestMessagesListFragment on HarvestMessageConnection {\n  nodes {\n    ...HarvestMessageFragment\n    id\n  }\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query messagesHarvestSourceQuery(\n  $slug: Slug!\n  $page: Int!\n) {\n  harvestSource(slug: $slug) {\n    harvestMessages(page: $page, perPage: 20) {\n      ...HarvestMessagesListFragment\n    }\n    id\n  }\n}\n\nfragment HarvestMessageFragment on HarvestMessage {\n  id\n  level\n  message\n  tags\n  createdAt\n  harvestMapping {\n    slug\n    id\n  }\n  harvestRecord {\n    slug\n    id\n  }\n  harvestAttempt {\n    slug\n    id\n  }\n}\n\nfragment HarvestMessagesListFragment on HarvestMessageConnection {\n  nodes {\n    ...HarvestMessageFragment\n    id\n  }\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
