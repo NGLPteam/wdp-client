@@ -80,7 +80,9 @@
       "harvest_attempt": "harvest attempt",
       "harvest_attempt_other": "harvest attempts",
       "harvest_record": "harvest record",
-      "harvest_record_other": "harvest records"
+      "harvest_record_other": "harvest records",
+      "harvest_entity": "harvest entity",
+      "harvest_entity_other": "harvest entities"
     },
     "lists": {
       "admin_column": "Admin?",
@@ -160,7 +162,8 @@
       "harvest_mappings": "Mappings",
       "harvest_attempts": "Attempts",
       "harvest_records": "Records",
-      "harvest_messages": "Messages"
+      "harvest_messages": "Messages",
+      "harvest_entities": "Entities"
     },
     "messages": {
       "unauthorized": "Unauthorized",
@@ -608,7 +611,8 @@
       "pristine_checkbox_label": "Allow overwriting?",
       "status_description": "By default, Meru preserves all modifications to entities made in the admin interface and prevents re-harvesting from overwriting changes. This default can be overridden by checking the box below each time the entity is updated. The entity's current harvest status is shown below for reference.",
       "pristine": "Overwrites Allowed",
-      "modified": "Overwrites NOT Allowed"
+      "modified": "Overwrites NOT Allowed",
+      "raw_metadata_source": "Raw Metadata Source"
     }
   }
 }
