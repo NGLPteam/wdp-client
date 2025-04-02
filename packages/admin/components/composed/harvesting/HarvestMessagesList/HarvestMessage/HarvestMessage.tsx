@@ -5,6 +5,16 @@ import NamedLink from "components/atomic/links/NamedLink";
 import type { HarvestMessageFragment$key } from "@/relay/HarvestMessageFragment.graphql";
 import * as Styled from "./HarvestMessage.styles";
 
+const LEVEL_MAP = {
+  FATAL: Styled.Fatal,
+  ERROR: Styled.Error,
+  WARN: Styled.Warn,
+  INFO: Styled.Info,
+  DEBUG: null,
+  TRACE: null,
+  "%future added value": null,
+};
+
 export default function HarvestMessage({
   data,
   isMapping,
@@ -20,10 +30,14 @@ export default function HarvestMessage({
 
   const renderLinks = !!harvestRecord || !!harvestAttempt || !!harvestMapping;
 
+  const Level = LEVEL_MAP[message.level];
+
+  if (!Level) return null;
+
   return (
     <Styled.Grid>
-      <Styled.Level>{message.level}</Styled.Level>
-      <Styled.Date>{formatDate(message.createdAt)} </Styled.Date>
+      <Level>{message.level}</Level>
+      <div>{formatDate(message.createdAt)}</div>
       <Styled.Body>
         <div>{message.message}</div>
         {renderLinks && (

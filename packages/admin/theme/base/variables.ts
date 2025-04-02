@@ -41,6 +41,9 @@ export const colors = {
     aa: "#E5857E",
     tint: "#F7DBD9",
   },
+  yellow: {
+    dark: "#fab048",
+  },
 };
 
 export const zIndex = {
