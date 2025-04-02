@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<93ea6cee4c81fa029ee76148ec1482ad>>
+ * @generated SignedSource<<2b32639bcf552293e55acf7b17f5320d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,12 +9,13 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
+import { FragmentRefs } from "relay-runtime";
 export type detailsHarvestRecordQuery$variables = {
   slug: string;
 };
 export type detailsHarvestRecordQuery$data = {
   readonly harvestRecord: {
-    readonly id: string;
+    readonly " $fragmentSpreads": FragmentRefs<"HarvestRecordDetailsFragment">;
   } | null | undefined;
 };
 export type detailsHarvestRecordQuery = {
@@ -32,28 +33,9 @@ var v0 = [
 ],
 v1 = [
   {
-    "alias": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "slug",
-        "variableName": "slug"
-      }
-    ],
-    "concreteType": "HarvestRecord",
-    "kind": "LinkedField",
-    "name": "harvestRecord",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "id",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
+    "kind": "Variable",
+    "name": "slug",
+    "variableName": "slug"
   }
 ];
 return {
@@ -62,7 +44,24 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "detailsHarvestRecordQuery",
-    "selections": (v1/*: any*/),
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "HarvestRecord",
+        "kind": "LinkedField",
+        "name": "harvestRecord",
+        "plural": false,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "HarvestRecordDetailsFragment"
+          }
+        ],
+        "storageKey": null
+      }
+    ],
     "type": "Query",
     "abstractKey": null
   },
@@ -71,19 +70,66 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "detailsHarvestRecordQuery",
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "alias": null,
+        "args": (v1/*: any*/),
+        "concreteType": "HarvestRecord",
+        "kind": "LinkedField",
+        "name": "harvestRecord",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "id",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "identifier",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "metadataFormat",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "status",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "rawMetadataSource",
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
   },
   "params": {
-    "cacheID": "94ddf532498f6062cc3068afb55a7e7e",
+    "cacheID": "5a5f741846074b65358cfb9f488bf04a",
     "id": null,
     "metadata": {},
     "name": "detailsHarvestRecordQuery",
     "operationKind": "query",
-    "text": "query detailsHarvestRecordQuery(\n  $slug: Slug!\n) {\n  harvestRecord(slug: $slug) {\n    id\n  }\n}\n"
+    "text": "query detailsHarvestRecordQuery(\n  $slug: Slug!\n) {\n  harvestRecord(slug: $slug) {\n    ...HarvestRecordDetailsFragment\n    id\n  }\n}\n\nfragment HarvestRecordDetailsFragment on HarvestRecord {\n  id\n  identifier\n  metadataFormat\n  status\n  rawMetadataSource\n}\n"
   }
 };
 })();
 
-(node as any).hash = "693ed757b9e4af08d12e8f57c3918f07";
+(node as any).hash = "c40126eb929a642ef8f14f845ea26688";
 
 export default node;
