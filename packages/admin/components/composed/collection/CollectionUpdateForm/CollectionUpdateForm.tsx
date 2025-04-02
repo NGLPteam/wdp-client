@@ -11,6 +11,7 @@ import MutationForm, {
   useOnFailure,
 } from "components/api/MutationForm";
 import SchemaFormFields from "components/api/SchemaFormFields";
+import HarvestingStatus from "components/api/HarvestingStatus";
 import { useSchemaContext, useSchemaProperties } from "components/api/hooks";
 import { sanitizeDateField } from "helpers";
 import { convertSchemaErrors } from "components/api/SchemaInstanceForm/convertSchemaErrors";
@@ -106,6 +107,7 @@ export default function CollectionUpdateForm({
     visibleAfterAt: getDateOnly(visibleAfterAt),
     visibleUntilAt: getDateOnly(visibleUntilAt),
     doi: rawDOI,
+    maintainPristineStatus: false,
     ...schemaDefaultValues,
     ...schemaFieldValues,
   };
@@ -125,6 +127,7 @@ export default function CollectionUpdateForm({
         "visibleUntilAt",
         "clearThumbnail",
         "clearHeroImage",
+        "maintainPristineStatus",
       ]);
 
       const schemaValues = pick(data, schemaProperties);
@@ -194,6 +197,7 @@ export default function CollectionUpdateForm({
             />
           </Forms.Grid>
           <SchemaFormFields data={fieldsData} schemaKind="COLLECTION" />
+          <HarvestingStatus data={collection} />
         </>
       );
     },
@@ -263,6 +267,7 @@ const mutation = graphql`
   mutation CollectionUpdateFormMutation($input: UpdateCollectionInput!) {
     updateCollection(input: $input) {
       collection {
+        ...HarvestingStatusFragment
         ...CollectionUpdateFormFieldsFragment
         ...SchemaFormFieldsFragment
       }
@@ -287,6 +292,8 @@ const schemaErrorsFragment = graphql`
 const fragment = graphql`
   fragment CollectionUpdateFormFragment on Collection {
     collectionId: id
+
+    ...HarvestingStatusFragment
     ...ParentSelectorFragment
 
     context: schemaInstanceContext {

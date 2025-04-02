@@ -600,7 +600,12 @@
         "attempt_link": "Link to Attempt",
         "record_link": "Link to Record",
         "tags": "Tags:"
-      }
+      },
+      "status_label": "Current Status",
+      "pristine_checkbox_label": "Allow overwriting?",
+      "status_description": "By default, Meru preserves all modifications to entities made in the admin interface and prevents re-harvesting from overwriting changes. This default can be overridden by checking the box below each time the entity is updated. The entity's current harvest status is shown below for reference.",
+      "pristine": "Overwrites Allowed",
+      "modified": "Overwrites NOT Allowed"
     }
   }
 }

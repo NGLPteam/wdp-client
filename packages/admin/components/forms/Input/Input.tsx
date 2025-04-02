@@ -40,6 +40,7 @@ type Props<T extends FieldValues = FieldValues> = InputProps<T> &
   InputTypes & {
     min?: string | number;
     max?: string | number;
+    value?: string;
   };
 
 export default Input;
