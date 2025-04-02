@@ -14,16 +14,31 @@ export const Grid = styled.li`
   ${respond(`grid-template-columns: 1fr; gap: 1rem;`, 80)}
 `;
 
-export const Date = styled.div``;
-
 export const Level = styled.div`
   padding: 0.25rem 0.5rem;
-  color: var(--neutral00);
-  background: var(--reddark);
   width: max-content;
   border-radius: ${pxToRem(4)};
   ${tLabel("md")}
   align-self: start;
+`;
+
+export const Fatal = styled(Level)`
+  color: var(--neutral00);
+  background: var(--reddark);
+`;
+
+export const Error = styled(Level)`
+  color: var(--neutral00);
+  background: var(--reddark);
+`;
+
+export const Warn = styled(Level)`
+  background: var(--yellowdark);
+`;
+
+export const Info = styled(Level)`
+  color: var(--neutral00);
+  background: var(--greendark);
 `;
 
 export const Tag = styled.span`
