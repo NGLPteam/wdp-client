@@ -298,6 +298,7 @@ export const baseRoutes: BaseRoute[] = [
     name: "harvesting",
     path: "/harvesting",
     label: "glossary.harvesting",
+    actions: ["settings.update"],
     routes: [
       {
         name: "harvestSource.new",
@@ -353,7 +354,7 @@ export const baseRoutes: BaseRoute[] = [
         name: "harvestMapping",
         path: "/harvesting/mappings/[slug]",
         redirect: "/harvesting/mappings/[slug]/details",
-        label: "glossary.harvest_mappings_other",
+        label: "glossary.harvest_mappings",
         routes: [
           {
             name: "harvestMapping.details",
@@ -373,6 +374,42 @@ export const baseRoutes: BaseRoute[] = [
           {
             name: "harvestMapping.harvestMessages",
             path: "/harvesting/mappings/[slug]/messages",
+            label: "nav.harvest_messages",
+          },
+        ],
+      },
+      {
+        name: "harvestAttempt",
+        path: "/harvesting/attempts/[slug]",
+        redirect: "/harvesting/attempts/[slug]/details",
+        label: "glossary.harvest_attempts",
+        routes: [
+          {
+            name: "harvestAttempt.details",
+            path: "/harvesting/attempts/[slug]/details",
+            label: "nav.details",
+          },
+          {
+            name: "harvestAttempt.harvestMessages",
+            path: "/harvesting/attempts/[slug]/messages",
+            label: "nav.harvest_messages",
+          },
+        ],
+      },
+      {
+        name: "harvestRecord",
+        path: "/harvesting/records/[slug]",
+        redirect: "/harvesting/records/[slug]/details",
+        label: "glossary.harvest_records",
+        routes: [
+          {
+            name: "harvestRecord.details",
+            path: "/harvesting/records/[slug]/details",
+            label: "nav.details",
+          },
+          {
+            name: "harvestRecord.harvestMessages",
+            path: "/harvesting/records/[slug]/messages",
             label: "nav.harvest_messages",
           },
         ],

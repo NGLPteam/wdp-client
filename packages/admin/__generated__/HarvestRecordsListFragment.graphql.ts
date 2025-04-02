@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<92252cc5121457af4257b7e8ac4389ee>>
+ * @generated SignedSource<<789dbb6aeb331af1dce8d34cffa3c8a3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,6 +20,7 @@ export type HarvestRecordsListFragment$data = {
     }>;
     readonly id: string;
     readonly identifier: string;
+    readonly slug: string;
     readonly status: HarvestRecordStatus;
     readonly updatedAt: string;
   }>;
@@ -50,6 +51,13 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "ScalarField",
           "name": "id",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "slug",
           "storageKey": null
         },
         {
@@ -118,6 +126,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "978a2c9d57af881f5a159d40470a55e3";
+(node as any).hash = "c29e03d9a2ed24c7e54ba2eccb70b2fb";
 
 export default node;
