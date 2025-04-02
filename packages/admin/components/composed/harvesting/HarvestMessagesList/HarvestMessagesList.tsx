@@ -11,6 +11,8 @@ export default function HarvestMessagesList({
 }: {
   data: HarvestMessagesListFragment$key;
   isMapping?: boolean;
+  isAttempt?: boolean;
+  isRecord?: boolean;
 }) {
   const { nodes: messages, ...pagination } = useFragment(fragment, data) ?? {};
 

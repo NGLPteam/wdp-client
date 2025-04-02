@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<41a977c9672e74caebff22de968fd1bc>>
+ * @generated SignedSource<<5e590af419bcf2873981ec01ccdecc56>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,53 +10,41 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type HarvestRecordOrder = "DEFAULT" | "OLDEST" | "RECENT" | "%future added value";
-export type recordsHarvestMappingQuery$variables = {
-  order?: HarvestRecordOrder | null | undefined;
+export type messagesHarvestRecordQuery$variables = {
   page: number;
   slug: string;
 };
-export type recordsHarvestMappingQuery$data = {
-  readonly harvestMapping: {
-    readonly harvestRecords: {
-      readonly " $fragmentSpreads": FragmentRefs<"HarvestRecordsListFragment">;
+export type messagesHarvestRecordQuery$data = {
+  readonly harvestRecord: {
+    readonly harvestMessages: {
+      readonly " $fragmentSpreads": FragmentRefs<"HarvestMessagesListFragment">;
     };
   } | null | undefined;
 };
-export type recordsHarvestMappingQuery = {
-  response: recordsHarvestMappingQuery$data;
-  variables: recordsHarvestMappingQuery$variables;
+export type messagesHarvestRecordQuery = {
+  response: messagesHarvestRecordQuery$data;
+  variables: messagesHarvestRecordQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
 var v0 = {
   "defaultValue": null,
   "kind": "LocalArgument",
-  "name": "order"
+  "name": "page"
 },
 v1 = {
   "defaultValue": null,
   "kind": "LocalArgument",
-  "name": "page"
-},
-v2 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
   "name": "slug"
 },
-v3 = [
+v2 = [
   {
     "kind": "Variable",
     "name": "slug",
     "variableName": "slug"
   }
 ],
-v4 = [
-  {
-    "kind": "Variable",
-    "name": "order",
-    "variableName": "order"
-  },
+v3 = [
   {
     "kind": "Variable",
     "name": "page",
@@ -68,44 +56,53 @@ v4 = [
     "value": 20
   }
 ],
-v5 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
-};
+},
+v5 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "slug",
+    "storageKey": null
+  },
+  (v4/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": [
       (v0/*: any*/),
-      (v1/*: any*/),
-      (v2/*: any*/)
+      (v1/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "recordsHarvestMappingQuery",
+    "name": "messagesHarvestRecordQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v3/*: any*/),
-        "concreteType": "HarvestMapping",
+        "args": (v2/*: any*/),
+        "concreteType": "HarvestRecord",
         "kind": "LinkedField",
-        "name": "harvestMapping",
+        "name": "harvestRecord",
         "plural": false,
         "selections": [
           {
             "alias": null,
-            "args": (v4/*: any*/),
-            "concreteType": "HarvestRecordConnection",
+            "args": (v3/*: any*/),
+            "concreteType": "HarvestMessageConnection",
             "kind": "LinkedField",
-            "name": "harvestRecords",
+            "name": "harvestMessages",
             "plural": false,
             "selections": [
               {
                 "args": null,
                 "kind": "FragmentSpread",
-                "name": "HarvestRecordsListFragment"
+                "name": "HarvestMessagesListFragment"
               }
             ],
             "storageKey": null
@@ -120,43 +117,56 @@ return {
   "kind": "Request",
   "operation": {
     "argumentDefinitions": [
-      (v2/*: any*/),
-      (v0/*: any*/),
-      (v1/*: any*/)
+      (v1/*: any*/),
+      (v0/*: any*/)
     ],
     "kind": "Operation",
-    "name": "recordsHarvestMappingQuery",
+    "name": "messagesHarvestRecordQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v3/*: any*/),
-        "concreteType": "HarvestMapping",
+        "args": (v2/*: any*/),
+        "concreteType": "HarvestRecord",
         "kind": "LinkedField",
-        "name": "harvestMapping",
+        "name": "harvestRecord",
         "plural": false,
         "selections": [
           {
             "alias": null,
-            "args": (v4/*: any*/),
-            "concreteType": "HarvestRecordConnection",
+            "args": (v3/*: any*/),
+            "concreteType": "HarvestMessageConnection",
             "kind": "LinkedField",
-            "name": "harvestRecords",
+            "name": "harvestMessages",
             "plural": false,
             "selections": [
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "HarvestRecord",
+                "concreteType": "HarvestMessage",
                 "kind": "LinkedField",
                 "name": "nodes",
                 "plural": true,
                 "selections": [
-                  (v5/*: any*/),
+                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "slug",
+                    "name": "level",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "message",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "tags",
                     "storageKey": null
                   },
                   {
@@ -169,48 +179,31 @@ return {
                   {
                     "alias": null,
                     "args": null,
-                    "kind": "ScalarField",
-                    "name": "updatedAt",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "entityCount",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "identifier",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "HarvestError",
+                    "concreteType": "HarvestMapping",
                     "kind": "LinkedField",
-                    "name": "harvestErrors",
-                    "plural": true,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "code",
-                        "storageKey": null
-                      },
-                      (v5/*: any*/)
-                    ],
+                    "name": "harvestMapping",
+                    "plural": false,
+                    "selections": (v5/*: any*/),
                     "storageKey": null
                   },
                   {
                     "alias": null,
                     "args": null,
-                    "kind": "ScalarField",
-                    "name": "status",
+                    "concreteType": "HarvestRecord",
+                    "kind": "LinkedField",
+                    "name": "harvestRecord",
+                    "plural": false,
+                    "selections": (v5/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "HarvestAttempt",
+                    "kind": "LinkedField",
+                    "name": "harvestAttempt",
+                    "plural": false,
+                    "selections": (v5/*: any*/),
                     "storageKey": null
                   }
                 ],
@@ -279,23 +272,23 @@ return {
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "f08feff2a2866eb17243c5a9c69d2ee8",
+    "cacheID": "350df2cec91963200137ab998b782888",
     "id": null,
     "metadata": {},
-    "name": "recordsHarvestMappingQuery",
+    "name": "messagesHarvestRecordQuery",
     "operationKind": "query",
-    "text": "query recordsHarvestMappingQuery(\n  $slug: Slug!\n  $order: HarvestRecordOrder\n  $page: Int!\n) {\n  harvestMapping(slug: $slug) {\n    harvestRecords(order: $order, page: $page, perPage: 20) {\n      ...HarvestRecordsListFragment\n    }\n    id\n  }\n}\n\nfragment HarvestRecordsListFragment on HarvestRecordConnection {\n  nodes {\n    id\n    slug\n    createdAt\n    updatedAt\n    entityCount\n    identifier\n    harvestErrors {\n      code\n      id\n    }\n    status\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query messagesHarvestRecordQuery(\n  $slug: Slug!\n  $page: Int!\n) {\n  harvestRecord(slug: $slug) {\n    harvestMessages(page: $page, perPage: 20) {\n      ...HarvestMessagesListFragment\n    }\n    id\n  }\n}\n\nfragment HarvestMessageFragment on HarvestMessage {\n  id\n  level\n  message\n  tags\n  createdAt\n  harvestMapping {\n    slug\n    id\n  }\n  harvestRecord {\n    slug\n    id\n  }\n  harvestAttempt {\n    slug\n    id\n  }\n}\n\nfragment HarvestMessagesListFragment on HarvestMessageConnection {\n  nodes {\n    ...HarvestMessageFragment\n    id\n  }\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "ae8a68681af5f53edd73fef0ed5cafbd";
+(node as any).hash = "41467b30718fa4e10d81b604685aaac1";
 
 export default node;
