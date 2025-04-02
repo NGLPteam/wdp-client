@@ -477,7 +477,8 @@
         "target_entity": "Target Entity",
         "schedule": "Schedule",
         "frequency_expression": "New Schedule",
-        "frequency_expression_description": "Meru can automatically trigger harvest attempts from this mapping on a set schedule. This schedule can be specified either with a cron expression, e.g. \"0 6 * * *\", or with a human-readable expression such as, \"every day at 4 pm America/Los_Angeles\" or \"every 2 months\". After saving, attempts generated from the new schedule will be viewable in the Attempts tab. Leave or revert this field to blank if harvest attempts for this mapping should only be triggered manually."
+        "frequency_expression_description": "Meru can automatically trigger harvest attempts from this mapping on a set schedule. This schedule can be specified either with a cron expression, e.g. \"0 6 * * *\", or with a human-readable expression such as, \"every day at 4 pm America/Los_Angeles\" or \"every 2 months\". After saving, attempts generated from the new schedule will be viewable in the Attempts tab. Leave or revert this field to blank if harvest attempts for this mapping should only be triggered manually.",
+        "note": "Note"
       },
       "validation": {
         "year": "Must be a four digit year",
@@ -558,6 +559,7 @@
         "references_label": "References Links"
       },
       "extraction_mapping_template": {
+        "label": "Extraction Mapping Template",
         "description": "Enter a custom template or work from one of the installation's existing examples. See documentation for more information.",
         "child_description": "Default template is inherited from parent Harvest Source. Customizations here apply only to this Harvest Mapping. See documentation for more information.",
         "select_label": "Examples",
@@ -591,6 +593,7 @@
       "show_less": "Show less"
     },
     "harvesting": {
+      "mode": "Mode",
       "mode_manual": "Manual",
       "current_schedule": "Current Schedule",
       "last_scheduled": "Last Scheduled At",
