@@ -5,7 +5,7 @@ import { Node } from "./types";
 import type { AccessorFn, ColumnDef } from "@tanstack/react-table";
 
 type NameColumnType<T extends Node> = Partial<ColumnDef<T>> & {
-  route?: string;
+  route?: string | ((node: T) => string);
   cellType?: string;
   className?: string;
   accessor?: AccessorFn<T> | string;
@@ -34,8 +34,11 @@ const NameColumn = <T extends Node>(
       const slug = info.row?.original?.slug;
       const value = info.getValue<string>();
 
-      return route && slug ? (
-        <NamedLink route={route} routeParams={{ slug }} passHref>
+      const computedRoute =
+        typeof route === "function" ? route(info.row?.original) : route;
+
+      return computedRoute && slug ? (
+        <NamedLink route={computedRoute} routeParams={{ slug }} passHref>
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a className="t-weight-md a-link">{value}</a>
         </NamedLink>
