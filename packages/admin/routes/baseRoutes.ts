@@ -408,6 +408,11 @@ export const baseRoutes: BaseRoute[] = [
             label: "nav.details",
           },
           {
+            name: "harvestRecord.entities",
+            path: "/harvesting/records/[slug]/entities",
+            label: "nav.harvest_entities",
+          },
+          {
             name: "harvestRecord.harvestMessages",
             path: "/harvesting/records/[slug]/messages",
             label: "nav.harvest_messages",

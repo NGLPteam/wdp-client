@@ -28,7 +28,11 @@ export default function HarvestRecordDetails({
       <MockInput
         label="harvesting.raw_metadata_source"
         value={() => (
-          <CodeEditor unwrapped value={fields.rawMetadataSource ?? ""} />
+          <CodeEditor
+            unwrapped
+            isDialog
+            value={fields.rawMetadataSource ?? ""}
+          />
         )}
         isWide
       />

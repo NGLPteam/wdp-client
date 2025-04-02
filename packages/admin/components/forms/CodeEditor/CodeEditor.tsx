@@ -16,12 +16,12 @@ const CodeEditor = ({
   required,
   ...props
 }: WrappedProps | UnwrappedProps) => {
-  const editor = (editable: boolean) => (
+  const editor = (editable: boolean, height?: string) => (
     <Styled.Wrapper>
       <CodeMirror
         value={value}
         extensions={[xml(), EditorView.lineWrapping]}
-        height={isDialog ? "70dvh" : "25rem"}
+        height={height}
         maxWidth="100%"
         theme={githubLight}
         onChange={onChange}
@@ -41,7 +41,7 @@ const CodeEditor = ({
       required={required}
       isWide={isWide}
     >
-      {editor(true)}
+      {editor(true, isDialog ? "70dvh" : "25rem")}
     </BaseInputWrapper>
   );
 };
