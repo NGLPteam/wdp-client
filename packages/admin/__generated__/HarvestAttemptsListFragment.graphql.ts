@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<02660b9163469b734e01d3b33b95a38a>>
+ * @generated SignedSource<<431ef4a18490f74aadd03c9342a31186>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -22,6 +22,7 @@ export type HarvestAttemptsListFragment$data = {
     } | null | undefined;
     readonly id: string;
     readonly recordCount: number | null | undefined;
+    readonly slug: string;
   }>;
   readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
   readonly " $fragmentType": "HarvestAttemptsListFragment";
@@ -50,6 +51,13 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "ScalarField",
           "name": "id",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "slug",
           "storageKey": null
         },
         {
@@ -122,6 +130,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "150904d1ad6aeb54e62cefce32b772ad";
+(node as any).hash = "e6b4949b94e2ebbbd11344d03b847f8b";
 
 export default node;

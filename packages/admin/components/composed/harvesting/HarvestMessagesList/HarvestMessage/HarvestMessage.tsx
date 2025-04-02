@@ -18,9 +18,13 @@ const LEVEL_MAP = {
 export default function HarvestMessage({
   data,
   isMapping,
+  isAttempt,
+  isRecord,
 }: {
   data: HarvestMessageFragment$key;
   isMapping?: boolean;
+  isAttempt?: boolean;
+  isRecord?: boolean;
 }) {
   const { t } = useTranslation();
 
@@ -51,7 +55,7 @@ export default function HarvestMessage({
                 <span>{t("harvesting.messages.mapping_link")}</span>
               </NamedLink>
             )}
-            {!isMapping && !!message.harvestAttempt && (
+            {!isAttempt && !!message.harvestAttempt && (
               <NamedLink
                 route="harvestMapping"
                 routeParams={{ slug: message.harvestAttempt?.slug }}
@@ -60,7 +64,7 @@ export default function HarvestMessage({
                 <span>{t("harvesting.messages.attempt_link")}</span>
               </NamedLink>
             )}
-            {!isMapping && !!message.harvestRecord && (
+            {!isRecord && !!message.harvestRecord && (
               <NamedLink
                 route="harvestMapping"
                 routeParams={{ slug: message.harvestRecord?.slug }}

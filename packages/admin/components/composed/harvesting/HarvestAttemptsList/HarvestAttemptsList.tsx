@@ -25,6 +25,12 @@ function HarvestAttemptsList({ data, headerStyle, hideHeader }: Props) {
   const { t } = useTranslation();
 
   const columns = [
+    ModelColumns.NameColumn<HarvestAttemptNode>({
+      accessor: () => "[Attempt Id Here]",
+      header: () => "Identifier",
+      enableSorting: true,
+      route: "harvestAttempt",
+    }),
     ModelColumns.BeganAtColumn<HarvestAttemptNode>({ enableSorting: true }),
     ModelColumns.EndedAtColumn<HarvestAttemptNode>({ enableSorting: true }),
     ModelColumns.StringColumn<HarvestAttemptNode>({
@@ -57,6 +63,7 @@ export const fragment = graphql`
   fragment HarvestAttemptsListFragment on HarvestAttemptConnection {
     nodes {
       id
+      slug
       beganAt
       endedAt
       harvestSet {

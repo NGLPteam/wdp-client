@@ -25,10 +25,11 @@ function HarvestRecordsList({ data, headerStyle, hideHeader }: Props) {
   const { t } = useTranslation();
 
   const columns = [
-    ModelColumns.StringColumn<HarvestRecordNode>({
-      id: "identifier",
+    ModelColumns.NameColumn<HarvestRecordNode>({
+      accessor: "identifier",
       header: () => "Identifier",
-      cellType: "url",
+      route: "harvestRecord",
+      enableSorting: true,
     }),
     ModelColumns.CreatedAtColumn<HarvestRecordNode>({ enableSorting: true }),
     ModelColumns.StringColumn<HarvestRecordNode>({
@@ -61,6 +62,7 @@ export const fragment = graphql`
   fragment HarvestRecordsListFragment on HarvestRecordConnection {
     nodes {
       id
+      slug
       createdAt
       updatedAt
       entityCount
