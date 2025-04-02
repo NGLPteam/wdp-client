@@ -14,6 +14,7 @@ import { sanitizeDateField } from "helpers";
 import { useSchemaContext, useSchemaProperties } from "components/api/hooks";
 import { convertSchemaErrors } from "components/api/SchemaInstanceForm/convertSchemaErrors";
 import SchemaFormFields from "components/api/SchemaFormFields";
+import HarvestingStatus from "components/api/HarvestingStatus";
 import { ParentSelector } from "components/forms";
 import { LoadingCircle } from "components/atomic";
 import {
@@ -69,6 +70,7 @@ export default function ItemUpdateForm({
     visibleAfterAt: getDateOnly(visibleAfterAt),
     visibleUntilAt: getDateOnly(visibleUntilAt),
     doi: rawDOI,
+    maintainPristineStatus: false,
     ...schemaDefaultValues,
     ...schemaFieldValues,
   };
@@ -120,6 +122,7 @@ export default function ItemUpdateForm({
         "visibility",
         "visibleAfterAt",
         "visibleUntilAt",
+        "maintainPristineStatus",
       ]);
 
       const schemaValues = pick(data, schemaProperties);
@@ -192,6 +195,7 @@ export default function ItemUpdateForm({
             />
           </Forms.Grid>
           <SchemaFormFields data={fieldsData} schemaKind="ITEM" />
+          <HarvestingStatus data={item} />
         </>
       );
     },
@@ -262,6 +266,7 @@ const mutation = graphql`
       item {
         ...ItemUpdateFormFieldsFragment
         ...SchemaFormFieldsFragment
+        ...HarvestingStatusFragment
       }
       ...MutationForm_mutationErrors
       ...ItemUpdateForm_schemaErrorsFragment
@@ -273,6 +278,7 @@ const fragment = graphql`
   fragment ItemUpdateFormFragment on Item {
     itemId: id
     ...ParentSelectorFragment
+    ...HarvestingStatusFragment
 
     context: schemaInstanceContext {
       ...useSchemaContextFragment

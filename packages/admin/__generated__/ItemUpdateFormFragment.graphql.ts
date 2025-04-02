@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ba69532a20060dbf76439ad2d07cfaa8>>
+ * @generated SignedSource<<3d533277dbdcd90d996c5437c4dc6739>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,7 @@ export type ItemUpdateFormFragment$data = {
     readonly " $fragmentSpreads": FragmentRefs<"useSchemaContextFragment">;
   };
   readonly itemId: string;
-  readonly " $fragmentSpreads": FragmentRefs<"ItemUpdateFormFieldsFragment" | "ParentSelectorFragment" | "SchemaFormFieldsFragment" | "useSchemaPropertiesFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"HarvestingStatusFragment" | "ItemUpdateFormFieldsFragment" | "ParentSelectorFragment" | "SchemaFormFieldsFragment" | "useSchemaPropertiesFragment">;
   readonly " $fragmentType": "ItemUpdateFormFragment";
 };
 export type ItemUpdateFormFragment$key = {
@@ -40,6 +40,11 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "ParentSelectorFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "HarvestingStatusFragment"
     },
     {
       "alias": "context",
@@ -77,6 +82,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "d12815b3082c43ddb1e4c7cd8f914c48";
+(node as any).hash = "8f72ae1bbd42d89cb82acc1b9c994efa";
 
 export default node;
