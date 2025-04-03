@@ -6,7 +6,7 @@ import Layout from "./_layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
 function HarvestMappingRecords({ queryRef }: Props) {
-  const { harvestMapping } = usePreloadedQuery<Query>(query, queryRef || null);
+  const { harvestMapping } = usePreloadedQuery<Query>(query, queryRef);
 
   const slug = useRouteSlug() || undefined;
 

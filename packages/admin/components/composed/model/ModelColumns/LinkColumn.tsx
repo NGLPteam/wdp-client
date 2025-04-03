@@ -34,7 +34,7 @@ const LinkColumn = <T extends Node>({
 
   return {
     header: header ?? t("lists.name_column"),
-    id: id ?? "name",
+    id: id ?? "link",
     ...(accessorKey ? { accessorKey } : { accessorFn }),
     meta: {
       cellType,
@@ -57,6 +57,7 @@ const LinkColumn = <T extends Node>({
         value
       );
     },
+    enableSorting: false,
     ...props,
   };
 };

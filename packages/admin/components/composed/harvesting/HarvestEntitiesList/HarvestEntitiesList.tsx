@@ -29,7 +29,7 @@ function HarvestEntitiesList({ data, headerStyle, hideHeader }: Props) {
   const isMobile = useIsMobile();
 
   const columns = [
-    ModelColumns.CreatedAtColumn<HarvestEntityNode>(),
+    ModelColumns.CreatedAtColumn<HarvestEntityNode>({ enableSorting: false }),
     ModelColumns.NameColumn<HarvestEntityNode>({
       accessorFn: (row) => row.entity?.title,
       enableSorting: false,

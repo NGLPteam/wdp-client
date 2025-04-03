@@ -34,7 +34,7 @@ function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
     ModelColumns.NameColumn<HarvestMappingNode>({
       accessor: () => "[Mapping Id Here]",
       header: () => "Identifier",
-      enableSorting: true,
+      enableSorting: false,
       route: "harvestMapping",
     }),
     ModelColumns.StringColumn<HarvestMappingNode>({
