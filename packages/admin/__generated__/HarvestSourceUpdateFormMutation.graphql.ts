@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0352f6118b24938a17597f56bb46aee7>>
+ * @generated SignedSource<<92c8e7be8d1d61da589b7c3948d41e0b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -216,6 +216,20 @@ return {
               {
                 "alias": null,
                 "args": null,
+                "kind": "ScalarField",
+                "name": "protocol",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "metadataFormat",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
                 "concreteType": "HarvestOptionsMapping",
                 "kind": "LinkedField",
                 "name": "mappingOptions",
@@ -280,12 +294,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "13365ed04e29fd02f6c6467ef9c674e9",
+    "cacheID": "829fc9b02e236249c369b3c158fc191f",
     "id": null,
     "metadata": {},
     "name": "HarvestSourceUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation HarvestSourceUpdateFormMutation(\n  $input: HarvestSourceUpdateInput!\n) {\n  harvestSourceUpdate(input: $input) {\n    harvestSource {\n      ...HarvestSourceUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment HarvestSourceUpdateFormFieldsFragment on HarvestSource {\n  name\n  baseURL\n  description\n  extractionMappingTemplate\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
+    "text": "mutation HarvestSourceUpdateFormMutation(\n  $input: HarvestSourceUpdateInput!\n) {\n  harvestSourceUpdate(input: $input) {\n    harvestSource {\n      ...HarvestSourceUpdateFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment HarvestSourceUpdateFormFieldsFragment on HarvestSource {\n  name\n  baseURL\n  description\n  extractionMappingTemplate\n  protocol\n  metadataFormat\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

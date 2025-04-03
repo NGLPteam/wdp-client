@@ -619,7 +619,9 @@
       "raw_metadata_source": "Raw Metadata Source",
       "new_source_title": "New Harvest Source",
       "new_attempt_title": "Start Manual Harvest Attempt",
-      "new_mapping_title": "New Harvest Mapping"
+      "new_mapping_title": "New Harvest Mapping",
+      "unchangeable": "*Cannot be changed",
+      "settings_from_mapping": "Settings from mapping"
     }
   }
 }
