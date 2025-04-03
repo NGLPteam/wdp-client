@@ -163,7 +163,8 @@
       "harvest_attempts": "Attempts",
       "harvest_records": "Records",
       "harvest_messages": "Messages",
-      "harvest_entities": "Entities"
+      "harvest_entities": "Entities",
+      "new_harvest_attempt": "Harvest Attempt"
     },
     "messages": {
       "unauthorized": "Unauthorized",
@@ -285,7 +286,8 @@
         "harvest_source": "$t(glossary.harvest_source)",
         "harvest_source_header": "Add Harvest Source",
         "harvest_mapping": "$t(glossary.harvest_mapping)",
-        "harvest_mapping_header": "Add Harvest Mapping"
+        "harvest_mapping_header": "Add Harvest Mapping",
+        "harvest_attempt": "$t(glossary.harvest_attempt)"
       },
       "create": {
         "contributor_person": "Create Person",
@@ -481,7 +483,8 @@
         "schedule": "Schedule",
         "frequency_expression": "New Schedule",
         "frequency_expression_description": "Meru can automatically trigger harvest attempts from this mapping on a set schedule. This schedule can be specified either with a cron expression, e.g. \"0 6 * * *\", or with a human-readable expression such as, \"every day at 4 pm America/Los_Angeles\" or \"every 2 months\". After saving, attempts generated from the new schedule will be viewable in the Attempts tab. Leave or revert this field to blank if harvest attempts for this mapping should only be triggered manually.",
-        "note": "Note"
+        "note": "Note",
+        "note_description": "Optional note to display on the harvest attempt detail"
       },
       "validation": {
         "year": "Must be a four digit year",
@@ -565,6 +568,7 @@
         "label": "Extraction Mapping Template",
         "description": "Enter a custom template or work from one of the installation's existing examples. See documentation for more information.",
         "child_description": "Default template is inherited from parent Harvest Source. Customizations here apply only to this Harvest Mapping. See documentation for more information.",
+        "attempt_description": "Default template is inherited from parent {{parent}}. Make one-time overrides here.",
         "select_label": "Examples",
         "select_placeholder": "Select an example to insert...",
         "textarea_label": "Custom",
