@@ -1,12 +1,8 @@
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import ModelList from "components/composed/model/ModelList";
+import ModelListPageUnpaginated from "components/composed/model/ModelListPageUnpaginated";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
-import { ViewOptions } from "utils/view-options";
-import { useIsMobile } from "hooks";
-import { PageCountActions } from "components/layout";
-import startCase from "lodash/startCase";
 import type {
   HarvestEntitiesListFragment$data,
   HarvestEntitiesListFragment$key,
@@ -18,15 +14,15 @@ type Props = Pick<HeaderProps, "headerStyle" | "hideHeader"> & {
   data?: HarvestEntitiesListFragment$key;
 };
 
-type HarvestEntityNode =
-  HarvestEntitiesListFragment$data["harvestEntities"][number];
+type HarvestEntities = HarvestEntitiesListFragment$data["harvestEntities"];
+type HarvestEntityNode = HarvestEntities[number];
+type HarvestEntityNodes = { nodes: (HarvestEntityNode & { slug?: string })[] };
 
 function HarvestEntitiesList({ data, headerStyle, hideHeader }: Props) {
   const { harvestEntities } =
     useFragment<HarvestEntitiesListFragment$key>(fragment, data) ?? {};
 
   const { t } = useTranslation();
-  const isMobile = useIsMobile();
 
   const columns = [
     ModelColumns.CreatedAtColumn<HarvestEntityNode>({ enableSorting: false }),
@@ -48,39 +44,21 @@ function HarvestEntitiesList({ data, headerStyle, hideHeader }: Props) {
     }),
   ];
 
-  const pageInfo = {
-    page: 1,
-    pageCount: 1,
-    perPage: 20,
-    hasNextPage: false,
-    hasPreviousPage: false,
-    totalCount: harvestEntities?.length,
-  };
+  const nodes =
+    harvestEntities?.map((he) => ({
+      slug: he.entity?.slug,
+      ...he,
+    })) ?? [];
 
   return (
-    <section>
-      <PageHeader
-        title={startCase(t("glossary.harvest_entity_other"))}
-        headerStyle={headerStyle}
-        hideHeader={hideHeader}
-      />
-      <PageCountActions
-        loading={typeof pageInfo.totalCount !== "number"}
-        pageInfo={pageInfo}
-      />
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      <ModelList<any, HarvestEntityNode>
-        data={{
-          nodes: harvestEntities?.map((he) => ({
-            slug: he.entity?.slug,
-            ...he,
-          })),
-        }}
-        columns={columns}
-        modelName="harvest_entity"
-        view={isMobile ? ViewOptions.grid : ViewOptions.table}
-      />
-    </section>
+    <ModelListPageUnpaginated<HarvestEntityNodes, HarvestEntityNode>
+      data={{ nodes }}
+      columns={columns}
+      modelName="harvest_entity"
+      totalCount={harvestEntities?.length}
+      headerStyle={headerStyle}
+      hideHeader={hideHeader}
+    />
   );
 }
 
