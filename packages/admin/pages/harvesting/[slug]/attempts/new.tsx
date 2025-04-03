@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import startCase from "lodash/startCase";
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import HarvestAttemptCreateForm from "components/composed/harvesting/HarvestAttemptCreateForm";
@@ -26,11 +25,7 @@ export default function NewHarvestAttemptFromSource() {
         ) : (
           <>
             <BackToAll route="harvesting" />
-            <PageHeader
-              title={`New ${startCase(
-                t(`glossary.harvest_attempt`, { count: 1 }),
-              )}`}
-            />
+            <PageHeader title={t("harvesting.new_attempt_title")} />
             <LoadingCircle className="l-page-loading" />
           </>
         )
@@ -52,9 +47,7 @@ const WithQuery = ({ queryRef }: { queryRef: PreloadedQuery<Query> }) => {
         query={{ slug: slug ?? "" }}
         label={harvestSource.name}
       />
-      <PageHeader
-        title={`Start Manual ${startCase(t(`glossary.harvest_attempt`))}`}
-      />
+      <PageHeader title={t("harvesting.new_attempt_title")} />
       <HarvestAttemptCreateForm harvestSource={harvestSource} />
     </>
   ) : null;

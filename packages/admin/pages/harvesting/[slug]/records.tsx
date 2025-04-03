@@ -6,7 +6,7 @@ import Layout from "./_layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
 function HarvestSourceRecords({ queryRef }: Props) {
-  const { harvestSource } = usePreloadedQuery<Query>(query, queryRef || null);
+  const { harvestSource } = usePreloadedQuery<Query>(query, queryRef);
 
   return (
     <HarvestRecordsList
