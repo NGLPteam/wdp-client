@@ -29,28 +29,34 @@ export default function HarvestAttemptCreateFormFields({
 
   return (
     <Forms.Grid>
-      <MockInput
-        label="glossary.harvest_source"
-        value={harvestSource?.name ?? harvestMapping?.harvestSource?.name}
-      />
       {!!harvestMapping && (
-        <>
-          <MockInput
-            label="glossary.harvest_set"
-            value={harvestMapping?.harvestSet?.identifier}
-          />
-          <MockInput
-            label="forms.fields.target_entity"
-            value={harvestMapping?.targetEntity?.title}
-          />
-          <MockInput
-            label="forms.fields.metadata_format"
-            value={harvestMapping?.metadataFormat}
-          />
-        </>
+        <Forms.Fieldset label={t("harvesting.settings_from_mapping")}>
+          <Forms.Grid>
+            <MockInput
+              label="glossary.harvest_source"
+              value={harvestSource?.name ?? harvestMapping?.harvestSource?.name}
+            />
+            <MockInput
+              label="glossary.harvest_set"
+              value={harvestMapping?.harvestSet?.identifier}
+            />
+            <MockInput
+              label="forms.fields.target_entity"
+              value={harvestMapping?.targetEntity?.title}
+            />
+            <MockInput
+              label="forms.fields.metadata_format"
+              value={harvestMapping?.metadataFormat}
+            />
+          </Forms.Grid>
+        </Forms.Fieldset>
       )}
       {!!harvestSource && (
         <>
+          <MockInput
+            label="glossary.harvest_source"
+            value={harvestSource?.name ?? harvestMapping?.harvestSource?.name}
+          />
           {slug && (
             <HarvestSetTypeahead<HarvestAttemptFromSourceInput>
               control={

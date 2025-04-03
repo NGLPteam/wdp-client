@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dd0e95dcd4d00c6792ede44e4c8f1df5>>
+ * @generated SignedSource<<81ae5fe3fab1f37aa083ecd0bdefac11>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -117,6 +117,20 @@ return {
           {
             "alias": null,
             "args": null,
+            "kind": "ScalarField",
+            "name": "protocol",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "metadataFormat",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "HarvestOptionsMapping",
             "kind": "LinkedField",
             "name": "mappingOptions",
@@ -170,12 +184,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "efe31f3bb5b4d2e73f75f82a6b1a9aad",
+    "cacheID": "d5ed312fe59a7a023c49efbbf92cac7a",
     "id": null,
     "metadata": {},
     "name": "detailsHarvestSourceQuery",
     "operationKind": "query",
-    "text": "query detailsHarvestSourceQuery(\n  $slug: Slug!\n) {\n  harvestSource(slug: $slug) {\n    ...HarvestSourceUpdateFormFragment\n    id\n  }\n}\n\nfragment HarvestSourceUpdateFormFieldsFragment on HarvestSource {\n  name\n  baseURL\n  description\n  extractionMappingTemplate\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n}\n\nfragment HarvestSourceUpdateFormFragment on HarvestSource {\n  id\n  ...HarvestSourceUpdateFormFieldsFragment\n}\n"
+    "text": "query detailsHarvestSourceQuery(\n  $slug: Slug!\n) {\n  harvestSource(slug: $slug) {\n    ...HarvestSourceUpdateFormFragment\n    id\n  }\n}\n\nfragment HarvestSourceUpdateFormFieldsFragment on HarvestSource {\n  name\n  baseURL\n  description\n  extractionMappingTemplate\n  protocol\n  metadataFormat\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n}\n\nfragment HarvestSourceUpdateFormFragment on HarvestSource {\n  id\n  ...HarvestSourceUpdateFormFieldsFragment\n}\n"
   }
 };
 })();
