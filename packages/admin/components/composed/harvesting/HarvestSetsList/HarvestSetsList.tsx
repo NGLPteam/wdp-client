@@ -30,7 +30,7 @@ function HarvestSetsList({ data, headerStyle, hideHeader }: Props) {
     ModelColumns.NameColumn<HarvestSetNode>({
       accessor: "name",
       header: () => "Name",
-      enableSorting: true,
+      enableSorting: false,
     }),
     ModelColumns.StringColumn<HarvestSetNode>({
       id: "description",

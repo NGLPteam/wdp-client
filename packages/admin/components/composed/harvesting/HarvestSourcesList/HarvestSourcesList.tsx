@@ -31,7 +31,7 @@ function HarvestSourcesList({ data, headerStyle, hideHeader }: Props) {
     ModelColumns.NameColumn<HarvestSourceNode>({
       accessor: "name",
       header: () => "Name",
-      enableSorting: true,
+      enableSorting: false,
       route: "harvestSource",
     }),
     ModelColumns.StringColumn<HarvestSourceNode>({
