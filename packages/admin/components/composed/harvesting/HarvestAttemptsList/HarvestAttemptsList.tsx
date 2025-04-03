@@ -29,12 +29,12 @@ function HarvestAttemptsList({ data, headerStyle, hideHeader, backTo }: Props) {
     ModelColumns.NameColumn<HarvestAttemptNode>({
       accessor: () => "[Attempt Id Here]",
       header: () => "Identifier",
-      enableSorting: true,
+      enableSorting: false,
       route: "harvestAttempt",
       query: backTo ? { backTo } : undefined,
     }),
-    ModelColumns.BeganAtColumn<HarvestAttemptNode>({ enableSorting: true }),
-    ModelColumns.EndedAtColumn<HarvestAttemptNode>({ enableSorting: true }),
+    ModelColumns.BeganAtColumn<HarvestAttemptNode>({ enableSorting: false }),
+    ModelColumns.EndedAtColumn<HarvestAttemptNode>({ enableSorting: false }),
     ModelColumns.StringColumn<HarvestAttemptNode>({
       id: "harvestSet.identifier",
       header: () => t("glossary.harvest_set"),
