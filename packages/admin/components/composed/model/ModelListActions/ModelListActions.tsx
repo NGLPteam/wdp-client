@@ -24,7 +24,7 @@ function ModelListActions({
     <PageActions
       search={search}
       actions={
-        (isNotMobile && (
+        (isNotMobile && viewOptions.length > 1 && (
           <DataViewToggle
             viewOptions={viewOptions}
             selectedView={selectedView}

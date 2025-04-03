@@ -22,7 +22,7 @@ const getLayout: GetLayout<Props> = (props) => {
   useBaseListQueryVars();
   useSearchQueryVars();
 
-  return <Layout query={query} {...props} />;
+  return <Layout query={query} modelName="harvest_attempt" {...props} />;
 };
 
 HarvestMappingAttempts.getLayout = getLayout;

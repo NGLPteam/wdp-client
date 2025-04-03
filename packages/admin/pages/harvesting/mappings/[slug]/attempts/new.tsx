@@ -16,9 +16,9 @@ export default function NewHarvestAttemptFromMapping() {
     <QueryTransitionWrapper<Query>
       query={query}
       variables={{ slug }}
-      subscribeIds={["HarvestMapping"]}
+      subscribeIds={["HarvestAttempt"]}
       loadingFallback={<LoadingPage />}
-      refetchTags={["harvestMappings"]}
+      refetchTags={["harvestAttempts"]}
     >
       {({ queryRef }) =>
         queryRef ? (
@@ -26,11 +26,7 @@ export default function NewHarvestAttemptFromMapping() {
         ) : (
           <>
             <BackToAll route="harvesting" />
-            <PageHeader
-              title={`New ${startCase(
-                t(`glossary.harvest_attempt`, { count: 1 }),
-              )}`}
-            />
+            <PageHeader title={t("harvesting.new_attempt_title")} />
             <LoadingCircle className="l-page-loading" />
           </>
         )
@@ -52,9 +48,7 @@ const WithQuery = ({ queryRef }: { queryRef: PreloadedQuery<Query> }) => {
         query={{ slug: slug ?? "" }}
         label={startCase(t("glossary.harvest_attempt_other"))}
       />
-      <PageHeader
-        title={`Start Manual ${startCase(t(`glossary.harvest_attempt`))}`}
-      />
+      <PageHeader title={t("harvesting.new_attempt_title")} />
       <HarvestAttemptCreateForm harvestMapping={harvestMapping} />
     </>
   ) : null;

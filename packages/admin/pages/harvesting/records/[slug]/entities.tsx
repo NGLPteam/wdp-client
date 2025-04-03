@@ -21,7 +21,7 @@ const getLayout: GetLayout<Props> = (props) => {
   useBaseListQueryVars();
   useSearchQueryVars();
 
-  return <Layout query={query} showLoadingCircle {...props} />;
+  return <Layout query={query} modelName="harvest_entity" {...props} />;
 };
 
 HarvestRecordEntities.getLayout = getLayout;

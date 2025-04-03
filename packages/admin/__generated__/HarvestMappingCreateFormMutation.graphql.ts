@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e88b5787b90680b111b3c6d22a0ae30b>>
+ * @generated SignedSource<<bc4c1ecffb61c64da18afc8adee4b456>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -50,6 +50,7 @@ export type HarvestMappingCreateFormMutation$data = {
       readonly readOptions: {
         readonly maxRecords: number;
       };
+      readonly slug: string;
       readonly targetEntity: {
         readonly slug: string;
         readonly title: string;
@@ -263,6 +264,7 @@ return {
             "name": "harvestMapping",
             "plural": false,
             "selections": [
+              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -323,6 +325,7 @@ return {
             "name": "harvestMapping",
             "plural": false,
             "selections": [
+              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -366,16 +369,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "0d558e3c366d815cf88ba6123dbe3d33",
+    "cacheID": "aa6867974897fbe73764fcb1d3844933",
     "id": null,
     "metadata": {},
     "name": "HarvestMappingCreateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation HarvestMappingCreateFormMutation(\n  $input: HarvestMappingCreateInput!\n) {\n  harvestMappingCreate(input: $input) {\n    harvestMapping {\n      targetEntity {\n        __typename\n        slug\n        title\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      harvestSet {\n        id\n      }\n      metadataFormat\n      extractionMappingTemplate\n      mappingOptions {\n        autoCreateVolumesAndIssues\n        linkIdentifiersGlobally\n        useMetadataMappings\n      }\n      readOptions {\n        maxRecords\n      }\n      frequencyExpression\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
+    "text": "mutation HarvestMappingCreateFormMutation(\n  $input: HarvestMappingCreateInput!\n) {\n  harvestMappingCreate(input: $input) {\n    harvestMapping {\n      slug\n      targetEntity {\n        __typename\n        slug\n        title\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      harvestSet {\n        id\n      }\n      metadataFormat\n      extractionMappingTemplate\n      mappingOptions {\n        autoCreateVolumesAndIssues\n        linkIdentifiersGlobally\n        useMetadataMappings\n      }\n      readOptions {\n        maxRecords\n      }\n      frequencyExpression\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "c7413af3cb8c2d453d1ac87b3d51257f";
+(node as any).hash = "5378f0209737b6273ee6f97854a01089";
 
 export default node;
