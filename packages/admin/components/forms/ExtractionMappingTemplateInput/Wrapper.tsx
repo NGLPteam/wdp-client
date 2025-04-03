@@ -10,6 +10,8 @@ export default function ExtractionMappingTemplateWrapper({
   onChange,
   value,
   sourceSlug,
+  isAttempt,
+  description,
 }: Props) {
   const { t } = useTranslation();
 
@@ -76,9 +78,10 @@ export default function ExtractionMappingTemplateWrapper({
       }
     };
 
+    if (isAttempt) return;
     if (sourceSlug && !parentDefault) fetchDefault();
     if (!sourceSlug && !options) fetchOptions();
-  }, [value, options, onChange, parentDefault, sourceSlug, env, t]);
+  }, [value, options, onChange, parentDefault, sourceSlug, env, t, isAttempt]);
 
   return (
     <ExtractionMappingTemplateInput
@@ -88,6 +91,7 @@ export default function ExtractionMappingTemplateWrapper({
       sourceSlug={sourceSlug}
       options={options}
       parentDefault={parentDefault}
+      description={description}
     />
   );
 }
@@ -98,6 +102,7 @@ export interface Props {
   value?: string;
   description?: string;
   sourceSlug?: string;
+  isAttempt?: true;
 }
 
 const query = graphql`
