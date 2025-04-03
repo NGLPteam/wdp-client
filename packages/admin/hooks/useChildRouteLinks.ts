@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useViewerContext } from "contexts";
 import { useChildRouteLinksFragment$key } from "@/relay/useChildRouteLinksFragment.graphql";
 import { RouteHelper } from "../routes";
 import useLatestPresentValue from "./useLatestPresentValue";
@@ -23,6 +24,8 @@ export function useChildRouteLinks(
 
   const memoizedEntity = useLatestPresentValue(entity);
 
+  const viewer = useViewerContext();
+
   const childRoutes = useMemo(() => {
     if (!mainRoute || !mainRoute.routes) return [];
     return mainRoute.routes;
@@ -42,8 +45,10 @@ export function useChildRouteLinks(
       if (!route.actions || route.actions.length === 0) return true;
 
       // Filter routes by checking if all actions are included in allowedActions
-      return route.actions.every((action) =>
-        memoizedEntity?.current?.allowedActions?.includes(action),
+      return route.actions.every(
+        (action) =>
+          memoizedEntity?.current?.allowedActions?.includes(action) ||
+          viewer?.allowedActions?.includes(action),
       );
     });
 
@@ -53,7 +58,7 @@ export function useChildRouteLinks(
       query: query,
       actions: childRoute.actions,
     }));
-  }, [childRoutes, memoizedEntity, query]);
+  }, [childRoutes, memoizedEntity, query, viewer]);
 
   return links;
 }
