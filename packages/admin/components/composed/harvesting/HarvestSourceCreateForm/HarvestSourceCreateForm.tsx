@@ -100,6 +100,7 @@ export default function HarvestSourceCreateForm() {
           label="forms.fields.metadata_format"
           {...register("metadataFormat")}
           options={METADATA_FORMAT_OPTS}
+          required
         />
         <Controller
           name="extractionMappingTemplate"

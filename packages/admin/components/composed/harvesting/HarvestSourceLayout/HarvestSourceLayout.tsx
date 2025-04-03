@@ -28,13 +28,22 @@ export default function HarvestSourceLayout({
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
       {slug && (
-        <ButtonControlRoute
-          route="harvestSource.mappings.new"
-          query={{ slug }}
-          icon="plus"
-        >
-          {t("actions.add.harvest_mapping")}
-        </ButtonControlRoute>
+        <>
+          <ButtonControlRoute
+            route="harvestSource.mappings.new"
+            query={{ slug }}
+            icon="plus"
+          >
+            {t("actions.add.harvest_mapping")}
+          </ButtonControlRoute>
+          <ButtonControlRoute
+            route="harvestSource.harvestAttempt.new"
+            query={{ slug }}
+            icon="plus"
+          >
+            {t("actions.add.harvest_attempt")}
+          </ButtonControlRoute>
+        </>
       )}
     </ButtonControlGroup>
   );

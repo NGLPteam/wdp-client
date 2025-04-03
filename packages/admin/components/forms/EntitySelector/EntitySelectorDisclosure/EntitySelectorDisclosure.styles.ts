@@ -5,7 +5,7 @@ type Props = { $visible: boolean };
 
 export const FieldWrapper = styled.div`
   transition: height 2s;
-  width: 100%;
+  flex-basis: var(--form-grid-item-width);
 `;
 
 export const Field = styled.div`
