@@ -1,12 +1,14 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import { useSearchQueryVars, useBaseListQueryVars } from "hooks";
+import { useSearchQueryVars, useBaseListQueryVars, useRouteSlug } from "hooks";
 import HarvestRecordsList from "components/composed/harvesting/HarvestRecordsList";
 import type { recordsHarvestAttemptQuery as Query } from "@/relay/recordsHarvestAttemptQuery.graphql";
 import Layout from "./_layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
 function HarvestAttemptRecords({ queryRef }: Props) {
-  const { harvestAttempt } = usePreloadedQuery<Query>(query, queryRef || null);
+  const { harvestAttempt } = usePreloadedQuery<Query>(query, queryRef);
+
+  const slug = useRouteSlug() || undefined;
 
   return (
     <HarvestRecordsList
@@ -14,6 +16,7 @@ function HarvestAttemptRecords({ queryRef }: Props) {
       headerStyle="secondary"
       hideHeader
       backTo="harvestAttempt"
+      backToSlug={slug}
     />
   );
 }

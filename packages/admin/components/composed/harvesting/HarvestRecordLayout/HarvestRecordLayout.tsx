@@ -19,23 +19,21 @@ export default function HarvestRecordLayout({
   const manageRoutes = useChildRouteLinks("harvestRecord", { slug });
   const { harvestSource, identifier } = useMaybeFragment(fragment, data) ?? {};
 
-  const harvestMapping = { slug: "" };
-  const harvestAttempt = { slug: "" };
-
   const params = useSearchParams();
   const backTo = params.get("backTo");
+  const backToSlug = params.get("backToSlug");
 
   const backToProps =
-    backTo === "harvestAttempt" && harvestAttempt
+    backTo === "harvestAttempt" && !!backToSlug
       ? {
           route: "harvestAttempt.harvestRecords",
-          query: { slug: harvestAttempt.slug },
+          query: { slug: backToSlug },
           label: startCase(t("glossary.harvest_attempt")),
         }
-      : backTo === "harvestMapping" && harvestMapping
+      : backTo === "harvestMapping" && !!backToSlug
         ? {
             route: "harvestMapping.harvestRecords",
-            query: { slug: harvestMapping.slug },
+            query: { slug: backToSlug },
             label: startCase(t("glossary.harvest_mapping")),
           }
         : harvestSource
