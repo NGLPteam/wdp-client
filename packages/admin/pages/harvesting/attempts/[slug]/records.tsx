@@ -1,19 +1,19 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { useSearchQueryVars, useBaseListQueryVars } from "hooks";
 import HarvestRecordsList from "components/composed/harvesting/HarvestRecordsList";
-import type { recordsHarvestMappingQuery as Query } from "@/relay/recordsHarvestMappingQuery.graphql";
+import type { recordsHarvestAttemptQuery as Query } from "@/relay/recordsHarvestAttemptQuery.graphql";
 import Layout from "./_layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
-function HarvestMappingRecords({ queryRef }: Props) {
-  const { harvestMapping } = usePreloadedQuery<Query>(query, queryRef || null);
+function HarvestAttemptRecords({ queryRef }: Props) {
+  const { harvestAttempt } = usePreloadedQuery<Query>(query, queryRef || null);
 
   return (
     <HarvestRecordsList
-      data={harvestMapping?.harvestRecords}
+      data={harvestAttempt?.harvestRecords}
       headerStyle="secondary"
       hideHeader
-      backTo="harvestMapping"
+      backTo="harvestAttempt"
     />
   );
 }
@@ -25,21 +25,21 @@ const getLayout: GetLayout<Props> = (props) => {
   return <Layout query={query} {...props} />;
 };
 
-HarvestMappingRecords.getLayout = getLayout;
+HarvestAttemptRecords.getLayout = getLayout;
 
-export default HarvestMappingRecords;
+export default HarvestAttemptRecords;
 
 type Props = {
   queryRef: PreloadedQuery<Query>;
 };
 
 const query = graphql`
-  query recordsHarvestMappingQuery(
+  query recordsHarvestAttemptQuery(
     $slug: Slug!
     $order: HarvestRecordOrder
     $page: Int!
   ) {
-    harvestMapping(slug: $slug) {
+    harvestAttempt(slug: $slug) {
       harvestRecords(order: $order, page: $page, perPage: 20) {
         ...HarvestRecordsListFragment
       }

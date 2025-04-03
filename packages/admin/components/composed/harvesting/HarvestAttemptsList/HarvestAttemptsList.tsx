@@ -12,11 +12,12 @@ type HeaderProps = React.ComponentProps<typeof PageHeader>;
 
 type Props = Pick<HeaderProps, "headerStyle" | "hideHeader"> & {
   data?: HarvestAttemptsListFragment$key;
+  backTo?: string;
 };
 
 type HarvestAttemptNode = HarvestAttemptsListFragment$data["nodes"][number];
 
-function HarvestAttemptsList({ data, headerStyle, hideHeader }: Props) {
+function HarvestAttemptsList({ data, headerStyle, hideHeader, backTo }: Props) {
   const harvestAttempts = useFragment<HarvestAttemptsListFragment$key>(
     fragment,
     data,
@@ -30,6 +31,7 @@ function HarvestAttemptsList({ data, headerStyle, hideHeader }: Props) {
       header: () => "Identifier",
       enableSorting: true,
       route: "harvestAttempt",
+      query: backTo ? { backTo } : undefined,
     }),
     ModelColumns.BeganAtColumn<HarvestAttemptNode>({ enableSorting: true }),
     ModelColumns.EndedAtColumn<HarvestAttemptNode>({ enableSorting: true }),
