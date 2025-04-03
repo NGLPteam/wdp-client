@@ -29,6 +29,7 @@ export default function ExtractionMappingTemplateInput({
   sourceSlug,
   options,
   parentDefault,
+  description,
 }: Props) {
   const { t } = useTranslation();
 
@@ -88,9 +89,10 @@ export default function ExtractionMappingTemplateInput({
     <Fieldset
       label={t(label)}
       description={
-        sourceSlug
+        description ||
+        (sourceSlug
           ? t("forms.extraction_mapping_template.child_description")
-          : t("forms.extraction_mapping_template.description")
+          : t("forms.extraction_mapping_template.description"))
       }
     >
       <FormGrid>
