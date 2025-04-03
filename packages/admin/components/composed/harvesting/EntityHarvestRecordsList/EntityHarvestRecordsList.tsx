@@ -1,12 +1,8 @@
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
-import ModelList from "components/composed/model/ModelList";
+import ModelListPageUnpaginated from "components/composed/model/ModelListPageUnpaginated";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
-import { ViewOptions } from "utils/view-options";
-import { useIsMobile } from "hooks";
-import { PageCountActions } from "components/layout";
-import startCase from "lodash/startCase";
 import type {
   EntityHarvestRecordsListFragment$data,
   EntityHarvestRecordsListFragment$key,
@@ -20,8 +16,9 @@ type Props = Pick<HeaderProps, "headerStyle" | "hideHeader"> & {
   backToSlug?: string;
 };
 
-type HarvestRecordNode =
-  EntityHarvestRecordsListFragment$data["harvestRecords"][number];
+type HarvestRecords = EntityHarvestRecordsListFragment$data["harvestRecords"];
+type HarvestRecordNode = HarvestRecords[number];
+type HarvestRecordNodes = { nodes: HarvestRecords };
 
 function HarvestRecordsList({
   data,
@@ -34,7 +31,6 @@ function HarvestRecordsList({
     useFragment<EntityHarvestRecordsListFragment$key>(fragment, data) ?? {};
 
   const { t } = useTranslation();
-  const isMobile = useIsMobile();
 
   const columns = [
     ModelColumns.NameColumn<HarvestRecordNode>({
@@ -60,36 +56,17 @@ function HarvestRecordsList({
     }),
   ];
 
-  const pageInfo = {
-    page: 1,
-    pageCount: 1,
-    perPage: 20,
-    hasNextPage: false,
-    hasPreviousPage: false,
-    totalCount: harvestRecords?.length,
-  };
-
   return (
-    <section>
-      <PageHeader
-        title={startCase(t("glossary.harvest_entity_other"))}
-        headerStyle={headerStyle}
-        hideHeader={hideHeader}
-      />
-      <PageCountActions
-        loading={typeof pageInfo.totalCount !== "number"}
-        pageInfo={pageInfo}
-      />
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      <ModelList<any, HarvestRecordNode>
-        data={{
-          nodes: harvestRecords,
-        }}
-        columns={columns}
-        modelName="harvest_entity"
-        view={isMobile ? ViewOptions.grid : ViewOptions.table}
-      />
-    </section>
+    <ModelListPageUnpaginated<HarvestRecordNodes, HarvestRecordNode>
+      data={{
+        nodes: harvestRecords ?? [],
+      }}
+      columns={columns}
+      modelName="harvest_record"
+      totalCount={harvestRecords?.length}
+      headerStyle={headerStyle}
+      hideHeader={hideHeader}
+    />
   );
 }
 
