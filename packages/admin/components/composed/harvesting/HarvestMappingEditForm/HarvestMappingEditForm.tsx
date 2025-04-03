@@ -4,10 +4,10 @@ import MutationForm, {
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
+import MockInput from "components/forms/MockInput";
 import { formatDate } from "@wdp/lib/helpers";
 import { useTranslation } from "react-i18next";
 import EntitySelectorDisclosure from "components/forms/EntitySelector/EntitySelectorDisclosure";
-import HarvestSetTypeahead from "components/forms/HarvestSetTypeahead";
 import ExtractionMappingTemplateInput from "components/forms/ExtractionMappingTemplateInput";
 import { Controller } from "react-hook-form";
 import BaseInputLabel from "components/forms/BaseInputLabel";
@@ -17,7 +17,6 @@ import type {
 } from "@/relay/HarvestMappingEditFormMutation.graphql";
 import type { HarvestMappingEditFormFragment$key } from "@/relay/HarvestMappingEditFormFragment.graphql";
 import type { HarvestMappingEditFormFieldsFragment$key } from "@/relay/HarvestMappingEditFormFieldsFragment.graphql";
-import { METADATA_FORMAT_OPTS } from "../constants";
 import * as Styled from "./HarvestMappingEditForm.styles";
 import type {
   HarvestMetadataFormat,
@@ -81,21 +80,15 @@ export default function HarvestMappingEditForm({
             selectableTypes={{}}
             required
           />
-          {harvestSource && (
-            <HarvestSetTypeahead<Fields>
-              control={control}
-              name="harvestSetId"
-              label="glossary.harvest_set"
-              slug={harvestSource.slug}
-              disabled
-            />
-          )}
-          <Forms.Select
+          <MockInput
+            label="glossary.harvest_set"
+            value={harvestSet?.id}
+            description="harvesting.unchangeable"
+          />
+          <MockInput
             label="forms.fields.metadata_format"
-            {...register("metadataFormat")}
-            disabled
-            options={METADATA_FORMAT_OPTS}
-            required
+            value={defaultValues.metadataFormat}
+            description="harvesting.unchangeable"
           />
           <Controller
             name="extractionMappingTemplate"
@@ -215,6 +208,7 @@ const fieldsFragment = graphql`
     }
     harvestSet {
       id
+      identifier
     }
     metadataFormat
     extractionMappingTemplate

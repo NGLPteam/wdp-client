@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<901365c3fd1e5f226cc5f2fa1f5001de>>
+ * @generated SignedSource<<8c2129c39857ae2e4829bf053fff9292>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,8 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type HarvestMetadataFormat = "ESPLORO" | "JATS" | "METS" | "MODS" | "OAIDC" | "%future added value";
+export type HarvestProtocol = "OAI" | "UNKNOWN" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type HarvestSourceUpdateFormFieldsFragment$data = {
   readonly baseURL: string;
@@ -19,7 +21,9 @@ export type HarvestSourceUpdateFormFieldsFragment$data = {
     readonly linkIdentifiersGlobally: boolean;
     readonly useMetadataMappings: boolean;
   };
+  readonly metadataFormat: HarvestMetadataFormat;
   readonly name: string;
+  readonly protocol: HarvestProtocol;
   readonly readOptions: {
     readonly maxRecords: number;
   };
@@ -62,6 +66,20 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "ScalarField",
       "name": "extractionMappingTemplate",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "protocol",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "metadataFormat",
       "storageKey": null
     },
     {
@@ -119,6 +137,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "c4f91ea4bc09acbeff31a664a8a5502e";
+(node as any).hash = "c6789d0626c009a8773d2b90bf8bc6d1";
 
 export default node;

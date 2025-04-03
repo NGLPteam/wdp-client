@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d05b5af25fdbf87b2232e719e93ece3d>>
+ * @generated SignedSource<<b0544deac9ffc22780be480e2f17134c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,6 +16,7 @@ export type HarvestMappingEditFormFieldsFragment$data = {
   readonly frequencyExpression: string | null | undefined;
   readonly harvestSet: {
     readonly id: string;
+    readonly identifier: string;
   } | null | undefined;
   readonly harvestSource: {
     readonly slug: string;
@@ -51,14 +52,15 @@ var v0 = {
   "name": "slug",
   "storageKey": null
 },
-v1 = [
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "id",
-    "storageKey": null
-  }
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v2 = [
+  (v1/*: any*/)
 ];
 return {
   "argumentDefinitions": [],
@@ -84,13 +86,13 @@ return {
         },
         {
           "kind": "InlineFragment",
-          "selections": (v1/*: any*/),
+          "selections": (v2/*: any*/),
           "type": "Community",
           "abstractKey": null
         },
         {
           "kind": "InlineFragment",
-          "selections": (v1/*: any*/),
+          "selections": (v2/*: any*/),
           "type": "Collection",
           "abstractKey": null
         }
@@ -104,7 +106,16 @@ return {
       "kind": "LinkedField",
       "name": "harvestSet",
       "plural": false,
-      "selections": (v1/*: any*/),
+      "selections": [
+        (v1/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "identifier",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     },
     {
@@ -210,6 +221,6 @@ return {
 };
 })();
 
-(node as any).hash = "ef432b7f99a1af28f58f170237370f5c";
+(node as any).hash = "c3af30d15a0c3f7a2a2367cdbb1cead1";
 
 export default node;

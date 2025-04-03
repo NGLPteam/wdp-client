@@ -16,7 +16,7 @@ import type {
   HarvestSourceCreateInput,
   HarvestSourceCreateFormMutation,
 } from "@/relay/HarvestSourceCreateFormMutation.graphql";
-import { METADATA_FORMAT_OPTS } from "../constants";
+import { METADATA_FORMAT_OPTS, PROTOCOL_FORMAT_OPTS } from "../constants";
 
 export default function HarvestSourceCreateForm() {
   const { t } = useTranslation();
@@ -94,7 +94,8 @@ export default function HarvestSourceCreateForm() {
         <Forms.Select
           label="forms.fields.protocol"
           {...register("protocol")}
-          options={[{ label: "OAI-PMH", value: "OAI" }]}
+          options={PROTOCOL_FORMAT_OPTS}
+          required
         />
         <Forms.Select
           label="forms.fields.metadata_format"

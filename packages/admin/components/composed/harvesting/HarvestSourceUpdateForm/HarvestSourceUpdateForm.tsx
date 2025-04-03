@@ -4,6 +4,7 @@ import MutationForm, {
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
+import MockInput from "components/forms/MockInput";
 import { useTranslation } from "react-i18next";
 import ExtractionMappingTemplateInput from "components/forms/ExtractionMappingTemplateInput";
 import { Controller } from "react-hook-form";
@@ -13,7 +14,7 @@ import type {
 } from "@/relay/HarvestSourceUpdateFormMutation.graphql";
 import type { HarvestSourceUpdateFormFragment$key } from "@/relay/HarvestSourceUpdateFormFragment.graphql";
 import type { HarvestSourceUpdateFormFieldsFragment$key } from "@/relay/HarvestSourceUpdateFormFieldsFragment.graphql";
-import { METADATA_FORMAT_OPTS } from "../constants";
+import { PROTOCOL_FORMAT_OPTS } from "../constants";
 import type {
   HarvestMetadataFormat,
   HarvestProtocol,
@@ -59,17 +60,19 @@ export default function HarvestSourceUpdateForm({
           {...register("description")}
           isWide
         />
-        <Forms.Select
+        <MockInput
           label="forms.fields.protocol"
-          {...register("protocol")}
-          options={[{ label: "OAI-PMH", value: "OAI" }]}
-          disabled
+          description="harvesting.unchangeable"
+          value={
+            PROTOCOL_FORMAT_OPTS.find(
+              (opt) => opt.value === defaultValues.protocol,
+            )?.label
+          }
         />
-        <Forms.Select
+        <MockInput
           label="forms.fields.metadata_format"
-          {...register("metadataFormat")}
-          disabled
-          options={METADATA_FORMAT_OPTS}
+          value={defaultValues.metadataFormat}
+          description="harvesting.unchangeable"
         />
         <Controller
           name="extractionMappingTemplate"
@@ -143,6 +146,8 @@ const fieldsFragment = graphql`
     baseURL
     description
     extractionMappingTemplate
+    protocol
+    metadataFormat
     mappingOptions {
       autoCreateVolumesAndIssues
       linkIdentifiersGlobally
