@@ -1,10 +1,6 @@
-import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import startCase from "lodash/startCase";
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
-import { useRouter } from "next/router";
-import { RouteHelper } from "routes";
 import HarvestMappingCreateForm from "components/composed/harvesting/HarvestMappingCreateForm";
 import { LoadingPage, LoadingCircle } from "components/atomic/loading";
 import { PageHeader, BackToAll } from "components/layout";
@@ -19,9 +15,9 @@ export default function NewHarvestMapping() {
     <QueryTransitionWrapper<Query>
       query={query}
       variables={{ slug }}
-      subscribeIds={["HarvestSource"]}
+      subscribeIds={["HarvestMapping"]}
       loadingFallback={<LoadingPage />}
-      refetchTags={["harvestSources"]}
+      refetchTags={["harvestMappings"]}
     >
       {({ queryRef }) =>
         queryRef ? (
@@ -29,11 +25,7 @@ export default function NewHarvestMapping() {
         ) : (
           <>
             <BackToAll route="harvesting" />
-            <PageHeader
-              title={`New ${startCase(
-                t(`glossary.harvest_mapping`, { count: 1 }),
-              )}`}
-            />
+            <PageHeader title={t("harvesting.new_mapping_title")} />
             <LoadingCircle className="l-page-loading" />
           </>
         )
@@ -46,17 +38,6 @@ const WithQuery = ({ queryRef }: { queryRef: PreloadedQuery<Query> }) => {
   const { harvestSource } = usePreloadedQuery<Query>(query, queryRef);
 
   const { t } = useTranslation();
-  const router = useRouter();
-  const slug = useRouteSlug();
-
-  const redirect = useCallback(() => {
-    const newRoute = RouteHelper.findRouteByName("harvestSource.mappings");
-
-    router.push({
-      pathname: newRoute?.path,
-      query: { slug },
-    });
-  }, [router, slug]);
 
   return harvestSource ? (
     <>
@@ -65,14 +46,8 @@ const WithQuery = ({ queryRef }: { queryRef: PreloadedQuery<Query> }) => {
         query={{ slug: harvestSource.slug }}
         label={harvestSource.name}
       />
-      <PageHeader
-        title={`New ${startCase(t(`glossary.harvest_mapping`, { count: 1 }))}`}
-      />
-      <HarvestMappingCreateForm
-        sourceId={harvestSource.id}
-        onSuccess={redirect}
-        onCancel={redirect}
-      />
+      <PageHeader title={t("harvesting.new_mapping_title")} />
+      <HarvestMappingCreateForm sourceId={harvestSource.id} />
     </>
   ) : null;
 };

@@ -1,11 +1,15 @@
+import { useCallback } from "react";
 import { graphql } from "react-relay";
+import { useRouter } from "next/router";
 import MutationForm, {
   useRenderForm,
   useToVariables,
   Forms,
+  useOnSuccess,
 } from "components/api/MutationForm";
 import { useTranslation } from "react-i18next";
 import { useParams } from "next/navigation";
+import { RouteHelper } from "routes";
 import EntitySelectorDisclosure from "components/forms/EntitySelector/EntitySelectorDisclosure";
 import HarvestSetTypeahead from "components/forms/HarvestSetTypeahead";
 import ExtractionMappingTemplateInput from "components/forms/ExtractionMappingTemplateInput";
@@ -16,14 +20,41 @@ import type {
 } from "@/relay/HarvestMappingCreateFormMutation.graphql";
 import { METADATA_FORMAT_OPTS } from "../constants";
 
-export default function HarvestMappingCreateForm({
-  sourceId,
-  onSuccess,
-  onCancel,
-}: Props) {
+export default function HarvestMappingCreateForm({ sourceId }: Props) {
   const { t } = useTranslation();
 
+  const router = useRouter();
   const { slug } = useParams();
+
+  const redirect = useCallback(
+    (routeName: string, slug?: string) => {
+      const newRoute = RouteHelper.findRouteByName(routeName);
+
+      router.push({
+        pathname: newRoute?.path,
+        ...(slug ? { query: { slug } } : {}),
+      });
+    },
+    [router],
+  );
+
+  const onSuccess = useOnSuccess<
+    HarvestMappingCreateFormMutation,
+    HarvestMappingCreateInput
+  >(
+    ({
+      response,
+    }: {
+      response: HarvestMappingCreateFormMutation["response"];
+    }) => {
+      if (response?.harvestMappingCreate?.harvestMapping)
+        redirect(
+          "harvestSource.details",
+          response.harvestMappingCreate.harvestMapping.slug,
+        );
+    },
+    [redirect],
+  );
 
   const toVariables = useToVariables<
     HarvestMappingCreateFormMutation,
@@ -49,7 +80,6 @@ export default function HarvestMappingCreateForm({
             label={t("forms.fields.target_entity")}
             selectableTypes={{}}
             required
-            isWide
           />
           {slug && (
             <HarvestSetTypeahead<HarvestMappingCreateInput>
@@ -70,7 +100,7 @@ export default function HarvestMappingCreateForm({
             control={control}
             render={({ field }) => (
               <ExtractionMappingTemplateInput
-                label="Extraction Mapping Template"
+                label={t("forms.extraction_mapping_template.label")}
                 sourceSlug={slug as string}
                 {...field}
               />
@@ -114,7 +144,7 @@ export default function HarvestMappingCreateForm({
       name="harvestMappingCreate"
       mutation={mutation}
       onSuccess={onSuccess}
-      onCancel={onCancel}
+      onCancel={() => redirect("harvestSource.mappings", slug as string)}
       successNotification="messages.create.harvest_mapping_success"
       toVariables={toVariables}
       refetchTags={["harvestMappings"]}
@@ -138,6 +168,7 @@ const mutation = graphql`
   ) {
     harvestMappingCreate(input: $input) {
       harvestMapping {
+        slug
         targetEntity {
           slug
           title

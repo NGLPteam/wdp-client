@@ -107,7 +107,7 @@ export default function HarvestSourceCreateForm() {
           control={control}
           render={({ field }) => (
             <ExtractionMappingTemplateInput
-              label="Extraction Mapping Template"
+              label={t("forms.extraction_mapping_template.label")}
               {...field}
             />
           )}
@@ -130,6 +130,7 @@ export default function HarvestSourceCreateForm() {
           <Forms.Input
             type="number"
             label="forms.fields.max_records"
+            description="forms.fields.max_records_description"
             {...register("readOptions.maxRecords", { valueAsNumber: true })}
           />
         </Forms.Fieldset>
