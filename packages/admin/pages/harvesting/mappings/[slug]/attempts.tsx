@@ -13,6 +13,7 @@ function HarvestMappingAttempts({ queryRef }: Props) {
       data={harvestMapping?.harvestAttempts}
       headerStyle="secondary"
       hideHeader
+      backTo="harvestMapping"
     />
   );
 }

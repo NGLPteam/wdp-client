@@ -1,4 +1,7 @@
 import { graphql } from "react-relay";
+import { useTranslation } from "react-i18next";
+import { useSearchParams } from "next/navigation";
+import startCase from "lodash/startCase";
 import { useChildRouteLinks, useMaybeFragment, useRouteSlug } from "hooks";
 import { PageHeader, BackToAll } from "components/layout";
 import type { HarvestRecordLayoutFragment$key } from "@/relay/HarvestRecordLayoutFragment.graphql";
@@ -11,19 +14,41 @@ export default function HarvestRecordLayout({
   data?: HarvestRecordLayoutFragment$key | null;
   useRouteHeader?: boolean;
 }) {
+  const { t } = useTranslation();
   const slug = useRouteSlug() || undefined;
   const manageRoutes = useChildRouteLinks("harvestRecord", { slug });
   const { harvestSource, identifier } = useMaybeFragment(fragment, data) ?? {};
 
+  const harvestMapping = { slug: "" };
+  const harvestAttempt = { slug: "" };
+
+  const params = useSearchParams();
+  const backTo = params.get("backTo");
+
+  const backToProps =
+    backTo === "harvestAttempt" && harvestAttempt
+      ? {
+          route: "harvestAttempt.harvestRecords",
+          query: { slug: harvestAttempt.slug },
+          label: startCase(t("glossary.harvest_attempt")),
+        }
+      : backTo === "harvestMapping" && harvestMapping
+        ? {
+            route: "harvestMapping.harvestRecords",
+            query: { slug: harvestMapping.slug },
+            label: startCase(t("glossary.harvest_mapping")),
+          }
+        : harvestSource
+          ? {
+              route: "harvestSource.harvestRecords",
+              query: { slug: harvestSource.slug },
+              label: harvestSource.name,
+            }
+          : null;
+
   return (
     <section>
-      {harvestSource && (
-        <BackToAll
-          route="harvestSource.harvestRecords"
-          query={{ slug: harvestSource.slug }}
-          label={harvestSource.name}
-        />
-      )}
+      {backToProps && <BackToAll {...backToProps} />}
       <PageHeader title={identifier} tabRoutes={manageRoutes} />
       {children}
     </section>
