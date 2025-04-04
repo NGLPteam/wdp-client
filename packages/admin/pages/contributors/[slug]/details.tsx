@@ -1,18 +1,13 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import ContributorUpdateForm from "components/composed/contributor/ContributorUpdateForm";
-import ContributorLayout from "components/composed/contributor/ContributorLayout";
-import Layout from "./layout";
+import Layout from "./_layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 import type { detailsSlugContributorsPagesQuery as Query } from "__generated__/detailsSlugContributorsPagesQuery.graphql";
 
-function ContributorDetails({ queryRef, ...layoutProps }: Props) {
+function ContributorDetails({ queryRef }: Props) {
   const { contributor } = usePreloadedQuery<Query>(query, queryRef);
 
-  return contributor ? (
-    <ContributorLayout {...layoutProps} data={contributor}>
-      <ContributorUpdateForm data={contributor} />
-    </ContributorLayout>
-  ) : null;
+  return contributor ? <ContributorUpdateForm data={contributor} /> : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => (
@@ -28,10 +23,9 @@ type Props = {
 };
 
 const query = graphql`
-  query detailsSlugContributorsPagesQuery($contributorSlug: Slug!) {
-    contributor(slug: $contributorSlug) {
+  query detailsSlugContributorsPagesQuery($slug: Slug!) {
+    contributor(slug: $slug) {
       ...ContributorUpdateFormFragment
-      ...ContributorLayoutFragment
     }
   }
 `;
