@@ -17,7 +17,7 @@ export default function HarvestAttemptLayout({
   const { t } = useTranslation();
   const slug = useRouteSlug() || undefined;
   const manageRoutes = useChildRouteLinks("harvestAttempt", { slug });
-  const { harvestSource, harvestMapping } =
+  const { harvestSource, harvestMapping, harvestSet, beganAt } =
     useMaybeFragment(fragment, data) ?? {};
 
   const params = useSearchParams();
@@ -41,7 +41,12 @@ export default function HarvestAttemptLayout({
   return (
     <section>
       {backToProps && <BackToAll {...backToProps} />}
-      <PageHeader title="[Attempt Identifier Here]" tabRoutes={manageRoutes} />
+      <PageHeader
+        title={`${harvestSource?.name}:${
+          harvestSet?.identifier ?? "[no set]"
+        }:${beganAt}`}
+        tabRoutes={manageRoutes}
+      />
       {children}
     </section>
   );
@@ -49,9 +54,13 @@ export default function HarvestAttemptLayout({
 
 const fragment = graphql`
   fragment HarvestAttemptLayoutFragment on HarvestAttempt {
+    beganAt
     harvestSource {
       slug
       name
+    }
+    harvestSet {
+      identifier
     }
     harvestMapping {
       slug

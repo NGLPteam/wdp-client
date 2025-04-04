@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b6fae247fb7806af3edc5f378f037b8f>>
+ * @generated SignedSource<<8070c0d9fece40c2d323307d095db5d7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -96,6 +96,13 @@ return {
           {
             "alias": null,
             "args": null,
+            "kind": "ScalarField",
+            "name": "beganAt",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
             "concreteType": "HarvestSource",
             "kind": "LinkedField",
             "name": "harvestSource",
@@ -107,6 +114,25 @@ return {
                 "args": null,
                 "kind": "ScalarField",
                 "name": "name",
+                "storageKey": null
+              },
+              (v3/*: any*/)
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "HarvestSet",
+            "kind": "LinkedField",
+            "name": "harvestSet",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "identifier",
                 "storageKey": null
               },
               (v3/*: any*/)
@@ -133,12 +159,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "bc7b0da85a7780636db35bd85b52b017",
+    "cacheID": "b4cac907f514a1ccba2fff57ac4f0a41",
     "id": null,
     "metadata": {},
     "name": "LayoutHarvestAttemptQuery",
     "operationKind": "query",
-    "text": "query LayoutHarvestAttemptQuery(\n  $slug: Slug!\n) {\n  harvestAttempt(slug: $slug) {\n    ...HarvestAttemptLayoutFragment\n    id\n  }\n}\n\nfragment HarvestAttemptLayoutFragment on HarvestAttempt {\n  harvestSource {\n    slug\n    name\n    id\n  }\n  harvestMapping {\n    slug\n    id\n  }\n}\n"
+    "text": "query LayoutHarvestAttemptQuery(\n  $slug: Slug!\n) {\n  harvestAttempt(slug: $slug) {\n    ...HarvestAttemptLayoutFragment\n    id\n  }\n}\n\nfragment HarvestAttemptLayoutFragment on HarvestAttempt {\n  beganAt\n  harvestSource {\n    slug\n    name\n    id\n  }\n  harvestSet {\n    identifier\n    id\n  }\n  harvestMapping {\n    slug\n    id\n  }\n}\n"
   }
 };
 })();

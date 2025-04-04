@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<363bf5fbd0c86465b902d4a5647f374b>>
+ * @generated SignedSource<<18e761aa9d4bf8384dc339faf189e90b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -149,14 +149,14 @@ return {
             "name": "harvestSet",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
                 "name": "identifier",
                 "storageKey": null
-              }
+              },
+              (v2/*: any*/)
             ],
             "storageKey": null
           },
@@ -264,12 +264,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f1deea80088fdfa74fe51f05496b3a58",
+    "cacheID": "f3ef772e05a1f4e1666cdf2b228507c5",
     "id": null,
     "metadata": {},
     "name": "detailsHarvestMappingQuery",
     "operationKind": "query",
-    "text": "query detailsHarvestMappingQuery(\n  $slug: Slug!\n) {\n  harvestMapping(slug: $slug) {\n    ...HarvestMappingEditFormFragment\n    id\n  }\n}\n\nfragment HarvestMappingEditFormFieldsFragment on HarvestMapping {\n  targetEntity {\n    __typename\n    slug\n    title\n    ... on Community {\n      id\n    }\n    ... on Collection {\n      id\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  harvestSet {\n    id\n    identifier\n  }\n  metadataFormat\n  extractionMappingTemplate\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n  frequencyExpression\n  lastScheduledAt\n  scheduleChangedAt\n  harvestSource {\n    slug\n    id\n  }\n}\n\nfragment HarvestMappingEditFormFragment on HarvestMapping {\n  id\n  ...HarvestMappingEditFormFieldsFragment\n}\n"
+    "text": "query detailsHarvestMappingQuery(\n  $slug: Slug!\n) {\n  harvestMapping(slug: $slug) {\n    ...HarvestMappingEditFormFragment\n    id\n  }\n}\n\nfragment HarvestMappingEditFormFieldsFragment on HarvestMapping {\n  targetEntity {\n    __typename\n    slug\n    title\n    ... on Community {\n      id\n    }\n    ... on Collection {\n      id\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  harvestSet {\n    identifier\n    id\n  }\n  metadataFormat\n  extractionMappingTemplate\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n  frequencyExpression\n  lastScheduledAt\n  scheduleChangedAt\n  harvestSource {\n    slug\n    id\n  }\n}\n\nfragment HarvestMappingEditFormFragment on HarvestMapping {\n  id\n  ...HarvestMappingEditFormFieldsFragment\n}\n"
   }
 };
 })();
