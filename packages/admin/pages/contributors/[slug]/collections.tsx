@@ -1,28 +1,27 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import ContributorLayout from "components/composed/contributor/ContributorLayout";
 import CollectionContributionList from "components/composed/contribution/CollectionContributionList";
 import type { collectionsSlugContributorsPagesQuery as Query } from "@/relay/collectionsSlugContributorsPagesQuery.graphql";
-import Layout from "./layout";
+import Layout from "./_layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
-function ContributorCollectionContributions({
-  queryRef,
-  ...layoutProps
-}: Props) {
+function ContributorCollectionContributions({ queryRef }: Props) {
   const { contributor } = usePreloadedQuery<Query>(query, queryRef);
 
   return contributor ? (
-    <ContributorLayout {...layoutProps} data={contributor}>
-      <CollectionContributionList
-        data={contributor.collectionContributions}
-        headerStyle="secondary"
-      />
-    </ContributorLayout>
+    <CollectionContributionList
+      data={contributor.collectionContributions}
+      headerStyle="secondary"
+    />
   ) : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => (
-  <Layout query={query} refetchTags={["contributions"]} {...props} />
+  <Layout
+    query={query}
+    refetchTags={["contributions"]}
+    modelName="collection_contribution"
+    {...props}
+  />
 );
 
 ContributorCollectionContributions.getLayout = getLayout;
@@ -35,13 +34,11 @@ type Props = {
 
 const query = graphql`
   query collectionsSlugContributorsPagesQuery(
-    $contributorSlug: Slug!
+    $slug: Slug!
     $order: ContributionOrder
     $page: Int!
   ) {
-    contributor(slug: $contributorSlug) {
-      __typename
-      ...ContributorLayoutFragment
+    contributor(slug: $slug) {
       ... on OrganizationContributor {
         collectionContributions(page: $page, perPage: 20, order: $order) {
           ...CollectionContributionListFragment
