@@ -1,13 +1,9 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import CollectionUpdateForm from "components/composed/collection/CollectionUpdateForm";
-import ErrorPage from "next/error";
-import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import { AuthContextProvider } from "contexts/AuthContext";
-import { LoadingPage } from "components/atomic";
 import CollectionLayout from "components/composed/collection/CollectionLayout";
-import CollectionSlugRedirect from "components/composed/collection/CollectionSlugRedirect";
 import type { detailsManageSlugCollectionsPagesQuery as Query } from "@/relay/detailsManageSlugCollectionsPagesQuery.graphql";
+import Layout from "./layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
 function CollectionDetails({ queryRef, ...layoutProps }: Props) {
@@ -22,40 +18,9 @@ function CollectionDetails({ queryRef, ...layoutProps }: Props) {
   ) : null;
 }
 
-const getLayout: GetLayout<Props> = (props) => {
-  const queryVars = useBaseListQueryVars();
-  const searchQueryVars = useSearchQueryVars();
-
-  const collectionSlug = useRouteSlug();
-
-  if (!collectionSlug) return <ErrorPage statusCode={404} />;
-
-  const { PageComponent, pageComponentProps } = props;
-
-  return (
-    <QueryTransitionWrapper<Query>
-      query={query}
-      variables={{ ...queryVars, ...searchQueryVars, collectionSlug }}
-      loadingFallback={<LoadingPage />}
-      refetchTags={["schema", "parent"]}
-    >
-      {({ queryRef }) =>
-        queryRef ? (
-          <PageComponent
-            {...pageComponentProps}
-            queryRef={queryRef}
-            showSidebar
-            useRouteHeader={false}
-          />
-        ) : (
-          <CollectionLayout showSidebar useRouteHeader={false}>
-            <CollectionSlugRedirect />
-          </CollectionLayout>
-        )
-      }
-    </QueryTransitionWrapper>
-  );
-};
+const getLayout: GetLayout<Props> = (props) => (
+  <Layout query={query} refetchTags={["schema", "parent"]} {...props} />
+);
 
 CollectionDetails.getLayout = getLayout;
 

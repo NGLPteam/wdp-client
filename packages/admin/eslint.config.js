@@ -5,7 +5,7 @@ module.exports = [
   {
     rules: {
       // Hooks can be called from getLayout in pages router which triggers this rule
-      "react-hooks/rules-of-hooks": ["off"],
+      "react-hooks/rules-of-hooks": ["warn"],
       // Required until links are refactored and legacyBehavior removed from next Links
       "jsx-a11y/anchor-is-valid": ["off"],
     },
