@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e66c521c0fad193d847c5d7b0249d917>>
+ * @generated SignedSource<<3564becf27db0bbd62263cf51708a63f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,8 +11,12 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type HarvestAttemptLayoutFragment$data = {
+  readonly beganAt: string | null | undefined;
   readonly harvestMapping: {
     readonly slug: string;
+  } | null | undefined;
+  readonly harvestSet: {
+    readonly identifier: string;
   } | null | undefined;
   readonly harvestSource: {
     readonly name: string;
@@ -42,6 +46,13 @@ return {
     {
       "alias": null,
       "args": null,
+      "kind": "ScalarField",
+      "name": "beganAt",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
       "concreteType": "HarvestSource",
       "kind": "LinkedField",
       "name": "harvestSource",
@@ -53,6 +64,24 @@ return {
           "args": null,
           "kind": "ScalarField",
           "name": "name",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "HarvestSet",
+      "kind": "LinkedField",
+      "name": "harvestSet",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "identifier",
           "storageKey": null
         }
       ],
@@ -76,6 +105,6 @@ return {
 };
 })();
 
-(node as any).hash = "bd5a30bc5203b57253944ce580f99e68";
+(node as any).hash = "395197772c59634345002f4d47f0bd26";
 
 export default node;

@@ -32,7 +32,10 @@ function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
 
   const columns = [
     ModelColumns.NameColumn<HarvestMappingNode>({
-      accessor: () => "[Mapping Id Here]",
+      accessorFn: (row) =>
+        `${row.harvestSource?.name}:${
+          row.harvestSet?.identifier ?? "[no set]"
+        }:${row.targetEntity?.title}`,
       header: () => "Identifier",
       enableSorting: false,
       route: "harvestMapping",
@@ -94,8 +97,12 @@ const fragment = graphql`
     nodes {
       id
       slug
+      harvestSource {
+        name
+      }
       harvestSet {
         name
+        identifier
       }
       targetEntity {
         __typename

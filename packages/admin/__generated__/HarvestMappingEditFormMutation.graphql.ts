@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<93ef60ea71fb1f6dfee4740ce822ee8b>>
+ * @generated SignedSource<<b0fecc2e450ecf159629054a4862d22e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -253,14 +253,14 @@ return {
                 "name": "harvestSet",
                 "plural": false,
                 "selections": [
-                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
                     "name": "identifier",
                     "storageKey": null
-                  }
+                  },
+                  (v4/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -373,12 +373,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "3a77ec4ff7d46afd4c60074a95e5f04a",
+    "cacheID": "2de21a6ea12d907caf0bb8504a87965f",
     "id": null,
     "metadata": {},
     "name": "HarvestMappingEditFormMutation",
     "operationKind": "mutation",
-    "text": "mutation HarvestMappingEditFormMutation(\n  $input: HarvestMappingUpdateInput!\n) {\n  harvestMappingUpdate(input: $input) {\n    harvestMapping {\n      ...HarvestMappingEditFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment HarvestMappingEditFormFieldsFragment on HarvestMapping {\n  targetEntity {\n    __typename\n    slug\n    title\n    ... on Community {\n      id\n    }\n    ... on Collection {\n      id\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  harvestSet {\n    id\n    identifier\n  }\n  metadataFormat\n  extractionMappingTemplate\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n  frequencyExpression\n  lastScheduledAt\n  scheduleChangedAt\n  harvestSource {\n    slug\n    id\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
+    "text": "mutation HarvestMappingEditFormMutation(\n  $input: HarvestMappingUpdateInput!\n) {\n  harvestMappingUpdate(input: $input) {\n    harvestMapping {\n      ...HarvestMappingEditFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment HarvestMappingEditFormFieldsFragment on HarvestMapping {\n  targetEntity {\n    __typename\n    slug\n    title\n    ... on Community {\n      id\n    }\n    ... on Collection {\n      id\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  harvestSet {\n    identifier\n    id\n  }\n  metadataFormat\n  extractionMappingTemplate\n  mappingOptions {\n    autoCreateVolumesAndIssues\n    linkIdentifiersGlobally\n    useMetadataMappings\n  }\n  readOptions {\n    maxRecords\n  }\n  frequencyExpression\n  lastScheduledAt\n  scheduleChangedAt\n  harvestSource {\n    slug\n    id\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();
