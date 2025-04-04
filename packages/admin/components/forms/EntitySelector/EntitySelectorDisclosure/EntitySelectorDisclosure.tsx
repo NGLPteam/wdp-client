@@ -15,12 +15,23 @@ type ControllerProps = React.ComponentProps<typeof EntitySelectorController>;
 interface Props extends Omit<EntitySelectorProps, "onSelect"> {
   onSelect: (val: string) => void;
   selectableTypes: ControllerProps["selectableTypes"];
+  startEntity?: EntityOption;
 }
 
 export default function Disclosure(props: Props) {
-  const { label, name, onSelect, selectableTypes, startSlug } = props;
+  const {
+    label,
+    name,
+    onSelect,
+    selectableTypes,
+    startSlug,
+    required,
+    startEntity,
+  } = props;
 
-  const [selected, setSelected] = useState<EntityOption | undefined>();
+  const [selected, setSelected] = useState<EntityOption | undefined>(
+    startEntity,
+  );
   const internalOnSelect = useCallback(
     (entity: EntityOption | undefined) => {
       setSelected(entity);
@@ -38,7 +49,14 @@ export default function Disclosure(props: Props) {
   return (
     <>
       <Styled.FieldWrapper>
-        <BaseInputLabel as="span">{label}</BaseInputLabel>
+        <BaseInputLabel as="span">
+          {label}{" "}
+          {required && (
+            <span className="a-required">
+              * <span className="a-hidden">required</span>
+            </span>
+          )}
+        </BaseInputLabel>
         <Styled.Field>
           <Suspense fallback={<FormFieldSkeleton />}>
             <EntityTypeahead

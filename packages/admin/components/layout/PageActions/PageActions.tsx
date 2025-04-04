@@ -4,6 +4,8 @@ import * as Styled from "./PageActions.styled";
  * Wrapper for search bar and action buttons
  */
 const PageActions = ({ search, actions }: Props) => {
+  if (!search && !actions) return null;
+
   return (
     <Styled.Wrapper className="l-grid">
       {<div className="l-grid__item l-grid__item--4">{search}</div>}

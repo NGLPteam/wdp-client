@@ -96,6 +96,10 @@ export const Cell = styled.td`
     text-align: center;
   }
 
+  &[data-cell-type="url"] {
+    word-break: break-all;
+  }
+
   &[data-cell-type="thumbnail"] {
     padding-block-start: ${pxToRem(8)};
     padding-block-end: ${pxToRem(8)};

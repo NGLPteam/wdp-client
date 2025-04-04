@@ -58,7 +58,7 @@ export default function QueryLoaderWrapper<T extends OperationType>({
 
   const [isPending, startTransition] = useTransition();
 
-  const varRef = useRef<string | null>(null);
+  const varRef = useRef<string | null>(JSON.stringify(variables));
 
   /** Reload query callback */
   const refetchQuery = useCallback(
@@ -130,7 +130,11 @@ export default function QueryLoaderWrapper<T extends OperationType>({
   ]);
 
   const renderChildren = () => {
-    return children({ queryRef, variables, refetchQuery });
+    return children({
+      queryRef,
+      variables,
+      refetchQuery,
+    });
   };
 
   return (

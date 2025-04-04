@@ -15,8 +15,8 @@ const BaseSelect = forwardRef(
       <Styled.SelectWrapper>
         <Styled.SelectInput id={id} ref={ref} {...inputProps}>
           {placeholder && <option value="">{placeholder}</option>}
-          {options.map(({ value, label }, i) => (
-            <option key={i} value={value}>
+          {options.map(({ value, label, selected }, i) => (
+            <option key={i} value={value} selected={selected}>
               {label}
             </option>
           ))}
@@ -34,6 +34,7 @@ const BaseSelect = forwardRef(
 export interface Option {
   readonly label: string;
   readonly value: string | number;
+  selected?: boolean;
 }
 
 interface Props extends Omit<InputProps, "label"> {

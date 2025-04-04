@@ -86,6 +86,12 @@ export const baseRoutes: BaseRoute[] = [
                 label: "nav.files",
                 actions: ["self.update"],
               },
+              {
+                name: "collection.manage.harvestRecords",
+                path: "/collections/[slug]/manage/records",
+                label: "glossary.harvesting",
+                actions: ["settings.update"],
+              },
             ],
           },
         ],
@@ -162,6 +168,12 @@ export const baseRoutes: BaseRoute[] = [
                 path: "/items/[slug]/manage/files",
                 label: "nav.files",
                 actions: ["self.update"],
+              },
+              {
+                name: "item.manage.harvestRecords",
+                path: "/items/[slug]/manage/records",
+                label: "glossary.harvesting",
+                actions: ["settings.update"],
               },
             ],
           },
@@ -289,6 +301,152 @@ export const baseRoutes: BaseRoute[] = [
             name: "contributor.items",
             path: "/contributors/[slug]/items",
             label: "nav.item_contributions",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: "harvesting",
+    path: "/harvesting",
+    label: "glossary.harvesting",
+    actions: ["settings.update"],
+    routes: [
+      {
+        name: "harvestSource.new",
+        path: "/harvesting/new",
+        label: "nav.harvest_source_new",
+      },
+      {
+        name: "harvestSource",
+        path: "/harvesting/[slug]",
+        redirect: "/harvesting/[slug]/details",
+        label: "glossary.harvest_source_other",
+        routes: [
+          {
+            name: "harvestSource.details",
+            path: "/harvesting/[slug]/details",
+            label: "nav.details",
+          },
+          {
+            name: "harvestSource.harvestSets",
+            path: "/harvesting/[slug]/sets",
+            label: "nav.harvest_sets",
+          },
+          {
+            name: "harvestSource.mappings",
+            path: "/harvesting/[slug]/mappings",
+            label: "nav.harvest_mappings",
+            routes: [
+              {
+                name: "harvestSource.mappings.new",
+                path: "/harvesting/[slug]/mappings/new",
+                label: "nav.harvest_mappings_new",
+              },
+            ],
+          },
+          {
+            name: "harvestSource.harvestAttempts",
+            path: "/harvesting/[slug]/attempts",
+            label: "nav.harvest_attempts",
+            routes: [
+              {
+                name: "harvestSource.harvestAttempt.new",
+                path: "/harvesting/[slug]/attempts/new",
+                label: "nav.new_harvest_attempt",
+              },
+            ],
+          },
+          {
+            name: "harvestSource.harvestRecords",
+            path: "/harvesting/[slug]/records",
+            label: "nav.harvest_records",
+          },
+          {
+            name: "harvestSource.harvestMessages",
+            path: "/harvesting/[slug]/messages",
+            label: "nav.harvest_messages",
+          },
+        ],
+      },
+      {
+        name: "harvestMapping",
+        path: "/harvesting/mappings/[slug]",
+        redirect: "/harvesting/mappings/[slug]/details",
+        label: "glossary.harvest_mappings",
+        routes: [
+          {
+            name: "harvestMapping.details",
+            path: "/harvesting/mappings/[slug]/details",
+            label: "nav.details",
+          },
+          {
+            name: "harvestMapping.harvestAttempts",
+            path: "/harvesting/mappings/[slug]/attempts",
+            label: "nav.harvest_attempts",
+            routes: [
+              {
+                name: "harvestMapping.harvestAttempt.new",
+                path: "/harvesting/mappings/[slug]/attempts/new",
+                label: "nav.new_harvest_attempt",
+              },
+            ],
+          },
+          {
+            name: "harvestMapping.harvestRecords",
+            path: "/harvesting/mappings/[slug]/records",
+            label: "nav.harvest_records",
+          },
+          {
+            name: "harvestMapping.harvestMessages",
+            path: "/harvesting/mappings/[slug]/messages",
+            label: "nav.harvest_messages",
+          },
+        ],
+      },
+      {
+        name: "harvestAttempt",
+        path: "/harvesting/attempts/[slug]",
+        redirect: "/harvesting/attempts/[slug]/details",
+        label: "glossary.harvest_attempts",
+        routes: [
+          {
+            name: "harvestAttempt.details",
+            path: "/harvesting/attempts/[slug]/details",
+            label: "nav.details",
+          },
+          {
+            name: "harvestAttempt.harvestRecords",
+            path: "/harvesting/attempts/[slug]/records",
+            label: "nav.harvest_records",
+          },
+          {
+            name: "harvestAttempt.harvestMessages",
+            path: "/harvesting/attempts/[slug]/messages",
+            label: "nav.harvest_messages",
+          },
+        ],
+      },
+      {
+        name: "harvestRecord",
+        path: "/harvesting/records/[slug]",
+        redirect: "/harvesting/records/[slug]/details",
+        label: "glossary.harvest_records",
+        routes: [
+          {
+            name: "harvestRecord.details",
+            path: "/harvesting/records/[slug]/details",
+            label: "nav.details",
+          },
+          {
+            name: "harvestRecord.entities",
+            path: "/harvesting/records/[slug]/entities",
+            label: "nav.harvest_entities",
+          },
+          {
+            name: "harvestRecord.harvestMessages",
+            path: "/harvesting/records/[slug]/messages",
+            label: "nav.harvest_messages",
           },
         ],
       },
