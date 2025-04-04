@@ -1,12 +1,9 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import EntityLinksList from "components/composed/links/EntityLinksList";
-import ErrorPage from "next/error";
-import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import { AuthContextProvider } from "contexts/AuthContext";
-import { LoadingPage } from "components/atomic";
 import CollectionLayout from "components/composed/collection/CollectionLayout";
 import type { linksManageCollectionsPagesQuery as Query } from "@/relay/linksManageCollectionsPagesQuery.graphql";
+import Layout from "./layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
 function CollectionLinks({ queryRef, ...layoutProps }: Props) {
@@ -21,36 +18,9 @@ function CollectionLinks({ queryRef, ...layoutProps }: Props) {
   ) : null;
 }
 
-const getLayout: GetLayout<Props> = (props) => {
-  const queryVars = useBaseListQueryVars();
-  const searchQueryVars = useSearchQueryVars();
-
-  const collectionSlug = useRouteSlug();
-
-  if (!collectionSlug) return <ErrorPage statusCode={404} />;
-
-  const { PageComponent, pageComponentProps } = props;
-
-  return (
-    <QueryTransitionWrapper<Query>
-      query={query}
-      variables={{ ...queryVars, ...searchQueryVars, collectionSlug }}
-      loadingFallback={<LoadingPage />}
-      refetchTags={["links"]}
-    >
-      {({ queryRef }) =>
-        queryRef && (
-          <PageComponent
-            {...pageComponentProps}
-            queryRef={queryRef}
-            showSidebar
-            useRouteHeader={false}
-          />
-        )
-      }
-    </QueryTransitionWrapper>
-  );
-};
+const getLayout: GetLayout<Props> = (props) => (
+  <Layout query={query} refetchTags={["links"]} {...props} />
+);
 
 CollectionLinks.getLayout = getLayout;
 
