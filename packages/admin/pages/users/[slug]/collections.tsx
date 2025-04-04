@@ -1,11 +1,8 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import UserCollectionsList from "components/composed/user/UserCollectionsList";
-import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import UserLayout from "components/composed/user/UserLayout";
-import ErrorPage from "next/error";
-import { LoadingPage } from "components/atomic";
 import type { collectionsManageSlugUsersPagesQuery as Query } from "@/relay/collectionsManageSlugUsersPagesQuery.graphql";
+import Layout from "./layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
 function UserCollections({ queryRef, ...layoutProps }: Props) {
@@ -18,36 +15,15 @@ function UserCollections({ queryRef, ...layoutProps }: Props) {
   );
 }
 
-const getLayout: GetLayout<Props> = (props) => {
-  const queryVars = useBaseListQueryVars();
-  const userSlug = useRouteSlug();
-  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  const _searchVars = useSearchQueryVars();
+const getLayout: GetLayout<Props> = (props) => (
+  <Layout
+    query={query}
+    refetchTags={["allAccessGrants"]}
+    useRouteHeader={false}
+    {...props}
+  />
+);
 
-  if (!userSlug) return <ErrorPage statusCode={404} />;
-
-  const { PageComponent, pageComponentProps } = props;
-
-  return (
-    <QueryTransitionWrapper<Query>
-      query={query}
-      variables={{ ...queryVars, userSlug }}
-      loadingFallback={<LoadingPage />}
-      refetchTags={["allAccessGrants"]}
-    >
-      {({ queryRef }) =>
-        queryRef && (
-          <PageComponent
-            {...pageComponentProps}
-            queryRef={queryRef}
-            showSidebar
-            useRouteHeader={false}
-          />
-        )
-      }
-    </QueryTransitionWrapper>
-  );
-};
 UserCollections.getLayout = getLayout;
 
 export default UserCollections;
@@ -55,7 +31,7 @@ export default UserCollections;
 type Props = {
   queryRef: PreloadedQuery<Query>;
   showSidebar: true;
-  useRouteHeader: false;
+  useRouteHeader?: boolean;
 };
 
 const query = graphql`
