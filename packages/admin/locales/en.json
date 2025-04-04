@@ -174,6 +174,7 @@
     "messages": {
       "unauthorized": "Unauthorized",
       "unauthorized_body": {
+        "users": "Your account is not authorized to manage users.<0/>Please check with your account manager if you need access to this content.",
         "harvesting": "Your account is not authorized to manage harvesting.<0/>Please check with your account manager if you need access to this content."
       },
       "error_message": "Error: {{error}}",

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<69add200b76b691f6937a984a963fae3>>
+ * @generated SignedSource<<33b5afee23b21f0e01f65f3e392c3503>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,11 +11,11 @@
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type detailsManageSlugUsersPagesQuery$variables = {
-  userSlug: string;
+  slug: string;
 };
 export type detailsManageSlugUsersPagesQuery$data = {
   readonly user: {
-    readonly " $fragmentSpreads": FragmentRefs<"UserLayoutFragment" | "UserUpdateFormFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"UserUpdateFormFragment">;
   } | null | undefined;
 };
 export type detailsManageSlugUsersPagesQuery = {
@@ -28,14 +28,14 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "userSlug"
+    "name": "slug"
   }
 ],
 v1 = [
   {
     "kind": "Variable",
     "name": "slug",
-    "variableName": "userSlug"
+    "variableName": "slug"
   }
 ];
 return {
@@ -57,11 +57,6 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "UserUpdateFormFragment"
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "UserLayoutFragment"
           }
         ],
         "storageKey": null
@@ -179,13 +174,6 @@ return {
               }
             ],
             "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "name",
-            "storageKey": null
           }
         ],
         "storageKey": null
@@ -193,16 +181,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e24d845562a1148b5c5079f4a5471d35",
+    "cacheID": "11b141ccd184a3faea460396898a1145",
     "id": null,
     "metadata": {},
     "name": "detailsManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query detailsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    ...UserUpdateFormFragment\n    ...UserLayoutFragment\n    id\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment UserLayoutFragment on User {\n  id\n  name\n  email\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
+    "text": "query detailsManageSlugUsersPagesQuery(\n  $slug: Slug!\n) {\n  user(slug: $slug) {\n    ...UserUpdateFormFragment\n    id\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "23b0891b5c9454ab259afa703bd2d022";
+(node as any).hash = "7b1071abc012fd6bf3a3ddd1ebc58d1d";
 
 export default node;

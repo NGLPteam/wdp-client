@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
+import capitalize from "lodash/capitalize";
 import {
   useDestroyer,
   useDrawerHelper,
@@ -105,7 +106,7 @@ const UserItemsList = ({ data }: Props) => {
       columns={columns}
       data={communities}
       headerStyle="secondary"
-      header={t("glossary.item_other")}
+      header={capitalize(t("glossary.item_other"))}
       disableSortBy
       buttons={buttons}
       actions={actions}
