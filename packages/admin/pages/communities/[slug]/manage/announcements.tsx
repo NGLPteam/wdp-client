@@ -1,12 +1,9 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import EntityAnnouncementsList from "components/composed/announcements/EntityAnnouncementsList";
-import ErrorPage from "next/error";
-import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import { AuthContextProvider } from "contexts/AuthContext";
 import CommunityLayout from "components/composed/community/CommunityLayout";
-import { LoadingPage } from "components/atomic";
 import type { announcementsManageSlugCommunitiesPagesQuery as Query } from "@/relay/announcementsManageSlugCommunitiesPagesQuery.graphql";
+import Layout from "./layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
 function CommunityAnnouncements({ queryRef, ...layoutProps }: Props) {
@@ -21,43 +18,21 @@ function CommunityAnnouncements({ queryRef, ...layoutProps }: Props) {
   ) : null;
 }
 
-const getLayout: GetLayout<Props> = (props) => {
-  const queryVars = useBaseListQueryVars();
-  const searchQueryVars = useSearchQueryVars();
-
-  const communitySlug = useRouteSlug();
-
-  if (!communitySlug) return <ErrorPage statusCode={404} />;
-
-  const { PageComponent, pageComponentProps } = props;
-
-  return (
-    <QueryTransitionWrapper<Query>
-      query={query}
-      variables={{ ...queryVars, ...searchQueryVars, communitySlug }}
-      loadingFallback={<LoadingPage />}
-      refetchTags={["announcements"]}
-    >
-      {({ queryRef }) =>
-        queryRef && (
-          <PageComponent
-            {...pageComponentProps}
-            queryRef={queryRef}
-            showSidebar
-            useRouteHeader={false}
-          />
-        )
-      }
-    </QueryTransitionWrapper>
-  );
-};
+const getLayout: GetLayout<Props> = (props) => (
+  <Layout
+    query={query}
+    refetchTags={["announcements"]}
+    useRouteHeader={false}
+    {...props}
+  />
+);
 
 CommunityAnnouncements.getLayout = getLayout;
 
 type Props = {
   queryRef: PreloadedQuery<Query>;
   showSidebar: true;
-  useRouteHeader: false;
+  useRouteHeader?: boolean;
 };
 
 const query = graphql`

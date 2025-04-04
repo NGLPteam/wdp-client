@@ -1,12 +1,9 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import EntityAnnouncementsList from "components/composed/announcements/EntityAnnouncementsList";
-import ErrorPage from "next/error";
-import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import { AuthContextProvider } from "contexts/AuthContext";
-import { LoadingPage } from "components/atomic";
 import ItemLayout from "components/composed/item/ItemLayout";
 import type { announcementsManageSlugItemsPagesQuery as Query } from "@/relay/announcementsManageSlugItemsPagesQuery.graphql";
+import Layout from "./layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
 function ItemAnnouncements({ queryRef, ...layoutProps }: Props) {
@@ -21,39 +18,9 @@ function ItemAnnouncements({ queryRef, ...layoutProps }: Props) {
   ) : null;
 }
 
-const getLayout: GetLayout<Props> = (props) => {
-  const queryVars = useBaseListQueryVars();
-  const searchQueryVars = useSearchQueryVars();
-
-  const itemSlug = useRouteSlug();
-  if (!itemSlug) return <ErrorPage statusCode={404} />;
-
-  const { PageComponent, pageComponentProps } = props;
-
-  return (
-    <QueryTransitionWrapper<Query>
-      query={query}
-      variables={{
-        ...queryVars,
-        ...searchQueryVars,
-        itemSlug,
-      }}
-      loadingFallback={<LoadingPage />}
-      refetchTags={["announcements"]}
-    >
-      {({ queryRef }) =>
-        queryRef && (
-          <PageComponent
-            {...pageComponentProps}
-            queryRef={queryRef}
-            showSidebar
-            useRouteHeader={false}
-          />
-        )
-      }
-    </QueryTransitionWrapper>
-  );
-};
+const getLayout: GetLayout<Props> = (props) => (
+  <Layout query={query} refetchTags={["announcements"]} {...props} />
+);
 
 ItemAnnouncements.getLayout = getLayout;
 
