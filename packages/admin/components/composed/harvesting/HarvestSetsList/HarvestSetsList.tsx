@@ -24,12 +24,11 @@ function HarvestSetsList({ data, headerStyle, hideHeader }: Props) {
   const columns = [
     ModelColumns.StringColumn<HarvestSetNode>({
       id: "identifier",
-      header: () => "Identifier",
+      header: () => t("lists.identifier_column"),
       cellType: "url",
     }),
     ModelColumns.NameColumn<HarvestSetNode>({
       accessor: "name",
-      header: () => "Name",
       enableSorting: false,
     }),
     ModelColumns.StringColumn<HarvestSetNode>({

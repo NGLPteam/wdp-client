@@ -138,7 +138,9 @@ export default function HarvestMappingEditForm({
                   {t("harvesting.last_scheduled")}
                 </BaseInputLabel>
                 <span>
-                  {lastScheduledAt ? formatDate(lastScheduledAt) : "N/A"}
+                  {lastScheduledAt
+                    ? formatDate(lastScheduledAt)
+                    : t("harvesting.not_applicable")}
                 </span>
               </div>
               <div>
@@ -146,7 +148,9 @@ export default function HarvestMappingEditForm({
                   {t("harvesting.schedule_changed")}
                 </BaseInputLabel>
                 <span>
-                  {scheduleChangedAt ? formatDate(scheduleChangedAt) : "N/A"}
+                  {scheduleChangedAt
+                    ? formatDate(scheduleChangedAt)
+                    : t("harvesting.not_applicable")}
                 </span>
               </div>
             </Styled.ScheduleGroup>

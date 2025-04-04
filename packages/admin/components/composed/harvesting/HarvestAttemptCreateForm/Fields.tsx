@@ -3,6 +3,7 @@ import { Forms } from "components/api/MutationForm";
 import MockInput from "components/forms/MockInput";
 import { useFormContext, type Control } from "react-hook-form";
 import { useParams } from "next/navigation";
+import startCase from "lodash/startCase";
 import ExtractionAttemptTemplateInput from "components/forms/ExtractionMappingTemplateInput";
 import { Controller } from "react-hook-form";
 import EntitySelectorDisclosure from "components/forms/EntitySelector/EntitySelectorDisclosure";
@@ -91,7 +92,9 @@ export default function HarvestAttemptCreateFormFields({
             description={t(
               "forms.extraction_mapping_template.attempt_description",
               {
-                parent: harvestMapping ? "Harvest Mapping" : "Harvest Source",
+                parent: harvestMapping
+                  ? startCase(t("glossary.harvest_mapping"))
+                  : startCase(t("glossary.harvest_source")),
               },
             )}
             isAttempt

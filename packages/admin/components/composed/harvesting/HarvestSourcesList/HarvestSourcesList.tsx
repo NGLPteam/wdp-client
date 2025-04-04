@@ -30,25 +30,24 @@ function HarvestSourcesList({ data, headerStyle, hideHeader }: Props) {
   const columns = [
     ModelColumns.NameColumn<HarvestSourceNode>({
       accessor: "name",
-      header: () => "Name",
       enableSorting: false,
       route: "harvestSource",
     }),
     ModelColumns.StringColumn<HarvestSourceNode>({
       id: "harvestSets.pageInfo.totalCount",
-      header: () => "Harvest Sets",
+      header: () => t("glossary.harvest_set_other"),
     }),
     ModelColumns.StringColumn<HarvestSourceNode>({
       id: "harvestRecords.pageInfo.totalCount",
-      header: () => "Harvest Records",
+      header: () => t("glossary.harvest_record_other"),
     }),
     ModelColumns.StringColumn<HarvestSourceNode>({
       id: "metadataFormat",
-      header: () => "Format",
+      header: () => t("forms.fields.metadata_format"),
     }),
     ModelColumns.StringColumn<HarvestSourceNode>({
       id: "baseURL",
-      header: () => "URL",
+      header: () => t("forms.fields.url"),
       meta: { cellType: "url" },
     }),
   ];

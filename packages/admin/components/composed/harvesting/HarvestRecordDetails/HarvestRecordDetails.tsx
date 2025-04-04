@@ -19,7 +19,11 @@ export default function HarvestRecordDetails({
 
   return (
     <Forms.Grid>
-      <MockInput label="Identifier" value={fields.identifier} isWide />
+      <MockInput
+        label="lists.identifier_column"
+        value={fields.identifier}
+        isWide
+      />
       <MockInput label="lists.status_column" value={fields.status} />
       <MockInput
         label="forms.fields.metadata_format"

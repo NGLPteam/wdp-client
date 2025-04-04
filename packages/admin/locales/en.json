@@ -127,7 +127,12 @@
       "record_count_column": "Record count",
       "began_at_column": "Started At",
       "ended_at_column": "Ended At",
-      "status_column": "Status"
+      "status_column": "Status",
+      "identifier_column": "Identifier",
+      "entity_count_column": "Entity Count",
+      "has_errors_column": "Has Errors",
+      "target_entity_column": "Target Entity",
+      "attempts_count_column": "Harvest Attempts Count"
     },
     "nav": {
       "manage_header": "Manage",
@@ -605,6 +610,7 @@
       "current_schedule": "Current Schedule",
       "last_scheduled": "Last Scheduled At",
       "schedule_changed": "Schedule Changed At",
+      "not_applicable": "N/A",
       "messages": {
         "mapping_link": "Link to Mapping",
         "attempt_link": "Link to Attempt",
@@ -621,7 +627,8 @@
       "new_attempt_title": "Start Manual Harvest Attempt",
       "new_mapping_title": "New Harvest Mapping",
       "unchangeable": "*Cannot be changed",
-      "settings_from_mapping": "Settings from mapping"
+      "settings_from_mapping": "Settings from mapping",
+      "set_placeholder": "[no set]"
     }
   }
 }

@@ -65,16 +65,16 @@ export default function QueryLoaderWrapper<T extends OperationType>({
     (props?: ReloadQueryProps) => {
       loadQuery(
         { ...variables },
-        { fetchPolicy: "store-and-network", ...props?.options }
+        { fetchPolicy: "store-and-network", ...props?.options },
       );
     },
-    [loadQuery, variables]
+    [loadQuery, variables],
   );
 
   const match = useMemo(() => {
     const {
       default: { operation },
-    } = (query as unknown) as Module;
+    } = query as unknown as Module;
 
     return operation.name === queryRef?.name;
   }, [query, queryRef]);
@@ -176,5 +176,5 @@ interface PreloadQueryRenderProps<T extends OperationType> {
 }
 
 export type PreloadQueryRenderer<T extends OperationType> = (
-  props: PreloadQueryRenderProps<T>
+  props: PreloadQueryRenderProps<T>,
 ) => React.JSX.Element | null | undefined;
