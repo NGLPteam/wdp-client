@@ -82,7 +82,7 @@ export default function HarvestMappingEditForm({
           />
           <MockInput
             label="glossary.harvest_set"
-            value={harvestSet?.id}
+            value={harvestSet?.identifier}
             description="harvesting.unchangeable"
           />
           <MockInput
@@ -207,7 +207,6 @@ const fieldsFragment = graphql`
       }
     }
     harvestSet {
-      id
       identifier
     }
     metadataFormat

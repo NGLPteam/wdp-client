@@ -27,7 +27,10 @@ function HarvestAttemptsList({ data, headerStyle, hideHeader, backTo }: Props) {
 
   const columns = [
     ModelColumns.NameColumn<HarvestAttemptNode>({
-      accessor: () => "[Attempt Id Here]",
+      accessorFn: (row) =>
+        `${row.harvestSource?.name}:${
+          row.harvestSet?.identifier ?? "[no set]"
+        }:${row.beganAt}`,
       header: () => "Identifier",
       enableSorting: false,
       route: "harvestAttempt",
@@ -68,6 +71,9 @@ export const fragment = graphql`
       slug
       beganAt
       endedAt
+      harvestSource {
+        name
+      }
       harvestSet {
         identifier
       }

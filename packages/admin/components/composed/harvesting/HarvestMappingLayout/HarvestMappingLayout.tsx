@@ -15,7 +15,8 @@ export default function HarvestMappingLayout({
 }) {
   const slug = useRouteSlug() || undefined;
   const manageRoutes = useChildRouteLinks("harvestMapping", { slug });
-  const { harvestSource } = useMaybeFragment(fragment, data) ?? {};
+  const { harvestSource, harvestSet, targetEntity } =
+    useMaybeFragment(fragment, data) ?? {};
 
   const { t } = useTranslation();
 
@@ -43,7 +44,9 @@ export default function HarvestMappingLayout({
         />
       )}
       <PageHeader
-        title="[Mapping Identifier Here]"
+        title={`${harvestSource?.name}:${
+          harvestSet?.identifier ?? "[no set]"
+        }:${targetEntity?.title}`}
         tabRoutes={manageRoutes}
         tabLinksOnly
         buttons={buttons}
@@ -58,6 +61,12 @@ const fragment = graphql`
     harvestSource {
       slug
       name
+    }
+    harvestSet {
+      identifier
+    }
+    targetEntity {
+      title
     }
   }
 `;

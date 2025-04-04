@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b0544deac9ffc22780be480e2f17134c>>
+ * @generated SignedSource<<ba6664a35b886c7d6ea772087723d973>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,6 @@ export type HarvestMappingEditFormFieldsFragment$data = {
   readonly extractionMappingTemplate: string;
   readonly frequencyExpression: string | null | undefined;
   readonly harvestSet: {
-    readonly id: string;
     readonly identifier: string;
   } | null | undefined;
   readonly harvestSource: {
@@ -52,15 +51,14 @@ var v0 = {
   "name": "slug",
   "storageKey": null
 },
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v2 = [
-  (v1/*: any*/)
+v1 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "id",
+    "storageKey": null
+  }
 ];
 return {
   "argumentDefinitions": [],
@@ -86,13 +84,13 @@ return {
         },
         {
           "kind": "InlineFragment",
-          "selections": (v2/*: any*/),
+          "selections": (v1/*: any*/),
           "type": "Community",
           "abstractKey": null
         },
         {
           "kind": "InlineFragment",
-          "selections": (v2/*: any*/),
+          "selections": (v1/*: any*/),
           "type": "Collection",
           "abstractKey": null
         }
@@ -107,7 +105,6 @@ return {
       "name": "harvestSet",
       "plural": false,
       "selections": [
-        (v1/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -221,6 +218,6 @@ return {
 };
 })();
 
-(node as any).hash = "c3af30d15a0c3f7a2a2367cdbb1cead1";
+(node as any).hash = "950f62f7b5da396bbfb71a2feac9734d";
 
 export default node;

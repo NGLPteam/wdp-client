@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c4d729df93c80da1f66d8eb13d1a6fb7>>
+ * @generated SignedSource<<f73b497810424d99dc9edc212102c37f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,8 +18,12 @@ export type HarvestMappingsListFragment$data = {
       };
     };
     readonly harvestSet: {
+      readonly identifier: string;
       readonly name: string;
     } | null | undefined;
+    readonly harvestSource: {
+      readonly name: string;
+    };
     readonly id: string;
     readonly slug: string;
     readonly targetEntity: {
@@ -42,6 +46,13 @@ var v0 = {
   "args": null,
   "kind": "ScalarField",
   "name": "slug",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
 };
 return {
@@ -69,16 +80,29 @@ return {
         {
           "alias": null,
           "args": null,
+          "concreteType": "HarvestSource",
+          "kind": "LinkedField",
+          "name": "harvestSource",
+          "plural": false,
+          "selections": [
+            (v1/*: any*/)
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
           "concreteType": "HarvestSet",
           "kind": "LinkedField",
           "name": "harvestSet",
           "plural": false,
           "selections": [
+            (v1/*: any*/),
             {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "name",
+              "name": "identifier",
               "storageKey": null
             }
           ],
@@ -153,6 +177,6 @@ return {
 };
 })();
 
-(node as any).hash = "4fa6f01bbe32bbe68d1dee2fb7466e05";
+(node as any).hash = "2538cc9095b48f72383fee08607622ef";
 
 export default node;
