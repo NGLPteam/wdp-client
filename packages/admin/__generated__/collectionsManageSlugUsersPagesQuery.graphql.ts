@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0ba3127b935498ecb65d5f1bfd6bac7e>>
+ * @generated SignedSource<<a87968ab84aa51988e0247fb12968649>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,14 +14,13 @@ export type SimpleOrder = "OLDEST" | "RECENT" | "%future added value";
 export type collectionsManageSlugUsersPagesQuery$variables = {
   order?: SimpleOrder | null | undefined;
   page: number;
-  userSlug: string;
+  slug: string;
 };
 export type collectionsManageSlugUsersPagesQuery$data = {
   readonly user: {
     readonly collectionAccessGrants: {
       readonly " $fragmentSpreads": FragmentRefs<"UserCollectionsListFragment">;
     };
-    readonly " $fragmentSpreads": FragmentRefs<"UserLayoutFragment">;
   } | null | undefined;
 };
 export type collectionsManageSlugUsersPagesQuery = {
@@ -43,13 +42,13 @@ v1 = {
 v2 = {
   "defaultValue": null,
   "kind": "LocalArgument",
-  "name": "userSlug"
+  "name": "slug"
 },
 v3 = [
   {
     "kind": "Variable",
     "name": "slug",
-    "variableName": "userSlug"
+    "variableName": "slug"
   }
 ],
 v4 = [
@@ -80,13 +79,6 @@ v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v7 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
 };
@@ -109,11 +101,6 @@ return {
         "name": "user",
         "plural": false,
         "selections": [
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "UserLayoutFragment"
-          },
           {
             "alias": null,
             "args": (v4/*: any*/),
@@ -155,15 +142,6 @@ return {
         "name": "user",
         "plural": false,
         "selections": [
-          (v5/*: any*/),
-          (v6/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "email",
-            "storageKey": null
-          },
           {
             "alias": null,
             "args": (v4/*: any*/),
@@ -205,7 +183,7 @@ return {
                             "name": "title",
                             "storageKey": null
                           },
-                          (v7/*: any*/),
+                          (v6/*: any*/),
                           {
                             "kind": "InlineFragment",
                             "selections": [
@@ -315,7 +293,13 @@ return {
                         "plural": false,
                         "selections": [
                           (v5/*: any*/),
-                          (v6/*: any*/)
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "name",
+                            "storageKey": null
+                          }
                         ],
                         "storageKey": null
                       },
@@ -328,7 +312,7 @@ return {
                         "plural": false,
                         "selections": [
                           (v5/*: any*/),
-                          (v7/*: any*/)
+                          (v6/*: any*/)
                         ],
                         "storageKey": null
                       }
@@ -400,23 +384,24 @@ return {
               }
             ],
             "storageKey": null
-          }
+          },
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "b9115ca1b63d3aa918f4d5bf2e56abe7",
+    "cacheID": "cb147b80f545d579b5d73fe0858e47ff",
     "id": null,
     "metadata": {},
     "name": "collectionsManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query collectionsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n  $order: SimpleOrder\n  $page: Int!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutFragment\n    collectionAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserCollectionsListFragment\n    }\n    id\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  storage\n  medium {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserCollectionsListFragment on UserCollectionAccessGrantConnection {\n  edges {\n    node {\n      id\n      collection {\n        id\n        title\n        slug\n        ...EntityThumbnailColumnFragment\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserLayoutFragment on User {\n  id\n  name\n  email\n}\n"
+    "text": "query collectionsManageSlugUsersPagesQuery(\n  $slug: Slug!\n  $order: SimpleOrder\n  $page: Int!\n) {\n  user(slug: $slug) {\n    collectionAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserCollectionsListFragment\n    }\n    id\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  storage\n  medium {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserCollectionsListFragment on UserCollectionAccessGrantConnection {\n  edges {\n    node {\n      id\n      collection {\n        id\n        title\n        slug\n        ...EntityThumbnailColumnFragment\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n"
   }
 };
 })();
 
-(node as any).hash = "201b830d9cdac9981f5f633a52a7cde8";
+(node as any).hash = "1d8d49fd9146b116d4bc7c14a6f3a666";
 
 export default node;

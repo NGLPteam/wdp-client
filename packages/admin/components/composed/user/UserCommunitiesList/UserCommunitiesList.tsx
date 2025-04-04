@@ -6,6 +6,7 @@ import {
   useMaybeFragment,
   useRouteSlug,
 } from "hooks";
+import capitalize from "lodash/capitalize";
 import ModelColumns from "components/composed/model/ModelColumns";
 import ModelListPage from "components/composed/model/ModelListPage";
 import {
@@ -100,7 +101,7 @@ const UserCommunitiesList = ({ data }: Props) => {
       columns={columns}
       data={communities}
       headerStyle="secondary"
-      header={t("glossary.community_other")}
+      header={capitalize(t("glossary.community_other"))}
       disableSortBy
       buttons={buttons}
       actions={actions}
