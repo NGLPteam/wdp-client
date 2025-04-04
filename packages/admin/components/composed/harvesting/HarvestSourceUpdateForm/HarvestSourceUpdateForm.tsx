@@ -80,7 +80,7 @@ export default function HarvestSourceUpdateForm({
           defaultValue={defaultValues.extractionMappingTemplate}
           render={({ field }) => (
             <ExtractionMappingTemplateInput
-              label="Extraction Mapping Template"
+              label={t("forms.extraction_mapping_template.label")}
               {...field}
             />
           )}

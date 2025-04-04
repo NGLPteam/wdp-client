@@ -43,7 +43,7 @@ export default function HarvestAttemptLayout({
       {backToProps && <BackToAll {...backToProps} />}
       <PageHeader
         title={`${harvestSource?.name}:${
-          harvestSet?.identifier ?? "[no set]"
+          harvestSet?.identifier ?? t("harvesting.set_placeholder")
         }:${beganAt}`}
         tabRoutes={manageRoutes}
       />

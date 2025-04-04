@@ -45,7 +45,7 @@ export default function HarvestMappingLayout({
       )}
       <PageHeader
         title={`${harvestSource?.name}:${
-          harvestSet?.identifier ?? "[no set]"
+          harvestSet?.identifier ?? t("harvesting.set_placeholder")
         }:${targetEntity?.title}`}
         tabRoutes={manageRoutes}
         tabLinksOnly

@@ -29,9 +29,9 @@ function HarvestAttemptsList({ data, headerStyle, hideHeader, backTo }: Props) {
     ModelColumns.NameColumn<HarvestAttemptNode>({
       accessorFn: (row) =>
         `${row.harvestSource?.name}:${
-          row.harvestSet?.identifier ?? "[no set]"
+          row.harvestSet?.identifier ?? t("harvesting.set_placeholder")
         }:${row.beganAt}`,
-      header: () => "Identifier",
+      header: () => t("lists.identifier_column"),
       enableSorting: false,
       route: "harvestAttempt",
       query: backTo ? { backTo } : undefined,
@@ -49,7 +49,7 @@ function HarvestAttemptsList({ data, headerStyle, hideHeader, backTo }: Props) {
     ModelColumns.BooleanColumn<HarvestAttemptNode>({
       id: "row.harvestErrors",
       accessorFn: (row) => !!row.harvestErrors.length,
-      header: () => "Has Errors",
+      header: () => t("lists.has_errors_column"),
     }),
   ];
 

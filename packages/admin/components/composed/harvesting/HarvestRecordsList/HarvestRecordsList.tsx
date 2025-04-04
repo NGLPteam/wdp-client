@@ -35,7 +35,7 @@ function HarvestRecordsList({
   const columns = [
     ModelColumns.NameColumn<HarvestRecordNode>({
       accessor: "identifier",
-      header: () => "Identifier",
+      header: () => t("lists.identifier_column"),
       route: "harvestRecord",
       enableSorting: false,
       query: backTo ? { backTo, backToSlug } : undefined,
@@ -43,7 +43,7 @@ function HarvestRecordsList({
     ModelColumns.CreatedAtColumn<HarvestRecordNode>({ enableSorting: true }),
     ModelColumns.StringColumn<HarvestRecordNode>({
       id: "entityCount",
-      header: () => "Entity Count",
+      header: () => t("lists.entity_count_column"),
     }),
     ModelColumns.StringColumn<HarvestRecordNode>({
       id: "status",
@@ -52,7 +52,7 @@ function HarvestRecordsList({
     ModelColumns.BooleanColumn<HarvestRecordNode>({
       id: "row.harvestErrors",
       accessorFn: (row) => !!row.harvestErrors.length,
-      header: () => "Has Errors",
+      header: () => t("lists.has_errors_column"),
     }),
   ];
 

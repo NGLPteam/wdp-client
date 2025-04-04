@@ -34,19 +34,19 @@ function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
     ModelColumns.NameColumn<HarvestMappingNode>({
       accessorFn: (row) =>
         `${row.harvestSource?.name}:${
-          row.harvestSet?.identifier ?? "[no set]"
+          row.harvestSet?.identifier ?? t("harvesting.set_placeholder")
         }:${row.targetEntity?.title}`,
-      header: () => "Identifier",
+      header: () => t("lists.identifier_column"),
       enableSorting: false,
       route: "harvestMapping",
     }),
     ModelColumns.StringColumn<HarvestMappingNode>({
       id: "harvestSet.name",
-      header: () => "Harvest Set",
+      header: () => t("glossary.harvest_set"),
     }),
     ModelColumns.LinkColumn<HarvestMappingNode>({
       id: "targetEntity.title",
-      header: () => "Target Entity",
+      header: () => t("target_entity_column"),
       slug: "targetEntity.slug",
       route: (row: Row<HarvestMappingNode>) =>
         row.original.targetEntity?.__typename === "COLLECTION"
@@ -55,7 +55,7 @@ function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
     }),
     ModelColumns.StringColumn<HarvestMappingNode>({
       id: "harvestAttempts.pageInfo.totalCount",
-      header: () => "Harvest Attempts Count",
+      header: () => t("lists.attempts_count_column"),
     }),
   ];
 
