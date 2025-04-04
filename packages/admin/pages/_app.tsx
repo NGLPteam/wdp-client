@@ -15,7 +15,6 @@ import GlobalStyles from "theme";
 import { AppBody, DrawerController } from "components/global";
 import { RouteHelper } from "routes";
 import { Toast, LoadingPage } from "components/atomic";
-import { useSearchQueryVars, useBaseListQueryVars } from "hooks";
 import { updateI18n } from "../i18n";
 import type { Page } from "@wdp/lib/types/page";
 import type { KeycloakInitOptions } from "keycloak-js";
@@ -51,7 +50,7 @@ const NGLPApp = ({
 
   // Handle redirect routes.
   const router = useRouter();
-  if (process.browser) {
+  if (typeof window !== "undefined") {
     const activeRoute = RouteHelper.activeRoute();
     if (activeRoute?.redirect) {
       router.replace({
@@ -68,8 +67,6 @@ const NGLPApp = ({
     PageComponent: typeof Component;
     pageComponentProps: typeof pageProps;
   }) => {
-    useBaseListQueryVars();
-    useSearchQueryVars();
     return <PageComponent {...pageComponentProps} />;
   };
 

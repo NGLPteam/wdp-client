@@ -1,19 +1,13 @@
 import { usePreloadedQuery, graphql, PreloadedQuery } from "react-relay";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import UserList from "components/composed/user/UserList";
-import {
-  useBaseListQueryVars,
-  useSearchQueryVars,
-  useIsAuthorized,
-} from "hooks";
+import { useBaseListQueryVars, useIsAuthorized } from "hooks";
 import { LoadingPage } from "components/atomic";
 import UnauthorizedMessage from "components/auth/UnauthorizedMessage";
 import { usersListQuery as Query } from "@/relay/usersListQuery.graphql";
 
 export default function UserListView() {
   const queryVars = useBaseListQueryVars();
-  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  const _searchVars = useSearchQueryVars();
 
   const isAuthorized = useIsAuthorized({ actions: ["users.update"] });
 
