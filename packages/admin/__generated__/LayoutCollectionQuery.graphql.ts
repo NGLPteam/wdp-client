@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3fe507ed3ca794504015ae3ae391a038>>
+ * @generated SignedSource<<1e9be8977e885278e4e3b8dcf7ef4df7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,17 +10,17 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SlugCollectionsPageQuery$variables = {
-  collectionSlug: string;
+export type LayoutCollectionQuery$variables = {
+  slug: string;
 };
-export type SlugCollectionsPageQuery$data = {
+export type LayoutCollectionQuery$data = {
   readonly collection: {
     readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "CollectionLayoutFragment" | "CollectionSlugRedirectFragment">;
   } | null | undefined;
 };
-export type SlugCollectionsPageQuery = {
-  response: SlugCollectionsPageQuery$data;
-  variables: SlugCollectionsPageQuery$variables;
+export type LayoutCollectionQuery = {
+  response: LayoutCollectionQuery$data;
+  variables: LayoutCollectionQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -28,14 +28,14 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "collectionSlug"
+    "name": "slug"
   }
 ],
 v1 = [
   {
     "kind": "Variable",
     "name": "slug",
-    "variableName": "collectionSlug"
+    "variableName": "slug"
   }
 ],
 v2 = {
@@ -77,7 +77,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "SlugCollectionsPageQuery",
+    "name": "LayoutCollectionQuery",
     "selections": [
       {
         "alias": null,
@@ -95,12 +95,12 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "CollectionSlugRedirectFragment"
+            "name": "AuthContextFragment"
           },
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "AuthContextFragment"
+            "name": "CollectionSlugRedirectFragment"
           }
         ],
         "storageKey": null
@@ -113,7 +113,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "SlugCollectionsPageQuery",
+    "name": "LayoutCollectionQuery",
     "selections": [
       {
         "alias": null,
@@ -236,16 +236,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2a8ec3c467e15b639667d39dadd41408",
+    "cacheID": "2caaa0c821c56cae9a4d3a6d2960c1b7",
     "id": null,
     "metadata": {},
-    "name": "SlugCollectionsPageQuery",
+    "name": "LayoutCollectionQuery",
     "operationKind": "query",
-    "text": "query SlugCollectionsPageQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    ...CollectionSlugRedirectFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  id\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment CollectionSlugRedirectFragment on Collection {\n  slug\n  collections {\n    pageInfo {\n      totalCount\n    }\n  }\n  items {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
+    "text": "query LayoutCollectionQuery(\n  $slug: Slug!\n) {\n  collection(slug: $slug) {\n    ...CollectionLayoutFragment\n    ...AuthContextFragment\n    ...CollectionSlugRedirectFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  id\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment CollectionSlugRedirectFragment on Collection {\n  slug\n  collections {\n    pageInfo {\n      totalCount\n    }\n  }\n  items {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "d6888d540fa86712a4c29a05a69a772c";
+(node as any).hash = "c7b794fe647ea810810e2202e4a5de05";
 
 export default node;

@@ -38,7 +38,6 @@ const query = graphql`
   query membersManageSlugCommunitiesPagesQuery($slug: Slug!, $page: Int!) {
     community(slug: $slug) {
       ...RoleAccessListFragment
-      ...AuthContextFragment
     }
   }
 `;

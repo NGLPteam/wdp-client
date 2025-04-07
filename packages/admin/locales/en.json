@@ -82,7 +82,9 @@
       "harvest_record": "harvest record",
       "harvest_record_other": "harvest records",
       "harvest_entity": "harvest entity",
-      "harvest_entity_other": "harvest entities"
+      "harvest_entity_other": "harvest entities",
+      "member": "member",
+      "member_other": "members"
     },
     "lists": {
       "admin_column": "Admin?",
