@@ -1,25 +1,19 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import { collectionsSlugCommunitiesPagesQuery as Query } from "__generated__/collectionsSlugCommunitiesPagesQuery.graphql";
 import CollectionList from "components/composed/collection/CollectionList";
-import CommunityLayout from "components/composed/community/CommunityLayout";
-import { AuthContextProvider } from "contexts/AuthContext";
-import Layout from "./layout";
+import Layout from "./_layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
 function CommunityChildCollections({ queryRef }: Props) {
   const { community } = usePreloadedQuery<Query>(query, queryRef);
 
   return (
-    <AuthContextProvider data={community}>
-      <CommunityLayout data={community}>
-        <CollectionList
-          collections={community?.collections}
-          search={community?.search}
-          headerStyle="secondary"
-          hideHeader
-        />
-      </CommunityLayout>
-    </AuthContextProvider>
+    <CollectionList
+      collections={community?.collections}
+      search={community?.search}
+      headerStyle="secondary"
+      hideHeader
+    />
   );
 }
 
@@ -39,14 +33,13 @@ const query = graphql`
   query collectionsSlugCommunitiesPagesQuery(
     $order: EntityOrder
     $page: Int!
-    $communitySlug: Slug!
+    $slug: Slug!
     $predicates: [SearchPredicateInput!]
     $query: String
     $hasQuery: Boolean!
     $schema: [String!]
   ) {
-    community(slug: $communitySlug) {
-      ...CommunityLayoutFragment
+    community(slug: $slug) {
       ...AuthContextFragment
       collections(order: $order, page: $page, perPage: 20) {
         ...CollectionListFragment
