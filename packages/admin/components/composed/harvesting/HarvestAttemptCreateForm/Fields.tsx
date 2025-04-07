@@ -11,7 +11,6 @@ import HarvestSetTypeahead from "components/forms/HarvestSetTypeahead";
 import type { newHarvestAttemptFromMappingQuery } from "@/relay/newHarvestAttemptFromMappingQuery.graphql";
 import type { newHarvestAttemptFromSourceQuery } from "@/relay/newHarvestAttemptFromSourceQuery.graphql";
 import type { HarvestAttemptFromSourceInput } from "@/relay/FromSourceMutation.graphql";
-import { METADATA_FORMAT_OPTS } from "../constants";
 
 type Props = {
   harvestMapping?: newHarvestAttemptFromMappingQuery["response"]["harvestMapping"];
@@ -31,7 +30,7 @@ export default function HarvestAttemptCreateFormFields({
   return (
     <Forms.Grid>
       {!!harvestMapping && (
-        <Forms.Fieldset label={t("harvesting.settings_from_mapping")}>
+        <Forms.Fieldset label={t("harvesting.settings")}>
           <Forms.Grid>
             <MockInput
               label="glossary.harvest_source"
@@ -54,10 +53,20 @@ export default function HarvestAttemptCreateFormFields({
       )}
       {!!harvestSource && (
         <>
-          <MockInput
-            label="glossary.harvest_source"
-            value={harvestSource?.name ?? harvestMapping?.harvestSource?.name}
-          />
+          <Forms.Fieldset label={t("harvesting.settings")}>
+            <Forms.Grid>
+              <MockInput
+                label="glossary.harvest_source"
+                value={
+                  harvestSource?.name ?? harvestMapping?.harvestSource?.name
+                }
+              />
+              <MockInput
+                label="forms.fields.metadata_format"
+                value={harvestMapping?.metadataFormat}
+              />
+            </Forms.Grid>
+          </Forms.Fieldset>
           {slug && (
             <HarvestSetTypeahead<HarvestAttemptFromSourceInput>
               control={
@@ -73,12 +82,6 @@ export default function HarvestAttemptCreateFormFields({
             onSelect={onSelect}
             label={t("forms.fields.target_entity")}
             selectableTypes={{}}
-            required
-          />
-          <Forms.Select
-            label="forms.fields.metadata_format"
-            {...register("metadataFormat")}
-            options={METADATA_FORMAT_OPTS}
             required
           />
         </>

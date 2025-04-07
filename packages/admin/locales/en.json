@@ -233,7 +233,8 @@
         "contribution_failure": "Failed to create contribution.",
         "contributor_success": "Contributor created successfully.",
         "harvest_source_success": "Harvest source created successfully.",
-        "harvest_mapping_success": "Harvest mapping created successfully"
+        "harvest_mapping_success": "Harvest mapping created successfully",
+        "harvest_attempt_success": "Harvest attempt started successfully"
       },
       "delete": {
         "confirm_label": "Confirm Delete",
@@ -627,6 +628,7 @@
       "new_attempt_title": "Start Manual Harvest Attempt",
       "new_mapping_title": "New Harvest Mapping",
       "unchangeable": "*Cannot be changed",
+      "settings": "Settings",
       "settings_from_mapping": "Settings from mapping",
       "set_placeholder": "[no set]"
     }
