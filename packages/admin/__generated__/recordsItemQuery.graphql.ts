@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1cd7b4f130f0e165803c3df1f3e8268c>>
+ * @generated SignedSource<<ef5f39e1400026c207e3648727e2f70c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,7 @@ export type recordsItemQuery$variables = {
 };
 export type recordsItemQuery$data = {
   readonly item: {
-    readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "EntityHarvestRecordsListFragment" | "ItemLayoutFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"EntityHarvestRecordsListFragment">;
   } | null | undefined;
 };
 export type recordsItemQuery = {
@@ -42,13 +42,6 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
-  "storageKey": null
-},
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 };
@@ -71,16 +64,6 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "EntityHarvestRecordsListFragment"
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "ItemLayoutFragment"
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "AuthContextFragment"
           }
         ],
         "storageKey": null
@@ -104,15 +87,6 @@ return {
         "plural": false,
         "selections": [
           {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "title",
-            "storageKey": null
-          },
-          (v2/*: any*/),
-          (v3/*: any*/),
-          {
             "kind": "InlineFragment",
             "selections": [
               {
@@ -123,8 +97,14 @@ return {
                 "name": "harvestRecords",
                 "plural": true,
                 "selections": [
-                  (v3/*: any*/),
                   (v2/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "slug",
+                    "storageKey": null
+                  },
                   {
                     "alias": null,
                     "args": null,
@@ -168,7 +148,7 @@ return {
                         "name": "code",
                         "storageKey": null
                       },
-                      (v3/*: any*/)
+                      (v2/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -186,100 +166,23 @@ return {
             "type": "ChildEntity",
             "abstractKey": "__isChildEntity"
           },
-          {
-            "kind": "InlineFragment",
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "__typename",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "EntityBreadcrumb",
-                "kind": "LinkedField",
-                "name": "breadcrumbs",
-                "plural": true,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "depth",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "label",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "kind",
-                    "storageKey": null
-                  },
-                  (v2/*: any*/),
-                  (v3/*: any*/)
-                ],
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "allowedActions",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "SchemaVersion",
-                "kind": "LinkedField",
-                "name": "schemaVersion",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "enforcedChildKinds",
-                    "storageKey": null
-                  },
-                  (v3/*: any*/)
-                ],
-                "storageKey": null
-              },
-              {
-                "kind": "TypeDiscriminator",
-                "abstractKey": "__isSluggable"
-              }
-            ],
-            "type": "Entity",
-            "abstractKey": "__isEntity"
-          }
+          (v2/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "874e1a14cc01e381398ab25f767e4cf6",
+    "cacheID": "67ea7765c147f509e1db283227bfe73f",
     "id": null,
     "metadata": {},
     "name": "recordsItemQuery",
     "operationKind": "query",
-    "text": "query recordsItemQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    ...EntityHarvestRecordsListFragment\n    ...ItemLayoutFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment EntityHarvestRecordsListFragment on ChildEntity {\n  __isChildEntity: __typename\n  harvestRecords {\n    id\n    slug\n    createdAt\n    updatedAt\n    entityCount\n    identifier\n    harvestErrors {\n      code\n      id\n    }\n    status\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
+    "text": "query recordsItemQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    ...EntityHarvestRecordsListFragment\n    id\n  }\n}\n\nfragment EntityHarvestRecordsListFragment on ChildEntity {\n  __isChildEntity: __typename\n  harvestRecords {\n    id\n    slug\n    createdAt\n    updatedAt\n    entityCount\n    identifier\n    harvestErrors {\n      code\n      id\n    }\n    status\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "fad769a851f2ce95d182e12e11c52fed";
+(node as any).hash = "715da3eb9fedb3f9c224ab36bf6eb0aa";
 
 export default node;
