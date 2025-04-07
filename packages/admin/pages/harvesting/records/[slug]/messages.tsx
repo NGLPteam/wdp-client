@@ -38,7 +38,7 @@ type Props = {
 const query = graphql`
   query messagesHarvestRecordQuery($slug: Slug!, $page: Int!) {
     harvestRecord(slug: $slug) {
-      harvestMessages(page: $page, perPage: 20) {
+      harvestMessages(page: $page, perPage: 20, filters: { severity: INFO }) {
         ...HarvestMessagesListFragment
       }
     }

@@ -49,7 +49,7 @@ export default function HarvestMappingCreateForm({ sourceId }: Props) {
     }) => {
       if (response?.harvestMappingCreate?.harvestMapping)
         redirect(
-          "harvestSource.details",
+          "harvestMapping.details",
           response.harvestMappingCreate.harvestMapping.slug,
         );
     },

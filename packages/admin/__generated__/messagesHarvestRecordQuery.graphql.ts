@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5e590af419bcf2873981ec01ccdecc56>>
+ * @generated SignedSource<<37b6f72174a4dabb0eee4dba56ab06f3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -45,6 +45,13 @@ v2 = [
   }
 ],
 v3 = [
+  {
+    "kind": "Literal",
+    "name": "filters",
+    "value": {
+      "severity": "INFO"
+    }
+  },
   {
     "kind": "Variable",
     "name": "page",
@@ -279,16 +286,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "350df2cec91963200137ab998b782888",
+    "cacheID": "cbbb725df0ad6a284e9bda3b24f4b7ab",
     "id": null,
     "metadata": {},
     "name": "messagesHarvestRecordQuery",
     "operationKind": "query",
-    "text": "query messagesHarvestRecordQuery(\n  $slug: Slug!\n  $page: Int!\n) {\n  harvestRecord(slug: $slug) {\n    harvestMessages(page: $page, perPage: 20) {\n      ...HarvestMessagesListFragment\n    }\n    id\n  }\n}\n\nfragment HarvestMessageFragment on HarvestMessage {\n  id\n  level\n  message\n  tags\n  createdAt\n  harvestMapping {\n    slug\n    id\n  }\n  harvestRecord {\n    slug\n    id\n  }\n  harvestAttempt {\n    slug\n    id\n  }\n}\n\nfragment HarvestMessagesListFragment on HarvestMessageConnection {\n  nodes {\n    ...HarvestMessageFragment\n    id\n  }\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query messagesHarvestRecordQuery(\n  $slug: Slug!\n  $page: Int!\n) {\n  harvestRecord(slug: $slug) {\n    harvestMessages(page: $page, perPage: 20, filters: {severity: INFO}) {\n      ...HarvestMessagesListFragment\n    }\n    id\n  }\n}\n\nfragment HarvestMessageFragment on HarvestMessage {\n  id\n  level\n  message\n  tags\n  createdAt\n  harvestMapping {\n    slug\n    id\n  }\n  harvestRecord {\n    slug\n    id\n  }\n  harvestAttempt {\n    slug\n    id\n  }\n}\n\nfragment HarvestMessagesListFragment on HarvestMessageConnection {\n  nodes {\n    ...HarvestMessageFragment\n    id\n  }\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "41467b30718fa4e10d81b604685aaac1";
+(node as any).hash = "e5b72f4e65f9b9f97ef259902c9ebab4";
 
 export default node;

@@ -61,6 +61,15 @@ export const Links = styled.div`
   gap: ${pxToRem(30)};
   color: var(--brand100);
   font-weight: var(--font-weight-medium);
+
+  a {
+    cursor: pointer;
+
+    &:hover {
+      color: var(--accent-color);
+      text-decoration: underline;
+    }
+  }
 `;
 
 export const Tags = styled.div`
