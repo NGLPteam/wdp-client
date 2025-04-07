@@ -15,7 +15,7 @@ function CollectionRecords({ queryRef, ...layoutProps }: Props) {
   return collection ? (
     <AuthContextProvider data={collection}>
       <CollectionLayout data={collection} {...layoutProps}>
-        <EntityHarvestRecordsList data={collection} />
+        <EntityHarvestRecordsList data={collection} headerStyle="secondary" />
       </CollectionLayout>
     </AuthContextProvider>
   ) : null;

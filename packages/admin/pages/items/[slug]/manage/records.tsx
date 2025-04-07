@@ -15,7 +15,7 @@ function ItemRecords({ queryRef, ...layoutProps }: Props) {
   return item ? (
     <AuthContextProvider data={item}>
       <ItemLayout data={item} {...layoutProps}>
-        <EntityHarvestRecordsList data={item} />
+        <EntityHarvestRecordsList data={item} headerStyle="secondary" />
       </ItemLayout>
     </AuthContextProvider>
   ) : null;

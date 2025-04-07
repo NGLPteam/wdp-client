@@ -10,8 +10,8 @@ const LEVEL_MAP = {
   ERROR: Styled.Error,
   WARN: Styled.Warn,
   INFO: Styled.Info,
-  DEBUG: null,
-  TRACE: null,
+  DEBUG: Styled.Info,
+  TRACE: Styled.Info,
   "%future added value": null,
 };
 
@@ -52,25 +52,25 @@ export default function HarvestMessage({
                 routeParams={{ slug: message.harvestMapping?.slug }}
                 passHref
               >
-                <span>{t("harvesting.messages.mapping_link")}</span>
+                <a>{t("harvesting.messages.mapping_link")}</a>
               </NamedLink>
             )}
             {!isAttempt && !!message.harvestAttempt && (
               <NamedLink
-                route="harvestMapping"
+                route="harvestAttempt"
                 routeParams={{ slug: message.harvestAttempt?.slug }}
                 passHref
               >
-                <span>{t("harvesting.messages.attempt_link")}</span>
+                <a>{t("harvesting.messages.attempt_link")}</a>
               </NamedLink>
             )}
             {!isRecord && !!message.harvestRecord && (
               <NamedLink
-                route="harvestMapping"
+                route="harvestRecord"
                 routeParams={{ slug: message.harvestRecord?.slug }}
                 passHref
               >
-                <span>{t("harvesting.messages.record_link")}</span>
+                <a>{t("harvesting.messages.record_link")}</a>
               </NamedLink>
             )}
           </Styled.Links>
