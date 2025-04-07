@@ -5,6 +5,7 @@ import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import Drawer from "components/layout/Drawer";
 import { UserProfileUpdateDrawerQuery as Query } from "@/relay/UserProfileUpdateDrawerQuery.graphql";
 import UserProfileUpdateForm from "../UserProfileUpdateForm";
+import UserResetPasswordModal from "../UserResetPasswordModal";
 import type { DialogProps } from "reakit/Dialog";
 
 export default function UserProfileUpdateDrawer({ dialog }: Props) {
@@ -24,6 +25,7 @@ export default function UserProfileUpdateDrawer({ dialog }: Props) {
           header={t("actions.edit.profile_header")}
           dialog={dialog}
           hideOnClickOutside={false}
+          buttons={<UserResetPasswordModal />}
         >
           {data && data.viewer && (
             <UserProfileUpdateForm

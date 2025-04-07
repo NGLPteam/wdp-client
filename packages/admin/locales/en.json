@@ -298,6 +298,13 @@
       },
       "set": {
         "initial_ordering": "Set Initial Ordering"
+      },
+      "reset_password": {
+        "title": "Reset Password",
+        "body": "Meru will send an email with a link to reset your password. It may take a minute or two to arrive. After you have updated your password, you'll be redirected back to Meru admin.",
+        "submit_label": "Send email",
+        "success_message": "Email sent!",
+        "error_message": "Email could not be sent. Please try again."
       }
     },
     "sort": {

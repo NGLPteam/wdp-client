@@ -15,12 +15,13 @@ const ConfirmModal = ({
   handleClose,
   onClick: onConfirm,
   actionLabel,
+  loading,
 }: ConfirmModalProps) => {
   return (
     <>
       {body}
       <Styled.ButtonWrapper>
-        <Styled.ConfirmButton onClick={onConfirm}>
+        <Styled.ConfirmButton onClick={onConfirm} disabled={loading}>
           {actionLabel ?? i18next.t("common.confirm")}
         </Styled.ConfirmButton>
         <Styled.ConfirmButton $secondary onClick={handleClose}>
@@ -35,6 +36,7 @@ type ConfirmModalProps = Pick<ButtonControlConfirmProps, "modalBody"> &
   Pick<ButtonProps, "onClick"> & {
     handleClose: () => void;
     actionLabel?: ButtonControlConfirmProps["aria-label"];
+    loading?: boolean;
   };
 
 export default ConfirmModal;

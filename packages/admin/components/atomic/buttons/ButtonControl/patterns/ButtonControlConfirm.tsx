@@ -21,6 +21,7 @@ const ButtonControlConfirm = ({
   $closeDropdown,
   actions,
   allowedActions,
+  loading,
 }: Props) => {
   const dialog = useDialogState({ visible: false, animated: true });
 
@@ -56,6 +57,7 @@ const ButtonControlConfirm = ({
               onClick={handleConfirm}
               handleClose={handleClose}
               actionLabel={actionLabel}
+              loading={loading}
             />
           )}
         </Modal>
@@ -69,6 +71,7 @@ type Props = Pick<GroupProps, "breakpoint"> &
     modalLabel?: ModalProps["label"];
     modalBody?: React.ReactNode;
     onClick?: (hideDialog: () => void) => void;
+    loading?: boolean;
   };
 
 export default ButtonControlConfirm;
