@@ -7,7 +7,7 @@ import {
 } from "react-relay";
 import { OperationType } from "relay-runtime";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
-import CollectionList from "components/composed/collection/CollectionList";
+import ModelListPageSkeleton from "components/composed/model/ModelListPageSkeleton";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import ErrorPage from "next/error";
 import { LoadingPage } from "components/atomic";
@@ -48,7 +48,7 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
             queryRef ? (
               <PageComponent {...pageComponentProps} queryRef={queryRef} />
             ) : (
-              <CollectionList headerStyle="secondary" hideHeader />
+              <ModelListPageSkeleton headerStyle="secondary" hideHeader />
             )
           }
         </QueryTransitionWrapper>

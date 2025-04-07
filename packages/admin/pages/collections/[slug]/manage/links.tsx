@@ -1,41 +1,31 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import EntityLinksList from "components/composed/links/EntityLinksList";
-import { AuthContextProvider } from "contexts/AuthContext";
-import CollectionLayout from "components/composed/collection/CollectionLayout";
 import type { linksManageCollectionsPagesQuery as Query } from "@/relay/linksManageCollectionsPagesQuery.graphql";
-import Layout from "./layout";
+import Layout from "./_layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
-function CollectionLinks({ queryRef, ...layoutProps }: Props) {
+function CollectionLinks({ queryRef }: Props) {
   const { collection } = usePreloadedQuery<Query>(query, queryRef);
 
   return collection ? (
-    <AuthContextProvider data={collection}>
-      <CollectionLayout data={collection} {...layoutProps}>
-        <EntityLinksList data={collection} headerStyle="secondary" />
-      </CollectionLayout>
-    </AuthContextProvider>
+    <EntityLinksList data={collection} headerStyle="secondary" />
   ) : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => (
-  <Layout query={query} refetchTags={["links"]} {...props} />
+  <Layout query={query} refetchTags={["links"]} modelName="link" {...props} />
 );
 
 CollectionLinks.getLayout = getLayout;
 
 type Props = {
   queryRef: PreloadedQuery<Query>;
-  showSidebar: true;
-  useRouteHeader: false;
 };
 
 const query = graphql`
-  query linksManageCollectionsPagesQuery($collectionSlug: Slug!, $page: Int!) {
-    collection(slug: $collectionSlug) {
-      ...CollectionLayoutFragment
+  query linksManageCollectionsPagesQuery($slug: Slug!, $page: Int!) {
+    collection(slug: $slug) {
       ...EntityLinksListFragment
-      ...AuthContextFragment
     }
   }
 `;

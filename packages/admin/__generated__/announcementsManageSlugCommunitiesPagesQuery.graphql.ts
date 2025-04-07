@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ef01a6ce03fdb55bb811ee4f0d8b7625>>
+ * @generated SignedSource<<fa70491b66150f5bdfb0ef0dfa9ad227>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type announcementsManageSlugCommunitiesPagesQuery$variables = {
 };
 export type announcementsManageSlugCommunitiesPagesQuery$data = {
   readonly community: {
-    readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "EntityAnnouncementsListFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"EntityAnnouncementsListFragment">;
   } | null | undefined;
 };
 export type announcementsManageSlugCommunitiesPagesQuery = {
@@ -201,11 +201,6 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "EntityAnnouncementsListFragment"
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "AuthContextFragment"
           }
         ],
         "storageKey": null
@@ -256,20 +251,6 @@ return {
             "type": "AnyEntity",
             "abstractKey": "__isAnyEntity"
           },
-          {
-            "kind": "InlineFragment",
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "allowedActions",
-                "storageKey": null
-              }
-            ],
-            "type": "Entity",
-            "abstractKey": "__isEntity"
-          },
           (v4/*: any*/)
         ],
         "storageKey": null
@@ -277,16 +258,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "11219a8e0c637252d511bf7a769464a2",
+    "cacheID": "3e7a0f2eb74baf95e7cc3b7c21a681e9",
     "id": null,
     "metadata": {},
     "name": "announcementsManageSlugCommunitiesPagesQuery",
     "operationKind": "query",
-    "text": "query announcementsManageSlugCommunitiesPagesQuery(\n  $slug: Slug!\n  $page: Int\n) {\n  community(slug: $slug) {\n    ...EntityAnnouncementsListFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment EntityAnnouncementsListDataFragment on AnnouncementConnection {\n  edges {\n    node {\n      id\n      slug\n      header\n      publishedOn\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityAnnouncementsListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query announcementsManageSlugCommunitiesPagesQuery(\n  $slug: Slug!\n  $page: Int\n) {\n  community(slug: $slug) {\n    ...EntityAnnouncementsListFragment\n    id\n  }\n}\n\nfragment EntityAnnouncementsListDataFragment on AnnouncementConnection {\n  edges {\n    node {\n      id\n      slug\n      header\n      publishedOn\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityAnnouncementsListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "7ecf6a7a3a7098f8d8fdcf09246b3c6d";
+(node as any).hash = "cd684c6a8d7556ebb510dfd4fb049fd1";
 
 export default node;

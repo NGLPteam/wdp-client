@@ -1,44 +1,39 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import EntityAnnouncementsList from "components/composed/announcements/EntityAnnouncementsList";
-import { AuthContextProvider } from "contexts/AuthContext";
-import CollectionLayout from "components/composed/collection/CollectionLayout";
 import type { announcementsManageSlugCollectionsPagesQuery as Query } from "@/relay/announcementsManageSlugCollectionsPagesQuery.graphql";
-import Layout from "./layout";
+import Layout from "./_layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
-function CollectionAnnouncements({ queryRef, ...layoutProps }: Props) {
+function CollectionAnnouncements({ queryRef }: Props) {
   const { collection } = usePreloadedQuery<Query>(query, queryRef);
 
   return collection ? (
-    <AuthContextProvider data={collection}>
-      <CollectionLayout data={collection} {...layoutProps}>
-        <EntityAnnouncementsList data={collection} headerStyle="secondary" />
-      </CollectionLayout>
-    </AuthContextProvider>
+    <EntityAnnouncementsList data={collection} headerStyle="secondary" />
   ) : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => (
-  <Layout query={query} refetchTags={["announcements"]} {...props} />
+  <Layout
+    query={query}
+    refetchTags={["announcements"]}
+    modelName="announcement"
+    {...props}
+  />
 );
 
 CollectionAnnouncements.getLayout = getLayout;
 
 type Props = {
   queryRef: PreloadedQuery<Query>;
-  showSidebar: true;
-  useRouteHeader: false;
 };
 
 const query = graphql`
   query announcementsManageSlugCollectionsPagesQuery(
-    $collectionSlug: Slug!
+    $slug: Slug!
     $page: Int!
   ) {
-    collection(slug: $collectionSlug) {
-      ...CollectionLayoutFragment
+    collection(slug: $slug) {
       ...EntityAnnouncementsListFragment
-      ...AuthContextFragment
     }
   }
 `;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8b3332b7c101230c05a253ea378554b2>>
+ * @generated SignedSource<<523970042150d901bd1c9d55ea13f7be>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type pagesManageSlugCommunityPagesQuery$variables = {
 };
 export type pagesManageSlugCommunityPagesQuery$data = {
   readonly community: {
-    readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "EntityPagesListFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"EntityPagesListFragment">;
   } | null | undefined;
 };
 export type pagesManageSlugCommunityPagesQuery = {
@@ -303,11 +303,6 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "EntityPagesListFragment"
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "AuthContextFragment"
           }
         ],
         "storageKey": null
@@ -358,20 +353,6 @@ return {
             "type": "AnyEntity",
             "abstractKey": "__isAnyEntity"
           },
-          {
-            "kind": "InlineFragment",
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "allowedActions",
-                "storageKey": null
-              }
-            ],
-            "type": "Entity",
-            "abstractKey": "__isEntity"
-          },
           (v4/*: any*/)
         ],
         "storageKey": null
@@ -379,16 +360,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "12f2e8a3c16368356a2c0f98a5b6aa8b",
+    "cacheID": "e3f9b666832c6decf8e2975f92f286af",
     "id": null,
     "metadata": {},
     "name": "pagesManageSlugCommunityPagesQuery",
     "operationKind": "query",
-    "text": "query pagesManageSlugCommunityPagesQuery(\n  $slug: Slug!\n  $page: Int!\n) {\n  community(slug: $slug) {\n    ...EntityPagesListFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment EntityPagesListDataFragment on PageConnection {\n  edges {\n    node {\n      id\n      title\n      slug\n      entity {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      ...PageHeroColumnFragment\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityPagesListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment PageHeroColumnFragment on Page {\n  heroImage {\n    storage\n    small {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n}\n"
+    "text": "query pagesManageSlugCommunityPagesQuery(\n  $slug: Slug!\n  $page: Int!\n) {\n  community(slug: $slug) {\n    ...EntityPagesListFragment\n    id\n  }\n}\n\nfragment EntityPagesListDataFragment on PageConnection {\n  edges {\n    node {\n      id\n      title\n      slug\n      entity {\n        __typename\n        ... on Sluggable {\n          __isSluggable: __typename\n          slug\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      ...PageHeroColumnFragment\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityPagesListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    pages(page: $page, perPage: 20) {\n      ...EntityPagesListDataFragment\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment PageHeroColumnFragment on Page {\n  heroImage {\n    storage\n    small {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "3d88dc9f09b275ad22ac9fe22ff4199e";
+(node as any).hash = "4b02496eb7b117347889437a19e51603";
 
 export default node;

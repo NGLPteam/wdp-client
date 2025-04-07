@@ -31,7 +31,6 @@ const query = graphql`
   query announcementsManageSlugCommunitiesPagesQuery($slug: Slug!, $page: Int) {
     community(slug: $slug) {
       ...EntityAnnouncementsListFragment
-      ...AuthContextFragment
     }
   }
 `;
