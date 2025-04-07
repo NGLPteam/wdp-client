@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2de2cf7a71136e41b552a3b80f7f1d4f>>
+ * @generated SignedSource<<aed562058c7f2058f70c1512ba01c635>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,17 +10,17 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SlugItemsPageQuery$variables = {
-  itemSlug: string;
+export type LayoutItemQuery$variables = {
+  slug: string;
 };
-export type SlugItemsPageQuery$data = {
+export type LayoutItemQuery$data = {
   readonly item: {
     readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "ItemLayoutFragment" | "ItemSlugRedirectFragment">;
   } | null | undefined;
 };
-export type SlugItemsPageQuery = {
-  response: SlugItemsPageQuery$data;
-  variables: SlugItemsPageQuery$variables;
+export type LayoutItemQuery = {
+  response: LayoutItemQuery$data;
+  variables: LayoutItemQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -28,14 +28,14 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "itemSlug"
+    "name": "slug"
   }
 ],
 v1 = [
   {
     "kind": "Variable",
     "name": "slug",
-    "variableName": "itemSlug"
+    "variableName": "slug"
   }
 ],
 v2 = {
@@ -57,7 +57,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "SlugItemsPageQuery",
+    "name": "LayoutItemQuery",
     "selections": [
       {
         "alias": null,
@@ -75,12 +75,12 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "ItemSlugRedirectFragment"
+            "name": "AuthContextFragment"
           },
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "AuthContextFragment"
+            "name": "ItemSlugRedirectFragment"
           }
         ],
         "storageKey": null
@@ -93,7 +93,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "SlugItemsPageQuery",
+    "name": "LayoutItemQuery",
     "selections": [
       {
         "alias": null,
@@ -225,16 +225,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f307016143a5e79ee76aea7c8b0df8ec",
+    "cacheID": "cedc2bacb45938b9810721761f5b51fa",
     "id": null,
     "metadata": {},
-    "name": "SlugItemsPageQuery",
+    "name": "LayoutItemQuery",
     "operationKind": "query",
-    "text": "query SlugItemsPageQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    ...ItemSlugRedirectFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ItemSlugRedirectFragment on Item {\n  slug\n  items {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
+    "text": "query LayoutItemQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    ...ItemLayoutFragment\n    ...AuthContextFragment\n    ...ItemSlugRedirectFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ItemSlugRedirectFragment on Item {\n  slug\n  items {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "0e65b4f69a32f8f0632d27bec0ea8512";
+(node as any).hash = "3aaef3a616d1b0c7f5718a2f06a07b11";
 
 export default node;

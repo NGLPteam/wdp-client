@@ -10,11 +10,11 @@ import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import ErrorPage from "next/error";
 import { LoadingPage } from "components/atomic";
-import CollectionSlugRedirect from "components/composed/collection/CollectionSlugRedirect";
-import CollectionLayout from "components/composed/collection/CollectionLayout";
+import ItemLayout from "components/composed/item/ItemLayout";
 import { AuthContextProvider } from "contexts/AuthContext";
 import ModelListPageSkeleton from "components/composed/model/ModelListPageSkeleton";
-import type { LayoutCollectionQuery } from "@/relay/LayoutCollectionQuery.graphql";
+import ItemSlugRedirect from "components/composed/item/ItemSlugRedirect";
+import type { LayoutItemQuery } from "@/relay/LayoutItemQuery.graphql";
 
 export default function Layout<T extends OperationType>(props: Props<T>) {
   const queryVars = useBaseListQueryVars();
@@ -22,28 +22,28 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
 
   const slug = useRouteSlug() as string;
 
-  const { collection } = useLazyLoadQuery<LayoutCollectionQuery>(
-    collectionQuery,
+  const { item } = useLazyLoadQuery<LayoutItemQuery>(
+    itemQuery,
     { slug },
     { fetchPolicy: "store-or-network" },
   );
 
-  if (!slug || !collection) return <ErrorPage statusCode={404} />;
+  if (!slug || !item) return <ErrorPage statusCode={404} />;
 
   if ("isIndex" in props)
     return (
-      <AuthContextProvider data={collection}>
-        <CollectionLayout data={collection}>
-          <CollectionSlugRedirect data={collection} />
-        </CollectionLayout>
+      <AuthContextProvider data={item}>
+        <ItemLayout data={item}>
+          <ItemSlugRedirect data={item} />
+        </ItemLayout>
       </AuthContextProvider>
     );
 
   const { PageComponent, pageComponentProps, query, refetchTags } = props;
 
   return (
-    <AuthContextProvider data={collection}>
-      <CollectionLayout data={collection}>
+    <AuthContextProvider data={item}>
+      <ItemLayout data={item}>
         <QueryTransitionWrapper<T>
           query={query}
           variables={{
@@ -62,7 +62,7 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
             )
           }
         </QueryTransitionWrapper>
-      </CollectionLayout>
+      </ItemLayout>
     </AuthContextProvider>
   );
 }
@@ -87,12 +87,12 @@ type PageProps<T extends OperationType> = {
   queryRef: PreloadedQuery<T>;
 };
 
-const collectionQuery = graphql`
-  query LayoutCollectionQuery($slug: Slug!) {
-    collection(slug: $slug) {
-      ...CollectionLayoutFragment
+const itemQuery = graphql`
+  query LayoutItemQuery($slug: Slug!) {
+    item(slug: $slug) {
+      ...ItemLayoutFragment
       ...AuthContextFragment
-      ...CollectionSlugRedirectFragment
+      ...ItemSlugRedirectFragment
     }
   }
 `;

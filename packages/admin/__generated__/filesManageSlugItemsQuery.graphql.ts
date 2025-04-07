@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e5a8a441de97240b986e8f8b4e179736>>
+ * @generated SignedSource<<5e698655a83cfa3d6c5f3fe21fd55ffd>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,15 +11,14 @@
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type filesManageSlugItemsQuery$variables = {
-  itemSlug: string;
   page: number;
+  slug: string;
 };
 export type filesManageSlugItemsQuery$data = {
   readonly item: {
     readonly assets: {
       readonly " $fragmentSpreads": FragmentRefs<"FileListFragment">;
     };
-    readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "ItemLayoutFragment">;
   } | null | undefined;
 };
 export type filesManageSlugItemsQuery = {
@@ -28,26 +27,24 @@ export type filesManageSlugItemsQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "itemSlug"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "page"
-  }
-],
-v1 = [
+var v0 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "page"
+},
+v1 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "slug"
+},
+v2 = [
   {
     "kind": "Variable",
     "name": "slug",
-    "variableName": "itemSlug"
+    "variableName": "slug"
   }
 ],
-v2 = [
+v3 = [
   {
     "kind": "Variable",
     "name": "page",
@@ -59,62 +56,34 @@ v2 = [
     "value": 20
   }
 ],
-v3 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "slug",
-  "storageKey": null
-},
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "__typename",
-  "storageKey": null
-},
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "kind",
-  "storageKey": null
 };
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/)
+    ],
     "kind": "Fragment",
     "metadata": null,
     "name": "filesManageSlugItemsQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": "Item",
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
         "selections": [
           {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "ItemLayoutFragment"
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "AuthContextFragment"
-          },
-          {
             "alias": null,
-            "args": (v2/*: any*/),
+            "args": (v3/*: any*/),
             "concreteType": "AnyAssetConnection",
             "kind": "LinkedField",
             "name": "assets",
@@ -137,13 +106,16 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v1/*: any*/),
+      (v0/*: any*/)
+    ],
     "kind": "Operation",
     "name": "filesManageSlugItemsQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": "Item",
         "kind": "LinkedField",
         "name": "item",
@@ -151,16 +123,7 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "title",
-            "storageKey": null
-          },
-          (v3/*: any*/),
-          (v4/*: any*/),
-          {
-            "alias": null,
-            "args": (v2/*: any*/),
+            "args": (v3/*: any*/),
             "concreteType": "AnyAssetConnection",
             "kind": "LinkedField",
             "name": "assets",
@@ -174,13 +137,31 @@ return {
                 "name": "nodes",
                 "plural": true,
                 "selections": [
-                  (v5/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "__typename",
+                    "storageKey": null
+                  },
                   {
                     "kind": "InlineFragment",
                     "selections": [
                       (v4/*: any*/),
-                      (v3/*: any*/),
-                      (v6/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "slug",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "kind",
+                        "storageKey": null
+                      },
                       {
                         "alias": null,
                         "args": null,
@@ -348,88 +329,23 @@ return {
             ],
             "storageKey": null
           },
-          {
-            "kind": "InlineFragment",
-            "selections": [
-              (v5/*: any*/),
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "EntityBreadcrumb",
-                "kind": "LinkedField",
-                "name": "breadcrumbs",
-                "plural": true,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "depth",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "label",
-                    "storageKey": null
-                  },
-                  (v6/*: any*/),
-                  (v3/*: any*/),
-                  (v4/*: any*/)
-                ],
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "allowedActions",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "SchemaVersion",
-                "kind": "LinkedField",
-                "name": "schemaVersion",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "enforcedChildKinds",
-                    "storageKey": null
-                  },
-                  (v4/*: any*/)
-                ],
-                "storageKey": null
-              },
-              {
-                "kind": "TypeDiscriminator",
-                "abstractKey": "__isSluggable"
-              }
-            ],
-            "type": "Entity",
-            "abstractKey": "__isEntity"
-          }
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "3b4c9535e93d10621977e00e089c7572",
+    "cacheID": "f027fed12915db8b6f977c707e165395",
     "id": null,
     "metadata": {},
     "name": "filesManageSlugItemsQuery",
     "operationKind": "query",
-    "text": "query filesManageSlugItemsQuery(\n  $itemSlug: Slug!\n  $page: Int!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    ...AuthContextFragment\n    assets(page: $page, perPage: 20) {\n      ...FileListFragment\n    }\n    id\n  }\n}\n\nfragment AssetThumbnailColumnFragment on Asset {\n  __isAsset: __typename\n  thumbnail: preview {\n    storage\n    image: medium {\n      png {\n        ...ImageFragment\n      }\n    }\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment FileListFragment on AnyAssetConnection {\n  nodes {\n    __typename\n    ... on Asset {\n      __isAsset: __typename\n      id\n      slug\n      kind\n      name\n      downloadUrl\n      ...AssetThumbnailColumnFragment\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
+    "text": "query filesManageSlugItemsQuery(\n  $slug: Slug!\n  $page: Int!\n) {\n  item(slug: $slug) {\n    assets(page: $page, perPage: 20) {\n      ...FileListFragment\n    }\n    id\n  }\n}\n\nfragment AssetThumbnailColumnFragment on Asset {\n  __isAsset: __typename\n  thumbnail: preview {\n    storage\n    image: medium {\n      png {\n        ...ImageFragment\n      }\n    }\n  }\n}\n\nfragment FileListFragment on AnyAssetConnection {\n  nodes {\n    __typename\n    ... on Asset {\n      __isAsset: __typename\n      id\n      slug\n      kind\n      name\n      downloadUrl\n      ...AssetThumbnailColumnFragment\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "b9bb48df3cd0fbe9f49473ad753d4759";
+(node as any).hash = "6c2f987cf95f1cfcfc1f0d4dae8ddd3c";
 
 export default node;

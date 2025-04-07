@@ -20,7 +20,7 @@ const getLayout: GetLayout<Props> = (props) => (
   <Layout
     query={query}
     refetchTags={["allAccessGrants", "assignedUsers"]}
-    modelName="member"
+    modelName="access"
     {...props}
   />
 );

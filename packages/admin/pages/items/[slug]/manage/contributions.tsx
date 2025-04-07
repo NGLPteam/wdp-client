@@ -1,29 +1,28 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
 import ItemContributionList from "components/composed/contribution/ItemContributionList";
-import { AuthContextProvider } from "contexts/AuthContext";
-import ItemLayout from "components/composed/item/ItemLayout";
 import type { contributionsManageSlugItemsQuery as Query } from "@/relay/contributionsManageSlugItemsQuery.graphql";
-import Layout from "./layout";
+import Layout from "./_layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
-function ManageContributions({ queryRef, ...layoutProps }: Props) {
+function ManageContributions({ queryRef }: Props) {
   const { item } = usePreloadedQuery<Query>(query, queryRef);
 
   return item ? (
-    <AuthContextProvider data={item}>
-      <ItemLayout data={item} {...layoutProps}>
-        <ItemContributionList
-          nameColumn="contributor"
-          data={item.contributions}
-          headerStyle="secondary"
-        />
-      </ItemLayout>
-    </AuthContextProvider>
+    <ItemContributionList
+      nameColumn="contributor"
+      data={item.contributions}
+      headerStyle="secondary"
+    />
   ) : null;
 }
 
 const getLayout: GetLayout<Props> = (props) => (
-  <Layout query={query} refetchTags={["contributions"]} {...props} />
+  <Layout
+    query={query}
+    refetchTags={["contributions"]}
+    modelName="item_contribution"
+    {...props}
+  />
 );
 
 ManageContributions.getLayout = getLayout;
@@ -32,19 +31,15 @@ export default ManageContributions;
 
 type Props = {
   queryRef: PreloadedQuery<Query>;
-  showSidebar: true;
-  useRouteHeader: false;
 };
 
 const query = graphql`
   query contributionsManageSlugItemsQuery(
-    $itemSlug: Slug!
+    $slug: Slug!
     $page: Int!
     $order: ContributionOrder
   ) {
-    item(slug: $itemSlug) {
-      ...ItemLayoutFragment
-      ...AuthContextFragment
+    item(slug: $slug) {
       contributions(page: $page, perPage: 20, order: $order) {
         ...ItemContributionListFragment
       }
