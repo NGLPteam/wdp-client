@@ -7,11 +7,10 @@ import {
 } from "react-relay";
 import { OperationType } from "relay-runtime";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
-import { LoadingPage } from "components/atomic";
+import { LoadingPage, LoadingCircle } from "components/atomic";
 import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import UserLayout from "components/composed/user/UserLayout";
 import ErrorPage from "next/error";
-import { LoadingCircle } from "components/atomic";
 import { RouteUnauthorizedMessage } from "components/auth/UnauthorizedMessage";
 import { useViewerContext } from "contexts";
 import { ModelListProps } from "components/composed/model/ModelList";

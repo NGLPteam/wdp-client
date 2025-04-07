@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f4188a5ae844a845913dd8ae84a37514>>
+ * @generated SignedSource<<ef01a6ce03fdb55bb811ee4f0d8b7625>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,12 +11,12 @@
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type announcementsManageSlugCommunitiesPagesQuery$variables = {
-  communitySlug: string;
   page?: number | null | undefined;
+  slug: string;
 };
 export type announcementsManageSlugCommunitiesPagesQuery$data = {
   readonly community: {
-    readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "CommunityLayoutFragment" | "EntityAnnouncementsListFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "EntityAnnouncementsListFragment">;
   } | null | undefined;
 };
 export type announcementsManageSlugCommunitiesPagesQuery = {
@@ -25,32 +25,23 @@ export type announcementsManageSlugCommunitiesPagesQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "communitySlug"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "page"
-  }
-],
-v1 = [
+var v0 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "page"
+},
+v1 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "slug"
+},
+v2 = [
   {
     "kind": "Variable",
     "name": "slug",
-    "variableName": "communitySlug"
+    "variableName": "slug"
   }
 ],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
 v3 = {
   "alias": null,
   "args": null,
@@ -58,7 +49,15 @@ v3 = {
   "name": "slug",
   "storageKey": null
 },
-v4 = [
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v5 = [
+  (v3/*: any*/),
   {
     "alias": null,
     "args": [
@@ -94,7 +93,7 @@ v4 = [
             "name": "node",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
+              (v4/*: any*/),
               (v3/*: any*/),
               {
                 "alias": null,
@@ -182,14 +181,17 @@ v4 = [
 ];
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/)
+    ],
     "kind": "Fragment",
     "metadata": null,
     "name": "announcementsManageSlugCommunitiesPagesQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": "Community",
         "kind": "LinkedField",
         "name": "community",
@@ -199,11 +201,6 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "EntityAnnouncementsListFragment"
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "CommunityLayoutFragment"
           },
           {
             "args": null,
@@ -219,52 +216,39 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v1/*: any*/),
+      (v0/*: any*/)
+    ],
     "kind": "Operation",
     "name": "announcementsManageSlugCommunitiesPagesQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": "Community",
         "kind": "LinkedField",
         "name": "community",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "name",
-            "storageKey": null
-          },
-          (v3/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "allowedActions",
-            "storageKey": null
-          },
           {
             "kind": "InlineFragment",
             "selections": [
               {
                 "kind": "InlineFragment",
-                "selections": (v4/*: any*/),
+                "selections": (v5/*: any*/),
                 "type": "Community",
                 "abstractKey": null
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v4/*: any*/),
+                "selections": (v5/*: any*/),
                 "type": "Collection",
                 "abstractKey": null
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v4/*: any*/),
+                "selections": (v5/*: any*/),
                 "type": "Item",
                 "abstractKey": null
               }
@@ -278,42 +262,31 @@ return {
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "SchemaVersion",
-                "kind": "LinkedField",
-                "name": "schemaVersion",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "enforcedChildKinds",
-                    "storageKey": null
-                  },
-                  (v2/*: any*/)
-                ],
+                "kind": "ScalarField",
+                "name": "allowedActions",
                 "storageKey": null
               }
             ],
             "type": "Entity",
             "abstractKey": "__isEntity"
-          }
+          },
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "572117c705692151106b811cd069777f",
+    "cacheID": "11219a8e0c637252d511bf7a769464a2",
     "id": null,
     "metadata": {},
     "name": "announcementsManageSlugCommunitiesPagesQuery",
     "operationKind": "query",
-    "text": "query announcementsManageSlugCommunitiesPagesQuery(\n  $communitySlug: Slug!\n  $page: Int\n) {\n  community(slug: $communitySlug) {\n    ...EntityAnnouncementsListFragment\n    ...CommunityLayoutFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CommunityLayoutFragment on Community {\n  id\n  name\n  slug\n  allowedActions\n  ...useChildRouteLinksFragment\n}\n\nfragment EntityAnnouncementsListDataFragment on AnnouncementConnection {\n  edges {\n    node {\n      id\n      slug\n      header\n      publishedOn\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityAnnouncementsListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
+    "text": "query announcementsManageSlugCommunitiesPagesQuery(\n  $slug: Slug!\n  $page: Int\n) {\n  community(slug: $slug) {\n    ...EntityAnnouncementsListFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment EntityAnnouncementsListDataFragment on AnnouncementConnection {\n  edges {\n    node {\n      id\n      slug\n      header\n      publishedOn\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityAnnouncementsListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "1bf0bd1e66be3562240909fe50321b03";
+(node as any).hash = "7ecf6a7a3a7098f8d8fdcf09246b3c6d";
 
 export default node;
