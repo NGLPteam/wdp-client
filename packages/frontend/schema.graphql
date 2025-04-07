@@ -1591,7 +1591,7 @@ in a tree structure.
 In practice, this means a `Collection` or an `Item`, not a `Community`.
 
 """
-interface ChildEntity implements Accessible & Entity & EntityBase & ExposesPermissions & HasDOI & HasDefaultTimestamps & HasEntityBreadcrumbs & HasSchemaProperties & ReferencesEntityVisibility & ReferencesGlobalEntityDates & Searchable & Sluggable {
+interface ChildEntity implements Accessible & Entity & EntityBase & ExposesPermissions & HasDOI & HasDefaultTimestamps & HasEntityBreadcrumbs & HasHarvestModificationStatus & HasSchemaProperties & ReferencesEntityVisibility & ReferencesGlobalEntityDates & Searchable & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   """A polymorphic connection for access grants from an entity"""
@@ -1740,6 +1740,19 @@ interface ChildEntity implements Accessible & Entity & EntityBase & ExposesPermi
   """
   doiData: DOIData!
   """
+  The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+  no effect on this record.
+  
+  """
+  harvestModificationStatus: HarvestModificationStatus!
+  """
+  The harvest record(s) associated with the entity, with most recent harvest records sorted to the top.
+  
+  It is technically possible for multiple harvest records to have affected an entity.
+  
+  """
+  harvestRecords: [HarvestRecord!]!
+  """
   For use in the admin, something to signify that data has been set on `rawDOI`
   that could not be properly assigned to `doi`.
   
@@ -1775,12 +1788,6 @@ interface ChildEntity implements Accessible & Entity & EntityBase & ExposesPermi
   A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers.
   """
   identifier: String!
-  inCommunityOrdering(
-    """
-    The identifier of the community ordering to look for this entity within.
-    """
-    identifier: String!
-  ): OrderingEntry
   """
   Access layouts for this entity.
   
@@ -1987,8 +1994,25 @@ enum ChildEntityKind {
   ITEM
 }
 
+"""
+Used to process redirect URIs for specific client locations.
+
+"""
+enum ClientLocation {
+  """
+  The admin client (https://admin.sandbox.meru.host).
+  
+  """
+  ADMIN
+  """
+  The frontend client (https://sandbox.meru.host).
+  
+  """
+  FRONTEND
+}
+
 """A collection of items"""
-type Collection implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
+type Collection implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasHarvestModificationStatus & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -2190,6 +2214,7 @@ type Collection implements Accessible & Attachable & Attributable & ChildEntity 
   ): CollectionConnection! @deprecated(reason: "Use Collection.collections")
   """Retrieve the collections beneath this collection."""
   collections(
+    access: EntityPermissionFilter = SKIP
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """
@@ -2350,6 +2375,19 @@ type Collection implements Accessible & Attachable & Attributable & ChildEntity 
     schema: [String!]
   ): Item
   """
+  The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+  no effect on this record.
+  
+  """
+  harvestModificationStatus: HarvestModificationStatus!
+  """
+  The harvest record(s) associated with the entity, with most recent harvest records sorted to the top.
+  
+  It is technically possible for multiple harvest records to have affected an entity.
+  
+  """
+  harvestRecords: [HarvestRecord!]!
+  """
   Whether this is a collection or a community.
   
   """
@@ -2395,13 +2433,8 @@ type Collection implements Accessible & Attachable & Attributable & ChildEntity 
   A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers.
   """
   identifier: String!
-  inCommunityOrdering(
-    """
-    The identifier of the community ordering to look for this entity within.
-    """
-    identifier: String!
-  ): OrderingEntry
   items(
+    access: EntityPermissionFilter = SKIP
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """
@@ -2556,6 +2589,7 @@ type Collection implements Accessible & Attachable & Attributable & ChildEntity 
   rawDOI: String
   """Retrieve linked collections of the same schema type"""
   relatedCollections(
+    access: EntityPermissionFilter = SKIP
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """
@@ -2962,6 +2996,7 @@ type Community implements Accessible & Attachable & Entity & EntityBase & Expose
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
   collections(
+    access: EntityPermissionFilter = SKIP
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """
@@ -3570,7 +3605,7 @@ input ContributionRoleConfigurationInput {
 """
 Objects have a serialized slug for looking them up in the system and generating links without UUIDs
 """
-interface Contributor implements ContributorBase & Sluggable {
+interface Contributor implements ContributorBase & HasHarvestModificationStatus & Sluggable {
   """
   Only applicable when `kind` = `PERSON`.
   
@@ -3636,6 +3671,12 @@ interface Contributor implements ContributorBase & Sluggable {
   
   """
   givenName: String
+  """
+  The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+  no effect on this record.
+  
+  """
+  harvestModificationStatus: HarvestModificationStatus!
   identifier: String!
   """An optional image associated with the contributor."""
   image: ImageAttachment!
@@ -3777,7 +3818,7 @@ enum ContributorAttributionOrder {
 """
 Objects have a serialized slug for looking them up in the system and generating links without UUIDs
 """
-interface ContributorBase implements Sluggable {
+interface ContributorBase implements HasHarvestModificationStatus & Sluggable {
   """
   Only applicable when `kind` = `PERSON`.
   
@@ -3805,6 +3846,12 @@ interface ContributorBase implements Sluggable {
   
   """
   givenName: String
+  """
+  The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+  no effect on this record.
+  
+  """
+  harvestModificationStatus: HarvestModificationStatus!
   identifier: String!
   """An optional image associated with the contributor."""
   image: ImageAttachment!
@@ -6944,9 +6991,29 @@ enum EntityOrder {
   TITLE_DESCENDING
 }
 
+"""
+When retrieving lists of entities, sometimes it is helpful to only show
+entities that the current user (or related user) has access to.
+
+"""
 enum EntityPermissionFilter {
-  CRUD
+  """
+  Show only the entities that a user has specific read access for—this allows
+  them to view the full record as opposed to just what appears in the frontend.
+  
+  """
   READ_ONLY
+  """
+  A default value that skips checking for access. It will retrieve every
+  entity visible to the current user.
+  
+  """
+  SKIP
+  """
+  Show entities that a user has the ability to update.
+  
+  """
+  UPDATE
 }
 
 """A grid of permissions for various hierarchical entity scopes."""
@@ -7478,7 +7545,7 @@ type GroupProperty implements SchemaProperty {
 A record of a single attempt at harvesting.
 
 """
-type HarvestAttempt implements HasHarvestErrors & HasHarvestMetadataFormat & Node & Sluggable {
+type HarvestAttempt implements HasHarvestErrors & HasHarvestExtractionMappingTemplate & HasHarvestMetadataFormat & Node & QueriesHarvestMessage & Sluggable {
   """
   The time the attempt began.
   
@@ -7486,10 +7553,39 @@ type HarvestAttempt implements HasHarvestErrors & HasHarvestMetadataFormat & Nod
   beganAt: ISO8601DateTime
   createdAt: ISO8601DateTime!
   """
+  The current state of the attempt.
+  
+  """
+  currentState: HarvestAttemptState!
+  """
   The time the attempt ended.
   
   """
   endedAt: ISO8601DateTime
+  """
+  The extraction mapping template used for this harvesting-related record
+  at its place in the hierarchy. It is an XML document that describes how
+  to map various types of metadata from the harvested records and transform
+  that data into entities in Meru.
+  
+  For harvest sources, it can be considered the default mapping template
+  for any record in the system, and should be used to pre-populate
+  attempts that are created by the source, as well as future plans to
+  allow for extracting a single record by external ID that may not have
+  yet been fetched by an extract records process.
+  
+  For harvest mappings, it can be considered the default mapping template
+  for any attempt created by the mapping.
+  
+  For any harvesting data that exists prior to the harvesting refactor
+  completed during March of 2025, it's possible for this value to be
+  an empty string. Any modifications to mappings and sources from that
+  time will need to add a valid mapping template in order to succeed.
+  
+  See `Query.harvestExamples` for examples of valid mapping templates.
+  
+  """
+  extractionMappingTemplate: String!
   """
   A list of errors that are associated with this harvesting type.
   
@@ -7500,6 +7596,37 @@ type HarvestAttempt implements HasHarvestErrors & HasHarvestMetadataFormat & Nod
   
   """
   harvestMapping: HarvestMapping
+  harvestMessages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """
+    Filters that **must** match.
+    
+    """
+    filters: HarvestMessageFilterInput = null
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """
+    An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,
+    though a UI could be built.
+    
+    **Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.
+    
+    """
+    orFilters: [HarvestMessageFilterInput!] = []
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestMessageConnection!
   """
   Records associated with this attempt specifically.
   
@@ -7542,6 +7669,15 @@ type HarvestAttempt implements HasHarvestErrors & HasHarvestMetadataFormat & Nod
   """
   metadataFormat: HarvestMetadataFormat!
   """
+  Whether this attempt is `MANUAL` or `SCHEDULED`. This field is not set
+  through the admin section, but derived from how the attempt was created.
+  
+  `SCHEDULED` attempts are created by Meru internally
+  based on their `harvestMapping`'s configuration.
+  
+  """
+  mode: HarvestScheduleMode!
+  """
   An optional note for this harvesting attempt.
   
   """
@@ -7551,6 +7687,11 @@ type HarvestAttempt implements HasHarvestErrors & HasHarvestMetadataFormat & Nod
   
   """
   recordCount: Int
+  """
+  This specifies the time the attempt is scheduled to run at, if the `mode` is `SCHEDULED`.
+  
+  """
+  scheduledAt: ISO8601DateTime
   slug: Slug!
   """
   The target entity for the attempt. All harvest entities will be nested under this entity, unless otherwise specified.
@@ -7583,6 +7724,30 @@ input HarvestAttemptFromMappingInput {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
   """
+  The extraction mapping template used for this harvesting-related record
+  at its place in the hierarchy. It is an XML document that describes how
+  to map various types of metadata from the harvested records and transform
+  that data into entities in Meru.
+  
+  For harvest sources, it can be considered the default mapping template
+  for any record in the system, and should be used to pre-populate
+  attempts that are created by the source, as well as future plans to
+  allow for extracting a single record by external ID that may not have
+  yet been fetched by an extract records process.
+  
+  For harvest mappings, it can be considered the default mapping template
+  for any attempt created by the mapping.
+  
+  For any harvesting data that exists prior to the harvesting refactor
+  completed during March of 2025, it's possible for this value to be
+  an empty string. Any modifications to mappings and sources from that
+  time will need to add a valid mapping template in order to succeed.
+  
+  See `Query.harvestExamples` for examples of valid mapping templates.
+  
+  """
+  extractionMappingTemplate: String!
+  """
   The harvest mapping to update.
   
   """
@@ -7614,6 +7779,30 @@ type HarvestAttemptFromMappingPayload implements StandardMutationPayload {
 input HarvestAttemptFromSourceInput {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
+  """
+  The extraction mapping template used for this harvesting-related record
+  at its place in the hierarchy. It is an XML document that describes how
+  to map various types of metadata from the harvested records and transform
+  that data into entities in Meru.
+  
+  For harvest sources, it can be considered the default mapping template
+  for any record in the system, and should be used to pre-populate
+  attempts that are created by the source, as well as future plans to
+  allow for extracting a single record by external ID that may not have
+  yet been fetched by an extract records process.
+  
+  For harvest mappings, it can be considered the default mapping template
+  for any attempt created by the mapping.
+  
+  For any harvesting data that exists prior to the harvesting refactor
+  completed during March of 2025, it's possible for this value to be
+  an empty string. Any modifications to mappings and sources from that
+  time will need to add a valid mapping template in order to succeed.
+  
+  See `Query.harvestExamples` for examples of valid mapping templates.
+  
+  """
+  extractionMappingTemplate: String!
   """
   An optional set to restrict the attempt to.
   
@@ -7671,6 +7860,40 @@ enum HarvestAttemptOrder {
 }
 
 """
+The state that an attempt is in.
+
+"""
+enum HarvestAttemptState {
+  """
+  A scheduled attempt that was cancelled.
+  
+  """
+  CANCELLED
+  """
+  An attempt that is in the process of extracting records.
+  
+  A failed extraction may linger in this state.
+  
+  """
+  EXECUTING
+  """
+  An attempt whose entities have all been extracted from the source.
+  
+  """
+  EXTRACTED
+  """
+  An attempt that has not yet extracted anything.
+  
+  """
+  PENDING
+  """
+  A scheduled attempt for a specific mapping that has not yet ran.
+  
+  """
+  SCHEDULED
+}
+
+"""
 A record that can be used to trigger a run of the harvesting
 subsystem via `harvestStart`.
 
@@ -7707,13 +7930,44 @@ can then be associated to an actual entity by the
 harvesting process.
 
 """
-type HarvestEntity implements Node & Sluggable {
+type HarvestEntity implements Node & QueriesHarvestMessage & Sluggable {
   createdAt: ISO8601DateTime!
   """
   The real entity this is associated with (if available).
   
   """
   entity: Entity
+  harvestMessages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """
+    Filters that **must** match.
+    
+    """
+    filters: HarvestMessageFilterInput = null
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """
+    An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,
+    though a UI could be built.
+    
+    **Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.
+    
+    """
+    orFilters: [HarvestMessageFilterInput!] = []
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestMessageConnection!
   id: ID!
   """
   A unique identifier for the staged entity within the context of its `HarvestRecord`.
@@ -7725,14 +7979,6 @@ type HarvestEntity implements Node & Sluggable {
   
   """
   leaf: Boolean!
-  """
-  An internal identifier used to track what "kind" of entity this might produce,
-  based on the extracted metadata.
-  
-  May roughly correspond to schemas, but not always.
-  
-  """
-  metadataKind: String
   """
   The parent staged entity (if applicable).
   
@@ -7784,6 +8030,69 @@ type HarvestError implements Node & Sluggable {
 }
 
 """
+An example of various harvesting configurations, particularly extraction mapping templates.
+
+"""
+type HarvestExample {
+  """
+  Whether this should be considered a "default" example
+  for a given metadata / protocol combination.
+  
+  """
+  default: Boolean!
+  """
+  A description about the example, if available.
+  
+  """
+  description: String
+  """
+  The example's extraction mapping template which can be applied to harvest sources, mappings, and attempts.
+  
+  """
+  extractionMappingTemplate: String!
+  """
+  Whether this is a generic example that is not tied
+  to any specific protocol nor metadata format.
+  
+  """
+  generic: Boolean!
+  """
+  The ID for the example.
+  
+  """
+  id: ID!
+  """
+  The metadata format this example applies to.
+  
+  It can be blank if the example is not metadata-specific.
+  
+  """
+  metadataFormatName: HarvestMetadataFormat
+  """
+  The human-readable name for the example.
+  
+  """
+  name: String!
+  """
+  The protocol this example applies to.
+  
+  It can be blank if the example is not protocol-specific.
+  
+  """
+  protocolName: HarvestProtocol
+  """
+  A list of schema declarations that the mapping template can generate.
+  
+  """
+  schemaDeclarations: [String!]!
+  """
+  A list of schema versions that the mapping template can generate.
+  
+  """
+  schemaVersions: [SchemaVersion!]!
+}
+
+"""
 A specific mapping to be used by a `HarvestSource`,
 possibly an optional `HarvestSet`, and other options
 in order to harvest records from the source and produce
@@ -7792,8 +8101,40 @@ entities.
 It can produce a `HarvestAttempt`.
 
 """
-type HarvestMapping implements HarvestAttemptable & HasHarvestMetadataFormat & HasHarvestOptions & Node & Sluggable {
+type HarvestMapping implements HarvestAttemptable & HasHarvestExtractionMappingTemplate & HasHarvestMetadataFormat & HasHarvestOptions & Node & QueriesHarvestMessage & Sluggable {
   createdAt: ISO8601DateTime!
+  """
+  The extraction mapping template used for this harvesting-related record
+  at its place in the hierarchy. It is an XML document that describes how
+  to map various types of metadata from the harvested records and transform
+  that data into entities in Meru.
+  
+  For harvest sources, it can be considered the default mapping template
+  for any record in the system, and should be used to pre-populate
+  attempts that are created by the source, as well as future plans to
+  allow for extracting a single record by external ID that may not have
+  yet been fetched by an extract records process.
+  
+  For harvest mappings, it can be considered the default mapping template
+  for any attempt created by the mapping.
+  
+  For any harvesting data that exists prior to the harvesting refactor
+  completed during March of 2025, it's possible for this value to be
+  an empty string. Any modifications to mappings and sources from that
+  time will need to add a valid mapping template in order to succeed.
+  
+  See `Query.harvestExamples` for examples of valid mapping templates.
+  
+  """
+  extractionMappingTemplate: String!
+  """
+  This can be a cron expression as well as a human-readable expression like
+  `"every sunday at 5 am America/Los_Angeles"`.
+  The system will attempt to validate and parse the expression when setting
+  it in order to make sure it is something that Meru can handle.
+  
+  """
+  frequencyExpression: String
   """
   Attempts produced by this mapping.
   
@@ -7817,6 +8158,37 @@ type HarvestMapping implements HarvestAttemptable & HasHarvestMetadataFormat & H
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): HarvestAttemptConnection!
+  harvestMessages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """
+    Filters that **must** match.
+    
+    """
+    filters: HarvestMessageFilterInput = null
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """
+    An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,
+    though a UI could be built.
+    
+    **Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.
+    
+    """
+    orFilters: [HarvestMessageFilterInput!] = []
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestMessageConnection!
   """
   Records associated with this mapping.
   
@@ -7845,7 +8217,18 @@ type HarvestMapping implements HarvestAttemptable & HasHarvestMetadataFormat & H
   
   """
   harvestSet: HarvestSet
+  """
+  The harvest source this belongs to.
+  
+  """
+  harvestSource: HarvestSource!
   id: ID!
+  """
+  This timestamp signifies when the harvest mapping last tried to schedule its
+  attempts (if applicable).
+  
+  """
+  lastScheduledAt: ISO8601DateTime
   """
   Options that control mapping of entities during the harvesting process.
   
@@ -7859,10 +8242,32 @@ type HarvestMapping implements HarvestAttemptable & HasHarvestMetadataFormat & H
   """
   metadataFormat: HarvestMetadataFormat!
   """
+  Whether this mapping is `MANUAL` or `SCHEDULED`. This field is not set
+  through the admin section, but derived from parsing the mapping's
+  `frequencyExpression`.
+  
+  `SCHEDULED` mappings will automatically create `HarvestAttempt`s
+  for the next several iterations of their `frequencyExpression`.
+  
+  """
+  mode: HarvestScheduleMode!
+  """
   Options that control reading from the source.
   
   """
   readOptions: HarvestOptionsRead!
+  """
+  This timestamp signifies the last time the frequency expression, or any
+  of its derived fields, were changed.
+  
+  """
+  scheduleChangedAt: ISO8601DateTime
+  """
+  Derived information about the frequency expression (if valid and applicable),
+  to provide insight for introspection.
+  
+  """
+  scheduleData: HarvestScheduleData!
   slug: Slug!
   """
   The target entity for the attempt. All harvest entities will be nested under this entity, unless otherwise specified.
@@ -7872,10 +8277,52 @@ type HarvestMapping implements HarvestAttemptable & HasHarvestMetadataFormat & H
   updatedAt: ISO8601DateTime!
 }
 
+"""The connection type for HarvestMapping."""
+type HarvestMappingConnection implements Paginated {
+  """A list of edges."""
+  edges: [HarvestMappingEdge!]!
+  """A list of nodes."""
+  nodes: [HarvestMapping!]!
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
 """Autogenerated input type of HarvestMappingCreate"""
 input HarvestMappingCreateInput {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
+  """
+  The extraction mapping template used for this harvesting-related record
+  at its place in the hierarchy. It is an XML document that describes how
+  to map various types of metadata from the harvested records and transform
+  that data into entities in Meru.
+  
+  For harvest sources, it can be considered the default mapping template
+  for any record in the system, and should be used to pre-populate
+  attempts that are created by the source, as well as future plans to
+  allow for extracting a single record by external ID that may not have
+  yet been fetched by an extract records process.
+  
+  For harvest mappings, it can be considered the default mapping template
+  for any attempt created by the mapping.
+  
+  For any harvesting data that exists prior to the harvesting refactor
+  completed during March of 2025, it's possible for this value to be
+  an empty string. Any modifications to mappings and sources from that
+  time will need to add a valid mapping template in order to succeed.
+  
+  See `Query.harvestExamples` for examples of valid mapping templates.
+  
+  """
+  extractionMappingTemplate: String!
+  """
+  This can be a cron expression as well as a human-readable expression like
+  `"every sunday at 5 am America/Los_Angeles"`.
+  The system will attempt to validate and parse the expression when setting
+  it in order to make sure it is something that Meru can handle.
+  
+  """
+  frequencyExpression: String
   """
   An optional set to associate with the mapping.
   
@@ -7960,10 +8407,63 @@ type HarvestMappingDestroyPayload implements DestroyMutationPayload & StandardMu
   haltCode: String
 }
 
+"""An edge in a connection."""
+type HarvestMappingEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+  """The item at the end of the edge."""
+  node: HarvestMapping!
+}
+
+"""
+Sort a collection of `HarvestMapping` records by specific properties and directions.
+
+"""
+enum HarvestMappingOrder {
+  """Sort harvest mappings by their default order."""
+  DEFAULT
+  """Sort harvest mappings by oldest created date."""
+  OLDEST
+  """Sort harvest mappings by newest created date."""
+  RECENT
+}
+
 """Autogenerated input type of HarvestMappingUpdate"""
 input HarvestMappingUpdateInput {
   """A unique identifier for the client performing the mutation."""
   clientMutationId: String
+  """
+  The extraction mapping template used for this harvesting-related record
+  at its place in the hierarchy. It is an XML document that describes how
+  to map various types of metadata from the harvested records and transform
+  that data into entities in Meru.
+  
+  For harvest sources, it can be considered the default mapping template
+  for any record in the system, and should be used to pre-populate
+  attempts that are created by the source, as well as future plans to
+  allow for extracting a single record by external ID that may not have
+  yet been fetched by an extract records process.
+  
+  For harvest mappings, it can be considered the default mapping template
+  for any attempt created by the mapping.
+  
+  For any harvesting data that exists prior to the harvesting refactor
+  completed during March of 2025, it's possible for this value to be
+  an empty string. Any modifications to mappings and sources from that
+  time will need to add a valid mapping template in order to succeed.
+  
+  See `Query.harvestExamples` for examples of valid mapping templates.
+  
+  """
+  extractionMappingTemplate: String!
+  """
+  This can be a cron expression as well as a human-readable expression like
+  `"every sunday at 5 am America/Los_Angeles"`.
+  The system will attempt to validate and parse the expression when setting
+  it in order to make sure it is something that Meru can handle.
+  
+  """
+  frequencyExpression: String
   """
   The harvest mapping to update.
   
@@ -8005,6 +8505,137 @@ type HarvestMappingUpdatePayload implements StandardMutationPayload {
 }
 
 """
+A single log message recorded during some aspect of harvesting.
+
+"""
+type HarvestMessage implements Node & Sluggable {
+  """
+  The time the message occurred. This field should be favored at
+  for display over the model's default `createdAt` field.
+  
+  """
+  at: ISO8601DateTime!
+  createdAt: ISO8601DateTime!
+  """
+  The harvest attempt associatd with the message, if available.
+  
+  """
+  harvestAttempt: HarvestAttempt
+  """
+  The harvest entity associatd with the message, if available.
+  
+  """
+  harvestEntity: HarvestEntity
+  """
+  The harvest mapping associatd with the message, if available.
+  
+  """
+  harvestMapping: HarvestMapping
+  """
+  The harvest record associatd with the message, if available.
+  
+  """
+  harvestRecord: HarvestRecord
+  """
+  The harvest source associated with the message.
+  
+  """
+  harvestSource: HarvestSource
+  id: ID!
+  """
+  The level of severity of the message.
+  
+  """
+  level: HarvestMessageLevel!
+  """
+  The message itself.
+  
+  """
+  message: String!
+  slug: Slug!
+  """
+  Tags associated with the message. This may describe what section
+  of the harvesting system triggered the message, and may support
+  querying in the future.
+  
+  """
+  tags: [String!]!
+  updatedAt: ISO8601DateTime!
+}
+
+"""The connection type for HarvestMessage."""
+type HarvestMessageConnection implements Paginated {
+  """A list of edges."""
+  edges: [HarvestMessageEdge!]!
+  """A list of nodes."""
+  nodes: [HarvestMessage!]!
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""An edge in a connection."""
+type HarvestMessageEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+  """The item at the end of the edge."""
+  node: HarvestMessage!
+}
+
+"""
+Filters for HarvestMessage.
+
+"""
+input HarvestMessageFilterInput {
+  severity: HarvestMessageLevel
+}
+
+"""
+Levels of severity associated with `HarvestMessage`s.
+
+`FATAL` is the most severe, `TRACE` is the least.
+
+"""
+enum HarvestMessageLevel {
+  """
+  Debug information about the harvesting system.
+  
+  May be hidden by default when displaying.
+  
+  """
+  DEBUG
+  """
+  An error that may or may not have interrupted a harvesting operation,
+  but could, for instance, just indicate that a single record failed.
+  
+  """
+  ERROR
+  """
+  A fatal error which likely caused an entire harvesting operation to stop.
+  
+  """
+  FATAL
+  """
+  Informational messages that are higher priority than debug messages.
+  
+  """
+  INFO
+  """
+  Very low-level trace messages that may be used in the future
+  to narrow down specific / performance issues with harvesting,
+  but at present likely won't appear.
+  
+  Should be hidden by default when displaying.
+  
+  """
+  TRACE
+  """
+  Warnings about validation failures and similar things.
+  
+  """
+  WARN
+}
+
+"""
 Supported metadata formats for harvesting.
 
 `HarvestProtocol` describes the transport method for individual records to be harvested,
@@ -8012,6 +8643,11 @@ while `HarvestMetadataFormat` describes the structure of the data.
 
 """
 enum HarvestMetadataFormat {
+  """
+  [Esploro Records](https://developers.exlibrisgroup.com/esploro/apis/xsd/esploro_record.xsd/)
+  
+  """
+  ESPLORO
   """
   [Journal Article Tag Suite](https://jats.nlm.nih.gov/)
   
@@ -8032,6 +8668,38 @@ enum HarvestMetadataFormat {
   
   """
   OAIDC
+}
+
+"""
+An enum which describes how harvesting actions will affect
+a given record.
+
+"""
+enum HarvestModificationStatus {
+  """
+  This record was created through harvesting actions and **has**
+  been modified in the admin section. Harvest
+  
+  Harvesting actions will leave this record alone.
+  
+  """
+  MODIFIED
+  """
+  This record was created through harvesting actions and **has not**
+  been modified in the admin section.
+  
+  Harvesting actions will overwrite any data if they encounter this record again.
+  
+  """
+  PRISTINE
+  """
+  This record was not created through harvesting actions.
+  
+  Should harvesting actions end up matching an unharvested record,
+  it will change this value to `MODIFIED` and treat it as such.
+  
+  """
+  UNHARVESTED
 }
 
 """
@@ -8133,6 +8801,11 @@ enum HarvestProtocol {
   
   """
   OAI
+  """
+  A fallback value for protocols that should not appear under normal circumstances.
+  
+  """
+  UNKNOWN
 }
 
 """
@@ -8140,7 +8813,7 @@ An object representing a single record in the `HarvestSource`.
 It can produce one or more harvest entities.
 
 """
-type HarvestRecord implements HasHarvestErrors & HasHarvestMetadataFormat & Node & Sluggable {
+type HarvestRecord implements HasHarvestErrors & HasHarvestMetadataFormat & Node & QueriesHarvestMessage & Sluggable {
   createdAt: ISO8601DateTime!
   """
   The number of entities this record can/will produce (if available).
@@ -8157,6 +8830,42 @@ type HarvestRecord implements HasHarvestErrors & HasHarvestMetadataFormat & Node
   
   """
   harvestErrors: [HarvestError!]!
+  harvestMessages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """
+    Filters that **must** match.
+    
+    """
+    filters: HarvestMessageFilterInput = null
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """
+    An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,
+    though a UI could be built.
+    
+    **Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.
+    
+    """
+    orFilters: [HarvestMessageFilterInput!] = []
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestMessageConnection!
+  """
+  The harvest source this belongs to.
+  
+  """
+  harvestSource: HarvestSource!
   id: ID!
   """
   A unique identifier for the record within the `HarvestSource`.
@@ -8171,7 +8880,7 @@ type HarvestRecord implements HasHarvestErrors & HasHarvestMetadataFormat & Node
   """
   metadataFormat: HarvestMetadataFormat!
   """
-  The raw medata extracted from `rawSource`, with minimal processing applied.
+  The raw metadata extracted from `rawSource`, with minimal processing applied.
   
   When rendering in the frontend, this should be in some sort of fixed-width font / code view,
   as it will be JSON, XML, or similar types of data.
@@ -8187,6 +8896,11 @@ type HarvestRecord implements HasHarvestErrors & HasHarvestMetadataFormat & Node
   """
   rawSource: String
   slug: Slug!
+  """
+  The status of the record.
+  
+  """
+  status: HarvestRecordStatus!
   updatedAt: ISO8601DateTime!
 }
 
@@ -8219,6 +8933,68 @@ enum HarvestRecordOrder {
   OLDEST
   """Sort harvest records by newest created date."""
   RECENT
+}
+
+"""
+A harvested record can exist in a number of statuses.
+
+"""
+enum HarvestRecordStatus {
+  """
+  An record that is considered active and ready to be extracted into entities.
+  
+  """
+  ACTIVE
+  """
+  A record that was deleted in the upstream harvest source.
+  
+  """
+  DELETED
+  """
+  A brand new record that hasn't been processed yet.
+  
+  """
+  PENDING
+  """
+  A record that was skipped over for some validation reason.
+  
+  """
+  SKIPPED
+}
+
+type HarvestScheduleData {
+  """
+  The frequency expression as a cron statement, regardless
+  of its original syntax.
+  
+  """
+  cronExpression: String
+  """
+  The maximum frequency between occurrences, expressed as a duration.
+  
+  """
+  frequencyMax: ISO8601Duration
+  """
+  The minimum frequency between occurrences, expressed as a duration.
+  
+  """
+  frequencyMin: ISO8601Duration
+  """
+  If the frequency expression included time zone information,
+  this will expose which time zone is being used. Otherwise,
+  the frequency will use the Meru installation time zone.
+  
+  """
+  timeZone: String
+}
+
+"""
+Harvest schedule mode enum
+
+"""
+enum HarvestScheduleMode {
+  MANUAL
+  SCHEDULED
 }
 
 """
@@ -8279,6 +9055,7 @@ Filters for HarvestSet.
 input HarvestSetFilterInput {
   identifier: String
   name: String
+  prefix: String
 }
 
 """
@@ -8300,7 +9077,7 @@ A source from which to harvest entities.
 It can produce a `HarvestAttempt`.
 
 """
-type HarvestSource implements HarvestAttemptable & HasHarvestMetadataFormat & HasHarvestOptions & Node & Sluggable {
+type HarvestSource implements HarvestAttemptable & HasHarvestExtractionMappingTemplate & HasHarvestMetadataFormat & HasHarvestOptions & Node & QueriesHarvestMessage & Sluggable {
   """
   The URL to fetch from. It should be just the base URL, without any OAI verbs or similar.
   
@@ -8313,6 +9090,30 @@ type HarvestSource implements HarvestAttemptable & HasHarvestMetadataFormat & Ha
   
   """
   description: String
+  """
+  The extraction mapping template used for this harvesting-related record
+  at its place in the hierarchy. It is an XML document that describes how
+  to map various types of metadata from the harvested records and transform
+  that data into entities in Meru.
+  
+  For harvest sources, it can be considered the default mapping template
+  for any record in the system, and should be used to pre-populate
+  attempts that are created by the source, as well as future plans to
+  allow for extracting a single record by external ID that may not have
+  yet been fetched by an extract records process.
+  
+  For harvest mappings, it can be considered the default mapping template
+  for any attempt created by the mapping.
+  
+  For any harvesting data that exists prior to the harvesting refactor
+  completed during March of 2025, it's possible for this value to be
+  an empty string. Any modifications to mappings and sources from that
+  time will need to add a valid mapping template in order to succeed.
+  
+  See `Query.harvestExamples` for examples of valid mapping templates.
+  
+  """
+  extractionMappingTemplate: String!
   """
   Attempts produced by this source.
   
@@ -8340,7 +9141,56 @@ type HarvestSource implements HarvestAttemptable & HasHarvestMetadataFormat & Ha
   Mappings associated with the harvest source.
   
   """
-  harvestMappings: [HarvestMapping!]!
+  harvestMappings(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    order: HarvestMappingOrder = DEFAULT
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestMappingConnection!
+  harvestMessages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """
+    Filters that **must** match.
+    
+    """
+    filters: HarvestMessageFilterInput = null
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """
+    An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,
+    though a UI could be built.
+    
+    **Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.
+    
+    """
+    orFilters: [HarvestMessageFilterInput!] = []
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestMessageConnection!
   """
   Records associated with this source.
   
@@ -8447,6 +9297,11 @@ type HarvestSource implements HarvestAttemptable & HasHarvestMetadataFormat & Ha
   """
   readOptions: HarvestOptionsRead!
   slug: Slug!
+  """
+  An enum that describes the functional state for harvest sources.
+  
+  """
+  status: HarvestSourceStatus!
   updatedAt: ISO8601DateTime!
 }
 
@@ -8475,6 +9330,30 @@ input HarvestSourceCreateInput {
   
   """
   description: String
+  """
+  The extraction mapping template used for this harvesting-related record
+  at its place in the hierarchy. It is an XML document that describes how
+  to map various types of metadata from the harvested records and transform
+  that data into entities in Meru.
+  
+  For harvest sources, it can be considered the default mapping template
+  for any record in the system, and should be used to pre-populate
+  attempts that are created by the source, as well as future plans to
+  allow for extracting a single record by external ID that may not have
+  yet been fetched by an extract records process.
+  
+  For harvest mappings, it can be considered the default mapping template
+  for any attempt created by the mapping.
+  
+  For any harvesting data that exists prior to the harvesting refactor
+  completed during March of 2025, it's possible for this value to be
+  an empty string. Any modifications to mappings and sources from that
+  time will need to add a valid mapping template in order to succeed.
+  
+  See `Query.harvestExamples` for examples of valid mapping templates.
+  
+  """
+  extractionMappingTemplate: String!
   """
   A unique, machine-readable identifier. Requirements:
   
@@ -8584,6 +9463,28 @@ enum HarvestSourceOrder {
   RECENT
 }
 
+"""
+An enum that describes the functional state for harvest sources.
+
+Harvest sources are checked on a regular basis and can also be
+manually rechecked with harvestSourceCheck
+
+"""
+enum HarvestSourceStatus {
+  """
+  An active harvest source has been recently validated as working
+  and thus can be used for harvesting.
+  
+  """
+  ACTIVE
+  """
+  An inactive harvest source has been recently validated as not working
+  and cannot be used for harvesting.
+  
+  """
+  INACTIVE
+}
+
 """Autogenerated input type of HarvestSourceUpdate"""
 input HarvestSourceUpdateInput {
   """
@@ -8599,6 +9500,30 @@ input HarvestSourceUpdateInput {
   
   """
   description: String
+  """
+  The extraction mapping template used for this harvesting-related record
+  at its place in the hierarchy. It is an XML document that describes how
+  to map various types of metadata from the harvested records and transform
+  that data into entities in Meru.
+  
+  For harvest sources, it can be considered the default mapping template
+  for any record in the system, and should be used to pre-populate
+  attempts that are created by the source, as well as future plans to
+  allow for extracting a single record by external ID that may not have
+  yet been fetched by an extract records process.
+  
+  For harvest mappings, it can be considered the default mapping template
+  for any attempt created by the mapping.
+  
+  For any harvesting data that exists prior to the harvesting refactor
+  completed during March of 2025, it's possible for this value to be
+  an empty string. Any modifications to mappings and sources from that
+  time will need to add a valid mapping template in order to succeed.
+  
+  See `Query.harvestExamples` for examples of valid mapping templates.
+  
+  """
+  extractionMappingTemplate: String!
   """
   The harvest source to update.
   
@@ -8836,6 +9761,38 @@ interface HasHarvestErrors {
 }
 
 """
+An interface for harvesting-related records that expose a mapping template
+for handling extraction at their point in the hierarchy.
+
+"""
+interface HasHarvestExtractionMappingTemplate {
+  """
+  The extraction mapping template used for this harvesting-related record
+  at its place in the hierarchy. It is an XML document that describes how
+  to map various types of metadata from the harvested records and transform
+  that data into entities in Meru.
+  
+  For harvest sources, it can be considered the default mapping template
+  for any record in the system, and should be used to pre-populate
+  attempts that are created by the source, as well as future plans to
+  allow for extracting a single record by external ID that may not have
+  yet been fetched by an extract records process.
+  
+  For harvest mappings, it can be considered the default mapping template
+  for any attempt created by the mapping.
+  
+  For any harvesting data that exists prior to the harvesting refactor
+  completed during March of 2025, it's possible for this value to be
+  an empty string. Any modifications to mappings and sources from that
+  time will need to add a valid mapping template in order to succeed.
+  
+  See `Query.harvestExamples` for examples of valid mapping templates.
+  
+  """
+  extractionMappingTemplate: String!
+}
+
+"""
 A record that stores a metadata format it uses.
 
 """
@@ -8847,6 +9804,21 @@ interface HasHarvestMetadataFormat {
   
   """
   metadataFormat: HarvestMetadataFormat!
+}
+
+"""
+An interface for records which can be created/updated through Harvesting
+that includes an enum which can prevent harvesting actions from overwriting
+any data that has been manually corrected.
+
+"""
+interface HasHarvestModificationStatus {
+  """
+  The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+  no effect on this record.
+  
+  """
+  harvestModificationStatus: HarvestModificationStatus!
 }
 
 interface HasHarvestOptions {
@@ -9197,6 +10169,9 @@ scalar ISO8601Date
 
 """An ISO 8601-encoded datetime"""
 scalar ISO8601DateTime
+
+"""An ISO 8601-encoded duration"""
+scalar ISO8601Duration
 
 """
 An interface for various component types of an image attachment
@@ -9594,7 +10569,7 @@ type IntegerProperty implements ScalarProperty & SchemaProperty & SearchableProp
 }
 
 """An item that belongs to a collection"""
-type Item implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
+type Item implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasHarvestModificationStatus & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -9924,6 +10899,19 @@ type Item implements Accessible & Attachable & Attributable & ChildEntity & Cont
     """Filter by a namespace.name schema identifier"""
     schema: [String!]
   ): Item
+  """
+  The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+  no effect on this record.
+  
+  """
+  harvestModificationStatus: HarvestModificationStatus!
+  """
+  The harvest record(s) associated with the entity, with most recent harvest records sorted to the top.
+  
+  It is technically possible for multiple harvest records to have affected an entity.
+  
+  """
+  harvestRecords: [HarvestRecord!]!
   """Whether this item has any child items"""
   hasItems: Boolean!
   """
@@ -9963,14 +10951,9 @@ type Item implements Accessible & Attachable & Attributable & ChildEntity & Cont
   A machine-readable identifier for the entity. Not presently used, but will be necessary for synchronizing with upstream providers.
   """
   identifier: String!
-  inCommunityOrdering(
-    """
-    The identifier of the community ordering to look for this entity within.
-    """
-    identifier: String!
-  ): OrderingEntry
   """Retrieve the items beneath this item"""
   items(
+    access: EntityPermissionFilter = SKIP
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """
@@ -10123,6 +11106,7 @@ type Item implements Accessible & Attachable & Attributable & ChildEntity & Cont
   rawDOI: String
   """Retrieve linked items of the same schema type"""
   relatedItems(
+    access: EntityPermissionFilter = SKIP
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """
@@ -11918,6 +12902,14 @@ type Mutation {
     """Parameters for UpsertContribution"""
     input: UpsertContributionInput!
   ): UpsertContributionPayload
+  """
+  Reset a password for the current or specified user
+  
+  """
+  userResetPassword(
+    """Parameters for UserResetPassword"""
+    input: UserResetPasswordInput!
+  ): UserResetPasswordPayload
 }
 
 """
@@ -12902,7 +13894,7 @@ enum OrderingVisibilityFilter {
 An organization that has made contributions.
 
 """
-type OrganizationContributor implements Contributor & ContributorBase & Node & Sluggable {
+type OrganizationContributor implements Contributor & ContributorBase & HasHarvestModificationStatus & Node & Sluggable {
   """
   Only applicable when `kind` = `PERSON`.
   
@@ -12969,6 +13961,12 @@ type OrganizationContributor implements Contributor & ContributorBase & Node & S
   
   """
   givenName: String
+  """
+  The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+  no effect on this record.
+  
+  """
+  harvestModificationStatus: HarvestModificationStatus!
   id: ID!
   identifier: String!
   """An optional image associated with the contributor."""
@@ -13259,7 +14257,7 @@ interface PermissionGrid implements ExposesPermissions {
 A person that has made contributions.
 
 """
-type PersonContributor implements Contributor & ContributorBase & Node & Sluggable {
+type PersonContributor implements Contributor & ContributorBase & HasHarvestModificationStatus & Node & Sluggable {
   """
   Only applicable when `kind` = `PERSON`.
   
@@ -13326,6 +14324,12 @@ type PersonContributor implements Contributor & ContributorBase & Node & Sluggab
   
   """
   givenName: String
+  """
+  The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have
+  no effect on this record.
+  
+  """
+  harvestModificationStatus: HarvestModificationStatus!
   id: ID!
   identifier: String!
   """An optional image associated with the contributor."""
@@ -13669,6 +14673,7 @@ interface QueriesEntities {
   collection(slug: Slug!): Collection
   """List all communities"""
   communities(
+    access: EntityPermissionFilter = SKIP
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """
@@ -13734,6 +14739,155 @@ interface QueriesHarvestAttempt {
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): HarvestAttemptConnection!
+}
+
+"""
+An interface for querying `HarvestExample` records.
+
+"""
+interface QueriesHarvestExample {
+  """
+  Retrieve harvest examples for the system.
+  
+  """
+  harvestExamples(
+    """
+    Whether to look for "generic" harvesting examples which are not associated
+    with any protocol or metadata.
+    
+    """
+    generic: Boolean = false
+    """
+    The metadata format to filter by.
+    
+    """
+    metadataFormat: HarvestMetadataFormat
+    """
+    The protocol to filter by.
+    
+    """
+    protocol: HarvestProtocol
+  ): [HarvestExample!]!
+}
+
+"""
+An interface for querying `HarvestMapping` records.
+
+"""
+interface QueriesHarvestMapping {
+  """
+  Retrieve a single `HarvestMapping` by slug.
+  
+  """
+  harvestMapping(
+    """
+    The slug to look up.
+    
+    """
+    slug: Slug!
+  ): HarvestMapping
+  """
+  Query all harvest mappings in the system.
+  
+  """
+  harvestMappings(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    order: HarvestMappingOrder = DEFAULT
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestMappingConnection!
+}
+
+"""
+An interface for querying `HarvestMessage` records.
+
+"""
+interface QueriesHarvestMessage {
+  harvestMessages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """
+    Filters that **must** match.
+    
+    """
+    filters: HarvestMessageFilterInput = null
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """
+    An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,
+    though a UI could be built.
+    
+    **Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.
+    
+    """
+    orFilters: [HarvestMessageFilterInput!] = []
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestMessageConnection!
+}
+
+"""
+An interface for querying `HarvestRecord` records.
+
+"""
+interface QueriesHarvestRecord {
+  """
+  Retrieve a single `HarvestRecord` by slug.
+  
+  """
+  harvestRecord(
+    """
+    The slug to look up.
+    
+    """
+    slug: Slug!
+  ): HarvestRecord
+  """
+  Query all harvest records in the system.
+  
+  """
+  harvestRecords(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    order: HarvestRecordOrder = DEFAULT
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestRecordConnection!
 }
 
 """
@@ -13939,7 +15093,7 @@ interface QueriesUser {
 The entry point for retrieving data from within the Meru API.
 
 """
-type Query implements QueriesAccessAndRoles & QueriesContrib & QueriesControlledVocabulary & QueriesControlledVocabularySource & QueriesEntities & QueriesHarvestAttempt & QueriesHarvestSet & QueriesHarvestSource & QueriesSchemas & QueriesSystem & QueriesUser & Searchable {
+type Query implements QueriesAccessAndRoles & QueriesContrib & QueriesControlledVocabulary & QueriesControlledVocabularySource & QueriesEntities & QueriesHarvestAttempt & QueriesHarvestExample & QueriesHarvestMapping & QueriesHarvestMessage & QueriesHarvestRecord & QueriesHarvestSet & QueriesHarvestSource & QueriesSchemas & QueriesSystem & QueriesUser & Searchable {
   """
   Retrieve all access grants.
   
@@ -13975,6 +15129,7 @@ type Query implements QueriesAccessAndRoles & QueriesContrib & QueriesControlled
   collectionContribution(slug: Slug!): CollectionContribution
   """List all communities"""
   communities(
+    access: EntityPermissionFilter = SKIP
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """
@@ -14178,6 +15333,127 @@ type Query implements QueriesAccessAndRoles & QueriesContrib & QueriesControlled
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): HarvestAttemptConnection!
+  """
+  Retrieve harvest examples for the system.
+  
+  """
+  harvestExamples(
+    """
+    Whether to look for "generic" harvesting examples which are not associated
+    with any protocol or metadata.
+    
+    """
+    generic: Boolean = false
+    """
+    The metadata format to filter by.
+    
+    """
+    metadataFormat: HarvestMetadataFormat
+    """
+    The protocol to filter by.
+    
+    """
+    protocol: HarvestProtocol
+  ): [HarvestExample!]!
+  """
+  Retrieve a single `HarvestMapping` by slug.
+  
+  """
+  harvestMapping(
+    """
+    The slug to look up.
+    
+    """
+    slug: Slug!
+  ): HarvestMapping
+  """
+  Query all harvest mappings in the system.
+  
+  """
+  harvestMappings(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    order: HarvestMappingOrder = DEFAULT
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestMappingConnection!
+  harvestMessages(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """
+    Filters that **must** match.
+    
+    """
+    filters: HarvestMessageFilterInput = null
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    """
+    An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,
+    though a UI could be built.
+    
+    **Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.
+    
+    """
+    orFilters: [HarvestMessageFilterInput!] = []
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestMessageConnection!
+  """
+  Retrieve a single `HarvestRecord` by slug.
+  
+  """
+  harvestRecord(
+    """
+    The slug to look up.
+    
+    """
+    slug: Slug!
+  ): HarvestRecord
+  """
+  Query all harvest records in the system.
+  
+  """
+  harvestRecords(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    order: HarvestRecordOrder = DEFAULT
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): HarvestRecordConnection!
   """
   Retrieve a single `HarvestSet` by slug.
   
@@ -15478,6 +16754,7 @@ type SearchScope {
   
   """
   results(
+    access: EntityPermissionFilter = SKIP
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """
@@ -17318,6 +18595,24 @@ input UpdateCollectionInput {
   
   """
   heroImageMetadata: ImageMetadataInput
+  """
+  When dealing with harvested collections or items, modifying
+  the entity within the admin section will cause its
+  `harvestModificationStatus` to change to `MODIFIED`, which will
+  prevent the harvesting system from overwriting anything within it.
+  
+  By setting this option to true, it will force harvested entities to
+  remain `PRISTINE`, no matter what changes have been made in the admin
+  section. This will allow the harvesting system to overwrite any of
+  these changes when next time it runs.
+  
+  It must be checked _every_ time the entity is saved in the admin
+  section in order to keep the pristine status intact.
+  
+  **Note**: It has no effect on `UNHARVESTED` entities.
+  
+  """
+  maintainPristineStatus: Boolean = false
   """The date this entity was published"""
   published: VariablePrecisionDateInput
   """
@@ -17568,6 +18863,24 @@ input UpdateItemInput {
   heroImageMetadata: ImageMetadataInput
   """The item to update"""
   itemId: ID!
+  """
+  When dealing with harvested collections or items, modifying
+  the entity within the admin section will cause its
+  `harvestModificationStatus` to change to `MODIFIED`, which will
+  prevent the harvesting system from overwriting anything within it.
+  
+  By setting this option to true, it will force harvested entities to
+  remain `PRISTINE`, no matter what changes have been made in the admin
+  section. This will allow the harvesting system to overwrite any of
+  these changes when next time it runs.
+  
+  It must be checked _every_ time the entity is saved in the admin
+  section in order to keep the pristine status intact.
+  
+  **Note**: It has no effect on `UNHARVESTED` entities.
+  
+  """
+  maintainPristineStatus: Boolean = false
   """The date this entity was published"""
   published: VariablePrecisionDateInput
   """
@@ -18053,7 +19366,7 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
   ): UserCollectionAccessGrantConnection!
   """Query the collections this user has access to"""
   collections(
-    access: EntityPermissionFilter = READ_ONLY
+    access: EntityPermissionFilter = SKIP
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """
@@ -18080,7 +19393,7 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
   ): CollectionConnection!
   """Query the communities this user has access to"""
   communities(
-    access: EntityPermissionFilter = READ_ONLY
+    access: EntityPermissionFilter = SKIP
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """
@@ -18165,7 +19478,7 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
   ): UserItemAccessGrantConnection!
   """Query the items this user has access to"""
   items(
-    access: EntityPermissionFilter = READ_ONLY
+    access: EntityPermissionFilter = SKIP
     """Returns the elements in the list that come after the specified cursor."""
     after: String
     """
@@ -18679,6 +19992,63 @@ input UserProfileInput {
   familyName: String!
   givenName: String!
   username: String!
+}
+
+"""Autogenerated input type of UserResetPassword"""
+input UserResetPasswordInput {
+  """
+  The keycloak client used to authenticate users associated with the current `location`.
+  
+  Must be provided.
+  
+  """
+  clientId: String!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  """
+  Which location the user should be sent back to once completing
+  the reset password flow.
+  
+  It is used in concert with `redirectPath` in order to build the
+  actual URL.
+  
+  """
+  location: ClientLocation!
+  """
+  The redirect path on the `location` to redirect the user to.
+  
+  Must be a **relative** URI like `"/foo/bar/baz"`. `"/"` is the minimum acceptable.
+  
+  """
+  redirectPath: String!
+  """
+  Specify a user to send reset password instructions for.
+  
+  If left blank, it will send reset password instructions for the current user.
+  
+  """
+  userId: ID
+}
+
+"""Autogenerated return type of UserResetPassword."""
+type UserResetPasswordPayload implements StandardMutationPayload {
+  attributeErrors: [MutationAttributeError!]!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
+  globalErrors: [MutationGlobalError!]!
+  """Not presently used"""
+  haltCode: String
+  """
+  Whether or not instructions were successfully sent.
+  
+  """
+  success: Boolean
+  """
+  The user whose password was reset. Handy for showing the email that it was sent to.
+  
+  """
+  user: User
 }
 
 type VariableDateProperty implements ScalarProperty & SchemaProperty & SearchableProperty {
