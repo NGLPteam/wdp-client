@@ -16,6 +16,8 @@ import AppBody from "@/components/global/AppBody";
 import { CommunityContextProvider } from "@/contexts/CommunityContext";
 import generateItemMetadata from "@/app/(frontend)/(pages)/items/[slug]/_metadata/item";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata(
   props: BasePageParams,
   parent: ResolvingMetadata,
