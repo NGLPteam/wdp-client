@@ -26,7 +26,6 @@ const query = graphql`
   query detailsManageSlugCommunitiesPagesQuery($slug: Slug!) {
     community(slug: $slug) {
       ...CommunityUpdateFormFragment
-      ...AuthContextFragment
     }
   }
 `;

@@ -40,7 +40,6 @@ const query = graphql`
     $schema: [String!]
   ) {
     community(slug: $slug) {
-      ...AuthContextFragment
       collections(order: $order, page: $page, perPage: 20) {
         ...CollectionListFragment
       }
