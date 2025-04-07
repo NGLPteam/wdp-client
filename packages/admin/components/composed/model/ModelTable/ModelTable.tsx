@@ -1,4 +1,5 @@
 import { Table } from "components/layout";
+import { useQueryStateContext } from "hooks";
 import type { HeaderGroup, Row } from "@tanstack/react-table";
 
 type ModelTableProps<U extends Record<string, unknown>> = {
@@ -22,6 +23,8 @@ function ModelTable<U extends Record<string, unknown>>({
   allRowsSelected,
   toggleAllRowsSelectedHandler,
 }: ModelTableProps<U>) {
+  const { loading } = useQueryStateContext();
+
   return (
     <Table
       id={listId}
@@ -40,7 +43,7 @@ function ModelTable<U extends Record<string, unknown>>({
           }}
         />
       )}
-      <Table.Body loading={!rows.length} rows={rows} />
+      <Table.Body loading={loading} rows={rows} />
     </Table>
   );
 }
