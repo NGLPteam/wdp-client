@@ -1,5 +1,5 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import { useSearchQueryVars, useBaseListQueryVars, useRouteSlug } from "hooks";
+import { useRouteSlug } from "hooks";
 import ErrorPage from "next/error";
 import { LoadingPage } from "components/atomic";
 import ItemLayout from "components/composed/item/ItemLayout";
@@ -22,9 +22,6 @@ function ItemRecords({ queryRef, ...layoutProps }: Props) {
 }
 
 const getLayout: GetLayout<Props> = (props) => {
-  useBaseListQueryVars();
-  useSearchQueryVars();
-
   const slug = useRouteSlug();
 
   if (!slug) return <ErrorPage statusCode={404} />;

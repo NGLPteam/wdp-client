@@ -1,5 +1,4 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import { useSearchQueryVars, useBaseListQueryVars } from "hooks";
 import HarvestMessagesList from "components/composed/harvesting/HarvestMessagesList";
 import type { messagesHarvestAttemptQuery as Query } from "@/relay/messagesHarvestAttemptQuery.graphql";
 import Layout from "./_layout";
@@ -14,9 +13,6 @@ function HarvestAttemptMessages({ queryRef }: Props) {
 }
 
 const getLayout: GetLayout<Props> = (props) => {
-  useBaseListQueryVars();
-  useSearchQueryVars();
-
   return (
     <Layout
       query={query}
