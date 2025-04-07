@@ -30,10 +30,11 @@ export default function HarvestSourceUpdateForm({
   const { id, ...fieldsData } =
     useFragment<HarvestSourceUpdateFormFragment$key>(fragment, data);
 
-  const defaultValues = useFragment<HarvestSourceUpdateFormFieldsFragment$key>(
-    fieldsFragment,
-    fieldsData,
-  );
+  const { protocol, metadataFormat, ...defaultValues } =
+    useFragment<HarvestSourceUpdateFormFieldsFragment$key>(
+      fieldsFragment,
+      fieldsData,
+    );
 
   const toVariables = useToVariables<
     HarvestSourceUpdateFormMutation,
@@ -64,14 +65,12 @@ export default function HarvestSourceUpdateForm({
           label="forms.fields.protocol"
           description="harvesting.unchangeable"
           value={
-            PROTOCOL_FORMAT_OPTS.find(
-              (opt) => opt.value === defaultValues.protocol,
-            )?.label
+            PROTOCOL_FORMAT_OPTS.find((opt) => opt.value === protocol)?.label
           }
         />
         <MockInput
           label="forms.fields.metadata_format"
-          value={defaultValues.metadataFormat}
+          value={metadataFormat}
           description="harvesting.unchangeable"
         />
         <Controller
