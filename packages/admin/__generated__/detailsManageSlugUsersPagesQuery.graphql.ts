@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3cc387455437e85f018e142fe6ff5cb6>>
+ * @generated SignedSource<<69add200b76b691f6937a984a963fae3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -193,12 +193,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a22d81b8bd614808c6984664c99edd3a",
+    "cacheID": "e24d845562a1148b5c5079f4a5471d35",
     "id": null,
     "metadata": {},
     "name": "detailsManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query detailsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    ...UserUpdateFormFragment\n    ...UserLayoutFragment\n    id\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
+    "text": "query detailsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n) {\n  user(slug: $userSlug) {\n    ...UserUpdateFormFragment\n    ...UserLayoutFragment\n    id\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment UserLayoutFragment on User {\n  id\n  name\n  email\n}\n\nfragment UserUpdateFormFragment on User {\n  id\n  givenName\n  familyName\n  email\n  username\n  avatar {\n    ...FileUploadFragment\n  }\n}\n"
   }
 };
 })();

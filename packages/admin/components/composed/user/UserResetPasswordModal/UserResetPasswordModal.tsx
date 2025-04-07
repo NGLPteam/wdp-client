@@ -1,7 +1,6 @@
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useMutation, graphql } from "react-relay";
-import { usePathname } from "next/navigation";
 import { useNotify } from "hooks";
 import ButtonControlConfirm from "components/atomic/buttons/ButtonControl/patterns/ButtonControlConfirm";
 import type { UserResetPasswordModalMutation } from "@/relay/UserResetPasswordModalMutation.graphql";
@@ -9,9 +8,14 @@ import type { ClientLocation } from "types/graphql-schema";
 
 const CLIENT_ID = process.env.NEXT_PUBLIC_KEYCLOAK_CLIENT_ID ?? "";
 
-export default function ResetPassword() {
+export default function ResetPassword({
+  userId,
+  message,
+}: {
+  userId?: string;
+  message?: string;
+}) {
   const { t } = useTranslation();
-  const pathname = usePathname();
   const notify = useNotify();
 
   const [mutate, loading] =
@@ -52,9 +56,10 @@ export default function ResetPassword() {
   const onSubmit = useCallback(
     (hideDialog: () => void) => {
       const input = {
+        userId,
         clientId: CLIENT_ID,
         location: "ADMIN" as ClientLocation,
-        redirectPath: pathname,
+        redirectPath: "/",
       };
 
       mutate({
@@ -73,14 +78,14 @@ export default function ResetPassword() {
         },
       });
     },
-    [mutate, pathname, handleResponse, notify],
+    [mutate, handleResponse, notify, userId],
   );
 
   return (
     <ButtonControlConfirm
       icon="linkChain"
       modalLabel={t("actions.reset_password.title")}
-      modalBody={t("actions.reset_password.body")}
+      modalBody={message ?? t("actions.reset_password.body")}
       aria-label={t("actions.reset_password.submit_label")}
       onClick={onSubmit}
       loading={loading}

@@ -14,6 +14,7 @@ import {
 } from "hooks";
 import { RouteHelper } from "routes";
 import { UserLayoutFragment$key } from "@/relay/UserLayoutFragment.graphql";
+import UserResetPasswordModal from "../UserResetPasswordModal";
 
 type Props = {
   children: React.ReactNode;
@@ -38,7 +39,18 @@ export default function UserLayout({
   return (
     <section>
       <BackToAll route="users" />
-      <PageHeader title={memoizedUser?.name} sidebarLinks={manageRoutes} />
+      <PageHeader
+        title={memoizedUser?.name}
+        sidebarLinks={manageRoutes}
+        buttons={
+          <UserResetPasswordModal
+            userId={memoizedUser?.id}
+            message={t("actions.reset_password.body_user", {
+              name: memoizedUser?.name,
+            })}
+          />
+        }
+      />
       {showSidebar ? (
         <ContentSidebar sidebarLinks={manageRoutes}>
           {useRouteHeader && activeRoute && activeRoute.label && (
@@ -58,6 +70,7 @@ export default function UserLayout({
 
 const fragment = graphql`
   fragment UserLayoutFragment on User {
+    id
     name
     email
   }

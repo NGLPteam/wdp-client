@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<590eb40df1a967297526a8effa81aa66>>
+ * @generated SignedSource<<872c4de2b576b7079b1ba3abdf78b6ad>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -73,14 +73,14 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "id",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "name",
   "storageKey": null
 },
 v7 = {
@@ -156,6 +156,7 @@ return {
         "plural": false,
         "selections": [
           (v5/*: any*/),
+          (v6/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -187,7 +188,7 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      (v6/*: any*/),
+                      (v5/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -196,7 +197,7 @@ return {
                         "name": "community",
                         "plural": false,
                         "selections": [
-                          (v6/*: any*/),
+                          (v5/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -216,8 +217,8 @@ return {
                         "name": "role",
                         "plural": false,
                         "selections": [
-                          (v6/*: any*/),
-                          (v5/*: any*/)
+                          (v5/*: any*/),
+                          (v6/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -229,7 +230,7 @@ return {
                         "name": "user",
                         "plural": false,
                         "selections": [
-                          (v6/*: any*/),
+                          (v5/*: any*/),
                           (v7/*: any*/)
                         ],
                         "storageKey": null
@@ -302,20 +303,19 @@ return {
               }
             ],
             "storageKey": null
-          },
-          (v6/*: any*/)
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "6ca49056c24aba6a243b43bfca3339c0",
+    "cacheID": "55fe7ce40bcd2ecbff729b708dcdb20a",
     "id": null,
     "metadata": {},
     "name": "communitiesManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query communitiesManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n  $order: SimpleOrder\n  $page: Int!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutFragment\n    communityAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserCommunitiesListFragment\n    }\n    id\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserCommunitiesListFragment on UserCommunityAccessGrantConnection {\n  edges {\n    node {\n      id\n      community {\n        id\n        title\n        slug\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n"
+    "text": "query communitiesManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n  $order: SimpleOrder\n  $page: Int!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutFragment\n    communityAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserCommunitiesListFragment\n    }\n    id\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserCommunitiesListFragment on UserCommunityAccessGrantConnection {\n  edges {\n    node {\n      id\n      community {\n        id\n        title\n        slug\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserLayoutFragment on User {\n  id\n  name\n  email\n}\n"
   }
 };
 })();

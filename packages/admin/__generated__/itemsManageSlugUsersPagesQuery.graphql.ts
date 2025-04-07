@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d5b13e40d689989ea9349ae1e2006970>>
+ * @generated SignedSource<<2401d688ac516834302f4bc9f8d7497f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -73,14 +73,14 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "name",
+  "name": "id",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "name",
   "storageKey": null
 },
 v7 = {
@@ -156,6 +156,7 @@ return {
         "plural": false,
         "selections": [
           (v5/*: any*/),
+          (v6/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -187,7 +188,7 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      (v6/*: any*/),
+                      (v5/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -196,7 +197,7 @@ return {
                         "name": "item",
                         "plural": false,
                         "selections": [
-                          (v6/*: any*/),
+                          (v5/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -313,8 +314,8 @@ return {
                         "name": "role",
                         "plural": false,
                         "selections": [
-                          (v6/*: any*/),
-                          (v5/*: any*/)
+                          (v5/*: any*/),
+                          (v6/*: any*/)
                         ],
                         "storageKey": null
                       },
@@ -326,7 +327,7 @@ return {
                         "name": "user",
                         "plural": false,
                         "selections": [
-                          (v6/*: any*/),
+                          (v5/*: any*/),
                           (v7/*: any*/)
                         ],
                         "storageKey": null
@@ -399,20 +400,19 @@ return {
               }
             ],
             "storageKey": null
-          },
-          (v6/*: any*/)
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "10527df580982ddec221ccec39b251e7",
+    "cacheID": "828b13bba6ad4cc4b7f41334d354af4e",
     "id": null,
     "metadata": {},
     "name": "itemsManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query itemsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n  $order: SimpleOrder\n  $page: Int!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutFragment\n    itemAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserItemsListFragment\n    }\n    id\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  storage\n  medium {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserItemsListFragment on UserItemAccessGrantConnection {\n  edges {\n    node {\n      id\n      item {\n        id\n        title\n        slug\n        ...EntityThumbnailColumnFragment\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserLayoutFragment on User {\n  name\n  email\n}\n"
+    "text": "query itemsManageSlugUsersPagesQuery(\n  $userSlug: Slug!\n  $order: SimpleOrder\n  $page: Int!\n) {\n  user(slug: $userSlug) {\n    ...UserLayoutFragment\n    itemAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserItemsListFragment\n    }\n    id\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  storage\n  medium {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserItemsListFragment on UserItemAccessGrantConnection {\n  edges {\n    node {\n      id\n      item {\n        id\n        title\n        slug\n        ...EntityThumbnailColumnFragment\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment UserLayoutFragment on User {\n  id\n  name\n  email\n}\n"
   }
 };
 })();
