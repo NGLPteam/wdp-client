@@ -14,6 +14,7 @@ import ItemLayout from "components/composed/item/ItemLayout";
 import ModelListPageSkeleton from "components/composed/model/ModelListPageSkeleton";
 import { ModelListProps } from "components/composed/model/ModelList";
 import { AuthContextProvider } from "contexts/AuthContext";
+import { RouteUnauthorizedMessage } from "components/auth/UnauthorizedMessage";
 import type { LayoutManageItemQuery } from "@/relay/LayoutManageItemQuery.graphql";
 
 export default function Layout<T extends OperationType>(props: Props<T>) {
@@ -28,6 +29,11 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
   );
 
   if (!slug || !item) return <ErrorPage statusCode={404} />;
+
+  if (!item.allowedActions.includes("self.update"))
+    return (
+      <RouteUnauthorizedMessage i18nKey="messages.unauthorized_body.item" />
+    );
 
   const {
     PageComponent,
@@ -84,6 +90,7 @@ type PageProps<T extends OperationType> = {
 const itemQuery = graphql`
   query LayoutManageItemQuery($slug: Slug!) {
     item(slug: $slug) {
+      allowedActions
       ...ItemLayoutFragment
       ...AuthContextFragment
     }

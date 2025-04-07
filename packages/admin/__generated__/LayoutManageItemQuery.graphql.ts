@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f6c83868941e043b7e25cca102e21ff1>>
+ * @generated SignedSource<<1d75bf73614e1ce9ec2738c24630f451>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type LayoutManageItemQuery$variables = {
 };
 export type LayoutManageItemQuery$data = {
   readonly item: {
+    readonly allowedActions: ReadonlyArray<string>;
     readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "ItemLayoutFragment">;
   } | null | undefined;
 };
@@ -42,10 +43,17 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
+  "name": "allowedActions",
   "storageKey": null
 },
 v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+},
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -67,6 +75,7 @@ return {
         "name": "item",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -98,6 +107,7 @@ return {
         "name": "item",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -105,8 +115,8 @@ return {
             "name": "title",
             "storageKey": null
           },
-          (v2/*: any*/),
           (v3/*: any*/),
+          (v4/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
@@ -146,16 +156,9 @@ return {
                     "name": "kind",
                     "storageKey": null
                   },
-                  (v2/*: any*/),
-                  (v3/*: any*/)
+                  (v3/*: any*/),
+                  (v4/*: any*/)
                 ],
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "allowedActions",
                 "storageKey": null
               },
               {
@@ -173,7 +176,7 @@ return {
                     "name": "enforcedChildKinds",
                     "storageKey": null
                   },
-                  (v3/*: any*/)
+                  (v4/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -191,16 +194,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b36578eb2f2a40076c0563daaefb0d61",
+    "cacheID": "15295db9fb29e8364fe2c18327472f20",
     "id": null,
     "metadata": {},
     "name": "LayoutManageItemQuery",
     "operationKind": "query",
-    "text": "query LayoutManageItemQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    ...ItemLayoutFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
+    "text": "query LayoutManageItemQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    allowedActions\n    ...ItemLayoutFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "14b74cdb26e07497e95894f96b8032f0";
+(node as any).hash = "e09166f00049f598c7a04cf11c999555";
 
 export default node;

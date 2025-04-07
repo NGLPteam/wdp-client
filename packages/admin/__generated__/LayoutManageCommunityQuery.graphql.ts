@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e503dfcb7b712171f74476b56e9c775b>>
+ * @generated SignedSource<<805f67763688384e4e9e1338adb901fc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type LayoutManageCommunityQuery$variables = {
 };
 export type LayoutManageCommunityQuery$data = {
   readonly community: {
+    readonly allowedActions: ReadonlyArray<string>;
     readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "CommunityLayoutFragment">;
   } | null | undefined;
 };
@@ -42,6 +43,13 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "allowedActions",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 };
@@ -60,6 +68,7 @@ return {
         "name": "community",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -92,6 +101,7 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -104,13 +114,6 @@ return {
             "args": null,
             "kind": "ScalarField",
             "name": "slug",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "allowedActions",
             "storageKey": null
           },
           {
@@ -131,7 +134,7 @@ return {
                     "name": "enforcedChildKinds",
                     "storageKey": null
                   },
-                  (v2/*: any*/)
+                  (v3/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -145,16 +148,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a91fe84c9b80c7736924d6d9e6401b51",
+    "cacheID": "29f1c74bb41a2fa493f7619476340573",
     "id": null,
     "metadata": {},
     "name": "LayoutManageCommunityQuery",
     "operationKind": "query",
-    "text": "query LayoutManageCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    ...CommunityLayoutFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CommunityLayoutFragment on Community {\n  id\n  name\n  slug\n  allowedActions\n  ...useChildRouteLinksFragment\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
+    "text": "query LayoutManageCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    allowedActions\n    ...CommunityLayoutFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CommunityLayoutFragment on Community {\n  id\n  name\n  slug\n  ...useChildRouteLinksFragment\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "4bc42dfc6b9284a9d2aaf8555799a24c";
+(node as any).hash = "12f6c3da5af74e2056633aff0450fc07";
 
 export default node;
