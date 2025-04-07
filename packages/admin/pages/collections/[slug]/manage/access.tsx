@@ -1,24 +1,18 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import CollectionLayout from "components/composed/collection/CollectionLayout";
 import RoleAccessList from "components/composed/role/RoleAccessList";
-import { AuthContextProvider } from "contexts/AuthContext";
 import type { accessManageSlugCollectionsPagesQuery as Query } from "@/relay/accessManageSlugCollectionsPagesQuery.graphql";
-import Layout from "./layout";
+import Layout from "./_layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
-function CollectionAccess({ queryRef, ...layoutProps }: Props) {
+function CollectionAccess({ queryRef }: Props) {
   const { collection } = usePreloadedQuery<Query>(query, queryRef);
 
   return collection ? (
-    <AuthContextProvider data={collection}>
-      <CollectionLayout data={collection} {...layoutProps}>
-        <RoleAccessList
-          data={collection}
-          headerStyle="secondary"
-          entityType="collection"
-        />
-      </CollectionLayout>
-    </AuthContextProvider>
+    <RoleAccessList
+      data={collection}
+      headerStyle="secondary"
+      entityType="collection"
+    />
   ) : null;
 }
 
@@ -26,6 +20,7 @@ const getLayout: GetLayout<Props> = (props) => (
   <Layout
     query={query}
     refetchTags={["allAccessGrants", "assignedUsers"]}
+    modelName="member"
     {...props}
   />
 );
@@ -34,19 +29,12 @@ CollectionAccess.getLayout = getLayout;
 
 type Props = {
   queryRef: PreloadedQuery<Query>;
-  showSidebar: true;
-  useRouteHeader: false;
 };
 
 const query = graphql`
-  query accessManageSlugCollectionsPagesQuery(
-    $collectionSlug: Slug!
-    $page: Int!
-  ) {
-    collection(slug: $collectionSlug) {
-      ...CollectionLayoutFragment
+  query accessManageSlugCollectionsPagesQuery($slug: Slug!, $page: Int!) {
+    collection(slug: $slug) {
       ...RoleAccessListFragment
-      ...AuthContextFragment
     }
   }
 `;

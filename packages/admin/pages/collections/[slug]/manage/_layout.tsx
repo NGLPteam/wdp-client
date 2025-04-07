@@ -7,28 +7,27 @@ import {
 } from "react-relay";
 import { OperationType } from "relay-runtime";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
-import { LoadingPage, LoadingCircle } from "components/atomic";
-import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
+import { useRouteSlug, useBaseListQueryVars } from "hooks";
 import ErrorPage from "next/error";
-import { AuthContextProvider } from "contexts/AuthContext";
-import CommunityLayout from "components/composed/community/CommunityLayout";
+import { LoadingPage, LoadingCircle } from "components/atomic";
+import CollectionLayout from "components/composed/collection/CollectionLayout";
 import ModelListPageSkeleton from "components/composed/model/ModelListPageSkeleton";
 import { ModelListProps } from "components/composed/model/ModelList";
-import type { LayoutManageCommunityQuery } from "@/relay/LayoutManageCommunityQuery.graphql";
+import { AuthContextProvider } from "contexts/AuthContext";
+import type { LayoutManageCollectionQuery } from "@/relay/LayoutManageCollectionQuery.graphql";
 
 export default function Layout<T extends OperationType>(props: Props<T>) {
   const queryVars = useBaseListQueryVars();
-  const searchQueryVars = useSearchQueryVars();
 
   const slug = useRouteSlug() as string;
 
-  const { community } = useLazyLoadQuery<LayoutManageCommunityQuery>(
-    communityQuery,
+  const { collection } = useLazyLoadQuery<LayoutManageCollectionQuery>(
+    collectionQuery,
     { slug },
     { fetchPolicy: "store-or-network" },
   );
 
-  if (!slug || !community) return <ErrorPage statusCode={404} />;
+  if (!slug || !collection) return <ErrorPage statusCode={404} />;
 
   const {
     PageComponent,
@@ -40,11 +39,11 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
   } = props;
 
   return (
-    <AuthContextProvider data={community}>
-      <CommunityLayout data={community} showSidebar useRouteHeader={false}>
+    <AuthContextProvider data={collection}>
+      <CollectionLayout data={collection} showSidebar useRouteHeader={false}>
         <QueryTransitionWrapper<T>
           query={query}
-          variables={{ ...queryVars, ...searchQueryVars, slug }}
+          variables={{ ...queryVars, slug }}
           loadingFallback={<LoadingPage />}
           refetchTags={refetchTags}
         >
@@ -61,7 +60,7 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
             )
           }
         </QueryTransitionWrapper>
-      </CommunityLayout>
+      </CollectionLayout>
     </AuthContextProvider>
   );
 }
@@ -79,10 +78,10 @@ type PageProps<T extends OperationType> = {
   queryRef: PreloadedQuery<T>;
 };
 
-const communityQuery = graphql`
-  query LayoutManageCommunityQuery($slug: Slug!) {
-    community(slug: $slug) {
-      ...CommunityLayoutFragment
+const collectionQuery = graphql`
+  query LayoutManageCollectionQuery($slug: Slug!) {
+    collection(slug: $slug) {
+      ...CollectionLayoutFragment
       ...AuthContextFragment
     }
   }

@@ -6,62 +6,61 @@ import {
   useLazyLoadQuery,
 } from "react-relay";
 import { OperationType } from "relay-runtime";
+import { usePathname } from "next/navigation";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
-import { LoadingPage, LoadingCircle } from "components/atomic";
 import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
 import ErrorPage from "next/error";
+import { LoadingPage } from "components/atomic";
+import CollectionSlugRedirect from "components/composed/collection/CollectionSlugRedirect";
+import CollectionLayout from "components/composed/collection/CollectionLayout";
 import { AuthContextProvider } from "contexts/AuthContext";
-import CommunityLayout from "components/composed/community/CommunityLayout";
 import ModelListPageSkeleton from "components/composed/model/ModelListPageSkeleton";
-import { ModelListProps } from "components/composed/model/ModelList";
-import type { LayoutManageCommunityQuery } from "@/relay/LayoutManageCommunityQuery.graphql";
+import { RouteHelper } from "routes";
+import type { LayoutCollectionQuery } from "@/relay/LayoutCollectionQuery.graphql";
 
 export default function Layout<T extends OperationType>(props: Props<T>) {
   const queryVars = useBaseListQueryVars();
   const searchQueryVars = useSearchQueryVars();
 
   const slug = useRouteSlug() as string;
+  const path = usePathname();
 
-  const { community } = useLazyLoadQuery<LayoutManageCommunityQuery>(
-    communityQuery,
+  const isIndex = RouteHelper.findRouteByPath(path)?.name === "collection";
+
+  const { collection } = useLazyLoadQuery<LayoutCollectionQuery>(
+    collectionQuery,
     { slug },
     { fetchPolicy: "store-or-network" },
   );
 
-  if (!slug || !community) return <ErrorPage statusCode={404} />;
+  if (!slug || !collection) return <ErrorPage statusCode={404} />;
 
-  const {
-    PageComponent,
-    pageComponentProps,
-    query,
-    refetchTags,
-    showLoadingCircle,
-    modelName,
-  } = props;
+  const { PageComponent, pageComponentProps, query, refetchTags } = props;
 
   return (
-    <AuthContextProvider data={community}>
-      <CommunityLayout data={community} showSidebar useRouteHeader={false}>
+    <AuthContextProvider data={collection}>
+      <CollectionLayout data={collection}>
         <QueryTransitionWrapper<T>
           query={query}
-          variables={{ ...queryVars, ...searchQueryVars, slug }}
+          variables={{
+            ...queryVars,
+            ...searchQueryVars,
+            slug,
+          }}
           loadingFallback={<LoadingPage />}
           refetchTags={refetchTags}
         >
           {({ queryRef }) =>
             queryRef ? (
               <PageComponent {...pageComponentProps} queryRef={queryRef} />
-            ) : showLoadingCircle ? (
-              <LoadingCircle className="l-page-loading" />
+            ) : isIndex ? (
+              <CollectionSlugRedirect data={collection} />
             ) : (
-              <ModelListPageSkeleton
-                modelName={modelName}
-                headerStyle="secondary"
-              />
+              <ModelListPageSkeleton headerStyle="secondary" hideHeader />
             )
           }
         </QueryTransitionWrapper>
-      </CommunityLayout>
+      </CollectionLayout>
     </AuthContextProvider>
   );
 }
@@ -71,19 +70,18 @@ type Props<T extends OperationType> = {
   PageComponent: ComponentType<PageProps<T>>;
   query: GraphQLTaggedNode;
   refetchTags?: string[];
-  showLoadingCircle?: boolean;
-  modelName?: ModelListProps<any, any>["modelName"]; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
 type PageProps<T extends OperationType> = {
   queryRef: PreloadedQuery<T>;
 };
 
-const communityQuery = graphql`
-  query LayoutManageCommunityQuery($slug: Slug!) {
-    community(slug: $slug) {
-      ...CommunityLayoutFragment
+const collectionQuery = graphql`
+  query LayoutCollectionQuery($slug: Slug!) {
+    collection(slug: $slug) {
+      ...CollectionLayoutFragment
       ...AuthContextFragment
+      ...CollectionSlugRedirectFragment
     }
   }
 `;
