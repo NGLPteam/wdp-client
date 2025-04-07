@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7be94199d23b48b88b651f808a210e61>>
+ * @generated SignedSource<<25611a226ffdb94af9b57a0b101d8e52>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,12 +11,12 @@
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type announcementsManageSlugItemsPagesQuery$variables = {
-  itemSlug: string;
   page?: number | null | undefined;
+  slug: string;
 };
 export type announcementsManageSlugItemsPagesQuery$data = {
   readonly item: {
-    readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "EntityAnnouncementsListFragment" | "ItemLayoutFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"EntityAnnouncementsListFragment">;
   } | null | undefined;
 };
 export type announcementsManageSlugItemsPagesQuery = {
@@ -25,40 +25,39 @@ export type announcementsManageSlugItemsPagesQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "itemSlug"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "page"
-  }
-],
-v1 = [
+var v0 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "page"
+},
+v1 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "slug"
+},
+v2 = [
   {
     "kind": "Variable",
     "name": "slug",
-    "variableName": "itemSlug"
+    "variableName": "slug"
   }
 ],
-v2 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
 },
-v3 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v4 = [
+v5 = [
+  (v3/*: any*/),
   {
     "alias": null,
     "args": [
@@ -94,8 +93,8 @@ v4 = [
             "name": "node",
             "plural": false,
             "selections": [
+              (v4/*: any*/),
               (v3/*: any*/),
-              (v2/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -182,29 +181,22 @@ v4 = [
 ];
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/)
+    ],
     "kind": "Fragment",
     "metadata": null,
     "name": "announcementsManageSlugItemsPagesQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": "Item",
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
         "selections": [
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "ItemLayoutFragment"
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "AuthContextFragment"
-          },
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -219,146 +211,63 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v1/*: any*/),
+      (v0/*: any*/)
+    ],
     "kind": "Operation",
     "name": "announcementsManageSlugItemsPagesQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": "Item",
         "kind": "LinkedField",
         "name": "item",
         "plural": false,
         "selections": [
           {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "title",
-            "storageKey": null
-          },
-          (v2/*: any*/),
-          (v3/*: any*/),
-          {
-            "kind": "InlineFragment",
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "__typename",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "EntityBreadcrumb",
-                "kind": "LinkedField",
-                "name": "breadcrumbs",
-                "plural": true,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "depth",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "label",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "kind",
-                    "storageKey": null
-                  },
-                  (v2/*: any*/),
-                  (v3/*: any*/)
-                ],
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "allowedActions",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "SchemaVersion",
-                "kind": "LinkedField",
-                "name": "schemaVersion",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "enforcedChildKinds",
-                    "storageKey": null
-                  },
-                  (v3/*: any*/)
-                ],
-                "storageKey": null
-              },
-              {
-                "kind": "TypeDiscriminator",
-                "abstractKey": "__isSluggable"
-              }
-            ],
-            "type": "Entity",
-            "abstractKey": "__isEntity"
-          },
-          {
             "kind": "InlineFragment",
             "selections": [
               {
                 "kind": "InlineFragment",
-                "selections": (v4/*: any*/),
+                "selections": (v5/*: any*/),
                 "type": "Community",
                 "abstractKey": null
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v4/*: any*/),
+                "selections": (v5/*: any*/),
                 "type": "Collection",
                 "abstractKey": null
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v4/*: any*/),
+                "selections": (v5/*: any*/),
                 "type": "Item",
                 "abstractKey": null
               }
             ],
             "type": "AnyEntity",
             "abstractKey": "__isAnyEntity"
-          }
+          },
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "f38b67d471f7d84394deb4f69b00940f",
+    "cacheID": "8e538619099a10f9c7102f8d29c4c3e7",
     "id": null,
     "metadata": {},
     "name": "announcementsManageSlugItemsPagesQuery",
     "operationKind": "query",
-    "text": "query announcementsManageSlugItemsPagesQuery(\n  $itemSlug: Slug!\n  $page: Int\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    ...AuthContextFragment\n    ...EntityAnnouncementsListFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment EntityAnnouncementsListDataFragment on AnnouncementConnection {\n  edges {\n    node {\n      id\n      slug\n      header\n      publishedOn\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityAnnouncementsListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
+    "text": "query announcementsManageSlugItemsPagesQuery(\n  $slug: Slug!\n  $page: Int\n) {\n  item(slug: $slug) {\n    ...EntityAnnouncementsListFragment\n    id\n  }\n}\n\nfragment EntityAnnouncementsListDataFragment on AnnouncementConnection {\n  edges {\n    node {\n      id\n      slug\n      header\n      publishedOn\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment EntityAnnouncementsListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Collection {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n  ... on Item {\n    slug\n    announcements(page: $page, perPage: 20) {\n      ...EntityAnnouncementsListDataFragment\n    }\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "6c1bff0c225678fe0650edf11026ed32";
+(node as any).hash = "1dfc25e209878c2ef3ebd4cbc4dc8abf";
 
 export default node;

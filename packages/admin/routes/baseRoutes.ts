@@ -18,7 +18,6 @@ export const baseRoutes: BaseRoute[] = [
         name: "collection",
         path: "/collections/[slug]",
         label: "glossary.collection",
-        redirect: "/collections/[slug]/collections",
         routes: [
           {
             name: "collection.child.collections",
