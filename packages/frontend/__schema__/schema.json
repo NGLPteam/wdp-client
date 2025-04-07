@@ -9254,6 +9254,46 @@
             "deprecationReason": null
           },
           {
+            "name": "harvestModificationStatus",
+            "description": "The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have\nno effect on this record.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "HarvestModificationStatus",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestRecords",
+            "description": "The harvest record(s) associated with the entity, with most recent harvest records sorted to the top.\n\nIt is technically possible for multiple harvest records to have affected an entity.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "HarvestRecord",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "hasWeirdDOI",
             "description": "For use in the admin, something to signify that data has been set on `rawDOI`\nthat could not be properly assigned to `doi`.\n",
             "args": [],
@@ -9382,35 +9422,6 @@
                 "name": "String",
                 "ofType": null
               }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "inCommunityOrdering",
-            "description": null,
-            "args": [
-              {
-                "name": "identifier",
-                "description": "The identifier of the community ordering to look for this entity within.",
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "OrderingEntry",
-              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -10448,6 +10459,11 @@
           },
           {
             "kind": "INTERFACE",
+            "name": "HasHarvestModificationStatus",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
             "name": "HasSchemaProperties",
             "ofType": null
           },
@@ -10503,6 +10519,29 @@
           {
             "name": "ITEM",
             "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "ClientLocation",
+        "description": "Used to process redirect URIs for specific client locations.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "ADMIN",
+            "description": "The admin client (https://admin.sandbox.meru.host).\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "FRONTEND",
+            "description": "The frontend client (https://sandbox.meru.host).\n",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -11567,6 +11606,18 @@
             "description": "Retrieve the collections beneath this collection.",
             "args": [
               {
+                "name": "access",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityPermissionFilter",
+                  "ofType": null
+                },
+                "defaultValue": "SKIP",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "after",
                 "description": "Returns the elements in the list that come after the specified cursor.",
                 "type": {
@@ -12423,6 +12474,46 @@
             "deprecationReason": null
           },
           {
+            "name": "harvestModificationStatus",
+            "description": "The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have\nno effect on this record.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "HarvestModificationStatus",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestRecords",
+            "description": "The harvest record(s) associated with the entity, with most recent harvest records sorted to the top.\n\nIt is technically possible for multiple harvest records to have affected an entity.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "HarvestRecord",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "harvestTargetKind",
             "description": "Whether this is a collection or a community.\n",
             "args": [],
@@ -12620,38 +12711,21 @@
             "deprecationReason": null
           },
           {
-            "name": "inCommunityOrdering",
-            "description": null,
-            "args": [
-              {
-                "name": "identifier",
-                "description": "The identifier of the community ordering to look for this entity within.",
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "OrderingEntry",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "items",
             "description": null,
             "args": [
+              {
+                "name": "access",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityPermissionFilter",
+                  "ofType": null
+                },
+                "defaultValue": "SKIP",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
               {
                 "name": "after",
                 "description": "Returns the elements in the list that come after the specified cursor.",
@@ -13481,6 +13555,18 @@
             "description": "Retrieve linked collections of the same schema type",
             "args": [
               {
+                "name": "access",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityPermissionFilter",
+                  "ofType": null
+                },
+                "defaultValue": "SKIP",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "after",
                 "description": "Returns the elements in the list that come after the specified cursor.",
                 "type": {
@@ -14248,6 +14334,11 @@
           {
             "kind": "INTERFACE",
             "name": "HasEntityBreadcrumbs",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "HasHarvestModificationStatus",
             "ofType": null
           },
           {
@@ -15875,6 +15966,18 @@
             "name": "collections",
             "description": null,
             "args": [
+              {
+                "name": "access",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityPermissionFilter",
+                  "ofType": null
+                },
+                "defaultValue": "SKIP",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
               {
                 "name": "after",
                 "description": "Returns the elements in the list that come after the specified cursor.",
@@ -19430,6 +19533,22 @@
             "deprecationReason": null
           },
           {
+            "name": "harvestModificationStatus",
+            "description": "The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have\nno effect on this record.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "HarvestModificationStatus",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "identifier",
             "description": null,
             "args": [],
@@ -19764,6 +19883,11 @@
           {
             "kind": "INTERFACE",
             "name": "ContributorBase",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "HasHarvestModificationStatus",
             "ofType": null
           },
           {
@@ -20179,6 +20303,22 @@
             "deprecationReason": null
           },
           {
+            "name": "harvestModificationStatus",
+            "description": "The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have\nno effect on this record.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "HarvestModificationStatus",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "identifier",
             "description": null,
             "args": [],
@@ -20397,6 +20537,11 @@
         ],
         "inputFields": null,
         "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "HasHarvestModificationStatus",
+            "ofType": null
+          },
           {
             "kind": "INTERFACE",
             "name": "Sluggable",
@@ -34398,20 +34543,26 @@
       {
         "kind": "ENUM",
         "name": "EntityPermissionFilter",
-        "description": null,
+        "description": "When retrieving lists of entities, sometimes it is helpful to only show\nentities that the current user (or related user) has access to.\n",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
-            "name": "CRUD",
-            "description": null,
+            "name": "READ_ONLY",
+            "description": "Show only the entities that a user has specific read access for—this allows\nthem to view the full record as opposed to just what appears in the frontend.\n",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "READ_ONLY",
-            "description": null,
+            "name": "SKIP",
+            "description": "A default value that skips checking for access. It will retrieve every\nentity visible to the current user.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "UPDATE",
+            "description": "Show entities that a user has the ability to update.\n",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -36513,6 +36664,22 @@
             "deprecationReason": null
           },
           {
+            "name": "currentState",
+            "description": "The current state of the attempt.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "HarvestAttemptState",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "endedAt",
             "description": "The time the attempt ended.\n",
             "args": [],
@@ -36520,6 +36687,22 @@
               "kind": "SCALAR",
               "name": "ISO8601DateTime",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "extractionMappingTemplate",
+            "description": "The extraction mapping template used for this harvesting-related record\nat its place in the hierarchy. It is an XML document that describes how\nto map various types of metadata from the harvested records and transform\nthat data into entities in Meru.\n\nFor harvest sources, it can be considered the default mapping template\nfor any record in the system, and should be used to pre-populate\nattempts that are created by the source, as well as future plans to\nallow for extracting a single record by external ID that may not have\nyet been fetched by an extract records process.\n\nFor harvest mappings, it can be considered the default mapping template\nfor any attempt created by the mapping.\n\nFor any harvesting data that exists prior to the harvesting refactor\ncompleted during March of 2025, it's possible for this value to be\nan empty string. Any modifications to mappings and sources from that\ntime will need to add a valid mapping template in order to succeed.\n\nSee `Query.harvestExamples` for examples of valid mapping templates.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -36556,6 +36739,139 @@
               "kind": "OBJECT",
               "name": "HarvestMapping",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestMessages",
+            "description": null,
+            "args": [
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "filters",
+                "description": "Filters that **must** match.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "HarvestMessageFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orFilters",
+                "description": "An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,\nthough a UI could be built.\n\n**Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "HarvestMessageFilterInput",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "PageDirection",
+                  "ofType": null
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestMessageConnection",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -36734,6 +37050,22 @@
             "deprecationReason": null
           },
           {
+            "name": "mode",
+            "description": "Whether this attempt is `MANUAL` or `SCHEDULED`. This field is not set\nthrough the admin section, but derived from how the attempt was created.\n\n`SCHEDULED` attempts are created by Meru internally\nbased on their `harvestMapping`'s configuration.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "HarvestScheduleMode",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "note",
             "description": "An optional note for this harvesting attempt.\n",
             "args": [],
@@ -36752,6 +37084,18 @@
             "type": {
               "kind": "SCALAR",
               "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scheduledAt",
+            "description": "This specifies the time the attempt is scheduled to run at, if the `mode` is `SCHEDULED`.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
               "ofType": null
             },
             "isDeprecated": false,
@@ -36815,12 +37159,22 @@
           },
           {
             "kind": "INTERFACE",
+            "name": "HasHarvestExtractionMappingTemplate",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
             "name": "HasHarvestMetadataFormat",
             "ofType": null
           },
           {
             "kind": "INTERFACE",
             "name": "Node",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "QueriesHarvestMessage",
             "ofType": null
           },
           {
@@ -36969,6 +37323,22 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "extractionMappingTemplate",
+            "description": "The extraction mapping template used for this harvesting-related record\nat its place in the hierarchy. It is an XML document that describes how\nto map various types of metadata from the harvested records and transform\nthat data into entities in Meru.\n\nFor harvest sources, it can be considered the default mapping template\nfor any record in the system, and should be used to pre-populate\nattempts that are created by the source, as well as future plans to\nallow for extracting a single record by external ID that may not have\nyet been fetched by an extract records process.\n\nFor harvest mappings, it can be considered the default mapping template\nfor any attempt created by the mapping.\n\nFor any harvesting data that exists prior to the harvesting refactor\ncompleted during March of 2025, it's possible for this value to be\nan empty string. Any modifications to mappings and sources from that\ntime will need to add a valid mapping template in order to succeed.\n\nSee `Query.harvestExamples` for examples of valid mapping templates.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -37145,6 +37515,22 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "extractionMappingTemplate",
+            "description": "The extraction mapping template used for this harvesting-related record\nat its place in the hierarchy. It is an XML document that describes how\nto map various types of metadata from the harvested records and transform\nthat data into entities in Meru.\n\nFor harvest sources, it can be considered the default mapping template\nfor any record in the system, and should be used to pre-populate\nattempts that are created by the source, as well as future plans to\nallow for extracting a single record by external ID that may not have\nyet been fetched by an extract records process.\n\nFor harvest mappings, it can be considered the default mapping template\nfor any attempt created by the mapping.\n\nFor any harvesting data that exists prior to the harvesting refactor\ncompleted during March of 2025, it's possible for this value to be\nan empty string. Any modifications to mappings and sources from that\ntime will need to add a valid mapping template in order to succeed.\n\nSee `Query.harvestExamples` for examples of valid mapping templates.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -37378,6 +37764,47 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "HarvestAttemptState",
+        "description": "The state that an attempt is in.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "CANCELLED",
+            "description": "A scheduled attempt that was cancelled.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "EXECUTING",
+            "description": "An attempt that is in the process of extracting records.\n\nA failed extraction may linger in this state.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "EXTRACTED",
+            "description": "An attempt whose entities have all been extracted from the source.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PENDING",
+            "description": "An attempt that has not yet extracted anything.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SCHEDULED",
+            "description": "A scheduled attempt for a specific mapping that has not yet ran.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "INTERFACE",
         "name": "HarvestAttemptable",
         "description": "A record that can be used to trigger a run of the harvesting\nsubsystem via `harvestStart`.\n",
@@ -37546,6 +37973,139 @@
             "deprecationReason": null
           },
           {
+            "name": "harvestMessages",
+            "description": null,
+            "args": [
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "filters",
+                "description": "Filters that **must** match.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "HarvestMessageFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orFilters",
+                "description": "An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,\nthough a UI could be built.\n\n**Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "HarvestMessageFilterInput",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "PageDirection",
+                  "ofType": null
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestMessageConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -37589,18 +38149,6 @@
                 "name": "Boolean",
                 "ofType": null
               }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "metadataKind",
-            "description": "An internal identifier used to track what \"kind\" of entity this might produce,\nbased on the extracted metadata.\n\nMay roughly correspond to schemas, but not always.\n",
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "String",
-              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -37699,6 +38247,11 @@
           {
             "kind": "INTERFACE",
             "name": "Node",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "QueriesHarvestMessage",
             "ofType": null
           },
           {
@@ -37838,6 +38391,181 @@
       },
       {
         "kind": "OBJECT",
+        "name": "HarvestExample",
+        "description": "An example of various harvesting configurations, particularly extraction mapping templates.\n",
+        "fields": [
+          {
+            "name": "default",
+            "description": "Whether this should be considered a \"default\" example\nfor a given metadata / protocol combination.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "description",
+            "description": "A description about the example, if available.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "extractionMappingTemplate",
+            "description": "The example's extraction mapping template which can be applied to harvest sources, mappings, and attempts.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "generic",
+            "description": "Whether this is a generic example that is not tied\nto any specific protocol nor metadata format.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": "The ID for the example.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "metadataFormatName",
+            "description": "The metadata format this example applies to.\n\nIt can be blank if the example is not metadata-specific.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "HarvestMetadataFormat",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "name",
+            "description": "The human-readable name for the example.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "protocolName",
+            "description": "The protocol this example applies to.\n\nIt can be blank if the example is not protocol-specific.\n",
+            "args": [],
+            "type": {
+              "kind": "ENUM",
+              "name": "HarvestProtocol",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "schemaDeclarations",
+            "description": "A list of schema declarations that the mapping template can generate.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "schemaVersions",
+            "description": "A list of schema versions that the mapping template can generate.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "SchemaVersion",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "HarvestMapping",
         "description": "A specific mapping to be used by a `HarvestSource`,\npossibly an optional `HarvestSet`, and other options\nin order to harvest records from the source and produce\nentities.\n\nIt can produce a `HarvestAttempt`.\n",
         "fields": [
@@ -37853,6 +38581,34 @@
                 "name": "ISO8601DateTime",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "extractionMappingTemplate",
+            "description": "The extraction mapping template used for this harvesting-related record\nat its place in the hierarchy. It is an XML document that describes how\nto map various types of metadata from the harvested records and transform\nthat data into entities in Meru.\n\nFor harvest sources, it can be considered the default mapping template\nfor any record in the system, and should be used to pre-populate\nattempts that are created by the source, as well as future plans to\nallow for extracting a single record by external ID that may not have\nyet been fetched by an extract records process.\n\nFor harvest mappings, it can be considered the default mapping template\nfor any attempt created by the mapping.\n\nFor any harvesting data that exists prior to the harvesting refactor\ncompleted during March of 2025, it's possible for this value to be\nan empty string. Any modifications to mappings and sources from that\ntime will need to add a valid mapping template in order to succeed.\n\nSee `Query.harvestExamples` for examples of valid mapping templates.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "frequencyExpression",
+            "description": "This can be a cron expression as well as a human-readable expression like\n`\"every sunday at 5 am America/Los_Angeles\"`.\nThe system will attempt to validate and parse the expression when setting\nit in order to make sure it is something that Meru can handle.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -37964,6 +38720,139 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "HarvestAttemptConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestMessages",
+            "description": null,
+            "args": [
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "filters",
+                "description": "Filters that **must** match.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "HarvestMessageFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orFilters",
+                "description": "An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,\nthough a UI could be built.\n\n**Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "HarvestMessageFilterInput",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "PageDirection",
+                  "ofType": null
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestMessageConnection",
                 "ofType": null
               }
             },
@@ -38096,6 +38985,22 @@
             "deprecationReason": null
           },
           {
+            "name": "harvestSource",
+            "description": "The harvest source this belongs to.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestSource",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -38107,6 +39012,18 @@
                 "name": "ID",
                 "ofType": null
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "lastScheduledAt",
+            "description": "This timestamp signifies when the harvest mapping last tried to schedule its\nattempts (if applicable).\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -38144,6 +39061,22 @@
             "deprecationReason": null
           },
           {
+            "name": "mode",
+            "description": "Whether this mapping is `MANUAL` or `SCHEDULED`. This field is not set\nthrough the admin section, but derived from parsing the mapping's\n`frequencyExpression`.\n\n`SCHEDULED` mappings will automatically create `HarvestAttempt`s\nfor the next several iterations of their `frequencyExpression`.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "HarvestScheduleMode",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "readOptions",
             "description": "Options that control reading from the source.\n",
             "args": [],
@@ -38153,6 +39086,34 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "HarvestOptionsRead",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scheduleChangedAt",
+            "description": "This timestamp signifies the last time the frequency expression, or any\nof its derived fields, were changed.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "scheduleData",
+            "description": "Derived information about the frequency expression (if valid and applicable),\nto provide insight for introspection.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestScheduleData",
                 "ofType": null
               }
             },
@@ -38217,6 +39178,11 @@
           },
           {
             "kind": "INTERFACE",
+            "name": "HasHarvestExtractionMappingTemplate",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
             "name": "HasHarvestMetadataFormat",
             "ofType": null
           },
@@ -38232,7 +39198,93 @@
           },
           {
             "kind": "INTERFACE",
+            "name": "QueriesHarvestMessage",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
             "name": "Sluggable",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "HarvestMappingConnection",
+        "description": "The connection type for HarvestMapping.",
+        "fields": [
+          {
+            "name": "edges",
+            "description": "A list of edges.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "HarvestMappingEdge",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nodes",
+            "description": "A list of nodes.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "HarvestMapping",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pageInfo",
+            "description": "Information to aid in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageInfo",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Paginated",
             "ofType": null
           }
         ],
@@ -38248,6 +39300,34 @@
           {
             "name": "clientMutationId",
             "description": "A unique identifier for the client performing the mutation.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "extractionMappingTemplate",
+            "description": "The extraction mapping template used for this harvesting-related record\nat its place in the hierarchy. It is an XML document that describes how\nto map various types of metadata from the harvested records and transform\nthat data into entities in Meru.\n\nFor harvest sources, it can be considered the default mapping template\nfor any record in the system, and should be used to pre-populate\nattempts that are created by the source, as well as future plans to\nallow for extracting a single record by external ID that may not have\nyet been fetched by an extract records process.\n\nFor harvest mappings, it can be considered the default mapping template\nfor any attempt created by the mapping.\n\nFor any harvesting data that exists prior to the harvesting refactor\ncompleted during March of 2025, it's possible for this value to be\nan empty string. Any modifications to mappings and sources from that\ntime will need to add a valid mapping template in order to succeed.\n\nSee `Query.harvestExamples` for examples of valid mapping templates.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "frequencyExpression",
+            "description": "This can be a cron expression as well as a human-readable expression like\n`\"every sunday at 5 am America/Los_Angeles\"`.\nThe system will attempt to validate and parse the expression when setting\nit in order to make sure it is something that Meru can handle.\n",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -38653,6 +39733,78 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "HarvestMappingEdge",
+        "description": "An edge in a connection.",
+        "fields": [
+          {
+            "name": "cursor",
+            "description": "A cursor for use in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "node",
+            "description": "The item at the end of the edge.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestMapping",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "HarvestMappingOrder",
+        "description": "Sort a collection of `HarvestMapping` records by specific properties and directions.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DEFAULT",
+            "description": "Sort harvest mappings by their default order.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "OLDEST",
+            "description": "Sort harvest mappings by oldest created date.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "RECENT",
+            "description": "Sort harvest mappings by newest created date.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "INPUT_OBJECT",
         "name": "HarvestMappingUpdateInput",
         "description": "Autogenerated input type of HarvestMappingUpdate",
@@ -38661,6 +39813,34 @@
           {
             "name": "clientMutationId",
             "description": "A unique identifier for the client performing the mutation.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "extractionMappingTemplate",
+            "description": "The extraction mapping template used for this harvesting-related record\nat its place in the hierarchy. It is an XML document that describes how\nto map various types of metadata from the harvested records and transform\nthat data into entities in Meru.\n\nFor harvest sources, it can be considered the default mapping template\nfor any record in the system, and should be used to pre-populate\nattempts that are created by the source, as well as future plans to\nallow for extracting a single record by external ID that may not have\nyet been fetched by an extract records process.\n\nFor harvest mappings, it can be considered the default mapping template\nfor any attempt created by the mapping.\n\nFor any harvesting data that exists prior to the harvesting refactor\ncompleted during March of 2025, it's possible for this value to be\nan empty string. Any modifications to mappings and sources from that\ntime will need to add a valid mapping template in order to succeed.\n\nSee `Query.harvestExamples` for examples of valid mapping templates.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "frequencyExpression",
+            "description": "This can be a cron expression as well as a human-readable expression like\n`\"every sunday at 5 am America/Los_Angeles\"`.\nThe system will attempt to validate and parse the expression when setting\nit in order to make sure it is something that Meru can handle.\n",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -38857,6 +40037,418 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "HarvestMessage",
+        "description": "A single log message recorded during some aspect of harvesting.\n",
+        "fields": [
+          {
+            "name": "at",
+            "description": "The time the message occurred. This field should be favored at\nfor display over the model's default `createdAt` field.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "createdAt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestAttempt",
+            "description": "The harvest attempt associatd with the message, if available.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "HarvestAttempt",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestEntity",
+            "description": "The harvest entity associatd with the message, if available.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "HarvestEntity",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestMapping",
+            "description": "The harvest mapping associatd with the message, if available.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "HarvestMapping",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestRecord",
+            "description": "The harvest record associatd with the message, if available.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "HarvestRecord",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestSource",
+            "description": "The harvest source associated with the message.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "HarvestSource",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "level",
+            "description": "The level of severity of the message.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "HarvestMessageLevel",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "message",
+            "description": "The message itself.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "slug",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Slug",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "tags",
+            "description": "Tags associated with the message. This may describe what section\nof the harvesting system triggered the message, and may support\nquerying in the future.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updatedAt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "Sluggable",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "HarvestMessageConnection",
+        "description": "The connection type for HarvestMessage.",
+        "fields": [
+          {
+            "name": "edges",
+            "description": "A list of edges.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "HarvestMessageEdge",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nodes",
+            "description": "A list of nodes.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "HarvestMessage",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pageInfo",
+            "description": "Information to aid in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageInfo",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Paginated",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "HarvestMessageEdge",
+        "description": "An edge in a connection.",
+        "fields": [
+          {
+            "name": "cursor",
+            "description": "A cursor for use in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "node",
+            "description": "The item at the end of the edge.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestMessage",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "HarvestMessageFilterInput",
+        "description": "Filters for HarvestMessage.\n",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "severity",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "HarvestMessageLevel",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "HarvestMessageLevel",
+        "description": "Levels of severity associated with `HarvestMessage`s.\n\n`FATAL` is the most severe, `TRACE` is the least.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DEBUG",
+            "description": "Debug information about the harvesting system.\n\nMay be hidden by default when displaying.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ERROR",
+            "description": "An error that may or may not have interrupted a harvesting operation,\nbut could, for instance, just indicate that a single record failed.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "FATAL",
+            "description": "A fatal error which likely caused an entire harvesting operation to stop.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "INFO",
+            "description": "Informational messages that are higher priority than debug messages.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TRACE",
+            "description": "Very low-level trace messages that may be used in the future\nto narrow down specific / performance issues with harvesting,\nbut at present likely won't appear.\n\nShould be hidden by default when displaying.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "WARN",
+            "description": "Warnings about validation failures and similar things.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "ENUM",
         "name": "HarvestMetadataFormat",
         "description": "Supported metadata formats for harvesting.\n\n`HarvestProtocol` describes the transport method for individual records to be harvested,\nwhile `HarvestMetadataFormat` describes the structure of the data.\n",
@@ -38864,6 +40456,12 @@
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
+          {
+            "name": "ESPLORO",
+            "description": "[Esploro Records](https://developers.exlibrisgroup.com/esploro/apis/xsd/esploro_record.xsd/)\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "JATS",
             "description": "[Journal Article Tag Suite](https://jats.nlm.nih.gov/)\n",
@@ -38885,6 +40483,35 @@
           {
             "name": "OAIDC",
             "description": "[OAI-PMH Dublin Core](https://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm#dublincore)\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "HarvestModificationStatus",
+        "description": "An enum which describes how harvesting actions will affect\na given record.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "MODIFIED",
+            "description": "This record was created through harvesting actions and **has**\nbeen modified in the admin section. Harvest\n\nHarvesting actions will leave this record alone.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PRISTINE",
+            "description": "This record was created through harvesting actions and **has not**\nbeen modified in the admin section.\n\nHarvesting actions will overwrite any data if they encounter this record again.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "UNHARVESTED",
+            "description": "This record was not created through harvesting actions.\n\nShould harvesting actions end up matching an unharvested record,\nit will change this value to `MODIFIED` and treat it as such.\n",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -39060,6 +40687,12 @@
             "description": "[OAI-PMH](https://www.openarchives.org/OAI/2.0/guidelines.htm)\n",
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "UNKNOWN",
+            "description": "A fallback value for protocols that should not appear under normal circumstances.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "possibleTypes": null
@@ -39146,6 +40779,155 @@
             "deprecationReason": null
           },
           {
+            "name": "harvestMessages",
+            "description": null,
+            "args": [
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "filters",
+                "description": "Filters that **must** match.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "HarvestMessageFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orFilters",
+                "description": "An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,\nthough a UI could be built.\n\n**Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "HarvestMessageFilterInput",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "PageDirection",
+                  "ofType": null
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestMessageConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestSource",
+            "description": "The harvest source this belongs to.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestSource",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -39195,7 +40977,7 @@
           },
           {
             "name": "rawMetadataSource",
-            "description": "The raw medata extracted from `rawSource`, with minimal processing applied.\n\nWhen rendering in the frontend, this should be in some sort of fixed-width font / code view,\nas it will be JSON, XML, or similar types of data.\n",
+            "description": "The raw metadata extracted from `rawSource`, with minimal processing applied.\n\nWhen rendering in the frontend, this should be in some sort of fixed-width font / code view,\nas it will be JSON, XML, or similar types of data.\n",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -39234,6 +41016,22 @@
             "deprecationReason": null
           },
           {
+            "name": "status",
+            "description": "The status of the record.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "HarvestRecordStatus",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "updatedAt",
             "description": null,
             "args": [],
@@ -39265,6 +41063,11 @@
           {
             "kind": "INTERFACE",
             "name": "Node",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "QueriesHarvestMessage",
             "ofType": null
           },
           {
@@ -39423,6 +41226,123 @@
           {
             "name": "RECENT",
             "description": "Sort harvest records by newest created date.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "HarvestRecordStatus",
+        "description": "A harvested record can exist in a number of statuses.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "ACTIVE",
+            "description": "An record that is considered active and ready to be extracted into entities.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "DELETED",
+            "description": "A record that was deleted in the upstream harvest source.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PENDING",
+            "description": "A brand new record that hasn't been processed yet.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SKIPPED",
+            "description": "A record that was skipped over for some validation reason.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "HarvestScheduleData",
+        "description": null,
+        "fields": [
+          {
+            "name": "cronExpression",
+            "description": "The frequency expression as a cron statement, regardless\nof its original syntax.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "frequencyMax",
+            "description": "The maximum frequency between occurrences, expressed as a duration.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601Duration",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "frequencyMin",
+            "description": "The minimum frequency between occurrences, expressed as a duration.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601Duration",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "timeZone",
+            "description": "If the frequency expression included time zone information,\nthis will expose which time zone is being used. Otherwise,\nthe frequency will use the Meru installation time zone.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "HarvestScheduleMode",
+        "description": "Harvest schedule mode enum\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "MANUAL",
+            "description": "",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SCHEDULED",
+            "description": "",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -39728,6 +41648,18 @@
             "defaultValue": null,
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "prefix",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "interfaces": null,
@@ -39808,6 +41740,22 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "extractionMappingTemplate",
+            "description": "The extraction mapping template used for this harvesting-related record\nat its place in the hierarchy. It is an XML document that describes how\nto map various types of metadata from the harvested records and transform\nthat data into entities in Meru.\n\nFor harvest sources, it can be considered the default mapping template\nfor any record in the system, and should be used to pre-populate\nattempts that are created by the source, as well as future plans to\nallow for extracting a single record by external ID that may not have\nyet been fetched by an extract records process.\n\nFor harvest mappings, it can be considered the default mapping template\nfor any attempt created by the mapping.\n\nFor any harvesting data that exists prior to the harvesting refactor\ncompleted during March of 2025, it's possible for this value to be\nan empty string. Any modifications to mappings and sources from that\ntime will need to add a valid mapping template in order to succeed.\n\nSee `Query.harvestExamples` for examples of valid mapping templates.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -39928,22 +41876,244 @@
           {
             "name": "harvestMappings",
             "description": "Mappings associated with the harvest source.\n",
-            "args": [],
+            "args": [
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "HarvestMappingOrder",
+                  "ofType": null
+                },
+                "defaultValue": "DEFAULT",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "PageDirection",
+                  "ofType": null
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
             "type": {
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
+                "kind": "OBJECT",
+                "name": "HarvestMappingConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestMessages",
+            "description": null,
+            "args": [
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "filters",
+                "description": "Filters that **must** match.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "HarvestMessageFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orFilters",
+                "description": "An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,\nthough a UI could be built.\n\n**Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.\n",
+                "type": {
+                  "kind": "LIST",
                   "name": null,
                   "ofType": {
-                    "kind": "OBJECT",
-                    "name": "HarvestMapping",
-                    "ofType": null
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "HarvestMessageFilterInput",
+                      "ofType": null
+                    }
                   }
-                }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "PageDirection",
+                  "ofType": null
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestMessageConnection",
+                "ofType": null
               }
             },
             "isDeprecated": false,
@@ -40336,6 +42506,22 @@
             "deprecationReason": null
           },
           {
+            "name": "status",
+            "description": "An enum that describes the functional state for harvest sources.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "HarvestSourceStatus",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "updatedAt",
             "description": null,
             "args": [],
@@ -40361,6 +42547,11 @@
           },
           {
             "kind": "INTERFACE",
+            "name": "HasHarvestExtractionMappingTemplate",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
             "name": "HasHarvestMetadataFormat",
             "ofType": null
           },
@@ -40372,6 +42563,11 @@
           {
             "kind": "INTERFACE",
             "name": "Node",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "QueriesHarvestMessage",
             "ofType": null
           },
           {
@@ -40505,6 +42701,22 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "extractionMappingTemplate",
+            "description": "The extraction mapping template used for this harvesting-related record\nat its place in the hierarchy. It is an XML document that describes how\nto map various types of metadata from the harvested records and transform\nthat data into entities in Meru.\n\nFor harvest sources, it can be considered the default mapping template\nfor any record in the system, and should be used to pre-populate\nattempts that are created by the source, as well as future plans to\nallow for extracting a single record by external ID that may not have\nyet been fetched by an extract records process.\n\nFor harvest mappings, it can be considered the default mapping template\nfor any attempt created by the mapping.\n\nFor any harvesting data that exists prior to the harvesting refactor\ncompleted during March of 2025, it's possible for this value to be\nan empty string. Any modifications to mappings and sources from that\ntime will need to add a valid mapping template in order to succeed.\n\nSee `Query.harvestExamples` for examples of valid mapping templates.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -40982,6 +43194,29 @@
         "possibleTypes": null
       },
       {
+        "kind": "ENUM",
+        "name": "HarvestSourceStatus",
+        "description": "An enum that describes the functional state for harvest sources.\n\nHarvest sources are checked on a regular basis and can also be\nmanually rechecked with harvestSourceCheck\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "ACTIVE",
+            "description": "An active harvest source has been recently validated as working\nand thus can be used for harvesting.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "INACTIVE",
+            "description": "An inactive harvest source has been recently validated as not working\nand cannot be used for harvesting.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
         "kind": "INPUT_OBJECT",
         "name": "HarvestSourceUpdateInput",
         "description": "Autogenerated input type of HarvestSourceUpdate",
@@ -41022,6 +43257,22 @@
               "kind": "SCALAR",
               "name": "String",
               "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "extractionMappingTemplate",
+            "description": "The extraction mapping template used for this harvesting-related record\nat its place in the hierarchy. It is an XML document that describes how\nto map various types of metadata from the harvested records and transform\nthat data into entities in Meru.\n\nFor harvest sources, it can be considered the default mapping template\nfor any record in the system, and should be used to pre-populate\nattempts that are created by the source, as well as future plans to\nallow for extracting a single record by external ID that may not have\nyet been fetched by an extract records process.\n\nFor harvest mappings, it can be considered the default mapping template\nfor any attempt created by the mapping.\n\nFor any harvesting data that exists prior to the harvesting refactor\ncompleted during March of 2025, it's possible for this value to be\nan empty string. Any modifications to mappings and sources from that\ntime will need to add a valid mapping template in order to succeed.\n\nSee `Query.harvestExamples` for examples of valid mapping templates.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "defaultValue": null,
             "isDeprecated": false,
@@ -41939,6 +44190,49 @@
       },
       {
         "kind": "INTERFACE",
+        "name": "HasHarvestExtractionMappingTemplate",
+        "description": "An interface for harvesting-related records that expose a mapping template\nfor handling extraction at their point in the hierarchy.\n",
+        "fields": [
+          {
+            "name": "extractionMappingTemplate",
+            "description": "The extraction mapping template used for this harvesting-related record\nat its place in the hierarchy. It is an XML document that describes how\nto map various types of metadata from the harvested records and transform\nthat data into entities in Meru.\n\nFor harvest sources, it can be considered the default mapping template\nfor any record in the system, and should be used to pre-populate\nattempts that are created by the source, as well as future plans to\nallow for extracting a single record by external ID that may not have\nyet been fetched by an extract records process.\n\nFor harvest mappings, it can be considered the default mapping template\nfor any attempt created by the mapping.\n\nFor any harvesting data that exists prior to the harvesting refactor\ncompleted during March of 2025, it's possible for this value to be\nan empty string. Any modifications to mappings and sources from that\ntime will need to add a valid mapping template in order to succeed.\n\nSee `Query.harvestExamples` for examples of valid mapping templates.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "HarvestAttempt",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "HarvestMapping",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "HarvestSource",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
         "name": "HasHarvestMetadataFormat",
         "description": "A record that stores a metadata format it uses.\n",
         "fields": [
@@ -41981,6 +44275,54 @@
           {
             "kind": "OBJECT",
             "name": "HarvestSource",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "HasHarvestModificationStatus",
+        "description": "An interface for records which can be created/updated through Harvesting\nthat includes an enum which can prevent harvesting actions from overwriting\nany data that has been manually corrected.\n",
+        "fields": [
+          {
+            "name": "harvestModificationStatus",
+            "description": "The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have\nno effect on this record.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "HarvestModificationStatus",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "Collection",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "Item",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "OrganizationContributor",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "PersonContributor",
             "ofType": null
           }
         ]
@@ -43919,6 +46261,16 @@
         "kind": "SCALAR",
         "name": "ISO8601DateTime",
         "description": "An ISO 8601-encoded datetime",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "ISO8601Duration",
+        "description": "An ISO 8601-encoded duration",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -47059,6 +49411,46 @@
             "deprecationReason": null
           },
           {
+            "name": "harvestModificationStatus",
+            "description": "The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have\nno effect on this record.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "HarvestModificationStatus",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestRecords",
+            "description": "The harvest record(s) associated with the entity, with most recent harvest records sorted to the top.\n\nIt is technically possible for multiple harvest records to have affected an entity.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "HarvestRecord",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "hasItems",
             "description": "Whether this item has any child items",
             "args": [],
@@ -47224,38 +49616,21 @@
             "deprecationReason": null
           },
           {
-            "name": "inCommunityOrdering",
-            "description": null,
-            "args": [
-              {
-                "name": "identifier",
-                "description": "The identifier of the community ordering to look for this entity within.",
-                "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
-            "type": {
-              "kind": "OBJECT",
-              "name": "OrderingEntry",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "items",
             "description": "Retrieve the items beneath this item",
             "args": [
+              {
+                "name": "access",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityPermissionFilter",
+                  "ofType": null
+                },
+                "defaultValue": "SKIP",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
               {
                 "name": "after",
                 "description": "Returns the elements in the list that come after the specified cursor.",
@@ -48085,6 +50460,18 @@
             "description": "Retrieve linked items of the same schema type",
             "args": [
               {
+                "name": "access",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityPermissionFilter",
+                  "ofType": null
+                },
+                "defaultValue": "SKIP",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "after",
                 "description": "Returns the elements in the list that come after the specified cursor.",
                 "type": {
@@ -48847,6 +51234,11 @@
           {
             "kind": "INTERFACE",
             "name": "HasEntityBreadcrumbs",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "HasHarvestModificationStatus",
             "ofType": null
           },
           {
@@ -56256,6 +58648,35 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "userResetPassword",
+            "description": "Reset a password for the current or specified user\n",
+            "args": [
+              {
+                "name": "input",
+                "description": "Parameters for UserResetPassword",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "UserResetPasswordInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "UserResetPasswordPayload",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -57537,6 +59958,11 @@
           {
             "kind": "OBJECT",
             "name": "HarvestMapping",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "HarvestMessage",
             "ofType": null
           },
           {
@@ -60956,6 +63382,22 @@
             "deprecationReason": null
           },
           {
+            "name": "harvestModificationStatus",
+            "description": "The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have\nno effect on this record.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "HarvestModificationStatus",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -61327,6 +63769,11 @@
           {
             "kind": "INTERFACE",
             "name": "ContributorBase",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "HasHarvestModificationStatus",
             "ofType": null
           },
           {
@@ -62418,6 +64865,16 @@
           },
           {
             "kind": "OBJECT",
+            "name": "HarvestMappingConnection",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "HarvestMessageConnection",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "HarvestRecordConnection",
             "ofType": null
           },
@@ -63005,6 +65462,22 @@
             "deprecationReason": null
           },
           {
+            "name": "harvestModificationStatus",
+            "description": "The status of the harvesting modification. If it is `MODIFIED`, harvesting actions will have\nno effect on this record.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "HarvestModificationStatus",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -63376,6 +65849,11 @@
           {
             "kind": "INTERFACE",
             "name": "ContributorBase",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "HasHarvestModificationStatus",
             "ofType": null
           },
           {
@@ -64623,6 +67101,18 @@
             "description": "List all communities",
             "args": [
               {
+                "name": "access",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityPermissionFilter",
+                  "ofType": null
+                },
+                "defaultValue": "SKIP",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "after",
                 "description": "Returns the elements in the list that come after the specified cursor.",
                 "type": {
@@ -64971,6 +67461,577 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "HarvestAttemptConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "Query",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "QueriesHarvestExample",
+        "description": "An interface for querying `HarvestExample` records.\n",
+        "fields": [
+          {
+            "name": "harvestExamples",
+            "description": "Retrieve harvest examples for the system.\n",
+            "args": [
+              {
+                "name": "generic",
+                "description": "Whether to look for \"generic\" harvesting examples which are not associated\nwith any protocol or metadata.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "metadataFormat",
+                "description": "The metadata format to filter by.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "HarvestMetadataFormat",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "protocol",
+                "description": "The protocol to filter by.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "HarvestProtocol",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "HarvestExample",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "Query",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "QueriesHarvestMapping",
+        "description": "An interface for querying `HarvestMapping` records.\n",
+        "fields": [
+          {
+            "name": "harvestMapping",
+            "description": "Retrieve a single `HarvestMapping` by slug.\n",
+            "args": [
+              {
+                "name": "slug",
+                "description": "The slug to look up.\n",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "HarvestMapping",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestMappings",
+            "description": "Query all harvest mappings in the system.\n",
+            "args": [
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "HarvestMappingOrder",
+                  "ofType": null
+                },
+                "defaultValue": "DEFAULT",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "PageDirection",
+                  "ofType": null
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestMappingConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "Query",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "QueriesHarvestMessage",
+        "description": "An interface for querying `HarvestMessage` records.\n",
+        "fields": [
+          {
+            "name": "harvestMessages",
+            "description": null,
+            "args": [
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "filters",
+                "description": "Filters that **must** match.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "HarvestMessageFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orFilters",
+                "description": "An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,\nthough a UI could be built.\n\n**Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "HarvestMessageFilterInput",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "PageDirection",
+                  "ofType": null
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestMessageConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "HarvestAttempt",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "HarvestEntity",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "HarvestMapping",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "HarvestRecord",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "HarvestSource",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "Query",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "QueriesHarvestRecord",
+        "description": "An interface for querying `HarvestRecord` records.\n",
+        "fields": [
+          {
+            "name": "harvestRecord",
+            "description": "Retrieve a single `HarvestRecord` by slug.\n",
+            "args": [
+              {
+                "name": "slug",
+                "description": "The slug to look up.\n",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "HarvestRecord",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestRecords",
+            "description": "Query all harvest records in the system.\n",
+            "args": [
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "HarvestRecordOrder",
+                  "ofType": null
+                },
+                "defaultValue": "DEFAULT",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "PageDirection",
+                  "ofType": null
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestRecordConnection",
                 "ofType": null
               }
             },
@@ -66291,6 +69352,18 @@
             "description": "List all communities",
             "args": [
               {
+                "name": "access",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityPermissionFilter",
+                  "ofType": null
+                },
+                "defaultValue": "SKIP",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "after",
                 "description": "Returns the elements in the list that come after the specified cursor.",
                 "type": {
@@ -67213,6 +70286,484 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "HarvestAttemptConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestExamples",
+            "description": "Retrieve harvest examples for the system.\n",
+            "args": [
+              {
+                "name": "generic",
+                "description": "Whether to look for \"generic\" harvesting examples which are not associated\nwith any protocol or metadata.\n",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                },
+                "defaultValue": "false",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "metadataFormat",
+                "description": "The metadata format to filter by.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "HarvestMetadataFormat",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "protocol",
+                "description": "The protocol to filter by.\n",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "HarvestProtocol",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "HarvestExample",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestMapping",
+            "description": "Retrieve a single `HarvestMapping` by slug.\n",
+            "args": [
+              {
+                "name": "slug",
+                "description": "The slug to look up.\n",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "HarvestMapping",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestMappings",
+            "description": "Query all harvest mappings in the system.\n",
+            "args": [
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "HarvestMappingOrder",
+                  "ofType": null
+                },
+                "defaultValue": "DEFAULT",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "PageDirection",
+                  "ofType": null
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestMappingConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestMessages",
+            "description": null,
+            "args": [
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "filters",
+                "description": "Filters that **must** match.\n",
+                "type": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "HarvestMessageFilterInput",
+                  "ofType": null
+                },
+                "defaultValue": "null",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "orFilters",
+                "description": "An array of filters, at least one of which must match. This is intended more for debugging and introspection in the API,\nthough a UI could be built.\n\n**Note**: If `filters` is also specified, at least one set of filters in `orFilters` must match, along with `filters`.\n",
+                "type": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "HarvestMessageFilterInput",
+                      "ofType": null
+                    }
+                  }
+                },
+                "defaultValue": "[]",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "PageDirection",
+                  "ofType": null
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestMessageConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestRecord",
+            "description": "Retrieve a single `HarvestRecord` by slug.\n",
+            "args": [
+              {
+                "name": "slug",
+                "description": "The slug to look up.\n",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "HarvestRecord",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "harvestRecords",
+            "description": "Query all harvest records in the system.\n",
+            "args": [
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "HarvestRecordOrder",
+                  "ofType": null
+                },
+                "defaultValue": "DEFAULT",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "PageDirection",
+                  "ofType": null
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "HarvestRecordConnection",
                 "ofType": null
               }
             },
@@ -68259,6 +71810,26 @@
           {
             "kind": "INTERFACE",
             "name": "QueriesHarvestAttempt",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "QueriesHarvestExample",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "QueriesHarvestMapping",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "QueriesHarvestMessage",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "QueriesHarvestRecord",
             "ofType": null
           },
           {
@@ -72966,6 +76537,18 @@
             "description": "The results of a search.\n\nYou must specify one of the following options in order to activate a search:\n\n* `predicates`\n* `prefix`\n* `query`\n* `schema`\n\nIf _none_ of these are set, the search will be considered empty, and return 0 results.\n",
             "args": [
               {
+                "name": "access",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "EntityPermissionFilter",
+                  "ofType": null
+                },
+                "defaultValue": "SKIP",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
                 "name": "after",
                 "description": "Returns the elements in the list that come after the specified cursor.",
                 "type": {
@@ -74486,6 +78069,11 @@
           },
           {
             "kind": "OBJECT",
+            "name": "HarvestMessage",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "HarvestRecord",
             "ofType": null
           },
@@ -75113,6 +78701,11 @@
           {
             "kind": "OBJECT",
             "name": "UpsertContributionPayload",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "UserResetPasswordPayload",
             "ofType": null
           }
         ]
@@ -80141,6 +83734,18 @@
             "deprecationReason": null
           },
           {
+            "name": "maintainPristineStatus",
+            "description": "When dealing with harvested collections or items, modifying\nthe entity within the admin section will cause its\n`harvestModificationStatus` to change to `MODIFIED`, which will\nprevent the harvesting system from overwriting anything within it.\n\nBy setting this option to true, it will force harvested entities to\nremain `PRISTINE`, no matter what changes have been made in the admin\nsection. This will allow the harvesting system to overwrite any of\nthese changes when next time it runs.\n\nIt must be checked _every_ time the entity is saved in the admin\nsection in order to keep the pristine status intact.\n\n**Note**: It has no effect on `UNHARVESTED` entities.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": "false",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "published",
             "description": "The date this entity was published",
             "type": {
@@ -81345,6 +84950,18 @@
               }
             },
             "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "maintainPristineStatus",
+            "description": "When dealing with harvested collections or items, modifying\nthe entity within the admin section will cause its\n`harvestModificationStatus` to change to `MODIFIED`, which will\nprevent the harvesting system from overwriting anything within it.\n\nBy setting this option to true, it will force harvested entities to\nremain `PRISTINE`, no matter what changes have been made in the admin\nsection. This will allow the harvesting system to overwrite any of\nthese changes when next time it runs.\n\nIt must be checked _every_ time the entity is saved in the admin\nsection in order to keep the pristine status intact.\n\n**Note**: It has no effect on `UNHARVESTED` entities.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": "false",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -84195,7 +87812,7 @@
                   "name": "EntityPermissionFilter",
                   "ofType": null
                 },
-                "defaultValue": "READ_ONLY",
+                "defaultValue": "SKIP",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -84352,7 +87969,7 @@
                   "name": "EntityPermissionFilter",
                   "ofType": null
                 },
-                "defaultValue": "READ_ONLY",
+                "defaultValue": "SKIP",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -84835,7 +88452,7 @@
                   "name": "EntityPermissionFilter",
                   "ofType": null
                 },
-                "defaultValue": "READ_ONLY",
+                "defaultValue": "SKIP",
                 "isDeprecated": false,
                 "deprecationReason": null
               },
@@ -88324,6 +91941,226 @@
           }
         ],
         "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "UserResetPasswordInput",
+        "description": "Autogenerated input type of UserResetPassword",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "clientId",
+            "description": "The keycloak client used to authenticate users associated with the current `location`.\n\nMust be provided.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clientMutationId",
+            "description": "A unique identifier for the client performing the mutation.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "location",
+            "description": "Which location the user should be sent back to once completing\nthe reset password flow.\n\nIt is used in concert with `redirectPath` in order to build the\nactual URL.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "ClientLocation",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "redirectPath",
+            "description": "The redirect path on the `location` to redirect the user to.\n\nMust be a **relative** URI like `\"/foo/bar/baz\"`. `\"/\"` is the minimum acceptable.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "userId",
+            "description": "Specify a user to send reset password instructions for.\n\nIf left blank, it will send reset password instructions for the current user.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "UserResetPasswordPayload",
+        "description": "Autogenerated return type of UserResetPassword.",
+        "fields": [
+          {
+            "name": "attributeErrors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "MutationAttributeError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clientMutationId",
+            "description": "A unique identifier for the client performing the mutation.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "errors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "UserError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
+          },
+          {
+            "name": "globalErrors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "MutationGlobalError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "haltCode",
+            "description": "Not presently used",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "success",
+            "description": "Whether or not instructions were successfully sent.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "user",
+            "description": "The user whose password was reset. Handy for showing the email that it was sent to.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "User",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "StandardMutationPayload",
+            "ofType": null
+          }
+        ],
         "enumValues": null,
         "possibleTypes": null
       },
