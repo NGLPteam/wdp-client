@@ -21,6 +21,7 @@ const MODEL_MAP = {
   HARVEST_RECORD: "harvest record",
   HARVEST_ENTITY: "harvest entity",
   HARVEST_MESSAGE: "harvest message",
+  MEMBER: "member",
 };
 
 export type ModelNames = keyof typeof MODEL_MAP;
