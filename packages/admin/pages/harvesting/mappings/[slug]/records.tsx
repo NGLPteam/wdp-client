@@ -1,5 +1,5 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import { useSearchQueryVars, useBaseListQueryVars, useRouteSlug } from "hooks";
+import { useRouteSlug } from "hooks";
 import HarvestRecordsList from "components/composed/harvesting/HarvestRecordsList";
 import type { recordsHarvestMappingQuery as Query } from "@/relay/recordsHarvestMappingQuery.graphql";
 import Layout from "./_layout";
@@ -22,9 +22,6 @@ function HarvestMappingRecords({ queryRef }: Props) {
 }
 
 const getLayout: GetLayout<Props> = (props) => {
-  useBaseListQueryVars();
-  useSearchQueryVars();
-
   return <Layout query={query} modelName="harvest_record" {...props} />;
 };
 
