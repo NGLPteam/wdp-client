@@ -14,6 +14,7 @@ import CollectionLayout from "components/composed/collection/CollectionLayout";
 import ModelListPageSkeleton from "components/composed/model/ModelListPageSkeleton";
 import { ModelListProps } from "components/composed/model/ModelList";
 import { AuthContextProvider } from "contexts/AuthContext";
+import { RouteUnauthorizedMessage } from "components/auth/UnauthorizedMessage";
 import type { LayoutManageCollectionQuery } from "@/relay/LayoutManageCollectionQuery.graphql";
 
 export default function Layout<T extends OperationType>(props: Props<T>) {
@@ -28,6 +29,11 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
   );
 
   if (!slug || !collection) return <ErrorPage statusCode={404} />;
+
+  if (!collection.allowedActions.includes("self.update"))
+    return (
+      <RouteUnauthorizedMessage i18nKey="messages.unauthorized_body.collection" />
+    );
 
   const {
     PageComponent,
@@ -81,6 +87,7 @@ type PageProps<T extends OperationType> = {
 const collectionQuery = graphql`
   query LayoutManageCollectionQuery($slug: Slug!) {
     collection(slug: $slug) {
+      allowedActions
       ...CollectionLayoutFragment
       ...AuthContextFragment
     }

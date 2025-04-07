@@ -14,6 +14,7 @@ import { AuthContextProvider } from "contexts/AuthContext";
 import CommunityLayout from "components/composed/community/CommunityLayout";
 import ModelListPageSkeleton from "components/composed/model/ModelListPageSkeleton";
 import { ModelListProps } from "components/composed/model/ModelList";
+import { RouteUnauthorizedMessage } from "components/auth/UnauthorizedMessage";
 import type { LayoutManageCommunityQuery } from "@/relay/LayoutManageCommunityQuery.graphql";
 
 export default function Layout<T extends OperationType>(props: Props<T>) {
@@ -29,6 +30,11 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
   );
 
   if (!slug || !community) return <ErrorPage statusCode={404} />;
+
+  if (!community.allowedActions.includes("self.update"))
+    return (
+      <RouteUnauthorizedMessage i18nKey="messages.unauthorized_body.community" />
+    );
 
   const {
     PageComponent,
@@ -82,6 +88,7 @@ type PageProps<T extends OperationType> = {
 const communityQuery = graphql`
   query LayoutManageCommunityQuery($slug: Slug!) {
     community(slug: $slug) {
+      allowedActions
       ...CommunityLayoutFragment
       ...AuthContextFragment
     }
