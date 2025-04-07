@@ -14,6 +14,7 @@ import CollectionSlugRedirect from "components/composed/collection/CollectionSlu
 import CollectionLayout from "components/composed/collection/CollectionLayout";
 import { AuthContextProvider } from "contexts/AuthContext";
 import ModelListPageSkeleton from "components/composed/model/ModelListPageSkeleton";
+import { RouteUnauthorizedMessage } from "components/auth/UnauthorizedMessage";
 import type { LayoutCollectionQuery } from "@/relay/LayoutCollectionQuery.graphql";
 
 export default function Layout<T extends OperationType>(props: Props<T>) {
@@ -29,6 +30,11 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
   );
 
   if (!slug || !collection) return <ErrorPage statusCode={404} />;
+
+  if (!collection.allowedActions.includes("self.update"))
+    return (
+      <RouteUnauthorizedMessage i18nKey="messages.unauthorized_body.collection" />
+    );
 
   if ("isIndex" in props)
     return (
@@ -90,6 +96,7 @@ type PageProps<T extends OperationType> = {
 const collectionQuery = graphql`
   query LayoutCollectionQuery($slug: Slug!) {
     collection(slug: $slug) {
+      allowedActions
       ...CollectionLayoutFragment
       ...AuthContextFragment
       ...CollectionSlugRedirectFragment

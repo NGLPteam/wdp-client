@@ -13,6 +13,7 @@ import ErrorPage from "next/error";
 import { LoadingPage } from "components/atomic";
 import CommunityLayout from "components/composed/community/CommunityLayout";
 import { AuthContextProvider } from "contexts/AuthContext";
+import { RouteUnauthorizedMessage } from "components/auth/UnauthorizedMessage";
 import type { LayoutCommunityQuery } from "@/relay/LayoutCommunityQuery.graphql";
 
 export default function Layout<T extends OperationType>(props: Props<T>) {
@@ -28,6 +29,11 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
   );
 
   if (!slug || !community) return <ErrorPage statusCode={404} />;
+
+  if (!community.allowedActions.includes("self.update"))
+    return (
+      <RouteUnauthorizedMessage i18nKey="messages.unauthorized_body.community" />
+    );
 
   const { PageComponent, pageComponentProps, query, refetchTags } = props;
 
@@ -71,6 +77,7 @@ type PageProps<T extends OperationType> = {
 const communityQuery = graphql`
   query LayoutCommunityQuery($slug: Slug!) {
     community(slug: $slug) {
+      allowedActions
       ...CommunityLayoutFragment
       ...AuthContextFragment
     }
