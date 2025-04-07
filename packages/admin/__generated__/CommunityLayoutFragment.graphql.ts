@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<be0eb55c873987e50197da2442a4d1c1>>
+ * @generated SignedSource<<b184e418c8880d06d5c0dc80aa0fc263>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,6 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CommunityLayoutFragment$data = {
-  readonly allowedActions: ReadonlyArray<string>;
   readonly id: string;
   readonly name: string;
   readonly slug: string;
@@ -51,13 +50,6 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "allowedActions",
-      "storageKey": null
-    },
-    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "useChildRouteLinksFragment"
@@ -67,6 +59,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "98066e304b4ac8e327f91473228304e0";
+(node as any).hash = "69e59ffd889e59b50f71b243bd57de10";
 
 export default node;
