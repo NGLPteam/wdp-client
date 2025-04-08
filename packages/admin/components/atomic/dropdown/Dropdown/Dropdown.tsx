@@ -15,6 +15,7 @@ const Dropdown = ({
   menuItems,
   label,
   alignRight = false,
+  alignGlobal = false,
 }: Props) => {
   const uid = useId();
   const wrapperRef = useRef(null);
@@ -30,6 +31,7 @@ const Dropdown = ({
     <Styled.List
       ref={elRef}
       $right={alignRight || out.right}
+      $global={alignGlobal}
       id={uid}
       aria-hidden={!active}
       hidden={!active}
@@ -64,7 +66,7 @@ const Dropdown = ({
   }
 
   return (
-    <Styled.Wrapper>
+    <Styled.Wrapper $global={alignGlobal}>
       <div ref={wrapperRef} className={className} aria-label={label}>
         {renderDisclosure(disclosure, disclosureProps)}
         {submenu}
@@ -81,6 +83,7 @@ interface Props {
   label: string;
   menuItems: (React.JSX.Element | null)[];
   alignRight?: boolean;
+  alignGlobal?: boolean;
 }
 export interface BaseDisclosureProps {
   "aria-controls": string;
