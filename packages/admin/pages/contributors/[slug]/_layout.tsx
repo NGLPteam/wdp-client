@@ -51,7 +51,10 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
           ) : showLoadingCircle ? (
             <LoadingCircle className="l-page-loading" />
           ) : (
-            <ModelListPageSkeleton modelName={modelName} />
+            <ModelListPageSkeleton
+              modelName={modelName}
+              headerStyle="secondary"
+            />
           )
         }
       </QueryTransitionWrapper>
