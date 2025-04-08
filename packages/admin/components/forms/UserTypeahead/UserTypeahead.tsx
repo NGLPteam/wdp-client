@@ -1,7 +1,6 @@
-import React, { Ref, useState } from "react";
+import { Ref, useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
-import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
-import { graphql } from "react-relay";
+import { graphql, useRelayEnvironment, fetchQuery } from "react-relay";
 import { useTranslation } from "react-i18next";
 import debounce from "lodash/debounce";
 import BaseTypeahead from "components/forms/BaseTypeahead";
@@ -10,7 +9,6 @@ import {
   UserTypeaheadQuery as Query,
   UserTypeaheadQuery$data as Response,
 } from "__generated__/UserTypeaheadQuery.graphql";
-import { FormFieldSkeleton } from "components/atomic/loading";
 import type { FieldValues, Control, Path } from "react-hook-form";
 
 type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
@@ -18,9 +16,10 @@ type TypeaheadProps = React.ComponentProps<typeof BaseTypeahead>;
 const UserTypeahead = <T extends FieldValues = FieldValues>(
   { control, name, label, disabled, required }: Props<T>,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  ref: Ref<HTMLInputElement>,
+  _ref: Ref<HTMLInputElement>,
 ) => {
   const [q, setQ] = useState("a");
+  const [data, setData] = useState<Query["response"]>();
 
   const formatOptions = (data: Response) => {
     if (!data || !data.users?.edges?.length) return;
@@ -43,39 +42,55 @@ const UserTypeahead = <T extends FieldValues = FieldValues>(
 
   const { t } = useTranslation();
 
+  const env = useRelayEnvironment();
+
+  useEffect(() => {
+    const fetchOptions = async () => {
+      try {
+        fetchQuery<Query>(
+          env,
+          query,
+          { query: q },
+          {
+            networkCacheConfig: { force: false },
+          },
+        ).subscribe({
+          next: (data) => {
+            setData(data);
+          },
+        });
+      } catch (error) {
+        /* eslint-disable-next-line no-console */
+        console.log(error);
+      }
+    };
+
+    fetchOptions();
+  }, [q, env]);
+
   const debouncedOnChange = debounce((value) => setQ(value), 500);
 
   return (
-    <LazyLoadQueryWrapper<Query>
-      query={query}
-      variables={{ query: q }}
-      fallback={<FormFieldSkeleton />}
-    >
-      {({ data }) => {
-        return (
-          <Controller<T>
-            name={name}
-            control={control}
-            rules={{
-              validate: (value) => {
-                return !!value || (t("forms.validation.contributor") as string);
-              },
-            }}
-            render={({ field }) => (
-              <BaseTypeahead
-                label={label}
-                options={data ? formatOptions(data) : []}
-                onInputChange={debouncedOnChange}
-                disabled={disabled}
-                required={required}
-                defaultValue={q}
-                {...field}
-              />
-            )}
-          />
-        );
+    <Controller<T>
+      name={name}
+      control={control}
+      rules={{
+        validate: (value) => {
+          return !!value || (t("forms.validation.contributor") as string);
+        },
       }}
-    </LazyLoadQueryWrapper>
+      render={({ field }) => (
+        <BaseTypeahead
+          label={label}
+          options={data ? formatOptions(data) : []}
+          onInputChange={debouncedOnChange}
+          disabled={disabled}
+          required={required}
+          defaultValue={q}
+          {...field}
+        />
+      )}
+    />
   );
 };
 
