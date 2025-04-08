@@ -1,40 +1,54 @@
 import { graphql, useFragment } from "react-relay";
-import { Markdown, NamedLink } from "components/atomic";
+import { NamedLink } from "components/atomic";
 import { getRouteByEntityType } from "helpers";
+import { useSharedListItemTemplateFragment } from "@/components/templates/shared/shared.listItems.graphql";
+import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import { BrowseTreeItemFragment$key } from "@/relay/BrowseTreeItemFragment.graphql";
+import DotList from "@/components/atomic/DotList";
 import styles from "./BrowseTreeItem.module.css";
-import Teasers from "./Teasers";
 
 export default function BrowseTreeItem({ data }: Props) {
   const row = useFragment(fragment, data);
 
-  const route = getRouteByEntityType(row.entry?.__typename) ?? "collections";
-  const href = row.entry?.slug ? `/${route}/${row.entry?.slug}` : `/${route}`;
+  const { entry, treeDepth } = row ?? {};
+
+  const route = getRouteByEntityType(entry?.__typename) ?? "collections";
+  const href = entry?.slug ? `/${route}/${entry?.slug}` : `/${route}`;
+
+  const { slots } = useSharedListItemTemplateFragment(
+    entry?.layouts?.listItem?.template,
+  );
+
+  const { header, metaA, metaB } = slots ?? {};
 
   return row ? (
     <div
       className={styles.row}
       role="row"
-      aria-level={row.treeDepth || undefined}
-      {...(row.treeDepth
+      aria-level={treeDepth || undefined}
+      {...(treeDepth
         ? {
             style: {
-              "--BrowseTreeItem-level": row.treeDepth,
+              "--BrowseTreeItem-level": treeDepth,
             } as React.CSSProperties,
           }
         : {})}
     >
-      <NamedLink href={href}>
-        <span
-          className="a-link t-h4"
-          data-schema={row.entry?.schemaVersion?.identifier}
-        >
-          <Markdown.Title>{row.entry?.title}</Markdown.Title>
-        </span>
-      </NamedLink>
-      {row.entry?.schemaVersion?.kind === "COLLECTION" && (
-        <Teasers data={row.entry} />
+      {header?.valid && !!header.content && (
+        <NamedLink href={href}>
+          <span className="a-link t-h4">
+            <InlineSlotWrapper content={header.content} />
+          </span>
+        </NamedLink>
       )}
+      <DotList className="t-copy-lighter t-copy-sm">
+        {metaA?.valid && !!metaA.content && (
+          <InlineSlotWrapper content={metaA.content} />
+        )}
+        {metaB?.valid && !!metaB.content && (
+          <InlineSlotWrapper content={metaB.content} />
+        )}
+      </DotList>
     </div>
   ) : null;
 }
@@ -53,14 +67,14 @@ const fragment = graphql`
         slug
       }
       ... on Entity {
-        title
-        schemaVersion {
-          namespace
-          identifier
-          kind
+        layouts {
+          listItem {
+            template {
+              ...sharedListItemTemplateFragment
+            }
+          }
         }
       }
-      ...TeasersFragment
     }
   }
 `;

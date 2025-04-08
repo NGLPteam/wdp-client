@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b717a5f1f784a7b138ea61ff66095f4d>>
+ * @generated SignedSource<<0eec8c18491a93e6540bfd430c87dc55>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,19 +9,18 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type SchemaKind = "COLLECTION" | "COMMUNITY" | "ITEM" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type BrowseTreeItemFragment$data = {
   readonly entry: {
     readonly __typename: string;
-    readonly schemaVersion?: {
-      readonly identifier: string;
-      readonly kind: SchemaKind;
-      readonly namespace: string;
+    readonly layouts?: {
+      readonly listItem: {
+        readonly template: {
+          readonly " $fragmentSpreads": FragmentRefs<"sharedListItemTemplateFragment">;
+        } | null | undefined;
+      } | null | undefined;
     };
     readonly slug?: string;
-    readonly title?: string;
-    readonly " $fragmentSpreads": FragmentRefs<"TeasersFragment">;
   };
   readonly treeDepth: number | null | undefined;
   readonly " $fragmentType": "BrowseTreeItemFragment";
@@ -79,37 +78,36 @@ const node: ReaderFragment = {
             {
               "alias": null,
               "args": null,
-              "kind": "ScalarField",
-              "name": "title",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "SchemaVersion",
+              "concreteType": "EntityLayouts",
               "kind": "LinkedField",
-              "name": "schemaVersion",
+              "name": "layouts",
               "plural": false,
               "selections": [
                 {
                   "alias": null,
                   "args": null,
-                  "kind": "ScalarField",
-                  "name": "namespace",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "identifier",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "kind",
+                  "concreteType": "ListItemLayoutInstance",
+                  "kind": "LinkedField",
+                  "name": "listItem",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "concreteType": "ListItemTemplateInstance",
+                      "kind": "LinkedField",
+                      "name": "template",
+                      "plural": false,
+                      "selections": [
+                        {
+                          "args": null,
+                          "kind": "FragmentSpread",
+                          "name": "sharedListItemTemplateFragment"
+                        }
+                      ],
+                      "storageKey": null
+                    }
+                  ],
                   "storageKey": null
                 }
               ],
@@ -118,11 +116,6 @@ const node: ReaderFragment = {
           ],
           "type": "Entity",
           "abstractKey": "__isEntity"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "TeasersFragment"
         }
       ],
       "storageKey": null
@@ -132,6 +125,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "1b4feba8325fa90bf0fc3831aab852ef";
+(node as any).hash = "a3b4abb4e12cb5b42084ff85dba397da";
 
 export default node;
