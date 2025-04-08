@@ -48,13 +48,15 @@ export default function CollectionLayout({
 
   const handleDelete = useCallback(
     (hideDialog: () => void) => {
-      if (memoizedCollection && breadcrumbs && breadcrumbs.length > 0) {
+      if (memoizedCollection && breadcrumbs) {
         destroy.collection(
           { collectionId: memoizedCollection.id },
           memoizedCollection.title || "glossary.item",
         );
         hideDialog();
-        router.replace(breadcrumbs[breadcrumbs.length - 1]?.href);
+        router.replace(
+          breadcrumbs[breadcrumbs.length - 2]?.href ?? "/collections",
+        );
       }
     },
     [memoizedCollection, breadcrumbs, destroy, router],
