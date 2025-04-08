@@ -1,5 +1,7 @@
 import React, { useMemo } from "react";
 import styled from "styled-components";
+import { tTruncate } from "theme/mixins/typography";
+import { respond } from "theme/mixins/base";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { Dropdown } from "components/atomic";
@@ -9,6 +11,7 @@ type LinkProps = React.ComponentProps<typeof Link>;
 interface Crumbs extends LinkProps {
   label: string;
   $closeDropdown?: () => void;
+  inside?: boolean;
 }
 
 const BreadcrumbsWrapper = ({
@@ -33,19 +36,29 @@ const BreadcrumbsWrapper = ({
   const items = useMemo(() => {
     if (!data) return [];
 
-    const getLink = ({ label, href, $closeDropdown }: Crumbs, i: number) => (
-      <Link
-        key={i}
-        href={href}
-        className={`${className}__link`}
-        legacyBehavior
-        passHref
-        onClick={$closeDropdown}
-      >
-        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-        <a className="t-copy-sm t-truncate">{label}</a>
-      </Link>
-    );
+    const getLink = (
+      { label, href, $closeDropdown, inside }: Crumbs,
+      i: number,
+    ) => {
+      return (
+        <Link
+          key={i}
+          href={href}
+          legacyBehavior
+          passHref
+          onClick={$closeDropdown}
+        >
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+          <a
+            className={`t-copy-sm t-truncate ${className}__link ${
+              inside ? `${className}__link--inside` : ""
+            }`}
+          >
+            {label}
+          </a>
+        </Link>
+      );
+    };
 
     if (data.length < 4) {
       return data.map(getLink);
@@ -54,6 +67,7 @@ const BreadcrumbsWrapper = ({
     const breadcrumbItems = [];
     const dropdownItems = data
       .filter((o, i) => i >= 1 && i < data.length - 2)
+      .map((d) => ({ ...d, inside: true }))
       .map(getLink);
 
     // Add the first item
@@ -65,6 +79,7 @@ const BreadcrumbsWrapper = ({
         label={t("nav.breadcrumb_dropdown_label")}
         disclosure={<button>...</button>}
         menuItems={dropdownItems}
+        alignGlobal
       />,
     );
     // Add last two items
@@ -91,14 +106,23 @@ const Breadcrumbs = styled(BreadcrumbsWrapper)<Props>`
     list-style: none;
     margin-block-end: 36px;
     font-size: var(--font-size-sm);
+    max-width: 100%;
+
+    ${respond(`flex-wrap: wrap;`, "navBreak")}
   }
 
   &__li {
     display: flex;
+    flex-basis: 25%;
 
     &:focus-visible {
       outline: 0;
     }
+
+    ${respond(
+      `flex-basis: auto; max-width: calc(100vw - (2 * var(--container-column-margin)));`,
+      "navBreak",
+    )}
   }
 
   &__link {
@@ -114,11 +138,23 @@ const Breadcrumbs = styled(BreadcrumbsWrapper)<Props>`
       max-width: 350px;
       text-decoration: inherit;
     }
+
+    &--inside {
+      ${respond(
+        `white-space: normal !important;
+        text-wrap: balance;`,
+        "navBreak",
+      )}
+    }
   }
 
   &__li:last-of-type &__link {
     color: var(--accent-light);
     text-decoration: underline;
+    flex-basis: 50%;
+    ${tTruncate}
+
+    ${respond(`flex-basis: auto;`, "navBreak")}
   }
 
   &__delimiter {

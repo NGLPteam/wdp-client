@@ -1,14 +1,17 @@
 import styled from "styled-components";
 import { aBgDark } from "theme/mixins/appearance";
 import { pxToRem } from "theme/mixins/functions";
+import { respond } from "theme/mixins/base";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ $global: boolean }>`
   display: inline-block;
   position: relative;
 
   &:focus {
     outline: 0;
   }
+
+  ${({ $global }) => $global && respond(`position: static;`, 50)}
 `;
 
 export const List = styled.ul<ListProps>`
@@ -39,10 +42,15 @@ export const List = styled.ul<ListProps>`
   }
 
   ${({ $right }) => $right && `right: 0;`}
+
+  ${({ $global }) =>
+    $global &&
+    respond(`inset-inline-start: 50%; transform: translate(-50%, 0);`, 50)}
 `;
 
 interface ListProps {
   $right?: boolean;
+  $global?: boolean;
 }
 
 export const Item = styled.li`
