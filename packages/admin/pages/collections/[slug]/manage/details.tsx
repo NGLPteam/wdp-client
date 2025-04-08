@@ -1,76 +1,34 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import CollectionUpdateForm from "components/composed/collection/CollectionUpdateForm";
-import ErrorPage from "next/error";
-import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
-import { AuthContextProvider } from "contexts/AuthContext";
-import { LoadingPage } from "components/atomic";
-import CollectionLayout from "components/composed/collection/CollectionLayout";
-import CollectionSlugRedirect from "components/composed/collection/CollectionSlugRedirect";
 import type { detailsManageSlugCollectionsPagesQuery as Query } from "@/relay/detailsManageSlugCollectionsPagesQuery.graphql";
+import Layout from "./_layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
-function CollectionDetails({ queryRef, ...layoutProps }: Props) {
+function CollectionDetails({ queryRef }: Props) {
   const { collection } = usePreloadedQuery<Query>(query, queryRef);
 
-  return collection ? (
-    <AuthContextProvider data={collection}>
-      <CollectionLayout data={collection} {...layoutProps}>
-        <CollectionUpdateForm data={collection} />
-      </CollectionLayout>
-    </AuthContextProvider>
-  ) : null;
+  return collection ? <CollectionUpdateForm data={collection} /> : null;
 }
 
-const getLayout: GetLayout<Props> = (props) => {
-  const queryVars = useBaseListQueryVars();
-  const searchQueryVars = useSearchQueryVars();
-
-  const collectionSlug = useRouteSlug();
-
-  if (!collectionSlug) return <ErrorPage statusCode={404} />;
-
-  const { PageComponent, pageComponentProps } = props;
-
-  return (
-    <QueryTransitionWrapper<Query>
-      query={query}
-      variables={{ ...queryVars, ...searchQueryVars, collectionSlug }}
-      loadingFallback={<LoadingPage />}
-      refetchTags={["schema", "parent"]}
-    >
-      {({ queryRef }) =>
-        queryRef ? (
-          <PageComponent
-            {...pageComponentProps}
-            queryRef={queryRef}
-            showSidebar
-            useRouteHeader={false}
-          />
-        ) : (
-          <CollectionLayout showSidebar useRouteHeader={false}>
-            <CollectionSlugRedirect />
-          </CollectionLayout>
-        )
-      }
-    </QueryTransitionWrapper>
-  );
-};
+const getLayout: GetLayout<Props> = (props) => (
+  <Layout
+    query={query}
+    refetchTags={["schema", "parent"]}
+    showLoadingCircle
+    {...props}
+  />
+);
 
 CollectionDetails.getLayout = getLayout;
 
 type Props = {
   queryRef: PreloadedQuery<Query>;
-  showSidebar: true;
-  useRouteHeader: false;
 };
 
 const query = graphql`
-  query detailsManageSlugCollectionsPagesQuery($collectionSlug: Slug!) {
-    collection(slug: $collectionSlug) {
-      ...CollectionLayoutFragment
+  query detailsManageSlugCollectionsPagesQuery($slug: Slug!) {
+    collection(slug: $slug) {
       ...CollectionUpdateFormFragment
-      ...AuthContextFragment
     }
   }
 `;

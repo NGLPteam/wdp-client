@@ -9,13 +9,11 @@ import {
   useRouteSlug,
   useLatestPresentValue,
   useDestroyer,
-  useIsAuthorized,
 } from "hooks";
 import { RouteHelper } from "routes";
 import { ButtonControlConfirm, ButtonControlGroup } from "components/atomic";
 import CollectionCreateButton from "components/composed/collection/CollectionCreateButton";
 import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
-import UnauthorizedMessage from "components/auth/UnauthorizedMessage";
 import type { CommunityLayoutFragment$key } from "@/relay/CommunityLayoutFragment.graphql";
 
 export default function CommunityLayout({
@@ -56,26 +54,6 @@ export default function CommunityLayout({
     },
     [community, destroy, router],
   );
-
-  const isAuthorized = useIsAuthorized({ actions: ["self.update"] });
-
-  const message = (
-    <div className="t-rte">
-      <p>
-        Your account currently does not have access to this community.
-        <br /> Please check with your account manager if you need access to this
-        content.
-      </p>
-    </div>
-  );
-
-  if (memoizedCommunity && !isAuthorized)
-    return (
-      <UnauthorizedMessage
-        title={t("messages.unauthorized")}
-        message={message}
-      />
-    );
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
@@ -127,7 +105,6 @@ const fragment = graphql`
     id
     name
     slug
-    allowedActions
     ...useChildRouteLinksFragment
   }
 `;

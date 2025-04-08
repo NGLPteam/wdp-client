@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2de2cf7a71136e41b552a3b80f7f1d4f>>
+ * @generated SignedSource<<1d75bf73614e1ce9ec2738c24630f451>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,17 +10,18 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SlugItemsPageQuery$variables = {
-  itemSlug: string;
+export type LayoutManageItemQuery$variables = {
+  slug: string;
 };
-export type SlugItemsPageQuery$data = {
+export type LayoutManageItemQuery$data = {
   readonly item: {
-    readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "ItemLayoutFragment" | "ItemSlugRedirectFragment">;
+    readonly allowedActions: ReadonlyArray<string>;
+    readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "ItemLayoutFragment">;
   } | null | undefined;
 };
-export type SlugItemsPageQuery = {
-  response: SlugItemsPageQuery$data;
-  variables: SlugItemsPageQuery$variables;
+export type LayoutManageItemQuery = {
+  response: LayoutManageItemQuery$data;
+  variables: LayoutManageItemQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -28,24 +29,31 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "itemSlug"
+    "name": "slug"
   }
 ],
 v1 = [
   {
     "kind": "Variable",
     "name": "slug",
-    "variableName": "itemSlug"
+    "variableName": "slug"
   }
 ],
 v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
+  "name": "allowedActions",
   "storageKey": null
 },
 v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+},
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -57,7 +65,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "SlugItemsPageQuery",
+    "name": "LayoutManageItemQuery",
     "selections": [
       {
         "alias": null,
@@ -67,15 +75,11 @@ return {
         "name": "item",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
             "name": "ItemLayoutFragment"
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "ItemSlugRedirectFragment"
           },
           {
             "args": null,
@@ -93,7 +97,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "SlugItemsPageQuery",
+    "name": "LayoutManageItemQuery",
     "selections": [
       {
         "alias": null,
@@ -103,6 +107,7 @@ return {
         "name": "item",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -110,37 +115,8 @@ return {
             "name": "title",
             "storageKey": null
           },
-          (v2/*: any*/),
           (v3/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "ItemConnection",
-            "kind": "LinkedField",
-            "name": "items",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "PageInfo",
-                "kind": "LinkedField",
-                "name": "pageInfo",
-                "plural": false,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "totalCount",
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
+          (v4/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
@@ -180,16 +156,9 @@ return {
                     "name": "kind",
                     "storageKey": null
                   },
-                  (v2/*: any*/),
-                  (v3/*: any*/)
+                  (v3/*: any*/),
+                  (v4/*: any*/)
                 ],
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "allowedActions",
                 "storageKey": null
               },
               {
@@ -207,7 +176,7 @@ return {
                     "name": "enforcedChildKinds",
                     "storageKey": null
                   },
-                  (v3/*: any*/)
+                  (v4/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -225,16 +194,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f307016143a5e79ee76aea7c8b0df8ec",
+    "cacheID": "15295db9fb29e8364fe2c18327472f20",
     "id": null,
     "metadata": {},
-    "name": "SlugItemsPageQuery",
+    "name": "LayoutManageItemQuery",
     "operationKind": "query",
-    "text": "query SlugItemsPageQuery(\n  $itemSlug: Slug!\n) {\n  item(slug: $itemSlug) {\n    ...ItemLayoutFragment\n    ...ItemSlugRedirectFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ItemSlugRedirectFragment on Item {\n  slug\n  items {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
+    "text": "query LayoutManageItemQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    allowedActions\n    ...ItemLayoutFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "0e65b4f69a32f8f0632d27bec0ea8512";
+(node as any).hash = "e09166f00049f598c7a04cf11c999555";
 
 export default node;

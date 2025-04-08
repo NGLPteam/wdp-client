@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3fe507ed3ca794504015ae3ae391a038>>
+ * @generated SignedSource<<da1ef29dbe66611ca4e9ce401ced5d4b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,17 +10,18 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type SlugCollectionsPageQuery$variables = {
-  collectionSlug: string;
+export type LayoutItemQuery$variables = {
+  slug: string;
 };
-export type SlugCollectionsPageQuery$data = {
-  readonly collection: {
-    readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "CollectionLayoutFragment" | "CollectionSlugRedirectFragment">;
+export type LayoutItemQuery$data = {
+  readonly item: {
+    readonly allowedActions: ReadonlyArray<string>;
+    readonly " $fragmentSpreads": FragmentRefs<"AuthContextFragment" | "ItemLayoutFragment" | "ItemSlugRedirectFragment">;
   } | null | undefined;
 };
-export type SlugCollectionsPageQuery = {
-  response: SlugCollectionsPageQuery$data;
-  variables: SlugCollectionsPageQuery$variables;
+export type LayoutItemQuery = {
+  response: LayoutItemQuery$data;
+  variables: LayoutItemQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -28,79 +29,67 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "collectionSlug"
+    "name": "slug"
   }
 ],
 v1 = [
   {
     "kind": "Variable",
     "name": "slug",
-    "variableName": "collectionSlug"
+    "variableName": "slug"
   }
 ],
 v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
+  "name": "allowedActions",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "slug",
   "storageKey": null
 },
-v4 = [
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "PageInfo",
-    "kind": "LinkedField",
-    "name": "pageInfo",
-    "plural": false,
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "totalCount",
-        "storageKey": null
-      }
-    ],
-    "storageKey": null
-  }
-];
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "SlugCollectionsPageQuery",
+    "name": "LayoutItemQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Collection",
+        "concreteType": "Item",
         "kind": "LinkedField",
-        "name": "collection",
+        "name": "item",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "CollectionLayoutFragment"
-          },
-          {
-            "args": null,
-            "kind": "FragmentSpread",
-            "name": "CollectionSlugRedirectFragment"
+            "name": "ItemLayoutFragment"
           },
           {
             "args": null,
             "kind": "FragmentSpread",
             "name": "AuthContextFragment"
+          },
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "ItemSlugRedirectFragment"
           }
         ],
         "storageKey": null
@@ -113,16 +102,17 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "SlugCollectionsPageQuery",
+    "name": "LayoutItemQuery",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
-        "concreteType": "Collection",
+        "concreteType": "Item",
         "kind": "LinkedField",
-        "name": "collection",
+        "name": "item",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -130,37 +120,8 @@ return {
             "name": "title",
             "storageKey": null
           },
-          (v2/*: any*/),
           (v3/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "SchemaVersion",
-            "kind": "LinkedField",
-            "name": "schemaVersion",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "enforcedChildKinds",
-                "storageKey": null
-              },
-              (v3/*: any*/)
-            ],
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "CollectionConnection",
-            "kind": "LinkedField",
-            "name": "collections",
-            "plural": false,
-            "selections": (v4/*: any*/),
-            "storageKey": null
-          },
+          (v4/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -168,7 +129,26 @@ return {
             "kind": "LinkedField",
             "name": "items",
             "plural": false,
-            "selections": (v4/*: any*/),
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "PageInfo",
+                "kind": "LinkedField",
+                "name": "pageInfo",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "totalCount",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
             "storageKey": null
           },
           {
@@ -210,16 +190,28 @@ return {
                     "name": "kind",
                     "storageKey": null
                   },
-                  (v2/*: any*/),
-                  (v3/*: any*/)
+                  (v3/*: any*/),
+                  (v4/*: any*/)
                 ],
                 "storageKey": null
               },
               {
                 "alias": null,
                 "args": null,
-                "kind": "ScalarField",
-                "name": "allowedActions",
+                "concreteType": "SchemaVersion",
+                "kind": "LinkedField",
+                "name": "schemaVersion",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "enforcedChildKinds",
+                    "storageKey": null
+                  },
+                  (v4/*: any*/)
+                ],
                 "storageKey": null
               },
               {
@@ -236,16 +228,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2a8ec3c467e15b639667d39dadd41408",
+    "cacheID": "e6477b1060eddd87b8e0471534466afe",
     "id": null,
     "metadata": {},
-    "name": "SlugCollectionsPageQuery",
+    "name": "LayoutItemQuery",
     "operationKind": "query",
-    "text": "query SlugCollectionsPageQuery(\n  $collectionSlug: Slug!\n) {\n  collection(slug: $collectionSlug) {\n    ...CollectionLayoutFragment\n    ...CollectionSlugRedirectFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  id\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment CollectionSlugRedirectFragment on Collection {\n  slug\n  collections {\n    pageInfo {\n      totalCount\n    }\n  }\n  items {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
+    "text": "query LayoutItemQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    allowedActions\n    ...ItemLayoutFragment\n    ...AuthContextFragment\n    ...ItemSlugRedirectFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ItemSlugRedirectFragment on Item {\n  slug\n  items {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "d6888d540fa86712a4c29a05a69a772c";
+(node as any).hash = "5be4050b0f7da708c29773a1930b030b";
 
 export default node;

@@ -82,7 +82,9 @@
       "harvest_record": "harvest record",
       "harvest_record_other": "harvest records",
       "harvest_entity": "harvest entity",
-      "harvest_entity_other": "harvest entities"
+      "harvest_entity_other": "harvest entities",
+      "member": "member",
+      "member_other": "members"
     },
     "lists": {
       "admin_column": "Admin?",
@@ -174,7 +176,11 @@
     "messages": {
       "unauthorized": "Unauthorized",
       "unauthorized_body": {
-        "harvesting": "Your account is not authorized to manage harvesting.<0/>Please check with your account manager if you need access to this content."
+        "users": "Your account is not authorized to manage users.<0/>Please check with your account manager if you need access to this content.",
+        "harvesting": "Your account is not authorized to manage harvesting.<0/>Please check with your account manager if you need access to this content.",
+        "collection": "Your account currently does not have access to this collection.<0/>Please check with your account manager if you need access to this content.",
+        "item": "Your account currently does not have access to this item.<0/>Please check with your account manager if you need access to this content.",
+        "community": "Your account currently does not have access to this community.<0/>Please check with your account manager if you need access to this content."
       },
       "error_message": "Error: {{error}}",
       "content_error": "There was an issue loading this content. Please try again.",

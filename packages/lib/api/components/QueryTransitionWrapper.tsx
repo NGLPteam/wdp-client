@@ -131,7 +131,7 @@ export default function QueryLoaderWrapper<T extends OperationType>({
 
   const renderChildren = () => {
     return children({
-      queryRef,
+      queryRef: match ? queryRef : null,
       variables,
       refetchQuery,
     });
@@ -145,7 +145,7 @@ export default function QueryLoaderWrapper<T extends OperationType>({
         {/* Don't update query state when queryRef is stale. */}
         <QueryStateContext.Provider
           value={{
-            loading: isPending && match,
+            loading: isPending,
             completed: !isPending && match,
           }}
         >

@@ -31,8 +31,7 @@ function SearchResultList({
 
   const columns = [
     ModelColumns.EntityThumbnailColumn<Node>({
-      accessorKey: "entity",
-      // accessorFn: (originalRow: any) => originalRow.entity,
+      accessorFn: (row: Node) => row.entity || row,
     }),
     ModelColumns.NameColumn<Node>({
       accessorKey: "entity",

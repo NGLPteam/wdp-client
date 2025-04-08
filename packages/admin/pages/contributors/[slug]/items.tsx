@@ -1,62 +1,29 @@
 import { graphql, usePreloadedQuery, PreloadedQuery } from "react-relay";
-import ContributorLayout from "components/composed/contributor/ContributorLayout";
-import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import ItemContributionList from "components/composed/contribution/ItemContributionList";
-import { LoadingPage } from "components/atomic";
-import ErrorPage from "next/error";
-import { useRouteSlug, useBaseListQueryVars, useSearchQueryVars } from "hooks";
-import type {
-  ContributionOrder,
-  itemsSlugContributorsPagesQuery as Query,
-} from "@/relay/itemsSlugContributorsPagesQuery.graphql";
+import type { itemsSlugContributorsPagesQuery as Query } from "@/relay/itemsSlugContributorsPagesQuery.graphql";
+import Layout from "./_layout";
 import type { GetLayout } from "@wdp/lib/types/page";
 
-function ContributorItemContributions({ queryRef, ...layoutProps }: Props) {
+function ContributorItemContributions({ queryRef }: Props) {
   const { contributor } = usePreloadedQuery<Query>(query, queryRef);
 
   return contributor ? (
-    <ContributorLayout {...layoutProps} data={contributor}>
-      <ItemContributionList
-        data={contributor?.itemContributions}
-        headerStyle="secondary"
-      />
-    </ContributorLayout>
+    <ItemContributionList
+      data={contributor?.itemContributions}
+      headerStyle="secondary"
+    />
   ) : null;
 }
 
-const getLayout: GetLayout<Props> = (props) => {
-  const { order, ...queryVars } = useBaseListQueryVars();
-  const contributorSlug = useRouteSlug();
-  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  const _searchVars = useSearchQueryVars();
+const getLayout: GetLayout<Props> = (props) => (
+  <Layout
+    query={query}
+    refetchTags={["contributions"]}
+    modelName="item_contribution"
+    {...props}
+  />
+);
 
-  if (!contributorSlug) return <ErrorPage statusCode={404} />;
-
-  const { PageComponent, pageComponentProps } = props;
-
-  return (
-    <QueryTransitionWrapper<Query>
-      query={query}
-      variables={{
-        order: order as ContributionOrder,
-        ...queryVars,
-        contributorSlug,
-      }}
-      loadingFallback={<LoadingPage />}
-      refetchTags={["contributions"]}
-    >
-      {({ queryRef }) =>
-        queryRef ? (
-          <PageComponent {...pageComponentProps} queryRef={queryRef} />
-        ) : (
-          <ContributorLayout>
-            <ItemContributionList headerStyle="secondary" />
-          </ContributorLayout>
-        )
-      }
-    </QueryTransitionWrapper>
-  );
-};
 ContributorItemContributions.getLayout = getLayout;
 
 export default ContributorItemContributions;
@@ -67,13 +34,11 @@ type Props = {
 
 const query = graphql`
   query itemsSlugContributorsPagesQuery(
-    $contributorSlug: Slug!
+    $slug: Slug!
     $order: ContributionOrder
     $page: Int!
   ) {
-    contributor(slug: $contributorSlug) {
-      __typename
-      ...ContributorLayoutFragment
+    contributor(slug: $slug) {
       ... on OrganizationContributor {
         itemContributions(page: $page, perPage: 20, order: $order) {
           ...ItemContributionListFragment
