@@ -15,7 +15,7 @@ export interface ModelListProps<
   V extends Record<string, unknown>,
 > extends UseModelListProps<U, V> {
   view: ViewOptions;
-  modelName: Lowercase<ModelNames>;
+  modelName?: Lowercase<ModelNames>;
   listId?: string;
 }
 

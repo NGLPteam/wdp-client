@@ -32,7 +32,8 @@
       "submit": "Submit",
       "reset": "Reset",
       "enable": "Enable",
-      "disable": "Disable"
+      "disable": "Disable",
+      "actions": "Actions"
     },
     "glossary": {
       "community": "community",
@@ -68,7 +69,20 @@
       "page": "Page",
       "page_other": "Pages",
       "announcement": "Announcement",
-      "announcement_other": "Announcements"
+      "announcement_other": "Announcements",
+      "harvesting": "Harvesting",
+      "harvest_source": "harvest source",
+      "harvest_source_other": "harvest sources",
+      "harvest_set": "harvest set",
+      "harvest_set_other": "harvest sets",
+      "harvest_mapping": "harvest mapping",
+      "harvest_mapping_other": "harvest mappings",
+      "harvest_attempt": "harvest attempt",
+      "harvest_attempt_other": "harvest attempts",
+      "harvest_record": "harvest record",
+      "harvest_record_other": "harvest records",
+      "harvest_entity": "harvest entity",
+      "harvest_entity_other": "harvest entities"
     },
     "lists": {
       "admin_column": "Admin?",
@@ -108,7 +122,17 @@
         "oldest": "Oldest"
       },
       "initial_ordering_column": "Initial",
-      "count_column": "Count"
+      "count_column": "Count",
+      "description_column": "Description",
+      "record_count_column": "Record count",
+      "began_at_column": "Started At",
+      "ended_at_column": "Ended At",
+      "status_column": "Status",
+      "identifier_column": "Identifier",
+      "entity_count_column": "Entity Count",
+      "has_errors_column": "Has Errors",
+      "target_entity_column": "Target Entity",
+      "attempts_count_column": "Harvest Attempts Count"
     },
     "nav": {
       "manage_header": "Manage",
@@ -138,10 +162,20 @@
       "help": "Help",
       "contact": "Contact",
       "edit_profile": "Edit Profile",
-      "global_settings": "Global Settings"
+      "global_settings": "Global Settings",
+      "harvest_sets": "Sets",
+      "harvest_mappings": "Mappings",
+      "harvest_attempts": "Attempts",
+      "harvest_records": "Records",
+      "harvest_messages": "Messages",
+      "harvest_entities": "Entities",
+      "new_harvest_attempt": "Harvest Attempt"
     },
     "messages": {
       "unauthorized": "Unauthorized",
+      "unauthorized_body": {
+        "harvesting": "Your account is not authorized to manage harvesting.<0/>Please check with your account manager if you need access to this content."
+      },
       "error_message": "Error: {{error}}",
       "content_error": "There was an issue loading this content. Please try again.",
       "add": {
@@ -186,7 +220,9 @@
         "parent_success": "Parent updated successfully.",
         "parent_failure": "Failed to update parent.",
         "initial_ordering_success": "Successfully updated initial ordering.",
-        "initial_ordering_failure": "Failed to update initial ordering."
+        "initial_ordering_failure": "Failed to update initial ordering.",
+        "harvest_source_success": "Harvest source updated successfully.",
+        "harvest_mapping_success": "Harvest mapping updated successfully."
       },
       "create": {
         "success": "$t({{ name }}) created successfully.",
@@ -195,7 +231,10 @@
         "community_success": "Community created successfully.",
         "contribution_success": "Contribution created successfully.",
         "contribution_failure": "Failed to create contribution.",
-        "contributor_success": "Contributor created successfully."
+        "contributor_success": "Contributor created successfully.",
+        "harvest_source_success": "Harvest source created successfully.",
+        "harvest_mapping_success": "Harvest mapping created successfully",
+        "harvest_attempt_success": "Harvest attempt started successfully"
       },
       "delete": {
         "confirm_label": "Confirm Delete",
@@ -249,7 +288,12 @@
         "announcement_header": "Add New Announcement",
         "contributor": "Add Contributor",
         "file": "Add File",
-        "file_header": "Add New File"
+        "file_header": "Add New File",
+        "harvest_source": "$t(glossary.harvest_source)",
+        "harvest_source_header": "Add Harvest Source",
+        "harvest_mapping": "$t(glossary.harvest_mapping)",
+        "harvest_mapping_header": "Add Harvest Mapping",
+        "harvest_attempt": "$t(glossary.harvest_attempt)"
       },
       "create": {
         "contributor_person": "Create Person",
@@ -288,7 +332,9 @@
         "ordering": "Edit Ordering",
         "ordering_header": "Edit {{ name }} Ordering",
         "file": "Edit File",
-        "file_header": "Edit File \"{{ name }}\""
+        "file_header": "Edit File \"{{ name }}\"",
+        "harvest_source": "Edit Harvest Source",
+        "harvest_mapping": "Edit Harvest Mapping"
       },
       "hide": {
         "inherited_roles": "Hide Inherited Roles"
@@ -427,7 +473,24 @@
         "controlled_vocabularies": "Controlled Vocabularies",
         "contribution_roles": "Contribution Roles",
         "default_contribution_role": "Default Role",
-        "inclusion_criteria": "Inclusion Criteria"
+        "inclusion_criteria": "Inclusion Criteria",
+        "description": "Description",
+        "max_records": "Max Records",
+        "read_options": "Read Options",
+        "mapping_options": "Mapping Options",
+        "auto_create_vol_iss": "Auto create volumes and issues",
+        "link_ids_globally": "Link identifiers globally",
+        "metadata_mappings": "Use metadata mappings",
+        "metadata_format": "Metadata Format",
+        "protocol": "Harvest Protocol",
+        "identifier": "identifier",
+        "identifier_description": "Optional custom identifier. If left blank, one will be assigned based on name. Cannot be changed after harvest source is created.",
+        "target_entity": "Target Entity",
+        "schedule": "Schedule",
+        "frequency_expression": "New Schedule",
+        "frequency_expression_description": "Meru can automatically trigger harvest attempts from this mapping on a set schedule. This schedule can be specified either with a cron expression, e.g. \"0 6 * * *\", or with a human-readable expression such as, \"every day at 4 pm America/Los_Angeles\" or \"every 2 months\". After saving, attempts generated from the new schedule will be viewable in the Attempts tab. Leave or revert this field to blank if harvest attempts for this mapping should only be triggered manually.",
+        "note": "Note",
+        "max_records_description": "Default 80,000"
       },
       "validation": {
         "year": "Must be a four digit year",
@@ -506,6 +569,20 @@
         "links_label": "Links",
         "contains_label": "Contains Links",
         "references_label": "References Links"
+      },
+      "extraction_mapping_template": {
+        "label": "Extraction Mapping Template",
+        "description": "Enter a custom template or work from one of the installation's existing examples. See documentation for more information.",
+        "child_description": "Default template is inherited from parent Harvest Source. Customizations here apply only to this Harvest Mapping. See documentation for more information.",
+        "attempt_description": "Default template is inherited from parent {{parent}}. Make one-time overrides here.",
+        "select_label": "Examples",
+        "select_placeholder": "Select an example to insert...",
+        "textarea_label": "Custom",
+        "reset_label": "Clear editor",
+        "revert_label": "Revert to default",
+        "full_screen": "Full screen",
+        "checkbox_label": "Inherit template from Harvest Source",
+        "code_editor_label": "XML"
       }
     },
     "dashboard": {
@@ -527,6 +604,33 @@
       "schema_filters": "Schema:",
       "show_all_schemas": "Show all schemas",
       "show_less": "Show less"
+    },
+    "harvesting": {
+      "mode": "Mode",
+      "mode_manual": "Manual",
+      "current_schedule": "Current Schedule",
+      "last_scheduled": "Last Scheduled At",
+      "schedule_changed": "Schedule Changed At",
+      "not_applicable": "N/A",
+      "messages": {
+        "mapping_link": "Link to Mapping",
+        "attempt_link": "Link to Attempt",
+        "record_link": "Link to Record",
+        "tags": "Tags:"
+      },
+      "status_label": "Current Status",
+      "pristine_checkbox_label": "Allow overwriting?",
+      "status_description": "By default, Meru preserves all modifications to entities made in the admin interface and prevents re-harvesting from overwriting changes. This default can be overridden by checking the box below each time the entity is updated. The entity's current harvest status is shown below for reference.",
+      "pristine": "Overwrites Allowed",
+      "modified": "Overwrites NOT Allowed",
+      "raw_metadata_source": "Raw Metadata Source",
+      "new_source_title": "New Harvest Source",
+      "new_attempt_title": "Start Manual Harvest Attempt",
+      "new_mapping_title": "New Harvest Mapping",
+      "unchangeable": "*Cannot be changed",
+      "settings": "Settings",
+      "settings_from_mapping": "Settings from mapping",
+      "set_placeholder": "[no set]"
     }
   }
 }

@@ -81,7 +81,7 @@ export function useDrawerHelper() {
     () =>
       pickBy(
         query,
-        (value, key) =>
+        (_value, key) =>
           key && typeof key === "string" && key.startsWith("drawer"),
       ),
     [query],
@@ -107,7 +107,7 @@ export function useDrawerHelper() {
   );
 
   const close = useCallback(() => {
-    const cleanedQuery = omitBy(query, (value, key) => {
+    const cleanedQuery = omitBy(query, (_value, key) => {
       return key && typeof key === "string" && key.startsWith("drawer");
     });
 

@@ -21,6 +21,7 @@ const PageHeader = ({
   title,
   breadcrumbsProps,
   tabRoutes,
+  tabLinksOnly,
   buttons,
   headerStyle = "primary",
   hideHeader = false,
@@ -39,7 +40,7 @@ const PageHeader = ({
       />
       {tabRoutes && (
         <Styled.TabsWrapper>
-          <TabNav links={tabRoutes} />
+          <TabNav links={tabRoutes} linksOnly={tabLinksOnly} />
         </Styled.TabsWrapper>
       )}
       {(tabRoutes || sidebarLinks) && (
@@ -62,6 +63,7 @@ interface Props extends Pick<ContentHeaderProps, "headerStyle"> {
   breadcrumbsProps?: BreadcrumbProps;
   /** Child tabs (TabNav) */
   tabRoutes?: Link[];
+  tabLinksOnly?: boolean;
   /** Child buttons */
   buttons?: React.ReactNode;
   /** Hides the header visually, leaves header in for screen readers */
