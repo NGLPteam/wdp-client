@@ -1,16 +1,11 @@
 import { useState, useEffect } from "react";
-import {
-  readInlineData,
-  GraphQLTaggedNode,
-  fetchQuery,
-  graphql,
-} from "relay-runtime";
+import { readInlineData, GraphQLTaggedNode } from "relay-runtime";
+import { useRelayEnvironment, fetchQuery, graphql } from "react-relay";
 import { debounce } from "lodash";
 import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import BaseTypeahead from "components/forms/BaseTypeahead";
 import { getEntityTitle } from "components/factories/EntityTitleFactory";
-import { default as getRelayEnvironment } from "@wdp/lib/app/buildEnvironment";
 import {
   LinkTargetTypeaheadQuery as Query,
   LinkTargetTypeaheadQuery$data as Response,
@@ -57,35 +52,31 @@ const LinkTargetTypeahead = <T extends FieldValues = FieldValues>({
     return options;
   };
 
+  const env = useRelayEnvironment();
+
   useEffect(() => {
     const fetchOptions = async () => {
-      const env = getRelayEnvironment();
-
-      let data;
-
       try {
-        data = await fetchQuery<Query>(
+        fetchQuery<Query>(
           env,
           query,
           { slug, title: q },
           {
             networkCacheConfig: { force: false },
           },
-        )
-          .toPromise()
-          .then((result) => {
-            return result;
-          });
+        ).subscribe({
+          next: (data) => {
+            setData(data);
+          },
+        });
       } catch (error) {
         /* eslint-disable-next-line no-console */
         console.log(error);
       }
-
-      setData(data);
     };
 
     fetchOptions();
-  }, [q, slug]);
+  }, [q, slug, env]);
 
   return (
     <Controller<T>

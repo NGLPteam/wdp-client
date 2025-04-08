@@ -1,7 +1,6 @@
-import { useDeferredValue } from "react";
-import { graphql } from "react-relay";
+import { useDeferredValue, useState, useEffect } from "react";
+import { graphql, useRelayEnvironment, fetchQuery } from "react-relay";
 import { useFormContext } from "react-hook-form";
-import useAuthenticatedQuery from "@wdp/lib/api/hooks/useAuthenticatedQuery";
 import { Forms } from "components/api/MutationForm";
 import { NodeRoleSelectQuery as Query } from "@/relay/NodeRoleSelectQuery.graphql";
 
@@ -12,14 +11,36 @@ import { NodeRoleSelectQuery as Query } from "@/relay/NodeRoleSelectQuery.graphq
 export default function NodeRoleSelect({ nodeId, name, required }: Props) {
   const { register } = useFormContext();
 
-  const data = useAuthenticatedQuery<Query>(
-    query,
-    // id can't be undefined, so we use an empty string to make typescript happy.
-    { id: nodeId || "" },
-    // Because an empty string is an invalid id,
-    // we only want to run the query if an id is passed to this component.
-    { skip: !nodeId },
-  );
+  const [data, setData] = useState<Query["response"]>();
+
+  const env = useRelayEnvironment();
+
+  useEffect(() => {
+    const fetchOptions = async () => {
+      if (!nodeId) return;
+
+      try {
+        fetchQuery<Query>(
+          env,
+          query,
+          { id: nodeId },
+          {
+            networkCacheConfig: { force: false },
+          },
+        ).subscribe({
+          next: (data) => {
+            setData(data);
+          },
+        });
+      } catch (error) {
+        /* eslint-disable-next-line no-console */
+        console.log(error);
+      }
+    };
+
+    fetchOptions();
+  }, [nodeId, env]);
+
   const deferred = useDeferredValue(data);
 
   return (

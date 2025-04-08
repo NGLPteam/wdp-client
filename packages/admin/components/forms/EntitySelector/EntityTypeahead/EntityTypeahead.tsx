@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMemo, useDeferredValue } from "react";
-import { graphql } from "react-relay";
-import { useAuthenticatedQuery } from "@wdp/lib/api/hooks";
+import { graphql, useRelayEnvironment, fetchQuery } from "react-relay";
 import BaseTypeahead from "components/forms/BaseTypeahead";
 import {
   EntityTypeaheadQuery as Query,
@@ -25,6 +24,7 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
   selectableTypes,
 }: Props<T>) => {
   const [value, setValue] = useState(selected?.id ?? "");
+  const [data, setData] = useState<Query["response"]>();
 
   const [variables, setVariables] = useState({
     query: "",
@@ -34,9 +34,27 @@ const EntityTypeahead = <T extends FieldValues = FieldValues>({
       : "ALL") as EntityDescendantScopeFilter,
   });
 
-  const data = useAuthenticatedQuery<Query>(query, variables, {
-    skip: !variables.query,
-  });
+  const env = useRelayEnvironment();
+
+  useEffect(() => {
+    const fetchOptions = async () => {
+      try {
+        fetchQuery<Query>(env, query, variables, {
+          networkCacheConfig: { force: false },
+        }).subscribe({
+          next: (data) => {
+            setData(data);
+          },
+        });
+      } catch (error) {
+        /* eslint-disable-next-line no-console */
+        console.log(error);
+      }
+    };
+
+    fetchOptions();
+  }, [env, variables]);
+
   const deferred = useDeferredValue(data);
 
   useEffect(() => {
