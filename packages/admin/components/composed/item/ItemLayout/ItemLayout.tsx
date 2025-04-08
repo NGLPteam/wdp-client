@@ -43,13 +43,13 @@ export default function ItemLayout({
 
   const handleDelete = useCallback(
     (hideDialog: () => void) => {
-      if (memoizedItem && breadcrumbs && breadcrumbs.length > 0) {
+      if (memoizedItem && breadcrumbs) {
         destroy.item(
           { itemId: memoizedItem.id },
           memoizedItem.title || "glossary.item",
         );
         hideDialog();
-        router.replace(breadcrumbs[breadcrumbs.length - 2]?.href);
+        router.replace(breadcrumbs[breadcrumbs.length - 2]?.href ?? "/items");
       }
     },
     [memoizedItem, breadcrumbs, destroy, router],
