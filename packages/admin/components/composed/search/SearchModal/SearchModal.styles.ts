@@ -17,8 +17,12 @@ export const SearchWrapper = styled.div`
   align-items: stretch;
   background-color: var(--background-light);
   border-radius: var(--border-radius-xlg);
-  transition: background-color var(--base-duration) var(--base-timing);
+  border: 1px solid transparent;
+  transition:
+    background-color var(--base-duration) var(--base-timing),
+    color var(--base-duration) var(--base-timing);
   color: var(--brand100);
+  margin-inline: 0.5rem;
 
   &:focus-within,
   &:hover {
@@ -77,6 +81,7 @@ export const SearchIcon = styled(IconFactory)`
   margin-inline-end: var(--search-inline-padding);
   align-self: center;
   color: var(--search-icon-color);
+  transition: color var(--base-duration) var(--base-timing);
 `;
 
 export const SubmitButton = styled.button`
