@@ -25,7 +25,7 @@ const TabNav = ({ links }: Props) => {
     const active = isActiveRoute(route);
 
     // Render tab as a dropdown
-    if (routeObj?.routes && routeObj.routes.length > 0 && slug) {
+    if (routeObj?.routes && routeObj.routes.length > 0 && slug && !active) {
       return (
         <Dropdown
           label={t(label || "")}
