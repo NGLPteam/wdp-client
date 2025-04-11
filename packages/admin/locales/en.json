@@ -613,9 +613,9 @@
       "schedule_changed": "Schedule Changed At",
       "not_applicable": "N/A",
       "messages": {
-        "mapping_link": "Link to Mapping",
-        "attempt_link": "Link to Attempt",
-        "record_link": "Link to Record",
+        "mapping_link": "View Mapping",
+        "attempt_link": "View Attempt",
+        "record_link": "View Record",
         "tags": "Tags:"
       },
       "status_label": "Current Status",
