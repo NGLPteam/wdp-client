@@ -72,7 +72,11 @@ export default function CollectionLayout({
     );
 
   const buttons = (
-    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+    <ButtonControlGroup
+      toggleLabel={t("options")}
+      menuLabel={t("options")}
+      breakpoint={70}
+    >
       {allowsChildItems && <ItemCreateButton parentSlug={slug} />}
       {allowsChildCollections && <CollectionCreateButton parentSlug={slug} />}
       <ButtonControlView

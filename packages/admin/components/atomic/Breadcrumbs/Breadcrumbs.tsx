@@ -66,7 +66,7 @@ const BreadcrumbsWrapper = ({
 
     const breadcrumbItems = [];
     const dropdownItems = data
-      .filter((o, i) => i >= 1 && i < data.length - 2)
+      .filter((_o, i) => i >= 1 && i < data.length - 2)
       .map((d) => ({ ...d, inside: true }))
       .map(getLink);
 
@@ -114,6 +114,7 @@ const Breadcrumbs = styled(BreadcrumbsWrapper)<Props>`
   &__li {
     display: flex;
     flex-basis: 25%;
+    max-width: max-content;
 
     &:focus-visible {
       outline: 0;
@@ -148,13 +149,16 @@ const Breadcrumbs = styled(BreadcrumbsWrapper)<Props>`
     }
   }
 
-  &__li:last-of-type &__link {
-    color: var(--accent-light);
-    text-decoration: underline;
+  &__li:last-of-type {
     flex-basis: 50%;
     ${tTruncate}
 
     ${respond(`flex-basis: auto;`, "navBreak")}
+  }
+
+  &__li:last-of-type &__link {
+    color: var(--accent-light);
+    text-decoration: underline;
   }
 
   &__delimiter {
