@@ -39,6 +39,7 @@ function HarvestRecordsList({
       route: "harvestRecord",
       enableSorting: false,
       query: backTo ? { backTo, backToSlug } : undefined,
+      className: "t-truncate",
     }),
     ModelColumns.CreatedAtColumn<HarvestRecordNode>({ enableSorting: true }),
     ModelColumns.StringColumn<HarvestRecordNode>({

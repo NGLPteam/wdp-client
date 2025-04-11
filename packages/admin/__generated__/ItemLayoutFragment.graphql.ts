@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<679409aa757cdae9ae1d7c9595ef3ad1>>
+ * @generated SignedSource<<d734274e936137a85d9182e5351a8a6f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,8 +9,13 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type HarvestModificationStatus = "MODIFIED" | "PRISTINE" | "UNHARVESTED" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type ItemLayoutFragment$data = {
+  readonly harvestModificationStatus: HarvestModificationStatus;
+  readonly harvestRecords: ReadonlyArray<{
+    readonly slug: string;
+  }>;
   readonly id: string;
   readonly slug: string;
   readonly title: string;
@@ -22,7 +27,15 @@ export type ItemLayoutFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"ItemLayoutFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -35,18 +48,31 @@ const node: ReaderFragment = {
       "name": "title",
       "storageKey": null
     },
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "slug",
+      "name": "id",
       "storageKey": null
     },
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "id",
+      "name": "harvestModificationStatus",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "HarvestRecord",
+      "kind": "LinkedField",
+      "name": "harvestRecords",
+      "plural": true,
+      "selections": [
+        (v0/*: any*/)
+      ],
       "storageKey": null
     },
     {
@@ -63,7 +89,8 @@ const node: ReaderFragment = {
   "type": "Item",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "2978a482fefa7366fb8fe40d8f56473d";
+(node as any).hash = "c5f1a54c55d26c47cba06765f94a9ee1";
 
 export default node;
