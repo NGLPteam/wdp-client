@@ -23,7 +23,7 @@ type HarvestMappingNode = HarvestMappingsListFragment$data["nodes"][number];
 function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
   const harvestMappings = useFragment<HarvestMappingsListFragment$key>(
     fragment,
-    data,
+    data
   );
 
   const { t } = useTranslation();
@@ -46,7 +46,7 @@ function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
     }),
     ModelColumns.LinkColumn<HarvestMappingNode>({
       id: "targetEntity.title",
-      header: () => t("target_entity_column"),
+      header: () => t("lists.target_entity_column"),
       slug: "targetEntity.slug",
       route: (row: Row<HarvestMappingNode>) =>
         row.original.targetEntity?.__typename === "COLLECTION"
