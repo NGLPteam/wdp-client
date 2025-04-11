@@ -58,7 +58,11 @@ export default function ItemLayout({
   );
 
   const buttons = (
-    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+    <ButtonControlGroup
+      toggleLabel={t("options")}
+      menuLabel={t("options")}
+      breakpoint={70}
+    >
       <ItemCreateButton parentSlug={slug} />
       <ButtonControlView
         href={`${process.env.NEXT_PUBLIC_FE_URL}/items/${slug}`}
