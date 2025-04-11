@@ -12,7 +12,11 @@ import {
 } from "hooks";
 import useBreadcrumbs from "hooks/useBreadcrumbs";
 import { RouteHelper } from "routes";
-import { ButtonControlGroup, ButtonControlConfirm } from "components/atomic";
+import {
+  ButtonControlGroup,
+  ButtonControlConfirm,
+  ButtonControlRoute,
+} from "components/atomic";
 import { ContentSidebar, ContentHeader, PageHeader } from "components/layout";
 import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
 import ItemCreateButton from "../ItemCreateButton";
@@ -61,6 +65,15 @@ export default function ItemLayout({
       >
         {t("common.view")}
       </ButtonControlView>
+      {memoizedItem?.harvestModificationStatus !== "UNHARVESTED" && (
+        <ButtonControlRoute
+          route="harvestRecord"
+          query={{ slug: memoizedItem?.harvestRecords?.[0].slug }}
+          icon="linkExternal"
+        >
+          {t("harvesting.view_entity_record")}
+        </ButtonControlRoute>
+      )}
       <ButtonControlConfirm
         modalLabel={t("messages.delete.confirm_label")}
         modalBody={t("messages.delete.confirm_body")}
@@ -104,6 +117,10 @@ const fragment = graphql`
     title
     slug
     id
+    harvestModificationStatus
+    harvestRecords {
+      slug
+    }
     ...useBreadcrumbsFragment
     ...useChildRouteLinksFragment
   }

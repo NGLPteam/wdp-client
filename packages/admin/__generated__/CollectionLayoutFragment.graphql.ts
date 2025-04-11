@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4c07166b28906c5c59918eeb534225bc>>
+ * @generated SignedSource<<835ef57823d4859e5c5a8a13ea1c1c31>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,8 +10,13 @@
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
 export type ChildEntityKind = "COLLECTION" | "ITEM" | "%future added value";
+export type HarvestModificationStatus = "MODIFIED" | "PRISTINE" | "UNHARVESTED" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type CollectionLayoutFragment$data = {
+  readonly harvestModificationStatus: HarvestModificationStatus;
+  readonly harvestRecords: ReadonlyArray<{
+    readonly slug: string;
+  }>;
   readonly id: string;
   readonly schemaVersion: {
     readonly enforcedChildKinds: ReadonlyArray<ChildEntityKind>;
@@ -26,7 +31,15 @@ export type CollectionLayoutFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"CollectionLayoutFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -39,13 +52,7 @@ const node: ReaderFragment = {
       "name": "title",
       "storageKey": null
     },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "slug",
-      "storageKey": null
-    },
+    (v0/*: any*/),
     {
       "alias": null,
       "args": null,
@@ -72,6 +79,25 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "harvestModificationStatus",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "HarvestRecord",
+      "kind": "LinkedField",
+      "name": "harvestRecords",
+      "plural": true,
+      "selections": [
+        (v0/*: any*/)
+      ],
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "useBreadcrumbsFragment"
@@ -85,7 +111,8 @@ const node: ReaderFragment = {
   "type": "Collection",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "404e65abe3a77c9a221c2faa876432cd";
+(node as any).hash = "cb175d35a7b0b2c18915485c20ce0725";
 
 export default node;

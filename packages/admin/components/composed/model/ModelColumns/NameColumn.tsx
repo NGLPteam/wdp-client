@@ -1,3 +1,4 @@
+import classNames from "classNames";
 import { useTranslation } from "react-i18next";
 import { isFunction } from "lodash";
 import { NamedLink } from "components/atomic";
@@ -53,7 +54,7 @@ const NameColumn = <T extends Node>(
           passHref
         >
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <a className="t-weight-md a-link">{value}</a>
+          <a className={classNames("t-weight-md a-link", className)}>{value}</a>
         </NamedLink>
       ) : (
         value

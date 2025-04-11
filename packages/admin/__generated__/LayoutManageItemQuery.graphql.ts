@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1d75bf73614e1ce9ec2738c24630f451>>
+ * @generated SignedSource<<805194a05042bfaac77e655ce9805fd9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -118,6 +118,26 @@ return {
           (v3/*: any*/),
           (v4/*: any*/),
           {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "harvestModificationStatus",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "HarvestRecord",
+            "kind": "LinkedField",
+            "name": "harvestRecords",
+            "plural": true,
+            "selections": [
+              (v3/*: any*/),
+              (v4/*: any*/)
+            ],
+            "storageKey": null
+          },
+          {
             "kind": "InlineFragment",
             "selections": [
               {
@@ -194,12 +214,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "15295db9fb29e8364fe2c18327472f20",
+    "cacheID": "4d79e3a149e3c4c8c4ef88b72ded5d9b",
     "id": null,
     "metadata": {},
     "name": "LayoutManageItemQuery",
     "operationKind": "query",
-    "text": "query LayoutManageItemQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    allowedActions\n    ...ItemLayoutFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
+    "text": "query LayoutManageItemQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    allowedActions\n    ...ItemLayoutFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  harvestModificationStatus\n  harvestRecords {\n    slug\n    id\n  }\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
   }
 };
 })();
