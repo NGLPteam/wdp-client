@@ -2,6 +2,7 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "next/navigation";
 import startCase from "lodash/startCase";
+import { formatDate } from "@wdp/lib/helpers";
 import { useChildRouteLinks, useMaybeFragment, useRouteSlug } from "hooks";
 import { PageHeader, BackToAll } from "components/layout";
 import type { HarvestAttemptLayoutFragment$key } from "@/relay/HarvestAttemptLayoutFragment.graphql";
@@ -17,7 +18,7 @@ export default function HarvestAttemptLayout({
   const { t } = useTranslation();
   const slug = useRouteSlug() || undefined;
   const manageRoutes = useChildRouteLinks("harvestAttempt", { slug });
-  const { harvestSource, harvestMapping, harvestSet, beganAt } =
+  const { harvestSource, harvestMapping, harvestSet, beganAt, targetEntity } =
     useMaybeFragment(fragment, data) ?? {};
 
   const params = useSearchParams();
@@ -28,7 +29,9 @@ export default function HarvestAttemptLayout({
       ? {
           route: "harvestMapping.harvestAttempts",
           query: { slug: harvestMapping.slug },
-          label: startCase(t("glossary.harvest_mapping")),
+          label: `${startCase(t("glossary.harvest_mapping"))}${
+            harvestSource?.name ? `—${harvestSource?.name}` : ""
+          }`,
         }
       : harvestSource
         ? {
@@ -38,15 +41,19 @@ export default function HarvestAttemptLayout({
           }
         : null;
 
+  const set = harvestSet?.identifier
+    ? t("harvesting.set", { set: harvestSet.identifier })
+    : "";
+  const title = `[${startCase(
+    targetEntity?.harvestTargetKind.toLowerCase(),
+  )}: ${targetEntity?.title}]${set}${t("harvesting.at", {
+    at: formatDate(beganAt ?? ""),
+  })}`;
+
   return (
     <section>
       {backToProps && <BackToAll {...backToProps} />}
-      <PageHeader
-        title={`${harvestSource?.name}:${
-          harvestSet?.identifier ?? t("harvesting.set_placeholder")
-        }:${beganAt}`}
-        tabRoutes={manageRoutes}
-      />
+      <PageHeader title={title} tabRoutes={manageRoutes} />
       {children}
     </section>
   );
@@ -64,6 +71,10 @@ const fragment = graphql`
     }
     harvestMapping {
       slug
+    }
+    targetEntity {
+      harvestTargetKind
+      title
     }
   }
 `;

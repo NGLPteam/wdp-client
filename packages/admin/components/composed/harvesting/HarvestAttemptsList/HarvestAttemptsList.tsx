@@ -1,5 +1,6 @@
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
+import { formatDate } from "@wdp/lib/helpers";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
@@ -27,17 +28,16 @@ function HarvestAttemptsList({ data, headerStyle, hideHeader, backTo }: Props) {
 
   const columns = [
     ModelColumns.NameColumn<HarvestAttemptNode>({
-      accessorFn: (row) =>
-        `${row.harvestSource?.name}:${
-          row.harvestSet?.identifier ?? t("harvesting.set_placeholder")
-        }:${row.beganAt}`,
-      header: () => t("lists.identifier_column"),
+      accessorFn: (row) => formatDate(row.beganAt ?? ""),
+      header: () => t("lists.began_at_column"),
       enableSorting: false,
       route: "harvestAttempt",
       query: backTo ? { backTo } : undefined,
     }),
-    ModelColumns.BeganAtColumn<HarvestAttemptNode>({ enableSorting: false }),
-    ModelColumns.EndedAtColumn<HarvestAttemptNode>({ enableSorting: false }),
+    ModelColumns.StringColumn<HarvestAttemptNode>({
+      id: "mode",
+      header: () => t("harvesting.mode"),
+    }),
     ModelColumns.StringColumn<HarvestAttemptNode>({
       id: "harvestSet.identifier",
       header: () => t("glossary.harvest_set"),
@@ -71,6 +71,7 @@ export const fragment = graphql`
       slug
       beganAt
       endedAt
+      mode
       harvestSource {
         name
       }

@@ -1,5 +1,6 @@
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
+import startCase from "lodash/startCase";
 import { useChildRouteLinks, useMaybeFragment, useRouteSlug } from "hooks";
 import { PageHeader, BackToAll } from "components/layout";
 import { ButtonControlGroup, ButtonControlRoute } from "components/atomic";
@@ -34,6 +35,13 @@ export default function HarvestMappingLayout({
     </ButtonControlGroup>
   );
 
+  const set = harvestSet?.identifier
+    ? t("harvesting.set", { set: harvestSet.identifier })
+    : "";
+  const title = `[${startCase(
+    targetEntity?.harvestTargetKind.toLowerCase(),
+  )}: ${targetEntity?.title}]${set}`;
+
   return (
     <section>
       {harvestSource && (
@@ -44,9 +52,7 @@ export default function HarvestMappingLayout({
         />
       )}
       <PageHeader
-        title={`${harvestSource?.name}:${
-          harvestSet?.identifier ?? t("harvesting.set_placeholder")
-        }:${targetEntity?.title}`}
+        title={title}
         tabRoutes={manageRoutes}
         tabLinksOnly
         buttons={buttons}
@@ -66,6 +72,7 @@ const fragment = graphql`
       identifier
     }
     targetEntity {
+      harvestTargetKind
       title
     }
   }
