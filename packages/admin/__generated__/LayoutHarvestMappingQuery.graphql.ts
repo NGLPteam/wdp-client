@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6c364f20a72dca85c25750bd4c7e996d>>
+ * @generated SignedSource<<03267489da646e19f0c083736c4d1a8a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -150,6 +150,13 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
+                "name": "harvestTargetKind",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
                 "name": "title",
                 "storageKey": null
               },
@@ -171,12 +178,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4577592d84ecfe54b2c19afad42e237a",
+    "cacheID": "0bd95b832254566c56f997748fd8120e",
     "id": null,
     "metadata": {},
     "name": "LayoutHarvestMappingQuery",
     "operationKind": "query",
-    "text": "query LayoutHarvestMappingQuery(\n  $slug: Slug!\n) {\n  harvestMapping(slug: $slug) {\n    ...HarvestMappingLayoutFragment\n    id\n  }\n}\n\nfragment HarvestMappingLayoutFragment on HarvestMapping {\n  harvestSource {\n    slug\n    name\n    id\n  }\n  harvestSet {\n    identifier\n    id\n  }\n  targetEntity {\n    __typename\n    title\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n"
+    "text": "query LayoutHarvestMappingQuery(\n  $slug: Slug!\n) {\n  harvestMapping(slug: $slug) {\n    ...HarvestMappingLayoutFragment\n    id\n  }\n}\n\nfragment HarvestMappingLayoutFragment on HarvestMapping {\n  harvestSource {\n    slug\n    name\n    id\n  }\n  harvestSet {\n    identifier\n    id\n  }\n  targetEntity {\n    __typename\n    harvestTargetKind\n    title\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n"
   }
 };
 })();

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f73b497810424d99dc9edc212102c37f>>
+ * @generated SignedSource<<a633050f074c38fdc279ef16c307e3db>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,7 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type HarvestTargetKind = "COLLECTION" | "COMMUNITY" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type HarvestMappingsListFragment$data = {
   readonly nodes: ReadonlyArray<{
@@ -27,7 +28,7 @@ export type HarvestMappingsListFragment$data = {
     readonly id: string;
     readonly slug: string;
     readonly targetEntity: {
-      readonly __typename: string;
+      readonly harvestTargetKind: HarvestTargetKind;
       readonly slug: string;
       readonly title: string;
     };
@@ -120,7 +121,7 @@ return {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "__typename",
+              "name": "harvestTargetKind",
               "storageKey": null
             },
             {
@@ -177,6 +178,6 @@ return {
 };
 })();
 
-(node as any).hash = "2538cc9095b48f72383fee08607622ef";
+(node as any).hash = "f51667b5af88b3e98fd27476979657f8";
 
 export default node;

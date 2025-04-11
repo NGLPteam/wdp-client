@@ -132,7 +132,7 @@
       "entity_count_column": "Entity Count",
       "has_errors_column": "Has Errors",
       "target_entity_column": "Target Entity",
-      "attempts_count_column": "Harvest Attempts Count"
+      "attempts_count_column": "Attempts Count"
     },
     "nav": {
       "manage_header": "Manage",
@@ -630,7 +630,8 @@
       "unchangeable": "*Cannot be changed",
       "settings": "Settings",
       "settings_from_mapping": "Settings from mapping",
-      "set_placeholder": "[no set]"
+      "set": "[set: {{set}}]",
+      "at": "[at: {{at}}]"
     }
   }
 }

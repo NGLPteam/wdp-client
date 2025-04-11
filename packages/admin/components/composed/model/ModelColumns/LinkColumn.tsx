@@ -11,7 +11,7 @@ type LinkColumnType<T extends Node> = PartialColumnish<T> & {
   className?: string;
   accessor?: AccessorFn<T> | string;
   slug?: string;
-  id: string;
+  id?: string;
 };
 
 // disableSortBy is getting replaced with enableSorting
@@ -30,7 +30,7 @@ const LinkColumn = <T extends Node>({
   const accessorKey = typeof accessor === "string" ? accessor : undefined;
   const accessorFn = isFunction(accessor)
     ? accessor
-    : (originalRow: T) => get(originalRow, id);
+    : (originalRow: T) => get(originalRow, id ?? "link");
 
   return {
     header: header ?? t("lists.name_column"),
