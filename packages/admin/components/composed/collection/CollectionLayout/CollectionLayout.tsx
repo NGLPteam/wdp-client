@@ -3,7 +3,11 @@ import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
 import { ContentHeader, ContentSidebar, PageHeader } from "components/layout";
-import { ButtonControlGroup, ButtonControlConfirm } from "components/atomic";
+import {
+  ButtonControlGroup,
+  ButtonControlConfirm,
+  ButtonControlRoute,
+} from "components/atomic";
 import { RouteHelper } from "routes";
 import {
   useMaybeFragment,
@@ -76,6 +80,15 @@ export default function CollectionLayout({
       >
         {t("common.view")}
       </ButtonControlView>
+      {memoizedCollection?.harvestModificationStatus !== "UNHARVESTED" && (
+        <ButtonControlRoute
+          route="harvestRecord"
+          query={{ slug: memoizedCollection?.harvestRecords?.[0].slug }}
+          icon="linkExternal"
+        >
+          {t("harvesting.view_entity_record")}
+        </ButtonControlRoute>
+      )}
       <ButtonControlConfirm
         modalLabel={t("messages.delete.confirm_label")}
         modalBody={t("messages.delete.confirm_body")}
@@ -121,6 +134,10 @@ const fragment = graphql`
     id
     schemaVersion {
       enforcedChildKinds
+    }
+    harvestModificationStatus
+    harvestRecords {
+      slug
     }
     ...useBreadcrumbsFragment
     ...useChildRouteLinksFragment

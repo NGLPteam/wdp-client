@@ -618,6 +618,7 @@
       "last_scheduled": "Last Scheduled At",
       "schedule_changed": "Schedule Changed At",
       "not_applicable": "N/A",
+      "view_entity_record": "Harvest Record",
       "messages": {
         "mapping_link": "View Mapping",
         "attempt_link": "View Attempt",
