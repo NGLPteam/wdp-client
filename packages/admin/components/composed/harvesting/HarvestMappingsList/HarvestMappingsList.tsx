@@ -11,6 +11,7 @@ import type {
   HarvestMappingsListFragment$key,
   HarvestMappingsListFragment$data,
 } from "@/relay/HarvestMappingsListFragment.graphql";
+import * as Styled from "./HarvestMappingsList.styles";
 import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
@@ -33,11 +34,13 @@ function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
   const sourceSlug = useRouteSlug();
 
   const columns = [
-    ModelColumns.NameColumn<HarvestMappingNode>({
-      accessorFn: () => (
-        <span style={{ marginInlineStart: "1rem" }}>
+    ModelColumns.LinkColumn<HarvestMappingNode>({
+      id: "details",
+      accessor: () => (
+        <Styled.Link>
+          <span>View</span>
           <IconFactory icon="linkExternal" />
-        </span>
+        </Styled.Link>
       ),
       header: () => t("nav.details"),
       enableSorting: false,
