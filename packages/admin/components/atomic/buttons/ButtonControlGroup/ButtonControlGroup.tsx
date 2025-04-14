@@ -33,6 +33,7 @@ function ButtonControlGroup({
             </ButtonControl>
           }
           menuItems={Array.isArray(children) ? children : [children]}
+          alignRight
         />
       </Styled.DropdownWrapper>
     </>

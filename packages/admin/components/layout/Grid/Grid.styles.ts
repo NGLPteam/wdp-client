@@ -163,5 +163,6 @@ export const Children = styled.div`
   > * + * {
     margin-block-start: ${pxToRem(8)};
     font-size: var(--font-size-sm);
+    word-break: break-all;
   }
 `;
