@@ -93,11 +93,11 @@ export default function HarvestMappingEditForm({
           <Controller
             name="extractionMappingTemplate"
             control={control}
-            render={({ field }) => (
+            render={({ field: { ref, ...fieldProps } }) => (
               <ExtractionMappingTemplateInput
                 label="forms.extraction_mapping_template.label"
                 sourceSlug={harvestSource.slug}
-                {...field}
+                {...fieldProps}
               />
             )}
           />

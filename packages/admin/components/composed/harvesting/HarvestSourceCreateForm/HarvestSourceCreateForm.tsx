@@ -106,10 +106,10 @@ export default function HarvestSourceCreateForm() {
         <Controller
           name="extractionMappingTemplate"
           control={control}
-          render={({ field }) => (
+          render={({ field: { ref, ...fieldProps } }) => (
             <ExtractionMappingTemplateInput
               label={t("forms.extraction_mapping_template.label")}
-              {...field}
+              {...fieldProps}
             />
           )}
         />

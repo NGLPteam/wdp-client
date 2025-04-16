@@ -38,13 +38,14 @@ function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
       id: "details",
       accessor: () => (
         <Styled.Link>
-          <span>View</span>
+          <span>{t("common.view")}</span>
           <IconFactory icon="linkExternal" />
         </Styled.Link>
       ),
       header: () => t("nav.details"),
       enableSorting: false,
       route: "harvestMapping",
+      slug: "slug",
     }),
     ModelColumns.LinkColumn<HarvestMappingNode>({
       accessor: (row) =>

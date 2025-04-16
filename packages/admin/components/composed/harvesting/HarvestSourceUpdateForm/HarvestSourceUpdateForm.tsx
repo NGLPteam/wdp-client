@@ -77,10 +77,10 @@ export default function HarvestSourceUpdateForm({
           name="extractionMappingTemplate"
           control={control}
           defaultValue={defaultValues.extractionMappingTemplate}
-          render={({ field }) => (
+          render={({ field: { ref, ...fieldProps } }) => (
             <ExtractionMappingTemplateInput
               label={t("forms.extraction_mapping_template.label")}
-              {...field}
+              {...fieldProps}
             />
           )}
         />
