@@ -5,7 +5,7 @@ import appData from "fixtures/app.data";
 import { InstallationLogo } from "components/global";
 import { renderNavLink } from "helpers";
 import { Authorize } from "components/auth";
-import { DrawerLink } from "components/atomic";
+import { DrawerLink, Markdown } from "components/atomic";
 import { useGlobalContext, useViewerContext } from "contexts";
 import { FooterFragment$key } from "@/relay/FooterFragment.graphql";
 import * as Styled from "./Footer.styles";
@@ -63,7 +63,9 @@ function Footer() {
         {description && (
           <div className="l-grid__item l-grid__item--6">
             <Styled.Header>{t(footerData.about.header)}</Styled.Header>
-            <div className="t-rte">{description}</div>
+            <div className="t-rte">
+              <Markdown.Base>{description}</Markdown.Base>
+            </div>
           </div>
         )}
       </Styled.Nav>
