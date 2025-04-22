@@ -638,7 +638,8 @@
       "settings": "Settings",
       "settings_from_mapping": "Settings from mapping",
       "set": "[set: {{set}}]",
-      "at": "[at: {{at}}]"
+      "at": "[at: {{at}}]",
+      "debug": "Debug"
     }
   }
 }

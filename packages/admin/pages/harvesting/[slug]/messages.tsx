@@ -16,6 +16,7 @@ const getLayout: GetLayout<Props> = (props) => {
   return (
     <Layout
       query={query}
+      defaultQueryVars={{ severity: "INFO" }}
       modelName="harvest_message"
       showLoadingCircle
       {...props}
@@ -32,9 +33,17 @@ type Props = {
 };
 
 const query = graphql`
-  query messagesHarvestSourceQuery($slug: Slug!, $page: Int!) {
+  query messagesHarvestSourceQuery(
+    $slug: Slug!
+    $page: Int!
+    $severity: HarvestMessageLevel!
+  ) {
     harvestSource(slug: $slug) {
-      harvestMessages(page: $page, perPage: 20, filters: { severity: INFO }) {
+      harvestMessages(
+        page: $page
+        perPage: 20
+        filters: { severity: $severity }
+      ) {
         ...HarvestMessagesListFragment
       }
     }
