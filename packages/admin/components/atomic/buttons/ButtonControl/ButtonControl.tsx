@@ -10,6 +10,7 @@ const ButtonControl = forwardRef(
     {
       children,
       iconRotate,
+      iconChecked,
       actions,
       allowedActions,
       $closeDropdown,
@@ -44,7 +45,12 @@ const ButtonControl = forwardRef(
             </Styled.ButtonText>
           )}
           {icon && (
-            <IconFactory icon={icon} rotate={iconRotate} role="presentation" />
+            <IconFactory
+              icon={icon}
+              rotate={iconRotate}
+              checked={iconChecked}
+              role="presentation"
+            />
           )}
         </>
       </Styled.ButtonControl>
@@ -65,12 +71,14 @@ interface Props extends Omit<AuthorizeProps, "children"> {
   disabled?: boolean;
   icon?: IconFactoryProps["icon"];
   iconRotate?: number;
+  iconChecked?: boolean;
   as?: React.ElementType;
   onClick?: React.MouseEventHandler;
   "aria-label"?: string;
   type?: "button" | "submit";
   size?: "large";
   $closeDropdown?: () => void;
+  className?: string;
 }
 
 export default ButtonControl;

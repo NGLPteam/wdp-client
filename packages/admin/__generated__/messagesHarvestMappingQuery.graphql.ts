@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2316dec67ea70199516eba9182a7b465>>
+ * @generated SignedSource<<9513f12463cacf2a813d34e455b9eff4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,8 +10,10 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
+export type HarvestMessageLevel = "DEBUG" | "ERROR" | "FATAL" | "INFO" | "TRACE" | "WARN" | "%future added value";
 export type messagesHarvestMappingQuery$variables = {
   page: number;
+  severity: HarvestMessageLevel;
   slug: string;
 };
 export type messagesHarvestMappingQuery$data = {
@@ -35,22 +37,31 @@ var v0 = {
 v1 = {
   "defaultValue": null,
   "kind": "LocalArgument",
+  "name": "severity"
+},
+v2 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
   "name": "slug"
 },
-v2 = [
+v3 = [
   {
     "kind": "Variable",
     "name": "slug",
     "variableName": "slug"
   }
 ],
-v3 = [
+v4 = [
   {
-    "kind": "Literal",
-    "name": "filters",
-    "value": {
-      "severity": "INFO"
-    }
+    "fields": [
+      {
+        "kind": "Variable",
+        "name": "severity",
+        "variableName": "severity"
+      }
+    ],
+    "kind": "ObjectValue",
+    "name": "filters"
   },
   {
     "kind": "Variable",
@@ -63,14 +74,14 @@ v3 = [
     "value": 20
   }
 ],
-v4 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v5 = [
+v6 = [
   {
     "alias": null,
     "args": null,
@@ -78,13 +89,14 @@ v5 = [
     "name": "slug",
     "storageKey": null
   },
-  (v4/*: any*/)
+  (v5/*: any*/)
 ];
 return {
   "fragment": {
     "argumentDefinitions": [
       (v0/*: any*/),
-      (v1/*: any*/)
+      (v1/*: any*/),
+      (v2/*: any*/)
     ],
     "kind": "Fragment",
     "metadata": null,
@@ -92,7 +104,7 @@ return {
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v3/*: any*/),
         "concreteType": "HarvestMapping",
         "kind": "LinkedField",
         "name": "harvestMapping",
@@ -100,7 +112,7 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": (v3/*: any*/),
+            "args": (v4/*: any*/),
             "concreteType": "HarvestMessageConnection",
             "kind": "LinkedField",
             "name": "harvestMessages",
@@ -124,15 +136,16 @@ return {
   "kind": "Request",
   "operation": {
     "argumentDefinitions": [
-      (v1/*: any*/),
-      (v0/*: any*/)
+      (v2/*: any*/),
+      (v0/*: any*/),
+      (v1/*: any*/)
     ],
     "kind": "Operation",
     "name": "messagesHarvestMappingQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v3/*: any*/),
         "concreteType": "HarvestMapping",
         "kind": "LinkedField",
         "name": "harvestMapping",
@@ -140,7 +153,7 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": (v3/*: any*/),
+            "args": (v4/*: any*/),
             "concreteType": "HarvestMessageConnection",
             "kind": "LinkedField",
             "name": "harvestMessages",
@@ -154,7 +167,7 @@ return {
                 "name": "nodes",
                 "plural": true,
                 "selections": [
-                  (v4/*: any*/),
+                  (v5/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -190,7 +203,7 @@ return {
                     "kind": "LinkedField",
                     "name": "harvestMapping",
                     "plural": false,
-                    "selections": (v5/*: any*/),
+                    "selections": (v6/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -200,7 +213,7 @@ return {
                     "kind": "LinkedField",
                     "name": "harvestRecord",
                     "plural": false,
-                    "selections": (v5/*: any*/),
+                    "selections": (v6/*: any*/),
                     "storageKey": null
                   },
                   {
@@ -210,7 +223,7 @@ return {
                     "kind": "LinkedField",
                     "name": "harvestAttempt",
                     "plural": false,
-                    "selections": (v5/*: any*/),
+                    "selections": (v6/*: any*/),
                     "storageKey": null
                   }
                 ],
@@ -279,23 +292,23 @@ return {
             ],
             "storageKey": null
           },
-          (v4/*: any*/)
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "411851aba1923c343c0ae5bdde4121ce",
+    "cacheID": "bc299132333474a23d52bdbfd9d169ba",
     "id": null,
     "metadata": {},
     "name": "messagesHarvestMappingQuery",
     "operationKind": "query",
-    "text": "query messagesHarvestMappingQuery(\n  $slug: Slug!\n  $page: Int!\n) {\n  harvestMapping(slug: $slug) {\n    harvestMessages(page: $page, perPage: 20, filters: {severity: INFO}) {\n      ...HarvestMessagesListFragment\n    }\n    id\n  }\n}\n\nfragment HarvestMessageFragment on HarvestMessage {\n  id\n  level\n  message\n  tags\n  createdAt\n  harvestMapping {\n    slug\n    id\n  }\n  harvestRecord {\n    slug\n    id\n  }\n  harvestAttempt {\n    slug\n    id\n  }\n}\n\nfragment HarvestMessagesListFragment on HarvestMessageConnection {\n  nodes {\n    ...HarvestMessageFragment\n    id\n  }\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query messagesHarvestMappingQuery(\n  $slug: Slug!\n  $page: Int!\n  $severity: HarvestMessageLevel!\n) {\n  harvestMapping(slug: $slug) {\n    harvestMessages(page: $page, perPage: 20, filters: {severity: $severity}) {\n      ...HarvestMessagesListFragment\n    }\n    id\n  }\n}\n\nfragment HarvestMessageFragment on HarvestMessage {\n  id\n  level\n  message\n  tags\n  createdAt\n  harvestMapping {\n    slug\n    id\n  }\n  harvestRecord {\n    slug\n    id\n  }\n  harvestAttempt {\n    slug\n    id\n  }\n}\n\nfragment HarvestMessagesListFragment on HarvestMessageConnection {\n  nodes {\n    ...HarvestMessageFragment\n    id\n  }\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "dc91a67f35d3f12123d652f871f13d5e";
+(node as any).hash = "4a2f171e99570a4216ed95e09ed84cf6";
 
 export default node;

@@ -6,6 +6,7 @@ import {
   useLazyLoadQuery,
 } from "react-relay";
 import { OperationType } from "relay-runtime";
+import { useSearchParams } from "next/navigation";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import { ModelListProps } from "components/composed/model/ModelList";
 import { useRouteSlug, useBaseListQueryVars } from "hooks";
@@ -19,6 +20,7 @@ import type { LayoutHarvestMappingQuery as LayoutQuery } from "@/relay/LayoutHar
 
 export default function Layout<T extends OperationType>(props: Props<T>) {
   const queryVars = useBaseListQueryVars();
+  const searchParams = useSearchParams();
   const slug = useRouteSlug() as string;
 
   const { harvestMapping } = useLazyLoadQuery<LayoutQuery>(
@@ -36,6 +38,9 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
 
   if (!slug || !harvestMapping) return <ErrorPage statusCode={404} />;
 
+  const searchVars: Record<string, string> = {};
+  searchParams.forEach((value, key) => (searchVars[key] = value));
+
   const {
     PageComponent,
     pageComponentProps,
@@ -43,13 +48,14 @@ export default function Layout<T extends OperationType>(props: Props<T>) {
     refetchTags,
     modelName,
     showLoadingCircle,
+    defaultQueryVars,
   } = props;
 
   return (
     <HarvestMappingLayout data={harvestMapping} {...pageComponentProps}>
       <QueryTransitionWrapper<T>
         query={query}
-        variables={{ ...queryVars, slug }}
+        variables={{ ...defaultQueryVars, ...searchVars, ...queryVars, slug }}
         loadingFallback={<LoadingCircle />}
         refetchTags={refetchTags}
       >
@@ -74,6 +80,7 @@ type Props<T extends OperationType> = {
   refetchTags?: string[];
   showLoadingCircle?: boolean;
   modelName?: ModelListProps<any, any>["modelName"]; // eslint-disable-line @typescript-eslint/no-explicit-any
+  defaultQueryVars?: Record<string, string>;
 };
 
 type PageProps<T extends OperationType> = {
