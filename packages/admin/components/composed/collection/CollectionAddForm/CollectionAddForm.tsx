@@ -10,7 +10,6 @@ import MutationForm, {
 import { sanitizeDateField } from "helpers";
 import { RouteHelper } from "routes";
 import { useLocalStorage } from "hooks";
-
 import type { CollectionAddFormFragment$key } from "@/relay/CollectionAddFormFragment.graphql";
 import type {
   CreateCollectionInput,
@@ -134,6 +133,7 @@ export default function CollectionAddForm({
         <Forms.FileImageUpload
           label="forms.fields.hero_image"
           name="heroImage"
+          description="forms.fields.hero_image_description"
         />
         <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
 

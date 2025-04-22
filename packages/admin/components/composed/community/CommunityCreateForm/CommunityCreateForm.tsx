@@ -4,7 +4,10 @@ import MutationForm, {
   Forms,
   useToVariables,
 } from "components/api/MutationForm";
-
+import {
+  communityHeroFieldDescription,
+  logoFieldDescription,
+} from "helpers/i18n";
 import type {
   CommunityCreateFormMutation,
   CreateCommunityInput,
@@ -39,13 +42,18 @@ export default function CommunityCreateForm({ onSuccess }: Props) {
           {...register("tagline")}
           isWide
         />
-        <Forms.FileImageUpload label="forms.fields.logo" name="logo" />
+        <Forms.FileImageUpload
+          label="forms.fields.logo"
+          name="logo"
+          description={logoFieldDescription}
+        />
         <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
 
         <Forms.Fieldset label="Hero">
           <Forms.FileImageUpload
             label="forms.fields.hero_image"
             name="heroImage"
+            description={communityHeroFieldDescription}
           />
           <Forms.AltText {...register("heroImageMetadata.alt")} />
           <Forms.Select

@@ -183,6 +183,7 @@ export default function CollectionUpdateForm({
               label="forms.fields.hero_image"
               name="heroImage"
               clearName="clearHeroImage"
+              description="forms.fields.hero_image_description"
             />
             <Forms.Textarea
               label="forms.fields.summary"

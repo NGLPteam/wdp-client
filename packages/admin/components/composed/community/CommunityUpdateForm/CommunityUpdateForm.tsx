@@ -8,7 +8,10 @@ import MutationForm, {
   useIsSuccess,
   useOnFailure,
 } from "components/api/MutationForm";
-
+import {
+  communityHeroFieldDescription,
+  logoFieldDescription,
+} from "helpers/i18n";
 import SchemaFormFields from "components/api/SchemaFormFields";
 import { useSchemaContext, useSchemaProperties } from "components/api/hooks";
 import { convertSchemaErrors } from "components/api/SchemaInstanceForm/convertSchemaErrors";
@@ -137,10 +140,13 @@ export default function CommunityUpdateForm({
             name="logo"
             data={logo}
             clearName="clearLogo"
+            description={logoFieldDescription}
+            isWide
           />
           <Forms.Textarea
             label="forms.fields.summary"
             {...register("summary")}
+            isWide
           />
           <Forms.Fieldset label="Hero">
             <Forms.FileImageUpload
@@ -148,6 +154,7 @@ export default function CommunityUpdateForm({
               name="heroImage"
               data={heroImage}
               clearName="clearHeroImage"
+              description={communityHeroFieldDescription}
             />
             <Forms.AltText {...register("heroImageMetadata.alt")} />
             <Forms.Select

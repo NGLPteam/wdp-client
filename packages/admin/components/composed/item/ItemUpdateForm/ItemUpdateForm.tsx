@@ -181,6 +181,7 @@ export default function ItemUpdateForm({
               name="heroImage"
               data={heroImage}
               clearName="clearHeroImage"
+              description="forms.fields.hero_image_description"
             />
             <Forms.Textarea
               label="forms.fields.summary"
