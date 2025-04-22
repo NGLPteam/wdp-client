@@ -4,7 +4,6 @@ import MutationForm, {
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
-
 import type {
   EntityPageUpdateFormMutation,
   UpdatePageInput,
@@ -49,6 +48,7 @@ export default function EntityPageUpdateForm({
           name="heroImage"
           data={page?.heroImage}
           clearName="clearHeroImage"
+          description="forms.fields.hero_image_description"
         />
         <Forms.Textarea
           label="forms.fields.body"

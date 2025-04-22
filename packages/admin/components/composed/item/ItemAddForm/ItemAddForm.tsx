@@ -9,7 +9,6 @@ import MutationForm, {
 } from "components/api/MutationForm";
 import { RouteHelper } from "routes";
 import { useLocalStorage } from "hooks";
-
 import { sanitizeDateField } from "helpers";
 import type {
   ItemAddFormMutation,
@@ -120,6 +119,7 @@ export default function ItemAddForm({ onSuccess, onCancel, data }: Props) {
         <Forms.FileImageUpload
           label="forms.fields.hero_image"
           name="heroImage"
+          description="forms.fields.hero_image_description"
         />
         <Forms.Textarea label="forms.fields.summary" {...register("summary")} />
 

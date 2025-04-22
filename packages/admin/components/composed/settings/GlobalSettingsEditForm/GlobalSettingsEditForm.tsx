@@ -5,6 +5,7 @@ import MutationForm, {
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
+import { logoFieldDescription } from "helpers/i18n";
 import type {
   GlobalSettingsEditFormMutation,
   UpdateGlobalConfigurationInput,
@@ -50,6 +51,7 @@ export default function GlobalSettingsEditForm({
           name="logo"
           data={logo}
           clearName="clearLogo"
+          description={logoFieldDescription}
         />
         <Forms.Select
           label="forms.fields.logo_settings"

@@ -4,7 +4,6 @@ import MutationForm, {
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
-
 import { convertToSlug } from "helpers";
 import type {
   EntityPageAddFormMutation,
@@ -51,6 +50,7 @@ export default function EntityPageAddForm({
         <Forms.FileImageUpload
           label="forms.fields.hero_image"
           name="heroImage"
+          description="forms.fields.hero_image_description"
         />
         <Forms.Textarea
           label="forms.fields.body"
