@@ -5,11 +5,7 @@ import {
 } from "@wdp/lib/routes";
 import { useRouter } from "next/router";
 import { getPredicates } from "helpers/search";
-import {
-  EntityOrder,
-  SearchPredicateInput,
-  HarvestMessageLevel,
-} from "types/graphql-schema";
+import { EntityOrder, SearchPredicateInput } from "types/graphql-schema";
 
 const DEFAULTS = {
   query: "",
@@ -26,7 +22,6 @@ interface Props {
   query?: string | null | undefined;
   schema?: string[];
   hasQuery: boolean;
-  severity?: HarvestMessageLevel;
 }
 
 /**
@@ -43,9 +38,6 @@ export default function useSearchQueryVars(): Props {
     const q = routeQueryArrayToString(query.q);
     const order = routeQueryArrayToString(query.order) as EntityOrder;
     const schema = normalizeRouteQueryArray(query.schema);
-    const severity = routeQueryArrayToString(
-      query.level,
-    ) as HarvestMessageLevel;
 
     const predicates = filters ? getPredicates(JSON.parse(filters)) : [];
 
@@ -55,7 +47,6 @@ export default function useSearchQueryVars(): Props {
       page: parseInt(page) || DEFAULTS.page,
       order: order || DEFAULTS.order,
       schema,
-      severity,
       hasQuery:
         (!!predicates && predicates.length > 0) ||
         (!!schema && schema.length > 0) ||
