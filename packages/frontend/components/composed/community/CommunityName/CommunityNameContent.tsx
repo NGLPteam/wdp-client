@@ -16,10 +16,10 @@ export default function CommunityName({ community }: Props) {
     [community],
   );
 
-  return (
+  return community ? (
     <>
       <CommunityLogo data={community?.logo} slug={community?.slug} />
-      <h4 className={hideName ? "sr-only" : "community-name-visible"}>
+      <h4 className={hideName ? "sr-only" : undefined}>
         <NamedLink
           href={
             community?.slug ? `/communities/${community.slug}` : "/communities"
@@ -29,7 +29,7 @@ export default function CommunityName({ community }: Props) {
         </NamedLink>
       </h4>
     </>
-  );
+  ) : null;
 }
 
 interface Props {

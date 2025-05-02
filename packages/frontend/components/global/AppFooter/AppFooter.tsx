@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import startCase from "lodash/startCase";
@@ -8,6 +9,7 @@ import CommunityPicker from "components/composed/instance/CommunityPicker";
 import CommunityName from "components/composed/community/CommunityName";
 import { NamedLink } from "components/atomic";
 import { useGlobalStaticContext } from "contexts/GlobalStaticContext";
+import { CommunityContext } from "@/contexts/CommunityContext";
 import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
 import { CommunityPickerCommunityNameFragment$key } from "@/relay/CommunityPickerCommunityNameFragment.graphql";
 import styles from "./AppFooter.module.css";
@@ -19,6 +21,7 @@ interface Props {
 
 export default function AppFooter({ data, communityData }: Props) {
   const staticData = useGlobalStaticContext();
+  const community = useContext(CommunityContext);
 
   const footer = staticData?.globalConfiguration?.site?.footer;
 
@@ -45,13 +48,16 @@ export default function AppFooter({ data, communityData }: Props) {
     <footer className={classNames("a-bg-custom20", styles.footer)}>
       <div className={classNames("l-container-wide", styles.inner)}>
         <div className={styles.communityName}>
-          <CommunityName />
-          <h4 className={styles.installation}>
-            <InstallationName
-              className="t-h4"
-              data={app?.globalConfiguration}
-            />
-          </h4>
+          {community ? (
+            <CommunityName />
+          ) : (
+            <h4>
+              <InstallationName
+                className="t-h4"
+                data={app?.globalConfiguration}
+              />
+            </h4>
+          )}
         </div>
         <div className={styles.search}>
           <Search id="footerSearch" />
@@ -60,18 +66,22 @@ export default function AppFooter({ data, communityData }: Props) {
           <Search mobile id="footerMobileSearch" />
         </div>
         <div className={styles.about}>
-          <div className={styles.installationMobile}>
-            <InstallationName data={app?.globalConfiguration} />
-          </div>
+          {!!community && (
+            <div className={styles.installationMobile}>
+              <InstallationName data={app?.globalConfiguration} />
+            </div>
+          )}
           {footer?.description && (
             <div className="t-copy-sm t-copy-lighter">
               {footer?.description}
             </div>
           )}
           <div className={styles.installationDesktop}>
-            <div className={styles["installationDesktop__name"]}>
-              <InstallationName data={app?.globalConfiguration} />
-            </div>
+            {!!community && (
+              <div className={styles["installationDesktop__name"]}>
+                <InstallationName data={app?.globalConfiguration} />
+              </div>
+            )}
             {communityCount > 1 && (
               <CommunityPicker data={app} activeData={communityData} />
             )}
