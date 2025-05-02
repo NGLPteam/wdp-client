@@ -117,12 +117,6 @@
   }
 }
 
-.installation {
-  div:has(:global(.community-name-visible)) + & {
-    display: none;
-  }
-}
-
 .installationDesktop {
   display: flex;
   align-items: center;
@@ -130,14 +124,9 @@
   gap: var(--grid-column-gap);
 
   &__name {
-    display: none;
-
-    footer:has(:global(.community-name-visible)) & {
-      display: block;
-
-      @mixin respond theme("screens.100") {
-        display: none;
-      }
+    display: block;
+    @mixin respond theme("screens.100") {
+      display: none;
     }
   }
 }
@@ -145,11 +134,7 @@
 .installationMobile {
   display: none;
 
-  footer:has(:global(.community-name-visible)) & {
-    display: none;
-
-    @mixin respond theme("screens.100") {
-      display: block;
-    }
+  @mixin respond theme("screens.100") {
+    display: block;
   }
 }
