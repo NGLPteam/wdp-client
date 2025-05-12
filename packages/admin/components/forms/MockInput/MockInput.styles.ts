@@ -22,7 +22,7 @@ export const Description = styled.div<{ $descriptionTop?: boolean }>`
 
 export const Input = styled.div`
   ${aBaseInput()}
-  height: ${pxToRem(42)};
+  height: max(${pxToRem(42)}, auto);
   padding-inline: ${pxToRem(16)};
   padding-block: ${pxToRem(10)};
 

@@ -63,7 +63,7 @@ export default function HarvestAttemptCreateFormFields({
               />
               <MockInput
                 label="forms.fields.metadata_format"
-                value={harvestMapping?.metadataFormat}
+                value={harvestSource?.metadataFormat}
               />
             </Forms.Grid>
           </Forms.Fieldset>
