@@ -97,6 +97,10 @@ export default function SummaryListBlock({
         })
       : seeAllButtonLabel;
 
+  const showCover =
+    showHeroImage &&
+    (entity?.__typename === "Item" || entity?.__typename === "Collection");
+
   return (
     <Container
       className={styles.container}
@@ -168,10 +172,15 @@ export default function SummaryListBlock({
             />
           )}
         </div>
-        {showHeroImage && (
+        {showCover && (
           <div className={styles.heroImage}>
             <NamedLink href={href}>
-              <CoverImage {...entity} maxWidth={240} maxHeight={320} />
+              <CoverImage
+                {...entity}
+                data={entity?.thumbnail}
+                maxWidth={240}
+                maxHeight={320}
+              />
             </NamedLink>
           </div>
         )}

@@ -75,7 +75,12 @@ export default function SummaryListItem({
     >
       {showThumb && (
         <NamedLink href={href} className={styles.coverImage}>
-          <CoverImage {...entity} maxWidth={120} maxHeight={160} />
+          <CoverImage
+            {...entity}
+            data={entity.thumbnail}
+            maxWidth={120}
+            maxHeight={160}
+          />
         </NamedLink>
       )}
       <div className={styles.text}>

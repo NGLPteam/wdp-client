@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9f0e04ad34d7e71f14444fda0ae5e006>>
+ * @generated SignedSource<<a5ea0bc1852538f270d77fd295d45328>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -66,6 +66,35 @@ v4 = {
   "name": "thumbnail",
   "plural": false,
   "selections": [
+    {
+      "alias": "image",
+      "args": null,
+      "concreteType": "ImageSize",
+      "kind": "LinkedField",
+      "name": "large",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageDerivative",
+          "kind": "LinkedField",
+          "name": "webp",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "url",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
     {
       "args": null,
       "kind": "FragmentSpread",
