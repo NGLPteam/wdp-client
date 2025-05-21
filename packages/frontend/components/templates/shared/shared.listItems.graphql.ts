@@ -65,6 +65,11 @@ export const listItemTemplateFragment = graphql`
               url
             }
           }
+          blur: thumb {
+            webp {
+              url
+            }
+          }
         }
       }
       ... on Item {
@@ -88,6 +93,11 @@ export const listItemTemplateFragment = graphql`
           image: large {
             webp {
               alt
+              url
+            }
+          }
+          blur: thumb {
+            webp {
               url
             }
           }

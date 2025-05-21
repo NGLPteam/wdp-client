@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9acf72a6d1bc3fa4aca45f9552dd2098>>
+ * @generated SignedSource<<c4ccf9658bbbc8dcbbec9dbad58df2ad>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -215,7 +215,7 @@ return {
                         "storageKey": null
                       },
                       {
-                        "alias": "placeholder",
+                        "alias": "blur",
                         "args": null,
                         "concreteType": "ImageSize",
                         "kind": "LinkedField",
@@ -268,12 +268,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "41c2d69f300f555132c7e3c1c752954d",
+    "cacheID": "b4ce7e79f95ff9a76d575c0023b6d727",
     "id": null,
     "metadata": {},
     "name": "pageTemplatesItemFileDetailQuery",
     "operationKind": "query",
-    "text": "query pageTemplatesItemFileDetailQuery(\n  $file: Slug!\n) {\n  asset(slug: $file) {\n    __typename\n    ...AssetDetailBlockFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment AssetDetailBlockFragment on Node {\n  __isNode: __typename\n  ... on Asset {\n    __isAsset: __typename\n    slug\n    caption\n    kind\n    downloadUrl\n    fileSize\n    name\n    altText\n    preview {\n      storage\n      ...ContentImageFragment\n    }\n    ...AssetPDFPreviewFragment\n  }\n  ... on AssetImage {\n    updatedAt\n  }\n}\n\nfragment AssetPDFPreviewFragment on Asset {\n  __isAsset: __typename\n  ... on AssetPDF {\n    downloadUrl\n  }\n}\n\nfragment ContentImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      alt\n      url\n      width\n      height\n    }\n  }\n  placeholder: thumb {\n    webp {\n      url\n    }\n  }\n}\n"
+    "text": "query pageTemplatesItemFileDetailQuery(\n  $file: Slug!\n) {\n  asset(slug: $file) {\n    __typename\n    ...AssetDetailBlockFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment AssetDetailBlockFragment on Node {\n  __isNode: __typename\n  ... on Asset {\n    __isAsset: __typename\n    slug\n    caption\n    kind\n    downloadUrl\n    fileSize\n    name\n    altText\n    preview {\n      storage\n      ...ContentImageFragment\n    }\n    ...AssetPDFPreviewFragment\n  }\n  ... on AssetImage {\n    updatedAt\n  }\n}\n\nfragment AssetPDFPreviewFragment on Asset {\n  __isAsset: __typename\n  ... on AssetPDF {\n    downloadUrl\n  }\n}\n\nfragment ContentImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      alt\n      url\n      width\n      height\n    }\n  }\n  blur: thumb {\n    webp {\n      url\n    }\n  }\n}\n"
   }
 };
 })();

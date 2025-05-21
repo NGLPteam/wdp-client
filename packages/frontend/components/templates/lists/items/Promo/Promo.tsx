@@ -25,6 +25,10 @@ export default function PromoListItem({
     entity?.__typename === "Item" || entity?.__typename === "Collection"
       ? entity.heroImage?.image.webp
       : null;
+  const blur =
+    entity?.__typename === "Item" || entity?.__typename === "Collection"
+      ? entity.heroImage?.blur?.webp?.url
+      : null;
 
   return (
     <li className={styles.item}>
@@ -50,6 +54,7 @@ export default function PromoListItem({
             layout="fill"
             objectFit="cover"
             objectPosition="center"
+            {...(blur ? { placeholder: "blur", blurDataURL: blur } : {})}
           />
         )}
       </NamedLink>

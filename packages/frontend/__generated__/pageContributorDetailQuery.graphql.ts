@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<28700481e98aabf1b2c6b9854d45de2a>>
+ * @generated SignedSource<<b9be37313112da3c9ea630414f55854b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -128,13 +128,36 @@ v11 = [
   }
 ],
 v12 = {
+  "alias": "blur",
+  "args": null,
+  "concreteType": "ImageSize",
+  "kind": "LinkedField",
+  "name": "thumb",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ImageDerivative",
+      "kind": "LinkedField",
+      "name": "webp",
+      "plural": false,
+      "selections": [
+        (v9/*: any*/)
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "slug",
   "storageKey": null
 },
-v13 = [
+v14 = [
   {
     "alias": null,
     "args": null,
@@ -143,7 +166,7 @@ v13 = [
     "storageKey": null
   }
 ],
-v14 = [
+v15 = [
   {
     "kind": "InlineFragment",
     "selections": [
@@ -174,7 +197,8 @@ v14 = [
             "plural": false,
             "selections": (v11/*: any*/),
             "storageKey": null
-          }
+          },
+          (v12/*: any*/)
         ],
         "storageKey": null
       },
@@ -213,20 +237,20 @@ v14 = [
       {
         "kind": "InlineFragment",
         "selections": [
-          (v12/*: any*/)
+          (v13/*: any*/)
         ],
         "type": "Sluggable",
         "abstractKey": "__isSluggable"
       },
       {
         "kind": "InlineFragment",
-        "selections": (v13/*: any*/),
+        "selections": (v14/*: any*/),
         "type": "Item",
         "abstractKey": null
       },
       {
         "kind": "InlineFragment",
-        "selections": (v13/*: any*/),
+        "selections": (v14/*: any*/),
         "type": "Collection",
         "abstractKey": null
       }
@@ -236,7 +260,7 @@ v14 = [
   },
   (v4/*: any*/)
 ],
-v15 = {
+v16 = {
   "kind": "InlineFragment",
   "selections": [
     (v4/*: any*/)
@@ -244,28 +268,28 @@ v15 = {
   "type": "Node",
   "abstractKey": "__isNode"
 },
-v16 = {
+v17 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "totalCount",
   "storageKey": null
 },
-v17 = [
+v18 = [
   {
     "kind": "Literal",
     "name": "order",
     "value": "POSITION_ASCENDING"
   }
 ],
-v18 = {
+v19 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "width",
   "storageKey": null
 },
-v19 = {
+v20 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -382,7 +406,7 @@ return {
                             "kind": "LinkedField",
                             "name": "item",
                             "plural": false,
-                            "selections": (v14/*: any*/),
+                            "selections": (v15/*: any*/),
                             "storageKey": null
                           }
                         ],
@@ -401,7 +425,7 @@ return {
                             "kind": "LinkedField",
                             "name": "collection",
                             "plural": false,
-                            "selections": (v14/*: any*/),
+                            "selections": (v15/*: any*/),
                             "storageKey": null
                           }
                         ],
@@ -412,7 +436,7 @@ return {
                         "kind": "TypeDiscriminator",
                         "abstractKey": "__isAnyContributorAttribution"
                       },
-                      (v15/*: any*/)
+                      (v16/*: any*/)
                     ],
                     "storageKey": null
                   },
@@ -424,7 +448,7 @@ return {
                     "name": "pageInfo",
                     "plural": false,
                     "selections": [
-                      (v16/*: any*/),
+                      (v17/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -470,7 +494,8 @@ return {
                     "plural": false,
                     "selections": (v11/*: any*/),
                     "storageKey": null
-                  }
+                  },
+                  (v12/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -548,13 +573,13 @@ return {
             "type": "Contributor",
             "abstractKey": "__isContributor"
           },
-          (v15/*: any*/)
+          (v16/*: any*/)
         ],
         "storageKey": null
       },
       {
         "alias": null,
-        "args": (v17/*: any*/),
+        "args": (v18/*: any*/),
         "concreteType": "CommunityConnection",
         "kind": "LinkedField",
         "name": "communities",
@@ -568,7 +593,7 @@ return {
             "name": "pageInfo",
             "plural": false,
             "selections": [
-              (v16/*: any*/)
+              (v17/*: any*/)
             ],
             "storageKey": null
           }
@@ -637,8 +662,8 @@ return {
                     "selections": [
                       (v8/*: any*/),
                       (v9/*: any*/),
-                      (v18/*: any*/),
-                      (v19/*: any*/)
+                      (v19/*: any*/),
+                      (v20/*: any*/)
                     ],
                     "type": "Image",
                     "abstractKey": "__isImage"
@@ -669,8 +694,8 @@ return {
                     "name": "webp",
                     "plural": false,
                     "selections": [
-                      (v18/*: any*/),
                       (v19/*: any*/),
+                      (v20/*: any*/),
                       {
                         "kind": "InlineFragment",
                         "selections": (v10/*: any*/),
@@ -692,7 +717,7 @@ return {
       },
       {
         "alias": "pickerCommunities",
-        "args": (v17/*: any*/),
+        "args": (v18/*: any*/),
         "concreteType": "CommunityConnection",
         "kind": "LinkedField",
         "name": "communities",
@@ -714,7 +739,7 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v12/*: any*/),
+                  (v13/*: any*/),
                   (v6/*: any*/),
                   (v4/*: any*/)
                 ],
@@ -729,12 +754,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c9bbe191455875913f2d9c141d7b5c27",
+    "cacheID": "9144abb3903c479130e9f2c89dd43d82",
     "id": null,
     "metadata": {},
     "name": "pageContributorDetailQuery",
     "operationKind": "query",
-    "text": "query pageContributorDetailQuery(\n  $slug: Slug!\n  $page: Int\n) {\n  contributor(slug: $slug) {\n    __typename\n    ...ContributorDetailFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...AppBodyFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  communities(order: POSITION_ASCENDING) {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    ...InstallationNameFragment\n    id\n  }\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  communities(order: POSITION_ASCENDING) {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      logoMode\n    }\n    ...InstallationNameFragment\n    id\n  }\n  ...CommunityPickerFragment\n}\n\nfragment BrowseListLayoutFragment on PageInfo {\n  ...PaginationFragment\n  ...PageCountFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  pickerCommunities: communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment ContributionSummaryEntityFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  subtitle\n  thumbnail {\n    storage\n    ...SquareThumbnailFragment\n  }\n  ... on ReferencesGlobalEntityDates {\n    __isReferencesGlobalEntityDates: __typename\n    published {\n      value\n      ...PrecisionDateFragment\n    }\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on Item {\n    summary\n  }\n  ... on Collection {\n    summary\n  }\n}\n\nfragment ContributionSummaryFragment on AnyContributorAttribution {\n  __isAnyContributorAttribution: __typename\n  ... on ContributorItemAttribution {\n    roles {\n      identifier\n      label\n      id\n    }\n    entity: item {\n      ...ContributionSummaryEntityFragment\n      id\n    }\n  }\n  ... on ContributorCollectionAttribution {\n    roles {\n      identifier\n      label\n      id\n    }\n    entity: collection {\n      ...ContributionSummaryEntityFragment\n      id\n    }\n  }\n}\n\nfragment ContributorAvatarFragment on ImageAttachment {\n  small {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment ContributorDetailFragment on Contributor {\n  __isContributor: __typename\n  ...ContributorNameFragment\n  bio\n  orcid\n  attributions(page: $page, perPage: 25) {\n    nodes {\n      __typename\n      ... on ContributorItemAttribution {\n        id\n      }\n      ... on ContributorCollectionAttribution {\n        id\n      }\n      ...ContributionSummaryFragment\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    pageInfo {\n      totalCount\n      ...BrowseListLayoutFragment\n    }\n  }\n  image {\n    storage\n    ...ContributorAvatarFragment\n  }\n  links {\n    title\n    url\n  }\n  ... on PersonContributor {\n    affiliation\n    title\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n    logoMode\n  }\n  logo {\n    storage\n    original {\n      originalFilename\n      ...ImageFragment\n    }\n    sansText {\n      size\n      webp {\n        width\n        height\n        ...ImageFragment\n      }\n    }\n  }\n}\n\nfragment PageCountFragment on PageInfo {\n  totalCount\n  page\n  perPage\n}\n\nfragment PaginationFragment on PageInfo {\n  page\n  pageCount\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  thumb: medium {\n    webp {\n      alt\n      url\n    }\n  }\n}\n"
+    "text": "query pageContributorDetailQuery(\n  $slug: Slug!\n  $page: Int\n) {\n  contributor(slug: $slug) {\n    __typename\n    ...ContributorDetailFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...AppBodyFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  communities(order: POSITION_ASCENDING) {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    ...InstallationNameFragment\n    id\n  }\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  communities(order: POSITION_ASCENDING) {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      logoMode\n    }\n    ...InstallationNameFragment\n    id\n  }\n  ...CommunityPickerFragment\n}\n\nfragment BrowseListLayoutFragment on PageInfo {\n  ...PaginationFragment\n  ...PageCountFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  pickerCommunities: communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment ContributionSummaryEntityFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  subtitle\n  thumbnail {\n    storage\n    ...SquareThumbnailFragment\n  }\n  ... on ReferencesGlobalEntityDates {\n    __isReferencesGlobalEntityDates: __typename\n    published {\n      value\n      ...PrecisionDateFragment\n    }\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n  ... on Item {\n    summary\n  }\n  ... on Collection {\n    summary\n  }\n}\n\nfragment ContributionSummaryFragment on AnyContributorAttribution {\n  __isAnyContributorAttribution: __typename\n  ... on ContributorItemAttribution {\n    roles {\n      identifier\n      label\n      id\n    }\n    entity: item {\n      ...ContributionSummaryEntityFragment\n      id\n    }\n  }\n  ... on ContributorCollectionAttribution {\n    roles {\n      identifier\n      label\n      id\n    }\n    entity: collection {\n      ...ContributionSummaryEntityFragment\n      id\n    }\n  }\n}\n\nfragment ContributorAvatarFragment on ImageAttachment {\n  small {\n    webp {\n      alt\n      url\n    }\n  }\n  blur: thumb {\n    webp {\n      url\n    }\n  }\n}\n\nfragment ContributorDetailFragment on Contributor {\n  __isContributor: __typename\n  ...ContributorNameFragment\n  bio\n  orcid\n  attributions(page: $page, perPage: 25) {\n    nodes {\n      __typename\n      ... on ContributorItemAttribution {\n        id\n      }\n      ... on ContributorCollectionAttribution {\n        id\n      }\n      ...ContributionSummaryFragment\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    pageInfo {\n      totalCount\n      ...BrowseListLayoutFragment\n    }\n  }\n  image {\n    storage\n    ...ContributorAvatarFragment\n  }\n  links {\n    title\n    url\n  }\n  ... on PersonContributor {\n    affiliation\n    title\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n    logoMode\n  }\n  logo {\n    storage\n    original {\n      originalFilename\n      ...ImageFragment\n    }\n    sansText {\n      size\n      webp {\n        width\n        height\n        ...ImageFragment\n      }\n    }\n  }\n}\n\nfragment PageCountFragment on PageInfo {\n  totalCount\n  page\n  perPage\n}\n\nfragment PaginationFragment on PageInfo {\n  page\n  pageCount\n}\n\nfragment PrecisionDateFragment on VariablePrecisionDate {\n  precision\n  value\n}\n\nfragment SquareThumbnailFragment on ImageAttachment {\n  thumb: medium {\n    webp {\n      alt\n      url\n    }\n  }\n  blur: thumb {\n    webp {\n      url\n    }\n  }\n}\n"
   }
 };
 })();

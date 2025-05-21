@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9b572d6b315212049c5e11dd0eb7a1bf>>
+ * @generated SignedSource<<717f8ae06d3bff421c74fa1abc913016>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -198,7 +198,7 @@ return {
                     "storageKey": null
                   },
                   {
-                    "alias": "placeholder",
+                    "alias": "blur",
                     "args": null,
                     "concreteType": "ImageSize",
                     "kind": "LinkedField",
@@ -234,12 +234,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "235198c7a7511f12f2d1ec46ddfa63b8",
+    "cacheID": "b335ae564306fb42cffdd6b8807be65f",
     "id": null,
     "metadata": {},
     "name": "pageTemplatesItemPageQuery",
     "operationKind": "query",
-    "text": "query pageTemplatesItemPageQuery(\n  $slug: Slug!\n  $pageSlug: String!\n) {\n  item(slug: $slug) {\n    page(slug: $pageSlug) {\n      ...EntityPageLayoutFragment\n      id\n    }\n    id\n  }\n}\n\nfragment ContentImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      alt\n      url\n      width\n      height\n    }\n  }\n  placeholder: thumb {\n    webp {\n      url\n    }\n  }\n}\n\nfragment EntityPageLayoutFragment on Page {\n  title\n  body\n  heroImage {\n    ...ContentImageFragment\n  }\n}\n"
+    "text": "query pageTemplatesItemPageQuery(\n  $slug: Slug!\n  $pageSlug: String!\n) {\n  item(slug: $slug) {\n    page(slug: $pageSlug) {\n      ...EntityPageLayoutFragment\n      id\n    }\n    id\n  }\n}\n\nfragment ContentImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      alt\n      url\n      width\n      height\n    }\n  }\n  blur: thumb {\n    webp {\n      url\n    }\n  }\n}\n\nfragment EntityPageLayoutFragment on Page {\n  title\n  body\n  heroImage {\n    ...ContentImageFragment\n  }\n}\n"
   }
 };
 })();
