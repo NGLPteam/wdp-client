@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4ad531f0d472843bdfd3da9294285625>>
+ * @generated SignedSource<<9f6f714bf306b0b0db3737200b7e0b35>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,11 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SquareThumbnailFragment$data = {
+  readonly blur: {
+    readonly webp: {
+      readonly url: string | null | undefined;
+    };
+  };
   readonly thumb: {
     readonly webp: {
       readonly alt: string | null | undefined;
@@ -24,7 +29,15 @@ export type SquareThumbnailFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"SquareThumbnailFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
+};
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -53,13 +66,30 @@ const node: ReaderFragment = {
               "name": "alt",
               "storageKey": null
             },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "url",
-              "storageKey": null
-            }
+            (v0/*: any*/)
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": "blur",
+      "args": null,
+      "concreteType": "ImageSize",
+      "kind": "LinkedField",
+      "name": "thumb",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageDerivative",
+          "kind": "LinkedField",
+          "name": "webp",
+          "plural": false,
+          "selections": [
+            (v0/*: any*/)
           ],
           "storageKey": null
         }
@@ -70,7 +100,8 @@ const node: ReaderFragment = {
   "type": "ImageAttachment",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "bb327a0c9f9a99e531b0e9d8077cafaf";
+(node as any).hash = "4d853257e01619ae183124205962356c";
 
 export default node;

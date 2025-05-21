@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ed40bd5a28bd31e532602dbbf26c8ac4>>
+ * @generated SignedSource<<8c260903b299aa9a62b3969fa2b8042c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,17 +11,17 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ContentImageFragment$data = {
+  readonly blur: {
+    readonly webp: {
+      readonly url: string | null | undefined;
+    };
+  };
   readonly image: {
     readonly webp: {
       readonly alt: string | null | undefined;
       readonly height: number | null | undefined;
       readonly url: string | null | undefined;
       readonly width: number | null | undefined;
-    };
-  };
-  readonly placeholder: {
-    readonly webp: {
-      readonly url: string | null | undefined;
     };
   };
   readonly " $fragmentType": "ContentImageFragment";
@@ -90,7 +90,7 @@ return {
       "storageKey": null
     },
     {
-      "alias": "placeholder",
+      "alias": "blur",
       "args": null,
       "concreteType": "ImageSize",
       "kind": "LinkedField",
@@ -118,6 +118,6 @@ return {
 };
 })();
 
-(node as any).hash = "5f086e33d828c95d8eaa0bc7b8669570";
+(node as any).hash = "91392e3266b6ec5831474fcfeb82298e";
 
 export default node;

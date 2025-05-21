@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fd8b65e9f065a9ea2b5c0d1f7387f75d>>
+ * @generated SignedSource<<1b5d4d5df9b8737fb906ff6071422a81>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -50,6 +50,13 @@ v3 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
   "storageKey": null
 };
 return {
@@ -241,13 +248,30 @@ return {
                                     "name": "alt",
                                     "storageKey": null
                                   },
-                                  {
-                                    "alias": null,
-                                    "args": null,
-                                    "kind": "ScalarField",
-                                    "name": "url",
-                                    "storageKey": null
-                                  }
+                                  (v4/*: any*/)
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          },
+                          {
+                            "alias": "blur",
+                            "args": null,
+                            "concreteType": "ImageSize",
+                            "kind": "LinkedField",
+                            "name": "thumb",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "ImageDerivative",
+                                "kind": "LinkedField",
+                                "name": "webp",
+                                "plural": false,
+                                "selections": [
+                                  (v4/*: any*/)
                                 ],
                                 "storageKey": null
                               }
@@ -316,12 +340,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b944417dbef74a2db1c6792e0849a869",
+    "cacheID": "5d77cb1d17019ffc32b8a9a0feef0886",
     "id": null,
     "metadata": {},
     "name": "pageTemplatesItemContributorsQuery",
     "operationKind": "query",
-    "text": "query pageTemplatesItemContributorsQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    ...ContributionsBlockFragment\n    id\n  }\n}\n\nfragment ContributionsBlockFragment on Item {\n  attributions {\n    slug\n    roles {\n      label\n      id\n    }\n    contributor {\n      __typename\n      image {\n        storage\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...ContributorFragment\n    id\n  }\n}\n\nfragment ContributorAvatarFragment on ImageAttachment {\n  small {\n    webp {\n      alt\n      url\n    }\n  }\n}\n\nfragment ContributorFragment on Attribution {\n  __isAttribution: __typename\n  roles {\n    identifier\n    label\n    id\n  }\n  contributor {\n    __typename\n    title\n    affiliation\n    slug\n    image {\n      ...ContributorAvatarFragment\n    }\n    ...ContributorNameFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n"
+    "text": "query pageTemplatesItemContributorsQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    ...ContributionsBlockFragment\n    id\n  }\n}\n\nfragment ContributionsBlockFragment on Item {\n  attributions {\n    slug\n    roles {\n      label\n      id\n    }\n    contributor {\n      __typename\n      image {\n        storage\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    ...ContributorFragment\n    id\n  }\n}\n\nfragment ContributorAvatarFragment on ImageAttachment {\n  small {\n    webp {\n      alt\n      url\n    }\n  }\n  blur: thumb {\n    webp {\n      url\n    }\n  }\n}\n\nfragment ContributorFragment on Attribution {\n  __isAttribution: __typename\n  roles {\n    identifier\n    label\n    id\n  }\n  contributor {\n    __typename\n    title\n    affiliation\n    slug\n    image {\n      ...ContributorAvatarFragment\n    }\n    ...ContributorNameFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorNameFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    __typename\n    familyName\n    givenName\n  }\n  ... on OrganizationContributor {\n    __typename\n    legalName\n  }\n}\n"
   }
 };
 })();

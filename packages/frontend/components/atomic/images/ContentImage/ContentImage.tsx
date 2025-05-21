@@ -9,7 +9,7 @@ export default function ContentImage({ data }: Props) {
 
   if (!imageData) return null;
 
-  const { image, placeholder } = imageData;
+  const { image, blur } = imageData;
 
   return image ? (
     <ContentImageBase
@@ -17,9 +17,8 @@ export default function ContentImage({ data }: Props) {
       url={image.webp.url}
       width={image.webp.width}
       height={image.webp.height}
-      {...(placeholder?.webp?.url && {
-        placeholder: "blur",
-        blurDataURL: placeholder.webp.url,
+      {...(blur?.webp?.url && {
+        blurDataURL: blur.webp.url,
       })}
     />
   ) : null;
@@ -39,7 +38,7 @@ const fragment = graphql`
         height
       }
     }
-    placeholder: thumb {
+    blur: thumb {
       webp {
         url
       }

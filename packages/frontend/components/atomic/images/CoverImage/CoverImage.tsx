@@ -15,8 +15,12 @@ export default function CoverImage({
   title,
   id,
 }: ImageProps | PlaceholderProps) {
-  const imageData = useMaybeFragment(fragment, data);
-  const image = imageData?.image.webp;
+  const { image: imageData, blur: blurData } =
+    useMaybeFragment(fragment, data) ?? {};
+
+  const image = imageData?.webp;
+  const blur = blurData?.webp;
+
   const style = {
     "--CoverImage-max-width": pxToRem(maxWidth),
     "--CoverImage-max-height": pxToRem(maxHeight),
@@ -43,6 +47,7 @@ export default function CoverImage({
         alt={image.alt || ""}
         width={image.width || maxWidth}
         height={image.height || maxHeight}
+        {...(blur?.url ? { placeholder: "blur", blurDataURL: blur.url } : {})}
       />
     </figure>
   );
@@ -75,6 +80,11 @@ const fragment = graphql`
         alt
         width
         height
+      }
+    }
+    blur: thumb {
+      webp {
+        url
       }
     }
   }
