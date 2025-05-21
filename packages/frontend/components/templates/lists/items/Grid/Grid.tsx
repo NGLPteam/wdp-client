@@ -45,7 +45,14 @@ export default function GridListItem({
   return (
     <li>
       <NamedLink className={styles.link} href={href}>
-        {showCover && <CoverImage {...entity} maxWidth={168} maxHeight={248} />}
+        {showCover && (
+          <CoverImage
+            {...entity}
+            data={entity.thumbnail}
+            maxWidth={168}
+            maxHeight={248}
+          />
+        )}
         <div className={styles.text}>
           {showCover && renderContext}
           {header?.valid && !!header.content && (

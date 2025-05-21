@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f70e851f4606cb43d888b27b0cf7f1e5>>
+ * @generated SignedSource<<e51cc850d0121cc1977b44d3859a5700>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -49,6 +49,11 @@ export type sharedListTemplateFragment$data = {
     readonly id?: string;
     readonly slug: string;
     readonly thumbnail: {
+      readonly image: {
+        readonly webp: {
+          readonly url: string | null | undefined;
+        };
+      };
       readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
     };
     readonly title?: string;
@@ -60,6 +65,11 @@ export type sharedListTemplateFragment$data = {
     readonly id?: string;
     readonly slug: string;
     readonly thumbnail: {
+      readonly image: {
+        readonly webp: {
+          readonly url: string | null | undefined;
+        };
+      };
       readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
     };
     readonly title?: string;
@@ -121,6 +131,6 @@ const node: ReaderInlineDataFragment = {
   "name": "sharedListTemplateFragment"
 };
 
-(node as any).hash = "c1bc3808839658c6c0ac55ad51b99074";
+(node as any).hash = "21c546a7c0e8b88b4f10b31fc83de4dd";
 
 export default node;

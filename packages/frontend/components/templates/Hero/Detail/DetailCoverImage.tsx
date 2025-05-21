@@ -7,11 +7,16 @@ export default function DetailCoverImage({
 }: {
   data?: DetailCoverImageFragment$key | null;
 }) {
-  const imageProps = useFragment(fragment, data);
+  const { thumbnail, ...imageProps } = useFragment(fragment, data) ?? {};
 
-  return imageProps?.thumbnail ? (
-    <CoverImage maxWidth={225} maxHeight={300} {...imageProps} />
-  ) : null;
+  return (
+    <CoverImage
+      maxWidth={225}
+      maxHeight={300}
+      data={thumbnail}
+      {...imageProps}
+    />
+  );
 }
 
 const fragment = graphql`
