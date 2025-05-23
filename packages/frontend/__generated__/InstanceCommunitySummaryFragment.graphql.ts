@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8b7691fb358412ed709b08963d5e4697>>
+ * @generated SignedSource<<cba5c1a758fc2c5315d0e00674135a7c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,14 +15,20 @@ export type InstanceCommunitySummaryFragment$data = {
   readonly heroImage: {
     readonly large: {
       readonly webp: {
-        readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
+        readonly alt: string | null | undefined;
+        readonly height: number | null | undefined;
+        readonly url: string | null | undefined;
+        readonly width: number | null | undefined;
       };
     };
     readonly storage: AttachmentStorage | null | undefined;
   };
   readonly logo: {
     readonly original: {
-      readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
+      readonly alt: string | null | undefined;
+      readonly height: number | null | undefined;
+      readonly url: string | null | undefined;
+      readonly width: number | null | undefined;
     };
     readonly storage: AttachmentStorage | null | undefined;
   };
@@ -59,9 +65,32 @@ v1 = {
 },
 v2 = [
   {
+    "alias": null,
     "args": null,
-    "kind": "FragmentSpread",
-    "name": "ImageFragment"
+    "kind": "ScalarField",
+    "name": "alt",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "url",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "width",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "height",
+    "storageKey": null
   }
 ];
 return {
@@ -179,6 +208,6 @@ return {
 };
 })();
 
-(node as any).hash = "ad480d76ff879209eac700fd6db1cde1";
+(node as any).hash = "f22991197d097aa9049aa5abcdc1d25d";
 
 export default node;

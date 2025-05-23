@@ -5,18 +5,10 @@ import { Avatar } from "components/atomic";
 import { ContributorAvatarFragment$key } from "@/relay/ContributorAvatarFragment.graphql";
 
 const ContributorAvatar = ({ data }: Props) => {
-  const imageData = useMaybeFragment(fragment, data);
-  const image = imageData?.small?.webp;
-  const blur = imageData?.blur?.webp;
+  const imgData = useMaybeFragment(fragment, data);
+  const image = imgData?.small?.webp;
 
-  return (
-    <Avatar
-      size="lg"
-      url={image?.url}
-      alt={image?.alt}
-      blurDataURL={blur?.url ?? undefined}
-    />
-  );
+  return <Avatar size="lg" url={image?.url} alt={image?.alt} loading="lazy" />;
 };
 
 interface Props {
@@ -30,11 +22,6 @@ const fragment = graphql`
     small {
       webp {
         alt
-        url
-      }
-    }
-    blur: thumb {
-      webp {
         url
       }
     }

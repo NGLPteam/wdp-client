@@ -1,10 +1,8 @@
-import React from "react";
-import Image from "next/legacy/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import IconFactory from "@/components/factories/IconFactory";
 import styles from "./Avatar.module.css";
 
-const Avatar = ({ url, alt, size = "sm", blurDataURL }: Props) => {
+const Avatar = ({ url, alt, size = "sm", loading }: Props) => {
   const imageSize = size === "sm" ? 32 : 60;
 
   const style = {
@@ -16,12 +14,12 @@ const Avatar = ({ url, alt, size = "sm", blurDataURL }: Props) => {
   return (
     <div className={styles.wrapper} style={style}>
       {url && (
-        <Image
+        <img
           src={url}
           alt={alt || ""}
           width={imageSize}
           height={imageSize}
-          {...(blurDataURL ? { placeholder: "blur", blurDataURL } : {})}
+          loading={loading}
         />
       )}
       <IconFactory
@@ -37,7 +35,7 @@ interface Props {
   size?: "sm" | "lg";
   alt?: string | null;
   url?: string | null;
-  blurDataURL?: string;
+  loading?: "eager" | "lazy";
 }
 
 export default Avatar;

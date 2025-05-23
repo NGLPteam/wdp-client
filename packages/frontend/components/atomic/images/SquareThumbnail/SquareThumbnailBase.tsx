@@ -1,12 +1,11 @@
 import classNames from "classnames";
-import Image from "next/legacy/image";
 import styles from "./SquareThumbnail.module.css";
 
 export default function SquareThumbnailBase({
   alt,
   url,
   size,
-  blurDataURL,
+  loading,
 }: BaseProps) {
   return url ? (
     <div
@@ -19,13 +18,11 @@ export default function SquareThumbnailBase({
           }
         : {})}
     >
-      <Image
+      <img
         alt={alt || ""}
         src={url}
-        layout="fill"
-        objectFit="cover"
-        objectPosition="center"
-        {...(blurDataURL ? { placeholder: "blur", blurDataURL } : {})}
+        className={styles.img}
+        loading={loading ?? "lazy"}
       />
     </div>
   ) : null;
@@ -35,5 +32,5 @@ interface BaseProps {
   alt?: string | null;
   url?: string | null;
   size?: number;
-  blurDataURL?: string;
+  loading?: "eager" | "lazy";
 }

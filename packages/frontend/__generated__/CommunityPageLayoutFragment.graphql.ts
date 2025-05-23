@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ab56bd4381d66ddcc009afb08ab83696>>
+ * @generated SignedSource<<3cfd493b7624cdd04dce2a07bd8b32c0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,11 +13,13 @@ import { FragmentRefs } from "relay-runtime";
 export type CommunityPageLayoutFragment$data = {
   readonly body: string;
   readonly heroImage: {
-    readonly " $fragmentSpreads": FragmentRefs<"HeroImageFragment">;
+    readonly hero: {
+      readonly webp: {
+        readonly alt: string | null | undefined;
+        readonly url: string | null | undefined;
+      };
+    };
   };
-  readonly heroImageMetadata: {
-    readonly " $fragmentSpreads": FragmentRefs<"HeroImageMetadataFragment">;
-  } | null | undefined;
   readonly title: string;
   readonly " $fragmentType": "CommunityPageLayoutFragment";
 };
@@ -55,25 +57,40 @@ const node: ReaderFragment = {
       "plural": false,
       "selections": [
         {
+          "alias": null,
           "args": null,
-          "kind": "FragmentSpread",
-          "name": "HeroImageFragment"
-        }
-      ],
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ImageMetadata",
-      "kind": "LinkedField",
-      "name": "heroImageMetadata",
-      "plural": false,
-      "selections": [
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "HeroImageMetadataFragment"
+          "concreteType": "ImageSize",
+          "kind": "LinkedField",
+          "name": "hero",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "ImageDerivative",
+              "kind": "LinkedField",
+              "name": "webp",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "url",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "alt",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -83,6 +100,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "f4957dd0cba0c6ce31e41e43560caa95";
+(node as any).hash = "0379e46db1f64b091388c873f8f08fac";
 
 export default node;

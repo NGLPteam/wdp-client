@@ -14,15 +14,9 @@ export default function SquareThumbnail({
 }: Props & ImageProps) {
   const imageData = useMaybeFragment(fragment, data);
   const image = imageData?.thumb?.webp;
-  const blur = imageData?.blur?.webp;
 
   return image ? (
-    <SquareThumbnailBase
-      {...props}
-      alt={image.alt}
-      url={image.url}
-      blurDataURL={blur?.url ?? undefined}
-    />
+    <SquareThumbnailBase {...props} alt={image.alt} url={image.url} />
   ) : null;
 }
 
@@ -35,11 +29,6 @@ const fragment = graphql`
     thumb: medium {
       webp {
         alt
-        url
-      }
-    }
-    blur: thumb {
-      webp {
         url
       }
     }

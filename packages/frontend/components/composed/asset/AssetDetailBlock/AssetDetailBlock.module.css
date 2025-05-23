@@ -18,3 +18,9 @@
     margin-block-start: 0.25rem;
   }
 }
+
+.image {
+  object-fit: contain;
+  object-position: left;
+  width: 1160px;
+}

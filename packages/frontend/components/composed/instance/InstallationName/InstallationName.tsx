@@ -1,9 +1,7 @@
-import { useMemo } from "react";
 import { graphql } from "react-relay";
 import Link from "next/link";
 import classNames from "classnames";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import { Image } from "components/atomic";
 import { InstallationNameFragment$key } from "@/relay/InstallationNameFragment.graphql";
 import styles from "./InstallationName.module.css";
 
@@ -13,31 +11,28 @@ export default function InstallationName({
   className = "t-label-mix",
   data,
 }: Props) {
-  const siteData = useMaybeFragment(fragment, data);
+  const { site, logo } = useMaybeFragment(fragment, data) ?? {};
 
-  const isSvg = siteData?.logo?.original?.originalFilename?.endsWith(".svg");
+  const isSvg = logo?.original?.originalFilename?.endsWith(".svg");
 
-  const ratio = useMemo(() => {
-    return (
-      (siteData?.logo?.sansText?.webp?.width || 1) /
-      (siteData?.logo?.sansText?.webp?.height || 1)
-    );
-  }, [siteData]);
+  const logoImage = isSvg ? logo?.original : logo?.sansText?.webp;
 
-  return siteData?.site?.installationName ? (
+  const ratio =
+    (logo?.sansText?.webp?.width || 1) / (logo?.sansText?.webp?.height || 1);
+
+  return site?.installationName ? (
     <Link href="/">
       <span className={classNames(className, styles.link)}>
-        {siteData?.logo?.storage && (
-          <Image
-            data={isSvg ? siteData.logo.original : siteData.logo.sansText?.webp}
+        {logoImage?.url && (
+          <img
+            src={logoImage.url}
             width={LOGO_SIZE * ratio}
             height={LOGO_SIZE}
-            alt={siteData.site.installationName}
+            alt={`${site.installationName} logo`}
           />
         )}
-        {(!siteData?.logo?.storage ||
-          siteData?.site?.logoMode === "WITH_TEXT") && (
-          <span className={styles.name}>{siteData.site.installationName}</span>
+        {(!logoImage?.url || site?.logoMode === "WITH_TEXT") && (
+          <span className={styles.name}>{site.installationName}</span>
         )}
       </span>
     </Link>
@@ -59,14 +54,18 @@ const fragment = graphql`
       storage
       original {
         originalFilename
-        ...ImageFragment
+        alt
+        url
+        width
+        height
       }
       sansText {
         size
         webp {
+          alt
+          url
           width
           height
-          ...ImageFragment
         }
       }
     }
