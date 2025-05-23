@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
-import Image from "next/legacy/image";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { NamedLink } from "components/atomic";
 import { CommunityLogoFragment$key } from "@/relay/CommunityLogoFragment.graphql";
@@ -13,7 +12,6 @@ export default function CommunityLogo({ data, slug }: Props) {
   const logo = useMaybeFragment(fragment, data);
 
   const image = useMemo(() => (logo?.storage ? logo.original : null), [logo]);
-  const blur = logo?.blur?.webp?.url;
 
   const width = image?.width || 1;
   const height = image?.height || 1;
@@ -29,13 +27,11 @@ export default function CommunityLogo({ data, slug }: Props) {
           }}
           className={styles.logo}
         >
-          <Image
+          <img
             alt=""
             src={image.url}
             width={image.width || SIZE}
             height={image.height || SIZE}
-            layout="responsive"
-            {...(blur ? { placeholder: "blur", blurDataURL: blur } : {})}
           />
         </figure>
       </span>
@@ -55,11 +51,6 @@ const fragment = graphql`
       url
       width
       height
-    }
-    blur: thumb {
-      webp {
-        url
-      }
     }
   }
 `;

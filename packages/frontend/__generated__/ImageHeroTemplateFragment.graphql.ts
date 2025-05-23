@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7fa4ae301631cec597c41347cc673ffe>>
+ * @generated SignedSource<<53b83ef3649add07f00c18d4edbb7621>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,20 +9,14 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type ImageHeroTemplateFragment$data = {
   readonly hero: {
     readonly webp: {
+      readonly alt: string | null | undefined;
       readonly height: number | null | undefined;
       readonly url: string | null | undefined;
       readonly width: number | null | undefined;
-    };
-  };
-  readonly storage: AttachmentStorage | null | undefined;
-  readonly thumb: {
-    readonly webp: {
-      readonly url: string | null | undefined;
     };
   };
   readonly " $fragmentType": "ImageHeroTemplateFragment";
@@ -32,27 +26,12 @@ export type ImageHeroTemplateFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"ImageHeroTemplateFragment">;
 };
 
-const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "url",
-  "storageKey": null
-};
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "ImageHeroTemplateFragment",
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "storage",
-      "storageKey": null
-    },
     {
       "alias": null,
       "args": null,
@@ -69,7 +48,20 @@ return {
           "name": "webp",
           "plural": false,
           "selections": [
-            (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "url",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "alt",
+              "storageKey": null
+            },
             {
               "alias": null,
               "args": null,
@@ -89,36 +81,12 @@ return {
         }
       ],
       "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ImageSize",
-      "kind": "LinkedField",
-      "name": "thumb",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "ImageDerivative",
-          "kind": "LinkedField",
-          "name": "webp",
-          "plural": false,
-          "selections": [
-            (v0/*: any*/)
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
     }
   ],
   "type": "ImageAttachment",
   "abstractKey": null
 };
-})();
 
-(node as any).hash = "1087932e147ad5c58bed8f3177132c21";
+(node as any).hash = "4eb3b560d71913e69839a46ca39aeb2e";
 
 export default node;

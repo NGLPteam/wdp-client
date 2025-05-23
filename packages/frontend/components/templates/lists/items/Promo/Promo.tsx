@@ -1,4 +1,3 @@
-import Image from "next/legacy/image";
 import { useSharedListItemTemplateFragment } from "@/components/templates/shared/shared.listItems.graphql";
 import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTemplateFragment.graphql";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
@@ -25,13 +24,19 @@ export default function PromoListItem({
     entity?.__typename === "Item" || entity?.__typename === "Collection"
       ? entity.heroImage?.image.webp
       : null;
-  const blur =
-    entity?.__typename === "Item" || entity?.__typename === "Collection"
-      ? entity.heroImage?.blur?.webp?.url
-      : null;
 
   return (
     <li className={styles.item}>
+      {!!image && !!image.url && (
+        <img
+          className={styles.image}
+          role="presentation"
+          alt={image.alt ?? ""}
+          src={image.url}
+          loading="lazy"
+          decoding="async"
+        />
+      )}
       <NamedLink href={href}>
         <div className={styles.text}>
           <div className={styles.group}>
@@ -45,18 +50,6 @@ export default function PromoListItem({
             </h3>
           )}
         </div>
-        {!!image && !!image.url && (
-          <Image
-            className={styles.image}
-            role="presentation"
-            alt={image.alt || ""}
-            src={image.url}
-            layout="fill"
-            objectFit="cover"
-            objectPosition="center"
-            {...(blur ? { placeholder: "blur", blurDataURL: blur } : {})}
-          />
-        )}
       </NamedLink>
     </li>
   );

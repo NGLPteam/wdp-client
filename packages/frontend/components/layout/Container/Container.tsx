@@ -7,7 +7,6 @@ import styles from "./Container.module.css";
 interface Props extends PropsWithChildren {
   as?: "section" | "article" | "header" | "div" | "footer";
   width?: "wide" | "max";
-  blockPadding?: "lg" | "md" | "sm" | "xSm";
   bgColor?: HeroBackground | null;
   className?: string;
   id?: string;

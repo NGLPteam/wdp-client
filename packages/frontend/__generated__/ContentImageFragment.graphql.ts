@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8c260903b299aa9a62b3969fa2b8042c>>
+ * @generated SignedSource<<b0a202857389b1b60e16f4b2fe52a528>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,11 +11,6 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ContentImageFragment$data = {
-  readonly blur: {
-    readonly webp: {
-      readonly url: string | null | undefined;
-    };
-  };
   readonly image: {
     readonly webp: {
       readonly alt: string | null | undefined;
@@ -31,15 +26,7 @@ export type ContentImageFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"ContentImageFragment">;
 };
 
-const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "url",
-  "storageKey": null
-};
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -68,7 +55,13 @@ return {
               "name": "alt",
               "storageKey": null
             },
-            (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "url",
+              "storageKey": null
+            },
             {
               "alias": null,
               "args": null,
@@ -88,36 +81,12 @@ return {
         }
       ],
       "storageKey": null
-    },
-    {
-      "alias": "blur",
-      "args": null,
-      "concreteType": "ImageSize",
-      "kind": "LinkedField",
-      "name": "thumb",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "ImageDerivative",
-          "kind": "LinkedField",
-          "name": "webp",
-          "plural": false,
-          "selections": [
-            (v0/*: any*/)
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
     }
   ],
   "type": "ImageAttachment",
   "abstractKey": null
 };
-})();
 
-(node as any).hash = "91392e3266b6ec5831474fcfeb82298e";
+(node as any).hash = "c0a7cbaece3de69af57615d80e636eab";
 
 export default node;

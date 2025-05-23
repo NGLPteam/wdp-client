@@ -33,10 +33,24 @@
   }
 }
 
+.heroImage {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 100%;
+}
+
 .logo {
   position: relative;
   width: 100%;
   height: 100%;
+}
+
+.logoImage {
+  object-fit: contain;
+  object-position: center;
+  height: 100%;
+  width: 100%;
 }
 
 .text {

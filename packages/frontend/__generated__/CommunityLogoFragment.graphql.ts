@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<92b14a8f6a00438cc26c6039cb958720>>
+ * @generated SignedSource<<0f1b00035d6175819fd8fc7420031b25>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,11 +12,6 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type CommunityLogoFragment$data = {
-  readonly blur: {
-    readonly webp: {
-      readonly url: string | null | undefined;
-    };
-  };
   readonly original: {
     readonly height: number | null | undefined;
     readonly url: string | null | undefined;
@@ -30,15 +25,7 @@ export type CommunityLogoFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"CommunityLogoFragment">;
 };
 
-const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "url",
-  "storageKey": null
-};
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -59,7 +46,13 @@ return {
       "name": "original",
       "plural": false,
       "selections": [
-        (v0/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "url",
+          "storageKey": null
+        },
         {
           "alias": null,
           "args": null,
@@ -76,36 +69,12 @@ return {
         }
       ],
       "storageKey": null
-    },
-    {
-      "alias": "blur",
-      "args": null,
-      "concreteType": "ImageSize",
-      "kind": "LinkedField",
-      "name": "thumb",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "ImageDerivative",
-          "kind": "LinkedField",
-          "name": "webp",
-          "plural": false,
-          "selections": [
-            (v0/*: any*/)
-          ],
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
     }
   ],
   "type": "ImageAttachment",
   "abstractKey": null
 };
-})();
 
-(node as any).hash = "e6da142d5e6a029565e3a8eb61891e82";
+(node as any).hash = "86c953527b3fe7e8527a6b8d740ec5ab";
 
 export default node;

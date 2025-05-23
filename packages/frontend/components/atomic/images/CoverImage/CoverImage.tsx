@@ -1,6 +1,5 @@
 import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
-import Image from "next/legacy/image";
 import { graphql } from "react-relay";
 import { pxToRem } from "@wdp/lib/theme/functions";
 import { CoverImageFragment$key } from "@/relay/CoverImageFragment.graphql";
@@ -12,26 +11,21 @@ export default function CoverImage({
   data,
   maxWidth,
   maxHeight,
-  title,
-  id,
+  ...props
 }: ImageProps | PlaceholderProps) {
-  const { image: imageData, blur: blurData } =
-    useMaybeFragment(fragment, data) ?? {};
-
-  const image = imageData?.webp;
-  const blur = blurData?.webp;
+  const { image } = useMaybeFragment(fragment, data) ?? {};
 
   const style = {
     "--CoverImage-max-width": pxToRem(maxWidth),
     "--CoverImage-max-height": pxToRem(maxHeight),
   } as React.CSSProperties;
 
-  if (!image || !image.url) {
+  if (!image || !image.webp.url) {
     return (
       <figure className={styles.figure} style={style}>
         <CoverPlaceholder
-          seed={id || "fallback-placeholder"}
-          title={title}
+          seed={"id" in props && props.id ? props.id : "fallback-placeholder"}
+          title={"title" in props ? props.title : undefined}
           maxWidth={maxWidth}
           maxHeight={maxHeight}
         />
@@ -41,13 +35,13 @@ export default function CoverImage({
 
   return (
     <figure className={styles.figure} style={style}>
-      <Image
-        layout="intrinsic"
-        src={image.url}
-        alt={image.alt || ""}
-        width={image.width || maxWidth}
-        height={image.height || maxHeight}
-        {...(blur?.url ? { placeholder: "blur", blurDataURL: blur.url } : {})}
+      <img
+        src={image.webp.url}
+        alt={image.webp.alt ?? ""}
+        width={image.webp.width || maxWidth}
+        height={image.webp.height || maxHeight}
+        loading={"loading" in props && props.loading ? props.loading : "lazy"}
+        decoding="async"
       />
     </figure>
   );
@@ -57,8 +51,7 @@ interface ImageProps {
   data?: CoverImageFragment$key | null;
   maxWidth: number;
   maxHeight: number;
-  title?: string;
-  id?: string;
+  loading?: "eager" | "lazy";
 }
 
 // If a placeholder fallback is requested, this component requires a title and id to
@@ -80,11 +73,6 @@ const fragment = graphql`
         alt
         width
         height
-      }
-    }
-    blur: thumb {
-      webp {
-        url
       }
     }
   }

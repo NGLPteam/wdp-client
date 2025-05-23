@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<717f8ae06d3bff421c74fa1abc913016>>
+ * @generated SignedSource<<6dd322472c2ddf7d390ae2aea4243334>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -52,13 +52,6 @@ v3 = [
   }
 ],
 v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "url",
-  "storageKey": null
-},
-v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -176,7 +169,13 @@ return {
                             "name": "alt",
                             "storageKey": null
                           },
-                          (v4/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "url",
+                            "storageKey": null
+                          },
                           {
                             "alias": null,
                             "args": null,
@@ -196,50 +195,27 @@ return {
                       }
                     ],
                     "storageKey": null
-                  },
-                  {
-                    "alias": "blur",
-                    "args": null,
-                    "concreteType": "ImageSize",
-                    "kind": "LinkedField",
-                    "name": "thumb",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "ImageDerivative",
-                        "kind": "LinkedField",
-                        "name": "webp",
-                        "plural": false,
-                        "selections": [
-                          (v4/*: any*/)
-                        ],
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
                   }
                 ],
                 "storageKey": null
               },
-              (v5/*: any*/)
+              (v4/*: any*/)
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "b335ae564306fb42cffdd6b8807be65f",
+    "cacheID": "1d80ecbd98734dc824ed6633d7d9049c",
     "id": null,
     "metadata": {},
     "name": "pageTemplatesItemPageQuery",
     "operationKind": "query",
-    "text": "query pageTemplatesItemPageQuery(\n  $slug: Slug!\n  $pageSlug: String!\n) {\n  item(slug: $slug) {\n    page(slug: $pageSlug) {\n      ...EntityPageLayoutFragment\n      id\n    }\n    id\n  }\n}\n\nfragment ContentImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      alt\n      url\n      width\n      height\n    }\n  }\n  blur: thumb {\n    webp {\n      url\n    }\n  }\n}\n\nfragment EntityPageLayoutFragment on Page {\n  title\n  body\n  heroImage {\n    ...ContentImageFragment\n  }\n}\n"
+    "text": "query pageTemplatesItemPageQuery(\n  $slug: Slug!\n  $pageSlug: String!\n) {\n  item(slug: $slug) {\n    page(slug: $pageSlug) {\n      ...EntityPageLayoutFragment\n      id\n    }\n    id\n  }\n}\n\nfragment ContentImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      alt\n      url\n      width\n      height\n    }\n  }\n}\n\nfragment EntityPageLayoutFragment on Page {\n  title\n  body\n  heroImage {\n    ...ContentImageFragment\n  }\n}\n"
   }
 };
 })();
