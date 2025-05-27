@@ -6,6 +6,7 @@ export const CoverImage = styled(BaseCoverImage)`
 
   table & {
     object-position: top right;
+    min-height: 50px;
   }
 
   [data-mobile-layout="true"] & {

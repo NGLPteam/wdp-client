@@ -1,26 +1,39 @@
 import * as React from "react";
 import { graphql } from "react-relay";
-import NextImage from "next/legacy/image";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { ImageFragment$key } from "@/relay/ImageFragment.graphql";
-import { ImageMetadataFragment$key } from "@/relay/ImageMetadataFragment.graphql";
+import * as Styled from "./Image.styles";
 
-type ImageProps = React.ComponentProps<typeof NextImage>;
-
-export default function Image({ data, metadata, alt = "", ...props }: Props) {
+export default function Image({
+  data,
+  alt = "",
+  objectFit,
+  objectPosition,
+  width,
+  className,
+}: Props) {
   const image = useMaybeFragment(fragment, data);
 
-  const meta = useMaybeFragment(metadataFragment, metadata);
-
   return image && image.url ? (
-    <NextImage {...props} alt={meta?.alt || image.alt || alt} src={image.url} />
+    <Styled.Image
+      alt={image.alt || alt}
+      src={image.url}
+      className={className}
+      $objectFit={objectFit}
+      $objectPosition={objectPosition}
+      width={width}
+    />
   ) : null;
 }
 
-interface Props extends Omit<ImageProps, "src" | "alt"> {
+interface Props {
   data?: ImageFragment$key | null;
-  metadata?: ImageMetadataFragment$key | null;
   alt?: string;
+  width?: number;
+  height?: number;
+  objectFit?: "fill" | "contain" | "cover" | "none";
+  objectPosition?: string;
+  className?: string;
 }
 
 const fragment = graphql`
@@ -29,11 +42,5 @@ const fragment = graphql`
     url
     width
     height
-  }
-`;
-
-const metadataFragment = graphql`
-  fragment ImageMetadataFragment on Image {
-    alt
   }
 `;
