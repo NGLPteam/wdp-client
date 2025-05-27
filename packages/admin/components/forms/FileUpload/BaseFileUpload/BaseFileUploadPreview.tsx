@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { BaseImage } from "components/atomic";
+import { useEffect, useState } from "react";
 import { IconFactory } from "components/factories";
 import * as Styled from "./BaseFileUpload.styles";
 import type { State as UploadState } from "../types";
 
 const WIDTH = 150;
 const HEIGHT = 150;
-const OBJECT_FIT = "contain";
 
 const FileUploadPreview = ({ file, isLoading }: UploadStatusProps) => {
   const [fileImageUrl, setImageUrl] = useState<string>();
@@ -22,16 +20,7 @@ const FileUploadPreview = ({ file, isLoading }: UploadStatusProps) => {
   return file ? (
     <Styled.UploadPreview $isLoading={isLoading}>
       {fileImageUrl && isImage ? (
-        <BaseImage
-          image={{
-            url: fileImageUrl,
-            width: WIDTH,
-            height: HEIGHT,
-            alt: "",
-          }}
-          objectFit={OBJECT_FIT}
-          unoptimized
-        />
+        <Styled.Image src={fileImageUrl} width={WIDTH} height={HEIGHT} alt="" />
       ) : (
         <>
           <IconFactory icon="file" size="xlg" />

@@ -92,3 +92,7 @@ export const ProcessingFile = styled.div`
   padding-block-end: 10px;
   pointer-events: none;
 `;
+
+export const Image = styled.img`
+  object-fit: contain;
+`;
