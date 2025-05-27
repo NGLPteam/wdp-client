@@ -35,7 +35,7 @@ export function useChildRouteLinks(
     const filteredRoutes = childRoutes.filter((route) => {
       if (route.childKinds) {
         const allowed = route.childKinds.every((kind) =>
-          memoizedEntity?.current?.schemaVersion?.enforcedChildKinds.includes(
+          memoizedEntity?.current?.schemaVersion?.enforcedChildKinds?.includes(
             kind,
           ),
         );
