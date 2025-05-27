@@ -39,7 +39,6 @@ const SchemaSelect = forwardRef(
         ref={ref}
         {...inputProps}
         label="forms.schema.label"
-        errorPath="root.parent"
       />
     );
   },
@@ -48,6 +47,7 @@ const SchemaSelect = forwardRef(
 interface Props extends Omit<SelectProps, "options"> {
   data?: SchemaSelectFragment$key | null;
   schemaSlugs?: string[];
+  errorPath?: string;
 }
 
 export default SchemaSelect;
