@@ -7,6 +7,8 @@
   position: relative;
   grid-column: 1 / -1;
   grid-row: 1;
+  @mixin fluidScalePx max-block-size, 490px, 200px;
+  min-block-size: 100%;
 
   &--two-column {
     grid-column: 2;
@@ -17,6 +19,13 @@
       min-block-size: 300px;
     }
   }
+}
+
+.image {
+  object-fit: cover;
+  object-position: center;
+  height: 100%;
+  width: 100%;
 }
 
 .image--one-column {

@@ -14,7 +14,12 @@ const Avatar = ({ data, size = 32, placeholder }: Props) => {
 
   return avatar?.storage ? (
     <Styled.Wrapper $size={size}>
-      <Image data={imageData} width={width ?? size} height={height ?? size} />
+      <Image
+        data={imageData}
+        width={width ?? size}
+        height={height ?? size}
+        objectFit="cover"
+      />
     </Styled.Wrapper>
   ) : placeholder ? (
     <Styled.IconWrapper $size={size}>

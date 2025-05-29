@@ -35,6 +35,7 @@ const InstallationLogo = ({ className }: Props) => {
             width={LOGO_SIZE * ratio}
             height={LOGO_SIZE}
             alt={siteData?.site?.installationName}
+            objectFit="contain"
           />
         )}
         {(!siteData?.logo?.storage ||

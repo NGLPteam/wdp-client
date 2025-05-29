@@ -106,6 +106,7 @@ export const Cell = styled.td`
     /* First number should be the size of the thumbnail (50px) */
     width: ${50 + 8 * 2}px;
     min-width: ${40 + 8 * 2}px;
+    min-height: ${40 + 8 * 2}px;
   }
 
   &[data-cell-type="actions"] {

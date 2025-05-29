@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cc1d82c4ba3d8dd4f62521271eab2836>>
+ * @generated SignedSource<<9e2c0ca68b7cb563ef2ab5c47a78e6e8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,15 +16,19 @@ import { FragmentRefs } from "relay-runtime";
 export type InstallationNameFragment$data = {
   readonly logo: {
     readonly original: {
+      readonly alt: string | null | undefined;
+      readonly height: number | null | undefined;
       readonly originalFilename: string | null | undefined;
-      readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
+      readonly url: string | null | undefined;
+      readonly width: number | null | undefined;
     };
     readonly sansText: {
       readonly size: ImageDerivativeSize;
       readonly webp: {
+        readonly alt: string | null | undefined;
         readonly height: number | null | undefined;
+        readonly url: string | null | undefined;
         readonly width: number | null | undefined;
-        readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
       };
     };
     readonly storage: AttachmentStorage | null | undefined;
@@ -42,9 +46,32 @@ export type InstallationNameFragment$key = {
 
 const node: ReaderFragment = (function(){
 var v0 = {
+  "alias": null,
   "args": null,
-  "kind": "FragmentSpread",
-  "name": "ImageFragment"
+  "kind": "ScalarField",
+  "name": "alt",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
+},
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "width",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "height",
+  "storageKey": null
 };
 return {
   "argumentDefinitions": [],
@@ -107,7 +134,10 @@ return {
               "name": "originalFilename",
               "storageKey": null
             },
-            (v0/*: any*/)
+            (v0/*: any*/),
+            (v1/*: any*/),
+            (v2/*: any*/),
+            (v3/*: any*/)
           ],
           "storageKey": null
         },
@@ -134,21 +164,10 @@ return {
               "name": "webp",
               "plural": false,
               "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "width",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "height",
-                  "storageKey": null
-                },
-                (v0/*: any*/)
+                (v0/*: any*/),
+                (v1/*: any*/),
+                (v2/*: any*/),
+                (v3/*: any*/)
               ],
               "storageKey": null
             }
@@ -164,6 +183,6 @@ return {
 };
 })();
 
-(node as any).hash = "82dc793688359f09deba93c750a8b0be";
+(node as any).hash = "5460275d88ee127097a6365fc5d9da45";
 
 export default node;

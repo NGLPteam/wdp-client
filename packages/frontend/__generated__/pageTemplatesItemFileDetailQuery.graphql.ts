@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c4ccf9658bbbc8dcbbec9dbad58df2ad>>
+ * @generated SignedSource<<b63cb888db2f134d4a011edb1caba067>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -37,14 +37,7 @@ v1 = [
     "name": "slug",
     "variableName": "file"
   }
-],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "url",
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -193,7 +186,13 @@ return {
                                 "name": "alt",
                                 "storageKey": null
                               },
-                              (v2/*: any*/),
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "url",
+                                "storageKey": null
+                              },
                               {
                                 "alias": null,
                                 "args": null,
@@ -208,29 +207,6 @@ return {
                                 "name": "height",
                                 "storageKey": null
                               }
-                            ],
-                            "storageKey": null
-                          }
-                        ],
-                        "storageKey": null
-                      },
-                      {
-                        "alias": "blur",
-                        "args": null,
-                        "concreteType": "ImageSize",
-                        "kind": "LinkedField",
-                        "name": "thumb",
-                        "plural": false,
-                        "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "concreteType": "ImageDerivative",
-                            "kind": "LinkedField",
-                            "name": "webp",
-                            "plural": false,
-                            "selections": [
-                              (v2/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -268,12 +244,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b4ce7e79f95ff9a76d575c0023b6d727",
+    "cacheID": "185634258176bd93cd1bab8375f5ade2",
     "id": null,
     "metadata": {},
     "name": "pageTemplatesItemFileDetailQuery",
     "operationKind": "query",
-    "text": "query pageTemplatesItemFileDetailQuery(\n  $file: Slug!\n) {\n  asset(slug: $file) {\n    __typename\n    ...AssetDetailBlockFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment AssetDetailBlockFragment on Node {\n  __isNode: __typename\n  ... on Asset {\n    __isAsset: __typename\n    slug\n    caption\n    kind\n    downloadUrl\n    fileSize\n    name\n    altText\n    preview {\n      storage\n      ...ContentImageFragment\n    }\n    ...AssetPDFPreviewFragment\n  }\n  ... on AssetImage {\n    updatedAt\n  }\n}\n\nfragment AssetPDFPreviewFragment on Asset {\n  __isAsset: __typename\n  ... on AssetPDF {\n    downloadUrl\n  }\n}\n\nfragment ContentImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      alt\n      url\n      width\n      height\n    }\n  }\n  blur: thumb {\n    webp {\n      url\n    }\n  }\n}\n"
+    "text": "query pageTemplatesItemFileDetailQuery(\n  $file: Slug!\n) {\n  asset(slug: $file) {\n    __typename\n    ...AssetDetailBlockFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment AssetDetailBlockFragment on Node {\n  __isNode: __typename\n  ... on Asset {\n    __isAsset: __typename\n    slug\n    caption\n    kind\n    downloadUrl\n    fileSize\n    name\n    altText\n    preview {\n      storage\n      ...ContentImageFragment\n    }\n    ...AssetPDFPreviewFragment\n  }\n  ... on AssetImage {\n    updatedAt\n  }\n}\n\nfragment AssetPDFPreviewFragment on Asset {\n  __isAsset: __typename\n  ... on AssetPDF {\n    downloadUrl\n  }\n}\n\nfragment ContentImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      alt\n      url\n      width\n      height\n    }\n  }\n}\n"
   }
 };
 })();

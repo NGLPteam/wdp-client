@@ -4,7 +4,8 @@ import { useFragment } from "react-relay";
 import classNames from "classnames";
 import useIsMounted from "@wdp/lib/hooks/useIsMounted";
 import { graphql } from "react-relay";
-import { HeroImage, LoadingBlock, Markdown } from "components/atomic";
+import { LoadingBlock, Markdown } from "components/atomic";
+import Container from "@/components/layout/Container";
 import { CommunityPageLayoutFragment$key } from "@/relay/CommunityPageLayoutFragment.graphql";
 import styles from "./CommunityPageLayout.module.css";
 
@@ -13,10 +14,23 @@ export default function CommunityPageLayout({ data }: Props) {
 
   const isMounted = useIsMounted();
 
+  const hero = page?.heroImage?.hero?.webp;
+
   return page ? (
     <section className="a-bg-custom10">
-      <HeroImage data={page.heroImage} metadata={page.heroImageMetadata} />
-      <div className="l-container-wide">
+      {hero?.url && (
+        <figure className={classNames("a-bg-custom20", styles.imageWrapper)}>
+          <img
+            alt={hero.alt ?? ""}
+            src={hero.url}
+            className={styles.heroImage}
+            height={300}
+            decoding="async"
+            loading="eager"
+          />
+        </figure>
+      )}
+      <Container as="div">
         <div className={classNames("t-rte", styles.content)}>
           <h2>{page.title}</h2>
           {isMounted ? (
@@ -27,7 +41,7 @@ export default function CommunityPageLayout({ data }: Props) {
             </div>
           )}
         </div>
-      </div>
+      </Container>
     </section>
   ) : (
     <LoadingBlock className="a-bg-custom10" />
@@ -43,10 +57,12 @@ const fragment = graphql`
     title
     body
     heroImage {
-      ...HeroImageFragment
-    }
-    heroImageMetadata {
-      ...HeroImageMetadataFragment
+      hero {
+        webp {
+          url
+          alt
+        }
+      }
     }
   }
 `;

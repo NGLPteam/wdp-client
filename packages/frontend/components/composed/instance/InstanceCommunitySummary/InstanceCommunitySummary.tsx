@@ -2,7 +2,7 @@ import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import classNames from "classnames";
 import { getSchemaPluralName } from "helpers";
-import { NamedLink, Image } from "components/atomic";
+import { NamedLink } from "components/atomic";
 import Markdown from "components/atomic/Markdown";
 import { InstanceCommunitySummaryFragment$key } from "@/relay/InstanceCommunitySummaryFragment.graphql";
 import styles from "./InstanceCommunitySummary.module.css";
@@ -12,29 +12,31 @@ export default function InstanceCommunitySummary({ data }: Props) {
 
   const { t } = useTranslation();
 
+  const heroImage = community.heroImage.large?.webp;
+  const logoImage = community.logo.original;
+
   return community && community.slug ? (
     <NamedLink href={`/communities/${community.slug}`}>
       <div className={classNames("a-bg-neutral00", styles.link)}>
-        {community.logo?.storage ? (
+        {logoImage?.url ? (
           <figure
             className={classNames(styles.figure, styles["figure--padded"])}
           >
             <div className={styles.logo}>
-              <Image
-                data={community.logo.original}
-                layout="fill"
-                objectFit="contain"
-                objectPosition="center"
+              <img
+                alt={`${community.title} logo`}
+                src={logoImage.url}
+                className={styles.logoImage}
               />
             </div>
           </figure>
-        ) : community.heroImage?.storage ? (
+        ) : heroImage?.url ? (
           <figure className={styles.figure}>
-            <Image
-              data={community.heroImage.large?.webp}
-              layout="fill"
-              objectFit="cover"
-              objectPosition="center"
+            <img
+              alt={heroImage.alt ?? ""}
+              src={heroImage.url}
+              height={180}
+              className={styles.heroImage}
             />
           </figure>
         ) : null}
@@ -92,14 +94,20 @@ const fragment = graphql`
       storage
       large {
         webp {
-          ...ImageFragment
+          alt
+          url
+          width
+          height
         }
       }
     }
     logo {
       storage
       original {
-        ...ImageFragment
+        alt
+        url
+        width
+        height
       }
     }
   }

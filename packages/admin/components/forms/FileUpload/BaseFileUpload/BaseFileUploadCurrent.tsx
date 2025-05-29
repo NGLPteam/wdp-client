@@ -1,12 +1,10 @@
 import { FileIconFactory } from "@wdp/lib/factories";
 import { useTranslation } from "react-i18next";
-import { BaseImage } from "components/atomic";
 import { AssetKind } from "types/graphql-schema";
 import * as Styled from "./BaseFileUpload.styles";
 
 const WIDTH = 150;
 const HEIGHT = 150;
-const OBJECT_FIT = "contain";
 
 function formatFileSize(bytes: number) {
   const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
@@ -25,15 +23,11 @@ const FileUploadCurrent = ({ image, kind, fileSize }: Props) => {
   return image ? (
     <Styled.UploadPreview>
       {image && image.png && image.png.url ? (
-        <BaseImage
-          image={{
-            ...image.png,
-            width: WIDTH,
-            height: HEIGHT,
-            alt: image.png.alt || "",
-            url: image.png.url,
-          }}
-          objectFit={OBJECT_FIT}
+        <Styled.Image
+          src={image.png.url}
+          width={WIDTH}
+          height={HEIGHT}
+          alt={image.png.alt || ""}
         />
       ) : (
         <>

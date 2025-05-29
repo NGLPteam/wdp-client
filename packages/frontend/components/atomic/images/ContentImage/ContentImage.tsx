@@ -1,31 +1,32 @@
-import * as React from "react";
-import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { useFragment } from "react-relay";
 import { graphql } from "react-relay";
 import { ContentImageFragment$key } from "@/relay/ContentImageFragment.graphql";
-import ContentImageBase from "./ContentImageBase";
+import styles from "./ContentImage.module.css";
 
-export default function ContentImage({ data }: Props) {
-  const imageData = useMaybeFragment(fragment, data);
+export default function ContentImage({ data, loading }: Props) {
+  const { image: imageData } = useFragment(fragment, data) ?? {};
 
-  if (!imageData) return null;
+  const image = imageData?.webp;
 
-  const { image, blur } = imageData;
+  if (!image || !image.url) return null;
 
-  return image ? (
-    <ContentImageBase
-      alt={image.webp.alt}
-      url={image.webp.url}
-      width={image.webp.width}
-      height={image.webp.height}
-      {...(blur?.webp?.url && {
-        blurDataURL: blur.webp.url,
-      })}
-    />
-  ) : null;
+  return (
+    <div className={styles.wrapper}>
+      <img
+        alt={image.alt ?? ""}
+        src={image.url}
+        width={image.width ?? undefined}
+        height={image.height ?? undefined}
+        loading={loading ?? "lazy"}
+        decoding="async"
+      />
+    </div>
+  );
 }
 
 interface Props {
   data?: ContentImageFragment$key | null;
+  loading?: "eager" | "lazy";
 }
 
 const fragment = graphql`
@@ -36,11 +37,6 @@ const fragment = graphql`
         url
         width
         height
-      }
-    }
-    blur: thumb {
-      webp {
-        url
       }
     }
   }
