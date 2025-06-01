@@ -69,7 +69,7 @@
   },
   "homepage": "https://github.com/nglpteam/wdp-client#readme",
   "devDependencies": {
-    "@yarnpkg/types": "^4.0.0",
+    "@yarnpkg/types": "^4.0.1",
     "concurrently": "^8.2.2",
     "turbo": "^2.5.3"
   },
