@@ -43,6 +43,7 @@ const fragment = graphql`
     title
     body
     heroImage {
+      storage
       ...ContentImageFragment
     }
   }

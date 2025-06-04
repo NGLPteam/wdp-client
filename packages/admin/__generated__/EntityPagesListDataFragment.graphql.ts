@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<932706c187be1525af1ef2312b82262f>>
+ * @generated SignedSource<<f12c45e792fdb117db50fdacab861952>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -126,7 +126,7 @@ return {
                       "args": null,
                       "concreteType": "ImageSize",
                       "kind": "LinkedField",
-                      "name": "small",
+                      "name": "thumb",
                       "plural": false,
                       "selections": [
                         {

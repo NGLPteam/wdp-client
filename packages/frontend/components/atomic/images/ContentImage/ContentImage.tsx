@@ -1,12 +1,13 @@
-import { useFragment } from "react-relay";
-import { graphql } from "react-relay";
+import { useFragment, graphql } from "react-relay";
 import { ContentImageFragment$key } from "@/relay/ContentImageFragment.graphql";
+import { generateSrcSet, sizes } from "@/helpers/generateSrcSet";
 import styles from "./ContentImage.module.css";
+import type { ImageSize } from "types/graphql-schema";
 
 export default function ContentImage({ data, loading }: Props) {
-  const { image: imageData } = useFragment(fragment, data) ?? {};
+  const imageData = useFragment(fragment, data);
 
-  const image = imageData?.webp;
+  const image = imageData?.large.webp;
 
   if (!image || !image.url) return null;
 
@@ -15,6 +16,10 @@ export default function ContentImage({ data, loading }: Props) {
       <img
         alt={image.alt ?? ""}
         src={image.url}
+        srcSet={generateSrcSet(
+          imageData as unknown as Record<string, ImageSize>,
+        )}
+        sizes={sizes}
         width={image.width ?? undefined}
         height={image.height ?? undefined}
         loading={loading ?? "lazy"}
@@ -31,12 +36,24 @@ interface Props {
 
 const fragment = graphql`
   fragment ContentImageFragment on ImageAttachment {
-    image: large {
+    large {
       webp {
         alt
         url
         width
         height
+      }
+    }
+    medium {
+      webp {
+        url
+        width
+      }
+    }
+    small {
+      webp {
+        url
+        width
       }
     }
   }

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8fe40428153847c4d94c6bfebe19cd13>>
+ * @generated SignedSource<<be1420aa56ccce4253b66aae30c1b49a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -388,9 +388,31 @@ return {
                                   "storageKey": null
                                 },
                                 {
+                                  "alias": null,
                                   "args": null,
-                                  "kind": "FragmentSpread",
-                                  "name": "CoverImageFragment"
+                                  "concreteType": "ImageSize",
+                                  "kind": "LinkedField",
+                                  "name": "thumb",
+                                  "plural": false,
+                                  "selections": [
+                                    {
+                                      "alias": null,
+                                      "args": null,
+                                      "concreteType": "ImageDerivative",
+                                      "kind": "LinkedField",
+                                      "name": "webp",
+                                      "plural": false,
+                                      "selections": [
+                                        {
+                                          "args": null,
+                                          "kind": "FragmentSpread",
+                                          "name": "ImageFragment"
+                                        }
+                                      ],
+                                      "storageKey": null
+                                    }
+                                  ],
+                                  "storageKey": null
                                 }
                               ],
                               "storageKey": null

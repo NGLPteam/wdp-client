@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e496de72c9ed2939881364e62666ad03>>
+ * @generated SignedSource<<61cd4d43e4f53c80b2772ec101c755ac>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -214,7 +214,7 @@ return {
                                     "args": null,
                                     "concreteType": "ImageSize",
                                     "kind": "LinkedField",
-                                    "name": "medium",
+                                    "name": "thumb",
                                     "plural": false,
                                     "selections": [
                                       {
@@ -392,12 +392,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5e456f752ffab9aea61872427ecb699f",
+    "cacheID": "d77ba1e73cfea645ae565bed5385ac52",
     "id": null,
     "metadata": {},
     "name": "itemsManageSlugUsersPagesQuery",
     "operationKind": "query",
-    "text": "query itemsManageSlugUsersPagesQuery(\n  $slug: Slug!\n  $order: SimpleOrder\n  $page: Int!\n) {\n  user(slug: $slug) {\n    itemAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserItemsListFragment\n    }\n    id\n  }\n}\n\nfragment CoverImageFragment on ImageAttachment {\n  storage\n  medium {\n    webp {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    ...CoverImageFragment\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserItemsListFragment on UserItemAccessGrantConnection {\n  edges {\n    node {\n      id\n      item {\n        id\n        title\n        slug\n        ...EntityThumbnailColumnFragment\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n"
+    "text": "query itemsManageSlugUsersPagesQuery(\n  $slug: Slug!\n  $order: SimpleOrder\n  $page: Int!\n) {\n  user(slug: $slug) {\n    itemAccessGrants(order: $order, page: $page, perPage: 20) {\n      ...UserItemsListFragment\n    }\n    id\n  }\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    thumb {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n\nfragment UserItemsListFragment on UserItemAccessGrantConnection {\n  edges {\n    node {\n      id\n      item {\n        id\n        title\n        slug\n        ...EntityThumbnailColumnFragment\n      }\n      role {\n        id\n        name\n      }\n      user {\n        id\n        slug\n      }\n    }\n  }\n  ...ModelListPageFragment\n}\n"
   }
 };
 })();

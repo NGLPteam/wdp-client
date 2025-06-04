@@ -18,7 +18,7 @@ export const listTemplateFragment = graphql`
           __typename
           slug
           thumbnail {
-            image: large {
+            image: medium {
               webp {
                 url
               }
@@ -30,7 +30,7 @@ export const listTemplateFragment = graphql`
           __typename
           slug
           thumbnail {
-            image: large {
+            image: medium {
               webp {
                 url
               }
@@ -93,7 +93,7 @@ export const listTemplateFragment = graphql`
           title
           slug
           thumbnail {
-            image: large {
+            image: medium {
               webp {
                 url
               }
@@ -107,7 +107,7 @@ export const listTemplateFragment = graphql`
           title
           slug
           thumbnail {
-            image: large {
+            image: medium {
               webp {
                 url
               }

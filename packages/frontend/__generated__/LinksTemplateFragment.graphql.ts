@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ec10b3662ae7cd5322c0eaf194a26ec6>>
+ * @generated SignedSource<<d12b9b4cd02a6afe336ca3c3fb5ea595>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -68,7 +68,7 @@ v4 = {
       "args": null,
       "concreteType": "ImageSize",
       "kind": "LinkedField",
-      "name": "large",
+      "name": "medium",
       "plural": false,
       "selections": [
         {

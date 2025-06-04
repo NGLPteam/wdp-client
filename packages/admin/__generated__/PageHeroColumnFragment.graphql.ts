@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d90b63552f3886557aa2fbcc3555332b>>
+ * @generated SignedSource<<4952a552b6b5fa4120b8ae5cc4744397>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,12 +13,12 @@ export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "
 import { FragmentRefs } from "relay-runtime";
 export type PageHeroColumnFragment$data = {
   readonly heroImage: {
-    readonly small: {
+    readonly storage: AttachmentStorage | null | undefined;
+    readonly thumb: {
       readonly webp: {
         readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
       };
     };
-    readonly storage: AttachmentStorage | null | undefined;
   };
   readonly " $fragmentType": "PageHeroColumnFragment";
 };
@@ -32,6 +32,6 @@ const node: ReaderInlineDataFragment = {
   "name": "PageHeroColumnFragment"
 };
 
-(node as any).hash = "7652a723554e6939d6453de6ffd779ca";
+(node as any).hash = "0a507695ecf95e26db7b14661e57dfbe";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4dbb0c775bb554023caad645a488c52e>>
+ * @generated SignedSource<<d3457e77353f40b2f6431d423f18f33b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -104,7 +104,7 @@ const node: ReaderFragment = {
                       "args": null,
                       "concreteType": "ImageSize",
                       "kind": "LinkedField",
-                      "name": "medium",
+                      "name": "thumb",
                       "plural": false,
                       "selections": [
                         {
@@ -119,6 +119,13 @@ const node: ReaderFragment = {
                               "args": null,
                               "kind": "FragmentSpread",
                               "name": "ImageFragment"
+                            },
+                            {
+                              "alias": null,
+                              "args": null,
+                              "kind": "ScalarField",
+                              "name": "url",
+                              "storageKey": null
                             }
                           ],
                           "storageKey": null

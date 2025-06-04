@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<584c9c52044dd5d736959040930507b0>>
+ * @generated SignedSource<<ff861b7ed1cc7abed6d6130143a31082>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -196,7 +196,7 @@ return {
                             "args": null,
                             "concreteType": "ImageSize",
                             "kind": "LinkedField",
-                            "name": "medium",
+                            "name": "thumb",
                             "plural": false,
                             "selections": [
                               {
@@ -208,6 +208,13 @@ return {
                                 "plural": false,
                                 "selections": [
                                   {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "url",
+                                    "storageKey": null
+                                  },
+                                  {
                                     "kind": "InlineFragment",
                                     "selections": [
                                       {
@@ -215,13 +222,6 @@ return {
                                         "args": null,
                                         "kind": "ScalarField",
                                         "name": "alt",
-                                        "storageKey": null
-                                      },
-                                      {
-                                        "alias": null,
-                                        "args": null,
-                                        "kind": "ScalarField",
-                                        "name": "url",
                                         "storageKey": null
                                       },
                                       {
@@ -336,12 +336,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "cb1e77108333f489f6fb187eeee62f0f",
+    "cacheID": "d733a920a61ef09749f945d7574f272a",
     "id": null,
     "metadata": {},
     "name": "filesManageSlugCollectionQuery",
     "operationKind": "query",
-    "text": "query filesManageSlugCollectionQuery(\n  $slug: Slug!\n  $page: Int!\n) {\n  collection(slug: $slug) {\n    assets(page: $page, perPage: 20) {\n      ...FileListFragment\n    }\n    id\n  }\n}\n\nfragment AssetThumbnailColumnFragment on Asset {\n  __isAsset: __typename\n  thumbnail: preview {\n    storage\n    image: medium {\n      png {\n        ...ImageFragment\n      }\n    }\n  }\n}\n\nfragment FileListFragment on AnyAssetConnection {\n  nodes {\n    __typename\n    ... on Asset {\n      __isAsset: __typename\n      id\n      slug\n      kind\n      name\n      downloadUrl\n      ...AssetThumbnailColumnFragment\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query filesManageSlugCollectionQuery(\n  $slug: Slug!\n  $page: Int!\n) {\n  collection(slug: $slug) {\n    assets(page: $page, perPage: 20) {\n      ...FileListFragment\n    }\n    id\n  }\n}\n\nfragment AssetThumbnailColumnFragment on Asset {\n  __isAsset: __typename\n  thumbnail: preview {\n    storage\n    image: thumb {\n      png {\n        ...ImageFragment\n        url\n      }\n    }\n  }\n}\n\nfragment FileListFragment on AnyAssetConnection {\n  nodes {\n    __typename\n    ... on Asset {\n      __isAsset: __typename\n      id\n      slug\n      kind\n      name\n      downloadUrl\n      ...AssetThumbnailColumnFragment\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();

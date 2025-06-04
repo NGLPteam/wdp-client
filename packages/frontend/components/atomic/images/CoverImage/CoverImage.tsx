@@ -6,7 +6,6 @@ import { CoverImageFragment$key } from "@/relay/CoverImageFragment.graphql";
 import CoverPlaceholder from "./CoverPlaceholder";
 import styles from "./CoverImage.module.css";
 
-/* We can't use objectFit contain because of the drop shadow */
 export default function CoverImage({
   data,
   maxWidth,
@@ -67,7 +66,7 @@ interface PlaceholderProps {
 
 const fragment = graphql`
   fragment CoverImageFragment on ImageAttachment {
-    image: large {
+    image: medium {
       webp {
         url
         alt

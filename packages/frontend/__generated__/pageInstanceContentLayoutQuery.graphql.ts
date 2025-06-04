@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7c1febe6affc863f088ab4dea1fef4da>>
+ * @generated SignedSource<<7704bff8464095de755fc414dbeb3200>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -81,53 +81,61 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "storage",
+  "name": "alt",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "alt",
+  "name": "url",
   "storageKey": null
 },
 v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "url",
+  "name": "width",
   "storageKey": null
 },
 v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "width",
-  "storageKey": null
-},
-v9 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "height",
   "storageKey": null
 },
-v10 = [
+v9 = [
+  (v5/*: any*/),
   (v6/*: any*/),
   (v7/*: any*/),
-  (v8/*: any*/),
-  (v9/*: any*/)
+  (v8/*: any*/)
 ],
-v11 = {
+v10 = {
   "alias": null,
   "args": null,
   "concreteType": "ImageDerivative",
   "kind": "LinkedField",
   "name": "webp",
   "plural": false,
-  "selections": (v10/*: any*/),
+  "selections": (v9/*: any*/),
   "storageKey": null
-};
+},
+v11 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "ImageDerivative",
+    "kind": "LinkedField",
+    "name": "webp",
+    "plural": false,
+    "selections": [
+      (v6/*: any*/),
+      (v7/*: any*/)
+    ],
+    "storageKey": null
+  }
+];
 return {
   "fragment": {
     "argumentDefinitions": [],
@@ -271,7 +279,6 @@ return {
                     "name": "heroImage",
                     "plural": false,
                     "selections": [
-                      (v5/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -280,8 +287,28 @@ return {
                         "name": "large",
                         "plural": false,
                         "selections": [
-                          (v11/*: any*/)
+                          (v10/*: any*/)
                         ],
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ImageSize",
+                        "kind": "LinkedField",
+                        "name": "medium",
+                        "plural": false,
+                        "selections": (v11/*: any*/),
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ImageSize",
+                        "kind": "LinkedField",
+                        "name": "small",
+                        "plural": false,
+                        "selections": (v11/*: any*/),
                         "storageKey": null
                       }
                     ],
@@ -295,7 +322,6 @@ return {
                     "name": "logo",
                     "plural": false,
                     "selections": [
-                      (v5/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -303,7 +329,7 @@ return {
                         "kind": "LinkedField",
                         "name": "original",
                         "plural": false,
-                        "selections": (v10/*: any*/),
+                        "selections": (v9/*: any*/),
                         "storageKey": null
                       }
                     ],
@@ -375,7 +401,13 @@ return {
             "name": "logo",
             "plural": false,
             "selections": [
-              (v5/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "storage",
+                "storageKey": null
+              },
               {
                 "alias": null,
                 "args": null,
@@ -391,10 +423,10 @@ return {
                     "name": "originalFilename",
                     "storageKey": null
                   },
+                  (v5/*: any*/),
                   (v6/*: any*/),
                   (v7/*: any*/),
-                  (v8/*: any*/),
-                  (v9/*: any*/)
+                  (v8/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -413,7 +445,7 @@ return {
                     "name": "size",
                     "storageKey": null
                   },
-                  (v11/*: any*/)
+                  (v10/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -462,12 +494,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ae2883aa173cb132e8ac5207ae77dcfe",
+    "cacheID": "85193bf05361498ec1ccae17248335d6",
     "id": null,
     "metadata": {},
     "name": "pageInstanceContentLayoutQuery",
     "operationKind": "query",
-    "text": "query pageInstanceContentLayoutQuery {\n  communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        id\n      }\n    }\n    pageInfo {\n      totalCount\n    }\n    ...InstanceCommunitiesFragment\n  }\n  ...InstanceHeroFragment\n  ...AppBodyFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  communities(order: POSITION_ASCENDING) {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    ...InstallationNameFragment\n    id\n  }\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  communities(order: POSITION_ASCENDING) {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      logoMode\n    }\n    ...InstallationNameFragment\n    id\n  }\n  ...CommunityPickerFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  pickerCommunities: communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n    logoMode\n  }\n  logo {\n    storage\n    original {\n      originalFilename\n      alt\n      url\n      width\n      height\n    }\n    sansText {\n      size\n      webp {\n        alt\n        url\n        width\n        height\n      }\n    }\n  }\n}\n\nfragment InstanceCommunitiesFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      ...InstanceCommunitySummaryFragment\n      id\n    }\n  }\n}\n\nfragment InstanceCommunitySummaryFragment on Community {\n  slug\n  title\n  tagline\n  summary\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  heroImage {\n    storage\n    large {\n      webp {\n        alt\n        url\n        width\n        height\n      }\n    }\n  }\n  logo {\n    storage\n    original {\n      alt\n      url\n      width\n      height\n    }\n  }\n}\n\nfragment InstanceHeroFragment on Query {\n  globalConfiguration {\n    site {\n      providerName\n      installationName\n      installationHomePageCopy\n    }\n    id\n  }\n}\n"
+    "text": "query pageInstanceContentLayoutQuery {\n  communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        id\n      }\n    }\n    pageInfo {\n      totalCount\n    }\n    ...InstanceCommunitiesFragment\n  }\n  ...InstanceHeroFragment\n  ...AppBodyFragment\n}\n\nfragment AppBodyFragment on Query {\n  ...AppHeaderFragment\n  ...AppFooterFragment\n}\n\nfragment AppFooterFragment on Query {\n  communities(order: POSITION_ASCENDING) {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    ...InstallationNameFragment\n    id\n  }\n  ...CommunityPickerFragment\n}\n\nfragment AppHeaderFragment on Query {\n  communities(order: POSITION_ASCENDING) {\n    pageInfo {\n      totalCount\n    }\n  }\n  globalConfiguration {\n    site {\n      logoMode\n    }\n    ...InstallationNameFragment\n    id\n  }\n  ...CommunityPickerFragment\n}\n\nfragment CommunityPickerFragment on Query {\n  pickerCommunities: communities(order: POSITION_ASCENDING) {\n    edges {\n      node {\n        slug\n        title\n        id\n      }\n    }\n  }\n}\n\nfragment InstallationNameFragment on GlobalConfiguration {\n  site {\n    installationName\n    logoMode\n  }\n  logo {\n    storage\n    original {\n      originalFilename\n      alt\n      url\n      width\n      height\n    }\n    sansText {\n      size\n      webp {\n        alt\n        url\n        width\n        height\n      }\n    }\n  }\n}\n\nfragment InstanceCommunitiesFragment on CommunityConnection {\n  edges {\n    node {\n      slug\n      ...InstanceCommunitySummaryFragment\n      id\n    }\n  }\n}\n\nfragment InstanceCommunitySummaryFragment on Community {\n  slug\n  title\n  tagline\n  summary\n  schemaRanks {\n    slug\n    name\n    count\n    id\n  }\n  heroImage {\n    large {\n      webp {\n        alt\n        url\n        width\n        height\n      }\n    }\n    medium {\n      webp {\n        url\n        width\n      }\n    }\n    small {\n      webp {\n        url\n        width\n      }\n    }\n  }\n  logo {\n    original {\n      alt\n      url\n      width\n      height\n    }\n  }\n}\n\nfragment InstanceHeroFragment on Query {\n  globalConfiguration {\n    site {\n      providerName\n      installationName\n      installationHomePageCopy\n    }\n    id\n  }\n}\n"
   }
 };
 })();

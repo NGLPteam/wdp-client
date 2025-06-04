@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<16ed0bbc9c19485c8e13d3827aa7c701>>
+ * @generated SignedSource<<425d6af2312d9031d6f9f8d7674b2718>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -52,6 +52,35 @@ v3 = [
   }
 ],
 v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "width",
+  "storageKey": null
+},
+v6 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "ImageDerivative",
+    "kind": "LinkedField",
+    "name": "webp",
+    "plural": false,
+    "selections": [
+      (v4/*: any*/),
+      (v5/*: any*/)
+    ],
+    "storageKey": null
+  }
+],
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -162,46 +191,78 @@ return {
                         "name": "webp",
                         "plural": false,
                         "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "url",
-                            "storageKey": null
-                          },
+                          (v4/*: any*/),
                           {
                             "alias": null,
                             "args": null,
                             "kind": "ScalarField",
                             "name": "alt",
                             "storageKey": null
-                          }
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "height",
+                            "storageKey": null
+                          },
+                          (v5/*: any*/)
                         ],
                         "storageKey": null
                       }
                     ],
                     "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ImageSize",
+                    "kind": "LinkedField",
+                    "name": "large",
+                    "plural": false,
+                    "selections": (v6/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ImageSize",
+                    "kind": "LinkedField",
+                    "name": "medium",
+                    "plural": false,
+                    "selections": (v6/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ImageSize",
+                    "kind": "LinkedField",
+                    "name": "small",
+                    "plural": false,
+                    "selections": (v6/*: any*/),
+                    "storageKey": null
                   }
                 ],
                 "storageKey": null
               },
-              (v4/*: any*/)
+              (v7/*: any*/)
             ],
             "storageKey": null
           },
-          (v4/*: any*/)
+          (v7/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "7d16a49ad862fa0d89764e702b742f8b",
+    "cacheID": "b9ff94d9a636435f9109d64bc51b9282",
     "id": null,
     "metadata": {},
     "name": "pageTemplatesCommunityPageQuery",
     "operationKind": "query",
-    "text": "query pageTemplatesCommunityPageQuery(\n  $slug: Slug!\n  $pageSlug: String!\n) {\n  community(slug: $slug) {\n    page(slug: $pageSlug) {\n      ...CommunityPageLayoutFragment\n      id\n    }\n    id\n  }\n}\n\nfragment CommunityPageLayoutFragment on Page {\n  title\n  body\n  heroImage {\n    hero {\n      webp {\n        url\n        alt\n      }\n    }\n  }\n}\n"
+    "text": "query pageTemplatesCommunityPageQuery(\n  $slug: Slug!\n  $pageSlug: String!\n) {\n  community(slug: $slug) {\n    page(slug: $pageSlug) {\n      ...CommunityPageLayoutFragment\n      id\n    }\n    id\n  }\n}\n\nfragment CommunityPageLayoutFragment on Page {\n  title\n  body\n  heroImage {\n    hero {\n      webp {\n        url\n        alt\n        height\n        width\n      }\n    }\n    large {\n      webp {\n        url\n        width\n      }\n    }\n    medium {\n      webp {\n        url\n        width\n      }\n    }\n    small {\n      webp {\n        url\n        width\n      }\n    }\n  }\n}\n"
   }
 };
 })();

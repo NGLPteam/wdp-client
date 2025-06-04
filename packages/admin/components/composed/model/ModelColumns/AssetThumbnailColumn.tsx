@@ -1,10 +1,10 @@
 import { graphql, readInlineData } from "relay-runtime";
 import { useTranslation } from "react-i18next";
 import get from "lodash/get";
-import { Image } from "components/atomic";
 import { AssetThumbnailColumnFragment$key } from "@/relay/AssetThumbnailColumnFragment.graphql";
 import { PartialColumnish, Node } from "./types";
 import { getAccessorProps } from "./helpers";
+import * as Styled from "./EntityThumbnailColumn/EntityThumbnailColumn.styles";
 import type { ColumnDef } from "@tanstack/react-table";
 
 type Props<T extends Node> = PartialColumnish<T>;
@@ -36,7 +36,13 @@ const AssetThumbnailColumn = <T extends Row>(
         ? asset.thumbnail.image?.png
         : null;
 
-      return <Image data={image} />;
+      return (
+        <Styled.Thumbnail
+          data={image}
+          objectFit="contain"
+          objectPosition="center"
+        />
+      );
     },
     ...props,
   };
@@ -48,9 +54,10 @@ const fragment = graphql`
   fragment AssetThumbnailColumnFragment on Asset @inline {
     thumbnail: preview {
       storage
-      image: medium {
+      image: thumb {
         png {
           ...ImageFragment
+          url
         }
       }
     }

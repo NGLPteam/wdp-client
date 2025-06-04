@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0f1b00035d6175819fd8fc7420031b25>>
+ * @generated SignedSource<<b3fae7654b8caaadbe48eb15bf7bcc0c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "
 import { FragmentRefs } from "relay-runtime";
 export type CommunityLogoFragment$data = {
   readonly original: {
+    readonly alt: string | null | undefined;
     readonly height: number | null | undefined;
     readonly url: string | null | undefined;
     readonly width: number | null | undefined;
@@ -57,6 +58,13 @@ const node: ReaderFragment = {
           "alias": null,
           "args": null,
           "kind": "ScalarField",
+          "name": "alt",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
           "name": "width",
           "storageKey": null
         },
@@ -75,6 +83,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "86c953527b3fe7e8527a6b8d740ec5ab";
+(node as any).hash = "3728d61633090b439b0ee317e622f78a";
 
 export default node;

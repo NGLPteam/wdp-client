@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1bc9a0de9278cbbd2aaabb170481cc29>>
+ * @generated SignedSource<<a56f948b9647fe8bc82dc3e7ed5d4d2d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -52,6 +52,35 @@ v3 = [
   }
 ],
 v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "width",
+  "storageKey": null
+},
+v6 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "ImageDerivative",
+    "kind": "LinkedField",
+    "name": "webp",
+    "plural": false,
+    "selections": [
+      (v4/*: any*/),
+      (v5/*: any*/)
+    ],
+    "storageKey": null
+  }
+],
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -147,7 +176,14 @@ return {
                 "plural": false,
                 "selections": [
                   {
-                    "alias": "image",
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "storage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
                     "args": null,
                     "concreteType": "ImageSize",
                     "kind": "LinkedField",
@@ -169,20 +205,8 @@ return {
                             "name": "alt",
                             "storageKey": null
                           },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "url",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "width",
-                            "storageKey": null
-                          },
+                          (v4/*: any*/),
+                          (v5/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -195,27 +219,47 @@ return {
                       }
                     ],
                     "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ImageSize",
+                    "kind": "LinkedField",
+                    "name": "medium",
+                    "plural": false,
+                    "selections": (v6/*: any*/),
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ImageSize",
+                    "kind": "LinkedField",
+                    "name": "small",
+                    "plural": false,
+                    "selections": (v6/*: any*/),
+                    "storageKey": null
                   }
                 ],
                 "storageKey": null
               },
-              (v4/*: any*/)
+              (v7/*: any*/)
             ],
             "storageKey": null
           },
-          (v4/*: any*/)
+          (v7/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "8d0421a9672f14d77a4d47c91456bfc9",
+    "cacheID": "2dba821b4868fdc4c473122f11aea611",
     "id": null,
     "metadata": {},
     "name": "pageTemplatesCollectionPageQuery",
     "operationKind": "query",
-    "text": "query pageTemplatesCollectionPageQuery(\n  $slug: Slug!\n  $pageSlug: String!\n) {\n  collection(slug: $slug) {\n    page(slug: $pageSlug) {\n      ...EntityPageLayoutFragment\n      id\n    }\n    id\n  }\n}\n\nfragment ContentImageFragment on ImageAttachment {\n  image: large {\n    webp {\n      alt\n      url\n      width\n      height\n    }\n  }\n}\n\nfragment EntityPageLayoutFragment on Page {\n  title\n  body\n  heroImage {\n    ...ContentImageFragment\n  }\n}\n"
+    "text": "query pageTemplatesCollectionPageQuery(\n  $slug: Slug!\n  $pageSlug: String!\n) {\n  collection(slug: $slug) {\n    page(slug: $pageSlug) {\n      ...EntityPageLayoutFragment\n      id\n    }\n    id\n  }\n}\n\nfragment ContentImageFragment on ImageAttachment {\n  large {\n    webp {\n      alt\n      url\n      width\n      height\n    }\n  }\n  medium {\n    webp {\n      url\n      width\n    }\n  }\n  small {\n    webp {\n      url\n      width\n    }\n  }\n}\n\nfragment EntityPageLayoutFragment on Page {\n  title\n  body\n  heroImage {\n    storage\n    ...ContentImageFragment\n  }\n}\n"
   }
 };
 })();

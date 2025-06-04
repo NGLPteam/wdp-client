@@ -21,6 +21,8 @@ export default function SquareThumbnailBase({
       <img
         alt={alt || ""}
         src={url}
+        height={size}
+        width={size}
         className={styles.img}
         loading={loading ?? "lazy"}
       />

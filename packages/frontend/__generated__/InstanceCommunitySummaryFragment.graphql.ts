@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cba5c1a758fc2c5315d0e00674135a7c>>
+ * @generated SignedSource<<47c32617824223a5813df590139a85b2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,6 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type InstanceCommunitySummaryFragment$data = {
   readonly heroImage: {
@@ -21,7 +20,18 @@ export type InstanceCommunitySummaryFragment$data = {
         readonly width: number | null | undefined;
       };
     };
-    readonly storage: AttachmentStorage | null | undefined;
+    readonly medium: {
+      readonly webp: {
+        readonly url: string | null | undefined;
+        readonly width: number | null | undefined;
+      };
+    };
+    readonly small: {
+      readonly webp: {
+        readonly url: string | null | undefined;
+        readonly width: number | null | undefined;
+      };
+    };
   };
   readonly logo: {
     readonly original: {
@@ -30,7 +40,6 @@ export type InstanceCommunitySummaryFragment$data = {
       readonly url: string | null | undefined;
       readonly width: number | null | undefined;
     };
-    readonly storage: AttachmentStorage | null | undefined;
   };
   readonly schemaRanks: ReadonlyArray<{
     readonly count: number;
@@ -60,10 +69,17 @@ v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "storage",
+  "name": "url",
   "storageKey": null
 },
-v2 = [
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "width",
+  "storageKey": null
+},
+v3 = [
   {
     "alias": null,
     "args": null,
@@ -71,25 +87,28 @@ v2 = [
     "name": "alt",
     "storageKey": null
   },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "url",
-    "storageKey": null
-  },
-  {
-    "alias": null,
-    "args": null,
-    "kind": "ScalarField",
-    "name": "width",
-    "storageKey": null
-  },
+  (v1/*: any*/),
+  (v2/*: any*/),
   {
     "alias": null,
     "args": null,
     "kind": "ScalarField",
     "name": "height",
+    "storageKey": null
+  }
+],
+v4 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "ImageDerivative",
+    "kind": "LinkedField",
+    "name": "webp",
+    "plural": false,
+    "selections": [
+      (v1/*: any*/),
+      (v2/*: any*/)
+    ],
     "storageKey": null
   }
 ];
@@ -155,7 +174,6 @@ return {
       "name": "heroImage",
       "plural": false,
       "selections": [
-        (v1/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -171,10 +189,30 @@ return {
               "kind": "LinkedField",
               "name": "webp",
               "plural": false,
-              "selections": (v2/*: any*/),
+              "selections": (v3/*: any*/),
               "storageKey": null
             }
           ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageSize",
+          "kind": "LinkedField",
+          "name": "medium",
+          "plural": false,
+          "selections": (v4/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageSize",
+          "kind": "LinkedField",
+          "name": "small",
+          "plural": false,
+          "selections": (v4/*: any*/),
           "storageKey": null
         }
       ],
@@ -188,7 +226,6 @@ return {
       "name": "logo",
       "plural": false,
       "selections": [
-        (v1/*: any*/),
         {
           "alias": null,
           "args": null,
@@ -196,7 +233,7 @@ return {
           "kind": "LinkedField",
           "name": "original",
           "plural": false,
-          "selections": (v2/*: any*/),
+          "selections": (v3/*: any*/),
           "storageKey": null
         }
       ],
@@ -208,6 +245,6 @@ return {
 };
 })();
 
-(node as any).hash = "f22991197d097aa9049aa5abcdc1d25d";
+(node as any).hash = "ac5778a0c4673122d84d301c88aeae48";
 
 export default node;
