@@ -1,9 +1,9 @@
 import { graphql, readInlineData } from "relay-runtime";
 import { useTranslation } from "react-i18next";
-import { Image } from "components/atomic";
 import { PageHeroColumnFragment$key } from "@/relay/PageHeroColumnFragment.graphql";
 import { PartialColumnish, Node } from "./types";
 import { getAccessorProps, hasFragments } from "./helpers";
+import * as Styled from "./EntityThumbnailColumn/EntityThumbnailColumn.styles";
 import type { ColumnDef } from "@tanstack/react-table";
 
 type Props<T extends Node> = PartialColumnish<T>;
@@ -32,17 +32,13 @@ const PageHeroColumn = <T extends Node>(props: Props<T> = {}): ColumnDef<T> => {
 
       const page = readInlineData(fragment, value);
 
-      const size = 50;
-
-      const image = page.heroImage?.storage ? page.heroImage.small?.webp : null;
+      const image = page.heroImage?.storage ? page.heroImage.thumb?.webp : null;
 
       return page ? (
-        <Image
+        <Styled.Thumbnail
           data={image}
-          objectFit="cover"
+          objectFit="contain"
           objectPosition="center"
-          width={size}
-          height={size}
         />
       ) : null;
     },
@@ -56,7 +52,7 @@ const fragment = graphql`
   fragment PageHeroColumnFragment on Page @inline {
     heroImage {
       storage
-      small {
+      thumb {
         webp {
           ...ImageFragment
         }

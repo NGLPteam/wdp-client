@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<53b83ef3649add07f00c18d4edbb7621>>
+ * @generated SignedSource<<e1eaaa5ce0c110de6531aa615b3310e1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,6 +19,18 @@ export type ImageHeroTemplateFragment$data = {
       readonly width: number | null | undefined;
     };
   };
+  readonly large: {
+    readonly webp: {
+      readonly url: string | null | undefined;
+      readonly width: number | null | undefined;
+    };
+  };
+  readonly medium: {
+    readonly webp: {
+      readonly url: string | null | undefined;
+      readonly width: number | null | undefined;
+    };
+  };
   readonly " $fragmentType": "ImageHeroTemplateFragment";
 };
 export type ImageHeroTemplateFragment$key = {
@@ -26,7 +38,37 @@ export type ImageHeroTemplateFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"ImageHeroTemplateFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "width",
+  "storageKey": null
+},
+v2 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "ImageDerivative",
+    "kind": "LinkedField",
+    "name": "webp",
+    "plural": false,
+    "selections": [
+      (v0/*: any*/),
+      (v1/*: any*/)
+    ],
+    "storageKey": null
+  }
+];
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -48,13 +90,7 @@ const node: ReaderFragment = {
           "name": "webp",
           "plural": false,
           "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "url",
-              "storageKey": null
-            },
+            (v0/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -62,13 +98,7 @@ const node: ReaderFragment = {
               "name": "alt",
               "storageKey": null
             },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "width",
-              "storageKey": null
-            },
+            (v1/*: any*/),
             {
               "alias": null,
               "args": null,
@@ -81,12 +111,33 @@ const node: ReaderFragment = {
         }
       ],
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ImageSize",
+      "kind": "LinkedField",
+      "name": "large",
+      "plural": false,
+      "selections": (v2/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ImageSize",
+      "kind": "LinkedField",
+      "name": "medium",
+      "plural": false,
+      "selections": (v2/*: any*/),
+      "storageKey": null
     }
   ],
   "type": "ImageAttachment",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "4eb3b560d71913e69839a46ca39aeb2e";
+(node as any).hash = "d083c48145311a48326c5db5003eacad";
 
 export default node;

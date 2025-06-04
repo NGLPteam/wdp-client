@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3cfd493b7624cdd04dce2a07bd8b32c0>>
+ * @generated SignedSource<<17abdd010020c366ed2429bf6b66a036>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,27 @@ export type CommunityPageLayoutFragment$data = {
     readonly hero: {
       readonly webp: {
         readonly alt: string | null | undefined;
+        readonly height: number | null | undefined;
         readonly url: string | null | undefined;
+        readonly width: number | null | undefined;
+      };
+    };
+    readonly large: {
+      readonly webp: {
+        readonly url: string | null | undefined;
+        readonly width: number | null | undefined;
+      };
+    };
+    readonly medium: {
+      readonly webp: {
+        readonly url: string | null | undefined;
+        readonly width: number | null | undefined;
+      };
+    };
+    readonly small: {
+      readonly webp: {
+        readonly url: string | null | undefined;
+        readonly width: number | null | undefined;
       };
     };
   };
@@ -28,7 +48,37 @@ export type CommunityPageLayoutFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"CommunityPageLayoutFragment">;
 };
 
-const node: ReaderFragment = {
+const node: ReaderFragment = (function(){
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "width",
+  "storageKey": null
+},
+v2 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "ImageDerivative",
+    "kind": "LinkedField",
+    "name": "webp",
+    "plural": false,
+    "selections": [
+      (v0/*: any*/),
+      (v1/*: any*/)
+    ],
+    "storageKey": null
+  }
+];
+return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
@@ -72,24 +122,56 @@ const node: ReaderFragment = {
               "name": "webp",
               "plural": false,
               "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "url",
-                  "storageKey": null
-                },
+                (v0/*: any*/),
                 {
                   "alias": null,
                   "args": null,
                   "kind": "ScalarField",
                   "name": "alt",
                   "storageKey": null
-                }
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "height",
+                  "storageKey": null
+                },
+                (v1/*: any*/)
               ],
               "storageKey": null
             }
           ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageSize",
+          "kind": "LinkedField",
+          "name": "large",
+          "plural": false,
+          "selections": (v2/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageSize",
+          "kind": "LinkedField",
+          "name": "medium",
+          "plural": false,
+          "selections": (v2/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageSize",
+          "kind": "LinkedField",
+          "name": "small",
+          "plural": false,
+          "selections": (v2/*: any*/),
           "storageKey": null
         }
       ],
@@ -99,7 +181,8 @@ const node: ReaderFragment = {
   "type": "Page",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "0379e46db1f64b091388c873f8f08fac";
+(node as any).hash = "320e5ec470e999d4e4e0be1426a256a2";
 
 export default node;

@@ -47,8 +47,9 @@ export const listItemTemplateFragment = graphql`
         slug
         title
         thumbnail {
-          image: large {
+          image: medium {
             webp {
+              alt
               url
             }
           }
@@ -59,15 +60,24 @@ export const listItemTemplateFragment = graphql`
         }
         ...ContributorsListFragment
         heroImage {
-          image: large {
+          large {
             webp {
               alt
               url
+              width
+              height
             }
           }
-          blur: thumb {
+          medium {
             webp {
               url
+              width
+            }
+          }
+          thumb {
+            webp {
+              url
+              width
             }
           }
         }
@@ -78,7 +88,7 @@ export const listItemTemplateFragment = graphql`
         slug
         title
         thumbnail {
-          image: large {
+          image: medium {
             webp {
               url
             }
@@ -90,15 +100,24 @@ export const listItemTemplateFragment = graphql`
         }
         ...ContributorsListFragment
         heroImage {
-          image: large {
+          large {
             webp {
               alt
               url
+              width
+              height
             }
           }
-          blur: thumb {
+          medium {
             webp {
               url
+              width
+            }
+          }
+          thumb {
+            webp {
+              url
+              width
             }
           }
         }

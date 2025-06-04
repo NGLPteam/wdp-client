@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4d0632d235c97bc3a4017884d3f03681>>
+ * @generated SignedSource<<0eef65cc1ec5e3e6df1031b98e4c960d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,11 @@ export type EntityThumbnailColumnFragment$data = {
   readonly slug?: string;
   readonly thumbnail: {
     readonly storage: AttachmentStorage | null | undefined;
-    readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
+    readonly thumb: {
+      readonly webp: {
+        readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
+      };
+    };
   };
   readonly title: string;
   readonly " $fragmentType": "EntityThumbnailColumnFragment";
@@ -32,6 +36,6 @@ const node: ReaderInlineDataFragment = {
   "name": "EntityThumbnailColumnFragment"
 };
 
-(node as any).hash = "c23a46c731661932cfbc906e63f6b4ff";
+(node as any).hash = "8cfdc161b88d9fa22070700d29d25794";
 
 export default node;

@@ -10,6 +10,7 @@ export default function Image({
   objectFit,
   objectPosition,
   width,
+  height,
   className,
 }: Props) {
   const image = useMaybeFragment(fragment, data);
@@ -21,7 +22,8 @@ export default function Image({
       className={className}
       $objectFit={objectFit}
       $objectPosition={objectPosition}
-      width={width}
+      width={image.width ?? width}
+      height={image.height ?? height}
     />
   ) : null;
 }

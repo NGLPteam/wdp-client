@@ -3,6 +3,7 @@ import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTempla
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import NamedLink from "@/components/atomic/links/NamedLink";
 import { getRouteByEntityType } from "@/helpers/routes";
+import { generateSrcSet, sizes } from "@/helpers/generateSrcSet";
 import styles from "./Promo.module.css";
 
 export default function PromoListItem({
@@ -20,19 +21,22 @@ export default function PromoListItem({
       ? `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`
       : null;
 
-  const image =
+  const heroImage =
     entity?.__typename === "Item" || entity?.__typename === "Collection"
-      ? entity.heroImage?.image.webp
+      ? entity.heroImage
       : null;
 
   return (
     <li className={styles.item}>
-      {!!image && !!image.url && (
+      {!!heroImage?.large?.webp?.url && (
         <img
           className={styles.image}
-          role="presentation"
-          alt={image.alt ?? ""}
-          src={image.url}
+          alt={heroImage.large.webp.alt ?? ""}
+          src={heroImage.large.webp.url}
+          srcSet={generateSrcSet(heroImage)}
+          sizes={sizes}
+          width={360}
+          height={250}
           loading="lazy"
           decoding="async"
         />

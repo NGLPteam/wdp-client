@@ -28,7 +28,7 @@ export default function CommunityLogo({ data, slug }: Props) {
           className={styles.logo}
         >
           <img
-            alt=""
+            alt={image.alt ?? ""}
             src={image.url}
             width={image.width || SIZE}
             height={image.height || SIZE}
@@ -49,6 +49,7 @@ const fragment = graphql`
     storage
     original {
       url
+      alt
       width
       height
     }

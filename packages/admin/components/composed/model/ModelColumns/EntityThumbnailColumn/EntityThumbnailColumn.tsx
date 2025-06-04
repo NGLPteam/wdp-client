@@ -35,25 +35,20 @@ const EntityThumbnailColumn = <T extends Node>(
 
       const entity = readInlineData(fragment, value);
 
-      const size = 180;
-
       return entity ? (
         <ImageLink
           route={entity.__typename === "Collection" ? "collection" : "item"}
           routeParams={{ slug: entity.slug || "" }}
         >
           {entity.thumbnail?.storage ? (
-            <Styled.CoverImage
-              data={entity.thumbnail}
+            <Styled.Thumbnail
+              data={entity.thumbnail.thumb.webp}
               objectFit="contain"
-              width={size}
-              height={size}
             />
           ) : (
             <CoverPlaceholder
               title={entity.title || ""}
               seed={entity.id || ""}
-              style={{ maxHeight: "100%" }}
             />
           )}
         </ImageLink>
@@ -74,7 +69,11 @@ const fragment = graphql`
     title
     thumbnail {
       storage
-      ...CoverImageFragment
+      thumb {
+        webp {
+          ...ImageFragment
+        }
+      }
     }
     ... on Node {
       id

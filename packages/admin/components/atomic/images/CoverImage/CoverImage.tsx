@@ -9,8 +9,8 @@ export default function CoverImage({
   data,
   objectFit,
   objectPosition,
-  width = 0,
-  height = 0,
+  width,
+  height,
   className,
 }: Props) {
   const image = useMaybeFragment(fragment, data);

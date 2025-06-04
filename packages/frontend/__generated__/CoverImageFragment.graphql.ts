@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5b3be2ea52b6b98b786cdcb4ff4487ec>>
+ * @generated SignedSource<<36de2a073a9df746f7381fee9c4ede97>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -37,7 +37,7 @@ const node: ReaderFragment = {
       "args": null,
       "concreteType": "ImageSize",
       "kind": "LinkedField",
-      "name": "large",
+      "name": "medium",
       "plural": false,
       "selections": [
         {
@@ -87,6 +87,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "dafb0a22ac3f75f43e228c73bf36c68b";
+(node as any).hash = "13105e852b544a59ae0206169ace7205";
 
 export default node;

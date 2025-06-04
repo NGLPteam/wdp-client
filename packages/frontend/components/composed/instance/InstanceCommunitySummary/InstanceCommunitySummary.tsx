@@ -5,6 +5,7 @@ import { getSchemaPluralName } from "helpers";
 import { NamedLink } from "components/atomic";
 import Markdown from "components/atomic/Markdown";
 import { InstanceCommunitySummaryFragment$key } from "@/relay/InstanceCommunitySummaryFragment.graphql";
+import { generateSrcSet } from "@/helpers/generateSrcSet";
 import styles from "./InstanceCommunitySummary.module.css";
 
 export default function InstanceCommunitySummary({ data }: Props) {
@@ -26,6 +27,8 @@ export default function InstanceCommunitySummary({ data }: Props) {
               <img
                 alt={`${community.title} logo`}
                 src={logoImage.url}
+                height={logoImage.height ?? 180}
+                width={logoImage.width ?? 355}
                 className={styles.logoImage}
               />
             </div>
@@ -35,7 +38,10 @@ export default function InstanceCommunitySummary({ data }: Props) {
             <img
               alt={heroImage.alt ?? ""}
               src={heroImage.url}
-              height={180}
+              srcSet={generateSrcSet(community.heroImage)}
+              sizes="416px"
+              height={heroImage.height ?? 180}
+              width={heroImage.width ?? 355}
               className={styles.heroImage}
             />
           </figure>
@@ -91,7 +97,6 @@ const fragment = graphql`
       count
     }
     heroImage {
-      storage
       large {
         webp {
           alt
@@ -100,9 +105,20 @@ const fragment = graphql`
           height
         }
       }
+      medium {
+        webp {
+          url
+          width
+        }
+      }
+      small {
+        webp {
+          url
+          width
+        }
+      }
     }
     logo {
-      storage
       original {
         alt
         url

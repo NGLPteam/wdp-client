@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<07d945ace0e137283a40451d8442ce0c>>
+ * @generated SignedSource<<22a757915d44094e38dc69960421d4dc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,15 +20,24 @@ export type sharedListItemTemplateFragment$data = {
       readonly id: string;
     }>;
     readonly heroImage: {
-      readonly blur: {
-        readonly webp: {
-          readonly url: string | null | undefined;
-        };
-      };
-      readonly image: {
+      readonly large: {
         readonly webp: {
           readonly alt: string | null | undefined;
+          readonly height: number | null | undefined;
           readonly url: string | null | undefined;
+          readonly width: number | null | undefined;
+        };
+      };
+      readonly medium: {
+        readonly webp: {
+          readonly url: string | null | undefined;
+          readonly width: number | null | undefined;
+        };
+      };
+      readonly thumb: {
+        readonly webp: {
+          readonly url: string | null | undefined;
+          readonly width: number | null | undefined;
         };
       };
     };
@@ -37,6 +46,7 @@ export type sharedListItemTemplateFragment$data = {
     readonly thumbnail: {
       readonly image: {
         readonly webp: {
+          readonly alt: string | null | undefined;
           readonly url: string | null | undefined;
         };
       };
@@ -50,15 +60,24 @@ export type sharedListItemTemplateFragment$data = {
       readonly id: string;
     }>;
     readonly heroImage: {
-      readonly blur: {
-        readonly webp: {
-          readonly url: string | null | undefined;
-        };
-      };
-      readonly image: {
+      readonly large: {
         readonly webp: {
           readonly alt: string | null | undefined;
+          readonly height: number | null | undefined;
           readonly url: string | null | undefined;
+          readonly width: number | null | undefined;
+        };
+      };
+      readonly medium: {
+        readonly webp: {
+          readonly url: string | null | undefined;
+          readonly width: number | null | undefined;
+        };
+      };
+      readonly thumb: {
+        readonly webp: {
+          readonly url: string | null | undefined;
+          readonly width: number | null | undefined;
         };
       };
     };
@@ -157,48 +176,20 @@ v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "alt",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "url",
   "storageKey": null
 },
-v5 = [
-  {
-    "alias": null,
-    "args": null,
-    "concreteType": "ImageDerivative",
-    "kind": "LinkedField",
-    "name": "webp",
-    "plural": false,
-    "selections": [
-      (v4/*: any*/)
-    ],
-    "storageKey": null
-  }
-],
 v6 = {
-  "alias": null,
   "args": null,
-  "concreteType": "ImageAttachment",
-  "kind": "LinkedField",
-  "name": "thumbnail",
-  "plural": false,
-  "selections": [
-    {
-      "alias": "image",
-      "args": null,
-      "concreteType": "ImageSize",
-      "kind": "LinkedField",
-      "name": "large",
-      "plural": false,
-      "selections": (v5/*: any*/),
-      "storageKey": null
-    },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "CoverImageFragment"
-    }
-  ],
-  "storageKey": null
+  "kind": "FragmentSpread",
+  "name": "CoverImageFragment"
 },
 v7 = [
   (v1/*: any*/)
@@ -211,13 +202,35 @@ v8 = {
 v9 = {
   "alias": null,
   "args": null,
+  "kind": "ScalarField",
+  "name": "width",
+  "storageKey": null
+},
+v10 = [
+  {
+    "alias": null,
+    "args": null,
+    "concreteType": "ImageDerivative",
+    "kind": "LinkedField",
+    "name": "webp",
+    "plural": false,
+    "selections": [
+      (v5/*: any*/),
+      (v9/*: any*/)
+    ],
+    "storageKey": null
+  }
+],
+v11 = {
+  "alias": null,
+  "args": null,
   "concreteType": "ImageAttachment",
   "kind": "LinkedField",
   "name": "heroImage",
   "plural": false,
   "selections": [
     {
-      "alias": "image",
+      "alias": null,
       "args": null,
       "concreteType": "ImageSize",
       "kind": "LinkedField",
@@ -232,14 +245,16 @@ v9 = {
           "name": "webp",
           "plural": false,
           "selections": [
+            (v4/*: any*/),
+            (v5/*: any*/),
+            (v9/*: any*/),
             {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "alt",
+              "name": "height",
               "storageKey": null
-            },
-            (v4/*: any*/)
+            }
           ],
           "storageKey": null
         }
@@ -247,19 +262,29 @@ v9 = {
       "storageKey": null
     },
     {
-      "alias": "blur",
+      "alias": null,
+      "args": null,
+      "concreteType": "ImageSize",
+      "kind": "LinkedField",
+      "name": "medium",
+      "plural": false,
+      "selections": (v10/*: any*/),
+      "storageKey": null
+    },
+    {
+      "alias": null,
       "args": null,
       "concreteType": "ImageSize",
       "kind": "LinkedField",
       "name": "thumb",
       "plural": false,
-      "selections": (v5/*: any*/),
+      "selections": (v10/*: any*/),
       "storageKey": null
     }
   ],
   "storageKey": null
 },
-v10 = [
+v12 = [
   {
     "args": null,
     "kind": "FragmentSpread",
@@ -305,7 +330,42 @@ return {
             (v1/*: any*/),
             (v2/*: any*/),
             (v3/*: any*/),
-            (v6/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "ImageAttachment",
+              "kind": "LinkedField",
+              "name": "thumbnail",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": "image",
+                  "args": null,
+                  "concreteType": "ImageSize",
+                  "kind": "LinkedField",
+                  "name": "medium",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "concreteType": "ImageDerivative",
+                      "kind": "LinkedField",
+                      "name": "webp",
+                      "plural": false,
+                      "selections": [
+                        (v4/*: any*/),
+                        (v5/*: any*/)
+                      ],
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
+                },
+                (v6/*: any*/)
+              ],
+              "storageKey": null
+            },
             {
               "alias": null,
               "args": null,
@@ -317,7 +377,7 @@ return {
               "storageKey": null
             },
             (v8/*: any*/),
-            (v9/*: any*/)
+            (v11/*: any*/)
           ],
           "type": "Collection",
           "abstractKey": null
@@ -329,7 +389,41 @@ return {
             (v1/*: any*/),
             (v2/*: any*/),
             (v3/*: any*/),
-            (v6/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "ImageAttachment",
+              "kind": "LinkedField",
+              "name": "thumbnail",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": "image",
+                  "args": null,
+                  "concreteType": "ImageSize",
+                  "kind": "LinkedField",
+                  "name": "medium",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "concreteType": "ImageDerivative",
+                      "kind": "LinkedField",
+                      "name": "webp",
+                      "plural": false,
+                      "selections": [
+                        (v5/*: any*/)
+                      ],
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
+                },
+                (v6/*: any*/)
+              ],
+              "storageKey": null
+            },
             {
               "alias": null,
               "args": null,
@@ -341,7 +435,7 @@ return {
               "storageKey": null
             },
             (v8/*: any*/),
-            (v9/*: any*/)
+            (v11/*: any*/)
           ],
           "type": "Item",
           "abstractKey": null
@@ -364,7 +458,7 @@ return {
           "kind": "LinkedField",
           "name": "contextFull",
           "plural": false,
-          "selections": (v10/*: any*/),
+          "selections": (v12/*: any*/),
           "storageKey": null
         },
         {
@@ -374,7 +468,7 @@ return {
           "kind": "LinkedField",
           "name": "contextAbbr",
           "plural": false,
-          "selections": (v10/*: any*/),
+          "selections": (v12/*: any*/),
           "storageKey": null
         },
         {
@@ -384,7 +478,7 @@ return {
           "kind": "LinkedField",
           "name": "contextC",
           "plural": false,
-          "selections": (v10/*: any*/),
+          "selections": (v12/*: any*/),
           "storageKey": null
         },
         {
@@ -410,7 +504,7 @@ return {
           "kind": "LinkedField",
           "name": "header",
           "plural": false,
-          "selections": (v10/*: any*/),
+          "selections": (v12/*: any*/),
           "storageKey": null
         },
         {
@@ -420,7 +514,7 @@ return {
           "kind": "LinkedField",
           "name": "metaA",
           "plural": false,
-          "selections": (v10/*: any*/),
+          "selections": (v12/*: any*/),
           "storageKey": null
         },
         {
@@ -430,7 +524,7 @@ return {
           "kind": "LinkedField",
           "name": "metaB",
           "plural": false,
-          "selections": (v10/*: any*/),
+          "selections": (v12/*: any*/),
           "storageKey": null
         },
         {
@@ -440,7 +534,7 @@ return {
           "kind": "LinkedField",
           "name": "subheader",
           "plural": false,
-          "selections": (v10/*: any*/),
+          "selections": (v12/*: any*/),
           "storageKey": null
         },
         {
@@ -450,7 +544,7 @@ return {
           "kind": "LinkedField",
           "name": "nestedHeader",
           "plural": false,
-          "selections": (v10/*: any*/),
+          "selections": (v12/*: any*/),
           "storageKey": null
         },
         {
@@ -460,7 +554,7 @@ return {
           "kind": "LinkedField",
           "name": "nestedSubheader",
           "plural": false,
-          "selections": (v10/*: any*/),
+          "selections": (v12/*: any*/),
           "storageKey": null
         },
         {
@@ -470,7 +564,7 @@ return {
           "kind": "LinkedField",
           "name": "nestedContext",
           "plural": false,
-          "selections": (v10/*: any*/),
+          "selections": (v12/*: any*/),
           "storageKey": null
         },
         {
@@ -480,7 +574,7 @@ return {
           "kind": "LinkedField",
           "name": "nestedMetadata",
           "plural": false,
-          "selections": (v10/*: any*/),
+          "selections": (v12/*: any*/),
           "storageKey": null
         }
       ],
@@ -492,6 +586,6 @@ return {
 };
 })();
 
-(node as any).hash = "d91c663b21f37704121b6eda7e525d76";
+(node as any).hash = "0664e07c0930dd02042529dbc8f296c2";
 
 export default node;

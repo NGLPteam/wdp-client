@@ -2,7 +2,9 @@ import { graphql, useFragment } from "react-relay";
 import classNames from "classnames";
 import type { HeroImageLayout } from "@/types/graphql-schema";
 import { ImageHeroTemplateFragment$key } from "@/relay/ImageHeroTemplateFragment.graphql";
+import { generateSrcSet, sizes } from "@/helpers/generateSrcSet";
 import styles from "./Image.module.css";
+import type { ImageSize } from "types/graphql-schema";
 
 export default function HeroImage({
   data,
@@ -11,11 +13,11 @@ export default function HeroImage({
   data: ImageHeroTemplateFragment$key | null;
   layout?: HeroImageLayout;
 }) {
-  const { hero } = useFragment(fragment, data) ?? {};
+  const images = useFragment(fragment, data);
 
-  const { url, alt } = hero?.webp ?? {};
+  const { url, alt, height, width } = images?.hero?.webp ?? {};
 
-  return url ? (
+  return images && url ? (
     <div
       className={
         layout
@@ -28,6 +30,10 @@ export default function HeroImage({
       <img
         alt={alt ?? ""}
         src={url}
+        srcSet={generateSrcSet(images as unknown as Record<string, ImageSize>)}
+        sizes={sizes}
+        height={height ?? 425}
+        width={width ?? 585}
         className={classNames(styles.image, {
           [styles["image--one-column"]]: layout === "ONE_COLUMN",
         })}
@@ -46,6 +52,18 @@ const fragment = graphql`
         alt
         width
         height
+      }
+    }
+    large {
+      webp {
+        url
+        width
+      }
+    }
+    medium {
+      webp {
+        url
+        width
       }
     }
   }

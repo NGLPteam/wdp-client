@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<45e8ebf7bcd725aade62ed48173307f9>>
+ * @generated SignedSource<<a450f7ad1a68ea188541ca28636f6874>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type AssetThumbnailColumnFragment$data = {
   readonly thumbnail: {
     readonly image: {
       readonly png: {
+        readonly url: string | null | undefined;
         readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
       };
     };
@@ -32,6 +33,6 @@ const node: ReaderInlineDataFragment = {
   "name": "AssetThumbnailColumnFragment"
 };
 
-(node as any).hash = "ca0f2009b5f30a8b1aa46c1781dc1775";
+(node as any).hash = "bbdcd72f974a56e651ef9a1551d3c4fd";
 
 export default node;

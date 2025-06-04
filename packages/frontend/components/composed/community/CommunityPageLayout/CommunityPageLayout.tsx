@@ -7,6 +7,7 @@ import { graphql } from "react-relay";
 import { LoadingBlock, Markdown } from "components/atomic";
 import Container from "@/components/layout/Container";
 import { CommunityPageLayoutFragment$key } from "@/relay/CommunityPageLayoutFragment.graphql";
+import { generateSrcSet, sizes } from "@/helpers/generateSrcSet";
 import styles from "./CommunityPageLayout.module.css";
 
 export default function CommunityPageLayout({ data }: Props) {
@@ -23,8 +24,11 @@ export default function CommunityPageLayout({ data }: Props) {
           <img
             alt={hero.alt ?? ""}
             src={hero.url}
+            srcSet={generateSrcSet(page.heroImage)}
+            sizes={sizes}
             className={styles.heroImage}
-            height={300}
+            height={hero?.height ?? 300}
+            width={hero?.width ?? 1200}
             decoding="async"
             loading="eager"
           />
@@ -61,6 +65,26 @@ const fragment = graphql`
         webp {
           url
           alt
+          height
+          width
+        }
+      }
+      large {
+        webp {
+          url
+          width
+        }
+      }
+      medium {
+        webp {
+          url
+          width
+        }
+      }
+      small {
+        webp {
+          url
+          width
         }
       }
     }
