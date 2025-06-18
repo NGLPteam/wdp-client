@@ -63,7 +63,7 @@ export default function Confirm({
       if (handleClose) handleClose(e);
 
       if (result?.id) {
-        notify.success(t("messages.prune.success"));
+        notify.success(t("messages.delete.prune_success", { title }));
       } else if (globalErrors?.length) {
         notify.mutationGlobalError(globalErrors);
       } else if (attributeErrors?.length) {
@@ -72,7 +72,7 @@ export default function Confirm({
         );
       }
     },
-    [notify, t, handleClose],
+    [notify, t, handleClose, title],
   );
 
   const handlePruneAttempt = (e: React.MouseEvent<HTMLButtonElement>) => {
