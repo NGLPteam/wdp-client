@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4217f5e80d30ad4cd88c4f2ec52c9592>>
+ * @generated SignedSource<<5ae60639501346732d6e958b8e0155e8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -113,12 +113,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "95502b7fc279ec92192bd00b7e75b7f4",
+    "cacheID": "ca7001c068dce6bbb78c254a33f98371",
     "id": null,
     "metadata": {},
     "name": "LayoutHarvestSourceQuery",
     "operationKind": "query",
-    "text": "query LayoutHarvestSourceQuery(\n  $slug: Slug!\n) {\n  harvestSource(slug: $slug) {\n    ...HarvestSourceLayoutFragment\n    id\n  }\n}\n\nfragment HarvestSourceLayoutFragment on HarvestSource {\n  __typename\n  slug\n  name\n}\n"
+    "text": "query LayoutHarvestSourceQuery(\n  $slug: Slug!\n) {\n  harvestSource(slug: $slug) {\n    ...HarvestSourceLayoutFragment\n    id\n  }\n}\n\nfragment HarvestSourceLayoutFragment on HarvestSource {\n  __typename\n  slug\n  name\n  id\n}\n"
   }
 };
 })();

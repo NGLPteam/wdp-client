@@ -26,18 +26,19 @@ export const Dialog = styled.dialog`
   }
 
   &::backdrop {
-    background-color: oklch(90% 0 302.97 / 75.86%);
+    background-color: var(--dialog-backdrop-background);
   }
 `;
 
 export const Pane = styled.div`
-  background: var(--neutral05);
+  background: var(--dialog-background-color, var(--neutral05));
   max-block-size: 100%;
-  border-radius: 0.75rem;
+  border-radius: 0.375rem;
   padding: 1.25rem;
   box-shadow: 0px 2px 16px 0px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   margin: auto;
+  width: 100%;
 `;
 
 export const ChildrenWrapper = styled.div`
@@ -57,7 +58,7 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
 
-  button {
+  button.dialog-close {
     display: flex;
     gap: 0.75rem;
     align-items: center;

@@ -17,7 +17,7 @@ export const FieldsWrapper = styled.div`
   gap: var(--fieldset-field-spacing);
   border: 1px solid var(--neutral60);
   border-radius: var(--border-radius-sm);
-  background-color: var(--neutral05);
+  background-color: var(--fieldset-bg-color, var(--neutral05));
   padding-block-start: ${pxToRem(16)};
   padding-block-end: ${pxToRem(20)};
   padding-inline-start: ${pxToRem(20)};

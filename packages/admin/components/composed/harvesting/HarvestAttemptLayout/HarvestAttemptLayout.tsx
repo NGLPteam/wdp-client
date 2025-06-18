@@ -6,6 +6,7 @@ import { formatDate } from "@wdp/lib/helpers";
 import { useChildRouteLinks, useMaybeFragment, useRouteSlug } from "hooks";
 import { PageHeader, BackToAll } from "components/layout";
 import type { HarvestAttemptLayoutFragment$key } from "@/relay/HarvestAttemptLayoutFragment.graphql";
+import PruneEntitiesModal from "../PruneEntitiesModal";
 
 export default function HarvestAttemptLayout({
   children,
@@ -18,8 +19,14 @@ export default function HarvestAttemptLayout({
   const { t } = useTranslation();
   const slug = useRouteSlug() || undefined;
   const manageRoutes = useChildRouteLinks("harvestAttempt", { slug });
-  const { harvestSource, harvestMapping, harvestSet, beganAt, targetEntity } =
-    useMaybeFragment(fragment, data) ?? {};
+  const {
+    id,
+    harvestSource,
+    harvestMapping,
+    harvestSet,
+    beganAt,
+    targetEntity,
+  } = useMaybeFragment(fragment, data) ?? {};
 
   const params = useSearchParams();
   const backTo = params.get("backTo");
@@ -53,7 +60,15 @@ export default function HarvestAttemptLayout({
   return (
     <section>
       {backToProps && <BackToAll {...backToProps} />}
-      <PageHeader title={title} tabRoutes={manageRoutes} />
+      <PageHeader
+        title={title}
+        tabRoutes={manageRoutes}
+        buttons={
+          id ? (
+            <PruneEntitiesModal id={id} title={title} type="attempt" />
+          ) : undefined
+        }
+      />
       {children}
     </section>
   );
@@ -61,6 +76,7 @@ export default function HarvestAttemptLayout({
 
 const fragment = graphql`
   fragment HarvestAttemptLayoutFragment on HarvestAttempt {
+    id
     beganAt
     harvestSource {
       slug
