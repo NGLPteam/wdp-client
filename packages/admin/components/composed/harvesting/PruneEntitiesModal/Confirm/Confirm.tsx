@@ -20,12 +20,20 @@ import type {
 type Props = {
   mode: string;
   onBack: () => void;
+  handleClose: (e: React.MouseEvent<HTMLButtonElement>) => void;
   type: "source" | "attempt";
   id: string;
   title: string;
 };
 
-export default function Confirm({ mode, onBack, type, id, title }: Props) {
+export default function Confirm({
+  mode,
+  onBack,
+  type,
+  id,
+  title,
+  handleClose,
+}: Props) {
   const notify = useNotify();
   const { t } = useTranslation();
 
@@ -41,6 +49,7 @@ export default function Confirm({ mode, onBack, type, id, title }: Props) {
         | ConfirmPruneFromHarvestAttemptMutation$data["harvestAttemptPruneEntities"]
         | null
         | undefined,
+      e: React.MouseEvent<HTMLButtonElement>,
     ) => {
       if (!data) return;
       const result =
@@ -50,6 +59,8 @@ export default function Confirm({ mode, onBack, type, id, title }: Props) {
             ? data.harvestAttempt
             : null;
       const { globalErrors, attributeErrors } = data ?? {};
+
+      if (handleClose) handleClose(e);
 
       if (result?.id) {
         notify.success(t("messages.prune.success"));
@@ -61,31 +72,31 @@ export default function Confirm({ mode, onBack, type, id, title }: Props) {
         );
       }
     },
-    [notify, t],
+    [notify, t, handleClose],
   );
 
-  const handlePruneAttempt = () => {
+  const handlePruneAttempt = (e: React.MouseEvent<HTMLButtonElement>) => {
     commitPruneAttempt({
       variables: {
         input: { harvestAttemptId: id, mode: mode as HarvestPruneMode },
       },
       onCompleted: (response) =>
-        handleResponse(response["harvestAttemptPruneEntities"]),
+        handleResponse(response["harvestAttemptPruneEntities"], e),
     });
   };
 
-  const handlePruneSource = () => {
+  const handlePruneSource = (e: React.MouseEvent<HTMLButtonElement>) => {
     commitPruneSource({
       variables: {
         input: { harvestSourceId: id, mode: mode as HarvestPruneMode },
       },
       onCompleted: (response) =>
-        handleResponse(response["harvestSourcePruneEntities"]),
+        handleResponse(response["harvestSourcePruneEntities"], e),
     });
   };
 
-  const onConfirm = () => {
-    return type === "source" ? handlePruneSource() : handlePruneAttempt();
+  const onConfirm = (e: React.MouseEvent<HTMLButtonElement>) => {
+    return type === "source" ? handlePruneSource(e) : handlePruneAttempt(e);
   };
 
   return (

@@ -57,6 +57,7 @@ export default function PruneEntitiesModal({
               title={title}
               mode={mode}
               onBack={toggleOnConfirm}
+              handleClose={handleClose}
             />
           ) : (
             <PruneEntitiesForm
