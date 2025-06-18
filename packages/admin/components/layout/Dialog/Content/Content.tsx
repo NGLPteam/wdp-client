@@ -4,11 +4,23 @@ import IconFactory from "components/factories/IconFactory";
 import { useDialogContext } from "../context";
 import * as Styled from "./Content.styles";
 
+type Props = Omit<HTMLAttributes<HTMLDialogElement>, "children"> & {
+  button?: (
+    onClose: (e: React.MouseEvent<HTMLButtonElement>) => void,
+  ) => React.ReactNode;
+  children:
+    | React.ReactNode
+    | ((
+        onClose: (e: React.MouseEvent<HTMLButtonElement>) => void,
+      ) => React.ReactNode | React.JSX.Element);
+};
+
 export default function Dialog({
   children,
   className,
+  button,
   ...restProps
-}: React.PropsWithChildren & HTMLAttributes<HTMLDialogElement>) {
+}: Props) {
   const { dialogRef, onToggleClick } = useDialogContext();
 
   const { t } = useTranslation();
@@ -25,12 +37,20 @@ export default function Dialog({
     <Styled.Dialog ref={dialogRef} className={className} {...restProps}>
       <Styled.Pane>
         <Styled.ButtonWrapper>
-          <button onClick={handleToggleClick}>
-            <span className="t-label-sm">{t("common.close")}</span>
-            <IconFactory icon="close" />
-          </button>
+          {button ? (
+            button(handleToggleClick)
+          ) : (
+            <button className="dialog-close" onClick={handleToggleClick}>
+              <span className="t-label-sm">{t("common.close")}</span>
+              <IconFactory icon="close" />
+            </button>
+          )}
         </Styled.ButtonWrapper>
-        <Styled.ChildrenWrapper>{children}</Styled.ChildrenWrapper>
+        <Styled.ChildrenWrapper>
+          {typeof children === "function"
+            ? children(handleToggleClick)
+            : children}
+        </Styled.ChildrenWrapper>
       </Styled.Pane>
     </Styled.Dialog>
   );

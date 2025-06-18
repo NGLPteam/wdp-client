@@ -51,6 +51,7 @@ type BaseProps = Pick<
 interface Props extends BaseProps {
   description?: string;
   options: { value: string; label: string; default?: boolean }[];
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default RadioGroup;

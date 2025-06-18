@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3ac4922d1dc9a01b4b072f3cc654f391>>
+ * @generated SignedSource<<2a09734e2e66f443fba3f2159517eff4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,6 +23,7 @@ export type HarvestAttemptLayoutFragment$data = {
     readonly name: string;
     readonly slug: string;
   };
+  readonly id: string;
   readonly targetEntity: {
     readonly harvestTargetKind: HarvestTargetKind;
     readonly title: string;
@@ -48,6 +49,13 @@ return {
   "metadata": null,
   "name": "HarvestAttemptLayoutFragment",
   "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -135,6 +143,6 @@ return {
 };
 })();
 
-(node as any).hash = "390186abd9e84421c8f25f2b5752914c";
+(node as any).hash = "a6d2111e7ae62bf439f4160942e11d02";
 
 export default node;

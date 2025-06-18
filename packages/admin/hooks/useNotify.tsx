@@ -1,6 +1,9 @@
 import { useCallback } from "react";
 import toast from "react-hot-toast";
-import type { MutationGlobalError } from "types/graphql-schema";
+import type {
+  MutationGlobalError,
+  MutationAttributeError,
+} from "types/graphql-schema";
 
 export default function useNotify() {
   const debug = useCallback((msg: string) => {
@@ -26,11 +29,19 @@ export default function useNotify() {
     [error],
   );
 
+  const mutationAttributeError = useCallback(
+    (errors: Readonly<MutationAttributeError[]>) => {
+      errors.forEach((e) => error(`${e.path}: ${e.messages.join(", ")}`));
+    },
+    [error],
+  );
+
   return {
     debug,
     info,
     success,
     error,
     mutationGlobalError,
+    mutationAttributeError,
   };
 }

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e7b019f03ba3ea3387c814e70c267907>>
+ * @generated SignedSource<<8e81df09597bf4fe363ac378a72b66b1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -42,14 +42,14 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
+  "name": "id",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
+  "name": "slug",
   "storageKey": null
 };
 return {
@@ -93,6 +93,7 @@ return {
         "name": "harvestAttempt",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -108,7 +109,7 @@ return {
             "name": "harvestSource",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
+              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -116,7 +117,7 @@ return {
                 "name": "name",
                 "storageKey": null
               },
-              (v3/*: any*/)
+              (v2/*: any*/)
             ],
             "storageKey": null
           },
@@ -135,7 +136,7 @@ return {
                 "name": "identifier",
                 "storageKey": null
               },
-              (v3/*: any*/)
+              (v2/*: any*/)
             ],
             "storageKey": null
           },
@@ -147,8 +148,8 @@ return {
             "name": "harvestMapping",
             "plural": false,
             "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/)
+              (v3/*: any*/),
+              (v2/*: any*/)
             ],
             "storageKey": null
           },
@@ -184,27 +185,26 @@ return {
               {
                 "kind": "InlineFragment",
                 "selections": [
-                  (v3/*: any*/)
+                  (v2/*: any*/)
                 ],
                 "type": "Node",
                 "abstractKey": "__isNode"
               }
             ],
             "storageKey": null
-          },
-          (v3/*: any*/)
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "a30ae18db44ab3f42320d6fa5bff4a88",
+    "cacheID": "0f91349d7fc9098d341366f77150a15b",
     "id": null,
     "metadata": {},
     "name": "LayoutHarvestAttemptQuery",
     "operationKind": "query",
-    "text": "query LayoutHarvestAttemptQuery(\n  $slug: Slug!\n) {\n  harvestAttempt(slug: $slug) {\n    ...HarvestAttemptLayoutFragment\n    id\n  }\n}\n\nfragment HarvestAttemptLayoutFragment on HarvestAttempt {\n  beganAt\n  harvestSource {\n    slug\n    name\n    id\n  }\n  harvestSet {\n    identifier\n    id\n  }\n  harvestMapping {\n    slug\n    id\n  }\n  targetEntity {\n    __typename\n    harvestTargetKind\n    title\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n"
+    "text": "query LayoutHarvestAttemptQuery(\n  $slug: Slug!\n) {\n  harvestAttempt(slug: $slug) {\n    ...HarvestAttemptLayoutFragment\n    id\n  }\n}\n\nfragment HarvestAttemptLayoutFragment on HarvestAttempt {\n  id\n  beganAt\n  harvestSource {\n    slug\n    name\n    id\n  }\n  harvestSet {\n    identifier\n    id\n  }\n  harvestMapping {\n    slug\n    id\n  }\n  targetEntity {\n    __typename\n    harvestTargetKind\n    title\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n"
   }
 };
 })();

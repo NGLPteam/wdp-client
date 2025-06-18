@@ -1,0 +1,148 @@
+import { useCallback } from "react";
+import { graphql, useMutation } from "react-relay";
+import { useTranslation } from "react-i18next";
+import { useNotify } from "hooks";
+import { Button } from "components/atomic";
+import {
+  ConfirmPruneFromHarvestSourceMutation,
+  ConfirmPruneFromHarvestSourceMutation$data,
+} from "@/relay/ConfirmPruneFromHarvestSourceMutation.graphql";
+import {
+  ConfirmPruneFromHarvestAttemptMutation,
+  ConfirmPruneFromHarvestAttemptMutation$data,
+} from "@/relay/ConfirmPruneFromHarvestAttemptMutation.graphql";
+import * as Styled from "../PruneEntitiesModal.styles";
+import type {
+  HarvestPruneMode,
+  MutationAttributeError,
+} from "types/graphql-schema";
+
+type Props = {
+  mode: string;
+  onBack: () => void;
+  type: "source" | "attempt";
+  id: string;
+  title: string;
+};
+
+export default function Confirm({ mode, onBack, type, id, title }: Props) {
+  const notify = useNotify();
+  const { t } = useTranslation();
+
+  const [commitPruneAttempt] =
+    useMutation<ConfirmPruneFromHarvestAttemptMutation>(attemptMutation);
+  const [commitPruneSource] =
+    useMutation<ConfirmPruneFromHarvestSourceMutation>(sourceMutation);
+
+  const handleResponse = useCallback(
+    (
+      data:
+        | ConfirmPruneFromHarvestSourceMutation$data["harvestSourcePruneEntities"]
+        | ConfirmPruneFromHarvestAttemptMutation$data["harvestAttemptPruneEntities"]
+        | null
+        | undefined,
+    ) => {
+      if (!data) return;
+      const result =
+        "harvestSource" in data
+          ? data.harvestSource
+          : "harvestAttempt" in data
+            ? data.harvestAttempt
+            : null;
+      const { globalErrors, attributeErrors } = data ?? {};
+
+      if (result?.id) {
+        notify.success(t("messages.prune.success"));
+      } else if (globalErrors?.length) {
+        notify.mutationGlobalError(globalErrors);
+      } else if (attributeErrors?.length) {
+        notify.mutationAttributeError(
+          attributeErrors as MutationAttributeError[],
+        );
+      }
+    },
+    [notify, t],
+  );
+
+  const handlePruneAttempt = () => {
+    commitPruneAttempt({
+      variables: {
+        input: { harvestAttemptId: id, mode: mode as HarvestPruneMode },
+      },
+      onCompleted: (response) =>
+        handleResponse(response["harvestAttemptPruneEntities"]),
+    });
+  };
+
+  const handlePruneSource = () => {
+    commitPruneSource({
+      variables: {
+        input: { harvestSourceId: id, mode: mode as HarvestPruneMode },
+      },
+      onCompleted: (response) =>
+        handleResponse(response["harvestSourcePruneEntities"]),
+    });
+  };
+
+  const onConfirm = () => {
+    return type === "source" ? handlePruneSource() : handlePruneAttempt();
+  };
+
+  return (
+    <>
+      <Styled.Header>
+        {t(`harvesting.prune.mode_${mode.toLowerCase()}_confirm_header`)}
+      </Styled.Header>
+      <Styled.Subheader className="t-label-sm">{title}</Styled.Subheader>
+      <div>{t("harvesting.prune.confirm_body")}</div>
+      <Styled.ButtonWrapper>
+        <Button onClick={onConfirm}>{t("common.confirm")}</Button>
+        <Button $secondary onClick={onBack}>
+          {t("common.back")}
+        </Button>
+      </Styled.ButtonWrapper>
+    </>
+  );
+}
+
+const attemptMutation = graphql`
+  mutation ConfirmPruneFromHarvestAttemptMutation(
+    $input: HarvestAttemptPruneEntitiesInput!
+  ) {
+    harvestAttemptPruneEntities(input: $input) {
+      harvestAttempt {
+        id
+      }
+      globalErrors {
+        message
+        type
+      }
+      attributeErrors {
+        messages
+        path
+        type
+      }
+    }
+  }
+`;
+
+const sourceMutation = graphql`
+  mutation ConfirmPruneFromHarvestSourceMutation(
+    $input: HarvestSourcePruneEntitiesInput!
+  ) {
+    harvestSourcePruneEntities(input: $input) {
+      harvestSource {
+        id
+      }
+      globalErrors {
+        message
+        type
+      }
+      attributeErrors {
+        messages
+        path
+        type
+      }
+    }
+  }
+`;

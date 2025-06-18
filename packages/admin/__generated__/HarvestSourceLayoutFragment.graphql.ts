@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cd1ff82917d9b37d38a63c96924b3a72>>
+ * @generated SignedSource<<0ea9ba4b3a82e0bf732ae6ff7b6275f3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,7 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type HarvestSourceLayoutFragment$data = {
   readonly __typename: "HarvestSource";
+  readonly id: string;
   readonly name: string;
   readonly slug: string;
   readonly " $fragmentType": "HarvestSourceLayoutFragment";
@@ -47,12 +48,19 @@ const node: ReaderFragment = {
       "kind": "ScalarField",
       "name": "name",
       "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
     }
   ],
   "type": "HarvestSource",
   "abstractKey": null
 };
 
-(node as any).hash = "cd990d9cdc2c1725bc72e9d4108aae88";
+(node as any).hash = "fbde8bc9049688e04588369bce7b4546";
 
 export default node;

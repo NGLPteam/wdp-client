@@ -33,7 +33,9 @@
       "reset": "Reset",
       "enable": "Enable",
       "disable": "Disable",
-      "actions": "Actions"
+      "actions": "Actions",
+      "continue": "Continue",
+      "back": "Back"
     },
     "glossary": {
       "community": "community",
@@ -456,7 +458,7 @@
         "footer_description": "Description",
         "footer_description_description": "Enter a description of this installation.",
         "logo": "Logo",
-        "logo_description": "<0>Recommended sizes:</0><1><0>Raster Logos: 566px by 566px. This size ensures it looks crisp, especially on list pages.</0><0>Vector Logos: These are scalable so there are no minimum pixel dimensions, but if there’s too much white space around the logo, it may appear smaller than expected.</0></1>",
+        "logo_description": "<0>Recommended sizes:</0><1><0>Raster Logos: 566px by 566px. This size ensures it looks crisp, especially on list pages.</0><0>Vector Logos: These are scalable so there are no minimum pixel dimensions, but if there's too much white space around the logo, it may appear smaller than expected.</0></1>",
         "logo_settings": "Logo Settings",
         "logo_settings_description": "Choose if the logo should be displayed with or without the installation name.",
         "logo_settings_with_text": "Display with Installation Name",
@@ -562,7 +564,7 @@
       "asset_property_select": {
         "add_file": "Add File",
         "placeholder": "Select a file",
-        "description": "Select a file using the dropdown above, or add a new file. To manage this item’s files, <filesLink>visit this page.</filesLink>"
+        "description": "Select a file using the dropdown above, or add a new file. To manage this item's files, <filesLink>visit this page.</filesLink>"
       },
       "order_render_select": {
         "label": "Display as",
@@ -642,7 +644,19 @@
       "settings_from_mapping": "Settings from mapping",
       "set": "[set: {{set}}]",
       "at": "[at: {{at}}]",
-      "debug": "Debug"
+      "debug": "Debug",
+      "prune": {
+        "button_label": "Prune",
+        "mode_everything_label": "All Entities",
+        "mode_everything_confirm_header": "Prune ALL Harvested Entities",
+        "mode_unmodified_label": "Only Unmodified Entities",
+        "mode_unmodified_confirm_header": "Prune ONLY UNMODIFIED Harvested Entities",
+        "modal_header": "Prune Harvested Entities",
+        "note": "Once initiated, the removal process will happen in the background. Depending on the number of entities, it might take some time to see full results.",
+        "mode_label": "Mode",
+        "mode_description": "Select which entities to remove. If unmodified is selected, unmodified entities with modified children may be left in place.",
+        "confirm_body": "Are you sure you want to proceed? This action cannot be undone."
+      }
     }
   }
 }
