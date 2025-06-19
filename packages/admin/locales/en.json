@@ -361,6 +361,11 @@
         "submit_label": "Send email",
         "success_message": "Email sent!",
         "error_message": "Email could not be sent. Please try again."
+      },
+      "purge": {
+        "entity_purge_modal_header": "Delete {{ entityType }}",
+        "button_label": "Purge",
+        "confirm_body": "Are you sure you want to proceed? This action cannot be undone and may remove many entities."
       }
     },
     "sort": {

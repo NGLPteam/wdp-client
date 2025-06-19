@@ -6,12 +6,12 @@ import * as Styled from "./Content.styles";
 
 type Props = Omit<HTMLAttributes<HTMLDialogElement>, "children"> & {
   button?: (
-    onClose: (e: React.MouseEvent<HTMLButtonElement>) => void,
+    onClose: (e?: React.MouseEvent<HTMLButtonElement>) => void,
   ) => React.ReactNode;
   children:
     | React.ReactNode
     | ((
-        onClose: (e: React.MouseEvent<HTMLButtonElement>) => void,
+        onClose: (e?: React.MouseEvent<HTMLButtonElement>) => void,
       ) => React.ReactNode | React.JSX.Element);
 };
 
@@ -26,8 +26,8 @@ export default function Dialog({
   const { t } = useTranslation();
 
   const handleToggleClick = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
+    (e?: React.MouseEvent<HTMLButtonElement>) => {
+      if (e) e.preventDefault();
       onToggleClick();
     },
     [onToggleClick],

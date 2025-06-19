@@ -54,6 +54,10 @@ import {
   useDestroyerDestroyAssetMutation,
 } from "@/relay/useDestroyerDestroyAssetMutation.graphql";
 import { useDestroyerDestroyAnnouncementMutation } from "@/relay/useDestroyerDestroyAnnouncementMutation.graphql";
+import {
+  EntityPurgeInput,
+  useDestroyerEntityPurgeMutation,
+} from "@/relay/useDestroyerEntityPurgeMutation.graphql";
 
 export function useDestroyer() {
   const notify = useNotify();
@@ -307,6 +311,21 @@ export function useDestroyer() {
     [commitDestroyHarvestMapping, handleResponse, t],
   );
 
+  /* Purge an entity and all its descendants */
+  const [commitPurgeEntity] =
+    useMutation<useDestroyerEntityPurgeMutation>(entityPurgeMutation);
+
+  const purge = useCallback(
+    async (input: EntityPurgeInput, label: string, type: string) => {
+      commitPurgeEntity({
+        variables: { input },
+        onCompleted: (response) =>
+          handleResponse(response.entityPurge, label, [type]),
+      });
+    },
+    [commitPurgeEntity, handleResponse],
+  );
+
   return {
     collection,
     item,
@@ -321,6 +340,7 @@ export function useDestroyer() {
     announcement,
     harvestSource,
     harvestMapping,
+    purge,
   };
 }
 export default useDestroyer;
@@ -454,6 +474,15 @@ const destroyHarvestMappingMutation = graphql`
     $input: HarvestMappingDestroyInput!
   ) {
     harvestMappingDestroy(input: $input) {
+      destroyedId @deleteRecord
+      ...useDestroyerFragment
+    }
+  }
+`;
+
+const entityPurgeMutation = graphql`
+  mutation useDestroyerEntityPurgeMutation($input: EntityPurgeInput!) {
+    entityPurge(input: $input) {
       destroyedId @deleteRecord
       ...useDestroyerFragment
     }

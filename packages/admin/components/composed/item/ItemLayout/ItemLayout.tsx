@@ -10,6 +10,7 @@ import {
   useLatestPresentValue,
   useDestroyer,
 } from "hooks";
+import { useViewerContext } from "contexts";
 import useBreadcrumbs from "hooks/useBreadcrumbs";
 import { RouteHelper } from "routes";
 import {
@@ -19,6 +20,7 @@ import {
 } from "components/atomic";
 import { ContentSidebar, ContentHeader, PageHeader } from "components/layout";
 import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
+import EntityPurgeModal from "components/composed/entity/EntityPurgeModal";
 import ItemCreateButton from "../ItemCreateButton";
 
 export default function ItemLayout({
@@ -57,6 +59,29 @@ export default function ItemLayout({
     [memoizedItem, breadcrumbs, destroy, router],
   );
 
+  const { globalAdmin } = useViewerContext();
+
+  const deleteButton =
+    globalAdmin && memoizedItem ? (
+      <EntityPurgeModal
+        id={memoizedItem.id}
+        title={memoizedItem.title}
+        entityType="item"
+        handleDelete={handleDelete}
+        redirectPath={breadcrumbs?.[breadcrumbs.length - 2]?.href ?? "/items"}
+      />
+    ) : (
+      <ButtonControlConfirm
+        modalLabel={t("messages.delete.confirm_label")}
+        modalBody={t("messages.delete.confirm_body")}
+        icon="delete"
+        onClick={handleDelete}
+        actions="self.delete"
+      >
+        {t("common.delete")}
+      </ButtonControlConfirm>
+    );
+
   const buttons = (
     <ButtonControlGroup
       toggleLabel={t("options")}
@@ -78,15 +103,7 @@ export default function ItemLayout({
           {t("harvesting.view_entity_record")}
         </ButtonControlRoute>
       )}
-      <ButtonControlConfirm
-        modalLabel={t("messages.delete.confirm_label")}
-        modalBody={t("messages.delete.confirm_body")}
-        icon="delete"
-        onClick={handleDelete}
-        actions="self.delete"
-      >
-        {t("common.delete")}
-      </ButtonControlConfirm>
+      {deleteButton}
     </ButtonControlGroup>
   );
 
