@@ -19,32 +19,28 @@ export default function HarvestSourceLayout({
   const manageRoutes = useChildRouteLinks("harvestSource", { slug });
   const harvestSource = useMaybeFragment(fragment, data);
 
-  const buttons = (
+  const buttons = slug && (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
-      {slug && (
-        <>
-          <ButtonControlRoute
-            route="harvestSource.mappings.new"
-            query={{ slug }}
-            icon="plus"
-          >
-            {t("actions.add.harvest_mapping")}
-          </ButtonControlRoute>
-          <ButtonControlRoute
-            route="harvestSource.harvestAttempt.new"
-            query={{ slug }}
-            icon="plus"
-          >
-            {t("actions.add.harvest_attempt")}
-          </ButtonControlRoute>
-          {harvestSource?.id && (
-            <PruneEntitiesModal
-              id={harvestSource?.id}
-              title={harvestSource?.name}
-              type="source"
-            />
-          )}
-        </>
+      <ButtonControlRoute
+        route="harvestSource.mappings.new"
+        query={{ slug }}
+        icon="plus"
+      >
+        {t("actions.add.harvest_mapping")}
+      </ButtonControlRoute>
+      <ButtonControlRoute
+        route="harvestSource.harvestAttempt.new"
+        query={{ slug }}
+        icon="plus"
+      >
+        {t("actions.add.harvest_attempt")}
+      </ButtonControlRoute>
+      {harvestSource?.id && (
+        <PruneEntitiesModal
+          id={harvestSource?.id}
+          title={harvestSource?.name}
+          type="source"
+        />
       )}
     </ButtonControlGroup>
   );
