@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { respond } from "theme/mixins/base";
 
 export const Dialog = styled.dialog`
+  position: fixed;
   opacity: 0;
   z-index: 50;
   inset-block-start: 50%;
@@ -42,11 +43,11 @@ export const Pane = styled.div`
 `;
 
 export const ChildrenWrapper = styled.div`
-  padding-inline: min(2.5rem, 5%);
+  padding-inline: var(--dialog-content-padding, min(2.5rem, 5%));
   padding-block-start: 0.5rem;
   padding-block-end: 1rem;
 
-  ${respond(`padding-inline: 0.5rem;`, 70)}
+  ${respond(`padding-inline: var(--dialog-content-padding, 0.5rem;)`, 70)}
 
   > * + * {
     margin-block-start: 1.5rem;

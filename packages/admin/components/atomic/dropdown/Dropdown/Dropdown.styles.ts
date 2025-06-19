@@ -58,7 +58,7 @@ export const Item = styled.li`
   text-align: start;
   color: var(--color-base);
 
-  &:hover,
+  &:hover:not(:has(dialog[open])),
   &:focus-within:not(:hover) {
     ${aBgDark()}
 
@@ -67,7 +67,7 @@ export const Item = styled.li`
     }
   }
 
-  > * {
+  > *:not(dialog) {
     display: flex;
     white-space: nowrap;
     width: 100%;

@@ -9,10 +9,13 @@ const Button = styled.button<Props>`
   ${tLabel("lg")}
   border-radius: ${pxToRem(6)};
   padding: ${pxToRem(12)} ${pxToRem(32)};
+
+  ${({ $red }) => $red && "background-color: var(--reddark);"}
 `;
 
 interface Props extends React.HTMLProps<HTMLButtonElement> {
   $secondary?: boolean;
+  $red?: boolean;
 }
 
 export default Button;

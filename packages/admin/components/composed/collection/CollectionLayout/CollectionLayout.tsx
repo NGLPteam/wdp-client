@@ -16,9 +16,11 @@ import {
   useLatestPresentValue,
   useDestroyer,
 } from "hooks";
+import { useViewerContext } from "contexts";
 import useBreadcrumbs from "hooks/useBreadcrumbs";
 import ItemCreateButton from "components/composed/item/ItemCreateButton";
 import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
+import EntityPurgeModal from "components/composed/entity/EntityPurgeModal";
 import type { CollectionLayoutFragment$key } from "@/relay/CollectionLayoutFragment.graphql";
 import CollectionCreateButton from "../CollectionCreateButton";
 
@@ -41,7 +43,7 @@ export default function CollectionLayout({
   const manageRoutes = useChildRouteLinks(
     "collection.manage",
     { slug },
-    collection,
+    collection
   );
   const tabRoutes = useChildRouteLinks("collection", { slug }, collection);
   const breadcrumbs = useBreadcrumbs(memoizedCollection || null);
@@ -53,22 +55,47 @@ export default function CollectionLayout({
       if (memoizedCollection && breadcrumbs) {
         destroy.collection(
           { collectionId: memoizedCollection.id },
-          memoizedCollection.title || "glossary.item",
+          memoizedCollection.title || "glossary.item"
         );
         hideDialog();
         router.replace(
-          breadcrumbs[breadcrumbs.length - 2]?.href ?? "/collections",
+          breadcrumbs[breadcrumbs.length - 2]?.href ?? "/collections"
         );
       }
     },
-    [memoizedCollection, breadcrumbs, destroy, router],
+    [memoizedCollection, breadcrumbs, destroy, router]
   );
 
-  const allowsChildItems =
-    !!memoizedCollection?.schemaVersion?.enforcedChildKinds.includes("ITEM");
-  const allowsChildCollections =
-    !!memoizedCollection?.schemaVersion?.enforcedChildKinds.includes(
-      "COLLECTION",
+  const allowsChildItems = !!memoizedCollection?.schemaVersion?.enforcedChildKinds.includes(
+    "ITEM"
+  );
+  const allowsChildCollections = !!memoizedCollection?.schemaVersion?.enforcedChildKinds.includes(
+    "COLLECTION"
+  );
+
+  const { globalAdmin } = useViewerContext();
+
+  const deleteButton =
+    globalAdmin && memoizedCollection ? (
+      <EntityPurgeModal
+        id={memoizedCollection.id}
+        title={memoizedCollection.title}
+        entityType="collection"
+        handleDelete={handleDelete}
+        redirectPath={
+          breadcrumbs?.[breadcrumbs.length - 2]?.href ?? "/collections"
+        }
+      />
+    ) : (
+      <ButtonControlConfirm
+        modalLabel={t("messages.delete.confirm_label")}
+        modalBody={t("messages.delete.confirm_body")}
+        icon="delete"
+        onClick={handleDelete}
+        actions="self.delete"
+      >
+        {t("common.delete")}
+      </ButtonControlConfirm>
     );
 
   const buttons = (
@@ -94,15 +121,7 @@ export default function CollectionLayout({
             {t("harvesting.view_entity_record")}
           </ButtonControlRoute>
         )}
-      <ButtonControlConfirm
-        modalLabel={t("messages.delete.confirm_label")}
-        modalBody={t("messages.delete.confirm_body")}
-        icon="delete"
-        onClick={handleDelete}
-        actions="self.delete"
-      >
-        {t("common.delete")}
-      </ButtonControlConfirm>
+      {deleteButton}
     </ButtonControlGroup>
   );
 
