@@ -29,7 +29,7 @@ export const ButtonWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  padding-block-start: ${pxToRem(20)};
+  padding-block-start: ${pxToRem(24)};
   gap: 1rem;
 `;
 

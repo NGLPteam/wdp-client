@@ -16,17 +16,37 @@ export default function EntityPurgeModal({
   entityType,
   handleDelete,
   redirectPath,
+  afterPurge,
 }: {
   id: string;
   title: string;
   entityType: "collection" | "item" | "community";
   handleDelete: (closeDialog: () => void) => void;
-  redirectPath: string | LinkProps["href"];
+  redirectPath?: string | LinkProps["href"];
+  afterPurge?: () => void;
 }) {
   const [showConfirm, setShowConfirm] = useState(false);
   const { t } = useTranslation();
 
   const toggleOnConfirm = () => setShowConfirm(!showConfirm);
+
+  const confirmProps = redirectPath
+    ? {
+        id,
+        title,
+        entityType,
+        onBack: toggleOnConfirm,
+        redirectPath,
+      }
+    : afterPurge
+      ? {
+          id,
+          title,
+          entityType,
+          onBack: toggleOnConfirm,
+          afterPurge,
+        }
+      : null;
 
   return (
     <Dialog.Provider
@@ -60,15 +80,8 @@ export default function EntityPurgeModal({
             setShowConfirm(false);
             onClose(e);
           };
-          return showConfirm ? (
-            <EntityPurgeConfirm
-              id={id}
-              title={title}
-              entityType={entityType}
-              onBack={toggleOnConfirm}
-              handleClose={handleClose}
-              redirectPath={redirectPath}
-            />
+          return showConfirm && confirmProps ? (
+            <EntityPurgeConfirm {...confirmProps} handleClose={handleClose} />
           ) : (
             <EntityPurgeForm
               onPurge={toggleOnConfirm}

@@ -3,9 +3,11 @@ import { graphql } from "react-relay";
 import Drawer from "components/layout/Drawer";
 import { RouteHelper } from "routes";
 import { useDrawerHelper, useDestroyer } from "hooks";
+import { useViewerContext } from "contexts";
 import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
 import ItemUpdateForm from "components/composed/item/ItemUpdateForm";
+import EntityPurgeModal from "components/composed/entity/EntityPurgeModal";
 import type { DialogProps } from "reakit/Dialog";
 
 import type {
@@ -24,6 +26,8 @@ export default function ItemUpdateDrawer({
   const drawerHelper = useDrawerHelper();
   const destroy = useDestroyer();
   const route = RouteHelper.findRouteByName("item");
+
+  const { globalAdmin } = useViewerContext();
 
   if (!Object.prototype.hasOwnProperty.call(params, "drawerSlug")) {
     drawerHelper.close();
@@ -64,7 +68,24 @@ export default function ItemUpdateDrawer({
       if (dialog?.hide) dialog.hide();
     };
 
-    return <DrawerActions routes={routes} handleDelete={handleDelete} />;
+    const purgeButton = data?.item ? (
+      <EntityPurgeModal
+        id={data.item.id}
+        title={data.item.title}
+        entityType="item"
+        handleDelete={handleDelete}
+        afterPurge={() => {
+          if (dialog?.hide) dialog.hide();
+        }}
+      />
+    ) : null;
+
+    return (
+      <DrawerActions
+        routes={routes}
+        {...(globalAdmin ? { purgeButton } : { handleDelete })}
+      />
+    );
   }
 
   return (
