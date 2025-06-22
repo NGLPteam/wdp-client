@@ -1,11 +1,13 @@
 import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import { useDrawerHelper, useDestroyer } from "hooks";
+import { useViewerContext } from "contexts";
 import { RouteHelper } from "routes";
 import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import Drawer from "components/layout/Drawer";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
 import CommunityUpdateForm from "components/composed/community/CommunityUpdateForm";
+import EntityPurgeModal from "components/composed/entity/EntityPurgeModal";
 import type { DialogProps } from "reakit/Dialog";
 
 import type {
@@ -24,6 +26,8 @@ export default function CommunityUpdateDrawer({
   const drawerHelper = useDrawerHelper();
   const destroy = useDestroyer();
   const route = RouteHelper.findRouteByName("community");
+
+  const { globalAdmin } = useViewerContext();
 
   if (!Object.prototype.hasOwnProperty.call(params, "drawerSlug")) {
     drawerHelper.close();
@@ -54,7 +58,24 @@ export default function CommunityUpdateDrawer({
       if (dialog?.hide) dialog.hide();
     };
 
-    return <DrawerActions routes={routes} handleDelete={handleDelete} />;
+    const purgeButton = data?.community ? (
+      <EntityPurgeModal
+        id={data.community.id}
+        title={data.community.title}
+        entityType="community"
+        handleDelete={handleDelete}
+        afterPurge={() => {
+          if (dialog?.hide) dialog.hide();
+        }}
+      />
+    ) : null;
+
+    return (
+      <DrawerActions
+        routes={routes}
+        {...(globalAdmin ? { purgeButton } : { handleDelete })}
+      />
+    );
   }
 
   return (

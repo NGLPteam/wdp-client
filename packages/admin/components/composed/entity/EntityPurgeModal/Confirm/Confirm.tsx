@@ -8,14 +8,23 @@ import * as Styled from "../EntityPurgeModal.styles";
 
 type LinkProps = React.ComponentProps<typeof Link>;
 
-type Props = {
+type BaseProps = {
   onBack: () => void;
   handleClose: (e: React.MouseEvent<HTMLButtonElement>) => void;
   entityType: "collection" | "item" | "community";
   id: string;
   title: string;
+};
+
+type RedirectProps = BaseProps & {
   redirectPath: string | LinkProps["href"];
 };
+
+type CallbackProps = BaseProps & {
+  afterPurge: () => void;
+};
+
+type Props = RedirectProps | CallbackProps;
 
 export default function EntityPurgeConfirm({
   onBack,
@@ -23,7 +32,7 @@ export default function EntityPurgeConfirm({
   title,
   handleClose,
   entityType,
-  redirectPath,
+  ...props
 }: Props) {
   const { t } = useTranslation();
 
@@ -39,10 +48,14 @@ export default function EntityPurgeConfirm({
           entityType,
         );
         handleClose(e);
-        router.replace(redirectPath);
+        if ("redirectPath" in props) {
+          router.replace(props.redirectPath);
+        } else if ("afterPurge" in props) {
+          props.afterPurge();
+        }
       }
     },
-    [id, title, entityType, destroy, router, handleClose, redirectPath],
+    [id, title, entityType, destroy, router, handleClose, props],
   );
 
   return (

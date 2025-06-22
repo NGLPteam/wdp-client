@@ -4,7 +4,7 @@ import type { BaseRoute } from "@wdp/lib/routes";
 
 type LinkProps = React.ComponentProps<typeof ButtonControlRoute>;
 
-const DrawerActions = ({ routes, handleDelete }: Props) => {
+const DrawerActions = ({ routes, handleDelete, purgeButton }: Props) => {
   const { t } = useTranslation();
 
   function handleDeleteClick() {
@@ -29,6 +29,7 @@ const DrawerActions = ({ routes, handleDelete }: Props) => {
           {t("delete")}
         </ButtonControlConfirm>
       )}
+      {purgeButton}
     </>
   );
 };
@@ -36,6 +37,7 @@ const DrawerActions = ({ routes, handleDelete }: Props) => {
 interface Props {
   routes?: (LinkProps & { label?: BaseRoute["label"] })[];
   handleDelete?: () => void;
+  purgeButton?: React.ReactNode;
 }
 
 export default DrawerActions;
