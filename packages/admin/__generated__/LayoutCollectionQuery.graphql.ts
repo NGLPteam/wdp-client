@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<26649625060b38df8921a1bf697b4ef0>>
+ * @generated SignedSource<<11edeea590ed06beabdbf93ffc4f0491>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -208,6 +208,13 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
+                "name": "markedForPurge",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
                 "name": "__typename",
                 "storageKey": null
               },
@@ -259,12 +266,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4e095ff89149c4d3449538ed65c2deef",
+    "cacheID": "069b7e4812ebe167cd34629e487dc8ea",
     "id": null,
     "metadata": {},
     "name": "LayoutCollectionQuery",
     "operationKind": "query",
-    "text": "query LayoutCollectionQuery(\n  $slug: Slug!\n) {\n  collection(slug: $slug) {\n    allowedActions\n    ...CollectionLayoutFragment\n    ...AuthContextFragment\n    ...CollectionSlugRedirectFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  id\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n  harvestModificationStatus\n  harvestRecords {\n    slug\n    id\n  }\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment CollectionSlugRedirectFragment on Collection {\n  slug\n  collections {\n    pageInfo {\n      totalCount\n    }\n  }\n  items {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
+    "text": "query LayoutCollectionQuery(\n  $slug: Slug!\n) {\n  collection(slug: $slug) {\n    allowedActions\n    ...CollectionLayoutFragment\n    ...AuthContextFragment\n    ...CollectionSlugRedirectFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CollectionLayoutFragment on Collection {\n  title\n  slug\n  id\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n  harvestModificationStatus\n  harvestRecords {\n    slug\n    id\n  }\n  ...ContentHeaderFragment\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment CollectionSlugRedirectFragment on Collection {\n  slug\n  collections {\n    pageInfo {\n      totalCount\n    }\n  }\n  items {\n    pageInfo {\n      totalCount\n    }\n  }\n}\n\nfragment ContentHeaderFragment on Entity {\n  __isEntity: __typename\n  markedForPurge\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
   }
 };
 })();

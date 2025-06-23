@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<805194a05042bfaac77e655ce9805fd9>>
+ * @generated SignedSource<<e254b424d4c4cd1145bc2ce55a3d2f91>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -144,6 +144,13 @@ return {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
+                "name": "markedForPurge",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
                 "name": "__typename",
                 "storageKey": null
               },
@@ -214,12 +221,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "4d79e3a149e3c4c8c4ef88b72ded5d9b",
+    "cacheID": "f022e07871521ab47270bcee46250751",
     "id": null,
     "metadata": {},
     "name": "LayoutManageItemQuery",
     "operationKind": "query",
-    "text": "query LayoutManageItemQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    allowedActions\n    ...ItemLayoutFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  harvestModificationStatus\n  harvestRecords {\n    slug\n    id\n  }\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
+    "text": "query LayoutManageItemQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    allowedActions\n    ...ItemLayoutFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment ContentHeaderFragment on Entity {\n  __isEntity: __typename\n  markedForPurge\n}\n\nfragment ItemLayoutFragment on Item {\n  title\n  slug\n  id\n  harvestModificationStatus\n  harvestRecords {\n    slug\n    id\n  }\n  ...ContentHeaderFragment\n  ...useBreadcrumbsFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment useBreadcrumbsFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  breadcrumbs {\n    depth\n    label\n    kind\n    slug\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
   }
 };
 })();

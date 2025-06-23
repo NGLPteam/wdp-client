@@ -7,6 +7,7 @@ import {
   TabNav,
 } from "components/atomic";
 import { ContentHeader } from "components/layout";
+import { ContentHeaderFragment$key } from "@/relay/ContentHeaderFragment.graphql";
 import * as Styled from "./PageHeader.styles";
 
 type BreadcrumbProps = React.ComponentProps<typeof Breadcrumbs>;
@@ -26,6 +27,7 @@ const PageHeader = ({
   headerStyle = "primary",
   hideHeader = false,
   sidebarLinks,
+  data,
 }: Props) => {
   return (
     <Styled.Header
@@ -34,6 +36,7 @@ const PageHeader = ({
     >
       {!isNil(breadcrumbsProps) ? <Breadcrumbs {...breadcrumbsProps} /> : null}
       <ContentHeader
+        data={data}
         headerStyle={headerStyle}
         title={title}
         rightSide={buttons}
@@ -70,6 +73,7 @@ interface Props extends Pick<ContentHeaderProps, "headerStyle"> {
   hideHeader?: boolean;
   /** Sidebar links */
   sidebarLinks?: SidebarNavProps["links"];
+  data?: ContentHeaderFragment$key | null;
 }
 
 export default PageHeader;

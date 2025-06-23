@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8681c68cb3658a035268ec53ec4b5e05>>
+ * @generated SignedSource<<aa23ce6dabbd0f6f2b710e7bcf333fab>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -122,6 +122,13 @@ return {
               {
                 "alias": null,
                 "args": null,
+                "kind": "ScalarField",
+                "name": "markedForPurge",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
                 "concreteType": "SchemaVersion",
                 "kind": "LinkedField",
                 "name": "schemaVersion",
@@ -148,12 +155,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9ca4cd44c64258d7dc1d62ecaa352acb",
+    "cacheID": "097d68ec6a60cd460dc3b79b3a3a9379",
     "id": null,
     "metadata": {},
     "name": "LayoutCommunityQuery",
     "operationKind": "query",
-    "text": "query LayoutCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    allowedActions\n    ...CommunityLayoutFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CommunityLayoutFragment on Community {\n  id\n  name\n  slug\n  ...useChildRouteLinksFragment\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
+    "text": "query LayoutCommunityQuery(\n  $slug: Slug!\n) {\n  community(slug: $slug) {\n    allowedActions\n    ...CommunityLayoutFragment\n    ...AuthContextFragment\n    id\n  }\n}\n\nfragment AuthContextFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n}\n\nfragment CommunityLayoutFragment on Community {\n  id\n  name\n  slug\n  ...ContentHeaderFragment\n  ...useChildRouteLinksFragment\n}\n\nfragment ContentHeaderFragment on Entity {\n  __isEntity: __typename\n  markedForPurge\n}\n\nfragment useChildRouteLinksFragment on Entity {\n  __isEntity: __typename\n  allowedActions\n  schemaVersion {\n    enforcedChildKinds\n    id\n  }\n}\n"
   }
 };
 })();
