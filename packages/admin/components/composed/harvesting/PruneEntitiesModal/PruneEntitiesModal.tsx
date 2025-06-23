@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ButtonControl } from "components/atomic";
 import Dialog from "components/layout/Dialog";
@@ -17,9 +17,16 @@ export default function PruneEntitiesModal({
 }) {
   const [showConfirm, setShowConfirm] = useState(false);
   const [mode, setMode] = useState<string>();
+  const formRef = useRef<HTMLFormElement | null>(null);
   const { t } = useTranslation();
 
   const toggleOnConfirm = () => setShowConfirm(!showConfirm);
+
+  const clearAll = () => {
+    setShowConfirm(false);
+    setMode(undefined);
+    if (formRef.current) formRef.current.reset();
+  };
 
   return (
     <Dialog.Provider
@@ -33,8 +40,7 @@ export default function PruneEntitiesModal({
       <Styled.Content
         button={(onClose) => {
           const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
-            setShowConfirm(false);
-            setMode(undefined);
+            clearAll();
             onClose(e);
           };
           return (
@@ -46,8 +52,7 @@ export default function PruneEntitiesModal({
       >
         {(onClose) => {
           const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
-            setShowConfirm(false);
-            setMode(undefined);
+            clearAll();
             onClose(e);
           };
           return showConfirm && mode ? (
@@ -61,6 +66,7 @@ export default function PruneEntitiesModal({
             />
           ) : (
             <PruneEntitiesForm
+              formRef={formRef}
               onContinue={toggleOnConfirm}
               handleClose={handleClose}
               onModeSelect={(e: React.ChangeEvent<HTMLInputElement>) =>

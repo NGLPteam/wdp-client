@@ -7,7 +7,7 @@ import type InputProps from "../inputType";
 
 const RadioGroup = forwardRef(
   (
-    { label, name, description, options, hideLabel, ...props }: Props,
+    { label, name, description, options, hideLabel, checked, ...props }: Props,
     // ref is passed to radio button input
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     ref: React.Ref<HTMLInputElement>,
@@ -23,6 +23,7 @@ const RadioGroup = forwardRef(
         name={name}
         label={t(option.label)}
         ref={ref}
+        checked={option.value === checked}
         {...props}
       />
     ));
@@ -52,6 +53,7 @@ interface Props extends BaseProps {
   description?: string;
   options: { value: string; label: string; default?: boolean }[];
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  checked?: string;
 }
 
 export default RadioGroup;
