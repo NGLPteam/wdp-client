@@ -22,8 +22,8 @@ export default function Image({
       className={className}
       $objectFit={objectFit}
       $objectPosition={objectPosition}
-      width={image.width ?? width}
-      height={image.height ?? height}
+      width={width ?? image.width ?? undefined}
+      height={height ?? image.height ?? undefined}
     />
   ) : null;
 }
@@ -31,8 +31,8 @@ export default function Image({
 interface Props {
   data?: ImageFragment$key | null;
   alt?: string;
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
   objectFit?: "fill" | "contain" | "cover" | "none";
   objectPosition?: string;
   className?: string;

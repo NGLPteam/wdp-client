@@ -147,6 +147,15 @@ export const Thumbnail = styled.div`
   max-width: 100%;
   aspect-ratio: 1 / 1;
 
+  a {
+    height: 100%;
+    width: 100%;
+
+    svg {
+      max-height: 100% !important;
+    }
+  }
+
   ${mobile(
     `
       display: block;

@@ -13,6 +13,7 @@ const Grid = ({ loading, children, showCheckboxes, id }: Props) => {
     <Styled.Wrapper
       ref={elRef}
       id={id}
+      data-grid
       data-grid-checkboxes={showCheckboxes}
       data-mobile-layout={width < 500 || undefined}
     >

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<23a90ca4b50bb95adf29a4f05dc0ef56>>
+ * @generated SignedSource<<eab659855672f432a5a7273c789dc98b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -165,11 +165,11 @@ v10 = [
             "storageKey": null
           },
           {
-            "alias": null,
+            "alias": "thumb",
             "args": null,
             "concreteType": "ImageSize",
             "kind": "LinkedField",
-            "name": "thumb",
+            "name": "small",
             "plural": false,
             "selections": [
               {
@@ -438,12 +438,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "11df6ab22bf931eb6d03f653ad444304",
+    "cacheID": "37ad8f5fb37a3b1c08a484121fc16a13",
     "id": null,
     "metadata": {},
     "name": "DashboardLayoutQuery",
     "operationKind": "query",
-    "text": "query DashboardLayoutQuery(\n  $page: Int\n  $order: EntityOrder\n) {\n  ...DashboardInstallationFragment\n  ...DashboardCollectionsFragment_1KnpCu\n  ...DashboardItemsFragment_1KnpCu\n}\n\nfragment DashboardCollectionsFragment_1KnpCu on Query {\n  viewer {\n    collections(access: UPDATE, page: $page, order: $order, perPage: 10) {\n      ...DashboardCollectionsListFragment\n    }\n    id\n  }\n}\n\nfragment DashboardCollectionsListFragment on CollectionConnection {\n  nodes {\n    id\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    ...EntityThumbnailColumnFragment\n  }\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment DashboardInstallationFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  contributors {\n    pageInfo {\n      totalCount\n    }\n  }\n  users {\n    pageInfo {\n      totalCount\n    }\n  }\n  viewer {\n    allCollections: collections(nodeFilter: ROOTS_AND_LEAVES) {\n      pageInfo {\n        totalCount\n      }\n    }\n    allItems: items(nodeFilter: ROOTS_AND_LEAVES) {\n      pageInfo {\n        totalCount\n      }\n    }\n    id\n  }\n}\n\nfragment DashboardItemsFragment_1KnpCu on Query {\n  viewer {\n    items(access: UPDATE, page: $page, order: $order, perPage: 10) {\n      ...DashboardItemsListFragment\n    }\n    id\n  }\n}\n\nfragment DashboardItemsListFragment on ItemConnection {\n  nodes {\n    id\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    ...EntityThumbnailColumnFragment\n  }\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    thumb {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query DashboardLayoutQuery(\n  $page: Int\n  $order: EntityOrder\n) {\n  ...DashboardInstallationFragment\n  ...DashboardCollectionsFragment_1KnpCu\n  ...DashboardItemsFragment_1KnpCu\n}\n\nfragment DashboardCollectionsFragment_1KnpCu on Query {\n  viewer {\n    collections(access: UPDATE, page: $page, order: $order, perPage: 10) {\n      ...DashboardCollectionsListFragment\n    }\n    id\n  }\n}\n\nfragment DashboardCollectionsListFragment on CollectionConnection {\n  nodes {\n    id\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    ...EntityThumbnailColumnFragment\n  }\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment DashboardInstallationFragment on Query {\n  communities {\n    pageInfo {\n      totalCount\n    }\n  }\n  contributors {\n    pageInfo {\n      totalCount\n    }\n  }\n  users {\n    pageInfo {\n      totalCount\n    }\n  }\n  viewer {\n    allCollections: collections(nodeFilter: ROOTS_AND_LEAVES) {\n      pageInfo {\n        totalCount\n      }\n    }\n    allItems: items(nodeFilter: ROOTS_AND_LEAVES) {\n      pageInfo {\n        totalCount\n      }\n    }\n    id\n  }\n}\n\nfragment DashboardItemsFragment_1KnpCu on Query {\n  viewer {\n    items(access: UPDATE, page: $page, order: $order, perPage: 10) {\n      ...DashboardItemsListFragment\n    }\n    id\n  }\n}\n\nfragment DashboardItemsListFragment on ItemConnection {\n  nodes {\n    id\n    title\n    slug\n    schemaVersion {\n      name\n      number\n      id\n    }\n    ...EntityThumbnailColumnFragment\n  }\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment EntityThumbnailColumnFragment on Entity {\n  __isEntity: __typename\n  __typename\n  title\n  thumbnail {\n    storage\n    thumb: small {\n      webp {\n        ...ImageFragment\n      }\n    }\n  }\n  ... on Node {\n    __isNode: __typename\n    id\n  }\n  ... on Sluggable {\n    __isSluggable: __typename\n    slug\n  }\n}\n\nfragment ImageFragment on Image {\n  __isImage: __typename\n  alt\n  url\n  width\n  height\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
