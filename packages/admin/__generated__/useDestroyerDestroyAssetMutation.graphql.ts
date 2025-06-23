@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<016bb773fde65fcfcbdbe9c67a8cd277>>
+ * @generated SignedSource<<22c30dca399981305894895e5b320819>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -53,6 +53,13 @@ v2 = {
 v3 = {
   "alias": null,
   "args": null,
+  "kind": "ScalarField",
+  "name": "destroyed",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
   "concreteType": "MutationGlobalError",
   "kind": "LinkedField",
   "name": "globalErrors",
@@ -75,57 +82,35 @@ v3 = {
   ],
   "storageKey": null
 },
-v4 = {
+v5 = {
   "kind": "InlineFragment",
   "selections": [
     {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "destroyed",
-          "storageKey": null
-        },
-        (v3/*: any*/)
-      ],
-      "type": "DestroyMutationPayload",
-      "abstractKey": "__isDestroyMutationPayload"
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "revoked",
+      "storageKey": null
     },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "revoked",
-          "storageKey": null
-        },
-        (v3/*: any*/)
-      ],
-      "type": "RevokeAccessPayload",
-      "abstractKey": null
-    },
-    {
-      "kind": "InlineFragment",
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "disabled",
-          "storageKey": null
-        },
-        (v3/*: any*/)
-      ],
-      "type": "DestroyOrderingPayload",
-      "abstractKey": null
-    }
+    (v4/*: any*/)
   ],
-  "type": "StandardMutationPayload",
-  "abstractKey": "__isStandardMutationPayload"
+  "type": "RevokeAccessPayload",
+  "abstractKey": null
+},
+v6 = {
+  "kind": "InlineFragment",
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "disabled",
+      "storageKey": null
+    },
+    (v4/*: any*/)
+  ],
+  "type": "DestroyOrderingPayload",
+  "abstractKey": null
 };
 return {
   "fragment": {
@@ -147,7 +132,25 @@ return {
             "kind": "InlineDataFragmentSpread",
             "name": "useDestroyerFragment",
             "selections": [
-              (v4/*: any*/)
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      (v2/*: any*/),
+                      (v3/*: any*/),
+                      (v4/*: any*/)
+                    ],
+                    "type": "DestroyMutationPayload",
+                    "abstractKey": "__isDestroyMutationPayload"
+                  },
+                  (v5/*: any*/),
+                  (v6/*: any*/)
+                ],
+                "type": "StandardMutationPayload",
+                "abstractKey": "__isStandardMutationPayload"
+              }
             ],
             "args": null,
             "argumentDefinitions": []
@@ -183,19 +186,36 @@ return {
             "kind": "ScalarHandle",
             "name": "destroyedId"
           },
-          (v4/*: any*/)
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              {
+                "kind": "InlineFragment",
+                "selections": [
+                  (v3/*: any*/),
+                  (v4/*: any*/)
+                ],
+                "type": "DestroyMutationPayload",
+                "abstractKey": "__isDestroyMutationPayload"
+              },
+              (v5/*: any*/),
+              (v6/*: any*/)
+            ],
+            "type": "StandardMutationPayload",
+            "abstractKey": "__isStandardMutationPayload"
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "d8c97098ac0a6a8b7039bad73771927a",
+    "cacheID": "692c38c553e85b4d8aa813020d13d314",
     "id": null,
     "metadata": {},
     "name": "useDestroyerDestroyAssetMutation",
     "operationKind": "mutation",
-    "text": "mutation useDestroyerDestroyAssetMutation(\n  $input: DestroyAssetInput!\n) {\n  destroyAsset(input: $input) {\n    destroyedId\n    ...useDestroyerFragment\n  }\n}\n\nfragment useDestroyerFragment on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  ... on DestroyMutationPayload {\n    __isDestroyMutationPayload: __typename\n    destroyed\n    globalErrors {\n      message\n      type\n    }\n  }\n  ... on RevokeAccessPayload {\n    revoked\n    globalErrors {\n      message\n      type\n    }\n  }\n  ... on DestroyOrderingPayload {\n    disabled\n    globalErrors {\n      message\n      type\n    }\n  }\n}\n"
+    "text": "mutation useDestroyerDestroyAssetMutation(\n  $input: DestroyAssetInput!\n) {\n  destroyAsset(input: $input) {\n    destroyedId\n    ...useDestroyerFragment\n  }\n}\n\nfragment useDestroyerFragment on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  ... on DestroyMutationPayload {\n    __isDestroyMutationPayload: __typename\n    destroyedId\n    destroyed\n    globalErrors {\n      message\n      type\n    }\n  }\n  ... on RevokeAccessPayload {\n    revoked\n    globalErrors {\n      message\n      type\n    }\n  }\n  ... on DestroyOrderingPayload {\n    disabled\n    globalErrors {\n      message\n      type\n    }\n  }\n}\n"
   }
 };
 })();

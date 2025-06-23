@@ -252,7 +252,8 @@
         "failure": "Failed to delete $t({{ name }}).",
         "collection_success": "Collection deleted successfully.",
         "collection_failure": "Failed to delete collection.",
-        "prune_success": "Successfully initiated pruning of entities from {{title}}."
+        "prune_success": "Successfully initiated pruning of entities from {{title}}.",
+        "purge_success": "Successfully intiated purge of {{name}}."
       },
       "disable": {
         "confirm": "Are you sure you want to disable $t({{ name }})?",

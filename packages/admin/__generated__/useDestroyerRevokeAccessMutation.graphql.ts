@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<da9f0e1a56c4285a95cd25c600fab946>>
+ * @generated SignedSource<<f8af2d789c03e0d87bb621d1dbf4c6ba>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -76,6 +76,13 @@ v3 = [
       {
         "kind": "InlineFragment",
         "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "destroyedId",
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": null,
@@ -171,12 +178,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "bcb412d9c927728439a5bff57016097b",
+    "cacheID": "c79815b7cc5a4222e310da619cc1ce68",
     "id": null,
     "metadata": {},
     "name": "useDestroyerRevokeAccessMutation",
     "operationKind": "mutation",
-    "text": "mutation useDestroyerRevokeAccessMutation(\n  $input: RevokeAccessInput!\n) {\n  revokeAccess(input: $input) {\n    ...useDestroyerFragment\n  }\n}\n\nfragment useDestroyerFragment on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  ... on DestroyMutationPayload {\n    __isDestroyMutationPayload: __typename\n    destroyed\n    globalErrors {\n      message\n      type\n    }\n  }\n  ... on RevokeAccessPayload {\n    revoked\n    globalErrors {\n      message\n      type\n    }\n  }\n  ... on DestroyOrderingPayload {\n    disabled\n    globalErrors {\n      message\n      type\n    }\n  }\n}\n"
+    "text": "mutation useDestroyerRevokeAccessMutation(\n  $input: RevokeAccessInput!\n) {\n  revokeAccess(input: $input) {\n    ...useDestroyerFragment\n  }\n}\n\nfragment useDestroyerFragment on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  ... on DestroyMutationPayload {\n    __isDestroyMutationPayload: __typename\n    destroyedId\n    destroyed\n    globalErrors {\n      message\n      type\n    }\n  }\n  ... on RevokeAccessPayload {\n    revoked\n    globalErrors {\n      message\n      type\n    }\n  }\n  ... on DestroyOrderingPayload {\n    disabled\n    globalErrors {\n      message\n      type\n    }\n  }\n}\n"
   }
 };
 })();

@@ -85,6 +85,8 @@ export function useDestroyer() {
       } else if (results.destroyed) {
         notify.success(t("messages.delete.success", { name }));
         setTriggeredRefetchTags(refetchTags);
+      } else if (results.destroyedId) {
+        notify.success(t("messages.delete.purge_success", { name }));
       } else if (results.globalErrors && results.globalErrors.length > 0) {
         notify.mutationGlobalError(results.globalErrors);
       }
@@ -492,6 +494,7 @@ const entityPurgeMutation = graphql`
 const destroyFragment = graphql`
   fragment useDestroyerFragment on StandardMutationPayload @inline {
     ... on DestroyMutationPayload {
+      destroyedId
       destroyed
       globalErrors {
         message
