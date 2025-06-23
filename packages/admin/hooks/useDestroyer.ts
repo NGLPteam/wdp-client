@@ -316,11 +316,11 @@ export function useDestroyer() {
     useMutation<useDestroyerEntityPurgeMutation>(entityPurgeMutation);
 
   const purge = useCallback(
-    async (input: EntityPurgeInput, label: string, type: string) => {
+    async (input: EntityPurgeInput, label: string, tag: string) => {
       commitPurgeEntity({
         variables: { input },
         onCompleted: (response) =>
-          handleResponse(response.entityPurge, label, [type]),
+          handleResponse(response.entityPurge, label, [tag]),
       });
     },
     [commitPurgeEntity, handleResponse],
