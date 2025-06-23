@@ -9,6 +9,7 @@ export const Content = styled(Dialog.Content)`
 
   inline-size: ${pxToRem(697)};
   block-size: max-content;
+  text-align: left;
 
   ${respond(`inline-size: 100%;`, 50)}
 `;

@@ -17,6 +17,7 @@ export default function EntityPurgeModal({
   handleDelete,
   redirectPath,
   afterPurge,
+  hideLabel = false,
 }: {
   id: string;
   title: string;
@@ -24,6 +25,7 @@ export default function EntityPurgeModal({
   handleDelete: (closeDialog: () => void) => void;
   redirectPath?: string | LinkProps["href"];
   afterPurge?: () => void;
+  hideLabel?: boolean;
 }) {
   const [showConfirm, setShowConfirm] = useState(false);
   const { t } = useTranslation();
@@ -53,7 +55,11 @@ export default function EntityPurgeModal({
       options={{ modal: true, scrollLockClassName: "has-scroll-lock" }}
     >
       <Dialog.Toggle>
-        <ButtonControl icon="delete">{t("common.delete")}</ButtonControl>
+        {!hideLabel ? (
+          <ButtonControl icon="delete">{t("common.delete")}</ButtonControl>
+        ) : (
+          <ButtonControl icon="delete" aria-label={t("commont.delete")} />
+        )}
       </Dialog.Toggle>
       <Styled.Content
         button={(onClose) => {
