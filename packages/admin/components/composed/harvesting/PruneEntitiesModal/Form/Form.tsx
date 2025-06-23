@@ -11,6 +11,7 @@ type Props = {
   mode?: string;
   type: "attempt" | "source";
   title?: string;
+  formRef: React.MutableRefObject<HTMLFormElement | null>;
 };
 
 export default function PruneEntitiesForm({
@@ -20,6 +21,7 @@ export default function PruneEntitiesForm({
   mode,
   type,
   title,
+  formRef,
 }: Props) {
   const { t } = useTranslation();
 
@@ -29,7 +31,7 @@ export default function PruneEntitiesForm({
         {t("harvesting.prune.modal_header", { type: capitalize(type) })}
       </Styled.Header>
       <Styled.Subheader className="t-label-sm">{title}</Styled.Subheader>
-      <form onSubmit={onContinue}>
+      <form ref={formRef} onSubmit={onContinue}>
         <Fieldset label={t("harvesting.prune.mode_label")}>
           <RadioGroup
             name="mode"
@@ -40,7 +42,6 @@ export default function PruneEntitiesForm({
               {
                 value: "UNMODIFIED",
                 label: t("harvesting.prune.mode_unmodified_label"),
-                default: true,
               },
               {
                 value: "EVERYTHING",
@@ -48,6 +49,7 @@ export default function PruneEntitiesForm({
               },
             ]}
             onChange={onModeSelect}
+            checked={mode}
           />
         </Fieldset>
         <Styled.Note>{t("harvesting.prune.note")}</Styled.Note>
