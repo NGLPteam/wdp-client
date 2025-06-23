@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d734274e936137a85d9182e5351a8a6f>>
+ * @generated SignedSource<<4ed66344c86747d289b9d3b9265c119a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,7 +19,7 @@ export type ItemLayoutFragment$data = {
   readonly id: string;
   readonly slug: string;
   readonly title: string;
-  readonly " $fragmentSpreads": FragmentRefs<"useBreadcrumbsFragment" | "useChildRouteLinksFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"ContentHeaderFragment" | "useBreadcrumbsFragment" | "useChildRouteLinksFragment">;
   readonly " $fragmentType": "ItemLayoutFragment";
 };
 export type ItemLayoutFragment$key = {
@@ -78,6 +78,11 @@ return {
     {
       "args": null,
       "kind": "FragmentSpread",
+      "name": "ContentHeaderFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
       "name": "useBreadcrumbsFragment"
     },
     {
@@ -91,6 +96,6 @@ return {
 };
 })();
 
-(node as any).hash = "c5f1a54c55d26c47cba06765f94a9ee1";
+(node as any).hash = "0ed761714a1035c0b8a3226fe53fc303";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<835ef57823d4859e5c5a8a13ea1c1c31>>
+ * @generated SignedSource<<076ed2b0de1c9c2668788625a6476636>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -23,7 +23,7 @@ export type CollectionLayoutFragment$data = {
   };
   readonly slug: string;
   readonly title: string;
-  readonly " $fragmentSpreads": FragmentRefs<"useBreadcrumbsFragment" | "useChildRouteLinksFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"ContentHeaderFragment" | "useBreadcrumbsFragment" | "useChildRouteLinksFragment">;
   readonly " $fragmentType": "CollectionLayoutFragment";
 };
 export type CollectionLayoutFragment$key = {
@@ -100,6 +100,11 @@ return {
     {
       "args": null,
       "kind": "FragmentSpread",
+      "name": "ContentHeaderFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
       "name": "useBreadcrumbsFragment"
     },
     {
@@ -113,6 +118,6 @@ return {
 };
 })();
 
-(node as any).hash = "cb175d35a7b0b2c18915485c20ce0725";
+(node as any).hash = "87ec0f2a7f6446249288429b537b6390";
 
 export default node;

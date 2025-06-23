@@ -95,6 +95,7 @@ export default function CommunityLayout({
   return (
     <section>
       <PageHeader
+        data={memoizedCommunity}
         title={memoizedCommunity?.name}
         tabRoutes={tabRoutes}
         sidebarLinks={manageRoutes}
@@ -122,6 +123,7 @@ const fragment = graphql`
     id
     name
     slug
+    ...ContentHeaderFragment
     ...useChildRouteLinksFragment
   }
 `;

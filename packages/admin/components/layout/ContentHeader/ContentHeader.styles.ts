@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { noFlexGapSupport, respond } from "theme/mixins/base";
 import { pxToRem } from "theme/mixins/functions";
-import { tLineClamp } from "theme/mixins/typography";
+import { tLineClamp, tLabel } from "theme/mixins/typography";
 import ContentHeader from "./ContentHeader";
 type Props = React.ComponentProps<typeof ContentHeader>;
 
@@ -43,4 +43,22 @@ export const Title = styled.h1`
 export const RightSide = styled.div`
   margin-inline-start: auto;
   align-self: flex-end;
+`;
+
+export const TitleWrapper = styled.div`
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap-reverse;
+`;
+
+export const PurgeTag = styled.div`
+  height: ${pxToRem(32)};
+  display: inline-block;
+  border: 1px solid transparent;
+  border-radius: ${pxToRem(4)};
+  background-color: var(--reddark);
+  padding: ${pxToRem(5)} ${pxToRem(8)};
+  ${tLabel("sm")}
+  color: var(--neutral00);
+  align-self: baseline;
 `;

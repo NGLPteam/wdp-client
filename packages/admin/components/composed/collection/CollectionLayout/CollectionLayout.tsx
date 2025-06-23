@@ -128,6 +128,7 @@ export default function CollectionLayout({
   return (
     <section>
       <PageHeader
+        data={memoizedCollection}
         title={memoizedCollection?.title}
         breadcrumbsProps={breadcrumbs ? { data: breadcrumbs } : undefined}
         tabRoutes={tabRoutes}
@@ -163,6 +164,7 @@ const fragment = graphql`
     harvestRecords {
       slug
     }
+    ...ContentHeaderFragment
     ...useBreadcrumbsFragment
     ...useChildRouteLinksFragment
   }

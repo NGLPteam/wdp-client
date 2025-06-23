@@ -176,6 +176,7 @@
       "new_harvest_attempt": "Harvest Attempt"
     },
     "messages": {
+      "marked_for_purge": "Marked for purge",
       "unauthorized": "Unauthorized",
       "unauthorized_body": {
         "users": "Your account is not authorized to manage users.<0/>Please check with your account manager if you need access to this content.",

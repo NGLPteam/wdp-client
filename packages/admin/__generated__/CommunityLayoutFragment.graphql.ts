@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b184e418c8880d06d5c0dc80aa0fc263>>
+ * @generated SignedSource<<90c849936bc230e849029ecd96916836>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,7 @@ export type CommunityLayoutFragment$data = {
   readonly id: string;
   readonly name: string;
   readonly slug: string;
-  readonly " $fragmentSpreads": FragmentRefs<"useChildRouteLinksFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"ContentHeaderFragment" | "useChildRouteLinksFragment">;
   readonly " $fragmentType": "CommunityLayoutFragment";
 };
 export type CommunityLayoutFragment$key = {
@@ -52,6 +52,11 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
+      "name": "ContentHeaderFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
       "name": "useChildRouteLinksFragment"
     }
   ],
@@ -59,6 +64,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "69e59ffd889e59b50f71b243bd57de10";
+(node as any).hash = "52309d17ecfbeff93f46843dadd04af6";
 
 export default node;
