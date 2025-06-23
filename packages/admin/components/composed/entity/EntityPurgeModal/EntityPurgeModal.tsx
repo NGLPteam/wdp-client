@@ -40,15 +40,13 @@ export default function EntityPurgeModal({
         onBack: toggleOnConfirm,
         redirectPath,
       }
-    : afterPurge
-      ? {
-          id,
-          title,
-          entityType,
-          onBack: toggleOnConfirm,
-          afterPurge,
-        }
-      : null;
+    : {
+        id,
+        title,
+        entityType,
+        onBack: toggleOnConfirm,
+        afterPurge,
+      };
 
   return (
     <Dialog.Provider

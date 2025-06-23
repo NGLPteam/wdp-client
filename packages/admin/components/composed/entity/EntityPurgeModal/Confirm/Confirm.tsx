@@ -21,7 +21,7 @@ type RedirectProps = BaseProps & {
 };
 
 type CallbackProps = BaseProps & {
-  afterPurge: () => void;
+  afterPurge?: () => void;
 };
 
 type Props = RedirectProps | CallbackProps;
@@ -39,23 +39,26 @@ export default function EntityPurgeConfirm({
   const destroy = useDestroyer();
   const router = useRouter();
 
+  const refetchTag =
+    entityType === "community" ? "communities" : `${entityType}s`;
+
   const handlePurge = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       if (id) {
         destroy.purge(
           { entityId: id },
           title || `glossary.${entityType}`,
-          entityType,
+          refetchTag,
         );
         handleClose(e);
         if ("redirectPath" in props) {
           router.replace(props.redirectPath);
-        } else if ("afterPurge" in props) {
+        } else if ("afterPurge" in props && props.afterPurge) {
           props.afterPurge();
         }
       }
     },
-    [id, title, entityType, destroy, router, handleClose, props],
+    [id, title, entityType, destroy, router, handleClose, props, refetchTag],
   );
 
   return (
