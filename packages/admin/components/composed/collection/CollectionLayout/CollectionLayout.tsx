@@ -43,7 +43,7 @@ export default function CollectionLayout({
   const manageRoutes = useChildRouteLinks(
     "collection.manage",
     { slug },
-    collection
+    collection,
   );
   const tabRoutes = useChildRouteLinks("collection", { slug }, collection);
   const breadcrumbs = useBreadcrumbs(memoizedCollection || null);
@@ -55,23 +55,23 @@ export default function CollectionLayout({
       if (memoizedCollection && breadcrumbs) {
         destroy.collection(
           { collectionId: memoizedCollection.id },
-          memoizedCollection.title || "glossary.item"
+          memoizedCollection.title || "glossary.item",
         );
         hideDialog();
         router.replace(
-          breadcrumbs[breadcrumbs.length - 2]?.href ?? "/collections"
+          breadcrumbs[breadcrumbs.length - 2]?.href ?? "/collections",
         );
       }
     },
-    [memoizedCollection, breadcrumbs, destroy, router]
+    [memoizedCollection, breadcrumbs, destroy, router],
   );
 
-  const allowsChildItems = !!memoizedCollection?.schemaVersion?.enforcedChildKinds.includes(
-    "ITEM"
-  );
-  const allowsChildCollections = !!memoizedCollection?.schemaVersion?.enforcedChildKinds.includes(
-    "COLLECTION"
-  );
+  const allowsChildItems =
+    !!memoizedCollection?.schemaVersion?.enforcedChildKinds.includes("ITEM");
+  const allowsChildCollections =
+    !!memoizedCollection?.schemaVersion?.enforcedChildKinds.includes(
+      "COLLECTION",
+    );
 
   const { globalAdmin } = useViewerContext();
 
