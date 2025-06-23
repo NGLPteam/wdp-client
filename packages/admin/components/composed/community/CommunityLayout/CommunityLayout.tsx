@@ -37,7 +37,7 @@ export default function CommunityLayout({
   const manageRoutes = useChildRouteLinks(
     "community.manage",
     { slug },
-    community
+    community,
   );
   const tabRoutes = useChildRouteLinks("community", { slug }, community);
   const router = useRouter();
@@ -48,13 +48,13 @@ export default function CommunityLayout({
       if (community) {
         destroy.community(
           { communityId: community.id },
-          community.name || "glossary.community"
+          community.name || "glossary.community",
         );
         hideDialog();
         router.back();
       }
     },
-    [community, destroy, router]
+    [community, destroy, router],
   );
 
   const { globalAdmin } = useViewerContext();
