@@ -84,15 +84,16 @@ export default function CollectionLayout({
       >
         {t("common.view")}
       </ButtonControlView>
-      {memoizedCollection?.harvestModificationStatus !== "UNHARVESTED" && (
-        <ButtonControlRoute
-          route="harvestRecord"
-          query={{ slug: memoizedCollection?.harvestRecords?.[0].slug }}
-          icon="linkExternal"
-        >
-          {t("harvesting.view_entity_record")}
-        </ButtonControlRoute>
-      )}
+      {memoizedCollection?.harvestModificationStatus !== "UNHARVESTED" &&
+        memoizedCollection?.harvestRecords?.length && (
+          <ButtonControlRoute
+            route="harvestRecord"
+            query={{ slug: memoizedCollection?.harvestRecords?.[0]?.slug }}
+            icon="linkExternal"
+          >
+            {t("harvesting.view_entity_record")}
+          </ButtonControlRoute>
+        )}
       <ButtonControlConfirm
         modalLabel={t("messages.delete.confirm_label")}
         modalBody={t("messages.delete.confirm_body")}
