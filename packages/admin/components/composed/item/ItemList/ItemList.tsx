@@ -77,7 +77,6 @@ function ItemList({ items, search, headerStyle, hideHeader }: ItemListProps) {
           row?.original.entity?.title || row?.original.title || "glossary.item",
         );
       },
-      afterPurge: () => {},
       hideLabel: true,
     }),
     handleView: ({ row }: ModelTableActionProps<Node>) =>

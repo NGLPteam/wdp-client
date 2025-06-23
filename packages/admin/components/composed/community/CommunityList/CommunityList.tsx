@@ -34,6 +34,15 @@ function CommunityList({ data, hideHeader, headerStyle }: CommunityListProps) {
       }),
     handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.community({ communityId: row.original.id }, row.original.name),
+    purgeProps: ({ row }: ModelTableActionProps<Node>) => ({
+      id: row?.original.id,
+      title: row?.original.name,
+      entityType: "community" as const,
+      handleDelete: () => {
+        destroy.community({ communityId: row.original.id }, row.original.name);
+      },
+      hideLabel: true,
+    }),
     handleView: ({ row }: ModelTableActionProps<Node>) =>
       row.original.slug ? `/communities/${row.original.slug}` : null,
   };

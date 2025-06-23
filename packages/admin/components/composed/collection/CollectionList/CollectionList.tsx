@@ -77,6 +77,18 @@ function CollectionList({
         { collectionId: row.original.entity?.id || row.original.id },
         row.original.title || "glossary.collection",
       ),
+    purgeProps: ({ row }: ModelTableActionProps<Node>) => ({
+      id: row?.original.id,
+      title: row?.original.title,
+      entityType: "collection" as const,
+      handleDelete: () => {
+        destroy.collection(
+          { collectionId: row.original.entity?.id || row.original.id },
+          row.original.title || "glossary.collection",
+        );
+      },
+      hideLabel: true,
+    }),
     handleView: ({ row }: ModelTableActionProps<Node>) =>
       row.original.slug
         ? `/collections/${row.original.entity?.slug || row.original.slug}`
