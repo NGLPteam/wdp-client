@@ -44,6 +44,7 @@ const EntityThumbnailColumn = <T extends Node>(
             <Styled.Thumbnail
               data={entity.thumbnail.thumb.webp}
               objectFit="contain"
+              height="auto"
             />
           ) : (
             <CoverPlaceholder
@@ -69,7 +70,7 @@ const fragment = graphql`
     title
     thumbnail {
       storage
-      thumb {
+      thumb: small {
         webp {
           ...ImageFragment
         }

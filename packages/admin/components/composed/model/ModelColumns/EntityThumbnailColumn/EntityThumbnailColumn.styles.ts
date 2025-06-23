@@ -13,6 +13,12 @@ export const Thumbnail = styled(Image)`
     margin-block-end: 0;
   }
 
+  [data-grid] & {
+    object-position: top left;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
   [data-mobile-layout="true"] & {
     object-position: top left;
   }

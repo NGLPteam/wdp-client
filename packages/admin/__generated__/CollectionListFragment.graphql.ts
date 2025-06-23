@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b8633a679a3a7630409379ad27000982>>
+ * @generated SignedSource<<3a627d3ab3798cac25b61c4641ded61f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -140,11 +140,11 @@ return {
                       "storageKey": null
                     },
                     {
-                      "alias": null,
+                      "alias": "thumb",
                       "args": null,
                       "concreteType": "ImageSize",
                       "kind": "LinkedField",
-                      "name": "thumb",
+                      "name": "small",
                       "plural": false,
                       "selections": [
                         {
