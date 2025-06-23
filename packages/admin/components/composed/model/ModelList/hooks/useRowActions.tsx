@@ -1,4 +1,5 @@
 import { useMemo, Fragment, cloneElement } from "react";
+import { useViewerContext } from "contexts";
 import i18next from "i18next";
 import {
   ButtonControlGroup,
@@ -8,6 +9,7 @@ import {
 } from "components/atomic/buttons";
 import IconFactory from "components/factories/IconFactory";
 import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
+import EntityPurgeModal from "components/composed/entity/EntityPurgeModal";
 import type {
   ColumnDef,
   ModelTableActionProps,
@@ -15,17 +17,26 @@ import type {
 } from "@tanstack/react-table";
 type IconFactoryProps = React.ComponentProps<typeof IconFactory>;
 
-type ActionConfig<D extends Record<string, unknown>> = {
-  handleClick: ({ row }: { row: Row<D> }) => void;
-  modalConfirm?: boolean;
-  handleHide?: ({ row }: { row: Row<D> }) => boolean;
-  handleLink?: ({ row }: { row: Row<D> }) => string | void;
-};
+type ActionConfig<D extends Record<string, unknown>> =
+  | {
+      handleClick: ({ row }: { row: Row<D> }) => void;
+      modalConfirm?: boolean;
+      handleHide?: ({ row }: { row: Row<D> }) => boolean;
+      handleLink?: ({ row }: { row: Row<D> }) => string | void;
+    }
+  | {
+      props: ({
+        row,
+      }: {
+        row: Row<D>;
+      }) => React.ComponentProps<typeof EntityPurgeModal>;
+    };
 
 type ActionKeys =
   | "download"
   | "edit"
   | "delete"
+  | "purge"
   | "view"
   | "enable"
   | "disable";
@@ -38,6 +49,7 @@ const ACTION_ORDER = [
   "enable",
   "disable",
   "delete",
+  "purge",
 ];
 
 interface ActionDefinition {
@@ -76,6 +88,9 @@ const availableActions: ActionDefinitions = {
       <p className="t-copy-sm">{i18next.t("messages.delete.confirm_body")}</p>
     ),
   },
+  purge: {
+    label: i18next.t("common.delete"),
+  },
   view: {
     label: i18next.t("common.view"),
   },
@@ -103,6 +118,11 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
   actionConfig?: ActionConfig<D>,
 ) {
   const actionDefinition = availableActions[action];
+
+  if (actionConfig && "props" in actionConfig) {
+    const purgeProps = actionConfig.props({ row });
+    return <EntityPurgeModal {...purgeProps} />;
+  }
 
   if (actionConfig?.handleHide && actionConfig?.handleHide({ row }))
     return <Fragment key={action}></Fragment>;
@@ -197,6 +217,9 @@ export interface Actions<T extends Record<string, unknown>> {
   handleEdit?: (props: ModelTableActionProps<T>) => void;
   handleDelete?: (props: ModelTableActionProps<T>) => void;
   hideDelete?: (props: ModelTableActionProps<T>) => boolean;
+  purgeProps?: (
+    props: ModelTableActionProps<T>,
+  ) => React.ComponentProps<typeof EntityPurgeModal>;
   handleDownload?: (props: ModelTableActionProps<T>) => void;
   handleView?: (props: ModelTableActionProps<T>) => void;
   handleEnable?: (props: ModelTableActionProps<T>) => void;
@@ -209,17 +232,32 @@ function useRowActions<D extends Record<string, unknown>>(
   columns: ColumnDef<D>[],
   actions: Actions<D>,
 ) {
-  // Setup actions
-  const rowActions = useMemo(
-    () => ({
-      ...(actions.handleEdit && { edit: { handleClick: actions.handleEdit } }),
-      ...(actions.handleDelete && {
+  const { globalAdmin } = useViewerContext();
+
+  const purgeAction =
+    globalAdmin && actions.purgeProps && actions.handleDelete
+      ? {
+          purge: { props: actions.purgeProps },
+        }
+      : undefined;
+
+  const deleteAction = actions.handleDelete
+    ? {
         delete: {
           handleClick: actions.handleDelete,
           modalConfirm: true,
           handleHide: actions.hideDelete,
         },
-      }),
+      }
+    : undefined;
+
+  const renderedDelete = purgeAction ?? deleteAction;
+
+  // Setup actions
+  const rowActions = useMemo(
+    () => ({
+      ...(actions.handleEdit && { edit: { handleClick: actions.handleEdit } }),
+      ...renderedDelete,
       ...(actions.handleDownload && {
         download: {
           handleLink: actions.handleDownload,
@@ -244,7 +282,7 @@ function useRowActions<D extends Record<string, unknown>>(
         },
       }),
     }),
-    [actions],
+    [actions, renderedDelete],
   );
 
   const actionColumn = {
