@@ -83,6 +83,7 @@ export default function ItemUpdateDrawer({
     return (
       <DrawerActions
         routes={routes}
+        allowedActions={data?.item?.allowedActions}
         {...(globalAdmin ? { purgeButton } : { handleDelete })}
       />
     );
@@ -123,6 +124,7 @@ const query = graphql`
       schemaVersion {
         enforcedChildKinds
       }
+      allowedActions
     }
   }
 `;
