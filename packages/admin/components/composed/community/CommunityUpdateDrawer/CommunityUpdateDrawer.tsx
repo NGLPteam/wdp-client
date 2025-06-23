@@ -73,6 +73,7 @@ export default function CommunityUpdateDrawer({
     return (
       <DrawerActions
         routes={routes}
+        allowedActions={data?.community?.allowedActions}
         {...(globalAdmin ? { purgeButton } : { handleDelete })}
       />
     );
@@ -110,6 +111,7 @@ const query = graphql`
       id
       title
       ...CommunityUpdateFormFragment
+      allowedActions
     }
   }
 `;

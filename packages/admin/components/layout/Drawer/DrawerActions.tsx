@@ -4,7 +4,12 @@ import type { BaseRoute } from "@wdp/lib/routes";
 
 type LinkProps = React.ComponentProps<typeof ButtonControlRoute>;
 
-const DrawerActions = ({ routes, handleDelete, purgeButton }: Props) => {
+const DrawerActions = ({
+  routes,
+  handleDelete,
+  purgeButton,
+  allowedActions,
+}: Props) => {
   const { t } = useTranslation();
 
   function handleDeleteClick() {
@@ -25,6 +30,7 @@ const DrawerActions = ({ routes, handleDelete, purgeButton }: Props) => {
           modalBody={t("messages.delete.confirm_body")}
           onClick={handleDeleteClick}
           actions="self.delete"
+          allowedActions={allowedActions}
         >
           {t("delete")}
         </ButtonControlConfirm>
@@ -38,6 +44,7 @@ interface Props {
   routes?: (LinkProps & { label?: BaseRoute["label"] })[];
   handleDelete?: () => void;
   purgeButton?: React.ReactNode;
+  allowedActions?: string[] | readonly string[];
 }
 
 export default DrawerActions;

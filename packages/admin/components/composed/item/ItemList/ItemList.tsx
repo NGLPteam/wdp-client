@@ -24,7 +24,7 @@ function ItemList({ items, search, headerStyle, hideHeader }: ItemListProps) {
 
   const searchScope = useFragment<ItemListSearchFragment$key>(
     searchFragment,
-    search
+    search,
   );
 
   const { current: memoizedSearch } = useLatestPresentValue(searchScope);
@@ -65,7 +65,7 @@ function ItemList({ items, search, headerStyle, hideHeader }: ItemListProps) {
     handleDelete: ({ row }: ModelTableActionProps<Node>) =>
       destroy.item(
         { itemId: row.original.entity?.id || row.original.id },
-        row.original.entity?.title || row.original.title || "glossary.item"
+        row.original.entity?.title || row.original.title || "glossary.item",
       ),
     purgeProps: ({ row }: ModelTableActionProps<Node>) => ({
       id: row?.original.id,
@@ -74,7 +74,7 @@ function ItemList({ items, search, headerStyle, hideHeader }: ItemListProps) {
       handleDelete: () => {
         destroy.item(
           { itemId: row?.original.entity?.id || row?.original.id },
-          row?.original.entity?.title || row?.original.title || "glossary.item"
+          row?.original.entity?.title || row?.original.title || "glossary.item",
         );
       },
       afterPurge: () => {},
@@ -146,14 +146,14 @@ const fragment = graphql`
 
 const searchFragment = graphql`
   fragment ItemListSearchFragment on SearchScope
-    @argumentDefinitions(
-      query: { type: "String", defaultValue: "" }
-      page: { type: "Int", defaultValue: 1 }
-      predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
-      order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
-      hasQuery: { type: "Boolean!" }
-      schema: { type: "[String!]", defaultValue: [] }
-    ) {
+  @argumentDefinitions(
+    query: { type: "String", defaultValue: "" }
+    page: { type: "Int", defaultValue: 1 }
+    predicates: { type: "[SearchPredicateInput!]", defaultValue: [] }
+    order: { type: "EntityOrder", defaultValue: PUBLISHED_ASCENDING }
+    hasQuery: { type: "Boolean!" }
+    schema: { type: "[String!]", defaultValue: [] }
+  ) {
     results(
       access: UPDATE
       query: $query
