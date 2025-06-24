@@ -47,6 +47,10 @@ import type {
   HarvestMappingDestroyInput,
   useDestroyerDestroyHarvestMappingMutation,
 } from "@/relay/useDestroyerDestroyHarvestMappingMutation.graphql";
+import type {
+  HarvestMetadataMappingDestroyInput,
+  useDestroyerDestroyHarvestMetadataMappingMutation,
+} from "@/relay/useDestroyerDestroyHarvestMetadataMappingMutation.graphql";
 import type { useDestroyerFragment$key } from "@/relay/useDestroyerFragment.graphql";
 import { useDestroyerRevokeAccessMutation } from "@/relay/useDestroyerRevokeAccessMutation.graphql";
 import {
@@ -313,6 +317,27 @@ export function useDestroyer() {
     [commitDestroyHarvestMapping, handleResponse, t],
   );
 
+  /* Destroy a harvest metadata mapping */
+  const [commitDestroyHarvestMetadataMapping] =
+    useMutation<useDestroyerDestroyHarvestMetadataMappingMutation>(
+      destroyHarvestMetadataMappingMutation,
+    );
+
+  const harvestMetadataMapping = useCallback(
+    async (input: HarvestMetadataMappingDestroyInput) => {
+      commitDestroyHarvestMetadataMapping({
+        variables: { input },
+        onCompleted: (response) =>
+          handleResponse(
+            response.harvestMetadataMappingDestroy,
+            t("glossary.metadata_mapping"),
+            ["harvestMetadataMappings"],
+          ),
+      });
+    },
+    [commitDestroyHarvestMetadataMapping, handleResponse, t],
+  );
+
   /* Purge an entity and all its descendants */
   const [commitPurgeEntity] =
     useMutation<useDestroyerEntityPurgeMutation>(entityPurgeMutation);
@@ -342,6 +367,7 @@ export function useDestroyer() {
     announcement,
     harvestSource,
     harvestMapping,
+    harvestMetadataMapping,
     purge,
   };
 }
@@ -476,6 +502,17 @@ const destroyHarvestMappingMutation = graphql`
     $input: HarvestMappingDestroyInput!
   ) {
     harvestMappingDestroy(input: $input) {
+      destroyedId @deleteRecord
+      ...useDestroyerFragment
+    }
+  }
+`;
+
+const destroyHarvestMetadataMappingMutation = graphql`
+  mutation useDestroyerDestroyHarvestMetadataMappingMutation(
+    $input: HarvestMetadataMappingDestroyInput!
+  ) {
+    harvestMetadataMappingDestroy(input: $input) {
       destroyedId @deleteRecord
       ...useDestroyerFragment
     }
