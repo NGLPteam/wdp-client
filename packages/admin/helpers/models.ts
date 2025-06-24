@@ -21,6 +21,7 @@ const MODEL_MAP = {
   HARVEST_RECORD: "harvest record",
   HARVEST_ENTITY: "harvest entity",
   HARVEST_MESSAGE: "harvest message",
+  METADATA_MAPPING: "metadata_mapping",
   MEMBER: "member",
   ACCESS: "access",
 };
