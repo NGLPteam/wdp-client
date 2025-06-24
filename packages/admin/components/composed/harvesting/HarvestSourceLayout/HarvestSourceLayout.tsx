@@ -36,6 +36,13 @@ export default function HarvestSourceLayout({
       >
         {t("actions.add.harvest_attempt")}
       </ButtonControlRoute>
+      <ButtonControlRoute
+        route="harvestSource.metadataMapping.new"
+        query={{ slug }}
+        icon="plus"
+      >
+        {t("actions.add.harvest_metadata_mapping")}
+      </ButtonControlRoute>
       {harvestSource?.id && (
         <PruneEntitiesModal
           id={harvestSource?.id}

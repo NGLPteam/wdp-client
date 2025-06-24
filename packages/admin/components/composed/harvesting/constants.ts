@@ -8,3 +8,10 @@ export const METADATA_FORMAT_OPTS = [
 ];
 
 export const PROTOCOL_FORMAT_OPTS = [{ label: "OAI-PMH", value: "OAI" }];
+
+export const METADATA_MAPPING_FIELD_OPTS = [
+  { label: "", value: "" },
+  { label: "Identifier", value: "IDENTIFIER" },
+  { label: "Relation", value: "RELATION" },
+  { label: "Title", value: "TITLE" },
+];

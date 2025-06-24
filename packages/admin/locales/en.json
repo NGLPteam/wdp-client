@@ -90,7 +90,8 @@
       "harvest_entity_other": "harvest entities",
       "member": "member",
       "member_other": "members",
-      "metadata": "metadata"
+      "metadata": "metadata",
+      "metadata_mapping": "metadata mapping"
     },
     "lists": {
       "admin_column": "Admin?",
@@ -140,7 +141,9 @@
       "entity_count_column": "Entity Count",
       "has_errors_column": "Has Errors",
       "target_entity_column": "Target Entity",
-      "attempts_count_column": "Attempts Count"
+      "attempts_count_column": "Attempts Count",
+      "pattern_column": "Pattern",
+      "field_column": "Field"
     },
     "nav": {
       "manage_header": "Manage",
@@ -179,7 +182,9 @@
       "harvest_entities": "Entities",
       "new_harvest_attempt": "Harvest Attempt",
       "harvest_source_new": "New Harvest Source",
-      "harvest_mapping_new": "New Harvest Mapping"
+      "harvest_mapping_new": "New Harvest Mapping",
+      "metadata_mappings": "Metadata Mappings",
+      "new_metadata_mapping": "Metadata Mapping"
     },
     "messages": {
       "marked_for_purge": "Marked for purge",
@@ -249,7 +254,8 @@
         "contributor_success": "Contributor created successfully.",
         "harvest_source_success": "Harvest source created successfully.",
         "harvest_mapping_success": "Harvest mapping created successfully",
-        "harvest_attempt_success": "Harvest attempt started successfully"
+        "harvest_attempt_success": "Harvest attempt started successfully",
+        "harvest_metadata_mapping_success": "Harvest metadata mapping created successfully"
       },
       "delete": {
         "confirm_label": "Confirm Delete",
@@ -312,7 +318,8 @@
         "harvest_source_header": "Add Harvest Source",
         "harvest_mapping": "$t(glossary.harvest_mapping)",
         "harvest_mapping_header": "Add Harvest Mapping",
-        "harvest_attempt": "$t(glossary.harvest_attempt)"
+        "harvest_attempt": "$t(glossary.harvest_attempt)",
+        "harvest_metadata_mapping": "$t(glossary.metadata_mapping)"
       },
       "create": {
         "contributor_person": "Create Person",
@@ -514,10 +521,12 @@
         "identifier_description": "Optional custom identifier. If left blank, one will be assigned based on name. Cannot be changed after harvest source is created.",
         "target_entity": "Target Entity",
         "schedule": "Schedule",
-        "frequency_expression": "New Schedule",
         "frequency_expression_description": "Meru can automatically trigger harvest attempts from this mapping on a set schedule. This schedule can be specified either with a cron expression, e.g. \"0 6 * * *\", or with a human-readable expression such as, \"every day at 4 pm America/Los_Angeles\" or \"every 2 months\". After saving, attempts generated from the new schedule will be viewable in the Attempts tab. Leave or revert this field to blank if harvest attempts for this mapping should only be triggered manually.",
         "note": "Note",
-        "max_records_description": "Default 80,000"
+        "max_records_description": "Default 80,000",
+        "field": "Field",
+        "pattern": "Pattern",
+        "pattern_description": "An ANSI-compatible regular expression to match against."
       },
       "validation": {
         "year": "Must be a four digit year",
@@ -655,6 +664,7 @@
       "new_source_title": "New Harvest Source",
       "new_attempt_title": "Start Manual Harvest Attempt",
       "new_mapping_title": "New Harvest Mapping",
+      "new_metadata_mapping_title": "New Metadata Mapping",
       "unchangeable": "*Cannot be changed",
       "settings": "Settings",
       "settings_from_mapping": "Settings from mapping",
