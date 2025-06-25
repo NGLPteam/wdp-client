@@ -1,4 +1,3 @@
-import React from "react";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { graphql } from "react-relay";
 import { pxToRem } from "@wdp/lib/theme/functions";
