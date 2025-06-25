@@ -26,6 +26,8 @@ export default function NavigationTabs({
 
   const { slots, entity } = template ?? {};
 
+  const hideMetadata = false;
+
   const entityLabel = useSharedInlineFragment(slots?.entityLabel);
 
   if (!entity || entity.__typename === "%other") return null;
@@ -34,7 +36,7 @@ export default function NavigationTabs({
 
   const getLink = (
     href: string,
-    label?: TemplateSlotInlineInstance | string | null,
+    label?: TemplateSlotInlineInstance | string | null
   ) => {
     const isCurrent = pathname === href;
 
@@ -42,8 +44,8 @@ export default function NavigationTabs({
       typeof label === "string"
         ? t(label)
         : label?.valid
-          ? label?.content
-          : t("glossary.item");
+        ? label?.content
+        : t("glossary.item");
 
     return renderedLabel ? (
       <li className={styles.item} key={href}>
@@ -66,7 +68,7 @@ export default function NavigationTabs({
     >
       <ul className={styles.list}>
         {hasFullText && getLink(basePath, entityLabel)}
-        {getLink(`${basePath}/metadata`, "nav.metadata")}
+        {!hideMetadata && getLink(`${basePath}/metadata`, "nav.metadata")}
         {entity.assets?.pageInfo.totalCount > 0 &&
           getLink(`${basePath}/files`, "nav.files")}
         {"contributions" in entity &&
@@ -76,7 +78,7 @@ export default function NavigationTabs({
           getLink(`${basePath}/metrics`, "nav.metrics")}
         {entity.pages && entity.pages.edges.length > 0
           ? entity.pages.edges.map(({ node }) =>
-              getLink(`${basePath}/page/${node.slug}`, node.title),
+              getLink(`${basePath}/page/${node.slug}`, node.title)
             )
           : null}
       </ul>
