@@ -367,6 +367,18 @@ export const baseRoutes: BaseRoute[] = [
             path: "/harvesting/[slug]/messages",
             label: "nav.harvest_messages",
           },
+          {
+            name: "harvestSource.metadataMappings",
+            path: "/harvesting/[slug]/metadata",
+            label: "nav.metadata_mappings",
+            routes: [
+              {
+                name: "harvestSource.metadataMapping.new",
+                path: "/harvesting/[slug]/metadata/new",
+                label: "nav.new_metadata_mapping",
+              },
+            ],
+          },
         ],
       },
       {

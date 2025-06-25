@@ -49,6 +49,7 @@ export const TitleWrapper = styled.div`
   display: flex;
   gap: 1.5rem;
   flex-wrap: wrap-reverse;
+  align-content: baseline;
 `;
 
 export const PurgeTag = styled.div`

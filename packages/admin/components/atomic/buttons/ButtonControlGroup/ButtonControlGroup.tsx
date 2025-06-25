@@ -18,10 +18,11 @@ function ButtonControlGroup({
   menuLabel,
   toggleText,
   toggleLabel,
+  grid,
 }: Props & PropsWithChildren) {
   return (
     <>
-      <Styled.ButtonWrapper $breakpoint={breakpoint}>
+      <Styled.ButtonWrapper $breakpoint={breakpoint} $grid={grid}>
         {children}
       </Styled.ButtonWrapper>
       <Styled.DropdownWrapper $breakpoint={breakpoint}>
@@ -47,6 +48,7 @@ interface BaseProps {
   toggleLabel?: string;
   toggleText?: string;
   $closeDropdown?: () => void;
+  grid?: boolean;
 }
 
 interface PropsWithLabel extends BaseProps {
