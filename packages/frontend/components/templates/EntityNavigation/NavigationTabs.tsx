@@ -24,6 +24,8 @@ export default function NavigationTabs({
 
   const { slots, entity } = template ?? {};
 
+  const hideMetadata = false;
+
   const entityLabel = useSharedInlineFragment(slots?.entityLabel);
 
   if (!entity || entity.__typename === "%other") return null;
@@ -64,7 +66,7 @@ export default function NavigationTabs({
     >
       <ul className={styles.list}>
         {getLink(basePath, entityLabel)}
-        {getLink(`${basePath}/metadata`, "nav.metadata")}
+        {!hideMetadata && getLink(`${basePath}/metadata`, "nav.metadata")}
         {entity.assets?.pageInfo.totalCount > 0 &&
           getLink(`${basePath}/files`, "nav.files")}
         {"contributions" in entity &&
