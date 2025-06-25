@@ -34,9 +34,25 @@
 
 .left {
   grid-area: left;
+  display: flex;
+  gap: var(--container-padding-md);
 
+  @mixin respond theme("screens.60") {
+    flex-direction: column;
+  }
+}
+
+.textColumn {
   > * + * {
     margin-block-start: var(--padding-md);
+  }
+}
+
+.thumbColumn {
+  inline-size: 225px;
+
+  @mixin respond theme("screens.100") {
+    inline-size: 150px;
   }
 }
 
@@ -109,7 +125,17 @@
   }
 }
 
+.title {
+  &:not(:first-child) {
+    margin-block-start: var(--padding-sm);
+  }
+}
+
 .subtitle {
   display: block;
   margin-block-start: 0.75rem;
+}
+
+.contributors {
+  margin-block-start: var(--padding-lg);
 }
