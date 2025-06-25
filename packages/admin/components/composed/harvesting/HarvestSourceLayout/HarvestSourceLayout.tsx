@@ -21,7 +21,12 @@ export default function HarvestSourceLayout({
   const harvestSource = useMaybeFragment(fragment, data);
 
   const buttons = slug && (
-    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+    <ButtonControlGroup
+      toggleLabel={t("options")}
+      menuLabel={t("options")}
+      grid
+      breakpoint={70}
+    >
       <ButtonControlRoute
         route="harvestSource.mappings.new"
         query={{ slug }}

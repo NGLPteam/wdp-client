@@ -5,7 +5,7 @@ import ButtonControlGroup from "./ButtonControlGroup";
 
 type BaseProps = React.ComponentProps<typeof ButtonControlGroup>;
 
-type WrapperProps = { $breakpoint: BaseProps["breakpoint"] };
+type WrapperProps = { $breakpoint: BaseProps["breakpoint"]; $grid?: boolean };
 
 export const ButtonWrapper = styled.div<WrapperProps>`
   display: inline-flex;
@@ -25,6 +25,9 @@ export const ButtonWrapper = styled.div<WrapperProps>`
       `,
       $breakpoint,
     )}
+
+    ${({ $grid }) =>
+    $grid && `display: grid; grid-template-columns: repeat(2, 1fr);`}
 `;
 
 export const DropdownWrapper = styled.div<WrapperProps>`
