@@ -526,7 +526,7 @@
         "max_records_description": "Default 80,000",
         "field": "Field",
         "pattern": "Pattern",
-        "pattern_description": "An ANSI-compatible regular expression to match against."
+        "pattern_description": "An ANSI-compatible regular expression to match against"
       },
       "validation": {
         "year": "Must be a four digit year",
