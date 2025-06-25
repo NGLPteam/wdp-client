@@ -35,9 +35,6 @@
       display: block;
       position: absolute;
       top: 0;
-      height: calc(
-        var(--Item-cover-height, 18.75rem) + var(--container-padding-sm) * 2
-      );
       background: var(--Item-background-color);
       inline-size: max(
         calc((100vw - theme("maxWidth.max")) / 2),

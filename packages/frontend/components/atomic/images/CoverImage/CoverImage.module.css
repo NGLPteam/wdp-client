@@ -1,7 +1,7 @@
 .figure {
   position: relative;
   max-width: var(--CoverImage-max-width);
-  height: var(--CoverImage-max-height);
+  max-height: var(--CoverImage-max-height);
 
   > * {
     vertical-align: top;
@@ -23,10 +23,7 @@
 
   img {
     display: block;
-    /* This must match the wrapper's width and height */
-    max-width: var(--CoverImage-max-width);
-    max-height: var(--CoverImage-max-height);
-    height: auto;
-    width: auto;
+    height: 100%;
+    width: 100%;
   }
 }
