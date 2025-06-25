@@ -44,7 +44,7 @@ const EntityThumbnailColumn = <T extends Node>(
             <Styled.Thumbnail
               data={entity.thumbnail.thumb.webp}
               objectFit="contain"
-              height="auto"
+              // height="auto"
             />
           ) : (
             <CoverPlaceholder
