@@ -7,7 +7,7 @@ import InstallationName from "components/composed/instance/InstallationName";
 import { Search } from "components/forms";
 import CommunityPicker from "components/composed/instance/CommunityPicker";
 import CommunityName from "components/composed/community/CommunityName";
-import { NamedLink } from "components/atomic";
+import { NamedLink, Markdown } from "components/atomic";
 import { useGlobalStaticContext } from "contexts/GlobalStaticContext";
 import { CommunityContext } from "@/contexts/CommunityContext";
 import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
@@ -72,9 +72,9 @@ export default function AppFooter({ data, communityData }: Props) {
             </div>
           )}
           {footer?.description && (
-            <div className="t-copy-sm t-copy-lighter">
+            <Markdown.Base className="t-copy-sm t-copy-lighter">
               {footer?.description}
-            </div>
+            </Markdown.Base>
           )}
           <div className={styles.installationDesktop}>
             {!!community && (
