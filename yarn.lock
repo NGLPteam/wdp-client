@@ -3353,12 +3353,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@uiw/codemirror-theme-quietlight@npm:^4.23.10":
-  version: 4.23.10
-  resolution: "@uiw/codemirror-theme-quietlight@npm:4.23.10"
+"@uiw/codemirror-theme-quietlight@npm:^4.23.14":
+  version: 4.23.14
+  resolution: "@uiw/codemirror-theme-quietlight@npm:4.23.14"
   dependencies:
-    "@uiw/codemirror-themes": "npm:4.23.10"
-  checksum: 10c0/23d687b2e6ff72231c719b7312e4d91846b83dc791eeb57d4f2c3c4b4c720cc6457e226f61644fb532a8580f90a1307412ba383f48d463b33f01db13cd6df171
+    "@uiw/codemirror-themes": "npm:4.23.14"
+  checksum: 10c0/64ea0dfa7b75157e5327e7210060d60fbb4571602ad250cd102bc22b24da1f715877d4f7823201e6526c602f9c328ab3387db29d2b28157bb60db72c48eccfdb
   languageName: node
   linkType: hard
 
@@ -3374,6 +3374,21 @@ __metadata:
     "@codemirror/state": ">=6.0.0"
     "@codemirror/view": ">=6.0.0"
   checksum: 10c0/29f980789a535ae021ca8d8bec3ecee4dda8cb11c5451729c04481310cc04cd7c00ddb3011137f5cc305d565bc0a3464ebd88fdde9359e296d8f0a6cf6477811
+  languageName: node
+  linkType: hard
+
+"@uiw/codemirror-themes@npm:4.23.14":
+  version: 4.23.14
+  resolution: "@uiw/codemirror-themes@npm:4.23.14"
+  dependencies:
+    "@codemirror/language": "npm:^6.0.0"
+    "@codemirror/state": "npm:^6.0.0"
+    "@codemirror/view": "npm:^6.0.0"
+  peerDependencies:
+    "@codemirror/language": ">=6.0.0"
+    "@codemirror/state": ">=6.0.0"
+    "@codemirror/view": ">=6.0.0"
+  checksum: 10c0/a15f8984d1993c2d247f0d36f4f3c854081b60b680396d2d8fea6ebd3664d14632bacf3f689ccd6439ccba4e38462d49b1d35486fdbe6d808821ff91495c4746
   languageName: node
   linkType: hard
 
@@ -3555,7 +3570,7 @@ __metadata:
     "@uiw/codemirror-theme-basic": "npm:^4.23.10"
     "@uiw/codemirror-theme-github": "npm:^4.23.10"
     "@uiw/codemirror-theme-material": "npm:^4.23.10"
-    "@uiw/codemirror-theme-quietlight": "npm:^4.23.10"
+    "@uiw/codemirror-theme-quietlight": "npm:^4.23.14"
     "@uiw/react-codemirror": "npm:^4.23.10"
     "@uppy/core": "npm:^1.20.1"
     "@uppy/tus": "npm:^1.9.2"
