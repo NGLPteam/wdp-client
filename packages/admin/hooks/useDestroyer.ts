@@ -89,6 +89,8 @@ export function useDestroyer() {
         notify.success(t("messages.delete.purge_success", { name }));
       } else if (results.globalErrors && results.globalErrors.length > 0) {
         notify.mutationGlobalError(results.globalErrors);
+      } else if ("destroyed" in results && results.destroyed === null) {
+        notify.error(t("messages.delete.failure", { name }));
       }
     },
     [notify, t, setTriggeredRefetchTags],
