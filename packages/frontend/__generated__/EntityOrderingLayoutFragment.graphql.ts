@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fcf69464767cafb226fa3ad7aee0299d>>
+ * @generated SignedSource<<070220664bec77a0b942a10b38cee328>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 export type OrderingRenderMode = "FLAT" | "TREE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type EntityOrderingLayoutFragment$data = {
@@ -33,6 +33,7 @@ export type EntityOrderingLayoutFragment$data = {
     readonly " $fragmentSpreads": FragmentRefs<"BackButtonFragment">;
   };
   readonly header: string | null | undefined;
+  readonly id: string;
   readonly name: string | null | undefined;
   readonly render: {
     readonly mode: OrderingRenderMode;
@@ -58,22 +59,35 @@ var v0 = {
   ],
   "type": "Sluggable",
   "abstractKey": "__isSluggable"
+},
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
 };
 return {
   "argumentDefinitions": [
     {
-      "defaultValue": 1,
-      "kind": "LocalArgument",
+      "kind": "RootArgument",
       "name": "page"
-    },
-    {
-      "defaultValue": 20,
-      "kind": "LocalArgument",
-      "name": "perPage"
     }
   ],
   "kind": "Fragment",
-  "metadata": null,
+  "metadata": {
+    "refetch": {
+      "connection": null,
+      "fragmentPathInResult": [
+        "node"
+      ],
+      "operation": require('./EntityOrderingLayoutRefetchQuery.graphql'),
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
+    }
+  },
   "name": "EntityOrderingLayoutFragment",
   "selections": [
     {
@@ -139,11 +153,6 @@ return {
           "kind": "Variable",
           "name": "page",
           "variableName": "page"
-        },
-        {
-          "kind": "Variable",
-          "name": "perPage",
-          "variableName": "perPage"
         }
       ],
       "concreteType": "OrderingEntryConnection",
@@ -167,13 +176,7 @@ return {
               "name": "node",
               "plural": false,
               "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "id",
-                  "storageKey": null
-                },
+                (v1/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -220,13 +223,14 @@ return {
         }
       ],
       "storageKey": null
-    }
+    },
+    (v1/*: any*/)
   ],
   "type": "Ordering",
   "abstractKey": null
 };
 })();
 
-(node as any).hash = "68e8cb3b069a0e8c1ba8f0ec053ac6a4";
+(node as any).hash = "04ff9b92d485b12fbca5cd2a025b8071";
 
 export default node;

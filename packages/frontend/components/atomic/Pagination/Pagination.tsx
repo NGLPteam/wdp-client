@@ -4,7 +4,7 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { PaginationFragment$key } from "@/relay/PaginationFragment.graphql";
 import BasePagination from "./BasePagination";
 
-export default function Pagination({ data }: Props) {
+export default function Pagination({ data, onPageChange }: Props) {
   const pageData = useMaybeFragment(fragment, data);
 
   const pathname = usePathname();
@@ -23,13 +23,14 @@ export default function Pagination({ data }: Props) {
     <BasePagination
       page={pageData.page}
       pageCount={pageData.pageCount}
-      onSubmit={onSubmit}
+      onSubmit={onPageChange ?? onSubmit}
     />
   ) : null;
 }
 
 interface Props {
   data?: PaginationFragment$key | null;
+  onPageChange?: (val: Record<string, string | number>) => void;
 }
 
 const fragment = graphql`

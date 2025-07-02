@@ -45,7 +45,7 @@ const orderingQuery = graphql`
     community(slug: $slug) {
       ordering(identifier: $identifier) {
         disabled
-        ...EntityOrderingLayoutFragment @arguments(page: $page)
+        ...EntityOrderingLayoutFragment
       }
     }
   }

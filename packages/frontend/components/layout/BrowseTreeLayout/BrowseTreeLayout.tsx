@@ -1,10 +1,9 @@
-"use client";
-
 import { graphql } from "react-relay";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { PageCount, Pagination } from "components/atomic";
 import BrowseTreeItem from "components/layout/BrowseTreeLayout/BrowseTreeItem";
 import TreeAccordion from "components/atomic/accordions/TreeAccordion";
+import LoadingBlock from "components/atomic/loading/LoadingBlock";
 import {
   BrowseTreeLayoutFragment$data,
   BrowseTreeLayoutFragment$key,
@@ -16,6 +15,8 @@ export default function BrowseTreeLayout({
   data,
   header,
   orderComponent,
+  isPending,
+  onPageChange,
 }: Props) {
   const listData = useMaybeFragment(fragment, data);
 
@@ -48,21 +49,32 @@ export default function BrowseTreeLayout({
       <div className="l-container-wide">
         <header className={styles.header}>
           {header && <h3 className="t-capitalize">{header}</h3>}
-          <div className={styles.pageCount}>
-            <PageCount data={listData.pageInfo} className="t-label-lg" />
-            {orderComponent}
-          </div>
-        </header>
-        <div className={styles.listItems}>
-          {treeList && treeList.length > 0 ? (
-            renderList(treeList)
-          ) : (
-            <NoContent />
+          {!isPending && (
+            <div className={styles.pageCount}>
+              <PageCount data={listData.pageInfo} className="t-label-lg" />
+              {orderComponent}
+            </div>
           )}
-        </div>
-        <footer className={styles.footer}>
-          <Pagination data={listData.pageInfo} />
-        </footer>
+        </header>
+        {isPending ? (
+          <LoadingBlock />
+        ) : (
+          <>
+            <div className={styles.listItems}>
+              {treeList && treeList.length > 0 ? (
+                renderList(treeList)
+              ) : (
+                <NoContent />
+              )}
+            </div>
+            <footer className={styles.footer}>
+              <Pagination
+                data={listData.pageInfo}
+                onPageChange={onPageChange}
+              />
+            </footer>
+          </>
+        )}
       </div>
     </section>
   ) : null;
@@ -74,6 +86,8 @@ interface Props {
   header?: string | null;
   data?: BrowseTreeLayoutFragment$key | null;
   orderComponent?: React.ReactNode;
+  isPending: boolean;
+  onPageChange: (val: Record<string, string | number>) => void;
 }
 
 const fragment = graphql`

@@ -56,7 +56,7 @@ const query = graphql`
     collection(slug: $slug) {
       ordering(identifier: $identifier) {
         disabled
-        ...EntityOrderingLayoutFragment @arguments(page: $page)
+        ...EntityOrderingLayoutFragment
       }
     }
   }

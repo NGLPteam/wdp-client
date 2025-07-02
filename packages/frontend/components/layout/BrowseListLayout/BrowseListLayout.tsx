@@ -1,8 +1,7 @@
-"use client";
-
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import { PageCount, Pagination } from "components/atomic";
+import LoadingBlock from "components/atomic/loading/LoadingBlock";
 import { BrowseListLayoutFragment$key } from "@/relay/BrowseListLayoutFragment.graphql";
 import { BackButtonFragment$key } from "@/relay/BackButtonFragment.graphql";
 import Container from "@/components/layout/Container";
@@ -16,6 +15,8 @@ export default function BrowseListLayout({
   header: headerProp,
   orderComponent,
   items,
+  onPageChange,
+  isPending = false,
 }: Props) {
   const pageInfo = useFragment(fragment, data);
 
@@ -32,21 +33,27 @@ export default function BrowseListLayout({
       {entityData && <BackButton data={entityData} />}
       <header className={styles.header}>
         {header && <h2 className="t-capitalize t-h3">{header}</h2>}
-        <div className={styles.pageCount}>
-          <PageCount data={pageInfo} className="t-label-lg" />
-          {orderComponent}
-        </div>
-      </header>
-      <div className={styles.listColumn}>
-        {items && items.length > 0 ? (
-          <ul className="t-unstyled-list">{items}</ul>
-        ) : (
-          <NoContent />
+        {!isPending && (
+          <div className={styles.pageCount}>
+            <PageCount data={pageInfo} className="t-label-lg" />
+            {orderComponent}
+          </div>
         )}
-        <div className={styles.footer}>
-          <Pagination data={pageInfo} />
+      </header>
+      {isPending ? (
+        <LoadingBlock />
+      ) : (
+        <div className={styles.listColumn}>
+          {items && items.length > 0 ? (
+            <ul className="t-unstyled-list">{items}</ul>
+          ) : (
+            <NoContent />
+          )}
+          <div className={styles.footer}>
+            <Pagination data={pageInfo} onPageChange={onPageChange} />
+          </div>
         </div>
-      </div>
+      )}
     </Container>
   ) : null;
 }
@@ -60,6 +67,8 @@ interface Props {
   orderComponent?: React.ReactNode;
   items?: React.ReactNode[];
   entityData?: BackButtonFragment$key | null;
+  isPending?: boolean;
+  onPageChange?: (val: Record<string, string | number>) => void;
 }
 
 const fragment = graphql`
