@@ -3,6 +3,7 @@ import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import { ResolvingMetadata, Metadata } from "next";
 import HeroTemplate from "@/components/templates/Hero";
+import ProcessingCheck from "@/components/templates/ProcessingCheck";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { layoutCollectionTemplateQuery as Query } from "@/relay/layoutCollectionTemplateQuery.graphql";
@@ -34,19 +35,18 @@ export default async function CollectionTemplateLayout({
 
   if (!collection) return notFound();
 
-  const {
-    community,
-    layouts: { hero },
-  } = collection;
+  const { community, layouts } = collection;
 
   return (
     <UpdateClientEnvironment records={records}>
       <CommunityContextProvider data={community}>
         <AppBody data={data} searchData={collection}>
-          {slug && <ViewCounter slug={slug} />}
-          {hero && <HeroTemplate data={hero} />}
-          <EntityNavBar data={collection} />
-          {children}
+          <ProcessingCheck data={layouts} entityType="collection">
+            {slug && <ViewCounter slug={slug} />}
+            {layouts.hero && <HeroTemplate data={layouts.hero} />}
+            <EntityNavBar data={collection} />
+            {children}
+          </ProcessingCheck>
         </AppBody>
       </CommunityContextProvider>
     </UpdateClientEnvironment>
@@ -60,6 +60,7 @@ const query = graphql`
         hero {
           ...HeroTemplateFragment
         }
+        ...ProcessingCheckFragment
       }
       ...SearchButtonFragment
       ...EntityNavBarFragment

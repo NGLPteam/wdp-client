@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import CommunityNavBar from "components/composed/community/CommunityNavBar";
 import { ResolvingMetadata, Metadata } from "next";
 import HeroTemplate from "@/components/templates/Hero";
+import ProcessingCheck from "@/components/templates/ProcessingCheck";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import { layoutCommunityTemplateQuery as Query } from "@/relay/layoutCommunityTemplateQuery.graphql";
@@ -31,21 +32,22 @@ export default async function CommunityLayout({
 
   if (!community) return notFound();
 
-  const {
-    layouts: { hero },
-  } = community;
+  const { layouts } = community;
 
-  const showNavBar = hero?.template?.definition?.enableDescendantBrowsing;
+  const showNavBar =
+    layouts?.hero?.template?.definition?.enableDescendantBrowsing;
 
   return (
     <UpdateClientEnvironment records={records}>
       <CommunityContextProvider data={community}>
         <AppBody data={data}>
-          {showNavBar && (
-            <CommunityNavBar data={community} entityData={community} />
-          )}
-          {hero && <HeroTemplate data={hero} />}
-          {children}
+          <ProcessingCheck data={layouts} entityType="community">
+            {showNavBar && (
+              <CommunityNavBar data={community} entityData={community} />
+            )}
+            {layouts.hero && <HeroTemplate data={layouts.hero} />}
+            {children}
+          </ProcessingCheck>
         </AppBody>
       </CommunityContextProvider>
     </UpdateClientEnvironment>
@@ -66,6 +68,7 @@ const query = graphql`
           }
           ...HeroTemplateFragment
         }
+        ...ProcessingCheckFragment
       }
       ...CommunityNavBarFragment
       ...CommunityNavBarEntityFragment

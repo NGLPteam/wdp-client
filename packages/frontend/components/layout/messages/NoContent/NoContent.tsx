@@ -13,13 +13,17 @@ const NoContent = ({ message, inline }: Props) => {
         [styles["wrapper--inline"]]: inline,
       })}
     >
-      <p className="t-h4">
-        {!message
-          ? t("common.no_content")
-          : typeof message === "string"
-            ? t(message)
-            : message}
-      </p>
+      {message && typeof message !== "string" ? (
+        message
+      ) : (
+        <p className="t-h4">
+          {!message
+            ? t("common.no_content")
+            : typeof message === "string"
+              ? t(message)
+              : message}
+        </p>
+      )}
     </div>
   );
 };
