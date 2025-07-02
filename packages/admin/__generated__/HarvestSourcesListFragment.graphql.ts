@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9ca95804db0c0742a08d0fa013912953>>
+ * @generated SignedSource<<0bbb14fdbaf91a6e641e7828ced59791>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -66,10 +66,6 @@ return {
   "argumentDefinitions": [
     {
       "kind": "RootArgument",
-      "name": "order"
-    },
-    {
-      "kind": "RootArgument",
       "name": "page"
     }
   ],
@@ -81,9 +77,9 @@ return {
       "alias": null,
       "args": [
         {
-          "kind": "Variable",
+          "kind": "Literal",
           "name": "order",
-          "variableName": "order"
+          "value": "DEFAULT"
         },
         {
           "kind": "Variable",
@@ -195,6 +191,6 @@ return {
 };
 })();
 
-(node as any).hash = "9a621422eb36647a5bb663694d5cd48b";
+(node as any).hash = "7b952e6a88ee78d3bb2c1c4cb8337187";
 
 export default node;

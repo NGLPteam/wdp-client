@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b77cec4249230fe304546b9c47bc1b28>>
+ * @generated SignedSource<<7cdb3e8e9e70456736f756db3866c72a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,9 +10,7 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type HarvestSourceOrder = "DEFAULT" | "OLDEST" | "RECENT" | "%future added value";
 export type harvestingQuery$variables = {
-  order?: HarvestSourceOrder | null | undefined;
   page: number;
 };
 export type harvestingQuery$data = {
@@ -25,11 +23,6 @@ export type harvestingQuery = {
 
 const node: ConcreteRequest = (function(){
 var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "order"
-  },
   {
     "defaultValue": null,
     "kind": "LocalArgument",
@@ -83,9 +76,9 @@ return {
         "alias": null,
         "args": [
           {
-            "kind": "Variable",
+            "kind": "Literal",
             "name": "order",
-            "variableName": "order"
+            "value": "DEFAULT"
           },
           {
             "kind": "Variable",
@@ -243,16 +236,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f930de7b1aefa2cc1fdfcbf4695697f4",
+    "cacheID": "899367f6d37617a0ec9731e9af2160a5",
     "id": null,
     "metadata": {},
     "name": "harvestingQuery",
     "operationKind": "query",
-    "text": "query harvestingQuery(\n  $order: HarvestSourceOrder\n  $page: Int!\n) {\n  ...HarvestSourcesListFragment\n}\n\nfragment HarvestSourcesListFragment on Query {\n  harvestSources(order: $order, page: $page, perPage: 20) {\n    nodes {\n      id\n      name\n      identifier\n      slug\n      metadataFormat\n      baseURL\n      harvestSets {\n        pageInfo {\n          totalCount\n        }\n      }\n      harvestRecords {\n        pageInfo {\n          totalCount\n        }\n      }\n      description\n    }\n    ...ModelListPageFragment\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query harvestingQuery(\n  $page: Int!\n) {\n  ...HarvestSourcesListFragment\n}\n\nfragment HarvestSourcesListFragment on Query {\n  harvestSources(order: DEFAULT, page: $page, perPage: 20) {\n    nodes {\n      id\n      name\n      identifier\n      slug\n      metadataFormat\n      baseURL\n      harvestSets {\n        pageInfo {\n          totalCount\n        }\n      }\n      harvestRecords {\n        pageInfo {\n          totalCount\n        }\n      }\n      description\n    }\n    ...ModelListPageFragment\n  }\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "be2925fa4f3f545d4877b404b9ea753d";
+(node as any).hash = "9fa2055a87cc0ae372d9272a7f5b57d7";
 
 export default node;

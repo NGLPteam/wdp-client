@@ -8,7 +8,7 @@ import { useViewerContext } from "contexts";
 import { harvestingQuery as Query } from "@/relay/harvestingQuery.graphql";
 
 export default function Harvesting() {
-  const { page, order } = useBaseListQueryVars();
+  const { page } = useBaseListQueryVars();
 
   const { globalAdmin } = useViewerContext();
 
@@ -20,7 +20,7 @@ export default function Harvesting() {
   return (
     <QueryTransitionWrapper<Query>
       query={query}
-      variables={{ page, order }}
+      variables={{ page }}
       subscribeIds={["HarvestSource"]}
       loadingFallback={<LoadingPage />}
       refetchTags={["harvestSources"]}
@@ -39,7 +39,7 @@ const ListQuery = ({ queryRef }: { queryRef: PreloadedQuery<Query> }) => {
 };
 
 const query = graphql`
-  query harvestingQuery($order: HarvestSourceOrder, $page: Int!) {
+  query harvestingQuery($page: Int!) {
     ...HarvestSourcesListFragment
   }
 `;

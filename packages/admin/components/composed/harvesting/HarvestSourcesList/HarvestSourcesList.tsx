@@ -35,15 +35,15 @@ function HarvestSourcesList({ data, headerStyle, hideHeader }: Props) {
     }),
     ModelColumns.StringColumn<HarvestSourceNode>({
       id: "harvestSets.pageInfo.totalCount",
-      header: () => t("glossary.harvest_set_other"),
+      header: () => t("glossary.harvest_set_other_truncated"),
     }),
     ModelColumns.StringColumn<HarvestSourceNode>({
       id: "harvestRecords.pageInfo.totalCount",
-      header: () => t("glossary.harvest_record_other"),
+      header: () => t("glossary.harvest_record_other_truncated"),
     }),
     ModelColumns.StringColumn<HarvestSourceNode>({
       id: "metadataFormat",
-      header: () => t("forms.fields.metadata_format"),
+      header: () => t("glossary.metadata"),
     }),
     ModelColumns.StringColumn<HarvestSourceNode>({
       id: "baseURL",
@@ -87,7 +87,7 @@ function HarvestSourcesList({ data, headerStyle, hideHeader }: Props) {
 
 const fragment = graphql`
   fragment HarvestSourcesListFragment on Query {
-    harvestSources(order: $order, page: $page, perPage: 20) {
+    harvestSources(order: DEFAULT, page: $page, perPage: 20) {
       nodes {
         id
         name
