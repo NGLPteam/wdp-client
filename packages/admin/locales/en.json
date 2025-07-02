@@ -257,7 +257,8 @@
         "collection_success": "Collection deleted successfully.",
         "collection_failure": "Failed to delete collection.",
         "prune_success": "Successfully initiated pruning of entities from {{title}}.",
-        "purge_success": "Successfully intiated purge of {{name}}."
+        "purge_success": "Successfully intiated purge of {{name}}.",
+        "loading": "Deleting {{name}}..."
       },
       "disable": {
         "confirm": "Are you sure you want to disable $t({{ name }})?",
@@ -272,7 +273,8 @@
         "success": "$t({{ name }}) revoked successfully.",
         "failure": "Failed to revoke $t({{ name }}).",
         "access_success": "Access revoked successfully.",
-        "access_failure": "Failed to revoke access."
+        "access_failure": "Failed to revoke access.",
+        "loading": "Revoking {{name}}..."
       },
       "enable": {
         "confirm_label": "Confirm",
