@@ -134,7 +134,10 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
       icon={actionDefinition.icon}
       iconRotate={actionDefinition.iconRotate || 0}
       {...(actionConfig?.handleClick && {
-        onClick: () => actionConfig.handleClick({ row }),
+        onClick: (hideDialog: () => void) => {
+          actionConfig.handleClick({ row });
+          if (hideDialog) hideDialog();
+        },
       })}
       modalLabel={actionDefinition.modalLabel}
       modalBody={actionDefinition.modalBody ?? null}

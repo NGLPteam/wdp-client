@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { GraphQLTaggedNode, readInlineData } from "relay-runtime";
 import { useMutation, graphql } from "react-relay";
+import { toast } from "react-hot-toast";
 import { useNotify, usePageContext } from "hooks";
 import {
   DestroyAnnouncementInput,
@@ -97,237 +98,349 @@ export function useDestroyer() {
   );
 
   /* Destroy a collection */
-  const [commitDestroyCollection] =
+  const [commitDestroyCollection, collectionInFlight] =
     useMutation<useDestroyerDestroyCollectionMutation>(
       destroyCollectionMutation,
     );
 
   const collection = useCallback(
     async (input: DestroyCollectionInput, label: string) => {
+      if (collectionInFlight) return;
+
+      const loadingToast = toast.loading(
+        t(`messages.delete.loading`, { name: label }),
+      );
+
       commitDestroyCollection({
         variables: { input },
-        onCompleted: (response) =>
-          handleResponse(response.destroyCollection, label, ["collections"]),
+        onCompleted: (response) => {
+          toast.dismiss(loadingToast);
+          handleResponse(response.destroyCollection, label, ["collections"]);
+        },
       });
     },
-    [commitDestroyCollection, handleResponse],
+    [commitDestroyCollection, handleResponse, collectionInFlight, t],
   );
 
   /* Destroy a item */
-  const [commitDestroyItem] =
+  const [commitDestroyItem, itemInFlight] =
     useMutation<useDestroyerDestroyItemMutation>(destroyItemMutation);
 
   const item = useCallback(
     async (input: DestroyItemInput, label: string) => {
+      if (itemInFlight) return;
+
+      const loadingToast = toast.loading(
+        t(`messages.delete.loading`, { name: label }),
+      );
+
       commitDestroyItem({
         variables: { input },
-        onCompleted: (response) =>
-          handleResponse(response.destroyItem, label, ["items"]),
+        onCompleted: (response) => {
+          toast.dismiss(loadingToast);
+          handleResponse(response.destroyItem, label, ["items"]);
+        },
       });
     },
-    [commitDestroyItem, handleResponse],
+    [commitDestroyItem, handleResponse, itemInFlight, t],
   );
 
   /* Destroy a contribution */
-  const [commitDestroyContribution] =
+  const [commitDestroyContribution, contributionInFlight] =
     useMutation<useDestroyerDestroyContributionMutation>(
       destroyContributionMutation,
     );
 
   const contribution = useCallback(
     async (input: DestroyContributionInput, label: string) => {
+      if (contributionInFlight) return;
+
+      const loadingToast = toast.loading(
+        t(`messages.delete.loading`, { name: label }),
+      );
+
       commitDestroyContribution({
         variables: { input },
-        onCompleted: (response) =>
+        onCompleted: (response) => {
+          toast.dismiss(loadingToast);
           handleResponse(response.destroyContribution, label, [
             "contributions",
-          ]),
+          ]);
+        },
       });
     },
-    [commitDestroyContribution, handleResponse],
+    [commitDestroyContribution, handleResponse, contributionInFlight, t],
   );
 
   /* Destroy a community */
-  const [commitDestroyCommunity] =
+  const [commitDestroyCommunity, communityInFlight] =
     useMutation<useDestroyerDestroyCommunityMutation>(destroyCommunityMutation);
 
   const community = useCallback(
     async (input: DestroyCommunityInput, label: string) => {
+      if (communityInFlight) return;
+
+      const loadingToast = toast.loading(
+        t(`messages.delete.loading`, { name: label }),
+      );
+
       commitDestroyCommunity({
         variables: { input },
-        onCompleted: (response) =>
-          handleResponse(response.destroyCommunity, label, ["communities"]),
+        onCompleted: (response) => {
+          toast.dismiss(loadingToast);
+          handleResponse(response.destroyCommunity, label, ["communities"]);
+        },
       });
     },
-    [commitDestroyCommunity, handleResponse],
+    [commitDestroyCommunity, handleResponse, communityInFlight, t],
   );
 
   /* Destroy a contributor */
-  const [commitDestroyContributor] =
+  const [commitDestroyContributor, contributorInFlight] =
     useMutation<useDestroyerDestroyContributorMutation>(
       destroyContributorMutation,
     );
 
   const contributor = useCallback(
     async (input: DestroyContributorInput, label: string) => {
+      if (contributorInFlight) return;
+
+      const loadingToast = toast.loading(
+        t(`messages.delete.loading`, { name: label }),
+      );
+
       commitDestroyContributor({
         variables: { input },
-        onCompleted: (response) =>
-          handleResponse(response.destroyContributor, label, ["contributors"]),
+        onCompleted: (response) => {
+          toast.dismiss(loadingToast);
+          handleResponse(response.destroyContributor, label, ["contributors"]);
+        },
       });
     },
-    [commitDestroyContributor, handleResponse],
+    [commitDestroyContributor, handleResponse, contributorInFlight, t],
   );
 
   /* Destroy a file */
-  const [commitDestroyAsset] =
+  const [commitDestroyAsset, fileInFlight] =
     useMutation<useDestroyerDestroyAssetMutation>(destroyFileMutation);
 
   const file = useCallback(
     async (input: DestroyAssetInput, label: string) => {
+      if (fileInFlight) return;
+
+      const loadingToast = toast.loading(
+        t(`messages.delete.loading`, { name: label }),
+      );
+
       commitDestroyAsset({
         variables: { input },
-        onCompleted: (response) =>
-          handleResponse(response.destroyAsset, label, ["assets"]),
+        onCompleted: (response) => {
+          toast.dismiss(loadingToast);
+          handleResponse(response.destroyAsset, label, ["assets"]);
+        },
       });
     },
-    [commitDestroyAsset, handleResponse],
+    [commitDestroyAsset, handleResponse, fileInFlight, t],
   );
 
   /* Disable or destroy an ordering */
-  const [commitDisableOrDestroyOrdering] =
+  const [commitDisableOrDestroyOrdering, orderingInFlight] =
     useMutation<useDestroyerDestroyOrderingMutation>(destroyOrderingMutation);
 
   const ordering = useCallback(
     async (input: DestroyOrderingInput, label: string) => {
+      if (orderingInFlight) return;
+
+      const loadingToast = toast.loading(
+        t(`messages.delete.loading`, { name: label }),
+      );
+
       commitDisableOrDestroyOrdering({
         variables: { input },
-        onCompleted: (response) =>
-          handleResponse(response.destroyOrdering, label, ["orderings"]),
+        onCompleted: (response) => {
+          toast.dismiss(loadingToast);
+          handleResponse(response.destroyOrdering, label, ["orderings"]);
+        },
       });
     },
-    [commitDisableOrDestroyOrdering, handleResponse],
+    [commitDisableOrDestroyOrdering, handleResponse, orderingInFlight, t],
   );
 
   /* Revoke access */
-  const [commitRevokeAccess] =
+  const [commitRevokeAccess, accessInFlight] =
     useMutation<useDestroyerRevokeAccessMutation>(revokeAccessMutation);
 
   const access = useCallback(
     async (input: RevokeAccessInput, label: string) => {
+      if (accessInFlight) return;
+
+      const loadingToast = toast.loading(
+        t(`messages.revoke.loading`, { name: label }),
+      );
+
       commitRevokeAccess({
         variables: { input },
-        onCompleted: (response) =>
-          handleResponse(response.revokeAccess, label, ["allAccessGrants"]),
+        onCompleted: (response) => {
+          toast.dismiss(loadingToast);
+          handleResponse(response.revokeAccess, label, ["allAccessGrants"]);
+        },
       });
     },
-    [commitRevokeAccess, handleResponse],
+    [commitRevokeAccess, handleResponse, accessInFlight, t],
   );
 
   /* Destroy a link */
-  const [commitDestroyLink] =
+  const [commitDestroyLink, linkInFlight] =
     useMutation<useDestroyerDestroyEntityLinkMutation>(
       destroyEntityLinkMutation,
     );
 
   const link = useCallback(
     async (input: DestroyEntityLinkInput, label: string) => {
+      if (linkInFlight) return;
+
+      const loadingToast = toast.loading(
+        t(`messages.delete.loading`, { name: label }),
+      );
+
       commitDestroyLink({
         variables: { input },
-        onCompleted: (response) =>
-          handleResponse(response.destroyEntityLink, label, ["links"]),
+        onCompleted: (response) => {
+          toast.dismiss(loadingToast);
+          handleResponse(response.destroyEntityLink, label, ["links"]);
+        },
       });
     },
-    [commitDestroyLink, handleResponse],
+    [commitDestroyLink, handleResponse, linkInFlight, t],
   );
 
   /* Destroy a page */
-  const [commitDestroyPage] =
+  const [commitDestroyPage, pageInFlight] =
     useMutation<useDestroyerDestroyPageMutation>(destroyPageMutation);
 
   const page = useCallback(
     async (input: DestroyPageInput, label: string) => {
+      if (pageInFlight) return;
+
+      const loadingToast = toast.loading(
+        t(`messages.delete.loading`, { name: label }),
+      );
+
       commitDestroyPage({
         variables: { input },
-        onCompleted: (response) =>
-          handleResponse(response.destroyPage, label, ["pages"]),
+        onCompleted: (response) => {
+          toast.dismiss(loadingToast);
+          handleResponse(response.destroyPage, label, ["pages"]);
+        },
       });
     },
-    [commitDestroyPage, handleResponse],
+    [commitDestroyPage, handleResponse, pageInFlight, t],
   );
 
   /* Destroy an announcement */
-  const [commitDestroyAnnouncement] =
+  const [commitDestroyAnnouncement, announcementInFlight] =
     useMutation<useDestroyerDestroyAnnouncementMutation>(
       destroyAnnouncementMutation,
     );
 
   const announcement = useCallback(
     async (input: DestroyAnnouncementInput, label: string) => {
+      if (announcementInFlight) return;
+
+      const loadingToast = toast.loading(
+        t(`messages.delete.loading`, { name: label }),
+      );
+
       commitDestroyAnnouncement({
         variables: { input },
-        onCompleted: (response) =>
+        onCompleted: (response) => {
+          toast.dismiss(loadingToast);
           handleResponse(response.destroyAnnouncement, label, [
             "announcements",
-          ]),
+          ]);
+        },
       });
     },
-    [commitDestroyAnnouncement, handleResponse],
+    [commitDestroyAnnouncement, handleResponse, announcementInFlight, t],
   );
 
   /* Destroy a harvest source */
-  const [commitDestroyHarvestSource] =
+  const [commitDestroyHarvestSource, harvestSourceInFlight] =
     useMutation<useDestroyerDestroyHarvestSourceMutation>(
       destroyHarvestSourceMutation,
     );
 
   const harvestSource = useCallback(
     async (input: HarvestSourceDestroyInput, label: string) => {
+      if (harvestSourceInFlight) return;
+
+      const loadingToast = toast.loading(
+        t(`messages.delete.loading`, { name: label }),
+      );
+
       commitDestroyHarvestSource({
         variables: { input },
-        onCompleted: (response) =>
+        onCompleted: (response) => {
+          toast.dismiss(loadingToast);
           handleResponse(response.harvestSourceDestroy, label, [
             "harvestSources",
-          ]),
+          ]);
+        },
       });
     },
-    [commitDestroyHarvestSource, handleResponse],
+    [commitDestroyHarvestSource, handleResponse, harvestSourceInFlight, t],
   );
 
   /* Destroy a harvest mapping */
-  const [commitDestroyHarvestMapping] =
+  const [commitDestroyHarvestMapping, harvestMappingInFlight] =
     useMutation<useDestroyerDestroyHarvestMappingMutation>(
       destroyHarvestMappingMutation,
     );
 
   const harvestMapping = useCallback(
     async (input: HarvestMappingDestroyInput) => {
+      if (harvestMappingInFlight) return;
+
+      const loadingToast = toast.loading(
+        t(`messages.delete.loading`, { name: t("glossary.harvest_mapping") }),
+      );
+
       commitDestroyHarvestMapping({
         variables: { input },
-        onCompleted: (response) =>
+        onCompleted: (response) => {
+          toast.dismiss(loadingToast);
           handleResponse(
             response.harvestMappingDestroy,
             t("glossary.harvest_mapping"),
             ["harvestMappings"],
-          ),
+          );
+        },
       });
     },
-    [commitDestroyHarvestMapping, handleResponse, t],
+    [commitDestroyHarvestMapping, handleResponse, harvestMappingInFlight, t],
   );
 
   /* Purge an entity and all its descendants */
-  const [commitPurgeEntity] =
+  const [commitPurgeEntity, purgeInFlight] =
     useMutation<useDestroyerEntityPurgeMutation>(entityPurgeMutation);
 
   const purge = useCallback(
     async (input: EntityPurgeInput, label: string, tag: string) => {
+      if (purgeInFlight) return;
+
+      const loadingToast = toast.loading(
+        t(`messages.delete.loading`, { name: label }),
+      );
+
       commitPurgeEntity({
         variables: { input },
-        onCompleted: (response) =>
-          handleResponse(response.entityPurge, label, [tag]),
+        onCompleted: (response) => {
+          toast.dismiss(loadingToast);
+          handleResponse(response.entityPurge, label, [tag]);
+        },
       });
     },
-    [commitPurgeEntity, handleResponse],
+    [commitPurgeEntity, handleResponse, purgeInFlight, t],
   );
 
   return {
