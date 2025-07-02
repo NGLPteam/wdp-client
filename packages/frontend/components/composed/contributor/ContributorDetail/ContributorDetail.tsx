@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo } from "react";
-import { graphql, useFragment } from "react-relay";
+import { useMemo, useTransition } from "react";
+import { graphql, useRefetchableFragment } from "react-relay";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import classNames from "classnames";
 import { ExternalLink, Markdown, ORCIDLink } from "components/atomic";
@@ -13,7 +14,38 @@ import ContributorAvatar from "../ContributorAvatar";
 import styles from "./ContributorDetail.module.css";
 
 export default function ContributorDetail({ data }: Props) {
-  const contributor = useFragment(fragment, data);
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const [contributor, refetch] = useRefetchableFragment(fragment, data);
+
+  const [isPending, startTransition] = useTransition();
+
+  const doRefetch = (page: number) => {
+    startTransition(() => {
+      refetch({ page });
+      return;
+    });
+  };
+
+  const onPageChange = (val: Record<string, string | number>) => {
+    const pageNum = val.page
+      ? typeof val.page === "string"
+        ? parseInt(val.page)
+        : val.page
+      : null;
+    if (!pageNum) return;
+
+    const params = new URLSearchParams(searchParams);
+    params.set("page", pageNum.toString());
+    const url = `${pathname}?${params.toString()}`;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    router.push(url);
+
+    doRefetch(pageNum);
+  };
+
   const { t } = useTranslation();
 
   const attributions = contributor?.attributions;
@@ -73,6 +105,8 @@ export default function ContributorDetail({ data }: Props) {
         <BrowseListLayout
           data={attributions.pageInfo}
           header={t("layouts.contributions_header")}
+          onPageChange={onPageChange}
+          isPending={isPending}
           items={attributions.nodes.map((node) => (
             <ContributionSummary key={node.id} data={node} />
           ))}
@@ -89,7 +123,8 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment ContributorDetailFragment on Contributor {
+  fragment ContributorDetailFragment on Contributor
+  @refetchable(queryName: "ContributorDetailRefetchQuery") {
     ...ContributorNameFragment
     ... on Contributor {
       bio

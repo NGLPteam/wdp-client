@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3429ada70b1d53ca73051818b21a3800>>
+ * @generated SignedSource<<20e2a3935d169883abd539c7ecaba0f0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type ContributorDetailFragment$data = {
@@ -24,6 +24,7 @@ export type ContributorDetailFragment$data = {
     };
   };
   readonly bio: string | null | undefined;
+  readonly id?: string;
   readonly image: {
     readonly storage: AttachmentStorage | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"ContributorAvatarFragment">;
@@ -67,7 +68,19 @@ return {
     }
   ],
   "kind": "Fragment",
-  "metadata": null,
+  "metadata": {
+    "refetch": {
+      "connection": null,
+      "fragmentPathInResult": [
+        "node"
+      ],
+      "operation": require('./ContributorDetailRefetchQuery.graphql'),
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
+    }
+  },
   "name": "ContributorDetailFragment",
   "selections": [
     {
@@ -218,6 +231,12 @@ return {
       ],
       "type": "PersonContributor",
       "abstractKey": null
+    },
+    {
+      "kind": "InlineFragment",
+      "selections": (v0/*: any*/),
+      "type": "Node",
+      "abstractKey": "__isNode"
     }
   ],
   "type": "Contributor",
@@ -225,6 +244,6 @@ return {
 };
 })();
 
-(node as any).hash = "d5d0d033c9085e5a15b1867c2eb129dc";
+(node as any).hash = "87666474f5e8f27b3ec3463e95e7d4db";
 
 export default node;
