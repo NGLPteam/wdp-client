@@ -5,6 +5,7 @@ import GoogleScholarMetaTags from "components/global/GoogleScholarMetaTags";
 import getStaticGoogleScholarData from "contexts/GlobalStaticContext/getStaticGoogleScholarData";
 import { ResolvingMetadata, Metadata } from "next";
 import HeroTemplate from "@/components/templates/Hero";
+import ProcessingCheck from "@/components/templates/ProcessingCheck";
 import NavigationTemplate from "@/components/templates/EntityNavigation";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
@@ -39,23 +40,24 @@ export default async function ItemLayout({
 
   if (!item) return notFound();
 
-  const {
-    community,
-    layouts: { hero, navigation },
-  } = item;
+  const { community, layouts } = item;
+
+  const { hero, navigation } = layouts ?? {};
 
   return (
     <UpdateClientEnvironment records={records}>
       <CommunityContextProvider data={community}>
         <AppBody data={data} searchData={item}>
-          {googleScholarData && (
-            <GoogleScholarMetaTags entity={googleScholarData} />
-          )}
-          {slug && <ViewCounter slug={slug} />}
-          {hero && <HeroTemplate data={hero} />}
-          <EntityNavBar data={item} />
-          <NavigationTemplate data={navigation} />
-          {children}
+          <ProcessingCheck data={layouts} entityType="item">
+            {googleScholarData && (
+              <GoogleScholarMetaTags entity={googleScholarData} />
+            )}
+            {slug && <ViewCounter slug={slug} />}
+            {hero && <HeroTemplate data={hero} />}
+            <EntityNavBar data={item} />
+            <NavigationTemplate data={navigation} />
+            {children}
+          </ProcessingCheck>
         </AppBody>
       </CommunityContextProvider>
     </UpdateClientEnvironment>
@@ -72,6 +74,7 @@ const query = graphql`
         navigation {
           ...EntityNavigationTemplateFragment
         }
+        ...ProcessingCheckFragment
       }
       ...SearchButtonFragment
       ...EntityNavBarFragment

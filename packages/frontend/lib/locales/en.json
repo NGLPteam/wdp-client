@@ -269,7 +269,8 @@
       "server_error": "A server error occured.",
       "error": "An error occured.",
       "content": "There was an error rendering this content.",
-      "admin_content": "There was an error rendering this content: {{error}}"
+      "admin_content": "There was an error rendering this content: {{error}}",
+      "processing": "<0>Content Currently Being Processed</0><1>This {{entity}} was recently updated and is being processed before it can be displayed. Please check back in a few minutes.</1><2>If this message persists, please contact support for assistance.</2>"
     },
     "analytics": {
       "regions": {
