@@ -14,3 +14,9 @@
   align-items: center;
   gap: 1rem;
 }
+
+.shareLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}

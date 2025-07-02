@@ -7,7 +7,7 @@
 
   &:hover,
   &:focus-visible {
-    > span:not(:has(figure:only-child)) {
+    > span:not(:has(figure:only-child)):not(:global(.share-link)) {
       @mixin a-link-hover-focus;
     }
   }

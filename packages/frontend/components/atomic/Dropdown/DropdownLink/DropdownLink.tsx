@@ -17,6 +17,7 @@ export default function DropdownLink({
   icon,
   iconLeft,
   active,
+  className,
   ...namedLinkProps
 }: Props) {
   const dropdown = useDropdownContext();
@@ -37,6 +38,7 @@ export default function DropdownLink({
         active={active}
         icon={icon}
         iconLeft={iconLeft}
+        className={className}
       >
         {label}
       </Link>
