@@ -9,6 +9,14 @@
   }
 }
 
+.loading {
+  grid-column: 1 / span 12;
+
+  @mixin respond theme("screens.70") {
+    grid-column: 1;
+  }
+}
+
 .listColumn {
   grid-column: 1 / span 9;
 

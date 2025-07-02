@@ -41,7 +41,9 @@ export default function BrowseListLayout({
         )}
       </header>
       {isPending ? (
-        <LoadingBlock />
+        <div className={styles.loading}>
+          <LoadingBlock />
+        </div>
       ) : (
         <div className={styles.listColumn}>
           {items && items.length > 0 ? (

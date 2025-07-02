@@ -40,8 +40,8 @@ export default function EntityOrderingLayout({ data, showContext }: Props) {
     const params = new URLSearchParams(searchParams);
     params.set("page", pageNum.toString());
     const url = `${pathname}?${params.toString()}`;
-    router.push(url);
     window.scrollTo({ top: 0, behavior: "smooth" });
+    router.push(url);
 
     doRefetch(pageNum);
   };
