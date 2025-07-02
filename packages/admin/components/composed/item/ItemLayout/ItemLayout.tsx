@@ -97,7 +97,7 @@ export default function ItemLayout({
       {memoizedItem?.harvestModificationStatus !== "UNHARVESTED" && (
         <ButtonControlRoute
           route="harvestRecord"
-          query={{ slug: memoizedItem?.harvestRecords?.[0].slug }}
+          query={{ slug: memoizedItem?.harvestRecords?.[0]?.slug }}
           icon="linkExternal"
         >
           {t("harvesting.view_entity_record")}
