@@ -41,9 +41,16 @@ export default function HarvestSourceUpdateForm({
     HarvestSourceUpdateInput
   >((data) => ({ input: { ...data, harvestSourceId: id } }), []);
 
+  const preventEditorClear = (e: React.KeyboardEvent) => {
+    if (e.key !== "Enter") return;
+    if ("tagName" in e.target && e.target?.tagName === "BUTTON") return;
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
   const renderForm = useRenderForm<Fields>(
     ({ form: { register, control } }) => (
-      <Forms.Grid>
+      <Forms.Grid onKeyDown={preventEditorClear}>
         <Forms.Input
           label="forms.fields.name"
           {...register("name")}
