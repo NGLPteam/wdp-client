@@ -77,16 +77,20 @@
       "harvest_source_other": "harvest sources",
       "harvest_set": "harvest set",
       "harvest_set_other": "harvest sets",
+      "harvest_set_other_truncated": "sets",
       "harvest_mapping": "harvest mapping",
       "harvest_mapping_other": "harvest mappings",
+      "harvest_mapping_other_truncated": "mappings",
       "harvest_attempt": "harvest attempt",
       "harvest_attempt_other": "harvest attempts",
       "harvest_record": "harvest record",
       "harvest_record_other": "harvest records",
+      "harvest_record_other_truncated": "records",
       "harvest_entity": "harvest entity",
       "harvest_entity_other": "harvest entities",
       "member": "member",
-      "member_other": "members"
+      "member_other": "members",
+      "metadata": "metadata"
     },
     "lists": {
       "admin_column": "Admin?",

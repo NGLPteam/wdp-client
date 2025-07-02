@@ -98,6 +98,7 @@ export const Cell = styled.td`
 
   &[data-cell-type="url"] {
     word-break: break-all;
+    width: 20%;
   }
 
   &[data-cell-type="thumbnail"] {
