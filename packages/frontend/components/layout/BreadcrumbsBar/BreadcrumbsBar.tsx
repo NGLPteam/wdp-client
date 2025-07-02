@@ -57,6 +57,7 @@ export default function BreadcrumbsBar({
                 icon="email"
                 iconLeft
                 label={t("share.email")}
+                className={classNames(styles.shareLink, "share-link")}
               />,
               <Dropdown.Link
                 key="fb"
@@ -64,14 +65,15 @@ export default function BreadcrumbsBar({
                 icon="facebook"
                 iconLeft
                 label={t("share.facebook")}
+                className={classNames(styles.shareLink, "share-link")}
               />,
               <Dropdown.Link
                 key="x"
-                className=""
                 href={`https://x.com/share?text=&url=${url}`}
                 icon="x"
                 iconLeft
                 label={t("share.x")}
+                className={classNames(styles.shareLink, "share-link")}
               />,
             ]}
           />
