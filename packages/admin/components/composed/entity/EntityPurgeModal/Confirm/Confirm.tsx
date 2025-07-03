@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import { useCallback } from "react";
-import { useRouter } from "next/router";
 import { useDestroyer } from "hooks";
 import { Button } from "components/atomic";
 import Link from "next/link";
@@ -37,10 +36,10 @@ export default function EntityPurgeConfirm({
   const { t } = useTranslation();
 
   const destroy = useDestroyer();
-  const router = useRouter();
 
   const refetchTag =
     entityType === "community" ? "communities" : `${entityType}s`;
+  const redirectPath = "redirectPath" in props ? props.redirectPath : undefined;
 
   const handlePurge = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -49,16 +48,24 @@ export default function EntityPurgeConfirm({
           { entityId: id },
           title || `glossary.${entityType}`,
           refetchTag,
+          redirectPath,
         );
         handleClose(e);
-        if ("redirectPath" in props) {
-          router.replace(props.redirectPath);
-        } else if ("afterPurge" in props && props.afterPurge) {
+        if ("afterPurge" in props && props.afterPurge) {
           props.afterPurge();
         }
       }
     },
-    [id, title, entityType, destroy, router, handleClose, props, refetchTag],
+    [
+      id,
+      title,
+      entityType,
+      destroy,
+      handleClose,
+      props,
+      refetchTag,
+      redirectPath,
+    ],
   );
 
   return (

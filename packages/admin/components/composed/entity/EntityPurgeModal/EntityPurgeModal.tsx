@@ -18,6 +18,7 @@ export default function EntityPurgeModal({
   redirectPath,
   afterPurge,
   hideLabel = false,
+  disabled,
 }: {
   id: string;
   title: string;
@@ -26,6 +27,7 @@ export default function EntityPurgeModal({
   redirectPath?: string | LinkProps["href"];
   afterPurge?: () => void;
   hideLabel?: boolean;
+  disabled?: boolean;
 }) {
   const [showConfirm, setShowConfirm] = useState(false);
   const { t } = useTranslation();
@@ -54,9 +56,15 @@ export default function EntityPurgeModal({
     >
       <Dialog.Toggle>
         {!hideLabel ? (
-          <ButtonControl icon="delete">{t("common.delete")}</ButtonControl>
+          <ButtonControl icon="delete" disabled={disabled}>
+            {t("common.delete")}
+          </ButtonControl>
         ) : (
-          <ButtonControl icon="delete" aria-label={t("commont.delete")} />
+          <ButtonControl
+            icon="delete"
+            aria-label={t("common.delete")}
+            disabled={disabled}
+          />
         )}
       </Dialog.Toggle>
       <Styled.Content

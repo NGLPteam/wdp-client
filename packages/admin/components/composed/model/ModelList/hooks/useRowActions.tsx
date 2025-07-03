@@ -1,5 +1,6 @@
 import { useMemo, Fragment, cloneElement } from "react";
 import { useViewerContext } from "contexts";
+import { useDestroyer } from "hooks";
 import i18next from "i18next";
 import {
   ButtonControlGroup,
@@ -116,12 +117,13 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
   row: Row<D>,
   action: ActionKeys,
   actionConfig?: ActionConfig<D>,
+  disableDelete?: boolean,
 ) {
   const actionDefinition = availableActions[action];
 
   if (actionConfig && "props" in actionConfig) {
     const purgeProps = actionConfig.props({ row });
-    return <EntityPurgeModal {...purgeProps} />;
+    return <EntityPurgeModal {...purgeProps} disabled={disableDelete} />;
   }
 
   if (actionConfig?.handleHide && actionConfig?.handleHide({ row }))
@@ -141,6 +143,7 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
       })}
       modalLabel={actionDefinition.modalLabel}
       modalBody={actionDefinition.modalBody ?? null}
+      disabled={disableDelete && action === "delete"}
     >
       {actionDefinition.icon ? null : actionDefinition.label}
     </ButtonControlConfirm>
@@ -187,6 +190,7 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
 function renderActions<D extends Record<string, unknown>>(
   row: Row<D>,
   configuration: ActionConfigurations<D>,
+  disableDelete: boolean,
 ) {
   const keys = Object.keys(configuration) as Array<ActionKeys>;
 
@@ -202,7 +206,12 @@ function renderActions<D extends Record<string, unknown>>(
     .map((action) => {
       // Map actions to button props
       const actionConfig = configuration[action];
-      return getButtonControlChildren<D>(row, action, actionConfig);
+      return getButtonControlChildren<D>(
+        row,
+        action,
+        actionConfig,
+        disableDelete,
+      );
     });
 
   return buttons ? (
@@ -236,6 +245,8 @@ function useRowActions<D extends Record<string, unknown>>(
   actions: Actions<D>,
 ) {
   const { globalAdmin } = useViewerContext();
+
+  const { inFlight: disableDelete } = useDestroyer();
 
   const purgeAction =
     globalAdmin && actions.purgeProps && actions.handleDelete
@@ -292,7 +303,7 @@ function useRowActions<D extends Record<string, unknown>>(
     header: () => <span className="a-hidden">Actions</span>,
     id: "actions",
     cell: ({ row }: { row: Row<D> }) => {
-      return renderActions<D>(row, rowActions);
+      return renderActions<D>(row, rowActions, disableDelete);
     },
     meta: {
       cellType: "actions",

@@ -1,7 +1,6 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { useRouter } from "next/router";
 import { PageHeader, ContentSidebar, ContentHeader } from "components/layout";
 import {
   useChildRouteLinks,
@@ -41,7 +40,6 @@ export default function CommunityLayout({
     community,
   );
   const tabRoutes = useChildRouteLinks("community", { slug }, community);
-  const router = useRouter();
   const destroy = useDestroyer();
 
   const handleDelete = useCallback(
@@ -50,12 +48,12 @@ export default function CommunityLayout({
         destroy.community(
           { communityId: community.id },
           community.name || "glossary.community",
+          "/communities",
         );
         hideDialog();
-        router.back();
       }
     },
-    [community, destroy, router],
+    [community, destroy],
   );
 
   const { globalAdmin } = useViewerContext();
@@ -68,6 +66,7 @@ export default function CommunityLayout({
         entityType="community"
         handleDelete={handleDelete}
         redirectPath="/communities"
+        disabled={destroy.inFlight}
       />
     ) : (
       <ButtonControlConfirm
@@ -76,6 +75,7 @@ export default function CommunityLayout({
         icon="delete"
         onClick={handleDelete}
         actions="communities.delete"
+        disabled={destroy.inFlight}
       >
         {t("common.delete")}
       </ButtonControlConfirm>
