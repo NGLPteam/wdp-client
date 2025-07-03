@@ -105,7 +105,6 @@ export function useDestroyer() {
         redirect(redirectPath);
       } else if (results.destroyedId) {
         notify.success(t("messages.delete.purge_success", { name }));
-        setTriggeredRefetchTags(refetchTags);
         redirect(redirectPath);
       } else if (results.globalErrors && results.globalErrors.length > 0) {
         notify.mutationGlobalError(results.globalErrors);
@@ -469,7 +468,6 @@ export function useDestroyer() {
     async (
       input: EntityPurgeInput,
       label: string,
-      tag: string,
       redirectPath?: RedirectPath,
     ) => {
       if (purgeInFlight) return;
@@ -482,7 +480,7 @@ export function useDestroyer() {
         variables: { input },
         onCompleted: (response) => {
           toast.dismiss(loadingToast);
-          handleResponse(response.entityPurge, label, [tag], redirectPath);
+          handleResponse(response.entityPurge, label, [], redirectPath);
         },
       });
     },
