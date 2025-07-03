@@ -37,8 +37,6 @@ export default function EntityPurgeConfirm({
 
   const destroy = useDestroyer();
 
-  const refetchTag =
-    entityType === "community" ? "communities" : `${entityType}s`;
   const redirectPath = "redirectPath" in props ? props.redirectPath : undefined;
 
   const handlePurge = useCallback(
@@ -47,7 +45,6 @@ export default function EntityPurgeConfirm({
         destroy.purge(
           { entityId: id },
           title || `glossary.${entityType}`,
-          refetchTag,
           redirectPath,
         );
         handleClose(e);
@@ -56,16 +53,7 @@ export default function EntityPurgeConfirm({
         }
       }
     },
-    [
-      id,
-      title,
-      entityType,
-      destroy,
-      handleClose,
-      props,
-      refetchTag,
-      redirectPath,
-    ],
+    [id, title, entityType, destroy, handleClose, props, redirectPath],
   );
 
   return (
