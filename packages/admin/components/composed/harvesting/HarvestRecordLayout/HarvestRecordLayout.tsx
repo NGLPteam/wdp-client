@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import startCase from "lodash/startCase";
 import { useChildRouteLinks, useMaybeFragment, useRouteSlug } from "hooks";
 import { PageHeader, BackToAll } from "components/layout";
+import HtmlHead from "components/global/HtmlHead";
 import type { HarvestRecordLayoutFragment$key } from "@/relay/HarvestRecordLayoutFragment.graphql";
 
 export default function HarvestRecordLayout({
@@ -45,11 +46,14 @@ export default function HarvestRecordLayout({
           : null;
 
   return (
-    <section>
-      {backToProps && <BackToAll {...backToProps} />}
-      <PageHeader title={identifier} tabRoutes={manageRoutes} />
-      {children}
-    </section>
+    <>
+      <HtmlHead title={identifier} />
+      <section>
+        {backToProps && <BackToAll {...backToProps} />}
+        <PageHeader title={identifier} tabRoutes={manageRoutes} />
+        {children}
+      </section>
+    </>
   );
 }
 

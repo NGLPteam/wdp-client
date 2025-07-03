@@ -4,6 +4,7 @@ import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import HarvestMappingCreateForm from "components/composed/harvesting/HarvestMappingCreateForm";
 import { LoadingPage, LoadingCircle } from "components/atomic/loading";
 import { PageHeader, BackToAll } from "components/layout";
+import HtmlHead from "components/global/HtmlHead";
 import { useRouteSlug } from "hooks";
 import type { newHarvestMappingQuery as Query } from "@/relay/newHarvestMappingQuery.graphql";
 
@@ -24,6 +25,7 @@ export default function NewHarvestMapping() {
           <WithQuery queryRef={queryRef} />
         ) : (
           <>
+            <HtmlHead />
             <BackToAll route="harvesting" />
             <PageHeader title={t("harvesting.new_mapping_title")} />
             <LoadingCircle className="l-page-loading" />
@@ -41,6 +43,7 @@ const WithQuery = ({ queryRef }: { queryRef: PreloadedQuery<Query> }) => {
 
   return harvestSource ? (
     <>
+      <HtmlHead title={harvestSource.name} />
       <BackToAll
         route="harvestSource.mappings"
         query={{ slug: harvestSource.slug }}

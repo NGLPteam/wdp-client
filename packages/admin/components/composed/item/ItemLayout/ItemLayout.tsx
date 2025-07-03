@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { graphql } from "react-relay";
 import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
@@ -18,6 +18,7 @@ import {
   ButtonControlConfirm,
   ButtonControlRoute,
 } from "components/atomic";
+import HtmlHead from "components/global/HtmlHead";
 import { ContentSidebar, ContentHeader, PageHeader } from "components/layout";
 import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
 import EntityPurgeModal from "components/composed/entity/EntityPurgeModal";
@@ -108,29 +109,32 @@ export default function ItemLayout({
   );
 
   return (
-    <section>
-      <PageHeader
-        data={memoizedItem}
-        title={memoizedItem?.title}
-        breadcrumbsProps={breadcrumbs ? { data: breadcrumbs } : undefined}
-        tabRoutes={tabRoutes}
-        sidebarLinks={manageRoutes}
-        buttons={buttons}
-      />
-      {showSidebar ? (
-        <ContentSidebar sidebarLinks={manageRoutes}>
-          {useRouteHeader && activeRoute && activeRoute.label && (
-            <ContentHeader
-              headerStyle="secondary"
-              title={t(activeRoute.label)}
-            />
-          )}
-          {children}
-        </ContentSidebar>
-      ) : (
-        children
-      )}
-    </section>
+    <>
+      <HtmlHead title={memoizedItem?.title} />
+      <section>
+        <PageHeader
+          data={memoizedItem}
+          title={memoizedItem?.title}
+          breadcrumbsProps={breadcrumbs ? { data: breadcrumbs } : undefined}
+          tabRoutes={tabRoutes}
+          sidebarLinks={manageRoutes}
+          buttons={buttons}
+        />
+        {showSidebar ? (
+          <ContentSidebar sidebarLinks={manageRoutes}>
+            {useRouteHeader && activeRoute && activeRoute.label && (
+              <ContentHeader
+                headerStyle="secondary"
+                title={t(activeRoute.label)}
+              />
+            )}
+            {children}
+          </ContentSidebar>
+        ) : (
+          children
+        )}
+      </section>
+    </>
   );
 }
 

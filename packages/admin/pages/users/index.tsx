@@ -4,6 +4,7 @@ import UserList from "components/composed/user/UserList";
 import { useBaseListQueryVars, useIsAuthorized } from "hooks";
 import { LoadingPage } from "components/atomic";
 import { RouteUnauthorizedMessage } from "components/auth/UnauthorizedMessage";
+import HtmlHead from "components/global/HtmlHead";
 import { usersListQuery as Query } from "@/relay/usersListQuery.graphql";
 
 export default function UserListView() {
@@ -17,16 +18,19 @@ export default function UserListView() {
     );
 
   return (
-    <QueryTransitionWrapper<Query>
-      query={query}
-      variables={queryVars}
-      subscribeIds={["User"]}
-      loadingFallback={<LoadingPage />}
-    >
-      {({ queryRef }) =>
-        queryRef ? <ListQuery queryRef={queryRef} /> : <UserList />
-      }
-    </QueryTransitionWrapper>
+    <>
+      <HtmlHead />
+      <QueryTransitionWrapper<Query>
+        query={query}
+        variables={queryVars}
+        subscribeIds={["User"]}
+        loadingFallback={<LoadingPage />}
+      >
+        {({ queryRef }) =>
+          queryRef ? <ListQuery queryRef={queryRef} /> : <UserList />
+        }
+      </QueryTransitionWrapper>
+    </>
   );
 }
 

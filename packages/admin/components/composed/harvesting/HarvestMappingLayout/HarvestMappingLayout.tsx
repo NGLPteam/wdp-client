@@ -4,6 +4,7 @@ import startCase from "lodash/startCase";
 import { useChildRouteLinks, useMaybeFragment, useRouteSlug } from "hooks";
 import { PageHeader, BackToAll } from "components/layout";
 import { ButtonControlGroup, ButtonControlRoute } from "components/atomic";
+import HtmlHead from "components/global/HtmlHead";
 import type { HarvestMappingLayoutFragment$key } from "@/relay/HarvestMappingLayoutFragment.graphql";
 
 export default function HarvestMappingLayout({
@@ -43,22 +44,25 @@ export default function HarvestMappingLayout({
   )}: ${targetEntity?.title}]${set}`;
 
   return (
-    <section>
-      {harvestSource && (
-        <BackToAll
-          route="harvestSource.mappings"
-          query={{ slug: harvestSource.slug }}
-          label={harvestSource.name}
+    <>
+      <HtmlHead title={title} />
+      <section>
+        {harvestSource && (
+          <BackToAll
+            route="harvestSource.mappings"
+            query={{ slug: harvestSource.slug }}
+            label={harvestSource.name}
+          />
+        )}
+        <PageHeader
+          title={title}
+          tabRoutes={manageRoutes}
+          tabLinksOnly
+          buttons={buttons}
         />
-      )}
-      <PageHeader
-        title={title}
-        tabRoutes={manageRoutes}
-        tabLinksOnly
-        buttons={buttons}
-      />
-      {children}
-    </section>
+        {children}
+      </section>
+    </>
   );
 }
 

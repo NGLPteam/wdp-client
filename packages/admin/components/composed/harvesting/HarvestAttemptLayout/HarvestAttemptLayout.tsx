@@ -5,6 +5,7 @@ import startCase from "lodash/startCase";
 import { formatDate } from "@wdp/lib/helpers";
 import { useChildRouteLinks, useMaybeFragment, useRouteSlug } from "hooks";
 import { PageHeader, BackToAll } from "components/layout";
+import HtmlHead from "components/global/HtmlHead";
 import type { HarvestAttemptLayoutFragment$key } from "@/relay/HarvestAttemptLayoutFragment.graphql";
 import PruneEntitiesModal from "../PruneEntitiesModal";
 
@@ -58,19 +59,22 @@ export default function HarvestAttemptLayout({
   })}`;
 
   return (
-    <section>
-      {backToProps && <BackToAll {...backToProps} />}
-      <PageHeader
-        title={title}
-        tabRoutes={manageRoutes}
-        buttons={
-          id ? (
-            <PruneEntitiesModal id={id} title={title} type="attempt" />
-          ) : undefined
-        }
-      />
-      {children}
-    </section>
+    <>
+      <HtmlHead title={title} />
+      <section>
+        {backToProps && <BackToAll {...backToProps} />}
+        <PageHeader
+          title={title}
+          tabRoutes={manageRoutes}
+          buttons={
+            id ? (
+              <PruneEntitiesModal id={id} title={title} type="attempt" />
+            ) : undefined
+          }
+        />
+        {children}
+      </section>
+    </>
   );
 }
 

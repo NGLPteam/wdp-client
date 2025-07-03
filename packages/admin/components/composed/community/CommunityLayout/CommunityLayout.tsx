@@ -13,6 +13,7 @@ import {
 import { useViewerContext } from "contexts";
 import { RouteHelper } from "routes";
 import { ButtonControlConfirm, ButtonControlGroup } from "components/atomic";
+import HtmlHead from "components/global/HtmlHead";
 import CollectionCreateButton from "components/composed/collection/CollectionCreateButton";
 import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
 import EntityPurgeModal from "components/composed/entity/EntityPurgeModal";
@@ -93,28 +94,31 @@ export default function CommunityLayout({
   );
 
   return (
-    <section>
-      <PageHeader
-        data={memoizedCommunity}
-        title={memoizedCommunity?.name}
-        tabRoutes={tabRoutes}
-        sidebarLinks={manageRoutes}
-        buttons={buttons}
-      />
-      {showSidebar ? (
-        <ContentSidebar sidebarLinks={manageRoutes}>
-          {useRouteHeader && activeRoute && activeRoute.label && (
-            <ContentHeader
-              headerStyle="secondary"
-              title={t(activeRoute.label)}
-            />
-          )}
-          {children}
-        </ContentSidebar>
-      ) : (
-        children
-      )}
-    </section>
+    <>
+      <HtmlHead title={memoizedCommunity?.name} />
+      <section>
+        <PageHeader
+          data={memoizedCommunity}
+          title={memoizedCommunity?.name}
+          tabRoutes={tabRoutes}
+          sidebarLinks={manageRoutes}
+          buttons={buttons}
+        />
+        {showSidebar ? (
+          <ContentSidebar sidebarLinks={manageRoutes}>
+            {useRouteHeader && activeRoute && activeRoute.label && (
+              <ContentHeader
+                headerStyle="secondary"
+                title={t(activeRoute.label)}
+              />
+            )}
+            {children}
+          </ContentSidebar>
+        ) : (
+          children
+        )}
+      </section>
+    </>
   );
 }
 

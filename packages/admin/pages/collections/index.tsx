@@ -3,6 +3,7 @@ import CollectionList from "components/composed/collection/CollectionList";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import { useSearchQueryVars, useBaseListQueryVars } from "hooks";
 import { LoadingPage } from "components/atomic/loading";
+import HtmlHead from "components/global/HtmlHead";
 import { collectionsListQuery as Query } from "@/relay/collectionsListQuery.graphql";
 
 export default function CollectionListView() {
@@ -10,17 +11,20 @@ export default function CollectionListView() {
   const searchQueryVars = useSearchQueryVars();
 
   return (
-    <QueryTransitionWrapper<Query>
-      query={query}
-      variables={{ ...queryVars, ...searchQueryVars }}
-      subscribeIds={["Collection"]}
-      loadingFallback={<LoadingPage />}
-      refetchTags={["collections"]}
-    >
-      {({ queryRef }) =>
-        queryRef ? <ListQuery queryRef={queryRef} /> : <CollectionList />
-      }
-    </QueryTransitionWrapper>
+    <>
+      <HtmlHead />
+      <QueryTransitionWrapper<Query>
+        query={query}
+        variables={{ ...queryVars, ...searchQueryVars }}
+        subscribeIds={["Collection"]}
+        loadingFallback={<LoadingPage />}
+        refetchTags={["collections"]}
+      >
+        {({ queryRef }) =>
+          queryRef ? <ListQuery queryRef={queryRef} /> : <CollectionList />
+        }
+      </QueryTransitionWrapper>
+    </>
   );
 }
 

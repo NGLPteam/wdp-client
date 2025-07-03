@@ -3,6 +3,7 @@ import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import { useBaseListQueryVars } from "hooks";
 import { LoadingPage } from "components/atomic/loading";
 import CommunityList from "components/composed/community/CommunityList";
+import HtmlHead from "components/global/HtmlHead";
 import type { communitiesListQuery as Query } from "@/relay/communitiesListQuery.graphql";
 
 export default function CommunityListView() {
@@ -11,17 +12,20 @@ export default function CommunityListView() {
   });
 
   return (
-    <QueryTransitionWrapper<Query>
-      query={query}
-      variables={queryVars}
-      subscribeIds={["Community"]}
-      loadingFallback={<LoadingPage />}
-      refetchTags={["communities"]}
-    >
-      {({ queryRef }) =>
-        queryRef ? <ListQuery queryRef={queryRef} /> : <CommunityList />
-      }
-    </QueryTransitionWrapper>
+    <>
+      <HtmlHead />
+      <QueryTransitionWrapper<Query>
+        query={query}
+        variables={queryVars}
+        subscribeIds={["Community"]}
+        loadingFallback={<LoadingPage />}
+        refetchTags={["communities"]}
+      >
+        {({ queryRef }) =>
+          queryRef ? <ListQuery queryRef={queryRef} /> : <CommunityList />
+        }
+      </QueryTransitionWrapper>
+    </>
   );
 }
 

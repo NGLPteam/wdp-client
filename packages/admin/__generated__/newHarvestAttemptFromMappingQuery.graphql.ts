@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c244c1f48d4dfafb32f70971f126e413>>
+ * @generated SignedSource<<a347adb1a53e15320b63f8c2da5292a9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,6 +10,7 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 export type HarvestMetadataFormat = "ESPLORO" | "JATS" | "METS" | "MODS" | "OAIDC" | "%future added value";
+export type HarvestTargetKind = "COLLECTION" | "COMMUNITY" | "%future added value";
 export type newHarvestAttemptFromMappingQuery$variables = {
   slug: string;
 };
@@ -25,6 +26,7 @@ export type newHarvestAttemptFromMappingQuery$data = {
     readonly id: string;
     readonly metadataFormat: HarvestMetadataFormat;
     readonly targetEntity: {
+      readonly harvestTargetKind: HarvestTargetKind;
       readonly title: string;
     };
   } | null | undefined;
@@ -74,17 +76,24 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "identifier",
+  "name": "harvestTargetKind",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "metadataFormat",
+  "name": "identifier",
   "storageKey": null
 },
 v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "metadataFormat",
+  "storageKey": null
+},
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -116,7 +125,8 @@ return {
             "name": "targetEntity",
             "plural": false,
             "selections": [
-              (v4/*: any*/)
+              (v4/*: any*/),
+              (v5/*: any*/)
             ],
             "storageKey": null
           },
@@ -128,11 +138,11 @@ return {
             "name": "harvestSet",
             "plural": false,
             "selections": [
-              (v5/*: any*/)
+              (v6/*: any*/)
             ],
             "storageKey": null
           },
-          (v6/*: any*/),
+          (v7/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -141,7 +151,7 @@ return {
             "name": "harvestSource",
             "plural": false,
             "selections": [
-              (v7/*: any*/)
+              (v8/*: any*/)
             ],
             "storageKey": null
           }
@@ -184,6 +194,7 @@ return {
                 "storageKey": null
               },
               (v4/*: any*/),
+              (v5/*: any*/),
               {
                 "kind": "InlineFragment",
                 "selections": [
@@ -203,12 +214,12 @@ return {
             "name": "harvestSet",
             "plural": false,
             "selections": [
-              (v5/*: any*/),
+              (v6/*: any*/),
               (v2/*: any*/)
             ],
             "storageKey": null
           },
-          (v6/*: any*/),
+          (v7/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -217,7 +228,7 @@ return {
             "name": "harvestSource",
             "plural": false,
             "selections": [
-              (v7/*: any*/),
+              (v8/*: any*/),
               (v2/*: any*/)
             ],
             "storageKey": null
@@ -228,16 +239,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "db464edcd6b94a85b788dea9af5a525b",
+    "cacheID": "9f69aa0f81bdeb2f7e423f7e5bfa505c",
     "id": null,
     "metadata": {},
     "name": "newHarvestAttemptFromMappingQuery",
     "operationKind": "query",
-    "text": "query newHarvestAttemptFromMappingQuery(\n  $slug: Slug!\n) {\n  harvestMapping(slug: $slug) {\n    id\n    extractionMappingTemplate\n    targetEntity {\n      __typename\n      title\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    harvestSet {\n      identifier\n      id\n    }\n    metadataFormat\n    harvestSource {\n      name\n      id\n    }\n  }\n}\n"
+    "text": "query newHarvestAttemptFromMappingQuery(\n  $slug: Slug!\n) {\n  harvestMapping(slug: $slug) {\n    id\n    extractionMappingTemplate\n    targetEntity {\n      __typename\n      title\n      harvestTargetKind\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    harvestSet {\n      identifier\n      id\n    }\n    metadataFormat\n    harvestSource {\n      name\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "42e06b96b224b9a31d5190ae9dc71e25";
+(node as any).hash = "92bca2d4c41e58c5720483208d493fe4";
 
 export default node;

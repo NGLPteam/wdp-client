@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { PageHeader, BackToAll } from "components/layout";
 import HarvestSourceCreateForm from "components/composed/harvesting/HarvestSourceCreateForm";
 import { RouteUnauthorizedMessage } from "components/auth/UnauthorizedMessage";
+import HtmlHead from "components/global/HtmlHead";
 import { useViewerContext } from "contexts";
 
 export default function Harvesting() {
@@ -16,6 +17,7 @@ export default function Harvesting() {
 
   return (
     <>
+      <HtmlHead />
       <BackToAll route="harvesting" />
       <PageHeader title={t("harvesting.new_source_title")} />
       <HarvestSourceCreateForm />

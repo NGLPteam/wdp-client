@@ -4,6 +4,7 @@ import { useIsAuthenticated, useSearchQueryVars } from "hooks";
 import SearchLayout from "components/composed/search/SearchLayout";
 import { query } from "components/composed/search/SearchLayout/SearchLayout";
 import ModelListPageSkeleton from "components/composed/model/ModelListPageSkeleton";
+import HtmlHead from "components/global/HtmlHead";
 import { SearchLayoutQuery as Query } from "@/relay/SearchLayoutQuery.graphql";
 
 export default function Search() {
@@ -16,19 +17,24 @@ export default function Search() {
     ? "search.results_for_name"
     : "search.results";
 
-  return isAuth ? (
-    <QueryTransitionWrapper<Query> query={query} variables={searchQuery}>
-      {({ queryRef }) => {
-        return queryRef ? (
-          <SearchLayout queryRef={queryRef} />
-        ) : (
-          <ModelListPageSkeleton
-            header={t(resultsI18nKey, {
-              name: searchQuery.query,
-            })}
-          />
-        );
-      }}
-    </QueryTransitionWrapper>
-  ) : null;
+  return (
+    <>
+      <HtmlHead title="common.search" />
+      {isAuth ? (
+        <QueryTransitionWrapper<Query> query={query} variables={searchQuery}>
+          {({ queryRef }) => {
+            return queryRef ? (
+              <SearchLayout queryRef={queryRef} />
+            ) : (
+              <ModelListPageSkeleton
+                header={t(resultsI18nKey, {
+                  name: searchQuery.query,
+                })}
+              />
+            );
+          }}
+        </QueryTransitionWrapper>
+      ) : null}
+    </>
+  );
 }
