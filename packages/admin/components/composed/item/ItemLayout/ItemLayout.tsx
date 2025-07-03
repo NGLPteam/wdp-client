@@ -1,6 +1,5 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { graphql } from "react-relay";
-import { useRouter } from "next/router";
 import { useTranslation } from "react-i18next";
 import { ItemLayoutFragment$key } from "__generated__/ItemLayoutFragment.graphql";
 import {
@@ -43,7 +42,8 @@ export default function ItemLayout({
   const manageRoutes = useChildRouteLinks("item.manage", { slug }, item);
   const tabRoutes = useChildRouteLinks("item", { slug }, item);
   const destroy = useDestroyer();
-  const router = useRouter();
+
+  const redirectPath = breadcrumbs?.[breadcrumbs.length - 2]?.href ?? "/items";
 
   const handleDelete = useCallback(
     (hideDialog: () => void) => {
@@ -51,12 +51,12 @@ export default function ItemLayout({
         destroy.item(
           { itemId: memoizedItem.id },
           memoizedItem.title || "glossary.item",
+          redirectPath,
         );
         hideDialog();
-        router.replace(breadcrumbs[breadcrumbs.length - 2]?.href ?? "/items");
       }
     },
-    [memoizedItem, breadcrumbs, destroy, router],
+    [memoizedItem, breadcrumbs, destroy, redirectPath],
   );
 
   const { globalAdmin } = useViewerContext();
@@ -68,7 +68,8 @@ export default function ItemLayout({
         title={memoizedItem.title}
         entityType="item"
         handleDelete={handleDelete}
-        redirectPath={breadcrumbs?.[breadcrumbs.length - 2]?.href ?? "/items"}
+        redirectPath={redirectPath}
+        disabled={destroy.inFlight}
       />
     ) : (
       <ButtonControlConfirm
@@ -77,6 +78,7 @@ export default function ItemLayout({
         icon="delete"
         onClick={handleDelete}
         actions="self.delete"
+        disabled={destroy.inFlight}
       >
         {t("common.delete")}
       </ButtonControlConfirm>

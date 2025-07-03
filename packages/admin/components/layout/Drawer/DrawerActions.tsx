@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { ButtonControlRoute, ButtonControlConfirm } from "components/atomic";
+import { useDestroyer } from "hooks";
 import type { BaseRoute } from "@wdp/lib/routes";
 
 type LinkProps = React.ComponentProps<typeof ButtonControlRoute>;
@@ -16,6 +17,8 @@ const DrawerActions = ({
     if (handleDelete) handleDelete();
   }
 
+  const { inFlight } = useDestroyer();
+
   return (
     <>
       {routes?.map(({ route, label, query }) => (
@@ -31,6 +34,7 @@ const DrawerActions = ({
           onClick={handleDeleteClick}
           actions="self.delete"
           allowedActions={allowedActions}
+          disabled={inFlight}
         >
           {t("delete")}
         </ButtonControlConfirm>

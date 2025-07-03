@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import { GraphQLTaggedNode, readInlineData } from "relay-runtime";
 import { useMutation, graphql } from "react-relay";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/router";
+import Link from "next/link";
 import { useNotify, usePageContext } from "hooks";
 import {
   DestroyAnnouncementInput,
@@ -60,17 +62,29 @@ import {
   useDestroyerEntityPurgeMutation,
 } from "@/relay/useDestroyerEntityPurgeMutation.graphql";
 
+type LinkProps = React.ComponentProps<typeof Link>;
+type RedirectPath = string | LinkProps["href"];
+
 export function useDestroyer() {
   const notify = useNotify();
   const { t } = useTranslation();
+  const router = useRouter();
 
   const { setTriggeredRefetchTags } = usePageContext();
+
+  const redirect = useCallback(
+    (redirectPath?: RedirectPath) => {
+      if (redirectPath) router.replace(redirectPath);
+    },
+    [router],
+  );
 
   const handleResponse = useCallback(
     (
       data: useDestroyerFragment$key | null | undefined,
       name: string,
       refetchTags: string[],
+      redirectPath?: RedirectPath,
     ) => {
       if (!data) return;
       const results = readInlineData<useDestroyerFragment$key>(
@@ -80,21 +94,26 @@ export function useDestroyer() {
       if (results.revoked) {
         notify.success(t("messages.revoke.success", { name }));
         setTriggeredRefetchTags(refetchTags);
+        redirect(redirectPath);
       } else if (results.disabled) {
         notify.success(t("messages.disable.success", { name }));
         setTriggeredRefetchTags(refetchTags);
+        redirect(redirectPath);
       } else if (results.destroyed) {
         notify.success(t("messages.delete.success", { name }));
         setTriggeredRefetchTags(refetchTags);
+        redirect(redirectPath);
       } else if (results.destroyedId) {
         notify.success(t("messages.delete.purge_success", { name }));
+        setTriggeredRefetchTags(refetchTags);
+        redirect(redirectPath);
       } else if (results.globalErrors && results.globalErrors.length > 0) {
         notify.mutationGlobalError(results.globalErrors);
       } else if ("destroyed" in results && results.destroyed === null) {
         notify.error(t("messages.delete.failure", { name }));
       }
     },
-    [notify, t, setTriggeredRefetchTags],
+    [notify, t, setTriggeredRefetchTags, redirect],
   );
 
   /* Destroy a collection */
@@ -104,7 +123,11 @@ export function useDestroyer() {
     );
 
   const collection = useCallback(
-    async (input: DestroyCollectionInput, label: string) => {
+    async (
+      input: DestroyCollectionInput,
+      label: string,
+      redirectPath?: RedirectPath,
+    ) => {
       if (collectionInFlight) return;
 
       const loadingToast = toast.loading(
@@ -115,7 +138,12 @@ export function useDestroyer() {
         variables: { input },
         onCompleted: (response) => {
           toast.dismiss(loadingToast);
-          handleResponse(response.destroyCollection, label, ["collections"]);
+          handleResponse(
+            response.destroyCollection,
+            label,
+            ["collections"],
+            redirectPath,
+          );
         },
       });
     },
@@ -127,7 +155,11 @@ export function useDestroyer() {
     useMutation<useDestroyerDestroyItemMutation>(destroyItemMutation);
 
   const item = useCallback(
-    async (input: DestroyItemInput, label: string) => {
+    async (
+      input: DestroyItemInput,
+      label: string,
+      redirectPath?: RedirectPath,
+    ) => {
       if (itemInFlight) return;
 
       const loadingToast = toast.loading(
@@ -138,7 +170,7 @@ export function useDestroyer() {
         variables: { input },
         onCompleted: (response) => {
           toast.dismiss(loadingToast);
-          handleResponse(response.destroyItem, label, ["items"]);
+          handleResponse(response.destroyItem, label, ["items"], redirectPath);
         },
       });
     },
@@ -177,7 +209,11 @@ export function useDestroyer() {
     useMutation<useDestroyerDestroyCommunityMutation>(destroyCommunityMutation);
 
   const community = useCallback(
-    async (input: DestroyCommunityInput, label: string) => {
+    async (
+      input: DestroyCommunityInput,
+      label: string,
+      redirectPath?: RedirectPath,
+    ) => {
       if (communityInFlight) return;
 
       const loadingToast = toast.loading(
@@ -188,7 +224,12 @@ export function useDestroyer() {
         variables: { input },
         onCompleted: (response) => {
           toast.dismiss(loadingToast);
-          handleResponse(response.destroyCommunity, label, ["communities"]);
+          handleResponse(
+            response.destroyCommunity,
+            label,
+            ["communities"],
+            redirectPath,
+          );
         },
       });
     },
@@ -425,7 +466,12 @@ export function useDestroyer() {
     useMutation<useDestroyerEntityPurgeMutation>(entityPurgeMutation);
 
   const purge = useCallback(
-    async (input: EntityPurgeInput, label: string, tag: string) => {
+    async (
+      input: EntityPurgeInput,
+      label: string,
+      tag: string,
+      redirectPath?: RedirectPath,
+    ) => {
       if (purgeInFlight) return;
 
       const loadingToast = toast.loading(
@@ -436,12 +482,28 @@ export function useDestroyer() {
         variables: { input },
         onCompleted: (response) => {
           toast.dismiss(loadingToast);
-          handleResponse(response.entityPurge, label, [tag]);
+          handleResponse(response.entityPurge, label, [tag], redirectPath);
         },
       });
     },
     [commitPurgeEntity, handleResponse, purgeInFlight, t],
   );
+
+  const inFlight =
+    collectionInFlight ||
+    itemInFlight ||
+    communityInFlight ||
+    contributorInFlight ||
+    contributionInFlight ||
+    fileInFlight ||
+    orderingInFlight ||
+    accessInFlight ||
+    linkInFlight ||
+    pageInFlight ||
+    announcementInFlight ||
+    harvestSourceInFlight ||
+    harvestMappingInFlight ||
+    purgeInFlight;
 
   return {
     collection,
@@ -458,6 +520,7 @@ export function useDestroyer() {
     harvestSource,
     harvestMapping,
     purge,
+    inFlight,
   };
 }
 export default useDestroyer;

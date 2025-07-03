@@ -1,7 +1,6 @@
-import React, { useCallback } from "react";
+import { useCallback } from "react";
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { useRouter } from "next/router";
 import { ContentHeader, ContentSidebar, PageHeader } from "components/layout";
 import {
   ButtonControlGroup,
@@ -48,7 +47,9 @@ export default function CollectionLayout({
   const tabRoutes = useChildRouteLinks("collection", { slug }, collection);
   const breadcrumbs = useBreadcrumbs(memoizedCollection || null);
   const destroy = useDestroyer();
-  const router = useRouter();
+
+  const redirectPath =
+    breadcrumbs?.[breadcrumbs.length - 2]?.href ?? "/collections";
 
   const handleDelete = useCallback(
     (hideDialog: () => void) => {
@@ -56,14 +57,12 @@ export default function CollectionLayout({
         destroy.collection(
           { collectionId: memoizedCollection.id },
           memoizedCollection.title || "glossary.item",
+          redirectPath,
         );
         hideDialog();
-        router.replace(
-          breadcrumbs[breadcrumbs.length - 2]?.href ?? "/collections",
-        );
       }
     },
-    [memoizedCollection, breadcrumbs, destroy, router],
+    [memoizedCollection, breadcrumbs, destroy, redirectPath],
   );
 
   const allowsChildItems =
@@ -82,9 +81,8 @@ export default function CollectionLayout({
         title={memoizedCollection.title}
         entityType="collection"
         handleDelete={handleDelete}
-        redirectPath={
-          breadcrumbs?.[breadcrumbs.length - 2]?.href ?? "/collections"
-        }
+        redirectPath={redirectPath}
+        disabled={destroy.inFlight}
       />
     ) : (
       <ButtonControlConfirm
@@ -93,6 +91,7 @@ export default function CollectionLayout({
         icon="delete"
         onClick={handleDelete}
         actions="self.delete"
+        disabled={destroy.inFlight}
       >
         {t("common.delete")}
       </ButtonControlConfirm>
