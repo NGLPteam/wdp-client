@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDialogState } from "reakit/Dialog";
 import get from "lodash/get";
 import { useDrawerHelper } from "hooks";
@@ -16,10 +16,16 @@ const DrawerController = () => {
     visible: !!drawerHelper.type,
   });
 
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // Remove dialog query strings if the dialog is closed
   // This is needed in case the user hits escape or clicks outside the dialog
   useEffect(() => {
-    if (!dialog.visible) drawerHelper.close();
+    if (isMounted && !dialog.visible) drawerHelper.close();
     // eslint-disable-next-line
   }, [dialog.visible]);
 
