@@ -5,6 +5,7 @@ import { LoadingPage } from "components/atomic/loading";
 import HarvestSourcesList from "components/composed/harvesting/HarvestSourcesList";
 import { RouteUnauthorizedMessage } from "components/auth/UnauthorizedMessage";
 import { useViewerContext } from "contexts";
+import HtmlHead from "components/global/HtmlHead";
 import { harvestingQuery as Query } from "@/relay/harvestingQuery.graphql";
 
 export default function Harvesting() {
@@ -18,17 +19,20 @@ export default function Harvesting() {
     );
 
   return (
-    <QueryTransitionWrapper<Query>
-      query={query}
-      variables={{ page }}
-      subscribeIds={["HarvestSource"]}
-      loadingFallback={<LoadingPage />}
-      refetchTags={["harvestSources"]}
-    >
-      {({ queryRef }) =>
-        queryRef ? <ListQuery queryRef={queryRef} /> : <HarvestSourcesList />
-      }
-    </QueryTransitionWrapper>
+    <>
+      <HtmlHead />
+      <QueryTransitionWrapper<Query>
+        query={query}
+        variables={{ page }}
+        subscribeIds={["HarvestSource"]}
+        loadingFallback={<LoadingPage />}
+        refetchTags={["harvestSources"]}
+      >
+        {({ queryRef }) =>
+          queryRef ? <ListQuery queryRef={queryRef} /> : <HarvestSourcesList />
+        }
+      </QueryTransitionWrapper>
+    </>
   );
 }
 

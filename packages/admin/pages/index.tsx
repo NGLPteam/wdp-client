@@ -7,6 +7,7 @@ import {
 } from "hooks";
 import { DashboardLayout } from "components/composed/dashboard";
 import { LoadingPage } from "components/atomic";
+import HtmlHead from "components/global/HtmlHead";
 import { DashboardLayoutQuery } from "__generated__/DashboardLayoutQuery.graphql";
 import { query } from "components/composed/dashboard/DashboardLayout/DashboardLayout";
 
@@ -19,16 +20,23 @@ export default function HomePage({ initialQueryRef }: Props) {
   const searchQueryVars = useSearchQueryVars();
   const isAuth = useIsAuthenticated();
 
-  return isAuth ? (
+  return (
     <>
-      <QueryLoaderWrapper<DashboardLayoutQuery>
-        query={query}
-        variables={{ ...queryVars, ...searchQueryVars }}
-        initialQueryRef={initialQueryRef}
-        loadingFallback={<LoadingPage />}
-      >
-        {({ queryRef }) => queryRef && <DashboardLayout queryRef={queryRef} />}
-      </QueryLoaderWrapper>
+      <HtmlHead />
+      {isAuth ? (
+        <>
+          <QueryLoaderWrapper<DashboardLayoutQuery>
+            query={query}
+            variables={{ ...queryVars, ...searchQueryVars }}
+            initialQueryRef={initialQueryRef}
+            loadingFallback={<LoadingPage />}
+          >
+            {({ queryRef }) =>
+              queryRef && <DashboardLayout queryRef={queryRef} />
+            }
+          </QueryLoaderWrapper>
+        </>
+      ) : null}
     </>
-  ) : null;
+  );
 }

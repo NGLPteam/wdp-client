@@ -7,7 +7,7 @@ import {
   useLatestPresentValue,
 } from "hooks";
 import { RouteHelper } from "routes";
-
+import HtmlHead from "components/global/HtmlHead";
 import {
   PageHeader,
   ContentSidebar,
@@ -33,20 +33,25 @@ export default function ContributorLayout({
   const contributor = useMaybeFragment(fragment, data);
   const { current: memoizedContributor } = useLatestPresentValue(contributor);
 
+  const title = getContributorDisplayName(memoizedContributor);
+
   return (
-    <section>
-      <BackToAll route="contributors" />
-      <PageHeader
-        title={getContributorDisplayName(memoizedContributor)}
-        sidebarLinks={manageRoutes}
-      />
-      <ContentSidebar sidebarLinks={manageRoutes}>
-        {useRouteHeader && activeRoute && activeRoute.label && (
-          <ContentHeader headerStyle="secondary" title={t(activeRoute.label)} />
-        )}
-        {children}
-      </ContentSidebar>
-    </section>
+    <>
+      <HtmlHead title={title} />
+      <section>
+        <BackToAll route="contributors" />
+        <PageHeader title={title} sidebarLinks={manageRoutes} />
+        <ContentSidebar sidebarLinks={manageRoutes}>
+          {useRouteHeader && activeRoute && activeRoute.label && (
+            <ContentHeader
+              headerStyle="secondary"
+              title={t(activeRoute.label)}
+            />
+          )}
+          {children}
+        </ContentSidebar>
+      </section>
+    </>
   );
 }
 

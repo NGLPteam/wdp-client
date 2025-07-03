@@ -2,7 +2,7 @@
   "translation": {
     "key": "English",
     "app": {
-      "title": "NGLP",
+      "title": "Meru Admin",
       "description": "...",
       "installation": "Installation Name",
       "powered_by": "Powered by Meru",
@@ -177,7 +177,9 @@
       "harvest_records": "Records",
       "harvest_messages": "Messages",
       "harvest_entities": "Entities",
-      "new_harvest_attempt": "Harvest Attempt"
+      "new_harvest_attempt": "Harvest Attempt",
+      "harvest_source_new": "New Harvest Source",
+      "harvest_mapping_new": "New Harvest Mapping"
     },
     "messages": {
       "marked_for_purge": "Marked for purge",

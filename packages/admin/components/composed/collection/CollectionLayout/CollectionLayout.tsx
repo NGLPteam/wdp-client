@@ -19,6 +19,7 @@ import {
 import { useViewerContext } from "contexts";
 import useBreadcrumbs from "hooks/useBreadcrumbs";
 import ItemCreateButton from "components/composed/item/ItemCreateButton";
+import HtmlHead from "components/global/HtmlHead";
 import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
 import EntityPurgeModal from "components/composed/entity/EntityPurgeModal";
 import type { CollectionLayoutFragment$key } from "@/relay/CollectionLayoutFragment.graphql";
@@ -126,29 +127,32 @@ export default function CollectionLayout({
   );
 
   return (
-    <section>
-      <PageHeader
-        data={memoizedCollection}
-        title={memoizedCollection?.title}
-        breadcrumbsProps={breadcrumbs ? { data: breadcrumbs } : undefined}
-        tabRoutes={tabRoutes}
-        sidebarLinks={manageRoutes}
-        buttons={buttons}
-      />
-      {showSidebar ? (
-        <ContentSidebar sidebarLinks={manageRoutes}>
-          {useRouteHeader && activeRoute && activeRoute.label && (
-            <ContentHeader
-              headerStyle="secondary"
-              title={t(activeRoute.label)}
-            />
-          )}
-          {children}
-        </ContentSidebar>
-      ) : (
-        children
-      )}
-    </section>
+    <>
+      <HtmlHead title={memoizedCollection?.title} />
+      <section>
+        <PageHeader
+          data={memoizedCollection}
+          title={memoizedCollection?.title}
+          breadcrumbsProps={breadcrumbs ? { data: breadcrumbs } : undefined}
+          tabRoutes={tabRoutes}
+          sidebarLinks={manageRoutes}
+          buttons={buttons}
+        />
+        {showSidebar ? (
+          <ContentSidebar sidebarLinks={manageRoutes}>
+            {useRouteHeader && activeRoute && activeRoute.label && (
+              <ContentHeader
+                headerStyle="secondary"
+                title={t(activeRoute.label)}
+              />
+            )}
+            {children}
+          </ContentSidebar>
+        ) : (
+          children
+        )}
+      </section>
+    </>
   );
 }
 

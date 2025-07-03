@@ -13,6 +13,7 @@ import {
   useLatestPresentValue,
 } from "hooks";
 import { RouteHelper } from "routes";
+import HtmlHead from "components/global/HtmlHead";
 import { UserLayoutFragment$key } from "@/relay/UserLayoutFragment.graphql";
 import UserResetPasswordModal from "../UserResetPasswordModal";
 
@@ -37,34 +38,37 @@ export default function UserLayout({
   const manageRoutes = useChildRouteLinks("user", { slug });
 
   return (
-    <section>
-      <BackToAll route="users" />
-      <PageHeader
-        title={memoizedUser?.name}
-        sidebarLinks={manageRoutes}
-        buttons={
-          <UserResetPasswordModal
-            userId={memoizedUser?.id}
-            message={t("actions.reset_password.body_user", {
-              name: memoizedUser?.name,
-            })}
-          />
-        }
-      />
-      {showSidebar ? (
-        <ContentSidebar sidebarLinks={manageRoutes}>
-          {useRouteHeader && activeRoute && activeRoute.label && (
-            <ContentHeader
-              headerStyle="secondary"
-              title={t(activeRoute.label)}
+    <>
+      <HtmlHead title={memoizedUser?.name ?? undefined} />
+      <section>
+        <BackToAll route="users" />
+        <PageHeader
+          title={memoizedUser?.name}
+          sidebarLinks={manageRoutes}
+          buttons={
+            <UserResetPasswordModal
+              userId={memoizedUser?.id}
+              message={t("actions.reset_password.body_user", {
+                name: memoizedUser?.name,
+              })}
             />
-          )}
-          {children}
-        </ContentSidebar>
-      ) : (
-        children
-      )}
-    </section>
+          }
+        />
+        {showSidebar ? (
+          <ContentSidebar sidebarLinks={manageRoutes}>
+            {useRouteHeader && activeRoute && activeRoute.label && (
+              <ContentHeader
+                headerStyle="secondary"
+                title={t(activeRoute.label)}
+              />
+            )}
+            {children}
+          </ContentSidebar>
+        ) : (
+          children
+        )}
+      </section>
+    </>
   );
 }
 

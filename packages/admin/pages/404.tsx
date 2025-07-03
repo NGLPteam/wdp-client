@@ -1,10 +1,14 @@
 import { ErrorMessage } from "components/atomic";
+import HtmlHead from "components/global/HtmlHead";
 
 function Error404() {
   return (
-    <div className="l-container-max">
-      <ErrorMessage name={`404`} message="Page not found." />
-    </div>
+    <>
+      <HtmlHead />
+      <div className="l-container-max">
+        <ErrorMessage name={`404`} message="Page not found." />
+      </div>
+    </>
   );
 }
 

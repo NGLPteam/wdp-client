@@ -3,6 +3,7 @@ import { useSearchQueryVars, useBaseListQueryVars } from "hooks";
 import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import ItemList from "components/composed/item/ItemList";
 import { LoadingPage } from "components/atomic";
+import HtmlHead from "components/global/HtmlHead";
 import { itemsListQuery as Query } from "@/relay/itemsListQuery.graphql";
 
 export default function ItemListView() {
@@ -10,17 +11,20 @@ export default function ItemListView() {
   const searchQueryVars = useSearchQueryVars();
 
   return (
-    <QueryTransitionWrapper<Query>
-      query={query}
-      variables={{ ...queryVars, ...searchQueryVars }}
-      subscribeIds={["Item"]}
-      loadingFallback={<LoadingPage />}
-      refetchTags={["items"]}
-    >
-      {({ queryRef }) =>
-        queryRef ? <ListQuery queryRef={queryRef} /> : <ItemList />
-      }
-    </QueryTransitionWrapper>
+    <>
+      <HtmlHead />
+      <QueryTransitionWrapper<Query>
+        query={query}
+        variables={{ ...queryVars, ...searchQueryVars }}
+        subscribeIds={["Item"]}
+        loadingFallback={<LoadingPage />}
+        refetchTags={["items"]}
+      >
+        {({ queryRef }) =>
+          queryRef ? <ListQuery queryRef={queryRef} /> : <ItemList />
+        }
+      </QueryTransitionWrapper>
+    </>
   );
 }
 

@@ -35,6 +35,7 @@ const fragment = graphql`
       ...UnauthorizedMessageFragment
       ...FooterFragment
       ...InstallationLogoFragment
+      ...HtmlHeadFragment
     }
     ...SchemaSelectorSchemasFragment
   }

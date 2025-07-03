@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useChildRouteLinks, useMaybeFragment, useRouteSlug } from "hooks";
 import { ButtonControlGroup, ButtonControlRoute } from "components/atomic";
 import { PageHeader, BackToAll } from "components/layout";
+import HtmlHead from "components/global/HtmlHead";
 import type { HarvestSourceLayoutFragment$key } from "@/relay/HarvestSourceLayoutFragment.graphql";
 import PruneEntitiesModal from "../PruneEntitiesModal";
 
@@ -46,16 +47,19 @@ export default function HarvestSourceLayout({
   );
 
   return (
-    <section>
-      <BackToAll route="harvesting" />
-      <PageHeader
-        title={harvestSource?.name}
-        tabRoutes={manageRoutes}
-        tabLinksOnly
-        buttons={buttons}
-      />
-      {children}
-    </section>
+    <>
+      <HtmlHead title={harvestSource?.name} />
+      <section>
+        <BackToAll route="harvesting" />
+        <PageHeader
+          title={harvestSource?.name}
+          tabRoutes={manageRoutes}
+          tabLinksOnly
+          buttons={buttons}
+        />
+        {children}
+      </section>
+    </>
   );
 }
 

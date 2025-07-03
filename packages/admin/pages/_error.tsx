@@ -1,5 +1,6 @@
 import { Page } from "@wdp/lib/types/page";
 import { ErrorMessage } from "components/atomic";
+import HtmlHead from "components/global/HtmlHead";
 
 interface Props {
   statusCode?: number;
@@ -15,9 +16,12 @@ const Error: Page<Props> = ({ statusCode }: Props) => {
   );
 
   return (
-    <div className="l-container-max">
-      <ErrorMessage message={message} name={`${statusCode || ""} Error`} />
-    </div>
+    <>
+      <HtmlHead />
+      <div className="l-container-max">
+        <ErrorMessage message={message} name={`${statusCode || ""} Error`} />
+      </div>
+    </>
   );
 };
 

@@ -3,23 +3,27 @@ import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import { useContributorQueryVars } from "hooks";
 import { LoadingPage } from "components/atomic/loading";
 import ContributorList from "components/composed/contributor/ContributorList";
+import HtmlHead from "components/global/HtmlHead";
 import { contributorsListQuery as Query } from "@/relay/contributorsListQuery.graphql";
 
 export default function ContributorListView() {
   const contributorSearchVars = useContributorQueryVars();
 
   return (
-    <QueryTransitionWrapper<Query>
-      query={query}
-      variables={contributorSearchVars}
-      subscribeIds={["Contributor"]}
-      loadingFallback={<LoadingPage />}
-      refetchTags={["contributors"]}
-    >
-      {({ queryRef }) =>
-        queryRef ? <ListQuery queryRef={queryRef} /> : <ContributorList />
-      }
-    </QueryTransitionWrapper>
+    <>
+      <HtmlHead />
+      <QueryTransitionWrapper<Query>
+        query={query}
+        variables={contributorSearchVars}
+        subscribeIds={["Contributor"]}
+        loadingFallback={<LoadingPage />}
+        refetchTags={["contributors"]}
+      >
+        {({ queryRef }) =>
+          queryRef ? <ListQuery queryRef={queryRef} /> : <ContributorList />
+        }
+      </QueryTransitionWrapper>
+    </>
   );
 }
 

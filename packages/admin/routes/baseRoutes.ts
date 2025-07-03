@@ -341,7 +341,7 @@ export const baseRoutes: BaseRoute[] = [
               {
                 name: "harvestSource.mappings.new",
                 path: "/harvesting/[slug]/mappings/new",
-                label: "nav.harvest_mappings_new",
+                label: "nav.harvest_mapping_new",
               },
             ],
           },

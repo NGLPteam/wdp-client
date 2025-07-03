@@ -5,6 +5,7 @@ import { QueryTransitionWrapper } from "@wdp/lib/api/components";
 import HarvestAttemptCreateForm from "components/composed/harvesting/HarvestAttemptCreateForm";
 import { LoadingPage, LoadingCircle } from "components/atomic/loading";
 import { PageHeader, BackToAll } from "components/layout";
+import HtmlHead from "components/global/HtmlHead";
 import { useRouteSlug } from "hooks";
 import type { newHarvestAttemptFromMappingQuery as Query } from "@/relay/newHarvestAttemptFromMappingQuery.graphql";
 
@@ -25,6 +26,7 @@ export default function NewHarvestAttemptFromMapping() {
           <WithQuery queryRef={queryRef} />
         ) : (
           <>
+            <HtmlHead />
             <BackToAll route="harvesting" />
             <PageHeader title={t("harvesting.new_attempt_title")} />
             <LoadingCircle className="l-page-loading" />
@@ -41,8 +43,20 @@ const WithQuery = ({ queryRef }: { queryRef: PreloadedQuery<Query> }) => {
   const { t } = useTranslation();
   const slug = useRouteSlug();
 
-  return harvestMapping ? (
+  if (!harvestMapping) return null;
+
+  const { harvestSet, targetEntity } = harvestMapping;
+
+  const set = harvestSet?.identifier
+    ? t("harvesting.set", { set: harvestSet.identifier })
+    : "";
+  const title = `[${startCase(
+    targetEntity?.harvestTargetKind.toLowerCase(),
+  )}: ${targetEntity?.title}]${set}`;
+
+  return (
     <>
+      <HtmlHead title={title} />
       <BackToAll
         route="harvestMapping.harvestAttempts"
         query={{ slug: slug ?? "" }}
@@ -51,7 +65,7 @@ const WithQuery = ({ queryRef }: { queryRef: PreloadedQuery<Query> }) => {
       <PageHeader title={t("harvesting.new_attempt_title")} />
       <HarvestAttemptCreateForm harvestMapping={harvestMapping} />
     </>
-  ) : null;
+  );
 };
 
 const query = graphql`
@@ -61,6 +75,7 @@ const query = graphql`
       extractionMappingTemplate
       targetEntity {
         title
+        harvestTargetKind
       }
       harvestSet {
         identifier
