@@ -35,6 +35,10 @@ function HarvestAttemptsList({ data, headerStyle, hideHeader, backTo }: Props) {
       query: backTo ? { backTo } : undefined,
     }),
     ModelColumns.StringColumn<HarvestAttemptNode>({
+      id: "currentState",
+      header: () => t("lists.status_column"),
+    }),
+    ModelColumns.StringColumn<HarvestAttemptNode>({
       id: "mode",
       header: () => t("harvesting.mode"),
     }),
@@ -72,6 +76,7 @@ export const fragment = graphql`
       beganAt
       endedAt
       mode
+      currentState
       harvestSource {
         name
       }
