@@ -685,7 +685,8 @@
       },
       "mapping_details_column": "{{format}} to {{target}}",
       "mapping_details_column_set": "{{format}} to {{target}} ({{set}})",
-      "view_target": "View Target"
+      "view_target": "View Target",
+      "mapping_breadcrumb": "{{format}} Mapping to {{target}}"
     }
   }
 }
