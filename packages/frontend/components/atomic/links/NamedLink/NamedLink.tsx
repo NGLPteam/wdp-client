@@ -3,11 +3,19 @@ import classNames from "classnames";
 type LinkProps = React.ComponentProps<typeof Link>;
 import styles from "./NamedLink.module.css";
 
-const NamedLink = ({ children, href, as, ...props }: Props) => {
+const NamedLink = ({
+  children,
+  href,
+  as,
+  prefetch = false,
+  scroll,
+  ...props
+}: Props) => {
   return href ? (
     <Link
       as={as !== "a" ? as : undefined}
-      prefetch={false}
+      prefetch={prefetch}
+      scroll={scroll}
       href={href}
       className={classNames(
         props.className,
