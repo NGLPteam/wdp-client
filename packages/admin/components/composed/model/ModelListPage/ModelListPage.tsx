@@ -34,7 +34,7 @@ type ModelListPageProps<
     showSearch?: boolean;
     hideFilters?: boolean;
     searchData?: ModelListPageSearchFragment$key | null;
-  };
+  } & { countActions?: React.JSX.Element };
 
 function ModelListPage<
   U extends PaginatedConnectionish,
@@ -50,6 +50,7 @@ function ModelListPage<
   hideFilters,
   data,
   searchData,
+  countActions,
   ...modelListProps
 }: ModelListPageProps<U, V>) {
   const { t } = useTranslation();
@@ -75,7 +76,7 @@ function ModelListPage<
     : "";
 
   const pageCountActions =
-    selectedView === "grid" ? <OrderSelect /> : undefined;
+    selectedView === "grid" ? <OrderSelect /> : countActions;
 
   const kindFilter =
     modelName === "item"

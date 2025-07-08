@@ -1,9 +1,10 @@
 import { graphql, useFragment } from "react-relay";
 import { useTranslation } from "react-i18next";
 import ModelListPage from "components/composed/model/ModelListPage";
-import { useDestroyer } from "hooks";
+import { useDestroyer, useRouteSlug } from "hooks";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
+import { ButtonControlRoute } from "components/atomic";
 import type {
   HarvestMetadataMappingsListFragment$data,
   HarvestMetadataMappingsListFragment$key,
@@ -22,6 +23,7 @@ type HarvestMetadataMappingNode =
 function HarvestMetadataMappingsList({ data, headerStyle, hideHeader }: Props) {
   const { t } = useTranslation();
   const destroy = useDestroyer();
+  const slug = useRouteSlug();
 
   const harvestMetadataMappings =
     useFragment<HarvestMetadataMappingsListFragment$key>(fragment, data);
@@ -67,6 +69,17 @@ function HarvestMetadataMappingsList({ data, headerStyle, hideHeader }: Props) {
       data={harvestMetadataMappings}
       headerStyle={headerStyle}
       hideHeader={hideHeader}
+      countActions={
+        slug ? (
+          <ButtonControlRoute
+            route="harvestSource.metadataMapping.new"
+            query={{ slug }}
+            icon="plus"
+          >
+            {t("actions.add.harvest_metadata_mapping")}
+          </ButtonControlRoute>
+        ) : undefined
+      }
     />
   );
 }

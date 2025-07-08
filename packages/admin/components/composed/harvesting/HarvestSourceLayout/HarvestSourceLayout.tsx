@@ -24,7 +24,6 @@ export default function HarvestSourceLayout({
     <ButtonControlGroup
       toggleLabel={t("options")}
       menuLabel={t("options")}
-      grid
       breakpoint={70}
     >
       <ButtonControlRoute
@@ -40,13 +39,6 @@ export default function HarvestSourceLayout({
         icon="plus"
       >
         {t("actions.add.harvest_attempt")}
-      </ButtonControlRoute>
-      <ButtonControlRoute
-        route="harvestSource.metadataMapping.new"
-        query={{ slug }}
-        icon="plus"
-      >
-        {t("actions.add.harvest_metadata_mapping")}
       </ButtonControlRoute>
       {harvestSource?.id && (
         <PruneEntitiesModal
