@@ -20,7 +20,7 @@ export default function SeeAll(props: SeeAllProps) {
         [styles["seeAll--left"]]: props.alignment === "left",
       })}
     >
-      <NamedLink href={props.href}>
+      <NamedLink href={props.href} prefetch>
         <Button as="div">
           <span className="t-capitalize">
             {props.buttonLabel ?? t("nav.see_all")}

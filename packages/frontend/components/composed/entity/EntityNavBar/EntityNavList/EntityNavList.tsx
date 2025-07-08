@@ -43,6 +43,7 @@ export default function EntityNavList({ data }: Props) {
         return {
           href: `${basePath}/browse/${item.identifier}?context=${context}`,
           label: `${item.name} (${item.count})`,
+          scroll: false,
         };
       }}
     />
