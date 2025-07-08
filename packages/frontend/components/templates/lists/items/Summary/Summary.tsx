@@ -7,6 +7,7 @@ import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import ContributorsList from "@/components/composed/contributor/ContributorsList";
 import NamedLink from "@/components/atomic/links/NamedLink";
 import { getRouteByEntityType } from "@/helpers/routes";
+import { getThumbWithFallback } from "@/helpers";
 import type { ListEntityContext } from "@/types/graphql-schema";
 import styles from "./Summary.module.css";
 
@@ -63,9 +64,9 @@ export default function SummaryListItem({
 
   const { header, subheader, context } = renderedSlots;
 
-  const showThumb =
-    !hideCover &&
-    (entity.__typename !== "Item" || !!entity?.thumbnail?.image.webp.url);
+  const checkForThumb = !hideCover && entity.__typename !== "Item";
+
+  const thumbnailData = checkForThumb ? getThumbWithFallback(entity) : null;
 
   return (
     <li
@@ -73,11 +74,12 @@ export default function SummaryListItem({
         [styles["item--browse"]]: browseStyle,
       })}
     >
-      {showThumb && (
+      {thumbnailData?.hasThumb && (
         <NamedLink href={href} className={styles.coverImage}>
           <CoverImage
-            {...entity}
-            data={entity.thumbnail}
+            title={entity.title}
+            id={entity.id}
+            data={thumbnailData.thumbnail}
             maxWidth={120}
             maxHeight={160}
           />

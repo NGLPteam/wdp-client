@@ -46,15 +46,7 @@ export const listItemTemplateFragment = graphql`
         id
         slug
         title
-        thumbnail {
-          image: medium {
-            webp {
-              alt
-              url
-            }
-          }
-          ...CoverImageFragment
-        }
+        ...getThumbWithFallbackFragment
         attributions {
           id
         }
@@ -87,17 +79,10 @@ export const listItemTemplateFragment = graphql`
         id
         slug
         title
-        thumbnail {
-          image: medium {
-            webp {
-              url
-            }
-          }
-          ...CoverImageFragment
-        }
         attributions {
           id
         }
+        ...getThumbWithFallbackFragment
         ...ContributorsListFragment
         heroImage {
           large {

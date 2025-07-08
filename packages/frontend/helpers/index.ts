@@ -10,3 +10,4 @@ export { default as getEntitySitemap } from "./getEntitySitemap";
 export { default as getItemsSitemap } from "./getItemsSitemap";
 export { default as getCollectionsSitemap } from "./getCollectionsSitemap";
 export { default as buildSiteMap } from "./buildSiteMap";
+export { default as getThumbWithFallback } from "./getThumbWithFallback";

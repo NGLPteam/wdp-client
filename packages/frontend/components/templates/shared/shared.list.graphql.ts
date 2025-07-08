@@ -17,26 +17,12 @@ export const listTemplateFragment = graphql`
         ... on Collection {
           __typename
           slug
-          thumbnail {
-            image: medium {
-              webp {
-                url
-              }
-            }
-            ...CoverImageFragment
-          }
+          ...getThumbWithFallbackFragment
         }
         ... on Item {
           __typename
           slug
-          thumbnail {
-            image: medium {
-              webp {
-                url
-              }
-            }
-            ...CoverImageFragment
-          }
+          ...getThumbWithFallbackFragment
         }
       }
       linksDefinition: definition {
@@ -92,28 +78,14 @@ export const listTemplateFragment = graphql`
           id
           title
           slug
-          thumbnail {
-            image: medium {
-              webp {
-                url
-              }
-            }
-            ...CoverImageFragment
-          }
+          ...getThumbWithFallbackFragment
         }
         ... on Item {
           __typename
           id
           title
           slug
-          thumbnail {
-            image: medium {
-              webp {
-                url
-              }
-            }
-            ...CoverImageFragment
-          }
+          ...getThumbWithFallbackFragment
         }
       }
       descendantsDefinition: definition {
