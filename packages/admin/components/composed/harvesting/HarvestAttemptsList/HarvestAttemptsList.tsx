@@ -50,11 +50,6 @@ function HarvestAttemptsList({ data, headerStyle, hideHeader, backTo }: Props) {
       id: "recordCount",
       header: () => t("lists.record_count_column"),
     }),
-    ModelColumns.BooleanColumn<HarvestAttemptNode>({
-      id: "row.harvestErrors",
-      accessorFn: (row) => !!row.harvestErrors.length,
-      header: () => t("lists.has_errors_column"),
-    }),
   ];
 
   return (
@@ -84,9 +79,6 @@ export const fragment = graphql`
         identifier
       }
       recordCount
-      harvestErrors {
-        code
-      }
     }
     ...ModelListPageFragment
   }

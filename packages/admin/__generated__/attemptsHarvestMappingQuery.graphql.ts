@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<86eb632df0721b04a82f7a4b5a5b0069>>
+ * @generated SignedSource<<14ebb53e7afd8f23138e683f920ef771>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -231,25 +231,6 @@ return {
                     "kind": "ScalarField",
                     "name": "recordCount",
                     "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "HarvestError",
-                    "kind": "LinkedField",
-                    "name": "harvestErrors",
-                    "plural": true,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "code",
-                        "storageKey": null
-                      },
-                      (v5/*: any*/)
-                    ],
-                    "storageKey": null
                   }
                 ],
                 "storageKey": null
@@ -324,12 +305,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "da164a3e13990c9b464120ea38f5bf64",
+    "cacheID": "ead3cf8e2c43d8d22b0df57b2f648562",
     "id": null,
     "metadata": {},
     "name": "attemptsHarvestMappingQuery",
     "operationKind": "query",
-    "text": "query attemptsHarvestMappingQuery(\n  $slug: Slug!\n  $order: HarvestAttemptOrder\n  $page: Int!\n) {\n  harvestMapping(slug: $slug) {\n    harvestAttempts(order: $order, page: $page, perPage: 20) {\n      ...HarvestAttemptsListFragment\n    }\n    id\n  }\n}\n\nfragment HarvestAttemptsListFragment on HarvestAttemptConnection {\n  nodes {\n    id\n    slug\n    beganAt\n    endedAt\n    mode\n    currentState\n    harvestSource {\n      name\n      id\n    }\n    harvestSet {\n      identifier\n      id\n    }\n    recordCount\n    harvestErrors {\n      code\n      id\n    }\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
+    "text": "query attemptsHarvestMappingQuery(\n  $slug: Slug!\n  $order: HarvestAttemptOrder\n  $page: Int!\n) {\n  harvestMapping(slug: $slug) {\n    harvestAttempts(order: $order, page: $page, perPage: 20) {\n      ...HarvestAttemptsListFragment\n    }\n    id\n  }\n}\n\nfragment HarvestAttemptsListFragment on HarvestAttemptConnection {\n  nodes {\n    id\n    slug\n    beganAt\n    endedAt\n    mode\n    currentState\n    harvestSource {\n      name\n      id\n    }\n    harvestSet {\n      identifier\n      id\n    }\n    recordCount\n  }\n  ...ModelListPageFragment\n}\n\nfragment ModelListPageFragment on Paginated {\n  __isPaginated: __typename\n  ...ModelPageCountActionsFragment\n  ...ModelPaginationFragment\n}\n\nfragment ModelPageCountActionsFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n    perPage\n    hasNextPage\n    hasPreviousPage\n    totalCount\n  }\n}\n\nfragment ModelPaginationFragment on Paginated {\n  __isPaginated: __typename\n  pageInfo {\n    page\n    pageCount\n  }\n}\n"
   }
 };
 })();
