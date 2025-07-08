@@ -9,6 +9,7 @@ import Container from "@/components/layout/Container";
 import { getRouteByEntityType } from "@/helpers/routes";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import type { HeroBackground } from "@/types/graphql-schema";
+import { getThumbWithFallback } from "@/helpers";
 import SeeAll from "../../SeeAll";
 import { getSeeAllHref } from "../../SeeAll/helpers";
 import List from "../../List/";
@@ -101,6 +102,8 @@ export default function SummaryListBlock({
     showHeroImage &&
     (entity?.__typename === "Item" || entity?.__typename === "Collection");
 
+  const thumbnailData = showCover ? getThumbWithFallback(entity) : null;
+
   return (
     <Container
       className={styles.container}
@@ -176,8 +179,9 @@ export default function SummaryListBlock({
           <div className={styles.heroImage}>
             <NamedLink href={href}>
               <CoverImage
-                {...entity}
-                data={entity?.thumbnail}
+                title={entity.title}
+                id={entity.id}
+                data={thumbnailData?.thumbnail}
                 maxWidth={240}
                 maxHeight={320}
               />

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<38868379d352dd04e97c7e13855c6822>>
+ * @generated SignedSource<<b517fb91606b70f5ddf740eb55d86d8a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,10 +12,8 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type DetailCoverImageFragment$data = {
   readonly id?: string;
-  readonly thumbnail?: {
-    readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
-  };
   readonly title?: string;
+  readonly " $fragmentSpreads": FragmentRefs<"getThumbWithFallbackFragment">;
   readonly " $fragmentType": "DetailCoverImageFragment";
 };
 export type DetailCoverImageFragment$key = {
@@ -24,7 +22,61 @@ export type DetailCoverImageFragment$key = {
 };
 
 const node: ReaderFragment = (function(){
-var v0 = [
+var v0 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "ImageAttachment",
+  "kind": "LinkedField",
+  "name": "thumbnail",
+  "plural": false,
+  "selections": [
+    {
+      "alias": "image",
+      "args": null,
+      "concreteType": "ImageSize",
+      "kind": "LinkedField",
+      "name": "medium",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageDerivative",
+          "kind": "LinkedField",
+          "name": "webp",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "url",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "CoverImageFragment"
+    }
+  ],
+  "storageKey": null
+},
+v1 = [
+  (v0/*: any*/)
+],
+v2 = {
+  "kind": "InlineFragment",
+  "selections": (v1/*: any*/),
+  "type": "Collection",
+  "abstractKey": null
+},
+v3 = [
   {
     "alias": null,
     "args": null,
@@ -40,20 +92,87 @@ var v0 = [
     "storageKey": null
   },
   {
-    "alias": null,
-    "args": null,
-    "concreteType": "ImageAttachment",
-    "kind": "LinkedField",
-    "name": "thumbnail",
-    "plural": false,
+    "kind": "InlineDataFragmentSpread",
+    "name": "getThumbWithFallbackFragment",
     "selections": [
       {
-        "args": null,
-        "kind": "FragmentSpread",
-        "name": "CoverImageFragment"
+        "kind": "InlineFragment",
+        "selections": [
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              (v0/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "EntityBreadcrumb",
+                "kind": "LinkedField",
+                "name": "breadcrumbs",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "crumb",
+                    "plural": false,
+                    "selections": [
+                      (v2/*: any*/)
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "type": "Collection",
+            "abstractKey": null
+          },
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              (v0/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "EntityBreadcrumb",
+                "kind": "LinkedField",
+                "name": "breadcrumbs",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": null,
+                    "kind": "LinkedField",
+                    "name": "crumb",
+                    "plural": false,
+                    "selections": [
+                      (v2/*: any*/),
+                      {
+                        "kind": "InlineFragment",
+                        "selections": (v1/*: any*/),
+                        "type": "Item",
+                        "abstractKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "type": "Item",
+            "abstractKey": null
+          }
+        ],
+        "type": "AnyEntity",
+        "abstractKey": "__isAnyEntity"
       }
     ],
-    "storageKey": null
+    "args": null,
+    "argumentDefinitions": ([]/*: any*/)
   }
 ];
 return {
@@ -64,13 +183,13 @@ return {
   "selections": [
     {
       "kind": "InlineFragment",
-      "selections": (v0/*: any*/),
+      "selections": (v3/*: any*/),
       "type": "Collection",
       "abstractKey": null
     },
     {
       "kind": "InlineFragment",
-      "selections": (v0/*: any*/),
+      "selections": (v3/*: any*/),
       "type": "Item",
       "abstractKey": null
     }
@@ -80,6 +199,6 @@ return {
 };
 })();
 
-(node as any).hash = "5aa01d1e494160a5a57ac83a7fb59768";
+(node as any).hash = "888f2c21b9d0aa8ba1f7498dd5d1260e";
 
 export default node;

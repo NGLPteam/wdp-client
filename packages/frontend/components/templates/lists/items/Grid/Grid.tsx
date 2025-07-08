@@ -6,6 +6,7 @@ import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import ContributorsList from "@/components/composed/contributor/ContributorsList";
 import NamedLink from "@/components/atomic/links/NamedLink";
 import { getRouteByEntityType } from "@/helpers/routes";
+import { getThumbWithFallback } from "@/helpers";
 import type { ListEntityContext } from "@/types/graphql-schema";
 import styles from "./Grid.module.css";
 
@@ -31,6 +32,7 @@ export default function GridListItem({
   const href = `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`;
 
   const showCover = entity?.__typename === "Collection";
+  const thumbnailData = showCover ? getThumbWithFallback(entity) : null;
 
   const renderContributors = showContributors && !!entity?.attributions.length;
 
@@ -47,8 +49,9 @@ export default function GridListItem({
       <NamedLink className={styles.link} href={href}>
         {showCover && (
           <CoverImage
-            {...entity}
-            data={entity.thumbnail}
+            title={entity.title}
+            id={entity.id}
+            data={thumbnailData?.thumbnail}
             maxWidth={168}
             maxHeight={248}
           />

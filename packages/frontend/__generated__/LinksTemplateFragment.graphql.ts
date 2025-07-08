@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d12b9b4cd02a6afe336ca3c3fb5ea595>>
+ * @generated SignedSource<<a0fbf3728abaf63b1548382e8cdfa60b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -101,95 +101,187 @@ v4 = {
   "storageKey": null
 },
 v5 = [
-  (v0/*: any*/),
-  (v2/*: any*/),
   (v4/*: any*/)
 ],
 v6 = {
+  "kind": "InlineFragment",
+  "selections": (v5/*: any*/),
+  "type": "Collection",
+  "abstractKey": null
+},
+v7 = {
+  "kind": "InlineDataFragmentSpread",
+  "name": "getThumbWithFallbackFragment",
+  "selections": [
+    {
+      "kind": "InlineFragment",
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            (v4/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "EntityBreadcrumb",
+              "kind": "LinkedField",
+              "name": "breadcrumbs",
+              "plural": true,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": null,
+                  "kind": "LinkedField",
+                  "name": "crumb",
+                  "plural": false,
+                  "selections": [
+                    (v6/*: any*/)
+                  ],
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "type": "Collection",
+          "abstractKey": null
+        },
+        {
+          "kind": "InlineFragment",
+          "selections": [
+            (v4/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "EntityBreadcrumb",
+              "kind": "LinkedField",
+              "name": "breadcrumbs",
+              "plural": true,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": null,
+                  "kind": "LinkedField",
+                  "name": "crumb",
+                  "plural": false,
+                  "selections": [
+                    (v6/*: any*/),
+                    {
+                      "kind": "InlineFragment",
+                      "selections": (v5/*: any*/),
+                      "type": "Item",
+                      "abstractKey": null
+                    }
+                  ],
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "type": "Item",
+          "abstractKey": null
+        }
+      ],
+      "type": "AnyEntity",
+      "abstractKey": "__isAnyEntity"
+    }
+  ],
+  "args": null,
+  "argumentDefinitions": ([]/*: any*/)
+},
+v8 = [
+  (v0/*: any*/),
+  (v2/*: any*/),
+  (v7/*: any*/)
+],
+v9 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "background",
   "storageKey": null
 },
-v7 = {
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "seeAllButtonLabel",
   "storageKey": null
 },
-v8 = {
+v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "showSeeAllButton",
   "storageKey": null
 },
-v9 = {
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "selectionMode",
   "storageKey": null
 },
-v10 = {
+v13 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "selectionLimit",
   "storageKey": null
 },
-v11 = {
+v14 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "title",
   "storageKey": null
 },
-v12 = {
+v15 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "showHeroImage",
   "storageKey": null
 },
-v13 = {
+v16 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "width",
   "storageKey": null
 },
-v14 = {
+v17 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "showNestedEntities",
   "storageKey": null
 },
-v15 = {
+v18 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "seeAllOrderingIdentifier",
   "storageKey": null
 },
-v16 = {
+v19 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "showContributors",
   "storageKey": null
 },
-v17 = [
+v20 = [
   {
     "args": null,
     "kind": "FragmentSpread",
     "name": "sharedInlineSlotFragment"
   }
 ],
-v18 = [
+v21 = [
   {
     "alias": null,
     "args": null,
@@ -197,7 +289,7 @@ v18 = [
     "kind": "LinkedField",
     "name": "blockHeader",
     "plural": false,
-    "selections": (v17/*: any*/),
+    "selections": (v20/*: any*/),
     "storageKey": null
   },
   {
@@ -207,7 +299,7 @@ v18 = [
     "kind": "LinkedField",
     "name": "header",
     "plural": false,
-    "selections": (v17/*: any*/),
+    "selections": (v20/*: any*/),
     "storageKey": null
   },
   {
@@ -217,7 +309,7 @@ v18 = [
     "kind": "LinkedField",
     "name": "headerAside",
     "plural": false,
-    "selections": (v17/*: any*/),
+    "selections": (v20/*: any*/),
     "storageKey": null
   },
   {
@@ -227,7 +319,7 @@ v18 = [
     "kind": "LinkedField",
     "name": "metadata",
     "plural": false,
-    "selections": (v17/*: any*/),
+    "selections": (v20/*: any*/),
     "storageKey": null
   },
   {
@@ -237,23 +329,23 @@ v18 = [
     "kind": "LinkedField",
     "name": "subtitle",
     "plural": false,
-    "selections": (v17/*: any*/),
+    "selections": (v20/*: any*/),
     "storageKey": null
   }
 ],
-v19 = {
+v22 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "count",
   "storageKey": null
 },
-v20 = {
+v23 = {
   "args": null,
   "kind": "FragmentSpread",
   "name": "sharedListItemsTemplateFragment"
 },
-v21 = [
+v24 = [
   (v0/*: any*/),
   {
     "alias": null,
@@ -262,9 +354,9 @@ v21 = [
     "name": "id",
     "storageKey": null
   },
-  (v11/*: any*/),
+  (v14/*: any*/),
   (v2/*: any*/),
-  (v4/*: any*/)
+  (v7/*: any*/)
 ];
 return {
   "argumentDefinitions": [],
@@ -310,13 +402,13 @@ return {
                 (v3/*: any*/),
                 {
                   "kind": "InlineFragment",
-                  "selections": (v5/*: any*/),
+                  "selections": (v8/*: any*/),
                   "type": "Collection",
                   "abstractKey": null
                 },
                 {
                   "kind": "InlineFragment",
-                  "selections": (v5/*: any*/),
+                  "selections": (v8/*: any*/),
                   "type": "Item",
                   "abstractKey": null
                 }
@@ -331,11 +423,11 @@ return {
               "name": "definition",
               "plural": false,
               "selections": [
-                (v6/*: any*/),
-                (v7/*: any*/),
-                (v8/*: any*/),
                 (v9/*: any*/),
                 (v10/*: any*/),
+                (v11/*: any*/),
+                (v12/*: any*/),
+                (v13/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -343,13 +435,13 @@ return {
                   "name": "showEntityContext",
                   "storageKey": null
                 },
-                (v11/*: any*/),
-                (v1/*: any*/),
-                (v12/*: any*/),
-                (v13/*: any*/),
                 (v14/*: any*/),
+                (v1/*: any*/),
                 (v15/*: any*/),
-                (v16/*: any*/)
+                (v16/*: any*/),
+                (v17/*: any*/),
+                (v18/*: any*/),
+                (v19/*: any*/)
               ],
               "storageKey": null
             },
@@ -360,7 +452,7 @@ return {
               "kind": "LinkedField",
               "name": "slots",
               "plural": false,
-              "selections": (v18/*: any*/),
+              "selections": (v21/*: any*/),
               "storageKey": null
             },
             {
@@ -371,7 +463,7 @@ return {
               "name": "entityList",
               "plural": false,
               "selections": [
-                (v19/*: any*/),
+                (v22/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -379,7 +471,7 @@ return {
                   "name": "empty",
                   "storageKey": null
                 },
-                (v20/*: any*/)
+                (v23/*: any*/)
               ],
               "storageKey": null
             }
@@ -398,7 +490,7 @@ return {
               "name": "seeAllOrdering",
               "plural": false,
               "selections": [
-                (v19/*: any*/),
+                (v22/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -420,13 +512,13 @@ return {
                 (v3/*: any*/),
                 {
                   "kind": "InlineFragment",
-                  "selections": (v21/*: any*/),
+                  "selections": (v24/*: any*/),
                   "type": "Collection",
                   "abstractKey": null
                 },
                 {
                   "kind": "InlineFragment",
-                  "selections": (v21/*: any*/),
+                  "selections": (v24/*: any*/),
                   "type": "Item",
                   "abstractKey": null
                 }
@@ -441,10 +533,10 @@ return {
               "name": "definition",
               "plural": false,
               "selections": [
-                (v6/*: any*/),
-                (v7/*: any*/),
-                (v8/*: any*/),
                 (v9/*: any*/),
+                (v10/*: any*/),
+                (v11/*: any*/),
+                (v12/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -506,7 +598,7 @@ return {
                   ],
                   "storageKey": null
                 },
-                (v10/*: any*/),
+                (v13/*: any*/),
                 {
                   "alias": null,
                   "args": null,
@@ -514,13 +606,13 @@ return {
                   "name": "entityContext",
                   "storageKey": null
                 },
-                (v11/*: any*/),
-                (v1/*: any*/),
-                (v12/*: any*/),
-                (v13/*: any*/),
                 (v14/*: any*/),
+                (v1/*: any*/),
                 (v15/*: any*/),
-                (v16/*: any*/)
+                (v16/*: any*/),
+                (v17/*: any*/),
+                (v18/*: any*/),
+                (v19/*: any*/)
               ],
               "storageKey": null
             },
@@ -531,7 +623,7 @@ return {
               "kind": "LinkedField",
               "name": "slots",
               "plural": false,
-              "selections": (v18/*: any*/),
+              "selections": (v21/*: any*/),
               "storageKey": null
             },
             {
@@ -542,7 +634,7 @@ return {
               "name": "entityList",
               "plural": false,
               "selections": [
-                (v20/*: any*/)
+                (v23/*: any*/)
               ],
               "storageKey": null
             }

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9979b445b70490ceccedc0949a007312>>
+ * @generated SignedSource<<ecc4fc516921f560c311e0ea9f94f328>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -48,15 +48,8 @@ export type sharedListTemplateFragment$data = {
     readonly __typename: "Collection";
     readonly id?: string;
     readonly slug: string;
-    readonly thumbnail: {
-      readonly image: {
-        readonly webp: {
-          readonly url: string | null | undefined;
-        };
-      };
-      readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
-    };
     readonly title?: string;
+    readonly " $fragmentSpreads": FragmentRefs<"getThumbWithFallbackFragment">;
   } | {
     readonly __typename: "Community";
     readonly slug: string;
@@ -64,15 +57,8 @@ export type sharedListTemplateFragment$data = {
     readonly __typename: "Item";
     readonly id?: string;
     readonly slug: string;
-    readonly thumbnail: {
-      readonly image: {
-        readonly webp: {
-          readonly url: string | null | undefined;
-        };
-      };
-      readonly " $fragmentSpreads": FragmentRefs<"CoverImageFragment">;
-    };
     readonly title?: string;
+    readonly " $fragmentSpreads": FragmentRefs<"getThumbWithFallbackFragment">;
   } | {
     // This will never be '%other', but we need some
     // value in case none of the concrete values match.
@@ -131,6 +117,6 @@ const node: ReaderInlineDataFragment = {
   "name": "sharedListTemplateFragment"
 };
 
-(node as any).hash = "33f288400849fa31639a34882b91bf9f";
+(node as any).hash = "12a912d3de7fe69ff0ac970e6bf1ea56";
 
 export default node;

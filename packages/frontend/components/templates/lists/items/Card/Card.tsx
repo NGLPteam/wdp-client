@@ -5,6 +5,7 @@ import { sharedListItemTemplateFragment$key } from "@/relay/sharedListItemTempla
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import NamedLink from "@/components/atomic/links/NamedLink";
 import { getRouteByEntityType } from "@/helpers/routes";
+import { getThumbWithFallback } from "@/helpers";
 import styles from "./Card.module.css";
 
 export default function CardListItem({
@@ -22,6 +23,8 @@ export default function CardListItem({
 
   const href = `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`;
 
+  const thumbnailData = getThumbWithFallback(entity);
+
   return (
     <li className={styles.item}>
       <NamedLink href={href}>
@@ -31,7 +34,7 @@ export default function CardListItem({
               <CoverImage
                 title={entity.title}
                 id={entity.id}
-                data={entity.thumbnail}
+                data={thumbnailData.thumbnail}
                 maxWidth={225}
                 maxHeight={300}
               />
