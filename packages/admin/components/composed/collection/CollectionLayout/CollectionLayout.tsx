@@ -112,7 +112,7 @@ export default function CollectionLayout({
         {t("common.view")}
       </ButtonControlView>
       {memoizedCollection?.harvestModificationStatus !== "UNHARVESTED" &&
-        memoizedCollection?.harvestRecords?.length && (
+        !!memoizedCollection?.harvestRecords?.length && (
           <ButtonControlRoute
             route="harvestRecord"
             query={{ slug: memoizedCollection?.harvestRecords?.[0]?.slug }}
