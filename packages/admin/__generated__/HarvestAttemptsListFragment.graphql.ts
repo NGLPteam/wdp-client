@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1ea56006064f11a8d35e2d81b75f9037>>
+ * @generated SignedSource<<a1e86437bf9bbb44735b46b1522f83fe>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,11 +9,13 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type HarvestAttemptState = "CANCELLED" | "EXECUTING" | "EXTRACTED" | "PENDING" | "SCHEDULED" | "%future added value";
 export type HarvestScheduleMode = "MANUAL" | "SCHEDULED" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type HarvestAttemptsListFragment$data = {
   readonly nodes: ReadonlyArray<{
     readonly beganAt: string | null | undefined;
+    readonly currentState: HarvestAttemptState;
     readonly endedAt: string | null | undefined;
     readonly harvestErrors: ReadonlyArray<{
       readonly code: string | null | undefined;
@@ -84,6 +86,13 @@ const node: ReaderFragment = {
           "args": null,
           "kind": "ScalarField",
           "name": "mode",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "currentState",
           "storageKey": null
         },
         {
@@ -160,6 +169,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "3be8c2fb4bf0ed8fd93a35742fb54ed8";
+(node as any).hash = "c4572149d6cba2ae30e4bd673257df63";
 
 export default node;
