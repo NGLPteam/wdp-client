@@ -5,6 +5,7 @@ import startCase from "lodash/startCase";
 import { formatDate } from "@wdp/lib/helpers";
 import { useChildRouteLinks, useMaybeFragment, useRouteSlug } from "hooks";
 import { PageHeader, BackToAll } from "components/layout";
+import { ButtonControlRoute, ButtonControlGroup } from "components/atomic";
 import HtmlHead from "components/global/HtmlHead";
 import type { HarvestAttemptLayoutFragment$key } from "@/relay/HarvestAttemptLayoutFragment.graphql";
 import PruneEntitiesModal from "../PruneEntitiesModal";
@@ -58,20 +59,27 @@ export default function HarvestAttemptLayout({
     at: formatDate(beganAt ?? ""),
   })}`;
 
+  const buttons = (
+    <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
+      {id && <PruneEntitiesModal id={id} title={title} type="attempt" />}
+      {targetEntity?.slug && (
+        <ButtonControlRoute
+          route={targetEntity.harvestTargetKind.toLowerCase()}
+          query={{ slug: targetEntity.slug }}
+          icon="linkExternal"
+        >
+          {t("harvesting.view_target")}
+        </ButtonControlRoute>
+      )}
+    </ButtonControlGroup>
+  );
+
   return (
     <>
       <HtmlHead title={title} />
       <section>
         {backToProps && <BackToAll {...backToProps} />}
-        <PageHeader
-          title={title}
-          tabRoutes={manageRoutes}
-          buttons={
-            id ? (
-              <PruneEntitiesModal id={id} title={title} type="attempt" />
-            ) : undefined
-          }
-        />
+        <PageHeader title={title} tabRoutes={manageRoutes} buttons={buttons} />
         {children}
       </section>
     </>
@@ -95,6 +103,7 @@ const fragment = graphql`
     targetEntity {
       harvestTargetKind
       title
+      slug
     }
   }
 `;
