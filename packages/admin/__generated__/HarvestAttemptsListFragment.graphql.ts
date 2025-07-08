@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a1e86437bf9bbb44735b46b1522f83fe>>
+ * @generated SignedSource<<fa3cb97614b800181aa96de8ccef3a5f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,9 +17,6 @@ export type HarvestAttemptsListFragment$data = {
     readonly beganAt: string | null | undefined;
     readonly currentState: HarvestAttemptState;
     readonly endedAt: string | null | undefined;
-    readonly harvestErrors: ReadonlyArray<{
-      readonly code: string | null | undefined;
-    }>;
     readonly harvestSet: {
       readonly identifier: string;
     } | null | undefined;
@@ -137,24 +134,6 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "recordCount",
           "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "HarvestError",
-          "kind": "LinkedField",
-          "name": "harvestErrors",
-          "plural": true,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "code",
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
         }
       ],
       "storageKey": null
@@ -169,6 +148,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "c4572149d6cba2ae30e4bd673257df63";
+(node as any).hash = "75792f31ca2611f5e2f15a42c1b8f4f8";
 
 export default node;
