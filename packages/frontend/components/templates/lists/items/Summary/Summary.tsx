@@ -64,9 +64,9 @@ export default function SummaryListItem({
 
   const { header, subheader, context } = renderedSlots;
 
-  const checkForThumb = !hideCover && entity.__typename !== "Item";
-
-  const thumbnailData = checkForThumb ? getThumbWithFallback(entity) : null;
+  const thumbnailData = !hideCover ? getThumbWithFallback(entity) : null;
+  const showThumb =
+    thumbnailData?.hasThumb || entity.__typename === "Collection";
 
   return (
     <li
@@ -74,12 +74,12 @@ export default function SummaryListItem({
         [styles["item--browse"]]: browseStyle,
       })}
     >
-      {thumbnailData?.hasThumb && (
+      {showThumb && (
         <NamedLink href={href} className={styles.coverImage}>
           <CoverImage
             title={entity.title}
             id={entity.id}
-            data={thumbnailData.thumbnail}
+            data={thumbnailData?.thumbnail}
             maxWidth={120}
             maxHeight={160}
           />
