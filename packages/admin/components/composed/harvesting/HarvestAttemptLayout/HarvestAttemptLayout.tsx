@@ -1,6 +1,5 @@
 import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
-import { useSearchParams } from "next/navigation";
 import startCase from "lodash/startCase";
 import { formatDate } from "@wdp/lib/helpers";
 import { useChildRouteLinks, useMaybeFragment, useRouteSlug } from "hooks";
@@ -30,25 +29,9 @@ export default function HarvestAttemptLayout({
     targetEntity,
   } = useMaybeFragment(fragment, data) ?? {};
 
-  const params = useSearchParams();
-  const backTo = params.get("backTo");
-
-  const backToProps =
-    backTo === "harvestMapping" && harvestMapping
-      ? {
-          route: "harvestMapping.harvestAttempts",
-          query: { slug: harvestMapping.slug },
-          label: `${startCase(t("glossary.harvest_mapping"))}${
-            harvestSource?.name ? `—${harvestSource?.name}` : ""
-          }`,
-        }
-      : harvestSource
-        ? {
-            route: "harvestSource.harvestAttempts",
-            query: { slug: harvestSource.slug },
-            label: harvestSource.name,
-          }
-        : null;
+  const format = harvestMapping?.metadataFormat;
+  const target = targetEntity?.title;
+  const mappingTitle = t("harvesting.mapping_breadcrumb", { format, target });
 
   const set = harvestSet?.identifier
     ? t("harvesting.set", { set: harvestSet.identifier })
@@ -58,6 +41,21 @@ export default function HarvestAttemptLayout({
   )}: ${targetEntity?.title}]${set}${t("harvesting.at", {
     at: formatDate(beganAt ?? ""),
   })}`;
+
+  const backToProps = harvestSource
+    ? {
+        route: "harvestSource.harvestAttempts",
+        query: { slug: harvestSource.slug },
+        label: harvestSource.name,
+        ...(!!harvestMapping?.slug && {
+          secondary: {
+            route: "harvestMapping.harvestAttempts",
+            query: { slug: harvestMapping.slug },
+            label: mappingTitle,
+          },
+        }),
+      }
+    : null;
 
   const buttons = (
     <ButtonControlGroup toggleLabel={t("options")} menuLabel={t("options")}>
@@ -99,6 +97,7 @@ const fragment = graphql`
     }
     harvestMapping {
       slug
+      metadataFormat
     }
     targetEntity {
       harvestTargetKind

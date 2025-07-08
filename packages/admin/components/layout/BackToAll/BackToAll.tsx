@@ -9,9 +9,14 @@ interface Props {
   route: string;
   query?: Record<string, string>;
   label?: string;
+  secondary?: {
+    route: string;
+    query?: Record<string, string>;
+    label: string;
+  };
 }
 
-const BackToAll = ({ route, query, label }: Props) => {
+const BackToAll = ({ route, query, label, secondary }: Props) => {
   const { t } = useTranslation();
   if (!route) return null;
 
@@ -26,6 +31,14 @@ const BackToAll = ({ route, query, label }: Props) => {
           <span>{label ?? startCase(`${t("all")} ${t(name)}`)}</span>
         </Styled.LinkWrapper>
       </NamedLink>
+      {!!secondary && (
+        <NamedLink route={secondary.route} query={secondary.query} passHref>
+          <Styled.LinkWrapper as="a" className="a-link">
+            <span>/</span>
+            <span>{secondary.label}</span>
+          </Styled.LinkWrapper>
+        </NamedLink>
+      )}
     </Styled.NavWrapper>
   );
 };

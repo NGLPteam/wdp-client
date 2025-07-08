@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<93e53319f3cc6ac192c453ea0d9afd81>>
+ * @generated SignedSource<<1cb7b0c700d6a6d854b72a8f7c7e17c1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -149,6 +149,13 @@ return {
             "plural": false,
             "selections": [
               (v3/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "metadataFormat",
+                "storageKey": null
+              },
               (v2/*: any*/)
             ],
             "storageKey": null
@@ -200,12 +207,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "60fb53c91e28c310172ba09d9a716046",
+    "cacheID": "c85fbe12b3bf0cecdab97c78c5fa4128",
     "id": null,
     "metadata": {},
     "name": "LayoutHarvestAttemptQuery",
     "operationKind": "query",
-    "text": "query LayoutHarvestAttemptQuery(\n  $slug: Slug!\n) {\n  harvestAttempt(slug: $slug) {\n    ...HarvestAttemptLayoutFragment\n    id\n  }\n}\n\nfragment HarvestAttemptLayoutFragment on HarvestAttempt {\n  id\n  beganAt\n  harvestSource {\n    slug\n    name\n    id\n  }\n  harvestSet {\n    identifier\n    id\n  }\n  harvestMapping {\n    slug\n    id\n  }\n  targetEntity {\n    __typename\n    harvestTargetKind\n    title\n    slug\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n"
+    "text": "query LayoutHarvestAttemptQuery(\n  $slug: Slug!\n) {\n  harvestAttempt(slug: $slug) {\n    ...HarvestAttemptLayoutFragment\n    id\n  }\n}\n\nfragment HarvestAttemptLayoutFragment on HarvestAttempt {\n  id\n  beganAt\n  harvestSource {\n    slug\n    name\n    id\n  }\n  harvestSet {\n    identifier\n    id\n  }\n  harvestMapping {\n    slug\n    metadataFormat\n    id\n  }\n  targetEntity {\n    __typename\n    harvestTargetKind\n    title\n    slug\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n"
   }
 };
 })();

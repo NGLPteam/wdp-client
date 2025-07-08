@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<57ee30ebefefc53d602e21482441030d>>
+ * @generated SignedSource<<6e64429064b44abaf8c0e92c44d06d3c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,11 +9,13 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type HarvestMetadataFormat = "ESPLORO" | "JATS" | "METS" | "MODS" | "OAIDC" | "%future added value";
 export type HarvestTargetKind = "COLLECTION" | "COMMUNITY" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type HarvestAttemptLayoutFragment$data = {
   readonly beganAt: string | null | undefined;
   readonly harvestMapping: {
+    readonly metadataFormat: HarvestMetadataFormat;
     readonly slug: string;
   } | null | undefined;
   readonly harvestSet: {
@@ -109,7 +111,14 @@ return {
       "name": "harvestMapping",
       "plural": false,
       "selections": [
-        (v0/*: any*/)
+        (v0/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "metadataFormat",
+          "storageKey": null
+        }
       ],
       "storageKey": null
     },
@@ -145,6 +154,6 @@ return {
 };
 })();
 
-(node as any).hash = "adc5f23a71e04dac4c74eaa9b662e874";
+(node as any).hash = "889c394b3e9c8744fa2b76eb4300989a";
 
 export default node;
