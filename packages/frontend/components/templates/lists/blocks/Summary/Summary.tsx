@@ -69,7 +69,7 @@ export default function SummaryListBlock({
   const browseStyle = !showHeroImage && background === "NONE";
 
   const normalizedContext =
-    !!descendantsDefinition && entityContext && !showNestedEntities
+    !!descendantsDefinition && entityContext
       ? entityContext
       : showEntityContext
         ? "FULL"
