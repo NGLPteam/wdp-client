@@ -230,7 +230,7 @@
       "admin": "Admin",
       "categories": "Categories",
       "communities": "$t(glossary.community_other)",
-      "community_picker": "Community Picker",
+      "community_picker": "Communities",
       "browse": "Browse",
       "browse_schema": "Browse {{schema}}",
       "account": "Account",
