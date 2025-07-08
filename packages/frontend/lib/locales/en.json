@@ -41,7 +41,7 @@
       "of_count": "of {{count, number}}",
       "showing_count_out_of_total": "<0>Showing</0> {{start}} - {{end}} <0>out of</0> {{total, number}} {{name}}",
       "order_by_label": "Order by:",
-      "and_x_more": "and {{count, number}} more",
+      "and_x_more": " and {{count, number}} more",
       "issue_title": "Vol. {{volumeNum}}, No. {{issueNum}}",
       "issue_title_no_vol": "No. {{issueNum}}"
     },

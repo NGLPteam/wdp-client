@@ -85,7 +85,7 @@ export default function AssetInlinePDF({ url, size }: Props) {
           i18nKey="asset.pdf_cannot_be_displayed"
           components={{
             downloadLink: (
-              <a href={url || ""} download>
+              <a style={{ marginInline: "5px" }} href={url || ""} download>
                 Download it instead
               </a>
             ),
