@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2a09734e2e66f443fba3f2159517eff4>>
+ * @generated SignedSource<<57ee30ebefefc53d602e21482441030d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,6 +26,7 @@ export type HarvestAttemptLayoutFragment$data = {
   readonly id: string;
   readonly targetEntity: {
     readonly harvestTargetKind: HarvestTargetKind;
+    readonly slug: string;
     readonly title: string;
   };
   readonly " $fragmentType": "HarvestAttemptLayoutFragment";
@@ -133,7 +134,8 @@ return {
           "kind": "ScalarField",
           "name": "title",
           "storageKey": null
-        }
+        },
+        (v0/*: any*/)
       ],
       "storageKey": null
     }
@@ -143,6 +145,6 @@ return {
 };
 })();
 
-(node as any).hash = "a6d2111e7ae62bf439f4160942e11d02";
+(node as any).hash = "adc5f23a71e04dac4c74eaa9b662e874";
 
 export default node;

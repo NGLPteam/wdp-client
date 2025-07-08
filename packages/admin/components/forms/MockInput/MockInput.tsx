@@ -49,5 +49,5 @@ interface Props {
   description?: string;
   hideLabel?: boolean;
   label: string;
-  value?: string | number | (() => React.JSX.Element) | null;
+  value?: React.ReactNode | (() => React.JSX.Element) | null;
 }
