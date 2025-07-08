@@ -682,7 +682,9 @@
         "mode_label": "Mode",
         "mode_description": "Select which entities to remove. If unmodified is selected, unmodified entities with modified children may be left in place.",
         "confirm_body": "Are you sure you want to proceed? This action cannot be undone."
-      }
+      },
+      "mapping_details_column": "{{format}} to {{target}}",
+      "mapping_details_column_set": "{{format}} to {{target}} ({{set}})"
     }
   }
 }
