@@ -5,13 +5,11 @@ import { useDestroyer, useRouteSlug } from "hooks";
 import ModelListPage from "components/composed/model/ModelListPage";
 import ModelColumns from "components/composed/model/ModelColumns";
 import PageHeader from "components/layout/PageHeader";
-import IconFactory from "components/factories/IconFactory";
 import { ButtonControlGroup, ButtonControlRoute } from "components/atomic";
 import type {
   HarvestMappingsListFragment$key,
   HarvestMappingsListFragment$data,
 } from "@/relay/HarvestMappingsListFragment.graphql";
-import * as Styled from "./HarvestMappingsList.styles";
 import type { ModelTableActionProps } from "@tanstack/react-table";
 
 type HeaderProps = React.ComponentProps<typeof PageHeader>;
@@ -36,16 +34,23 @@ function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
   const columns = [
     ModelColumns.LinkColumn<HarvestMappingNode>({
       id: "details",
-      accessor: () => (
-        <Styled.Link>
-          <span>{t("common.view")}</span>
-          <IconFactory icon="linkExternal" />
-        </Styled.Link>
-      ),
+      accessor: (row) => {
+        const set = row.harvestSet?.identifier;
+        const format = row.metadataFormat;
+        const target = row.targetEntity?.title;
+        const title = set
+          ? t("harvesting.mapping_details_column_set", { format, target, set })
+          : t("harvesting.mapping_details_column", { format, target });
+        return title;
+      },
       header: () => t("nav.details"),
       enableSorting: false,
       route: "harvestMapping",
       slug: "slug",
+    }),
+    ModelColumns.StringColumn<HarvestMappingNode>({
+      id: "harvestAttempts.pageInfo.totalCount",
+      header: () => t("lists.attempts_count_column"),
     }),
     ModelColumns.LinkColumn<HarvestMappingNode>({
       accessor: (row) =>
@@ -60,10 +65,6 @@ function HarvestMappingsList({ data, headerStyle, hideHeader }: Props) {
     ModelColumns.StringColumn<HarvestMappingNode>({
       id: "harvestSet.name",
       header: () => t("glossary.harvest_set"),
-    }),
-    ModelColumns.StringColumn<HarvestMappingNode>({
-      id: "harvestAttempts.pageInfo.totalCount",
-      header: () => t("lists.attempts_count_column"),
     }),
   ];
 
@@ -105,6 +106,7 @@ const fragment = graphql`
     nodes {
       id
       slug
+      metadataFormat
       harvestSource {
         name
       }
