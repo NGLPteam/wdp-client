@@ -3,7 +3,11 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { Fieldset, Select } from "components/forms";
 
-export default function SearchOrderBy() {
+export default function SearchOrderBy({
+  onSubmit,
+}: {
+  onSubmit?: (params: URLSearchParams) => void;
+}) {
   const { t } = useTranslation();
 
   const router = useRouter();
@@ -17,6 +21,8 @@ export default function SearchOrderBy() {
     const url = `${pathname}?${params.toString()}`;
 
     router.push(url);
+
+    if (onSubmit) onSubmit(params);
   };
 
   return (

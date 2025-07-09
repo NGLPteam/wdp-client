@@ -113,10 +113,16 @@ export default function SearchLayout({ data, scoped }: Props) {
           </DialogDisclosure>
         </div>
         <div className={styles.sidebar}>
-          {search && <SearchFilters id="sidebarFilters" data={search} />}
+          {search && (
+            <SearchFilters
+              id="sidebarFilters"
+              data={search}
+              onSubmit={doRefetch}
+            />
+          )}
         </div>
         <div className={styles.results}>
-          {noSearchQuery ? (
+          {noSearchQuery && !isPending ? (
             <NoContent message="search.start_search" />
           ) : (
             <SearchResults data={search?.results} isLoading={isPending} />
@@ -128,7 +134,10 @@ export default function SearchLayout({ data, scoped }: Props) {
           <SearchFilters
             id="mobileFilters"
             data={search}
-            onSubmit={() => dialog.hide()}
+            onSubmit={(params: URLSearchParams) => {
+              doRefetch(params);
+              dialog.hide();
+            }}
           />
         )}
       </BaseDrawer>
