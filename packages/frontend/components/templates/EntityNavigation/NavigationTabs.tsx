@@ -13,8 +13,10 @@ import styles from "./EntityNavigation.module.css";
 
 export default function NavigationTabs({
   data,
+  hasFullText,
 }: {
   data?: NavigationTabsFragment$key | null;
+  hasFullText: boolean;
 }) {
   const { slug } = useParams();
   const pathname = usePathname();
@@ -63,7 +65,7 @@ export default function NavigationTabs({
       aria-label={t("nav.content_navigation_label")}
     >
       <ul className={styles.list}>
-        {getLink(basePath, entityLabel)}
+        {hasFullText && getLink(basePath, entityLabel)}
         {getLink(`${basePath}/metadata`, "nav.metadata")}
         {entity.assets?.pageInfo.totalCount > 0 &&
           getLink(`${basePath}/files`, "nav.files")}
