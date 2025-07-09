@@ -9,7 +9,6 @@ import { useDialogState, DialogDisclosure } from "reakit/Dialog";
 import BaseDrawer from "components/layout/BaseDrawer";
 import { Button } from "components/atomic";
 import { NoContent } from "components/layout";
-import normalizeRouteQueryArray from "@wdp/lib/routes/helpers/normalizeRouteQueryArray";
 import routeQueryArrayToString from "@wdp/lib/routes/helpers/routeQueryArrayToString";
 import { getPredicates } from "helpers/search";
 import { EntityOrder } from "types/graphql-schema";
@@ -58,7 +57,7 @@ export default function SearchLayout({ data, scoped }: Props) {
     const page = routeQueryArrayToString(params.get("page"));
     const q = routeQueryArrayToString(params.get("q"));
     const order = routeQueryArrayToString(params.get("order")) as EntityOrder;
-    const schema = normalizeRouteQueryArray(params.get("schema"));
+    const schema = params.get("schema")?.split(",");
 
     const predicates = filters ? getPredicates(JSON.parse(filters)) : [];
 

@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import normalizeRouteQueryArray from "@wdp/lib/routes/helpers/normalizeRouteQueryArray";
 import { getPredicates } from "helpers/search";
 import SearchLayout from "@/components/composed/search/SearchLayout";
 import LoadingBlock from "@/components/atomic/loading/LoadingBlock";
@@ -25,7 +24,7 @@ export default async function CollectionSearchPage({
     predicates,
     page: page ? parseInt(page) : 1,
     order: order ?? "PUBLISHED_ASCENDING",
-    schema: schema ? normalizeRouteQueryArray(schema) : [],
+    schema: schema ? schema.split(",") : [],
   });
 
   const { collection } = data ?? {};

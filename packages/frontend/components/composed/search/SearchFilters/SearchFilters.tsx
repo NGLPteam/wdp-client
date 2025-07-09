@@ -7,7 +7,6 @@ import { filterSearchableProperties } from "@wdp/lib/search";
 import flatMap from "lodash/flatMap";
 import uniqBy from "lodash/uniqBy";
 import isEmpty from "lodash/isEmpty";
-import { normalizeRouteQueryArray } from "@wdp/lib/routes";
 import { Fieldset, BaseForm } from "components/forms";
 import { Button } from "components/atomic";
 import {
@@ -36,7 +35,7 @@ export default function SearchFilters({
     ...(searchParams.get("filters") && {
       ...JSON.parse(String(searchParams.get("filters"))),
     }),
-    schema: normalizeRouteQueryArray(searchParams.get("schema")),
+    schema: searchParams.get("schema")?.split(","),
   };
 
   const onSubmit = (data: Record<string, string>) => {
