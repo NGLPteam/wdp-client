@@ -5,6 +5,7 @@ import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageItemTemplateQuery as Query } from "@/relay/pageItemTemplateQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import { BasePageParams } from "@/types/page";
+import { FullTextCheckRedirect } from "@/components/templates/FullTextCheck/FullTextCheck";
 
 export default async function TemplatePage({
   params: { slug },
@@ -22,7 +23,9 @@ export default async function TemplatePage({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <MainLayout data={main} />
+      <FullTextCheckRedirect redirectPath={`/items/${slug}/metadata`}>
+        <MainLayout data={main} />
+      </FullTextCheckRedirect>
     </UpdateClientEnvironment>
   );
 }

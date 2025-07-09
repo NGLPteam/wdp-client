@@ -6,6 +6,7 @@ import getStaticGoogleScholarData from "contexts/GlobalStaticContext/getStaticGo
 import { ResolvingMetadata, Metadata } from "next";
 import HeroTemplate from "@/components/templates/Hero";
 import ProcessingCheck from "@/components/templates/ProcessingCheck";
+import FullTextCheck from "@/components/templates/FullTextCheck";
 import NavigationTemplate from "@/components/templates/EntityNavigation";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
@@ -55,8 +56,10 @@ export default async function ItemLayout({
             {slug && <ViewCounter slug={slug} />}
             {hero && <HeroTemplate data={hero} />}
             <EntityNavBar data={item} />
-            <NavigationTemplate data={navigation} />
-            {children}
+            <FullTextCheck data={layouts}>
+              <NavigationTemplate data={navigation} />
+              {children}
+            </FullTextCheck>
           </ProcessingCheck>
         </AppBody>
       </CommunityContextProvider>
@@ -75,6 +78,7 @@ const query = graphql`
           ...EntityNavigationTemplateFragment
         }
         ...ProcessingCheckFragment
+        ...FullTextCheckFragment
       }
       ...SearchButtonFragment
       ...EntityNavBarFragment
