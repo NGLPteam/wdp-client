@@ -61,7 +61,7 @@ export default function SearchFilters({
 
     router.push(url);
 
-    if (onSubmitCallback) onSubmitCallback();
+    if (onSubmitCallback) onSubmitCallback(params);
   };
 
   const handleReset = () => {
@@ -69,12 +69,13 @@ export default function SearchFilters({
     params.set("page", "1");
     params.delete("filters");
     params.delete("schema");
+    params.delete("order");
 
     const url = `${pathname}?${params.toString()}`;
 
     router.push(url);
 
-    if (onSubmitCallback) onSubmitCallback();
+    if (onSubmitCallback) onSubmitCallback(params);
   };
 
   const schemaProps = useMemo(() => {
@@ -97,7 +98,7 @@ export default function SearchFilters({
       {({ form: { reset } }) => (
         <>
           <div className={styles.filters} id={id}>
-            <SearchOrderBy />
+            <SearchOrderBy onSubmit={onSubmitCallback} />
             {searchData && (
               <Fieldset legend={t("filter.results_header")}>
                 <SearchSchemaFilter data={searchData} />
@@ -120,7 +121,7 @@ export default function SearchFilters({
               size="sm"
               onClick={() => {
                 handleReset();
-                reset();
+                reset({});
               }}
             >
               {t("filter.clear_filters")}
@@ -139,7 +140,7 @@ interface Props {
   /** Callback runs on form submit.
    * Used for closing the filter drawer after submission.
    */
-  onSubmit?: () => void;
+  onSubmit?: (params: URLSearchParams) => void;
 }
 
 type FilterNode = SearchFiltersFragment$data["coreProperties"][number];
