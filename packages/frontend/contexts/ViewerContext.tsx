@@ -22,7 +22,7 @@ function ViewerContextProvider({ children, data }: Props) {
   const isAuthenticated = useMemo(() => status === "authenticated", [status]);
 
   const viewer = useMemo(() => {
-    if (viewerData?.viewer) {
+    if (viewerData?.viewer && viewerData.viewer.name !== "Anonymous User") {
       const { avatar, ...viewerProps } = viewerData.viewer;
       const avatarUrl = avatar?.small.png?.url;
 

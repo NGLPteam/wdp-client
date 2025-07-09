@@ -12,6 +12,9 @@ import { useGlobalStaticContext } from "contexts/GlobalStaticContext";
 import { CommunityContext } from "@/contexts/CommunityContext";
 import { AppFooterFragment$key } from "@/relay/AppFooterFragment.graphql";
 import { CommunityPickerCommunityNameFragment$key } from "@/relay/CommunityPickerCommunityNameFragment.graphql";
+import { signIn } from "@/components/composed/AccountDropdown/actions";
+import { useSession } from "@/lib/auth/session";
+
 import styles from "./AppFooter.module.css";
 
 interface Props {
@@ -30,6 +33,8 @@ export default function AppFooter({ data, communityData }: Props) {
   const communityCount = app?.communities?.pageInfo?.totalCount || 0;
 
   const { t } = useTranslation();
+
+  const { status } = useSession();
 
   function renderRoute(href: string, label: string) {
     return (
@@ -91,8 +96,23 @@ export default function AppFooter({ data, communityData }: Props) {
           <h5 className="t-label-lg">{t("nav.explore")}</h5>
           <ul className={classNames("t-unstyled-list", styles.navList)}>
             {renderRoute("/", "nav.home")}
-            {process.env.NEXT_PUBLIC_ADMIN_URL &&
-              renderRoute(process.env.NEXT_PUBLIC_ADMIN_URL, "nav.admin")}
+            {status === "authenticated" ? (
+              process.env.NEXT_PUBLIC_ADMIN_URL &&
+              renderRoute(process.env.NEXT_PUBLIC_ADMIN_URL, "nav.admin")
+            ) : (
+              <li
+                className={classNames("t-copy-sm t-copy-light", styles.navItem)}
+              >
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    signIn();
+                  }}
+                >
+                  {t("common.sign_in")}
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
         {footer?.copyrightStatement && (

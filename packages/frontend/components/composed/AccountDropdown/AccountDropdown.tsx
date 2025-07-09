@@ -1,20 +1,17 @@
 import { useTranslation } from "react-i18next";
 import useViewerContext from "contexts/useViewerContext";
-import { Avatar, Dropdown, Link, NavMenuLink } from "components/atomic";
+import { Avatar, Dropdown, Link } from "components/atomic";
 import { useCallback, useMemo } from "react";
 import IconFactory from "@/components/factories/IconFactory";
 import { useSession } from "@/lib/auth/session";
 import styles from "./AccountDropdown.module.css";
 import { signIn, signOut } from "./actions";
 
-export default function AccountDropdown({ condensed, mobile }: Props) {
+export default function AccountDropdown({ condensed }: Props) {
   const { avatarUrl, name } = useViewerContext();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { status, data } = useSession();
+  const { status } = useSession();
 
   const { t } = useTranslation();
-
-  const signInOutClass = mobile ? "t-label-lg" : "t-label-sm";
 
   const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL;
 
@@ -55,15 +52,7 @@ export default function AccountDropdown({ condensed, mobile }: Props) {
           label={t("nav.account")}
           menuItems={menuItems}
         />
-      ) : (
-        <NavMenuLink
-          as="button"
-          className={signInOutClass}
-          onClick={handleClick}
-        >
-          {t("common.sign_in")}
-        </NavMenuLink>
-      )}
+      ) : null}
     </div>
   );
 }
