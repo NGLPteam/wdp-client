@@ -37,6 +37,7 @@ export default function CommunityPicker({ data }: Props) {
           ? `/communities/${menuItems[0].node.slug}`
           : "/communities"
       }
+      prefetch
     >
       <Button as="span" secondary size="sm">
         {menuItems[0].node.title}
@@ -61,6 +62,7 @@ export default function CommunityPicker({ data }: Props) {
             key={node.slug}
             href={`/communities/${node.slug}`}
             label={node.title}
+            prefetch
           />
         );
       })}
