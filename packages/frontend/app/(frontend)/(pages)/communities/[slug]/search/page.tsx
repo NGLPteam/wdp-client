@@ -3,7 +3,6 @@ import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
 import SearchLayout from "components/composed/search/SearchLayout";
 import LoadingBlock from "components/atomic/loading/LoadingBlock";
-import normalizeRouteQueryArray from "@wdp/lib/routes/helpers/normalizeRouteQueryArray";
 import { getPredicates } from "helpers/search";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
@@ -25,7 +24,7 @@ export default async function CommunitySearchPage({
     predicates,
     page: page ? parseInt(page) : 1,
     order: order ?? "PUBLISHED_ASCENDING",
-    schema: schema ? normalizeRouteQueryArray(schema) : [],
+    schema: schema ? schema.split(",") : [],
   });
 
   const { community } = data ?? {};
