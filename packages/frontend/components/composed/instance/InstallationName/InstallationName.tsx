@@ -21,7 +21,7 @@ export default function InstallationName({
     (logo?.sansText?.webp?.width || 1) / (logo?.sansText?.webp?.height || 1);
 
   return site?.installationName ? (
-    <Link href="/">
+    <Link href="/" prefetch>
       <span className={classNames(className, styles.link)}>
         {logoImage?.url && (
           <img

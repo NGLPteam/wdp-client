@@ -42,7 +42,7 @@ export default function AppFooter({ data, communityData }: Props) {
         key={href}
         className={classNames("t-copy-sm t-copy-light", styles.navItem)}
       >
-        <NamedLink href={href}>
+        <NamedLink href={href} prefetch>
           <span>{startCase(t(label))}</span>
         </NamedLink>
       </li>
