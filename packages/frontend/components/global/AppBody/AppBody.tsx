@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
 import { AppBodyFragment$key } from "@/relay/AppBodyFragment.graphql";
 import { SearchButtonFragment$key } from "@/relay/SearchButtonFragment.graphql";
+import { SetCommunityContextProvider } from "@/contexts/CommunityContext";
 import SkipLink from "@/components/global/SkipLink";
 import AppHeader from "../AppHeader";
 import AppFooter from "../AppFooter";
@@ -28,11 +29,13 @@ function AppBody({ children, data, searchData }: Props) {
   return (
     <div className={classNames("a-bg-neutral00", styles.content)}>
       <SkipLink toId="main-content" label={t("nav.skip_to_content")} />
-      <AppHeader data={globalData} searchData={searchData} />
-      <main id="main" tabIndex={-1}>
-        {children}
-      </main>
-      <AppFooter data={globalData} />
+      <SetCommunityContextProvider>
+        <AppHeader data={globalData} searchData={searchData} />
+        <main id="main" tabIndex={-1}>
+          {children}
+        </main>
+        <AppFooter data={globalData} />
+      </SetCommunityContextProvider>
     </div>
   );
 }

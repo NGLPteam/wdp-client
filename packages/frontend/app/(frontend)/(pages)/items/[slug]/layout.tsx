@@ -13,13 +13,12 @@ import { layoutItemTemplateQuery as Query } from "@/relay/layoutItemTemplateQuer
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import ViewCounter from "@/components/composed/analytics/ViewCounter";
 import EntityNavBar from "@/components/composed/entity/EntityNavBar";
-import AppBody from "@/components/global/AppBody";
-import { CommunityContextProvider } from "@/contexts/CommunityContext";
 import generateItemMetadata from "@/app/(frontend)/(pages)/items/[slug]/_metadata/item";
+import SetCommunity from "@/components/global/SetCommunity";
 
 export async function generateMetadata(
   props: BasePageParams,
-  parent: ResolvingMetadata
+  parent: ResolvingMetadata,
 ): Promise<Metadata> {
   return generateItemMetadata(props, parent);
 }
@@ -44,20 +43,18 @@ export default async function ItemLayout({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <CommunityContextProvider data={community}>
-        <AppBody data={data} searchData={item}>
-          <ProcessingCheck data={layouts} entityType="item">
-            {googleScholarData && (
-              <GoogleScholarMetaTags entity={googleScholarData} />
-            )}
-            {slug && <ViewCounter slug={slug} />}
-            {hero && <HeroTemplate data={hero} />}
-            <EntityNavBar data={item} />
-            <NavigationTemplate data={navigation} />
-            {children}
-          </ProcessingCheck>
-        </AppBody>
-      </CommunityContextProvider>
+      <SetCommunity data={community}>
+        <ProcessingCheck data={layouts} entityType="item">
+          {googleScholarData && (
+            <GoogleScholarMetaTags entity={googleScholarData} />
+          )}
+          {slug && <ViewCounter slug={slug} />}
+          {hero && <HeroTemplate data={hero} />}
+          <EntityNavBar data={item} />
+          <NavigationTemplate data={navigation} />
+          {children}
+        </ProcessingCheck>
+      </SetCommunity>
     </UpdateClientEnvironment>
   );
 }
@@ -78,9 +75,8 @@ const query = graphql`
       ...EntityNavBarFragment
 
       community {
-        ...CommunityContextFragment
+        ...SetCommunityFragment
       }
     }
-    ...AppBodyFragment
   }
 `;

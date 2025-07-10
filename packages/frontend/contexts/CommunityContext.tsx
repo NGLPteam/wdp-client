@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, type PropsWithChildren } from "react";
+import { createContext, type PropsWithChildren, useState } from "react";
 import { graphql, useFragment } from "react-relay";
 import {
   CommunityContextFragment$key,
@@ -30,3 +30,25 @@ const fragment = graphql`
     ...CommunityPickerCommunityNameFragment
   }
 `;
+
+type Setter = (data: CommunityContextFragment$key | null) => void;
+export const SetCommunityContext = createContext<Setter | undefined | null>(
+  null,
+);
+
+export const SetCommunityContextProvider = ({
+  children,
+}: PropsWithChildren) => {
+  const [data, setData] = useState<
+    CommunityContextFragment$key | undefined | null
+  >();
+  const community = useFragment(fragment, data);
+
+  return (
+    <SetCommunityContext.Provider value={setData}>
+      <CommunityContext.Provider value={community}>
+        {children}
+      </CommunityContext.Provider>
+    </SetCommunityContext.Provider>
+  );
+};
