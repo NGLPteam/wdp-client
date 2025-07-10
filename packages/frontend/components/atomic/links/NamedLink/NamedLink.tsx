@@ -8,7 +8,7 @@ const NamedLink = ({
   href,
   as,
   prefetch = false,
-  scroll,
+  scroll = false,
   ...props
 }: Props) => {
   return href ? (
