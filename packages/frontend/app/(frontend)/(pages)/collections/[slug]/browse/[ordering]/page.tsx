@@ -10,10 +10,6 @@ import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
 type ContextType = ComponentProps<typeof EntityOrderingLayout>["showContext"];
 
-export async function generateStaticParams() {
-  return [];
-}
-
 export default async function CollectionBrowsePage({
   params,
   searchParams,
