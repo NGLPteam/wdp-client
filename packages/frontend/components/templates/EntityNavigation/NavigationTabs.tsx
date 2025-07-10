@@ -46,7 +46,7 @@ export default function NavigationTabs({
 
     return renderedLabel ? (
       <li className={styles.item} key={href}>
-        <NamedLink href={href} scroll={false}>
+        <NamedLink href={href} scroll={false} prefetch>
           <span
             className={styles.tab}
             aria-current={isCurrent ? "page" : undefined}
