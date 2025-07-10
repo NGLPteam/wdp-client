@@ -7,6 +7,10 @@ import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import { BasePageParams } from "@/types/page";
 import { FullTextCheckRedirect } from "@/components/templates/FullTextCheck/FullTextCheck";
 
+export async function generateStaticParams() {
+  return [];
+}
+
 export default async function TemplatePage({
   params: { slug },
 }: BasePageParams) {

@@ -1,7 +1,6 @@
 import "@/styles/global.css";
 
 import { graphql } from "relay-runtime";
-import { unstable_noStore as noStore } from "next/cache";
 import ThemeProvider from "contexts/ThemeProvider";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import type { RouteParams } from "@/types/page";
@@ -17,10 +16,6 @@ export default async function RootLayout({
   children,
   params: { lang },
 }: PropsWithChildren & RouteParams) {
-  // We need dynamic routing for all our routes, because
-  // we need runtime environment variable derivation.
-  noStore();
-
   const { data } = await fetchQuery<Query>(query, {});
 
   const theme = data?.globalConfiguration?.theme;
@@ -39,8 +34,6 @@ export default async function RootLayout({
     </html>
   );
 }
-
-export const dynamic = "force-dynamic";
 
 const query = graphql`
   query layoutThemeQuery {

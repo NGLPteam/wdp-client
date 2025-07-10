@@ -40,8 +40,6 @@ export default async function CommunitySearchPage({
   );
 }
 
-export const dynamic = "force-dynamic";
-
 const query = graphql`
   query pageTemplatesSearchCommunityQuery(
     $slug: Slug!
