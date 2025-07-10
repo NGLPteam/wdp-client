@@ -8,10 +8,6 @@ import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageBrowseCommunityOrderingQuery as OrderingQuery } from "@/relay/pageBrowseCommunityOrderingQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
-export async function generateStaticParams() {
-  return [];
-}
-
 export default async function CommunityBrowsePage({
   params,
   searchParams,
