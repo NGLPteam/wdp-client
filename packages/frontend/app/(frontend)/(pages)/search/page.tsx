@@ -7,7 +7,7 @@ import { getPredicates } from "helpers/search";
 import { pageSearchQuery as Query } from "@/relay/pageSearchQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import fetchQuery from "@/lib/relay/fetchQuery";
-import AppBody from "@/components/global/AppBody";
+import SetCommunity from "@/components/global/SetCommunity";
 
 export default async function SearchPage({
   searchParams,
@@ -30,11 +30,11 @@ export default async function SearchPage({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <AppBody data={data}>
+      <SetCommunity>
         <Suspense fallback={<LoadingBlock />}>
           <SearchLayout data={data} />
         </Suspense>
-      </AppBody>
+      </SetCommunity>
     </UpdateClientEnvironment>
   );
 }
@@ -55,7 +55,5 @@ const query = graphql`
         order: $order
         schema: $schema
       )
-
-    ...AppBodyFragment
   }
 `;

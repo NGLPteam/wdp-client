@@ -5,7 +5,7 @@ import InstanceHero from "components/composed/instance/InstanceHero";
 import fetchQuery from "@/lib/relay/fetchQuery";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import { pageInstanceContentLayoutQuery as Query } from "@/relay/pageInstanceContentLayoutQuery.graphql";
-import AppBody from "@/components/global/AppBody";
+import SetCommunity from "@/components/global/SetCommunity";
 
 export default async function HomePage() {
   const { data: instance, records } = await fetchQuery<Query>(query, {});
@@ -22,10 +22,10 @@ export default async function HomePage() {
 
   return (
     <UpdateClientEnvironment records={records}>
-      <AppBody data={instance}>
+      <SetCommunity>
         <InstanceHero data={instance} />
         <InstanceCommunities data={instance.communities} />
-      </AppBody>
+      </SetCommunity>
     </UpdateClientEnvironment>
   );
 }
@@ -44,6 +44,5 @@ const query = graphql`
       ...InstanceCommunitiesFragment
     }
     ...InstanceHeroFragment
-    ...AppBodyFragment
   }
 `;

@@ -10,13 +10,12 @@ import { layoutCollectionTemplateQuery as Query } from "@/relay/layoutCollection
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import ViewCounter from "@/components/composed/analytics/ViewCounter";
 import EntityNavBar from "@/components/composed/entity/EntityNavBar";
-import AppBody from "@/components/global/AppBody";
-import { CommunityContextProvider } from "@/contexts/CommunityContext";
 import generateCollectionMetadata from "@/app/(frontend)/(pages)/collections/[slug]/_metadata/collection";
+import SetCommunity from "@/components/global/SetCommunity";
 
 export async function generateMetadata(
   props: BasePageParams,
-  parent: ResolvingMetadata
+  parent: ResolvingMetadata,
 ): Promise<Metadata> {
   return generateCollectionMetadata(props, parent);
 }
@@ -37,16 +36,14 @@ export default async function CollectionTemplateLayout({
 
   return (
     <UpdateClientEnvironment records={records}>
-      <CommunityContextProvider data={community}>
-        <AppBody data={data} searchData={collection}>
-          <ProcessingCheck data={layouts} entityType="collection">
-            {slug && <ViewCounter slug={slug} />}
-            {layouts.hero && <HeroTemplate data={layouts.hero} />}
-            <EntityNavBar data={collection} />
-            {children}
-          </ProcessingCheck>
-        </AppBody>
-      </CommunityContextProvider>
+      <SetCommunity data={community}>
+        <ProcessingCheck data={layouts} entityType="collection">
+          {slug && <ViewCounter slug={slug} />}
+          {layouts.hero && <HeroTemplate data={layouts.hero} />}
+          <EntityNavBar data={collection} />
+          {children}
+        </ProcessingCheck>
+      </SetCommunity>
     </UpdateClientEnvironment>
   );
 }
@@ -64,9 +61,8 @@ const query = graphql`
       ...EntityNavBarFragment
 
       community {
-        ...CommunityContextFragment
+        ...SetCommunityFragment
       }
     }
-    ...AppBodyFragment
   }
 `;

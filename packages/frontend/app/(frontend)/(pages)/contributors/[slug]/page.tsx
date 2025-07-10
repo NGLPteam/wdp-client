@@ -8,8 +8,7 @@ import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import { pageContributorDetailQuery as DetailQuery } from "@/relay/pageContributorDetailQuery.graphql";
 import { pageContributorItemDetailQuery as ItemQuery } from "@/relay/pageContributorItemDetailQuery.graphql";
 import { pageContributorCollectionLayoutQuery as CollectionQuery } from "@/relay/pageContributorCollectionLayoutQuery.graphql";
-import AppBody from "@/components/global/AppBody";
-import { CommunityContextProvider } from "@/contexts/CommunityContext";
+import SetCommunity from "@/components/global/SetCommunity";
 
 export async function generateStaticParams() {
   return [];
@@ -20,14 +19,17 @@ export default async function ContributorPage({
   searchParams,
 }: BasePageParams & { searchParams: Record<string, string> }) {
   const { slug } = params;
-  const { item: itemSlug, collection: collectionSlug, page = "1" } =
-    searchParams ?? {};
+  const {
+    item: itemSlug,
+    collection: collectionSlug,
+    page = "1",
+  } = searchParams ?? {};
 
   const query = itemSlug
     ? itemQuery
     : collectionSlug
-    ? collectionQuery
-    : detailQuery;
+      ? collectionQuery
+      : detailQuery;
 
   const { data, records } = await fetchQuery<
     DetailQuery | ItemQuery | CollectionQuery
@@ -48,18 +50,16 @@ export default async function ContributorPage({
   const community = item
     ? item.community
     : collection
-    ? collection.community
-    : undefined;
+      ? collection.community
+      : undefined;
 
   return (
     <UpdateClientEnvironment records={records}>
-      <CommunityContextProvider data={community}>
-        <AppBody data={data}>
-          {item && <ContributorDetailNav data={item} />}
-          {collection && <ContributorDetailNav data={collection} />}
-          <ContributorDetail data={contributor} />
-        </AppBody>
-      </CommunityContextProvider>
+      <SetCommunity data={community}>
+        {item && <ContributorDetailNav data={item} />}
+        {collection && <ContributorDetailNav data={collection} />}
+        <ContributorDetail data={contributor} />
+      </SetCommunity>
     </UpdateClientEnvironment>
   );
 }
@@ -69,7 +69,6 @@ const detailQuery = graphql`
     contributor(slug: $slug) {
       ...ContributorDetailFragment
     }
-    ...AppBodyFragment
   }
 `;
 
@@ -83,11 +82,9 @@ const itemQuery = graphql`
       ...ContributorDetailNavFragment
 
       community {
-        ...CommunityContextFragment
+        ...SetCommunityFragment
       }
     }
-
-    ...AppBodyFragment
   }
 `;
 
@@ -105,10 +102,8 @@ const collectionQuery = graphql`
       ...ContributorDetailNavFragment
 
       community {
-        ...CommunityContextFragment
+        ...SetCommunityFragment
       }
     }
-
-    ...AppBodyFragment
   }
 `;
