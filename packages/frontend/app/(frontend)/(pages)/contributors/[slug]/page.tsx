@@ -11,22 +11,23 @@ import { pageContributorCollectionLayoutQuery as CollectionQuery } from "@/relay
 import AppBody from "@/components/global/AppBody";
 import { CommunityContextProvider } from "@/contexts/CommunityContext";
 
+export async function generateStaticParams() {
+  return [];
+}
+
 export default async function ContributorPage({
   params,
   searchParams,
 }: BasePageParams & { searchParams: Record<string, string> }) {
   const { slug } = params;
-  const {
-    item: itemSlug,
-    collection: collectionSlug,
-    page = "1",
-  } = searchParams ?? {};
+  const { item: itemSlug, collection: collectionSlug, page = "1" } =
+    searchParams ?? {};
 
   const query = itemSlug
     ? itemQuery
     : collectionSlug
-      ? collectionQuery
-      : detailQuery;
+    ? collectionQuery
+    : detailQuery;
 
   const { data, records } = await fetchQuery<
     DetailQuery | ItemQuery | CollectionQuery
@@ -47,8 +48,8 @@ export default async function ContributorPage({
   const community = item
     ? item.community
     : collection
-      ? collection.community
-      : undefined;
+    ? collection.community
+    : undefined;
 
   return (
     <UpdateClientEnvironment records={records}>

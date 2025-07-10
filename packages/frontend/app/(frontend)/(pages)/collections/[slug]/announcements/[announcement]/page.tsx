@@ -8,6 +8,10 @@ import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageTemplatesCollectionAnnouncementQuery as Query } from "@/relay/pageTemplatesCollectionAnnouncementQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
+export async function generateStaticParams() {
+  return [];
+}
+
 export default async function CollectionAnnouncementPage({
   params,
 }: BasePageParams) {
@@ -30,8 +34,6 @@ export default async function CollectionAnnouncementPage({
     </UpdateClientEnvironment>
   );
 }
-
-export const dynamic = "force-dynamic";
 
 const query = graphql`
   query pageTemplatesCollectionAnnouncementQuery(

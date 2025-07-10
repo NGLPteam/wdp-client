@@ -30,8 +30,6 @@ export default async function HomePage() {
   );
 }
 
-export const dynamic = "force-dynamic";
-
 const query = graphql`
   query pageInstanceContentLayoutQuery {
     communities(order: POSITION_ASCENDING) {

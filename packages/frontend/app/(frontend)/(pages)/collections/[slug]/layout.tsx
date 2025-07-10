@@ -16,12 +16,10 @@ import generateCollectionMetadata from "@/app/(frontend)/(pages)/collections/[sl
 
 export async function generateMetadata(
   props: BasePageParams,
-  parent: ResolvingMetadata,
+  parent: ResolvingMetadata
 ): Promise<Metadata> {
   return generateCollectionMetadata(props, parent);
 }
-
-export const dynamic = "force-dynamic";
 
 export default async function CollectionTemplateLayout({
   children,

@@ -6,6 +6,10 @@ import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageTemplatesItemFileDetailQuery as Query } from "@/relay/pageTemplatesItemFileDetailQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
+export async function generateStaticParams() {
+  return [];
+}
+
 export default async function ItemFileDetailPage({ params }: BasePageParams) {
   const { file } = params;
 

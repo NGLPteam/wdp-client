@@ -12,8 +12,10 @@ import { ViewerContextProvider } from "@/contexts/ViewerContext";
 import { BasePageParams } from "@/types/page";
 import generateSiteMetadata from "./_metadata/site";
 
+export const revalidate = 300;
+
 export async function generateMetadata(
-  props: BasePageParams,
+  props: BasePageParams
 ): Promise<Metadata> {
   return generateSiteMetadata(props);
 }
@@ -37,8 +39,6 @@ export default async function PageLayout({ children }: PropsWithChildren) {
     </SessionProvider>
   );
 }
-
-export const dynamic = "force-dynamic";
 
 const query = graphql`
   query layoutAllPagesQuery {

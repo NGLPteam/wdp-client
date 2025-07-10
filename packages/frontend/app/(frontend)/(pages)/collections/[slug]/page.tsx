@@ -6,6 +6,10 @@ import { pageCollectionTemplateQuery as Query } from "@/relay/pageCollectionTemp
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import { BasePageParams } from "@/types/page";
 
+export async function generateStaticParams() {
+  return [];
+}
+
 export default async function TemplatePage({
   params: { slug },
 }: BasePageParams) {

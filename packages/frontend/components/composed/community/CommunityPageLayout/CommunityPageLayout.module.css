@@ -1,10 +1,7 @@
 .content {
   max-inline-size: 48rem;
   padding-block-end: var(--container-padding-xl);
-
-  section:has(figure) & {
-    padding-block-start: var(--container-padding-md);
-  }
+  padding-block-start: var(--container-padding-md);
 
   h1,
   h2 {

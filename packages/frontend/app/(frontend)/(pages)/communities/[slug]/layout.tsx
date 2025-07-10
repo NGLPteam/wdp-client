@@ -15,7 +15,7 @@ import generateCommunityMetadata from "@/app/(frontend)/(pages)/communities/[slu
 
 export async function generateMetadata(
   props: BasePageParams,
-  parent: ResolvingMetadata,
+  parent: ResolvingMetadata
 ): Promise<Metadata> {
   return generateCommunityMetadata(props, parent);
 }
@@ -53,8 +53,6 @@ export default async function CommunityLayout({
     </UpdateClientEnvironment>
   );
 }
-
-export const dynamic = "force-dynamic";
 
 const query = graphql`
   query layoutCommunityTemplateQuery($slug: Slug!) {

@@ -6,6 +6,10 @@ import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageTemplatesCommunityPageQuery as Query } from "@/relay/pageTemplatesCommunityPageQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
+export async function generateStaticParams() {
+  return [];
+}
+
 export default async function CommunityPagePage({ params }: BasePageParams) {
   const { slug, page: pageSlug } = params;
 
@@ -24,8 +28,6 @@ export default async function CommunityPagePage({ params }: BasePageParams) {
     </UpdateClientEnvironment>
   );
 }
-
-export const dynamic = "force-dynamic";
 
 const query = graphql`
   query pageTemplatesCommunityPageQuery($slug: Slug!, $pageSlug: String!) {

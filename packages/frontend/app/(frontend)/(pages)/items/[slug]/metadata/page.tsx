@@ -6,6 +6,8 @@ import { pageTemplatesItemMetadataQuery as Query } from "@/relay/pageTemplatesIt
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import MetadataTemplate from "@/components/templates/Metadata";
 
+export const dynamic = "force-static";
+
 export default async function ItemPage({ params }: BasePageParams) {
   const { slug } = params;
 

@@ -10,6 +10,10 @@ import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
 type ContextType = ComponentProps<typeof EntityOrderingLayout>["showContext"];
 
+export async function generateStaticParams() {
+  return [];
+}
+
 export default async function CollectionBrowsePage({
   params,
   searchParams,
@@ -44,8 +48,6 @@ export default async function CollectionBrowsePage({
     </UpdateClientEnvironment>
   );
 }
-
-export const dynamic = "force-dynamic";
 
 const query = graphql`
   query pageTemplatesBrowseCollectionQuery(
