@@ -9,13 +9,14 @@ import { layoutAllPagesQuery as Query } from "@/relay/layoutAllPagesQuery.graphq
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import { SessionProvider } from "@/lib/auth/session";
 import { ViewerContextProvider } from "@/contexts/ViewerContext";
+import AppBody from "@/components/global/AppBody";
 import { BasePageParams } from "@/types/page";
 import generateSiteMetadata from "./_metadata/site";
 
 export const revalidate = 300;
 
 export async function generateMetadata(
-  props: BasePageParams
+  props: BasePageParams,
 ): Promise<Metadata> {
   return generateSiteMetadata(props);
 }
@@ -26,22 +27,25 @@ export default async function PageLayout({ children }: PropsWithChildren) {
   const { data, records } = await fetchQuery<Query>(query, {});
 
   return (
-    <SessionProvider>
-      <GlobalStaticContextProvider globalData={globalData}>
-        <RelayEnvironmentProvider>
-          <ViewerContextProvider data={data}>
-            <UpdateClientEnvironment records={records}>
-              {children}
-            </UpdateClientEnvironment>
-          </ViewerContextProvider>
-        </RelayEnvironmentProvider>
-      </GlobalStaticContextProvider>
-    </SessionProvider>
+    <>
+      <SessionProvider>
+        <GlobalStaticContextProvider globalData={globalData}>
+          <RelayEnvironmentProvider>
+            <ViewerContextProvider data={data}>
+              <UpdateClientEnvironment records={records}>
+                <AppBody data={data}>{children}</AppBody>
+              </UpdateClientEnvironment>
+            </ViewerContextProvider>
+          </RelayEnvironmentProvider>
+        </GlobalStaticContextProvider>
+      </SessionProvider>
+    </>
   );
 }
 
 const query = graphql`
   query layoutAllPagesQuery {
     ...ViewerContextFragment
+    ...AppBodyFragment
   }
 `;
