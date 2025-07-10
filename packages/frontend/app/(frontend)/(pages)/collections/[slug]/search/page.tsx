@@ -40,8 +40,6 @@ export default async function CollectionSearchPage({
   );
 }
 
-export const dynamic = "force-dynamic";
-
 const query = graphql`
   query pageSearchCollectionQuery(
     $slug: Slug!

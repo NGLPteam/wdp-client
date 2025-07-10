@@ -9,6 +9,8 @@ import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageTemplatesItemMetricsQuery as Query } from "@/relay/pageTemplatesItemMetricsQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
+export const dynamic = "force-static";
+
 export default async function ItemMetricsPage({ params }: BasePageParams) {
   const { slug } = params;
 
