@@ -12,6 +12,7 @@ import { createNetwork } from "./network";
 type SharedEnvProps = {
   records?: RecordMap;
   sessionToken?: string;
+  url?: string;
 };
 
 const IS_SERVER = typeof window === typeof undefined;
@@ -29,25 +30,25 @@ export const responseCache: QueryResponseCache | null = IS_SERVER
 export default function createEnvironment({
   records,
   sessionToken,
+  url,
 }: SharedEnvProps = {}) {
   const source = new RecordSource(records);
 
   const store = new Store(source, { queryCacheExpirationTime: 5 * 60 * 1000 });
 
   return new Environment({
-    network: createNetwork({ sessionToken }),
+    network: createNetwork({ sessionToken, url }),
     store,
     isServer: IS_SERVER,
   });
 }
 
-export const env = createEnvironment();
-
 // Define and return the current environment
 export function getCurrentEnvironment(
   props: {
     sessionToken?: string;
-  } = {},
+    url?: string;
+  } = {}
 ) {
   const sessionToken = props.sessionToken ?? getToken();
 
@@ -59,5 +60,5 @@ export function getCurrentEnvironment(
     return createEnvironment({ sessionToken });
   }
 
-  return env;
+  return createEnvironment({ url: props.url });
 }

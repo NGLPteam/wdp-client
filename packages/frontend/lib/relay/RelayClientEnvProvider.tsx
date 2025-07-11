@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, ReactNode } from "react";
+import { useRef, ReactNode, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { RelayEnvironmentProvider as RelayProvider } from "react-relay";
 import { RecordMap } from "relay-runtime/lib/store/RelayStoreTypes";
@@ -15,11 +15,25 @@ export default function RelayEnvironmentProvider(props: {
 
   const sessionRef = useLatest(session?.data || undefined);
 
-  const env = useRef(
+  const env = useRef<ReturnType<typeof getCurrentEnvironment>>(
     getCurrentEnvironment({
       sessionToken: sessionRef.current?.accessToken,
-    }),
+    })
   );
+
+  useEffect(() => {
+    const fetchApiUrl = async () => {
+      const res = await fetch("/api/env");
+      const json = await res.json();
+      if (json.url) {
+        env.current = getCurrentEnvironment({
+          sessionToken: sessionRef.current?.accessToken,
+          url: json.url,
+        });
+      }
+    };
+    fetchApiUrl();
+  }, []);
 
   return (
     <>

@@ -22,16 +22,20 @@ export async function fetchOperation({
   operation,
   variables,
   sessionToken,
+  url,
 }: {
   operation: RequestParameters;
   variables: Variables;
   sessionToken?: string;
+  url?: string;
 }) {
   const headers = getGQLHeaders(sessionToken);
 
-  const url = new URL(getAPIURL());
+  console.log({ url });
 
-  return fetch(url, {
+  const apiUrl = url ?? new URL(getAPIURL());
+
+  return fetch(apiUrl, {
     method: "POST",
     headers,
     body: JSON.stringify({
@@ -45,11 +49,13 @@ export async function networkFetch(
   request: RequestParameters,
   variables: Variables,
   sessionToken?: string,
+  url?: string
 ): Promise<GraphQLResponse> {
   const resp = await fetchOperation({
     operation: request,
     variables,
     sessionToken,
+    url,
   });
   const json = await resp.json();
 
@@ -62,19 +68,25 @@ export async function networkFetch(
       `Error fetching GraphQL query '${
         request.name
       }' with variables '${JSON.stringify(variables)}': ${JSON.stringify(
-        json.errors,
-      )}`,
+        json.errors
+      )}`
     );
   }
 
   return json;
 }
 
-export function createNetwork({ sessionToken }: { sessionToken?: string }) {
+export function createNetwork({
+  sessionToken,
+  url,
+}: {
+  sessionToken?: string;
+  url?: string;
+}) {
   async function fetchResponse(
     params: RequestParameters,
     variables: Variables,
-    cacheConfig: CacheConfig,
+    cacheConfig: CacheConfig
   ) {
     const isQuery = params.operationKind === "query";
     const cacheKey = params.id ?? params.cacheID;
@@ -87,7 +99,7 @@ export function createNetwork({ sessionToken }: { sessionToken?: string }) {
       }
     }
 
-    return networkFetch(params, variables, sessionToken);
+    return networkFetch(params, variables, sessionToken, url);
   }
 
   const network = Network.create(fetchResponse);
