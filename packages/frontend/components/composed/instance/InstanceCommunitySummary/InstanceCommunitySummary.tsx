@@ -1,7 +1,5 @@
 import { graphql, useFragment } from "react-relay";
-import { useTranslation } from "react-i18next";
 import classNames from "classnames";
-import { getSchemaPluralName } from "helpers";
 import { NamedLink } from "components/atomic";
 import Markdown from "components/atomic/Markdown";
 import { InstanceCommunitySummaryFragment$key } from "@/relay/InstanceCommunitySummaryFragment.graphql";
@@ -10,8 +8,6 @@ import styles from "./InstanceCommunitySummary.module.css";
 
 export default function InstanceCommunitySummary({ data }: Props) {
   const community = useFragment(fragment, data);
-
-  const { t } = useTranslation();
 
   const heroImage = community.heroImage.large?.webp;
   const logoImage = community.logo.original;
@@ -61,18 +57,18 @@ export default function InstanceCommunitySummary({ data }: Props) {
               {community.summary}
             </Markdown.Summary>
           )}
-          {community.schemaRanks && (
+          {!!community.orderings.nodes.length && (
             <ul className={styles["count__list"]}>
-              {community.schemaRanks.map(({ slug, count, name }) => {
-                return (
-                  <li className={styles["count__item"]} key={slug}>
-                    <span>
-                      {count > 1 ? getSchemaPluralName(slug, name, t) : name}
-                    </span>
-                    <span>{new Intl.NumberFormat().format(count)}</span>
-                  </li>
-                );
-              })}
+              {community.orderings.nodes
+                .filter(({ count }) => !!count)
+                .map(({ slug, count, name }) => {
+                  return (
+                    <li className={styles["count__item"]} key={slug}>
+                      <span>{name}</span>
+                      <span>{new Intl.NumberFormat().format(count)}</span>
+                    </li>
+                  );
+                })}
             </ul>
           )}
         </div>
@@ -91,10 +87,12 @@ const fragment = graphql`
     title
     tagline
     summary
-    schemaRanks {
-      slug
-      name
-      count
+    orderings {
+      nodes {
+        slug
+        name
+        count
+      }
     }
     heroImage {
       large {
