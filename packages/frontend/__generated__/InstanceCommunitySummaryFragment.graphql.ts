@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<47c32617824223a5813df590139a85b2>>
+ * @generated SignedSource<<a41759cd7083e7d0a16cd474f16ff5a8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -41,11 +41,13 @@ export type InstanceCommunitySummaryFragment$data = {
       readonly width: number | null | undefined;
     };
   };
-  readonly schemaRanks: ReadonlyArray<{
-    readonly count: number;
-    readonly name: string;
-    readonly slug: string;
-  }>;
+  readonly orderings: {
+    readonly nodes: ReadonlyArray<{
+      readonly count: number;
+      readonly name: string | null | undefined;
+      readonly slug: string;
+    }>;
+  };
   readonly slug: string;
   readonly summary: string | null | undefined;
   readonly tagline: string | null | undefined;
@@ -143,24 +145,35 @@ return {
     {
       "alias": null,
       "args": null,
-      "concreteType": "HierarchicalSchemaRank",
+      "concreteType": "OrderingConnection",
       "kind": "LinkedField",
-      "name": "schemaRanks",
-      "plural": true,
+      "name": "orderings",
+      "plural": false,
       "selections": [
-        (v0/*: any*/),
         {
           "alias": null,
           "args": null,
-          "kind": "ScalarField",
-          "name": "name",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "count",
+          "concreteType": "Ordering",
+          "kind": "LinkedField",
+          "name": "nodes",
+          "plural": true,
+          "selections": [
+            (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "name",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "count",
+              "storageKey": null
+            }
+          ],
           "storageKey": null
         }
       ],
@@ -245,6 +258,6 @@ return {
 };
 })();
 
-(node as any).hash = "ac5778a0c4673122d84d301c88aeae48";
+(node as any).hash = "3cb3a99097dc18641109c85bc5a07d9f";
 
 export default node;
