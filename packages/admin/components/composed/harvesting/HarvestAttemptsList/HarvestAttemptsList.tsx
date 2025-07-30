@@ -47,7 +47,7 @@ function HarvestAttemptsList({ data, headerStyle, hideHeader, backTo }: Props) {
       header: () => t("glossary.harvest_set"),
     }),
     ModelColumns.StringColumn<HarvestAttemptNode>({
-      id: "recordCount",
+      id: "harvestRecords.pageInfo.totalCount",
       header: () => t("lists.record_count_column"),
     }),
   ];
@@ -78,7 +78,11 @@ export const fragment = graphql`
       harvestSet {
         identifier
       }
-      recordCount
+      harvestRecords {
+        pageInfo {
+          totalCount
+        }
+      }
     }
     ...ModelListPageFragment
   }
