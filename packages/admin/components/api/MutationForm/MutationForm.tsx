@@ -181,7 +181,11 @@ export default function MutationForm<
       } else {
         dispatch({ type: "failure", errors });
 
-        if (failureNotification) {
+        if (errors.global?.length) {
+          notify.error(
+            t("messages.error_message", { error: errors.global.join(";") }),
+          );
+        } else if (failureNotification) {
           notify.error(t(failureNotification));
         }
 
