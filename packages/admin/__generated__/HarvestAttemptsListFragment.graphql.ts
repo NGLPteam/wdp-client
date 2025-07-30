@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fa3cb97614b800181aa96de8ccef3a5f>>
+ * @generated SignedSource<<3d08046137414727d6d1a19f279c7acf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,6 +17,11 @@ export type HarvestAttemptsListFragment$data = {
     readonly beganAt: string | null | undefined;
     readonly currentState: HarvestAttemptState;
     readonly endedAt: string | null | undefined;
+    readonly harvestRecords: {
+      readonly pageInfo: {
+        readonly totalCount: number;
+      };
+    };
     readonly harvestSet: {
       readonly identifier: string;
     } | null | undefined;
@@ -25,7 +30,6 @@ export type HarvestAttemptsListFragment$data = {
     };
     readonly id: string;
     readonly mode: HarvestScheduleMode;
-    readonly recordCount: number | null | undefined;
     readonly slug: string;
   }>;
   readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
@@ -131,8 +135,30 @@ const node: ReaderFragment = {
         {
           "alias": null,
           "args": null,
-          "kind": "ScalarField",
-          "name": "recordCount",
+          "concreteType": "HarvestRecordConnection",
+          "kind": "LinkedField",
+          "name": "harvestRecords",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "PageInfo",
+              "kind": "LinkedField",
+              "name": "pageInfo",
+              "plural": false,
+              "selections": [
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "totalCount",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            }
+          ],
           "storageKey": null
         }
       ],
@@ -148,6 +174,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "75792f31ca2611f5e2f15a42c1b8f4f8";
+(node as any).hash = "a3aa257368d6303a2e69bf67ec5ef7eb";
 
 export default node;
