@@ -124,6 +124,7 @@ const mutation = graphql`
               alt
             }
           }
+          ...FileUploadFragment
         }
       }
       ...MutationForm_mutationErrors

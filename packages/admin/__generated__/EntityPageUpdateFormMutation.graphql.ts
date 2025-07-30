@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<13c046189b2f40d0784a3eb6e6d3bad4>>
+ * @generated SignedSource<<ca4f99f7ff2fa53fcff55e2e77dda795>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -51,6 +51,7 @@ export type EntityPageUpdateFormMutation$data = {
             readonly width: number | null | undefined;
           };
         };
+        readonly " $fragmentSpreads": FragmentRefs<"FileUploadFragment">;
       };
       readonly id: string;
       readonly position: number | null | undefined;
@@ -83,111 +84,91 @@ v1 = [
 v2 = {
   "alias": null,
   "args": null,
-  "concreteType": "Page",
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "slug",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "body",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "position",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "url",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "alt",
+  "storageKey": null
+},
+v9 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "ImageSize",
   "kind": "LinkedField",
-  "name": "page",
+  "name": "medium",
   "plural": false,
   "selections": [
     {
       "alias": null,
       "args": null,
-      "kind": "ScalarField",
-      "name": "id",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "title",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "slug",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "body",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "position",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ImageAttachment",
+      "concreteType": "ImageDerivative",
       "kind": "LinkedField",
-      "name": "heroImage",
+      "name": "png",
       "plural": false,
       "selections": [
+        (v7/*: any*/),
         {
           "alias": null,
           "args": null,
-          "concreteType": "ImageSize",
-          "kind": "LinkedField",
-          "name": "medium",
-          "plural": false,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "ImageDerivative",
-              "kind": "LinkedField",
-              "name": "png",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "url",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "height",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "width",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "alt",
-                  "storageKey": null
-                }
-              ],
-              "storageKey": null
-            }
-          ],
+          "kind": "ScalarField",
+          "name": "height",
           "storageKey": null
-        }
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "width",
+          "storageKey": null
+        },
+        (v8/*: any*/)
       ],
       "storageKey": null
     }
   ],
   "storageKey": null
 },
-v3 = {
+v10 = {
   "kind": "InlineFragment",
   "selections": [
     {
@@ -259,12 +240,44 @@ return {
         "name": "updatePage",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Page",
+            "kind": "LinkedField",
+            "name": "page",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/),
+              (v6/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ImageAttachment",
+                "kind": "LinkedField",
+                "name": "heroImage",
+                "plural": false,
+                "selections": [
+                  (v9/*: any*/),
+                  {
+                    "args": null,
+                    "kind": "FragmentSpread",
+                    "name": "FileUploadFragment"
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
           {
             "kind": "InlineDataFragmentSpread",
             "name": "MutationForm_mutationErrors",
             "selections": [
-              (v3/*: any*/)
+              (v10/*: any*/)
             ],
             "args": null,
             "argumentDefinitions": []
@@ -290,24 +303,89 @@ return {
         "name": "updatePage",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/)
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Page",
+            "kind": "LinkedField",
+            "name": "page",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              (v3/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/),
+              (v6/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ImageAttachment",
+                "kind": "LinkedField",
+                "name": "heroImage",
+                "plural": false,
+                "selections": [
+                  (v9/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "originalFilename",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "storage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ImageSize",
+                    "kind": "LinkedField",
+                    "name": "thumb",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ImageDerivative",
+                        "kind": "LinkedField",
+                        "name": "png",
+                        "plural": false,
+                        "selections": [
+                          (v8/*: any*/),
+                          (v7/*: any*/)
+                        ],
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          (v10/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "65da3455154a4691e35162995951bf94",
+    "cacheID": "eb752bbaacc9e4851231b4e6d7174f95",
     "id": null,
     "metadata": {},
     "name": "EntityPageUpdateFormMutation",
     "operationKind": "mutation",
-    "text": "mutation EntityPageUpdateFormMutation(\n  $input: UpdatePageInput!\n) {\n  updatePage(input: $input) {\n    page {\n      id\n      title\n      slug\n      body\n      position\n      heroImage {\n        medium {\n          png {\n            url\n            height\n            width\n            alt\n          }\n        }\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
+    "text": "mutation EntityPageUpdateFormMutation(\n  $input: UpdatePageInput!\n) {\n  updatePage(input: $input) {\n    page {\n      id\n      title\n      slug\n      body\n      position\n      heroImage {\n        medium {\n          png {\n            url\n            height\n            width\n            alt\n          }\n        }\n        ...FileUploadFragment\n      }\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "30d505e2380197a2134c3c1f3f30bb03";
+(node as any).hash = "3169283a3cc8e8977a7d7775e6bc754f";
 
 export default node;
