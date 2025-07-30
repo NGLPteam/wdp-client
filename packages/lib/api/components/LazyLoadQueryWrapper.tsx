@@ -1,7 +1,7 @@
 import isFunction from "lodash/isFunction";
 import { Suspense, useEffect, useDeferredValue } from "react";
 import { GraphQLTaggedNode, useLazyLoadQuery } from "react-relay";
-import { OperationType } from "relay-runtime";
+import { OperationType, FetchPolicy } from "relay-runtime";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Props<T extends OperationType> = {
@@ -11,6 +11,7 @@ type Props<T extends OperationType> = {
   fallback?: React.ReactNode;
   children?: LazyLoadQueryRenderer<T> | React.ReactNode | null;
   checkIsFirst?: boolean;
+  fetchPolicy?: FetchPolicy;
 };
 
 export type LazyLoadQueryRenderer<T extends OperationType> = (props: {
@@ -26,6 +27,7 @@ export default function LazyLoadQueryWrapper<T extends OperationType>({
   onCompleted,
   fallback,
   children,
+  fetchPolicy,
 }: Props<T>) {
   return (
     <Suspense fallback={fallback}>
@@ -33,6 +35,7 @@ export default function LazyLoadQueryWrapper<T extends OperationType>({
         query={query}
         variables={variables}
         onCompleted={onCompleted}
+        fetchPolicy={fetchPolicy}
       >
         {children}
       </LazyLoadQueryWrapperInner>
@@ -45,9 +48,10 @@ function LazyLoadQueryWrapperInner<T extends OperationType>({
   variables,
   onCompleted,
   children,
+  fetchPolicy,
 }: Props<T>) {
   const data = useLazyLoadQuery<T>(query, variables, {
-    fetchPolicy: "store-or-network",
+    fetchPolicy: fetchPolicy ?? "store-or-network",
   });
   const deferred = useDeferredValue(data);
 

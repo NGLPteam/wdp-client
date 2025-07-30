@@ -23,6 +23,7 @@ export default function EntityPageUpdateDrawer({
     <LazyLoadQueryWrapper<Query>
       query={query}
       variables={{ entitySlug: drawerSlug, pageSlug: drawerPageSlug }}
+      fetchPolicy="store-and-network"
     >
       {({ data }) => {
         const entity = data
