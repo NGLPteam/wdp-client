@@ -26,16 +26,18 @@ const BackToAll = ({ route, query, label, secondary }: Props) => {
   return (
     <Styled.NavWrapper>
       <NamedLink route={route} query={query} passHref>
-        <Styled.LinkWrapper as="a" className="a-link">
+        <Styled.LinkWrapper className="a-link">
           <IconFactory icon="arrow" rotate={270} size="xs" />
-          <span>{label ?? startCase(`${t("all")} ${t(name)}`)}</span>
+          <Styled.Label $nested={!!secondary}>
+            {label ?? startCase(`${t("all")} ${t(name)}`)}
+          </Styled.Label>
         </Styled.LinkWrapper>
       </NamedLink>
       {!!secondary && (
         <NamedLink route={secondary.route} query={secondary.query} passHref>
-          <Styled.LinkWrapper as="a" className="a-link">
+          <Styled.LinkWrapper className="a-link">
             <span>/</span>
-            <span>{secondary.label}</span>
+            <Styled.Label $nested={!!secondary}>{secondary.label}</Styled.Label>
           </Styled.LinkWrapper>
         </NamedLink>
       )}
