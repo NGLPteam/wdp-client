@@ -85,7 +85,12 @@ export default function AssetInlinePDF({ url, size }: Props) {
           i18nKey="asset.pdf_cannot_be_displayed"
           components={{
             downloadLink: (
-              <a style={{ marginInline: "5px" }} href={url || ""} download>
+              <a
+                className="no-hover-shadow hover:text-neutral-90"
+                style={{ marginInline: "5px" }}
+                href={url || ""}
+                download
+              >
                 Download it instead
               </a>
             ),
@@ -120,7 +125,14 @@ export default function AssetInlinePDF({ url, size }: Props) {
                   i18nKey="asset.view_full_pdf"
                   components={{
                     downloadLink: (
-                      <a href={url || ""} download>
+                      <a
+                        className="no-hover-shadow hover:text-neutral-90"
+                        style={{
+                          marginInlineStart: "5px",
+                        }}
+                        href={url || ""}
+                        download
+                      >
                         Download PDF
                       </a>
                     ),
