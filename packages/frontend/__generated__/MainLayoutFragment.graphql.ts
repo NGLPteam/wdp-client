@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<78bd15302a6a70c0cd86f0e398adfa1e>>
+ * @generated SignedSource<<721acbac1fe63e73f72352dd9d9cbfe6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,9 @@ export type TemplateKind = "BLURB" | "CONTRIBUTOR_LIST" | "DESCENDANT_LIST" | "D
 import { FragmentRefs } from "relay-runtime";
 export type MainLayoutFragment$data = {
   readonly allHidden: boolean;
+  readonly entity: {
+    readonly __typename: string;
+  };
   readonly templates: ReadonlyArray<{
     readonly hidden?: boolean;
     readonly nextSiblings?: ReadonlyArray<{
@@ -86,6 +89,24 @@ return {
       "args": null,
       "concreteType": null,
       "kind": "LinkedField",
+      "name": "entity",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "__typename",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": null,
+      "kind": "LinkedField",
       "name": "templates",
       "plural": true,
       "selections": [
@@ -131,6 +152,6 @@ return {
 };
 })();
 
-(node as any).hash = "f3ecd9299e42469c4d6848f31735b4af";
+(node as any).hash = "515364d7c7a8aa7aac1c15f01676d153";
 
 export default node;

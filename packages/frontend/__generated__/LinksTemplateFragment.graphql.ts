@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a0fbf3728abaf63b1548382e8cdfa60b>>
+ * @generated SignedSource<<3673eef049d0c008155377869b6d85f0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,7 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type LinkListVariant = "CARDS" | "COMPACT" | "GRID" | "PROMOS" | "SUMMARY" | "%future added value";
+export type LinkListVariant = "CARDS" | "COMPACT" | "GRID" | "PROMOS" | "SUMMARY" | "TREE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type LinksTemplateFragment$data = {
   readonly __typename: "LinkListTemplateInstance";

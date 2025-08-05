@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<eb245541bbafaff8bad1040fc1a0f60a>>
+ * @generated SignedSource<<027301743f5981d6fe1288ca1f2d8a72>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,12 +12,33 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SummaryDetailFragment$data = {
   readonly entity: {
-    readonly announcements?: {
+    readonly __typename: "Collection";
+    readonly announcements: {
       readonly nodes: ReadonlyArray<{
         readonly slug: string;
       }>;
       readonly " $fragmentSpreads": FragmentRefs<"AnnouncementsFragment">;
     };
+  } | {
+    readonly __typename: "Community";
+    readonly announcements: {
+      readonly nodes: ReadonlyArray<{
+        readonly slug: string;
+      }>;
+      readonly " $fragmentSpreads": FragmentRefs<"AnnouncementsFragment">;
+    };
+  } | {
+    readonly __typename: "Item";
+    readonly announcements: {
+      readonly nodes: ReadonlyArray<{
+        readonly slug: string;
+      }>;
+      readonly " $fragmentSpreads": FragmentRefs<"AnnouncementsFragment">;
+    };
+  } | {
+    // This will never be '%other', but we need some
+    // value in case none of the concrete values match.
+    readonly __typename: "%other";
   };
   readonly slots: {
     readonly header: {
@@ -39,6 +60,13 @@ export type SummaryDetailFragment$key = {
 
 const node: ReaderFragment = (function(){
 var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "__typename",
+    "storageKey": null
+  },
   {
     "alias": null,
     "args": null,
@@ -169,6 +197,6 @@ return {
 };
 })();
 
-(node as any).hash = "e576a51fc1ec927e7c45a00dc6a11271";
+(node as any).hash = "9c0d04ef7d96af7c8b83e33802607cae";
 
 export default node;

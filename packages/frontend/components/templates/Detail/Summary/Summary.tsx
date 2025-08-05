@@ -7,7 +7,7 @@ import {
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import { SummaryDetailFragment$key } from "@/relay/SummaryDetailFragment.graphql";
-import NoContent from "@/components/layout/messages/NoContent";
+import { ProcessingMessage } from "@/components/templates/ProcessingCheck";
 import Announcements from "./Announcements";
 import styles from "./Summary.module.css";
 
@@ -32,9 +32,11 @@ export default function Summary({
     (!subheader || subheader?.empty) &&
     (!summary || summary?.empty);
 
+  if (entity?.__typename === "%other") return null;
+
   return showNoContent ? (
     <div className={styles.noContent}>
-      <NoContent />
+      <ProcessingMessage entityType={entity?.__typename.toLowerCase()} />
     </div>
   ) : (
     <>
@@ -68,6 +70,7 @@ const fragment = graphql`
   fragment SummaryDetailFragment on DetailTemplateInstance {
     entity {
       ... on Collection {
+        __typename
         announcements {
           ...AnnouncementsFragment
           ... on AnnouncementConnection {
@@ -78,6 +81,7 @@ const fragment = graphql`
         }
       }
       ... on Community {
+        __typename
         announcements {
           ...AnnouncementsFragment
           ... on AnnouncementConnection {
@@ -88,6 +92,7 @@ const fragment = graphql`
         }
       }
       ... on Item {
+        __typename
         announcements {
           ...AnnouncementsFragment
           ... on AnnouncementConnection {

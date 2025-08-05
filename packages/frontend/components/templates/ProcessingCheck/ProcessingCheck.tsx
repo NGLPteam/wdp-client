@@ -2,10 +2,9 @@
 
 import { PropsWithChildren } from "react";
 import { graphql, useFragment } from "react-relay";
-import { Trans } from "react-i18next";
 import { ProcessingCheckFragment$key } from "@/relay/ProcessingCheckFragment.graphql";
-import NoContent from "@/components/layout/messages/NoContent";
 import Container from "@/components/layout/Container";
+import ProcessingMessage from "./ProcessingMessage";
 import styles from "./ProcessingCheck.module.css";
 
 type Props = PropsWithChildren & {
@@ -18,24 +17,9 @@ export default function ProcessingCheck({ data, children, entityType }: Props) {
 
   const { allHidden, templates } = main ?? {};
 
-  const noContentMessage = (
-    <div className="t-rte t-h4">
-      <Trans
-        i18nKey="messages.processing"
-        values={{ entity: entityType }}
-        components={[
-          /* eslint-disable-next-line jsx-a11y/heading-has-content */
-          <h1 key="heading" className="t-h3 font-medium"></h1>,
-          <p key="p1" className="max-w-[850px]"></p>,
-          <p key="p2"></p>,
-        ]}
-      />
-    </div>
-  );
-
   return allHidden || !templates?.length ? (
     <Container className={styles.container}>
-      <NoContent message={noContentMessage} />
+      <ProcessingMessage entityType={entityType} />
     </Container>
   ) : (
     children

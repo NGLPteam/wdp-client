@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c44d950131283be63fb1ad65b51a8c57>>
+ * @generated SignedSource<<d6b4880dd6afb5cc67fcb1b202ffed40>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,7 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type DescendantListVariant = "CARDS" | "COMPACT" | "GRID" | "PROMOS" | "SUMMARY" | "%future added value";
+export type DescendantListVariant = "CARDS" | "COMPACT" | "GRID" | "PROMOS" | "SUMMARY" | "TREE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type DescendantsTemplateFragment$data = {
   readonly descendantsDefinition?: {
