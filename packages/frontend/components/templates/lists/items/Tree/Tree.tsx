@@ -1,4 +1,5 @@
-import DotList from "@/components/atomic/DotList";
+import classNames from "classnames";
+import ContributorsList from "@/components/composed/contributor/ContributorsList";
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import NamedLink from "@/components/atomic/links/NamedLink";
 import { useSharedListItemTemplateFragment } from "@/components/templates/shared/shared.listItems.graphql";
@@ -8,29 +9,31 @@ import styles from "./Tree.module.css";
 
 export default function TreeListItem({
   data,
+  depth,
+  singleton,
 }: {
   data?: sharedListItemTemplateFragment$key | null;
+  depth?: number;
+  singleton?: boolean;
 }) {
   const { slots, entity } = useSharedListItemTemplateFragment(data);
 
-  const { header, metaA, metaB } = slots ?? {};
+  const { header, subheader } = slots ?? {};
 
   if (!(entity?.__typename === "Item" || entity?.__typename === "Collection"))
     return null;
 
   const href = `/${getRouteByEntityType(entity?.__typename)}/${entity.slug}`;
 
-  const treeDepth = 1;
-
   return (
     <li
-      className={styles.item}
+      className={classNames(styles.item, { [styles.padStart]: singleton })}
       role="row"
-      aria-level={treeDepth || undefined}
-      {...(treeDepth
+      aria-level={depth || undefined}
+      {...(depth
         ? {
             style: {
-              "--BrowseTreeItem-level": treeDepth,
+              "--BrowseTreeItem-level": depth,
             } as React.CSSProperties,
           }
         : {})}
@@ -42,14 +45,16 @@ export default function TreeListItem({
           </span>
         </NamedLink>
       )}
-      <DotList className="t-copy-lighter t-copy-sm">
-        {metaA?.valid && !!metaA.content && (
-          <InlineSlotWrapper content={metaA.content} />
-        )}
-        {metaB?.valid && !!metaB.content && (
-          <InlineSlotWrapper content={metaB.content} />
-        )}
-      </DotList>
+      {subheader?.valid && !!subheader.content && (
+        <span className={styles.subheader}>
+          <InlineSlotWrapper content={subheader.content} />
+        </span>
+      )}
+      {!!entity?.attributions.length && (
+        <span className={styles.contributors}>
+          <ContributorsList data={entity} />
+        </span>
+      )}
     </li>
   );
 }
