@@ -15,6 +15,7 @@ const VARIANT_TO_COMPONENT = {
   GRID: GridListBlock,
   SUMMARY: SummaryListBlock,
   PROMOS: PromoListBlock,
+  TREE: CompactListBlock,
 };
 
 export default function Links({

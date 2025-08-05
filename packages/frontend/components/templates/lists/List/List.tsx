@@ -11,6 +11,7 @@ import GridItem from "../items/Grid";
 import SummaryItem from "../items/Summary";
 import PromoItem from "../items/Promo";
 import CompactItem from "../items/Compact";
+import TreeItem from "../items/Tree";
 import styles from "./List.module.css";
 
 export type Props = {
@@ -33,6 +34,7 @@ const TYPE_TO_CLASS = {
   SUMMARY: styles.summaryList,
   PROMOS: styles.promoList,
   COMPACT: styles.compactList,
+  TREE: styles.treeList,
 };
 
 const TYPE_TO_ITEM = {
@@ -41,6 +43,7 @@ const TYPE_TO_ITEM = {
   SUMMARY: SummaryItem,
   PROMOS: PromoItem,
   COMPACT: CompactItem,
+  TREE: TreeItem,
 };
 
 export default function List({
