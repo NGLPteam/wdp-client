@@ -12,6 +12,7 @@ import SummaryItem from "../items/Summary";
 import PromoItem from "../items/Promo";
 import CompactItem from "../items/Compact";
 import TreeItem from "../items/Tree";
+import TreeAccordions from "../items/Tree/Accordions";
 import styles from "./List.module.css";
 
 export type Props = {
@@ -22,6 +23,7 @@ export type Props = {
   isNested?: boolean | null;
   showContributors?: boolean | null;
   browseStyle?: boolean | null;
+  treeDepth?: { min: number; max: number } | null;
   items:
     | readonly { template?: sharedListItemTemplateFragment$key | null }[]
     | null
@@ -55,6 +57,7 @@ export default function List({
   items,
   showContributors,
   browseStyle,
+  treeDepth,
 }: Props) {
   if (!variant || !items) return null;
 
@@ -70,17 +73,21 @@ export default function List({
           [styles["summaryList--browse"]]: browseStyle && variant === "SUMMARY",
         })}
       >
-        {items.map((item, i) => (
-          <Item
-            data={item.template}
-            key={i}
-            hideCover={hideCovers}
-            showContext={showContext}
-            isNested={isNested}
-            showContributors={showContributors}
-            browseStyle={browseStyle}
-          />
-        ))}
+        {variant === "TREE" ? (
+          <TreeAccordions items={items} treeDepth={treeDepth} />
+        ) : (
+          items.map((item, i) => (
+            <Item
+              data={item.template}
+              key={i}
+              hideCover={hideCovers}
+              showContext={showContext}
+              isNested={isNested}
+              showContributors={showContributors}
+              browseStyle={browseStyle}
+            />
+          ))
+        )}
       </ul>
     </div>
   );

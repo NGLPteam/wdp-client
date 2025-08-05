@@ -6,9 +6,10 @@ export default function TreeAccordion({
   id,
   children,
   className,
+  open = false,
 }: Props) {
   return (
-    <details id={id} className={className}>
+    <details id={id} className={className} open={open}>
       <summary className={styles.summary}>
         <IconFactory
           className={styles.toggleIcon}
@@ -34,4 +35,5 @@ interface Props {
   children: React.ReactNode;
   id?: string;
   className?: string;
+  open?: boolean;
 }

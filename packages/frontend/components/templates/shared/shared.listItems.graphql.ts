@@ -10,8 +10,28 @@ export const listItemsTemplateFragment = graphql`
   fragment sharedListItemsTemplateFragment on TemplateEntityList {
     empty
     count
+    depths: listItemLayouts {
+      template {
+        entity {
+          ... on Collection {
+            hierarchicalDepth
+          }
+          ... on Item {
+            hierarchicalDepth
+          }
+        }
+      }
+    }
     listItemLayouts {
       template {
+        entity {
+          ... on Collection {
+            hierarchicalDepth
+          }
+          ... on Item {
+            hierarchicalDepth
+          }
+        }
         ...sharedListItemTemplateFragment
         entityList {
           empty
@@ -31,8 +51,16 @@ export const useSharedListItemsTemplateFragment = (
   data?: sharedListItemsTemplateFragment$key | null,
 ) => {
   const list = useFragment(listItemsTemplateFragment, data);
-  const { listItemLayouts, empty, count } = list ?? {};
-  return { listItemLayouts, empty, count };
+  const { listItemLayouts, empty, count, depths } = list ?? {};
+  const values = depths
+    ? ([
+        ...new Set(
+          depths?.map(({ template }) => template?.entity?.hierarchicalDepth),
+        ),
+      ].filter((v) => typeof v === "number") as number[])
+    : [];
+  const treeDepth = { min: Math.min(...values), max: Math.max(...values) };
+  return { listItemLayouts, empty, count, treeDepth };
 };
 
 export const listItemTemplateFragment = graphql`
@@ -46,6 +74,7 @@ export const listItemTemplateFragment = graphql`
         id
         slug
         title
+        hierarchicalDepth
         ...getThumbWithFallbackFragment
         attributions {
           id
@@ -79,6 +108,7 @@ export const listItemTemplateFragment = graphql`
         id
         slug
         title
+        hierarchicalDepth
         attributions {
           id
         }

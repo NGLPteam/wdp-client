@@ -7,6 +7,7 @@ import {
   CardListBlock,
   SummaryListBlock,
   PromoListBlock,
+  TreeListBlock,
 } from "../lists/blocks";
 
 const VARIANT_TO_COMPONENT = {
@@ -15,7 +16,7 @@ const VARIANT_TO_COMPONENT = {
   GRID: GridListBlock,
   SUMMARY: SummaryListBlock,
   PROMOS: PromoListBlock,
-  TREE: CompactListBlock,
+  TREE: TreeListBlock,
 };
 
 export default function Links({

@@ -44,8 +44,10 @@ export default function BlockSlotWrapper({
     renderMDX();
   }, [content]);
 
+  const test = () => <div>hello</div>;
+
   const components = assetAsButton
-    ? { ...blockSlotComponents, Asset: AssetButton }
+    ? { ...blockSlotComponents, Asset: AssetButton, a: test }
     : blockSlotComponents;
 
   return mdxContent ? (

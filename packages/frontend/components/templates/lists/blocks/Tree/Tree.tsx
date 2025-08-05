@@ -26,7 +26,7 @@ export default function TreeListBlock({
     seeAllOrdering,
   } = useSharedListTemplateFragment(data);
 
-  const { empty, listItemLayouts } = entityList ?? {};
+  const { empty, listItemLayouts, treeDepth } = entityList ?? {};
 
   if (empty) return null;
 
@@ -66,6 +66,7 @@ export default function TreeListBlock({
         variant="TREE"
         bgColor={bgOverride ?? background}
         items={listItemLayouts}
+        treeDepth={treeDepth}
       />
       {!!renderSeeAll && !!seeAllHref && (
         <SeeAll

@@ -177,7 +177,7 @@ export const useSharedListTemplateFragment = (
 
     return {
       entity: childEntity,
-      entityList: nestedEntityList,
+      entityList: { ...nestedEntityList, treeDepth: null },
       slots: {
         blockHeader,
         header: childHeader,
