@@ -29,21 +29,22 @@ export default function TitleBlock({ data, layout }: TitleBlockProps) {
   // const headerParent = useSharedInlineFragment(slots?.headerParent);
   const cta = useSharedBlockFragment(slots?.callToAction);
   const headerParent = {
-    valid: true,
+    valid: false,
     content: "Introduction to Philosophy",
   };
 
   //@ts-expect-error doesn't exist yet
-  const { listContributors, hideSummary = false } = definition ?? {};
+  const { listContributors, hideSummary = false, showThumbnailImage } =
+    definition ?? {};
 
   return (
     <div className={styles.left}>
-      {entity && (
+      {showThumbnailImage && (
         <span className={styles.thumbColumn}>
           <CoverImage
-            id={entity.id ?? ""}
-            title={entity.title ?? ""}
-            data={entity.thumbnail}
+            id={entity?.id ?? ""}
+            title={entity?.title ?? ""}
+            data={entity?.thumbnail}
             maxWidth={225}
             maxHeight={300}
           />
@@ -57,7 +58,7 @@ export default function TitleBlock({ data, layout }: TitleBlockProps) {
         )}
         {header?.valid && !!header.content && (
           <h1 className={layout ? "" : `t-h2 ${styles.title}`}>
-            <InlineSlotWrapper content={"Epistemology"} />
+            <InlineSlotWrapper content={header.content} />
           </h1>
         )}
         {!!headerAside?.content && headerAside.valid && (
@@ -85,7 +86,7 @@ export default function TitleBlock({ data, layout }: TitleBlockProps) {
               className="t-copy-medium"
               data={entity}
               collectionSlug={entity?.slug}
-              filterRole="editor"
+              filterRole="author"
             />
           )}
         </div>
@@ -125,6 +126,7 @@ const fragment = graphql`
     }
     definition {
       listContributors
+      showThumbnailImage
     }
     slots {
       header {
