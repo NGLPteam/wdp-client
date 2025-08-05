@@ -5630,6 +5630,11 @@ export type DescendantListVariant =
    *
    */
   | 'SUMMARY'
+  /**
+   * A tree structure.
+   *
+   */
+  | 'TREE'
   | '%future added value';
 
 /**
@@ -6692,6 +6697,11 @@ export type EntityLayouts = {
    *
    */
   navigation?: Maybe<NavigationLayoutInstance>;
+  /**
+   * Whether the render happened inline when requesting this entity.
+   *
+   */
+  renderedInline: Scalars['Boolean']['output'];
   /**
    * The `SUPPLEMENTARY` layout instance for this entity.
    *
@@ -8535,6 +8545,11 @@ export type HarvestMetadataFormat =
    *
    */
   | 'OAIDC'
+  /**
+   * Pressbooks 'Book' response
+   *
+   */
+  | 'PRESSBOOKS'
   | '%future added value';
 
 /**
@@ -8829,6 +8844,11 @@ export type HarvestProtocol =
    */
   | 'OAI'
   /**
+   * [Pressbooks API](https://pressbooks.org/dev-guides/rest-api/)
+   *
+   */
+  | 'PRESSBOOKS'
+  /**
    * A fallback value for protocols that should not appear under normal circumstances.
    *
    */
@@ -8890,6 +8910,7 @@ export type HarvestRecord = HasHarvestErrors & HasHarvestMetadataFormat & Node &
    *
    */
   identifier: Scalars['String']['output'];
+  jsonMetadataSource?: Maybe<Scalars['JSON']['output']>;
   /**
    * The metadata format used by this source / mapping.
    *
@@ -8919,6 +8940,11 @@ export type HarvestRecord = HasHarvestErrors & HasHarvestMetadataFormat & Node &
    *
    */
   status: HarvestRecordStatus;
+  /**
+   * An enum describing how the `rawSource` / `rawMetadataSource` is encoded.
+   *
+   */
+  underlyingDataFormat: UnderlyingDataFormat;
   updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
@@ -11697,6 +11723,11 @@ export type LinkListVariant =
    *
    */
   | 'SUMMARY'
+  /**
+   * A tree structure.
+   *
+   */
+  | 'TREE'
   | '%future added value';
 
 /** A candidate for a link target, scoped to a parent source */
@@ -18815,6 +18846,23 @@ export type UrlReference = {
   title?: Maybe<Scalars['String']['output']>;
 };
 
+/**
+ * The underlying data format for a `HarvestMetadataFormat`.
+ *
+ */
+export type UnderlyingDataFormat =
+  /**
+   * The metadata is encoded as JSON.
+   *
+   */
+  | 'JSON'
+  /**
+   * The metadata is encoded as XML.
+   *
+   */
+  | 'XML'
+  | '%future added value';
+
 export type UnknownProperty = ScalarProperty & SchemaProperty & {
   __typename?: 'UnknownProperty';
   /**
@@ -21357,6 +21405,7 @@ export type ResolversTypes = {
   TreeNodeFilter: TreeNodeFilter;
   URLProperty: ResolverTypeWrapper<UrlProperty>;
   URLReference: ResolverTypeWrapper<UrlReference>;
+  UnderlyingDataFormat: UnderlyingDataFormat;
   UnknownProperty: ResolverTypeWrapper<UnknownProperty>;
   UpdateAnnouncementInput: UpdateAnnouncementInput;
   UpdateAnnouncementPayload: ResolverTypeWrapper<UpdateAnnouncementPayload>;
@@ -23883,6 +23932,7 @@ export type EntityLayoutsResolvers<ContextType = any, ParentType extends Resolve
   main?: Resolver<Maybe<ResolversTypes['MainLayoutInstance']>, ParentType, ContextType>;
   metadata?: Resolver<Maybe<ResolversTypes['MetadataLayoutInstance']>, ParentType, ContextType>;
   navigation?: Resolver<Maybe<ResolversTypes['NavigationLayoutInstance']>, ParentType, ContextType>;
+  renderedInline?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   supplementary?: Resolver<Maybe<ResolversTypes['SupplementaryLayoutInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -24346,11 +24396,13 @@ export type HarvestRecordResolvers<ContextType = any, ParentType extends Resolve
   harvestSource?: Resolver<ResolversTypes['HarvestSource'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  jsonMetadataSource?: Resolver<Maybe<ResolversTypes['JSON']>, ParentType, ContextType>;
   metadataFormat?: Resolver<ResolversTypes['HarvestMetadataFormat'], ParentType, ContextType>;
   rawMetadataSource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   rawSource?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   status?: Resolver<ResolversTypes['HarvestRecordStatus'], ParentType, ContextType>;
+  underlyingDataFormat?: Resolver<ResolversTypes['UnderlyingDataFormat'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

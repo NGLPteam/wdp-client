@@ -28552,6 +28552,12 @@
             "description": "A vertical, summarized list of entities.\n",
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "TREE",
+            "description": "A tree structure.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "possibleTypes": null
@@ -34116,6 +34122,22 @@
               "kind": "OBJECT",
               "name": "NavigationLayoutInstance",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "renderedInline",
+            "description": "Whether the render happened inline when requesting this entity.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -40973,6 +40995,12 @@
             "description": "[OAI-PMH Dublin Core](https://www.openarchives.org/OAI/2.0/openarchivesprotocol.htm#dublincore)\n",
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "PRESSBOOKS",
+            "description": "Pressbooks 'Book' response\n",
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "possibleTypes": null
@@ -41886,6 +41914,12 @@
             "deprecationReason": null
           },
           {
+            "name": "PRESSBOOKS",
+            "description": "[Pressbooks API](https://pressbooks.org/dev-guides/rest-api/)\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "UNKNOWN",
             "description": "A fallback value for protocols that should not appear under normal circumstances.\n",
             "isDeprecated": false,
@@ -42180,6 +42214,18 @@
             "deprecationReason": null
           },
           {
+            "name": "jsonMetadataSource",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "JSON",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "metadataFormat",
             "description": "The metadata format used by this source / mapping.\n\nFixed at creation time for now.\n",
             "args": [],
@@ -42245,6 +42291,22 @@
               "ofType": {
                 "kind": "ENUM",
                 "name": "HarvestRecordStatus",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "underlyingDataFormat",
+            "description": "An enum describing how the `rawSource` / `rawMetadataSource` is encoded.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "UnderlyingDataFormat",
                 "ofType": null
               }
             },
@@ -54930,6 +54992,12 @@
           {
             "name": "SUMMARY",
             "description": "A vertical, summarized list of entities.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TREE",
+            "description": "A tree structure.\n",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -84497,6 +84565,29 @@
         "inputFields": null,
         "interfaces": [],
         "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "UnderlyingDataFormat",
+        "description": "The underlying data format for a `HarvestMetadataFormat`.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "JSON",
+            "description": "The metadata is encoded as JSON.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "XML",
+            "description": "The metadata is encoded as XML.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
         "possibleTypes": null
       },
       {

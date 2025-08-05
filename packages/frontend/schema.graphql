@@ -5835,6 +5835,11 @@ enum DescendantListVariant {
   
   """
   SUMMARY
+  """
+  A tree structure.
+  
+  """
+  TREE
 }
 
 """
@@ -6938,6 +6943,11 @@ type EntityLayouts {
   
   """
   navigation: NavigationLayoutInstance
+  """
+  Whether the render happened inline when requesting this entity.
+  
+  """
+  renderedInline: Boolean!
   """
   The `SUPPLEMENTARY` layout instance for this entity.
   
@@ -8782,6 +8792,11 @@ enum HarvestMetadataFormat {
   
   """
   OAIDC
+  """
+  Pressbooks 'Book' response
+  
+  """
+  PRESSBOOKS
 }
 
 """
@@ -9069,6 +9084,11 @@ enum HarvestProtocol {
   """
   OAI
   """
+  [Pressbooks API](https://pressbooks.org/dev-guides/rest-api/)
+  
+  """
+  PRESSBOOKS
+  """
   A fallback value for protocols that should not appear under normal circumstances.
   
   """
@@ -9159,6 +9179,7 @@ type HarvestRecord implements HasHarvestErrors & HasHarvestMetadataFormat & Node
   
   """
   identifier: String!
+  jsonMetadataSource: JSON
   """
   The metadata format used by this source / mapping.
   
@@ -9188,6 +9209,11 @@ type HarvestRecord implements HasHarvestErrors & HasHarvestMetadataFormat & Node
   
   """
   status: HarvestRecordStatus!
+  """
+  An enum describing how the `rawSource` / `rawMetadataSource` is encoded.
+  
+  """
+  underlyingDataFormat: UnderlyingDataFormat!
   updatedAt: ISO8601DateTime!
 }
 
@@ -12098,6 +12124,11 @@ enum LinkListVariant {
   
   """
   SUMMARY
+  """
+  A tree structure.
+  
+  """
+  TREE
 }
 
 """A candidate for a link target, scoped to a parent source"""
@@ -18788,6 +18819,23 @@ type URLReference {
   label: String
   """A title to display when mousing over the URL"""
   title: String
+}
+
+"""
+The underlying data format for a `HarvestMetadataFormat`.
+
+"""
+enum UnderlyingDataFormat {
+  """
+  The metadata is encoded as JSON.
+  
+  """
+  JSON
+  """
+  The metadata is encoded as XML.
+  
+  """
+  XML
 }
 
 type UnknownProperty implements ScalarProperty & SchemaProperty {
