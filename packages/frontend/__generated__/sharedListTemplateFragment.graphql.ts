@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ecc4fc516921f560c311e0ea9f94f328>>
+ * @generated SignedSource<<f0fb29c6eb55be0cb5b56f9ffa1ee8f3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,10 +11,10 @@
 import { InlineFragment, ReaderInlineDataFragment } from 'relay-runtime';
 export type DescendantListBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
 export type DescendantListSelectionMode = "DYNAMIC" | "MANUAL" | "NAMED" | "PROPERTY" | "%future added value";
-export type DescendantListVariant = "CARDS" | "COMPACT" | "GRID" | "PROMOS" | "SUMMARY" | "%future added value";
+export type DescendantListVariant = "CARDS" | "COMPACT" | "GRID" | "PROMOS" | "SUMMARY" | "TREE" | "%future added value";
 export type LinkListBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
 export type LinkListSelectionMode = "DYNAMIC" | "MANUAL" | "%future added value";
-export type LinkListVariant = "CARDS" | "COMPACT" | "GRID" | "PROMOS" | "SUMMARY" | "%future added value";
+export type LinkListVariant = "CARDS" | "COMPACT" | "GRID" | "PROMOS" | "SUMMARY" | "TREE" | "%future added value";
 export type ListEntityContext = "ABBR" | "FULL" | "NONE" | "%future added value";
 export type TemplateWidth = "FULL" | "HALF" | "%future added value";
 import { FragmentRefs } from "relay-runtime";

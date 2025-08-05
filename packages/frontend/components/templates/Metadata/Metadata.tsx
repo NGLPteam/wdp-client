@@ -11,7 +11,7 @@ import {
 import InlineSlotWrapper from "@/components/templates/mdx/InlineSlotWrapper";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
 import Container from "@/components/layout/Container";
-import NoContent from "@/components/layout/messages/NoContent";
+import { ProcessingMessage } from "@/components/templates/ProcessingCheck";
 import styles from "./Metadata.module.css";
 
 export default function MetadataTemplate({
@@ -57,7 +57,7 @@ export default function MetadataTemplate({
     </Container>
   ) : (
     <Container bgColor="NONE" className={styles.noContent} hideDivider>
-      <NoContent />
+      <ProcessingMessage entityType="item" />
     </Container>
   );
 }

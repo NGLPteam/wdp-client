@@ -1,7 +1,7 @@
 "use client";
 
 import { graphql, useFragment } from "react-relay";
-import NoContent from "@/components/layout/messages/NoContent";
+import { ProcessingMessage } from "@/components/templates/ProcessingCheck";
 import Container from "@/components/layout/Container";
 import TemplateFactory from "@/components/templates/Factory";
 import {
@@ -18,7 +18,7 @@ export default function MainLayout({
   data?: MainLayoutFragment$key | null;
   computedBgStart?: HeroBackground;
 }) {
-  const { allHidden, templates } = useFragment(fragment, data) ?? {};
+  const { allHidden, templates, entity } = useFragment(fragment, data) ?? {};
 
   const bgMap =
     computedBgStart && templates?.length
@@ -27,7 +27,7 @@ export default function MainLayout({
 
   return allHidden || !templates ? (
     <Container className="my-5">
-      <NoContent />
+      <ProcessingMessage entityType={entity?.__typename.toLowerCase()} />
     </Container>
   ) : (
     <div className={styles.grid}>
@@ -52,6 +52,9 @@ type SiblingTemplateData = NonNullable<Template["nextSiblings"]>[number];
 const fragment = graphql`
   fragment MainLayoutFragment on MainLayoutInstance {
     allHidden
+    entity {
+      __typename
+    }
     templates {
       ... on TemplateInstance {
         hidden

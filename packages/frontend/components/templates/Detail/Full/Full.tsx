@@ -5,7 +5,7 @@ import ContentImage from "@/components/atomic/images/ContentImage";
 import { FullDetailFragment$key } from "@/relay/FullDetailFragment.graphql";
 import { useSharedBlockFragment } from "@/components/templates/shared/shared.slots.graphql";
 import BlockSlotWrapper from "@/components/templates/mdx/BlockSlotWrapper";
-import NoContent from "@/components/layout/messages/NoContent";
+import { ProcessingMessage } from "@/components/templates/ProcessingCheck";
 import TOC from "./TOC";
 import styles from "./Full.module.css";
 
@@ -24,6 +24,8 @@ export default function FullVariant({
 
   const textEl = useRef<HTMLDivElement>(null);
 
+  if (entity?.__typename === "%other") return null;
+
   const isPDF = body?.content?.startsWith("<PDFViewer");
 
   return isPDF ? (
@@ -31,7 +33,7 @@ export default function FullVariant({
       {body?.valid && !!body.content ? (
         <BlockSlotWrapper content={body.content} />
       ) : (
-        <NoContent />
+        <ProcessingMessage entityType={entity?.__typename.toLowerCase()} />
       )}
     </div>
   ) : (
@@ -51,7 +53,7 @@ export default function FullVariant({
           </div>
         ) : (
           <div className={styles.noContent}>
-            <NoContent />
+            <ProcessingMessage entityType={entity?.__typename.toLowerCase()} />
           </div>
         )}
       </div>
@@ -63,12 +65,14 @@ const fragment = graphql`
   fragment FullDetailFragment on DetailTemplateInstance {
     entity {
       ... on Item {
+        __typename
         heroImage {
           storage
           ...ContentImageFragment
         }
       }
       ... on Collection {
+        __typename
         heroImage {
           storage
           ...ContentImageFragment

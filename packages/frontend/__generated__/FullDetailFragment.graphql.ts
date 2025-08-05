@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c7553a70e1523325102e18358e9b1ec5>>
+ * @generated SignedSource<<3273a13177ebeb61c5b750d23856a6de>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,10 +13,21 @@ export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "
 import { FragmentRefs } from "relay-runtime";
 export type FullDetailFragment$data = {
   readonly entity: {
-    readonly heroImage?: {
+    readonly __typename: "Collection";
+    readonly heroImage: {
       readonly storage: AttachmentStorage | null | undefined;
       readonly " $fragmentSpreads": FragmentRefs<"ContentImageFragment">;
     };
+  } | {
+    readonly __typename: "Item";
+    readonly heroImage: {
+      readonly storage: AttachmentStorage | null | undefined;
+      readonly " $fragmentSpreads": FragmentRefs<"ContentImageFragment">;
+    };
+  } | {
+    // This will never be '%other', but we need some
+    // value in case none of the concrete values match.
+    readonly __typename: "%other";
   };
   readonly slots: {
     readonly body: {
@@ -38,6 +49,13 @@ export type FullDetailFragment$key = {
 
 const node: ReaderFragment = (function(){
 var v0 = [
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "__typename",
+    "storageKey": null
+  },
   {
     "alias": null,
     "args": null,
@@ -151,6 +169,6 @@ return {
 };
 })();
 
-(node as any).hash = "c82a4c3e75d7cf07de43a45bfcb8abb1";
+(node as any).hash = "172950ede8e0e51fbf4b2848bd67b5ac";
 
 export default node;
