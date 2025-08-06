@@ -21,6 +21,7 @@
     "@castiron/components-pagination": "^2.0.2",
     "@castiron/hooks": "^3.1.0",
     "@castiron/style-mixins": "^1.0.0",
+    "@codemirror/lang-json": "^6.0.2",
     "@codemirror/lang-xml": "^6.1.0",
     "@codemirror/view": "^6.36.4",
     "@hookform/error-message": "^2.0.1",
