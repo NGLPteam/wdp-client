@@ -35,7 +35,7 @@ export default function TreeAccordions({ items = [], treeDepth }: Props) {
     return addToTreeLevel(item, treeDepth?.min || 1, arr);
   }, [] as AccordionItem[]);
 
-  return nodes?.map((item, i) =>
+  const renderNode = (item: AccordionItem, i: number) =>
     item?.children?.length ? (
       <TreeAccordion
         SummaryComponent={<Item data={item.template} />}
@@ -44,14 +44,11 @@ export default function TreeAccordions({ items = [], treeDepth }: Props) {
         className={styles.accordion}
         open
       >
-        <ul>
-          {item.children.map((c, i) => (
-            <Item key={i} data={c.template} depth={2} />
-          ))}
-        </ul>
+        <div>{item.children.map((c, i) => renderNode(c, i))}</div>
       </TreeAccordion>
     ) : (
       <Item key={i} data={item.template} singleton />
-    ),
-  );
+    );
+
+  return nodes?.map((node, i) => renderNode(node, i));
 }
