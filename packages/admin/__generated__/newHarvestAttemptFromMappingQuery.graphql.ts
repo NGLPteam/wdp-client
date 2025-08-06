@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a347adb1a53e15320b63f8c2da5292a9>>
+ * @generated SignedSource<<4632564f3c35b34f59aff52a4694a312>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
-export type HarvestMetadataFormat = "ESPLORO" | "JATS" | "METS" | "MODS" | "OAIDC" | "%future added value";
+export type HarvestMetadataFormat = "ESPLORO" | "JATS" | "METS" | "MODS" | "OAIDC" | "PRESSBOOKS" | "%future added value";
 export type HarvestTargetKind = "COLLECTION" | "COMMUNITY" | "%future added value";
 export type newHarvestAttemptFromMappingQuery$variables = {
   slug: string;
