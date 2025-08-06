@@ -1,26 +1,21 @@
 import Button from "@/components/atomic/Button";
-import type { AssetKind } from "@/types/graphql-schema";
 import styles from "./components.module.css";
 import type { PropsWithChildren } from "react";
 
 type Props = PropsWithChildren & {
-  kind?: AssetKind;
-  name?: string;
-  size?: string;
-  slug?: string;
-  href: string;
+  href?: string | null;
 };
 
-export default function OnlineVersionButton({ href }: Props) {
-  return (
+export default function ButtonLink({ href, children }: Props) {
+  return href ? (
     <Button
       as="a"
       href={href}
       icon="linkExternal"
       size="sm"
-      className={styles.onlineVersionButton}
+      className={styles.buttonLink}
     >
-      Online Version
+      {children}
     </Button>
-  );
+  ) : null;
 }

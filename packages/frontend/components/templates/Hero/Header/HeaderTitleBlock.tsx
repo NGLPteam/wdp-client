@@ -38,16 +38,8 @@ export default function TitleBlock({ data, layout }: TitleBlockProps) {
     //@ts-expect-error doesn't exist yet
     hideSummary = false,
     showThumbnailImage,
+    showSplitDisplay,
   } = definition ?? {};
-
-  const ctaRegex = /^<a/;
-
-  const renderedCta =
-    cta?.content && ctaRegex.test(cta.content)
-      ? cta.content
-          .replace("<a", "<OnlineVersionButton")
-          .replace("</a>", "</OnlineVersionButton>")
-      : cta?.content;
 
   return (
     <div className={styles.left}>
@@ -92,21 +84,21 @@ export default function TitleBlock({ data, layout }: TitleBlockProps) {
             <InlineSlotWrapper content={headerSummary.content} />
           </p>
         )}
-        <div className={styles.contributors}>
-          {listContributors && (
+        {listContributors && !showSplitDisplay && (
+          <div className={styles.contributors}>
             <ContributorsList
               className="t-copy-medium"
               data={entity}
               collectionSlug={entity?.slug}
               filterRole="author"
             />
-          )}
-        </div>
-        <div className={styles.cta}>
-          {cta?.valid && !!cta?.content && (
-            <BlockSlotWrapper content={renderedCta} assetAsButton />
-          )}
-        </div>
+          </div>
+        )}
+        {cta?.valid && !!cta?.content && !showSplitDisplay && (
+          <div className={styles.cta}>
+            <BlockSlotWrapper content={cta.content} assetAsButton />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -141,6 +133,7 @@ const fragment = graphql`
     definition {
       listContributors
       showThumbnailImage
+      showSplitDisplay
     }
     slots {
       header {

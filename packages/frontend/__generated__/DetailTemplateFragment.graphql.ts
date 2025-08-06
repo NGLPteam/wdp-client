@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<772045ed0faecde17249f75ca421def5>>
+ * @generated SignedSource<<8ffc0518e57f8079b00e0f9e4ab237fe>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,6 +18,7 @@ export type DetailTemplateFragment$data = {
   readonly detailDefinition: {
     readonly background: DetailBackground | null | undefined;
     readonly showAnnouncements: boolean | null | undefined;
+    readonly showBody: boolean | null | undefined;
     readonly showHeroImage: boolean | null | undefined;
     readonly variant: DetailVariant | null | undefined;
     readonly width: TemplateWidth | null | undefined;
@@ -93,6 +94,13 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "width",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "showBody",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -112,6 +120,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "bb3c6e68a4fd780f4f29dcfa492e82fa";
+(node as any).hash = "dd6a7d083ae397ca19b06f11236321b0";
 
 export default node;

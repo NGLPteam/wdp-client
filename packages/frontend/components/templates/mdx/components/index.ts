@@ -10,7 +10,7 @@ import { default as CopyLink } from "./CopyLink";
 import { default as DotList } from "./DotList";
 import { default as DotItem } from "./DotItem";
 import { default as Asset } from "./Asset";
-import { default as OnlineVersionButton } from "./OnlineVersionButton";
+import { default as ButtonLink } from "./ButtonLink";
 
 export const inlineSlotComponents = {
   VariablePrecisionDate,
@@ -32,5 +32,5 @@ export const blockSlotComponents = {
   DotList,
   DotItem,
   Asset,
-  OnlineVersionButton,
+  ButtonLink,
 };

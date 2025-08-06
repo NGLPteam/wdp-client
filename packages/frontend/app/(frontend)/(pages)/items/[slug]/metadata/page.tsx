@@ -5,6 +5,8 @@ import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageTemplatesItemMetadataQuery as Query } from "@/relay/pageTemplatesItemMetadataQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import MetadataTemplate from "@/components/templates/Metadata";
+import MainLayout from "@/components/templates/MainLayout";
+import { FullTextFallback } from "@/components/templates/FullTextCheck/FullTextCheck";
 
 export default async function ItemPage({ params }: BasePageParams) {
   const { slug } = params;
@@ -18,7 +20,7 @@ export default async function ItemPage({ params }: BasePageParams) {
   if (!item) return notFound();
 
   const {
-    layouts: { metadata },
+    layouts: { metadata, main },
   } = item;
 
   const { template } = metadata ?? {};
@@ -26,6 +28,9 @@ export default async function ItemPage({ params }: BasePageParams) {
   return template ? (
     <UpdateClientEnvironment records={records}>
       <MetadataTemplate data={template} />
+      <FullTextFallback>
+        <MainLayout data={main} />
+      </FullTextFallback>
     </UpdateClientEnvironment>
   ) : null;
 }
@@ -38,6 +43,9 @@ const query = graphql`
           template {
             ...MetadataTemplateFragment
           }
+        }
+        main {
+          ...MainLayoutFragment
         }
       }
     }
