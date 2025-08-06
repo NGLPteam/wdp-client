@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ddfd428d3bf51990d6b69e3af193ac77>>
+ * @generated SignedSource<<521d3cca175fe717da1958d006fcd00b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,18 +15,13 @@ export type HarvestEntitiesListFragment$data = {
     readonly createdAt: string;
     readonly entity: {
       readonly __typename: string;
-      readonly schemaVersion: {
-        readonly identifier: string;
-        readonly name: string;
-      };
       readonly slug: string;
       readonly title: string;
     } | null | undefined;
-    readonly parent: {
-      readonly entity: {
-        readonly slug: string;
-        readonly title: string;
-      } | null | undefined;
+    readonly identifier: string;
+    readonly schemaVersion: {
+      readonly identifier: string;
+      readonly name: string;
     } | null | undefined;
   }>;
   readonly " $fragmentType": "HarvestEntitiesListFragment";
@@ -41,14 +36,7 @@ var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
-  "storageKey": null
-},
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "title",
+  "name": "identifier",
   "storageKey": null
 };
 return {
@@ -72,6 +60,26 @@ return {
           "name": "createdAt",
           "storageKey": null
         },
+        (v0/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "SchemaVersion",
+          "kind": "LinkedField",
+          "name": "schemaVersion",
+          "plural": false,
+          "selections": [
+            (v0/*: any*/),
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "name",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
         {
           "alias": null,
           "args": null,
@@ -87,55 +95,18 @@ return {
               "name": "__typename",
               "storageKey": null
             },
-            (v0/*: any*/),
-            (v1/*: any*/),
             {
               "alias": null,
               "args": null,
-              "concreteType": "SchemaVersion",
-              "kind": "LinkedField",
-              "name": "schemaVersion",
-              "plural": false,
-              "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "identifier",
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "name",
-                  "storageKey": null
-                }
-              ],
+              "kind": "ScalarField",
+              "name": "slug",
               "storageKey": null
-            }
-          ],
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "HarvestEntity",
-          "kind": "LinkedField",
-          "name": "parent",
-          "plural": false,
-          "selections": [
+            },
             {
               "alias": null,
               "args": null,
-              "concreteType": null,
-              "kind": "LinkedField",
-              "name": "entity",
-              "plural": false,
-              "selections": [
-                (v0/*: any*/),
-                (v1/*: any*/)
-              ],
+              "kind": "ScalarField",
+              "name": "title",
               "storageKey": null
             }
           ],
@@ -150,6 +121,6 @@ return {
 };
 })();
 
-(node as any).hash = "09691ecdefbff55067847a6f7bea0225";
+(node as any).hash = "b7c28c691aad2134e78f397b71b18508";
 
 export default node;

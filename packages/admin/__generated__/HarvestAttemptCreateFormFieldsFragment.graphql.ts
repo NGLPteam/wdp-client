@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bcee6ec5af56f450e5beff642ebd15c7>>
+ * @generated SignedSource<<b403b889b67dc9e7df0d9f74b7d161f4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,7 +10,7 @@
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
 export type HarvestAttemptState = "CANCELLED" | "EXECUTING" | "EXTRACTED" | "PENDING" | "SCHEDULED" | "%future added value";
-export type HarvestMetadataFormat = "ESPLORO" | "JATS" | "METS" | "MODS" | "OAIDC" | "%future added value";
+export type HarvestMetadataFormat = "ESPLORO" | "JATS" | "METS" | "MODS" | "OAIDC" | "PRESSBOOKS" | "%future added value";
 export type HarvestScheduleMode = "MANUAL" | "SCHEDULED" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type HarvestAttemptCreateFormFieldsFragment$data = {

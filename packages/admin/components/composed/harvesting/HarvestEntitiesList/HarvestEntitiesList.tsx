@@ -25,22 +25,21 @@ function HarvestEntitiesList({ data, headerStyle, hideHeader }: Props) {
   const { t } = useTranslation();
 
   const columns = [
+    ModelColumns.StringColumn<HarvestEntityNode>({
+      id: "identifier",
+      header: () => t("lists.identifier_column"),
+    }),
     ModelColumns.CreatedAtColumn<HarvestEntityNode>({ enableSorting: false }),
     ModelColumns.NameColumn<HarvestEntityNode>({
       accessorFn: (row) => row.entity?.title,
       enableSorting: false,
       route: (row) =>
         row?.entity?.__typename === "Item" ? "item" : "collection",
+      header: () => "Meru Entity",
     }),
     ModelColumns.StringColumn<HarvestEntityNode>({
-      id: "entity.schemaVersion.name",
+      id: "schemaVersion.name",
       header: () => t("lists.schema_column"),
-    }),
-    ModelColumns.NameColumn<HarvestEntityNode>({
-      id: "parent",
-      accessorFn: (row) => row.parent?.entity?.title,
-      header: () => t("forms.parent.label"),
-      enableSorting: false,
     }),
   ];
 
@@ -66,20 +65,15 @@ export const fragment = graphql`
   fragment HarvestEntitiesListFragment on HarvestRecord {
     harvestEntities {
       createdAt
+      identifier
+      schemaVersion {
+        identifier
+        name
+      }
       entity {
         __typename
         slug
         title
-        schemaVersion {
-          identifier
-          name
-        }
-      }
-      parent {
-        entity {
-          slug
-          title
-        }
       }
     }
   }

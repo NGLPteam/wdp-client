@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0bbb14fdbaf91a6e641e7828ced59791>>
+ * @generated SignedSource<<785e96ee697a5da8970136f420229337>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,7 +9,7 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
-export type HarvestMetadataFormat = "ESPLORO" | "JATS" | "METS" | "MODS" | "OAIDC" | "%future added value";
+export type HarvestMetadataFormat = "ESPLORO" | "JATS" | "METS" | "MODS" | "OAIDC" | "PRESSBOOKS" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type HarvestSourcesListFragment$data = {
   readonly harvestSources: {

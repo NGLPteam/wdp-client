@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cec635ea7db6a95b7dbde568dd225e45>>
+ * @generated SignedSource<<5d2fe5c7f4a314cb2e1ba009f043211c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -42,37 +42,15 @@ v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "__typename",
+  "name": "identifier",
   "storageKey": null
 },
 v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "slug",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "title",
-  "storageKey": null
-},
-v5 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "id",
   "storageKey": null
-},
-v6 = {
-  "kind": "InlineFragment",
-  "selections": [
-    (v5/*: any*/)
-  ],
-  "type": "Node",
-  "abstractKey": "__isNode"
 };
 return {
   "fragment": {
@@ -130,6 +108,27 @@ return {
                 "name": "createdAt",
                 "storageKey": null
               },
+              (v2/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "SchemaVersion",
+                "kind": "LinkedField",
+                "name": "schemaVersion",
+                "plural": false,
+                "selections": [
+                  (v2/*: any*/),
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "name",
+                    "storageKey": null
+                  },
+                  (v3/*: any*/)
+                ],
+                "storageKey": null
+              },
               {
                 "alias": null,
                 "args": null,
@@ -138,83 +137,55 @@ return {
                 "name": "entity",
                 "plural": false,
                 "selections": [
-                  (v2/*: any*/),
-                  (v3/*: any*/),
-                  (v4/*: any*/),
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "SchemaVersion",
-                    "kind": "LinkedField",
-                    "name": "schemaVersion",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "identifier",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "name",
-                        "storageKey": null
-                      },
-                      (v5/*: any*/)
-                    ],
+                    "kind": "ScalarField",
+                    "name": "__typename",
                     "storageKey": null
                   },
-                  (v6/*: any*/)
-                ],
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "HarvestEntity",
-                "kind": "LinkedField",
-                "name": "parent",
-                "plural": false,
-                "selections": [
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": null,
-                    "kind": "LinkedField",
-                    "name": "entity",
-                    "plural": false,
-                    "selections": [
-                      (v2/*: any*/),
-                      (v3/*: any*/),
-                      (v4/*: any*/),
-                      (v6/*: any*/)
-                    ],
+                    "kind": "ScalarField",
+                    "name": "slug",
                     "storageKey": null
                   },
-                  (v5/*: any*/)
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "title",
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "InlineFragment",
+                    "selections": [
+                      (v3/*: any*/)
+                    ],
+                    "type": "Node",
+                    "abstractKey": "__isNode"
+                  }
                 ],
                 "storageKey": null
               },
-              (v5/*: any*/)
+              (v3/*: any*/)
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "68a5518da21665f5019f46c78683d97b",
+    "cacheID": "fc8fe2380c817f8bb17a2026ea1e21ac",
     "id": null,
     "metadata": {},
     "name": "entitiesHarvestRecordQuery",
     "operationKind": "query",
-    "text": "query entitiesHarvestRecordQuery(\n  $slug: Slug!\n) {\n  harvestRecord(slug: $slug) {\n    ...HarvestEntitiesListFragment\n    id\n  }\n}\n\nfragment HarvestEntitiesListFragment on HarvestRecord {\n  harvestEntities {\n    createdAt\n    entity {\n      __typename\n      slug\n      title\n      schemaVersion {\n        identifier\n        name\n        id\n      }\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    parent {\n      entity {\n        __typename\n        slug\n        title\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n    id\n  }\n}\n"
+    "text": "query entitiesHarvestRecordQuery(\n  $slug: Slug!\n) {\n  harvestRecord(slug: $slug) {\n    ...HarvestEntitiesListFragment\n    id\n  }\n}\n\nfragment HarvestEntitiesListFragment on HarvestRecord {\n  harvestEntities {\n    createdAt\n    identifier\n    schemaVersion {\n      identifier\n      name\n      id\n    }\n    entity {\n      __typename\n      slug\n      title\n      ... on Node {\n        __isNode: __typename\n        id\n      }\n    }\n    id\n  }\n}\n"
   }
 };
 })();
