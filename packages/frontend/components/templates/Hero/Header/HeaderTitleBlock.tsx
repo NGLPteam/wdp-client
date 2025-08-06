@@ -33,9 +33,21 @@ export default function TitleBlock({ data, layout }: TitleBlockProps) {
     content: "Introduction to Philosophy",
   };
 
-  //@ts-expect-error doesn't exist yet
-  const { listContributors, hideSummary = false, showThumbnailImage } =
-    definition ?? {};
+  const {
+    listContributors,
+    //@ts-expect-error doesn't exist yet
+    hideSummary = false,
+    showThumbnailImage,
+  } = definition ?? {};
+
+  const ctaRegex = /^<a/;
+
+  const renderedCta =
+    cta?.content && ctaRegex.test(cta.content)
+      ? cta.content
+          .replace("<a", "<OnlineVersionButton")
+          .replace("</a>", "</OnlineVersionButton>")
+      : cta?.content;
 
   return (
     <div className={styles.left}>
@@ -90,9 +102,11 @@ export default function TitleBlock({ data, layout }: TitleBlockProps) {
             />
           )}
         </div>
-        {cta?.valid && !!cta?.content && (
-          <BlockSlotWrapper content={cta.content} assetAsButton />
-        )}
+        <div className={styles.cta}>
+          {cta?.valid && !!cta?.content && (
+            <BlockSlotWrapper content={renderedCta} assetAsButton />
+          )}
+        </div>
       </div>
     </div>
   );
