@@ -9,6 +9,8 @@ export default function CoverImage({
   data,
   maxWidth,
   maxHeight,
+  objectFit,
+  objectPosition,
   ...props
 }: ImageProps | PlaceholderProps) {
   const { image } = useMaybeFragment(fragment, data) ?? {};
@@ -16,6 +18,8 @@ export default function CoverImage({
   const style = {
     "--CoverImage-max-width": pxToRem(maxWidth),
     "--CoverImage-max-height": pxToRem(maxHeight),
+    "--CoverImage-object-fit": objectFit,
+    "--CoverImage-object-position": objectPosition,
   } as React.CSSProperties;
 
   if (!image || !image.webp.url) {
@@ -50,6 +54,8 @@ interface ImageProps {
   maxWidth: number;
   maxHeight: number;
   loading?: "eager" | "lazy";
+  objectFit?: string;
+  objectPosition?: string;
 }
 
 // If a placeholder fallback is requested, this component requires a title and id to
@@ -61,6 +67,8 @@ interface PlaceholderProps {
   maxHeight: number;
   title: string;
   id: string;
+  objectFit?: string;
+  objectPosition?: string;
 }
 
 const fragment = graphql`
