@@ -10,6 +10,7 @@ import useViewerContext from "contexts/useViewerContext";
 import NoContent from "@/components/layout/messages/NoContent";
 import { blockSlotComponents } from "./components";
 import AssetButton from "./components/AssetButton";
+import ButtonLink from "./components/ButtonLink";
 
 export default function BlockSlotWrapper({
   content,
@@ -44,10 +45,8 @@ export default function BlockSlotWrapper({
     renderMDX();
   }, [content]);
 
-  const test = () => <div>hello</div>;
-
   const components = assetAsButton
-    ? { ...blockSlotComponents, Asset: AssetButton, a: test }
+    ? { ...blockSlotComponents, Asset: AssetButton, a: ButtonLink }
     : blockSlotComponents;
 
   return mdxContent ? (

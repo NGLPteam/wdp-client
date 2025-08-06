@@ -18,8 +18,16 @@ export default function DetailTemplate({
 
   if (hidden) return null;
 
-  const { background, variant, showAnnouncements, showHeroImage, width } =
-    detailDefinition ?? {};
+  const {
+    background,
+    variant,
+    showAnnouncements,
+    showHeroImage,
+    width,
+    showBody,
+  } = detailDefinition ?? {};
+
+  if (!showBody) return null;
 
   return (
     <Container
@@ -46,6 +54,7 @@ const fragment = graphql`
       showAnnouncements
       showHeroImage
       width
+      showBody
     }
     ...SummaryDetailFragment
     ...FullDetailFragment

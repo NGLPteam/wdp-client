@@ -43,6 +43,18 @@ export const FullTextCheckRedirect = ({
   return children;
 };
 
+export const FullTextFallback = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const hasFullText = useFullTextCheck();
+
+  if (hasFullText) return null;
+
+  return children;
+};
+
 const fragment = graphql`
   fragment FullTextCheckFragment on EntityLayouts {
     main {

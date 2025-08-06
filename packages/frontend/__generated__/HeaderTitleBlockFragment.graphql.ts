@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e9a2cd6e407f83d275ccf145c4229124>>
+ * @generated SignedSource<<5afcc7b88f265eae86c0433d9bc7ff31>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,6 +14,7 @@ import { FragmentRefs } from "relay-runtime";
 export type HeaderTitleBlockFragment$data = {
   readonly definition: {
     readonly listContributors: boolean | null | undefined;
+    readonly showSplitDisplay: boolean | null | undefined;
     readonly showThumbnailImage: boolean | null | undefined;
   };
   readonly entity: {
@@ -217,6 +218,13 @@ return {
           "kind": "ScalarField",
           "name": "showThumbnailImage",
           "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "showSplitDisplay",
+          "storageKey": null
         }
       ],
       "storageKey": null
@@ -288,6 +296,6 @@ return {
 };
 })();
 
-(node as any).hash = "226259d69500cf10e94ea81154fe3c9e";
+(node as any).hash = "804166ccd2ff04e7c5091d827dc2fa91";
 
 export default node;
