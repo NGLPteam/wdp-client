@@ -41,6 +41,10 @@
   margin-block-start: 1.5rem;
 }
 
+.onlineVersionButton {
+  margin-block-start: 1rem;
+}
+
 .heroSidebarItem {
   display: flex;
   gap: 0.75rem;
