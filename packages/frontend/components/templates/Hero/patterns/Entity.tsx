@@ -39,9 +39,7 @@ export default function EntityHeroHeader({
 
   const bgClass = getBgClass(background);
 
-  const renderHeroImage =
-    (showHeroImage || entity?.__typename === "Collection") &&
-    entity?.heroImage?.storage;
+  const renderHeroImage = showHeroImage && entity?.heroImage?.storage;
 
   return (
     <>

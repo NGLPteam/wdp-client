@@ -50,6 +50,7 @@
 
 .thumbColumn {
   inline-size: 225px;
+  flex-shrink: 0;
 
   @mixin respond theme("screens.100") {
     inline-size: 150px;

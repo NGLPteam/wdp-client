@@ -43,7 +43,7 @@ export default function TitleBlock({ data, layout }: TitleBlockProps) {
 
   return (
     <div className={styles.left}>
-      {showThumbnailImage && (
+      {showThumbnailImage && !showSplitDisplay && (
         <span className={styles.thumbColumn}>
           <CoverImage
             id={entity?.id ?? ""}
