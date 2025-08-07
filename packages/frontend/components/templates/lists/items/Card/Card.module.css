@@ -1,5 +1,6 @@
 .item {
   --Item-background-color: var(--color-base-neutral90);
+  @mixin fluidScalePx --Item-cover-v-padding, 36px, 60px;
 
   flex: 1 1 30%;
   z-index: 1;
@@ -40,6 +41,9 @@
         calc((100vw - theme("maxWidth.max")) / 2),
         var(--container-v-padding)
       );
+      height: calc(
+        var(--Item-cover-height, 18.75rem) + var(--Item-cover-v-padding) * 2
+      );
 
       @mixin respond theme("screens.100") {
         display: none;
@@ -79,14 +83,12 @@
 }
 
 .coverWrapper {
-  @mixin fluidScalePx --Item-cover-v-padding, 36px, 60px;
-
   background-color: var(--Item-background-color);
   display: flex;
   align-items: center;
   justify-content: center;
   height: calc(
-    var(--Item-cover-height, 18.75) + var(--Item-cover-v-padding) * 2
+    var(--Item-cover-height, 18.75rem) + var(--Item-cover-v-padding) * 2
   );
   padding-block-start: var(--Item-cover-v-padding);
   padding-block-end: var(--Item-cover-v-padding);
