@@ -1,5 +1,3 @@
-"use client";
-
 import { graphql, useFragment } from "react-relay";
 import { useParams, usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
@@ -9,14 +7,13 @@ import { NavigationTabsFragment$key } from "@/relay/NavigationTabsFragment.graph
 import { useSharedInlineFragment } from "@/components/templates/shared/shared.slots.graphql";
 import type { TemplateSlotInlineInstance } from "@/types/graphql-schema";
 import { getRouteByEntityType } from "@/helpers/routes";
+import { useFullTextCheck } from "../FullTextCheck/FullTextCheck";
 import styles from "./EntityNavigation.module.css";
 
 export default function NavigationTabs({
   data,
-  hasFullText,
 }: {
   data?: NavigationTabsFragment$key | null;
-  hasFullText: boolean;
 }) {
   const { slug } = useParams();
   const pathname = usePathname();
@@ -24,11 +21,11 @@ export default function NavigationTabs({
 
   const template = useFragment(fragment, data);
 
-  const { slots, entity } = template ?? {};
-
-  const hideMetadata = false;
+  const { slots, entity, definition } = template ?? {};
 
   const entityLabel = useSharedInlineFragment(slots?.entityLabel);
+
+  const renderMainLayout = useFullTextCheck();
 
   if (!entity || entity.__typename === "%other") return null;
 
@@ -67,8 +64,9 @@ export default function NavigationTabs({
       aria-label={t("nav.content_navigation_label")}
     >
       <ul className={styles.list}>
-        {hasFullText && getLink(basePath, entityLabel)}
-        {!hideMetadata && getLink(`${basePath}/metadata`, "nav.metadata")}
+        {renderMainLayout && getLink(basePath, entityLabel)}
+        {!definition?.hideMetadata &&
+          getLink(`${basePath}/metadata`, "nav.metadata")}
         {entity.assets?.pageInfo.totalCount > 0 &&
           getLink(`${basePath}/files`, "nav.files")}
         {"contributions" in entity &&
@@ -147,6 +145,9 @@ const fragment = graphql`
           }
         }
       }
+    }
+    definition {
+      hideMetadata
     }
     slots {
       entityLabel {
