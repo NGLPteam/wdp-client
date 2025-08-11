@@ -4064,7 +4064,7 @@ enum ContributorListBackground {
 }
 
 """
-An enumerated value associated with the templating subsystem.
+A filter value used to control the display of contributors.
 
 """
 enum ContributorListFilter {
@@ -5536,7 +5536,7 @@ enum DescendantListBackground {
 }
 
 """
-An enumerated value associated with the templating subsystem.
+An enum used to control the mode of selection for a descendant list template.
 
 """
 enum DescendantListSelectionMode {
@@ -5662,6 +5662,13 @@ type DescendantListTemplateDefinition implements Node & Sluggable & TemplateDefi
   
   """
   selectionSourceMode: SelectionSourceMode
+  """
+  When true, this takes priority over `selectionLimit`. It allows an entire
+  matching list of records to be retrieved. It should be used with caution,
+  since very large entity trees could cause responses to be slow.
+  
+  """
+  selectionUnbounded: Boolean
   """
   Show contributors when listing entities.
   
@@ -5806,7 +5813,7 @@ type DescendantListTemplateInstanceSlots {
 }
 
 """
-An enumerated value associated with the templating subsystem.
+An enum used to control how a descendant list template should be rendered.
 
 """
 enum DescendantListVariant {
@@ -6205,6 +6212,10 @@ Slot definitions for the associated template.
 type DetailTemplateDefinitionSlots {
   body: TemplateSlotBlockDefinition
   header: TemplateSlotInlineDefinition
+  itemsA: TemplateSlotBlockDefinition
+  itemsB: TemplateSlotBlockDefinition
+  itemsC: TemplateSlotBlockDefinition
+  itemsD: TemplateSlotBlockDefinition
   subheader: TemplateSlotInlineDefinition
   summary: TemplateSlotBlockDefinition
 }
@@ -6271,16 +6282,39 @@ Rendered slots for the associated template.
 type DetailTemplateInstanceSlots {
   body: TemplateSlotBlockInstance
   header: TemplateSlotInlineInstance
+  itemsA: TemplateSlotBlockInstance
+  itemsB: TemplateSlotBlockInstance
+  itemsC: TemplateSlotBlockInstance
+  itemsD: TemplateSlotBlockInstance
   subheader: TemplateSlotInlineInstance
   summary: TemplateSlotBlockInstance
 }
 
 """
-An enumerated value associated with the templating subsystem.
+An enum used to control how a detail template should be rendered.
 
 """
 enum DetailVariant {
+  """
+  A columnar display format for entity details, similar to metadata.
+  
+  It will make use of the `items*` slots in order to render the content.
+  
+  See the `hideMetadata` property on the navigation template for an
+  optimal use case with moving metadata from its own tab over to the
+  main layout.
+  
+  """
+  COLUMNS
+  """
+  Display 'full' detail about the entity.
+  
+  """
   FULL
+  """
+  Display detail about the entity in a summarized fashion.
+  
+  """
   SUMMARY
 }
 
@@ -7655,6 +7689,11 @@ type HarvestAttempt implements HasHarvestErrors & HasHarvestExtractionMappingTem
   """
   endedAt: ISO8601DateTime
   """
+  A progress report for entity data during a harvest attempt.
+  
+  """
+  entityStatus: HarvestAttemptEntityStatus
+  """
   The extraction mapping template used for this harvesting-related record
   at its place in the hierarchy. It is an XML document that describes how
   to map various types of metadata from the harvested records and transform
@@ -7780,6 +7819,11 @@ type HarvestAttempt implements HasHarvestErrors & HasHarvestExtractionMappingTem
   """
   recordCount: Int
   """
+  A progress report for record data during a harvest attempt.
+  
+  """
+  recordStatus: HarvestAttemptRecordStatus
+  """
   This specifies the time the attempt is scheduled to run at, if the `mode` is `SCHEDULED`.
   
   """
@@ -7809,6 +7853,67 @@ type HarvestAttemptEdge {
   cursor: String!
   """The item at the end of the edge."""
   node: HarvestAttempt!
+}
+
+"""
+A progress report for entity data during a harvest attempt.
+
+"""
+type HarvestAttemptEntityStatus implements Node & Sluggable {
+  """
+  Average time to fetch assets for a given entity in seconds (may be used in ETA calculations in the future).
+  
+  """
+  assetsDurationAverage: Float
+  """
+  A (very) rough estimate of when the assets might be fully extracted.
+  
+  """
+  assetsEta: ISO8601DateTime
+  """
+  The percentage of completion based on current data expressed as a float between 0.0 and 1.0.
+  
+  """
+  completion: Float
+  createdAt: ISO8601DateTime!
+  id: ID!
+  slug: Slug!
+  """
+  Total number of entities extracted for this attempt.
+  
+  """
+  totalEntities: Int
+  """
+  Total number of entities that have been successfully extracted.
+  
+  """
+  totalEntitiesSuccess: Int
+  """
+  Total number of entities that are waiting for assets to be fetched.
+  
+  """
+  totalEntitiesWaitingForAssets: Int
+  """
+  Total number of entities that are pending upsert.
+  
+  """
+  totalEntitiesWaitingForUpsert: Int
+  """
+  Total number of entities extracted for this attempt that have 1 or more assets attached.
+  
+  """
+  totalEntitiesWithAssets: Int
+  updatedAt: ISO8601DateTime!
+  """
+  Average time to upsert a given entity in seconds (may be used in ETA calculations in the future).
+  
+  """
+  upsertDurationAverage: Float
+  """
+  A (very) rough estimate of when the entities might be fully upserted.
+  
+  """
+  upsertEta: ISO8601DateTime
 }
 
 """Autogenerated input type of HarvestAttemptFromMapping"""
@@ -7981,6 +8086,48 @@ type HarvestAttemptPruneEntitiesPayload implements StandardMutationPayload {
   
   """
   harvestAttempt: HarvestAttempt
+}
+
+"""
+A progress report for record data during a harvest attempt.
+
+"""
+type HarvestAttemptRecordStatus implements Node & Sluggable {
+  """
+  The percentage of completion based on current data expressed as a float between 0.0 and 1.0.
+  
+  """
+  completion: Float
+  createdAt: ISO8601DateTime!
+  """
+  Average time to extract a given record in seconds (may be used in ETA calculations in the future).
+  
+  """
+  extractionDurationAverage: Float
+  id: ID!
+  slug: Slug!
+  """
+  Total number of records extracted for this attempt.
+  
+  """
+  totalRecords: Int
+  """
+  Total number of records that have been successfully extracted.
+  
+  """
+  totalRecordsSuccess: Int
+  """
+  Total number of records that are pending extraction (which will then be harvest entities).
+  
+  """
+  totalRecordsWaitingForExtraction: Int
+  """
+  Total number of records that are waiting on their entities to be complete.
+  This could include waiting for assets to be fetched.
+  
+  """
+  totalRecordsWaitingForUpsert: Int
+  updatedAt: ISO8601DateTime!
 }
 
 """
@@ -10337,6 +10484,7 @@ type HeroTemplateDefinitionSlots {
   descendantSearchPrompt: TemplateSlotInlineDefinition
   header: TemplateSlotInlineDefinition
   headerAside: TemplateSlotInlineDefinition
+  headerParent: TemplateSlotInlineDefinition
   headerSidebar: TemplateSlotBlockDefinition
   headerSubtitle: TemplateSlotInlineDefinition
   headerSummary: TemplateSlotBlockDefinition
@@ -10414,6 +10562,7 @@ type HeroTemplateInstanceSlots {
   descendantSearchPrompt: TemplateSlotInlineInstance
   header: TemplateSlotInlineInstance
   headerAside: TemplateSlotInlineInstance
+  headerParent: TemplateSlotInlineInstance
   headerSidebar: TemplateSlotBlockInstance
   headerSubtitle: TemplateSlotInlineInstance
   headerSummary: TemplateSlotBlockInstance
@@ -11847,7 +11996,7 @@ enum LinkListBackground {
 }
 
 """
-An enumerated value associated with the templating subsystem.
+An enum used to control the mode of selection for a link list template.
 
 """
 enum LinkListSelectionMode {
@@ -11951,6 +12100,13 @@ type LinkListTemplateDefinition implements Node & Sluggable & TemplateDefinition
   
   """
   selectionSourceMode: SelectionSourceMode
+  """
+  When true, this takes priority over `selectionLimit`. It allows an entire
+  matching list of records to be retrieved. It should be used with caution,
+  since very large entity trees could cause responses to be slow.
+  
+  """
+  selectionUnbounded: Boolean
   """
   Show contributors when listing entities.
   
@@ -12095,7 +12251,7 @@ type LinkListTemplateInstanceSlots {
 }
 
 """
-An enumerated value associated with the templating subsystem.
+An enum used to control how a link list template should be rendered.
 
 """
 enum LinkListVariant {
@@ -12182,12 +12338,24 @@ enum LinkTargetCandidateKind {
 }
 
 """
-An enumerated value associated with the templating subsystem.
+An enum used to control how much context to show for listed entities in a template.
 
 """
 enum ListEntityContext {
+  """
+  Show an abbreviated amount of context for listed entities.
+  
+  """
   ABBR
+  """
+  Show the maximum amount of context for listed entities.
+  
+  """
   FULL
+  """
+  Show the minimal / no amount of context for listed entities.
+  
+  """
   NONE
 }
 
@@ -12253,7 +12421,7 @@ type ListItemLayoutInstance implements LayoutInstance & Node & Renderable & Slug
 }
 
 """
-An enumerated value associated with the templating subsystem.
+An enum used to control the mode of selection for a list item template's associated records (if applicable).
 
 """
 enum ListItemSelectionMode {
@@ -12345,6 +12513,13 @@ type ListItemTemplateDefinition implements Node & Sluggable & TemplateDefinition
   
   """
   selectionSourceMode: SelectionSourceMode
+  """
+  When true, this takes priority over `selectionLimit`. It allows an entire
+  matching list of records to be retrieved. It should be used with caution,
+  since very large entity trees could cause responses to be slow.
+  
+  """
+  selectionUnbounded: Boolean
   """
   Slot definitions for this template.
   
@@ -13485,6 +13660,11 @@ type NavigationTemplateDefinition implements Node & Sluggable & TemplateDefiniti
   """
   background: NavigationBackground
   createdAt: ISO8601DateTime!
+  """
+  If true, the metadata template/tab should be hidden for this schema.
+  
+  """
+  hideMetadata: Boolean
   id: ID!
   layoutKind: LayoutKind!
   """
@@ -18022,6 +18202,11 @@ type TemplateEntityList {
   """
   fallback: Boolean!
   """
+  Whether there is any variation in hierarchical depth within the list of entities.
+  
+  """
+  flatDepth: Boolean!
+  """
   A shortcut to access the list item layouts for each entity in `entities`.
   
   The order is deterministic.
@@ -18030,6 +18215,16 @@ type TemplateEntityList {
   
   """
   listItemLayouts: [ListItemLayoutInstance!]!
+  """
+  The maximum hierarchical depth for the entities in the list (if known).
+  
+  """
+  maximumDepth: Int
+  """
+  The minimum hierarchical depth for the entities in the list (if known).
+  
+  """
+  minimumDepth: Int
 }
 
 """
@@ -18603,7 +18798,7 @@ enum TemplateSlotKind {
 }
 
 """
-An enumerated value associated with the templating subsystem.
+An enum that helps organize things on the frontend to put certain templates side by side where it makes sense.
 
 """
 enum TemplateWidth {
