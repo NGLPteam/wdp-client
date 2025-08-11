@@ -14,12 +14,19 @@ const FullTextCheckContext = createContext(true);
 export default function FullTextCheck({ data, children }: Props) {
   const { main } = useFragment(fragment, data) ?? {};
 
-  const body = main?.templates?.[0]?.slots?.body;
+  const fullDetailTemplate = main?.templates?.find(
+    (t) => t.definition?.variant === "FULL",
+  );
+
+  const body = fullDetailTemplate?.slots?.body;
 
   const hasFullText = !!body && body.valid && !!body.content;
+  const showBody = fullDetailTemplate?.definition?.showBody;
+
+  const renderMainLayout = showBody ? hasFullText : true;
 
   return (
-    <FullTextCheckContext.Provider value={hasFullText}>
+    <FullTextCheckContext.Provider value={renderMainLayout}>
       {children}
     </FullTextCheckContext.Provider>
   );
@@ -36,9 +43,9 @@ export const FullTextCheckRedirect = ({
   children: React.ReactNode;
   redirectPath: string;
 }) => {
-  const hasFullText = useFullTextCheck();
+  const renderMainLayout = useFullTextCheck();
 
-  if (!hasFullText) redirect(redirectPath);
+  if (!renderMainLayout) redirect(redirectPath);
 
   return children;
 };
@@ -48,9 +55,9 @@ export const FullTextFallback = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const hasFullText = useFullTextCheck();
+  const renderMainLayout = useFullTextCheck();
 
-  if (hasFullText) return null;
+  if (renderMainLayout) return null;
 
   return children;
 };
@@ -60,6 +67,10 @@ const fragment = graphql`
     main {
       templates {
         ... on DetailTemplateInstance {
+          definition {
+            showBody
+            variant
+          }
           slots {
             body {
               valid
