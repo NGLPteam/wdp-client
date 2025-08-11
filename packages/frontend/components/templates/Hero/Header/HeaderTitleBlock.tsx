@@ -26,24 +26,17 @@ export default function TitleBlock({ data, layout }: TitleBlockProps) {
   const headerSubtitle = useSharedInlineFragment(slots?.headerSubtitle);
   const headerAside = useSharedInlineFragment(slots?.headerAside);
   const headerSummary = useSharedBlockFragment(slots?.headerSummary);
-  // const headerParent = useSharedInlineFragment(slots?.headerParent);
+  const headerParent = useSharedInlineFragment(slots?.headerParent);
   const cta = useSharedBlockFragment(slots?.callToAction);
-  const headerParent = {
-    valid: false,
-    content: "Introduction to Philosophy",
-  };
 
-  const {
-    listContributors,
-    //@ts-expect-error doesn't exist yet
-    hideSummary = false,
-    showThumbnailImage,
-    showSplitDisplay,
-  } = definition ?? {};
+  const { listContributors, showThumbnailImage, showSplitDisplay } =
+    definition ?? {};
+
+  const compact = showThumbnailImage && !showSplitDisplay;
 
   return (
     <div className={styles.left}>
-      {showThumbnailImage && !showSplitDisplay && (
+      {compact && (
         <span className={styles.thumbColumn}>
           <CoverImage
             id={entity?.id ?? ""}
@@ -79,7 +72,7 @@ export default function TitleBlock({ data, layout }: TitleBlockProps) {
             <InlineSlotWrapper content={""} />
           </span>
         )}
-        {hideSummary && !!headerSummary?.content && headerSummary.valid && (
+        {!compact && !!headerSummary?.content && headerSummary.valid && (
           <p className="t-h3">
             <InlineSlotWrapper content={headerSummary.content} />
           </p>
@@ -140,6 +133,9 @@ const fragment = graphql`
         ...sharedInlineSlotFragment
       }
       headerSubtitle {
+        ...sharedInlineSlotFragment
+      }
+      headerParent {
         ...sharedInlineSlotFragment
       }
       headerAside {

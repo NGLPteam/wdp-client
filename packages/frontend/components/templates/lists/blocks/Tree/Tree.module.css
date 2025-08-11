@@ -1,5 +1,6 @@
 .container {
   padding-block: var(--container-padding-lg);
+  padding-block-end: var(--container-padding-xl);
 }
 
 .header {

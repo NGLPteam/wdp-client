@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5afcc7b88f265eae86c0433d9bc7ff31>>
+ * @generated SignedSource<<fab146ecdeaf4c217da8ce043b07e845>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -41,6 +41,9 @@ export type HeaderTitleBlockFragment$data = {
       readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
     } | null | undefined;
     readonly headerAside: {
+      readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
+    } | null | undefined;
+    readonly headerParent: {
       readonly " $fragmentSpreads": FragmentRefs<"sharedInlineSlotFragment">;
     } | null | undefined;
     readonly headerSubtitle: {
@@ -262,6 +265,16 @@ return {
           "args": null,
           "concreteType": "TemplateSlotInlineInstance",
           "kind": "LinkedField",
+          "name": "headerParent",
+          "plural": false,
+          "selections": (v2/*: any*/),
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "TemplateSlotInlineInstance",
+          "kind": "LinkedField",
           "name": "headerAside",
           "plural": false,
           "selections": (v2/*: any*/),
@@ -296,6 +309,6 @@ return {
 };
 })();
 
-(node as any).hash = "804166ccd2ff04e7c5091d827dc2fa91";
+(node as any).hash = "aa15bf8aa730172758326452ce39071f";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8ffc0518e57f8079b00e0f9e4ab237fe>>
+ * @generated SignedSource<<66c45569a7e2878ae56df6e825359fc1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,21 +10,16 @@
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
 export type DetailBackground = "DARK" | "LIGHT" | "NONE" | "%future added value";
-export type DetailVariant = "FULL" | "SUMMARY" | "%future added value";
-export type TemplateWidth = "FULL" | "HALF" | "%future added value";
+export type DetailVariant = "COLUMNS" | "FULL" | "SUMMARY" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type DetailTemplateFragment$data = {
   readonly __typename: "DetailTemplateInstance";
   readonly detailDefinition: {
     readonly background: DetailBackground | null | undefined;
-    readonly showAnnouncements: boolean | null | undefined;
-    readonly showBody: boolean | null | undefined;
-    readonly showHeroImage: boolean | null | undefined;
     readonly variant: DetailVariant | null | undefined;
-    readonly width: TemplateWidth | null | undefined;
   };
   readonly hidden: boolean;
-  readonly " $fragmentSpreads": FragmentRefs<"FullDetailFragment" | "SummaryDetailFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"ColumnsDetailFragment" | "FullDetailFragment" | "SummaryDetailFragment">;
   readonly " $fragmentType": "DetailTemplateFragment";
 };
 export type DetailTemplateFragment$key = {
@@ -73,34 +68,6 @@ const node: ReaderFragment = {
           "kind": "ScalarField",
           "name": "variant",
           "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "showAnnouncements",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "showHeroImage",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "width",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "showBody",
-          "storageKey": null
         }
       ],
       "storageKey": null
@@ -114,12 +81,17 @@ const node: ReaderFragment = {
       "args": null,
       "kind": "FragmentSpread",
       "name": "FullDetailFragment"
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ColumnsDetailFragment"
     }
   ],
   "type": "DetailTemplateInstance",
   "abstractKey": null
 };
 
-(node as any).hash = "dd6a7d083ae397ca19b06f11236321b0";
+(node as any).hash = "584362ff3c4ec2fe5f34d01ab908a6d7";
 
 export default node;

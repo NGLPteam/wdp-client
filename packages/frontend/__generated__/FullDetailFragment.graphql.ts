@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3273a13177ebeb61c5b750d23856a6de>>
+ * @generated SignedSource<<b9f49d1fc24578265e52c74eebd805c3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,10 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 export type AttachmentStorage = "CACHE" | "DERIVATIVES" | "REMOTE" | "STORE" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type FullDetailFragment$data = {
+  readonly detailDefinition: {
+    readonly showBody: boolean | null | undefined;
+    readonly showHeroImage: boolean | null | undefined;
+  };
   readonly entity: {
     readonly __typename: "Collection";
     readonly heroImage: {
@@ -117,6 +121,31 @@ return {
       "storageKey": null
     },
     {
+      "alias": "detailDefinition",
+      "args": null,
+      "concreteType": "DetailTemplateDefinition",
+      "kind": "LinkedField",
+      "name": "definition",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "showBody",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "showHeroImage",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
       "alias": null,
       "args": null,
       "concreteType": "DetailTemplateInstanceSlots",
@@ -169,6 +198,6 @@ return {
 };
 })();
 
-(node as any).hash = "172950ede8e0e51fbf4b2848bd67b5ac";
+(node as any).hash = "2690dbf9a26bf460dc587403d04aea6f";
 
 export default node;
