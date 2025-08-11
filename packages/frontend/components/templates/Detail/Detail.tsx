@@ -1,9 +1,15 @@
 import { graphql, useFragment } from "react-relay";
-import Container from "@/components/layout/Container";
 import { DetailTemplateFragment$key } from "@/relay/DetailTemplateFragment.graphql";
 import type { HeroBackground } from "@/types/graphql-schema";
 import Summary from "./Summary";
 import Full from "./Full";
+import Columns from "./Columns";
+
+const VARIANT_MAP = {
+  FULL: Full,
+  SUMMARY: Summary,
+  COLUMNS: Columns,
+};
 
 export default function DetailTemplate({
   data,
@@ -18,30 +24,13 @@ export default function DetailTemplate({
 
   if (hidden) return null;
 
-  const {
-    background,
-    variant,
-    showAnnouncements,
-    showHeroImage,
-    width,
-    showBody,
-  } = detailDefinition ?? {};
+  const { background, variant } = detailDefinition ?? {};
 
-  if (!showBody) return null;
+  if (!variant || variant === "%future added value") return null;
 
-  return (
-    <Container
-      width="wide"
-      bgColor={bgOverride ?? background}
-      halfWidthTemplate={width === "HALF"}
-    >
-      {variant === "SUMMARY" ? (
-        <Summary data={template} showAnnouncements={showAnnouncements} />
-      ) : (
-        <Full data={template} showHeroImage={showHeroImage} />
-      )}
-    </Container>
-  );
+  const Variant = VARIANT_MAP[variant];
+
+  return <Variant data={template} bgColor={bgOverride ?? background} />;
 }
 
 const fragment = graphql`
@@ -51,12 +40,9 @@ const fragment = graphql`
     detailDefinition: definition {
       background
       variant
-      showAnnouncements
-      showHeroImage
-      width
-      showBody
     }
     ...SummaryDetailFragment
     ...FullDetailFragment
+    ...ColumnsDetailFragment
   }
 `;

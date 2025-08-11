@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<027301743f5981d6fe1288ca1f2d8a72>>
+ * @generated SignedSource<<d8017cfe164112878d460e6a67d9562f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,9 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type SummaryDetailFragment$data = {
+  readonly detailDefinition: {
+    readonly showAnnouncements: boolean | null | undefined;
+  };
   readonly entity: {
     readonly __typename: "Collection";
     readonly announcements: {
@@ -145,6 +148,24 @@ return {
       "storageKey": null
     },
     {
+      "alias": "detailDefinition",
+      "args": null,
+      "concreteType": "DetailTemplateDefinition",
+      "kind": "LinkedField",
+      "name": "definition",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "showAnnouncements",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
+    {
       "alias": null,
       "args": null,
       "concreteType": "DetailTemplateInstanceSlots",
@@ -197,6 +218,6 @@ return {
 };
 })();
 
-(node as any).hash = "9c0d04ef7d96af7c8b83e33802607cae";
+(node as any).hash = "0ecce9b0c74d8ed4f391aedb039d3f61";
 
 export default node;
