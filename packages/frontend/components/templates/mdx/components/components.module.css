@@ -43,6 +43,10 @@
 
 .buttonLink {
   margin-block-start: 1rem;
+
+  svg {
+    margin-block-start: 2px;
+  }
 }
 
 .heroSidebarItem {
