@@ -21215,7 +21215,7 @@
       {
         "kind": "ENUM",
         "name": "ContributorListFilter",
-        "description": "An enumerated value associated with the templating subsystem.\n",
+        "description": "A filter value used to control the display of contributors.\n",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -27536,7 +27536,7 @@
       {
         "kind": "ENUM",
         "name": "DescendantListSelectionMode",
-        "description": "An enumerated value associated with the templating subsystem.\n",
+        "description": "An enum used to control the mode of selection for a descendant list template.\n",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -27796,6 +27796,18 @@
             "type": {
               "kind": "ENUM",
               "name": "SelectionSourceMode",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionUnbounded",
+            "description": "When true, this takes priority over `selectionLimit`. It allows an entire\nmatching list of records to be retrieved. It should be used with caution,\nsince very large entity trees could cause responses to be slow.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
               "ofType": null
             },
             "isDeprecated": false,
@@ -28518,7 +28530,7 @@
       {
         "kind": "ENUM",
         "name": "DescendantListVariant",
-        "description": "An enumerated value associated with the templating subsystem.\n",
+        "description": "An enum used to control how a descendant list template should be rendered.\n",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -30961,6 +30973,54 @@
             "deprecationReason": null
           },
           {
+            "name": "itemsA",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "itemsB",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "itemsC",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "itemsD",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "subheader",
             "description": null,
             "args": [],
@@ -31288,6 +31348,54 @@
             "deprecationReason": null
           },
           {
+            "name": "itemsA",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "itemsB",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "itemsC",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "itemsD",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotBlockInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "subheader",
             "description": null,
             "args": [],
@@ -31320,20 +31428,26 @@
       {
         "kind": "ENUM",
         "name": "DetailVariant",
-        "description": "An enumerated value associated with the templating subsystem.\n",
+        "description": "An enum used to control how a detail template should be rendered.\n",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
+            "name": "COLUMNS",
+            "description": "A columnar display format for entity details, similar to metadata.\n\nIt will make use of the `items*` slots in order to render the content.\n\nSee the `hideMetadata` property on the navigation template for an\noptimal use case with moving metadata from its own tab over to the\nmain layout.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "FULL",
-            "description": "",
+            "description": "Display 'full' detail about the entity.\n",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "SUMMARY",
-            "description": "",
+            "description": "Display detail about the entity in a summarized fashion.\n",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -37022,6 +37136,18 @@
             "deprecationReason": null
           },
           {
+            "name": "entityStatus",
+            "description": "A progress report for entity data during a harvest attempt.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "HarvestAttemptEntityStatus",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "extractionMappingTemplate",
             "description": "The extraction mapping template used for this harvesting-related record\nat its place in the hierarchy. It is an XML document that describes how\nto map various types of metadata from the harvested records and transform\nthat data into entities in Meru.\n\nFor harvest sources, it can be considered the default mapping template\nfor any record in the system, and should be used to pre-populate\nattempts that are created by the source, as well as future plans to\nallow for extracting a single record by external ID that may not have\nyet been fetched by an extract records process.\n\nFor harvest mappings, it can be considered the default mapping template\nfor any attempt created by the mapping.\n\nFor any harvesting data that exists prior to the harvesting refactor\ncompleted during March of 2025, it's possible for this value to be\nan empty string. Any modifications to mappings and sources from that\ntime will need to add a valid mapping template in order to succeed.\n\nSee `Query.harvestExamples` for examples of valid mapping templates.\n",
             "args": [],
@@ -37420,6 +37546,18 @@
             "deprecationReason": null
           },
           {
+            "name": "recordStatus",
+            "description": "A progress report for record data during a harvest attempt.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "HarvestAttemptRecordStatus",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "scheduledAt",
             "description": "This specifies the time the attempt is scheduled to run at, if the `mode` is `SCHEDULED`.\n",
             "args": [],
@@ -37637,6 +37775,212 @@
         ],
         "inputFields": null,
         "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "HarvestAttemptEntityStatus",
+        "description": "A progress report for entity data during a harvest attempt.\n",
+        "fields": [
+          {
+            "name": "assetsDurationAverage",
+            "description": "Average time to fetch assets for a given entity in seconds (may be used in ETA calculations in the future).\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "assetsEta",
+            "description": "A (very) rough estimate of when the assets might be fully extracted.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "completion",
+            "description": "The percentage of completion based on current data expressed as a float between 0.0 and 1.0.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "createdAt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "slug",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Slug",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "totalEntities",
+            "description": "Total number of entities extracted for this attempt.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "totalEntitiesSuccess",
+            "description": "Total number of entities that have been successfully extracted.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "totalEntitiesWaitingForAssets",
+            "description": "Total number of entities that are waiting for assets to be fetched.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "totalEntitiesWaitingForUpsert",
+            "description": "Total number of entities that are pending upsert.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "totalEntitiesWithAssets",
+            "description": "Total number of entities extracted for this attempt that have 1 or more assets attached.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updatedAt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "upsertDurationAverage",
+            "description": "Average time to upsert a given entity in seconds (may be used in ETA calculations in the future).\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "upsertEta",
+            "description": "A (very) rough estimate of when the entities might be fully upserted.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ISO8601DateTime",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "Sluggable",
+            "ofType": null
+          }
+        ],
         "enumValues": null,
         "possibleTypes": null
       },
@@ -38267,6 +38611,164 @@
           {
             "kind": "INTERFACE",
             "name": "StandardMutationPayload",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "HarvestAttemptRecordStatus",
+        "description": "A progress report for record data during a harvest attempt.\n",
+        "fields": [
+          {
+            "name": "completion",
+            "description": "The percentage of completion based on current data expressed as a float between 0.0 and 1.0.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "createdAt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "extractionDurationAverage",
+            "description": "Average time to extract a given record in seconds (may be used in ETA calculations in the future).\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Float",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "slug",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Slug",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "totalRecords",
+            "description": "Total number of records extracted for this attempt.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "totalRecordsSuccess",
+            "description": "Total number of records that have been successfully extracted.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "totalRecordsWaitingForExtraction",
+            "description": "Total number of records that are pending extraction (which will then be harvest entities).\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "totalRecordsWaitingForUpsert",
+            "description": "Total number of records that are waiting on their entities to be complete.\nThis could include waiting for assets to be fetched.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updatedAt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "Sluggable",
             "ofType": null
           }
         ],
@@ -46792,6 +47294,18 @@
             "deprecationReason": null
           },
           {
+            "name": "headerParent",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineDefinition",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "headerSidebar",
             "description": null,
             "args": [],
@@ -47240,6 +47754,18 @@
           },
           {
             "name": "headerAside",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TemplateSlotInlineInstance",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "headerParent",
             "description": null,
             "args": [],
             "type": {
@@ -54014,7 +54540,7 @@
       {
         "kind": "ENUM",
         "name": "LinkListSelectionMode",
-        "description": "An enumerated value associated with the templating subsystem.\n",
+        "description": "An enum used to control the mode of selection for a link list template.\n",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -54238,6 +54764,18 @@
             "type": {
               "kind": "ENUM",
               "name": "SelectionSourceMode",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionUnbounded",
+            "description": "When true, this takes priority over `selectionLimit`. It allows an entire\nmatching list of records to be retrieved. It should be used with caution,\nsince very large entity trees could cause responses to be slow.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
               "ofType": null
             },
             "isDeprecated": false,
@@ -54960,7 +55498,7 @@
       {
         "kind": "ENUM",
         "name": "LinkListVariant",
-        "description": "An enumerated value associated with the templating subsystem.\n",
+        "description": "An enum used to control how a link list template should be rendered.\n",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -55328,26 +55866,26 @@
       {
         "kind": "ENUM",
         "name": "ListEntityContext",
-        "description": "An enumerated value associated with the templating subsystem.\n",
+        "description": "An enum used to control how much context to show for listed entities in a template.\n",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
             "name": "ABBR",
-            "description": "",
+            "description": "Show an abbreviated amount of context for listed entities.\n",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "FULL",
-            "description": "",
+            "description": "Show the maximum amount of context for listed entities.\n",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "NONE",
-            "description": "",
+            "description": "Show the minimal / no amount of context for listed entities.\n",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -55724,7 +56262,7 @@
       {
         "kind": "ENUM",
         "name": "ListItemSelectionMode",
-        "description": "An enumerated value associated with the templating subsystem.\n",
+        "description": "An enum used to control the mode of selection for a list item template's associated records (if applicable).\n",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -55936,6 +56474,18 @@
             "type": {
               "kind": "ENUM",
               "name": "SelectionSourceMode",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "selectionUnbounded",
+            "description": "When true, this takes priority over `selectionLimit`. It allows an entire\nmatching list of records to be retrieved. It should be used with caution,\nsince very large entity trees could cause responses to be slow.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
               "ofType": null
             },
             "isDeprecated": false,
@@ -61080,6 +61630,18 @@
             "deprecationReason": null
           },
           {
+            "name": "hideMetadata",
+            "description": "If true, the metadata template/tab should be hidden for this schema.\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "id",
             "description": null,
             "args": [],
@@ -61685,6 +62247,16 @@
           {
             "kind": "OBJECT",
             "name": "HarvestAttempt",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "HarvestAttemptEntityStatus",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "HarvestAttemptRecordStatus",
             "ofType": null
           },
           {
@@ -79806,6 +80378,16 @@
           },
           {
             "kind": "OBJECT",
+            "name": "HarvestAttemptEntityStatus",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "HarvestAttemptRecordStatus",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "HarvestEntity",
             "ofType": null
           },
@@ -82486,6 +83068,22 @@
             "deprecationReason": null
           },
           {
+            "name": "flatDepth",
+            "description": "Whether there is any variation in hierarchical depth within the list of entities.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "listItemLayouts",
             "description": "A shortcut to access the list item layouts for each entity in `entities`.\n\nThe order is deterministic.\n\nSee `ListItemLayoutInstance`.\n",
             "args": [],
@@ -82505,6 +83103,30 @@
                   }
                 }
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "maximumDepth",
+            "description": "The maximum hierarchical depth for the entities in the list (if known).\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "minimumDepth",
+            "description": "The minimum hierarchical depth for the entities in the list (if known).\n",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -83916,7 +84538,7 @@
       {
         "kind": "ENUM",
         "name": "TemplateWidth",
-        "description": "An enumerated value associated with the templating subsystem.\n",
+        "description": "An enum that helps organize things on the frontend to put certain templates side by side where it makes sense.\n",
         "fields": null,
         "inputFields": null,
         "interfaces": null,

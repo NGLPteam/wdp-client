@@ -3828,7 +3828,7 @@ export type ContributorListBackground =
   | '%future added value';
 
 /**
- * An enumerated value associated with the templating subsystem.
+ * A filter value used to control the display of contributors.
  *
  */
 export type ContributorListFilter =
@@ -5325,7 +5325,7 @@ export type DescendantListBackground =
   | '%future added value';
 
 /**
- * An enumerated value associated with the templating subsystem.
+ * An enum used to control the mode of selection for a descendant list template.
  *
  */
 export type DescendantListSelectionMode =
@@ -5452,6 +5452,13 @@ export type DescendantListTemplateDefinition = Node & Sluggable & TemplateDefini
    *
    */
   selectionSourceMode?: Maybe<SelectionSourceMode>;
+  /**
+   * When true, this takes priority over `selectionLimit`. It allows an entire
+   * matching list of records to be retrieved. It should be used with caution,
+   * since very large entity trees could cause responses to be slow.
+   *
+   */
+  selectionUnbounded?: Maybe<Scalars['Boolean']['output']>;
   /**
    * Show contributors when listing entities.
    *
@@ -5601,7 +5608,7 @@ export type DescendantListTemplateInstanceSlots = {
 };
 
 /**
- * An enumerated value associated with the templating subsystem.
+ * An enum used to control how a descendant list template should be rendered.
  *
  */
 export type DescendantListVariant =
@@ -6001,6 +6008,10 @@ export type DetailTemplateDefinitionSlots = {
   __typename?: 'DetailTemplateDefinitionSlots';
   body?: Maybe<TemplateSlotBlockDefinition>;
   header?: Maybe<TemplateSlotInlineDefinition>;
+  itemsA?: Maybe<TemplateSlotBlockDefinition>;
+  itemsB?: Maybe<TemplateSlotBlockDefinition>;
+  itemsC?: Maybe<TemplateSlotBlockDefinition>;
+  itemsD?: Maybe<TemplateSlotBlockDefinition>;
   subheader?: Maybe<TemplateSlotInlineDefinition>;
   summary?: Maybe<TemplateSlotBlockDefinition>;
 };
@@ -6069,16 +6080,39 @@ export type DetailTemplateInstanceSlots = {
   __typename?: 'DetailTemplateInstanceSlots';
   body?: Maybe<TemplateSlotBlockInstance>;
   header?: Maybe<TemplateSlotInlineInstance>;
+  itemsA?: Maybe<TemplateSlotBlockInstance>;
+  itemsB?: Maybe<TemplateSlotBlockInstance>;
+  itemsC?: Maybe<TemplateSlotBlockInstance>;
+  itemsD?: Maybe<TemplateSlotBlockInstance>;
   subheader?: Maybe<TemplateSlotInlineInstance>;
   summary?: Maybe<TemplateSlotBlockInstance>;
 };
 
 /**
- * An enumerated value associated with the templating subsystem.
+ * An enum used to control how a detail template should be rendered.
  *
  */
 export type DetailVariant =
+  /**
+   * A columnar display format for entity details, similar to metadata.
+   *
+   * It will make use of the `items*` slots in order to render the content.
+   *
+   * See the `hideMetadata` property on the navigation template for an
+   * optimal use case with moving metadata from its own tab over to the
+   * main layout.
+   *
+   */
+  | 'COLUMNS'
+  /**
+   * Display 'full' detail about the entity.
+   *
+   */
   | 'FULL'
+  /**
+   * Display detail about the entity in a summarized fashion.
+   *
+   */
   | 'SUMMARY'
   | '%future added value';
 
@@ -7416,6 +7450,11 @@ export type HarvestAttempt = HasHarvestErrors & HasHarvestExtractionMappingTempl
    */
   endedAt?: Maybe<Scalars['ISO8601DateTime']['output']>;
   /**
+   * A progress report for entity data during a harvest attempt.
+   *
+   */
+  entityStatus?: Maybe<HarvestAttemptEntityStatus>;
+  /**
    * The extraction mapping template used for this harvesting-related record
    * at its place in the hierarchy. It is an XML document that describes how
    * to map various types of metadata from the harvested records and transform
@@ -7493,6 +7532,11 @@ export type HarvestAttempt = HasHarvestErrors & HasHarvestExtractionMappingTempl
    */
   recordCount?: Maybe<Scalars['Int']['output']>;
   /**
+   * A progress report for record data during a harvest attempt.
+   *
+   */
+  recordStatus?: Maybe<HarvestAttemptRecordStatus>;
+  /**
    * This specifies the time the attempt is scheduled to run at, if the `mode` is `SCHEDULED`.
    *
    */
@@ -7557,6 +7601,68 @@ export type HarvestAttemptEdge = {
   cursor: Scalars['String']['output'];
   /** The item at the end of the edge. */
   node: HarvestAttempt;
+};
+
+/**
+ * A progress report for entity data during a harvest attempt.
+ *
+ */
+export type HarvestAttemptEntityStatus = Node & Sluggable & {
+  __typename?: 'HarvestAttemptEntityStatus';
+  /**
+   * Average time to fetch assets for a given entity in seconds (may be used in ETA calculations in the future).
+   *
+   */
+  assetsDurationAverage?: Maybe<Scalars['Float']['output']>;
+  /**
+   * A (very) rough estimate of when the assets might be fully extracted.
+   *
+   */
+  assetsEta?: Maybe<Scalars['ISO8601DateTime']['output']>;
+  /**
+   * The percentage of completion based on current data expressed as a float between 0.0 and 1.0.
+   *
+   */
+  completion?: Maybe<Scalars['Float']['output']>;
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  id: Scalars['ID']['output'];
+  slug: Scalars['Slug']['output'];
+  /**
+   * Total number of entities extracted for this attempt.
+   *
+   */
+  totalEntities?: Maybe<Scalars['Int']['output']>;
+  /**
+   * Total number of entities that have been successfully extracted.
+   *
+   */
+  totalEntitiesSuccess?: Maybe<Scalars['Int']['output']>;
+  /**
+   * Total number of entities that are waiting for assets to be fetched.
+   *
+   */
+  totalEntitiesWaitingForAssets?: Maybe<Scalars['Int']['output']>;
+  /**
+   * Total number of entities that are pending upsert.
+   *
+   */
+  totalEntitiesWaitingForUpsert?: Maybe<Scalars['Int']['output']>;
+  /**
+   * Total number of entities extracted for this attempt that have 1 or more assets attached.
+   *
+   */
+  totalEntitiesWithAssets?: Maybe<Scalars['Int']['output']>;
+  updatedAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Average time to upsert a given entity in seconds (may be used in ETA calculations in the future).
+   *
+   */
+  upsertDurationAverage?: Maybe<Scalars['Float']['output']>;
+  /**
+   * A (very) rough estimate of when the entities might be fully upserted.
+   *
+   */
+  upsertEta?: Maybe<Scalars['ISO8601DateTime']['output']>;
 };
 
 /** Autogenerated input type of HarvestAttemptFromMapping */
@@ -7735,6 +7841,49 @@ export type HarvestAttemptPruneEntitiesPayload = StandardMutationPayload & {
    *
    */
   harvestAttempt?: Maybe<HarvestAttempt>;
+};
+
+/**
+ * A progress report for record data during a harvest attempt.
+ *
+ */
+export type HarvestAttemptRecordStatus = Node & Sluggable & {
+  __typename?: 'HarvestAttemptRecordStatus';
+  /**
+   * The percentage of completion based on current data expressed as a float between 0.0 and 1.0.
+   *
+   */
+  completion?: Maybe<Scalars['Float']['output']>;
+  createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * Average time to extract a given record in seconds (may be used in ETA calculations in the future).
+   *
+   */
+  extractionDurationAverage?: Maybe<Scalars['Float']['output']>;
+  id: Scalars['ID']['output'];
+  slug: Scalars['Slug']['output'];
+  /**
+   * Total number of records extracted for this attempt.
+   *
+   */
+  totalRecords?: Maybe<Scalars['Int']['output']>;
+  /**
+   * Total number of records that have been successfully extracted.
+   *
+   */
+  totalRecordsSuccess?: Maybe<Scalars['Int']['output']>;
+  /**
+   * Total number of records that are pending extraction (which will then be harvest entities).
+   *
+   */
+  totalRecordsWaitingForExtraction?: Maybe<Scalars['Int']['output']>;
+  /**
+   * Total number of records that are waiting on their entities to be complete.
+   * This could include waiting for assets to be fetched.
+   *
+   */
+  totalRecordsWaitingForUpsert?: Maybe<Scalars['Int']['output']>;
+  updatedAt: Scalars['ISO8601DateTime']['output'];
 };
 
 /**
@@ -10050,6 +10199,7 @@ export type HeroTemplateDefinitionSlots = {
   descendantSearchPrompt?: Maybe<TemplateSlotInlineDefinition>;
   header?: Maybe<TemplateSlotInlineDefinition>;
   headerAside?: Maybe<TemplateSlotInlineDefinition>;
+  headerParent?: Maybe<TemplateSlotInlineDefinition>;
   headerSidebar?: Maybe<TemplateSlotBlockDefinition>;
   headerSubtitle?: Maybe<TemplateSlotInlineDefinition>;
   headerSummary?: Maybe<TemplateSlotBlockDefinition>;
@@ -10129,6 +10279,7 @@ export type HeroTemplateInstanceSlots = {
   descendantSearchPrompt?: Maybe<TemplateSlotInlineInstance>;
   header?: Maybe<TemplateSlotInlineInstance>;
   headerAside?: Maybe<TemplateSlotInlineInstance>;
+  headerParent?: Maybe<TemplateSlotInlineInstance>;
   headerSidebar?: Maybe<TemplateSlotBlockInstance>;
   headerSubtitle?: Maybe<TemplateSlotInlineInstance>;
   headerSummary?: Maybe<TemplateSlotBlockInstance>;
@@ -11440,7 +11591,7 @@ export type LinkListBackground =
   | '%future added value';
 
 /**
- * An enumerated value associated with the templating subsystem.
+ * An enum used to control the mode of selection for a link list template.
  *
  */
 export type LinkListSelectionMode =
@@ -11545,6 +11696,13 @@ export type LinkListTemplateDefinition = Node & Sluggable & TemplateDefinition &
    *
    */
   selectionSourceMode?: Maybe<SelectionSourceMode>;
+  /**
+   * When true, this takes priority over `selectionLimit`. It allows an entire
+   * matching list of records to be retrieved. It should be used with caution,
+   * since very large entity trees could cause responses to be slow.
+   *
+   */
+  selectionUnbounded?: Maybe<Scalars['Boolean']['output']>;
   /**
    * Show contributors when listing entities.
    *
@@ -11694,7 +11852,7 @@ export type LinkListTemplateInstanceSlots = {
 };
 
 /**
- * An enumerated value associated with the templating subsystem.
+ * An enum used to control how a link list template should be rendered.
  *
  */
 export type LinkListVariant =
@@ -11784,12 +11942,24 @@ export type LinkTargetCandidateKind =
   | '%future added value';
 
 /**
- * An enumerated value associated with the templating subsystem.
+ * An enum used to control how much context to show for listed entities in a template.
  *
  */
 export type ListEntityContext =
+  /**
+   * Show an abbreviated amount of context for listed entities.
+   *
+   */
   | 'ABBR'
+  /**
+   * Show the maximum amount of context for listed entities.
+   *
+   */
   | 'FULL'
+  /**
+   * Show the minimal / no amount of context for listed entities.
+   *
+   */
   | 'NONE'
   | '%future added value';
 
@@ -11857,7 +12027,7 @@ export type ListItemLayoutInstance = LayoutInstance & Node & Renderable & Slugga
 };
 
 /**
- * An enumerated value associated with the templating subsystem.
+ * An enum used to control the mode of selection for a list item template's associated records (if applicable).
  *
  */
 export type ListItemSelectionMode =
@@ -11950,6 +12120,13 @@ export type ListItemTemplateDefinition = Node & Sluggable & TemplateDefinition &
    *
    */
   selectionSourceMode?: Maybe<SelectionSourceMode>;
+  /**
+   * When true, this takes priority over `selectionLimit`. It allows an entire
+   * matching list of records to be retrieved. It should be used with caution,
+   * since very large entity trees could cause responses to be slow.
+   *
+   */
+  selectionUnbounded?: Maybe<Scalars['Boolean']['output']>;
   /**
    * Slot definitions for this template.
    *
@@ -13476,6 +13653,11 @@ export type NavigationTemplateDefinition = Node & Sluggable & TemplateDefinition
    */
   background?: Maybe<NavigationBackground>;
   createdAt: Scalars['ISO8601DateTime']['output'];
+  /**
+   * If true, the metadata template/tab should be hidden for this schema.
+   *
+   */
+  hideMetadata?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['ID']['output'];
   layoutKind: LayoutKind;
   /**
@@ -18068,6 +18250,11 @@ export type TemplateEntityList = {
    */
   fallback: Scalars['Boolean']['output'];
   /**
+   * Whether there is any variation in hierarchical depth within the list of entities.
+   *
+   */
+  flatDepth: Scalars['Boolean']['output'];
+  /**
    * A shortcut to access the list item layouts for each entity in `entities`.
    *
    * The order is deterministic.
@@ -18076,6 +18263,16 @@ export type TemplateEntityList = {
    *
    */
   listItemLayouts: Array<ListItemLayoutInstance>;
+  /**
+   * The maximum hierarchical depth for the entities in the list (if known).
+   *
+   */
+  maximumDepth?: Maybe<Scalars['Int']['output']>;
+  /**
+   * The minimum hierarchical depth for the entities in the list (if known).
+   *
+   */
+  minimumDepth?: Maybe<Scalars['Int']['output']>;
 };
 
 /**
@@ -18630,7 +18827,7 @@ export type TemplateSlotKind =
   | '%future added value';
 
 /**
- * An enumerated value associated with the templating subsystem.
+ * An enum that helps organize things on the frontend to put certain templates side by side where it makes sense.
  *
  */
 export type TemplateWidth =
@@ -20740,7 +20937,7 @@ export type ResolversInterfaceTypes<RefType extends Record<string, unknown>> = {
   ImageIdentification: ( ImageAttachment ) | ( ImageDerivative ) | ( ImageOriginal ) | ( ImageSize ) | ( SiteLogoAttachment );
   LayoutDefinition: ( Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyHeroTemplateDefinition']> } ) | ( Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyListItemTemplateDefinition']> } ) | ( Omit<MainLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMainTemplateDefinition']> } ) | ( Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMetadataTemplateDefinition']> } ) | ( Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyNavigationTemplateDefinition']> } ) | ( Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<RefType['AnySupplementaryTemplateDefinition']> } );
   LayoutInstance: ( Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyHeroTemplateInstance']> } ) | ( Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyListItemTemplateInstance']> } ) | ( Omit<MainLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMainTemplateInstance']> } ) | ( Omit<MetadataLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMetadataTemplateInstance']> } ) | ( Omit<NavigationLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyNavigationTemplateInstance']> } ) | ( Omit<SupplementaryLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnySupplementaryTemplateInstance']> } );
-  Node: ( Omit<Announcement, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( BlurbTemplateDefinition ) | ( Omit<BlurbTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( CollectionAttribution ) | ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<RefType['AnyUserAccessGrant']> } ) | ( ContributionRoleConfiguration ) | ( ContributorCollectionAttribution ) | ( ContributorItemAttribution ) | ( ContributorListTemplateDefinition ) | ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( ControlledVocabulary ) | ( ControlledVocabularyItem ) | ( ControlledVocabularySource ) | ( DescendantListTemplateDefinition ) | ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( DetailTemplateDefinition ) | ( Omit<DetailTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<EntityBreadcrumb, 'crumb'> & { crumb: RefType['AnyEntity'] } ) | ( Omit<EntityLink, 'source' | 'target'> & { source: RefType['AnyEntity'], target: RefType['AnyEntity'] } ) | ( GlobalConfiguration ) | ( HarvestAttempt ) | ( HarvestEntity ) | ( HarvestError ) | ( HarvestMapping ) | ( HarvestMessage ) | ( HarvestMetadataMapping ) | ( HarvestRecord ) | ( HarvestSet ) | ( HarvestSource ) | ( Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyHeroTemplateDefinition']> } ) | ( Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyHeroTemplateInstance']> } ) | ( HeroTemplateDefinition ) | ( Omit<HeroTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( HierarchicalSchemaRank ) | ( HierarchicalSchemaVersionRank ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( ItemAttribution ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( LinkListTemplateDefinition ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<LinkTargetCandidate, 'target'> & { target: RefType['AnyLinkTarget'] } ) | ( Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyListItemTemplateDefinition']> } ) | ( Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyListItemTemplateInstance']> } ) | ( ListItemTemplateDefinition ) | ( Omit<ListItemTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<MainLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMainTemplateDefinition']> } ) | ( Omit<MainLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMainTemplateInstance']> } ) | ( Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMetadataTemplateDefinition']> } ) | ( Omit<MetadataLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMetadataTemplateInstance']> } ) | ( MetadataTemplateDefinition ) | ( Omit<MetadataTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyNavigationTemplateDefinition']> } ) | ( Omit<NavigationLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyNavigationTemplateInstance']> } ) | ( NavigationTemplateDefinition ) | ( Omit<NavigationTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingEntry, 'entry'> & { entry: RefType['AnyOrderingEntry'] } ) | ( OrderingTemplateDefinition ) | ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( OrganizationContributor ) | ( Omit<Page, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PageListTemplateDefinition ) | ( Omit<PageListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PersonContributor ) | ( Role ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } ) | ( Omit<SearchResult, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<RefType['AnySupplementaryTemplateDefinition']> } ) | ( Omit<SupplementaryLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnySupplementaryTemplateInstance']> } ) | ( SupplementaryTemplateDefinition ) | ( Omit<SupplementaryTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( TemplateInstanceSibling ) | ( User ) | ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( UserGroup ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
+  Node: ( Omit<Announcement, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( BlurbTemplateDefinition ) | ( Omit<BlurbTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( CollectionAttribution ) | ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<RefType['AnyUserAccessGrant']> } ) | ( ContributionRoleConfiguration ) | ( ContributorCollectionAttribution ) | ( ContributorItemAttribution ) | ( ContributorListTemplateDefinition ) | ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( ControlledVocabulary ) | ( ControlledVocabularyItem ) | ( ControlledVocabularySource ) | ( DescendantListTemplateDefinition ) | ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( DetailTemplateDefinition ) | ( Omit<DetailTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<EntityBreadcrumb, 'crumb'> & { crumb: RefType['AnyEntity'] } ) | ( Omit<EntityLink, 'source' | 'target'> & { source: RefType['AnyEntity'], target: RefType['AnyEntity'] } ) | ( GlobalConfiguration ) | ( HarvestAttempt ) | ( HarvestAttemptEntityStatus ) | ( HarvestAttemptRecordStatus ) | ( HarvestEntity ) | ( HarvestError ) | ( HarvestMapping ) | ( HarvestMessage ) | ( HarvestMetadataMapping ) | ( HarvestRecord ) | ( HarvestSet ) | ( HarvestSource ) | ( Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyHeroTemplateDefinition']> } ) | ( Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyHeroTemplateInstance']> } ) | ( HeroTemplateDefinition ) | ( Omit<HeroTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( HierarchicalSchemaRank ) | ( HierarchicalSchemaVersionRank ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( ItemAttribution ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( LinkListTemplateDefinition ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<LinkTargetCandidate, 'target'> & { target: RefType['AnyLinkTarget'] } ) | ( Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyListItemTemplateDefinition']> } ) | ( Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyListItemTemplateInstance']> } ) | ( ListItemTemplateDefinition ) | ( Omit<ListItemTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<MainLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMainTemplateDefinition']> } ) | ( Omit<MainLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMainTemplateInstance']> } ) | ( Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMetadataTemplateDefinition']> } ) | ( Omit<MetadataLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMetadataTemplateInstance']> } ) | ( MetadataTemplateDefinition ) | ( Omit<MetadataTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyNavigationTemplateDefinition']> } ) | ( Omit<NavigationLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyNavigationTemplateInstance']> } ) | ( NavigationTemplateDefinition ) | ( Omit<NavigationTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingEntry, 'entry'> & { entry: RefType['AnyOrderingEntry'] } ) | ( OrderingTemplateDefinition ) | ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( OrganizationContributor ) | ( Omit<Page, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PageListTemplateDefinition ) | ( Omit<PageListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PersonContributor ) | ( Role ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } ) | ( Omit<SearchResult, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<RefType['AnySupplementaryTemplateDefinition']> } ) | ( Omit<SupplementaryLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnySupplementaryTemplateInstance']> } ) | ( SupplementaryTemplateDefinition ) | ( Omit<SupplementaryTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( TemplateInstanceSibling ) | ( User ) | ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( UserGroup ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
   OptionableProperty: ( MultiselectProperty ) | ( SelectProperty );
   OrderingPath: ( AncestorSchemaOrderingPath ) | ( AncestorStaticOrderingPath ) | ( SchemaOrderingPath ) | ( StaticOrderingPath );
   Paginated: ( AnnouncementConnection ) | ( Omit<AnyAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyAccessGrant']> } ) | ( Omit<AnyAssetConnection, 'nodes'> & { nodes: Array<RefType['AnyAsset']> } ) | ( Omit<AnyCollectionAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyCollectionAccessGrant']> } ) | ( Omit<AnyCommunityAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyCommunityAccessGrant']> } ) | ( Omit<AnyContributorConnection, 'nodes'> & { nodes: Array<RefType['AnyContributor']> } ) | ( Omit<AnyUserAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyUserAccessGrant']> } ) | ( Omit<AnyUserGroupAccessGrantConnection, 'nodes'> & { nodes: Array<RefType['AnyUserGroupAccessGrant']> } ) | ( CollectionConnection ) | ( CollectionContributionConnection ) | ( CommunityConnection ) | ( ContextualPermissionConnection ) | ( Omit<ContributorAttributionConnection, 'nodes'> & { nodes: Array<RefType['AnyContributorAttribution']> } ) | ( ControlledVocabularyConnection ) | ( ControlledVocabularySourceConnection ) | ( EntityDescendantConnection ) | ( EntityLinkConnection ) | ( HarvestAttemptConnection ) | ( HarvestMappingConnection ) | ( HarvestMessageConnection ) | ( HarvestMetadataMappingConnection ) | ( HarvestRecordConnection ) | ( HarvestSetConnection ) | ( HarvestSourceConnection ) | ( ItemConnection ) | ( ItemContributionConnection ) | ( LinkTargetCandidateConnection ) | ( OrderingConnection ) | ( OrderingEntryConnection ) | ( PageConnection ) | ( RoleConnection ) | ( SchemaDefinitionConnection ) | ( SchemaVersionConnection ) | ( SearchResultConnection ) | ( UserCollectionAccessGrantConnection ) | ( UserCommunityAccessGrantConnection ) | ( UserConnection ) | ( UserGroupCollectionAccessGrantConnection ) | ( UserGroupCommunityAccessGrantConnection ) | ( UserGroupItemAccessGrantConnection ) | ( UserItemAccessGrantConnection );
@@ -20768,7 +20965,7 @@ export type ResolversInterfaceTypes<RefType extends Record<string, unknown>> = {
   SchemaProperty: ( Omit<AssetProperty, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( Omit<AssetsProperty, 'assets'> & { assets: Array<RefType['AnyAsset']> } ) | ( BooleanProperty ) | ( Omit<ContributorProperty, 'contributor'> & { contributor?: Maybe<RefType['AnyContributor']> } ) | ( Omit<ContributorsProperty, 'contributors'> & { contributors: Array<RefType['AnyContributor']> } ) | ( ControlledVocabulariesProperty ) | ( ControlledVocabularyProperty ) | ( DateProperty ) | ( EmailProperty ) | ( Omit<EntitiesProperty, 'entities'> & { entities: Array<RefType['AnyEntity']> } ) | ( Omit<EntityProperty, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( FloatProperty ) | ( FullTextProperty ) | ( Omit<GroupProperty, 'properties'> & { properties: Array<RefType['AnyScalarProperty']> } ) | ( IntegerProperty ) | ( MarkdownProperty ) | ( MultiselectProperty ) | ( SelectProperty ) | ( StringProperty ) | ( TagsProperty ) | ( TimestampProperty ) | ( UrlProperty ) | ( UnknownProperty ) | ( VariableDateProperty );
   Searchable: ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Query, 'asset' | 'contributor' | 'contributorLookup' | 'orderingPaths'> & { asset?: Maybe<RefType['AnyAsset']>, contributor?: Maybe<RefType['AnyContributor']>, contributorLookup?: Maybe<RefType['AnyContributor']>, orderingPaths: Array<RefType['AnyOrderingPath']> } ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } );
   SearchableProperty: ( BooleanProperty ) | ( DateProperty ) | ( FloatProperty ) | ( FullTextProperty ) | ( IntegerProperty ) | ( MarkdownProperty ) | ( MultiselectProperty ) | ( SearchableCoreProperty ) | ( SelectProperty ) | ( StringProperty ) | ( TimestampProperty ) | ( VariableDateProperty );
-  Sluggable: ( Omit<Announcement, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( BlurbTemplateDefinition ) | ( Omit<BlurbTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( CollectionAttribution ) | ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<RefType['AnyUserAccessGrant']> } ) | ( ContributionRoleConfiguration ) | ( ContributorCollectionAttribution ) | ( ContributorItemAttribution ) | ( ContributorListTemplateDefinition ) | ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( ControlledVocabulary ) | ( ControlledVocabularyItem ) | ( ControlledVocabularySource ) | ( DescendantListTemplateDefinition ) | ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( DetailTemplateDefinition ) | ( Omit<DetailTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<EntityLink, 'source' | 'target'> & { source: RefType['AnyEntity'], target: RefType['AnyEntity'] } ) | ( HarvestAttempt ) | ( HarvestEntity ) | ( HarvestError ) | ( HarvestMapping ) | ( HarvestMessage ) | ( HarvestMetadataMapping ) | ( HarvestRecord ) | ( HarvestSet ) | ( HarvestSource ) | ( Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyHeroTemplateDefinition']> } ) | ( Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyHeroTemplateInstance']> } ) | ( HeroTemplateDefinition ) | ( Omit<HeroTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( ItemAttribution ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( LinkListTemplateDefinition ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyListItemTemplateDefinition']> } ) | ( Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyListItemTemplateInstance']> } ) | ( ListItemTemplateDefinition ) | ( Omit<ListItemTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<MainLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMainTemplateDefinition']> } ) | ( Omit<MainLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMainTemplateInstance']> } ) | ( Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMetadataTemplateDefinition']> } ) | ( Omit<MetadataLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMetadataTemplateInstance']> } ) | ( MetadataTemplateDefinition ) | ( Omit<MetadataTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyNavigationTemplateDefinition']> } ) | ( Omit<NavigationLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyNavigationTemplateInstance']> } ) | ( NavigationTemplateDefinition ) | ( Omit<NavigationTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingEntry, 'entry'> & { entry: RefType['AnyOrderingEntry'] } ) | ( OrderingTemplateDefinition ) | ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( OrganizationContributor ) | ( PageListTemplateDefinition ) | ( Omit<PageListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PersonContributor ) | ( Role ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } ) | ( Omit<SearchResult, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<RefType['AnySupplementaryTemplateDefinition']> } ) | ( Omit<SupplementaryLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnySupplementaryTemplateInstance']> } ) | ( SupplementaryTemplateDefinition ) | ( Omit<SupplementaryTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( TemplateInstanceSibling ) | ( User ) | ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( UserGroup ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
+  Sluggable: ( Omit<Announcement, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<AssetAudio, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetDocument, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetImage, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetPdf, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetUnknown, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( Omit<AssetVideo, 'attachable'> & { attachable: RefType['AnyAttachable'] } ) | ( BlurbTemplateDefinition ) | ( Omit<BlurbTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Collection, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['CollectionParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( CollectionAttribution ) | ( Omit<CollectionContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( Omit<Community, 'schemaProperties' | 'schemaProperty'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( Omit<ContextualPermission, 'accessGrants'> & { accessGrants: Array<RefType['AnyUserAccessGrant']> } ) | ( ContributionRoleConfiguration ) | ( ContributorCollectionAttribution ) | ( ContributorItemAttribution ) | ( ContributorListTemplateDefinition ) | ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( ControlledVocabulary ) | ( ControlledVocabularyItem ) | ( ControlledVocabularySource ) | ( DescendantListTemplateDefinition ) | ( Omit<DescendantListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( DetailTemplateDefinition ) | ( Omit<DetailTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<EntityLink, 'source' | 'target'> & { source: RefType['AnyEntity'], target: RefType['AnyEntity'] } ) | ( HarvestAttempt ) | ( HarvestAttemptEntityStatus ) | ( HarvestAttemptRecordStatus ) | ( HarvestEntity ) | ( HarvestError ) | ( HarvestMapping ) | ( HarvestMessage ) | ( HarvestMetadataMapping ) | ( HarvestRecord ) | ( HarvestSet ) | ( HarvestSource ) | ( Omit<HeroLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyHeroTemplateDefinition']> } ) | ( Omit<HeroLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyHeroTemplateInstance']> } ) | ( HeroTemplateDefinition ) | ( Omit<HeroTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Item, 'ancestorByName' | 'ancestorOfType' | 'parent' | 'schemaProperties' | 'schemaProperty'> & { ancestorByName?: Maybe<RefType['AnyEntity']>, ancestorOfType?: Maybe<RefType['AnyEntity']>, parent?: Maybe<RefType['ItemParent']>, schemaProperties: Array<RefType['AnySchemaProperty']>, schemaProperty?: Maybe<RefType['AnySchemaProperty']> } ) | ( ItemAttribution ) | ( Omit<ItemContribution, 'contributor'> & { contributor: RefType['AnyContributor'] } ) | ( LinkListTemplateDefinition ) | ( Omit<LinkListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<ListItemLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyListItemTemplateDefinition']> } ) | ( Omit<ListItemLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyListItemTemplateInstance']> } ) | ( ListItemTemplateDefinition ) | ( Omit<ListItemTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<MainLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMainTemplateDefinition']> } ) | ( Omit<MainLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMainTemplateInstance']> } ) | ( Omit<MetadataLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyMetadataTemplateDefinition']> } ) | ( Omit<MetadataLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyMetadataTemplateInstance']> } ) | ( MetadataTemplateDefinition ) | ( Omit<MetadataTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<NavigationLayoutDefinition, 'templates'> & { templates: Array<RefType['AnyNavigationTemplateDefinition']> } ) | ( Omit<NavigationLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnyNavigationTemplateInstance']> } ) | ( NavigationTemplateDefinition ) | ( Omit<NavigationTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<Ordering, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<OrderingEntry, 'entry'> & { entry: RefType['AnyOrderingEntry'] } ) | ( OrderingTemplateDefinition ) | ( Omit<OrderingTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( OrganizationContributor ) | ( PageListTemplateDefinition ) | ( Omit<PageListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( PersonContributor ) | ( Role ) | ( SchemaDefinition ) | ( Omit<SchemaVersion, 'schemaProperties' | 'searchableProperties'> & { schemaProperties: Array<RefType['AnySchemaProperty']>, searchableProperties: Array<RefType['AnySearchableProperty']> } ) | ( Omit<SearchResult, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<SupplementaryLayoutDefinition, 'templates'> & { templates: Array<RefType['AnySupplementaryTemplateDefinition']> } ) | ( Omit<SupplementaryLayoutInstance, 'entity' | 'templates'> & { entity: RefType['AnyEntity'], templates: Array<RefType['AnySupplementaryTemplateInstance']> } ) | ( SupplementaryTemplateDefinition ) | ( Omit<SupplementaryTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( TemplateInstanceSibling ) | ( User ) | ( Omit<UserCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( UserGroup ) | ( Omit<UserGroupCollectionAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupCommunityAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserGroupItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } ) | ( Omit<UserItemAccessGrant, 'entity'> & { entity: RefType['AnyEntity'] } );
   StandardMutationPayload: ( Omit<AlterSchemaVersionPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ApplySchemaPropertiesPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( ControlledVocabularyDestroyPayload ) | ( ControlledVocabularySourceUpdatePayload ) | ( ControlledVocabularyUpsertPayload ) | ( CreateAnnouncementPayload ) | ( Omit<CreateAssetPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( CreateCollectionPayload ) | ( CreateCommunityPayload ) | ( CreateItemPayload ) | ( CreateOrderingPayload ) | ( CreateOrganizationContributorPayload ) | ( CreatePagePayload ) | ( CreatePersonContributorPayload ) | ( CreateRolePayload ) | ( DestroyAnnouncementPayload ) | ( DestroyAssetPayload ) | ( DestroyCollectionPayload ) | ( DestroyCommunityPayload ) | ( DestroyContributionPayload ) | ( DestroyContributorPayload ) | ( DestroyEntityLinkPayload ) | ( DestroyItemPayload ) | ( DestroyOrderingPayload ) | ( DestroyPagePayload ) | ( EntityPurgePayload ) | ( Omit<GrantAccessPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( HarvestAttemptFromMappingPayload ) | ( HarvestAttemptFromSourcePayload ) | ( HarvestAttemptPruneEntitiesPayload ) | ( HarvestMappingCreatePayload ) | ( HarvestMappingDestroyPayload ) | ( HarvestMappingUpdatePayload ) | ( HarvestMetadataMappingCreatePayload ) | ( HarvestMetadataMappingDestroyPayload ) | ( HarvestSourceCreatePayload ) | ( HarvestSourceDestroyPayload ) | ( HarvestSourcePruneEntitiesPayload ) | ( HarvestSourceUpdatePayload ) | ( LinkEntityPayload ) | ( PreviewSlotPayload ) | ( Omit<RenderLayoutsPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( Omit<ReparentEntityPayload, 'child'> & { child?: Maybe<RefType['AnyChildEntity']> } ) | ( ResetOrderingPayload ) | ( Omit<RevokeAccessPayload, 'entity'> & { entity?: Maybe<RefType['AnyEntity']> } ) | ( UpdateAnnouncementPayload ) | ( Omit<UpdateAssetAttachmentPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( Omit<UpdateAssetPayload, 'asset'> & { asset?: Maybe<RefType['AnyAsset']> } ) | ( UpdateCollectionPayload ) | ( UpdateCommunityPayload ) | ( Omit<UpdateContributionPayload, 'contribution'> & { contribution?: Maybe<RefType['AnyContribution']> } ) | ( UpdateGlobalConfigurationPayload ) | ( UpdateItemPayload ) | ( UpdateOrderingPayload ) | ( UpdateOrganizationContributorPayload ) | ( UpdatePagePayload ) | ( UpdatePersonContributorPayload ) | ( UpdateRolePayload ) | ( UpdateUserPayload ) | ( UpdateViewerSettingsPayload ) | ( Omit<UpsertContributionPayload, 'contribution'> & { contribution?: Maybe<RefType['AnyContribution']> } ) | ( UserResetPasswordPayload );
   TemplateDefinition: ( BlurbTemplateDefinition ) | ( ContributorListTemplateDefinition ) | ( DescendantListTemplateDefinition ) | ( DetailTemplateDefinition ) | ( HeroTemplateDefinition ) | ( LinkListTemplateDefinition ) | ( ListItemTemplateDefinition ) | ( MetadataTemplateDefinition ) | ( NavigationTemplateDefinition ) | ( OrderingTemplateDefinition ) | ( PageListTemplateDefinition ) | ( SupplementaryTemplateDefinition );
   TemplateHasContributionList: ( Omit<ContributorListTemplateInstance, 'entity'> & { entity: RefType['AnyEntity'] } );
@@ -21055,6 +21252,7 @@ export type ResolversTypes = {
   HarvestAttempt: ResolverTypeWrapper<HarvestAttempt>;
   HarvestAttemptConnection: ResolverTypeWrapper<HarvestAttemptConnection>;
   HarvestAttemptEdge: ResolverTypeWrapper<HarvestAttemptEdge>;
+  HarvestAttemptEntityStatus: ResolverTypeWrapper<HarvestAttemptEntityStatus>;
   HarvestAttemptFromMappingInput: HarvestAttemptFromMappingInput;
   HarvestAttemptFromMappingPayload: ResolverTypeWrapper<HarvestAttemptFromMappingPayload>;
   HarvestAttemptFromSourceInput: HarvestAttemptFromSourceInput;
@@ -21062,6 +21260,7 @@ export type ResolversTypes = {
   HarvestAttemptOrder: HarvestAttemptOrder;
   HarvestAttemptPruneEntitiesInput: HarvestAttemptPruneEntitiesInput;
   HarvestAttemptPruneEntitiesPayload: ResolverTypeWrapper<HarvestAttemptPruneEntitiesPayload>;
+  HarvestAttemptRecordStatus: ResolverTypeWrapper<HarvestAttemptRecordStatus>;
   HarvestAttemptState: HarvestAttemptState;
   HarvestAttemptable: ResolverTypeWrapper<ResolversInterfaceTypes<ResolversTypes>['HarvestAttemptable']>;
   HarvestEntity: ResolverTypeWrapper<HarvestEntity>;
@@ -21711,12 +21910,14 @@ export type ResolversParentTypes = {
   HarvestAttempt: HarvestAttempt;
   HarvestAttemptConnection: HarvestAttemptConnection;
   HarvestAttemptEdge: HarvestAttemptEdge;
+  HarvestAttemptEntityStatus: HarvestAttemptEntityStatus;
   HarvestAttemptFromMappingInput: HarvestAttemptFromMappingInput;
   HarvestAttemptFromMappingPayload: HarvestAttemptFromMappingPayload;
   HarvestAttemptFromSourceInput: HarvestAttemptFromSourceInput;
   HarvestAttemptFromSourcePayload: HarvestAttemptFromSourcePayload;
   HarvestAttemptPruneEntitiesInput: HarvestAttemptPruneEntitiesInput;
   HarvestAttemptPruneEntitiesPayload: HarvestAttemptPruneEntitiesPayload;
+  HarvestAttemptRecordStatus: HarvestAttemptRecordStatus;
   HarvestAttemptable: ResolversInterfaceTypes<ResolversParentTypes>['HarvestAttemptable'];
   HarvestEntity: HarvestEntity;
   HarvestError: HarvestError;
@@ -23563,6 +23764,7 @@ export type DescendantListTemplateDefinitionResolvers<ContextType = any, ParentT
   selectionSource?: Resolver<Maybe<ResolversTypes['TemplateSelectionSource']>, ParentType, ContextType>;
   selectionSourceAncestorName?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
   selectionSourceMode?: Resolver<Maybe<ResolversTypes['SelectionSourceMode']>, ParentType, ContextType>;
+  selectionUnbounded?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showContributors?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showEntityContext?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showHeroImage?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
@@ -23773,6 +23975,10 @@ export type DetailTemplateDefinitionResolvers<ContextType = any, ParentType exte
 export type DetailTemplateDefinitionSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['DetailTemplateDefinitionSlots'] = ResolversParentTypes['DetailTemplateDefinitionSlots']> = {
   body?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  itemsA?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
+  itemsB?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
+  itemsC?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
+  itemsD?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
   subheader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -23799,6 +24005,10 @@ export type DetailTemplateInstanceResolvers<ContextType = any, ParentType extend
 export type DetailTemplateInstanceSlotsResolvers<ContextType = any, ParentType extends ResolversParentTypes['DetailTemplateInstanceSlots'] = ResolversParentTypes['DetailTemplateInstanceSlots']> = {
   body?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  itemsA?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
+  itemsB?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
+  itemsC?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
+  itemsD?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
   subheader?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   summary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -24124,6 +24334,7 @@ export type HarvestAttemptResolvers<ContextType = any, ParentType extends Resolv
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   currentState?: Resolver<ResolversTypes['HarvestAttemptState'], ParentType, ContextType>;
   endedAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
+  entityStatus?: Resolver<Maybe<ResolversTypes['HarvestAttemptEntityStatus']>, ParentType, ContextType>;
   extractionMappingTemplate?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   harvestErrors?: Resolver<Array<ResolversTypes['HarvestError']>, ParentType, ContextType>;
   harvestMapping?: Resolver<Maybe<ResolversTypes['HarvestMapping']>, ParentType, ContextType>;
@@ -24136,6 +24347,7 @@ export type HarvestAttemptResolvers<ContextType = any, ParentType extends Resolv
   mode?: Resolver<ResolversTypes['HarvestScheduleMode'], ParentType, ContextType>;
   note?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   recordCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  recordStatus?: Resolver<Maybe<ResolversTypes['HarvestAttemptRecordStatus']>, ParentType, ContextType>;
   scheduledAt?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   targetEntity?: Resolver<ResolversTypes['HarvestTarget'], ParentType, ContextType>;
@@ -24153,6 +24365,24 @@ export type HarvestAttemptConnectionResolvers<ContextType = any, ParentType exte
 export type HarvestAttemptEdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['HarvestAttemptEdge'] = ResolversParentTypes['HarvestAttemptEdge']> = {
   cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   node?: Resolver<ResolversTypes['HarvestAttempt'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HarvestAttemptEntityStatusResolvers<ContextType = any, ParentType extends ResolversParentTypes['HarvestAttemptEntityStatus'] = ResolversParentTypes['HarvestAttemptEntityStatus']> = {
+  assetsDurationAverage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  assetsEta?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
+  completion?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
+  totalEntities?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  totalEntitiesSuccess?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  totalEntitiesWaitingForAssets?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  totalEntitiesWaitingForUpsert?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  totalEntitiesWithAssets?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  upsertDurationAverage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  upsertEta?: Resolver<Maybe<ResolversTypes['ISO8601DateTime']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -24184,6 +24414,20 @@ export type HarvestAttemptPruneEntitiesPayloadResolvers<ContextType = any, Paren
   globalErrors?: Resolver<Array<ResolversTypes['MutationGlobalError']>, ParentType, ContextType>;
   haltCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   harvestAttempt?: Resolver<Maybe<ResolversTypes['HarvestAttempt']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HarvestAttemptRecordStatusResolvers<ContextType = any, ParentType extends ResolversParentTypes['HarvestAttemptRecordStatus'] = ResolversParentTypes['HarvestAttemptRecordStatus']> = {
+  completion?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  extractionDurationAverage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
+  totalRecords?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  totalRecordsSuccess?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  totalRecordsWaitingForExtraction?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  totalRecordsWaitingForUpsert?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -24671,6 +24915,7 @@ export type HeroTemplateDefinitionSlotsResolvers<ContextType = any, ParentType e
   descendantSearchPrompt?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   headerAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
+  headerParent?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   headerSidebar?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
   headerSubtitle?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineDefinition']>, ParentType, ContextType>;
   headerSummary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockDefinition']>, ParentType, ContextType>;
@@ -24708,6 +24953,7 @@ export type HeroTemplateInstanceSlotsResolvers<ContextType = any, ParentType ext
   descendantSearchPrompt?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   header?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   headerAside?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
+  headerParent?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   headerSidebar?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
   headerSubtitle?: Resolver<Maybe<ResolversTypes['TemplateSlotInlineInstance']>, ParentType, ContextType>;
   headerSummary?: Resolver<Maybe<ResolversTypes['TemplateSlotBlockInstance']>, ParentType, ContextType>;
@@ -25063,6 +25309,7 @@ export type LinkListTemplateDefinitionResolvers<ContextType = any, ParentType ex
   selectionSource?: Resolver<Maybe<ResolversTypes['TemplateSelectionSource']>, ParentType, ContextType>;
   selectionSourceAncestorName?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
   selectionSourceMode?: Resolver<Maybe<ResolversTypes['SelectionSourceMode']>, ParentType, ContextType>;
+  selectionUnbounded?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showContributors?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showEntityContext?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   showHeroImage?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
@@ -25190,6 +25437,7 @@ export type ListItemTemplateDefinitionResolvers<ContextType = any, ParentType ex
   selectionSource?: Resolver<Maybe<ResolversTypes['TemplateSelectionSource']>, ParentType, ContextType>;
   selectionSourceAncestorName?: Resolver<Maybe<ResolversTypes['SchemaComponent']>, ParentType, ContextType>;
   selectionSourceMode?: Resolver<Maybe<ResolversTypes['SelectionSourceMode']>, ParentType, ContextType>;
+  selectionUnbounded?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['ListItemTemplateDefinitionSlots'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
   templateKind?: Resolver<ResolversTypes['TemplateKind'], ParentType, ContextType>;
@@ -25510,6 +25758,7 @@ export type NavigationLayoutInstanceResolvers<ContextType = any, ParentType exte
 export type NavigationTemplateDefinitionResolvers<ContextType = any, ParentType extends ResolversParentTypes['NavigationTemplateDefinition'] = ResolversParentTypes['NavigationTemplateDefinition']> = {
   background?: Resolver<Maybe<ResolversTypes['NavigationBackground']>, ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['ISO8601DateTime'], ParentType, ContextType>;
+  hideMetadata?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   layoutKind?: Resolver<ResolversTypes['LayoutKind'], ParentType, ContextType>;
   slots?: Resolver<ResolversTypes['NavigationTemplateDefinitionSlots'], ParentType, ContextType>;
@@ -25548,7 +25797,7 @@ export type NavigationTemplateInstanceSlotsResolvers<ContextType = any, ParentTy
 };
 
 export type NodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Node'] = ResolversParentTypes['Node']> = {
-  __resolveType: TypeResolveFn<'Announcement' | 'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo' | 'BlurbTemplateDefinition' | 'BlurbTemplateInstance' | 'Collection' | 'CollectionAttribution' | 'CollectionContribution' | 'Community' | 'ContextualPermission' | 'ContributionRoleConfiguration' | 'ContributorCollectionAttribution' | 'ContributorItemAttribution' | 'ContributorListTemplateDefinition' | 'ContributorListTemplateInstance' | 'ControlledVocabulary' | 'ControlledVocabularyItem' | 'ControlledVocabularySource' | 'DescendantListTemplateDefinition' | 'DescendantListTemplateInstance' | 'DetailTemplateDefinition' | 'DetailTemplateInstance' | 'EntityBreadcrumb' | 'EntityLink' | 'GlobalConfiguration' | 'HarvestAttempt' | 'HarvestEntity' | 'HarvestError' | 'HarvestMapping' | 'HarvestMessage' | 'HarvestMetadataMapping' | 'HarvestRecord' | 'HarvestSet' | 'HarvestSource' | 'HeroLayoutDefinition' | 'HeroLayoutInstance' | 'HeroTemplateDefinition' | 'HeroTemplateInstance' | 'HierarchicalSchemaRank' | 'HierarchicalSchemaVersionRank' | 'Item' | 'ItemAttribution' | 'ItemContribution' | 'LinkListTemplateDefinition' | 'LinkListTemplateInstance' | 'LinkTargetCandidate' | 'ListItemLayoutDefinition' | 'ListItemLayoutInstance' | 'ListItemTemplateDefinition' | 'ListItemTemplateInstance' | 'MainLayoutDefinition' | 'MainLayoutInstance' | 'MetadataLayoutDefinition' | 'MetadataLayoutInstance' | 'MetadataTemplateDefinition' | 'MetadataTemplateInstance' | 'NavigationLayoutDefinition' | 'NavigationLayoutInstance' | 'NavigationTemplateDefinition' | 'NavigationTemplateInstance' | 'Ordering' | 'OrderingEntry' | 'OrderingTemplateDefinition' | 'OrderingTemplateInstance' | 'OrganizationContributor' | 'Page' | 'PageListTemplateDefinition' | 'PageListTemplateInstance' | 'PersonContributor' | 'Role' | 'SchemaDefinition' | 'SchemaVersion' | 'SearchResult' | 'SupplementaryLayoutDefinition' | 'SupplementaryLayoutInstance' | 'SupplementaryTemplateDefinition' | 'SupplementaryTemplateInstance' | 'TemplateInstanceSibling' | 'User' | 'UserCollectionAccessGrant' | 'UserCommunityAccessGrant' | 'UserGroup' | 'UserGroupCollectionAccessGrant' | 'UserGroupCommunityAccessGrant' | 'UserGroupItemAccessGrant' | 'UserItemAccessGrant', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'Announcement' | 'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo' | 'BlurbTemplateDefinition' | 'BlurbTemplateInstance' | 'Collection' | 'CollectionAttribution' | 'CollectionContribution' | 'Community' | 'ContextualPermission' | 'ContributionRoleConfiguration' | 'ContributorCollectionAttribution' | 'ContributorItemAttribution' | 'ContributorListTemplateDefinition' | 'ContributorListTemplateInstance' | 'ControlledVocabulary' | 'ControlledVocabularyItem' | 'ControlledVocabularySource' | 'DescendantListTemplateDefinition' | 'DescendantListTemplateInstance' | 'DetailTemplateDefinition' | 'DetailTemplateInstance' | 'EntityBreadcrumb' | 'EntityLink' | 'GlobalConfiguration' | 'HarvestAttempt' | 'HarvestAttemptEntityStatus' | 'HarvestAttemptRecordStatus' | 'HarvestEntity' | 'HarvestError' | 'HarvestMapping' | 'HarvestMessage' | 'HarvestMetadataMapping' | 'HarvestRecord' | 'HarvestSet' | 'HarvestSource' | 'HeroLayoutDefinition' | 'HeroLayoutInstance' | 'HeroTemplateDefinition' | 'HeroTemplateInstance' | 'HierarchicalSchemaRank' | 'HierarchicalSchemaVersionRank' | 'Item' | 'ItemAttribution' | 'ItemContribution' | 'LinkListTemplateDefinition' | 'LinkListTemplateInstance' | 'LinkTargetCandidate' | 'ListItemLayoutDefinition' | 'ListItemLayoutInstance' | 'ListItemTemplateDefinition' | 'ListItemTemplateInstance' | 'MainLayoutDefinition' | 'MainLayoutInstance' | 'MetadataLayoutDefinition' | 'MetadataLayoutInstance' | 'MetadataTemplateDefinition' | 'MetadataTemplateInstance' | 'NavigationLayoutDefinition' | 'NavigationLayoutInstance' | 'NavigationTemplateDefinition' | 'NavigationTemplateInstance' | 'Ordering' | 'OrderingEntry' | 'OrderingTemplateDefinition' | 'OrderingTemplateInstance' | 'OrganizationContributor' | 'Page' | 'PageListTemplateDefinition' | 'PageListTemplateInstance' | 'PersonContributor' | 'Role' | 'SchemaDefinition' | 'SchemaVersion' | 'SearchResult' | 'SupplementaryLayoutDefinition' | 'SupplementaryLayoutInstance' | 'SupplementaryTemplateDefinition' | 'SupplementaryTemplateInstance' | 'TemplateInstanceSibling' | 'User' | 'UserCollectionAccessGrant' | 'UserCommunityAccessGrant' | 'UserGroup' | 'UserGroupCollectionAccessGrant' | 'UserGroupCommunityAccessGrant' | 'UserGroupItemAccessGrant' | 'UserItemAccessGrant', ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
 };
 
@@ -26437,7 +26686,7 @@ export interface SlugScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes
 }
 
 export type SluggableResolvers<ContextType = any, ParentType extends ResolversParentTypes['Sluggable'] = ResolversParentTypes['Sluggable']> = {
-  __resolveType: TypeResolveFn<'Announcement' | 'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo' | 'BlurbTemplateDefinition' | 'BlurbTemplateInstance' | 'Collection' | 'CollectionAttribution' | 'CollectionContribution' | 'Community' | 'ContextualPermission' | 'ContributionRoleConfiguration' | 'ContributorCollectionAttribution' | 'ContributorItemAttribution' | 'ContributorListTemplateDefinition' | 'ContributorListTemplateInstance' | 'ControlledVocabulary' | 'ControlledVocabularyItem' | 'ControlledVocabularySource' | 'DescendantListTemplateDefinition' | 'DescendantListTemplateInstance' | 'DetailTemplateDefinition' | 'DetailTemplateInstance' | 'EntityLink' | 'HarvestAttempt' | 'HarvestEntity' | 'HarvestError' | 'HarvestMapping' | 'HarvestMessage' | 'HarvestMetadataMapping' | 'HarvestRecord' | 'HarvestSet' | 'HarvestSource' | 'HeroLayoutDefinition' | 'HeroLayoutInstance' | 'HeroTemplateDefinition' | 'HeroTemplateInstance' | 'Item' | 'ItemAttribution' | 'ItemContribution' | 'LinkListTemplateDefinition' | 'LinkListTemplateInstance' | 'ListItemLayoutDefinition' | 'ListItemLayoutInstance' | 'ListItemTemplateDefinition' | 'ListItemTemplateInstance' | 'MainLayoutDefinition' | 'MainLayoutInstance' | 'MetadataLayoutDefinition' | 'MetadataLayoutInstance' | 'MetadataTemplateDefinition' | 'MetadataTemplateInstance' | 'NavigationLayoutDefinition' | 'NavigationLayoutInstance' | 'NavigationTemplateDefinition' | 'NavigationTemplateInstance' | 'Ordering' | 'OrderingEntry' | 'OrderingTemplateDefinition' | 'OrderingTemplateInstance' | 'OrganizationContributor' | 'PageListTemplateDefinition' | 'PageListTemplateInstance' | 'PersonContributor' | 'Role' | 'SchemaDefinition' | 'SchemaVersion' | 'SearchResult' | 'SupplementaryLayoutDefinition' | 'SupplementaryLayoutInstance' | 'SupplementaryTemplateDefinition' | 'SupplementaryTemplateInstance' | 'TemplateInstanceSibling' | 'User' | 'UserCollectionAccessGrant' | 'UserCommunityAccessGrant' | 'UserGroup' | 'UserGroupCollectionAccessGrant' | 'UserGroupCommunityAccessGrant' | 'UserGroupItemAccessGrant' | 'UserItemAccessGrant', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'Announcement' | 'AssetAudio' | 'AssetDocument' | 'AssetImage' | 'AssetPDF' | 'AssetUnknown' | 'AssetVideo' | 'BlurbTemplateDefinition' | 'BlurbTemplateInstance' | 'Collection' | 'CollectionAttribution' | 'CollectionContribution' | 'Community' | 'ContextualPermission' | 'ContributionRoleConfiguration' | 'ContributorCollectionAttribution' | 'ContributorItemAttribution' | 'ContributorListTemplateDefinition' | 'ContributorListTemplateInstance' | 'ControlledVocabulary' | 'ControlledVocabularyItem' | 'ControlledVocabularySource' | 'DescendantListTemplateDefinition' | 'DescendantListTemplateInstance' | 'DetailTemplateDefinition' | 'DetailTemplateInstance' | 'EntityLink' | 'HarvestAttempt' | 'HarvestAttemptEntityStatus' | 'HarvestAttemptRecordStatus' | 'HarvestEntity' | 'HarvestError' | 'HarvestMapping' | 'HarvestMessage' | 'HarvestMetadataMapping' | 'HarvestRecord' | 'HarvestSet' | 'HarvestSource' | 'HeroLayoutDefinition' | 'HeroLayoutInstance' | 'HeroTemplateDefinition' | 'HeroTemplateInstance' | 'Item' | 'ItemAttribution' | 'ItemContribution' | 'LinkListTemplateDefinition' | 'LinkListTemplateInstance' | 'ListItemLayoutDefinition' | 'ListItemLayoutInstance' | 'ListItemTemplateDefinition' | 'ListItemTemplateInstance' | 'MainLayoutDefinition' | 'MainLayoutInstance' | 'MetadataLayoutDefinition' | 'MetadataLayoutInstance' | 'MetadataTemplateDefinition' | 'MetadataTemplateInstance' | 'NavigationLayoutDefinition' | 'NavigationLayoutInstance' | 'NavigationTemplateDefinition' | 'NavigationTemplateInstance' | 'Ordering' | 'OrderingEntry' | 'OrderingTemplateDefinition' | 'OrderingTemplateInstance' | 'OrganizationContributor' | 'PageListTemplateDefinition' | 'PageListTemplateInstance' | 'PersonContributor' | 'Role' | 'SchemaDefinition' | 'SchemaVersion' | 'SearchResult' | 'SupplementaryLayoutDefinition' | 'SupplementaryLayoutInstance' | 'SupplementaryTemplateDefinition' | 'SupplementaryTemplateInstance' | 'TemplateInstanceSibling' | 'User' | 'UserCollectionAccessGrant' | 'UserCommunityAccessGrant' | 'UserGroup' | 'UserGroupCollectionAccessGrant' | 'UserGroupCommunityAccessGrant' | 'UserGroupItemAccessGrant' | 'UserItemAccessGrant', ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['Slug'], ParentType, ContextType>;
 };
 
@@ -26602,7 +26851,10 @@ export type TemplateEntityListResolvers<ContextType = any, ParentType extends Re
   empty?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   entities?: Resolver<Array<ResolversTypes['AnyEntity']>, ParentType, ContextType>;
   fallback?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  flatDepth?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   listItemLayouts?: Resolver<Array<ResolversTypes['ListItemLayoutInstance']>, ParentType, ContextType>;
+  maximumDepth?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  minimumDepth?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -27435,9 +27687,11 @@ export type Resolvers<ContextType = any> = {
   HarvestAttempt?: HarvestAttemptResolvers<ContextType>;
   HarvestAttemptConnection?: HarvestAttemptConnectionResolvers<ContextType>;
   HarvestAttemptEdge?: HarvestAttemptEdgeResolvers<ContextType>;
+  HarvestAttemptEntityStatus?: HarvestAttemptEntityStatusResolvers<ContextType>;
   HarvestAttemptFromMappingPayload?: HarvestAttemptFromMappingPayloadResolvers<ContextType>;
   HarvestAttemptFromSourcePayload?: HarvestAttemptFromSourcePayloadResolvers<ContextType>;
   HarvestAttemptPruneEntitiesPayload?: HarvestAttemptPruneEntitiesPayloadResolvers<ContextType>;
+  HarvestAttemptRecordStatus?: HarvestAttemptRecordStatusResolvers<ContextType>;
   HarvestAttemptable?: HarvestAttemptableResolvers<ContextType>;
   HarvestEntity?: HarvestEntityResolvers<ContextType>;
   HarvestError?: HarvestErrorResolvers<ContextType>;
