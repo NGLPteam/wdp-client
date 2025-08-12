@@ -39,7 +39,7 @@ export default function Contributor({
         <div
           className={classNames("t-copy-lighter t-copy-sm", styles.metadata)}
         >
-          {!!roles.length && (
+          {!!roles?.length && (
             <DotList>
               {roles.map((r) => (
                 <li key={r.identifier}>{r.label}</li>
