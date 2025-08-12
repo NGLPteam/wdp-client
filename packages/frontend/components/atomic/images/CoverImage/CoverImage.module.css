@@ -1,7 +1,7 @@
 .figure {
   position: relative;
-  width: var(--CoverImage-max-width);
-  height: var(--CoverImage-max-height);
+  max-width: var(--CoverImage-max-width);
+  max-height: var(--CoverImage-max-height);
 
   > * {
     vertical-align: top;
