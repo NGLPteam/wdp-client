@@ -7,7 +7,7 @@ const NamedLink = ({
   children,
   href,
   as,
-  prefetch = false,
+  prefetch = true,
   scroll,
   ...props
 }: Props) => {
