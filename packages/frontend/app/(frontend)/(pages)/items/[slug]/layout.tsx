@@ -20,7 +20,7 @@ import generateItemMetadata from "@/app/(frontend)/(pages)/items/[slug]/_metadat
 
 export async function generateMetadata(
   props: BasePageParams,
-  parent: ResolvingMetadata
+  parent: ResolvingMetadata,
 ): Promise<Metadata> {
   return generateItemMetadata(props, parent);
 }

@@ -10,6 +10,10 @@ import { pageContributorItemDetailQuery as ItemQuery } from "@/relay/pageContrib
 import { pageContributorCollectionLayoutQuery as CollectionQuery } from "@/relay/pageContributorCollectionLayoutQuery.graphql";
 import SetCommunity from "@/components/global/SetCommunity";
 
+export async function generateStaticParams() {
+  return [];
+}
+
 export default async function ContributorPage({
   params,
   searchParams,
