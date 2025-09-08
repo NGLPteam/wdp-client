@@ -61,7 +61,7 @@ export const baseRoutes: BaseRoute[] = [
       },
       {
         name: "item.metadata",
-        path: "/items/[slug]/metadata", // possibly items/[slug]/view/[slug]
+        path: "/items/[slug]/metadata",
       },
       {
         name: "item.files",
