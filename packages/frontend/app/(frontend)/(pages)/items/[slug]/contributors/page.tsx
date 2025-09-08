@@ -19,11 +19,11 @@ export default async function ItemContributorsPage({ params }: BasePageParams) {
 
   const { item } = data ?? {};
 
-  if (!item) return notFound();
+  if (!item || !slug) return notFound();
 
   return (
     <UpdateClientEnvironment records={records}>
-      <ContributionsBlock data={item} background="neutral00" />
+      <ContributionsBlock data={item} slug={slug} background="neutral00" />
     </UpdateClientEnvironment>
   );
 }

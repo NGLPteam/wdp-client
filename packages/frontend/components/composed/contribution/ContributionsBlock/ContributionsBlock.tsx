@@ -8,9 +8,14 @@ import BaseContributionsBlock from "./BaseContributionsBlock";
 type BaseProps = Omit<
   React.ComponentProps<typeof BaseContributionsBlock>,
   "children"
->;
+> & { slug: string };
 
-const ContributionsBlock = ({ data, filterRole, ...baseProps }: Props) => {
+const ContributionsBlock = ({
+  data,
+  filterRole,
+  slug,
+  ...baseProps
+}: Props) => {
   const { attributions } = useFragment(fragment, data) ?? {};
 
   const filtered = attributions?.filter(
@@ -22,10 +27,14 @@ const ContributionsBlock = ({ data, filterRole, ...baseProps }: Props) => {
         )),
   );
 
+  const backParams = new URLSearchParams({ item: slug });
+
   return (
     <BaseContributionsBlock {...baseProps}>
       {filtered?.length
-        ? filtered.map((node) => <Contributor data={node} key={node.slug} />)
+        ? filtered.map((node) => (
+            <Contributor data={node} key={node.slug} backParams={backParams} />
+          ))
         : null}
     </BaseContributionsBlock>
   );
