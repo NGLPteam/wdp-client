@@ -7,7 +7,8 @@
       "@/relay/*": ["__generated__/*"],
       "@/types/*": ["types/*"],
       "@/components/*": ["components/*"],
-      "@/lib/*": ["lib/*"]
+      "@/lib/*": ["lib/*"],
+      "@/routes/*": ["routes/*"]
     },
     "plugins": [
       {
