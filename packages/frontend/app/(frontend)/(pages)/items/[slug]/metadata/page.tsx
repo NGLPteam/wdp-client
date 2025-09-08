@@ -8,7 +8,9 @@ import MetadataTemplate from "@/components/templates/Metadata";
 import MainLayout from "@/components/templates/MainLayout";
 import { FullTextFallback } from "@/components/templates/FullTextCheck/FullTextCheck";
 
-export const dynamic = "force-static";
+export async function generateStaticParams() {
+  return [];
+}
 
 export default async function ItemPage({ params }: BasePageParams) {
   const { slug } = params;

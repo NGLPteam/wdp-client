@@ -6,7 +6,9 @@ import fetchQuery from "@/lib/relay/fetchQuery";
 import { pageTemplatesItemContributorsQuery as Query } from "@/relay/pageTemplatesItemContributorsQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 
-export const dynamic = "force-static";
+export async function generateStaticParams() {
+  return [];
+}
 
 export default async function ItemContributorsPage({ params }: BasePageParams) {
   const { slug } = params;
