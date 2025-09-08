@@ -13,7 +13,7 @@ import AppBody from "@/components/global/AppBody";
 import { BasePageParams } from "@/types/page";
 import generateSiteMetadata from "./_metadata/site";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export async function generateMetadata(
   props: BasePageParams,
