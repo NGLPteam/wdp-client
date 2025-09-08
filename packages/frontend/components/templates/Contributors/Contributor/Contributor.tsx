@@ -22,7 +22,9 @@ export default function Contributor({
   if (!roles || !contributor) return null;
 
   const href = contributor.slug
-    ? `/contributors/${contributor.slug}?${backParams?.toString()}`
+    ? backParams
+      ? `/contributors/${contributor.slug}?${backParams?.toString()}`
+      : `/contributors/${contributor.slug}`
     : "#";
 
   return (
