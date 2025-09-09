@@ -84,6 +84,7 @@ export default function ItemUpdateDrawer({
       <DrawerActions
         routes={routes}
         allowedActions={data?.item?.allowedActions}
+        handleClearCache={() => {}}
         {...(globalAdmin ? { purgeButton } : { handleDelete })}
       />
     );

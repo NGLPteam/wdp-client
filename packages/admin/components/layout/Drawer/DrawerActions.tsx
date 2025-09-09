@@ -9,6 +9,7 @@ const DrawerActions = ({
   routes,
   handleDelete,
   purgeButton,
+  handleClearCache,
   allowedActions,
 }: Props) => {
   const { t } = useTranslation();
@@ -26,6 +27,17 @@ const DrawerActions = ({
           {t(label || "")}
         </ButtonControlRoute>
       ))}
+      {handleClearCache && (
+        <ButtonControlConfirm
+          modalLabel={t("messages.clear_cache.confirm_label")}
+          modalBody={t("messages.clear_cache.confirm_body")}
+          icon="clear"
+          onClick={handleClearCache}
+          actions="self.update"
+        >
+          {t("common.clear_cache")}
+        </ButtonControlConfirm>
+      )}
       {handleDelete && (
         <ButtonControlConfirm
           icon="delete"
@@ -49,6 +61,7 @@ interface Props {
   handleDelete?: () => void;
   purgeButton?: React.ReactNode;
   allowedActions?: string[] | readonly string[];
+  handleClearCache?: () => void;
 }
 
 export default DrawerActions;

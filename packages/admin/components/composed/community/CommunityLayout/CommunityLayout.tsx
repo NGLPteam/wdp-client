@@ -89,6 +89,15 @@ export default function CommunityLayout({
       >
         {t("common.view")}
       </ButtonControlView>
+      <ButtonControlConfirm
+        modalLabel={t("messages.clear_cache.confirm_label")}
+        modalBody={t("messages.clear_cache.confirm_body")}
+        icon="clear"
+        onClick={() => {}}
+        actions="self.update"
+      >
+        {t("common.clear_cache")}
+      </ButtonControlConfirm>
       {deleteButton}
     </ButtonControlGroup>
   );
