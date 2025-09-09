@@ -21,21 +21,23 @@ export default function HeroHeader({
   const { definition } = template ?? {};
 
   return template ? (
-    <div
-      className={
-        layout
-          ? classNames(styles.columns, {
-              [styles["columns--two-column"]]: layout === "TWO_COLUMN",
-            })
-          : classNames(styles.inner, {
-              [styles["inner--split"]]: definition?.showSplitDisplay,
-            })
-      }
-    >
+    <>
       {!!hiddenAlert && <Alert message={hiddenAlert} badge color="blue" />}
-      <TitleBlock layout={layout} data={template} />
-      <Sidebar data={template} />
-    </div>
+      <div
+        className={
+          layout
+            ? classNames(styles.columns, {
+                [styles["columns--two-column"]]: layout === "TWO_COLUMN",
+              })
+            : classNames(styles.inner, {
+                [styles["inner--split"]]: definition?.showSplitDisplay,
+              })
+        }
+      >
+        <TitleBlock layout={layout} data={template} />
+        <Sidebar data={template} />
+      </div>
+    </>
   ) : null;
 }
 
