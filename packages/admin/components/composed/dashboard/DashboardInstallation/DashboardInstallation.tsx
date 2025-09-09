@@ -2,6 +2,7 @@ import { formatNumberToString } from "@wdp/lib/helpers";
 import { useTranslation } from "react-i18next";
 import { graphql, useFragment } from "react-relay";
 import { ContentHeader } from "components/layout";
+import { ButtonControlConfirm } from "components/atomic";
 import { DashboardInstallationFragment$key } from "@/relay/DashboardInstallationFragment.graphql";
 import * as Styled from "./DashboardInstallation.styles";
 
@@ -10,11 +11,24 @@ export default function DashboardInstallation({ data }: Props) {
 
   const { t } = useTranslation();
 
+  const clearCacheButton = (
+    <ButtonControlConfirm
+      modalLabel={t("messages.clear_cache.confirm_label")}
+      modalBody={t("messages.clear_cache.confirm_body")}
+      icon="clear"
+      onClick={() => {}}
+      actions="self.update"
+    >
+      {t("common.clear_cache")}
+    </ButtonControlConfirm>
+  );
+
   return (
     <section>
       <ContentHeader
         title={t("dashboard.installation_header")}
         headerStyle="secondary"
+        rightSide={clearCacheButton}
       />
       <Styled.List>
         <Styled.Item>

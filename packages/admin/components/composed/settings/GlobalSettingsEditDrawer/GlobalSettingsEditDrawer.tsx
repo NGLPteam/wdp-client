@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { graphql } from "react-relay";
 import GlobalSettingsEditForm from "components/composed/settings/GlobalSettingsEditForm";
 import Drawer from "components/layout/Drawer";
+import DrawerActions from "components/layout/Drawer/DrawerActions";
 import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 
 import { useViewerContext } from "contexts";
@@ -27,6 +28,7 @@ export default function GlobalSettingsEditDrawer({
             header={t("actions.edit.global_settings_header")}
             dialog={dialog}
             hideOnClickOutside={false}
+            buttons={<DrawerActions handleClearCache={() => {}} />}
           >
             {data?.globalConfiguration && (
               <GlobalSettingsEditForm
