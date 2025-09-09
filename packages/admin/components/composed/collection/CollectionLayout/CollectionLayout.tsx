@@ -103,6 +103,7 @@ export default function CollectionLayout({
       toggleLabel={t("options")}
       menuLabel={t("options")}
       breakpoint={70}
+      desktopMax={allowsChildItems && allowsChildCollections ? 3 : 2}
     >
       {allowsChildItems && <ItemCreateButton parentSlug={slug} />}
       {allowsChildCollections && <CollectionCreateButton parentSlug={slug} />}

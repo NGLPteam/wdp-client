@@ -19,11 +19,32 @@ function ButtonControlGroup({
   toggleText,
   toggleLabel,
   grid,
+  desktopMax = 2,
 }: Props & PropsWithChildren) {
+  const childrenArray = Array.isArray(children)
+    ? children.filter(Boolean)
+    : [children];
+  const visible = childrenArray.slice(0, desktopMax);
+  const rest = childrenArray.slice(desktopMax, childrenArray.length);
+
+  const renderDropdown = childrenArray.length > desktopMax + 1;
+
   return (
     <>
       <Styled.ButtonWrapper $breakpoint={breakpoint} $grid={grid}>
-        {children}
+        {renderDropdown ? visible : children}
+        {renderDropdown && (
+          <Dropdown
+            label={menuLabel}
+            disclosure={
+              <ButtonControl icon="ellipses" aria-label={toggleLabel}>
+                {toggleText}
+              </ButtonControl>
+            }
+            menuItems={rest}
+            alignRight
+          />
+        )}
       </Styled.ButtonWrapper>
       <Styled.DropdownWrapper $breakpoint={breakpoint}>
         <Dropdown
@@ -49,6 +70,7 @@ interface BaseProps {
   toggleText?: string;
   $closeDropdown?: () => void;
   grid?: boolean;
+  desktopMax?: number;
 }
 
 interface PropsWithLabel extends BaseProps {
