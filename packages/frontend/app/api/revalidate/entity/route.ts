@@ -1,6 +1,6 @@
 import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
-import { baseRoutes } from "../../../routes/baseRoutes";
+import { baseRoutes } from "@/routes/baseRoutes";
 import type { BaseRoute } from "@wdp/lib/routes";
 
 const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET;
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
       },
       {
         status: 500,
-      }
+      },
     );
 
   if (!secret || secret !== REVALIDATE_SECRET)
@@ -33,7 +33,7 @@ export async function GET(request: NextRequest) {
       },
       {
         status: 403,
-      }
+      },
     );
 
   if (!slug || typeof slug !== "string")
@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
       },
       {
         status: 400,
-      }
+      },
     );
 
   const route = baseRoutes.find((route: BaseRoute) => route.name === type);
@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
   const subroutes =
     route?.routes?.filter(
       (route: BaseRoute) =>
-        !route.name.includes("search") && !route.name.includes("browse")
+        !route.name.includes("search") && !route.name.includes("browse"),
     ) ?? [];
 
   const routes = [route, ...subroutes];
