@@ -35,7 +35,8 @@
       "disable": "Disable",
       "actions": "Actions",
       "continue": "Continue",
-      "back": "Back"
+      "back": "Back",
+      "clear_cache": "Clear Cache"
     },
     "glossary": {
       "community": "community",

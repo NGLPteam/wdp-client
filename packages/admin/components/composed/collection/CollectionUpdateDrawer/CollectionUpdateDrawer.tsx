@@ -83,6 +83,7 @@ export default function CollectionUpdateDrawer({
       <DrawerActions
         routes={routes}
         allowedActions={data?.collection?.allowedActions}
+        handleClearCache={() => {}}
         {...(globalAdmin ? { purgeButton } : { handleDelete })}
       />
     );

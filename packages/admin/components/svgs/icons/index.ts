@@ -1,6 +1,7 @@
 export { default as Arrow } from "./Arrow";
 export { default as Checkbox } from "./Checkbox";
 export { default as Chevron } from "./Chevron";
+export { default as Clear } from "./Clear";
 export { default as Close } from "./Close";
 export { default as Delete } from "./Delete";
 export { default as Edit } from "./Edit";

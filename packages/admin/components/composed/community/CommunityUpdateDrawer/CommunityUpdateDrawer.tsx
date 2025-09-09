@@ -74,6 +74,7 @@ export default function CommunityUpdateDrawer({
       <DrawerActions
         routes={routes}
         allowedActions={data?.community?.allowedActions}
+        handleClearCache={() => {}}
         {...(globalAdmin ? { purgeButton } : { handleDelete })}
       />
     );

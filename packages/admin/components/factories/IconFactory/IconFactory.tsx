@@ -5,6 +5,7 @@ export const ICON_MAP = {
   checkbox: Icons.Checkbox,
   chevron: Icons.Chevron,
   close: Icons.Close,
+  clear: Icons.Clear,
   delete: Icons.Delete,
   edit: Icons.Edit,
   ellipses: Icons.Ellipses,
