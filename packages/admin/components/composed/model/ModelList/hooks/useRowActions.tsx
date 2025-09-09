@@ -221,6 +221,7 @@ function renderActions<D extends Record<string, unknown>>(
       toggleLabel={i18next.t("options")}
       menuLabel={"Options list"}
       breakpoint={70}
+      desktopMax={10}
     >
       {buttons}
     </ButtonControlGroup>
