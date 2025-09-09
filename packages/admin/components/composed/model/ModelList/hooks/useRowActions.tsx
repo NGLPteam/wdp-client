@@ -123,7 +123,9 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
 
   if (actionConfig && "props" in actionConfig) {
     const purgeProps = actionConfig.props({ row });
-    return <EntityPurgeModal {...purgeProps} disabled={disableDelete} />;
+    return (
+      <EntityPurgeModal key="purge" {...purgeProps} disabled={disableDelete} />
+    );
   }
 
   if (actionConfig?.handleHide && actionConfig?.handleHide({ row }))
