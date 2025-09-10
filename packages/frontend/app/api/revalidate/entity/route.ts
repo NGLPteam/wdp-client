@@ -1,16 +1,12 @@
 import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
+import { headers } from "next/headers";
 import { baseRoutes } from "@/routes/baseRoutes";
 import type { BaseRoute } from "@wdp/lib/routes";
 
 const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET;
 
 export async function DELETE(request: NextRequest) {
-  const { searchParams } = request.nextUrl;
-  const secret = searchParams.get("secret");
-  const slug = searchParams.get("slug");
-  const type = searchParams.get("type");
-
   if (!REVALIDATE_SECRET)
     return Response.json(
       {
@@ -24,6 +20,11 @@ export async function DELETE(request: NextRequest) {
       },
     );
 
+  const authorization = headers().get("Authorization");
+  const secret = authorization?.startsWith("Bearer")
+    ? authorization.replace("Bearer ", "")
+    : null;
+
   if (!secret || secret !== REVALIDATE_SECRET)
     return Response.json(
       {
@@ -35,6 +36,8 @@ export async function DELETE(request: NextRequest) {
         status: 403,
       },
     );
+
+  const { slug, type } = await request.json();
 
   if (!slug || typeof slug !== "string")
     return Response.json(
