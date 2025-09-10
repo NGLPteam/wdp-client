@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 
 const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET;
 
-export async function GET(request: NextRequest) {
+export async function DELETE(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const secret = searchParams.get("secret");
 
