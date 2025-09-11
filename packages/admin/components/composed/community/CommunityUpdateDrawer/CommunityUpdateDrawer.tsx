@@ -8,6 +8,7 @@ import Drawer from "components/layout/Drawer";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
 import CommunityUpdateForm from "components/composed/community/CommunityUpdateForm";
 import EntityPurgeModal from "components/composed/entity/EntityPurgeModal";
+import ClearEntityCacheButton from "components/atomic/buttons/ButtonControl/patterns/ButtonControlClearEntityCache";
 import type { DialogProps } from "reakit/Dialog";
 
 import type {
@@ -74,7 +75,7 @@ export default function CommunityUpdateDrawer({
       <DrawerActions
         routes={routes}
         allowedActions={data?.community?.allowedActions}
-        handleClearCache={() => {}}
+        clearCacheButton={<ClearEntityCacheButton id={data?.community?.id} />}
         {...(globalAdmin ? { purgeButton } : { handleDelete })}
       />
     );

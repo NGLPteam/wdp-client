@@ -7,6 +7,7 @@ import Drawer from "components/layout/Drawer";
 import { RouteHelper } from "routes";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
 import EntityPurgeModal from "components/composed/entity/EntityPurgeModal";
+import ClearEntityCacheButton from "components/atomic/buttons/ButtonControl/patterns/ButtonControlClearEntityCache";
 import CollectionUpdateForm from "../CollectionUpdateForm";
 import type {
   CollectionUpdateDrawerQuery as Query,
@@ -83,7 +84,7 @@ export default function CollectionUpdateDrawer({
       <DrawerActions
         routes={routes}
         allowedActions={data?.collection?.allowedActions}
-        handleClearCache={() => {}}
+        clearCacheButton={<ClearEntityCacheButton id={data?.collection?.id} />}
         {...(globalAdmin ? { purgeButton } : { handleDelete })}
       />
     );

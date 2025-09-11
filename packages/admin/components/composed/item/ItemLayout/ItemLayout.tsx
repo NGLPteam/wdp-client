@@ -21,6 +21,7 @@ import HtmlHead from "components/global/HtmlHead";
 import { ContentSidebar, ContentHeader, PageHeader } from "components/layout";
 import { ButtonControlView } from "components/atomic/buttons/ButtonControl";
 import EntityPurgeModal from "components/composed/entity/EntityPurgeModal";
+import ClearEntityCacheButton from "components/atomic/buttons/ButtonControl/patterns/ButtonControlClearEntityCache";
 import ItemCreateButton from "../ItemCreateButton";
 
 export default function ItemLayout({
@@ -107,15 +108,7 @@ export default function ItemLayout({
             {t("harvesting.view_entity_record")}
           </ButtonControlRoute>
         )}
-      <ButtonControlConfirm
-        modalLabel={t("messages.clear_cache.confirm_label")}
-        modalBody={t("messages.clear_cache.confirm_body")}
-        icon="clear"
-        onClick={() => {}}
-        actions="self.update"
-      >
-        {t("common.clear_cache")}
-      </ButtonControlConfirm>
+      <ClearEntityCacheButton id={memoizedItem?.id} />
       {deleteButton}
     </ButtonControlGroup>
   );

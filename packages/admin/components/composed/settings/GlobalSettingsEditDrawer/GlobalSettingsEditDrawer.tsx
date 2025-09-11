@@ -4,8 +4,8 @@ import { graphql } from "react-relay";
 import GlobalSettingsEditForm from "components/composed/settings/GlobalSettingsEditForm";
 import Drawer from "components/layout/Drawer";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
+import ClearInstanceCache from "components/atomic/buttons/ButtonControl/patterns/ButtonControlClearInstanceCache";
 import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
-
 import { useViewerContext } from "contexts";
 import type { GlobalSettingsEditDrawerQuery as Query } from "__generated__/GlobalSettingsEditDrawerQuery.graphql";
 import type { DialogProps } from "reakit/Dialog";
@@ -28,7 +28,9 @@ export default function GlobalSettingsEditDrawer({
             header={t("actions.edit.global_settings_header")}
             dialog={dialog}
             hideOnClickOutside={false}
-            buttons={<DrawerActions handleClearCache={() => {}} />}
+            buttons={
+              <DrawerActions clearCacheButton={<ClearInstanceCache />} />
+            }
           >
             {data?.globalConfiguration && (
               <GlobalSettingsEditForm
