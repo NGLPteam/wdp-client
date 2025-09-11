@@ -3,17 +3,14 @@ import {
   GraphQLTaggedNode,
   fetchQuery as relayFetch,
 } from "relay-runtime";
-import { auth } from "@/lib/auth/initAuth";
 import { getCurrentEnvironment } from "./environment";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export default async function fetchQuery<Q extends OperationType>(
   query: GraphQLTaggedNode,
-  vars: Record<string, any>,
+  vars: Record<string, any>
 ) {
-  const session = await auth();
-
-  const env = getCurrentEnvironment({ sessionToken: session?.accessToken });
+  const env = getCurrentEnvironment();
 
   let data;
 
