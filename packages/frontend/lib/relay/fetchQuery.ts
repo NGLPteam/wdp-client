@@ -8,7 +8,7 @@ import { getCurrentEnvironment } from "./environment";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export default async function fetchQuery<Q extends OperationType>(
   query: GraphQLTaggedNode,
-  vars: Record<string, any>
+  vars: Record<string, any>,
 ) {
   const env = getCurrentEnvironment();
 
