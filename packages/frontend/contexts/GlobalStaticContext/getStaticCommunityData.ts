@@ -1,7 +1,7 @@
 import { ParsedUrlQuery } from "querystring";
-import { buildEnvironment as environment } from "@wdp/lib/app";
 import { fetchQuery, graphql, readInlineData } from "relay-runtime";
 import { routeQueryArrayToString } from "@wdp/lib/routes";
+import { getCurrentEnvironment } from "@/lib/relay/environment";
 import { getStaticCommunityDataQuery } from "@/relay/getStaticCommunityDataQuery.graphql";
 
 export default async function getStaticCommunityData(urlQuery: ParsedUrlQuery) {
@@ -9,7 +9,7 @@ export default async function getStaticCommunityData(urlQuery: ParsedUrlQuery) {
 
   if (!slug) return;
 
-  const env = environment();
+  const env = getCurrentEnvironment();
 
   const data = await fetchQuery<getStaticCommunityDataQuery>(env, query, {
     slug,

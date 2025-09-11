@@ -31,7 +31,6 @@ function NavMenuLink(
   if ("href" in props) {
     return props.href ? (
       <Link
-        prefetch={false}
         className={classNames(styles.link, className)}
         ref={ref}
         {...props}

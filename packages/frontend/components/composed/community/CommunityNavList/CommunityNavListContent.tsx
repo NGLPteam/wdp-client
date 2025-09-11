@@ -38,7 +38,6 @@ export default function CommunityNavList({
           <NamedLink
             key={o.slug}
             href={`/communities/${community.slug}/browse/${o.identifier}`}
-            prefetch
           >
             <Link as="span">{`${o.name} (${o.count})`}</Link>
           </NamedLink>
@@ -54,7 +53,6 @@ export default function CommunityNavList({
       getItemProps={(item) => ({
         href: `/communities/${community.slug}/browse/${item.identifier}`,
         label: `${item.name} (${item.count})`,
-        prefetch: true,
       })}
     />
   );
@@ -68,7 +66,6 @@ export default function CommunityNavList({
             <NamedLink
               href={`/communities/${community.slug}/page/${slug}`}
               aria-current={page === slug ? "page" : undefined}
-              prefetch
             >
               <NavMenuLink as="span" className={linkClassName}>
                 {title}
