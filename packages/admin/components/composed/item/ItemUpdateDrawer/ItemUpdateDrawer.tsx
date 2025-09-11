@@ -8,6 +8,7 @@ import { LazyLoadQueryWrapper } from "@wdp/lib/api/components";
 import DrawerActions from "components/layout/Drawer/DrawerActions";
 import ItemUpdateForm from "components/composed/item/ItemUpdateForm";
 import EntityPurgeModal from "components/composed/entity/EntityPurgeModal";
+import ClearEntityCacheButton from "components/atomic/buttons/ButtonControl/patterns/ButtonControlClearEntityCache";
 import type { DialogProps } from "reakit/Dialog";
 
 import type {
@@ -84,7 +85,7 @@ export default function ItemUpdateDrawer({
       <DrawerActions
         routes={routes}
         allowedActions={data?.item?.allowedActions}
-        handleClearCache={() => {}}
+        clearCacheButton={<ClearEntityCacheButton id={data?.item?.id} />}
         {...(globalAdmin ? { purgeButton } : { handleDelete })}
       />
     );

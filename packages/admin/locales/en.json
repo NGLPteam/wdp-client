@@ -291,6 +291,14 @@
         "confirm_body_name": "Are you sure you want to enable {{ name }}?",
         "success": "$t({{ name }}) enabled successfully.",
         "failure": "Failed to enable $t({{ name }})."
+      },
+      "cache": {
+        "instance_success": "Instance cache cleared successfully.",
+        "instance_confirm_label": "Confirm Clear Instance Cache",
+        "instance_confirm_body": "Are you sure you want to clear the frontend cache for all entities in this instance?",
+        "entity_success": "Entity cache cleared successfully.",
+        "entity_confirm_label": "Confirm Clear Entity Cache",
+        "entity_confirm_body": "Are you sure you want to clear the frontend cache for this entity?"
       }
     },
     "actions": {
