@@ -1,11 +1,11 @@
-import { buildEnvironment as environment } from "@wdp/lib/app";
 import { fetchQuery, graphql, readInlineData } from "relay-runtime";
+import { getCurrentEnvironment } from "@/lib/relay/environment";
 import { getStaticEntityDataQuery } from "@/relay/getStaticEntityDataQuery.graphql";
 
 export default async function getStaticEntityData(slug: string | undefined) {
   if (!slug) return;
 
-  const env = environment();
+  const env = getCurrentEnvironment();
 
   const data = await fetchQuery<getStaticEntityDataQuery>(env, query, {
     slug,

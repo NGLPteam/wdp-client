@@ -24,7 +24,7 @@ function Link(
       as={as}
       ref={ref}
       href={href}
-      prefetch={as ? undefined : false}
+      prefetch={as ? undefined : true}
       {...props}
     >
       {icon && iconLeft && (
