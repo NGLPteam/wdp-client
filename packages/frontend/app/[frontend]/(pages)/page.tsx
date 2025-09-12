@@ -7,6 +7,10 @@ import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import { pageInstanceContentLayoutQuery as Query } from "@/relay/pageInstanceContentLayoutQuery.graphql";
 import SetCommunity from "@/components/global/SetCommunity";
 
+export async function generateStaticParams() {
+  return [];
+}
+
 export default async function HomePage() {
   const { data: instance, records } = await fetchQuery<Query>(query, {});
 

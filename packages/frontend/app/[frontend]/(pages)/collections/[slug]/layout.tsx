@@ -1,30 +1,26 @@
 import { PropsWithChildren } from "react";
 import { graphql } from "relay-runtime";
 import { notFound } from "next/navigation";
-import GoogleScholarMetaTags from "components/global/GoogleScholarMetaTags";
-import getStaticGoogleScholarData from "contexts/GlobalStaticContext/getStaticGoogleScholarData";
 import { ResolvingMetadata, Metadata } from "next";
 import HeroTemplate from "@/components/templates/Hero";
 import ProcessingCheck from "@/components/templates/ProcessingCheck";
-import FullTextCheck from "@/components/templates/FullTextCheck";
-import NavigationTemplate from "@/components/templates/EntityNavigation";
 import { BasePageParams } from "@/types/page";
 import fetchQuery from "@/lib/relay/fetchQuery";
-import { layoutItemTemplateQuery as Query } from "@/relay/layoutItemTemplateQuery.graphql";
+import { layoutCollectionTemplateQuery as Query } from "@/relay/layoutCollectionTemplateQuery.graphql";
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import ViewCounter from "@/components/composed/analytics/ViewCounter";
 import EntityNavBar from "@/components/composed/entity/EntityNavBar";
-import generateItemMetadata from "@/app/(frontend)/(pages)/items/[slug]/_metadata/item";
+import generateCollectionMetadata from "@/app/[frontend]/(pages)/collections/[slug]/_metadata/collection";
 import SetCommunity from "@/components/global/SetCommunity";
 
 export async function generateMetadata(
   props: BasePageParams,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  return generateItemMetadata(props, parent);
+  return generateCollectionMetadata(props, parent);
 }
 
-export default async function ItemLayout({
+export default async function CollectionTemplateLayout({
   children,
   params: { slug },
 }: BasePageParams & PropsWithChildren) {
@@ -32,30 +28,20 @@ export default async function ItemLayout({
     slug,
   });
 
-  const googleScholarData = await getStaticGoogleScholarData(slug);
+  const { collection } = data ?? {};
 
-  const { item } = data ?? {};
+  if (!collection) return notFound();
 
-  if (!item) return notFound();
-
-  const { community, layouts } = item;
-
-  const { hero, navigation } = layouts ?? {};
+  const { community, layouts } = collection;
 
   return (
     <UpdateClientEnvironment records={records}>
       <SetCommunity data={community}>
-        <ProcessingCheck data={layouts} entityType="item">
-          {googleScholarData && (
-            <GoogleScholarMetaTags entity={googleScholarData} />
-          )}
+        <ProcessingCheck data={layouts} entityType="collection">
           {slug && <ViewCounter slug={slug} />}
-          {hero && <HeroTemplate data={hero} />}
-          <EntityNavBar data={item} />
-          <FullTextCheck data={layouts}>
-            <NavigationTemplate data={navigation} />
-            {children}
-          </FullTextCheck>
+          {layouts.hero && <HeroTemplate data={layouts.hero} />}
+          <EntityNavBar data={collection} />
+          {children}
         </ProcessingCheck>
       </SetCommunity>
     </UpdateClientEnvironment>
@@ -63,17 +49,13 @@ export default async function ItemLayout({
 }
 
 const query = graphql`
-  query layoutItemTemplateQuery($slug: Slug!) {
-    item(slug: $slug) {
+  query layoutCollectionTemplateQuery($slug: Slug!) {
+    collection(slug: $slug) {
       layouts {
         hero {
           ...HeroTemplateFragment
         }
-        navigation {
-          ...EntityNavigationTemplateFragment
-        }
         ...ProcessingCheckFragment
-        ...FullTextCheckFragment
       }
       ...SearchButtonFragment
       ...EntityNavBarFragment
