@@ -67,13 +67,14 @@ export async function DELETE(request: NextRequest) {
     if (!path) return;
 
     if (path.includes("[")) {
-      console.info(`Revalidating /[frontend]/(pages)${path}`);
+      revalidatePath(`/dynamic${path}`, "page");
+      revalidatePath(`/dynamic/(pages)${path}`, "page");
       return revalidatePath(`/[frontend]/(pages)${path}`, "page");
     }
 
-    console.info(`Revalidating ${path}`);
-    console.info(`Revalidating /[frontend]/(pages)${path}`);
     revalidatePath(path);
+    revalidatePath(`/dynamic${path}`);
+    revalidatePath(`/dynamic/(pages)${path}`);
     revalidatePath(`/[frontend]/(pages)${path}`, "page");
   });
 
