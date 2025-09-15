@@ -15,6 +15,9 @@ export function middleware(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname;
 
+  // Because we need runtime env vars, we need to avoid generating any pages at
+  // buildtime. This (or any) top-level dyanmic segment ensures we opt all
+  // routes out of Next's buildtime generation.
   return NextResponse.rewrite(new URL(`/dynamic${pathname}`, request.url));
 }
 
