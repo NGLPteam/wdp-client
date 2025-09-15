@@ -66,9 +66,9 @@ export async function DELETE(request: NextRequest) {
 
     if (!path) return;
 
-    if (path.includes("[")) return revalidatePath(path, "page");
+    if (path.includes("[")) return revalidatePath(`/[frontend]${path}`, "page");
 
-    return revalidatePath(path);
+    return revalidatePath(`/[frontend]${path}`);
   });
 
   return Response.json({
