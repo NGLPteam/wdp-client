@@ -1,5 +1,5 @@
-import Link from "next/link";
 import classNames from "classnames";
+import { Link } from "@/lib/vendor/react-transition-progress/link";
 type LinkProps = React.ComponentProps<typeof Link>;
 import styles from "./NamedLink.module.css";
 

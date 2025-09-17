@@ -1,29 +1,20 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-import isNumber from "lodash/isNumber";
-import { useAutoProgress } from "@wdp/lib/hooks";
+import { useProgressBarContext } from "@/lib/vendor/react-transition-progress";
 import styles from "./ProgressBar.module.css";
 
 /* Exported progress bar - determines if bar should show and if auto progress should be used */
-const ProgressBar = ({ label, loading = false, percentLoaded }: Props) => {
+const ProgressBar = ({ label }: Props) => {
   // By rendering a placeholder even when content isn't loading, we avoid a 4 pixel jump
   // when the placeholder disappears.
+  const progress = useProgressBarContext();
 
-  return !loading ? (
+  return !progress.loading ? (
     <></>
-  ) : isNumber(percentLoaded) ? (
-    <BaseProgressBar label={label} percentLoaded={percentLoaded} />
   ) : (
-    <AutoProgressBar label={label} />
+    <BaseProgressBar label={label} percentLoaded={progress.percent} />
   );
-};
-
-/* Progress bar with auto load */
-const AutoProgressBar = ({ label }: Props) => {
-  const percentLoaded = useAutoProgress();
-
-  return <BaseProgressBar label={label} percentLoaded={percentLoaded} />;
 };
 
 /* Base progress bar layout and styling */
