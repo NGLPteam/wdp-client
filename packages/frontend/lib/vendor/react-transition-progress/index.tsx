@@ -49,7 +49,7 @@ function getDiff(
 ): number {
   let diff;
   if (current === 0) {
-    diff = 20;
+    diff = 15;
   } else if (current < 50) {
     diff = 10;
   } else {
