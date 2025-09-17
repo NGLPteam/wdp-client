@@ -1,7 +1,7 @@
 import { type ComponentProps, forwardRef } from "react";
 import classNames from "classnames";
-import Link from "next/link";
 import { MaybeLinkRef } from "@castiron/common-types";
+import { Link } from "@/lib/vendor/react-transition-progress/link";
 import IconFactory from "@/components/factories/IconFactory";
 import styles from "./NavMenuLink.module.css";
 

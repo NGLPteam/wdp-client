@@ -1,7 +1,7 @@
 import { graphql } from "react-relay";
-import Link from "next/link";
 import classNames from "classnames";
 import { useMaybeFragment } from "@wdp/lib/api/hooks";
+import { Link } from "@/lib/vendor/react-transition-progress/link";
 import { InstallationNameFragment$key } from "@/relay/InstallationNameFragment.graphql";
 import styles from "./InstallationName.module.css";
 
