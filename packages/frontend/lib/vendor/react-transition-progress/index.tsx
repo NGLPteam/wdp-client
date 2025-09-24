@@ -8,10 +8,12 @@ import {
   useContext,
   useOptimistic,
 } from "react";
+import LoadingBlock from "@/components/atomic/loading/LoadingBlock";
 
 const ProgressBarContext = createContext<{
-  start: () => void;
+  start: (slugChanged: boolean) => void;
   loading: boolean;
+  slugChange: boolean;
 } | null>(null);
 
 export function useProgressBarContext() {
@@ -28,22 +30,47 @@ export function useProgressBarContext() {
 
 export function ProgressBarProvider({ children }: PropsWithChildren) {
   const [loading, setLoading] = useOptimistic(false);
+  const [slugChange, setEntityChange] = useOptimistic(false);
 
-  const start = () => {
+  const start = (slugChanged: boolean) => {
     setLoading(true);
+    if (slugChanged) setEntityChange(true);
   };
 
   return (
-    <ProgressBarContext.Provider value={{ start, loading }}>
+    <ProgressBarContext.Provider value={{ start, loading, slugChange }}>
       {children}
     </ProgressBarContext.Provider>
   );
 }
 
 export function useProgress() {
-  const progress = useProgressBarContext();
+  const { start } = useProgressBarContext();
 
-  return () => {
-    progress.start();
+  return (slugChanged: boolean) => {
+    start(slugChanged);
   };
+}
+
+export function ProgressCheck({
+  children,
+  fallback,
+  triggerOnSlugChange = false,
+}: PropsWithChildren & {
+  fallback?: React.ReactNode;
+  triggerOnSlugChange?: boolean;
+}) {
+  const { loading, slugChange } = useProgressBarContext();
+
+  if (!loading) return children;
+
+  if (triggerOnSlugChange && !slugChange) return children;
+
+  return (
+    fallback ?? (
+      <div>
+        <LoadingBlock />
+      </div>
+    )
+  );
 }

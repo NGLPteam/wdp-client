@@ -9,6 +9,8 @@ import { AppBodyFragment$key } from "@/relay/AppBodyFragment.graphql";
 import { SearchButtonFragment$key } from "@/relay/SearchButtonFragment.graphql";
 import { SetCommunityContextProvider } from "@/contexts/CommunityContext";
 import SkipLink from "@/components/global/SkipLink";
+import { ProgressCheck } from "@/lib/vendor/react-transition-progress";
+import LoadingPage from "@/components/atomic/loading/LoadingPage";
 import AppHeader from "../AppHeader";
 import AppFooter from "../AppFooter";
 import styles from "./AppBody.module.css";
@@ -32,7 +34,9 @@ function AppBody({ children, data, searchData }: Props) {
       <SetCommunityContextProvider>
         <AppHeader data={globalData} searchData={searchData} />
         <main id="main" tabIndex={-1}>
-          {children}
+          <ProgressCheck fallback={<LoadingPage />} triggerOnSlugChange>
+            {children}
+          </ProgressCheck>
         </main>
         <AppFooter data={globalData} />
       </SetCommunityContextProvider>

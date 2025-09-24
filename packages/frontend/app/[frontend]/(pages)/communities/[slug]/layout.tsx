@@ -11,6 +11,7 @@ import { layoutCommunityTemplateQuery as Query } from "@/relay/layoutCommunityTe
 import UpdateClientEnvironment from "@/lib/relay/UpdateClientEnvironment";
 import generateCommunityMetadata from "@/app/[frontend]/(pages)/communities/[slug]/_metadata/community";
 import SetCommunity from "@/components/global/SetCommunity";
+import { ProgressCheck } from "@/lib/vendor/react-transition-progress";
 
 export async function generateMetadata(
   props: BasePageParams,
@@ -44,7 +45,7 @@ export default async function CommunityLayout({
             <CommunityNavBar data={community} entityData={community} />
           )}
           {layouts.hero && <HeroTemplate data={layouts.hero} />}
-          {children}
+          <ProgressCheck>{children}</ProgressCheck>
         </ProcessingCheck>
       </SetCommunity>
     </UpdateClientEnvironment>

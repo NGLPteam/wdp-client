@@ -2,7 +2,7 @@
 
 import { startTransition, forwardRef } from "react";
 import NextLink from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useProgress } from "./";
 
 // Copied from  https://github.com/vercel/next.js/blob/canary/packages/next/src/client/link.tsx#L180-L191
@@ -28,6 +28,10 @@ export const Link = forwardRef<
 >(function Link({ href, children, replace, scroll, ...rest }, ref) {
   const router = useRouter();
   const startProgress = useProgress();
+  const { slug } = useParams();
+
+  const path = href as string;
+  const entityChange = !path.includes(slug as string);
 
   return (
     <NextLink
@@ -37,7 +41,7 @@ export const Link = forwardRef<
         if (isModifiedEvent(e)) return;
         e.preventDefault();
         startTransition(() => {
-          startProgress();
+          startProgress(entityChange);
           if (replace) {
             router.replace(href as string, { scroll });
           } else {

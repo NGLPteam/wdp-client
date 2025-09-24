@@ -12,6 +12,7 @@ import ViewCounter from "@/components/composed/analytics/ViewCounter";
 import EntityNavBar from "@/components/composed/entity/EntityNavBar";
 import generateCollectionMetadata from "@/app/[frontend]/(pages)/collections/[slug]/_metadata/collection";
 import SetCommunity from "@/components/global/SetCommunity";
+import { ProgressCheck } from "@/lib/vendor/react-transition-progress";
 
 export async function generateMetadata(
   props: BasePageParams,
@@ -41,7 +42,7 @@ export default async function CollectionTemplateLayout({
           {slug && <ViewCounter slug={slug} />}
           {layouts.hero && <HeroTemplate data={layouts.hero} />}
           <EntityNavBar data={collection} />
-          {children}
+          <ProgressCheck>{children}</ProgressCheck>
         </ProcessingCheck>
       </SetCommunity>
     </UpdateClientEnvironment>

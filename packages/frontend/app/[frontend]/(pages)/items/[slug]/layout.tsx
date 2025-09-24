@@ -16,6 +16,7 @@ import ViewCounter from "@/components/composed/analytics/ViewCounter";
 import EntityNavBar from "@/components/composed/entity/EntityNavBar";
 import generateItemMetadata from "@/app/[frontend]/(pages)/items/[slug]/_metadata/item";
 import SetCommunity from "@/components/global/SetCommunity";
+import { ProgressCheck } from "@/lib/vendor/react-transition-progress";
 
 export async function generateMetadata(
   props: BasePageParams,
@@ -54,7 +55,7 @@ export default async function ItemLayout({
           <EntityNavBar data={item} />
           <FullTextCheck data={layouts}>
             <NavigationTemplate data={navigation} />
-            {children}
+            <ProgressCheck>{children}</ProgressCheck>
           </FullTextCheck>
         </ProcessingCheck>
       </SetCommunity>
