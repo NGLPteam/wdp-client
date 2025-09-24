@@ -25,7 +25,7 @@ function isModifiedEvent(event: React.MouseEvent): boolean {
 export const Link = forwardRef<
   HTMLAnchorElement,
   Parameters<typeof NextLink>[0]
->(function Link({ href, children, replace, scroll, ...rest }, ref) {
+>(function Link({ href, children, replace, scroll = true, ...rest }, ref) {
   const router = useRouter();
   const startProgress = useProgress();
   const { slug } = useParams();
