@@ -28,7 +28,7 @@ function AppBody({ children, data, searchData }: Props) {
 
   return (
     <div className={classNames("a-bg-neutral00", styles.content)}>
-      <SkipLink toId="main-content" label={t("nav.skip_to_content")} />
+      <SkipLink toId="main" label={t("nav.skip_to_content")} />
       <SetCommunityContextProvider>
         <AppHeader data={globalData} searchData={searchData} />
         <main id="main" tabIndex={-1}>
