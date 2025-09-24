@@ -15,7 +15,7 @@ ol {
 
 /* Set core root defaults */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   font-size: 100%;
 }
 
