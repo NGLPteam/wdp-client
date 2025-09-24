@@ -66,6 +66,8 @@ export function ProgressCheck({
 
   if (triggerOnSlugChange && !slugChange) return children;
 
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
   return (
     fallback ?? (
       <div>
