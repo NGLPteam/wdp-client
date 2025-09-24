@@ -12,7 +12,6 @@ import { SessionProvider } from "@/lib/auth/session";
 import { ViewerContextProvider } from "@/contexts/ViewerContext";
 import AppBody from "@/components/global/AppBody";
 import { BasePageParams } from "@/types/page";
-import ProgressBar from "@/components/atomic/loading/ProgressBar";
 import generateSiteMetadata from "./_metadata/site";
 
 export const revalidate = 3600;
@@ -36,7 +35,6 @@ export default async function PageLayout({ children }: PropsWithChildren) {
             <ViewerContextProvider data={data}>
               <UpdateClientEnvironment records={records}>
                 <ProgressBarProvider>
-                  <ProgressBar />
                   <AppBody data={data}>{children}</AppBody>
                 </ProgressBarProvider>
               </UpdateClientEnvironment>
