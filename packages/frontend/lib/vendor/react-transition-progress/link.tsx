@@ -41,9 +41,9 @@ export const Link = forwardRef<
         startTransition(() => {
           startProgress();
           if (replace) {
-            router.replace(`${to}#`);
+            router.replace(`${to}#top`);
           } else {
-            router.push(`${to}#`);
+            router.push(`${to}#top`);
           }
         });
       }}
