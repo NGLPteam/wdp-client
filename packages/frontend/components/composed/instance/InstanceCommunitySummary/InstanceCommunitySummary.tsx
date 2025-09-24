@@ -13,7 +13,7 @@ export default function InstanceCommunitySummary({ data }: Props) {
   const logoImage = community.logo.original;
 
   return community && community.slug ? (
-    <NamedLink href={`/communities/${community.slug}`} scroll={false}>
+    <NamedLink href={`/communities/${community.slug}`}>
       <div className={classNames("a-bg-neutral00", styles.link)}>
         {logoImage?.url ? (
           <figure
