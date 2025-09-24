@@ -25,9 +25,11 @@ function isModifiedEvent(event: React.MouseEvent): boolean {
 export const Link = forwardRef<
   HTMLAnchorElement,
   Parameters<typeof NextLink>[0]
->(function Link({ href, children, replace, scroll, ...rest }, ref) {
+>(function Link({ href, children, replace, scroll = true, ...rest }, ref) {
   const router = useRouter();
   const startProgress = useProgress();
+
+  const to = href as string;
 
   return (
     <NextLink
@@ -39,9 +41,9 @@ export const Link = forwardRef<
         startTransition(() => {
           startProgress();
           if (replace) {
-            router.replace(href as string, { scroll });
+            router.replace(`${to}#`, { scroll });
           } else {
-            router.push(href as string, { scroll });
+            router.push(`${to}#`, { scroll });
           }
         });
       }}
