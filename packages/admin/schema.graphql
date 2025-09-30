@@ -2039,7 +2039,7 @@ enum ClientLocation {
 }
 
 """A collection of items"""
-type Collection implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasHarvestModificationStatus & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
+type Collection implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasHarvestModificationStatus & HasSchemaProperties & Node & Permalinkable & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -2227,6 +2227,11 @@ type Collection implements Accessible & Attachable & Attributable & ChildEntity 
   ): [EntitySelectOption!]!
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
+  """
+  The canonical permalink for this resource, if one is set.
+  
+  """
+  canonicalPermalink: Permalink
   children(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -2609,6 +2614,11 @@ type Collection implements Accessible & Attachable & Attributable & ChildEntity 
     perPage: Int
   ): PageConnection!
   parent: CollectionParent
+  """
+  All permalinks associated with this resource.
+  
+  """
+  permalinks: [Permalink!]!
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
   """The date this entity was published"""
@@ -2860,7 +2870,7 @@ type CollectionEdge {
 union CollectionParent = Collection | Community
 
 """A community of users"""
-type Community implements Accessible & Attachable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasEntityAnalytics & HasEntityBreadcrumbs & HasSchemaProperties & Node & SchemaInstance & Searchable & Sluggable {
+type Community implements Accessible & Attachable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasEntityAnalytics & HasEntityBreadcrumbs & HasSchemaProperties & Node & Permalinkable & SchemaInstance & Searchable & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -3027,6 +3037,11 @@ type Community implements Accessible & Attachable & Entity & EntityBase & Expose
   ): [EntitySelectOption!]!
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
+  """
+  The canonical permalink for this resource, if one is set.
+  
+  """
+  canonicalPermalink: Permalink
   collections(
     access: EntityPermissionFilter = SKIP
     """Returns the elements in the list that come after the specified cursor."""
@@ -3255,6 +3270,11 @@ type Community implements Accessible & Attachable & Entity & EntityBase & Expose
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
   ): PageConnection!
+  """
+  All permalinks associated with this resource.
+  
+  """
+  permalinks: [Permalink!]!
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
   position: Int
@@ -11135,7 +11155,7 @@ type IntegerProperty implements ScalarProperty & SchemaProperty & SearchableProp
 }
 
 """An item that belongs to a collection"""
-type Item implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasHarvestModificationStatus & HasSchemaProperties & Node & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
+type Item implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasHarvestModificationStatus & HasSchemaProperties & Node & Permalinkable & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -11323,6 +11343,11 @@ type Item implements Accessible & Attachable & Attributable & ChildEntity & Cont
   ): [EntitySelectOption!]!
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
+  """
+  The canonical permalink for this resource, if one is set.
+  
+  """
+  canonicalPermalink: Permalink
   children(
     """Returns the elements in the list that come after the specified cursor."""
     after: String
@@ -11665,6 +11690,11 @@ type Item implements Accessible & Attachable & Attributable & ChildEntity & Cont
     perPage: Int
   ): PageConnection!
   parent: ItemParent
+  """
+  All permalinks associated with this resource.
+  
+  """
+  permalinks: [Permalink!]!
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
   """The date this entity was published"""
@@ -13414,6 +13444,30 @@ type Mutation {
     input: LinkEntityInput!
   ): LinkEntityPayload
   """
+  Create a single `Permalink` record.
+  
+  """
+  permalinkCreate(
+    """Parameters for PermalinkCreate"""
+    input: PermalinkCreateInput!
+  ): PermalinkCreatePayload
+  """
+  Destroy a single `Permalink` record.
+  
+  """
+  permalinkDestroy(
+    """Parameters for PermalinkDestroy"""
+    input: PermalinkDestroyInput!
+  ): PermalinkDestroyPayload
+  """
+  Update a single `Permalink` record.
+  
+  """
+  permalinkUpdate(
+    """Parameters for PermalinkUpdate"""
+    input: PermalinkUpdateInput!
+  ): PermalinkUpdatePayload
+  """
   Preview a slot for a given entity.
   
   """
@@ -14905,6 +14959,247 @@ interface Paginated {
   pageInfo: PageInfo!
 }
 
+"""
+A permalink is a persistant link to a resource with a human-readable URI.
+Each resource can have multiple permalinks, but only one can be marked as canonical.
+
+"""
+type Permalink implements Node & Sluggable {
+  """
+  Whether this permalink is the canonical one for the `permalinkable`.
+  
+  """
+  canonical: Boolean!
+  createdAt: ISO8601DateTime!
+  id: ID!
+  """
+  The type of resource this permalink points to.
+  
+  """
+  kind: PermalinkableKind!
+  """
+  The resource this permalink points to.
+  
+  """
+  permalinkable: Permalinkable!
+  """
+  The slug of the `permalinkable` record.
+  
+  It can be used for quickly generating non-canonical links to the resource
+  based on the `kind` without needing to load the associated record.
+  
+  """
+  permalinkableSlug: String!
+  slug: Slug!
+  updatedAt: ISO8601DateTime!
+  """
+  The URI of the permalink. Used for generating routes and also serves as a unique identifier.
+  
+  **Note**: URIs are _case-insensitive_ and may only contain alphanumeric characters and hyphens.
+  Hyphens may not be consecutive nor may they appear at the start nor the end of the URI.
+  
+  """
+  uri: String!
+}
+
+"""The connection type for Permalink."""
+type PermalinkConnection implements Paginated {
+  """A list of edges."""
+  edges: [PermalinkEdge!]!
+  """A list of nodes."""
+  nodes: [Permalink!]!
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+"""Autogenerated input type of PermalinkCreate"""
+input PermalinkCreateInput {
+  """
+  Whether this permalink should be the canonical permalink for its resource.
+  
+  If true, any existing canonical permalink for the resource will be demoted to a non-canonical permalink.
+  
+  """
+  canonical: Boolean = false
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  """
+  The ID of the resource to which this permalink will belong.
+  
+  It can be changed.
+  
+  """
+  permalinkableId: ID!
+  """
+  The URI for the permalink.
+  
+  It is case-insensitive and must be unique system-wide.
+  
+  It may only contain letters, numbers, and hyphens.
+  It may not begin nor end with a hyphen, nor contain consecutive hyphens.
+  
+  """
+  uri: String!
+}
+
+"""Autogenerated return type of PermalinkCreate."""
+type PermalinkCreatePayload implements StandardMutationPayload {
+  attributeErrors: [MutationAttributeError!]!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
+  globalErrors: [MutationGlobalError!]!
+  """Not presently used"""
+  haltCode: String
+  """
+  The newly-modified permalink, if successful.
+  
+  """
+  permalink: Permalink
+}
+
+"""Autogenerated input type of PermalinkDestroy"""
+input PermalinkDestroyInput {
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  """
+  The permalink to destroy.
+  
+  """
+  permalinkId: ID!
+}
+
+"""Autogenerated return type of PermalinkDestroy."""
+type PermalinkDestroyPayload implements DestroyMutationPayload & StandardMutationPayload {
+  attributeErrors: [MutationAttributeError!]!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  """
+  Whether or not the model was successfully destroyed. If false, check globalErrors
+  """
+  destroyed: Boolean
+  """The ID of the deleted model"""
+  destroyedId: ID
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
+  globalErrors: [MutationGlobalError!]!
+  """Not presently used"""
+  haltCode: String
+}
+
+"""An edge in a connection."""
+type PermalinkEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+  """The item at the end of the edge."""
+  node: Permalink!
+}
+
+"""
+Sort a collection of `Permalink` records by specific properties and directions.
+
+"""
+enum PermalinkOrder {
+  """
+  Sort permalinks by their default order: canonical first, then by uri alphabetically.
+  """
+  DEFAULT
+  """Sort permalinks by oldest created date."""
+  OLDEST
+  """Sort permalinks by newest created date."""
+  RECENT
+}
+
+"""Autogenerated input type of PermalinkUpdate"""
+input PermalinkUpdateInput {
+  """
+  Whether this permalink should be the canonical permalink for its resource.
+  
+  If true, any existing canonical permalink for the resource will be demoted to a non-canonical permalink.
+  
+  """
+  canonical: Boolean = false
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  """
+  The permalink to update.
+  
+  """
+  permalinkId: ID!
+  """
+  The ID of the resource to which this permalink will belong.
+  
+  It can be changed.
+  
+  """
+  permalinkableId: ID!
+  """
+  The URI for the permalink.
+  
+  It is case-insensitive and must be unique system-wide.
+  
+  It may only contain letters, numbers, and hyphens.
+  It may not begin nor end with a hyphen, nor contain consecutive hyphens.
+  
+  """
+  uri: String!
+}
+
+"""Autogenerated return type of PermalinkUpdate."""
+type PermalinkUpdatePayload implements StandardMutationPayload {
+  attributeErrors: [MutationAttributeError!]!
+  """A unique identifier for the client performing the mutation."""
+  clientMutationId: String
+  errors: [UserError!]! @deprecated(reason: "Use attributeErrors or globalErrors")
+  globalErrors: [MutationGlobalError!]!
+  """Not presently used"""
+  haltCode: String
+  """
+  The newly-modified permalink, if successful.
+  
+  """
+  permalink: Permalink
+}
+
+"""
+An interface for models which can have permalinks.
+
+"""
+interface Permalinkable {
+  """
+  The canonical permalink for this resource, if one is set.
+  
+  """
+  canonicalPermalink: Permalink
+  """
+  All permalinks associated with this resource.
+  
+  """
+  permalinks: [Permalink!]!
+}
+
+"""
+An enum that helps describe the different kinds of records
+that can be permalinked.
+
+"""
+enum PermalinkableKind {
+  """
+  This permalink points to a collection.
+  
+  """
+  COLLECTION
+  """
+  This permalink points to a community.
+  
+  """
+  COMMUNITY
+  """
+  This permalink points to an item.
+  
+  """
+  ITEM
+}
+
 """A grant of a specific permission within a specific scope."""
 type PermissionGrant {
   """Whether this permission has been granted in the current context."""
@@ -15624,6 +15919,54 @@ interface QueriesHarvestSource {
 }
 
 """
+An interface for querying `Permalink` records.
+
+"""
+interface QueriesPermalink {
+  """
+  Retrieve a single `Permalink` by slug.
+  
+  """
+  permalink(
+    """
+    The slug to look up.
+    
+    """
+    slug: Slug!
+  ): Permalink
+  """
+  Retrieve a single `Permalink` by its URI.
+  
+  """
+  permalinkByUri(
+    """
+    The URI to look up.
+    
+    """
+    uri: String!
+  ): Permalink
+  permalinks(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    order: PermalinkOrder = DEFAULT
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): PermalinkConnection!
+}
+
+"""
 Fields for querying schemas and schema-related data.
 
 """
@@ -15769,7 +16112,7 @@ interface QueriesUser {
 The entry point for retrieving data from within the Meru API.
 
 """
-type Query implements QueriesAccessAndRoles & QueriesContrib & QueriesControlledVocabulary & QueriesControlledVocabularySource & QueriesEntities & QueriesHarvestAttempt & QueriesHarvestExample & QueriesHarvestMapping & QueriesHarvestMessage & QueriesHarvestRecord & QueriesHarvestSet & QueriesHarvestSource & QueriesSchemas & QueriesSystem & QueriesUser & Searchable {
+type Query implements QueriesAccessAndRoles & QueriesContrib & QueriesControlledVocabulary & QueriesControlledVocabularySource & QueriesEntities & QueriesHarvestAttempt & QueriesHarvestExample & QueriesHarvestMapping & QueriesHarvestMessage & QueriesHarvestRecord & QueriesHarvestSet & QueriesHarvestSource & QueriesPermalink & QueriesSchemas & QueriesSystem & QueriesUser & Searchable {
   """
   Retrieve all access grants.
   
@@ -16192,6 +16535,47 @@ type Query implements QueriesAccessAndRoles & QueriesContrib & QueriesControlled
     """
     schemas: [OrderingSchemaFilterInput!]
   ): [AnyOrderingPath!]!
+  """
+  Retrieve a single `Permalink` by slug.
+  
+  """
+  permalink(
+    """
+    The slug to look up.
+    
+    """
+    slug: Slug!
+  ): Permalink
+  """
+  Retrieve a single `Permalink` by its URI.
+  
+  """
+  permalinkByUri(
+    """
+    The URI to look up.
+    
+    """
+    uri: String!
+  ): Permalink
+  permalinks(
+    """Returns the elements in the list that come after the specified cursor."""
+    after: String
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+    """Returns the first _n_ elements from the list."""
+    first: Int
+    """Returns the last _n_ elements from the list."""
+    last: Int
+    order: PermalinkOrder = DEFAULT
+    """The page of edges/nodes to fetch"""
+    page: Int
+    """The direction in which pages advance (to traverse pages backwards)"""
+    pageDirection: PageDirection = FORWARDS
+    """The amount of edges / nodes to fetch per page"""
+    perPage: Int
+  ): PermalinkConnection!
   """
   List all roles.
   
