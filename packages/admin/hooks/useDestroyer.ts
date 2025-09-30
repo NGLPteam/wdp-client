@@ -43,6 +43,10 @@ import type {
   useDestroyerDestroyPageMutation,
 } from "@/relay/useDestroyerDestroyPageMutation.graphql";
 import type {
+  PermalinkDestroyInput,
+  useDestroyerDestroyPermalinkMutation,
+} from "@/relay/useDestroyerDestroyPermalinkMutation.graphql";
+import type {
   HarvestSourceDestroyInput,
   useDestroyerDestroyHarvestSourceMutation,
 } from "@/relay/useDestroyerDestroyHarvestSourceMutation.graphql";
@@ -381,6 +385,29 @@ export function useDestroyer() {
     [commitDestroyPage, handleResponse, pageInFlight, t],
   );
 
+  /* Destroy a permalink */
+  const [commitDestroyPermalink, permalinkInFlight] =
+    useMutation<useDestroyerDestroyPermalinkMutation>(destroyPermalinkMutation);
+
+  const permalink = useCallback(
+    async (input: PermalinkDestroyInput, label: string) => {
+      if (permalinkInFlight) return;
+
+      const loadingToast = toast.loading(
+        t(`messages.delete.loading`, { name: label }),
+      );
+
+      commitDestroyPermalink({
+        variables: { input },
+        onCompleted: (response) => {
+          toast.dismiss(loadingToast);
+          handleResponse(response.permalinkDestroy, label, ["permalinks"]);
+        },
+      });
+    },
+    [commitDestroyPermalink, handleResponse, permalinkInFlight, t],
+  );
+
   /* Destroy an announcement */
   const [commitDestroyAnnouncement, announcementInFlight] =
     useMutation<useDestroyerDestroyAnnouncementMutation>(
@@ -523,6 +550,7 @@ export function useDestroyer() {
     accessInFlight ||
     linkInFlight ||
     pageInFlight ||
+    permalinkInFlight ||
     announcementInFlight ||
     harvestSourceInFlight ||
     harvestMappingInFlight ||
@@ -539,6 +567,7 @@ export function useDestroyer() {
     access,
     link,
     page,
+    permalink,
     announcement,
     harvestSource,
     harvestMapping,
@@ -645,6 +674,17 @@ const destroyEntityLinkMutation = graphql`
 const destroyPageMutation = graphql`
   mutation useDestroyerDestroyPageMutation($input: DestroyPageInput!) {
     destroyPage(input: $input) {
+      destroyedId @deleteRecord
+      ...useDestroyerFragment
+    }
+  }
+`;
+
+const destroyPermalinkMutation = graphql`
+  mutation useDestroyerDestroyPermalinkMutation(
+    $input: PermalinkDestroyInput!
+  ) {
+    permalinkDestroy(input: $input) {
       destroyedId @deleteRecord
       ...useDestroyerFragment
     }

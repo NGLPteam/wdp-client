@@ -24,6 +24,7 @@ const MODEL_MAP = {
   METADATA_MAPPING: "metadata_mapping",
   MEMBER: "member",
   ACCESS: "access",
+  PERMALINK: "permalink",
 };
 
 export type ModelNames = keyof typeof MODEL_MAP;
