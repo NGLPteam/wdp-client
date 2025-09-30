@@ -59,6 +59,8 @@
       "contributor_org": "organization",
       "link": "link",
       "link_other": "links",
+      "permalink": "permalink",
+      "permalink_other": "permalinks",
       "ordering": "ordering",
       "ordering_other": "orderings",
       "file": "file",
@@ -109,6 +111,10 @@
       "hero_or_logo_column": "Hero or Logo",
       "hero_column": "Hero",
       "type_column": "Type",
+      "uri_column": "URI",
+      "kind_column": "Kind",
+      "canonical_column": "Canonical",
+      "target_column": "Target",
       "updated_at_column": "Updated At",
       "avatar_column": "Avatar",
       "slug_column": "Slug",
@@ -185,7 +191,8 @@
       "harvest_source_new": "New Harvest Source",
       "harvest_mapping_new": "New Harvest Mapping",
       "metadata_mappings": "Metadata Mappings",
-      "new_metadata_mapping": "Metadata Mapping"
+      "new_metadata_mapping": "Metadata Mapping",
+      "permalinks": "Permalinks"
     },
     "messages": {
       "marked_for_purge": "Marked for purge",
@@ -203,6 +210,10 @@
         "success": "$t({{ name }}) added successfully.",
         "link_success": "Link added successfully.",
         "link_failure": "Failed to add link.",
+        "permalink_success": "Permalink added successfully.",
+        "permalink_failure": "Failed to add permalink.",
+        "permalink_update_success": "Permalink updated successfully.",
+        "permalink_update_failure": "Failed to update permalink.",
         "access_success": "Access added successfully.",
         "member_success": "Member added successfully.",
         "item_success": "Item added successfully.",
@@ -217,6 +228,8 @@
       "update": {
         "success": "$t({{ name }}) updated successfully.",
         "failure": "Failed to update $t({{ name }}).",
+        "permalink_success": "Permalink updated successfully.",
+        "permalink_failure": "Failed to update permalink.",
         "collection_success": "Collection updated successfully.",
         "collection_failure": "Failed to update collection.",
         "community_success": "Community updated successfully.",
@@ -314,6 +327,8 @@
         "item_header": "Add New Item",
         "link": "Add Link",
         "link_header": "Add New Link",
+        "permalink": "Add Permalink",
+        "permalink_header": "Add New Permalink",
         "page": "Add Page",
         "page_header": "Add New Page",
         "ordering": "Add Ordering",
@@ -369,7 +384,8 @@
         "file": "Edit File",
         "file_header": "Edit File \"{{ name }}\"",
         "harvest_source": "Edit Harvest Source",
-        "harvest_mapping": "Edit Harvest Mapping"
+        "harvest_mapping": "Edit Harvest Mapping",
+        "permalink": "Edit Permalink"
       },
       "hide": {
         "inherited_roles": "Hide Inherited Roles"
@@ -435,6 +451,10 @@
         "link_contains": "Contains",
         "link_references": "References",
         "link_type_description": "Contained items or collections are descendants of $t({{ name }}). References are not descendants.",
+        "permalink_uri": "Permalink Slug",
+        "permalink_uri_description": "A unique friendly slug for this entity. May only contain letters, numbers, and hyphens.",
+        "permalink_canonical": "Canonical",
+        "permalink_canonical_description": "Make this the canonical link for {{ name }}? If another permalink is currently canonical, this one will replace it.",
         "location": "Location",
         "url": "URL",
         "user": "User",

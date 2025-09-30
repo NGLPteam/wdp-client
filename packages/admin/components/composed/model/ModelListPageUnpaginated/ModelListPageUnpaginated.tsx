@@ -15,7 +15,10 @@ type Props<
   U extends HasNodes,
   V extends Record<string, unknown> = Record<string, unknown>,
 > = Pick<HeaderProps, "headerStyle" | "hideHeader"> &
-  Omit<ModelListProps<U, V>, "view"> & { totalCount?: number };
+  Omit<ModelListProps<U, V>, "view"> & {
+    totalCount?: number;
+    buttons?: React.ReactNode;
+  };
 
 export default function ModelListPageUnpaginated<
   U extends HasNodes,
@@ -27,6 +30,8 @@ export default function ModelListPageUnpaginated<
   headerStyle,
   hideHeader,
   modelName,
+  buttons,
+  actions,
 }: Props<U, V>) {
   const pageInfo = {
     page: 1,
@@ -46,6 +51,7 @@ export default function ModelListPageUnpaginated<
         title={startCase(t(`glossary.${modelName}_other`))}
         headerStyle={headerStyle}
         hideHeader={hideHeader}
+        buttons={buttons}
       />
       <PageCountActions
         loading={typeof pageInfo.totalCount !== "number"}
@@ -57,6 +63,7 @@ export default function ModelListPageUnpaginated<
         columns={columns}
         modelName={modelName}
         view={isMobile ? ViewOptions.grid : ViewOptions.table}
+        actions={actions}
       />
     </section>
   );
