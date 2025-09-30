@@ -11582,6 +11582,18 @@
             "deprecationReason": null
           },
           {
+            "name": "canonicalPermalink",
+            "description": "The canonical permalink for this resource, if one is set.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Permalink",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "children",
             "description": null,
             "args": [
@@ -13560,6 +13572,30 @@
             "deprecationReason": null
           },
           {
+            "name": "permalinks",
+            "description": "All permalinks associated with this resource.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Permalink",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "permissions",
             "description": "An array of hashes that can be requested to load in a context",
             "args": [],
@@ -14410,6 +14446,11 @@
           {
             "kind": "INTERFACE",
             "name": "Node",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "Permalinkable",
             "ofType": null
           },
           {
@@ -16024,6 +16065,18 @@
             "deprecationReason": null
           },
           {
+            "name": "canonicalPermalink",
+            "description": "The canonical permalink for this resource, if one is set.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Permalink",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "collections",
             "description": null,
             "args": [
@@ -17297,6 +17350,30 @@
             "deprecationReason": null
           },
           {
+            "name": "permalinks",
+            "description": "All permalinks associated with this resource.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Permalink",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "permissions",
             "description": "An array of hashes that can be requested to load in a context",
             "args": [],
@@ -17887,6 +17964,11 @@
           {
             "kind": "INTERFACE",
             "name": "Node",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "Permalinkable",
             "ofType": null
           },
           {
@@ -30325,6 +30407,11 @@
           {
             "kind": "OBJECT",
             "name": "HarvestSourceDestroyPayload",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "PermalinkDestroyPayload",
             "ofType": null
           }
         ]
@@ -51085,6 +51172,18 @@
             "deprecationReason": null
           },
           {
+            "name": "canonicalPermalink",
+            "description": "The canonical permalink for this resource, if one is set.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Permalink",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "children",
             "description": null,
             "args": [
@@ -52833,6 +52932,30 @@
             "deprecationReason": null
           },
           {
+            "name": "permalinks",
+            "description": "All permalinks associated with this resource.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Permalink",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "permissions",
             "description": "An array of hashes that can be requested to load in a context",
             "args": [],
@@ -53678,6 +53801,11 @@
           {
             "kind": "INTERFACE",
             "name": "Node",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "Permalinkable",
             "ofType": null
           },
           {
@@ -60703,6 +60831,93 @@
             "deprecationReason": null
           },
           {
+            "name": "permalinkCreate",
+            "description": "Create a single `Permalink` record.\n",
+            "args": [
+              {
+                "name": "input",
+                "description": "Parameters for PermalinkCreate",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "PermalinkCreateInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "PermalinkCreatePayload",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permalinkDestroy",
+            "description": "Destroy a single `Permalink` record.\n",
+            "args": [
+              {
+                "name": "input",
+                "description": "Parameters for PermalinkDestroy",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "PermalinkDestroyInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "PermalinkDestroyPayload",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permalinkUpdate",
+            "description": "Update a single `Permalink` record.\n",
+            "args": [
+              {
+                "name": "input",
+                "description": "Parameters for PermalinkUpdate",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "PermalinkUpdateInput",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "PermalinkUpdatePayload",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "previewSlot",
             "description": "Preview a slot for a given entity.\n",
             "args": [
@@ -62837,6 +63052,11 @@
           {
             "kind": "OBJECT",
             "name": "PageListTemplateInstance",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "Permalink",
             "ofType": null
           },
           {
@@ -67614,6 +67834,11 @@
           },
           {
             "kind": "OBJECT",
+            "name": "PermalinkConnection",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "RoleConnection",
             "ofType": null
           },
@@ -67668,6 +67893,998 @@
             "ofType": null
           }
         ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Permalink",
+        "description": "A permalink is a persistant link to a resource with a human-readable URI.\nEach resource can have multiple permalinks, but only one can be marked as canonical.\n",
+        "fields": [
+          {
+            "name": "canonical",
+            "description": "Whether this permalink is the canonical one for the `permalinkable`.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "createdAt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "id",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "kind",
+            "description": "The type of resource this permalink points to.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "PermalinkableKind",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permalinkable",
+            "description": "The resource this permalink points to.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "INTERFACE",
+                "name": "Permalinkable",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permalinkableSlug",
+            "description": "The slug of the `permalinkable` record.\n\nIt can be used for quickly generating non-canonical links to the resource\nbased on the `kind` without needing to load the associated record.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "slug",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Slug",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "updatedAt",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ISO8601DateTime",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "uri",
+            "description": "The URI of the permalink. Used for generating routes and also serves as a unique identifier.\n\n**Note**: URIs are _case-insensitive_ and may only contain alphanumeric characters and hyphens.\nHyphens may not be consecutive nor may they appear at the start nor the end of the URI.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Node",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "Sluggable",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "PermalinkConnection",
+        "description": "The connection type for Permalink.",
+        "fields": [
+          {
+            "name": "edges",
+            "description": "A list of edges.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "PermalinkEdge",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nodes",
+            "description": "A list of nodes.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Permalink",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "pageInfo",
+            "description": "Information to aid in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageInfo",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "Paginated",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "PermalinkCreateInput",
+        "description": "Autogenerated input type of PermalinkCreate",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "canonical",
+            "description": "Whether this permalink should be the canonical permalink for its resource.\n\nIf true, any existing canonical permalink for the resource will be demoted to a non-canonical permalink.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": "false",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clientMutationId",
+            "description": "A unique identifier for the client performing the mutation.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permalinkableId",
+            "description": "The ID of the resource to which this permalink will belong.\n\nIt can be changed.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "uri",
+            "description": "The URI for the permalink.\n\nIt is case-insensitive and must be unique system-wide.\n\nIt may only contain letters, numbers, and hyphens.\nIt may not begin nor end with a hyphen, nor contain consecutive hyphens.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "PermalinkCreatePayload",
+        "description": "Autogenerated return type of PermalinkCreate.",
+        "fields": [
+          {
+            "name": "attributeErrors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "MutationAttributeError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clientMutationId",
+            "description": "A unique identifier for the client performing the mutation.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "errors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "UserError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
+          },
+          {
+            "name": "globalErrors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "MutationGlobalError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "haltCode",
+            "description": "Not presently used",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permalink",
+            "description": "The newly-modified permalink, if successful.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Permalink",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "StandardMutationPayload",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "PermalinkDestroyInput",
+        "description": "Autogenerated input type of PermalinkDestroy",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "clientMutationId",
+            "description": "A unique identifier for the client performing the mutation.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permalinkId",
+            "description": "The permalink to destroy.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "PermalinkDestroyPayload",
+        "description": "Autogenerated return type of PermalinkDestroy.",
+        "fields": [
+          {
+            "name": "attributeErrors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "MutationAttributeError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clientMutationId",
+            "description": "A unique identifier for the client performing the mutation.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "destroyed",
+            "description": "Whether or not the model was successfully destroyed. If false, check globalErrors",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "destroyedId",
+            "description": "The ID of the deleted model",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "errors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "UserError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
+          },
+          {
+            "name": "globalErrors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "MutationGlobalError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "haltCode",
+            "description": "Not presently used",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "DestroyMutationPayload",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "StandardMutationPayload",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "PermalinkEdge",
+        "description": "An edge in a connection.",
+        "fields": [
+          {
+            "name": "cursor",
+            "description": "A cursor for use in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "node",
+            "description": "The item at the end of the edge.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Permalink",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "PermalinkOrder",
+        "description": "Sort a collection of `Permalink` records by specific properties and directions.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "DEFAULT",
+            "description": "Sort permalinks by their default order: canonical first, then by uri alphabetically.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "OLDEST",
+            "description": "Sort permalinks by oldest created date.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "RECENT",
+            "description": "Sort permalinks by newest created date.",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "PermalinkUpdateInput",
+        "description": "Autogenerated input type of PermalinkUpdate",
+        "fields": null,
+        "inputFields": [
+          {
+            "name": "canonical",
+            "description": "Whether this permalink should be the canonical permalink for its resource.\n\nIf true, any existing canonical permalink for the resource will be demoted to a non-canonical permalink.\n",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "defaultValue": "false",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clientMutationId",
+            "description": "A unique identifier for the client performing the mutation.",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permalinkId",
+            "description": "The permalink to update.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permalinkableId",
+            "description": "The ID of the resource to which this permalink will belong.\n\nIt can be changed.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "uri",
+            "description": "The URI for the permalink.\n\nIt is case-insensitive and must be unique system-wide.\n\nIt may only contain letters, numbers, and hyphens.\nIt may not begin nor end with a hyphen, nor contain consecutive hyphens.\n",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "PermalinkUpdatePayload",
+        "description": "Autogenerated return type of PermalinkUpdate.",
+        "fields": [
+          {
+            "name": "attributeErrors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "MutationAttributeError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "clientMutationId",
+            "description": "A unique identifier for the client performing the mutation.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "errors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "UserError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": true,
+            "deprecationReason": "Use attributeErrors or globalErrors"
+          },
+          {
+            "name": "globalErrors",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "MutationGlobalError",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "haltCode",
+            "description": "Not presently used",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permalink",
+            "description": "The newly-modified permalink, if successful.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Permalink",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [
+          {
+            "kind": "INTERFACE",
+            "name": "StandardMutationPayload",
+            "ofType": null
+          }
+        ],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "Permalinkable",
+        "description": "An interface for models which can have permalinks.\n",
+        "fields": [
+          {
+            "name": "canonicalPermalink",
+            "description": "The canonical permalink for this resource, if one is set.\n",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Permalink",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permalinks",
+            "description": "All permalinks associated with this resource.\n",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Permalink",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "Collection",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "Community",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "Item",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "ENUM",
+        "name": "PermalinkableKind",
+        "description": "An enum that helps describe the different kinds of records\nthat can be permalinked.\n",
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "COLLECTION",
+            "description": "This permalink points to a collection.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "COMMUNITY",
+            "description": "This permalink points to a community.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "ITEM",
+            "description": "This permalink points to an item.\n",
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
       },
       {
         "kind": "OBJECT",
@@ -70951,6 +72168,194 @@
       },
       {
         "kind": "INTERFACE",
+        "name": "QueriesPermalink",
+        "description": "An interface for querying `Permalink` records.\n",
+        "fields": [
+          {
+            "name": "permalink",
+            "description": "Retrieve a single `Permalink` by slug.\n",
+            "args": [
+              {
+                "name": "slug",
+                "description": "The slug to look up.\n",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Permalink",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permalinkByUri",
+            "description": "Retrieve a single `Permalink` by its URI.\n",
+            "args": [
+              {
+                "name": "uri",
+                "description": "The URI to look up.\n",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Permalink",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permalinks",
+            "description": null,
+            "args": [
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "PermalinkOrder",
+                  "ofType": null
+                },
+                "defaultValue": "DEFAULT",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "PageDirection",
+                  "ofType": null
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PermalinkConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "Query",
+            "ofType": null
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
         "name": "QueriesSchemas",
         "description": "Fields for querying schemas and schema-related data.\n",
         "fields": [
@@ -73813,6 +75218,177 @@
             "deprecationReason": null
           },
           {
+            "name": "permalink",
+            "description": "Retrieve a single `Permalink` by slug.\n",
+            "args": [
+              {
+                "name": "slug",
+                "description": "The slug to look up.\n",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Slug",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Permalink",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permalinkByUri",
+            "description": "Retrieve a single `Permalink` by its URI.\n",
+            "args": [
+              {
+                "name": "uri",
+                "description": "The URI to look up.\n",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Permalink",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "permalinks",
+            "description": null,
+            "args": [
+              {
+                "name": "after",
+                "description": "Returns the elements in the list that come after the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "before",
+                "description": "Returns the elements in the list that come before the specified cursor.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "first",
+                "description": "Returns the first _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "last",
+                "description": "Returns the last _n_ elements from the list.",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "order",
+                "description": null,
+                "type": {
+                  "kind": "ENUM",
+                  "name": "PermalinkOrder",
+                  "ofType": null
+                },
+                "defaultValue": "DEFAULT",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "page",
+                "description": "The page of edges/nodes to fetch",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "pageDirection",
+                "description": "The direction in which pages advance (to traverse pages backwards)",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "PageDirection",
+                  "ofType": null
+                },
+                "defaultValue": "FORWARDS",
+                "isDeprecated": false,
+                "deprecationReason": null
+              },
+              {
+                "name": "perPage",
+                "description": "The amount of edges / nodes to fetch per page",
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PermalinkConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "roles",
             "description": "List all roles.\n",
             "args": [
@@ -74534,6 +76110,11 @@
           {
             "kind": "INTERFACE",
             "name": "QueriesHarvestSource",
+            "ofType": null
+          },
+          {
+            "kind": "INTERFACE",
+            "name": "QueriesPermalink",
             "ofType": null
           },
           {
@@ -80948,6 +82529,11 @@
           },
           {
             "kind": "OBJECT",
+            "name": "Permalink",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
             "name": "PersonContributor",
             "ofType": null
           },
@@ -81340,6 +82926,21 @@
           {
             "kind": "OBJECT",
             "name": "LinkEntityPayload",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "PermalinkCreatePayload",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "PermalinkDestroyPayload",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "PermalinkUpdatePayload",
             "ofType": null
           },
           {
