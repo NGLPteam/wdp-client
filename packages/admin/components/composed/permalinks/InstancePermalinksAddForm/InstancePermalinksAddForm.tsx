@@ -1,36 +1,38 @@
-import { useFragment, graphql } from "react-relay";
+import { graphql } from "react-relay";
 import { useTranslation } from "react-i18next";
 import MutationForm, {
   useRenderForm,
   useToVariables,
   Forms,
 } from "components/api/MutationForm";
+import EntitySelectorDisclosure from "components/forms/EntitySelector/EntitySelectorDisclosure";
 import type {
-  EntityPermalinksAddFormMutation,
+  InstancePermalinksAddFormMutation,
   PermalinkCreateInput,
-} from "@/relay/EntityPermalinksAddFormMutation.graphql";
-import type { EntityPermalinksAddFormFragment$key } from "@/relay/EntityPermalinksAddFormFragment.graphql";
+} from "@/relay/InstancePermalinksAddFormMutation.graphql";
 
-export default function EntityPermalinksAddForm({
-  data,
+export default function InstancePermalinksAddForm({
   onSuccess,
   onCancel,
 }: Props) {
   const { t } = useTranslation();
 
-  const sourceEntity = useFragment<EntityPermalinksAddFormFragment$key>(
-    fragment,
-    data,
-  );
-
-  const toVariables = useToVariables<EntityPermalinksAddFormMutation, Fields>(
-    (data) => ({ input: { ...data, permalinkableId: sourceEntity.id || "" } }),
+  const toVariables = useToVariables<InstancePermalinksAddFormMutation, Fields>(
+    (data) => ({ input: data }),
     [],
   );
 
   const renderForm = useRenderForm<Fields>(
-    ({ form: { register } }) => (
+    ({ form: { register, setValue } }) => (
       <Forms.Grid>
+        <EntitySelectorDisclosure
+          {...register("permalinkableId", { required: true })}
+          onSelect={(id: string) => setValue("permalinkableId", id)}
+          label={t("forms.fields.permalink_target")}
+          description={t("forms.fields.permalink_target_description")}
+          selectableTypes={{}}
+          required
+        />
         <Forms.Input
           label="forms.fields.permalink_uri"
           description={t("forms.fields.permalink_uri_description")}
@@ -48,7 +50,7 @@ export default function EntityPermalinksAddForm({
   );
 
   return (
-    <MutationForm<EntityPermalinksAddFormMutation, Fields>
+    <MutationForm<InstancePermalinksAddFormMutation, Fields>
       mutation={mutation}
       onSuccess={onSuccess}
       onCancel={onCancel}
@@ -66,36 +68,15 @@ export default function EntityPermalinksAddForm({
 type Props = Pick<
   React.ComponentProps<typeof MutationForm>,
   "onSuccess" | "onCancel"
-> & { data: EntityPermalinksAddFormFragment$key };
+>;
 
 type Fields = Omit<PermalinkCreateInput, "clientMutationId">;
 
-const fragment = graphql`
-  fragment EntityPermalinksAddFormFragment on AnyEntity {
-    ... on Collection {
-      id
-      title
-      slug
-    }
-    ... on Item {
-      id
-      title
-      slug
-    }
-    ... on Community {
-      id
-      title
-      slug
-    }
-  }
-`;
-
 const mutation = graphql`
-  mutation EntityPermalinksAddFormMutation($input: PermalinkCreateInput!) {
+  mutation InstancePermalinksAddFormMutation($input: PermalinkCreateInput!) {
     permalinkCreate(input: $input) {
       permalink {
         uri
-        canonical
       }
       ...MutationForm_mutationErrors
     }

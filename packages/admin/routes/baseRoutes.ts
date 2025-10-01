@@ -295,6 +295,12 @@ export const baseRoutes: BaseRoute[] = [
     ],
   },
   {
+    name: "permalinks",
+    path: "/permalinks",
+    label: "nav.permalinks",
+    actions: ["settings.update"],
+  },
+  {
     name: "contributors",
     path: "/contributors",
     label: "glossary.contributor_other",

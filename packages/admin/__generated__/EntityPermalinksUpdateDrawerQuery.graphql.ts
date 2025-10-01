@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b3faf35fe62b767d53a78c04b85a4e6f>>
+ * @generated SignedSource<<9f57596ea36ba84f3caca38b9359c325>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,8 @@ export type EntityPermalinksUpdateDrawerQuery$variables = {
 };
 export type EntityPermalinksUpdateDrawerQuery$data = {
   readonly permalink: {
+    readonly id: string;
+    readonly uri: string;
     readonly " $fragmentSpreads": FragmentRefs<"EntityPermalinksUpdateFormFragment">;
   } | null | undefined;
 };
@@ -45,8 +47,22 @@ v2 = {
   "name": "id",
   "storageKey": null
 },
-v3 = [
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "uri",
+  "storageKey": null
+},
+v4 = [
   (v2/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "slug",
+    "storageKey": null
+  },
   {
     "alias": null,
     "args": null,
@@ -74,7 +90,9 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "EntityPermalinksUpdateFormFragment"
-          }
+          },
+          (v2/*: any*/),
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
@@ -97,13 +115,7 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "uri",
-            "storageKey": null
-          },
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -128,19 +140,19 @@ return {
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v3/*: any*/),
+                "selections": (v4/*: any*/),
                 "type": "Collection",
                 "abstractKey": null
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v3/*: any*/),
+                "selections": (v4/*: any*/),
                 "type": "Item",
                 "abstractKey": null
               },
               {
                 "kind": "InlineFragment",
-                "selections": (v3/*: any*/),
+                "selections": (v4/*: any*/),
                 "type": "Community",
                 "abstractKey": null
               },
@@ -161,16 +173,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b514539450f2589330fb4b852bf2cdb9",
+    "cacheID": "fd1489f6afdcaff835496ea495b843d3",
     "id": null,
     "metadata": {},
     "name": "EntityPermalinksUpdateDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityPermalinksUpdateDrawerQuery(\n  $permalinkSlug: Slug!\n) {\n  permalink(slug: $permalinkSlug) {\n    ...EntityPermalinksUpdateFormFragment\n    id\n  }\n}\n\nfragment EntityPermalinksUpdateFormFragment on Permalink {\n  id\n  uri\n  canonical\n  permalinkable {\n    __typename\n    ... on Collection {\n      id\n      title\n    }\n    ... on Item {\n      id\n      title\n    }\n    ... on Community {\n      id\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n"
+    "text": "query EntityPermalinksUpdateDrawerQuery(\n  $permalinkSlug: Slug!\n) {\n  permalink(slug: $permalinkSlug) {\n    ...EntityPermalinksUpdateFormFragment\n    id\n    uri\n  }\n}\n\nfragment EntityPermalinksUpdateFormFragment on Permalink {\n  id\n  uri\n  canonical\n  permalinkable {\n    __typename\n    ... on Collection {\n      id\n      slug\n      title\n    }\n    ... on Item {\n      id\n      slug\n      title\n    }\n    ... on Community {\n      id\n      slug\n      title\n    }\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "6a7f3601736b59e62ff6a8d901bd6d3f";
+(node as any).hash = "75a95728d215bde8507c544c615c4d62";
 
 export default node;

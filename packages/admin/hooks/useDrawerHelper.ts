@@ -35,8 +35,9 @@ import EntityAnnouncementUpdateDrawer from "components/composed/announcements/En
 import GlobalSettingsEditDrawer from "components/composed/settings/GlobalSettingsEditDrawer";
 import EntityOrderingEditDrawer from "components/composed/ordering/EntityOrderingEditDrawer";
 import SearchFilterDrawer from "components/composed/search/SearchFilterDrawer";
-import AddPermalinkDrawer from "components/composed/permalinks/EntityPermalinksAddDrawer";
-import EditPermalinkDrawer from "components/composed/permalinks/EntityPermalinksUpdateDrawer";
+import EntityPermalinksAddDrawer from "components/composed/permalinks/EntityPermalinksAddDrawer";
+import EntityPermalinksUpdateDrawer from "components/composed/permalinks/EntityPermalinksUpdateDrawer";
+import InstancePermalinksAddDrawer from "components/composed/permalinks/InstancePermalinksAddDrawer";
 
 const drawerRegistry = {
   addPerson: ContributorCreatePersonDrawer,
@@ -71,8 +72,9 @@ const drawerRegistry = {
   editSettings: GlobalSettingsEditDrawer,
   editOrdering: EntityOrderingEditDrawer,
   searchFilters: SearchFilterDrawer,
-  addPermalink: AddPermalinkDrawer,
-  editPermalink: EditPermalinkDrawer,
+  addPermalink: EntityPermalinksAddDrawer,
+  editPermalink: EntityPermalinksUpdateDrawer,
+  addInstancePermalink: InstancePermalinksAddDrawer,
 };
 
 export function useDrawerHelper() {

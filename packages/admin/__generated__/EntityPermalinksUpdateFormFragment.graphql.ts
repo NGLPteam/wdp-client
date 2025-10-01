@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8fe32c5e658d2a589db4c1fa350f3c14>>
+ * @generated SignedSource<<55d44496e5e4e44ac187fc402e46a878>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,6 +15,7 @@ export type EntityPermalinksUpdateFormFragment$data = {
   readonly id: string;
   readonly permalinkable: {
     readonly id?: string;
+    readonly slug?: string;
     readonly title?: string;
   };
   readonly uri: string;
@@ -35,6 +36,13 @@ var v0 = {
 },
 v1 = [
   (v0/*: any*/),
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "slug",
+    "storageKey": null
+  },
   {
     "alias": null,
     "args": null,
@@ -99,6 +107,6 @@ return {
 };
 })();
 
-(node as any).hash = "d72797f749bacd5c9c17a909da4427f2";
+(node as any).hash = "6560815569039a335271f21335071eca";
 
 export default node;

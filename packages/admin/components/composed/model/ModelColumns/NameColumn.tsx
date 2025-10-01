@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { isFunction } from "lodash";
+import isFunction from "lodash/isFunction";
+import get from "lodash/get";
 import { NamedLink } from "components/atomic";
 import { Node } from "./types";
 import type { AccessorFn, ColumnDef } from "@tanstack/react-table";
@@ -10,6 +11,7 @@ type NameColumnType<T extends Node> = Partial<ColumnDef<T>> & {
   className?: string;
   accessor?: AccessorFn<T> | string;
   query?: Record<string, string>;
+  slugKey?: string;
 };
 
 // disableSortBy is getting replaced with enableSorting
@@ -20,6 +22,7 @@ const NameColumn = <T extends Node>(
     cellType,
     className,
     accessor,
+    slugKey,
     ...props
   }: NameColumnType<T> = {
     cellType: "name",
@@ -39,7 +42,9 @@ const NameColumn = <T extends Node>(
       className,
     },
     cell: (info) => {
-      const slug = info.row?.original?.slug;
+      const slug = slugKey
+        ? (get(info.row?.original, slugKey) as string)
+        : info.row?.original?.slug;
       const value = info.getValue<string>();
 
       const computedRoute =
