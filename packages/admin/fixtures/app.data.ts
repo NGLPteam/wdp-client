@@ -40,6 +40,13 @@ const HARVESTING_LINK = {
   model: "harvestSource",
 };
 
+const PERMALINKS_LINK = {
+  label: "nav.permalinks",
+  route: "permalinks",
+  actions: "settings.update",
+  model: "permalink",
+};
+
 /**
  * App data
  */
@@ -57,7 +64,12 @@ const appData = {
       {
         label: "nav.manage_header",
         actions: ["users.update", "contributors.update", "settings.update"],
-        children: [USERS_LINK, CONTRIBUTORS_LINK, HARVESTING_LINK],
+        children: [
+          USERS_LINK,
+          CONTRIBUTORS_LINK,
+          HARVESTING_LINK,
+          PERMALINKS_LINK,
+        ],
       },
     ],
     account: {
@@ -86,6 +98,7 @@ const appData = {
           USERS_LINK,
           CONTRIBUTORS_LINK,
           HARVESTING_LINK,
+          PERMALINKS_LINK,
         ],
       },
     ],
