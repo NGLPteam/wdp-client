@@ -64,7 +64,7 @@ function EntityPermalinksList({
         row.original.uri || t("glossary.permalink"),
       ),
     handleView: ({ row }: ModelTableActionProps<Node>) => {
-      return row.original.uri ? `permalink/${row.original.uri}` : null;
+      return row.original.uri ? `/permalink/${row.original.uri}` : null;
     },
   };
 

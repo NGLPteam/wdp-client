@@ -57,7 +57,7 @@ function InstancePermalinksList({
         row.original.uri || t("glossary.permalink"),
       ),
     handleView: ({ row }: ModelTableActionProps<PermalinkNode>) => {
-      return row.original.uri ? `permalink/${row.original.uri}` : null;
+      return row.original.uri ? `/permalink/${row.original.uri}` : null;
     },
   };
 
