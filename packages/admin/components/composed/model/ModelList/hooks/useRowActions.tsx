@@ -1,4 +1,5 @@
 import { useMemo, Fragment, cloneElement } from "react";
+import join from "url-join";
 import { useViewerContext } from "contexts";
 import { useDestroyer } from "hooks";
 import i18next from "i18next";
@@ -157,13 +158,18 @@ function getButtonControlChildren<D extends Record<string, unknown>>(
         href: actionConfig.handleLink({ row }),
       })}
     ></ButtonControlDownload>
-  ) : action === "view" && actionConfig?.handleLink ? (
+  ) : action === "view" &&
+    actionConfig?.handleLink &&
+    process.env.NEXT_PUBLIC_FE_URL ? (
     <ButtonControlView
       key={action}
       aria-label={actionDefinition.label}
-      href={`${process.env.NEXT_PUBLIC_FE_URL}${actionConfig.handleLink({
-        row,
-      })}`}
+      href={join(
+        process.env.NEXT_PUBLIC_FE_URL,
+        actionConfig.handleLink({
+          row,
+        }) as string,
+      )}
     />
   ) : (
     <ButtonControl

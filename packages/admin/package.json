@@ -72,7 +72,8 @@
     "relay-runtime": "^16.2.0",
     "relay-test-utils": "^16.2.0",
     "sharp": "^0.33.4",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.1.8",
+    "url-join": "^5.0.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.2",
