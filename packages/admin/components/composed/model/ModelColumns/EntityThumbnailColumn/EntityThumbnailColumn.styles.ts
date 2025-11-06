@@ -3,8 +3,7 @@ import styled from "styled-components";
 
 export const Thumbnail = styled(Image)`
   object-position: bottom left;
-  max-width: 50px;
-  min-height: 50px;
+  width: 50px;
   max-height: 70px;
   margin-block-end: 8px;
 
@@ -15,8 +14,6 @@ export const Thumbnail = styled(Image)`
 
   [data-grid] & {
     object-position: top left;
-    max-width: 100%;
-    max-height: 100%;
   }
 
   [data-mobile-layout="true"] & {
