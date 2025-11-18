@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<37d6b38e330c1e36fa701ef2817e4765>>
+ * @generated SignedSource<<d653e922a9e5374205fa19b809a2e42e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -60,30 +60,29 @@ v3 = [
     "name": "EntityAnnouncementUpdateFormFragment"
   }
 ],
-v4 = [
-  {
-    "kind": "Variable",
-    "name": "slug",
-    "variableName": "announcementSlug"
-  }
-],
-v5 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
+v5 = [
+  {
+    "kind": "Variable",
+    "name": "slug",
+    "variableName": "announcementSlug"
+  }
+],
 v6 = [
   {
     "alias": null,
-    "args": (v4/*: any*/),
+    "args": (v5/*: any*/),
     "concreteType": "Announcement",
     "kind": "LinkedField",
     "name": "announcement",
     "plural": false,
     "selections": [
-      (v5/*: any*/),
       {
         "alias": null,
         "args": null,
@@ -124,28 +123,22 @@ v6 = [
   }
 ],
 v7 = [
+  (v4/*: any*/),
   {
     "kind": "InlineFragment",
     "selections": [
       {
         "alias": null,
-        "args": (v4/*: any*/),
+        "args": (v5/*: any*/),
         "concreteType": "Announcement",
         "kind": "LinkedField",
         "name": "announcement",
         "plural": false,
         "selections": [
-          (v5/*: any*/)
+          (v4/*: any*/)
         ],
         "storageKey": null
-      }
-    ],
-    "type": "Entity",
-    "abstractKey": "__isEntity"
-  },
-  {
-    "kind": "InlineFragment",
-    "selections": [
+      },
       {
         "kind": "InlineFragment",
         "selections": (v6/*: any*/),
@@ -165,10 +158,9 @@ v7 = [
         "abstractKey": null
       }
     ],
-    "type": "AnyEntity",
-    "abstractKey": "__isAnyEntity"
-  },
-  (v5/*: any*/)
+    "type": "Entity",
+    "abstractKey": "__isEntity"
+  }
 ];
 return {
   "fragment": {
@@ -256,12 +248,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "cbecdb3cd32db23c0a7511f17eefcd90",
+    "cacheID": "cfafaf3171db7eb9e48b0f311b3d048e",
     "id": null,
     "metadata": {},
     "name": "EntityAnnouncementUpdateDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityAnnouncementUpdateDrawerQuery(\n  $entitySlug: Slug!\n  $announcementSlug: Slug!\n) {\n  item(slug: $entitySlug) {\n    ...EntityAnnouncementDrawerActionsFragment\n    ...EntityAnnouncementUpdateFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityAnnouncementDrawerActionsFragment\n    ...EntityAnnouncementUpdateFormFragment\n    id\n  }\n  community(slug: $entitySlug) {\n    ...EntityAnnouncementDrawerActionsFragment\n    ...EntityAnnouncementUpdateFormFragment\n    id\n  }\n}\n\nfragment EntityAnnouncementDrawerActionsFragment on Entity {\n  __isEntity: __typename\n  announcement(slug: $announcementSlug) {\n    id\n  }\n}\n\nfragment EntityAnnouncementUpdateFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    announcement(slug: $announcementSlug) {\n      id\n      slug\n      header\n      publishedOn\n      teaser\n      body\n    }\n  }\n  ... on Collection {\n    announcement(slug: $announcementSlug) {\n      id\n      slug\n      header\n      publishedOn\n      teaser\n      body\n    }\n  }\n  ... on Item {\n    announcement(slug: $announcementSlug) {\n      id\n      slug\n      header\n      publishedOn\n      teaser\n      body\n    }\n  }\n}\n"
+    "text": "query EntityAnnouncementUpdateDrawerQuery(\n  $entitySlug: Slug!\n  $announcementSlug: Slug!\n) {\n  item(slug: $entitySlug) {\n    ...EntityAnnouncementDrawerActionsFragment\n    ...EntityAnnouncementUpdateFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityAnnouncementDrawerActionsFragment\n    ...EntityAnnouncementUpdateFormFragment\n    id\n  }\n  community(slug: $entitySlug) {\n    ...EntityAnnouncementDrawerActionsFragment\n    ...EntityAnnouncementUpdateFormFragment\n    id\n  }\n}\n\nfragment EntityAnnouncementDrawerActionsFragment on Entity {\n  __isEntity: __typename\n  announcement(slug: $announcementSlug) {\n    id\n  }\n}\n\nfragment EntityAnnouncementUpdateFormFragment on Entity {\n  __isEntity: __typename\n  ... on Community {\n    announcement(slug: $announcementSlug) {\n      id\n      slug\n      header\n      publishedOn\n      teaser\n      body\n    }\n  }\n  ... on Collection {\n    announcement(slug: $announcementSlug) {\n      id\n      slug\n      header\n      publishedOn\n      teaser\n      body\n    }\n  }\n  ... on Item {\n    announcement(slug: $announcementSlug) {\n      id\n      slug\n      header\n      publishedOn\n      teaser\n      body\n    }\n  }\n}\n"
   }
 };
 })();

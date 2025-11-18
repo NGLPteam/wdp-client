@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7810fb84799d53dd1a531122bb4f47a7>>
+ * @generated SignedSource<<7944f2d538b5bb2310ca587113b9ff2b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,8 +17,8 @@ export type SearchFilterFormFragment$data = {
   }>;
   readonly schemas: ReadonlyArray<{
     readonly searchableProperties: ReadonlyArray<{
-      readonly label?: string;
-      readonly searchPath?: string;
+      readonly label: string;
+      readonly searchPath: string;
       readonly " $fragmentSpreads": FragmentRefs<"SearchFilterFragment">;
     }>;
   }>;
@@ -85,20 +85,13 @@ return {
           "name": "searchableProperties",
           "plural": true,
           "selections": [
+            (v0/*: any*/),
             {
-              "kind": "InlineFragment",
-              "selections": [
-                (v0/*: any*/),
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "label",
-                  "storageKey": null
-                }
-              ],
-              "type": "SearchableProperty",
-              "abstractKey": "__isSearchableProperty"
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "label",
+              "storageKey": null
             },
             (v1/*: any*/)
           ],

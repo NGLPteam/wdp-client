@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e68b3afb59f57bc8d5793550686c1e58>>
+ * @generated SignedSource<<57ee6db4db43a83ec793716c822a57eb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -88,7 +88,7 @@ return {
           },
           {
             "kind": "TypeDiscriminator",
-            "abstractKey": "__isAnyContributor"
+            "abstractKey": "__isContributor"
           },
           {
             "kind": "InlineFragment",
@@ -152,12 +152,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d569f6289713dc0d306c245d0f9cb2cc",
+    "cacheID": "2e46f19d3400834d7682f3f2ac149778",
     "id": null,
     "metadata": {},
     "name": "LayoutContributorQuery",
     "operationKind": "query",
-    "text": "query LayoutContributorQuery(\n  $slug: Slug!\n) {\n  contributor(slug: $slug) {\n    __typename\n    ...ContributorLayoutFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorLayoutFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on OrganizationContributor {\n    slug\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n"
+    "text": "query LayoutContributorQuery(\n  $slug: Slug!\n) {\n  contributor(slug: $slug) {\n    __typename\n    ...ContributorLayoutFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorLayoutFragment on Contributor {\n  __isContributor: __typename\n  __typename\n  ... on OrganizationContributor {\n    slug\n    legalName\n  }\n  ... on PersonContributor {\n    givenName\n    familyName\n  }\n}\n"
   }
 };
 })();

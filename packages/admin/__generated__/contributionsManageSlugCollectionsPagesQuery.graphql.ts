@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4d4fb5418b80c25d11c4e990c9cc01cc>>
+ * @generated SignedSource<<6fa9afb40843eca04791bd7d925d8503>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -223,6 +223,85 @@ return {
                         "storageKey": null
                       },
                       {
+                        "kind": "TypeDiscriminator",
+                        "abstractKey": "__isContributor"
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ImageAttachment",
+                        "kind": "LinkedField",
+                        "name": "image",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "storage",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ImageSize",
+                            "kind": "LinkedField",
+                            "name": "small",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "ImageDerivative",
+                                "kind": "LinkedField",
+                                "name": "webp",
+                                "plural": false,
+                                "selections": [
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "width",
+                                    "storageKey": null
+                                  },
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "height",
+                                    "storageKey": null
+                                  },
+                                  {
+                                    "kind": "InlineFragment",
+                                    "selections": [
+                                      {
+                                        "alias": null,
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "alt",
+                                        "storageKey": null
+                                      },
+                                      {
+                                        "alias": null,
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "url",
+                                        "storageKey": null
+                                      }
+                                    ],
+                                    "type": "Image",
+                                    "abstractKey": "__isImage"
+                                  }
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      },
+                      {
                         "kind": "InlineFragment",
                         "selections": [
                           (v6/*: any*/),
@@ -262,92 +341,10 @@ return {
                       {
                         "kind": "InlineFragment",
                         "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "concreteType": "ImageAttachment",
-                            "kind": "LinkedField",
-                            "name": "image",
-                            "plural": false,
-                            "selections": [
-                              {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "storage",
-                                "storageKey": null
-                              },
-                              {
-                                "alias": null,
-                                "args": null,
-                                "concreteType": "ImageSize",
-                                "kind": "LinkedField",
-                                "name": "small",
-                                "plural": false,
-                                "selections": [
-                                  {
-                                    "alias": null,
-                                    "args": null,
-                                    "concreteType": "ImageDerivative",
-                                    "kind": "LinkedField",
-                                    "name": "webp",
-                                    "plural": false,
-                                    "selections": [
-                                      {
-                                        "alias": null,
-                                        "args": null,
-                                        "kind": "ScalarField",
-                                        "name": "width",
-                                        "storageKey": null
-                                      },
-                                      {
-                                        "alias": null,
-                                        "args": null,
-                                        "kind": "ScalarField",
-                                        "name": "height",
-                                        "storageKey": null
-                                      },
-                                      {
-                                        "kind": "InlineFragment",
-                                        "selections": [
-                                          {
-                                            "alias": null,
-                                            "args": null,
-                                            "kind": "ScalarField",
-                                            "name": "alt",
-                                            "storageKey": null
-                                          },
-                                          {
-                                            "alias": null,
-                                            "args": null,
-                                            "kind": "ScalarField",
-                                            "name": "url",
-                                            "storageKey": null
-                                          }
-                                        ],
-                                        "type": "Image",
-                                        "abstractKey": "__isImage"
-                                      }
-                                    ],
-                                    "storageKey": null
-                                  }
-                                ],
-                                "storageKey": null
-                              }
-                            ],
-                            "storageKey": null
-                          },
-                          {
-                            "kind": "InlineFragment",
-                            "selections": [
-                              (v6/*: any*/)
-                            ],
-                            "type": "Sluggable",
-                            "abstractKey": "__isSluggable"
-                          }
+                          (v6/*: any*/)
                         ],
-                        "type": "Contributor",
-                        "abstractKey": "__isContributor"
+                        "type": "Sluggable",
+                        "abstractKey": "__isSluggable"
                       },
                       {
                         "kind": "InlineFragment",

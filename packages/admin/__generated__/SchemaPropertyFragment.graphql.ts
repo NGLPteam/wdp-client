@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<74a9542a9a150a224a16e6c22927c111>>
+ * @generated SignedSource<<6f9ebe484011933646d7c02690f7955f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -339,10 +339,10 @@ const node: ReaderFragment = {
       "abstractKey": null
     }
   ],
-  "type": "AnyScalarProperty",
-  "abstractKey": "__isAnyScalarProperty"
+  "type": "ScalarProperty",
+  "abstractKey": "__isScalarProperty"
 };
 
-(node as any).hash = "71e8ded7627f77515decc8d1b02f35cb";
+(node as any).hash = "f64381cb771fed56a182f43b2876749a";
 
 export default node;

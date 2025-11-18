@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7a7ce7485fa31bd2d4140a5cfcf40cc3>>
+ * @generated SignedSource<<33818b5f412fce08a0effb6577d32707>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -337,8 +337,8 @@ return {
                     "abstractKey": null
                   }
                 ],
-                "type": "AnyContributor",
-                "abstractKey": "__isAnyContributor"
+                "type": "Contributor",
+                "abstractKey": "__isContributor"
               },
               {
                 "alias": null,
@@ -357,12 +357,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "167540c99aac74639c1f981409592eb6",
+    "cacheID": "2999d6f612aebcae541d96cc7a3bec52",
     "id": null,
     "metadata": {},
     "name": "ContributorUpdatePersonFormMutation",
     "operationKind": "mutation",
-    "text": "mutation ContributorUpdatePersonFormMutation(\n  $input: UpdatePersonContributorInput!\n) {\n  updatePersonContributor(input: $input) {\n    contributor {\n      ...ContributorUpdatePersonFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ContributorUpdatePersonFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    givenName\n    familyName\n    title\n    email\n    affiliation\n    bio\n    orcid\n    image {\n      ...FileUploadFragment\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
+    "text": "mutation ContributorUpdatePersonFormMutation(\n  $input: UpdatePersonContributorInput!\n) {\n  updatePersonContributor(input: $input) {\n    contributor {\n      ...ContributorUpdatePersonFormFieldsFragment\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment ContributorUpdatePersonFormFieldsFragment on Contributor {\n  __isContributor: __typename\n  ... on PersonContributor {\n    givenName\n    familyName\n    title\n    email\n    affiliation\n    bio\n    orcid\n    image {\n      ...FileUploadFragment\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

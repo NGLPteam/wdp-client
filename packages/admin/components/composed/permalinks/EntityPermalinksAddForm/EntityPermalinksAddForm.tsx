@@ -71,7 +71,7 @@ type Props = Pick<
 type Fields = Omit<PermalinkCreateInput, "clientMutationId">;
 
 const fragment = graphql`
-  fragment EntityPermalinksAddFormFragment on AnyEntity {
+  fragment EntityPermalinksAddFormFragment on Entity {
     ... on Collection {
       id
       title

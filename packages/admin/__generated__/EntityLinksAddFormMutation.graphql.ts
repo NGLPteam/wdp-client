@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7cb22bd723511c842bc62c90180ff46e>>
+ * @generated SignedSource<<338ce4bc68febd295d114fb332269a47>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -24,7 +24,7 @@ export type EntityLinksAddFormMutation$data = {
   readonly linkEntity: {
     readonly link: {
       readonly target: {
-        readonly title?: string;
+        readonly title: string;
       };
     } | null | undefined;
     readonly " $fragmentSpreads": FragmentRefs<"MutationForm_mutationErrors">;
@@ -51,18 +51,11 @@ v1 = [
   }
 ],
 v2 = {
-  "kind": "InlineFragment",
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "title",
-      "storageKey": null
-    }
-  ],
-  "type": "Entity",
-  "abstractKey": "__isEntity"
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "title",
+  "storageKey": null
 },
 v3 = {
   "kind": "InlineFragment",
@@ -219,6 +212,10 @@ return {
                     "name": "__typename",
                     "storageKey": null
                   },
+                  {
+                    "kind": "TypeDiscriminator",
+                    "abstractKey": "__isEntity"
+                  },
                   (v2/*: any*/),
                   {
                     "kind": "InlineFragment",
@@ -242,12 +239,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "e66c472f8a83f9eb14bf54ff463c7828",
+    "cacheID": "c4dc93606a5966ffdff6d8875694a065",
     "id": null,
     "metadata": {},
     "name": "EntityLinksAddFormMutation",
     "operationKind": "mutation",
-    "text": "mutation EntityLinksAddFormMutation(\n  $input: LinkEntityInput!\n) {\n  linkEntity(input: $input) {\n    link {\n      target {\n        __typename\n        ... on Entity {\n          __isEntity: __typename\n          title\n        }\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
+    "text": "mutation EntityLinksAddFormMutation(\n  $input: LinkEntityInput!\n) {\n  linkEntity(input: $input) {\n    link {\n      target {\n        __typename\n        __isEntity: __typename\n        title\n        ... on Node {\n          __isNode: __typename\n          id\n        }\n      }\n      id\n    }\n    ...MutationForm_mutationErrors\n  }\n}\n\nfragment MutationForm_mutationErrors on StandardMutationPayload {\n  __isStandardMutationPayload: __typename\n  attributeErrors {\n    path\n    type\n    messages\n  }\n  globalErrors {\n    message\n  }\n}\n"
   }
 };
 })();

@@ -1,0 +1,4 @@
+/packages/*/__generated__/**/* binary
+/packages/*/__schema__/**/* binary
+/packages/*/schema.graphql binary
+/packages/*/types/graphql-schema.d.ts binary

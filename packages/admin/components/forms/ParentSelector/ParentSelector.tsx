@@ -49,7 +49,7 @@ type Props = {
 };
 
 const fragment = graphql`
-  fragment ParentSelectorFragment on AnyEntity {
+  fragment ParentSelectorFragment on Entity {
     ... on Collection {
       __typename
       entityId: id

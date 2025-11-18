@@ -99,7 +99,7 @@ interface FileListProps
 type FileNode = FileListFragment$data["nodes"][number];
 
 const fragment = graphql`
-  fragment FileListFragment on AnyAssetConnection {
+  fragment FileListFragment on AssetConnection {
     nodes {
       ... on Asset {
         id

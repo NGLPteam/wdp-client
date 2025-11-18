@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d36c1d8f78daa015e5de2dfb275a93f3>>
+ * @generated SignedSource<<f77fd4798b7f2739b2b329e5047ff04c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,15 +15,15 @@ export type SearchResultListFragment$data = {
   readonly results: {
     readonly nodes: ReadonlyArray<{
       readonly entity: {
-        readonly allowedActions?: ReadonlyArray<string>;
+        readonly allowedActions: ReadonlyArray<string>;
         readonly id?: string;
-        readonly schemaVersion?: {
+        readonly schemaVersion: {
           readonly kind: SchemaKind;
           readonly name: string;
           readonly number: string;
         };
         readonly slug?: string;
-        readonly title?: string;
+        readonly title: string;
         readonly " $fragmentSpreads": FragmentRefs<"EntityThumbnailColumnFragment" | "PublishedDateColumnFragment">;
       };
       readonly slug: string;
@@ -173,146 +173,139 @@ return {
               "selections": [
                 (v1/*: any*/),
                 (v2/*: any*/),
+                (v3/*: any*/),
                 {
-                  "kind": "InlineFragment",
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "SchemaVersion",
+                  "kind": "LinkedField",
+                  "name": "schemaVersion",
+                  "plural": false,
                   "selections": [
-                    (v3/*: any*/),
                     {
                       "alias": null,
                       "args": null,
-                      "concreteType": "SchemaVersion",
-                      "kind": "LinkedField",
-                      "name": "schemaVersion",
-                      "plural": false,
-                      "selections": [
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "name",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "number",
-                          "storageKey": null
-                        },
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "kind",
-                          "storageKey": null
-                        }
-                      ],
+                      "kind": "ScalarField",
+                      "name": "name",
                       "storageKey": null
                     },
                     {
                       "alias": null,
                       "args": null,
                       "kind": "ScalarField",
-                      "name": "allowedActions",
+                      "name": "number",
                       "storageKey": null
                     },
                     {
-                      "kind": "InlineDataFragmentSpread",
-                      "name": "EntityThumbnailColumnFragment",
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "kind",
+                      "storageKey": null
+                    }
+                  ],
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "allowedActions",
+                  "storageKey": null
+                },
+                {
+                  "kind": "InlineDataFragmentSpread",
+                  "name": "EntityThumbnailColumnFragment",
+                  "selections": [
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "__typename",
+                      "storageKey": null
+                    },
+                    (v3/*: any*/),
+                    {
+                      "alias": null,
+                      "args": null,
+                      "concreteType": "ImageAttachment",
+                      "kind": "LinkedField",
+                      "name": "thumbnail",
+                      "plural": false,
                       "selections": [
                         {
                           "alias": null,
                           "args": null,
                           "kind": "ScalarField",
-                          "name": "__typename",
+                          "name": "storage",
                           "storageKey": null
                         },
-                        (v3/*: any*/),
                         {
-                          "alias": null,
+                          "alias": "thumb",
                           "args": null,
-                          "concreteType": "ImageAttachment",
+                          "concreteType": "ImageSize",
                           "kind": "LinkedField",
-                          "name": "thumbnail",
+                          "name": "small",
                           "plural": false,
                           "selections": [
                             {
                               "alias": null,
                               "args": null,
-                              "kind": "ScalarField",
-                              "name": "storage",
-                              "storageKey": null
-                            },
-                            {
-                              "alias": "thumb",
-                              "args": null,
-                              "concreteType": "ImageSize",
+                              "concreteType": "ImageDerivative",
                               "kind": "LinkedField",
-                              "name": "small",
+                              "name": "webp",
                               "plural": false,
                               "selections": [
                                 {
-                                  "alias": null,
                                   "args": null,
-                                  "concreteType": "ImageDerivative",
-                                  "kind": "LinkedField",
-                                  "name": "webp",
-                                  "plural": false,
-                                  "selections": [
-                                    {
-                                      "args": null,
-                                      "kind": "FragmentSpread",
-                                      "name": "ImageFragment"
-                                    }
-                                  ],
-                                  "storageKey": null
+                                  "kind": "FragmentSpread",
+                                  "name": "ImageFragment"
                                 }
                               ],
                               "storageKey": null
                             }
                           ],
                           "storageKey": null
-                        },
-                        (v1/*: any*/),
-                        (v2/*: any*/)
-                      ],
-                      "args": null,
-                      "argumentDefinitions": []
-                    },
-                    {
-                      "kind": "InlineDataFragmentSpread",
-                      "name": "PublishedDateColumnFragment",
-                      "selections": [
-                        {
-                          "kind": "InlineFragment",
-                          "selections": [
-                            {
-                              "alias": null,
-                              "args": null,
-                              "concreteType": "VariablePrecisionDate",
-                              "kind": "LinkedField",
-                              "name": "published",
-                              "plural": false,
-                              "selections": [
-                                {
-                                  "args": null,
-                                  "kind": "FragmentSpread",
-                                  "name": "PrecisionDateFragment"
-                                }
-                              ],
-                              "storageKey": null
-                            }
-                          ],
-                          "type": "ReferencesGlobalEntityDates",
-                          "abstractKey": "__isReferencesGlobalEntityDates"
                         }
                       ],
-                      "args": null,
-                      "argumentDefinitions": []
+                      "storageKey": null
+                    },
+                    (v1/*: any*/),
+                    (v2/*: any*/)
+                  ],
+                  "args": null,
+                  "argumentDefinitions": []
+                },
+                {
+                  "kind": "InlineDataFragmentSpread",
+                  "name": "PublishedDateColumnFragment",
+                  "selections": [
+                    {
+                      "kind": "InlineFragment",
+                      "selections": [
+                        {
+                          "alias": null,
+                          "args": null,
+                          "concreteType": "VariablePrecisionDate",
+                          "kind": "LinkedField",
+                          "name": "published",
+                          "plural": false,
+                          "selections": [
+                            {
+                              "args": null,
+                              "kind": "FragmentSpread",
+                              "name": "PrecisionDateFragment"
+                            }
+                          ],
+                          "storageKey": null
+                        }
+                      ],
+                      "type": "ReferencesGlobalEntityDates",
+                      "abstractKey": "__isReferencesGlobalEntityDates"
                     }
                   ],
-                  "type": "Entity",
-                  "abstractKey": "__isEntity"
+                  "args": null,
+                  "argumentDefinitions": []
                 }
               ],
               "storageKey": null

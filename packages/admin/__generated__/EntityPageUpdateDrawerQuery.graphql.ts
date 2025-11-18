@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a6fbb31e074659659dd01c1548b6e51b>>
+ * @generated SignedSource<<485317d1041ac3b96b398253b046d338>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -69,104 +69,98 @@ v4 = [
     "kind": "InlineFragment",
     "selections": [
       {
-        "kind": "InlineFragment",
+        "alias": null,
+        "args": [
+          {
+            "kind": "Variable",
+            "name": "slug",
+            "variableName": "pageSlug"
+          }
+        ],
+        "concreteType": "Page",
+        "kind": "LinkedField",
+        "name": "page",
+        "plural": false,
         "selections": [
+          (v3/*: any*/),
           {
             "alias": null,
-            "args": [
-              {
-                "kind": "Variable",
-                "name": "slug",
-                "variableName": "pageSlug"
-              }
-            ],
-            "concreteType": "Page",
+            "args": null,
+            "kind": "ScalarField",
+            "name": "title",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "slug",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "body",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "position",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "ImageAttachment",
             "kind": "LinkedField",
-            "name": "page",
+            "name": "heroImage",
             "plural": false,
             "selections": [
-              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "title",
+                "name": "originalFilename",
                 "storageKey": null
               },
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "slug",
+                "name": "storage",
                 "storageKey": null
               },
               {
                 "alias": null,
                 "args": null,
-                "kind": "ScalarField",
-                "name": "body",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "position",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "ImageAttachment",
+                "concreteType": "ImageSize",
                 "kind": "LinkedField",
-                "name": "heroImage",
+                "name": "thumb",
                 "plural": false,
                 "selections": [
                   {
                     "alias": null,
                     "args": null,
-                    "kind": "ScalarField",
-                    "name": "originalFilename",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "storage",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "ImageSize",
+                    "concreteType": "ImageDerivative",
                     "kind": "LinkedField",
-                    "name": "thumb",
+                    "name": "png",
                     "plural": false,
                     "selections": [
                       {
                         "alias": null,
                         "args": null,
-                        "concreteType": "ImageDerivative",
-                        "kind": "LinkedField",
-                        "name": "png",
-                        "plural": false,
-                        "selections": [
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "alt",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "url",
-                            "storageKey": null
-                          }
-                        ],
+                        "kind": "ScalarField",
+                        "name": "alt",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "url",
                         "storageKey": null
                       }
                     ],
@@ -179,12 +173,11 @@ v4 = [
             "storageKey": null
           }
         ],
-        "type": "Entity",
-        "abstractKey": "__isEntity"
+        "storageKey": null
       }
     ],
-    "type": "AnyEntity",
-    "abstractKey": "__isAnyEntity"
+    "type": "Entity",
+    "abstractKey": "__isEntity"
   },
   (v3/*: any*/)
 ];
@@ -268,12 +261,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "afd42c362252437920ecbea036884c7c",
+    "cacheID": "ec84286c5480d94ea1087907f6653b71",
     "id": null,
     "metadata": {},
     "name": "EntityPageUpdateDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityPageUpdateDrawerQuery(\n  $entitySlug: Slug!\n  $pageSlug: String!\n) {\n  item(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n  community(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n}\n\nfragment EntityPageUpdateFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Entity {\n    __isEntity: __typename\n    page(slug: $pageSlug) {\n      id\n      title\n      slug\n      body\n      position\n      heroImage {\n        ...FileUploadFragment\n      }\n    }\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
+    "text": "query EntityPageUpdateDrawerQuery(\n  $entitySlug: Slug!\n  $pageSlug: String!\n) {\n  item(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n  community(slug: $entitySlug) {\n    ...EntityPageUpdateFormFragment\n    id\n  }\n}\n\nfragment EntityPageUpdateFormFragment on Entity {\n  __isEntity: __typename\n  page(slug: $pageSlug) {\n    id\n    title\n    slug\n    body\n    position\n    heroImage {\n      ...FileUploadFragment\n    }\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
   }
 };
 })();

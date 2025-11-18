@@ -57,7 +57,7 @@ export default function HarvestingStatus({
 }
 
 const fragment = graphql`
-  fragment HarvestingStatusFragment on AnyEntity {
+  fragment HarvestingStatusFragment on Entity {
     ... on Collection {
       harvestModificationStatus
     }

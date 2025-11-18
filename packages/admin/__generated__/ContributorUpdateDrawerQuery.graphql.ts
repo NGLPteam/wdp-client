@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e4c4a16ae483075dff1ef7fd2e6d546d>>
+ * @generated SignedSource<<7d53031c52ac8dbb9cdcf63e7ece9877>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -262,7 +262,7 @@ return {
           (v2/*: any*/),
           {
             "kind": "TypeDiscriminator",
-            "abstractKey": "__isAnyContributor"
+            "abstractKey": "__isContributor"
           },
           {
             "kind": "InlineFragment",
@@ -301,16 +301,16 @@ return {
                             "abstractKey": null
                           }
                         ],
-                        "type": "AnyContributor",
-                        "abstractKey": "__isAnyContributor"
+                        "type": "Contributor",
+                        "abstractKey": "__isContributor"
                       }
                     ],
                     "type": "OrganizationContributor",
                     "abstractKey": null
                   }
                 ],
-                "type": "AnyContributor",
-                "abstractKey": "__isAnyContributor"
+                "type": "Contributor",
+                "abstractKey": "__isContributor"
               }
             ],
             "type": "OrganizationContributor",
@@ -354,16 +354,16 @@ return {
                             "abstractKey": null
                           }
                         ],
-                        "type": "AnyContributor",
-                        "abstractKey": "__isAnyContributor"
+                        "type": "Contributor",
+                        "abstractKey": "__isContributor"
                       }
                     ],
                     "type": "PersonContributor",
                     "abstractKey": null
                   }
                 ],
-                "type": "AnyContributor",
-                "abstractKey": "__isAnyContributor"
+                "type": "Contributor",
+                "abstractKey": "__isContributor"
               }
             ],
             "type": "PersonContributor",
@@ -383,12 +383,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "824b9e9dc8b6f40ee498286a6e0c3328",
+    "cacheID": "fa6d91b8edb5edee734d4fcd0d32f2b8",
     "id": null,
     "metadata": {},
     "name": "ContributorUpdateDrawerQuery",
     "operationKind": "query",
-    "text": "query ContributorUpdateDrawerQuery(\n  $contributorSlug: Slug!\n) {\n  contributor(slug: $contributorSlug) {\n    __typename\n    ... on OrganizationContributor {\n      id\n      slug\n      legalName\n    }\n    ... on PersonContributor {\n      id\n      slug\n      givenName\n      familyName\n    }\n    ...ContributorUpdateFormFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorUpdateFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on PersonContributor {\n    ...ContributorUpdatePersonFormFragment\n  }\n  ... on OrganizationContributor {\n    ...ContributorUpdateOrganizationFormFragment\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    legalName\n    email\n    location\n    bio\n    url\n    orcid\n    image {\n      ...FileUploadFragment\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    contributorId: id\n    ...ContributorUpdateOrganizationFormFieldsFragment\n  }\n}\n\nfragment ContributorUpdatePersonFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    givenName\n    familyName\n    title\n    email\n    affiliation\n    bio\n    orcid\n    image {\n      ...FileUploadFragment\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdatePersonFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    contributorId: id\n    ...ContributorUpdatePersonFormFieldsFragment\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
+    "text": "query ContributorUpdateDrawerQuery(\n  $contributorSlug: Slug!\n) {\n  contributor(slug: $contributorSlug) {\n    __typename\n    ... on OrganizationContributor {\n      id\n      slug\n      legalName\n    }\n    ... on PersonContributor {\n      id\n      slug\n      givenName\n      familyName\n    }\n    ...ContributorUpdateFormFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorUpdateFormFragment on Contributor {\n  __isContributor: __typename\n  __typename\n  ... on PersonContributor {\n    ...ContributorUpdatePersonFormFragment\n  }\n  ... on OrganizationContributor {\n    ...ContributorUpdateOrganizationFormFragment\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFieldsFragment on Contributor {\n  __isContributor: __typename\n  ... on OrganizationContributor {\n    legalName\n    email\n    location\n    bio\n    url\n    orcid\n    image {\n      ...FileUploadFragment\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFragment on Contributor {\n  __isContributor: __typename\n  ... on OrganizationContributor {\n    contributorId: id\n    ...ContributorUpdateOrganizationFormFieldsFragment\n  }\n}\n\nfragment ContributorUpdatePersonFormFieldsFragment on Contributor {\n  __isContributor: __typename\n  ... on PersonContributor {\n    givenName\n    familyName\n    title\n    email\n    affiliation\n    bio\n    orcid\n    image {\n      ...FileUploadFragment\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdatePersonFormFragment on Contributor {\n  __isContributor: __typename\n  ... on PersonContributor {\n    contributorId: id\n    ...ContributorUpdatePersonFormFieldsFragment\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
   }
 };
 })();

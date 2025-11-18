@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9f3cb6668f682d727b924d025accece8>>
+ * @generated SignedSource<<018554ff100d27634e7d4227b6294a7f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -61,7 +61,7 @@ v3 = [
   },
   {
     "kind": "TypeDiscriminator",
-    "abstractKey": "__isAnyEntity"
+    "abstractKey": "__isEntity"
   }
 ];
 return {
@@ -144,12 +144,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f16c03ca75d925c24465eff1b3e3cc1e",
+    "cacheID": "f3e086a34b9cbb6cdc24b1164b27b193",
     "id": null,
     "metadata": {},
     "name": "EntityAnnouncementAddDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityAnnouncementAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  item(slug: $entitySlug) {\n    ...EntityAnnouncementAddFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityAnnouncementAddFormFragment\n    id\n  }\n  community(slug: $entitySlug) {\n    ...EntityAnnouncementAddFormFragment\n    id\n  }\n}\n\nfragment EntityAnnouncementAddFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Community {\n    id\n  }\n  ... on Collection {\n    id\n  }\n  ... on Item {\n    id\n  }\n}\n"
+    "text": "query EntityAnnouncementAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  item(slug: $entitySlug) {\n    ...EntityAnnouncementAddFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityAnnouncementAddFormFragment\n    id\n  }\n  community(slug: $entitySlug) {\n    ...EntityAnnouncementAddFormFragment\n    id\n  }\n}\n\nfragment EntityAnnouncementAddFormFragment on Entity {\n  __isEntity: __typename\n  ... on Community {\n    id\n  }\n  ... on Collection {\n    id\n  }\n  ... on Item {\n    id\n  }\n}\n"
   }
 };
 })();

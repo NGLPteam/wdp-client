@@ -95,7 +95,7 @@ type SchemaNode =
   SchemaSelectorSchemasFragment$data["schemaVersions"]["nodes"][number];
 
 const fragment = graphql`
-  fragment SchemaSelectorDataFragment on AnyEntity {
+  fragment SchemaSelectorDataFragment on Entity {
     ... on Collection {
       entityId: id
       schemaVersion {

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3833f27e4e7bfdd0d10c8cc9debacec7>>
+ * @generated SignedSource<<c05105b7494fd919b6551e255ab9a423>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -198,7 +198,7 @@ return {
           },
           {
             "kind": "TypeDiscriminator",
-            "abstractKey": "__isAnyContributor"
+            "abstractKey": "__isContributor"
           },
           {
             "kind": "InlineFragment",
@@ -248,16 +248,16 @@ return {
                             "abstractKey": null
                           }
                         ],
-                        "type": "AnyContributor",
-                        "abstractKey": "__isAnyContributor"
+                        "type": "Contributor",
+                        "abstractKey": "__isContributor"
                       }
                     ],
                     "type": "PersonContributor",
                     "abstractKey": null
                   }
                 ],
-                "type": "AnyContributor",
-                "abstractKey": "__isAnyContributor"
+                "type": "Contributor",
+                "abstractKey": "__isContributor"
               }
             ],
             "type": "PersonContributor",
@@ -304,16 +304,16 @@ return {
                             "abstractKey": null
                           }
                         ],
-                        "type": "AnyContributor",
-                        "abstractKey": "__isAnyContributor"
+                        "type": "Contributor",
+                        "abstractKey": "__isContributor"
                       }
                     ],
                     "type": "OrganizationContributor",
                     "abstractKey": null
                   }
                 ],
-                "type": "AnyContributor",
-                "abstractKey": "__isAnyContributor"
+                "type": "Contributor",
+                "abstractKey": "__isContributor"
               }
             ],
             "type": "OrganizationContributor",
@@ -339,12 +339,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "bd09a47ca1f4c88830fefcd8a557552c",
+    "cacheID": "9c011b17e11cea3b0c1b947ce684c23d",
     "id": null,
     "metadata": {},
     "name": "detailsSlugContributorsPagesQuery",
     "operationKind": "query",
-    "text": "query detailsSlugContributorsPagesQuery(\n  $slug: Slug!\n) {\n  contributor(slug: $slug) {\n    __typename\n    ...ContributorUpdateFormFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorUpdateFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  __typename\n  ... on PersonContributor {\n    ...ContributorUpdatePersonFormFragment\n  }\n  ... on OrganizationContributor {\n    ...ContributorUpdateOrganizationFormFragment\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    legalName\n    email\n    location\n    bio\n    url\n    orcid\n    image {\n      ...FileUploadFragment\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on OrganizationContributor {\n    contributorId: id\n    ...ContributorUpdateOrganizationFormFieldsFragment\n  }\n}\n\nfragment ContributorUpdatePersonFormFieldsFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    givenName\n    familyName\n    title\n    email\n    affiliation\n    bio\n    orcid\n    image {\n      ...FileUploadFragment\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdatePersonFormFragment on AnyContributor {\n  __isAnyContributor: __typename\n  ... on PersonContributor {\n    contributorId: id\n    ...ContributorUpdatePersonFormFieldsFragment\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
+    "text": "query detailsSlugContributorsPagesQuery(\n  $slug: Slug!\n) {\n  contributor(slug: $slug) {\n    __typename\n    ...ContributorUpdateFormFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment ContributorUpdateFormFragment on Contributor {\n  __isContributor: __typename\n  __typename\n  ... on PersonContributor {\n    ...ContributorUpdatePersonFormFragment\n  }\n  ... on OrganizationContributor {\n    ...ContributorUpdateOrganizationFormFragment\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFieldsFragment on Contributor {\n  __isContributor: __typename\n  ... on OrganizationContributor {\n    legalName\n    email\n    location\n    bio\n    url\n    orcid\n    image {\n      ...FileUploadFragment\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdateOrganizationFormFragment on Contributor {\n  __isContributor: __typename\n  ... on OrganizationContributor {\n    contributorId: id\n    ...ContributorUpdateOrganizationFormFieldsFragment\n  }\n}\n\nfragment ContributorUpdatePersonFormFieldsFragment on Contributor {\n  __isContributor: __typename\n  ... on PersonContributor {\n    givenName\n    familyName\n    title\n    email\n    affiliation\n    bio\n    orcid\n    image {\n      ...FileUploadFragment\n    }\n    links {\n      title\n      url\n    }\n  }\n}\n\nfragment ContributorUpdatePersonFormFragment on Contributor {\n  __isContributor: __typename\n  ... on PersonContributor {\n    contributorId: id\n    ...ContributorUpdatePersonFormFieldsFragment\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
   }
 };
 })();

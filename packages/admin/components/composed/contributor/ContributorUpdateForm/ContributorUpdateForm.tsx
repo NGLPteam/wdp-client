@@ -36,7 +36,7 @@ export default function ContributorUpdateForm({
 }
 
 const fragment = graphql`
-  fragment ContributorUpdateFormFragment on AnyContributor {
+  fragment ContributorUpdateFormFragment on Contributor {
     __typename
     ... on PersonContributor {
       ...ContributorUpdatePersonFormFragment

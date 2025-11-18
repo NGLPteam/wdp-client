@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c7fb4d6c59823ddf87ae90a9805f0ca4>>
+ * @generated SignedSource<<740154a0efe2378cb68143195001280c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -253,8 +253,8 @@ return {
                   "abstractKey": null
                 }
               ],
-              "type": "AnyEntity",
-              "abstractKey": "__isAnyEntity"
+              "type": "Entity",
+              "abstractKey": "__isEntity"
             }
           ],
           "args": null,

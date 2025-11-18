@@ -90,7 +90,7 @@ type Props = Pick<
 type Fields = Omit<UpdatePageInput, "pageId">;
 
 const fragment = graphql`
-  fragment EntityPageUpdateFormFragment on AnyEntity {
+  fragment EntityPageUpdateFormFragment on Entity {
     ... on Entity {
       page(slug: $pageSlug) {
         id

@@ -115,7 +115,7 @@ const linksFragment = graphql`
 `;
 
 const fragment = graphql`
-  fragment EntityAnnouncementsListFragment on AnyEntity {
+  fragment EntityAnnouncementsListFragment on Entity {
     ... on Community {
       slug
       announcements(page: $page, perPage: 20) {

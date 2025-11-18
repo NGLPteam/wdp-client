@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d2942e28bf20f25dab29e4cc54a0f4fe>>
+ * @generated SignedSource<<eb4d021b4606df3b6032b1dee8398f67>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,7 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type useSchemaPropertiesFragment$data = {
   readonly properties: ReadonlyArray<{
-    readonly fullPath?: string;
+    readonly fullPath: string;
   }>;
   readonly " $fragmentType": "useSchemaPropertiesFragment";
 };
@@ -36,18 +36,11 @@ const node: ReaderFragment = {
       "plural": true,
       "selections": [
         {
-          "kind": "InlineFragment",
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "fullPath",
-              "storageKey": null
-            }
-          ],
-          "type": "SchemaProperty",
-          "abstractKey": "__isSchemaProperty"
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "fullPath",
+          "storageKey": null
         }
       ],
       "storageKey": null

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c1e41f0e6a12f846167a01e8cbd3f8db>>
+ * @generated SignedSource<<6d6d9e23dcd56f99484ce7b059ad9d61>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -87,10 +87,10 @@ const node: ReaderFragment = {
       "abstractKey": null
     }
   ],
-  "type": "AnyContributor",
-  "abstractKey": "__isAnyContributor"
+  "type": "Contributor",
+  "abstractKey": "__isContributor"
 };
 
-(node as any).hash = "b76a4ba0e2cf7b59772be71339028909";
+(node as any).hash = "e8e8a6a8f63929ba8d41f82def482c48";
 
 export default node;

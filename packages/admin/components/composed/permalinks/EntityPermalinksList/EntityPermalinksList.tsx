@@ -97,7 +97,7 @@ type Node = NonNullable<
 >[number];
 
 const fragment = graphql`
-  fragment EntityPermalinksListFragment on AnyEntity {
+  fragment EntityPermalinksListFragment on Entity {
     ... on Item {
       slug
       permalinks {

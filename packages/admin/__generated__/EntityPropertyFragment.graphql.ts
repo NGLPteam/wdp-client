@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7ca3c79846cc898b476b71ac90105efa>>
+ * @generated SignedSource<<5a6aba11567e8f8d91472079a96d4b37>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -51,14 +51,7 @@ v1 = [
         "name": "ancestor",
         "plural": false,
         "selections": [
-          {
-            "kind": "InlineFragment",
-            "selections": [
-              (v0/*: any*/)
-            ],
-            "type": "Entity",
-            "abstractKey": "__isEntity"
-          }
+          (v0/*: any*/)
         ],
         "storageKey": null
       }
@@ -112,49 +105,42 @@ return {
               "name": "getEntityTitleFragment",
               "selections": [
                 {
-                  "kind": "InlineFragment",
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "__typename",
+                  "storageKey": null
+                },
+                (v0/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "SchemaVersion",
+                  "kind": "LinkedField",
+                  "name": "schemaVersion",
+                  "plural": false,
                   "selections": [
                     {
                       "alias": null,
                       "args": null,
                       "kind": "ScalarField",
-                      "name": "__typename",
+                      "name": "identifier",
                       "storageKey": null
-                    },
-                    (v0/*: any*/),
-                    {
-                      "alias": null,
-                      "args": null,
-                      "concreteType": "SchemaVersion",
-                      "kind": "LinkedField",
-                      "name": "schemaVersion",
-                      "plural": false,
-                      "selections": [
-                        {
-                          "alias": null,
-                          "args": null,
-                          "kind": "ScalarField",
-                          "name": "identifier",
-                          "storageKey": null
-                        }
-                      ],
-                      "storageKey": null
-                    },
-                    {
-                      "kind": "InlineFragment",
-                      "selections": (v1/*: any*/),
-                      "type": "Collection",
-                      "abstractKey": null
-                    },
-                    {
-                      "kind": "InlineFragment",
-                      "selections": (v1/*: any*/),
-                      "type": "Item",
-                      "abstractKey": null
                     }
                   ],
-                  "type": "Entity",
-                  "abstractKey": "__isEntity"
+                  "storageKey": null
+                },
+                {
+                  "kind": "InlineFragment",
+                  "selections": (v1/*: any*/),
+                  "type": "Collection",
+                  "abstractKey": null
+                },
+                {
+                  "kind": "InlineFragment",
+                  "selections": (v1/*: any*/),
+                  "type": "Item",
+                  "abstractKey": null
                 }
               ],
               "args": null,

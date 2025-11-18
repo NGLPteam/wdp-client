@@ -72,7 +72,7 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment SchemaPropertyFragment on AnyScalarProperty {
+  fragment SchemaPropertyFragment on ScalarProperty {
     __typename
 
     ... on AssetProperty {
