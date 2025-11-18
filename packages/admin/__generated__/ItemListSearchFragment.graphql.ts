@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6514ec581a1ea87277152fd1cc34149b>>
+ * @generated SignedSource<<f528c04567f86a1e4d8fab7d1b12a891>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,19 +14,19 @@ export type ItemListSearchFragment$data = {
   readonly results?: {
     readonly nodes: ReadonlyArray<{
       readonly entity: {
-        readonly allowedActions?: ReadonlyArray<string>;
+        readonly allowedActions: ReadonlyArray<string>;
         readonly id?: string;
         readonly items?: {
           readonly pageInfo: {
             readonly totalCount: number;
           };
         };
-        readonly schemaVersion?: {
+        readonly schemaVersion: {
           readonly name: string;
           readonly number: string;
         };
         readonly slug?: string;
-        readonly title?: string;
+        readonly title: string;
         readonly " $fragmentSpreads": FragmentRefs<"ContributorsColumnFragment" | "EntityThumbnailColumnFragment" | "PublishedDateColumnFragment">;
       };
       readonly slug: string;
@@ -213,250 +213,236 @@ return {
                   "selections": [
                     (v1/*: any*/),
                     (v2/*: any*/),
+                    (v3/*: any*/),
                     {
-                      "kind": "InlineFragment",
+                      "alias": null,
+                      "args": null,
+                      "concreteType": "SchemaVersion",
+                      "kind": "LinkedField",
+                      "name": "schemaVersion",
+                      "plural": false,
                       "selections": [
-                        (v3/*: any*/),
                         {
                           "alias": null,
                           "args": null,
-                          "concreteType": "SchemaVersion",
-                          "kind": "LinkedField",
-                          "name": "schemaVersion",
-                          "plural": false,
-                          "selections": [
-                            {
-                              "alias": null,
-                              "args": null,
-                              "kind": "ScalarField",
-                              "name": "name",
-                              "storageKey": null
-                            },
-                            {
-                              "alias": null,
-                              "args": null,
-                              "kind": "ScalarField",
-                              "name": "number",
-                              "storageKey": null
-                            }
-                          ],
+                          "kind": "ScalarField",
+                          "name": "name",
                           "storageKey": null
                         },
                         {
                           "alias": null,
                           "args": null,
                           "kind": "ScalarField",
-                          "name": "allowedActions",
+                          "name": "number",
                           "storageKey": null
-                        },
+                        }
+                      ],
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
+                      "kind": "ScalarField",
+                      "name": "allowedActions",
+                      "storageKey": null
+                    },
+                    {
+                      "kind": "InlineDataFragmentSpread",
+                      "name": "ContributorsColumnFragment",
+                      "selections": [
                         {
-                          "kind": "InlineDataFragmentSpread",
-                          "name": "ContributorsColumnFragment",
+                          "kind": "InlineFragment",
                           "selections": [
-                            {
-                              "kind": "InlineFragment",
-                              "selections": [
-                                {
-                                  "kind": "InlineFragment",
-                                  "selections": [
-                                    (v0/*: any*/),
-                                    {
-                                      "alias": null,
-                                      "args": [
-                                        {
-                                          "kind": "Literal",
-                                          "name": "page",
-                                          "value": 1
-                                        },
-                                        {
-                                          "kind": "Literal",
-                                          "name": "perPage",
-                                          "value": 1
-                                        }
-                                      ],
-                                      "concreteType": "ItemContributionConnection",
-                                      "kind": "LinkedField",
-                                      "name": "contributions",
-                                      "plural": false,
-                                      "selections": [
-                                        {
-                                          "alias": null,
-                                          "args": null,
-                                          "concreteType": "ItemContributionEdge",
-                                          "kind": "LinkedField",
-                                          "name": "edges",
-                                          "plural": true,
-                                          "selections": [
-                                            {
-                                              "alias": null,
-                                              "args": null,
-                                              "concreteType": "ItemContribution",
-                                              "kind": "LinkedField",
-                                              "name": "node",
-                                              "plural": false,
-                                              "selections": [
-                                                {
-                                                  "alias": null,
-                                                  "args": null,
-                                                  "concreteType": null,
-                                                  "kind": "LinkedField",
-                                                  "name": "contributor",
-                                                  "plural": false,
-                                                  "selections": [
-                                                    (v4/*: any*/),
-                                                    {
-                                                      "kind": "InlineFragment",
-                                                      "selections": [
-                                                        (v0/*: any*/),
-                                                        {
-                                                          "alias": null,
-                                                          "args": null,
-                                                          "kind": "ScalarField",
-                                                          "name": "legalName",
-                                                          "storageKey": null
-                                                        }
-                                                      ],
-                                                      "type": "OrganizationContributor",
-                                                      "abstractKey": null
-                                                    },
-                                                    {
-                                                      "kind": "InlineFragment",
-                                                      "selections": [
-                                                        (v0/*: any*/),
-                                                        {
-                                                          "alias": null,
-                                                          "args": null,
-                                                          "kind": "ScalarField",
-                                                          "name": "givenName",
-                                                          "storageKey": null
-                                                        },
-                                                        {
-                                                          "alias": null,
-                                                          "args": null,
-                                                          "kind": "ScalarField",
-                                                          "name": "familyName",
-                                                          "storageKey": null
-                                                        }
-                                                      ],
-                                                      "type": "PersonContributor",
-                                                      "abstractKey": null
-                                                    }
-                                                  ],
-                                                  "storageKey": null
-                                                }
-                                              ],
-                                              "storageKey": null
-                                            }
-                                          ],
-                                          "storageKey": null
-                                        },
-                                        (v5/*: any*/)
-                                      ],
-                                      "storageKey": "contributions(page:1,perPage:1)"
-                                    }
-                                  ],
-                                  "type": "Item",
-                                  "abstractKey": null
-                                }
-                              ],
-                              "type": "AnyEntity",
-                              "abstractKey": "__isAnyEntity"
-                            }
-                          ],
-                          "args": null,
-                          "argumentDefinitions": []
-                        },
-                        {
-                          "kind": "InlineDataFragmentSpread",
-                          "name": "EntityThumbnailColumnFragment",
-                          "selections": [
-                            (v4/*: any*/),
-                            (v3/*: any*/),
+                            (v0/*: any*/),
                             {
                               "alias": null,
-                              "args": null,
-                              "concreteType": "ImageAttachment",
+                              "args": [
+                                {
+                                  "kind": "Literal",
+                                  "name": "page",
+                                  "value": 1
+                                },
+                                {
+                                  "kind": "Literal",
+                                  "name": "perPage",
+                                  "value": 1
+                                }
+                              ],
+                              "concreteType": "ItemContributionConnection",
                               "kind": "LinkedField",
-                              "name": "thumbnail",
+                              "name": "contributions",
                               "plural": false,
                               "selections": [
                                 {
                                   "alias": null,
                                   "args": null,
-                                  "kind": "ScalarField",
-                                  "name": "storage",
-                                  "storageKey": null
-                                },
-                                {
-                                  "alias": "thumb",
-                                  "args": null,
-                                  "concreteType": "ImageSize",
+                                  "concreteType": "ItemContributionEdge",
                                   "kind": "LinkedField",
-                                  "name": "small",
-                                  "plural": false,
+                                  "name": "edges",
+                                  "plural": true,
                                   "selections": [
                                     {
                                       "alias": null,
                                       "args": null,
-                                      "concreteType": "ImageDerivative",
+                                      "concreteType": "ItemContribution",
                                       "kind": "LinkedField",
-                                      "name": "webp",
+                                      "name": "node",
                                       "plural": false,
                                       "selections": [
                                         {
+                                          "alias": null,
                                           "args": null,
-                                          "kind": "FragmentSpread",
-                                          "name": "ImageFragment"
+                                          "concreteType": null,
+                                          "kind": "LinkedField",
+                                          "name": "contributor",
+                                          "plural": false,
+                                          "selections": [
+                                            (v4/*: any*/),
+                                            {
+                                              "kind": "InlineFragment",
+                                              "selections": [
+                                                (v0/*: any*/),
+                                                {
+                                                  "alias": null,
+                                                  "args": null,
+                                                  "kind": "ScalarField",
+                                                  "name": "legalName",
+                                                  "storageKey": null
+                                                }
+                                              ],
+                                              "type": "OrganizationContributor",
+                                              "abstractKey": null
+                                            },
+                                            {
+                                              "kind": "InlineFragment",
+                                              "selections": [
+                                                (v0/*: any*/),
+                                                {
+                                                  "alias": null,
+                                                  "args": null,
+                                                  "kind": "ScalarField",
+                                                  "name": "givenName",
+                                                  "storageKey": null
+                                                },
+                                                {
+                                                  "alias": null,
+                                                  "args": null,
+                                                  "kind": "ScalarField",
+                                                  "name": "familyName",
+                                                  "storageKey": null
+                                                }
+                                              ],
+                                              "type": "PersonContributor",
+                                              "abstractKey": null
+                                            }
+                                          ],
+                                          "storageKey": null
                                         }
                                       ],
                                       "storageKey": null
                                     }
                                   ],
                                   "storageKey": null
-                                }
+                                },
+                                (v5/*: any*/)
                               ],
-                              "storageKey": null
-                            },
-                            (v1/*: any*/),
-                            (v2/*: any*/)
+                              "storageKey": "contributions(page:1,perPage:1)"
+                            }
                           ],
-                          "args": null,
-                          "argumentDefinitions": []
-                        },
+                          "type": "Item",
+                          "abstractKey": null
+                        }
+                      ],
+                      "args": null,
+                      "argumentDefinitions": []
+                    },
+                    {
+                      "kind": "InlineDataFragmentSpread",
+                      "name": "EntityThumbnailColumnFragment",
+                      "selections": [
+                        (v4/*: any*/),
+                        (v3/*: any*/),
                         {
-                          "kind": "InlineDataFragmentSpread",
-                          "name": "PublishedDateColumnFragment",
+                          "alias": null,
+                          "args": null,
+                          "concreteType": "ImageAttachment",
+                          "kind": "LinkedField",
+                          "name": "thumbnail",
+                          "plural": false,
                           "selections": [
                             {
-                              "kind": "InlineFragment",
+                              "alias": null,
+                              "args": null,
+                              "kind": "ScalarField",
+                              "name": "storage",
+                              "storageKey": null
+                            },
+                            {
+                              "alias": "thumb",
+                              "args": null,
+                              "concreteType": "ImageSize",
+                              "kind": "LinkedField",
+                              "name": "small",
+                              "plural": false,
                               "selections": [
                                 {
                                   "alias": null,
                                   "args": null,
-                                  "concreteType": "VariablePrecisionDate",
+                                  "concreteType": "ImageDerivative",
                                   "kind": "LinkedField",
-                                  "name": "published",
+                                  "name": "webp",
                                   "plural": false,
                                   "selections": [
                                     {
                                       "args": null,
                                       "kind": "FragmentSpread",
-                                      "name": "PrecisionDateFragment"
+                                      "name": "ImageFragment"
                                     }
                                   ],
                                   "storageKey": null
                                 }
                               ],
-                              "type": "ReferencesGlobalEntityDates",
-                              "abstractKey": "__isReferencesGlobalEntityDates"
+                              "storageKey": null
                             }
                           ],
-                          "args": null,
-                          "argumentDefinitions": []
+                          "storageKey": null
+                        },
+                        (v1/*: any*/),
+                        (v2/*: any*/)
+                      ],
+                      "args": null,
+                      "argumentDefinitions": []
+                    },
+                    {
+                      "kind": "InlineDataFragmentSpread",
+                      "name": "PublishedDateColumnFragment",
+                      "selections": [
+                        {
+                          "kind": "InlineFragment",
+                          "selections": [
+                            {
+                              "alias": null,
+                              "args": null,
+                              "concreteType": "VariablePrecisionDate",
+                              "kind": "LinkedField",
+                              "name": "published",
+                              "plural": false,
+                              "selections": [
+                                {
+                                  "args": null,
+                                  "kind": "FragmentSpread",
+                                  "name": "PrecisionDateFragment"
+                                }
+                              ],
+                              "storageKey": null
+                            }
+                          ],
+                          "type": "ReferencesGlobalEntityDates",
+                          "abstractKey": "__isReferencesGlobalEntityDates"
                         }
                       ],
-                      "type": "Entity",
-                      "abstractKey": "__isEntity"
+                      "args": null,
+                      "argumentDefinitions": []
                     },
                     {
                       "kind": "InlineFragment",

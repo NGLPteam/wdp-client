@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7314a982e24b6630988eb4e9feed73fa>>
+ * @generated SignedSource<<17b029e65563c670dab51e8ecc94f314>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -91,11 +91,11 @@ return {
       "abstractKey": null
     }
   ],
-  "type": "AnyEntity",
-  "abstractKey": "__isAnyEntity"
+  "type": "Entity",
+  "abstractKey": "__isEntity"
 };
 })();
 
-(node as any).hash = "c4d652a3c808a931cc9b23bb8639e547";
+(node as any).hash = "092aecf6b45afedface560e9e65a5620";
 
 export default node;

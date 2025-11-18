@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f0e2688177a8d9164c826ba95a223a19>>
+ * @generated SignedSource<<6ba2ca2bed240e52c2f917c65f4f0d28>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,7 @@ export type getEntityTitleFragment$data = {
   readonly __typename: string;
   readonly namedAncestors?: ReadonlyArray<{
     readonly ancestor: {
-      readonly title?: string;
+      readonly title: string;
     };
   }>;
   readonly schemaVersion: {

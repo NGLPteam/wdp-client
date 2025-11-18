@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<396e2b9646a9122f8805c6bd0af17f03>>
+ * @generated SignedSource<<2d67c03d4820eeb38050d784b759d184>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -44,14 +44,7 @@ v1 = [
         "name": "ancestor",
         "plural": false,
         "selections": [
-          {
-            "kind": "InlineFragment",
-            "selections": [
-              (v0/*: any*/)
-            ],
-            "type": "Entity",
-            "abstractKey": "__isEntity"
-          }
+          (v0/*: any*/)
         ],
         "storageKey": null
       }

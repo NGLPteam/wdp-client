@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9092c8ce6de49757a0a618c0f9487e9d>>
+ * @generated SignedSource<<3a47f8fa2be3068cfc76a6ff0848b42e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -124,11 +124,11 @@ return {
       "abstractKey": null
     }
   ],
-  "type": "AnyContributor",
-  "abstractKey": "__isAnyContributor"
+  "type": "Contributor",
+  "abstractKey": "__isContributor"
 };
 })();
 
-(node as any).hash = "7bdbdea655625413e55dec53d46368f3";
+(node as any).hash = "409d51807326ec7fcc9e54a10aba68fb";
 
 export default node;

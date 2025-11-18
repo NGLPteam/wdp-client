@@ -153,7 +153,7 @@ const orderingsfragment = graphql`
 `;
 
 const fragment = graphql`
-  fragment EntityOrderingListFragment on AnyEntity {
+  fragment EntityOrderingListFragment on Entity {
     ... on Item {
       slug
       orderings(page: $page) {

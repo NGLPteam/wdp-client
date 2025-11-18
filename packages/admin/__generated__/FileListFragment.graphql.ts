@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d3457e77353f40b2f6431d423f18f33b>>
+ * @generated SignedSource<<528a33ab6f38867f48764e05254360cc>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,11 +13,11 @@ export type AssetKind = "audio" | "document" | "image" | "pdf" | "unknown" | "vi
 import { FragmentRefs } from "relay-runtime";
 export type FileListFragment$data = {
   readonly nodes: ReadonlyArray<{
-    readonly downloadUrl?: string | null | undefined;
-    readonly id?: string;
-    readonly kind?: AssetKind;
-    readonly name?: string;
-    readonly slug?: string;
+    readonly downloadUrl: string | null | undefined;
+    readonly id: string;
+    readonly kind: AssetKind;
+    readonly name: string;
+    readonly slug: string;
     readonly " $fragmentSpreads": FragmentRefs<"AssetThumbnailColumnFragment">;
   }>;
   readonly " $fragmentSpreads": FragmentRefs<"ModelListPageFragment">;
@@ -43,91 +43,85 @@ const node: ReaderFragment = {
       "plural": true,
       "selections": [
         {
-          "kind": "InlineFragment",
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "id",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "slug",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "kind",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "name",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "downloadUrl",
+          "storageKey": null
+        },
+        {
+          "kind": "InlineDataFragmentSpread",
+          "name": "AssetThumbnailColumnFragment",
           "selections": [
             {
-              "alias": null,
+              "alias": "thumbnail",
               "args": null,
-              "kind": "ScalarField",
-              "name": "id",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "slug",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "kind",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "name",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "downloadUrl",
-              "storageKey": null
-            },
-            {
-              "kind": "InlineDataFragmentSpread",
-              "name": "AssetThumbnailColumnFragment",
+              "concreteType": "ImageAttachment",
+              "kind": "LinkedField",
+              "name": "preview",
+              "plural": false,
               "selections": [
                 {
-                  "alias": "thumbnail",
+                  "alias": null,
                   "args": null,
-                  "concreteType": "ImageAttachment",
+                  "kind": "ScalarField",
+                  "name": "storage",
+                  "storageKey": null
+                },
+                {
+                  "alias": "image",
+                  "args": null,
+                  "concreteType": "ImageSize",
                   "kind": "LinkedField",
-                  "name": "preview",
+                  "name": "thumb",
                   "plural": false,
                   "selections": [
                     {
                       "alias": null,
                       "args": null,
-                      "kind": "ScalarField",
-                      "name": "storage",
-                      "storageKey": null
-                    },
-                    {
-                      "alias": "image",
-                      "args": null,
-                      "concreteType": "ImageSize",
+                      "concreteType": "ImageDerivative",
                       "kind": "LinkedField",
-                      "name": "thumb",
+                      "name": "png",
                       "plural": false,
                       "selections": [
                         {
+                          "args": null,
+                          "kind": "FragmentSpread",
+                          "name": "ImageFragment"
+                        },
+                        {
                           "alias": null,
                           "args": null,
-                          "concreteType": "ImageDerivative",
-                          "kind": "LinkedField",
-                          "name": "png",
-                          "plural": false,
-                          "selections": [
-                            {
-                              "args": null,
-                              "kind": "FragmentSpread",
-                              "name": "ImageFragment"
-                            },
-                            {
-                              "alias": null,
-                              "args": null,
-                              "kind": "ScalarField",
-                              "name": "url",
-                              "storageKey": null
-                            }
-                          ],
+                          "kind": "ScalarField",
+                          "name": "url",
                           "storageKey": null
                         }
                       ],
@@ -137,12 +131,11 @@ const node: ReaderFragment = {
                   "storageKey": null
                 }
               ],
-              "args": null,
-              "argumentDefinitions": []
+              "storageKey": null
             }
           ],
-          "type": "Asset",
-          "abstractKey": "__isAsset"
+          "args": null,
+          "argumentDefinitions": []
         }
       ],
       "storageKey": null
@@ -153,10 +146,10 @@ const node: ReaderFragment = {
       "name": "ModelListPageFragment"
     }
   ],
-  "type": "AnyAssetConnection",
+  "type": "AssetConnection",
   "abstractKey": null
 };
 
-(node as any).hash = "cdbeccbc4ed8a1ec3d8c5c860f452204";
+(node as any).hash = "b1d41a5158b4b35d09350111989ba1d5";
 
 export default node;

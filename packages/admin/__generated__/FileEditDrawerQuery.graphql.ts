@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bc357bfd417ebfef99c9eca4822cd063>>
+ * @generated SignedSource<<70bedfcf306f4499e71219ee51049ec4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,7 @@ export type FileEditDrawerQuery$variables = {
 };
 export type FileEditDrawerQuery$data = {
   readonly asset: {
-    readonly name?: string;
+    readonly name: string;
     readonly " $fragmentSpreads": FragmentRefs<"FileEditFormFragment">;
   } | null | undefined;
 };
@@ -50,13 +50,6 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "alt",
   "storageKey": null
 };
@@ -75,14 +68,7 @@ return {
         "name": "asset",
         "plural": false,
         "selections": [
-          {
-            "kind": "InlineFragment",
-            "selections": [
-              (v2/*: any*/)
-            ],
-            "type": "Asset",
-            "abstractKey": "__isAsset"
-          },
+          (v2/*: any*/),
           {
             "args": null,
             "kind": "FragmentSpread",
@@ -117,85 +103,89 @@ return {
             "storageKey": null
           },
           {
-            "kind": "InlineFragment",
+            "kind": "TypeDiscriminator",
+            "abstractKey": "__isAsset"
+          },
+          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "id",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "altText",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "caption",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "kind",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "fileSize",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "ImageAttachment",
+            "kind": "LinkedField",
+            "name": "preview",
+            "plural": false,
             "selections": [
-              (v2/*: any*/),
-              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "altText",
+                "name": "originalFilename",
                 "storageKey": null
               },
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "caption",
+                "name": "storage",
                 "storageKey": null
               },
               {
                 "alias": null,
                 "args": null,
-                "kind": "ScalarField",
-                "name": "kind",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "fileSize",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "ImageAttachment",
+                "concreteType": "ImageSize",
                 "kind": "LinkedField",
-                "name": "preview",
+                "name": "thumb",
                 "plural": false,
                 "selections": [
                   {
                     "alias": null,
                     "args": null,
-                    "kind": "ScalarField",
-                    "name": "originalFilename",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "storage",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "ImageSize",
+                    "concreteType": "ImageDerivative",
                     "kind": "LinkedField",
-                    "name": "thumb",
+                    "name": "png",
                     "plural": false,
                     "selections": [
+                      (v3/*: any*/),
                       {
                         "alias": null,
                         "args": null,
-                        "concreteType": "ImageDerivative",
-                        "kind": "LinkedField",
-                        "name": "png",
-                        "plural": false,
-                        "selections": [
-                          (v4/*: any*/),
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "url",
-                            "storageKey": null
-                          }
-                        ],
+                        "kind": "ScalarField",
+                        "name": "url",
                         "storageKey": null
                       }
                     ],
@@ -203,30 +193,21 @@ return {
                   }
                 ],
                 "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "ImageMetadata",
-                "kind": "LinkedField",
-                "name": "previewMetadata",
-                "plural": false,
-                "selections": [
-                  (v4/*: any*/)
-                ],
-                "storageKey": null
               }
             ],
-            "type": "Asset",
-            "abstractKey": "__isAsset"
+            "storageKey": null
           },
           {
-            "kind": "InlineFragment",
+            "alias": null,
+            "args": null,
+            "concreteType": "ImageMetadata",
+            "kind": "LinkedField",
+            "name": "previewMetadata",
+            "plural": false,
             "selections": [
               (v3/*: any*/)
             ],
-            "type": "Node",
-            "abstractKey": "__isNode"
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -234,12 +215,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6b2710ea5486f152b50a4e9c5c0cbc55",
+    "cacheID": "bf9e9ee6073fbac7c9d350eb35d469e2",
     "id": null,
     "metadata": {},
     "name": "FileEditDrawerQuery",
     "operationKind": "query",
-    "text": "query FileEditDrawerQuery(\n  $slug: Slug!\n) {\n  asset(slug: $slug) {\n    __typename\n    ... on Asset {\n      __isAsset: __typename\n      name\n    }\n    ...FileEditFormFragment\n    ... on Node {\n      __isNode: __typename\n      id\n    }\n  }\n}\n\nfragment FileEditFormFragment on Asset {\n  __isAsset: __typename\n  id\n  altText\n  name\n  caption\n  kind\n  fileSize\n  preview {\n    ...FileUploadFragment\n  }\n  previewMetadata {\n    alt\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
+    "text": "query FileEditDrawerQuery(\n  $slug: Slug!\n) {\n  asset(slug: $slug) {\n    __typename\n    __isAsset: __typename\n    name\n    ...FileEditFormFragment\n    id\n  }\n}\n\nfragment FileEditFormFragment on Asset {\n  __isAsset: __typename\n  id\n  altText\n  name\n  caption\n  kind\n  fileSize\n  preview {\n    ...FileUploadFragment\n  }\n  previewMetadata {\n    alt\n  }\n}\n\nfragment FileUploadFragment on ImageAttachment {\n  originalFilename\n  storage\n  thumb {\n    png {\n      alt\n      url\n    }\n  }\n}\n"
   }
 };
 })();

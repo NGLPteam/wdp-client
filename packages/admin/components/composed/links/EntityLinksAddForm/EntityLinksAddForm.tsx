@@ -80,7 +80,7 @@ type Props = Pick<
 type Fields = Omit<LinkEntityInput, "clientMutationId">;
 
 const fragment = graphql`
-  fragment EntityLinksAddFormFragment on AnyEntity {
+  fragment EntityLinksAddFormFragment on Entity {
     ... on Collection {
       id
       title

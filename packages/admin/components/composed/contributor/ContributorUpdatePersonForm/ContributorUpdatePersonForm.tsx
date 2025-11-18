@@ -112,7 +112,7 @@ interface Props
 type Fields = Omit<UpdatePersonContributorInput, "contributorId" | "image">;
 
 const fieldsFragment = graphql`
-  fragment ContributorUpdatePersonFormFieldsFragment on AnyContributor {
+  fragment ContributorUpdatePersonFormFieldsFragment on Contributor {
     ... on PersonContributor {
       givenName
       familyName
@@ -146,7 +146,7 @@ const mutation = graphql`
 `;
 
 const fragment = graphql`
-  fragment ContributorUpdatePersonFormFragment on AnyContributor {
+  fragment ContributorUpdatePersonFormFragment on Contributor {
     ... on PersonContributor {
       contributorId: id
       ...ContributorUpdatePersonFormFieldsFragment

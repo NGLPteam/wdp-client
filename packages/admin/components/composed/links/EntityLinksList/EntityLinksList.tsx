@@ -151,7 +151,7 @@ const linksFragment = graphql`
 `;
 
 const fragment = graphql`
-  fragment EntityLinksListFragment on AnyEntity {
+  fragment EntityLinksListFragment on Entity {
     ... on Item {
       slug
       links(page: $page) {

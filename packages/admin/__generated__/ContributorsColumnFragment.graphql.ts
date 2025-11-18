@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9fe848c0362f9077273f1231112f28ca>>
+ * @generated SignedSource<<700152629f45f30aea95f62c54c33b93>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -47,6 +47,6 @@ const node: ReaderInlineDataFragment = {
   "name": "ContributorsColumnFragment"
 };
 
-(node as any).hash = "49688186c330c39f7f10f5d677d52844";
+(node as any).hash = "7f7557aa623f4131688ca1c195090c55";
 
 export default node;

@@ -44,7 +44,7 @@ as its accessControlList defines.
 """
 interface AccessGrant {
   """The polymorphic entity to which access has been granted"""
-  entity: AnyEntity!
+  entity: Entity!
   """The role the subject has been assigned"""
   role: Role!
   """The polymorphic subject that has been granted access"""
@@ -462,7 +462,7 @@ type Announcement implements Node & Sluggable {
   body: String!
   createdAt: ISO8601DateTime!
   """The entity that owns the announcement"""
-  entity: AnyEntity!
+  entity: Entity!
   """A header value for the announcement"""
   header: String!
   id: ID!
@@ -526,27 +526,6 @@ type AnyAccessGrantEdge {
 
 union AnyAsset = AssetAudio | AssetDocument | AssetImage | AssetPDF | AssetUnknown | AssetVideo
 
-"""The connection type for AnyAsset."""
-type AnyAssetConnection implements Paginated {
-  """A list of edges."""
-  edges: [AnyAssetEdge!]!
-  """A list of nodes."""
-  nodes: [AnyAsset!]!
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-}
-
-"""An edge in a connection."""
-type AnyAssetEdge {
-  """A cursor for use in pagination."""
-  cursor: String!
-  """The item at the end of the edge."""
-  node: AnyAsset!
-}
-
-"""Something that can be attached to"""
-union AnyAttachable = Collection | Community | Item
-
 """Any entity that can have a parent."""
 union AnyChildEntity = Collection | Item
 
@@ -590,6 +569,9 @@ type AnyCommunityAccessGrantEdge {
   node: AnyCommunityAccessGrant!
 }
 
+"""A union of types that can be contributed to"""
+union AnyContributable = CollectionContribution | ItemContribution
+
 """A union of possible contribution types"""
 union AnyContribution = CollectionContribution | ItemContribution
 
@@ -629,11 +611,6 @@ Encompasses all the possible template instance types that can fall under a `HERO
 
 """
 union AnyHeroTemplateInstance = HeroTemplateInstance
-
-"""
-Used by a LinkTargetCandidate, this describes any type of model that can act as a target for an EntityLink
-"""
-union AnyLinkTarget = Collection | Item
 
 """
 Encompasses all the possible template definition types that can fall under a `LIST_ITEM` layout.
@@ -683,9 +660,6 @@ Encompasses all the possible template instance types that can fall under a `NAVI
 """
 union AnyNavigationTemplateInstance = NavigationTemplateInstance
 
-"""The various types an OrderingEntry can refer to"""
-union AnyOrderingEntry = Collection | Community | EntityLink | Item
-
 """
 All types in this union implement OrderingPath.
 
@@ -714,14 +688,6 @@ All properties contained in this union are guaranteed to implement `SchemaProper
 
 """
 union AnySchemaProperty = AssetProperty | AssetsProperty | BooleanProperty | ContributorProperty | ContributorsProperty | ControlledVocabulariesProperty | ControlledVocabularyProperty | DateProperty | EmailProperty | EntitiesProperty | EntityProperty | FloatProperty | FullTextProperty | GroupProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TagsProperty | TimestampProperty | URLProperty | UnknownProperty | VariableDateProperty
-
-"""
-`AnySearchableProperty` represents a property that can be searched on.
-
-Any property underneath this can be assured to implement `SearchableProperty`.
-
-"""
-union AnySearchableProperty = BooleanProperty | DateProperty | FloatProperty | FullTextProperty | IntegerProperty | MarkdownProperty | MultiselectProperty | SelectProperty | StringProperty | TimestampProperty | VariableDateProperty
 
 """
 Encompasses all the possible template definition types that can fall under a `SUPPLEMENTARY` layout.
@@ -814,7 +780,7 @@ type ApplySchemaPropertiesPayload implements StandardMutationPayload {
 }
 
 """A generic asset type, implemented by all the more specific kinds"""
-interface Asset {
+interface Asset implements Node & Sluggable {
   altText: String
   assetDownloads(
     """
@@ -840,7 +806,7 @@ interface Asset {
     """
     usOnly: Boolean = false
   ): AnalyticsRegionCountSummary!
-  attachable: AnyAttachable!
+  attachable: Attachable!
   caption: String
   contentType: String!
   downloadURL: String
@@ -882,7 +848,7 @@ type AssetAudio implements Asset & Node & Sluggable {
     """
     usOnly: Boolean = false
   ): AnalyticsRegionCountSummary!
-  attachable: AnyAttachable!
+  attachable: Attachable!
   caption: String
   contentType: String!
   createdAt: ISO8601DateTime!
@@ -897,6 +863,16 @@ type AssetAudio implements Asset & Node & Sluggable {
   previewMetadata: ImageMetadata
   slug: Slug!
   updatedAt: ISO8601DateTime!
+}
+
+"""The connection type for Asset."""
+type AssetConnection implements Paginated {
+  """A list of edges."""
+  edges: [AssetEdge!]!
+  """A list of nodes."""
+  nodes: [Asset!]!
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
 }
 
 type AssetDocument implements Asset & Node & Sluggable {
@@ -925,7 +901,7 @@ type AssetDocument implements Asset & Node & Sluggable {
     """
     usOnly: Boolean = false
   ): AnalyticsRegionCountSummary!
-  attachable: AnyAttachable!
+  attachable: Attachable!
   caption: String
   contentType: String!
   createdAt: ISO8601DateTime!
@@ -940,6 +916,14 @@ type AssetDocument implements Asset & Node & Sluggable {
   previewMetadata: ImageMetadata
   slug: Slug!
   updatedAt: ISO8601DateTime!
+}
+
+"""An edge in a connection."""
+type AssetEdge {
+  """A cursor for use in pagination."""
+  cursor: String!
+  """The item at the end of the edge."""
+  node: Asset!
 }
 
 type AssetImage implements Asset & Node & Sluggable {
@@ -968,7 +952,7 @@ type AssetImage implements Asset & Node & Sluggable {
     """
     usOnly: Boolean = false
   ): AnalyticsRegionCountSummary!
-  attachable: AnyAttachable!
+  attachable: Attachable!
   caption: String
   contentType: String!
   createdAt: ISO8601DateTime!
@@ -1034,7 +1018,7 @@ type AssetPDF implements Asset & Node & Sluggable {
     """
     usOnly: Boolean = false
   ): AnalyticsRegionCountSummary!
-  attachable: AnyAttachable!
+  attachable: Attachable!
   caption: String
   contentType: String!
   createdAt: ISO8601DateTime!
@@ -1077,7 +1061,7 @@ type AssetProperty implements ScalarProperty & SchemaProperty {
   
   """
   array: Boolean!
-  asset: AnyAsset
+  asset: Asset
   """
   A human-readable description for the property. It should describe the purpose of the
   property as well as some details about the types of values it looks for.
@@ -1184,7 +1168,7 @@ type AssetUnknown implements Asset & Node & Sluggable {
     """
     usOnly: Boolean = false
   ): AnalyticsRegionCountSummary!
-  attachable: AnyAttachable!
+  attachable: Attachable!
   caption: String
   contentType: String!
   createdAt: ISO8601DateTime!
@@ -1227,7 +1211,7 @@ type AssetVideo implements Asset & Node & Sluggable {
     """
     usOnly: Boolean = false
   ): AnalyticsRegionCountSummary!
-  attachable: AnyAttachable!
+  attachable: Attachable!
   caption: String
   contentType: String!
   createdAt: ISO8601DateTime!
@@ -1254,7 +1238,7 @@ type AssetsProperty implements ScalarProperty & SchemaProperty {
   
   """
   array: Boolean!
-  assets: [AnyAsset!]!
+  assets: [Asset!]!
   """
   A human-readable description for the property. It should describe the purpose of the
   property as well as some details about the types of values it looks for.
@@ -1350,7 +1334,7 @@ interface Attachable {
     pageDirection: PageDirection = FORWARDS
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
-  ): AnyAssetConnection!
+  ): AssetConnection!
 }
 
 """This describes where a given file attachment is stored (if at all)"""
@@ -1465,7 +1449,7 @@ type BlurbTemplateInstance implements Node & Renderable & Sluggable & TemplateIn
   The associated entity for this template instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   """
   Whether this template instance should be hidden based on some logic.
   
@@ -1650,7 +1634,7 @@ interface ChildEntity implements Accessible & Entity & EntityBase & ExposesPermi
   ancestorByName(
     """The name of the ancestor to fetch"""
     name: String!
-  ): AnyEntity
+  ): Entity
   """
   Look up an ancestor for this entity that implements a specific type. It ascends from this entity,
   so it will first check the parent, then the grandparent, and so on.
@@ -1659,7 +1643,7 @@ interface ChildEntity implements Accessible & Entity & EntityBase & ExposesPermi
   ancestorOfType(
     """A fully-qualified name of a schema to look for."""
     schema: String!
-  ): AnyEntity
+  ): Entity
   """Look up an announcement for this entity by slug"""
   announcement(slug: Slug!): Announcement
   """Announcements for a specific entity"""
@@ -1944,8 +1928,11 @@ interface ChildEntity implements Accessible & Entity & EntityBase & ExposesPermi
   rawDOI: String
   root: Boolean!
   schemaDefinition: SchemaDefinition!
-  """A list of schema properties associated with this instance or version."""
-  schemaProperties: [AnySchemaProperty!]!
+  """
+  A list of schema properties associated with this instance or version.
+  
+  """
+  schemaProperties: [SchemaProperty!]!
   schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
   """Search from this level of the API using it as the origin"""
@@ -2027,19 +2014,19 @@ Used to process redirect URIs for specific client locations.
 """
 enum ClientLocation {
   """
-  The admin client (https://admin.sandbox.meru.host).
+  The admin client (http://localhost:3000).
   
   """
   ADMIN
   """
-  The frontend client (https://sandbox.meru.host).
+  The frontend client (http://localhost:14700).
   
   """
   FRONTEND
 }
 
 """A collection of items"""
-type Collection implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasHarvestModificationStatus & HasSchemaProperties & Node & Permalinkable & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
+type Collection implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasHarvestModificationStatus & HasSchemaProperties & Node & OrderingEntryable & Permalinkable & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -2096,7 +2083,7 @@ type Collection implements Accessible & Attachable & Attributable & ChildEntity 
   ancestorByName(
     """The name of the ancestor to fetch"""
     name: String!
-  ): AnyEntity
+  ): Entity
   """
   Look up an ancestor for this entity that implements a specific type. It ascends from this entity,
   so it will first check the parent, then the grandparent, and so on.
@@ -2105,7 +2092,7 @@ type Collection implements Accessible & Attachable & Attributable & ChildEntity 
   ancestorOfType(
     """A fully-qualified name of a schema to look for."""
     schema: String!
-  ): AnyEntity
+  ): Entity
   """Look up an announcement for this entity by slug"""
   announcement(slug: Slug!): Announcement
   """Announcements for a specific entity"""
@@ -2188,7 +2175,7 @@ type Collection implements Accessible & Attachable & Attributable & ChildEntity 
     pageDirection: PageDirection = FORWARDS
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
-  ): AnyAssetConnection!
+  ): AssetConnection!
   """
   The role(s) that the current user could assign to other users on this entity, if applicable.
   """
@@ -2222,6 +2209,7 @@ type Collection implements Accessible & Attachable & Attributable & ChildEntity 
   availableEntitiesFor(
     """
     The full path to the schema property. Please note, paths are snake_case, not camelCase.
+    
     """
     fullPath: String!
   ): [EntitySelectOption!]!
@@ -2654,10 +2642,14 @@ type Collection implements Accessible & Attachable & Attributable & ChildEntity 
   schemaDefinition: SchemaDefinition!
   """
   The context for our schema instance. Includes form values and necessary referents.
+  
   """
   schemaInstanceContext: SchemaInstanceContext!
-  """A list of schema properties associated with this instance or version."""
-  schemaProperties: [AnySchemaProperty!]!
+  """
+  A list of schema properties associated with this instance or version.
+  
+  """
+  schemaProperties: [SchemaProperty!]!
   """
   Read a single schema property by its full path.
   
@@ -2665,9 +2657,10 @@ type Collection implements Accessible & Attachable & Attributable & ChildEntity 
   schemaProperty(
     """
     The full path to the schema property. Please note, paths are snake_case, not camelCase.
+    
     """
     fullPath: String!
-  ): AnySchemaProperty
+  ): SchemaProperty
   schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
   """Search from this level of the API using it as the origin"""
@@ -2808,7 +2801,7 @@ type CollectionContribution implements Contribution & ContributionBase & Node & 
   collection: Collection!
   """The actual role"""
   contributionRole: ControlledVocabularyItem!
-  contributor: AnyContributor!
+  contributor: Contributor!
   contributorKind: ContributorKind!
   createdAt: ISO8601DateTime!
   """A potentially-overridden display name value for all contributor types"""
@@ -2870,7 +2863,7 @@ type CollectionEdge {
 union CollectionParent = Collection | Community
 
 """A community of users"""
-type Community implements Accessible & Attachable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasEntityAnalytics & HasEntityBreadcrumbs & HasSchemaProperties & Node & Permalinkable & SchemaInstance & Searchable & Sluggable {
+type Community implements Accessible & Attachable & Entity & EntityBase & ExposesPermissions & HarvestTarget & HasEntityAnalytics & HasEntityBreadcrumbs & HasSchemaProperties & Node & OrderingEntryable & Permalinkable & SchemaInstance & Searchable & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -3000,7 +2993,7 @@ type Community implements Accessible & Attachable & Entity & EntityBase & Expose
     pageDirection: PageDirection = FORWARDS
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
-  ): AnyAssetConnection!
+  ): AssetConnection!
   """
   The role(s) that the current user could assign to other users on this entity, if applicable.
   """
@@ -3032,6 +3025,7 @@ type Community implements Accessible & Attachable & Entity & EntityBase & Expose
   availableEntitiesFor(
     """
     The full path to the schema property. Please note, paths are snake_case, not camelCase.
+    
     """
     fullPath: String!
   ): [EntitySelectOption!]!
@@ -3281,10 +3275,14 @@ type Community implements Accessible & Attachable & Entity & EntityBase & Expose
   schemaDefinition: SchemaDefinition!
   """
   The context for our schema instance. Includes form values and necessary referents.
+  
   """
   schemaInstanceContext: SchemaInstanceContext!
-  """A list of schema properties associated with this instance or version."""
-  schemaProperties: [AnySchemaProperty!]!
+  """
+  A list of schema properties associated with this instance or version.
+  
+  """
+  schemaProperties: [SchemaProperty!]!
   """
   Read a single schema property by its full path.
   
@@ -3292,9 +3290,10 @@ type Community implements Accessible & Attachable & Entity & EntityBase & Expose
   schemaProperty(
     """
     The full path to the schema property. Please note, paths are snake_case, not camelCase.
+    
     """
     fullPath: String!
-  ): AnySchemaProperty
+  ): SchemaProperty
   schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
   """Search from this level of the API using it as the origin"""
@@ -3399,10 +3398,16 @@ type CommunityEdge {
 
 """A contextual permission for a user, role, and entity"""
 type ContextualPermission implements ExposesPermissions & Node & Sluggable {
-  """Derived access control list"""
+  """
+  The derived access control list for this user and entity.
+  
+  """
   accessControlList: AccessControlList
-  """The access grants that correspond to this contextual permission"""
-  accessGrants: [AnyUserAccessGrant!]!
+  """
+  The access grants that correspond to this contextual permission.
+  
+  """
+  accessGrants: [UserAccessGrant!]!
   """
   A list of allowed actions for the given user on this entity (and its descendants).
   """
@@ -3411,10 +3416,17 @@ type ContextualPermission implements ExposesPermissions & Node & Sluggable {
   id: ID!
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
-  """The roles that correspond to this contextual permission"""
+  """
+  The roles that correspond to this contextual permission.
+  
+  """
   roles: [Role!]!
   slug: Slug!
   updatedAt: ISO8601DateTime!
+  """
+  The user that has the contextual permission.
+  
+  """
   user: User!
 }
 
@@ -3500,7 +3512,7 @@ interface Contribution implements ContributionBase {
   The contributor, loaded via union for the most control.
   
   """
-  contributor: AnyContributor!
+  contributor: Contributor!
   contributorKind: ContributorKind!
   """A potentially-overridden display name value for all contributor types"""
   displayName: String!
@@ -3833,12 +3845,12 @@ interface ContributorAttribution {
   title: String!
 }
 
-"""The connection type for AnyContributorAttribution."""
+"""The connection type for ContributorAttribution."""
 type ContributorAttributionConnection implements Paginated {
   """A list of edges."""
   edges: [ContributorAttributionEdge!]!
   """A list of nodes."""
-  nodes: [AnyContributorAttribution!]!
+  nodes: [ContributorAttribution!]!
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 }
@@ -3848,7 +3860,7 @@ type ContributorAttributionEdge {
   """A cursor for use in pagination."""
   cursor: String!
   """The item at the end of the edge."""
-  node: AnyContributorAttribution!
+  node: ContributorAttribution!
 }
 
 """
@@ -4166,7 +4178,7 @@ type ContributorListTemplateInstance implements Node & Renderable & Sluggable & 
   The associated entity for this template instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   """
   Whether this template instance should be hidden based on some logic.
   
@@ -4253,7 +4265,7 @@ type ContributorProperty implements ScalarProperty & SchemaProperty {
   
   """
   array: Boolean!
-  contributor: AnyContributor
+  contributor: Contributor
   """
   A human-readable description for the property. It should describe the purpose of the
   property as well as some details about the types of values it looks for.
@@ -4344,7 +4356,7 @@ type ContributorsProperty implements ScalarProperty & SchemaProperty {
   
   """
   array: Boolean!
-  contributors: [AnyContributor!]!
+  contributors: [Contributor!]!
   """
   A human-readable description for the property. It should describe the purpose of the
   property as well as some details about the types of values it looks for.
@@ -5768,7 +5780,7 @@ type DescendantListTemplateInstance implements Node & Renderable & Sluggable & T
   The associated entity for this template instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   """
   The list of entities to render as part of this template's content.
   
@@ -6256,7 +6268,7 @@ type DetailTemplateInstance implements Node & Renderable & Sluggable & TemplateI
   The associated entity for this template instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   """
   Whether this template instance should be hidden based on some logic.
   
@@ -6481,7 +6493,7 @@ type EntitiesProperty implements HasAvailableEntities & ScalarProperty & SchemaP
   Given the same input, this array will always be returned in the same order.
   
   """
-  entities: [AnyEntity!]!
+  entities: [Entity!]!
   """
   The full path that represents the property on the schema instance. It is guaranteed
   to be unique for the instance, and can be used to grab a property directly, as well as
@@ -6792,8 +6804,11 @@ interface Entity implements Accessible & EntityBase & ExposesPermissions & HasEn
   """An array of hashes that can be requested to load in a context"""
   permissions: [PermissionGrant!]!
   schemaDefinition: SchemaDefinition!
-  """A list of schema properties associated with this instance or version."""
-  schemaProperties: [AnySchemaProperty!]!
+  """
+  A list of schema properties associated with this instance or version.
+  
+  """
+  schemaProperties: [SchemaProperty!]!
   schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
   """Search from this level of the API using it as the origin"""
@@ -6859,7 +6874,7 @@ interface EntityBase implements Sluggable {
 }
 
 type EntityBreadcrumb implements Node {
-  crumb: AnyEntity!
+  crumb: Entity!
   depth: Int!
   id: ID!
   kind: EntityKind!
@@ -6870,7 +6885,7 @@ type EntityBreadcrumb implements Node {
 """A descendant of an `Entity`."""
 type EntityDescendant {
   """The actual descendant entity"""
-  descendant: AnyEntity!
+  descendant: Entity!
   """The relative depth of this entity from its ancestor"""
   relativeDepth: Int!
   """The scope of this entity relative to its ancestor"""
@@ -7010,17 +7025,17 @@ type EntityLayouts {
 }
 
 """A link between different entities"""
-type EntityLink implements Node & Sluggable {
+type EntityLink implements Node & OrderingEntryable & Sluggable {
   createdAt: ISO8601DateTime!
   id: ID!
   operator: EntityLinkOperator!
   scope: EntityLinkScope!
   slug: Slug!
-  source: AnyEntity!
+  source: Entity!
   sourceCollection: Collection
   sourceCommunity: Community
   sourceItem: Item
-  target: AnyEntity!
+  target: Entity!
   targetCollection: Collection
   targetCommunity: Community
   targetItem: Item
@@ -7169,7 +7184,7 @@ type EntityProperty implements HasAvailableEntities & ScalarProperty & SchemaPro
   A single reference to another entity within the system.
   
   """
-  entity: AnyEntity
+  entity: Entity
   """
   The full path that represents the property on the schema instance. It is guaranteed
   to be unique for the instance, and can be used to grab a property directly, as well as
@@ -7348,7 +7363,7 @@ enum EntityScope {
 type EntitySelectOption implements HasEntityBreadcrumbs {
   """Previous entries in the hierarchy"""
   breadcrumbs: [EntityBreadcrumb!]!
-  entity: AnyEntity!
+  entity: Entity!
   kind: EntityKind!
   label: String!
   schemaVersion: SchemaVersion!
@@ -7678,6 +7693,10 @@ type GrantAccessPayload implements StandardMutationPayload {
   haltCode: String
 }
 
+"""
+A schema property that groups other schema properties together underneath a `path`.
+
+"""
 type GroupProperty implements SchemaProperty {
   """
   Provided for introspection. This describes whether or not the property's value
@@ -7708,6 +7727,7 @@ type GroupProperty implements SchemaProperty {
   
   """
   kind: SchemaPropertyKind!
+  """The legend / label for this group property."""
   legend: String
   """
   Provided for introspection. Whether this property can be used to order entities.
@@ -7721,7 +7741,9 @@ type GroupProperty implements SchemaProperty {
   
   """
   path: String!
-  properties: [AnyScalarProperty!]!
+  """The list of (scalar) schema properties contained within this group."""
+  properties: [ScalarProperty!]!
+  """Whether this property is required to have a value."""
   required: Boolean!
   """
   Provided for introspection. This represents the actual data type this property
@@ -10419,8 +10441,11 @@ interface HasHarvestOptions {
 }
 
 interface HasSchemaProperties {
-  """A list of schema properties associated with this instance or version."""
-  schemaProperties: [AnySchemaProperty!]!
+  """
+  A list of schema properties associated with this instance or version.
+  
+  """
+  schemaProperties: [SchemaProperty!]!
 }
 
 """
@@ -10485,7 +10510,7 @@ type HeroLayoutInstance implements LayoutInstance & Node & Renderable & Sluggabl
   The associated entity for this layout instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   id: ID!
   """
   The time this object was last rendered.
@@ -10582,7 +10607,7 @@ type HeroTemplateInstance implements Node & Renderable & Sluggable & TemplateIns
   The associated entity for this template instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   """
   Whether this template instance should be hidden based on some logic.
   
@@ -11155,7 +11180,7 @@ type IntegerProperty implements ScalarProperty & SchemaProperty & SearchableProp
 }
 
 """An item that belongs to a collection"""
-type Item implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasHarvestModificationStatus & HasSchemaProperties & Node & Permalinkable & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
+type Item implements Accessible & Attachable & Attributable & ChildEntity & Contributable & Entity & EntityBase & ExposesPermissions & HasDOI & HasDefaultTimestamps & HasEntityAnalytics & HasEntityBreadcrumbs & HasHarvestModificationStatus & HasSchemaProperties & Node & OrderingEntryable & Permalinkable & ReferencesEntityVisibility & ReferencesGlobalEntityDates & SchemaInstance & Searchable & Sluggable {
   """Derived access control list"""
   accessControlList: AccessControlList
   accessGrants(
@@ -11212,7 +11237,7 @@ type Item implements Accessible & Attachable & Attributable & ChildEntity & Cont
   ancestorByName(
     """The name of the ancestor to fetch"""
     name: String!
-  ): AnyEntity
+  ): Entity
   """
   Look up an ancestor for this entity that implements a specific type. It ascends from this entity,
   so it will first check the parent, then the grandparent, and so on.
@@ -11221,7 +11246,7 @@ type Item implements Accessible & Attachable & Attributable & ChildEntity & Cont
   ancestorOfType(
     """A fully-qualified name of a schema to look for."""
     schema: String!
-  ): AnyEntity
+  ): Entity
   """Look up an announcement for this entity by slug"""
   announcement(slug: Slug!): Announcement
   """Announcements for a specific entity"""
@@ -11304,7 +11329,7 @@ type Item implements Accessible & Attachable & Attributable & ChildEntity & Cont
     pageDirection: PageDirection = FORWARDS
     """The amount of edges / nodes to fetch per page"""
     perPage: Int
-  ): AnyAssetConnection!
+  ): AssetConnection!
   """
   The role(s) that the current user could assign to other users on this entity, if applicable.
   """
@@ -11338,6 +11363,7 @@ type Item implements Accessible & Attachable & Attributable & ChildEntity & Cont
   availableEntitiesFor(
     """
     The full path to the schema property. Please note, paths are snake_case, not camelCase.
+    
     """
     fullPath: String!
   ): [EntitySelectOption!]!
@@ -11730,10 +11756,14 @@ type Item implements Accessible & Attachable & Attributable & ChildEntity & Cont
   schemaDefinition: SchemaDefinition!
   """
   The context for our schema instance. Includes form values and necessary referents.
+  
   """
   schemaInstanceContext: SchemaInstanceContext!
-  """A list of schema properties associated with this instance or version."""
-  schemaProperties: [AnySchemaProperty!]!
+  """
+  A list of schema properties associated with this instance or version.
+  
+  """
+  schemaProperties: [SchemaProperty!]!
   """
   Read a single schema property by its full path.
   
@@ -11741,9 +11771,10 @@ type Item implements Accessible & Attachable & Attributable & ChildEntity & Cont
   schemaProperty(
     """
     The full path to the schema property. Please note, paths are snake_case, not camelCase.
+    
     """
     fullPath: String!
-  ): AnySchemaProperty
+  ): SchemaProperty
   schemaRanks: [HierarchicalSchemaRank!]!
   schemaVersion: SchemaVersion!
   """Search from this level of the API using it as the origin"""
@@ -11883,7 +11914,7 @@ type ItemContribution implements Contribution & ContributionBase & Node & Slugga
   affiliation: String
   """The actual role"""
   contributionRole: ControlledVocabularyItem!
-  contributor: AnyContributor!
+  contributor: Contributor!
   contributorKind: ContributorKind!
   createdAt: ISO8601DateTime!
   """A potentially-overridden display name value for all contributor types"""
@@ -11979,7 +12010,7 @@ interface LayoutInstance implements Renderable {
   The associated entity for this layout instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   """
   The time this object was last rendered.
   
@@ -12265,7 +12296,7 @@ type LinkListTemplateInstance implements Node & Renderable & Sluggable & Templat
   The associated entity for this template instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   """
   The list of entities to render as part of this template's content.
   
@@ -12374,7 +12405,7 @@ type LinkTargetCandidate implements Node {
   id: ID!
   kind: LinkTargetCandidateKind!
   """The actual target"""
-  target: AnyLinkTarget!
+  target: Entity!
   """The targetID to provide to linkEntity"""
   targetId: ID!
   """The target entity's title"""
@@ -12472,7 +12503,7 @@ type ListItemLayoutInstance implements LayoutInstance & Node & Renderable & Slug
   The associated entity for this layout instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   id: ID!
   """
   The time this object was last rendered.
@@ -12652,7 +12683,7 @@ type ListItemTemplateInstance implements Node & Renderable & Sluggable & Templat
   The associated entity for this template instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   """
   The list of entities to render as part of this template's content.
   
@@ -12751,7 +12782,7 @@ type MainLayoutInstance implements LayoutInstance & Node & Renderable & Sluggabl
   The associated entity for this layout instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   id: ID!
   """
   The time this object was last rendered.
@@ -12918,7 +12949,7 @@ type MetadataLayoutInstance implements LayoutInstance & Node & Renderable & Slug
   The associated entity for this layout instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   id: ID!
   """
   The time this object was last rendered.
@@ -12992,7 +13023,7 @@ type MetadataTemplateInstance implements Node & Renderable & Sluggable & Templat
   The associated entity for this template instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   """
   Whether this template instance should be hidden based on some logic.
   
@@ -13081,6 +13112,7 @@ type MultiselectProperty implements OptionableProperty & ScalarProperty & Schema
   """
   kind: SchemaPropertyKind!
   label: String!
+  """The list of predefined options available for this property."""
   options: [SelectOption!]!
   """
   Provided for introspection. Whether this property can be used to order entities.
@@ -13672,7 +13704,7 @@ should any be defined for the schema.
 """
 type NamedAncestor {
   """The actual ancestor"""
-  ancestor: AnyEntity!
+  ancestor: Entity!
   """The depth of the ancestor in the hierarchy"""
   ancestorDepth: Int!
   """
@@ -13745,7 +13777,7 @@ type NavigationLayoutInstance implements LayoutInstance & Node & Renderable & Sl
   The associated entity for this layout instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   id: ID!
   """
   The time this object was last rendered.
@@ -13820,7 +13852,7 @@ type NavigationTemplateInstance implements Node & Renderable & Sluggable & Templ
   The associated entity for this template instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   """
   Whether this template instance should be hidden based on some logic.
   
@@ -13903,7 +13935,12 @@ input NumericLTEOperatorInput {
   value: Float!
 }
 
+"""
+An interface for properties that have a set of predefined options to choose from.
+
+"""
 interface OptionableProperty {
+  """The list of predefined options available for this property."""
   options: [SelectOption!]!
 }
 
@@ -13975,7 +14012,7 @@ type Ordering implements Node & Searchable & Sluggable {
   """The time the ordering was disabled, if applicable"""
   disabledAt: ISO8601Date
   """The entity that owns the ordering"""
-  entity: AnyEntity!
+  entity: Entity!
   filter: OrderingFilterDefinition!
   """Optional markdown content to render after the children"""
   footer: String
@@ -14156,7 +14193,7 @@ type OrderingEntry implements Node & Sluggable {
   but future implementations of orderings may include other content, such as presentation elements.
   
   """
-  entry: AnyOrderingEntry!
+  entry: OrderingEntryable!
   """
   The delegated `slug` from the associated `entry`.
   
@@ -14232,6 +14269,15 @@ enum OrderingEntrySortMode {
   Retrieve the ordering entries in an inverted order, accounting for paths
   """
   INVERSE
+}
+
+"""
+An entity or link which can appear in an ordering.
+
+"""
+interface OrderingEntryable implements Node {
+  """ID of the object."""
+  id: ID!
 }
 
 """
@@ -14556,7 +14602,7 @@ type OrderingTemplateInstance implements Node & Renderable & Sluggable & Templat
   The associated entity for this template instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   """
   Whether this template instance should be hidden based on some logic.
   
@@ -14765,7 +14811,7 @@ type OrganizationContributor implements Contributor & ContributorBase & HasHarve
 type Page implements Node {
   body: String!
   createdAt: ISO8601DateTime!
-  entity: AnyEntity!
+  entity: Entity!
   """The hero image for a page"""
   heroImage: ImageAttachment!
   """Configurable metadata for the hero_image attachment"""
@@ -14906,7 +14952,7 @@ type PageListTemplateInstance implements Node & Renderable & Sluggable & Templat
   The associated entity for this template instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   """
   Whether this template instance should be hidden based on some logic.
   
@@ -15478,7 +15524,7 @@ interface QueriesContrib {
     contributableId: ID
   ): ContributionRoleConfiguration!
   """Look up a contributor by slug"""
-  contributor(slug: Slug!): AnyContributor
+  contributor(slug: Slug!): Contributor
   """
   Look up a contributor `by` a certain `value`.
   
@@ -15502,7 +15548,7 @@ interface QueriesContrib {
     
     """
     value: String!
-  ): AnyContributor
+  ): Contributor
   """A list of all contributors in the system"""
   contributors(
     """Returns the elements in the list that come after the specified cursor."""
@@ -15639,7 +15685,7 @@ Fields for querying all entities from the top level of the hierarchy.
 """
 interface QueriesEntities {
   """Look up an asset by slug"""
-  asset(slug: Slug!): AnyAsset
+  asset(slug: Slug!): Asset
   """Look up a collection by slug"""
   collection(slug: Slug!): Collection
   """List all communities"""
@@ -15977,7 +16023,7 @@ interface QueriesSchemas {
     If passed, this will restrict the property fields returned to the selected schemas.
     """
     schemas: [OrderingSchemaFilterInput!]
-  ): [AnyOrderingPath!]!
+  ): [OrderingPath!]!
   """Look up a schema definition by slug"""
   schemaDefinition(slug: Slug!): SchemaDefinition
   """List all schema definitions"""
@@ -16141,7 +16187,7 @@ type Query implements QueriesAccessAndRoles & QueriesContrib & QueriesControlled
   """Access top-level analytics."""
   analytics: Analytics!
   """Look up an asset by slug"""
-  asset(slug: Slug!): AnyAsset
+  asset(slug: Slug!): Asset
   """Look up a collection by slug"""
   collection(slug: Slug!): Collection
   """Look up a collection contribution by slug"""
@@ -16179,7 +16225,7 @@ type Query implements QueriesAccessAndRoles & QueriesContrib & QueriesControlled
     contributableId: ID
   ): ContributionRoleConfiguration!
   """Look up a contributor by slug"""
-  contributor(slug: Slug!): AnyContributor
+  contributor(slug: Slug!): Contributor
   """
   Look up a contributor `by` a certain `value`.
   
@@ -16203,7 +16249,7 @@ type Query implements QueriesAccessAndRoles & QueriesContrib & QueriesControlled
     
     """
     value: String!
-  ): AnyContributor
+  ): Contributor
   """A list of all contributors in the system"""
   contributors(
     """Returns the elements in the list that come after the specified cursor."""
@@ -16534,7 +16580,7 @@ type Query implements QueriesAccessAndRoles & QueriesContrib & QueriesControlled
     If passed, this will restrict the property fields returned to the selected schemas.
     """
     schemas: [OrderingSchemaFilterInput!]
-  ): [AnyOrderingPath!]!
+  ): [OrderingPath!]!
   """
   Retrieve a single `Permalink` by slug.
   
@@ -17207,15 +17253,20 @@ interface SchemaInstance {
   availableEntitiesFor(
     """
     The full path to the schema property. Please note, paths are snake_case, not camelCase.
+    
     """
     fullPath: String!
   ): [EntitySelectOption!]!
   """
   The context for our schema instance. Includes form values and necessary referents.
+  
   """
   schemaInstanceContext: SchemaInstanceContext!
-  """A list of schema properties associated with this instance or version."""
-  schemaProperties: [AnySchemaProperty!]!
+  """
+  A list of schema properties associated with this instance or version.
+  
+  """
+  schemaProperties: [SchemaProperty!]!
   """
   Read a single schema property by its full path.
   
@@ -17223,9 +17274,10 @@ interface SchemaInstance {
   schemaProperty(
     """
     The full path to the schema property. Please note, paths are snake_case, not camelCase.
+    
     """
     fullPath: String!
-  ): AnySchemaProperty
+  ): SchemaProperty
 }
 
 """A context that describes the current state of the form"""
@@ -17603,8 +17655,11 @@ type SchemaVersion implements DescribesSchema & HasSchemaProperties & Node & Sea
   
   """
   schemaDefinition: SchemaDefinition!
-  """A list of schema properties associated with this instance or version."""
-  schemaProperties: [AnySchemaProperty!]!
+  """
+  A list of schema properties associated with this instance or version.
+  
+  """
+  schemaProperties: [SchemaProperty!]!
   """Search from this level of the API using it as the origin"""
   search(
     """
@@ -17625,7 +17680,7 @@ type SchemaVersion implements DescribesSchema & HasSchemaProperties & Node & Sea
   A subset of properties that can be searched for this schema.
   
   """
-  searchableProperties: [AnySearchableProperty!]!
+  searchableProperties: [SearchableProperty!]!
   slug: Slug!
   updatedAt: ISO8601DateTime!
 }
@@ -17746,7 +17801,7 @@ type SearchResult implements Node & Sluggable {
   A reference to the actual entity returned by the search query.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   """
   The encoded ID that will point to the entity itself, not a special ID for the search result record.
   
@@ -17884,6 +17939,10 @@ type SearchableCoreProperty implements SearchableProperty {
   searchPath: String!
 }
 
+"""
+An interface for properties that can be searched.
+
+"""
 interface SearchableProperty {
   description: String
   label: String!
@@ -17891,8 +17950,11 @@ interface SearchableProperty {
   searchPath: String!
 }
 
+"""An option for a select-type property."""
 type SelectOption {
+  """The display label for the option."""
   label: String!
+  """The underlying value for the option."""
   value: String!
 }
 
@@ -17934,6 +17996,7 @@ type SelectProperty implements OptionableProperty & ScalarProperty & SchemaPrope
   """
   kind: SchemaPropertyKind!
   label: String!
+  """The list of predefined options available for this property."""
   options: [SelectOption!]!
   """
   Provided for introspection. Whether this property can be used to order entities.
@@ -18307,7 +18370,7 @@ type SupplementaryLayoutInstance implements LayoutInstance & Node & Renderable &
   The associated entity for this layout instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   id: ID!
   """
   The time this object was last rendered.
@@ -18378,7 +18441,7 @@ type SupplementaryTemplateInstance implements Node & Renderable & Sluggable & Te
   The associated entity for this template instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   """
   Whether this template instance should be hidden based on some logic.
   
@@ -18427,7 +18490,7 @@ type SupplementaryTemplateInstanceSlots {
 }
 
 """
-A helper field that can look up various information about the WDP-API Ecosystem.
+A helper field that can look up various information about the Meru-API Ecosystem.
 
 """
 type SystemInfo {
@@ -18642,7 +18705,7 @@ type TemplateEntityList {
   The order is deterministic.
   
   """
-  entities: [AnyEntity!]!
+  entities: [Entity!]!
   """
   Whether the entity selection tried to use the fallback selection mode.
   
@@ -18740,7 +18803,7 @@ interface TemplateInstance implements Renderable {
   The associated entity for this template instance.
   
   """
-  entity: AnyEntity!
+  entity: Entity!
   """
   Whether this template instance should be hidden based on some logic.
   
@@ -20622,7 +20685,7 @@ type User implements AccessGrantSubject & ExposesPermissions & Node & Sluggable 
 """An access grant for a user"""
 interface UserAccessGrant {
   """The polymorphic entity to which access has been granted"""
-  entity: AnyEntity!
+  entity: Entity!
   """The role the subject has been assigned"""
   role: Role!
   """The polymorphic subject that has been granted access"""
@@ -20640,7 +20703,7 @@ type UserCollectionAccessGrant implements AccessGrant & Node & Sluggable & UserA
   collection: Collection!
   createdAt: ISO8601DateTime!
   """The polymorphic entity to which access has been granted"""
-  entity: AnyEntity!
+  entity: Entity!
   id: ID!
   """The role the subject has been assigned"""
   role: Role!
@@ -20679,7 +20742,7 @@ type UserCommunityAccessGrant implements AccessGrant & Node & Sluggable & UserAc
   community: Community!
   createdAt: ISO8601DateTime!
   """The polymorphic entity to which access has been granted"""
-  entity: AnyEntity!
+  entity: Entity!
   id: ID!
   """The role the subject has been assigned"""
   role: Role!
@@ -20890,7 +20953,7 @@ type UserGroup implements AccessGrantSubject & Node & Sluggable {
 """An access grant for a user group"""
 interface UserGroupAccessGrant {
   """The polymorphic entity to which access has been granted"""
-  entity: AnyEntity!
+  entity: Entity!
   """The role the subject has been assigned"""
   role: Role!
   """The polymorphic subject that has been granted access"""
@@ -20908,7 +20971,7 @@ type UserGroupCollectionAccessGrant implements AccessGrant & Node & Sluggable & 
   collection: Collection!
   createdAt: ISO8601DateTime!
   """The polymorphic entity to which access has been granted"""
-  entity: AnyEntity!
+  entity: Entity!
   id: ID!
   """The role the subject has been assigned"""
   role: Role!
@@ -20947,7 +21010,7 @@ type UserGroupCommunityAccessGrant implements AccessGrant & Node & Sluggable & U
   community: Community!
   createdAt: ISO8601DateTime!
   """The polymorphic entity to which access has been granted"""
-  entity: AnyEntity!
+  entity: Entity!
   id: ID!
   """The role the subject has been assigned"""
   role: Role!
@@ -20984,7 +21047,7 @@ An access grant for a group to a item.
 type UserGroupItemAccessGrant implements AccessGrant & Node & Sluggable & UserGroupAccessGrant {
   createdAt: ISO8601DateTime!
   """The polymorphic entity to which access has been granted"""
-  entity: AnyEntity!
+  entity: Entity!
   id: ID!
   """The item to which a group has been granted access"""
   item: Item!
@@ -21023,7 +21086,7 @@ An access grant for a user to a collection.
 type UserItemAccessGrant implements AccessGrant & Node & Sluggable & UserAccessGrant {
   createdAt: ISO8601DateTime!
   """The polymorphic entity to which access has been granted"""
-  entity: AnyEntity!
+  entity: Entity!
   id: ID!
   """The item to which a user has been granted access"""
   item: Item!

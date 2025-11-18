@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c517e4412a9392a005888d3658e8e77f>>
+ * @generated SignedSource<<82af242ebc38fa5cb382b0585787cf39>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -145,8 +145,8 @@ return {
                 "abstractKey": null
               }
             ],
-            "type": "AnyEntity",
-            "abstractKey": "__isAnyEntity"
+            "type": "Entity",
+            "abstractKey": "__isEntity"
           },
           (v3/*: any*/)
         ],
@@ -155,12 +155,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9441a1ff468679f6b3efb654f9ef3496",
+    "cacheID": "95caa5267f7d70e32c0c564dc2b4dbd5",
     "id": null,
     "metadata": {},
     "name": "permalinksManageSlugItemPermalinksQuery",
     "operationKind": "query",
-    "text": "query permalinksManageSlugItemPermalinksQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    ...EntityPermalinksListFragment\n    id\n  }\n}\n\nfragment EntityPermalinksListFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Item {\n    slug\n    permalinks {\n      id\n      slug\n      uri\n      canonical\n    }\n  }\n  ... on Collection {\n    slug\n    permalinks {\n      id\n      slug\n      uri\n      canonical\n    }\n  }\n  ... on Community {\n    slug\n    permalinks {\n      id\n      slug\n      uri\n      canonical\n    }\n  }\n}\n"
+    "text": "query permalinksManageSlugItemPermalinksQuery(\n  $slug: Slug!\n) {\n  item(slug: $slug) {\n    ...EntityPermalinksListFragment\n    id\n  }\n}\n\nfragment EntityPermalinksListFragment on Entity {\n  __isEntity: __typename\n  ... on Item {\n    slug\n    permalinks {\n      id\n      slug\n      uri\n      canonical\n    }\n  }\n  ... on Collection {\n    slug\n    permalinks {\n      id\n      slug\n      uri\n      canonical\n    }\n  }\n  ... on Community {\n    slug\n    permalinks {\n      id\n      slug\n      uri\n      canonical\n    }\n  }\n}\n"
   }
 };
 })();

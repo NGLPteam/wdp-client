@@ -24,7 +24,7 @@ interface Props {
 }
 
 const fragment = graphql`
-  fragment SchemaInstancePropertyFragment on AnySchemaProperty {
+  fragment SchemaInstancePropertyFragment on SchemaProperty {
     __typename
 
     ... on GroupProperty {

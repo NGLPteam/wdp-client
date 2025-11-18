@@ -106,7 +106,7 @@ interface Props
 }
 
 const fieldsFragment = graphql`
-  fragment ContributorUpdateOrganizationFormFieldsFragment on AnyContributor {
+  fragment ContributorUpdateOrganizationFormFieldsFragment on Contributor {
     ... on OrganizationContributor {
       legalName
       email
@@ -139,7 +139,7 @@ const mutation = graphql`
 `;
 
 const fragment = graphql`
-  fragment ContributorUpdateOrganizationFormFragment on AnyContributor {
+  fragment ContributorUpdateOrganizationFormFragment on Contributor {
     ... on OrganizationContributor {
       contributorId: id
       ...ContributorUpdateOrganizationFormFieldsFragment

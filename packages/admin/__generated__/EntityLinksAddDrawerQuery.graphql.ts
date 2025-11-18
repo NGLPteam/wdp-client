@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<befa7ad7f82f3a7aa958e150805d044f>>
+ * @generated SignedSource<<9b990ed0df75554051702ab6fc23787e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -88,8 +88,8 @@ v4 = [
         "abstractKey": null
       }
     ],
-    "type": "AnyEntity",
-    "abstractKey": "__isAnyEntity"
+    "type": "Entity",
+    "abstractKey": "__isEntity"
   }
 ];
 return {
@@ -152,12 +152,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "57bf8a4ded79302b45326fbb8886ef42",
+    "cacheID": "46516b2697f4a92816b20973fae777cf",
     "id": null,
     "metadata": {},
     "name": "EntityLinksAddDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityLinksAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  item(slug: $entitySlug) {\n    ...EntityLinksAddFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityLinksAddFormFragment\n    id\n  }\n}\n\nfragment EntityLinksAddFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    id\n    title\n    slug\n  }\n  ... on Item {\n    id\n    title\n    slug\n  }\n}\n"
+    "text": "query EntityLinksAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  item(slug: $entitySlug) {\n    ...EntityLinksAddFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityLinksAddFormFragment\n    id\n  }\n}\n\nfragment EntityLinksAddFormFragment on Entity {\n  __isEntity: __typename\n  ... on Collection {\n    id\n    title\n    slug\n  }\n  ... on Item {\n    id\n    title\n    slug\n  }\n}\n"
   }
 };
 })();

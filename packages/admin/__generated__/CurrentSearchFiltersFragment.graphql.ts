@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<234244b2111bc841315323a4aef0ca58>>
+ * @generated SignedSource<<3490fe43d6b2b2fed790b0cc16da1da2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,8 +21,8 @@ export type CurrentSearchFiltersFragment$data = {
       readonly slug: string;
     };
     readonly searchableProperties: ReadonlyArray<{
-      readonly label?: string;
-      readonly searchPath?: string;
+      readonly label: string;
+      readonly searchPath: string;
     }>;
   }>;
   readonly " $fragmentType": "CurrentSearchFiltersFragment";
@@ -35,25 +35,18 @@ export type CurrentSearchFiltersFragment$key = {
 const node: ReaderFragment = (function(){
 var v0 = [
   {
-    "kind": "InlineFragment",
-    "selections": [
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "searchPath",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "label",
-        "storageKey": null
-      }
-    ],
-    "type": "SearchableProperty",
-    "abstractKey": "__isSearchableProperty"
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "searchPath",
+    "storageKey": null
+  },
+  {
+    "alias": null,
+    "args": null,
+    "kind": "ScalarField",
+    "name": "label",
+    "storageKey": null
   }
 ];
 return {
@@ -69,7 +62,14 @@ return {
       "kind": "LinkedField",
       "name": "coreProperties",
       "plural": true,
-      "selections": (v0/*: any*/),
+      "selections": [
+        {
+          "kind": "InlineFragment",
+          "selections": (v0/*: any*/),
+          "type": "SearchableProperty",
+          "abstractKey": "__isSearchableProperty"
+        }
+      ],
       "storageKey": null
     },
     {

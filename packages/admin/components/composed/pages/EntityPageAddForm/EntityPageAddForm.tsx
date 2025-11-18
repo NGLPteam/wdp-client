@@ -90,7 +90,7 @@ type Props = Pick<
 type Fields = Omit<CreatePageInput, "entityId">;
 
 const fragment = graphql`
-  fragment EntityPageAddFormFragment on AnyEntity {
+  fragment EntityPageAddFormFragment on Entity {
     ... on Community {
       id
     }

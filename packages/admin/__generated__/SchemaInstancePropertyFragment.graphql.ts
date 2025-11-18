@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<fb9d308ba6bc44d4ce82fcd609d474d7>>
+ * @generated SignedSource<<e2c1cee500568d2b9159cb6c9c88bda0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -51,10 +51,10 @@ const node: ReaderFragment = {
       "name": "SchemaPropertyFragment"
     }
   ],
-  "type": "AnySchemaProperty",
-  "abstractKey": "__isAnySchemaProperty"
+  "type": "SchemaProperty",
+  "abstractKey": "__isSchemaProperty"
 };
 
-(node as any).hash = "4f6721403018ff64c1c868f6cb002bf8";
+(node as any).hash = "aa6f1c3eefe737a57976c910c2da560d";
 
 export default node;

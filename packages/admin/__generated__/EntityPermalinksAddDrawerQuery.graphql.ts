@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<09f395a1444545bcfcb5f7f16ae3fd2a>>
+ * @generated SignedSource<<2d7a85d7c1768077607de95b61b63659>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -97,8 +97,8 @@ v4 = [
         "abstractKey": null
       }
     ],
-    "type": "AnyEntity",
-    "abstractKey": "__isAnyEntity"
+    "type": "Entity",
+    "abstractKey": "__isEntity"
   }
 ];
 return {
@@ -181,12 +181,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "daab547a70c64d7c2250bd38eba7504a",
+    "cacheID": "ad07bfe7fe853088a0b01f61975ee5bd",
     "id": null,
     "metadata": {},
     "name": "EntityPermalinksAddDrawerQuery",
     "operationKind": "query",
-    "text": "query EntityPermalinksAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  item(slug: $entitySlug) {\n    ...EntityPermalinksAddFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityPermalinksAddFormFragment\n    id\n  }\n  community(slug: $entitySlug) {\n    ...EntityPermalinksAddFormFragment\n    id\n  }\n}\n\nfragment EntityPermalinksAddFormFragment on AnyEntity {\n  __isAnyEntity: __typename\n  ... on Collection {\n    id\n    title\n    slug\n  }\n  ... on Item {\n    id\n    title\n    slug\n  }\n  ... on Community {\n    id\n    title\n    slug\n  }\n}\n"
+    "text": "query EntityPermalinksAddDrawerQuery(\n  $entitySlug: Slug!\n) {\n  item(slug: $entitySlug) {\n    ...EntityPermalinksAddFormFragment\n    id\n  }\n  collection(slug: $entitySlug) {\n    ...EntityPermalinksAddFormFragment\n    id\n  }\n  community(slug: $entitySlug) {\n    ...EntityPermalinksAddFormFragment\n    id\n  }\n}\n\nfragment EntityPermalinksAddFormFragment on Entity {\n  __isEntity: __typename\n  ... on Collection {\n    id\n    title\n    slug\n  }\n  ... on Item {\n    id\n    title\n    slug\n  }\n  ... on Community {\n    id\n    title\n    slug\n  }\n}\n"
   }
 };
 })();

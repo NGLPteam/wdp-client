@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4b42ca449b6569f9de35f73b16b9e49a>>
+ * @generated SignedSource<<5c5ef57047c7dcca57882836ad278e1f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type EntityPageUpdateFormFragment$data = {
-  readonly page?: {
+  readonly page: {
     readonly body: string;
     readonly heroImage: {
       readonly " $fragmentSpreads": FragmentRefs<"FileUploadFragment">;
@@ -40,85 +40,78 @@ const node: ReaderFragment = {
   "name": "EntityPageUpdateFormFragment",
   "selections": [
     {
-      "kind": "InlineFragment",
+      "alias": null,
+      "args": [
+        {
+          "kind": "Variable",
+          "name": "slug",
+          "variableName": "pageSlug"
+        }
+      ],
+      "concreteType": "Page",
+      "kind": "LinkedField",
+      "name": "page",
+      "plural": false,
       "selections": [
         {
           "alias": null,
-          "args": [
-            {
-              "kind": "Variable",
-              "name": "slug",
-              "variableName": "pageSlug"
-            }
-          ],
-          "concreteType": "Page",
+          "args": null,
+          "kind": "ScalarField",
+          "name": "id",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "title",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "slug",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "body",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "position",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "ImageAttachment",
           "kind": "LinkedField",
-          "name": "page",
+          "name": "heroImage",
           "plural": false,
           "selections": [
             {
-              "alias": null,
               "args": null,
-              "kind": "ScalarField",
-              "name": "id",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "title",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "slug",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "body",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "position",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "ImageAttachment",
-              "kind": "LinkedField",
-              "name": "heroImage",
-              "plural": false,
-              "selections": [
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "FileUploadFragment"
-                }
-              ],
-              "storageKey": null
+              "kind": "FragmentSpread",
+              "name": "FileUploadFragment"
             }
           ],
           "storageKey": null
         }
       ],
-      "type": "Entity",
-      "abstractKey": "__isEntity"
+      "storageKey": null
     }
   ],
-  "type": "AnyEntity",
-  "abstractKey": "__isAnyEntity"
+  "type": "Entity",
+  "abstractKey": "__isEntity"
 };
 
-(node as any).hash = "82f678137bd046988abc897b96202089";
+(node as any).hash = "388e2a379f6e6be8b761ffca6cc3574e";
 
 export default node;

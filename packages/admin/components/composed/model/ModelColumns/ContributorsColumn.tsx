@@ -74,7 +74,7 @@ const ContributorsColumn = <
 export default ContributorsColumn;
 
 const fragment = graphql`
-  fragment ContributorsColumnFragment on AnyEntity @inline {
+  fragment ContributorsColumnFragment on Entity @inline {
     ... on Item {
       slug
       contributions(page: 1, perPage: 1) {

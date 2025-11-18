@@ -87,7 +87,7 @@ type Props = Pick<
 type Fields = Omit<UpdateAnnouncementInput, "announcementId">;
 
 const fragment = graphql`
-  fragment EntityAnnouncementUpdateFormFragment on AnyEntity {
+  fragment EntityAnnouncementUpdateFormFragment on Entity {
     ... on Community {
       announcement(slug: $announcementSlug) {
         id

@@ -56,7 +56,7 @@ export default function ContributorLayout({
 }
 
 const fragment = graphql`
-  fragment ContributorLayoutFragment on AnyContributor {
+  fragment ContributorLayoutFragment on Contributor {
     __typename
     ... on OrganizationContributor {
       slug

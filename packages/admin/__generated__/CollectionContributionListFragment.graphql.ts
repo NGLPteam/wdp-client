@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e9746639c298508dd19225b10a7b5230>>
+ * @generated SignedSource<<56f3b04f90ebced947602ed3fc24989e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -178,54 +178,47 @@ return {
               "kind": "InlineDataFragmentSpread",
               "name": "ContributorNameColumnFragment",
               "selections": [
+                (v1/*: any*/),
+                {
+                  "alias": null,
+                  "args": null,
+                  "concreteType": "ImageAttachment",
+                  "kind": "LinkedField",
+                  "name": "image",
+                  "plural": false,
+                  "selections": [
+                    {
+                      "args": null,
+                      "kind": "FragmentSpread",
+                      "name": "AvatarFragment"
+                    }
+                  ],
+                  "storageKey": null
+                },
                 {
                   "kind": "InlineFragment",
                   "selections": [
-                    (v1/*: any*/),
-                    {
-                      "alias": null,
-                      "args": null,
-                      "concreteType": "ImageAttachment",
-                      "kind": "LinkedField",
-                      "name": "image",
-                      "plural": false,
-                      "selections": [
-                        {
-                          "args": null,
-                          "kind": "FragmentSpread",
-                          "name": "AvatarFragment"
-                        }
-                      ],
-                      "storageKey": null
-                    },
-                    {
-                      "kind": "InlineFragment",
-                      "selections": [
-                        (v0/*: any*/)
-                      ],
-                      "type": "Sluggable",
-                      "abstractKey": "__isSluggable"
-                    },
-                    {
-                      "kind": "InlineFragment",
-                      "selections": [
-                        (v2/*: any*/)
-                      ],
-                      "type": "OrganizationContributor",
-                      "abstractKey": null
-                    },
-                    {
-                      "kind": "InlineFragment",
-                      "selections": [
-                        (v3/*: any*/),
-                        (v4/*: any*/)
-                      ],
-                      "type": "PersonContributor",
-                      "abstractKey": null
-                    }
+                    (v0/*: any*/)
                   ],
-                  "type": "Contributor",
-                  "abstractKey": "__isContributor"
+                  "type": "Sluggable",
+                  "abstractKey": "__isSluggable"
+                },
+                {
+                  "kind": "InlineFragment",
+                  "selections": [
+                    (v2/*: any*/)
+                  ],
+                  "type": "OrganizationContributor",
+                  "abstractKey": null
+                },
+                {
+                  "kind": "InlineFragment",
+                  "selections": [
+                    (v3/*: any*/),
+                    (v4/*: any*/)
+                  ],
+                  "type": "PersonContributor",
+                  "abstractKey": null
                 }
               ],
               "args": null,
